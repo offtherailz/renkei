@@ -1,0 +1,256 @@
+{
+  "words": [
+    {
+      "id": "食べる",
+      "scrittura": "食べる",
+      "lettura": "たべる",
+      "significato": { "it": ["mangiare"], "en": ["to eat"] },
+      "livello_jlpt": "N5",
+      "tipo_jp": "動詞[どうし]",
+      "pitch_accent": "L-H-H",
+      "link_jisho": "https://jisho.org/word/%E9%A3%9F%E3%81%B9%E3%82%8B",
+      "kanji_usati": ["食"],
+      "classe_verbo_jp": "一段動詞[いちだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1717700000000
+    },
+    {
+      "id": "開く-あく",
+      "scrittura": "開く",
+      "lettura": "あく",
+      "significato": { "it": ["aprirsi"], "en": ["to open (intransitive)"] },
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "pitch_accent": "L-H",
+      "link_jisho": "https://jisho.org/word/%E9%96%8B%E3%81%8F",
+      "kanji_usati": ["開"],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]",
+      "id_verbo_corrispondente": "開ける",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": ["空く"],
+      "updated_at": 1717700000001
+    },
+    {
+      "id": "開ける",
+      "scrittura": "開ける",
+      "lettura": "あける",
+      "significato": { "it": ["aprire"], "en": ["to open (transitive)"] },
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "pitch_accent": "L-H-H",
+      "link_jisho": "https://jisho.org/word/%E9%96%8B%E3%81%91%E3%82%8B",
+      "kanji_usati": ["開"],
+      "classe_verbo_jp": "一段動詞[いちだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "開く-あく",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1717700000002
+    },
+    {
+      "id": "静か",
+      "scrittura": "静か",
+      "lettura": "しずか",
+      "significato": { "it": ["silenzioso", "tranquillo"], "en": ["quiet", "calm"] },
+      "livello_jlpt": "N5",
+      "tipo_jp": "形容詞[けいようし]",
+      "kanji_usati": ["静"],
+      "tipo_aggettivo_jp": "な形容詞[なけいようし]",
+      "sinonimi": [],
+      "contrari": ["うるさい"],
+      "omofoni": [],
+      "updated_at": 1717700000003
+    },
+    {
+      "id": "速い",
+      "scrittura": "速い",
+      "lettura": "はやい",
+      "significato": { "it": ["veloce"], "en": ["fast"] },
+      "livello_jlpt": "N5",
+      "tipo_jp": "形容詞[けいようし]",
+      "kanji_usati": ["速"],
+      "tipo_aggettivo_jp": "い形容詞[いけいようし]",
+      "sinonimi": [],
+      "contrari": ["遅い"],
+      "omofoni": [],
+      "updated_at": 1717700000004
+    },
+    {
+      "id": "勉強する",
+      "scrittura": "勉強する",
+      "lettura": "べんきょうする",
+      "significato": { "it": ["studiare"], "en": ["to study"] },
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": ["勉", "強"],
+      "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1717700000005
+    },
+    {
+      "id": "本",
+      "scrittura": "本",
+      "lettura": "ほん",
+      "significato": { "it": ["libro"], "en": ["book"] },
+      "livello_jlpt": "N5",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": ["本"],
+      "id_contatore_suggerito": "冊",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1717700000006
+    },
+    {
+      "id": "必要",
+      "scrittura": "必要",
+      "lettura": "ひつよう",
+      "significato": { "it": ["necessario"], "en": ["necessary"] },
+      "livello_jlpt": "N4",
+      "tipo_jp": "形容詞[けいようし]",
+      "kanji_usati": ["必", "要"],
+      "tipo_aggettivo_jp": "な形容詞[なけいようし]",
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1717700000007
+    }
+  ],
+  "kanji": [
+    {
+      "id": "食",
+      "significato": { "it": "mangiare", "en": "eat" },
+      "letture_on": ["ショク"],
+      "letture_kun": ["た.べる"],
+      "link_jisho": "https://jisho.org/search/%E9%A3%9F%20%23kanji",
+      "link_koohii": "https://kanji.koohii.com/study/kanji/%E9%A3%9F",
+      "parole_correlate": ["食べる"],
+      "updated_at": 1717700000100
+    },
+    {
+      "id": "開",
+      "significato": { "it": "aprire", "en": "open" },
+      "letture_on": ["カイ"],
+      "letture_kun": ["あ.く", "あ.ける"],
+      "link_jisho": "https://jisho.org/search/%E9%96%8B%20%23kanji",
+      "link_koohii": "https://kanji.koohii.com/study/kanji/%E9%96%8B",
+      "parole_correlate": ["開く-あく", "開ける"],
+      "updated_at": 1717700000101
+    },
+    {
+      "id": "静",
+      "significato": { "it": "calmo", "en": "quiet" },
+      "letture_on": ["セイ"],
+      "letture_kun": ["しず.か"],
+      "link_jisho": "https://jisho.org/search/%E9%9D%99%20%23kanji",
+      "link_koohii": "https://kanji.koohii.com/study/kanji/%E9%9D%99",
+      "parole_correlate": ["静か"],
+      "updated_at": 1717700000102
+    },
+    {
+      "id": "速",
+      "significato": { "it": "rapido", "en": "fast" },
+      "letture_on": ["ソク"],
+      "letture_kun": ["はや.い"],
+      "link_jisho": "https://jisho.org/search/%E9%80%9F%20%23kanji",
+      "link_koohii": "https://kanji.koohii.com/study/kanji/%E9%80%9F",
+      "parole_correlate": ["速い"],
+      "updated_at": 1717700000103
+    },
+    {
+      "id": "本",
+      "significato": { "it": "libro", "en": "book" },
+      "letture_on": ["ホン"],
+      "letture_kun": ["もと"],
+      "link_jisho": "https://jisho.org/search/%E6%9C%AC%20%23kanji",
+      "link_koohii": "https://kanji.koohii.com/study/kanji/%E6%9C%AC",
+      "parole_correlate": ["本"],
+      "updated_at": 1717700000104
+    }
+  ],
+  "grammar": [
+    {
+      "id": "g-n5-desu",
+      "struttura": "AはBです",
+      "spiegazione": {
+        "it": "Struttura base copulativa per identificare o descrivere.",
+        "en": "Basic copula pattern for identity and description."
+      },
+      "livello_jlpt": "N5",
+      "categoria_jp": "文型[ぶんけい]",
+      "frasi_esempio": [
+        {
+          "testo": "これ[これ]は本[ほん]です。",
+          "traduzione": {
+            "it": "Questo e un libro.",
+            "en": "This is a book."
+          },
+          "parole_linkate": ["本"]
+        },
+        {
+          "testo": "部屋[へや]は静か[しずか]です。",
+          "traduzione": {
+            "it": "La stanza e tranquilla.",
+            "en": "The room is quiet."
+          },
+          "parole_linkate": ["静か"]
+        }
+      ],
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1717700000200
+    },
+    {
+      "id": "g-n4-teiru",
+      "struttura": "Vている",
+      "spiegazione": {
+        "it": "Azione in corso o stato risultante.",
+        "en": "Progressive action or resulting state."
+      },
+      "livello_jlpt": "N4",
+      "categoria_jp": "文法[ぶんぽう]",
+      "frasi_esempio": [
+        {
+          "testo": "いま[今]、勉強[べんきょう]している。",
+          "traduzione": {
+            "it": "Adesso sto studiando.",
+            "en": "I am studying now."
+          },
+          "parole_linkate": ["勉強する"]
+        },
+        {
+          "testo": "ドア[どあ]が開いて[あいて]いる。",
+          "traduzione": {
+            "it": "La porta e aperta.",
+            "en": "The door is open."
+          },
+          "parole_linkate": ["開く-あく"]
+        }
+      ],
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1717700000201
+    }
+  ],
+  "counters": [
+    {
+      "id": "冊",
+      "simbolo": "冊",
+      "lettura": "さつ",
+      "significato": { "it": "contatore per libri", "en": "counter for bound books" },
+      "livello_jlpt": "N5",
+      "note": { "it": "Usato con 本, ノート, 手帳.", "en": "Used with books and notebooks." },
+      "updated_at": 1717700000300
+    }
+  ],
+  "srs_progress": [],
+  "user_personalization": [],
+  "user_profile": []
+}
