@@ -1,15 +1,18 @@
 import "./app.css";
 import {
   AppSettings,
+  DatabaseSeed,
   InteractiveWord,
   Kanji,
   JLPTLevel,
   SrsProgress,
+  StudyGoal,
   StudyObjective,
   UserPersonalization,
   Word,
   applySrsReview,
   calculateQuizXp,
+  createGrammarQuestion,
   createClozeQuestion,
   createFlashcardProductionQuestion,
   createFlashcardRecognitionQuestion,
@@ -24,13 +27,40 @@ import {
   pickLocalizedText,
   preloadDistractorIndex,
   renderFuriganaToHtml,
+  speakSentenceJapanese,
   speakWordReading
 } from "./index";
 import { ClozeQuestion, DistractorIndex, QuizContext, QuizQuestion, SentenceOrderingQuestion } from "./quiz/types";
 import { Grammar } from "./types/models";
 
 type ItemKind = "word" | "grammar" | "kanji" | "objective";
-type Section = "home" | "quiz" | "settings" | "detail";
+type Section = "home" | "quiz" | "settings" | "detail" | "stats";
+
+interface SessionStats {
+  startedAt: number;
+  endedAt: number;
+  answers: number;
+  correct: number;
+  wrong: number;
+  timeout: number;
+}
+
+interface StudySessionState {
+  startedAt: number;
+  answers: number;
+  correct: number;
+  wrong: number;
+  timeout: number;
+}
+
+interface DailyAggregate {
+  day: string;
+  durationMs: number;
+  answers: number;
+  correct: number;
+  wrong: number;
+  timeout: number;
+}
 
 interface ItemRef {
   key: string;
@@ -47,6 +77,8 @@ interface ActiveQuiz {
 
 const BASE_URL = import.meta.env.BASE_URL;
 const OWNER_GITHUB = "https://github.com/offtherailz";
+const STUDY_STATS_STORAGE_KEY = "renkei_study_session_stats_v1";
+const SEED_DATA_REVISION = "2026-06-07-catalog-v2";
 const locale = detectUserLocale();
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -73,6 +105,10 @@ let detailCurrentItem: ItemRef | null = null;
 let autoNextTimerId: number | null = null;
 let answerTimeoutId: number | null = null;
 let answerTickIntervalId: number | null = null;
+let nextCountdownIntervalId: number | null = null;
+let sessionState: StudySessionState | null = null;
+let currentSection: Section = "home";
+let studyGoal: StudyGoal | null = null;
 
 function sample<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)] as T;
@@ -142,6 +178,10 @@ function clearTimers(): void {
     clearInterval(answerTickIntervalId);
     answerTickIntervalId = null;
   }
+  if (nextCountdownIntervalId !== null) {
+    clearInterval(nextCountdownIntervalId);
+    nextCountdownIntervalId = null;
+  }
   const timer = document.getElementById("answer-timer");
   if (timer) {
     timer.textContent = "";
@@ -149,6 +189,7 @@ function clearTimers(): void {
 }
 
 function setActiveSection(section: Section): void {
+  currentSection = section;
   const panels = document.querySelectorAll<HTMLElement>(".panel-section");
   for (const panel of panels) {
     panel.classList.toggle("panel-active", panel.getAttribute("data-section") === section);
@@ -161,6 +202,136 @@ function setActiveSection(section: Section): void {
 
   const menu = document.getElementById("app-menu");
   menu?.classList.remove("menu-open");
+}
+
+function navigateToSection(section: Section, pushHistory = true): void {
+  setActiveSection(section);
+  if (pushHistory) {
+    history.pushState({ section }, "", location.href);
+  }
+}
+
+function toDayKey(ts: number): string {
+  return new Date(ts).toISOString().slice(0, 10);
+}
+
+function readSessionStats(): SessionStats[] {
+  const raw = localStorage.getItem(STUDY_STATS_STORAGE_KEY);
+  if (!raw) {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(raw) as SessionStats[];
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+    return parsed.filter((row) => typeof row.startedAt === "number" && typeof row.endedAt === "number");
+  } catch {
+    return [];
+  }
+}
+
+function writeSessionStats(rows: SessionStats[]): void {
+  localStorage.setItem(STUDY_STATS_STORAGE_KEY, JSON.stringify(rows.slice(-200)));
+}
+
+function aggregateLastWeek(stats: SessionStats[]): DailyAggregate[] {
+  const now = Date.now();
+  const cutoff = now - 7 * 24 * 60 * 60 * 1000;
+  const map = new Map<string, DailyAggregate>();
+
+  for (const row of stats) {
+    if (row.endedAt < cutoff) {
+      continue;
+    }
+    const day = toDayKey(row.endedAt);
+    const current = map.get(day) ?? {
+      day,
+      durationMs: 0,
+      answers: 0,
+      correct: 0,
+      wrong: 0,
+      timeout: 0
+    };
+    current.durationMs += Math.max(0, row.endedAt - row.startedAt);
+    current.answers += row.answers;
+    current.correct += row.correct;
+    current.wrong += row.wrong;
+    current.timeout += row.timeout;
+    map.set(day, current);
+  }
+
+  return [...map.values()].sort((a, b) => a.day.localeCompare(b.day));
+}
+
+function getTodayAggregate(stats: SessionStats[]): DailyAggregate {
+  const today = toDayKey(Date.now());
+  const week = aggregateLastWeek(stats);
+  return (
+    week.find((row) => row.day === today) ?? {
+      day: today,
+      durationMs: 0,
+      answers: 0,
+      correct: 0,
+      wrong: 0,
+      timeout: 0
+    }
+  );
+}
+
+function startStudySession(): void {
+  if (sessionState) {
+    return;
+  }
+  sessionState = {
+    startedAt: Date.now(),
+    answers: 0,
+    correct: 0,
+    wrong: 0,
+    timeout: 0
+  };
+}
+
+function stopStudySession(manualStop = true): void {
+  if (!sessionState) {
+    return;
+  }
+  const endedAt = Date.now();
+  const finished: SessionStats = {
+    startedAt: sessionState.startedAt,
+    endedAt,
+    answers: sessionState.answers,
+    correct: sessionState.correct,
+    wrong: sessionState.wrong,
+    timeout: sessionState.timeout
+  };
+  const all = readSessionStats();
+  all.push(finished);
+  writeSessionStats(all);
+  sessionState = null;
+  clearTimers();
+  if (manualStop) {
+    setStatus("Sessione fermata. Progressi salvati nelle statistiche.", true);
+  }
+  renderStatsPanel();
+}
+
+function updateSessionOnAnswer(correct: boolean, reason: "manual" | "timeout"): void {
+  if (!sessionState) {
+    startStudySession();
+  }
+  if (!sessionState) {
+    return;
+  }
+  sessionState.answers += 1;
+  if (correct) {
+    sessionState.correct += 1;
+    return;
+  }
+  sessionState.wrong += 1;
+  if (reason === "timeout") {
+    sessionState.timeout += 1;
+  }
 }
 
 function setStatus(text: string, ok: boolean): void {
@@ -190,7 +361,17 @@ function getEnabledObjectives(): StudyObjective[] {
   return objectives.filter((o) => o.study_enabled);
 }
 
-function objectivePool(objective: StudyObjective): ItemRef[] {
+function getObjectiveChildren(objectiveId: string): StudyObjective[] {
+  return objectives.filter((obj) => obj.parent_objective_id === objectiveId);
+}
+
+function objectiveDirectItems(objective: StudyObjective): ItemRef[] {
+  if (objective.catalog_item_keys.length > 0) {
+    return objective.catalog_item_keys
+      .map((key) => parseItemRef(key))
+      .filter((item): item is ItemRef => Boolean(item));
+  }
+
   if (objective.objective_type !== "jlpt" || !objective.target_jlpt) {
     return [];
   }
@@ -202,6 +383,27 @@ function objectivePool(objective: StudyObjective): ItemRef[] {
     .filter((x) => supportsLevel(x.livello_jlpt, objective.target_jlpt as JLPTLevel))
     .map((x) => ({ key: `grammar:${x.id}`, kind: "grammar" as const, level: x.livello_jlpt }));
   return [...w, ...g];
+}
+
+function objectivePool(objective: StudyObjective): ItemRef[] {
+  const stack = [objective];
+  const unique = new Map<string, ItemRef>();
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (!current) {
+      continue;
+    }
+
+    for (const item of objectiveDirectItems(current)) {
+      unique.set(item.key, item);
+    }
+
+    const children = getObjectiveChildren(current.id);
+    stack.push(...children);
+  }
+
+  return [...unique.values()];
 }
 
 function getActivePool(): ItemRef[] {
@@ -267,6 +469,25 @@ function objectiveProgress(objective: StudyObjective): number {
   return Math.round(values.reduce((acc, value) => acc + value, 0) / values.length);
 }
 
+function masteryText(itemKey: string): string {
+  const srs = getSrsByItem(itemKey) ?? createInitialSrs(itemKey);
+  const mastery = normalizeMastery(srs.srs_stage, srs.mastery_points);
+  const minutes = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+  const next = minutes <= 0 ? "adesso" : `tra ~${minutes} min`;
+  return `Consolidamento ${mastery}% • SRS ${srs.srs_stage}/7 • Prossimo ripasso ${next}`;
+}
+
+function alternativeReadings(word: Word): string[] {
+  const bySameWriting = words
+    .filter((w) => w.scrittura === word.scrittura && w.id !== word.id)
+    .map((w) => w.lettura);
+
+  const fromId = word.id.includes("-") ? [word.id.split("-")[1] ?? ""] : [];
+  const unique = new Set([...bySameWriting, ...fromId, word.lettura].filter((reading) => Boolean(reading)));
+  unique.delete(word.lettura);
+  return [...unique];
+}
+
 function progressColor(progress: number): string {
   if (progress >= 75) {
     return "var(--progress-good)";
@@ -284,10 +505,16 @@ function renderObjectives(): void {
   }
 
   root.innerHTML = "";
-  for (const objective of objectives) {
+  const renderNode = (objective: StudyObjective, depth: number): void => {
     const progress = objectiveProgress(objective);
+    const children = getObjectiveChildren(objective.id);
+    const items = objectivePool(objective).length;
     const card = document.createElement("article");
     card.className = "objective-item";
+    if (depth > 0) {
+      card.classList.add("objective-item-child");
+    }
+    card.style.marginLeft = `${depth * 12}px`;
     card.setAttribute("data-objective-open", objective.id);
     card.innerHTML = `
       <div class="objective-top">
@@ -296,12 +523,83 @@ function renderObjectives(): void {
           ${objective.study_enabled ? "In studio" : "Pausa"}
         </button>
       </div>
-      <div class="objective-sub">${objective.target_jlpt ? `Target ${objective.target_jlpt}` : "Custom"}</div>
+      <div class="objective-sub">${objective.target_jlpt ? `Target ${objective.target_jlpt}` : "Catalogo custom"} • ${items} item • ${children.length} sotto-obiettivi</div>
       <div class="bar-wrap"><div class="bar-fill" style="width:${progress}%; background:${progressColor(progress)}"></div></div>
       <div class="objective-sub">Consolidamento: ${progress}%</div>
     `;
     root.appendChild(card);
+
+    for (const child of children) {
+      renderNode(child, depth + 1);
+    }
+  };
+
+  const topLevel = objectives.filter((obj) => !obj.parent_objective_id);
+  for (const objective of topLevel) {
+    renderNode(objective, 0);
   }
+}
+
+function renderStatsPanel(): void {
+  const root = document.getElementById("stats-panel");
+  if (!root) {
+    return;
+  }
+
+  const history = readSessionStats();
+  const week = aggregateLastWeek(history);
+  const totals = week.reduce(
+    (acc, row) => {
+      acc.durationMs += row.durationMs;
+      acc.answers += row.answers;
+      acc.correct += row.correct;
+      acc.wrong += row.wrong;
+      acc.timeout += row.timeout;
+      return acc;
+    },
+    { durationMs: 0, answers: 0, correct: 0, wrong: 0, timeout: 0 }
+  );
+
+  const weeklyMinutes = Math.round(totals.durationMs / 60_000);
+  const accuracy = totals.answers > 0 ? Math.round((totals.correct / totals.answers) * 100) : 0;
+  const sessionDuration = sessionState ? Math.round((Date.now() - sessionState.startedAt) / 60_000) : 0;
+  const today = getTodayAggregate(history);
+
+  const tasks = [
+    `Risposte oggi: ${today.answers}`,
+    `Review giornalieri: ${today.answers}/${studyGoal?.daily_reviews ?? 20}`,
+    `Nuove parole (proxy): ${today.correct}/${studyGoal?.daily_new_words ?? 10}`,
+    `Grammatica (proxy): ${Math.round(today.correct * 0.3)}/${studyGoal?.daily_grammar ?? 5}`
+  ];
+
+  root.innerHTML = `
+    <article class="material-card">
+      <p class="material-card-title">Statistiche settimana</p>
+      <p><strong>Tempo totale:</strong> ${weeklyMinutes} min</p>
+      <p><strong>Risposte:</strong> ${totals.answers} • <strong>Corrette:</strong> ${totals.correct} • <strong>Accuracy:</strong> ${accuracy}%</p>
+      <p><strong>Timeout:</strong> ${totals.timeout}</p>
+      <p class="objective-sub">Sessioni registrate: ${history.length}</p>
+    </article>
+    <article class="material-card">
+      <p class="material-card-title">Sessione corrente</p>
+      <p>${
+        sessionState
+          ? `<strong>In corso:</strong> ${sessionDuration} min • Risposte ${sessionState.answers} (✅ ${sessionState.correct} / ❌ ${sessionState.wrong})`
+          : "Nessuna sessione attiva. Premi Studia per iniziare."
+      }</p>
+      <button id="btn-stop-session-stats" class="ghost" type="button" ${sessionState ? "" : "disabled"}>Ferma sessione</button>
+    </article>
+    <article class="material-card">
+      <p class="material-card-title">Obiettivi giornalieri</p>
+      <p><strong>Target JLPT:</strong> ${studyGoal?.target_jlpt ?? "N4"}</p>
+      <div class="goal-list">${tasks.map((task) => `<div class="goal-row">${escapeHtml(task)}</div>`).join("")}</div>
+    </article>
+  `;
+
+  const stop = document.getElementById("btn-stop-session-stats") as HTMLButtonElement | null;
+  stop?.addEventListener("click", () => {
+    stopStudySession(true);
+  });
 }
 
 async function toggleObjective(objectiveId: string, value: boolean): Promise<void> {
@@ -322,6 +620,17 @@ async function setStudyAll(): Promise<void> {
   renderObjectives();
 }
 
+async function applyObjectiveFocus(level: JLPTLevel): Promise<void> {
+  const now = Date.now();
+  const next = objectives.map((o) => {
+    const isLevelScope = o.target_jlpt === level || (o.parent_objective_id ? objectives.find((x) => x.id === o.parent_objective_id)?.target_jlpt === level : false);
+    return { ...o, study_enabled: isLevelScope, updated_at: now };
+  });
+  await db.study_objectives.bulkPut(next);
+  objectives = next;
+  renderObjectives();
+}
+
 async function addObjective(name: string, level: JLPTLevel): Promise<void> {
   const now = Date.now();
   const objective: StudyObjective = {
@@ -329,6 +638,7 @@ async function addObjective(name: string, level: JLPTLevel): Promise<void> {
     name: name.trim() || `Obiettivo ${level}`,
     objective_type: "jlpt",
     target_jlpt: level,
+    catalog_item_keys: [],
     study_enabled: true,
     created_at: now,
     updated_at: now
@@ -351,19 +661,18 @@ function mountUi(): void {
   document.body.innerHTML = `
     <main class="app-shell">
       <header class="topbar">
-        <div class="topbar-left">
-          <button id="btn-burger" class="ghost burger-btn" type="button" aria-label="Apri menu">☰</button>
-          <img class="logo" src="${BASE_URL}renkei-logo.svg" alt="Renkei logo" />
-        </div>
+        <img class="logo" src="${BASE_URL}renkei-logo.svg" alt="Renkei logo" />
         <div>
           <h1>Renkei (連携)</h1>
           <p class="tagline">JLPT trainer touch-first: Active Recall + SRS + obiettivi</p>
         </div>
+        <button id="btn-burger" class="ghost burger-btn" type="button" aria-label="Apri menu">☰</button>
       </header>
 
       <aside id="app-menu" class="app-menu">
         <button class="menu-link menu-link-active" data-nav-section="home" type="button">Home</button>
         <button class="menu-link" data-nav-section="quiz" type="button">Studio</button>
+        <button class="menu-link" data-nav-section="stats" type="button">Statistiche</button>
         <button class="menu-link" data-nav-section="settings" type="button">Settings</button>
       </aside>
 
@@ -389,6 +698,8 @@ function mountUi(): void {
 
         <div class="row">
           <button id="btn-start-study" class="primary-wide" type="button">Studia</button>
+          <button id="btn-focus-n5" class="ghost" type="button">Focus N5</button>
+          <button id="btn-focus-n4" class="ghost" type="button">Focus N4</button>
         </div>
       </section>
 
@@ -398,6 +709,7 @@ function mountUi(): void {
           <div class="quiz-actions">
             <button id="btn-tts" class="ghost" type="button">Ascolta</button>
             <button id="btn-next-quiz" class="ghost" type="button">Salta</button>
+            <button id="btn-stop-session" class="ghost" type="button">Ferma sessione</button>
           </div>
         </div>
 
@@ -433,8 +745,45 @@ function mountUi(): void {
               <small>Allo scadere: segna non ricordata</small>
             </label>
           </article>
+          <article class="material-card">
+            <p class="material-card-title">Pianificazione obiettivi</p>
+            <label class="material-field">
+              <span>Target JLPT</span>
+              <select id="goal-target-jlpt">
+                <option value="N5">N5</option>
+                <option value="N4">N4</option>
+                <option value="N3">N3</option>
+                <option value="N2">N2</option>
+                <option value="N1">N1</option>
+              </select>
+            </label>
+            <label class="material-field">
+              <span>Review giornalieri</span>
+              <input id="goal-daily-reviews" type="number" min="1" step="1" />
+            </label>
+            <label class="material-field">
+              <span>Nuove parole/giorno</span>
+              <input id="goal-daily-new" type="number" min="1" step="1" />
+            </label>
+            <label class="material-field">
+              <span>Esercizi grammatica/giorno</span>
+              <input id="goal-daily-grammar" type="number" min="1" step="1" />
+            </label>
+          </article>
+          <article class="material-card">
+            <p class="material-card-title">Catalogo locale</p>
+            <p class="objective-sub">Forza il download del seed piu recente e riallinea parole, kanji, grammatica e obiettivi di default senza cancellare i tuoi progressi SRS.</p>
+            <div class="row wrap-row">
+              <button id="btn-refresh-catalog" class="ghost" type="button">Aggiorna catalogo</button>
+            </div>
+          </article>
           <button class="material-primary" type="submit">Salva impostazioni</button>
         </form>
+      </section>
+
+      <section class="card panel-section" data-section="stats">
+        <div class="section-head"><h2>Statistiche studio</h2></div>
+        <div id="stats-panel" class="settings-form"></div>
       </section>
 
       <footer class="credits">
@@ -448,47 +797,188 @@ function mountUi(): void {
 
 async function ensureSeedLoaded(): Promise<void> {
   const counters = await db.counters.toArray();
-  if (counters.length > 0) {
-    return;
-  }
-
-  const response = await fetch(`${BASE_URL}seed-n5n4.json`);
+  const seedUrl = `${BASE_URL}seed-n5n4.json?v=${encodeURIComponent(SEED_DATA_REVISION)}`;
+  const response = await fetch(seedUrl, { cache: "no-store" });
   if (!response.ok) {
     throw new Error("Seed non trovato.");
   }
   const payload = await response.text();
+
+  if (counters.length > 0) {
+    const parsed = JSON.parse(payload) as DatabaseSeed;
+    await db.words.bulkPut(parsed.words);
+    await db.kanji.bulkPut(parsed.kanji);
+    await db.grammar.bulkPut(parsed.grammar);
+    await db.counters.bulkPut(parsed.counters);
+    return;
+  }
+
   await importDatabaseFromJson(payload);
+}
+
+function chunkKeys(keys: string[], size: number): string[][] {
+  const chunks: string[][] = [];
+  for (let index = 0; index < keys.length; index += size) {
+    chunks.push(keys.slice(index, index + size));
+  }
+  return chunks;
+}
+
+function buildPackObjectives(
+  parentId: string,
+  label: string,
+  level: JLPTLevel,
+  keys: string[],
+  packSize: number,
+  now: number
+): StudyObjective[] {
+  return chunkKeys(keys, packSize).map((chunk, index) => ({
+    id: `${parentId}-pack-${index + 1}`,
+    name: `${label} • Pack ${index + 1}`,
+    objective_type: "custom",
+    target_jlpt: level,
+    parent_objective_id: parentId,
+    catalog_item_keys: chunk,
+    study_enabled: true,
+    created_at: now,
+    updated_at: now
+  }));
 }
 
 async function ensureDefaultObjectives(): Promise<void> {
   const rows = await db.study_objectives.toArray();
-  if (rows.length > 0) {
-    return;
-  }
+
+  const [seedWords, seedGrammar, seedKanji] = await Promise.all([db.words.toArray(), db.grammar.toArray(), db.kanji.toArray()]);
+
+  const levelWordKeys = (level: JLPTLevel): string[] =>
+    seedWords.filter((w) => w.livello_jlpt === level).map((w) => `word:${w.id}`);
+
+  const levelGrammarKeys = (level: JLPTLevel): string[] =>
+    seedGrammar.filter((g) => g.livello_jlpt === level).map((g) => `grammar:${g.id}`);
+
+  const levelKanjiKeys = (level: JLPTLevel): string[] => {
+    const kanjiSet = new Set(seedWords.filter((w) => w.livello_jlpt === level).flatMap((w) => w.kanji_usati));
+    return seedKanji.filter((k) => kanjiSet.has(k.id)).map((k) => `kanji:${k.id}`);
+  };
 
   const now = Date.now();
   const defaults: StudyObjective[] = [
     {
-      id: "obj-jlpt-n5",
-      name: "Base N5",
+      id: "obj-catalog-n5",
+      name: "Catalogo JLPT N5",
       objective_type: "jlpt",
       target_jlpt: "N5",
+      catalog_item_keys: [],
       study_enabled: true,
       created_at: now,
       updated_at: now
     },
     {
-      id: "obj-jlpt-n4",
-      name: "Progressione N4",
+      id: "obj-catalog-n5-words",
+      name: "Parole N5",
+      objective_type: "custom",
+      target_jlpt: "N5",
+      parent_objective_id: "obj-catalog-n5",
+      catalog_item_keys: levelWordKeys("N5"),
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n5-kanji",
+      name: "Kanji N5",
+      objective_type: "custom",
+      target_jlpt: "N5",
+      parent_objective_id: "obj-catalog-n5",
+      catalog_item_keys: levelKanjiKeys("N5"),
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n5-grammar",
+      name: "Grammatica N5",
+      objective_type: "custom",
+      target_jlpt: "N5",
+      parent_objective_id: "obj-catalog-n5",
+      catalog_item_keys: levelGrammarKeys("N5"),
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n4",
+      name: "Catalogo JLPT N4",
       objective_type: "jlpt",
       target_jlpt: "N4",
+      catalog_item_keys: [],
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n4-words",
+      name: "Parole N4",
+      objective_type: "custom",
+      target_jlpt: "N4",
+      parent_objective_id: "obj-catalog-n4",
+      catalog_item_keys: levelWordKeys("N4"),
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n4-kanji",
+      name: "Kanji N4",
+      objective_type: "custom",
+      target_jlpt: "N4",
+      parent_objective_id: "obj-catalog-n4",
+      catalog_item_keys: levelKanjiKeys("N4"),
+      study_enabled: true,
+      created_at: now,
+      updated_at: now
+    },
+    {
+      id: "obj-catalog-n4-grammar",
+      name: "Grammatica N4",
+      objective_type: "custom",
+      target_jlpt: "N4",
+      parent_objective_id: "obj-catalog-n4",
+      catalog_item_keys: levelGrammarKeys("N4"),
       study_enabled: true,
       created_at: now,
       updated_at: now
     }
   ];
 
-  await db.study_objectives.bulkPut(defaults);
+  defaults.push(
+    ...buildPackObjectives("obj-catalog-n5-words", "Parole N5", "N5", levelWordKeys("N5"), 50, now),
+    ...buildPackObjectives("obj-catalog-n5-kanji", "Kanji N5", "N5", levelKanjiKeys("N5"), 20, now),
+    ...buildPackObjectives("obj-catalog-n5-grammar", "Grammatica N5", "N5", levelGrammarKeys("N5"), 8, now),
+    ...buildPackObjectives("obj-catalog-n4-words", "Parole N4", "N4", levelWordKeys("N4"), 50, now),
+    ...buildPackObjectives("obj-catalog-n4-kanji", "Kanji N4", "N4", levelKanjiKeys("N4"), 20, now),
+    ...buildPackObjectives("obj-catalog-n4-grammar", "Grammatica N4", "N4", levelGrammarKeys("N4"), 8, now)
+  );
+
+  const previousById = new Map(rows.map((row) => [row.id, row]));
+  const syncedDefaults = defaults.map((objective) => {
+    const previous = previousById.get(objective.id);
+    return previous
+      ? {
+          ...objective,
+          study_enabled: previous.study_enabled,
+          created_at: previous.created_at,
+          updated_at: now
+        }
+      : objective;
+  });
+
+  const staleSystemIds = rows.map((row) => row.id).filter((id) => id.startsWith("obj-catalog-") && !syncedDefaults.some((next) => next.id === id));
+  if (staleSystemIds.length > 0) {
+    await db.study_objectives.bulkDelete(staleSystemIds);
+  }
+
+  await db.study_objectives.bulkPut(syncedDefaults);
 }
 
 async function ensureDefaultSettings(): Promise<void> {
@@ -501,14 +991,44 @@ async function ensureDefaultSettings(): Promise<void> {
   settings = { ...DEFAULT_SETTINGS };
 }
 
+async function ensureDefaultStudyGoal(): Promise<void> {
+  const row = await db.study_goals.get("default");
+  if (row) {
+    studyGoal = row;
+    return;
+  }
+
+  const defaultGoal: StudyGoal = {
+    id: "default",
+    target_jlpt: "N4",
+    daily_new_words: 10,
+    daily_reviews: 20,
+    daily_grammar: 5,
+    modes_priority: ["flashcard-production", "multiple-choice", "sentence-ordering", "cloze"],
+    updated_at: Date.now()
+  };
+
+  await db.study_goals.put(defaultGoal);
+  studyGoal = defaultGoal;
+}
+
 async function hydrateState(): Promise<void> {
-  [words, kanjiRows, grammar, objectives, srsRows] = await Promise.all([
+  const [loadedWords, loadedKanji, loadedGrammar, loadedObjectives, loadedSrs] = await Promise.all([
     db.words.toArray(),
     db.kanji.toArray(),
     db.grammar.toArray(),
     db.study_objectives.toArray(),
     db.srs_progress.toArray()
   ]);
+
+  words = loadedWords;
+  kanjiRows = loadedKanji;
+  grammar = loadedGrammar;
+  srsRows = loadedSrs;
+  objectives = loadedObjectives.map((obj) => ({
+    ...obj,
+    catalog_item_keys: obj.catalog_item_keys ?? []
+  }));
 
   const wordsById = byIdMap(words);
   const grammarById = byIdMap(grammar);
@@ -589,6 +1109,35 @@ async function generateQuizForItem(itemRef: ItemRef): Promise<ActiveQuiz | null>
     return { itemRef, question, startedAt: Date.now(), answered: false };
   }
 
+  if (itemRef.kind === "kanji") {
+    const kanji = kanjiRows.find((k) => k.id === itemRef.key.replace("kanji:", ""));
+    if (!kanji) {
+      return null;
+    }
+
+    activeWordForTts = null;
+    const correct = nativeMeaning(kanji.significato);
+    const distractors = kanjiRows
+      .filter((k) => k.id !== kanji.id)
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map((k) => nativeMeaning(k.significato));
+
+    return {
+      itemRef,
+      question: {
+        mode: "multiple-choice",
+        wordId: kanji.id,
+        prompt: kanji.id,
+        correctChoice: correct,
+        choices: [correct, ...distractors].sort(() => Math.random() - 0.5)
+      },
+      startedAt: Date.now(),
+      answered: false
+    };
+  }
+
   const entry = context.grammarById.get(itemRef.key.replace("grammar:", ""));
   if (!entry || entry.frasi_esempio.length === 0) {
     return null;
@@ -596,10 +1145,7 @@ async function generateQuizForItem(itemRef: ItemRef): Promise<ActiveQuiz | null>
 
   activeWordForTts = null;
   const example = sample(entry.frasi_esempio);
-  const question =
-    Math.random() < 0.5
-      ? await createSentenceOrderingQuestion({ grammar: entry, example }, locale)
-      : await createClozeQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context);
+  const question = await createGrammarQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context, locale);
 
   return { itemRef, question, startedAt: Date.now(), answered: false };
 }
@@ -617,7 +1163,39 @@ function getCorrectAnswerText(question: QuizQuestion): string {
   if (question.mode === "sentence-ordering") {
     return question.correctOrder.join("");
   }
+  if (question.mode === "reading-choice") {
+    return question.correctChoice;
+  }
   return (question as ClozeQuestion).correctChoice;
+}
+
+function speakAfterAnswer(quiz: ActiveQuiz): void {
+  if (quiz.itemRef.kind === "word") {
+    const word = context.wordsById.get(quiz.itemRef.key.replace("word:", ""));
+    if (word) {
+      speakWordReading(word);
+    }
+    return;
+  }
+
+  if (quiz.question.mode === "sentence-ordering") {
+    speakSentenceJapanese(quiz.question.correctOrder.join(""));
+    return;
+  }
+
+  if (quiz.question.mode === "reading-choice") {
+    speakSentenceJapanese(quiz.question.plainSentence);
+    return;
+  }
+
+  if (quiz.question.mode === "cloze") {
+    speakSentenceJapanese(quiz.question.correctChoice);
+    return;
+  }
+
+  if (quiz.question.mode === "multiple-choice") {
+    speakSentenceJapanese(quiz.question.prompt);
+  }
 }
 
 function revealCorrectAnswer(currentQuiz: ActiveQuiz): void {
@@ -720,12 +1298,15 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
       omofoni: word.omofoni.map((id) => context.wordsById.get(id)).filter((w): w is Word => Boolean(w))
     };
     const usedKanji = word.kanji_usati.map((id) => kanjiRows.find((k) => k.id === id)).filter((k): k is Kanji => Boolean(k));
+    const altReadings = alternativeReadings(word);
 
     panel.innerHTML = `
       <article class="material-card">
         <p class="material-card-title" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}">${escapeHtml(word.scrittura)} (${escapeHtml(word.lettura)})</p>
         <p>${escapeHtml(nativeMeaning(word.significato))}</p>
         <p><strong>Livello:</strong> ${jlptLabel(word.livello_jlpt)} • <strong>Tipo:</strong> ${escapeHtml(word.tipo_jp)}</p>
+        <p><strong>Memoria:</strong> ${escapeHtml(masteryText(itemRef.key))}</p>
+        <p><strong>Letture alternative:</strong> ${altReadings.length > 0 ? escapeHtml(altReadings.join(" / ")) : "-"}</p>
         <p><strong>Pitch:</strong> ${escapeHtml(word.pitch_accent ?? "-")}</p>
         <div class="row">
           <button class="ghost" data-tts-reading="${escapeHtml(word.id)}" type="button">Ascolta pronuncia</button>
@@ -894,6 +1475,7 @@ function renderPostAnswerActions(correct: boolean): void {
     return;
   }
 
+  setQuizInteractionEnabled(false);
   root.innerHTML = "";
 
   const detail = document.createElement("button");
@@ -903,13 +1485,13 @@ function renderPostAnswerActions(correct: boolean): void {
     if (activeQuiz) {
       clearTimers();
       detailCurrentItem = activeQuiz.itemRef;
-      setActiveSection("detail");
+      navigateToSection("detail");
       void renderDetailPanel(activeQuiz.itemRef);
     }
   });
 
   const next = document.createElement("button");
-  next.className = "choice-btn";
+  next.className = "choice-btn next-btn";
   next.textContent = "Prossima domanda";
   next.addEventListener("click", async () => {
     clearTimers();
@@ -919,11 +1501,26 @@ function renderPostAnswerActions(correct: boolean): void {
   root.append(detail, next);
 
   if (correct) {
-    const seconds = Math.max(0.5, settings.auto_next_delay_ms / 1000);
-    next.textContent = `Prossima domanda (${seconds.toFixed(seconds < 1 ? 1 : 0)}s)`;
+    const totalMs = Math.max(500, settings.auto_next_delay_ms);
+    const startedAt = Date.now();
+    const update = (): void => {
+      const elapsed = Date.now() - startedAt;
+      const remainingMs = Math.max(0, totalMs - elapsed);
+      const seconds = remainingMs / 1000;
+      const ratio = Math.max(0, Math.min(1, elapsed / totalMs));
+      next.style.setProperty("--countdown-progress", `${Math.round(ratio * 100)}%`);
+      next.textContent = `Prossima domanda (${seconds.toFixed(1)}s)`;
+      if (remainingMs <= 0 && nextCountdownIntervalId !== null) {
+        clearInterval(nextCountdownIntervalId);
+        nextCountdownIntervalId = null;
+      }
+    };
+
+    update();
+    nextCountdownIntervalId = window.setInterval(update, 90);
     autoNextTimerId = window.setTimeout(async () => {
       await nextAutoQuiz();
-    }, settings.auto_next_delay_ms);
+    }, totalMs);
   }
 }
 
@@ -968,6 +1565,19 @@ function renderChoices(values: string[], onPick: (value: string) => Promise<void
     button.textContent = value;
     button.addEventListener("click", async () => onPick(value));
     root.appendChild(button);
+  }
+}
+
+function setQuizInteractionEnabled(enabled: boolean): void {
+  const root = document.getElementById("choices");
+  if (root) {
+    root.querySelectorAll<HTMLButtonElement>("button").forEach((btn) => {
+      btn.disabled = !enabled;
+    });
+  }
+  const skip = document.getElementById("btn-next-quiz") as HTMLButtonElement | null;
+  if (skip) {
+    skip.disabled = !enabled;
   }
 }
 
@@ -1039,10 +1649,12 @@ function renderCurrentQuiz(): void {
   }
   clearPostActions();
   setStatus("", true);
+  setQuizInteractionEnabled(true);
 
   const q = activeQuiz.question;
   const level = activeQuiz.itemRef.level;
-  setQuizMeta(`Item ${activeQuiz.itemRef.kind.toUpperCase()} • ${level}`);
+  const sessionLabel = sessionState ? ` • Sessione: ${sessionState.answers} risposte` : "";
+  setQuizMeta(`Item ${activeQuiz.itemRef.kind.toUpperCase()} • ${level}${sessionLabel}`);
 
   if (q.mode === "flashcard-production") {
     questionRoot.textContent = `Produci significato o pronuncia di: ${q.prompt}`;
@@ -1098,6 +1710,14 @@ function renderCurrentQuiz(): void {
     return;
   }
 
+  if (q.mode === "reading-choice") {
+    questionRoot.innerHTML = `Come si legge la parte evidenziata?<div class="solution reading-prompt">${q.sentenceHtml}</div>`;
+    renderChoices(q.choices, async (choice) => {
+      await evaluateAnswer(choice === q.correctChoice, level, "manual");
+    });
+    return;
+  }
+
   const cloze = q as ClozeQuestion;
   questionRoot.innerHTML = `Completa la frase: ${cloze.sentenceWithBlank}`;
   renderChoices(cloze.choices, async (choice) => {
@@ -1116,10 +1736,12 @@ async function evaluateAnswer(
 
   activeQuiz.answered = true;
   clearTimers();
+  updateSessionOnAnswer(correct, reason);
 
   const elapsed = Date.now() - activeQuiz.startedAt;
   const before = getSrsByItem(activeQuiz.itemRef.key) ?? createInitialSrs(activeQuiz.itemRef.key);
   const after = await upsertSrs(activeQuiz.itemRef.key, correct);
+  speakAfterAnswer(activeQuiz);
 
   const xp = calculateQuizXp({
     quizMode: activeQuiz.question.mode,
@@ -1132,12 +1754,13 @@ async function evaluateAnswer(
 
   await addXp(correct ? xp.total : -6);
   renderObjectives();
+  renderStatsPanel();
 
   const nextMin = Math.max(1, Math.round((after.next_review_date - Date.now()) / 60_000));
 
   if (reason === "timeout") {
     revealCorrectAnswer(activeQuiz);
-    setStatus(`Tempo scaduto. Risposta non ricordata. Ripasso ~${nextMin} min.`, false);
+    setStatus(`Tempo scaduto. Risposta non ricordata. Ripasso ~${nextMin} min. Premi Prossima domanda o Approfondisci.`, false);
     renderPostAnswerActions(false);
     return;
   }
@@ -1149,25 +1772,46 @@ async function evaluateAnswer(
   }
 
   revealCorrectAnswer(activeQuiz);
-  setStatus(`Errato. -6 XP. Ripasso anticipato ~${nextMin} min.`, false);
+  setStatus(`Errato. -6 XP. Ripasso anticipato ~${nextMin} min. Premi Prossima domanda o Approfondisci.`, false);
   renderPostAnswerActions(false);
 }
 
 function fillSettingsForm(): void {
   const auto = document.getElementById("setting-auto-next") as HTMLInputElement | null;
   const max = document.getElementById("setting-max-answer") as HTMLInputElement | null;
+  const goalJlpt = document.getElementById("goal-target-jlpt") as HTMLSelectElement | null;
+  const goalReviews = document.getElementById("goal-daily-reviews") as HTMLInputElement | null;
+  const goalNewWords = document.getElementById("goal-daily-new") as HTMLInputElement | null;
+  const goalGrammar = document.getElementById("goal-daily-grammar") as HTMLInputElement | null;
   if (auto) {
     auto.value = (settings.auto_next_delay_ms / 1000).toString();
   }
   if (max) {
     max.value = (settings.max_answer_time_ms / 1000).toString();
   }
+  if (goalJlpt && studyGoal) {
+    goalJlpt.value = studyGoal.target_jlpt;
+  }
+  if (goalReviews && studyGoal) {
+    goalReviews.value = studyGoal.daily_reviews.toString();
+  }
+  if (goalNewWords && studyGoal) {
+    goalNewWords.value = studyGoal.daily_new_words.toString();
+  }
+  if (goalGrammar && studyGoal) {
+    goalGrammar.value = studyGoal.daily_grammar.toString();
+  }
 }
 
 async function saveSettingsFromForm(): Promise<void> {
   const auto = document.getElementById("setting-auto-next") as HTMLInputElement | null;
   const max = document.getElementById("setting-max-answer") as HTMLInputElement | null;
-  if (!auto || !max) {
+  const goalJlpt = document.getElementById("goal-target-jlpt") as HTMLSelectElement | null;
+  const goalReviews = document.getElementById("goal-daily-reviews") as HTMLInputElement | null;
+  const goalNewWords = document.getElementById("goal-daily-new") as HTMLInputElement | null;
+  const goalGrammar = document.getElementById("goal-daily-grammar") as HTMLInputElement | null;
+
+  if (!auto || !max || !goalJlpt || !goalReviews || !goalNewWords || !goalGrammar) {
     return;
   }
 
@@ -1182,7 +1826,43 @@ async function saveSettingsFromForm(): Promise<void> {
   };
 
   await db.app_settings.put(settings);
+  studyGoal = {
+    id: "default",
+    target_jlpt: goalJlpt.value as JLPTLevel,
+    daily_reviews: Math.max(1, Number(goalReviews.value || "20")),
+    daily_new_words: Math.max(1, Number(goalNewWords.value || "10")),
+    daily_grammar: Math.max(1, Number(goalGrammar.value || "5")),
+    modes_priority: studyGoal?.modes_priority ?? ["flashcard-production", "multiple-choice", "sentence-ordering", "cloze"],
+    updated_at: Date.now()
+  };
+  await db.study_goals.put(studyGoal);
+  renderStatsPanel();
   setStatus("Impostazioni salvate.", true);
+}
+
+async function refreshCatalogFromSeed(): Promise<void> {
+  clearTimers();
+  activeQuiz = null;
+  activeWordForTts = null;
+  detailCurrentItem = null;
+
+  await ensureSeedLoaded();
+  await ensureDefaultObjectives();
+  await hydrateState();
+
+  navigateToSection("home");
+  renderObjectives();
+  renderStatsPanel();
+
+  const detailPanel = document.getElementById("detail-panel");
+  if (detailPanel) {
+    detailPanel.innerHTML = "";
+    detailPanel.classList.remove("detail-open");
+  }
+
+  setQuizMeta("");
+  renderCurrentQuiz();
+  setStatus(`Catalogo aggiornato: ${words.length} parole, ${kanjiRows.length} kanji, ${grammar.length} elementi di grammatica.`, true);
 }
 
 function setupInlinePopup(): void {
@@ -1297,11 +1977,15 @@ function wireEvents(): void {
   const list = document.getElementById("objective-list");
   const studyAllBtn = document.getElementById("btn-study-all") as HTMLButtonElement | null;
   const startStudyBtn = document.getElementById("btn-start-study") as HTMLButtonElement | null;
+  const focusN5Btn = document.getElementById("btn-focus-n5") as HTMLButtonElement | null;
+  const focusN4Btn = document.getElementById("btn-focus-n4") as HTMLButtonElement | null;
   const nextQuizBtn = document.getElementById("btn-next-quiz") as HTMLButtonElement | null;
   const ttsBtn = document.getElementById("btn-tts") as HTMLButtonElement | null;
+  const stopSessionBtn = document.getElementById("btn-stop-session") as HTMLButtonElement | null;
   const menu = document.getElementById("app-menu");
   const burgerBtn = document.getElementById("btn-burger") as HTMLButtonElement | null;
   const settingsForm = document.getElementById("settings-form") as HTMLFormElement | null;
+  const refreshCatalogBtn = document.getElementById("btn-refresh-catalog") as HTMLButtonElement | null;
   const detailPanel = document.getElementById("detail-panel");
   const backQuizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
 
@@ -1338,7 +2022,7 @@ function wireEvents(): void {
     }
 
     detailCurrentItem = objectiveRef;
-    setActiveSection("detail");
+    navigateToSection("detail");
     await renderDetailPanel(objectiveRef);
   });
 
@@ -1348,8 +2032,20 @@ function wireEvents(): void {
   });
 
   startStudyBtn?.addEventListener("click", async () => {
-    setActiveSection("quiz");
+    startStudySession();
+    renderStatsPanel();
+    navigateToSection("quiz");
     await nextAutoQuiz();
+  });
+
+  focusN5Btn?.addEventListener("click", async () => {
+    await applyObjectiveFocus("N5");
+    setStatus("Focus N5 attivato.", true);
+  });
+
+  focusN4Btn?.addEventListener("click", async () => {
+    await applyObjectiveFocus("N4");
+    setStatus("Focus N4 attivato.", true);
   });
 
   nextQuizBtn?.addEventListener("click", async () => {
@@ -1362,9 +2058,27 @@ function wireEvents(): void {
     }
   });
 
+  stopSessionBtn?.addEventListener("click", () => {
+    stopStudySession(true);
+    navigateToSection("home");
+  });
+
   settingsForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     await saveSettingsFromForm();
+  });
+
+  refreshCatalogBtn?.addEventListener("click", async () => {
+    refreshCatalogBtn.disabled = true;
+    setStatus("Aggiornamento catalogo in corso...", true);
+    try {
+      await refreshCatalogFromSeed();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Aggiornamento catalogo fallito.";
+      setStatus(message, false);
+    } finally {
+      refreshCatalogBtn.disabled = false;
+    }
   });
 
   burgerBtn?.addEventListener("click", () => {
@@ -1376,12 +2090,15 @@ function wireEvents(): void {
     const button = target.closest("[data-nav-section]") as HTMLButtonElement | null;
     const section = button?.getAttribute("data-nav-section") as Section | null;
     if (section) {
-      setActiveSection(section);
+      navigateToSection(section);
+      if (section === "stats") {
+        renderStatsPanel();
+      }
     }
   });
 
   backQuizBtn?.addEventListener("click", () => {
-    setActiveSection("quiz");
+    navigateToSection("quiz");
   });
 
   detailPanel?.addEventListener("click", async (event) => {
@@ -1402,6 +2119,36 @@ function wireEvents(): void {
   });
 }
 
+function setupHistoryGuards(): void {
+  history.replaceState({ section: "home" as Section }, "", location.href);
+
+  window.addEventListener("popstate", (event) => {
+    const section = (event.state?.section as Section | undefined) ?? null;
+    if (section) {
+      setActiveSection(section);
+      if (section === "stats") {
+        renderStatsPanel();
+      }
+      return;
+    }
+
+    if (sessionState) {
+      const leave = window.confirm("Hai una sessione in corso. Vuoi uscire dalla pagina?");
+      if (!leave) {
+        history.pushState({ section: currentSection }, "", location.href);
+      }
+    }
+  });
+
+  window.addEventListener("beforeunload", (event) => {
+    if (!sessionState) {
+      return;
+    }
+    event.preventDefault();
+    event.returnValue = "";
+  });
+}
+
 function mountInitialQuizState(): void {
   setQuizMeta("Premi Studia dalla Home per iniziare il quiz.");
   const question = document.getElementById("question");
@@ -1415,14 +2162,17 @@ async function bootstrap(): Promise<void> {
   mountUi();
   setupInlinePopup();
   wireEvents();
+  setupHistoryGuards();
 
   await ensureSeedLoaded();
   await ensureDefaultObjectives();
   await ensureDefaultSettings();
+  await ensureDefaultStudyGoal();
   await hydrateState();
 
   renderObjectives();
   fillSettingsForm();
+  renderStatsPanel();
   mountInitialQuizState();
   setActiveSection("home");
   setStatus("Pronto. Avvia dallo Studia in Home.", true);

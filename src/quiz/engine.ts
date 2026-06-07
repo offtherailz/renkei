@@ -11,10 +11,13 @@ import {
   FlashcardQuestion,
   MultipleChoiceQuestion,
   QuizContext,
+  ReadingChoiceQuestion,
   SentenceOrderingQuestion,
   XpBreakdown,
   XpInput
 } from "./types";
+
+const FURIGANA_SEGMENT_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -107,6 +110,70 @@ function pickClozeTarget(tokens: string[]): string {
   return filtered[Math.floor(Math.random() * filtered.length)] ?? filtered[0];
 }
 
+function blankClozeTarget(sourceText: string, target: string): string {
+  let notationReplaced = false;
+
+  const withBlankedNotation = sourceText.replace(FURIGANA_SEGMENT_REGEX, (match, base) => {
+    if (!notationReplaced && base === target) {
+      notationReplaced = true;
+      return "___";
+    }
+    return match;
+  });
+
+  if (notationReplaced) {
+    return withBlankedNotation;
+  }
+
+  return sourceText.replace(target, "___");
+}
+
+function pickReadingTarget(sourceText: string): { base: string; reading: string; match: string } | null {
+  const candidates = [...sourceText.matchAll(FURIGANA_SEGMENT_REGEX)]
+    .map((match) => ({ match: match[0], base: match[1] ?? "", reading: match[2] ?? "" }))
+    .filter((segment) => /[一-龯々]/u.test(segment.base));
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  return candidates[Math.floor(Math.random() * candidates.length)] ?? null;
+}
+
+function buildReadingSentenceHtml(sourceText: string, targetMatch: string): string {
+  const token = "__READING_TARGET__";
+  const markedSource = sourceText.replace(targetMatch, token);
+  return renderFuriganaToHtml(markedSource).replace(token, `<span class="reading-target">${renderFuriganaToHtml(targetMatch)}</span>`);
+}
+
+function buildReadingDistractors(context: QuizContext, jlptLevel: JLPTLevel, excludedReading: string): string[] {
+  return [...context.wordsById.values()]
+    .filter((word) => word.livello_jlpt === jlptLevel)
+    .map((word) => word.lettura)
+    .filter((reading) => reading !== excludedReading)
+    .filter((reading, index, values) => values.indexOf(reading) === index)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+}
+
+function createReadingChoiceQuestion(source: ClozeSource, jlptLevel: JLPTLevel, context: QuizContext): ReadingChoiceQuestion | null {
+  const target = pickReadingTarget(source.example.testo);
+  if (!target) {
+    return null;
+  }
+
+  const distractors = buildReadingDistractors(context, jlptLevel, target.reading);
+  return {
+    mode: "reading-choice",
+    grammarId: source.grammar.id,
+    sentenceHtml: buildReadingSentenceHtml(source.example.testo, target.match),
+    plainSentence: stripFuriganaNotation(source.example.testo),
+    targetText: target.base,
+    choices: shuffle([target.reading, ...distractors]).slice(0, 4),
+    correctChoice: target.reading
+  };
+}
+
 export async function createClozeQuestion(
   source: ClozeSource,
   distractorIndex: DistractorIndex,
@@ -114,14 +181,15 @@ export async function createClozeQuestion(
   context: QuizContext
 ): Promise<ClozeQuestion> {
   const tokenizer = await createDefaultTokenizer();
-  const tokens = tokenizer.tokenize(source.example.testo);
+  const plainSentence = stripFuriganaNotation(source.example.testo);
+  const tokens = tokenizer.tokenize(plainSentence);
   const target = pickClozeTarget(tokens);
 
   const distractorChoices = buildDistractors(jlptLevel, distractorIndex, "", 3)
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v));
 
-  const blanked = source.example.testo.replace(target, "___");
+  const blanked = blankClozeTarget(source.example.testo, target);
 
   return {
     mode: "cloze",
@@ -145,8 +213,28 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "flashcard-recognition": 8,
   "multiple-choice": 12,
   "sentence-ordering": 15,
-  cloze: 14
+  cloze: 14,
+  "reading-choice": 13
 };
+
+export async function createGrammarQuestion(
+  source: ClozeSource,
+  distractorIndex: DistractorIndex,
+  jlptLevel: JLPTLevel,
+  context: QuizContext,
+  locale: "it" | "en"
+): Promise<SentenceOrderingQuestion | ClozeQuestion | ReadingChoiceQuestion> {
+  if (Math.random() < 0.5) {
+    return createSentenceOrderingQuestion(source, locale);
+  }
+
+  const readingQuestion = createReadingChoiceQuestion(source, jlptLevel, context);
+  if (readingQuestion) {
+    return readingQuestion;
+  }
+
+  return createClozeQuestion(source, distractorIndex, jlptLevel, context);
+}
 
 export function calculateQuizXp(input: XpInput): XpBreakdown {
   if (!input.isCorrect) {

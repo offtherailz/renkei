@@ -1,60 +1,106 @@
-# Renkei - Japanese Study PWA (Local-First)
+# Renkei (連携) - JLPT Study PWA
 
-Architettura TypeScript per un'app reale di studio JLPT, offline-first con Dexie.js + IndexedDB.
+App local-first per studio giapponese JLPT con quiz SRS, cataloghi di obiettivi, Dexie/IndexedDB e supporto i18n it/en.
 
-## Struttura
-
-- src/types/models.ts
-  Modelli del knowledge graph con supporto i18n (it/en), metadati giapponesi e timestamp.
-- src/db/schema.ts
-  Schema Dexie, indici relazionali e indice composto SRS [srs_stage+next_review_date].
-- src/db/import.ts
-  Seeding iniziale automatico da JSON (N5/N4) al primo avvio.
-- src/quiz/
-  Motore quiz (flashcard, scelta multipla, sentence ordering, cloze), distrattori in RAM e XP.
-- src/core/
-  i18n browser-aware, TTS su lettura hiragana, furigana renderer, tokenizzazione giapponese.
-- src/components/InteractiveWord.ts
-  Componente riutilizzabile hover/touch con popup di traduzione/lettura.
-- src/sync/sync.ts
-  Merge locale-cloud Last Write Wins basato su updated_at.
-- src/main.ts
-  App shell reale: onboarding obiettivo JLPT, task giornalieri persistenti, quiz session e credits.
-- vite.config.ts
-  Base path dinamico per deploy su GitHub Pages.
-- .github/workflows/deploy-gh-pages.yml
-  Pipeline CI/CD per build e pubblicazione su github.io.
-
-## Note tecniche
-
-- Le frasi supportano formato furigana tipo: 漢字[かんじ]
-- Il TTS per parole isolate usa sempre il campo lettura.
-- Distrattori quiz caricati con indice leggero in memoria per ridurre query su IndexedDB.
-- Tutte le entita principali includono updated_at per sync e merge.
-- Il bootstrap manuale non e richiesto: il seed viene caricato automaticamente al primo avvio.
-
-## Avvio rapido
+## Setup locale
 
 1. Installa dipendenze
-  npm install
-2. Avvia sviluppo locale
-  npm run dev
-3. Apri URL mostrato da Vite (es. http://localhost:5173)
-4. Seleziona obiettivo JLPT (N5 o N4), genera il piano e inizia la sessione quiz.
+   npm install
+2. Avvia ambiente dev
+   npm run dev
+3. Controllo tipi
+   npm run check
+4. Build produzione
+   npm run build
 
-## Build PWA
+## Deploy su GitHub Pages (senza Actions)
 
-- Build produzione: npm run build
-- Preview build: npm run preview
+Questo progetto usa deploy branch-based su `gh-pages` dal tuo computer.
 
-## Deploy su GitHub Pages
+Prerequisiti:
 
-1. Pusha su branch main.
-2. In GitHub: Settings > Pages > Build and deployment > Source = GitHub Actions.
-3. Il workflow .github/workflows/deploy-gh-pages.yml pubblichera automaticamente la cartella dist.
-4. URL finale: https://<tuo-username>.github.io/<nome-repository>/
+- repository GitHub già creato
+- branch `main` già pushato
 
-## Logo
+### Prima pubblicazione
 
-- Logo app usato in UI: public/renkei-logo.svg
-- Se vuoi usare il tuo PNG ufficiale, aggiungilo in public/renkei-logo.png e aggiorna src/main.ts per usare quel file.
+1. Collega il remoto (una sola volta)
+   git remote add origin https://github.com/<user>/<repo>.git
+
+2. Pusha il codice sorgente
+   git push -u origin main
+
+3. Pubblica il sito su `gh-pages`
+   npm run deploy
+
+Alternativa (se non vuoi configurare subito `origin`):
+PAGES_REPO_URL=https://github.com/<user>/<repo>.git npm run deploy
+
+4. In GitHub configura Pages
+   Settings -> Pages -> Source: Deploy from a branch
+   Branch: `gh-pages` / Folder: `/ (root)`
+
+URL finale:
+https://<user>.github.io/<repo>/
+
+### Deploy successivi
+
+Usa comando unico:
+
+npm run release
+
+Questo esegue:
+
+1. `git push origin main`
+2. build con base path corretta per Pages
+3. publish su branch `gh-pages`
+
+## Errore comune
+
+Se vedi:
+`Failed to get remote.origin.url`
+
+significa che non hai configurato il remote `origin`.
+
+Soluzione A:
+git remote add origin https://github.com/<user>/<repo>.git
+
+Soluzione B:
+PAGES_REPO_URL=https://github.com/<user>/<repo>.git npm run deploy
+
+## Script principali
+
+- `npm run dev` avvio locale Vite
+- `npm run check` TypeScript check
+- `npm run build` build produzione
+- `npm run sync:open-seed` rigenera `public/seed-n5n4.json` da dataset open source MIT (vocabolario + kanji N5/N4)
+- `npm run deploy` publish su `gh-pages`
+- `npm run release` push main + deploy
+
+## Dati open source
+
+Per popolare il seed locale con contenuti piu ampi N5/N4, il progetto include uno script che scarica:
+
+- vocabolario N5/N4
+- kanji N5/N4
+- grammatica N5/N4 con esempi
+
+Sorgente attuale:
+
+- `allenlu2009/japanese-learning-datasets`
+- licenza MIT
+- `Sigmabond01/jlpt-grammar-api`
+- licenza MIT
+
+Comando:
+
+`npm run sync:open-seed`
+
+Nota: al momento lo script importa significati inglesi nei campi `it` e `en` per i nuovi record open source. Inoltre scarta alcune voci rumorose non lessicali (placeholder con `～` o varianti tra parentesi) per mantenere il catalogo piu studiabile in ottica esame.
+
+## Stack tecnico
+
+- TypeScript + Vite
+- Dexie + IndexedDB (offline/local-first)
+- Quiz engine: flashcard, multiple-choice, sentence ordering, cloze
+- TTS, furigana, popup hover/touch, relazioni lessicali

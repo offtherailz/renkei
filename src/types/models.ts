@@ -35,6 +35,11 @@ export interface Word extends BaseEntity {
   scrittura: string;
   lettura: string;
   significato: LocalizedStringArray;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
   livello_jlpt: JLPTLevel;
   tipo_jp: WordTypeJP;
   pitch_accent?: string;
@@ -53,6 +58,11 @@ export interface Word extends BaseEntity {
 export interface Kanji extends BaseEntity {
   id: string;
   significato: LocalizedText;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
   letture_on: string[];
   letture_kun: string[];
   link_jisho?: string;
@@ -70,6 +80,11 @@ export interface Grammar extends BaseEntity {
   id: string;
   struttura: string;
   spiegazione: LocalizedText;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
   livello_jlpt: JLPTLevel;
   categoria_jp?: string;
   frasi_esempio: GrammarExample[];
@@ -132,6 +147,8 @@ export interface StudyObjective extends BaseEntity {
   name: string;
   objective_type: "jlpt" | "custom";
   target_jlpt?: JLPTLevel;
+  parent_objective_id?: string;
+  catalog_item_keys: string[];
   study_enabled: boolean;
   created_at: number;
 }

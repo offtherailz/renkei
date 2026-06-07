@@ -1,6 +1,6 @@
 import { Grammar, GrammarExample, JLPTLevel, LocaleCode, Word } from "../types/models";
 
-export type QuizMode = "flashcard-production" | "flashcard-recognition" | "multiple-choice" | "sentence-ordering" | "cloze";
+export type QuizMode = "flashcard-production" | "flashcard-recognition" | "multiple-choice" | "sentence-ordering" | "cloze" | "reading-choice";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition";
@@ -36,11 +36,22 @@ export interface ClozeQuestion {
   correctChoice: string;
 }
 
+export interface ReadingChoiceQuestion {
+  mode: "reading-choice";
+  grammarId: string;
+  sentenceHtml: string;
+  plainSentence: string;
+  targetText: string;
+  choices: string[];
+  correctChoice: string;
+}
+
 export type QuizQuestion =
   | FlashcardQuestion
   | MultipleChoiceQuestion
   | SentenceOrderingQuestion
-  | ClozeQuestion;
+  | ClozeQuestion
+  | ReadingChoiceQuestion;
 
 export interface DistractorEntry {
   id: string;
