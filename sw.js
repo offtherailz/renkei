@@ -3,6 +3,10 @@ const scopePath = new URL(self.registration.scope).pathname;
 const normalizedScope = scopePath.endsWith("/") ? scopePath : `${scopePath}/`;
 const SHELL_ASSETS = [normalizedScope, `${normalizedScope}manifest.webmanifest`, `${normalizedScope}seed-n5n4.json`];
 
+function isSeedRequest(requestUrl) {
+  return requestUrl.pathname === `${normalizedScope}seed-n5n4.json`;
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_ASSETS)).then(() => self.skipWaiting())
@@ -19,9 +23,23 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
-  const isSameOrigin = new URL(request.url).origin === self.location.origin;
+  const requestUrl = new URL(request.url);
+  const isSameOrigin = requestUrl.origin === self.location.origin;
 
   if (!isSameOrigin || request.method !== "GET") {
+    return;
+  }
+
+  if (isSeedRequest(requestUrl)) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(`${normalizedScope}seed-n5n4.json`, clone));
+          return response;
+        })
+        .catch(() => caches.match(`${normalizedScope}seed-n5n4.json`))
+    );
     return;
   }
 
