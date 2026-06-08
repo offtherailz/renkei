@@ -187,6 +187,10 @@ button.ghost {
   background: #fff;
 }
 
+.objective-item-compact {
+  padding: 10px 12px;
+}
+
 .objective-item-child {
   background: #fbfdff;
   border-style: dashed;
@@ -223,6 +227,38 @@ button.ghost {
   margin-top: 6px;
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.objective-hint {
+  margin-top: 8px;
+  color: var(--brand-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.objective-group-list {
+  display: grid;
+  gap: 8px;
+}
+
+.objective-group-btn {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 10px;
+  border: 1px solid #cad9fb;
+  background: #f6f9ff;
+  color: var(--brand-2);
+  text-align: left;
+}
+
+.objective-group-btn span {
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
 .bar-wrap {

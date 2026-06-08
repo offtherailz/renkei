@@ -101,6 +101,7 @@ let activeQuiz: ActiveQuiz | null = null;
 let activeWordForTts: Word | null = null;
 let interactiveWordInstance: InteractiveWord | null = null;
 let detailCurrentItem: ItemRef | null = null;
+let detailBackObjectiveRef: ItemRef | null = null;
 
 let autoNextTimerId: number | null = null;
 let answerTimeoutId: number | null = null;
@@ -125,6 +126,18 @@ function escapeHtml(value: string): string {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function buildJishoKanjiUrl(kanji: string): string {
+  return `https://jisho.org/search/%23kanji%20${encodeURIComponent(kanji)}`;
+}
+
+function buildJishoSentenceUrl(query: string): string {
+  return `https://jisho.org/search/${encodeURIComponent(query)}%20%23sentences`;
+}
+
+function buildTatoebaSentenceUrl(query: string): string {
+  return `https://tatoeba.org/it/sentences/search?from=jpn&query=${encodeURIComponent(query)}`;
 }
 
 function jlptRank(level: JLPTLevel): number {
@@ -202,6 +215,21 @@ function setActiveSection(section: Section): void {
 
   const menu = document.getElementById("app-menu");
   menu?.classList.remove("menu-open");
+}
+
+function updateDetailHeaderActions(): void {
+  const quizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
+  const objectiveBtn = document.getElementById("btn-back-objective") as HTMLButtonElement | null;
+  if (quizBtn) {
+    quizBtn.hidden = !activeQuiz;
+  }
+  if (objectiveBtn) {
+    objectiveBtn.hidden = !detailBackObjectiveRef;
+    if (detailBackObjectiveRef) {
+      const objective = objectives.find((obj) => obj.id === detailBackObjectiveRef?.key.replace("objective:", ""));
+      objectiveBtn.textContent = objective ? `Torna a ${objective.name}` : "Torna all'obiettivo";
+    }
+  }
 }
 
 function navigateToSection(section: Section, pushHistory = true): void {
@@ -469,6 +497,22 @@ function objectiveProgress(objective: StudyObjective): number {
   return Math.round(values.reduce((acc, value) => acc + value, 0) / values.length);
 }
 
+function objectiveItemBreakdown(items: ItemRef[]): { words: number; kanji: number; grammar: number } {
+  return items.reduce(
+    (acc, item) => {
+      if (item.kind === "word") {
+        acc.words += 1;
+      } else if (item.kind === "kanji") {
+        acc.kanji += 1;
+      } else if (item.kind === "grammar") {
+        acc.grammar += 1;
+      }
+      return acc;
+    },
+    { words: 0, kanji: 0, grammar: 0 }
+  );
+}
+
 function masteryText(itemKey: string): string {
   const srs = getSrsByItem(itemKey) ?? createInitialSrs(itemKey);
   const mastery = normalizeMastery(srs.srs_stage, srs.mastery_points);
@@ -505,16 +549,15 @@ function renderObjectives(): void {
   }
 
   root.innerHTML = "";
-  const renderNode = (objective: StudyObjective, depth: number): void => {
+  const topLevel = objectives.filter((obj) => !obj.parent_objective_id);
+
+  for (const objective of topLevel) {
     const progress = objectiveProgress(objective);
     const children = getObjectiveChildren(objective.id);
     const items = objectivePool(objective).length;
+    const breakdown = objectiveItemBreakdown(objectivePool(objective));
     const card = document.createElement("article");
-    card.className = "objective-item";
-    if (depth > 0) {
-      card.classList.add("objective-item-child");
-    }
-    card.style.marginLeft = `${depth * 12}px`;
+    card.className = "objective-item objective-item-compact";
     card.setAttribute("data-objective-open", objective.id);
     card.innerHTML = `
       <div class="objective-top">
@@ -523,20 +566,13 @@ function renderObjectives(): void {
           ${objective.study_enabled ? "In studio" : "Pausa"}
         </button>
       </div>
-      <div class="objective-sub">${objective.target_jlpt ? `Target ${objective.target_jlpt}` : "Catalogo custom"} • ${items} item • ${children.length} sotto-obiettivi</div>
+      <div class="objective-sub">${objective.target_jlpt ? `Target ${objective.target_jlpt}` : "Catalogo custom"} • ${items} item • ${children.length} gruppi</div>
+      <div class="objective-sub">Parole ${breakdown.words} • Kanji ${breakdown.kanji} • Grammatica ${breakdown.grammar}</div>
       <div class="bar-wrap"><div class="bar-fill" style="width:${progress}%; background:${progressColor(progress)}"></div></div>
       <div class="objective-sub">Consolidamento: ${progress}%</div>
+      <div class="objective-hint">Apri dettagli per vedere i gruppi</div>
     `;
     root.appendChild(card);
-
-    for (const child of children) {
-      renderNode(child, depth + 1);
-    }
-  };
-
-  const topLevel = objectives.filter((obj) => !obj.parent_objective_id);
-  for (const objective of topLevel) {
-    renderNode(objective, 0);
   }
 }
 
@@ -631,23 +667,6 @@ async function applyObjectiveFocus(level: JLPTLevel): Promise<void> {
   renderObjectives();
 }
 
-async function addObjective(name: string, level: JLPTLevel): Promise<void> {
-  const now = Date.now();
-  const objective: StudyObjective = {
-    id: `obj-${crypto.randomUUID()}`,
-    name: name.trim() || `Obiettivo ${level}`,
-    objective_type: "jlpt",
-    target_jlpt: level,
-    catalog_item_keys: [],
-    study_enabled: true,
-    created_at: now,
-    updated_at: now
-  };
-  await db.study_objectives.add(objective);
-  objectives.push(objective);
-  renderObjectives();
-}
-
 function registerServiceWorker(): void {
   if (!("serviceWorker" in navigator)) {
     return;
@@ -671,7 +690,6 @@ function mountUi(): void {
 
       <aside id="app-menu" class="app-menu">
         <button class="menu-link menu-link-active" data-nav-section="home" type="button">Home</button>
-        <button class="menu-link" data-nav-section="quiz" type="button">Studio</button>
         <button class="menu-link" data-nav-section="stats" type="button">Statistiche</button>
         <button class="menu-link" data-nav-section="settings" type="button">Settings</button>
       </aside>
@@ -683,18 +701,6 @@ function mountUi(): void {
         </div>
 
         <div class="objective-list" id="objective-list"></div>
-
-        <form id="objective-form" class="objective-form">
-          <input id="objective-name" type="text" placeholder="Nuovo obiettivo (es. Ripasso N4)" />
-          <select id="objective-level">
-            <option value="N5">N5</option>
-            <option value="N4">N4</option>
-            <option value="N3">N3</option>
-            <option value="N2">N2</option>
-            <option value="N1">N1</option>
-          </select>
-          <button type="submit">Aggiungi</button>
-        </form>
 
         <div class="row">
           <button id="btn-start-study" class="primary-wide" type="button">Studia</button>
@@ -724,7 +730,10 @@ function mountUi(): void {
       <section class="card panel-section" data-section="detail">
         <div class="section-head">
           <h2>Approfondisci</h2>
-          <button id="btn-back-quiz" class="ghost" type="button">Torna al quiz</button>
+          <div class="quiz-actions">
+            <button id="btn-back-objective" class="ghost" type="button" hidden>Torna all'obiettivo</button>
+            <button id="btn-back-quiz" class="ghost" type="button" hidden>Torna al quiz</button>
+          </div>
         </div>
         <div id="detail-panel" class="detail-panel"></div>
       </section>
@@ -1243,6 +1252,10 @@ function grammarExampleMarkup(item: Grammar): string {
           <p><strong>Esempio ${idx + 1}</strong></p>
           <p>${renderFuriganaToHtml(ex.testo)}</p>
           <p class="objective-sub">${escapeHtml(pickLocalizedText(ex.traduzione, locale))}</p>
+          <div class="row wrap-row">
+            <a class="external-link" href="${buildJishoSentenceUrl(ex.testo)}" target="_blank" rel="noreferrer">Frasi su Jisho</a>
+            <a class="external-link" href="${buildTatoebaSentenceUrl(ex.testo)}" target="_blank" rel="noreferrer">Frasi su Tatoeba</a>
+          </div>
           <div class="chip-wrap">${chips}</div>
         </article>
       `;
@@ -1283,6 +1296,8 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
     return;
   }
 
+  detailBackObjectiveRef = null;
+
   if (itemRef.kind === "word") {
     const word = context.wordsById.get(itemRef.key.replace("word:", ""));
     if (!word) {
@@ -1311,6 +1326,8 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
         <div class="row">
           <button class="ghost" data-tts-reading="${escapeHtml(word.id)}" type="button">Ascolta pronuncia</button>
           <a class="external-link" href="${escapeHtml(word.link_jisho ?? `https://jisho.org/search/${encodeURIComponent(word.scrittura)}`)}" target="_blank" rel="noreferrer">Apri su Jisho</a>
+          <a class="external-link" href="${buildJishoSentenceUrl(word.scrittura)}" target="_blank" rel="noreferrer">Frasi su Jisho</a>
+          <a class="external-link" href="${buildTatoebaSentenceUrl(word.scrittura)}" target="_blank" rel="noreferrer">Frasi su Tatoeba</a>
         </div>
         <p class="objective-sub">Kanji utilizzati</p>
         <div class="chip-wrap">${usedKanji.map((k) => kanjiLinkButton(k)).join("") || "<span class=\"objective-sub\">Nessun kanji.</span>"}</div>
@@ -1340,7 +1357,7 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
         <p><strong>On'yomi:</strong> ${escapeHtml(kanji.letture_on.join(" / ") || "-")}</p>
         <p><strong>Kun'yomi:</strong> ${escapeHtml(kanji.letture_kun.join(" / ") || "-")}</p>
         <div class="row">
-          <a class="external-link" href="${escapeHtml(kanji.link_jisho ?? `https://jisho.org/search/${encodeURIComponent(kanji.id)}%20%23kanji`)}" target="_blank" rel="noreferrer">Apri su Jisho</a>
+          <a class="external-link" href="${buildJishoKanjiUrl(kanji.id)}" target="_blank" rel="noreferrer">Apri su Jisho</a>
           <a class="external-link" href="https://kanji.koohii.com/study/kanji/${encodeURIComponent(kanji.id)}" target="_blank" rel="noreferrer">Apri su Kanji Koohii</a>
         </div>
         <label class="material-field">
@@ -1377,44 +1394,88 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
     await hydrateNoteField(itemRef.key);
   } else {
     const objective = objectives.find((obj) => obj.id === itemRef.key.replace("objective:", ""));
-    if (!objective || !objective.target_jlpt) {
+    if (!objective) {
       panel.innerHTML = "";
       panel.classList.remove("detail-open");
+      updateDetailHeaderActions();
       return;
     }
 
-    const scopedWords = words.filter((w) => supportsLevel(w.livello_jlpt, objective.target_jlpt as JLPTLevel));
-    const scopedGrammar = grammar.filter((g) => supportsLevel(g.livello_jlpt, objective.target_jlpt as JLPTLevel));
-    const kanjiSet = new Set(scopedWords.flatMap((w) => w.kanji_usati));
-    const scopedKanji = kanjiRows.filter((k) => kanjiSet.has(k.id));
+    if (objective.parent_objective_id) {
+      detailBackObjectiveRef = parseItemRef(`objective:${objective.parent_objective_id}`);
+    }
 
-    panel.innerHTML = `
-      <article class="material-card">
-        <p class="material-card-title">${escapeHtml(objective.name)}</p>
-        <p><strong>Target:</strong> ${objective.target_jlpt}</p>
-        <p class="objective-sub">Clicca un elemento per aprire la scheda completa.</p>
-      </article>
-      <article class="material-card">
-        <p class="material-card-title">PAROLE (Vocabolario)</p>
-        <div class="chip-wrap">${scopedWords.map((w) => wordLinkButton(w)).join("")}</div>
-      </article>
-      <article class="material-card">
-        <p class="material-card-title">KANJI</p>
-        <div class="chip-wrap">${scopedKanji.map((k) => kanjiLinkButton(k)).join("") || "<span class=\"objective-sub\">Nessun kanji disponibile.</span>"}</div>
-      </article>
-      <article class="material-card">
-        <p class="material-card-title">FORME GRAMMATICALI</p>
-        <div class="chip-wrap">${scopedGrammar
-          .map(
-            (g) =>
-              `<button class="chip" data-detail-key="grammar:${g.id}" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(g.spiegazione, locale))}">${escapeHtml(g.struttura)} (${g.livello_jlpt})</button>`
-          )
-          .join("")}</div>
-      </article>
-    `;
+    const children = getObjectiveChildren(objective.id);
+    const pool = objectivePool(objective);
+    const directItems = objectiveDirectItems(objective);
+    const poolBreakdown = objectiveItemBreakdown(pool);
+    const progress = objectiveProgress(objective);
+
+    if (children.length > 0) {
+      panel.innerHTML = `
+        <article class="material-card">
+          <p class="material-card-title">${escapeHtml(objective.name)}</p>
+          <p><strong>Target:</strong> ${objective.target_jlpt ?? "Custom"}</p>
+          <p><strong>Contenuti:</strong> ${pool.length} item • Parole ${poolBreakdown.words} • Kanji ${poolBreakdown.kanji} • Grammatica ${poolBreakdown.grammar}</p>
+          <p><strong>Consolidamento:</strong> ${progress}%</p>
+          <p class="objective-sub">Apri un gruppo per vedere il dettaglio completo.</p>
+        </article>
+        <article class="material-card">
+          <p class="material-card-title">Gruppi obiettivo</p>
+          <div class="objective-group-list">${children
+            .map((child) => {
+              const childPool = objectivePool(child);
+              const childProgress = objectiveProgress(child);
+              const childBreakdown = objectiveItemBreakdown(childPool);
+              return `<button class="objective-group-btn" data-detail-key="objective:${child.id}" type="button"><strong>${escapeHtml(child.name)}</strong><span>${childPool.length} item • ${childBreakdown.words}P ${childBreakdown.kanji}K ${childBreakdown.grammar}G • ${childProgress}%</span></button>`;
+            })
+            .join("")}</div>
+        </article>
+      `;
+    } else {
+      const directWords = directItems
+        .filter((item) => item.kind === "word")
+        .map((item) => context.wordsById.get(item.key.replace("word:", "")))
+        .filter((row): row is Word => Boolean(row));
+      const directKanji = directItems
+        .filter((item) => item.kind === "kanji")
+        .map((item) => kanjiRows.find((k) => k.id === item.key.replace("kanji:", "")))
+        .filter((row): row is Kanji => Boolean(row));
+      const directGrammar = directItems
+        .filter((item) => item.kind === "grammar")
+        .map((item) => context.grammarById.get(item.key.replace("grammar:", "")))
+        .filter((row): row is Grammar => Boolean(row));
+
+      panel.innerHTML = `
+        <article class="material-card">
+          <p class="material-card-title">${escapeHtml(objective.name)}</p>
+          <p><strong>Target:</strong> ${objective.target_jlpt ?? "Custom"}</p>
+          <p><strong>Contenuti diretti:</strong> ${directItems.length} item</p>
+          <p><strong>Consolidamento:</strong> ${progress}%</p>
+        </article>
+        <article class="material-card">
+          <p class="material-card-title">PAROLE</p>
+          <div class="chip-wrap">${directWords.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">Nessuna parola in questo gruppo.</span>"}</div>
+        </article>
+        <article class="material-card">
+          <p class="material-card-title">KANJI</p>
+          <div class="chip-wrap">${directKanji.map((k) => kanjiLinkButton(k)).join("") || "<span class=\"objective-sub\">Nessun kanji in questo gruppo.</span>"}</div>
+        </article>
+        <article class="material-card">
+          <p class="material-card-title">FORME GRAMMATICALI</p>
+          <div class="chip-wrap">${directGrammar
+            .map(
+              (g) =>
+                `<button class="chip" data-detail-key="grammar:${g.id}" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(g.spiegazione, locale))}">${escapeHtml(g.struttura)} (${g.livello_jlpt})</button>`
+            )
+            .join("") || "<span class=\"objective-sub\">Nessuna grammatica in questo gruppo.</span>"}</div>
+        </article>
+      `;
+    }
   }
 
   panel.classList.add("detail-open");
+  updateDetailHeaderActions();
 
   if (interactiveWordInstance) {
     interactiveWordInstance.destroy();
@@ -1971,9 +2032,6 @@ async function nextAutoQuiz(): Promise<void> {
 }
 
 function wireEvents(): void {
-  const form = document.getElementById("objective-form") as HTMLFormElement | null;
-  const nameInput = document.getElementById("objective-name") as HTMLInputElement | null;
-  const levelSelect = document.getElementById("objective-level") as HTMLSelectElement | null;
   const list = document.getElementById("objective-list");
   const studyAllBtn = document.getElementById("btn-study-all") as HTMLButtonElement | null;
   const startStudyBtn = document.getElementById("btn-start-study") as HTMLButtonElement | null;
@@ -1988,17 +2046,7 @@ function wireEvents(): void {
   const refreshCatalogBtn = document.getElementById("btn-refresh-catalog") as HTMLButtonElement | null;
   const detailPanel = document.getElementById("detail-panel");
   const backQuizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
-
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = nameInput?.value ?? "";
-    const level = (levelSelect?.value ?? "N5") as JLPTLevel;
-    await addObjective(name, level);
-    if (nameInput) {
-      nameInput.value = "";
-    }
-    setStatus("Obiettivo aggiunto.", true);
-  });
+  const backObjectiveBtn = document.getElementById("btn-back-objective") as HTMLButtonElement | null;
 
   list?.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
@@ -2098,7 +2146,18 @@ function wireEvents(): void {
   });
 
   backQuizBtn?.addEventListener("click", () => {
+    if (!activeQuiz) {
+      return;
+    }
     navigateToSection("quiz");
+  });
+
+  backObjectiveBtn?.addEventListener("click", async () => {
+    if (!detailBackObjectiveRef) {
+      return;
+    }
+    detailCurrentItem = detailBackObjectiveRef;
+    await renderDetailPanel(detailBackObjectiveRef);
   });
 
   detailPanel?.addEventListener("click", async (event) => {
@@ -2150,11 +2209,12 @@ function setupHistoryGuards(): void {
 }
 
 function mountInitialQuizState(): void {
-  setQuizMeta("Premi Studia dalla Home per iniziare il quiz.");
+  setQuizMeta("Avvia una sessione dalla Home per iniziare il quiz.");
   const question = document.getElementById("question");
   if (question) {
-    question.textContent = "Studia genera automaticamente la prossima domanda.";
+    question.textContent = "La prossima domanda viene generata automaticamente quando avvii una sessione.";
   }
+  updateDetailHeaderActions();
 }
 
 async function bootstrap(): Promise<void> {
@@ -2175,7 +2235,7 @@ async function bootstrap(): Promise<void> {
   renderStatsPanel();
   mountInitialQuizState();
   setActiveSection("home");
-  setStatus("Pronto. Avvia dallo Studia in Home.", true);
+  setStatus("Pronto. Avvia una sessione dalla Home.", true);
 }
 
 void bootstrap();

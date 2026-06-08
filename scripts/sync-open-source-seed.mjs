@@ -75,8 +75,16 @@ function parseGrammarExample(example) {
   };
 }
 
-function inferWordType(kana, writing) {
-  if (kana.endsWith("する")) {
+function isLikelyVerbMeaning(meaningText) {
+  const meanings = splitMeanings(meaningText);
+  return meanings.some((meaning) => /^to\b/i.test(meaning));
+}
+
+function inferWordType(kana, writing, meaning) {
+  if (writing.endsWith("する") || kana.endsWith("する")) {
+    return "動詞[どうし]";
+  }
+  if (isLikelyVerbMeaning(meaning)) {
     return "動詞[どうし]";
   }
   if (kana.endsWith("い") && writing !== kana) {
@@ -140,7 +148,7 @@ function normalizeWords(importedRows, existingSeedWords) {
         source_license: OPEN_SOURCE.license,
         source_url: OPEN_SOURCE.repo,
         livello_jlpt: row.jlptLevel,
-        tipo_jp: inferWordType(row.kana, row.word),
+        tipo_jp: inferWordType(row.kana, row.word, row.meaning),
         kanji_usati: kanjiUsed,
         sinonimi: [],
         contrari: [],
@@ -185,7 +193,7 @@ function normalizeKanji(importedRows, words, existingSeedKanji) {
     source_url: OPEN_SOURCE.repo,
     letture_on: row.onyomi ?? [],
     letture_kun: row.kunyomi ?? [],
-    link_jisho: `https://jisho.org/search/${encodeURIComponent(row.character)}%20%23kanji`,
+    link_jisho: `https://jisho.org/search/%23kanji%20${encodeURIComponent(row.character)}`,
     link_koohii: `https://kanji.koohii.com/study/kanji/${encodeURIComponent(row.character)}`,
     parole_correlate: unique(relatedWordsByKanji.get(row.character) ?? []),
     updated_at: Date.now()
