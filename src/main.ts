@@ -137,7 +137,8 @@ function buildJishoSentenceUrl(query: string): string {
 }
 
 function buildTatoebaSentenceUrl(query: string): string {
-  return `https://tatoeba.org/it/sentences/search?from=jpn&query=${encodeURIComponent(query)}`;
+  const toLang = locale === "it" ? "ita" : "eng";
+  return `https://tatoeba.org/it/sentences/search?from=jpn&to=${toLang}&query=${encodeURIComponent(query)}`;
 }
 
 function jlptRank(level: JLPTLevel): number {
