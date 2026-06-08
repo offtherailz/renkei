@@ -33,6 +33,11 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function supportsLevel(level, target) {
+  const rank = { N5: 1, N4: 2, N3: 3, N2: 4, N1: 5 };
+  return (rank[level] ?? 99) <= (rank[target] ?? 99);
+}
+
 function splitMeanings(text) {
   return unique(
     String(text)
@@ -41,6 +46,156 @@ function splitMeanings(text) {
       .map((chunk) => chunk.trim())
       .filter(Boolean)
   );
+}
+
+function tokenizeMeaning(text) {
+  const stop = new Set([
+    "to",
+    "a",
+    "an",
+    "the",
+    "of",
+    "and",
+    "or",
+    "for",
+    "in",
+    "on",
+    "at",
+    "be",
+    "with",
+    "from",
+    "by",
+    "as",
+    "is",
+    "are",
+    "was",
+    "were"
+  ]);
+
+  return unique(
+    splitMeanings(text)
+      .flatMap((part) => String(part).toLowerCase().split(/[^a-z0-9]+/g))
+      .map((token) => token.trim())
+      .filter((token) => token.length >= 3)
+      .filter((token) => !stop.has(token))
+  );
+}
+
+function intersectionCount(a, b) {
+  const small = a.size <= b.size ? a : b;
+  const large = a.size <= b.size ? b : a;
+  let score = 0;
+  for (const value of small) {
+    if (large.has(value)) {
+      score += 1;
+    }
+  }
+  return score;
+}
+
+function enrichWordRelations(words) {
+  const byReading = new Map();
+  for (const word of words) {
+    const key = normalizeReading(word.lettura);
+    if (!key) {
+      continue;
+    }
+    const bucket = byReading.get(key) ?? [];
+    bucket.push(word);
+    byReading.set(key, bucket);
+  }
+
+  const signatures = new Map(
+    words.map((word) => [
+      word.id,
+      new Set(word.significato.en.flatMap((text) => tokenizeMeaning(text)))
+    ])
+  );
+
+  const byLevelType = new Map();
+  for (const word of words) {
+    const key = `${word.livello_jlpt}::${word.tipo_jp}`;
+    const bucket = byLevelType.get(key) ?? [];
+    bucket.push(word);
+    byLevelType.set(key, bucket);
+  }
+
+  const antonymPairs = [
+    ["大きい", "小さい"],
+    ["高い", "低い"],
+    ["新しい", "古い"],
+    ["多い", "少ない"],
+    ["長い", "短い"],
+    ["早い", "遅い"],
+    ["暑い", "寒い"],
+    ["熱い", "冷たい"],
+    ["明るい", "暗い"],
+    ["強い", "弱い"],
+    ["重い", "軽い"],
+    ["好き", "嫌い"],
+    ["開ける", "閉める"],
+    ["始める", "終わる"],
+    ["入る", "出る"],
+    ["行く", "来る"],
+    ["勝つ", "負ける"]
+  ];
+
+  const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
+  const antonymById = new Map();
+  for (const [left, right] of antonymPairs) {
+    const leftId = byWriting.get(left);
+    const rightId = byWriting.get(right);
+    if (!leftId || !rightId) {
+      continue;
+    }
+    antonymById.set(leftId, unique([...(antonymById.get(leftId) ?? []), rightId]));
+    antonymById.set(rightId, unique([...(antonymById.get(rightId) ?? []), leftId]));
+  }
+
+  return words.map((word) => {
+    const readingKey = normalizeReading(word.lettura);
+    const homophones = (byReading.get(readingKey) ?? [])
+      .filter((candidate) => candidate.id !== word.id)
+      .map((candidate) => candidate.id)
+      .slice(0, 8);
+
+    const sameBucket = byLevelType.get(`${word.livello_jlpt}::${word.tipo_jp}`) ?? [];
+    const currentSignature = signatures.get(word.id) ?? new Set();
+    const synonyms = sameBucket
+      .filter((candidate) => candidate.id !== word.id)
+      .map((candidate) => {
+        const candidateSignature = signatures.get(candidate.id) ?? new Set();
+        return {
+          id: candidate.id,
+          score: intersectionCount(currentSignature, candidateSignature)
+        };
+      })
+      .filter((entry) => entry.score >= 2)
+      .sort((a, b) => b.score - a.score)
+      .map((entry) => entry.id)
+      .slice(0, 6);
+
+    return {
+      ...word,
+      sinonimi: word.sinonimi?.length ? word.sinonimi : unique(synonyms),
+      contrari: word.contrari?.length ? word.contrari : unique(antonymById.get(word.id) ?? []),
+      omofoni: word.omofoni?.length ? word.omofoni : unique(homophones)
+    };
+  });
+}
+
+function buildGrammarLinkedWords(sentence, level, words) {
+  const cleanSentence = normalizeText(sentence);
+  if (!cleanSentence) {
+    return [];
+  }
+
+  const candidates = words
+    .filter((word) => supportsLevel(word.livello_jlpt, level))
+    .filter((word) => cleanSentence.includes(word.scrittura) || cleanSentence.includes(word.lettura))
+    .sort((a, b) => b.scrittura.length - a.scrittura.length);
+
+  return unique(candidates.map((word) => word.id)).slice(0, 16);
 }
 
 function isNoisyExamEntry(text) {
@@ -168,7 +323,8 @@ function normalizeWords(importedRows, existingSeedWords) {
     byId.set(word.id, { ...byId.get(word.id), ...word });
   }
 
-  return [...byId.values()].sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
+  const merged = [...byId.values()].sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
+  return enrichWordRelations(merged);
 }
 
 function normalizeKanji(importedRows, words, existingSeedKanji) {
@@ -207,9 +363,10 @@ function normalizeKanji(importedRows, words, existingSeedKanji) {
   return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id, "ja"));
 }
 
-function normalizeGrammar(importedGroups, existingSeedGrammar) {
+function normalizeGrammar(importedGroups, existingSeedGrammar, words) {
   const imported = importedGroups.flatMap(({ level, rows }) => rows.map((row) => {
     const parsedExample = parseGrammarExample(row.example);
+    const linkedWords = buildGrammarLinkedWords(parsedExample.japanese, level, words);
     return {
       id: `grammar-api-${level}-${row.id}`,
       struttura: normalizeText(row.grammar),
@@ -231,10 +388,10 @@ function normalizeGrammar(importedGroups, existingSeedGrammar) {
             it: parsedExample.english,
             en: parsedExample.english
           },
-          parole_linkate: []
+          parole_linkate: linkedWords
         }
       ],
-      frasi_esempio_parole_linkate: [],
+      frasi_esempio_parole_linkate: linkedWords,
       updated_at: Date.now()
     };
   }));
@@ -266,7 +423,7 @@ async function main() {
   const normalizedGrammar = normalizeGrammar([
     { level: "N5", rows: grammarN5 },
     { level: "N4", rows: grammarN4 }
-  ], existingSeed.grammar ?? []);
+  ], existingSeed.grammar ?? [], normalizedWords);
 
   const nextSeed = {
     words: normalizedWords,

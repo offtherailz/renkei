@@ -25,7 +25,7 @@ Prerequisiti:
 ### Prima pubblicazione
 
 1. Collega il remoto (una sola volta)
-   git remote add origin https://github.com/<user>/<repo>.git
+   git remote add origin <https://github.com/><user>/<repo>.git
 
 2. Pusha il codice sorgente
    git push -u origin main
@@ -34,9 +34,9 @@ Prerequisiti:
    npm run deploy
 
 Alternativa (se non vuoi configurare subito `origin`):
-PAGES_REPO_URL=https://github.com/<user>/<repo>.git npm run deploy
+PAGES_REPO_URL=<https://github.com/><user>/<repo>.git npm run deploy
 
-4. In GitHub configura Pages
+1. In GitHub configura Pages
    Settings -> Pages -> Source: Deploy from a branch
    Branch: `gh-pages` / Folder: `/ (root)`
 
@@ -63,10 +63,10 @@ Se vedi:
 significa che non hai configurato il remote `origin`.
 
 Soluzione A:
-git remote add origin https://github.com/<user>/<repo>.git
+git remote add origin <https://github.com/><user>/<repo>.git
 
 Soluzione B:
-PAGES_REPO_URL=https://github.com/<user>/<repo>.git npm run deploy
+PAGES_REPO_URL=<https://github.com/><user>/<repo>.git npm run deploy
 
 ## Script principali
 
@@ -104,3 +104,9 @@ Nota: al momento lo script importa significati inglesi nei campi `it` e `en` per
 - Dexie + IndexedDB (offline/local-first)
 - Quiz engine: flashcard, multiple-choice, sentence ordering, cloze
 - TTS, furigana, popup hover/touch, relazioni lessicali
+- Link esterni: Jisho (ricerca parole/kanji/frasi) e Tatoeba (frasi di esempio)
+
+## Link utili
+
+- Jisho: <https://jisho.org/>
+- Tatoeba (giapponese): <https://tatoeba.org/it/sentences/search?from=jpn>
