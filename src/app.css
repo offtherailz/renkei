@@ -404,6 +404,80 @@ button:disabled {
   box-shadow: 0 10px 20px rgba(32, 63, 118, 0.11);
 }
 
+.detail-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.detail-card-head .material-card-title {
+  margin: 0;
+}
+
+.detail-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  border: 1px solid transparent;
+  letter-spacing: 0.02em;
+}
+
+.level-n5 {
+  background: #eaf6ff;
+  color: #12538a;
+  border-color: #b8dbf8;
+}
+
+.level-n4 {
+  background: #e8fff3;
+  color: #116843;
+  border-color: #b7e8cf;
+}
+
+.level-n3 {
+  background: #fff8ea;
+  color: #8a5400;
+  border-color: #f2d7a8;
+}
+
+.level-n2 {
+  background: #fff0f0;
+  color: #8f2a2a;
+  border-color: #efc6c6;
+}
+
+.level-n1 {
+  background: #f5f0ff;
+  color: #55308a;
+  border-color: #d8c8f2;
+}
+
+.jp-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: #f2f6ff;
+  color: #2a467d;
+  border: 1px solid #cedaf7;
+}
+
 .chip-wrap {
   margin-top: 10px;
   display: flex;
@@ -419,6 +493,29 @@ button:disabled {
   color: #244079;
   border: 1px solid #d4e0fb;
   font-weight: 600;
+}
+
+.chip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip-main {
+  font-weight: 700;
+}
+
+.chip-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip-badges .level-badge,
+.chip-badges .jp-badge {
+  min-height: 18px;
+  padding: 1px 6px;
+  font-size: 0.66rem;
 }
 
 .external-link {

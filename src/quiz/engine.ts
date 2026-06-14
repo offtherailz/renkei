@@ -143,7 +143,8 @@ function pickReadingTarget(sourceText: string): { base: string; reading: string;
 function buildReadingSentenceHtml(sourceText: string, targetMatch: string): string {
   const token = "__READING_TARGET__";
   const markedSource = sourceText.replace(targetMatch, token);
-  return renderFuriganaToHtml(markedSource).replace(token, `<span class="reading-target">${renderFuriganaToHtml(targetMatch)}</span>`);
+  const targetPlain = stripFuriganaNotation(targetMatch);
+  return renderFuriganaToHtml(markedSource).replace(token, `<span class="reading-target">${targetPlain}</span>`);
 }
 
 function buildReadingDistractors(context: QuizContext, jlptLevel: JLPTLevel, excludedReading: string): string[] {

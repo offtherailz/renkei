@@ -1221,11 +1221,21 @@ function revealCorrectAnswer(currentQuiz: ActiveQuiz): void {
 }
 
 function wordLinkButton(word: Word): string {
-  return `<button class="chip" data-detail-key="word:${word.id}" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}">${escapeHtml(word.scrittura)} (${escapeHtml(word.lettura)})</button>`;
+  return `<button class="chip chip-link" data-detail-key="word:${word.id}" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}"><span class="chip-main"><ruby>${escapeHtml(word.scrittura)}<rt>${escapeHtml(word.lettura)}</rt></ruby></span><span class="chip-badges">${jlptLevelBadge(word.livello_jlpt)}</span></button>`;
 }
 
 function kanjiLinkButton(kanji: Kanji): string {
-  return `<button class="chip" data-detail-key="kanji:${kanji.id}" data-popup-reading="${escapeHtml(kanji.letture_kun.join(" / "))}" data-popup-meaning="${escapeHtml(nativeMeaning(kanji.significato))}">${escapeHtml(kanji.id)}</button>`;
+  const tag = (kanji.study_tags ?? []).find((value) => /^n[1-5]$/i.test(value));
+  const level = (tag ? tag.toUpperCase() : "N5") as JLPTLevel;
+  return `<button class="chip chip-link" data-detail-key="kanji:${kanji.id}" data-popup-reading="${escapeHtml(kanji.letture_kun.join(" / "))}" data-popup-meaning="${escapeHtml(nativeMeaning(kanji.significato))}"><span class="chip-main">${escapeHtml(kanji.id)}</span><span class="chip-badges">${jlptLevelBadge(level)}</span></button>`;
+}
+
+function jlptLevelBadge(level: JLPTLevel): string {
+  return `<span class="level-badge level-${level.toLowerCase()}">${escapeHtml(level)}</span>`;
+}
+
+function furiganaBadge(label: string): string {
+  return `<span class="jp-badge">${renderFuriganaToHtml(label)}</span>`;
 }
 
 function noteEditorMarkup(itemId: string): string {
@@ -1318,9 +1328,11 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
 
     panel.innerHTML = `
       <article class="material-card">
-        <p class="material-card-title" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}">${escapeHtml(word.scrittura)} (${escapeHtml(word.lettura)})</p>
+        <div class="detail-card-head">
+          <p class="material-card-title" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}">${escapeHtml(word.scrittura)} (${escapeHtml(word.lettura)})</p>
+          <div class="detail-badges">${jlptLevelBadge(word.livello_jlpt)}${furiganaBadge(word.tipo_jp)}</div>
+        </div>
         <p>${escapeHtml(nativeMeaning(word.significato))}</p>
-        <p><strong>Livello:</strong> ${jlptLabel(word.livello_jlpt)} • <strong>Tipo:</strong> ${escapeHtml(word.tipo_jp)}</p>
         <p><strong>Memoria:</strong> ${escapeHtml(masteryText(itemRef.key))}</p>
         <p><strong>Letture alternative:</strong> ${altReadings.length > 0 ? escapeHtml(altReadings.join(" / ")) : "-"}</p>
         <p><strong>Pitch:</strong> ${escapeHtml(word.pitch_accent ?? "-")}</p>
@@ -1353,7 +1365,10 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
 
     panel.innerHTML = `
       <article class="material-card">
-        <p class="material-card-title">Kanji ${escapeHtml(kanji.id)}</p>
+        <div class="detail-card-head">
+          <p class="material-card-title">Kanji ${escapeHtml(kanji.id)}</p>
+          <div class="detail-badges">${jlptLevelBadge(itemRef.level)}${furiganaBadge(`読[よ]み`)}</div>
+        </div>
         <p>${escapeHtml(nativeMeaning(kanji.significato))}</p>
         <p><strong>On'yomi:</strong> ${escapeHtml(kanji.letture_on.join(" / ") || "-")}</p>
         <p><strong>Kun'yomi:</strong> ${escapeHtml(kanji.letture_kun.join(" / ") || "-")}</p>
@@ -1385,9 +1400,11 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
 
     panel.innerHTML = `
       <article class="material-card">
-        <p class="material-card-title" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(item.spiegazione, locale))}">${escapeHtml(item.struttura)}</p>
+        <div class="detail-card-head">
+          <p class="material-card-title" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(item.spiegazione, locale))}">${escapeHtml(item.struttura)}</p>
+          <div class="detail-badges">${jlptLevelBadge(item.livello_jlpt)}${item.categoria_jp ? furiganaBadge(item.categoria_jp) : ""}</div>
+        </div>
         <p>${escapeHtml(pickLocalizedText(item.spiegazione, locale))}</p>
-        <p><strong>Livello:</strong> ${jlptLabel(item.livello_jlpt)}</p>
       </article>
       ${grammarExampleMarkup(item)}
       ${noteEditorMarkup(itemRef.key)}
@@ -1467,7 +1484,7 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
           <div class="chip-wrap">${directGrammar
             .map(
               (g) =>
-                `<button class="chip" data-detail-key="grammar:${g.id}" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(g.spiegazione, locale))}">${escapeHtml(g.struttura)} (${g.livello_jlpt})</button>`
+                `<button class="chip chip-link" data-detail-key="grammar:${g.id}" data-popup-reading="" data-popup-meaning="${escapeHtml(pickLocalizedText(g.spiegazione, locale))}"><span class="chip-main">${escapeHtml(g.struttura)}</span><span class="chip-badges">${jlptLevelBadge(g.livello_jlpt)}${g.categoria_jp ? furiganaBadge(g.categoria_jp) : ""}</span></button>`
             )
             .join("") || "<span class=\"objective-sub\">Nessuna grammatica in questo gruppo.</span>"}</div>
         </article>
@@ -1485,11 +1502,14 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
   const sentenceText =
     itemRef.kind === "grammar"
       ? context.grammarById.get(itemRef.key.replace("grammar:", ""))?.frasi_esempio[0]?.testo ?? ""
-      : itemRef.kind === "word"
-        ? `${context.wordsById.get(itemRef.key.replace("word:", ""))?.scrittura ?? ""}を使う。`
-        : "";
+      : "";
 
   if (sentenceText) {
+    const hint = document.createElement("p");
+    hint.className = "objective-sub";
+    hint.textContent = "Tap su una parola per aprire glossario e dettagli.";
+    panel.appendChild(hint);
+
     const container = document.createElement("p");
     container.className = "interactive-sentence";
     panel.appendChild(container);
