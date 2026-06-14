@@ -308,6 +308,28 @@ button.ghost {
   margin-bottom: 8px;
 }
 
+.session-countdown {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 4px 10px;
+  border: 1px solid #c9daf7;
+  background: #f4f8ff;
+  font-weight: 700;
+}
+
+.session-countdown-running {
+  color: #154a88;
+}
+
+.session-countdown-paused {
+  color: #7a5a16;
+  border-color: #ecd9a8;
+  background: #fff7e6;
+}
+
 .question {
   min-height: 54px;
   font-size: 1.06rem;
@@ -707,6 +729,204 @@ ruby rt {
   box-shadow: 0 10px 20px rgba(27, 95, 209, 0.25);
 }
 
+.session-result-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.session-kudos {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1f4f95;
+}
+
+.session-duration {
+  margin: 0;
+  color: #4d6590;
+  font-weight: 600;
+}
+
+.session-glow {
+  position: absolute;
+  inset: -40% auto auto -20%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0));
+  pointer-events: none;
+  animation: sessionGlow 3.2s ease-in-out infinite;
+}
+
+.session-badge {
+  margin: 0;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.session-tier-legend {
+  background: linear-gradient(155deg, #fff7da, #ffe7b0 58%, #ffe1a0);
+  border-color: #f6d57a;
+}
+
+.session-tier-legend .session-badge {
+  background: #fff3c5;
+  color: #815500;
+  border-color: #e8c462;
+}
+
+.session-tier-gold {
+  background: linear-gradient(155deg, #fff5dc, #ffeaca 58%, #ffe0ac);
+  border-color: #f0c97c;
+}
+
+.session-tier-gold .session-badge {
+  background: #ffefca;
+  color: #865b06;
+  border-color: #ebc878;
+}
+
+.session-tier-silver {
+  background: linear-gradient(155deg, #f2f7ff, #e5efff 58%, #dce9ff);
+  border-color: #bfd2f7;
+}
+
+.session-tier-silver .session-badge {
+  background: #e9f1ff;
+  color: #2c4d7f;
+  border-color: #bfd4ff;
+}
+
+.session-tier-bronze {
+  background: linear-gradient(155deg, #fff1e5, #ffe6d4 58%, #ffd9be);
+  border-color: #efbc97;
+}
+
+.session-tier-bronze .session-badge {
+  background: #ffe7d5;
+  color: #7a3f14;
+  border-color: #efbb93;
+}
+
+.session-score-ring {
+  --session-accuracy: 0%;
+  margin: 4px auto;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(#2d6fd4 var(--session-accuracy), #dce6fa var(--session-accuracy));
+  position: relative;
+}
+
+.session-score-ring::after {
+  content: "";
+  position: absolute;
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #d8e4fa;
+}
+
+.session-score-ring strong,
+.session-score-ring span {
+  position: relative;
+  z-index: 1;
+}
+
+.session-score-ring strong {
+  font-size: 1.3rem;
+  color: #1d4a8e;
+  line-height: 1;
+}
+
+.session-score-ring span {
+  margin-top: -6px;
+  font-size: 0.76rem;
+  color: #4d6692;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.session-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.session-metric {
+  border-radius: 12px;
+  border: 1px solid #cadcfb;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 8px;
+  display: grid;
+  gap: 2px;
+}
+
+.session-metric strong {
+  font-size: 1.2rem;
+  color: #1c477f;
+}
+
+.session-metric span {
+  color: #4b648f;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.session-reward {
+  margin: 0;
+  color: #244e8f;
+  font-weight: 600;
+}
+
+.answer-review-list {
+  display: grid;
+  gap: 10px;
+}
+
+.answer-review-item {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #d4e3fb;
+  background: #f8fbff;
+}
+
+.answer-review-item p {
+  margin: 6px 0;
+}
+
+.answer-review-head {
+  color: #22467c;
+}
+
+@keyframes sessionGlow {
+  0% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+}
+
 .inline-popup {
   position: fixed;
   max-width: 280px;
@@ -759,5 +979,15 @@ ruby rt {
 
   .bottom-nav {
     width: calc(100vw - 24px);
+  }
+
+  .session-score-ring {
+    width: 116px;
+    height: 116px;
+  }
+
+  .session-score-ring::after {
+    width: 82px;
+    height: 82px;
   }
 }

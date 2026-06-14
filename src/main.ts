@@ -34,7 +34,7 @@ import { ClozeQuestion, DistractorIndex, QuizContext, QuizQuestion, SentenceOrde
 import { Grammar } from "./types/models";
 
 type ItemKind = "word" | "grammar" | "kanji" | "objective";
-type Section = "home" | "quiz" | "settings" | "detail" | "stats";
+type Section = "home" | "quiz" | "settings" | "detail" | "stats" | "summary";
 
 interface SessionStats {
   startedAt: number;
@@ -45,12 +45,26 @@ interface SessionStats {
   timeout: number;
 }
 
+interface SessionWrongAnswer {
+  happenedAt: number;
+  itemRef: ItemRef;
+  questionMode: QuizQuestion["mode"];
+  prompt: string;
+  selectedAnswer: string;
+  correctAnswer: string;
+  selectedLinkedItems: ItemRef[];
+  correctLinkedItems: ItemRef[];
+}
+
 interface StudySessionState {
   startedAt: number;
+  deadlineAt: number;
   answers: number;
   correct: number;
   wrong: number;
   timeout: number;
+  pausedAt: number | null;
+  wrongAnswers: SessionWrongAnswer[];
 }
 
 interface DailyAggregate {
@@ -85,6 +99,8 @@ const DEFAULT_SETTINGS: AppSettings = {
   id: "default",
   auto_next_delay_ms: 2000,
   max_answer_time_ms: 20000,
+  session_duration_minutes: 10,
+  session_timer_runs_in_detail: false,
   updated_at: Date.now()
 };
 
@@ -110,6 +126,10 @@ let nextCountdownIntervalId: number | null = null;
 let sessionState: StudySessionState | null = null;
 let currentSection: Section = "home";
 let studyGoal: StudyGoal | null = null;
+let sessionCountdownIntervalId: number | null = null;
+let sessionEndingInProgress = false;
+let lastFinishedSession: SessionStats | null = null;
+let lastFinishedWrongAnswers: SessionWrongAnswer[] = [];
 
 function sample<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)] as T;
@@ -235,6 +255,8 @@ function updateDetailHeaderActions(): void {
 
 function navigateToSection(section: Section, pushHistory = true): void {
   setActiveSection(section);
+  syncSessionPauseState();
+  updateSessionCountdownUi();
   if (pushHistory) {
     history.pushState({ section }, "", location.href);
   }
@@ -312,18 +334,27 @@ function startStudySession(): void {
   if (sessionState) {
     return;
   }
+  const now = Date.now();
+  const durationMs = Math.max(1, settings.session_duration_minutes) * 60_000;
   sessionState = {
-    startedAt: Date.now(),
+    startedAt: now,
+    deadlineAt: now + durationMs,
     answers: 0,
     correct: 0,
     wrong: 0,
-    timeout: 0
+    timeout: 0,
+    pausedAt: null,
+    wrongAnswers: []
   };
+  sessionEndingInProgress = false;
+  ensureSessionCountdownLoop();
+  syncSessionPauseState();
+  updateSessionCountdownUi();
 }
 
-function stopStudySession(manualStop = true): void {
+function stopStudySession(manualStop = true): SessionStats | null {
   if (!sessionState) {
-    return;
+    return null;
   }
   const endedAt = Date.now();
   const finished: SessionStats = {
@@ -337,12 +368,246 @@ function stopStudySession(manualStop = true): void {
   const all = readSessionStats();
   all.push(finished);
   writeSessionStats(all);
+  lastFinishedSession = finished;
+  lastFinishedWrongAnswers = [...sessionState.wrongAnswers];
   sessionState = null;
   clearTimers();
+  if (sessionCountdownIntervalId !== null) {
+    clearInterval(sessionCountdownIntervalId);
+    sessionCountdownIntervalId = null;
+  }
+  updateSessionCountdownUi();
   if (manualStop) {
     setStatus("Sessione fermata. Progressi salvati nelle statistiche.", true);
   }
   renderStatsPanel();
+  return finished;
+}
+
+function formatRemainingMs(ms: number): string {
+  const total = Math.max(0, Math.ceil(ms / 1000));
+  const minutes = Math.floor(total / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (total % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
+
+function syncSessionPauseState(): void {
+  if (!sessionState) {
+    return;
+  }
+  const shouldPause = currentSection === "detail" && !settings.session_timer_runs_in_detail;
+  if (shouldPause && sessionState.pausedAt === null) {
+    sessionState.pausedAt = Date.now();
+    return;
+  }
+  if (!shouldPause && sessionState.pausedAt !== null) {
+    const pausedDuration = Date.now() - sessionState.pausedAt;
+    sessionState.deadlineAt += pausedDuration;
+    sessionState.pausedAt = null;
+  }
+}
+
+function updateSessionCountdownUi(): void {
+  const root = document.getElementById("session-countdown");
+  if (!root) {
+    return;
+  }
+  if (!sessionState) {
+    root.textContent = "";
+    root.classList.remove("session-countdown-paused", "session-countdown-running");
+    return;
+  }
+  const nowRef = sessionState.pausedAt ?? Date.now();
+  const remaining = sessionState.deadlineAt - nowRef;
+  const paused = sessionState.pausedAt !== null;
+  root.classList.toggle("session-countdown-paused", paused);
+  root.classList.toggle("session-countdown-running", !paused);
+  root.textContent = `${paused ? "Sessione in pausa" : "Tempo sessione"}: ${formatRemainingMs(remaining)}`;
+}
+
+function ensureSessionCountdownLoop(): void {
+  if (sessionCountdownIntervalId !== null) {
+    return;
+  }
+  sessionCountdownIntervalId = window.setInterval(() => {
+    if (!sessionState) {
+      if (sessionCountdownIntervalId !== null) {
+        clearInterval(sessionCountdownIntervalId);
+        sessionCountdownIntervalId = null;
+      }
+      updateSessionCountdownUi();
+      return;
+    }
+
+    syncSessionPauseState();
+    updateSessionCountdownUi();
+
+    if (sessionEndingInProgress) {
+      return;
+    }
+
+    const nowRef = sessionState.pausedAt ?? Date.now();
+    const remaining = sessionState.deadlineAt - nowRef;
+    if (remaining <= 0 && sessionState.pausedAt === null) {
+      void finishSessionByTimeout();
+    }
+  }, 200);
+}
+
+function buildSessionCelebration(
+  summary: SessionStats,
+  accuracy: number,
+  endedByTimeout: boolean
+): { tierClass: string; badge: string; title: string; message: string; reward: string } {
+  const rewardPoints = Math.max(1, Math.round(summary.correct * 1.8 - summary.wrong * 0.6 - summary.timeout * 0.5 + 5));
+
+  if (accuracy >= 95 && summary.timeout === 0 && summary.answers >= 10) {
+    return {
+      tierClass: "session-tier-legend",
+      badge: "Grand Master",
+      title: endedByTimeout ? "Sessione leggendaria" : "Prestazione leggendaria",
+      message: "Ritmo impeccabile: precisione altissima e controllo completo.",
+      reward: `+${rewardPoints} Aura Points`
+    };
+  }
+
+  if (accuracy >= 85) {
+    return {
+      tierClass: "session-tier-gold",
+      badge: "Gold Run",
+      title: endedByTimeout ? "Sessione completata al top" : "Sessione salvata al top",
+      message: "Ottimo focus. Stai consolidando davvero bene.",
+      reward: `+${rewardPoints} Focus Points`
+    };
+  }
+
+  if (accuracy >= 70) {
+    return {
+      tierClass: "session-tier-silver",
+      badge: "Solid Builder",
+      title: endedByTimeout ? "Sessione completata" : "Sessione salvata",
+      message: "Base molto solida. Ancora qualche step e sali di livello.",
+      reward: `+${rewardPoints} Study Points`
+    };
+  }
+
+  return {
+    tierClass: "session-tier-bronze",
+    badge: "Comeback Mode",
+    title: endedByTimeout ? "Sessione completata" : "Sessione salvata",
+    message: "Ogni errore oggi e un vantaggio domani: continua cosi.",
+    reward: `+${rewardPoints} Grit Points`
+  };
+}
+
+function renderSessionSummary(endedByTimeout: boolean): void {
+  const root = document.getElementById("session-summary-panel");
+  if (!root) {
+    return;
+  }
+  const summary = lastFinishedSession;
+  if (!summary) {
+    root.innerHTML = "<p class=\"objective-sub\">Nessuna sessione completata.</p>";
+    return;
+  }
+
+  const minutes = Math.max(1, Math.round((summary.endedAt - summary.startedAt) / 60_000));
+  const accuracy = summary.answers > 0 ? Math.round((summary.correct / summary.answers) * 100) : 0;
+  const celebration = buildSessionCelebration(summary, accuracy, endedByTimeout);
+  const wrongAnswersMarkup =
+    lastFinishedWrongAnswers.length === 0
+      ? `<p class="objective-sub">Nessun errore in questa sessione. Ottimo lavoro.</p>`
+      : `<div class="answer-review-list">${lastFinishedWrongAnswers
+          .map((entry) => {
+            const selectedLinks = entry.selectedLinkedItems
+              .map((item) => `<button class="chip chip-link" data-detail-key="${escapeHtml(item.key)}" type="button">${escapeHtml(item.key.startsWith("kanji:") ? "Apri kanji risposta" : "Apri parola risposta")}</button>`)
+              .join("");
+            const correctLinks = entry.correctLinkedItems
+              .map((item) => `<button class="chip chip-link" data-detail-key="${escapeHtml(item.key)}" type="button">${escapeHtml(item.key.startsWith("kanji:") ? "Apri kanji corretto" : "Apri parola corretta")}</button>`)
+              .join("");
+
+            return `
+              <article class="answer-review-item">
+                <p class="answer-review-head"><strong>${escapeHtml(itemKindLabel(entry.itemRef.kind))}</strong> • ${escapeHtml(entry.prompt || "Prompt non disponibile")}</p>
+                <p><strong>Tua risposta:</strong> ${escapeHtml(entry.selectedAnswer)}</p>
+                <p><strong>Risposta corretta:</strong> ${escapeHtml(entry.correctAnswer)}</p>
+                <div class="chip-wrap">
+                  <button class="chip chip-link" data-detail-key="${escapeHtml(entry.itemRef.key)}" type="button">Approfondisci elemento del quiz</button>
+                  ${selectedLinks}
+                  ${correctLinks}
+                </div>
+              </article>
+            `;
+          })
+          .join("")}</div>`;
+
+  root.innerHTML = `
+    <article class="material-card session-result-card ${celebration.tierClass}">
+      <div class="session-glow" aria-hidden="true"></div>
+      <p class="session-badge">${celebration.badge}</p>
+      <p class="material-card-title">${celebration.title}</p>
+      <p class="session-kudos">${celebration.message}</p>
+      <p class="session-duration">${minutes} minuti di allenamento completati.</p>
+
+      <div class="session-score-ring" style="--session-accuracy:${accuracy}%">
+        <strong>${accuracy}%</strong>
+        <span>Accuracy</span>
+      </div>
+
+      <div class="session-metrics-grid">
+        <article class="session-metric"><strong>${summary.answers}</strong><span>Risposte</span></article>
+        <article class="session-metric"><strong>${summary.correct}</strong><span>Corrette</span></article>
+        <article class="session-metric"><strong>${summary.wrong}</strong><span>Errori</span></article>
+        <article class="session-metric"><strong>${summary.timeout}</strong><span>Timeout</span></article>
+      </div>
+
+      <p class="session-reward">Premio sessione: <strong>${celebration.reward}</strong></p>
+      <div class="row wrap-row">
+        <button id="btn-summary-restart" class="material-primary" type="button">Fai un'altra sessione</button>
+        <button id="btn-summary-end" class="ghost" type="button">Basta per oggi</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <p class="material-card-title">Ripasso errori</p>
+      ${wrongAnswersMarkup}
+    </article>
+  `;
+
+  const restart = document.getElementById("btn-summary-restart") as HTMLButtonElement | null;
+  const end = document.getElementById("btn-summary-end") as HTMLButtonElement | null;
+
+  restart?.addEventListener("click", async () => {
+    startStudySession();
+    renderStatsPanel();
+    navigateToSection("quiz");
+    await nextAutoQuiz();
+  });
+
+  end?.addEventListener("click", () => {
+    navigateToSection("home");
+    setStatus("Ottimo lavoro. Ci vediamo nella prossima sessione!", true);
+  });
+}
+
+async function finishSessionByTimeout(): Promise<void> {
+  if (!sessionState || sessionEndingInProgress) {
+    return;
+  }
+  sessionEndingInProgress = true;
+  const finished = stopStudySession(false);
+  if (!finished) {
+    sessionEndingInProgress = false;
+    return;
+  }
+  clearPostActions();
+  activeQuiz = null;
+  activeWordForTts = null;
+  navigateToSection("summary");
+  renderSessionSummary(true);
+  setStatus("Tempo sessione terminato. Grande lavoro!", true);
+  sessionEndingInProgress = false;
 }
 
 function updateSessionOnAnswer(correct: boolean, reason: "manual" | "timeout"): void {
@@ -721,6 +986,7 @@ function mountUi(): void {
         </div>
 
         <div id="quiz-meta" class="quiz-meta"></div>
+        <div id="session-countdown" class="quiz-meta session-countdown"></div>
         <div id="answer-timer" class="quiz-meta"></div>
         <div id="question" class="question"></div>
         <div id="choices" class="choice-list"></div>
@@ -753,6 +1019,18 @@ function mountUi(): void {
               <span>Tempo massimo risposta (secondi)</span>
               <input id="setting-max-answer" type="number" min="3" step="1" />
               <small>Allo scadere: segna non ricordata</small>
+            </label>
+            <label class="material-field">
+              <span>Durata sessione (minuti)</span>
+              <input id="setting-session-minutes" type="number" min="1" step="1" />
+              <small>Default: 10 minuti</small>
+            </label>
+            <label class="material-field">
+              <span>Timer scorre durante approfondimento</span>
+              <select id="setting-session-run-detail">
+                <option value="false">No (pausa in approfondisci)</option>
+                <option value="true">Sì (continua anche in approfondisci)</option>
+              </select>
             </label>
           </article>
           <article class="material-card">
@@ -794,6 +1072,11 @@ function mountUi(): void {
       <section class="card panel-section" data-section="stats">
         <div class="section-head"><h2>Statistiche studio</h2></div>
         <div id="stats-panel" class="settings-form"></div>
+      </section>
+
+      <section class="card panel-section" data-section="summary">
+        <div class="section-head"><h2>Risultato sessione</h2></div>
+        <div id="session-summary-panel" class="settings-form"></div>
       </section>
 
       <footer class="credits">
@@ -994,7 +1277,12 @@ async function ensureDefaultObjectives(): Promise<void> {
 async function ensureDefaultSettings(): Promise<void> {
   const row = await db.app_settings.get("default");
   if (row) {
-    settings = row;
+    settings = {
+      ...DEFAULT_SETTINGS,
+      ...row,
+      session_duration_minutes: row.session_duration_minutes ?? DEFAULT_SETTINGS.session_duration_minutes,
+      session_timer_runs_in_detail: row.session_timer_runs_in_detail ?? DEFAULT_SETTINGS.session_timer_runs_in_detail
+    };
     return;
   }
   await db.app_settings.put(DEFAULT_SETTINGS);
@@ -1177,6 +1465,93 @@ function getCorrectAnswerText(question: QuizQuestion): string {
     return question.correctChoice;
   }
   return (question as ClozeQuestion).correctChoice;
+}
+
+function getQuestionPromptText(question: QuizQuestion): string {
+  if (question.mode === "reading-choice") {
+    return question.targetText;
+  }
+  if (question.mode === "cloze") {
+    return "Completa la frase";
+  }
+  if (question.mode === "sentence-ordering") {
+    return question.prompt;
+  }
+  return question.prompt;
+}
+
+function itemKindLabel(kind: ItemKind): string {
+  if (kind === "word") {
+    return "Parola";
+  }
+  if (kind === "kanji") {
+    return "Kanji";
+  }
+  if (kind === "grammar") {
+    return "Grammatica";
+  }
+  return "Obiettivo";
+}
+
+function getLinkedItemsFromAnswer(answer: string, quiz: ActiveQuiz): ItemRef[] {
+  const normalized = answer.trim();
+  if (!normalized) {
+    return [];
+  }
+
+  const linked: ItemRef[] = [];
+  const pushUnique = (item: ItemRef | null): void => {
+    if (!item) {
+      return;
+    }
+    if (!linked.some((entry) => entry.key === item.key)) {
+      linked.push(item);
+    }
+  };
+
+  const mode = quiz.question.mode;
+  if (mode === "flashcard-recognition" || mode === "cloze") {
+    words
+      .filter((word) => word.scrittura === normalized)
+      .slice(0, 2)
+      .forEach((word) => pushUnique(parseItemRef(`word:${word.id}`)));
+    const kanji = kanjiRows.find((entry) => entry.id === normalized);
+    if (kanji) {
+      pushUnique(parseItemRef(`kanji:${kanji.id}`));
+    }
+  }
+
+  if (mode === "reading-choice") {
+    words
+      .filter((word) => word.lettura === normalized)
+      .slice(0, 2)
+      .forEach((word) => pushUnique(parseItemRef(`word:${word.id}`)));
+  }
+
+  return linked.slice(0, 3);
+}
+
+function registerWrongAnswer(quiz: ActiveQuiz, reason: "manual" | "timeout", selectedAnswer?: string): void {
+  if (!sessionState) {
+    return;
+  }
+
+  const selectedText = reason === "timeout" ? "(timeout)" : (selectedAnswer?.trim() ?? "");
+  const finalSelectedText = selectedText || "(non indicata)";
+  const correctAnswer = getCorrectAnswerText(quiz.question);
+
+  const wrongEntry: SessionWrongAnswer = {
+    happenedAt: Date.now(),
+    itemRef: quiz.itemRef,
+    questionMode: quiz.question.mode,
+    prompt: getQuestionPromptText(quiz.question),
+    selectedAnswer: finalSelectedText,
+    correctAnswer,
+    selectedLinkedItems: getLinkedItemsFromAnswer(finalSelectedText, quiz),
+    correctLinkedItems: getLinkedItemsFromAnswer(correctAnswer, quiz)
+  };
+
+  sessionState.wrongAnswers.push(wrongEntry);
 }
 
 function speakAfterAnswer(quiz: ActiveQuiz): void {
@@ -1630,7 +2005,7 @@ function startAnswerDeadline(): void {
     if (!activeQuiz || activeQuiz.answered) {
       return;
     }
-    await evaluateAnswer(false, activeQuiz.itemRef.level, "timeout");
+    await evaluateAnswer(false, activeQuiz.itemRef.level, "timeout", "");
   }, maxMs);
 }
 
@@ -1708,8 +2083,9 @@ function renderSentenceOrdering(question: SentenceOrderingQuestion, level: JLPTL
   check.className = "choice-btn";
   check.textContent = "Conferma";
   check.addEventListener("click", async () => {
-    const ok = selected.join("") === question.correctOrder.join("");
-    await evaluateAnswer(ok, level, "manual");
+    const built = selected.join("");
+    const ok = built === question.correctOrder.join("");
+    await evaluateAnswer(ok, level, "manual", built);
   });
 
   controls.append(reset, check);
@@ -1756,14 +2132,14 @@ function renderCurrentQuiz(): void {
     correct.className = "choice-btn good";
     correct.textContent = "Ricordata";
     correct.addEventListener("click", async () => {
-      await evaluateAnswer(true, level, "manual");
+      await evaluateAnswer(true, level, "manual", "Ricordata");
     });
 
     const wrong = document.createElement("button");
     wrong.className = "choice-btn bad";
     wrong.textContent = "Non ricordata";
     wrong.addEventListener("click", async () => {
-      await evaluateAnswer(false, level, "manual");
+      await evaluateAnswer(false, level, "manual", "Non ricordata");
     });
 
     choicesRoot.append(reveal, correct, wrong);
@@ -1773,7 +2149,7 @@ function renderCurrentQuiz(): void {
   if (q.mode === "flashcard-recognition") {
     questionRoot.textContent = `Scegli la parola giusta per: ${q.prompt}`;
     renderChoices(q.choices ?? [], async (choice) => {
-      await evaluateAnswer(choice === q.correctAnswer, level, "manual");
+      await evaluateAnswer(choice === q.correctAnswer, level, "manual", choice);
     });
     return;
   }
@@ -1781,7 +2157,7 @@ function renderCurrentQuiz(): void {
   if (q.mode === "multiple-choice") {
     questionRoot.textContent = `Scegli il significato corretto di ${q.prompt}`;
     renderChoices(q.choices, async (choice) => {
-      await evaluateAnswer(choice === q.correctChoice, level, "manual");
+      await evaluateAnswer(choice === q.correctChoice, level, "manual", choice);
     });
     return;
   }
@@ -1795,7 +2171,7 @@ function renderCurrentQuiz(): void {
   if (q.mode === "reading-choice") {
     questionRoot.innerHTML = `Come si legge la parte evidenziata?<div class="solution reading-prompt">${q.sentenceHtml}</div>`;
     renderChoices(q.choices, async (choice) => {
-      await evaluateAnswer(choice === q.correctChoice, level, "manual");
+      await evaluateAnswer(choice === q.correctChoice, level, "manual", choice);
     });
     return;
   }
@@ -1803,14 +2179,15 @@ function renderCurrentQuiz(): void {
   const cloze = q as ClozeQuestion;
   questionRoot.innerHTML = `Completa la frase: ${cloze.sentenceWithBlank}`;
   renderChoices(cloze.choices, async (choice) => {
-    await evaluateAnswer(choice === cloze.correctChoice, level, "manual");
+    await evaluateAnswer(choice === cloze.correctChoice, level, "manual", choice);
   });
 }
 
 async function evaluateAnswer(
   correct: boolean,
   level: JLPTLevel,
-  reason: "manual" | "timeout"
+  reason: "manual" | "timeout",
+  selectedAnswer?: string
 ): Promise<void> {
   if (!activeQuiz || activeQuiz.answered) {
     return;
@@ -1839,10 +2216,16 @@ async function evaluateAnswer(
   renderStatsPanel();
 
   const nextMin = Math.max(1, Math.round((after.next_review_date - Date.now()) / 60_000));
+  const itemLabel = itemKindLabel(activeQuiz.itemRef.kind);
+  const correctText = getCorrectAnswerText(activeQuiz.question);
 
   if (reason === "timeout") {
+    registerWrongAnswer(activeQuiz, reason, selectedAnswer);
     revealCorrectAnswer(activeQuiz);
-    setStatus(`Tempo scaduto. Risposta non ricordata. Ripasso ~${nextMin} min. Premi Prossima domanda o Approfondisci.`, false);
+    setStatus(
+      `Tempo scaduto (${itemLabel}). Corretto: ${correctText}. Ripasso ~${nextMin} min. Premi Prossima domanda o Approfondisci.`,
+      false
+    );
     renderPostAnswerActions(false);
     return;
   }
@@ -1853,14 +2236,18 @@ async function evaluateAnswer(
     return;
   }
 
+  registerWrongAnswer(activeQuiz, reason, selectedAnswer);
+
   revealCorrectAnswer(activeQuiz);
-  setStatus(`Errato. -6 XP. Ripasso anticipato ~${nextMin} min. Premi Prossima domanda o Approfondisci.`, false);
+  setStatus(`Errato (${itemLabel}). Corretto: ${correctText}. -6 XP. Ripasso anticipato ~${nextMin} min. Premi Prossima domanda o Approfondisci.`, false);
   renderPostAnswerActions(false);
 }
 
 function fillSettingsForm(): void {
   const auto = document.getElementById("setting-auto-next") as HTMLInputElement | null;
   const max = document.getElementById("setting-max-answer") as HTMLInputElement | null;
+  const sessionMinutes = document.getElementById("setting-session-minutes") as HTMLInputElement | null;
+  const sessionRunDetail = document.getElementById("setting-session-run-detail") as HTMLSelectElement | null;
   const goalJlpt = document.getElementById("goal-target-jlpt") as HTMLSelectElement | null;
   const goalReviews = document.getElementById("goal-daily-reviews") as HTMLInputElement | null;
   const goalNewWords = document.getElementById("goal-daily-new") as HTMLInputElement | null;
@@ -1870,6 +2257,12 @@ function fillSettingsForm(): void {
   }
   if (max) {
     max.value = (settings.max_answer_time_ms / 1000).toString();
+  }
+  if (sessionMinutes) {
+    sessionMinutes.value = String(settings.session_duration_minutes);
+  }
+  if (sessionRunDetail) {
+    sessionRunDetail.value = settings.session_timer_runs_in_detail ? "true" : "false";
   }
   if (goalJlpt && studyGoal) {
     goalJlpt.value = studyGoal.target_jlpt;
@@ -1888,12 +2281,14 @@ function fillSettingsForm(): void {
 async function saveSettingsFromForm(): Promise<void> {
   const auto = document.getElementById("setting-auto-next") as HTMLInputElement | null;
   const max = document.getElementById("setting-max-answer") as HTMLInputElement | null;
+  const sessionMinutes = document.getElementById("setting-session-minutes") as HTMLInputElement | null;
+  const sessionRunDetail = document.getElementById("setting-session-run-detail") as HTMLSelectElement | null;
   const goalJlpt = document.getElementById("goal-target-jlpt") as HTMLSelectElement | null;
   const goalReviews = document.getElementById("goal-daily-reviews") as HTMLInputElement | null;
   const goalNewWords = document.getElementById("goal-daily-new") as HTMLInputElement | null;
   const goalGrammar = document.getElementById("goal-daily-grammar") as HTMLInputElement | null;
 
-  if (!auto || !max || !goalJlpt || !goalReviews || !goalNewWords || !goalGrammar) {
+  if (!auto || !max || !sessionMinutes || !sessionRunDetail || !goalJlpt || !goalReviews || !goalNewWords || !goalGrammar) {
     return;
   }
 
@@ -1904,6 +2299,8 @@ async function saveSettingsFromForm(): Promise<void> {
     id: "default",
     auto_next_delay_ms: autoMs,
     max_answer_time_ms: maxMs,
+    session_duration_minutes: Math.max(1, Number(sessionMinutes.value || "10")),
+    session_timer_runs_in_detail: sessionRunDetail.value === "true",
     updated_at: Date.now()
   };
 
@@ -1918,6 +2315,8 @@ async function saveSettingsFromForm(): Promise<void> {
     updated_at: Date.now()
   };
   await db.study_goals.put(studyGoal);
+  syncSessionPauseState();
+  updateSessionCountdownUi();
   renderStatsPanel();
   setStatus("Impostazioni salvate.", true);
 }
@@ -1937,6 +2336,7 @@ async function refreshCatalogFromSeed(): Promise<void> {
   renderStatsPanel();
 
   const detailPanel = document.getElementById("detail-panel");
+  const summaryPanel = document.getElementById("session-summary-panel");
   if (detailPanel) {
     detailPanel.innerHTML = "";
     detailPanel.classList.remove("detail-open");
@@ -2066,6 +2466,7 @@ function wireEvents(): void {
   const settingsForm = document.getElementById("settings-form") as HTMLFormElement | null;
   const refreshCatalogBtn = document.getElementById("btn-refresh-catalog") as HTMLButtonElement | null;
   const detailPanel = document.getElementById("detail-panel");
+  const summaryPanel = document.getElementById("session-summary-panel");
   const backQuizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
   const backObjectiveBtn = document.getElementById("btn-back-objective") as HTMLButtonElement | null;
 
@@ -2128,8 +2529,13 @@ function wireEvents(): void {
   });
 
   stopSessionBtn?.addEventListener("click", () => {
-    stopStudySession(true);
-    navigateToSection("home");
+    const finished = stopStudySession(true);
+    if (finished) {
+      navigateToSection("summary");
+      renderSessionSummary(false);
+    } else {
+      navigateToSection("home");
+    }
   });
 
   settingsForm?.addEventListener("submit", async (event) => {
@@ -2197,6 +2603,24 @@ function wireEvents(): void {
     detailCurrentItem = item;
     await renderDetailPanel(item);
   });
+
+  summaryPanel?.addEventListener("click", async (event) => {
+    const target = event.target as HTMLElement;
+    const btn = target.closest("[data-detail-key]") as HTMLButtonElement | null;
+    const key = btn?.getAttribute("data-detail-key");
+    if (!key) {
+      return;
+    }
+
+    const item = parseItemRef(key);
+    if (!item) {
+      return;
+    }
+
+    detailCurrentItem = item;
+    navigateToSection("detail");
+    await renderDetailPanel(item);
+  });
 }
 
 function setupHistoryGuards(): void {
@@ -2235,6 +2659,7 @@ function mountInitialQuizState(): void {
   if (question) {
     question.textContent = "La prossima domanda viene generata automaticamente quando avvii una sessione.";
   }
+  updateSessionCountdownUi();
   updateDetailHeaderActions();
 }
 

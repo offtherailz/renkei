@@ -157,6 +157,8 @@ export interface AppSettings extends BaseEntity {
   id: "default";
   auto_next_delay_ms: number;
   max_answer_time_ms: number;
+  session_duration_minutes: number;
+  session_timer_runs_in_detail: boolean;
 }
 
 export interface DatabaseSeed {

@@ -18,6 +18,9 @@ import {
 } from "./types";
 
 const FURIGANA_SEGMENT_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
+const NON_ORDERING_GRAMMAR_MARKER_REGEX =
+  /(意向形|辞書形|ます形|て形|ない形|た形|命令形|可能形|受身形|受け身形|使役|条件形|仮定形|連用形|終止形|未然形|活用|語幹|原形|丁寧形)/;
+const SENTENCE_CONTEXT_HINT_REGEX = /[はがをにでとへもやの]|。|、|！|？/;
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -100,6 +103,30 @@ export async function createSentenceOrderingQuestion(source: ClozeSource, locale
     tokens: shuffle(plainTokens),
     correctOrder: plainTokens
   };
+}
+
+async function canCreateSentenceOrderingQuestion(source: ClozeSource): Promise<boolean> {
+  const plainSentence = stripFuriganaNotation(source.example.testo);
+  const grammarStructure = source.grammar.struttura;
+
+  // Skip ordering prompts for conjugation/form labels where there is no meaningful token order.
+  if (NON_ORDERING_GRAMMAR_MARKER_REGEX.test(plainSentence) || NON_ORDERING_GRAMMAR_MARKER_REGEX.test(grammarStructure)) {
+    return false;
+  }
+
+  const tokenizer = await createDefaultTokenizer();
+  const tokens = tokenizer.tokenize(plainSentence).filter((token) => token.trim().length > 0);
+  const jpTokens = tokens.filter((token) => /[ぁ-んァ-ヶ一-龯]/.test(token));
+
+  if (jpTokens.length < 3) {
+    return false;
+  }
+
+  if (!SENTENCE_CONTEXT_HINT_REGEX.test(plainSentence) && jpTokens.length < 4) {
+    return false;
+  }
+
+  return true;
 }
 
 function pickClozeTarget(tokens: string[]): string {
@@ -225,7 +252,7 @@ export async function createGrammarQuestion(
   context: QuizContext,
   locale: "it" | "en"
 ): Promise<SentenceOrderingQuestion | ClozeQuestion | ReadingChoiceQuestion> {
-  if (Math.random() < 0.5) {
+  if (Math.random() < 0.5 && (await canCreateSentenceOrderingQuestion(source))) {
     return createSentenceOrderingQuestion(source, locale);
   }
 
