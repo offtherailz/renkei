@@ -15,6 +15,7 @@ import {
   createGrammarQuestion,
   createClozeQuestion,
   createFlashcardProductionQuestion,
+  createFlashcardReadingRecognitionQuestion,
   createFlashcardRecognitionQuestion,
   createInitialSrs,
   createMultipleChoiceQuestion,
@@ -99,7 +100,7 @@ const DEFAULT_SETTINGS: AppSettings = {
   id: "default",
   auto_next_delay_ms: 2000,
   max_answer_time_ms: 20000,
-  session_duration_minutes: 10,
+  session_duration_minutes: 5,
   session_timer_runs_in_detail: false,
   updated_at: Date.now()
 };
@@ -118,6 +119,7 @@ let activeWordForTts: Word | null = null;
 let interactiveWordInstance: InteractiveWord | null = null;
 let detailCurrentItem: ItemRef | null = null;
 let detailBackObjectiveRef: ItemRef | null = null;
+let detailBackSection: Section | null = null;
 
 let autoNextTimerId: number | null = null;
 let answerTimeoutId: number | null = null;
@@ -241,8 +243,16 @@ function setActiveSection(section: Section): void {
 function updateDetailHeaderActions(): void {
   const quizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
   const objectiveBtn = document.getElementById("btn-back-objective") as HTMLButtonElement | null;
+  const summaryBtn = document.getElementById("btn-back-summary") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("btn-detail-next") as HTMLButtonElement | null;
   if (quizBtn) {
-    quizBtn.hidden = !activeQuiz;
+    quizBtn.hidden = !(activeQuiz && sessionState);
+  }
+  if (summaryBtn) {
+    summaryBtn.hidden = detailBackSection !== "summary";
+  }
+  if (nextBtn) {
+    nextBtn.hidden = !(activeQuiz && sessionState);
   }
   if (objectiveBtn) {
     objectiveBtn.hidden = !detailBackObjectiveRef;
@@ -553,7 +563,6 @@ function renderSessionSummary(endedByTimeout: boolean): void {
 
       <div class="session-score-ring" style="--session-accuracy:${accuracy}%">
         <strong>${accuracy}%</strong>
-        <span>Accuracy</span>
       </div>
 
       <div class="session-metrics-grid">
@@ -787,6 +796,14 @@ function masteryText(itemKey: string): string {
   return `Consolidamento ${mastery}% • SRS ${srs.srs_stage}/7 • Prossimo ripasso ${next}`;
 }
 
+function memorySnapshot(itemKey: string): { mastery: number; srsStage: number; nextReview: string } {
+  const srs = getSrsByItem(itemKey) ?? createInitialSrs(itemKey);
+  const mastery = normalizeMastery(srs.srs_stage, srs.mastery_points);
+  const minutes = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+  const nextReview = minutes <= 0 ? "adesso" : `tra ~${minutes} min`;
+  return { mastery, srsStage: srs.srs_stage, nextReview };
+}
+
 function alternativeReadings(word: Word): string[] {
   const bySameWriting = words
     .filter((w) => w.scrittura === word.scrittura && w.id !== word.id)
@@ -998,8 +1015,10 @@ function mountUi(): void {
         <div class="section-head">
           <h2>Approfondisci</h2>
           <div class="quiz-actions">
+            <button id="btn-back-summary" class="ghost" type="button" hidden>Torna al riepilogo errori</button>
             <button id="btn-back-objective" class="ghost" type="button" hidden>Torna all'obiettivo</button>
             <button id="btn-back-quiz" class="ghost" type="button" hidden>Torna al quiz</button>
+            <button id="btn-detail-next" class="ghost detail-next-btn" type="button" hidden>Prossima domanda</button>
           </div>
         </div>
         <div id="detail-panel" class="detail-panel"></div>
@@ -1023,7 +1042,7 @@ function mountUi(): void {
             <label class="material-field">
               <span>Durata sessione (minuti)</span>
               <input id="setting-session-minutes" type="number" min="1" step="1" />
-              <small>Default: 10 minuti</small>
+              <small>Default: 5 minuti</small>
             </label>
             <label class="material-field">
               <span>Timer scorre durante approfondimento</span>
@@ -1377,12 +1396,30 @@ function parseItemRef(itemKey: string): ItemRef | null {
   return null;
 }
 
-function pickWordMode(stage: number): "flashcard-production" | "flashcard-recognition" | "multiple-choice" {
+function pickWordMode(
+  stage: number,
+  word: Word
+): "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition" | "multiple-choice" {
+  const hasKanji = word.kanji_usati.length > 0;
   if (stage <= 1) {
-    return Math.random() < 0.5 ? "flashcard-recognition" : "multiple-choice";
+    const roll = Math.random();
+    if (roll < (hasKanji ? 0.45 : 0.2)) {
+      return "flashcard-reading-recognition";
+    }
+    return roll < (hasKanji ? 0.8 : 0.45) ? "flashcard-recognition" : "multiple-choice";
   }
   if (stage <= 3) {
-    return Math.random() < 0.6 ? "multiple-choice" : "flashcard-recognition";
+    const roll = Math.random();
+    if (hasKanji && roll < 0.35) {
+      return "flashcard-reading-recognition";
+    }
+    return roll < (hasKanji ? 0.6 : 0.75) ? "multiple-choice" : "flashcard-recognition";
+  }
+  if (hasKanji && Math.random() < 0.28) {
+    return "flashcard-reading-recognition";
+  }
+  if (hasKanji && Math.random() < 0.3) {
+    return "flashcard-recognition";
   }
   return Math.random() < 0.55 ? "flashcard-production" : "multiple-choice";
 }
@@ -1395,13 +1432,15 @@ async function generateQuizForItem(itemRef: ItemRef): Promise<ActiveQuiz | null>
     }
     activeWordForTts = word;
     const srs = getSrsByItem(itemRef.key) ?? createInitialSrs(itemRef.key);
-    const mode = pickWordMode(srs.srs_stage);
+    const mode = pickWordMode(srs.srs_stage, word);
 
     const question =
       mode === "flashcard-production"
         ? createFlashcardProductionQuestion(word, locale)
         : mode === "flashcard-recognition"
           ? createFlashcardRecognitionQuestion(word, locale, distractorIndex, context)
+          : mode === "flashcard-reading-recognition"
+            ? createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context)
           : createMultipleChoiceQuestion(word, context, distractorIndex);
 
     return { itemRef, question, startedAt: Date.now(), answered: false };
@@ -1453,6 +1492,9 @@ function getCorrectAnswerText(question: QuizQuestion): string {
     return question.correctAnswer;
   }
   if (question.mode === "flashcard-recognition") {
+    return question.correctAnswer;
+  }
+  if (question.mode === "flashcard-reading-recognition") {
     return question.correctAnswer;
   }
   if (question.mode === "multiple-choice") {
@@ -1510,7 +1552,7 @@ function getLinkedItemsFromAnswer(answer: string, quiz: ActiveQuiz): ItemRef[] {
   };
 
   const mode = quiz.question.mode;
-  if (mode === "flashcard-recognition" || mode === "cloze") {
+  if (mode === "flashcard-recognition" || mode === "flashcard-reading-recognition" || mode === "cloze") {
     words
       .filter((word) => word.scrittura === normalized)
       .slice(0, 2)
@@ -1584,6 +1626,16 @@ function speakAfterAnswer(quiz: ActiveQuiz): void {
 }
 
 function revealCorrectAnswer(currentQuiz: ActiveQuiz): void {
+  if (
+    currentQuiz.question.mode === "flashcard-recognition" ||
+    currentQuiz.question.mode === "flashcard-reading-recognition" ||
+    currentQuiz.question.mode === "multiple-choice" ||
+    currentQuiz.question.mode === "reading-choice" ||
+    currentQuiz.question.mode === "cloze"
+  ) {
+    return;
+  }
+
   const root = document.getElementById("choices");
   if (!root) {
     return;
@@ -1609,8 +1661,60 @@ function jlptLevelBadge(level: JLPTLevel): string {
   return `<span class="level-badge level-${level.toLowerCase()}">${escapeHtml(level)}</span>`;
 }
 
-function furiganaBadge(label: string): string {
-  return `<span class="jp-badge">${renderFuriganaToHtml(label)}</span>`;
+function labelReadingText(label: string): string {
+  const matches = [...label.matchAll(/\[([^\]]+)\]/g)].map((match) => match[1] ?? "").filter(Boolean);
+  return matches.join(" / ");
+}
+
+function grammarLabelTooltip(label: string): string {
+  const plain = label.replace(/\[[^\]]+\]/g, "");
+  const mapIt: Record<string, string> = {
+    "名詞": "Nome: parola che indica persone, cose, luoghi o concetti.",
+    "動詞": "Verbo: indica un'azione o uno stato.",
+    "形容詞": "Aggettivo: descrive qualità o caratteristiche.",
+    "副詞": "Avverbio: modifica verbo, aggettivo o frase.",
+    "助数詞": "Contatore numerale: usato per contare oggetti/persone.",
+    "慣用表現": "Espressione idiomatica: frase fissa con significato non letterale.",
+    "その他": "Altra categoria grammaticale.",
+    "五段動詞": "Verbo godan: la base cambia su 5 vocali in coniugazione.",
+    "一段動詞": "Verbo ichidan: coniugazione regolare in -る (ru-verb).",
+    "不規則動詞": "Verbo irregolare: coniugazione non regolare.",
+    "自動詞": "Verbo intransitivo: non regge complemento oggetto diretto.",
+    "他動詞": "Verbo transitivo: regge complemento oggetto diretto.",
+    "い形容詞": "Aggettivo in -い: si coniuga direttamente.",
+    "な形容詞": "Aggettivo in -な: richiede な prima del nome.",
+    "文法": "Categoria grammaticale / struttura di grammatica.",
+    "読み": "Indicazioni di lettura del termine o kanji."
+  };
+
+  const mapEn: Record<string, string> = {
+    "名詞": "Noun: names people, things, places, or concepts.",
+    "動詞": "Verb: expresses an action or state.",
+    "形容詞": "Adjective: describes qualities or characteristics.",
+    "副詞": "Adverb: modifies a verb, adjective, or sentence.",
+    "助数詞": "Counter word used with numbers for counting.",
+    "慣用表現": "Idiomatic expression: fixed phrase with non-literal meaning.",
+    "その他": "Other grammatical category.",
+    "五段動詞": "Godan verb: stem shifts across five vowel rows.",
+    "一段動詞": "Ichidan verb: regular -ru verb conjugation.",
+    "不規則動詞": "Irregular verb: non-regular conjugation pattern.",
+    "自動詞": "Intransitive verb: does not take a direct object.",
+    "他動詞": "Transitive verb: takes a direct object.",
+    "い形容詞": "I-adjective: inflects directly.",
+    "な形容詞": "Na-adjective: requires な before nouns.",
+    "文法": "Grammar category / pattern.",
+    "読み": "Reading hints for the term or kanji."
+  };
+
+  const dictionary = locale === "it" ? mapIt : mapEn;
+  return dictionary[plain] ?? (locale === "it" ? "Etichetta grammaticale." : "Grammar label.");
+}
+
+function furiganaBadge(label: string, tooltip?: string, variantClass = ""): string {
+  const reading = labelReadingText(label);
+  const meaning = tooltip ?? grammarLabelTooltip(label);
+  const classes = ["jp-badge", variantClass].filter(Boolean).join(" ");
+  return `<span class="${classes}" data-popup-reading="${escapeHtml(reading || "-")}" data-popup-meaning="${escapeHtml(meaning)}">${renderFuriganaToHtml(label)}</span>`;
 }
 
 function noteEditorMarkup(itemId: string): string {
@@ -1623,13 +1727,22 @@ function noteEditorMarkup(itemId: string): string {
   `;
 }
 
+function buildExpressionLinkedWords(word: Word): Word[] {
+  const text = `${word.scrittura} ${word.lettura}`;
+  return words
+    .filter((candidate) => candidate.id !== word.id)
+    .filter((candidate) => candidate.tipo_jp !== "慣用表現[かんようひょうげん]")
+    .filter((candidate) => candidate.scrittura.length >= 1)
+    .filter((candidate) => text.includes(candidate.scrittura) || text.includes(candidate.lettura))
+    .slice(0, 14);
+}
+
 function grammarExampleMarkup(item: Grammar): string {
   return item.frasi_esempio
     .map((ex, idx) => {
       const allowed = ex.parole_linkate
         .map((id) => context.wordsById.get(id))
-        .filter((w): w is Word => Boolean(w))
-        .filter((w) => supportsLevel(w.livello_jlpt, item.livello_jlpt));
+        .filter((w): w is Word => Boolean(w));
 
       const chips = allowed.length > 0 ? allowed.map((w) => wordLinkButton(w)).join("") : "<span class=\"objective-sub\">Nessuna parola linkabile.</span>";
 
@@ -1698,19 +1811,44 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
       contrari: word.contrari.map((id) => context.wordsById.get(id)).filter((w): w is Word => Boolean(w)),
       omofoni: word.omofoni.map((id) => context.wordsById.get(id)).filter((w): w is Word => Boolean(w))
     };
+    const idiomLinkedWords = word.tipo_jp === "慣用表現[かんようひょうげん]" ? buildExpressionLinkedWords(word) : [];
     const usedKanji = word.kanji_usati.map((id) => kanjiRows.find((k) => k.id === id)).filter((k): k is Kanji => Boolean(k));
+    const missingKanji = word.kanji_usati.filter((id) => !usedKanji.some((kanji) => kanji.id === id));
     const altReadings = alternativeReadings(word);
+    const memory = memorySnapshot(itemRef.key);
+    const hasPitchAccent = Boolean(word.pitch_accent && word.pitch_accent.trim().length > 0 && word.pitch_accent.trim() !== "-");
 
     panel.innerHTML = `
       <article class="material-card">
         <div class="detail-card-head">
           <p class="material-card-title" data-popup-reading="${escapeHtml(word.lettura)}" data-popup-meaning="${escapeHtml(nativeMeaning(word.significato))}">${escapeHtml(word.scrittura)} (${escapeHtml(word.lettura)})</p>
-          <div class="detail-badges">${jlptLevelBadge(word.livello_jlpt)}${furiganaBadge(word.tipo_jp)}</div>
+          <div class="detail-badges">
+            ${jlptLevelBadge(word.livello_jlpt)}
+            ${furiganaBadge(word.tipo_jp, undefined, "jp-badge-pos")}
+            ${word.tipo_jp === "動詞[どうし]" && word.classe_verbo_jp ? furiganaBadge(word.classe_verbo_jp, undefined, "jp-badge-verb-class") : ""}
+            ${word.tipo_jp === "動詞[どうし]" && word.transitivita_jp ? furiganaBadge(word.transitivita_jp, undefined, "jp-badge-transitivity") : ""}
+            ${word.tipo_jp === "形容詞[けいようし]" && word.tipo_aggettivo_jp ? furiganaBadge(word.tipo_aggettivo_jp, undefined, "jp-badge-adjective") : ""}
+          </div>
         </div>
         <p>${escapeHtml(nativeMeaning(word.significato))}</p>
-        <p><strong>Memoria:</strong> ${escapeHtml(masteryText(itemRef.key))}</p>
-        <p><strong>Letture alternative:</strong> ${altReadings.length > 0 ? escapeHtml(altReadings.join(" / ")) : "-"}</p>
-        <p><strong>Pitch:</strong> ${escapeHtml(word.pitch_accent ?? "-")}</p>
+        <div class="memory-card">
+          <p class="memory-title"><strong>Memoria</strong> <span>${escapeHtml(masteryText(itemRef.key))}</span></p>
+          <div class="memory-metric">
+            <div class="memory-metric-head"><span>Consolidamento</span><strong>${memory.mastery}%</strong></div>
+            <div class="bar-wrap memory-bar" role="progressbar" aria-label="Consolidamento" aria-valuenow="${memory.mastery}" aria-valuemin="0" aria-valuemax="100">
+              <div class="bar-fill" style="width:${memory.mastery}%;background:${progressColor(memory.mastery)}"></div>
+            </div>
+          </div>
+          <div class="memory-metric">
+            <div class="memory-metric-head"><span>SRS stage</span><strong>${memory.srsStage}/7</strong></div>
+            <div class="bar-wrap memory-bar" role="progressbar" aria-label="SRS stage" aria-valuenow="${Math.round((memory.srsStage / 7) * 100)}" aria-valuemin="0" aria-valuemax="100">
+              <div class="bar-fill" style="width:${Math.round((memory.srsStage / 7) * 100)}%;background:${progressColor(Math.round((memory.srsStage / 7) * 100))}"></div>
+            </div>
+            <p class="objective-sub">Prossimo ripasso: ${memory.nextReview}</p>
+          </div>
+        </div>
+        ${altReadings.length > 0 ? `<p><strong>Letture alternative:</strong> ${escapeHtml(altReadings.join(" / "))}</p>` : ""}
+        ${hasPitchAccent ? `<p><strong>Pitch:</strong> ${escapeHtml(word.pitch_accent ?? "")}</p>` : ""}
         <div class="row">
           <button class="ghost" data-tts-reading="${escapeHtml(word.id)}" type="button">Ascolta pronuncia</button>
           <a class="external-link" href="${escapeHtml(word.link_jisho ?? `https://jisho.org/search/${encodeURIComponent(word.scrittura)}`)}" target="_blank" rel="noreferrer">Apri su Jisho</a>
@@ -1718,12 +1856,28 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
           <a class="external-link" href="${buildTatoebaSentenceUrl(word.scrittura)}" target="_blank" rel="noreferrer">Frasi su Tatoeba</a>
         </div>
         <p class="objective-sub">Kanji utilizzati</p>
-        <div class="chip-wrap">${usedKanji.map((k) => kanjiLinkButton(k)).join("") || "<span class=\"objective-sub\">Nessun kanji.</span>"}</div>
-        ${word.tipo_jp === "動詞[どうし]" ? `<p><strong>Classe:</strong> ${escapeHtml(word.classe_verbo_jp ?? "-")} • <strong>Transitività:</strong> ${escapeHtml(word.transitivita_jp ?? "-")}</p>` : ""}
+        <div class="chip-wrap">${
+          usedKanji.map((k) => kanjiLinkButton(k)).join("") ||
+          missingKanji
+            .map(
+              (char) =>
+                `<a class="chip chip-link" href="${buildJishoKanjiUrl(char)}" target="_blank" rel="noreferrer"><span class="chip-main">${escapeHtml(char)}</span><span class="chip-badges"><span class="level-badge level-n3">esterno</span></span></a>`
+            )
+            .join("") ||
+          "<span class=\"objective-sub\">Nessun kanji.</span>"
+        }</div>
         ${word.tipo_jp === "動詞[どうし]" && verbPair ? `<div class="chip-wrap"><button class="chip" data-detail-key="word:${verbPair.id}">Verbo correlato: ${escapeHtml(verbPair.scrittura)} (${escapeHtml(verbPair.lettura)})</button><a class="external-link" href="https://jisho.org/search/${encodeURIComponent(word.scrittura)}%20%23verb" target="_blank" rel="noreferrer">Coniugazione</a></div>` : ""}
-        ${word.tipo_jp === "形容詞[けいようし]" ? `<p><strong>Classe aggettivo:</strong> ${escapeHtml(word.tipo_aggettivo_jp ?? "-")}</p>` : ""}
+        ${
+          word.tipo_jp === "慣用表現[かんようひょうげん]"
+            ? `<p class="objective-sub">Espressione idiomatica: elementi collegati</p><div class="chip-wrap">${
+                idiomLinkedWords.length > 0
+                  ? idiomLinkedWords.map((linkedWord) => wordLinkButton(linkedWord)).join("")
+                  : "<span class=\"objective-sub\">Nessun collegamento interno rilevato.</span>"
+              }</div>`
+            : ""
+        }
         <p class="objective-sub">Relazioni semantiche</p>
-        <p><strong>Sinonimi</strong></p><div class="chip-wrap">${semantic.sinonimi.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">-</span>"}</div>
+        <p><strong>Significati simili</strong></p><div class="chip-wrap">${semantic.sinonimi.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">-</span>"}</div>
         <p><strong>Contrari</strong></p><div class="chip-wrap">${semantic.contrari.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">-</span>"}</div>
         <p><strong>Omofoni</strong></p><div class="chip-wrap">${semantic.omofoni.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">-</span>"}</div>
       </article>
@@ -1830,6 +1984,8 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
         .filter((item) => item.kind === "word")
         .map((item) => context.wordsById.get(item.key.replace("word:", "")))
         .filter((row): row is Word => Boolean(row));
+      const directIdioms = directWords.filter((word) => word.tipo_jp === "慣用表現[かんようひょうげん]");
+      const directWordsOnly = directWords.filter((word) => word.tipo_jp !== "慣用表現[かんようひょうげん]");
       const directKanji = directItems
         .filter((item) => item.kind === "kanji")
         .map((item) => kanjiRows.find((k) => k.id === item.key.replace("kanji:", "")))
@@ -1848,7 +2004,11 @@ async function renderDetailPanel(itemRef: ItemRef): Promise<void> {
         </article>
         <article class="material-card">
           <p class="material-card-title">PAROLE</p>
-          <div class="chip-wrap">${directWords.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">Nessuna parola in questo gruppo.</span>"}</div>
+          <div class="chip-wrap">${directWordsOnly.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">Nessuna parola in questo gruppo.</span>"}</div>
+        </article>
+        <article class="material-card">
+          <p class="material-card-title">ESPRESSIONI IDIOMATICHE</p>
+          <div class="chip-wrap">${directIdioms.map((w) => wordLinkButton(w)).join("") || "<span class=\"objective-sub\">Nessuna espressione idiomatica in questo gruppo.</span>"}</div>
         </article>
         <article class="material-card">
           <p class="material-card-title">KANJI</p>
@@ -1942,6 +2102,7 @@ function renderPostAnswerActions(correct: boolean): void {
     if (activeQuiz) {
       clearTimers();
       detailCurrentItem = activeQuiz.itemRef;
+      detailBackSection = null;
       navigateToSection("detail");
       void renderDetailPanel(activeQuiz.itemRef);
     }
@@ -2009,7 +2170,7 @@ function startAnswerDeadline(): void {
   }, maxMs);
 }
 
-function renderChoices(values: string[], onPick: (value: string) => Promise<void>): void {
+function renderChoices(values: string[], level: JLPTLevel, onPick: (value: string) => Promise<void>): void {
   const root = document.getElementById("choices");
   if (!root) {
     return;
@@ -2020,9 +2181,36 @@ function renderChoices(values: string[], onPick: (value: string) => Promise<void
     const button = document.createElement("button");
     button.className = "choice-btn";
     button.textContent = value;
+    button.dataset.choiceValue = value;
     button.addEventListener("click", async () => onPick(value));
     root.appendChild(button);
   }
+
+  const dontKnow = document.createElement("button");
+  dontKnow.className = "choice-btn bad";
+  dontKnow.textContent = "Non la so";
+  dontKnow.addEventListener("click", async () => {
+    await evaluateAnswer(false, level, "timeout", "Non la so");
+  });
+  root.appendChild(dontKnow);
+}
+
+function highlightChoiceResult(selectedAnswer: string | undefined, correctAnswer: string): void {
+  const root = document.getElementById("choices");
+  if (!root) {
+    return;
+  }
+
+  const selected = (selectedAnswer ?? "").trim();
+  root.querySelectorAll<HTMLButtonElement>("button[data-choice-value]").forEach((btn) => {
+    const value = (btn.dataset.choiceValue ?? "").trim();
+    if (value === correctAnswer.trim()) {
+      btn.classList.add("choice-correct");
+    }
+    if (selected && value === selected && value !== correctAnswer.trim()) {
+      btn.classList.add("choice-selected-wrong");
+    }
+  });
 }
 
 function setQuizInteractionEnabled(enabled: boolean): void {
@@ -2080,7 +2268,7 @@ function renderSentenceOrdering(question: SentenceOrderingQuestion, level: JLPTL
   });
 
   const check = document.createElement("button");
-  check.className = "choice-btn";
+  check.className = "choice-btn good";
   check.textContent = "Conferma";
   check.addEventListener("click", async () => {
     const built = selected.join("");
@@ -2088,7 +2276,14 @@ function renderSentenceOrdering(question: SentenceOrderingQuestion, level: JLPTL
     await evaluateAnswer(ok, level, "manual", built);
   });
 
-  controls.append(reset, check);
+  const dontKnow = document.createElement("button");
+  dontKnow.className = "choice-btn bad";
+  dontKnow.textContent = "Non la so";
+  dontKnow.addEventListener("click", async () => {
+    await evaluateAnswer(false, level, "timeout", "Non la so");
+  });
+
+  controls.append(reset, check, dontKnow);
   root.append(area, controls);
 }
 
@@ -2148,7 +2343,15 @@ function renderCurrentQuiz(): void {
 
   if (q.mode === "flashcard-recognition") {
     questionRoot.textContent = `Scegli la parola giusta per: ${q.prompt}`;
-    renderChoices(q.choices ?? [], async (choice) => {
+    renderChoices(q.choices ?? [], level, async (choice) => {
+      await evaluateAnswer(choice === q.correctAnswer, level, "manual", choice);
+    });
+    return;
+  }
+
+  if (q.mode === "flashcard-reading-recognition") {
+    questionRoot.textContent = `Scegli la scrittura corretta per: ${q.prompt}`;
+    renderChoices(q.choices ?? [], level, async (choice) => {
       await evaluateAnswer(choice === q.correctAnswer, level, "manual", choice);
     });
     return;
@@ -2156,7 +2359,7 @@ function renderCurrentQuiz(): void {
 
   if (q.mode === "multiple-choice") {
     questionRoot.textContent = `Scegli il significato corretto di ${q.prompt}`;
-    renderChoices(q.choices, async (choice) => {
+    renderChoices(q.choices, level, async (choice) => {
       await evaluateAnswer(choice === q.correctChoice, level, "manual", choice);
     });
     return;
@@ -2170,7 +2373,7 @@ function renderCurrentQuiz(): void {
 
   if (q.mode === "reading-choice") {
     questionRoot.innerHTML = `Come si legge la parte evidenziata?<div class="solution reading-prompt">${q.sentenceHtml}</div>`;
-    renderChoices(q.choices, async (choice) => {
+    renderChoices(q.choices, level, async (choice) => {
       await evaluateAnswer(choice === q.correctChoice, level, "manual", choice);
     });
     return;
@@ -2178,7 +2381,7 @@ function renderCurrentQuiz(): void {
 
   const cloze = q as ClozeQuestion;
   questionRoot.innerHTML = `Completa la frase: ${cloze.sentenceWithBlank}`;
-  renderChoices(cloze.choices, async (choice) => {
+  renderChoices(cloze.choices, level, async (choice) => {
     await evaluateAnswer(choice === cloze.correctChoice, level, "manual", choice);
   });
 }
@@ -2220,6 +2423,7 @@ async function evaluateAnswer(
   const correctText = getCorrectAnswerText(activeQuiz.question);
 
   if (reason === "timeout") {
+    highlightChoiceResult(selectedAnswer, correctText);
     registerWrongAnswer(activeQuiz, reason, selectedAnswer);
     revealCorrectAnswer(activeQuiz);
     setStatus(
@@ -2231,11 +2435,13 @@ async function evaluateAnswer(
   }
 
   if (correct) {
+    highlightChoiceResult(selectedAnswer, correctText);
     setStatus(`Corretto! +${xp.total} XP. Ripasso ~${nextMin} min.`, true);
     renderPostAnswerActions(true);
     return;
   }
 
+  highlightChoiceResult(selectedAnswer, correctText);
   registerWrongAnswer(activeQuiz, reason, selectedAnswer);
 
   revealCorrectAnswer(activeQuiz);
@@ -2299,7 +2505,7 @@ async function saveSettingsFromForm(): Promise<void> {
     id: "default",
     auto_next_delay_ms: autoMs,
     max_answer_time_ms: maxMs,
-    session_duration_minutes: Math.max(1, Number(sessionMinutes.value || "10")),
+    session_duration_minutes: Math.max(1, Number(sessionMinutes.value || "5")),
     session_timer_runs_in_detail: sessionRunDetail.value === "true",
     updated_at: Date.now()
   };
@@ -2467,8 +2673,10 @@ function wireEvents(): void {
   const refreshCatalogBtn = document.getElementById("btn-refresh-catalog") as HTMLButtonElement | null;
   const detailPanel = document.getElementById("detail-panel");
   const summaryPanel = document.getElementById("session-summary-panel");
+  const backSummaryBtn = document.getElementById("btn-back-summary") as HTMLButtonElement | null;
   const backQuizBtn = document.getElementById("btn-back-quiz") as HTMLButtonElement | null;
   const backObjectiveBtn = document.getElementById("btn-back-objective") as HTMLButtonElement | null;
+  const detailNextBtn = document.getElementById("btn-detail-next") as HTMLButtonElement | null;
 
   list?.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
@@ -2492,6 +2700,7 @@ function wireEvents(): void {
     }
 
     detailCurrentItem = objectiveRef;
+    detailBackSection = null;
     navigateToSection("detail");
     await renderDetailPanel(objectiveRef);
   });
@@ -2576,7 +2785,21 @@ function wireEvents(): void {
     if (!activeQuiz) {
       return;
     }
+    detailBackSection = null;
     navigateToSection("quiz");
+  });
+
+  backSummaryBtn?.addEventListener("click", () => {
+    detailBackSection = null;
+    navigateToSection("summary");
+  });
+
+  detailNextBtn?.addEventListener("click", async () => {
+    if (!sessionState) {
+      return;
+    }
+    navigateToSection("quiz");
+    await nextAutoQuiz();
   });
 
   backObjectiveBtn?.addEventListener("click", async () => {
@@ -2618,6 +2841,7 @@ function wireEvents(): void {
     }
 
     detailCurrentItem = item;
+    detailBackSection = "summary";
     navigateToSection("detail");
     await renderDetailPanel(item);
   });

@@ -1,9 +1,16 @@
 import { Grammar, GrammarExample, JLPTLevel, LocaleCode, Word } from "../types/models";
 
-export type QuizMode = "flashcard-production" | "flashcard-recognition" | "multiple-choice" | "sentence-ordering" | "cloze" | "reading-choice";
+export type QuizMode =
+  | "flashcard-production"
+  | "flashcard-recognition"
+  | "flashcard-reading-recognition"
+  | "multiple-choice"
+  | "sentence-ordering"
+  | "cloze"
+  | "reading-choice";
 
 export interface FlashcardQuestion {
-  mode: "flashcard-production" | "flashcard-recognition";
+  mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
   wordId: string;
   prompt: string;
   promptLanguage: "ja" | LocaleCode;

@@ -112,17 +112,18 @@ function enrichWordRelations(words) {
     ])
   );
 
-  const byLevelType = new Map();
+  const byType = new Map();
   for (const word of words) {
-    const key = `${word.livello_jlpt}::${word.tipo_jp}`;
-    const bucket = byLevelType.get(key) ?? [];
+    const key = word.tipo_jp;
+    const bucket = byType.get(key) ?? [];
     bucket.push(word);
-    byLevelType.set(key, bucket);
+    byType.set(key, bucket);
   }
 
   const antonymPairs = [
     ["大きい", "小さい"],
     ["高い", "低い"],
+    ["高い", "安い"],
     ["新しい", "古い"],
     ["多い", "少ない"],
     ["長い", "短い"],
@@ -132,12 +133,18 @@ function enrichWordRelations(words) {
     ["明るい", "暗い"],
     ["強い", "弱い"],
     ["重い", "軽い"],
+    ["近い", "遠い"],
     ["好き", "嫌い"],
     ["開ける", "閉める"],
     ["始める", "終わる"],
     ["入る", "出る"],
     ["行く", "来る"],
-    ["勝つ", "負ける"]
+    ["勝つ", "負ける"],
+    ["上げる", "下げる"],
+    ["増える", "減る"],
+    ["買う", "売る"],
+    ["借りる", "貸す"],
+    ["覚える", "忘れる"]
   ];
 
   const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
@@ -159,21 +166,22 @@ function enrichWordRelations(words) {
       .map((candidate) => candidate.id)
       .slice(0, 8);
 
-    const sameBucket = byLevelType.get(`${word.livello_jlpt}::${word.tipo_jp}`) ?? [];
+    const sameBucket = byType.get(word.tipo_jp) ?? [];
     const currentSignature = signatures.get(word.id) ?? new Set();
     const synonyms = sameBucket
       .filter((candidate) => candidate.id !== word.id)
       .map((candidate) => {
         const candidateSignature = signatures.get(candidate.id) ?? new Set();
+        const sameMainMeaning = (word.significato.en[0] ?? "").toLowerCase() === (candidate.significato.en[0] ?? "").toLowerCase();
         return {
           id: candidate.id,
-          score: intersectionCount(currentSignature, candidateSignature)
+          score: intersectionCount(currentSignature, candidateSignature) + (sameMainMeaning ? 1 : 0)
         };
       })
-      .filter((entry) => entry.score >= 2)
+      .filter((entry) => entry.score >= 1)
       .sort((a, b) => b.score - a.score)
       .map((entry) => entry.id)
-      .slice(0, 6);
+      .slice(0, 8);
 
     return {
       ...word,
@@ -184,15 +192,255 @@ function enrichWordRelations(words) {
   });
 }
 
+const GODAN_RU_EXCEPTIONS = new Set([
+  "入る",
+  "はいる",
+  "走る",
+  "はしる",
+  "要る",
+  "帰る",
+  "かえる",
+  "切る",
+  "きる",
+  "知る",
+  "しる",
+  "滑る",
+  "すべる",
+  "減る",
+  "へる",
+  "焦る",
+  "あせる",
+  "喋る",
+  "しゃべる",
+  "交じる",
+  "まじる",
+  "混じる",
+  "にぎる",
+  "握る"
+]);
+
+const TRANSITIVE_INTRANSITIVE_PAIRS = [
+  ["開ける", "開く"],
+  ["あける", "あく"],
+  ["閉める", "閉まる"],
+  ["しめる", "しまる"],
+  ["始める", "始まる"],
+  ["はじめる", "はじまる"],
+  ["止める", "止まる"],
+  ["とめる", "とまる"],
+  ["決める", "決まる"],
+  ["きめる", "きまる"],
+  ["見つける", "見つかる"],
+  ["みつける", "みつかる"],
+  ["付ける", "付く"],
+  ["つける", "つく"],
+  ["消す", "消える"],
+  ["けす", "きえる"],
+  ["落とす", "落ちる"],
+  ["おとす", "おちる"],
+  ["壊す", "壊れる"],
+  ["こわす", "こわれる"],
+  ["続ける", "続く"],
+  ["つづける", "つづく"],
+  ["出す", "出る"],
+  ["だす", "でる"],
+  ["入れる", "入る"],
+  ["いれる", "はいる"],
+  ["集める", "集まる"],
+  ["あつめる", "あつまる"],
+  ["上げる", "上がる"],
+  ["あげる", "あがる"],
+  ["下げる", "下がる"],
+  ["さげる", "さがる"],
+  ["増やす", "増える"],
+  ["ふやす", "ふえる"],
+  ["変える", "変わる"],
+  ["かえる", "かわる"]
+];
+
+function inferVerbClassJP(kana, writing) {
+  const normalizedKana = normalizeReading(kana);
+  const normalizedWriting = normalizeText(writing);
+
+  if (normalizedWriting.endsWith("する") || normalizedKana.endsWith("する") || normalizedWriting === "する") {
+    return "不規則動詞[ふきそくどうし]";
+  }
+
+  if (
+    normalizedWriting.endsWith("来る") ||
+    normalizedWriting === "来る" ||
+    normalizedKana.endsWith("くる") ||
+    normalizedKana === "くる"
+  ) {
+    return "不規則動詞[ふきそくどうし]";
+  }
+
+  const looksIchidan = normalizedKana.endsWith("いる") || normalizedKana.endsWith("える");
+  if (looksIchidan && !GODAN_RU_EXCEPTIONS.has(normalizedWriting) && !GODAN_RU_EXCEPTIONS.has(normalizedKana)) {
+    return "一段動詞[いちだんどうし]";
+  }
+
+  return "五段動詞[ごだんどうし]";
+}
+
+function inferVerbTransitivityJP(word, transitiveById, intransitiveById) {
+  if (transitiveById.has(word.id)) {
+    return "他動詞[たどうし]";
+  }
+  if (intransitiveById.has(word.id)) {
+    return "自動詞[じどうし]";
+  }
+
+  const meaning = word.significato.en.join(" ; ").toLowerCase();
+  if (/(to become|to go|to come|to arrive|to exist|to be|to remain|to happen|to fall|to rise|to sit|to stand|to sleep|to stay|to leave|to move|to return|to wake up|to melt|to stop)/.test(meaning)) {
+    return "自動詞[じどうし]";
+  }
+  if (/(to make|to put|to open|to close|to start|to finish|to change|to use|to show|to teach|to tell|to call|to prepare|to decide|to bring|to leave something|to raise|to lower|to increase|to reduce|to cut|to turn on|to turn off|to drop)/.test(meaning)) {
+    return "他動詞[たどうし]";
+  }
+
+  const reading = normalizeReading(word.lettura);
+  const writing = normalizeText(word.scrittura);
+
+  if (/(える|ける|げる|せる|てる|める|ねる|れる)$/.test(reading)) {
+    return "他動詞[たどうし]";
+  }
+
+  if (/(ある|う|く|ぐ|す|つ|ぬ|ぶ|む|る)$/.test(reading)) {
+    return "自動詞[じどうし]";
+  }
+
+  if (writing.endsWith("する") || reading.endsWith("する")) {
+    return "他動詞[たどうし]";
+  }
+
+  return undefined;
+}
+
+function enrichVerbMetadata(words) {
+  const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
+  const byReading = new Map(words.map((word) => [normalizeReading(word.lettura), word.id]));
+  const transitiveById = new Set();
+  const intransitiveById = new Set();
+
+  for (const [transitiveWriting, intransitiveWriting] of TRANSITIVE_INTRANSITIVE_PAIRS) {
+    const transitiveId = byWriting.get(transitiveWriting) ?? byReading.get(normalizeReading(transitiveWriting));
+    const intransitiveId = byWriting.get(intransitiveWriting) ?? byReading.get(normalizeReading(intransitiveWriting));
+    if (transitiveId) {
+      transitiveById.add(transitiveId);
+    }
+    if (intransitiveId) {
+      intransitiveById.add(intransitiveId);
+    }
+  }
+
+  return words.map((word) => {
+    if (word.tipo_jp !== "動詞[どうし]") {
+      return word;
+    }
+
+    const verbClass = word.classe_verbo_jp ?? inferVerbClassJP(word.lettura, word.scrittura);
+    const transitivity = word.transitivita_jp ?? inferVerbTransitivityJP(word, transitiveById, intransitiveById);
+
+    return {
+      ...word,
+      classe_verbo_jp: verbClass,
+      transitivita_jp: transitivity
+    };
+  });
+}
+
 function buildGrammarLinkedWords(sentence, level, words) {
   const cleanSentence = normalizeText(sentence);
   if (!cleanSentence) {
     return [];
   }
 
+  const containsKanji = (value) => /[一-龯々]/u.test(value);
+  const particleLike = new Set(["は", "が", "を", "に", "で", "と", "へ", "も", "の", "や", "か", "ね", "よ", "な", "ぞ", "さ"]);
+
+  const hasDirectSurfaceMatch = (word) => {
+    const writing = normalizeText(word.scrittura);
+    if (!writing) {
+      return false;
+    }
+
+    if (containsKanji(writing)) {
+      return cleanSentence.includes(writing);
+    }
+
+    if (writing.length <= 1 || particleLike.has(writing)) {
+      return false;
+    }
+
+    return cleanSentence.includes(writing);
+  };
+
+  const hasVerbConjugationMatch = (word) => {
+    if (word.tipo_jp !== "動詞[どうし]") {
+      return false;
+    }
+
+    const reading = normalizeReading(word.lettura);
+    if (!reading || reading.length < 2) {
+      return false;
+    }
+
+    const forms = new Set();
+    const verbClass = inferVerbClassJP(word.lettura, word.scrittura);
+
+    if (reading.endsWith("する")) {
+      const stem = reading.slice(0, -2);
+      forms.add(`${stem}します`);
+      forms.add(`${stem}しません`);
+      forms.add(`${stem}した`);
+      forms.add(`${stem}して`);
+    } else if (reading.endsWith("くる") || reading === "くる") {
+      forms.add("きます");
+      forms.add("きません");
+      forms.add("きた");
+      forms.add("きて");
+    } else if (reading.endsWith("る") && verbClass === "一段動詞[いちだんどうし]") {
+      const stem = reading.slice(0, -1);
+      forms.add(`${stem}ます`);
+      forms.add(`${stem}ません`);
+      forms.add(`${stem}ました`);
+      forms.add(`${stem}て`);
+      forms.add(`${stem}ない`);
+      forms.add(`${stem}た`);
+    } else {
+      const godanMasuMap = {
+        "う": "い",
+        "く": "き",
+        "ぐ": "ぎ",
+        "す": "し",
+        "つ": "ち",
+        "ぬ": "に",
+        "ぶ": "び",
+        "む": "み",
+        "る": "り"
+      };
+      const ending = reading.slice(-1);
+      const mapped = godanMasuMap[ending];
+      if (mapped) {
+        const stem = `${reading.slice(0, -1)}${mapped}`;
+        forms.add(`${stem}ます`);
+        forms.add(`${stem}ません`);
+        forms.add(`${stem}ました`);
+      }
+    }
+
+    for (const form of forms) {
+      if (form.length > 1 && cleanSentence.includes(form)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const candidates = words
     .filter((word) => supportsLevel(word.livello_jlpt, level))
-    .filter((word) => cleanSentence.includes(word.scrittura) || cleanSentence.includes(word.lettura))
+    .filter((word) => hasDirectSurfaceMatch(word) || hasVerbConjugationMatch(word))
     .sort((a, b) => b.scrittura.length - a.scrittura.length);
 
   return unique(candidates.map((word) => word.id)).slice(0, 16);
@@ -235,17 +483,116 @@ function isLikelyVerbMeaning(meaningText) {
   return meanings.some((meaning) => /^to\b/i.test(meaning));
 }
 
+function isLikelyAdjectiveMeaning(meaningText) {
+  const lower = splitMeanings(meaningText).join(" ; ").toLowerCase();
+  return /(ous\b|ive\b|ful\b|less\b|able\b|al\b|ic\b|ary\b|y\b|strange|active|busy|famous|important|same|different|clean|dirty|kind|safe|dangerous|quiet|noisy|easy|hard|difficult)/.test(lower);
+}
+
+function isLikelyAdverbMeaning(meaningText) {
+  const lower = splitMeanings(meaningText).join(" ; ").toLowerCase();
+  return /(ly\b|soon|already|still|probably|maybe|perhaps|especially|slowly|quickly|carefully|often|sometimes|always|never)/.test(lower);
+}
+
+function isLikelyCounterMeaning(meaningText) {
+  const lower = splitMeanings(meaningText).join(" ; ").toLowerCase();
+  return /(counter|for counting|suffix for counting|number of)/.test(lower);
+}
+
+function isLikelyFunctionWord(meaningText) {
+  const lower = splitMeanings(meaningText).join(" ; ").toLowerCase();
+  return /(ah\b|oh\b|yes\b|no\b|well\b|uh\b|thanks\b|thank you\b|excuse me\b|interjection|such\b|that kind of\b)/.test(lower);
+}
+
+function isLikelyIdiomaticExpression(meaningText, writing, kana) {
+  const lower = splitMeanings(meaningText).join(" ; ").toLowerCase();
+  const normalizedWriting = normalizeText(writing);
+  const normalizedKana = normalizeReading(kana);
+  if (/(idiom|idiomatic|expression|phrase|set phrase|fixed expression)/.test(lower)) {
+    return true;
+  }
+  if (/[～~]/u.test(normalizedWriting) || /[～~]/u.test(normalizedKana)) {
+    return true;
+  }
+  return false;
+}
+
 function inferWordType(kana, writing, meaning) {
-  if (writing.endsWith("する") || kana.endsWith("する")) {
+  const normalizedKana = normalizeReading(kana);
+  const normalizedWriting = normalizeText(writing);
+
+  if (normalizedWriting === "盛ん" || normalizedKana === "さかん") {
+    return "形容詞[けいようし]";
+  }
+
+  if (isLikelyIdiomaticExpression(meaning, writing, kana)) {
+    return "慣用表現[かんようひょうげん]";
+  }
+
+  if (normalizedWriting.endsWith("する") || normalizedKana.endsWith("する")) {
     return "動詞[どうし]";
   }
   if (isLikelyVerbMeaning(meaning)) {
     return "動詞[どうし]";
   }
-  if (kana.endsWith("い") && writing !== kana) {
+
+  if (isLikelyCounterMeaning(meaning)) {
+    return "助数詞[じょすうし]";
+  }
+
+  if (normalizedKana.endsWith("い") || isLikelyAdjectiveMeaning(meaning)) {
     return "形容詞[けいようし]";
   }
-  return "その他[そのた]";
+
+  if (isLikelyAdverbMeaning(meaning)) {
+    return "副詞[ふくし]";
+  }
+
+  if (isLikelyFunctionWord(meaning)) {
+    return "その他[そのた]";
+  }
+
+  return "名詞[めいし]";
+}
+
+function inferAdjectiveTypeJP(word) {
+  if (word.tipo_jp !== "形容詞[けいようし]") {
+    return undefined;
+  }
+
+  const reading = normalizeReading(word.lettura);
+  const writing = normalizeText(word.scrittura);
+  const naAdjectiveExceptions = new Set([
+    "きれい",
+    "有名",
+    "便利",
+    "親切",
+    "静か",
+    "盛ん",
+    "嫌い",
+    "好き"
+  ]);
+
+  if (naAdjectiveExceptions.has(reading) || naAdjectiveExceptions.has(writing)) {
+    return "な形容詞[なけいようし]";
+  }
+
+  if (reading.endsWith("い")) {
+    return "い形容詞[いけいようし]";
+  }
+
+  return "な形容詞[なけいようし]";
+}
+
+function enrichAdjectiveMetadata(words) {
+  return words.map((word) => {
+    if (word.tipo_jp !== "形容詞[けいようし]") {
+      return word;
+    }
+    return {
+      ...word,
+      tipo_aggettivo_jp: word.tipo_aggettivo_jp ?? inferAdjectiveTypeJP(word)
+    };
+  });
 }
 
 function buildExistingWordLookup(words) {
@@ -324,7 +671,9 @@ function normalizeWords(importedRows, existingSeedWords) {
   }
 
   const merged = [...byId.values()].sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
-  return enrichWordRelations(merged);
+  const withRelations = enrichWordRelations(merged);
+  const withVerbMetadata = enrichVerbMetadata(withRelations);
+  return enrichAdjectiveMetadata(withVerbMetadata);
 }
 
 function normalizeKanji(importedRows, words, existingSeedKanji) {

@@ -21,6 +21,7 @@ const FURIGANA_SEGMENT_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
 const NON_ORDERING_GRAMMAR_MARKER_REGEX =
   /(意向形|辞書形|ます形|て形|ない形|た形|命令形|可能形|受身形|受け身形|使役|条件形|仮定形|連用形|終止形|未然形|活用|語幹|原形|丁寧形)/;
 const SENTENCE_CONTEXT_HINT_REGEX = /[はがをにでとへもやの]|。|、|！|？/;
+const GRAMMAR_STRUCTURE_SPLIT_REGEX = /[\s/／・、,()（）「」『』【】]+/;
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -65,6 +66,32 @@ export function createFlashcardRecognitionQuestion(
     wordId: word.id,
     prompt: pickFirstMeaning(word, locale),
     promptLanguage: locale,
+    choices: shuffle([correct, ...distractors]).slice(0, 4),
+    correctAnswer: correct,
+    warningMultipleDefinitions: pickLocalizedArray(word.significato, locale).length > 1
+  };
+}
+
+export function createFlashcardReadingRecognitionQuestion(
+  word: Word,
+  locale: "it" | "en",
+  distractorIndex: DistractorIndex,
+  context: QuizContext
+): FlashcardQuestion {
+  const correct = word.scrittura;
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 4)
+    .map((d) => d.id)
+    .map((id) => context.wordsById.get(id)?.scrittura)
+    .filter((v): v is string => Boolean(v))
+    .filter((value, index, values) => values.indexOf(value) === index)
+    .filter((value) => value !== correct)
+    .slice(0, 3);
+
+  return {
+    mode: "flashcard-reading-recognition",
+    wordId: word.id,
+    prompt: word.lettura,
+    promptLanguage: "ja",
     choices: shuffle([correct, ...distractors]).slice(0, 4),
     correctAnswer: correct,
     warningMultipleDefinitions: pickLocalizedArray(word.significato, locale).length > 1
@@ -135,6 +162,30 @@ function pickClozeTarget(tokens: string[]): string {
     return tokens[Math.floor(Math.random() * tokens.length)] ?? "";
   }
   return filtered[Math.floor(Math.random() * filtered.length)] ?? filtered[0];
+}
+
+function pickGrammarStructureTarget(source: ClozeSource, plainSentence: string): string | null {
+  const structurePlain = stripFuriganaNotation(source.grammar.struttura ?? "")
+    .replace(/[〜~]/g, "")
+    .trim();
+
+  if (!structurePlain) {
+    return null;
+  }
+
+  const candidates = structurePlain
+    .split(GRAMMAR_STRUCTURE_SPLIT_REGEX)
+    .map((part) => part.trim())
+    .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part))
+    .sort((a, b) => b.length - a.length);
+
+  for (const candidate of candidates) {
+    if (candidate.length < plainSentence.length && plainSentence.includes(candidate)) {
+      return candidate;
+    }
+  }
+
+  return null;
 }
 
 function blankClozeTarget(sourceText: string, target: string): string {
@@ -211,20 +262,30 @@ export async function createClozeQuestion(
   const tokenizer = await createDefaultTokenizer();
   const plainSentence = stripFuriganaNotation(source.example.testo);
   const tokens = tokenizer.tokenize(plainSentence);
-  const target = pickClozeTarget(tokens);
+  const randomTarget = pickClozeTarget(tokens);
+  const structureTarget = pickGrammarStructureTarget(source, plainSentence);
+  const target = structureTarget ?? (randomTarget.length < plainSentence.length ? randomTarget : "");
+
+  const fallbackTarget =
+    target ||
+    tokens.find((token) => /[ぁ-んァ-ヶ一-龯]/.test(token) && token.length > 0 && token.length < plainSentence.length) ||
+    (plainSentence.length > 1 ? plainSentence.slice(-1) : plainSentence);
 
   const distractorChoices = buildDistractors(jlptLevel, distractorIndex, "", 3)
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v));
 
-  const blanked = blankClozeTarget(source.example.testo, target);
+  let blanked = blankClozeTarget(source.example.testo, fallbackTarget);
+  if (stripFuriganaNotation(blanked).trim() === "___") {
+    blanked = source.example.testo;
+  }
 
   return {
     mode: "cloze",
     grammarId: source.grammar.id,
     sentenceWithBlank: renderFuriganaToHtml(blanked),
-    choices: shuffle([target, ...distractorChoices]).slice(0, 4),
-    correctChoice: target
+    choices: shuffle([fallbackTarget, ...distractorChoices]).slice(0, 4),
+    correctChoice: fallbackTarget
   };
 }
 
@@ -239,6 +300,7 @@ const JLPT_DIFFICULTY_MULTIPLIER: Record<JLPTLevel, number> = {
 const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "flashcard-production": 10,
   "flashcard-recognition": 8,
+  "flashcard-reading-recognition": 9,
   "multiple-choice": 12,
   "sentence-ordering": 15,
   cloze: 14,

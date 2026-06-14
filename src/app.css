@@ -360,6 +360,9 @@ button:disabled {
 
 .next-btn {
   --countdown-progress: 0%;
+  border-color: var(--line);
+  color: var(--ink);
+  font-weight: 700;
   background:
     linear-gradient(90deg, rgba(14, 165, 160, 0.24) var(--countdown-progress), rgba(255, 255, 255, 0) var(--countdown-progress)),
     #fff;
@@ -373,6 +376,32 @@ button:disabled {
 .choice-btn.bad {
   background: #fff1f1;
   border-color: #efc8c8;
+}
+
+.choice-btn.choice-correct {
+  background: #e7fff1;
+  border-color: #74c794;
+  color: #19583a;
+  opacity: 1;
+}
+
+.choice-btn.choice-selected-wrong {
+  background: #ffe9e9;
+  border-color: #e49e9e;
+  color: #7d2222;
+  opacity: 1;
+}
+
+.detail-next-btn {
+  border-color: #2b9d60;
+  background: #21a35a;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.detail-next-btn::after {
+  content: "  ➜";
+  font-weight: 900;
 }
 
 .token-btn:disabled {
@@ -424,6 +453,44 @@ button:disabled {
 
 .detail-open {
   box-shadow: 0 10px 20px rgba(32, 63, 118, 0.11);
+}
+
+.memory-card {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f7faff;
+  border: 1px solid #d9e6fb;
+  display: grid;
+  gap: 8px;
+}
+
+.memory-title {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.memory-title span {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.memory-metric {
+  display: grid;
+  gap: 5px;
+}
+
+.memory-metric-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.86rem;
+}
+
+.memory-bar {
+  margin-top: 0;
+  height: 8px;
 }
 
 .detail-card-head {
@@ -498,6 +565,30 @@ button:disabled {
   background: #f2f6ff;
   color: #2a467d;
   border: 1px solid #cedaf7;
+}
+
+.jp-badge-pos {
+  background: #eef3ff;
+  color: #26487f;
+  border-color: #cddafb;
+}
+
+.jp-badge-verb-class {
+  background: #fff6e7;
+  color: #8b5600;
+  border-color: #f1d39b;
+}
+
+.jp-badge-transitivity {
+  background: #e9fff4;
+  color: #146243;
+  border-color: #bfe9d3;
+}
+
+.jp-badge-adjective {
+  background: #f4ecff;
+  color: #5c3491;
+  border-color: #dbc7f4;
 }
 
 .chip-wrap {
