@@ -46,7 +46,7 @@
 	// Parti del discorso: 🏃 verbo (azione), 📦 sostantivo (oggetto statico),
 	// 🎨 aggettivo (descrive), 🔀 avverbio (modifica), 🪝 particella (lega).
 	// Classe verbale: 5️⃣ godan, 1️⃣ ichidan, *️⃣ irregolare.
-	// Transitività: 🖐️ 他動詞 (mano che agisce su qualcosa), 🔄 自動詞 (azione su di sé).
+	// Transitività: 👉 他動詞 (azione verso un oggetto), 🤖 自動詞 (azione su di sé).
 	// Aggettivi: 🔴 in -い (forma pura), 🧩 in -な (serve il "pezzo" な).
 	const ICONS_BY_LABEL: Record<string, string> = {
 		動詞: '🏃',
@@ -59,8 +59,8 @@
 		五段動詞: '5️⃣',
 		一段動詞: '1️⃣',
 		不規則動詞: '*️⃣',
-		他動詞: '🖐️',
-		自動詞: '🔄',
+		他動詞: '👉',
+		自動詞: '🤖',
 		い形容詞: '🔴',
 		な形容詞: '🧩'
 	};
