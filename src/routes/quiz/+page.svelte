@@ -48,8 +48,13 @@
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
 	let tokenOrder = $state<string[]>([]);
 	let nowTick = $state(Date.now());
+	let answerRemainingS = $state(0);
+	let autoNextProgress = $state(0);
+	let autoNextRemainingS = $state(0);
 	let sessionTimerId: ReturnType<typeof setInterval> | null = null;
 	let autoNextTimer: ReturnType<typeof setTimeout> | null = null;
+	let autoNextCountdownId: ReturnType<typeof setInterval> | null = null;
+	let answerTimerId: ReturnType<typeof setInterval> | null = null;
 
 	// Summary
 	let summarySession = $state<StudySessionState | null>(null);
@@ -177,6 +182,12 @@
 
 	async function advanceToNext(): Promise<void> {
 		if (!session) return;
+		stopAutoNext();
+		// Riprende il timer se era in pausa (risposta sbagliata), recuperando il tempo fermo.
+		if (session.pausedAt) {
+			session.deadlineAt += Date.now() - session.pausedAt;
+			session.pausedAt = null;
+		}
 		if (isSessionExpired()) {
 			endSession();
 			return;
@@ -199,6 +210,7 @@
 					revealedProduction = false;
 					answerFeedback = null;
 					tokenOrder = q2.mode === 'sentence-ordering' ? [...q2.tokens].sort(() => Math.random() - 0.5) : [];
+					startAnswerTimer();
 					return;
 				}
 			}
@@ -209,6 +221,7 @@
 		revealedProduction = false;
 		answerFeedback = null;
 		tokenOrder = question.mode === 'sentence-ordering' ? [...question.tokens].sort(() => Math.random() - 0.5) : [];
+		startAnswerTimer();
 	}
 
 	function isSessionExpired(): boolean {
@@ -240,7 +253,55 @@
 
 	function clearTimers(): void {
 		if (sessionTimerId) { clearInterval(sessionTimerId); sessionTimerId = null; }
+		stopAutoNext();
+		stopAnswerTimer();
+	}
+
+	function stopAutoNext(): void {
 		if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
+		if (autoNextCountdownId) { clearInterval(autoNextCountdownId); autoNextCountdownId = null; }
+		autoNextProgress = 0;
+		autoNextRemainingS = 0;
+	}
+
+	function stopAnswerTimer(): void {
+		if (answerTimerId) { clearInterval(answerTimerId); answerTimerId = null; }
+	}
+
+	// Timer per singola domanda (max_answer_time_ms): allo scadere conta timeout.
+	function startAnswerTimer(): void {
+		stopAnswerTimer();
+		const maxMs = appState.settings.max_answer_time_ms;
+		if (!maxMs || maxMs <= 0) { answerRemainingS = 0; return; }
+		const startedAt = Date.now();
+		answerRemainingS = maxMs / 1000;
+		answerTimerId = setInterval(() => {
+			if (!quiz || quiz.answered) { stopAnswerTimer(); return; }
+			const remaining = Math.max(0, maxMs - (Date.now() - startedAt));
+			answerRemainingS = remaining / 1000;
+			if (remaining <= 0) {
+				stopAnswerTimer();
+				handleAnswer(false, '', true);
+			}
+		}, 100);
+	}
+
+	// Countdown auto-avanzamento dopo risposta corretta, con progresso sul pulsante.
+	function startAutoNext(): void {
+		stopAutoNext();
+		const totalMs = Math.max(500, appState.settings.auto_next_delay_ms);
+		const startedAt = Date.now();
+		autoNextRemainingS = totalMs / 1000;
+		autoNextCountdownId = setInterval(() => {
+			const elapsed = Date.now() - startedAt;
+			autoNextProgress = Math.min(1, elapsed / totalMs);
+			autoNextRemainingS = Math.max(0, (totalMs - elapsed) / 1000);
+			if (elapsed >= totalMs && autoNextCountdownId) {
+				clearInterval(autoNextCountdownId);
+				autoNextCountdownId = null;
+			}
+		}, 90);
+		autoNextTimer = setTimeout(advanceToNext, totalMs);
 	}
 
 	function startTimer(): void {
@@ -255,14 +316,20 @@
 	}
 
 	// ── Answer handling ───────────────────────────────────────────────────────────
-	async function handleAnswer(correct: boolean, selectedText = ''): Promise<void> {
+	async function handleAnswer(correct: boolean, selectedText = '', isTimeout = false): Promise<void> {
 		if (!quiz || quiz.answered || !session) return;
 		quiz.answered = true;
 		answerFeedback = correct ? 'correct' : 'wrong';
+		stopAnswerTimer();
 
 		session.answers++;
 		if (correct) session.correct++;
-		else session.wrong++;
+		else {
+			session.wrong++;
+			if (isTimeout) session.timeout++;
+			// Sull'errore il timer di sessione si ferma: si riparte con "Avanti".
+			if (!session.pausedAt) session.pausedAt = Date.now();
+		}
 
 		const before = getSrs(quiz.itemRef.key) ?? createInitialSrs(quiz.itemRef.key);
 		await upsertSrs(quiz.itemRef.key, correct);
@@ -287,8 +354,7 @@
 			speakSentenceJapanese((quiz.question as SentenceOrderingQuestion).correctOrder.join(''));
 		}
 
-		const delay = appState.settings.auto_next_delay_ms;
-		autoNextTimer = setTimeout(advanceToNext, delay);
+		if (correct) startAutoNext();
 	}
 
 	function handleChoiceClick(choice: string): void {
@@ -399,10 +465,11 @@
 	// ── Derived UI ────────────────────────────────────────────────────────────────
 	const timeLeftLabel = $derived.by(() => {
 		if (!session) return '';
-		const ms = Math.max(0, session.deadlineAt - nowTick);
+		const ref = session.pausedAt ?? nowTick;
+		const ms = Math.max(0, session.deadlineAt - ref);
 		const mins = Math.floor(ms / 60_000);
 		const secs = Math.floor((ms % 60_000) / 1000);
-		return `${mins}:${secs.toString().padStart(2, '0')}`;
+		return `${session.pausedAt ? '⏸ ' : ''}${mins}:${secs.toString().padStart(2, '0')}`;
 	});
 
 	const accuracy = $derived(() => {
@@ -436,6 +503,11 @@
 			<span class="stat-chip">✅ {session?.correct ?? 0}</span>
 			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
 		</div>
+		{#if !quiz.answered && answerRemainingS > 0}
+			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5}>
+				⏱ {answerRemainingS.toFixed(1)}s
+			</div>
+		{/if}
 		<div class="timer">{timeLeftLabel}</div>
 		<button class="ghost-btn" onclick={endSession}>Termina</button>
 	</div>
@@ -567,11 +639,15 @@
 					<a
 						class="detail-link"
 						href="{base}/detail/{encodeURIComponent(quiz.itemRef.key)}"
-						onclick={() => { if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; } }}
+						onclick={stopAutoNext}
 					>🔍 Approfondisci</a>
 				{/if}
-				<button class="skip-btn" onclick={() => { clearTimeout(autoNextTimer ?? 0); advanceToNext(); }}>
-					Avanti →
+				<button
+					class="skip-btn"
+					style="--countdown-progress: {Math.round(autoNextProgress * 100)}%"
+					onclick={advanceToNext}
+				>
+					{autoNextRemainingS > 0 ? `Avanti (${autoNextRemainingS.toFixed(1)}s) →` : 'Avanti →'}
 				</button>
 			</div>
 		{/if}
@@ -800,18 +876,33 @@
 	.detail-link:hover { background: #eef2ff; }
 
 	.skip-btn {
+		--countdown-progress: 0%;
 		padding: 8px 16px;
 		border-radius: 8px;
 		border: 1px solid var(--brand);
-		background: transparent;
+		background: linear-gradient(
+			90deg,
+			rgba(14, 165, 160, 0.24) var(--countdown-progress),
+			transparent var(--countdown-progress)
+		);
 		color: var(--brand);
 		font-size: 0.85rem;
 		font-weight: 600;
 		cursor: pointer;
 		text-align: right;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.skip-btn:hover { background: var(--brand); color: #fff; }
+
+	.answer-timer {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--muted);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.answer-timer-low { color: var(--danger); }
 
 	/* Summary */
 	.summary-shell {
