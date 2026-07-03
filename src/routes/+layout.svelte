@@ -31,6 +31,10 @@
 		return path.startsWith(href);
 	}
 
+	const hideNav = $derived(
+		$page.url.pathname.startsWith(`${base}/quiz`) && appState.sessionState !== null
+	);
+
 	async function ensureSeedLoaded(): Promise<void> {
 		const seedUrl = `${base}/seed-n5n4.json?v=${encodeURIComponent(SEED_DATA_REVISION)}`;
 		const response = await fetch(seedUrl, { cache: 'no-store' });
@@ -78,19 +82,21 @@
 	{@render children()}
 </div>
 
-<nav class="bottom-nav">
-	{#each navLinks as link}
-		<a
-			href={link.href}
-			class="nav-item"
-			class:nav-active={isActive(link.href)}
-			aria-label={link.label}
-		>
-			<span class="nav-icon">{link.icon}</span>
-			<span class="nav-label">{link.label}</span>
-		</a>
-	{/each}
-</nav>
+{#if !hideNav}
+	<nav class="bottom-nav">
+		{#each navLinks as link}
+			<a
+				href={link.href}
+				class="nav-item"
+				class:nav-active={isActive(link.href)}
+				aria-label={link.label}
+			>
+				<span class="nav-icon">{link.icon}</span>
+				<span class="nav-label">{link.label}</span>
+			</a>
+		{/each}
+	</nav>
+{/if}
 
 <style>
 	.bottom-nav {

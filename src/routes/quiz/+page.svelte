@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
@@ -48,6 +47,7 @@
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
 	let tokenOrder = $state<string[]>([]);
+	let nowTick = $state(Date.now());
 	let sessionTimerId: ReturnType<typeof setInterval> | null = null;
 	let autoNextTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -243,6 +243,17 @@
 		if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
 	}
 
+	function startTimer(): void {
+		clearTimers();
+		nowTick = Date.now();
+		sessionTimerId = setInterval(() => {
+			nowTick = Date.now();
+			if (session && !session.pausedAt && nowTick >= session.deadlineAt) {
+				endSession();
+			}
+		}, 1000);
+	}
+
 	// ── Answer handling ───────────────────────────────────────────────────────────
 	async function handleAnswer(correct: boolean, selectedText = ''): Promise<void> {
 		if (!quiz || quiz.answered || !session) return;
@@ -325,8 +336,27 @@
 				grammarById: new Map(grammarRows.map((g) => [g.id, g]))
 			};
 
-			const durationMs = (appState.settings.session_duration_minutes || 5) * 60_000;
 			const now = Date.now();
+
+			// Riprende una sessione ancora in corso (es. ritorno da "Approfondisci"),
+			// recuperando il tempo di pausa se il timer era fermo nel dettaglio.
+			const existing = appState.sessionState;
+			if (existing) {
+				if (existing.pausedAt) {
+					existing.deadlineAt += now - existing.pausedAt;
+					existing.pausedAt = null;
+				}
+				if (now < existing.deadlineAt) {
+					session = existing;
+					phase = 'quiz';
+					startTimer();
+					await advanceToNext();
+					return;
+				}
+				appState.sessionState = null;
+			}
+
+			const durationMs = (appState.settings.session_duration_minutes || 5) * 60_000;
 			session = {
 				startedAt: now,
 				deadlineAt: now + durationMs,
@@ -339,12 +369,7 @@
 			};
 			appState.sessionState = session;
 			phase = 'quiz';
-
-			sessionTimerId = setInterval(() => {
-				if (session && !session.pausedAt && Date.now() >= session.deadlineAt) {
-					endSession();
-				}
-			}, 5000);
+			startTimer();
 
 			await advanceToNext();
 		} catch (e) {
@@ -364,14 +389,17 @@
 	onDestroy(() => {
 		clearTimers();
 		if (session) {
+			if (!appState.settings.session_timer_runs_in_detail && !session.pausedAt) {
+				session.pausedAt = Date.now();
+			}
 			appState.sessionState = session;
 		}
 	});
 
 	// ── Derived UI ────────────────────────────────────────────────────────────────
-	const timeLeftLabel = $derived(() => {
+	const timeLeftLabel = $derived.by(() => {
 		if (!session) return '';
-		const ms = Math.max(0, session.deadlineAt - Date.now());
+		const ms = Math.max(0, session.deadlineAt - nowTick);
 		const mins = Math.floor(ms / 60_000);
 		const secs = Math.floor((ms % 60_000) / 1000);
 		return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -408,7 +436,7 @@
 			<span class="stat-chip">✅ {session?.correct ?? 0}</span>
 			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
 		</div>
-		<div class="timer">{timeLeftLabel()}</div>
+		<div class="timer">{timeLeftLabel}</div>
 		<button class="ghost-btn" onclick={endSession}>Termina</button>
 	</div>
 
@@ -534,9 +562,18 @@
 			<div class="feedback-bar" class:feedback-correct={answerFeedback === 'correct'} class:feedback-wrong={answerFeedback === 'wrong'}>
 				{answerFeedback === 'correct' ? '✅ Corretto!' : '❌ Sbagliato'}
 			</div>
-			<button class="skip-btn" onclick={() => { clearTimeout(autoNextTimer ?? 0); advanceToNext(); }}>
-				Avanti →
-			</button>
+			<div class="after-actions">
+				{#if quiz.itemRef.kind !== 'objective'}
+					<a
+						class="detail-link"
+						href="{base}/detail/{encodeURIComponent(quiz.itemRef.key)}"
+						onclick={() => { if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; } }}
+					>🔍 Approfondisci</a>
+				{/if}
+				<button class="skip-btn" onclick={() => { clearTimeout(autoNextTimer ?? 0); advanceToNext(); }}>
+					Avanti →
+				</button>
+			</div>
 		{/if}
 	</article>
 </div>
@@ -743,8 +780,26 @@
 	.feedback-correct { background: #dcfce7; color: #166534; }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
 
+	.after-actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.detail-link {
+		padding: 8px 12px;
+		border-radius: 8px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--brand);
+		text-decoration: none;
+		border: 1px solid var(--line);
+	}
+
+	.detail-link:hover { background: #eef2ff; }
+
 	.skip-btn {
-		align-self: end;
 		padding: 8px 16px;
 		border-radius: 8px;
 		border: 1px solid var(--brand);

@@ -836,36 +836,6 @@ ruby rt {
   font-weight: 700;
 }
 
-.bottom-nav {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(860px, calc(100vw - 24px));
-  bottom: max(12px, env(safe-area-inset-bottom));
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 24px rgba(15, 43, 94, 0.16);
-  border-radius: 16px;
-  display: flex;
-  gap: 6px;
-  padding: 8px;
-  z-index: 20;
-}
-
-.nav-btn {
-  flex: 1;
-  min-height: 46px;
-  background: #edf2ff;
-  color: var(--brand-2);
-  border: 1px solid #d7e2fa;
-}
-
-.nav-btn-active {
-  background: var(--brand);
-  border-color: var(--brand);
-  color: #fff;
-}
-
 .settings-form {
   margin-top: 8px;
   display: grid;
@@ -1200,10 +1170,6 @@ ruby rt {
 
   .quiz-actions button {
     flex: 1;
-  }
-
-  .bottom-nav {
-    width: calc(100vw - 24px);
   }
 
   .session-score-ring {
