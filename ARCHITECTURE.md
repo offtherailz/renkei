@@ -254,6 +254,27 @@ Candidati da valutare (licenze da verificare voce per voce):
 
 ---
 
+## Da vedere insieme (segnalazioni del 2026-07-03, riprendere domani)
+
+1. **捨てる classificato come aggettivo** — nel seed è `tipo_jp: 形容詞` /
+   `tipo_aggettivo_jp: な形容詞`, ma è un verbo ichidan (significati: "throw away",
+   "dump"). Errore di `inferWordType`/`enrichAdjectiveMetadata` nella pipeline
+   (`scripts/sync-open-source-seed.mjs`). Da trattare insieme alla proposta
+   "JMdict come fonte" (sez. Proposte §1) e al file correzioni (sez. Proposte §2):
+   probabilmente ci sono altri casi analoghi da scovare con una verifica di massa.
+2. **Badge/label cliccabili → spiegazione della forma** — i badge (動詞, 五段動詞,
+   自動詞, い/な形容詞, …) devono linkare a una pagina/scheda che spiega la forma
+   grammaticale, non solo mostrare il tooltip.
+3. **Regole d'uso legate alla categoria** (な dopo l'aggettivo, の dopo nome/aggettivo,
+   ecc.) — decidere come organizzarle nelle spiegazioni: schede per categoria
+   grammaticale collegate ai badge, con esempi. Valutare se modellarle come voci
+   `grammar` dedicate o come nuove schede "forme".
+4. **Navigabilità totale** — obiettivo: da qualsiasi elemento (badge, parola, kanji,
+   grammatica, esempio) si deve poter navigare alla spiegazione o al dettaglio
+   collegato, senza vicoli ciechi.
+
+---
+
 ## Problemi noti / TODO tecnici
 
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.
