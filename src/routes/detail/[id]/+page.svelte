@@ -10,6 +10,7 @@
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
+	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import type { Word, Kanji, Grammar } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -147,7 +148,7 @@
 				<button class="tts-btn" onclick={() => speakWordReading(word!)} title="Ascolta">🔊</button>
 			</div>
 			<div class="badges-row">
-				<span class="jlpt-badge jlpt-{word.livello_jlpt}">{word.livello_jlpt}</span>
+				<JlptBadge level={word.livello_jlpt} />
 				<JpBadge label={word.tipo_jp} variant="jp-badge-pos" />
 				{#if word.tipo_jp === '動詞[どうし]' && word.classe_verbo_jp}
 					<JpBadge label={word.classe_verbo_jp} variant="jp-badge-verb-class" />
@@ -293,7 +294,7 @@
 		<article class="detail-card">
 			<p class="grammar-structure">{grammar.struttura}</p>
 			<div class="badges-row">
-				<span class="jlpt-badge jlpt-{grammar.livello_jlpt}">{grammar.livello_jlpt}</span>
+				<JlptBadge level={grammar.livello_jlpt} />
 				{#if grammar.categoria_jp}<JpBadge label={grammar.categoria_jp} variant="jp-badge-pos" />{/if}
 			</div>
 			<p class="grammar-explanation">{pickLocalizedText(grammar.spiegazione, locale)}</p>
@@ -414,29 +415,6 @@
 	}
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
-
-	.jlpt-badge {
-		font-size: 0.65rem;
-		font-weight: 700;
-		padding: 2px 8px;
-		border-radius: 8px;
-		background: #e0e7ff;
-		color: #3730a3;
-	}
-
-	.jlpt-N5 { background: #dcfce7; color: #166534; }
-	.jlpt-N4 { background: #dbeafe; color: #1e40af; }
-	.jlpt-N3 { background: #fef9c3; color: #854d0e; }
-	.jlpt-N2 { background: #ffe4e6; color: #9f1239; }
-	.jlpt-N1 { background: #f3e8ff; color: #6b21a8; }
-
-	.type-badge {
-		font-size: 0.65rem;
-		padding: 2px 8px;
-		border-radius: 8px;
-		background: #f1f5f9;
-		color: var(--muted);
-	}
 
 	.meanings { display: flex; flex-direction: column; gap: 4px; }
 	.meaning-item { font-size: 1rem; color: var(--ink); }

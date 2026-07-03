@@ -4,6 +4,7 @@
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
 	import { loadObjectiveSummaries, countDueCards, type ObjectiveSummary } from '$lib/db/queries';
+	import JlptBadge from '$lib/components/JlptBadge.svelte';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -74,7 +75,7 @@
 						<div>
 							<strong class="obj-name">{s.objective.name}</strong>
 							{#if s.objective.target_jlpt}
-								<span class="jlpt-badge jlpt-{s.objective.target_jlpt}">{s.objective.target_jlpt}</span>
+								<JlptBadge level={s.objective.target_jlpt} />
 							{/if}
 						</div>
 						<span class="obj-status" class:enabled={s.objective.study_enabled}>
@@ -232,24 +233,6 @@
 	}
 
 	.obj-name { font-size: 0.9rem; }
-
-	.jlpt-badge {
-		display: inline-block;
-		font-size: 0.65rem;
-		font-weight: 700;
-		padding: 1px 6px;
-		border-radius: 8px;
-		margin-left: 6px;
-		vertical-align: middle;
-		background: #e0e7ff;
-		color: #3730a3;
-	}
-
-	.jlpt-N5 { background: #dcfce7; color: #166534; }
-	.jlpt-N4 { background: #dbeafe; color: #1e40af; }
-	.jlpt-N3 { background: #fef9c3; color: #854d0e; }
-	.jlpt-N2 { background: #ffe4e6; color: #9f1239; }
-	.jlpt-N1 { background: #f3e8ff; color: #6b21a8; }
 
 	.obj-status {
 		font-size: 0.7rem;

@@ -42,13 +42,53 @@
 		読み: 'Reading hints for the term or kanji.'
 	};
 
+	// Icone per riconoscere la categoria a colpo d'occhio; per classe e
+	// transitività l'icona segue il valore: 5=godan, 1=ichidan, ＊=irregolare,
+	// ➡️ azione verso un oggetto (transitivo), 🔄 azione su di sé (intransitivo).
+	const ICONS_BY_LABEL: Record<string, string> = {
+		五段動詞: '5',
+		一段動詞: '1',
+		不規則動詞: '＊',
+		他動詞: '➡️',
+		自動詞: '🔄'
+	};
+
+	const ICONS_BY_VARIANT: Record<string, string> = {
+		'jp-badge-pos': '☰'
+	};
+
 	const locale = detectUserLocale();
 	const plain = $derived(label.replace(/\[[^\]]+\]/g, ''));
 	const tooltip = $derived(
 		(locale === 'it' ? TOOLTIPS_IT : TOOLTIPS_EN)[plain] ??
 			(locale === 'it' ? 'Etichetta grammaticale.' : 'Grammar label.')
 	);
+	const icon = $derived(ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? '');
 </script>
 
-<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-<span class="jp-badge {variant}" title={tooltip}>{@html renderFuriganaToHtml(label)}</span>
+<span class="jp-badge {variant}" title={tooltip}>
+	{#if icon}
+		<span class="badge-icon" class:badge-icon-num={variant === 'jp-badge-verb-class'}>{icon}</span>
+	{/if}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html renderFuriganaToHtml(label)}
+</span>
+
+<style>
+	.badge-icon {
+		margin-right: 3px;
+		font-style: normal;
+	}
+
+	.badge-icon-num {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.25em;
+		height: 1.25em;
+		border: 1px solid currentColor;
+		border-radius: 50%;
+		font-size: 0.82em;
+		font-weight: 800;
+	}
+</style>

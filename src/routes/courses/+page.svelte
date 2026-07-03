@@ -4,6 +4,7 @@
 	import { db } from '$lib/db/schema';
 	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse } from '$lib/db/course-import';
 	import type { CourseDatasetMeta, CourseLessonMeta } from '$lib/types/models';
+	import JlptBadge from '$lib/components/JlptBadge.svelte';
 
 	let courses = $state<CourseDatasetMeta[]>([]);
 	let selectedCourse = $state<CourseDatasetMeta | null>(null);
@@ -134,7 +135,7 @@
 					<div class="course-top">
 						<strong class="course-name">{c.nome}</strong>
 						{#if c.livello_jlpt}
-							<span class="jlpt-badge jlpt-{c.livello_jlpt}">{c.livello_jlpt}</span>
+							<JlptBadge level={c.livello_jlpt} />
 						{/if}
 					</div>
 					{#if c.autore}<p class="course-meta">Autore: {c.autore}</p>{/if}
@@ -268,16 +269,6 @@
 	.course-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 	.course-name { font-size: 0.9rem; }
 	.course-meta { font-size: 0.73rem; color: var(--muted); margin: 0; }
-
-	.jlpt-badge {
-		font-size: 0.65rem; font-weight: 700; padding: 1px 7px; border-radius: 8px;
-		background: #e0e7ff; color: #3730a3;
-	}
-	.jlpt-N5 { background: #dcfce7; color: #166534; }
-	.jlpt-N4 { background: #dbeafe; color: #1e40af; }
-	.jlpt-N3 { background: #fef9c3; color: #854d0e; }
-	.jlpt-N2 { background: #ffe4e6; color: #9f1239; }
-	.jlpt-N1 { background: #f3e8ff; color: #6b21a8; }
 
 	.lesson-header {
 		display: flex;
