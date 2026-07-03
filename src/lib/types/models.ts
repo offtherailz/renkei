@@ -1,0 +1,335 @@
+export type LocaleCode = "it" | "en";
+
+export interface LocalizedText {
+  it: string;
+  en: string;
+}
+
+export interface LocalizedStringArray {
+  it: string[];
+  en: string[];
+}
+
+export type JLPTLevel = "N5" | "N4" | "N3" | "N2" | "N1";
+
+export type WordTypeJP =
+  | "名詞[めいし]"
+  | "動詞[どうし]"
+  | "形容詞[けいようし]"
+  | "副詞[ふくし]"
+  | "助数詞[じょすうし]"
+  | "慣用表現[かんようひょうげん]"
+  | "その他[そのた]";
+
+export type VerbClassJP = "五段動詞[ごだんどうし]" | "一段動詞[いちだんどうし]" | "不規則動詞[ふきそくどうし]";
+
+export type VerbTransitivityJP = "自動詞[じどうし]" | "他動詞[たどうし]";
+
+export type AdjectiveTypeJP = "い形容詞[いけいようし]" | "な形容詞[なけいようし]";
+
+export interface BaseEntity {
+  updated_at: number;
+}
+
+export interface Word extends BaseEntity {
+  id: string;
+  scrittura: string;
+  lettura: string;
+  significato: LocalizedStringArray;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
+  livello_jlpt: JLPTLevel;
+  tipo_jp: WordTypeJP;
+  pitch_accent?: string;
+  link_jisho?: string;
+  kanji_usati: string[];
+  id_contatore_suggerito?: string;
+  classe_verbo_jp?: VerbClassJP;
+  transitivita_jp?: VerbTransitivityJP;
+  id_verbo_corrispondente?: string;
+  tipo_aggettivo_jp?: AdjectiveTypeJP;
+  sinonimi: string[];
+  contrari: string[];
+  omofoni: string[];
+}
+
+export interface Kanji extends BaseEntity {
+  id: string;
+  significato: LocalizedText;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
+  letture_on: string[];
+  letture_kun: string[];
+  link_jisho?: string;
+  link_koohii: string;
+  parole_correlate: string[];
+}
+
+export interface GrammarExample {
+  testo: string;
+  traduzione: LocalizedText;
+  parole_linkate: string[];
+}
+
+export interface Grammar extends BaseEntity {
+  id: string;
+  struttura: string;
+  spiegazione: LocalizedText;
+  chapter_tags?: string[];
+  study_tags?: string[];
+  source_name?: string;
+  source_license?: string;
+  source_url?: string;
+  livello_jlpt: JLPTLevel;
+  categoria_jp?: string;
+  frasi_esempio: GrammarExample[];
+  frasi_esempio_parole_linkate: string[];
+}
+
+export interface Counter extends BaseEntity {
+  id: string;
+  simbolo: string;
+  lettura: string;
+  significato: LocalizedText;
+  livello_jlpt: JLPTLevel;
+  note?: LocalizedText;
+}
+
+export interface SrsProgress extends BaseEntity {
+  id_item: string;
+  srs_stage: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  next_review_date: number;
+  ease_factor: number;
+  streak: number;
+  mastery_points: number;
+}
+
+export interface UserPersonalization extends BaseEntity {
+  id_item: string;
+  note_personali?: string;
+  id_gruppi_personalizzati: string[];
+}
+
+export interface UserProfile extends BaseEntity {
+  id: "default";
+  xp_totali: number;
+  livello: number;
+  streak_giorni: number;
+  badge_sbloccati: string[];
+}
+
+export interface StudyGoal extends BaseEntity {
+  id: "default";
+  target_jlpt: JLPTLevel;
+  daily_new_words: number;
+  daily_reviews: number;
+  daily_grammar: number;
+  modes_priority: Array<"flashcard-production" | "multiple-choice" | "sentence-ordering" | "cloze">;
+}
+
+export interface StudyTask extends BaseEntity {
+  id: string;
+  target_jlpt: JLPTLevel;
+  title: string;
+  description: string;
+  category: "vocabulary" | "grammar" | "review" | "challenge";
+  done: boolean;
+  xp_reward: number;
+}
+
+export interface StudyObjective extends BaseEntity {
+  id: string;
+  name: string;
+  objective_type: "jlpt" | "custom";
+  target_jlpt?: JLPTLevel;
+  parent_objective_id?: string;
+  catalog_item_keys: string[];
+  study_enabled: boolean;
+  created_at: number;
+}
+
+export interface AppSettings extends BaseEntity {
+  id: "default";
+  auto_next_delay_ms: number;
+  max_answer_time_ms: number;
+  session_duration_minutes: number;
+  session_timer_runs_in_detail: boolean;
+}
+
+export interface DatabaseSeed {
+  words: Word[];
+  kanji: Kanji[];
+  grammar: Grammar[];
+  counters: Counter[];
+  srs_progress?: SrsProgress[];
+  user_personalization?: UserPersonalization[];
+  user_profile?: UserProfile[];
+}
+
+// ── Course dataset types ──────────────────────────────────────────────────────
+
+export interface CourseDatasetMeta extends BaseEntity {
+  /** Unique slug, used as prefix for all generated IDs */
+  id: string;
+  nome: string;
+  descrizione?: string;
+  autore?: string;
+  livello_jlpt?: JLPTLevel;
+  /** ISO timestamp of the last import */
+  importato_il: number;
+}
+
+export interface CourseLessonMeta extends BaseEntity {
+  /** "{corso_id}::{lesson_id}", e.g. "minna-1::L01" */
+  id: string;
+  corso_id: string;
+  lesson_id: string;
+  numero: number;
+  titolo: string;
+  descrizione?: string;
+  /** Markdown text shown as lesson reading material */
+  note?: string;
+  /** word IDs (seed + new) belonging to this lesson */
+  parole: string[];
+  kanji: string[];
+  grammatica: string[];
+  /** study_objective id created for this lesson */
+  objective_id: string;
+}
+
+// ── Input format types (what the JSON file contains) ─────────────────────────
+
+export interface CourseWordInput {
+  id: string;
+  scrittura: string;
+  lettura: string;
+  significato_it: string[];
+  significato_en?: string[];
+  livello_jlpt: JLPTLevel;
+  tipo_jp: WordTypeJP;
+  kanji_usati?: string[];
+  classe_verbo_jp?: VerbClassJP;
+  transitivita_jp?: VerbTransitivityJP;
+  tipo_aggettivo_jp?: AdjectiveTypeJP;
+  sinonimi?: string[];
+  contrari?: string[];
+  omofoni?: string[];
+  note?: string;
+}
+
+export interface CourseWordPatch {
+  id: string;
+  significato_it?: string[];
+  significato_en?: string[];
+  sinonimi?: string[];
+  contrari?: string[];
+  omofoni?: string[];
+  classe_verbo_jp?: VerbClassJP;
+  transitivita_jp?: VerbTransitivityJP;
+  tipo_aggettivo_jp?: AdjectiveTypeJP;
+  note_aggiuntive?: string;
+}
+
+export interface CourseKanjiInput {
+  id: string;
+  significato_it: string;
+  significato_en?: string;
+  letture_on: string[];
+  letture_kun: string[];
+  parole_correlate?: string[];
+}
+
+export interface CourseGrammarExampleInput {
+  testo: string;
+  traduzione_it: string;
+  traduzione_en?: string;
+  parole_linkate?: string[];
+}
+
+export interface CourseGrammarInput {
+  id: string;
+  struttura: string;
+  spiegazione_it: string;
+  spiegazione_en?: string;
+  livello_jlpt: JLPTLevel;
+  categoria_jp?: string;
+  frasi_esempio?: CourseGrammarExampleInput[];
+}
+
+export interface CourseLessonInput {
+  id: string;
+  numero: number;
+  titolo: string;
+  descrizione?: string;
+  note?: string;
+  parole?: string[];
+  kanji?: string[];
+  grammatica?: string[];
+}
+
+export interface CourseDatasetInput {
+  versione: "1.0";
+  corso: {
+    id: string;
+    nome: string;
+    descrizione?: string;
+    autore?: string;
+    livello_jlpt?: JLPTLevel;
+    lingua_origine?: LocaleCode;
+  };
+  lezioni: CourseLessonInput[];
+  parole_nuove?: CourseWordInput[];
+  parole_patch?: CourseWordPatch[];
+  kanji_nuovi?: CourseKanjiInput[];
+  grammatica_nuova?: CourseGrammarInput[];
+  dialoghi_nuovi?: CourseDialogueInput[];
+}
+
+// ── Dialogue types ────────────────────────────────────────────────────────────
+
+export interface DialogueLine extends BaseEntity {
+  personaggio: string;
+  testo: string;
+  traduzione: LocalizedText;
+  parole_linkate: string[];
+}
+
+export interface Dialogue extends BaseEntity {
+  id: string;
+  titolo: LocalizedText;
+  corso_id?: string;
+  livello_jlpt?: JLPTLevel;
+  contesto?: LocalizedText;
+  righe: DialogueLine[];
+  parole_linkate: string[];
+  grammatica_linkata: string[];
+}
+
+export interface CourseDialogueLineInput {
+  personaggio: string;
+  testo: string;
+  traduzione_it: string;
+  traduzione_en?: string;
+  parole_linkate?: string[];
+}
+
+export interface CourseDialogueInput {
+  id: string;
+  titolo_it: string;
+  titolo_en?: string;
+  livello_jlpt?: JLPTLevel;
+  contesto_it?: string;
+  contesto_en?: string;
+  righe: CourseDialogueLineInput[];
+  grammatica_linkata?: string[];
+}
+
+export interface CourseLessonInputV2 extends CourseLessonInput {
+  dialoghi?: string[];
+}

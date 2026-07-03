@@ -1,0 +1,76 @@
+import { describe, expect, it } from "vitest";
+import { applySrsReview, createInitialSrs, normalizeMastery } from "./srs";
+
+const NOW = 1_700_000_000_000;
+
+describe("createInitialSrs", () => {
+  it("parte da stage 0 con ripasso immediato", () => {
+    const srs = createInitialSrs("word:abc", NOW);
+    expect(srs.srs_stage).toBe(0);
+    expect(srs.next_review_date).toBe(NOW);
+    expect(srs.mastery_points).toBe(0);
+    expect(srs.streak).toBe(0);
+  });
+});
+
+describe("applySrsReview", () => {
+  it("risposta corretta: stage +1, streak +1, ease aumenta", () => {
+    const srs = createInitialSrs("word:abc", NOW);
+    const next = applySrsReview(srs, true, NOW);
+    expect(next.srs_stage).toBe(1);
+    expect(next.streak).toBe(1);
+    expect(next.ease_factor).toBeGreaterThan(srs.ease_factor);
+    expect(next.next_review_date).toBeGreaterThan(NOW);
+  });
+
+  it("risposta sbagliata: stage -1, streak azzerato, ripasso tra 8 minuti", () => {
+    const srs = { ...createInitialSrs("word:abc", NOW), srs_stage: 3 as const, streak: 5 };
+    const next = applySrsReview(srs, false, NOW);
+    expect(next.srs_stage).toBe(2);
+    expect(next.streak).toBe(0);
+    expect(next.next_review_date).toBe(NOW + 8 * 60_000);
+  });
+
+  it("lo stage resta nei limiti 0-7", () => {
+    const atZero = applySrsReview(createInitialSrs("w", NOW), false, NOW);
+    expect(atZero.srs_stage).toBe(0);
+
+    const atSeven = { ...createInitialSrs("w", NOW), srs_stage: 7 as const };
+    expect(applySrsReview(atSeven, true, NOW).srs_stage).toBe(7);
+  });
+
+  it("l'intervallo di ripasso cresce con lo stage", () => {
+    let srs = createInitialSrs("w", NOW);
+    let previousInterval = 0;
+    for (let i = 0; i < 7; i += 1) {
+      srs = applySrsReview(srs, true, NOW);
+      const interval = srs.next_review_date - NOW;
+      expect(interval).toBeGreaterThan(previousInterval);
+      previousInterval = interval;
+    }
+  });
+
+  it("i mastery points restano nei limiti -100/+100", () => {
+    let srs = { ...createInitialSrs("w", NOW), mastery_points: 95 };
+    srs = applySrsReview(srs, true, NOW);
+    expect(srs.mastery_points).toBe(100);
+
+    srs = { ...createInitialSrs("w", NOW), mastery_points: -95 };
+    srs = applySrsReview(srs, false, NOW);
+    expect(srs.mastery_points).toBe(-100);
+  });
+});
+
+describe("normalizeMastery", () => {
+  it("restituisce 0-100", () => {
+    expect(normalizeMastery(0, -100)).toBe(0);
+    expect(normalizeMastery(7, 100)).toBe(100);
+  });
+
+  it("pesa lo stage al 70% e i punti al 30%", () => {
+    // stage 7, punti neutri (0) → 70 + 15 = 85
+    expect(normalizeMastery(7, 0)).toBe(85);
+    // stage 0, punti massimi → 0 + 30 = 30
+    expect(normalizeMastery(0, 100)).toBe(30);
+  });
+});

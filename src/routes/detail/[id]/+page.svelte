@@ -1,0 +1,468 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
+	import { db } from '$lib/db/schema';
+	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
+	import { renderFuriganaToHtml } from '$lib/core/furigana';
+	import { normalizeMastery } from '$lib/core/srs';
+	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
+	import FuriganaText from '$lib/components/FuriganaText.svelte';
+	import type { Word, Kanji, Grammar } from '$lib/types/models';
+
+	const locale = detectUserLocale();
+
+	// itemId format: "word:xxx", "kanji:xxx", "grammar:xxx"
+	const itemId = $derived($page.params.id ?? '');
+
+	let word = $state<Word | null>(null);
+	let kanji = $state<Kanji | null>(null);
+	let grammar = $state<Grammar | null>(null);
+	let loading = $state(true);
+
+	// Related items
+	let relatedWords = $state<Word[]>([]);
+	let kanjiUsed = $state<Kanji[]>([]);
+	let grammarUsing = $state<Grammar[]>([]);
+	let wordsUsingKanji = $state<Word[]>([]);
+
+	// SRS info
+	let masteryPct = $state(0);
+	let srsStage = $state(0);
+	let nextReviewLabel = $state('');
+
+	async function loadItem(): Promise<void> {
+		loading = true;
+		word = null; kanji = null; grammar = null;
+		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
+
+		const currentKind = itemId.split(':')[0];
+		const currentRawId = itemId.split(':').slice(1).join(':');
+
+		if (currentKind === 'word') {
+			word = (await db.words.get(currentRawId)) ?? null;
+			if (word) {
+				const [srs, related, kanjiItems, grammarItems] = await Promise.all([
+					db.srs_progress.get(`word:${currentRawId}`),
+					Promise.all([...word.sinonimi, ...word.contrari].slice(0, 6).map((id) => db.words.get(id))),
+					Promise.all(word.kanji_usati.map((k) => db.kanji.get(k))),
+					db.grammar.where('*frasi_esempio_parole_linkate').equals(currentRawId).toArray()
+				]);
+				relatedWords = related.filter((w): w is Word => !!w);
+				kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
+				grammarUsing = grammarItems;
+				if (srs) {
+					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+					srsStage = srs.srs_stage;
+					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+				}
+			}
+		} else if (currentKind === 'kanji') {
+			kanji = (await db.kanji.get(currentRawId)) ?? null;
+			if (kanji) {
+				const [srs, wordItems] = await Promise.all([
+					db.srs_progress.get(`kanji:${currentRawId}`),
+					db.words.where('*kanji_usati').equals(currentRawId).toArray()
+				]);
+				wordsUsingKanji = wordItems;
+				if (srs) {
+					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+					srsStage = srs.srs_stage;
+					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+				}
+			}
+		} else if (currentKind === 'grammar') {
+			grammar = (await db.grammar.get(currentRawId)) ?? null;
+			if (grammar) {
+				const srs = await db.srs_progress.get(`grammar:${currentRawId}`);
+				if (srs) {
+					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+					srsStage = srs.srs_stage;
+					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+				}
+			}
+		}
+
+		loading = false;
+	}
+
+	$effect(() => { void itemId; loadItem(); });
+
+	function progressColor(p: number): string {
+		if (p >= 75) return 'var(--progress-good)';
+		if (p >= 40) return 'var(--progress-mid)';
+		return 'var(--progress-low)';
+	}
+
+	function jishoUrl(q: string): string {
+		return `https://jisho.org/search/${encodeURIComponent(q)}`;
+	}
+</script>
+
+<div class="detail-page">
+	<div class="detail-nav">
+		<button class="back-btn" onclick={() => history.back()}>← Indietro</button>
+	</div>
+
+	{#if loading}
+		<p class="muted-text">Caricamento…</p>
+
+	<!-- WORD -->
+	{:else if word}
+		<article class="detail-card">
+			<div class="detail-hero">
+				<span class="item-writing ja-big">{word.scrittura}</span>
+				{#if word.scrittura !== word.lettura}
+					<span class="item-reading">{word.lettura}</span>
+				{/if}
+				<button class="tts-btn" onclick={() => speakWordReading(word!)} title="Ascolta">🔊</button>
+			</div>
+			<div class="badges-row">
+				<span class="jlpt-badge jlpt-{word.livello_jlpt}">{word.livello_jlpt}</span>
+				<span class="type-badge">{word.tipo_jp}</span>
+				{#if word.classe_verbo_jp}<span class="type-badge">{word.classe_verbo_jp}</span>{/if}
+				{#if word.transitivita_jp}<span class="type-badge">{word.transitivita_jp}</span>{/if}
+			</div>
+			<div class="meanings">
+				{#each pickLocalizedArray(word.significato, locale) as meaning, i}
+					<span class="meaning-item">{i + 1}. {meaning}</span>
+				{/each}
+			</div>
+		</article>
+
+		{#if masteryPct > 0 || srsStage > 0}
+		<article class="detail-card">
+			<p class="card-title">Memorizzazione</p>
+			<div class="bar-wrap">
+				<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
+			</div>
+			<p class="detail-meta">SRS {srsStage}/7 • Consolidamento {masteryPct}%{nextReviewLabel ? ` • Prossimo ripasso ${nextReviewLabel}` : ''}</p>
+		</article>
+		{/if}
+
+		{#if kanjiUsed.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Kanji usati</p>
+			<div class="chip-row">
+				{#each kanjiUsed as k}
+					<a href="{base}/detail/kanji:{k.id}" class="kanji-chip">
+						<span class="kanji-char">{k.id}</span>
+						<span class="kanji-meaning">{locale === 'it' ? k.significato.it : k.significato.en}</span>
+					</a>
+				{/each}
+			</div>
+		</article>
+		{/if}
+
+		{#if relatedWords.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Parole correlate</p>
+			<div class="chip-row">
+				{#each relatedWords as w}
+					<a href="{base}/detail/word:{w.id}" class="word-chip">
+						<span class="chip-writing">{w.scrittura}</span>
+						<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
+					</a>
+				{/each}
+			</div>
+		</article>
+		{/if}
+
+		{#if grammarUsing.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Grammatica correlata</p>
+			{#each grammarUsing as g}
+				<a href="{base}/detail/grammar:{g.id}" class="grammar-row">
+					<strong>{g.struttura}</strong>
+					<span class="detail-meta">{pickLocalizedText(g.spiegazione, locale)}</span>
+				</a>
+			{/each}
+		</article>
+		{/if}
+
+		<a href={jishoUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Cerca su Jisho →</a>
+
+	<!-- KANJI -->
+	{:else if kanji}
+		<article class="detail-card">
+			<div class="detail-hero">
+				<span class="kanji-hero">{kanji.id}</span>
+			</div>
+			<div class="meanings">
+				<span class="meaning-item">{locale === 'it' ? kanji.significato.it : kanji.significato.en}</span>
+			</div>
+			<div class="readings-grid">
+				<div>
+					<p class="reading-label">On'yomi</p>
+					<p class="reading-values">{kanji.letture_on.join('、')}</p>
+				</div>
+				<div>
+					<p class="reading-label">Kun'yomi</p>
+					<p class="reading-values">{kanji.letture_kun.join('、')}</p>
+				</div>
+			</div>
+		</article>
+
+		{#if masteryPct > 0}
+		<article class="detail-card">
+			<p class="card-title">Memorizzazione</p>
+			<div class="bar-wrap">
+				<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
+			</div>
+			<p class="detail-meta">SRS {srsStage}/7 • {masteryPct}%{nextReviewLabel ? ` • Prossimo ${nextReviewLabel}` : ''}</p>
+		</article>
+		{/if}
+
+		{#if wordsUsingKanji.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Parole con questo kanji ({wordsUsingKanji.length})</p>
+			<div class="chip-row">
+				{#each wordsUsingKanji.slice(0, 20) as w}
+					<a href="{base}/detail/word:{w.id}" class="word-chip">
+						<span class="chip-writing">{w.scrittura}</span>
+						<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
+					</a>
+				{/each}
+			</div>
+		</article>
+		{/if}
+
+		<a href={jishoUrl('#kanji ' + kanji.id)} target="_blank" rel="noopener" class="external-link">Cerca su Jisho →</a>
+
+	<!-- GRAMMAR -->
+	{:else if grammar}
+		<article class="detail-card">
+			<p class="grammar-structure">{grammar.struttura}</p>
+			{#if grammar.categoria_jp}<p class="detail-meta">{grammar.categoria_jp}</p>{/if}
+			<div class="badges-row">
+				<span class="jlpt-badge jlpt-{grammar.livello_jlpt}">{grammar.livello_jlpt}</span>
+			</div>
+			<p class="grammar-explanation">{pickLocalizedText(grammar.spiegazione, locale)}</p>
+		</article>
+
+		{#if masteryPct > 0}
+		<article class="detail-card">
+			<p class="card-title">Memorizzazione</p>
+			<div class="bar-wrap">
+				<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
+			</div>
+			<p class="detail-meta">SRS {srsStage}/7 • {masteryPct}%</p>
+		</article>
+		{/if}
+
+		{#if grammar.frasi_esempio.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Frasi esempio</p>
+			{#each grammar.frasi_esempio as ex}
+				<div class="example-row">
+					<FuriganaText text={ex.testo} class="example-ja" />
+					<button class="tts-mini" onclick={() => speakSentenceJapanese(ex.testo)} title="Ascolta">🔊</button>
+					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
+					{#if ex.parole_linkate.length > 0}
+						<div class="linked-words">
+							{#each ex.parole_linkate as wid}
+								<a href="{base}/detail/word:{wid}" class="mini-chip">{wid}</a>
+							{/each}
+						</div>
+					{/if}
+				</div>
+			{/each}
+		</article>
+		{/if}
+
+	{:else}
+		<p class="muted-text">Elemento non trovato: {itemId}</p>
+	{/if}
+</div>
+
+<style>
+	.detail-page { display: grid; gap: 12px; }
+
+	.detail-nav { margin-bottom: 4px; }
+
+	.back-btn {
+		background: none;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		padding: 6px 12px;
+		font-size: 0.82rem;
+		cursor: pointer;
+		color: var(--muted);
+	}
+
+	.back-btn:hover { background: var(--line); }
+
+	.detail-card {
+		background: var(--surface);
+		border-radius: 16px;
+		padding: 18px;
+		box-shadow: 0 2px 10px rgba(14,29,51,0.07);
+		display: grid;
+		gap: 10px;
+	}
+
+	.detail-hero {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.ja-big { font-size: 2.8rem; font-weight: 700; line-height: 1; }
+	.kanji-hero { font-size: 5rem; font-weight: 700; text-align: center; }
+
+	.item-reading { font-size: 1.1rem; color: var(--muted); }
+
+	.tts-btn {
+		background: none;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		padding: 4px 8px;
+		cursor: pointer;
+		font-size: 1rem;
+		margin-left: auto;
+	}
+
+	.tts-mini {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: 0.85rem;
+		padding: 0;
+	}
+
+	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+	.jlpt-badge {
+		font-size: 0.65rem;
+		font-weight: 700;
+		padding: 2px 8px;
+		border-radius: 8px;
+		background: #e0e7ff;
+		color: #3730a3;
+	}
+
+	.jlpt-N5 { background: #dcfce7; color: #166534; }
+	.jlpt-N4 { background: #dbeafe; color: #1e40af; }
+	.jlpt-N3 { background: #fef9c3; color: #854d0e; }
+	.jlpt-N2 { background: #ffe4e6; color: #9f1239; }
+	.jlpt-N1 { background: #f3e8ff; color: #6b21a8; }
+
+	.type-badge {
+		font-size: 0.65rem;
+		padding: 2px 8px;
+		border-radius: 8px;
+		background: #f1f5f9;
+		color: var(--muted);
+	}
+
+	.meanings { display: flex; flex-direction: column; gap: 4px; }
+	.meaning-item { font-size: 1rem; color: var(--ink); }
+
+	.card-title {
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin: 0;
+	}
+
+	.detail-meta { font-size: 0.75rem; color: var(--muted); margin: 0; }
+
+	.bar-wrap { height: 6px; background: var(--line); border-radius: 4px; overflow: hidden; }
+	.bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+
+	.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+	.kanji-chip, .word-chip {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 8px 12px;
+		border-radius: 10px;
+		background: var(--surface-2);
+		border: 1px solid var(--line);
+		text-decoration: none;
+		color: var(--ink);
+		gap: 2px;
+		min-width: 64px;
+		text-align: center;
+	}
+
+	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
+
+	.kanji-char { font-size: 1.6rem; line-height: 1; }
+	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }
+	.chip-writing { font-size: 1rem; font-weight: 600; }
+	.chip-meaning { font-size: 0.68rem; color: var(--muted); }
+
+	.grammar-row {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding: 8px 10px;
+		border-radius: 8px;
+		background: var(--surface-2);
+		border: 1px solid var(--line);
+		text-decoration: none;
+		color: var(--ink);
+	}
+
+	.grammar-row:hover { background: #eef2ff; }
+
+	.grammar-structure { font-size: 1.3rem; font-weight: 700; margin: 0; }
+	.grammar-explanation { font-size: 0.9rem; line-height: 1.5; margin: 0; color: var(--muted); }
+
+	.readings-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+
+	.reading-label { font-size: 0.7rem; font-weight: 600; color: var(--muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+	.reading-values { font-size: 1rem; margin: 0; }
+
+	.example-row {
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: var(--surface-2);
+		border: 1px solid var(--line);
+		display: grid;
+		gap: 4px;
+	}
+
+	:global(.example-ja) { font-size: 1.05rem; line-height: 1.8; }
+	.example-trans { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+	.linked-words { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+
+	.mini-chip {
+		font-size: 0.7rem;
+		padding: 2px 8px;
+		border-radius: 6px;
+		background: #eef2ff;
+		color: var(--brand);
+		text-decoration: none;
+	}
+
+	.mini-chip:hover { background: var(--brand); color: #fff; }
+
+	.external-link {
+		font-size: 0.82rem;
+		color: var(--brand);
+		text-decoration: none;
+		padding: 8px 12px;
+		border-radius: 8px;
+		border: 1px solid var(--line);
+		display: inline-block;
+		background: var(--surface);
+	}
+
+	.external-link:hover { background: #eef2ff; }
+
+	.muted-text { color: var(--muted); font-size: 0.85rem; }
+</style>

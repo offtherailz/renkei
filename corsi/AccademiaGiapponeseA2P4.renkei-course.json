@@ -1,0 +1,148 @@
+{
+  "versione": "1.0",
+  "corso": {
+    "id": "genki-l18-p4",
+    "nome": "Corso di Lingua Giapponese A2 - Genki L18 Completo",
+    "descrizione": "Corso integrale sull'Unità 18 del Genki. Copre verbi transitivi/intransitivi, stati risultanti, ~te shimau, ~nagara, tutti i condizionali e rimpianti.",
+    "autore": "Accademia Giapponese",
+    "livello_jlpt": "N4",
+    "lingua_origine": "it"
+  },
+  "lezioni": [
+    {
+      "id": "L01",
+      "numero": 1,
+      "titolo": "Ripasso e Nuovi Verbi",
+      "descrizione": "Revisione di verbi comuni e introduzione al vocabolario dell'Unità 18.",
+      "note": "### 復習 (Ripasso)\nIn questa lezione riprendiamo verbi d'uso quotidiano ed espressioni sociali fondamentali.\n\n| Espressione | Significato |\n| --- | --- |\n| お先に失礼します | Scusi, vado via prima |\n| お疲れさまでした | Grazie per il tuo lavoro |\n| おかげで | Grazie a (causa positiva) |\n\n**Focus Vocabolario:**\n* **頼む (tanomu)**: Chiedere/Ordinare\n* **サボる (saboru)**: Marinare/Battere la fiacca\n* **片づける (katazukeru)**: Mettere in ordine",
+      "parole": [
+        "genki-l18-p4-頼む", "genki-l18-p4-サボる", "genki-l18-p4-片づける",
+        "genki-l18-p4-押す", "genki-l18-p4-引く", "genki-l18-p4-おかげで",
+        "genki-l18-p4-遅刻する", "genki-l18-p4-お先に失礼します", "genki-l18-p4-お疲れさまでした"
+      ]
+    },
+    {
+      "id": "L02",
+      "numero": 2,
+      "titolo": "自動詞と他動詞 (Transitivo vs Intransitivo)",
+      "descrizione": "Studio delle coppie di verbi e della particella を vs が.",
+      "note": "### Verbi Transitivi (他動詞) vs Intransitivi (自動詞)\nI verbi transitivi indicano un'azione diretta su un oggetto (**Oggetto を Verbo**). I verbi intransitivi indicano un cambiamento di stato o un evento che accade (**Soggetto が Verbo**).\n\n#### Coppie principali da memorizzare:\n1. **Aprire**: 開ける (trans.) / 開く (intrans.)\n2. **Chiudere**: 閉める (trans.) / 閉まる (intrans.)\n3. **Mettere dentro/Entrare**: 入れる (trans.) / 入る (intrans.)\n4. **Tirare fuori/Uscire**: 出す (trans.) / 出る (intrans.)\n5. **Accendere/Spegnere**: つける/消す (trans.) vs つく/消える (intrans.)\n6. **Rompere/Sporcare**: 壊す/汚す (trans.) vs 壊れる/汚れる (intrans.)",
+      "parole": [
+        "genki-l18-p4-開ける", "genki-l18-p4-開く", "genki-l18-p4-閉める", "genki-l18-p4-閉まる",
+        "genki-l18-p4-入れる", "genki-l18-p4-入る", "genki-l18-p4-出す", "genki-l18-p4-出る",
+        "genki-l18-p4-つける", "genki-l18-p4-つく", "genki-l18-p4-消す", "genki-l18-p4-消える",
+        "genki-l18-p4-壊す", "genki-l18-p4-壊れる", "genki-l18-p4-汚す", "genki-l18-p4-汚れる",
+        "genki-l18-p4-落とす", "genki-l18-p4-落ちる", "genki-l18-p4-沸かす", "genki-l18-p4-沸く"
+      ],
+      "grammatica": ["genki-l18-p4-gram-trans-intrans"]
+    },
+    {
+      "id": "L03",
+      "numero": 3,
+      "titolo": "Stati Risultanti e Azioni Simultanee",
+      "descrizione": "Grammatica di livello N4: ~te iru, ~te shimau e ~nagara.",
+      "note": "### Punti Grammaticali\n1. **V(intrans) + ている**: Indica uno stato attuale derivato da un'azione passata. *Esempio: 窓が開いている (La finestra è aperta)*.\n2. **V-て + しまう**: Indica che un'azione è finita completamente o esprime rimpianto per un errore.\n3. **V(radice) + ながら**: Due azioni fatte contemporaneamente dallo stesso soggetto.",
+      "grammatica": [
+        "genki-l18-p4-gram-te-iru-result",
+        "genki-l18-p4-gram-te-shimau",
+        "genki-l18-p4-gram-nagara"
+      ]
+    },
+    {
+      "id": "L04",
+      "numero": 4,
+      "titolo": "Condizionali e Rimpianti Passati",
+      "descrizione": "Le quattro forme del 'se' e come esprimere 'avrei dovuto'.",
+      "note": "### Introduzione ai Condizionali\n* **たら (tara)**: Il condizionale più versatile ('se' o 'dopo che').\n* **と (to)**: Conseguenza naturale o automatica.\n* **ば (ba)**: Condizionale formale.\n* **なら (nara)**: 'Se si tratta di...' (contestuale).\n\n### Esprimere Rimpianto\n**V(condizionale) + ばよかったです**: Si usa per dire 'avrei dovuto...' o 'sarebbe stato meglio se...'.",
+      "grammatica": [
+        "genki-l18-p4-gram-condizionali",
+        "genki-l18-p4-gram-ba-yokatta"
+      ]
+    }
+  ],
+  "parole_nuove": [
+    {
+      "id": "genki-l18-p4-開ける",
+      "scrittura": "開ける",
+      "lettura": "あける",
+      "significato_it": ["aprire qualcosa"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "一段動詞[いちだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]"
+    },
+    {
+      "id": "genki-l18-p4-開く",
+      "scrittura": "開く",
+      "lettura": "あく",
+      "significato_it": ["aprirsi"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]"
+    },
+    {
+      "id": "genki-l18-p4-閉める",
+      "scrittura": "閉める",
+      "lettura": "しめる",
+      "significato_it": ["chiudere qualcosa"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "一段動詞[いちだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]"
+    },
+    {
+      "id": "genki-l18-p4-閉まる",
+      "scrittura": "閉まる",
+      "lettura": "しまる",
+      "significato_it": ["chiudersi"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]"
+    },
+    {
+      "id": "genki-l18-p4-壊す",
+      "scrittura": "壊す",
+      "lettura": "こわす",
+      "significato_it": ["rompere qualcosa", "demolire"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]"
+    },
+    {
+      "id": "genki-l18-p4-壊れる",
+      "scrittura": "壊れる",
+      "lettura": "こわれる",
+      "significato_it": ["rompersi"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "一段動詞[いちだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]"
+    },
+    {
+      "id": "genki-l18-p4-サボる",
+      "scrittura": "サボる",
+      "lettura": "さぼる",
+      "significato_it": ["marinare la scuola", "battere la fiacca"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "classe_verbo_jp": "五段動詞[ごだんどうし]"
+    }
+  ],
+  "grammatica_nuova": [
+    {
+      "id": "genki-l18-p4-gram-te-iru-result",
+      "struttura": "〜ている (stato risultante)",
+      "spiegazione_it": "Con i verbi intransitivi indica che un oggetto si trova in una condizione specifica a seguito di un evento.",
+      "livello_jlpt": "N4"
+    },
+    {
+      "id": "genki-l18-p4-gram-ba-yokatta",
+      "struttura": "〜ばよかったです",
+      "spiegazione_it": "Esprime rimpianto per un'azione passata: 'avrei dovuto...' o 'sarebbe stato meglio se...'.",
+      "livello_jlpt": "N4"
+    }
+  ]
+}

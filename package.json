@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "tsc -p tsconfig.json --noEmit",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run",
     "sync:open-seed": "node scripts/sync-open-source-seed.mjs",
     "build:pages": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; REPO_NAME=$(basename -s .git \"$REPO_URL\"); DEPLOY_BASE=/$REPO_NAME/ vite build",
-    "deploy": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; npm run build:pages && gh-pages -d dist -b gh-pages -r \"$REPO_URL\"",
+    "deploy": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; npm run build:pages && gh-pages -d build -b gh-pages -r \"$REPO_URL\"",
     "release": "git push origin main && npm run deploy"
   },
   "dependencies": {
@@ -18,8 +19,14 @@
     "dexie": "^4.0.8"
   },
   "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.68.0",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "gh-pages": "^6.2.0",
+    "svelte": "^5.56.4",
+    "svelte-check": "^4.7.1",
     "typescript": "^5.8.3",
-    "vite": "^5.4.19"
+    "vite": "^6.4.3",
+    "vitest": "^3.2.4"
   }
 }
