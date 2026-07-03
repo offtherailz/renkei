@@ -42,15 +42,27 @@
 		読み: 'Reading hints for the term or kanji.'
 	};
 
-	// Icone per riconoscere la categoria a colpo d'occhio; per classe e
-	// transitività l'icona segue il valore: 5=godan, 1=ichidan, ＊=irregolare,
-	// ➡️ azione verso un oggetto (transitivo), 🔄 azione su di sé (intransitivo).
+	// Icone per riconoscere la categoria a colpo d'occhio.
+	// Parti del discorso: 🏃 verbo (azione), 📦 sostantivo (oggetto statico),
+	// 🎨 aggettivo (descrive), 🔀 avverbio (modifica), 🪝 particella (lega).
+	// Classe verbale: 5️⃣ godan, 1️⃣ ichidan, *️⃣ irregolare.
+	// Transitività: 🖐️ 他動詞 (mano che agisce su qualcosa), 🔄 自動詞 (azione su di sé).
+	// Aggettivi: 🔴 in -い (forma pura), 🧩 in -な (serve il "pezzo" な).
 	const ICONS_BY_LABEL: Record<string, string> = {
-		五段動詞: '5',
-		一段動詞: '1',
-		不規則動詞: '＊',
-		他動詞: '➡️',
-		自動詞: '🔄'
+		動詞: '🏃',
+		名詞: '📦',
+		形容詞: '🎨',
+		副詞: '🔀',
+		助詞: '🪝',
+		助数詞: '🔢',
+		慣用表現: '💬',
+		五段動詞: '5️⃣',
+		一段動詞: '1️⃣',
+		不規則動詞: '*️⃣',
+		他動詞: '🖐️',
+		自動詞: '🔄',
+		い形容詞: '🔴',
+		な形容詞: '🧩'
 	};
 
 	const ICONS_BY_VARIANT: Record<string, string> = {
@@ -66,29 +78,63 @@
 	const icon = $derived(ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? '');
 </script>
 
-<span class="jp-badge {variant}" title={tooltip}>
-	{#if icon}
-		<span class="badge-icon" class:badge-icon-num={variant === 'jp-badge-verb-class'}>{icon}</span>
-	{/if}
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+<span class="jp-badge {variant}" tabindex="0">
+	{#if icon}<span class="badge-icon">{icon}</span>{/if}
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html renderFuriganaToHtml(label)}
+	<span class="badge-tooltip" role="tooltip">{tooltip}</span>
 </span>
 
 <style>
-	.badge-icon {
-		margin-right: 3px;
-		font-style: normal;
+	.jp-badge {
+		position: relative;
+		cursor: help;
 	}
 
-	.badge-icon-num {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 1.25em;
-		height: 1.25em;
-		border: 1px solid currentColor;
-		border-radius: 50%;
-		font-size: 0.82em;
-		font-weight: 800;
+	.badge-icon {
+		margin-right: 4px;
+		font-style: normal;
+		font-size: 1.25em;
+		line-height: 1;
+		vertical-align: middle;
+	}
+
+	.badge-tooltip {
+		position: absolute;
+		bottom: calc(100% + 7px);
+		left: 50%;
+		transform: translateX(-50%);
+		width: max-content;
+		max-width: 220px;
+		padding: 6px 10px;
+		border-radius: 8px;
+		background: #0f2d64;
+		color: #fff;
+		font-size: 0.72rem;
+		font-weight: 500;
+		line-height: 1.35;
+		text-align: center;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 120ms;
+		pointer-events: none;
+		z-index: 100;
+	}
+
+	.badge-tooltip::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 5px solid transparent;
+		border-top-color: #0f2d64;
+	}
+
+	.jp-badge:hover .badge-tooltip,
+	.jp-badge:focus .badge-tooltip {
+		opacity: 1;
+		visibility: visible;
 	}
 </style>
