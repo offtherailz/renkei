@@ -39,54 +39,58 @@
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
 
-		if (currentKind === 'word') {
-			word = (await db.words.get(currentRawId)) ?? null;
-			if (word) {
-				const [srs, related, kanjiItems, grammarItems] = await Promise.all([
-					db.srs_progress.get(`word:${currentRawId}`),
-					Promise.all([...word.sinonimi, ...word.contrari].slice(0, 6).map((id) => db.words.get(id))),
-					Promise.all(word.kanji_usati.map((k) => db.kanji.get(k))),
-					db.grammar.where('*frasi_esempio_parole_linkate').equals(currentRawId).toArray()
-				]);
-				relatedWords = related.filter((w): w is Word => !!w);
-				kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
-				grammarUsing = grammarItems;
-				if (srs) {
-					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
-					srsStage = srs.srs_stage;
-					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+		try {
+			if (currentKind === 'word') {
+				word = (await db.words.get(currentRawId)) ?? null;
+				if (word) {
+					const [srs, related, kanjiItems, grammarItems] = await Promise.all([
+						db.srs_progress.get(`word:${currentRawId}`),
+						Promise.all([...word.sinonimi, ...word.contrari].slice(0, 6).map((id) => db.words.get(id))),
+						Promise.all(word.kanji_usati.map((k) => db.kanji.get(k))),
+						db.grammar.where('frasi_esempio_parole_linkate').equals(currentRawId).toArray()
+					]);
+					relatedWords = related.filter((w): w is Word => !!w);
+					kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
+					grammarUsing = grammarItems;
+					if (srs) {
+						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+						srsStage = srs.srs_stage;
+						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+					}
+				}
+			} else if (currentKind === 'kanji') {
+				kanji = (await db.kanji.get(currentRawId)) ?? null;
+				if (kanji) {
+					const [srs, wordItems] = await Promise.all([
+						db.srs_progress.get(`kanji:${currentRawId}`),
+						db.words.where('kanji_usati').equals(currentRawId).toArray()
+					]);
+					wordsUsingKanji = wordItems;
+					if (srs) {
+						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+						srsStage = srs.srs_stage;
+						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+					}
+				}
+			} else if (currentKind === 'grammar') {
+				grammar = (await db.grammar.get(currentRawId)) ?? null;
+				if (grammar) {
+					const srs = await db.srs_progress.get(`grammar:${currentRawId}`);
+					if (srs) {
+						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
+						srsStage = srs.srs_stage;
+						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
+						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+					}
 				}
 			}
-		} else if (currentKind === 'kanji') {
-			kanji = (await db.kanji.get(currentRawId)) ?? null;
-			if (kanji) {
-				const [srs, wordItems] = await Promise.all([
-					db.srs_progress.get(`kanji:${currentRawId}`),
-					db.words.where('*kanji_usati').equals(currentRawId).toArray()
-				]);
-				wordsUsingKanji = wordItems;
-				if (srs) {
-					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
-					srsStage = srs.srs_stage;
-					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
-				}
-			}
-		} else if (currentKind === 'grammar') {
-			grammar = (await db.grammar.get(currentRawId)) ?? null;
-			if (grammar) {
-				const srs = await db.srs_progress.get(`grammar:${currentRawId}`);
-				if (srs) {
-					masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
-					srsStage = srs.srs_stage;
-					const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-					nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
-				}
-			}
+		} catch (e) {
+			console.error('Errore caricamento dettaglio:', e);
+		} finally {
+			loading = false;
 		}
-
-		loading = false;
 	}
 
 	$effect(() => { void itemId; loadItem(); });
