@@ -3,11 +3,13 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
+	import { appState } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { normalizeMastery } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
+	import JpBadge from '$lib/components/JpBadge.svelte';
 	import type { Word, Kanji, Grammar } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -25,6 +27,7 @@
 	let kanjiUsed = $state<Kanji[]>([]);
 	let grammarUsing = $state<Grammar[]>([]);
 	let wordsUsingKanji = $state<Word[]>([]);
+	let verbPair = $state<Word | null>(null);
 
 	// SRS info
 	let masteryPct = $state(0);
@@ -34,7 +37,7 @@
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null;
-		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
+		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = []; verbPair = null;
 
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
@@ -52,6 +55,9 @@
 					relatedWords = related.filter((w): w is Word => !!w);
 					kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
 					grammarUsing = grammarItems;
+					if (word.id_verbo_corrispondente) {
+						verbPair = (await db.words.get(word.id_verbo_corrispondente)) ?? null;
+					}
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
 						srsStage = srs.srs_stage;
@@ -104,11 +110,27 @@
 	function jishoUrl(q: string): string {
 		return `https://jisho.org/search/${encodeURIComponent(q)}`;
 	}
+
+	function jishoSentencesUrl(q: string): string {
+		return `https://jisho.org/search/${encodeURIComponent(q)}%20%23sentences`;
+	}
+
+	function tatoebaUrl(q: string): string {
+		const toLang = locale === 'it' ? 'ita' : 'eng';
+		return `https://tatoeba.org/it/sentences/search?from=jpn&to=${toLang}&query=${encodeURIComponent(q)}`;
+	}
+
+	function koohiiUrl(k: string): string {
+		return `https://kanji.koohii.com/study/kanji/${encodeURIComponent(k)}`;
+	}
 </script>
 
 <div class="detail-page">
 	<div class="detail-nav">
 		<button class="back-btn" onclick={() => history.back()}>← Indietro</button>
+		{#if appState.sessionState}
+			<a class="back-to-quiz" href="{base}/quiz">⏸ Torna al quiz</a>
+		{/if}
 	</div>
 
 	{#if loading}
@@ -126,9 +148,16 @@
 			</div>
 			<div class="badges-row">
 				<span class="jlpt-badge jlpt-{word.livello_jlpt}">{word.livello_jlpt}</span>
-				<span class="type-badge">{word.tipo_jp}</span>
-				{#if word.classe_verbo_jp}<span class="type-badge">{word.classe_verbo_jp}</span>{/if}
-				{#if word.transitivita_jp}<span class="type-badge">{word.transitivita_jp}</span>{/if}
+				<JpBadge label={word.tipo_jp} variant="jp-badge-pos" />
+				{#if word.tipo_jp === '動詞[どうし]' && word.classe_verbo_jp}
+					<JpBadge label={word.classe_verbo_jp} variant="jp-badge-verb-class" />
+				{/if}
+				{#if word.tipo_jp === '動詞[どうし]' && word.transitivita_jp}
+					<JpBadge label={word.transitivita_jp} variant="jp-badge-transitivity" />
+				{/if}
+				{#if word.tipo_jp === '形容詞[けいようし]' && word.tipo_aggettivo_jp}
+					<JpBadge label={word.tipo_aggettivo_jp} variant="jp-badge-adjective" />
+				{/if}
 			</div>
 			<div class="meanings">
 				{#each pickLocalizedArray(word.significato, locale) as meaning, i}
@@ -187,7 +216,26 @@
 		</article>
 		{/if}
 
-		<a href={jishoUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Cerca su Jisho →</a>
+		{#if verbPair}
+		<article class="detail-card">
+			<p class="card-title">Verbo correlato ({word.transitivita_jp === '他動詞[たどうし]' ? 'intransitivo' : 'transitivo'})</p>
+			<div class="chip-row">
+				<a href="{base}/detail/word:{verbPair.id}" class="word-chip">
+					<span class="chip-writing">{verbPair.scrittura}</span>
+					<span class="chip-meaning">{verbPair.lettura} — {pickLocalizedArray(verbPair.significato, locale)[0] ?? ''}</span>
+				</a>
+			</div>
+		</article>
+		{/if}
+
+		<div class="links-row">
+			<a href={word.link_jisho ?? jishoUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Apri su Jisho</a>
+			<a href={jishoSentencesUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Jisho</a>
+			<a href={tatoebaUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Tatoeba</a>
+			{#if word.tipo_jp === '動詞[どうし]'}
+				<a href={jishoUrl(word.scrittura) + '%20%23verb'} target="_blank" rel="noopener" class="external-link">Coniugazione</a>
+			{/if}
+		</div>
 
 	<!-- KANJI -->
 	{:else if kanji}
@@ -234,15 +282,19 @@
 		</article>
 		{/if}
 
-		<a href={jishoUrl('#kanji ' + kanji.id)} target="_blank" rel="noopener" class="external-link">Cerca su Jisho →</a>
+		<div class="links-row">
+			<a href={kanji.link_jisho ?? jishoUrl('#kanji ' + kanji.id)} target="_blank" rel="noopener" class="external-link">Apri su Jisho</a>
+			<a href={kanji.link_koohii ?? koohiiUrl(kanji.id)} target="_blank" rel="noopener" class="external-link">Apri su Kanji Koohii</a>
+			<a href={tatoebaUrl(kanji.id)} target="_blank" rel="noopener" class="external-link">Frasi su Tatoeba</a>
+		</div>
 
 	<!-- GRAMMAR -->
 	{:else if grammar}
 		<article class="detail-card">
 			<p class="grammar-structure">{grammar.struttura}</p>
-			{#if grammar.categoria_jp}<p class="detail-meta">{grammar.categoria_jp}</p>{/if}
 			<div class="badges-row">
 				<span class="jlpt-badge jlpt-{grammar.livello_jlpt}">{grammar.livello_jlpt}</span>
+				{#if grammar.categoria_jp}<JpBadge label={grammar.categoria_jp} variant="jp-badge-pos" />{/if}
 			</div>
 			<p class="grammar-explanation">{pickLocalizedText(grammar.spiegazione, locale)}</p>
 		</article>
@@ -285,7 +337,30 @@
 <style>
 	.detail-page { display: grid; gap: 12px; }
 
-	.detail-nav { margin-bottom: 4px; }
+	.detail-nav {
+		margin-bottom: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+	}
+
+	.links-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.back-to-quiz {
+		display: inline-block;
+		padding: 6px 14px;
+		border-radius: 8px;
+		background: var(--brand);
+		color: #fff;
+		font-size: 0.82rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
 
 	.back-btn {
 		background: none;
