@@ -208,7 +208,16 @@ npm run release      # Build + deploy (se configurato)
 > Sezione di lavoro: raccoglie le proposte da discutere prima dell'implementazione.
 > Contesto: l'app gira su GitHub Pages (hosting statico, nessun backend).
 
-### 1. Transitività e classe verbale: da euristiche hardcoded a dati
+### 1. Transitività e classe verbale: da euristiche hardcoded a dati — ✅ IMPLEMENTATO (2026-07-04)
+
+> Implementato in `scripts/lib/jmdict.mjs` + `applyJmdictMetadata` nel sync.
+> JMdict (variante jmdict-examples-eng) è la fonte autoritativa per tipo,
+> classe verbale, transitività e tipo aggettivo; le euristiche restano solo
+> come fallback per le ~30 parole non trovate. Override manuali in
+> `scripts/data/word-overrides.json`. Validazione: `npm run validate:seed`
+> (report in `scripts/validation-report.json`). Bonus: 1260 parole hanno ora
+> frasi d'esempio Tatoeba (`frasi_esempio`), mostrate nel dettaglio.
+> Il testo originale della proposta segue per riferimento storico.
 
 **Problema.** Oggi `scripts/sync-open-source-seed.mjs` determina 自動詞/他動詞 e la classe verbale con dati e regole cablate nel codice:
 
@@ -224,19 +233,37 @@ Le euristiche producono errori sistematici e ogni correzione richiede di toccare
 - La pipeline scarica il file una volta, costruisce un indice `scrittura+lettura → {classe, transitività}` e lo usa in `enrichVerbMetadata`. Le liste `GODAN_RU_EXCEPTIONS`, `TRANSITIVE_INTRANSITIVE_PAIRS` e tutte le regex euristiche **vengono eliminate**.
 - Resta un piccolo file dati `scripts/data/verb-overrides.json` per i casi residui (voci ambigue o assenti da JMdict), così le eccezioni sono dati versionati e non codice.
 
-### 2. Correzione degli errori nel seed (senza backend)
+### 2. Correzione degli errori: editing in-app + rientro facile nel seed — PROPOSTA DA DISCUTERE (rivista 2026-07-04)
 
-**Problema.** Il seed contiene errori reali (esempi trovati: furigana invertito `いま[今]` in una frase d'esempio; transitività sbagliate per via delle euristiche sopra). Su GitHub Pages non c'è un server che riceva segnalazioni.
+**Direzione scelta** (2026-07-04): niente segnalazioni via GitHub Issues; si vuole
+**correggere direttamente dall'app** e avere un modo semplice per **riportare le
+correzioni nell'app pubblicata** (rigenerando il seed). Versione di sviluppo:
+il ciclo può assumere che l'utente sia anche lo sviluppatore.
 
-**Proposta a tre livelli** (indipendenti, attivabili in ordine):
+**Proposta di design** (da discutere prima di implementare):
 
-1. **File di correzioni versionato** — `data/corrections.json` nel repo, applicato come **ultima fase** della pipeline seed. Riusa la semantica di `parole_patch` già definita in COURSE_FORMAT.md (e già implementata in `course-import.ts`): ogni record è `{ tipo, id, campi_patch, motivo }`. Le correzioni sopravvivono ai re-sync del seed e sono revisionabili nel diff. Costo: basso, nessuna UI.
-2. **Segnalazione in-app via GitHub Issues** — pulsante "Segnala errore" nel pannello dettaglio che apre `github.com/<user>/<repo>/issues/new` con titolo e corpo precompilati (id voce, campo, valore attuale, correzione proposta). GitHub fa da backend gratuito; chi segnala serve solo un account GitHub. Le issue accettate diventano righe di `corrections.json`.
-3. **Override locale immediato** — tabella Dexie `user_corrections` con precedenza sul seed al momento del merge: l'utente corregge subito per sé, offline. Un'azione "Esporta correzioni" genera il JSON in formato `corrections.json`/`parole_patch` da incollare in una issue o PR. È il livello più utile ma anche il più costoso (UI di editing + logica di precedenza nel merge).
+1. **Pulsante "✏️ Correggi" nel pannello dettaglio** — apre un form con i campi
+   correggibili della voce (tipo, classe verbale, transitività, tipo aggettivo,
+   lettura, significati, frasi d'esempio). Il salvataggio produce una **patch**,
+   non una copia della voce: `{ id, campi_patch, motivo?, creato_il }`.
+2. **Tabella Dexie `user_corrections`** — le patch si applicano subito alla voce
+   locale (effetto immediato nei quiz) e vengono **ri-applicate dopo ogni
+   re-import del seed**, così una nuova versione dell'app non cancella le
+   correzioni locali.
+3. **Formato unico con gli override della pipeline** — "Esporta correzioni"
+   (in Impostazioni) genera un JSON nello **stesso formato di
+   `scripts/data/word-overrides.json`**: per aggiornare l'app basta copiare il
+   file nel repo e rigenerare (`npm run sync:open-seed` → `npm run release`).
+   Un formato solo, zero backend, correzioni versionate nel diff del repo.
+4. (futuro, opzionale) automazione del passo 3: bottone che apre una PR
+   precompilata o script che fa merge del file esportato.
 
-Ordine consigliato: 1 → 2 → 3. Il livello 1+2 copre già il ciclo completo segnalazione→correzione→deploy senza infrastruttura.
+**Punti aperti da discutere**: quali campi sono editabili; conflitti
+JMdict vs correzione (proposta: l'override vince sempre, già così in pipeline);
+UI modale vs pagina dedicata; se le patch valgono anche per kanji/grammatica
+oltre che per le parole.
 
-### 3. Cataloghi grammaticali dei corsi famosi (Genki, ecc.) come riferimento
+### 3. Cataloghi grammaticali dei corsi famosi (Genki, ecc.) come riferimento — ✅ APPROVATA (2026-07-04), da pianificare
 
 **Idea.** Esistono cataloghi online che mappano i punti grammaticali per libro/lezione. Usarli come riferimento per: (a) validare/correggere la grammatica del seed, (b) generare file `.renkei-course.json` per i corsi famosi, riusando l'infrastruttura corsi già esistente.
 
@@ -254,24 +281,20 @@ Candidati da valutare (licenze da verificare voce per voce):
 
 ---
 
-## Da vedere insieme (segnalazioni del 2026-07-03, riprendere domani)
+## Da vedere insieme (segnalazioni del 2026-07-03 — stato al 2026-07-04)
 
-1. **捨てる classificato come aggettivo** — nel seed è `tipo_jp: 形容詞` /
-   `tipo_aggettivo_jp: な形容詞`, ma è un verbo ichidan (significati: "throw away",
-   "dump"). Errore di `inferWordType`/`enrichAdjectiveMetadata` nella pipeline
-   (`scripts/sync-open-source-seed.mjs`). Da trattare insieme alla proposta
-   "JMdict come fonte" (sez. Proposte §1) e al file correzioni (sez. Proposte §2):
-   probabilmente ci sono altri casi analoghi da scovare con una verifica di massa.
-2. **Badge/label cliccabili → spiegazione della forma** — i badge (動詞, 五段動詞,
-   自動詞, い/な形容詞, …) devono linkare a una pagina/scheda che spiega la forma
-   grammaticale, non solo mostrare il tooltip.
-3. **Regole d'uso legate alla categoria** (な dopo l'aggettivo, の dopo nome/aggettivo,
-   ecc.) — decidere come organizzarle nelle spiegazioni: schede per categoria
-   grammaticale collegate ai badge, con esempi. Valutare se modellarle come voci
-   `grammar` dedicate o come nuove schede "forme".
-4. **Navigabilità totale** — obiettivo: da qualsiasi elemento (badge, parola, kanji,
-   grammatica, esempio) si deve poter navigare alla spiegazione o al dettaglio
-   collegato, senza vicoli ciechi.
+1. ✅ **捨てる classificato come aggettivo** — risolto con JMdict come fonte
+   (ora 動詞/一段/他動詞). La verifica di massa esiste: `npm run validate:seed`
+   → 0 discrepanze residue, 30 parole non trovate in JMdict elencate nel report.
+2. ✅ **Badge/label cliccabili → spiegazione della forma** — i badge linkano
+   alle schede della nuova pagina `/forme` (ancora per categoria).
+3. ✅ **Regole d'uso legate alla categoria** (な dopo l'aggettivo, の tra nomi,
+   を/が nelle coppie transitivo/intransitivo) — integrate nelle schede di
+   `/forme` (`src/lib/data/grammarForms.ts`) con esempi e link incrociati.
+4. 🔄 **Navigabilità totale** — avanzata: badge → schede forme, "vedi anche" tra
+   forme, errori del riepilogo → dettaglio, frasi d'esempio con TTS. Restano da
+   collegare: token delle frasi d'esempio → dettaglio parola, categorie
+   grammaticali del seed → schede forme.
 
 ---
 
@@ -280,4 +303,5 @@ Candidati da valutare (licenze da verificare voce per voce):
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.
 - La funzione `alternativeReadings` include letture dai suffissi degli ID compositi (`word-id-lettura`) che potrebbero non essere sempre significativi.
 - Il seed non include i dati pitch accent per la maggior parte delle voci N5/N4: la sezione viene nascosta correttamente ma non sarà mai mostrata finché il campo non viene arricchito.
-- `src/routes/quiz/+page.svelte` è la route più grande (~800 righe): candidata naturale all'estrazione di componenti (es. pannello domanda, riepilogo sessione).
+- `src/routes/quiz/+page.svelte` è la route più grande (~1000 righe): candidata naturale all'estrazione di componenti (es. pannello domanda, riepilogo sessione).
+- **Rimandati per scelta (2026-07-04)**: export/import dei progressi utente (si valuterà un approccio migliore, forse app dedicata); deploy automatico via GitHub Actions (nei "forse" per il futuro).
