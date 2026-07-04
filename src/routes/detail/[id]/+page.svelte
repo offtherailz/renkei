@@ -177,6 +177,19 @@
 		</article>
 		{/if}
 
+		{#if word.frasi_esempio?.length}
+		<article class="detail-card">
+			<p class="card-title">Frasi esempio</p>
+			{#each word.frasi_esempio as ex}
+				<div class="example-row">
+					<FuriganaText text={ex.testo} class="example-ja" />
+					<button class="tts-mini" onclick={() => speakSentenceJapanese(ex.testo)} title="Ascolta">🔊</button>
+					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
+				</div>
+			{/each}
+		</article>
+		{/if}
+
 		{#if kanjiUsed.length > 0}
 		<article class="detail-card">
 			<p class="card-title">Kanji usati</p>

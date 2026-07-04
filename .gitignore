@@ -4,3 +4,5 @@ build/
 .svelte-kit/
 .vite/
 .DS_Store
+scripts/.cache/
+scripts/validation-report.json

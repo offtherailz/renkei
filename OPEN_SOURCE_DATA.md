@@ -24,6 +24,18 @@ Imported datasets currently used by the sync script:
 - api/grammar/N5
 - api/grammar/N4
 
+This project also enriches word metadata (part of speech, verb class,
+transitivity, adjective type) and per-word example sentences from:
+
+- JMdict (Japanese-Multilingual Dictionary) © EDRDG
+  - URL: https://www.edrdg.org/jmdict/j_jmdict.html
+  - License: CC BY-SA 4.0 (attribution required)
+  - Obtained via the JSON builds of scriptin/jmdict-simplified
+    (https://github.com/scriptin/jmdict-simplified)
+- Example sentences: Tatoeba (https://tatoeba.org)
+  - License: CC BY 2.0 FR
+  - Bundled in the `jmdict-examples` variant of jmdict-simplified
+
 Notes:
 
 - The upstream dataset provides English meanings. The current import maps those meanings into both `it` and `en` fields until a dedicated Italian translation source is added.

@@ -51,9 +51,15 @@ export interface Word extends BaseEntity {
   transitivita_jp?: VerbTransitivityJP;
   id_verbo_corrispondente?: string;
   tipo_aggettivo_jp?: AdjectiveTypeJP;
+  frasi_esempio?: WordExample[];
   sinonimi: string[];
   contrari: string[];
   omofoni: string[];
+}
+
+export interface WordExample {
+  testo: string;
+  traduzione: LocalizedText;
 }
 
 export interface Kanji extends BaseEntity {

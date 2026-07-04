@@ -10,6 +10,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
     "sync:open-seed": "node scripts/sync-open-source-seed.mjs",
+    "validate:seed": "node scripts/validate-seed.mjs",
     "build:pages": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; REPO_NAME=$(basename -s .git \"$REPO_URL\"); DEPLOY_BASE=/$REPO_NAME/ vite build",
     "deploy": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; npm run build:pages && gh-pages -d build --dotfiles -b gh-pages -r \"$REPO_URL\"",
     "release": "git push origin main && npm run deploy"

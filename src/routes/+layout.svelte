@@ -16,7 +16,7 @@
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-06-07-catalog-v2';
+	const SEED_DATA_REVISION = '2026-07-04-jmdict-v3';
 
 	const navLinks = [
 		{ href: `${base}/`, label: 'Home', icon: '🏠', section: '' },

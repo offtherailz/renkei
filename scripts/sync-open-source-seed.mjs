@@ -1,8 +1,17 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import {
+  buildJmdictIndex,
+  deriveJmdictMetadata,
+  ensureJmdictData,
+  extractJmdictExamples,
+  lookupJmdict
+} from "./lib/jmdict.mjs";
 
 const ROOT = process.cwd();
-const SEED_PATH = path.join(ROOT, "public", "seed-n5n4.json");
+const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
+const JMDICT_CACHE_DIR = path.join(ROOT, "scripts", ".cache");
+const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json");
 const OPEN_SOURCE = {
   name: "allenlu2009/japanese-learning-datasets",
   license: "MIT",
@@ -626,6 +635,49 @@ async function fetchJson(url) {
   return response.json();
 }
 
+// JMdict è la fonte autoritativa per tipo, classe verbale, transitività e
+// tipo aggettivo: sovrascrive le euristiche. Aggiunge anche le frasi
+// d'esempio Tatoeba. Le euristiche restano come fallback per le parole
+// assenti da JMdict; gli override manuali vincono su tutto.
+function applyJmdictMetadata(words, jmdictIndex, overrides) {
+  let matched = 0;
+  const result = words.map((word) => {
+    const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
+    let next = word;
+    if (entry) {
+      matched += 1;
+      const metadata = deriveJmdictMetadata(entry);
+      const examples = extractJmdictExamples(entry);
+      next = {
+        ...word,
+        ...metadata,
+        frasi_esempio: examples.length
+          ? examples.map((ex) => ({ testo: ex.jp, traduzione: { it: ex.en, en: ex.en } }))
+          : word.frasi_esempio
+      };
+      if (metadata.tipo_jp && metadata.tipo_jp !== "動詞[どうし]") {
+        delete next.classe_verbo_jp;
+        delete next.transitivita_jp;
+      }
+      if (metadata.tipo_jp && metadata.tipo_jp !== "形容詞[けいようし]") {
+        delete next.tipo_aggettivo_jp;
+      }
+    }
+    const override = overrides[word.id];
+    return override ? { ...next, ...override } : next;
+  });
+  console.log(`JMdict: ${matched}/${words.length} parole agganciate.`);
+  return result;
+}
+
+async function loadOverrides() {
+  try {
+    return JSON.parse(await fs.readFile(OVERRIDES_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
 function normalizeWords(importedRows, existingSeedWords) {
   const existingLookup = buildExistingWordLookup(existingSeedWords);
   const duplicateCounts = buildImportedWordCounts(importedRows);
@@ -766,8 +818,11 @@ async function main() {
     fetchJson(GRAMMAR_SOURCE.urls.grammarN5),
     fetchJson(GRAMMAR_SOURCE.urls.grammarN4)
   ]);
+  const jmdictIndex = buildJmdictIndex(await ensureJmdictData(JMDICT_CACHE_DIR));
+  const overrides = await loadOverrides();
 
-  const normalizedWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
+  const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
+  const normalizedWords = applyJmdictMetadata(heuristicWords, jmdictIndex, overrides);
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
   const normalizedGrammar = normalizeGrammar([
     { level: "N5", rows: grammarN5 },
