@@ -51,6 +51,7 @@ export const appState = $state({
 	studyGoal: null as StudyGoal | null,
 	userProfile: null as UserProfile | null,
 	sessionState: null as StudySessionState | null,
+	lastSummary: null as StudySessionState | null,
 	activeQuiz: null as ActiveQuiz | null,
 	detailItemRef: null as ItemRef | null
 });

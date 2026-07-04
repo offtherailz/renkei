@@ -235,6 +235,7 @@
 		if (!session) return;
 		summarySession = { ...session };
 		appState.sessionState = null;
+		appState.lastSummary = summarySession;
 
 		const stats = JSON.parse(localStorage.getItem(STUDY_STATS_KEY) ?? '[]');
 		stats.push({
@@ -317,6 +318,23 @@
 	}
 
 	// ── Answer handling ───────────────────────────────────────────────────────────
+	function questionSummary(q: QuizQuestion): { prompt: string; correct: string } {
+		switch (q.mode) {
+			case 'flashcard-production':
+			case 'flashcard-recognition':
+			case 'flashcard-reading-recognition':
+				return { prompt: q.prompt, correct: q.correctAnswer };
+			case 'multiple-choice':
+				return { prompt: q.prompt, correct: q.correctChoice };
+			case 'sentence-ordering':
+				return { prompt: q.prompt, correct: q.correctOrder.join('') };
+			case 'reading-choice':
+				return { prompt: q.plainSentence, correct: q.correctChoice };
+			case 'cloze':
+				return { prompt: q.sentenceWithBlank.replace(/<[^>]*>/g, ''), correct: q.correctChoice };
+		}
+	}
+
 	async function handleAnswer(correct: boolean, selectedText = '', isTimeout = false): Promise<void> {
 		if (!quiz || quiz.answered || !session) return;
 		quiz.answered = true;
@@ -330,6 +348,15 @@
 			if (isTimeout) session.timeout++;
 			// Sull'errore il timer di sessione si ferma: si riparte con "Avanti".
 			if (!session.pausedAt) session.pausedAt = Date.now();
+			const summary = questionSummary(quiz.question);
+			session.wrongAnswers.push({
+				happenedAt: Date.now(),
+				itemRef: quiz.itemRef,
+				questionMode: quiz.question.mode,
+				prompt: summary.prompt,
+				selectedAnswer: isTimeout ? '⏱ tempo scaduto' : selectedText,
+				correctAnswer: summary.correct
+			});
 		}
 
 		const before = getSrs(quiz.itemRef.key) ?? createInitialSrs(quiz.itemRef.key);
@@ -377,6 +404,37 @@
 		handleAnswer(correct, tokenOrder.join(''));
 	}
 
+	// Scorciatoie: 1-4 scelgono la risposta, Invio rivela/conferma/avanza.
+	function handleKeydown(e: KeyboardEvent): void {
+		if (phase !== 'quiz' || !quiz) return;
+		const target = e.target as HTMLElement | null;
+		if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			if (quiz.answered) { advanceToNext(); return; }
+			if (quiz.question.mode === 'flashcard-production' && !revealedProduction) {
+				revealedProduction = true;
+				return;
+			}
+			if (quiz.question.mode === 'sentence-ordering') handleSentenceOrderSubmit();
+			return;
+		}
+
+		const num = Number(e.key);
+		if (!Number.isInteger(num) || num < 1 || num > 4 || quiz.answered) return;
+		const q = quiz.question;
+		if (q.mode === 'flashcard-production') {
+			if (!revealedProduction) return;
+			if (num === 1) handleAnswer(true, 'Ricordata');
+			else if (num === 2) handleAnswer(false, 'Non ricordata');
+			return;
+		}
+		if (q.mode === 'sentence-ordering') return;
+		const choice = (q.choices ?? [])[num - 1];
+		if (choice) handleChoiceClick(choice);
+	}
+
 	function moveToken(from: number, to: number): void {
 		const arr = [...tokenOrder];
 		const [tok] = arr.splice(from, 1);
@@ -387,6 +445,7 @@
 	// ── Init ─────────────────────────────────────────────────────────────────────
 	async function startSession(): Promise<void> {
 		loadError = '';
+		appState.lastSummary = null;
 		try {
 			[words, kanjiRows, grammarRows, objectives] = await Promise.all([
 				db.words.toArray(),
@@ -444,11 +503,22 @@
 		}
 	}
 
+	function boot(): void {
+		// Riepilogo ancora aperto (es. ritorno dal dettaglio di un errore) e
+		// nessuna sessione attiva: si torna al riepilogo, non a una nuova sessione.
+		if (!appState.sessionState && appState.lastSummary) {
+			summarySession = appState.lastSummary;
+			phase = 'summary';
+			return;
+		}
+		startSession();
+	}
+
 	onMount(() => {
-		if (appState.initialized) startSession();
+		if (appState.initialized) boot();
 		else {
 			const stop = $effect.root(() => {
-				$effect(() => { if (appState.initialized) { startSession(); stop(); } });
+				$effect(() => { if (appState.initialized) { boot(); stop(); } });
 			});
 		}
 	});
@@ -485,6 +555,8 @@
 		return '🥉 Bronze';
 	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <!-- INIT PHASE -->
 {#if phase === 'init'}
@@ -546,14 +618,14 @@
 			<p class="question-prompt">{q.prompt}</p>
 			<p class="question-hint">{quiz.question.mode === 'flashcard-reading-recognition' ? 'Scegli la scrittura corretta' : 'Scegli la parola giusta'}</p>
 			<div class="choices">
-				{#each (q.choices ?? []) as choice}
+				{#each (q.choices ?? []) as choice, i}
 					<button
 						class="choice-btn"
 						class:correct-choice={quiz.answered && choice === q.correctAnswer}
 						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctAnswer}
 						disabled={quiz.answered}
 						onclick={() => handleChoiceClick(choice)}
-					>{choice}</button>
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
 				{/each}
 			</div>
 
@@ -563,14 +635,14 @@
 			<p class="question-prompt ja-text">{q.prompt}</p>
 			<p class="question-hint">Scegli il significato corretto</p>
 			<div class="choices">
-				{#each q.choices as choice}
+				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"
 						class:correct-choice={quiz.answered && choice === q.correctChoice}
 						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
 						disabled={quiz.answered}
 						onclick={() => handleChoiceClick(choice)}
-					>{choice}</button>
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
 				{/each}
 			</div>
 
@@ -603,13 +675,13 @@
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			<div class="reading-sentence">{@html q.sentenceHtml}</div>
 			<div class="choices">
-				{#each q.choices as choice}
+				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"
 						class:correct-choice={quiz.answered && choice === q.correctChoice}
 						disabled={quiz.answered}
 						onclick={() => handleChoiceClick(choice)}
-					>{choice}</button>
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
 				{/each}
 			</div>
 
@@ -620,13 +692,13 @@
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			<p class="question-prompt">{@html q.sentenceWithBlank}</p>
 			<div class="choices">
-				{#each q.choices as choice}
+				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"
 						class:correct-choice={quiz.answered && choice === q.correctChoice}
 						disabled={quiz.answered}
 						onclick={() => handleChoiceClick(choice)}
-					>{choice}</button>
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
 				{/each}
 			</div>
 		{/if}
@@ -675,6 +747,20 @@
 				<span class="stat-label">Accuracy</span>
 			</div>
 		</div>
+		{#if summarySession.wrongAnswers.length > 0}
+			<div class="summary-errors">
+				<p class="errors-title">Errori da ripassare ({summarySession.wrongAnswers.length})</p>
+				{#each summarySession.wrongAnswers as wa}
+					<a class="error-row" href="{base}/detail/{encodeURIComponent(wa.itemRef.key)}">
+						<span class="error-prompt">{wa.prompt}</span>
+						<span class="error-detail">
+							<span class="error-selected">{wa.selectedAnswer || '—'}</span>
+							→ <span class="error-correct">{wa.correctAnswer}</span>
+						</span>
+					</a>
+				{/each}
+			</div>
+		{/if}
 		<div class="summary-actions">
 			<button class="btn-primary" onclick={startSession}>🔁 Nuova sessione</button>
 			<a href="{base}/" class="btn-ghost">← Home</a>
@@ -794,6 +880,25 @@
 	}
 
 	.choice-btn:hover:not(:disabled) { border-color: var(--brand); background: #eef2ff; }
+
+	.key-hint {
+		display: inline-block;
+		min-width: 1.3em;
+		margin-right: 8px;
+		padding: 1px 4px;
+		border: 1px solid var(--line);
+		border-radius: 5px;
+		background: var(--surface);
+		font-family: inherit;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--muted);
+		text-align: center;
+	}
+
+	@media (hover: none) {
+		.key-hint { display: none; }
+	}
 	.choice-btn:disabled { cursor: default; }
 	.choice-btn.good { border-color: var(--success); background: #dcfce7; color: #166534; }
 	.choice-btn.bad { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
@@ -945,6 +1050,42 @@
 
 	.stat-num { font-size: 1.4rem; font-weight: 700; color: var(--brand); }
 	.stat-label { font-size: 0.68rem; color: var(--muted); }
+
+	.summary-errors {
+		display: grid;
+		gap: 6px;
+		text-align: left;
+	}
+
+	.errors-title {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.error-row {
+		display: grid;
+		gap: 2px;
+		padding: 8px 10px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface-2);
+		text-decoration: none;
+		color: var(--ink);
+	}
+
+	.error-row:hover { border-color: var(--brand); background: #eef2ff; }
+
+	.error-prompt { font-size: 0.92rem; font-weight: 600; }
+
+	.error-detail { font-size: 0.78rem; color: var(--muted); }
+
+	.error-selected { color: var(--danger); text-decoration: line-through; }
+
+	.error-correct { color: var(--success); font-weight: 600; }
 
 	.summary-actions {
 		display: grid;
