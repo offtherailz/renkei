@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { detectUserLocale } from '$lib/core/i18n';
+	import { FORM_SLUG_BY_LABEL } from '$lib/data/grammarForms';
 
 	const { label, variant = '' }: { label: string; variant?: string } = $props();
 
@@ -76,20 +78,39 @@
 			(locale === 'it' ? 'Etichetta grammaticale.' : 'Grammar label.')
 	);
 	const icon = $derived(ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? '');
+	const formSlug = $derived(FORM_SLUG_BY_LABEL[plain]);
 </script>
 
-<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-<span class="jp-badge {variant}" tabindex="0">
-	{#if icon}<span class="badge-icon">{icon}</span>{/if}
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html renderFuriganaToHtml(label)}
-	<span class="badge-tooltip" role="tooltip">{tooltip}</span>
-</span>
+{#if formSlug}
+	<a class="jp-badge jp-badge-link {variant}" href="{base}/forme#{formSlug}">
+		{#if icon}<span class="badge-icon">{icon}</span>{/if}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html renderFuriganaToHtml(label)}
+		<span class="badge-tooltip" role="tooltip">{tooltip} Tocca per la spiegazione.</span>
+	</a>
+{:else}
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<span class="jp-badge {variant}" tabindex="0">
+		{#if icon}<span class="badge-icon">{icon}</span>{/if}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html renderFuriganaToHtml(label)}
+		<span class="badge-tooltip" role="tooltip">{tooltip}</span>
+	</span>
+{/if}
 
 <style>
 	.jp-badge {
 		position: relative;
 		cursor: help;
+	}
+
+	.jp-badge-link {
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.jp-badge-link:hover {
+		filter: brightness(0.96);
 	}
 
 	.badge-icon {

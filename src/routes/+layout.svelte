@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
+	import { dev } from '$app/environment';
 	import '../lib/app.css';
 	import { db } from '$lib/db/schema';
 	import { importDatabaseFromJson } from '$lib/db/import';
@@ -53,7 +54,22 @@
 		}
 	}
 
+	async function setupServiceWorker(): Promise<void> {
+		if (!('serviceWorker' in navigator)) return;
+		if (dev) {
+			// In dev il SW servirebbe la cache anche a server spento:
+			// rimuoviamo eventuali registrazioni residue e le loro cache.
+			const registrations = await navigator.serviceWorker.getRegistrations();
+			await Promise.all(registrations.map((r) => r.unregister()));
+			const keys = await caches.keys();
+			await Promise.all(keys.filter((k) => k.startsWith('renkei-')).map((k) => caches.delete(k)));
+			return;
+		}
+		await navigator.serviceWorker.register(`${base}/service-worker.js`);
+	}
+
 	onMount(async () => {
+		setupServiceWorker().catch((e) => console.error('Errore service worker:', e));
 		if (appState.initialized) return;
 		try {
 			await ensureSeedLoaded();
