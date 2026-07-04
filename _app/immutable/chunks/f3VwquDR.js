@@ -1,1 +1,0 @@
-import{b as e}from"./Bl3q2qgF.js";const t={id:"default",auto_next_delay_ms:2e3,max_answer_time_ms:2e4,session_duration_minutes:5,session_timer_runs_in_detail:!1,updated_at:0},a=e({initialized:!1,settings:{...t},studyGoal:null,userProfile:null,sessionState:null,activeQuiz:null,detailItemRef:null});export{a};
