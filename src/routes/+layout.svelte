@@ -18,21 +18,8 @@
 
 	const SEED_DATA_REVISION = '2026-07-04-jmdict-v3';
 
-	const navLinks = [
-		{ href: `${base}/`, label: 'Home', icon: '🏠', section: '' },
-		{ href: `${base}/quiz`, label: 'Quiz', icon: '⚡', section: 'quiz' },
-		{ href: `${base}/courses`, label: 'Corsi', icon: '📚', section: 'courses' },
-		{ href: `${base}/stats`, label: 'Stats', icon: '📊', section: 'stats' },
-		{ href: `${base}/settings`, label: 'Impostazioni', icon: '⚙️', section: 'settings' }
-	];
-
-	function isActive(href: string): boolean {
-		const path = $page.url.pathname;
-		if (href === `${base}/`) return path === `${base}/` || path === `${base}`;
-		return path.startsWith(href);
-	}
-
-	const hideNav = $derived(
+	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
+	const hideHeader = $derived(
 		$page.url.pathname.startsWith(`${base}/quiz`) && appState.sessionState !== null
 	);
 
@@ -95,64 +82,43 @@
 </script>
 
 <div class="app-shell">
+	{#if !hideHeader && !isHome}
+		<header class="app-header">
+			<a class="brand" href="{base}/">
+				<img class="brand-logo" src="{base}/renkei-logo.svg" alt="" />
+				<span class="brand-name">Renkei</span>
+			</a>
+			<span class="brand-hint">← torna alla home</span>
+		</header>
+	{/if}
 	{@render children()}
 </div>
 
-{#if !hideNav}
-	<nav class="bottom-nav">
-		{#each navLinks as link}
-			<a
-				href={link.href}
-				class="nav-item"
-				class:nav-active={isActive(link.href)}
-				aria-label={link.label}
-			>
-				<span class="nav-icon">{link.icon}</span>
-				<span class="nav-label">{link.label}</span>
-			</a>
-		{/each}
-	</nav>
-{/if}
-
 <style>
-	.bottom-nav {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
+	.app-header {
 		display: flex;
-		background: rgba(255, 255, 255, 0.97);
-		border-top: 1px solid var(--line);
-		padding: 6px 0 max(6px, env(safe-area-inset-bottom));
-		z-index: 50;
-		box-shadow: 0 -4px 20px rgba(14, 29, 51, 0.08);
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 8px;
 	}
 
-	.nav-item {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
+	.brand {
+		display: inline-flex;
 		align-items: center;
-		gap: 2px;
-		padding: 4px 0;
+		gap: 8px;
 		text-decoration: none;
+		color: var(--ink);
+		font-weight: 800;
+		font-size: 1.05rem;
+	}
+
+	.brand-logo {
+		width: 26px;
+		height: 26px;
+	}
+
+	.brand-hint {
+		font-size: 0.72rem;
 		color: var(--muted);
-		font-size: 0.7rem;
-		font-weight: 500;
-		transition: color 150ms;
-	}
-
-	.nav-item.nav-active {
-		color: var(--brand);
-	}
-
-	.nav-icon {
-		font-size: 1.3rem;
-		line-height: 1;
-	}
-
-	.nav-label {
-		font-size: 0.65rem;
-		letter-spacing: 0.01em;
 	}
 </style>

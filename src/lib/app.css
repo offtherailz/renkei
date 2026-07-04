@@ -31,7 +31,7 @@ body {
 
 .app-shell {
   width: min(860px, 94vw);
-  margin: 16px auto 98px;
+  margin: 16px auto 32px;
   display: grid;
   gap: 12px;
 }
@@ -1148,7 +1148,7 @@ ruby rt {
   .app-shell {
     width: 95vw;
     margin-top: 12px;
-    margin-bottom: 124px;
+    margin-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
   .objective-form {
