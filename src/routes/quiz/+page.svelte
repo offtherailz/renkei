@@ -14,7 +14,8 @@
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
 		createGrammarQuestion,
-		calculateQuizXp
+		calculateQuizXp,
+		shuffle
 	} from '$lib/quiz/engine';
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
@@ -124,17 +125,17 @@
 			const kanji = kanjiRows.find((k) => k.id === ref.key.replace('kanji:', ''));
 			if (!kanji) return null;
 			const correct = locale === 'it' ? kanji.significato.it : kanji.significato.en;
-			const distractors = kanjiRows
-				.filter((k) => k.id !== kanji.id)
-				.sort(() => Math.random() - 0.5)
-				.slice(0, 3)
-				.map((k) => (locale === 'it' ? k.significato.it : k.significato.en));
+			const distractors = shuffle(kanjiRows.filter((k) => k.id !== kanji.id))
+				.map((k) => (locale === 'it' ? k.significato.it : k.significato.en))
+				.filter((value, index, values) => values.indexOf(value) === index)
+				.filter((value) => value !== correct && value.length > 0)
+				.slice(0, 3);
 			return {
 				mode: 'multiple-choice',
 				wordId: kanji.id,
 				prompt: kanji.id,
 				correctChoice: correct,
-				choices: [correct, ...distractors].sort(() => Math.random() - 0.5)
+				choices: shuffle([correct, ...distractors])
 			} satisfies MultipleChoiceQuestion;
 		}
 
@@ -209,7 +210,7 @@
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
 					answerFeedback = null;
-					tokenOrder = q2.mode === 'sentence-ordering' ? [...q2.tokens].sort(() => Math.random() - 0.5) : [];
+					tokenOrder = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
 					startAnswerTimer();
 					return;
 				}
@@ -220,7 +221,7 @@
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
 		answerFeedback = null;
-		tokenOrder = question.mode === 'sentence-ordering' ? [...question.tokens].sort(() => Math.random() - 0.5) : [];
+		tokenOrder = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
 		startAnswerTimer();
 	}
 

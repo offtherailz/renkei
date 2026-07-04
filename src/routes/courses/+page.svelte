@@ -127,7 +127,8 @@
 	{:else}
 		<div class="course-list">
 			{#each courses as c}
-				<article
+				<button
+					type="button"
 					class="course-card"
 					class:selected={selectedCourse?.id === c.id}
 					onclick={() => selectCourse(c)}
@@ -141,7 +142,7 @@
 					{#if c.autore}<p class="course-meta">Autore: {c.autore}</p>{/if}
 					{#if c.descrizione}<p class="course-meta">{c.descrizione}</p>{/if}
 					<p class="course-meta">Importato: {new Date(c.importato_il).toLocaleDateString()}</p>
-				</article>
+				</button>
 			{/each}
 		</div>
 	{/if}
@@ -261,6 +262,10 @@
 		background: var(--surface-2);
 		display: grid;
 		gap: 4px;
+		text-align: left;
+		font: inherit;
+		color: inherit;
+		width: 100%;
 	}
 
 	.course-card:hover { border-color: var(--brand); background: #eef2ff; }

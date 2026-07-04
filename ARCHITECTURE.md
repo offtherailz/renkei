@@ -22,6 +22,7 @@ La prima versione era vanilla DOM (UI imperativa via `innerHTML` in un unico `ma
 ```
 src/
   app.html              # Template HTML SvelteKit
+  service-worker.ts     # Service worker (offline, registrato da SvelteKit)
   routes/
     +layout.svelte      # Shell app, nav, bootstrap DB/seed
     +page.svelte        # Home (obiettivi, riepilogo studio)
@@ -58,7 +59,6 @@ scripts/
   sync-open-source-seed.mjs  # Pipeline di arricchimento seed dati
 static/
   seed-n5n4.json        # Seed generato (NON modificare a mano)
-  sw.js                 # Service Worker
   manifest.webmanifest  # PWA manifest
 ```
 

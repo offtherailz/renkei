@@ -23,7 +23,7 @@ const NON_ORDERING_GRAMMAR_MARKER_REGEX =
 const SENTENCE_CONTEXT_HINT_REGEX = /[はがをにでとへもやの]|。|、|！|？/;
 const GRAMMAR_STRUCTURE_SPLIT_REGEX = /[\s/／・、,()（）「」『』【】]+/;
 
-function shuffle<T>(items: T[]): T[] {
+export function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
   for (let i = copy.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -55,11 +55,13 @@ export function createFlashcardRecognitionQuestion(
   context: QuizContext
 ): FlashcardQuestion {
   const correct = word.scrittura;
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 3)
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
     .map((d) => d.id)
     .map((id) => context.wordsById.get(id)?.scrittura)
     .filter((v): v is string => Boolean(v))
-    .filter(Boolean);
+    .filter((value, index, values) => values.indexOf(value) === index)
+    .filter((value) => value !== correct)
+    .slice(0, 3);
 
   return {
     mode: "flashcard-recognition",
@@ -106,10 +108,13 @@ export function createMultipleChoiceQuestion(
   const locale = context.locale;
   const correct = pickFirstMeaning(word, locale);
 
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 3)
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
     .map((d) => context.wordsById.get(d.id))
     .filter((w): w is Word => Boolean(w))
-    .map((w) => pickFirstMeaning(w, locale));
+    .map((w) => pickFirstMeaning(w, locale))
+    .filter((value, index, values) => values.indexOf(value) === index)
+    .filter((value) => value !== correct && value.length > 0)
+    .slice(0, 3);
 
   return {
     mode: "multiple-choice",
@@ -226,13 +231,12 @@ function buildReadingSentenceHtml(sourceText: string, targetMatch: string): stri
 }
 
 function buildReadingDistractors(context: QuizContext, jlptLevel: JLPTLevel, excludedReading: string): string[] {
-  return [...context.wordsById.values()]
+  const readings = [...context.wordsById.values()]
     .filter((word) => word.livello_jlpt === jlptLevel)
     .map((word) => word.lettura)
     .filter((reading) => reading !== excludedReading)
-    .filter((reading, index, values) => values.indexOf(reading) === index)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
+    .filter((reading, index, values) => values.indexOf(reading) === index);
+  return shuffle(readings).slice(0, 3);
 }
 
 function createReadingChoiceQuestion(source: ClozeSource, jlptLevel: JLPTLevel, context: QuizContext): ReadingChoiceQuestion | null {

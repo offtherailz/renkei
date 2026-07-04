@@ -1,6 +1,40 @@
 import { describe, expect, it } from "vitest";
-import { calculateQuizXp } from "./engine";
-import type { XpInput } from "./types";
+import { calculateQuizXp, createFlashcardRecognitionQuestion, createMultipleChoiceQuestion, shuffle } from "./engine";
+import type { DistractorIndex, QuizContext, XpInput } from "./types";
+import type { Word } from "../types/models";
+
+function makeWord(id: string, scrittura: string, meaningIt: string): Word {
+  return {
+    id,
+    scrittura,
+    lettura: scrittura,
+    significato: { it: [meaningIt], en: [meaningIt] },
+    livello_jlpt: "N5",
+    tipo_jp: "名詞[めいし]",
+    kanji_usati: [],
+    sinonimi: [],
+    contrari: [],
+    omofoni: [],
+    updated_at: 0
+  } as unknown as Word;
+}
+
+function makeContext(words: Word[]): { context: QuizContext; index: DistractorIndex } {
+  return {
+    context: {
+      locale: "it",
+      wordsById: new Map(words.map((w) => [w.id, w])),
+      grammarById: new Map()
+    },
+    index: {
+      N5: words.map((w) => ({ id: w.id })),
+      N4: [],
+      N3: [],
+      N2: [],
+      N1: []
+    } as unknown as DistractorIndex
+  };
+}
 
 function makeInput(overrides: Partial<XpInput> = {}): XpInput {
   return {
@@ -13,6 +47,45 @@ function makeInput(overrides: Partial<XpInput> = {}): XpInput {
     ...overrides
   };
 }
+
+describe("shuffle", () => {
+  it("mantiene tutti gli elementi senza modificare l'originale", () => {
+    const original = [1, 2, 3, 4, 5];
+    const result = shuffle(original);
+    expect([...result].sort()).toEqual([1, 2, 3, 4, 5]);
+    expect(original).toEqual([1, 2, 3, 4, 5]);
+  });
+});
+
+describe("distrattori senza duplicati", () => {
+  // parole con scritture/significati duplicati per stressare la dedup
+  const words = [
+    makeWord("w1", "犬", "cane"),
+    makeWord("w2", "犬", "cane"),
+    makeWord("w3", "猫", "gatto"),
+    makeWord("w4", "鳥", "uccello"),
+    makeWord("w5", "魚", "pesce")
+  ];
+
+  it("flashcard-recognition: nessuna scelta duplicata né uguale alla corretta", () => {
+    const { context, index } = makeContext(words);
+    for (let i = 0; i < 20; i += 1) {
+      const q = createFlashcardRecognitionQuestion(words[0]!, "it", index, context);
+      const choices = q.choices ?? [];
+      expect(new Set(choices).size).toBe(choices.length);
+      expect(choices.filter((c) => c === q.correctAnswer)).toHaveLength(1);
+    }
+  });
+
+  it("multiple-choice: nessun significato duplicato né uguale al corretto", () => {
+    const { context, index } = makeContext(words);
+    for (let i = 0; i < 20; i += 1) {
+      const q = createMultipleChoiceQuestion(words[0]!, context, index);
+      expect(new Set(q.choices).size).toBe(q.choices.length);
+      expect(q.choices.filter((c) => c === q.correctChoice)).toHaveLength(1);
+    }
+  });
+});
 
 describe("calculateQuizXp", () => {
   it("risposta sbagliata: zero XP", () => {
