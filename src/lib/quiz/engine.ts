@@ -9,6 +9,7 @@ import type {
   ClozeSource,
   DistractorIndex,
   FlashcardQuestion,
+  ListeningQuestion,
   MultipleChoiceQuestion,
   QuizContext,
   ReadingChoiceQuestion,
@@ -97,6 +98,28 @@ export function createFlashcardReadingRecognitionQuestion(
     choices: shuffle([correct, ...distractors]).slice(0, 4),
     correctAnswer: correct,
     warningMultipleDefinitions: pickLocalizedArray(word.significato, locale).length > 1
+  };
+}
+
+export function createListeningQuestion(
+  word: Word,
+  distractorIndex: DistractorIndex,
+  context: QuizContext
+): ListeningQuestion {
+  const correct = word.scrittura;
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
+    .map((d) => context.wordsById.get(d.id)?.scrittura)
+    .filter((v): v is string => Boolean(v))
+    .filter((value, index, values) => values.indexOf(value) === index)
+    .filter((value) => value !== correct)
+    .slice(0, 3);
+
+  return {
+    mode: "listening",
+    wordId: word.id,
+    readingToSpeak: word.lettura,
+    choices: shuffle([correct, ...distractors]).slice(0, 4),
+    correctChoice: correct
   };
 }
 
@@ -308,7 +331,8 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "multiple-choice": 12,
   "sentence-ordering": 15,
   cloze: 14,
-  "reading-choice": 13
+  "reading-choice": 13,
+  listening: 11
 };
 
 export async function createGrammarQuestion(

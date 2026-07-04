@@ -7,7 +7,8 @@ export type QuizMode =
   | "multiple-choice"
   | "sentence-ordering"
   | "cloze"
-  | "reading-choice";
+  | "reading-choice"
+  | "listening";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -53,12 +54,21 @@ export interface ReadingChoiceQuestion {
   correctChoice: string;
 }
 
+export interface ListeningQuestion {
+  mode: "listening";
+  wordId: string;
+  readingToSpeak: string;
+  choices: string[];
+  correctChoice: string;
+}
+
 export type QuizQuestion =
   | FlashcardQuestion
   | MultipleChoiceQuestion
   | SentenceOrderingQuestion
   | ClozeQuestion
-  | ReadingChoiceQuestion;
+  | ReadingChoiceQuestion
+  | ListeningQuestion;
 
 export interface DistractorEntry {
   id: string;

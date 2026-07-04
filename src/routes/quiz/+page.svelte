@@ -13,6 +13,7 @@
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
+		createListeningQuestion,
 		createGrammarQuestion,
 		calculateQuizXp,
 		shuffle
@@ -20,7 +21,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion
+		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion
 	} from '$lib/quiz/types';
 	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective } from '$lib/types/models';
 	import type { ItemRef, StudySessionState, ActiveQuiz } from '$lib/stores.svelte';
@@ -69,8 +70,12 @@
 		return srsMap.get(key);
 	}
 
-	function pickWordMode(stage: number, word: Word): FlashcardQuestion['mode'] | 'multiple-choice' {
+	const hasTts = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+	function pickWordMode(stage: number, word: Word): FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' {
 		const hasKanji = word.kanji_usati.length > 0;
+		// Ascolto: skill separata, entra in rotazione dallo stage 1.
+		if (hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
 		if (stage <= 1) {
 			const r = Math.random();
 			if (r < (hasKanji ? 0.45 : 0.2)) return 'flashcard-reading-recognition';
@@ -118,6 +123,7 @@
 			if (mode === 'flashcard-production') return createFlashcardProductionQuestion(word, locale);
 			if (mode === 'flashcard-recognition') return createFlashcardRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'flashcard-reading-recognition') return createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
+			if (mode === 'listening') return createListeningQuestion(word, distractorIndex, context);
 			return createMultipleChoiceQuestion(word, context, distractorIndex);
 		}
 
@@ -222,6 +228,7 @@
 		revealedProduction = false;
 		answerFeedback = null;
 		tokenOrder = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
+		if (question.mode === 'listening') speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
 	}
 
@@ -330,6 +337,8 @@
 				return { prompt: q.prompt, correct: q.correctOrder.join('') };
 			case 'reading-choice':
 				return { prompt: q.plainSentence, correct: q.correctChoice };
+			case 'listening':
+				return { prompt: `🔊 ${q.readingToSpeak}`, correct: q.correctChoice };
 			case 'cloze':
 				return { prompt: q.sentenceWithBlank.replace(/<[^>]*>/g, ''), correct: q.correctChoice };
 		}
@@ -394,6 +403,7 @@
 			correct = choice === (q as FlashcardQuestion).correctAnswer;
 		else if (q.mode === 'cloze') correct = choice === (q as ClozeQuestion).correctChoice;
 		else if (q.mode === 'reading-choice') correct = choice === (q as ReadingChoiceQuestion).correctChoice;
+		else if (q.mode === 'listening') correct = choice === (q as ListeningQuestion).correctChoice;
 		handleAnswer(correct, choice);
 	}
 
@@ -685,6 +695,25 @@
 				{/each}
 			</div>
 
+		<!-- listening -->
+		{:else if quiz.question.mode === 'listening'}
+			{@const q = quiz.question as ListeningQuestion}
+			<p class="question-hint">Ascolta e scegli la scrittura corretta</p>
+			<button class="listen-btn" onclick={() => speakSentenceJapanese(q.readingToSpeak)}>
+				🔊 Riascolta
+			</button>
+			<div class="choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
 		<!-- cloze -->
 		{:else}
 			{@const q = quiz.question as ClozeQuestion}
@@ -942,6 +971,20 @@
 	}
 
 	.token:hover:not(:disabled) { background: #dde6ff; }
+
+	.listen-btn {
+		justify-self: center;
+		padding: 14px 28px;
+		border-radius: 12px;
+		border: 1.5px solid var(--brand);
+		background: #eef2ff;
+		color: var(--brand);
+		font-size: 1.05rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.listen-btn:hover { background: var(--brand); color: #fff; }
 
 	.reading-sentence {
 		font-size: 1.1rem;
