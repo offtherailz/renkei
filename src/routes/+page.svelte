@@ -113,9 +113,21 @@
 			<span class="quick-icon">🎧</span>
 			<span>Ascolto (聴解)</span>
 		</a>
+		<a href="{base}/consolida" class="quick-card">
+			<span class="quick-icon">💪</span>
+			<span>Vocabolario / Consolida</span>
+		</a>
 		<a href="{base}/forme" class="quick-card">
 			<span class="quick-icon">📖</span>
 			<span>Forme grammaticali</span>
+		</a>
+		<a href="{base}/particelle" class="quick-card">
+			<span class="quick-icon">🪝</span>
+			<span>Particelle</span>
+		</a>
+		<a href="{base}/contatori" class="quick-card">
+			<span class="quick-icon">🔢</span>
+			<span>Contatori</span>
 		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
