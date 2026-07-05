@@ -349,7 +349,12 @@
 	<!-- GRAMMAR -->
 	{:else if grammar}
 		<article class="detail-card">
-			<p class="grammar-structure">{grammar.struttura}</p>
+			<div class="detail-hero">
+				<p class="grammar-structure">{grammar.struttura}</p>
+				{#if grammar.frasi_esempio?.length}
+					<a class="consolida-btn" href="{base}/consolida/{encodeURIComponent(`grammar:${grammar.id}`)}">💪 Consolida</a>
+				{/if}
+			</div>
 			<div class="badges-row">
 				<JlptBadge level={grammar.livello_jlpt} />
 				{#if grammar.categoria_jp}<JpBadge label={grammar.categoria_jp} variant="jp-badge-pos" />{/if}

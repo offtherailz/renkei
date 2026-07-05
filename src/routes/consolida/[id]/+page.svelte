@@ -12,10 +12,13 @@
 		createConjugationQuizQuestion,
 		createCounterQuestion,
 		createTransitivityPairQuestion,
+		createGrammarQuestion,
 		shuffle
 	} from '$lib/quiz/engine';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
+	import { blankSentence } from '$lib/core/usage';
+	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import type { Word, Counter } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -24,6 +27,7 @@
 
 	let word = $state<Word | null>(null);
 	let kanjiChar = $state<string | null>(null);
+	let grammarMode = $state(false);
 	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
@@ -37,7 +41,7 @@
 	async function build(): Promise<void> {
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
-		word = null; kanjiChar = null;
+		word = null; kanjiChar = null; grammarMode = false;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -47,7 +51,29 @@
 		};
 		const distractors: DistractorIndex = await preloadDistractorIndex();
 
-		const w = await db.words.get(wordId);
+		// id può essere bare (parola/kanji) o prefissato (grammar:...)
+		const [kind, ...rest] = wordId.includes(':') ? wordId.split(':') : ['auto', wordId];
+		const rawId = wordId.includes(':') ? rest.join(':') : wordId;
+
+		// Grammatica: micro-drill con le domande grammaticali (cloze/reading).
+		if (kind === 'grammar') {
+			const g = await db.grammar.get(rawId);
+			if (g && g.frasi_esempio?.length) {
+				grammarMode = true;
+				title = g.struttura;
+				const qs: QuizQuestion[] = [];
+				for (let i = 0; i < 8 && qs.length < 5; i += 1) {
+					const example = g.frasi_esempio[Math.floor(Math.random() * g.frasi_esempio.length)]!;
+					const q = await createGrammarQuestion({ grammar: g, example }, distractors, g.livello_jlpt, context, locale);
+					if (q.mode === 'cloze' || q.mode === 'reading-choice') qs.push(q);
+				}
+				queue = qs;
+			}
+			loading = false;
+			return;
+		}
+
+		const w = await db.words.get(rawId);
 		if (w) {
 			word = w;
 			title = w.scrittura;
@@ -57,7 +83,7 @@
 		}
 
 		// Kanji: drill sulle parole in catalogo che usano questo kanji.
-		const k = await db.kanji.get(wordId);
+		const k = await db.kanji.get(rawId);
 		if (k) {
 			kanjiChar = k.id;
 			title = k.id;
@@ -87,6 +113,8 @@
 		const qs: QuizQuestion[] = [];
 		qs.push(createMultipleChoiceQuestion(w, context, distractors)); // diretto JP→IT
 		qs.push(createFlashcardRecognitionQuestion(w, locale, distractors, context)); // inverso IT→JP
+		const usage = usageQuestion(w, context); // prova d'uso: parola oscurata nella sua frase
+		if (usage) qs.push(usage);
 		if (w.kanji_usati.length > 0 && w.scrittura !== w.lettura) {
 			qs.push(createFlashcardReadingRecognitionQuestion(w, locale, distractors, context));
 		}
@@ -115,6 +143,30 @@
 			if (cq) qs.push(cq);
 		}
 		return qs;
+	}
+
+	// Prova d'uso: la parola oscurata nella sua frase d'esempio, distrattori
+	// dello stesso tipo. Riusa la forma flashcard (prompt = frase col buco).
+	function usageQuestion(w: Word, context: QuizContext): QuizQuestion | null {
+		const ex = w.frasi_esempio?.[0];
+		if (!ex) return null;
+		const sentence = stripFuriganaNotation(ex.testo);
+		const blanked = blankSentence(sentence, w.scrittura);
+		if (!blanked) return null;
+		const pool = [...context.wordsById.values()].filter(
+			(x) => x.id !== w.id && x.tipo_jp === w.tipo_jp
+		);
+		const distractors = shuffle(pool).slice(0, 3).map((x) => x.scrittura);
+		if (distractors.length < 2) return null;
+		return {
+			mode: 'flashcard-recognition',
+			wordId: w.id,
+			prompt: `Completa: ${blanked}`,
+			promptLanguage: 'ja',
+			choices: shuffle([w.scrittura, ...distractors]),
+			correctAnswer: w.scrittura,
+			warningMultipleDefinitions: false
+		};
 	}
 
 	// Domanda a scelta: "Quale è il <relazione> di X?" — corretta = una parola
@@ -157,6 +209,8 @@
 		if (q.mode === 'conjugation') return `${q.dictionary} → ${q.formLabel}`;
 		if (q.mode === 'counter-quiz') return `Contatore per ${q.prompt}`;
 		if (q.mode === 'transitivity-pair') return q.sentenceWithBlank;
+		if (q.mode === 'cloze') return `Completa: ${q.sentenceWithBlank.replace(/<[^>]*>/g, '')}`;
+		if (q.mode === 'reading-choice') return `Come si legge «${q.targetText}»? ${q.plainSentence}`;
 		if ('prompt' in q && q.prompt) return q.prompt;
 		return '';
 	}
@@ -189,13 +243,13 @@
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
-	{:else if !word && !kanjiChar}
+	{:else if !word && !kanjiChar && !grammarMode}
 		<p class="muted">Elemento non trovato.</p>
 	{:else}
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
 			</p>
 		</header>
 
@@ -222,6 +276,8 @@
 			{/key}
 		{:else if kanjiChar}
 			<p class="muted">Nessuna parola in catalogo con {kanjiChar}.</p>
+		{:else if grammarMode}
+			<p class="muted">Nessuna domanda generabile per questa forma.</p>
 		{/if}
 
 		{#if word}
