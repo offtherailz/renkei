@@ -298,6 +298,20 @@ Candidati da valutare (licenze da verificare voce per voce):
 
 ---
 
+## In coda (2026-07-05)
+
+1. **Icone aggettivi い/な** — sostituire 🔴/🧩 nei badge con i kana い e な
+   stilizzati via CSS (cerchietto colorato, stile emoticon), così l'icona È la
+   desinenza da ricordare.
+2. **Localizzazione italiana dei contenuti, partendo dal giapponese** — oggi i
+   significati inglesi riempiono sia `it` che `en`. La traduzione va fatta
+   **dal giapponese** (non dall'inglese, altrimenti si accumulano errori di
+   doppia traduzione), presumibilmente con un passo di generazione nella
+   pipeline seed. Siccome è sperimentale: **prima** aggiungere nelle
+   Impostazioni la scelta della lingua contenuti (it/en, oggi è auto da
+   `navigator.language`), così se la traduzione fa schifo si torna all'inglese
+   con un tap. Ordine: setting lingua → pipeline traduzione it → revisione.
+
 ## Problemi noti / TODO tecnici
 
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.
