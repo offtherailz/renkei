@@ -57,6 +57,7 @@
 	let quiz = $state<ActiveQuiz | null>(null);
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
+	let showDives = $state(false);
 	let bankTokens = $state<string[]>([]);
 	let answerTokens = $state<string[]>([]);
 	let nowTick = $state(Date.now());
@@ -256,6 +257,7 @@
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
 					answerFeedback = null;
+					showDives = false;
 					bankTokens = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
 					startAnswerTimer();
@@ -268,6 +270,7 @@
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
 		answerFeedback = null;
+		showDives = false;
 		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
 		answerTokens = [];
 		if (question.mode === 'listening') speakSentenceJapanese(question.readingToSpeak);
@@ -456,9 +459,7 @@
 			dives.push(
 				q.correctChoice === 'な'
 					? { label: 'Aggettivi in -な', href: `${base}/forme#na-keiyoushi`, primary: true }
-					: q.correctChoice === 'の' && word?.tipo_jp.startsWith('名詞')
-						? { label: 'Il の tra nomi', href: `${base}/forme#meishi`, primary: true }
-						: { label: `Particella ${q.correctChoice}`, href: `${base}/forme#joshi`, primary: true }
+					: { label: `Particella ${q.correctChoice}`, href: `${base}/particelle#${encodeURIComponent(q.correctChoice)}`, primary: true }
 			);
 			if (wordLink) dives.push(wordLink);
 			dives.push(...wordsInSentence(q.fullSentence, word?.id));
@@ -1065,20 +1066,26 @@
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>
 			{/if}
-			{#if buildDeepDives().length > 0}
+			{#if showDives}
 				<div class="deep-dives">
 					<span class="deep-dives-label">🔍 Approfondisci:</span>
 					{#each buildDeepDives() as dive (dive.href)}
-						<a
-							class="dive-chip"
-							class:dive-primary={dive.primary}
-							href={dive.href}
-							onclick={stopAutoNext}
-						>{dive.label}</a>
+						<a class="dive-chip" class:dive-primary={dive.primary} href={dive.href}>{dive.label}</a>
 					{/each}
 				</div>
 			{/if}
 			<div class="after-actions">
+				{#if !showDives && buildDeepDives().length > 0}
+					<button
+						class="dives-toggle"
+						onclick={() => {
+							// ferma countdown e timer di sessione: c'è tempo per guardare
+							stopAutoNext();
+							if (session && !session.pausedAt) session.pausedAt = Date.now();
+							showDives = true;
+						}}
+					>🔍 Approfondisci</button>
+				{/if}
 				<button
 					class="skip-btn"
 					style="--countdown-progress: {Math.round(autoNextProgress * 100)}%"
@@ -1459,10 +1466,23 @@
 
 	.after-actions {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
 		gap: 8px;
 	}
+
+	.dives-toggle {
+		padding: 8px 14px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface-2);
+		color: var(--ink);
+		font-size: 0.85rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.dives-toggle:hover { border-color: var(--brand); }
 
 	.skip-btn {
 		--countdown-progress: 0%;

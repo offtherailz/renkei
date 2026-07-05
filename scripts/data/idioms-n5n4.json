@@ -1,0 +1,22 @@
+[
+  { "scrittura": "よろしくお願いします", "lettura": "よろしくおねがいします", "it": ["piacere di conoscerti", "conto su di te"], "en": ["nice to meet you", "please treat me well"], "livello": "N5", "esempio": { "jp": "田中です。よろしくお願いします。", "it": "Sono Tanaka. Piacere." } },
+  { "scrittura": "お疲れさまです", "lettura": "おつかれさまです", "it": ["buon lavoro (saluto tra colleghi)", "grazie per il lavoro"], "en": ["thank you for your hard work"], "livello": "N5", "esempio": { "jp": "お先に失礼します。— お疲れさまです。", "it": "Vado via prima io. — Buon lavoro!" } },
+  { "scrittura": "いただきます", "lettura": "いただきます", "it": ["buon appetito (detto da chi mangia)"], "en": ["thanks for the meal (before eating)"], "livello": "N5", "esempio": { "jp": "おいしそう！いただきます。", "it": "Che buono! Buon appetito." } },
+  { "scrittura": "ごちそうさまでした", "lettura": "ごちそうさまでした", "it": ["grazie per il pasto (a fine pasto)"], "en": ["thank you for the meal"], "livello": "N5", "esempio": { "jp": "ごちそうさまでした。おいしかったです。", "it": "Grazie per il pasto, era buonissimo." } },
+  { "scrittura": "おじゃまします", "lettura": "おじゃまします", "it": ["permesso (entrando in casa altrui)"], "en": ["excuse me for intruding"], "livello": "N5", "esempio": { "jp": "どうぞ。— おじゃまします。", "it": "Prego, entra. — Permesso." } },
+  { "scrittura": "お久しぶりです", "lettura": "おひさしぶりです", "it": ["quanto tempo!", "è da tanto che non ci vediamo"], "en": ["long time no see"], "livello": "N5", "esempio": { "jp": "お久しぶりです。お元気でしたか。", "it": "Quanto tempo! Come sei stato?" } },
+  { "scrittura": "気をつけて", "lettura": "きをつけて", "it": ["stai attento", "buon viaggio"], "en": ["take care", "be careful"], "livello": "N5", "esempio": { "jp": "雨ですよ。気をつけて。", "it": "Piove, stai attento." } },
+  { "scrittura": "お大事に", "lettura": "おだいじに", "it": ["rimettiti presto", "riguardati"], "en": ["get well soon"], "livello": "N5", "esempio": { "jp": "かぜですか。お大事に。", "it": "Hai il raffreddore? Rimettiti presto." } },
+  { "scrittura": "どういたしまして", "lettura": "どういたしまして", "it": ["prego", "di niente"], "en": ["you're welcome"], "livello": "N5", "esempio": { "jp": "ありがとう。— どういたしまして。", "it": "Grazie. — Di niente." } },
+  { "scrittura": "お腹が空いた", "lettura": "おなかがすいた", "it": ["ho fame"], "en": ["I'm hungry"], "livello": "N5", "esempio": { "jp": "お腹が空いた。何か食べよう。", "it": "Ho fame. Mangiamo qualcosa." } },
+  { "scrittura": "喉が渇いた", "lettura": "のどがかわいた", "it": ["ho sete"], "en": ["I'm thirsty"], "livello": "N5", "esempio": { "jp": "喉が渇いた。水をください。", "it": "Ho sete. Dell'acqua, per favore." } },
+  { "scrittura": "頑張って", "lettura": "がんばって", "it": ["forza!", "impegnati", "in bocca al lupo"], "en": ["good luck", "do your best"], "livello": "N5", "esempio": { "jp": "明日、しけんです。— 頑張って！", "it": "Domani ho l'esame. — In bocca al lupo!" } },
+  { "scrittura": "おめでとうございます", "lettura": "おめでとうございます", "it": ["congratulazioni", "auguri"], "en": ["congratulations"], "livello": "N5", "esempio": { "jp": "たんじょうび、おめでとうございます。", "it": "Buon compleanno!" } },
+  { "scrittura": "お先に失礼します", "lettura": "おさきにしつれいします", "it": ["vado via prima io (in ufficio)"], "en": ["excuse me for leaving first"], "livello": "N4", "esempio": { "jp": "五時ですね。お先に失礼します。", "it": "Sono le cinque. Vado via prima io." } },
+  { "scrittura": "ただいま", "lettura": "ただいま", "it": ["sono a casa!"], "en": ["I'm home"], "livello": "N5", "esempio": { "jp": "ただいま。— おかえりなさい。", "it": "Sono a casa! — Bentornato." } },
+  { "scrittura": "おかえりなさい", "lettura": "おかえりなさい", "it": ["bentornato"], "en": ["welcome home"], "livello": "N5", "esempio": { "jp": "ただいま。— おかえりなさい。ごはんできてるよ。", "it": "Sono a casa! — Bentornato, la cena è pronta." } },
+  { "scrittura": "気に入る", "lettura": "きにいる", "it": ["piacere (qualcosa)", "andare a genio"], "en": ["to take a liking to"], "livello": "N4", "esempio": { "jp": "このかばん、気に入りました。", "it": "Questa borsa mi piace proprio." } },
+  { "scrittura": "間に合う", "lettura": "まにあう", "it": ["fare in tempo", "arrivare in tempo"], "en": ["to be in time"], "livello": "N4", "esempio": { "jp": "急げば、九時のでんしゃに間に合う。", "it": "Se ci sbrighiamo facciamo in tempo per il treno delle 9." } },
+  { "scrittura": "仕方がない", "lettura": "しかたがない", "it": ["non c'è niente da fare", "pazienza"], "en": ["it can't be helped"], "livello": "N4", "esempio": { "jp": "雨か。仕方がないね。", "it": "Piove, eh. Pazienza." } },
+  { "scrittura": "かしこまりました", "lettura": "かしこまりました", "it": ["certamente (formale, verso un cliente)"], "en": ["certainly (formal)"], "livello": "N4", "esempio": { "jp": "コーヒーをください。— かしこまりました。", "it": "Un caffè, per favore. — Certamente." } }
+]

@@ -14,6 +14,50 @@ const JMDICT_CACHE_DIR = path.join(ROOT, "scripts", ".cache");
 const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json");
 const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
 const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
+const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
+
+// Espressioni idiomatiche essenziali curate a mano: entrano nel catalogo come
+// 慣用表現 con significati italiani veri (le prime voci realmente localizzate).
+async function mergeIdioms(words) {
+  const curated = JSON.parse(await fs.readFile(IDIOMS_PATH, "utf8"));
+  const byWriting = new Map(words.map((w) => [w.scrittura, w]));
+  const now = Date.now();
+  let added = 0;
+  for (const idiom of curated) {
+    const existing = byWriting.get(idiom.scrittura);
+    if (existing) {
+      existing.tipo_jp = "慣用表現[かんようひょうげん]";
+      existing.significato = { it: idiom.it, en: idiom.en };
+      existing.frasi_esempio = [
+        { testo: idiom.esempio.jp, traduzione: { it: idiom.esempio.it, en: idiom.esempio.it } }
+      ];
+      delete existing.classe_verbo_jp;
+      delete existing.transitivita_jp;
+      delete existing.tipo_aggettivo_jp;
+      continue;
+    }
+    words.push({
+      id: idiom.scrittura,
+      scrittura: idiom.scrittura,
+      lettura: idiom.lettura,
+      significato: { it: idiom.it, en: idiom.en },
+      study_tags: ["idiom-core", idiom.livello.toLowerCase()],
+      livello_jlpt: idiom.livello,
+      tipo_jp: "慣用表現[かんようひょうげん]",
+      kanji_usati: [...new Set([...idiom.scrittura].filter((c) => /[一-龯]/.test(c)))],
+      frasi_esempio: [
+        { testo: idiom.esempio.jp, traduzione: { it: idiom.esempio.it, en: idiom.esempio.it } }
+      ],
+      sinonimi: [],
+      contrari: [],
+      omofoni: [],
+      updated_at: now
+    });
+    added += 1;
+  }
+  console.log(`Espressioni idiomatiche curate: ${added} aggiunte, ${curated.length - added} aggiornate.`);
+  return words;
+}
 const OPEN_SOURCE = {
   name: "allenlu2009/japanese-learning-datasets",
   license: "MIT",
@@ -931,7 +975,7 @@ async function main() {
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
   const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
   const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides);
-  const withSuruVerbs = buildSuruVerbs(enrichedWords, jmdictIndex);
+  const withSuruVerbs = await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex));
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.
   const normalizedWords = enrichWordRelations(withSuruVerbs).sort(

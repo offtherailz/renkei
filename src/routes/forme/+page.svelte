@@ -129,6 +129,9 @@
 			{#if form.slug === 'josuushi'}
 				<a class="words-toggle" href="{base}/contatori">→ Vai al catalogo dei contatori</a>
 			{/if}
+			{#if form.slug === 'joshi'}
+				<a class="words-toggle" href="{base}/particelle">→ Guida completa alle particelle (usi ed esempi)</a>
+			{/if}
 			{#if (counts[form.slug] ?? 0) > 0}
 				<button class="words-toggle" onclick={() => toggleWords(form.slug)}>
 					{openWords[form.slug] ? '▾ Nascondi le parole' : `▸ Vedi le ${counts[form.slug]} parole di questo tipo`}

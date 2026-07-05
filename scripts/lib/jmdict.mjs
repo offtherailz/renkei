@@ -147,18 +147,21 @@ export function deriveJmdictMetadata(entry) {
   return result;
 }
 
-// Frasi d'esempio (Tatoeba) collegate all'entry: coppie giapponese/inglese.
+// Frasi d'esempio (Tatoeba): si preferiscono le più corte e pedagogiche
+// (lunghezza ideale ~18 caratteri) — le lunghe contengono lessico fuori livello.
 export function extractJmdictExamples(entry, max = 2) {
-  const results = [];
+  const all = [];
   for (const sense of entry.sense ?? []) {
     for (const example of sense.examples ?? []) {
       const jp = example.sentences?.find((s) => s.lang === "jpn")?.text;
       const en = example.sentences?.find((s) => s.lang === "eng")?.text;
-      if (jp && en) {
-        results.push({ jp, en });
-        if (results.length >= max) return results;
-      }
+      if (jp && en) all.push({ jp, en });
     }
   }
-  return results;
+  const IDEAL = 18;
+  const good = all
+    .filter((e) => e.jp.length >= 6 && e.jp.length <= 34)
+    .sort((a, b) => Math.abs(a.jp.length - IDEAL) - Math.abs(b.jp.length - IDEAL));
+  if (good.length > 0) return good.slice(0, max);
+  return all.sort((a, b) => a.jp.length - b.jp.length).slice(0, max);
 }

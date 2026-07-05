@@ -16,7 +16,7 @@
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-07-05-choukai-v6';
+	const SEED_DATA_REVISION = '2026-07-05-idioms-v7';
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(
