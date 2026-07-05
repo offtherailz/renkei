@@ -3,9 +3,11 @@
 	import { appState } from '$lib/stores.svelte';
 	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
+	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
 
 	let saving = $state(false);
 	let saved = $state(false);
+	const loadedSeed = typeof localStorage !== 'undefined' ? localStorage.getItem(SEED_LOADED_KEY) : null;
 
 	const verbForms = DRILL_FORMS.filter((f) => f.category === 'verb');
 	const adjectiveForms = DRILL_FORMS.filter((f) => f.category === 'adjective');
@@ -196,6 +198,14 @@
 <section class="section-card">
 	<p class="card-title">Informazioni</p>
 	<p class="info-text">連携 Renkei — Studio giapponese JLPT</p>
+	<div class="setting-row"><span>Versione app (dati attesi)</span><strong>{SEED_REVISION}</strong></div>
+	<div class="setting-row">
+		<span>Dati caricati</span>
+		<strong class:stale={loadedSeed !== SEED_REVISION}>{loadedSeed ?? '—'}</strong>
+	</div>
+	{#if loadedSeed && loadedSeed !== SEED_REVISION}
+		<p class="hint-text">⚠️ Dati non aggiornati: ricarica l'app (refresh) per importare la versione {SEED_REVISION}.</p>
+	{/if}
 	<p class="hint-text">Dati archiviati localmente nel browser (IndexedDB). Nessun account richiesto.</p>
 </section>
 
@@ -321,4 +331,5 @@
 
 	.hint-text { font-size: 0.73rem; color: var(--muted); margin: 0; }
 	.info-text { font-size: 0.9rem; font-weight: 600; margin: 0; }
+	.stale { color: var(--danger); }
 </style>

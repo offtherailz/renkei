@@ -40,7 +40,7 @@
 	<img src="{base}/renkei-logo.svg" alt="Renkei" class="logo" width="52" height="52" />
 	<div class="topbar-info">
 		<h1 class="topbar-title">連携 Renkei</h1>
-		<p class="topbar-sub">Studio giapponese • Lv.{userLevel} • 🔥 {streak} giorni</p>
+		<p class="topbar-sub">Lv.{userLevel} • 🔥 {streak} giorni</p>
 	</div>
 	<div class="topbar-xp">
 		<div class="xp-badge">XP {userXp}</div>

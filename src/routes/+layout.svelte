@@ -13,11 +13,12 @@
 		ensureDefaultStudyGoal
 	} from '$lib/db/objectives';
 	import { appState } from '$lib/stores.svelte';
+	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
 	import type { DatabaseSeed } from '$lib/types/models';
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-07-05-ux-v8';
+	const SEED_DATA_REVISION = SEED_REVISION;
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(
@@ -51,6 +52,7 @@
 		} else {
 			await importDatabaseFromJson(payload);
 		}
+		localStorage.setItem(SEED_LOADED_KEY, SEED_DATA_REVISION);
 	}
 
 	async function setupServiceWorker(): Promise<void> {
