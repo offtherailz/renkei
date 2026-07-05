@@ -62,9 +62,13 @@
 		一段動詞: '1️⃣',
 		不規則動詞: '*️⃣',
 		他動詞: '👉',
-		自動詞: '🤖',
-		い形容詞: '🔴',
-		な形容詞: '🧩'
+		自動詞: '🤖'
+	};
+
+	// Aggettivi: l'icona È la desinenza — い/な stilizzati come emoticon.
+	const KANA_ICONS: Record<string, string> = {
+		い形容詞: 'い',
+		な形容詞: 'な'
 	};
 
 	const ICONS_BY_VARIANT: Record<string, string> = {
@@ -77,12 +81,14 @@
 		(locale === 'it' ? TOOLTIPS_IT : TOOLTIPS_EN)[plain] ??
 			(locale === 'it' ? 'Etichetta grammaticale.' : 'Grammar label.')
 	);
-	const icon = $derived(ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? '');
+	const kanaIcon = $derived(KANA_ICONS[plain] ?? '');
+	const icon = $derived(kanaIcon ? '' : (ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? ''));
 	const formSlug = $derived(FORM_SLUG_BY_LABEL[plain]);
 </script>
 
 {#if formSlug}
 	<a class="jp-badge jp-badge-link {variant}" href="{base}/forme#{formSlug}">
+		{#if kanaIcon}<span class="kana-icon kana-icon-{kanaIcon === 'い' ? 'i' : 'na'}">{kanaIcon}</span>{/if}
 		{#if icon}<span class="badge-icon">{icon}</span>{/if}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html renderFuriganaToHtml(label)}
@@ -91,6 +97,7 @@
 {:else}
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<span class="jp-badge {variant}" tabindex="0">
+		{#if kanaIcon}<span class="kana-icon kana-icon-{kanaIcon === 'い' ? 'i' : 'na'}">{kanaIcon}</span>{/if}
 		{#if icon}<span class="badge-icon">{icon}</span>{/if}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html renderFuriganaToHtml(label)}
@@ -119,6 +126,32 @@
 		font-size: 1.25em;
 		line-height: 1;
 		vertical-align: middle;
+	}
+
+	/* い/な come emoticon: cerchietto colorato con il kana bianco in rilievo */
+	.kana-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5em;
+		height: 1.5em;
+		margin-right: 4px;
+		border-radius: 50%;
+		color: #fff;
+		font-size: 0.95em;
+		font-weight: 800;
+		line-height: 1;
+		vertical-align: middle;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.18), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+	}
+
+	.kana-icon-i {
+		background: radial-gradient(circle at 30% 30%, #fb7185, #dc2626);
+	}
+
+	.kana-icon-na {
+		background: radial-gradient(circle at 30% 30%, #5eead4, #0d9488);
 	}
 
 	.badge-tooltip {

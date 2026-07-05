@@ -79,14 +79,23 @@
 
 	<nav class="forms-toc">
 		{#each GRAMMAR_FORMS as form}
-			<a class="toc-chip" href="#{form.slug}">{form.icon} {form.title}</a>
+			<a class="toc-chip" href="#{form.slug}">
+				{#if form.icon === 'い' || form.icon === 'な'}
+					<span class="kana-emoji kana-emoji-{form.icon === 'い' ? 'i' : 'na'}">{form.icon}</span>
+				{:else}{form.icon}{/if}
+				{form.title}
+			</a>
 		{/each}
 	</nav>
 
 	{#each GRAMMAR_FORMS as form}
 		<article class="form-card" id={form.slug}>
 			<div class="form-head">
-				<span class="form-icon">{form.icon}</span>
+				{#if form.icon === 'い' || form.icon === 'な'}
+					<span class="form-icon kana-emoji kana-emoji-{form.icon === 'い' ? 'i' : 'na'} kana-emoji-big">{form.icon}</span>
+				{:else}
+					<span class="form-icon">{form.icon}</span>
+				{/if}
 				<div>
 					<h2 class="form-title">{form.title}</h2>
 					<p class="form-label"><FuriganaText text={form.label} /></p>
@@ -187,6 +196,27 @@
 	}
 
 	.form-icon { font-size: 1.8rem; }
+
+	.kana-emoji {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.4em;
+		height: 1.4em;
+		border-radius: 50%;
+		color: #fff;
+		font-weight: 800;
+		font-size: 0.9em;
+		line-height: 1;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+		box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.18), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+	}
+
+	.kana-emoji-big { width: 1.5em; height: 1.5em; font-size: 1.4rem; }
+
+	.kana-emoji-i { background: radial-gradient(circle at 30% 30%, #fb7185, #dc2626); }
+
+	.kana-emoji-na { background: radial-gradient(circle at 30% 30%, #5eead4, #0d9488); }
 
 	.form-title { margin: 0; font-size: 1.05rem; }
 

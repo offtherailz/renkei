@@ -18,6 +18,14 @@ const GODAN_NAI: Record<string, string> = {
 	う: 'わ', く: 'か', ぐ: 'が', す: 'さ', つ: 'た', ぬ: 'な', ぶ: 'ば', む: 'ま', る: 'ら'
 };
 
+const GODAN_E: Record<string, string> = {
+	う: 'え', く: 'け', ぐ: 'げ', す: 'せ', つ: 'て', ぬ: 'ね', ぶ: 'べ', む: 'め', る: 'れ'
+};
+
+const GODAN_O: Record<string, string> = {
+	う: 'お', く: 'こ', ぐ: 'ご', す: 'そ', つ: 'と', ぬ: 'の', ぶ: 'ぼ', む: 'も', る: 'ろ'
+};
+
 function godanTe(stem: string, last: string, dictionary: string): string {
 	if (dictionary.endsWith('行く') || dictionary === '行く' || dictionary === 'いく') {
 		return `${stem}って`;
@@ -90,6 +98,126 @@ export function conjugateVerb(dictionary: string, verbClass: VerbClass): Conjuga
 		{ key: 'ta', label: 'forma た (passato)', value: teToTa(te) },
 		{ key: 'te', label: 'forma て', value: te }
 	];
+}
+
+// Tabella completa delle coniugazioni per la scheda del verbo.
+export function buildVerbTable(dictionary: string, verbClass: VerbClass): ConjugationForm[] | null {
+	const basic = conjugateVerb(dictionary, verbClass);
+	if (!basic) return null;
+	const byKey = Object.fromEntries(basic.map((f) => [f.key, f.value]));
+	const naiStem = byKey.nai!.slice(0, -2); // senza ない
+	const masuStem = byKey.masu!.slice(0, -2); // senza ます
+	const te = byKey.te!;
+	const ta = byKey.ta!;
+
+	let potential = '';
+	let volitional = '';
+	let ba = '';
+	let imperative = '';
+	let passive = '';
+	let causative = '';
+
+	if (verbClass === 'irregular') {
+		if (dictionary.endsWith('する')) {
+			const stem = dictionary.slice(0, -2);
+			potential = `${stem}できる`;
+			volitional = `${stem}しよう`;
+			ba = `${stem}すれば`;
+			imperative = `${stem}しろ`;
+			passive = `${stem}される`;
+			causative = `${stem}させる`;
+		} else {
+			// 来る / くる
+			const kanji = dictionary.endsWith('来る');
+			const stem = dictionary.slice(0, -2);
+			const k = (kana: string) => (kanji ? `${stem}来${kana}` : `${stem}こ${kana}`);
+			potential = k('られる');
+			volitional = k('よう');
+			ba = kanji ? `${stem}来れば` : `${stem}くれば`;
+			imperative = kanji ? `${stem}来い` : `${stem}こい`;
+			passive = k('られる');
+			causative = k('させる');
+		}
+	} else if (verbClass === 'ichidan') {
+		const stem = dictionary.slice(0, -1);
+		potential = `${stem}られる`;
+		volitional = `${stem}よう`;
+		ba = `${stem}れば`;
+		imperative = `${stem}ろ`;
+		passive = `${stem}られる`;
+		causative = `${stem}させる`;
+	} else {
+		const last = dictionary.slice(-1);
+		const stem = dictionary.slice(0, -1);
+		potential = `${stem}${GODAN_E[last]}る`;
+		volitional = `${stem}${GODAN_O[last]}う`;
+		ba = `${stem}${GODAN_E[last]}ば`;
+		imperative = `${stem}${GODAN_E[last]}`;
+		passive = `${naiStem}れる`;
+		causative = `${naiStem}せる`;
+	}
+
+	return [
+		{ key: 'dict', label: 'Forma dizionario (辞書形)', value: dictionary },
+		{ key: 'masu', label: 'Cortese (ます形)', value: byKey.masu! },
+		{ key: 'nai', label: 'Negativa (ない形)', value: byKey.nai! },
+		{ key: 'ta', label: 'Passato (た形)', value: ta },
+		{ key: 'nakatta', label: 'Passato negativo (なかった形)', value: `${naiStem}なかった` },
+		{ key: 'te', label: 'Forma て (て形)', value: te },
+		{ key: 'tai', label: 'Desiderativa (たい形)', value: `${masuStem}たい` },
+		{ key: 'potential', label: 'Potenziale (可能形)', value: potential },
+		{ key: 'volitional', label: 'Volitiva (意向形)', value: volitional },
+		{ key: 'ba', label: 'Condizionale (ば形)', value: ba },
+		{ key: 'tara', label: 'Condizionale (たら形)', value: `${ta}ら` },
+		{ key: 'imperative', label: 'Imperativa (命令形)', value: imperative },
+		{ key: 'passive', label: 'Passiva (受身形)', value: passive },
+		{ key: 'causative', label: 'Causativa (使役形)', value: causative },
+		{ key: 'teiru', label: 'Progressiva (ている形)', value: `${te}いる` }
+	];
+}
+
+export function buildAdjectiveTable(dictionary: string, type: AdjectiveType): ConjugationForm[] | null {
+	const basic = conjugateAdjective(dictionary, type);
+	if (!basic) return null;
+	const byKey = Object.fromEntries(basic.map((f) => [f.key, f.value]));
+
+	if (type === 'i') {
+		const isIi = dictionary === 'いい' || dictionary === '良い';
+		const stem = isIi ? 'よ' : dictionary.slice(0, -1);
+		return [
+			{ key: 'dict', label: 'Forma base', value: dictionary },
+			{ key: 'neg', label: 'Negativa (〜くない)', value: byKey.neg! },
+			{ key: 'past', label: 'Passato (〜かった)', value: byKey.past! },
+			{ key: 'pastneg', label: 'Passato negativo (〜くなかった)', value: byKey.pastneg! },
+			{ key: 'te', label: 'Forma て (〜くて)', value: `${stem}くて` },
+			{ key: 'adv', label: 'Avverbiale (〜く)', value: byKey.adv! },
+			{ key: 'ba', label: 'Condizionale (〜ければ)', value: `${stem}ければ` },
+			{ key: 'naru', label: 'Diventare (〜くなる)', value: `${stem}くなる` }
+		];
+	}
+	return [
+		{ key: 'dict', label: 'Forma base', value: dictionary },
+		{ key: 'attr', label: 'Davanti a un nome (〜な)', value: byKey.attr! },
+		{ key: 'neg', label: 'Negativa (〜じゃない)', value: byKey.neg! },
+		{ key: 'past', label: 'Passato (〜だった)', value: byKey.past! },
+		{ key: 'pastneg', label: 'Passato negativo (〜じゃなかった)', value: byKey.pastneg! },
+		{ key: 'te', label: 'Forma て (〜で)', value: `${dictionary}で` },
+		{ key: 'adv', label: 'Avverbiale (〜に)', value: `${dictionary}に` },
+		{ key: 'nara', label: 'Condizionale (〜なら)', value: `${dictionary}なら` },
+		{ key: 'naru', label: 'Diventare (〜になる)', value: `${dictionary}になる` }
+	];
+}
+
+export function buildConjugationTable(word: Word): ConjugationForm[] {
+	if (word.tipo_jp.startsWith('動詞')) {
+		const verbClass = detectVerbClass(word);
+		return (verbClass && buildVerbTable(word.scrittura, verbClass)) || [];
+	}
+	if (word.tipo_jp.startsWith('形容詞')) {
+		const type = detectAdjectiveType(word);
+		return (type && buildAdjectiveTable(word.scrittura, type)) || [];
+	}
+	return [];
 }
 
 export type AdjectiveType = 'i' | 'na';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { conjugateAdjective, conjugateVerb } from "./conjugation";
+import { buildAdjectiveTable, buildVerbTable, conjugateAdjective, conjugateVerb } from "./conjugation";
 
 function formMap(forms: { key: string; value: string }[] | null): Record<string, string> {
   return Object.fromEntries((forms ?? []).map((f) => [f.key, f.value]));
@@ -47,6 +47,59 @@ describe("conjugateVerb", () => {
     expect(kuru.masu).toBe("来ます");
     expect(kuru.nai).toBe("来ない");
   });
+});
+
+describe("buildVerbTable", () => {
+	it("godan 書く: forme avanzate", () => {
+		const f = formMap(buildVerbTable("書く", "godan"));
+		expect(f.potential).toBe("書ける");
+		expect(f.volitional).toBe("書こう");
+		expect(f.ba).toBe("書けば");
+		expect(f.tara).toBe("書いたら");
+		expect(f.imperative).toBe("書け");
+		expect(f.passive).toBe("書かれる");
+		expect(f.causative).toBe("書かせる");
+		expect(f.tai).toBe("書きたい");
+		expect(f.teiru).toBe("書いている");
+		expect(f.nakatta).toBe("書かなかった");
+	});
+
+	it("ichidan 食べる: forme avanzate", () => {
+		const f = formMap(buildVerbTable("食べる", "ichidan"));
+		expect(f.potential).toBe("食べられる");
+		expect(f.volitional).toBe("食べよう");
+		expect(f.ba).toBe("食べれば");
+		expect(f.imperative).toBe("食べろ");
+		expect(f.passive).toBe("食べられる");
+		expect(f.causative).toBe("食べさせる");
+	});
+
+	it("irregolari する e 来る", () => {
+		const s = formMap(buildVerbTable("勉強する", "irregular"));
+		expect(s.potential).toBe("勉強できる");
+		expect(s.volitional).toBe("勉強しよう");
+		expect(s.passive).toBe("勉強される");
+		const k = formMap(buildVerbTable("来る", "irregular"));
+		expect(k.potential).toBe("来られる");
+		expect(k.ba).toBe("来れば");
+		expect(k.imperative).toBe("来い");
+	});
+});
+
+describe("buildAdjectiveTable", () => {
+	it("aggettivo -い 高い", () => {
+		const f = formMap(buildAdjectiveTable("高い", "i"));
+		expect(f.te).toBe("高くて");
+		expect(f.ba).toBe("高ければ");
+		expect(f.naru).toBe("高くなる");
+	});
+
+	it("aggettivo -な 静か", () => {
+		const f = formMap(buildAdjectiveTable("静か", "na"));
+		expect(f.te).toBe("静かで");
+		expect(f.nara).toBe("静かなら");
+		expect(f.naru).toBe("静かになる");
+	});
 });
 
 describe("conjugateAdjective", () => {

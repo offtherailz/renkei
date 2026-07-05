@@ -12,6 +12,7 @@
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
+	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -139,9 +140,6 @@
 		return `https://kanji.koohii.com/study/kanji/${encodeURIComponent(k)}`;
 	}
 
-	function cooljugatorUrl(q: string): string {
-		return `https://cooljugator.com/ja/${encodeURIComponent(q)}`;
-	}
 </script>
 
 <div class="detail-page">
@@ -215,6 +213,7 @@
 		{/if}
 
 		{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
+			<ConjugationTable {word} />
 			<ConjugationDrill {word} />
 		{/if}
 
@@ -287,9 +286,6 @@
 			<a href={word.link_jisho ?? jishoUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Apri su Jisho</a>
 			<a href={jishoSentencesUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Jisho</a>
 			<a href={tatoebaUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Tatoeba</a>
-			{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
-				<a href={cooljugatorUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Tabella coniugazioni</a>
-			{/if}
 		</div>
 
 	<!-- KANJI -->

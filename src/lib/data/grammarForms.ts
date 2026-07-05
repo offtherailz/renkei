@@ -215,7 +215,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 	{
 		slug: 'i-keiyoushi',
 		label: 'い形容詞[いけいようし]',
-		icon: '🔴',
+		icon: 'い',
 		title: 'Aggettivo in -い',
 		summary: 'Si coniuga da solo, quasi come un verbo.',
 		explanation: [
@@ -232,7 +232,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 	{
 		slug: 'na-keiyoushi',
 		label: 'な形容詞[なけいようし]',
-		icon: '🧩',
+		icon: 'な',
 		title: 'Aggettivo in -な',
 		summary: 'Per legarsi a un nome ha bisogno del "pezzo" な.',
 		explanation: [
