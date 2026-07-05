@@ -55,7 +55,11 @@
 				{#each dive.dives as d (d.href)}
 					<div class="row" class:primary={d.primary}>
 						<a class="row-main" href={d.href}>
-							<span class="r-icon">{typeIcon(d.tipo, d.kanji)}</span>
+							{#if d.kanji}
+								<span class="kanji-icon">漢</span>
+							{:else}
+								<span class="r-icon">{typeIcon(d.tipo, d.kanji)}</span>
+							{/if}
 							<span class="r-label">{d.label}</span>
 							{#if d.level}<span class="r-level">{d.level}</span>{/if}
 							{#if d.meaning}<span class="r-mean">{d.meaning}</span>{/if}
@@ -96,6 +100,14 @@
 	.row-main { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 12px; text-decoration: none; color: var(--ink); }
 	.row-main:hover { background: rgba(107,160,242,0.1); }
 	.r-icon { font-size: 1.1rem; }
+	.kanji-icon {
+		display: inline-flex; align-items: center; justify-content: center;
+		width: 1.5em; height: 1.5em; border-radius: 8px;
+		background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed);
+		color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1;
+		text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+		box-shadow: inset 0 -2px 3px rgba(0,0,0,0.18), inset 0 2px 3px rgba(255,255,255,0.35);
+	}
 	.r-label { font-size: 1.15rem; font-weight: 700; }
 	.r-level { font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); }
 	.r-mean { font-size: 0.8rem; color: var(--muted); flex: 1; min-width: 80px; }
