@@ -801,12 +801,7 @@
 			<span class="stat-chip">✅ {session?.correct ?? 0}</span>
 			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
 		</div>
-		{#if !quiz.answered && answerRemainingS > 0}
-			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5}>
-				⏱ {answerRemainingS.toFixed(1)}s
-			</div>
-		{/if}
-		<div class="timer">{timeLeftLabel}</div>
+		<div class="timer" title="Tempo sessione">{timeLeftLabel}</div>
 		<button class="ghost-btn" onclick={confirmEndSession}>Termina</button>
 	</div>
 
@@ -818,6 +813,11 @@
 	</div>
 
 	<article class="quiz-card" class:correct={answerFeedback === 'correct'} class:wrong={answerFeedback === 'wrong'}>
+		{#if !quiz.answered && answerRemainingS > 0}
+			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5} title="Tempo per rispondere">
+				⏱ {answerRemainingS.toFixed(1)}s
+			</div>
+		{/if}
 		<!-- flashcard-production -->
 		{#if quiz.question.mode === 'flashcard-production'}
 			{@const q = quiz.question as FlashcardQuestion}
@@ -1505,13 +1505,18 @@
 	.skip-btn:hover { background: var(--brand); color: #fff; }
 
 	.answer-timer {
+		justify-self: end;
 		font-size: 0.82rem;
 		font-weight: 700;
 		color: var(--muted);
 		font-variant-numeric: tabular-nums;
+		padding: 2px 10px;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: var(--surface-2);
 	}
 
-	.answer-timer-low { color: var(--danger); }
+	.answer-timer-low { color: var(--danger); border-color: var(--danger); }
 
 	/* Summary */
 	.summary-shell {

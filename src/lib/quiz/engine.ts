@@ -2,7 +2,7 @@ import { pickLocalizedArray, pickLocalizedText } from "../core/i18n";
 import { createDefaultTokenizer } from "../core/tokenizer";
 import { renderFuriganaToHtml } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
-import { blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
+import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
 import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
 import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
 import { naiveReading, parseIrregularReadings, voicingVariants } from "../core/counterReadings";
@@ -380,7 +380,9 @@ export async function createParticleClozeQuestion(
   }
 
   const tokenizer = await createDefaultTokenizer();
-  const hits = findParticles(tokenizer.tokenize(sentence));
+  const hits = findParticles(tokenizer.tokenize(sentence)).filter((h) =>
+    BLANKABLE_PARTICLES.has(h.particle)
+  );
   if (hits.length === 0) return null;
 
   const hit = hits[Math.floor(Math.random() * hits.length)]!;

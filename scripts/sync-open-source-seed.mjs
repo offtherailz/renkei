@@ -692,7 +692,7 @@ async function fetchJson(url) {
 // tipo aggettivo: sovrascrive le euristiche. Aggiunge anche le frasi
 // d'esempio Tatoeba. Le euristiche restano come fallback per le parole
 // assenti da JMdict; gli override manuali vincono su tutto.
-function applyJmdictMetadata(words, jmdictIndex, overrides) {
+function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji) {
   let matched = 0;
   const result = words.map((word) => {
     const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
@@ -700,7 +700,12 @@ function applyJmdictMetadata(words, jmdictIndex, overrides) {
     if (entry) {
       matched += 1;
       const metadata = deriveJmdictMetadata(entry);
-      const examples = extractJmdictExamples(entry);
+      // i kanji della parola stessa sono ovviamente ammessi nella sua frase
+      const examples = extractJmdictExamples(
+        entry,
+        2,
+        allowedKanji ? new Set([...allowedKanji, ...(word.kanji_usati ?? [])]) : null
+      );
       next = {
         ...word,
         ...metadata,
@@ -974,7 +979,8 @@ async function main() {
 
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
   const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
-  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides);
+  const allowedKanji = new Set([...kanjiN5.kanji, ...kanjiN4.kanji].map((row) => row.character));
+  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji);
   const withSuruVerbs = await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex));
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.

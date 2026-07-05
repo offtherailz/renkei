@@ -4,6 +4,11 @@
 // Ordinate per lunghezza decrescente: から/まで si controllano prima di か.
 export const PARTICLES = ['から', 'まで', 'は', 'が', 'を', 'に', 'で', 'と', 'へ', 'の', 'も', 'や'] as const;
 
+// Particelle "oscurabili" nel quiz: solo quelle determinate dalla struttura.
+// は/が/も in posizione di tema sono spesso TUTTE accettabili (教育は/が/も
+// 重大な要素である) → restano come distrattori ma mai come bersaglio.
+export const BLANKABLE_PARTICLES = new Set(['を', 'に', 'で', 'と', 'へ', 'の', 'から', 'まで']);
+
 export const CONFUSABLE_PARTICLES: Record<string, string[]> = {
 	は: ['が', 'も', 'を'],
 	が: ['は', 'を', 'に'],

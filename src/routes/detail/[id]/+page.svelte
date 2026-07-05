@@ -146,9 +146,6 @@
 <div class="detail-page">
 	<div class="detail-nav">
 		<button class="back-btn" onclick={() => history.back()}>← Indietro</button>
-		{#if appState.sessionState}
-			<a class="back-to-quiz" href="{base}/quiz">⏸ Torna al quiz</a>
-		{/if}
 	</div>
 
 	{#if loading}
@@ -405,17 +402,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 10px;
-	}
-
-	.back-to-quiz {
-		display: inline-block;
-		padding: 6px 14px;
-		border-radius: 8px;
-		background: var(--brand);
-		color: #fff;
-		font-size: 0.82rem;
-		font-weight: 700;
-		text-decoration: none;
 	}
 
 	.back-btn {

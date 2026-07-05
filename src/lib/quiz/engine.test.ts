@@ -127,7 +127,8 @@ describe("nuove modalità con distrattori pedagogici", () => {
     expect(q).not.toBeNull();
     expect(q!.sentenceWithBlank).toContain("＿＿");
     expect(q!.choices).toContain(q!.correctChoice);
-    expect(["が", "を"]).toContain(q!.correctChoice);
+    // が (tema/soggetto) non è mai bersaglio: ambiguo. Resta solo を.
+    expect(q!.correctChoice).toBe("を");
   });
 });
 

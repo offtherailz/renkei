@@ -148,8 +148,9 @@ export function deriveJmdictMetadata(entry) {
 }
 
 // Frasi d'esempio (Tatoeba): si preferiscono le più corte e pedagogiche
-// (lunghezza ideale ~18 caratteri) — le lunghe contengono lessico fuori livello.
-export function extractJmdictExamples(entry, max = 2) {
+// (lunghezza ideale ~18 caratteri) e SENZA kanji fuori dal livello:
+// ogni kanji non presente nel catalogo N5/N4 pesa come un macigno.
+export function extractJmdictExamples(entry, max = 2, allowedKanji = null) {
   const all = [];
   for (const sense of entry.sense ?? []) {
     for (const example of sense.examples ?? []) {
@@ -158,10 +159,23 @@ export function extractJmdictExamples(entry, max = 2) {
       if (jp && en) all.push({ jp, en });
     }
   }
+
   const IDEAL = 18;
+  const outOfLevel = (jp) => {
+    if (!allowedKanji) return 0;
+    let count = 0;
+    for (const ch of jp) {
+      if (/[一-龯]/.test(ch) && !allowedKanji.has(ch)) count += 1;
+    }
+    return count;
+  };
+  const score = (e) => outOfLevel(e.jp) * 100 + Math.abs(e.jp.length - IDEAL);
+
   const good = all
     .filter((e) => e.jp.length >= 6 && e.jp.length <= 34)
-    .sort((a, b) => Math.abs(a.jp.length - IDEAL) - Math.abs(b.jp.length - IDEAL));
+    .sort((a, b) => score(a) - score(b))
+    // via le frasi con più di 2 kanji sconosciuti, a meno che non ci sia altro
+    .filter((e, _i, arr) => outOfLevel(e.jp) <= 2 || arr.every((x) => outOfLevel(x.jp) > 2));
   if (good.length > 0) return good.slice(0, max);
-  return all.sort((a, b) => a.jp.length - b.jp.length).slice(0, max);
+  return all.sort((a, b) => score(a) - score(b)).slice(0, max);
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { dev } from '$app/environment';
 	import '../lib/app.css';
@@ -22,6 +23,16 @@
 	const hideHeader = $derived(
 		$page.url.pathname.startsWith(`${base}/quiz`) && appState.sessionState !== null
 	);
+
+	// Guardia: con una sessione quiz attiva, uscire verso la home va confermato.
+	function goHome(e: MouseEvent): void {
+		if (appState.sessionState) {
+			e.preventDefault();
+			if (confirm('Hai una sessione quiz in pausa: tornare alla home? (potrai riprenderla da Quiz)')) {
+				goto(`${base}/`);
+			}
+		}
+	}
 
 	async function ensureSeedLoaded(): Promise<void> {
 		const seedUrl = `${base}/seed-n5n4.json?v=${encodeURIComponent(SEED_DATA_REVISION)}`;
@@ -85,11 +96,15 @@
 <div class="app-shell">
 	{#if !hideHeader && !isHome}
 		<header class="app-header">
-			<a class="brand" href="{base}/">
+			<a class="brand" href="{base}/" onclick={goHome}>
 				<img class="brand-logo" src="{base}/renkei-logo.svg" alt="" />
 				<span class="brand-name">Renkei</span>
 			</a>
-			<span class="brand-hint">← torna alla home</span>
+			{#if appState.sessionState}
+				<a class="back-to-quiz" href="{base}/quiz">⏸ Torna al quiz</a>
+			{:else}
+				<span class="brand-hint">← torna alla home</span>
+			{/if}
 		</header>
 	{/if}
 	{@render children()}
@@ -121,5 +136,15 @@
 	.brand-hint {
 		font-size: 0.72rem;
 		color: var(--muted);
+	}
+
+	.back-to-quiz {
+		padding: 6px 14px;
+		border-radius: 8px;
+		background: var(--brand);
+		color: #fff;
+		font-size: 0.82rem;
+		font-weight: 700;
+		text-decoration: none;
 	}
 </style>
