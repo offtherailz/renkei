@@ -197,11 +197,16 @@ async function canCreateSentenceOrderingQuestion(source: ClozeSource): Promise<b
     return false;
   }
 
+  // Frasi lunghe: comporle richiede troppo tempo → si preferisce il cloze.
+  if (plainSentence.length > 22) {
+    return false;
+  }
+
   const tokenizer = await createDefaultTokenizer();
   const tokens = tokenizer.tokenize(plainSentence).filter((token) => token.trim().length > 0);
   const jpTokens = tokens.filter((token) => /[ぁ-んァ-ヶ一-龯]/.test(token));
 
-  if (jpTokens.length < 3) {
+  if (jpTokens.length < 3 || tokens.length > 8) {
     return false;
   }
 

@@ -60,10 +60,23 @@ export const appState = $state({
 	lastDeepDive: null as DeepDivePayload | null
 });
 
+export interface DeepDiveItem {
+	label: string;
+	href: string;
+	primary?: boolean;
+	level?: string; // JLPT
+	tipo?: string; // tipo_jp
+	meaning?: string;
+	consolidaHref?: string;
+	kanji?: boolean;
+}
+
 export interface DeepDivePayload {
 	title: string;
 	reading?: string;
 	meaning?: string;
-	dives: { label: string; href: string; primary?: boolean }[];
+	question?: string; // riassunto della domanda
+	correctReason?: string; // perché la risposta corretta è giusta
+	dives: DeepDiveItem[];
 	notes: { choice: string; reason: string }[];
 }

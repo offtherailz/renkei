@@ -35,7 +35,7 @@
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
 	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective, Counter } from '$lib/types/models';
-	import type { ItemRef, StudySessionState, ActiveQuiz } from '$lib/stores.svelte';
+	import type { ItemRef, StudySessionState, ActiveQuiz, DeepDiveItem } from '$lib/stores.svelte';
 
 	const locale = detectUserLocale();
 
@@ -432,30 +432,34 @@
 	});
 
 	// ── Approfondimenti post-risposta: argomento principale + elementi della frase ──
-	interface DeepDive {
-		label: string;
-		href: string;
-		primary?: boolean;
+	function wordItem(w: Word, primary = false): DeepDiveItem {
+		return {
+			label: w.scrittura,
+			href: `${base}/detail/${encodeURIComponent(`word:${w.id}`)}`,
+			consolidaHref: `${base}/consolida/${encodeURIComponent(w.id)}`,
+			level: w.livello_jlpt,
+			tipo: w.tipo_jp,
+			meaning: pickLocalizedArray(w.significato, locale)[0] ?? '',
+			primary
+		};
 	}
 
-	function wordsInSentence(sentence: string, excludeId?: string): DeepDive[] {
+	function wordsInSentence(sentence: string, excludeId?: string): DeepDiveItem[] {
 		return words
 			.filter((w) => w.id !== excludeId && !w.id_nome_origine)
 			.filter((w) => (w.scrittura.length >= 2 || /[一-龯]/.test(w.scrittura)) && sentence.includes(w.scrittura))
 			.sort((a, b) => b.scrittura.length - a.scrittura.length)
 			.slice(0, 4)
-			.map((w) => ({ label: w.scrittura, href: `${base}/detail/${encodeURIComponent(`word:${w.id}`)}` }));
+			.map((w) => wordItem(w));
 	}
 
-	function buildDeepDives(): DeepDive[] {
+	function buildDeepDives(): DeepDiveItem[] {
 		if (!quiz) return [];
 		const q = quiz.question;
 		const rawId = quiz.itemRef.key.split(':').slice(1).join(':');
 		const word = quiz.itemRef.kind === 'word' ? context?.wordsById.get(rawId) : undefined;
-		const wordLink: DeepDive | null = word
-			? { label: word.scrittura, href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}` }
-			: null;
-		const dives: DeepDive[] = [];
+		const wordLink: DeepDiveItem | null = word ? wordItem(word) : null;
+		const dives: DeepDiveItem[] = [];
 
 		if (q.mode === 'particle-cloze') {
 			dives.push(
@@ -470,7 +474,7 @@
 			if (wordLink) dives.push(wordLink);
 			if (word?.id_verbo_corrispondente) {
 				const pair = context?.wordsById.get(word.id_verbo_corrispondente);
-				if (pair) dives.push({ label: pair.scrittura, href: `${base}/detail/${encodeURIComponent(`word:${pair.id}`)}` });
+				if (pair) dives.push(wordItem(pair));
 			}
 			dives.push(...wordsInSentence(q.fullSentence, word?.id));
 		} else if (q.mode === 'conjugation') {
@@ -518,7 +522,12 @@
 			// modalità parola classiche: la parola stessa + i suoi kanji
 			if (wordLink) dives.push({ ...wordLink, primary: true });
 			for (const k of word?.kanji_usati ?? []) {
-				dives.push({ label: k, href: `${base}/detail/${encodeURIComponent(`kanji:${k}`)}` });
+				dives.push({
+					label: k,
+					href: `${base}/detail/${encodeURIComponent(`kanji:${k}`)}`,
+					consolidaHref: `${base}/consolida/${encodeURIComponent(k)}`,
+					kanji: true
+				});
 			}
 		}
 
@@ -598,14 +607,51 @@
 
 	// Apre la pagina Approfondisci: mette in pausa la sessione e ci porta tutti
 	// gli elementi della domanda (argomento, distrattori con glosse, frase).
+	// Riassunto della domanda + perché la risposta corretta è giusta.
+	function questionSummaryText(): { question: string; correctReason: string } {
+		const q = quiz!.question;
+		const correct =
+			'correctChoice' in q ? q.correctChoice : 'correctAnswer' in q ? q.correctAnswer : '';
+		switch (q.mode) {
+			case 'multiple-choice':
+				return { question: `Significato di ${q.prompt}?`, correctReason: `${q.prompt} = ${correct}` };
+			case 'flashcard-recognition':
+				return { question: `Quale parola significa «${q.prompt}»?`, correctReason: `${correct} = ${q.prompt}` };
+			case 'flashcard-reading-recognition':
+				return { question: `Quale scrittura si legge ${q.prompt}?`, correctReason: `${correct} si legge ${q.prompt}` };
+			case 'listening':
+				return { question: 'Quale parola hai sentito?', correctReason: `Si legge ${q.readingToSpeak} → ${correct}` };
+			case 'conjugation':
+				return { question: `${q.dictionary} → ${q.formLabel}`, correctReason: `${correct} è la ${q.formLabel} di ${q.dictionary}` };
+			case 'particle-cloze':
+				return { question: q.sentenceWithBlank, correctReason: `Ci va «${correct}»` };
+			case 'transitivity-pair':
+				return { question: q.sentenceWithBlank, correctReason: `Forma corretta: ${correct}` };
+			case 'counter-quiz':
+				return { question: `Contatore per ${q.prompt}?`, correctReason: `Si conta con ${correct}` };
+			case 'counter-reading':
+			case 'time-reading':
+				return { question: `Come si legge ${q.prompt}?`, correctReason: `Si legge ${correct}` };
+			case 'cloze':
+				return { question: q.sentenceWithBlank.replace(/<[^>]*>/g, ''), correctReason: `Ci va «${correct}»` };
+			case 'reading-choice':
+				return { question: `Come si legge «${q.targetText}»?`, correctReason: `Si legge ${correct}` };
+			default:
+				return { question: '', correctReason: '' };
+		}
+	}
+
 	function openDeepDive(): void {
 		stopAutoNext();
 		if (session && !session.pausedAt) session.pausedAt = Date.now();
 		const recap = answeredRecap;
+		const summary = questionSummaryText();
 		appState.lastDeepDive = {
 			title: recap?.jp ?? '',
 			reading: recap?.reading,
 			meaning: recap?.text,
+			question: summary.question,
+			correctReason: summary.correctReason,
 			dives: buildDeepDives(),
 			notes: wrongChoiceNotes()
 		};
