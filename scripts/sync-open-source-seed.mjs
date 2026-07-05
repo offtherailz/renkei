@@ -13,6 +13,7 @@ const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
 const JMDICT_CACHE_DIR = path.join(ROOT, "scripts", ".cache");
 const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json");
 const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
+const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const OPEN_SOURCE = {
   name: "allenlu2009/japanese-learning-datasets",
   license: "MIT",
@@ -702,7 +703,9 @@ function buildSuruVerbs(words, jmdictIndex) {
     if (!word.tipo_jp.startsWith("名詞")) return word;
     const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
     if (!entry) return word;
-    const pos = new Set((entry.sense ?? []).flatMap((s) => s.partOfSpeech ?? []));
+    // "vs" deve stare sul PRIMO senso (uso primario): sensi secondari rari
+    // generavano verbi inesistenti (帽子する da 帽子 "cap (move)" gergale).
+    const pos = new Set(entry.sense?.[0]?.partOfSpeech ?? []);
     if (!pos.has("vs")) return word;
 
     const verbWriting = `${word.scrittura}する`;
@@ -935,6 +938,11 @@ async function main() {
     (a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja")
   );
   const counters = await buildCounters(normalizedWords);
+  const now = Date.now();
+  const dialogues = JSON.parse(await fs.readFile(CHOUKAI_PATH, "utf8")).map((d) => ({
+    ...d,
+    updated_at: now
+  }));
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
   const normalizedGrammar = normalizeGrammar([
     { level: "N5", rows: grammarN5 },
@@ -946,6 +954,7 @@ async function main() {
     kanji: normalizedKanji,
     grammar: normalizedGrammar,
     counters,
+    dialogues,
     srs_progress: existingSeed.srs_progress ?? [],
     user_personalization: existingSeed.user_personalization ?? [],
     user_profile: existingSeed.user_profile ?? []

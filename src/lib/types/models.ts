@@ -190,6 +190,7 @@ export interface DatabaseSeed {
   kanji: Kanji[];
   grammar: Grammar[];
   counters: Counter[];
+  dialogues?: Dialogue[];
   srs_progress?: SrsProgress[];
   user_personalization?: UserPersonalization[];
   user_profile?: UserProfile[];
@@ -323,6 +324,13 @@ export interface DialogueLine extends BaseEntity {
   parole_linkate: string[];
 }
 
+export interface DialogueQuestion {
+  testo: LocalizedText;
+  opzioni: string[];
+  corretta: string;
+  spiegazione: LocalizedText;
+}
+
 export interface Dialogue extends BaseEntity {
   id: string;
   titolo: LocalizedText;
@@ -332,6 +340,7 @@ export interface Dialogue extends BaseEntity {
   righe: DialogueLine[];
   parole_linkate: string[];
   grammatica_linkata: string[];
+  domande?: DialogueQuestion[];
 }
 
 export interface CourseDialogueLineInput {

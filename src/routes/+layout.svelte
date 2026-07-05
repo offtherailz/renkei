@@ -16,7 +16,7 @@
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-07-05-suru-v5';
+	const SEED_DATA_REVISION = '2026-07-05-choukai-v6';
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(
@@ -36,6 +36,7 @@
 			await db.kanji.bulkPut(parsed.kanji);
 			await db.grammar.bulkPut(parsed.grammar);
 			await db.counters.bulkPut(parsed.counters);
+			if (parsed.dialogues?.length) await db.dialogues.bulkPut(parsed.dialogues);
 		} else {
 			await importDatabaseFromJson(payload);
 		}

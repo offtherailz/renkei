@@ -109,6 +109,10 @@
 			<span class="quick-icon">📊</span>
 			<span>Statistiche</span>
 		</a>
+		<a href="{base}/ascolto" class="quick-card">
+			<span class="quick-icon">🎧</span>
+			<span>Ascolto (聴解)</span>
+		</a>
 		<a href="{base}/forme" class="quick-card">
 			<span class="quick-icon">📖</span>
 			<span>Forme grammaticali</span>

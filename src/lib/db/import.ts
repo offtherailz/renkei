@@ -90,12 +90,15 @@ export async function importDatabaseFromJson(jsonData: string): Promise<void> {
 
   await db.transaction(
     "rw",
-    [db.words, db.kanji, db.grammar, db.counters, db.srs_progress, db.user_personalization, db.user_profile],
+    [db.words, db.kanji, db.grammar, db.counters, db.dialogues, db.srs_progress, db.user_personalization, db.user_profile],
     async () => {
       await db.words.bulkPut(parsed.words.map((w) => ({ ...w, updated_at: w.updated_at ?? now })));
       await db.kanji.bulkPut(parsed.kanji.map((k) => ({ ...k, updated_at: k.updated_at ?? now })));
       await db.grammar.bulkPut(grammar);
       await db.counters.bulkPut(parsed.counters.map((c) => ({ ...c, updated_at: c.updated_at ?? now })));
+      if (parsed.dialogues?.length) {
+        await db.dialogues.bulkPut(parsed.dialogues.map((d) => ({ ...d, updated_at: d.updated_at ?? now })));
+      }
 
       if (parsed.srs_progress?.length) {
         await db.srs_progress.bulkPut(

@@ -1,0 +1,241 @@
+[
+  {
+    "id": "chk-n5-01",
+    "titolo": { "it": "Al konbini", "en": "At the convenience store" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Una donna compra qualcosa al konbini.", "en": "" },
+    "righe": [
+      { "personaggio": "店員", "testo": "いらっしゃいませ。", "traduzione": { "it": "Benvenuta.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "パンをください。あ、それから、お茶も。", "traduzione": { "it": "Un pane, per favore. Ah, e anche un tè.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "店員", "testo": "はい。パンとお茶ですね。", "traduzione": { "it": "Certo. Pane e tè, giusto?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "あ、すみません。やっぱりパンじゃなくて、おにぎりにします。", "traduzione": { "it": "Ah, scusi. Anzi, niente pane: prendo un onigiri.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "店員", "testo": "かしこまりました。", "traduzione": { "it": "Va bene.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che cosa compra la donna?", "en": "" },
+        "opzioni": ["パンとお茶", "おにぎりとお茶", "おにぎりとコーヒー", "パンだけ"],
+        "corretta": "おにぎりとお茶",
+        "spiegazione": { "it": "Trappola classica: prima dice パン, poi con やっぱり…にします cambia in おにぎり. L'お茶 resta. La prima cosa detta è quasi sempre il distrattore.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-02",
+    "titolo": { "it": "L'appuntamento", "en": "The appointment" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Due amici decidono a che ora vedersi.", "en": "" },
+    "righe": [
+      { "personaggio": "男の人", "testo": "明日、何時に会いましょうか。三時はどうですか。", "traduzione": { "it": "A che ora ci vediamo domani? Le tre vanno bene?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "三時ですか。うーん、三時までじゅぎょうがあります。", "traduzione": { "it": "Le tre? Mmm, ho lezione fino alle tre.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "じゃあ、四時は？", "traduzione": { "it": "Allora alle quattro?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "はい、四時なら大丈夫です。", "traduzione": { "it": "Sì, alle quattro va bene.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "A che ora si vedono i due?", "en": "" },
+        "opzioni": ["三時", "四時", "二時", "五時"],
+        "corretta": "四時",
+        "spiegazione": { "it": "Il primo orario proposto (三時) viene rifiutato con una motivazione. La risposta è l'orario accettato dopo la negoziazione.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-03",
+    "titolo": { "it": "Quale binario?", "en": "Which platform?" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Un uomo chiede informazioni in stazione.", "en": "" },
+    "righe": [
+      { "personaggio": "男の人", "testo": "すみません、よこはまに行きたいんですが。", "traduzione": { "it": "Scusi, vorrei andare a Yokohama.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "駅員", "testo": "よこはまですね。二番せんは東京行きですから、よこはまは三番せんですよ。", "traduzione": { "it": "Yokohama? Il binario 2 è per Tokyo, per Yokohama è il binario 3.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "三番せんですね。ありがとうございます。", "traduzione": { "it": "Binario 3, grazie.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Da quale binario parte l'uomo?", "en": "" },
+        "opzioni": ["一番せん", "二番せん", "三番せん", "四番せん"],
+        "corretta": "三番せん",
+        "spiegazione": { "it": "Il binario 2 viene nominato per primo ma è quello SBAGLIATO (va a Tokyo). Nel choukai il numero detto per primo raramente è la risposta.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-04",
+    "titolo": { "it": "Il regalo", "en": "The present" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Un ragazzo sceglie un regalo per la madre.", "en": "" },
+    "righe": [
+      { "personaggio": "男の人", "testo": "母のたんじょうびに何かあげたいんです。花はどうでしょう。", "traduzione": { "it": "Vorrei regalare qualcosa a mia madre per il compleanno. Dei fiori?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "いいですね。でも、この花は五千円ですよ。", "traduzione": { "it": "Bello. Però questi fiori costano 5000 yen.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "ごせんえん！高いですね…。じゃあ、本にします。母は本が好きですから。", "traduzione": { "it": "5000 yen?! Caro… Allora prendo un libro. A mia madre piacciono i libri.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che cosa regala il ragazzo?", "en": "" },
+        "opzioni": ["花", "本", "お金", "おかし"],
+        "corretta": "本",
+        "spiegazione": { "it": "I fiori vengono considerati e scartati per il prezzo. にします segnala la decisione finale: è la parola da aspettare.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-05",
+    "titolo": { "it": "Che tempo farà", "en": "Tomorrow's weather" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Due colleghi parlano del tempo di domani.", "en": "" },
+    "righe": [
+      { "personaggio": "女の人", "testo": "今日も雨ですね。明日もくもりでしょうか。", "traduzione": { "it": "Anche oggi piove. Domani sarà nuvoloso?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "テレビでは、明日は晴れると言っていましたよ。", "traduzione": { "it": "In TV hanno detto che domani sarà sereno.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "そうですか。よかった。", "traduzione": { "it": "Ah sì? Meno male.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che tempo farà domani?", "en": "" },
+        "opzioni": ["雨", "くもり", "晴れ", "雪"],
+        "corretta": "晴れ",
+        "spiegazione": { "it": "Vengono nominati pioggia (oggi) e nuvoloso (ipotesi sbagliata). La risposta arriva da una fonte citata (テレビでは…と言っていました): costrutto tipico del choukai.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-06",
+    "titolo": { "it": "La festa", "en": "The party" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Due amici decidono cosa portare alla festa.", "en": "" },
+    "righe": [
+      { "personaggio": "女の人", "testo": "私はジュースを持って行きますね。田中さんはおかしをおねがいします。", "traduzione": { "it": "Io porto il succo. Tanaka, tu porta i dolci per favore.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "あ、おかしは山田さんが持って来ると言っていましたよ。", "traduzione": { "it": "Ah, i dolci ha detto Yamada che li porta lui.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "そうですか。じゃあ、田中さんはくだものをおねがいします。", "traduzione": { "it": "Ah sì? Allora tu porta la frutta.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "わかりました。", "traduzione": { "it": "D'accordo.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che cosa porta Tanaka alla festa?", "en": "" },
+        "opzioni": ["ジュース", "おかし", "くだもの", "何も持って行かない"],
+        "corretta": "くだもの",
+        "spiegazione": { "it": "Compito riassegnato a metà dialogo: prima gli chiedono i dolci, poi si scopre che li porta un altro, e il compito diventa la frutta. Pattern 課題理解 puro.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n5-07",
+    "titolo": { "it": "Al ristorante", "en": "At the restaurant" },
+    "livello_jlpt": "N5",
+    "contesto": { "it": "Un cliente ordina, ma non è facile.", "en": "" },
+    "righe": [
+      { "personaggio": "客", "testo": "すみません、ラーメンをください。", "traduzione": { "it": "Scusi, un ramen per favore.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "客", "testo": "あ、ちょっと待ってください。あちらのカレーもおいしそうですね。やっぱりカレーにします。", "traduzione": { "it": "Ah, aspetti. Anche quel curry sembra buono… anzi, prendo il curry.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "店員", "testo": "もうしわけありません。カレーは今日はもうないんです。", "traduzione": { "it": "Mi dispiace, il curry per oggi è finito.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "客", "testo": "そうですか。じゃあ、さいしょのラーメンでおねがいします。", "traduzione": { "it": "Capisco. Allora vada per il ramen di prima.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che cosa mangia il cliente?", "en": "" },
+        "opzioni": ["ラーメン", "カレー", "ラーメンとカレー", "何も食べない"],
+        "corretta": "ラーメン",
+        "spiegazione": { "it": "Doppia trappola: cambia idea (やっぱり) verso il curry, ma il curry è finito e si torna alla prima scelta. Bisogna seguire TUTTI i cambi, non solo l'ultimo やっぱり.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n4-01",
+    "titolo": { "it": "Prima della riunione", "en": "Before the meeting" },
+    "livello_jlpt": "N4",
+    "contesto": { "it": "Un capo dà istruzioni a un dipendente.", "en": "" },
+    "righe": [
+      { "personaggio": "部長", "testo": "田中くん、会議の前にこのしりょうをコピーしておいてください。", "traduzione": { "it": "Tanaka, prima della riunione fotocopia questi documenti.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "田中", "testo": "はい、わかりました。", "traduzione": { "it": "Sì, va bene.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "部長", "testo": "あ、待って。会議は明日になったんだった。コピーは明日の朝でいいよ。それより、今日中に会議室をよやくしておいて。", "traduzione": { "it": "Ah, aspetta. La riunione è stata spostata a domani. Le copie vanno bene domattina. Piuttosto, entro oggi prenota la sala riunioni.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "田中", "testo": "わかりました。すぐよやくします。", "traduzione": { "it": "Va bene, prenoto subito.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Che cosa deve fare Tanaka per prima cosa oggi?", "en": "" },
+        "opzioni": ["しりょうをコピーする", "会議室をよやくする", "会議に出る", "部長に電話する"],
+        "corretta": "会議室をよやくする",
+        "spiegazione": { "it": "課題理解 da manuale: il primo compito (copie) viene rimandato a domani e ne arriva uno nuovo urgente. La domanda chiede cosa fare OGGI/subito, non cosa è stato chiesto per primo.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n4-02",
+    "titolo": { "it": "Dal medico", "en": "At the doctor's" },
+    "livello_jlpt": "N4",
+    "contesto": { "it": "Il medico spiega come prendere le medicine.", "en": "" },
+    "righe": [
+      { "personaggio": "医者", "testo": "この白いくすりは、一日三回、食事のあとに飲んでください。", "traduzione": { "it": "Questa medicina bianca la prenda tre volte al giorno, dopo i pasti.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "患者", "testo": "はい。こちらの青いのも同じですか。", "traduzione": { "it": "Sì. Anche questa blu allo stesso modo?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "医者", "testo": "いいえ、青いくすりは夜、ねる前に一回だけです。朝は飲まないでくださいね。", "traduzione": { "it": "No, quella blu solo una volta, la sera prima di dormire. Non la prenda la mattina.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Quando prende la medicina blu il paziente?", "en": "" },
+        "opzioni": ["一日三回、食事のあと", "夜、ねる前に一回", "朝、一回", "食事の前に三回"],
+        "corretta": "夜、ねる前に一回",
+        "spiegazione": { "it": "ポイント理解: due oggetti con regole diverse. La regola detta per prima (3 volte dopo i pasti) vale per l'ALTRA medicina — il classico scambio di attributi.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n4-03",
+    "titolo": { "it": "Il treno cancellato", "en": "The cancelled train" },
+    "livello_jlpt": "N4",
+    "contesto": { "it": "Un annuncio in stazione e una decisione da prendere.", "en": "" },
+    "righe": [
+      { "personaggio": "アナウンス", "testo": "九時の きゅうこうは、うんてんを とりやめました。", "traduzione": { "it": "Il rapido delle 9 è stato cancellato.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "ええ？九時のきゅうこうがないの？どうしよう。", "traduzione": { "it": "Eh? Non c'è il rapido delle 9? E ora?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "九時十分のふつうか、九時半のきゅうこうがありますよ。", "traduzione": { "it": "C'è il locale delle 9:10 o il rapido delle 9:30.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "十時に会議があるから、はやく出るほうがいいね。ふつうで行きます。", "traduzione": { "it": "Alle 10 ho una riunione, meglio partire presto. Vado col locale.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Quale treno prende la donna?", "en": "" },
+        "opzioni": ["九時のきゅうこう", "九時十分のふつう", "九時半のきゅうこう", "十時のふつう"],
+        "corretta": "九時十分のふつう",
+        "spiegazione": { "it": "Tre treni nominati: uno non esiste più (cancellato), e tra i due possibili sceglie in base a una motivazione (la riunione delle 10). Serve capire il ragionamento, non memorizzare i numeri.", "en": "" }
+      }
+    ]
+  },
+  {
+    "id": "chk-n4-04",
+    "titolo": { "it": "Dove si incontrano?", "en": "Where to meet?" },
+    "livello_jlpt": "N4",
+    "contesto": { "it": "Due amici si mettono d'accordo su dove vedersi.", "en": "" },
+    "righe": [
+      { "personaggio": "男の人", "testo": "明日、駅の前で会いましょうか。", "traduzione": { "it": "Domani ci vediamo davanti alla stazione?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "駅の前は人が多いから、ちょっと…。デパートの入口はどう？", "traduzione": { "it": "Davanti alla stazione c'è troppa gente… All'ingresso del centro commerciale?", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "男の人", "testo": "デパートか。あそこも こんでいるよ。じゃあ、こうえんの入口は？しずかだし。", "traduzione": { "it": "Il centro commerciale? Anche lì è pieno. E all'ingresso del parco? È tranquillo.", "en": "" }, "parole_linkate": [] },
+      { "personaggio": "女の人", "testo": "うん、そうしよう。", "traduzione": { "it": "Sì, facciamo così.", "en": "" }, "parole_linkate": [] }
+    ],
+    "parole_linkate": [],
+    "grammatica_linkata": [],
+    "domande": [
+      {
+        "testo": { "it": "Dove si incontrano i due?", "en": "" },
+        "opzioni": ["駅の前", "デパートの入口", "こうえんの入口", "デパートの中"],
+        "corretta": "こうえんの入口",
+        "spiegazione": { "it": "Tre luoghi proposti, i primi due scartati con una scusa. そうしよう conferma l'ultima proposta: nel choukai l'accordo finale vale più di tutte le proposte precedenti.", "en": "" }
+      }
+    ]
+  }
+]
