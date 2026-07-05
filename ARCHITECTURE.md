@@ -309,14 +309,24 @@ Candidati da valutare (licenze da verificare voce per voce):
    condizionale (ば/たら), imperativa, passiva, causativa, たい, ecc.
    Nelle **Impostazioni** una checklist "forme che conosco": quelle non
    ancora studiate vengono escluse dal drill (default: solo le base N5).
-3. **Localizzazione italiana dei contenuti, partendo dal giapponese** — oggi i
-   significati inglesi riempiono sia `it` che `en`. La traduzione va fatta
-   **dal giapponese** (non dall'inglese, altrimenti si accumulano errori di
-   doppia traduzione), presumibilmente con un passo di generazione nella
-   pipeline seed. Siccome è sperimentale: **prima** aggiungere nelle
-   Impostazioni la scelta della lingua contenuti (it/en, oggi è auto da
-   `navigator.language`), così se la traduzione fa schifo si torna all'inglese
-   con un tap. Ordine: setting lingua → pipeline traduzione it → revisione.
+3. **Localizzazione italiana dei contenuti, partendo dal giapponese** — piano
+   (aggiornato 2026-07-05):
+   1. ✅ **Selettore lingua nelle Impostazioni** (fatto): Automatica/Italiano/
+      English; override in localStorage (`renkei_locale_override`) letto da
+      `detectUserLocale`, persistito anche in `app_settings.lingua_contenuti`.
+      Il cambio ricarica l'app. `pickLocalizedText/Array` fanno già fallback
+      it→en, quindi si può tradurre in modo incrementale.
+   2. **Pipeline `scripts/translate-it.mjs`** (da fare): per ogni voce passa al
+      traduttore scrittura+lettura+tipo (le glosse EN solo come
+      disambiguazione), chiedendo glosse brevi da dizionario **dal giapponese**.
+      Cache incrementale in `scripts/.cache/translations-it.json` per non
+      ritradurre l'invariato. Campi: `words.significato.it`,
+      `grammar.spiegazione.it`, `frasi_esempio.traduzione.it`.
+   3. **Revisione**: report `[jp, en, it]` per controllo a campione; le
+      correzioni manuali entrano in `word-overrides.json`.
+   4. **Da decidere insieme**: il motore di traduzione (LLM via API nello
+      script locale: quale modello, costi; gira solo in pipeline, mai nel
+      client).
 
 ## Problemi noti / TODO tecnici
 

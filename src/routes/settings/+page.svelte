@@ -2,6 +2,7 @@
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
 	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
+	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
 
 	let saving = $state(false);
 	let saved = $state(false);
@@ -22,6 +23,16 @@
 		appState.settings.forme_note = current.includes(key)
 			? current.filter((k) => k !== key)
 			: [...current, key];
+	}
+
+	async function changeLanguage(e: Event): Promise<void> {
+		const value = (e.target as HTMLSelectElement).value as 'auto' | 'it' | 'en';
+		appState.settings.lingua_contenuti = value;
+		if (value === 'auto') localStorage.removeItem(LOCALE_OVERRIDE_KEY);
+		else localStorage.setItem(LOCALE_OVERRIDE_KEY, value);
+		await save();
+		// la lingua è letta all'avvio da molti componenti: ricarica per applicarla
+		location.reload();
 	}
 
 	const settings = $derived(appState.settings);
@@ -106,6 +117,19 @@
 	<button class="btn-primary" onclick={save} disabled={saving}>
 		{saving ? 'Salvataggio…' : saved ? '✅ Salvato!' : 'Salva impostazioni'}
 	</button>
+</section>
+
+<section class="section-card">
+	<p class="card-title">Lingua dei contenuti</p>
+	<label class="setting-row">
+		<span>Significati e spiegazioni</span>
+		<select class="num-input" value={appState.settings.lingua_contenuti ?? 'auto'} onchange={changeLanguage}>
+			<option value="auto">Automatica (browser)</option>
+			<option value="it">Italiano (sperimentale)</option>
+			<option value="en">English</option>
+		</select>
+	</label>
+	<p class="hint-text">La traduzione italiana dei contenuti è in lavorazione (dal giapponese). Se qualcosa non convince, torna a English. Il cambio ricarica l'app.</p>
 </section>
 
 <section class="section-card">

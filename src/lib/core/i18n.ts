@@ -1,6 +1,16 @@
 import type { LocaleCode, LocalizedStringArray, LocalizedText } from "../types/models";
 
+export const LOCALE_OVERRIDE_KEY = "renkei_locale_override";
+
 export function detectUserLocale(): LocaleCode {
+  // Override esplicito dalle impostazioni (sincrono, serve prima di Dexie).
+  if (typeof localStorage !== "undefined") {
+    const override = localStorage.getItem(LOCALE_OVERRIDE_KEY);
+    if (override === "it" || override === "en") {
+      return override;
+    }
+  }
+
   if (typeof navigator === "undefined") {
     return "en";
   }
