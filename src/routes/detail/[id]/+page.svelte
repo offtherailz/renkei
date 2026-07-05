@@ -11,6 +11,7 @@
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
+	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
 	import type { Word, Kanji, Grammar } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -124,6 +125,10 @@
 	function koohiiUrl(k: string): string {
 		return `https://kanji.koohii.com/study/kanji/${encodeURIComponent(k)}`;
 	}
+
+	function cooljugatorUrl(q: string): string {
+		return `https://cooljugator.com/ja/${encodeURIComponent(q)}`;
+	}
 </script>
 
 <div class="detail-page">
@@ -175,6 +180,10 @@
 			</div>
 			<p class="detail-meta">SRS {srsStage}/7 • Consolidamento {masteryPct}%{nextReviewLabel ? ` • Prossimo ripasso ${nextReviewLabel}` : ''}</p>
 		</article>
+		{/if}
+
+		{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
+			<ConjugationDrill {word} />
 		{/if}
 
 		{#if word.frasi_esempio?.length}
@@ -246,8 +255,8 @@
 			<a href={word.link_jisho ?? jishoUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Apri su Jisho</a>
 			<a href={jishoSentencesUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Jisho</a>
 			<a href={tatoebaUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Frasi su Tatoeba</a>
-			{#if word.tipo_jp === '動詞[どうし]'}
-				<a href={jishoUrl(word.scrittura) + '%20%23verb'} target="_blank" rel="noopener" class="external-link">Coniugazione</a>
+			{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
+				<a href={cooljugatorUrl(word.scrittura)} target="_blank" rel="noopener" class="external-link">Tabella coniugazioni</a>
 			{/if}
 		</div>
 

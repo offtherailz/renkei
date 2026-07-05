@@ -79,6 +79,23 @@ body {
     border-color: rgba(52, 201, 138, 0.4) !important;
   }
 
+  .file-btn:hover,
+  .btn-outline {
+    background: rgba(107, 160, 242, 0.16) !important;
+  }
+
+  .session-live,
+  .due-banner {
+    background: rgba(251, 191, 36, 0.12) !important;
+    color: var(--ink) !important;
+  }
+
+  .danger-zone,
+  .btn-danger {
+    background: rgba(239, 107, 107, 0.12) !important;
+    border-color: rgba(239, 107, 107, 0.4) !important;
+  }
+
   .listen-btn:hover {
     background: var(--brand) !important;
     color: #0f1622 !important;

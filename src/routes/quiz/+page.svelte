@@ -46,7 +46,8 @@
 	let quiz = $state<ActiveQuiz | null>(null);
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
-	let tokenOrder = $state<string[]>([]);
+	let bankTokens = $state<string[]>([]);
+	let answerTokens = $state<string[]>([]);
 	let nowTick = $state(Date.now());
 	let answerRemainingS = $state(0);
 	let autoNextProgress = $state(0);
@@ -214,7 +215,8 @@
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
 					answerFeedback = null;
-					tokenOrder = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
+					bankTokens = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
+					answerTokens = [];
 					startAnswerTimer();
 					return;
 				}
@@ -225,7 +227,8 @@
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
 		answerFeedback = null;
-		tokenOrder = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
+		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
+		answerTokens = [];
 		if (question.mode === 'listening') speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
 	}
@@ -444,10 +447,29 @@
 	}
 
 	function handleSentenceOrderSubmit(): void {
-		if (!quiz || quiz.answered) return;
+		if (!quiz || quiz.answered || bankTokens.length > 0) return;
 		const q = quiz.question as SentenceOrderingQuestion;
-		const correct = tokenOrder.join('') === q.correctOrder.join('');
-		handleAnswer(correct, tokenOrder.join(''));
+		const correct = answerTokens.join('') === q.correctOrder.join('');
+		handleAnswer(correct, answerTokens.join(''));
+	}
+
+	function pickFromBank(index: number): void {
+		const token = bankTokens[index];
+		if (token === undefined) return;
+		answerTokens = [...answerTokens, token];
+		bankTokens = bankTokens.filter((_, i) => i !== index);
+	}
+
+	function returnToBank(index: number): void {
+		const token = answerTokens[index];
+		if (token === undefined) return;
+		bankTokens = [...bankTokens, token];
+		answerTokens = answerTokens.filter((_, i) => i !== index);
+	}
+
+	function resetOrdering(): void {
+		bankTokens = [...bankTokens, ...answerTokens];
+		answerTokens = [];
 	}
 
 	// Scorciatoie: 1-4 scelgono la risposta, Invio rivela/conferma/avanza.
@@ -463,7 +485,9 @@
 				revealedProduction = true;
 				return;
 			}
-			if (quiz.question.mode === 'sentence-ordering') handleSentenceOrderSubmit();
+			if (quiz.question.mode === 'sentence-ordering' && bankTokens.length === 0) {
+				handleSentenceOrderSubmit();
+			}
 			return;
 		}
 
@@ -479,13 +503,6 @@
 		if (q.mode === 'sentence-ordering') return;
 		const choice = (q.choices ?? [])[num - 1];
 		if (choice) handleChoiceClick(choice);
-	}
-
-	function moveToken(from: number, to: number): void {
-		const arr = [...tokenOrder];
-		const [tok] = arr.splice(from, 1);
-		arr.splice(to, 0, tok!);
-		tokenOrder = arr;
 	}
 
 	// ── Init ─────────────────────────────────────────────────────────────────────
@@ -697,20 +714,30 @@
 		{:else if quiz.question.mode === 'sentence-ordering'}
 			{@const q = quiz.question as SentenceOrderingQuestion}
 			<p class="question-prompt">{q.prompt}</p>
-			<p class="question-hint">Riordina i token nella frase corretta</p>
-			<div class="token-area">
-				{#each tokenOrder as tok, i}
-					<button
-						class="token"
-						disabled={quiz.answered}
-						onclick={() => {
-							if (i > 0) moveToken(i, i - 1);
-						}}
-					>{tok}</button>
+			<p class="question-hint">Componi la frase toccando le parole nell'ordine giusto. Tocca una parola nella frase per rimetterla giù.</p>
+			<div class="answer-area" class:answer-filled={answerTokens.length > 0}>
+				{#if answerTokens.length === 0}
+					<span class="answer-placeholder">La frase apparirà qui…</span>
+				{/if}
+				{#each answerTokens as tok, i}
+					<button class="token token-picked" disabled={quiz.answered} onclick={() => returnToBank(i)}>{tok}</button>
 				{/each}
 			</div>
+			<div class="token-area">
+				{#each bankTokens as tok, i}
+					<button class="token" disabled={quiz.answered} onclick={() => pickFromBank(i)}>{tok}</button>
+				{/each}
+				{#if bankTokens.length === 0 && !quiz.answered}
+					<span class="bank-done">Tutte le parole usate ✓</span>
+				{/if}
+			</div>
 			{#if !quiz.answered}
-				<button class="choice-btn" onclick={handleSentenceOrderSubmit}>Conferma ordine</button>
+				<div class="ordering-actions">
+					<button class="ghost-btn" onclick={resetOrdering} disabled={answerTokens.length === 0}>↺ Ricomincia</button>
+					<button class="choice-btn confirm-order" onclick={handleSentenceOrderSubmit} disabled={bankTokens.length > 0}>
+						Conferma frase
+					</button>
+				</div>
 			{:else}
 				<div class="solution">{q.correctOrder.join('')}</div>
 			{/if}
@@ -1005,28 +1032,70 @@
 		gap: 8px;
 	}
 
+	.answer-area {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		padding: 12px;
+		border: 2px dashed var(--line);
+		border-radius: 10px;
+		min-height: 56px;
+	}
+
+	.answer-area.answer-filled { border-style: solid; border-color: var(--brand); }
+
+	.answer-placeholder { font-size: 0.82rem; color: var(--muted); }
+
 	.token-area {
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		gap: 6px;
 		padding: 12px;
 		background: var(--surface-2);
 		border: 1px solid var(--line);
 		border-radius: 10px;
-		min-height: 48px;
+		min-height: 56px;
 	}
 
+	.bank-done { font-size: 0.82rem; color: var(--success); font-weight: 600; }
+
 	.token {
-		padding: 6px 12px;
+		padding: 8px 14px;
 		border-radius: 8px;
 		border: 1.5px solid var(--brand);
 		background: #eef2ff;
 		color: var(--brand);
-		font-size: 0.95rem;
+		font-size: 1.15rem;
+		min-height: 44px;
 		cursor: pointer;
 	}
 
 	.token:hover:not(:disabled) { background: #dde6ff; }
+
+	.token-picked {
+		background: var(--brand);
+		color: #fff;
+	}
+
+	.token-picked:hover:not(:disabled) { opacity: 0.85; background: var(--brand); }
+
+	.ordering-actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.confirm-order {
+		flex: 1;
+		max-width: 240px;
+		text-align: center;
+		font-weight: 700;
+	}
+
+	.confirm-order:disabled { opacity: 0.45; }
 
 	.listen-btn {
 		justify-self: center;

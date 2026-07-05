@@ -181,6 +181,7 @@
 	.due-banner {
 		background: #fffbeb;
 		border: 1px solid #fbbf24;
+		color: #92400e;
 		border-radius: 12px;
 		padding: 10px 16px;
 		display: flex;
@@ -245,7 +246,7 @@
 		border-radius: 8px;
 		white-space: nowrap;
 		background: #f1f5f9;
-		color: var(--muted);
+		color: #475569;
 	}
 
 	.obj-status.enabled {
