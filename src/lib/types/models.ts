@@ -50,6 +50,8 @@ export interface Word extends BaseEntity {
   classe_verbo_jp?: VerbClassJP;
   transitivita_jp?: VerbTransitivityJP;
   id_verbo_corrispondente?: string;
+  id_verbo_suru?: string;
+  id_nome_origine?: string;
   tipo_aggettivo_jp?: AdjectiveTypeJP;
   frasi_esempio?: WordExample[];
   sinonimi: string[];

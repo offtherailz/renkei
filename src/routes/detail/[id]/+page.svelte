@@ -31,6 +31,8 @@
 	let wordsUsingKanji = $state<Word[]>([]);
 	let verbPair = $state<Word | null>(null);
 	let suggestedCounter = $state<Counter | null>(null);
+	let suruVerb = $state<Word | null>(null);
+	let baseNoun = $state<Word | null>(null);
 
 	// SRS info
 	let masteryPct = $state(0);
@@ -41,7 +43,7 @@
 		loading = true;
 		word = null; kanji = null; grammar = null;
 		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
-		verbPair = null; suggestedCounter = null;
+		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
@@ -64,6 +66,12 @@
 					}
 					if (word.id_contatore_suggerito) {
 						suggestedCounter = (await db.counters.get(word.id_contatore_suggerito)) ?? null;
+					}
+					if (word.id_verbo_suru) {
+						suruVerb = (await db.words.get(word.id_verbo_suru)) ?? null;
+					}
+					if (word.id_nome_origine) {
+						baseNoun = (await db.words.get(word.id_nome_origine)) ?? null;
 					}
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
@@ -175,10 +183,24 @@
 					<span class="meaning-item">{i + 1}. {meaning}</span>
 				{/each}
 			</div>
-			{#if suggestedCounter}
-				<a class="counter-hint" href="{base}/contatori#{encodeURIComponent(suggestedCounter.id)}">
-					🔢 Si conta con <strong>{suggestedCounter.simbolo}</strong> ({suggestedCounter.lettura}) →
-				</a>
+			{#if suggestedCounter || suruVerb || baseNoun}
+				<div class="hint-row">
+					{#if suruVerb}
+						<a class="counter-hint" href="{base}/detail/{encodeURIComponent(`word:${suruVerb.id}`)}">
+							🏃 Verbo: <strong>{suruVerb.scrittura}</strong> →
+						</a>
+					{/if}
+					{#if baseNoun}
+						<a class="counter-hint" href="{base}/detail/{encodeURIComponent(`word:${baseNoun.id}`)}">
+							📦 Nome di origine: <strong>{baseNoun.scrittura}</strong> →
+						</a>
+					{/if}
+					{#if suggestedCounter}
+						<a class="counter-hint" href="{base}/contatori#{encodeURIComponent(suggestedCounter.id)}">
+							🔢 Si conta con <strong>{suggestedCounter.simbolo}</strong> ({suggestedCounter.lettura}) →
+						</a>
+					{/if}
+				</div>
 			{/if}
 		</article>
 
@@ -447,6 +469,12 @@
 	}
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+	.hint-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
 
 	.counter-hint {
 		justify-self: start;

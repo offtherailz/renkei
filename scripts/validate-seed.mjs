@@ -57,6 +57,8 @@ async function main() {
   const notFound = [];
 
   for (const word of seed.words) {
+    // i verbi in -する generati dalla pipeline non sono entry autonome di JMdict
+    if (word.id_nome_origine) continue;
     const entry = lookupJmdict(index, word.scrittura, word.lettura);
     if (!entry) {
       notFound.push({ id: word.id, scrittura: word.scrittura, lettura: word.lettura });

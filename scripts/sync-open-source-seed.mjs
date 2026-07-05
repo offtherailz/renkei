@@ -58,6 +58,12 @@ function splitMeanings(text) {
   );
 }
 
+// Stemming naif per far combaciare "prepare"/"preparation", "arrange"/"arrangements"...
+function stemToken(token) {
+  const stemmed = token.replace(/(ations|ation|ments|ings|ing|ies|ied|ers|er|es|ed|s|e)$/, "");
+  return stemmed.length >= 3 ? stemmed : token;
+}
+
 function tokenizeMeaning(text) {
   const stop = new Set([
     "to",
@@ -88,6 +94,7 @@ function tokenizeMeaning(text) {
       .map((token) => token.trim())
       .filter((token) => token.length >= 3)
       .filter((token) => !stop.has(token))
+      .map(stemToken)
   );
 }
 
@@ -671,6 +678,79 @@ function applyJmdictMetadata(words, jmdictIndex, overrides) {
   return result;
 }
 
+// Dato sporco della fonte: alcune letture hanno する attaccato (準備 → じゅんびする).
+// Se la lettura senza する combacia in JMdict, la ripuliamo.
+function fixSuruReadings(words, jmdictIndex) {
+  return words.map((word) => {
+    if (word.lettura.endsWith("する") && !word.scrittura.endsWith("する")) {
+      const stripped = word.lettura.slice(0, -2);
+      if (lookupJmdict(jmdictIndex, word.scrittura, stripped)) {
+        return { ...word, lettura: stripped };
+      }
+    }
+    return word;
+  });
+}
+
+// I nomi che JMdict marca "vs" generano la voce verbale in -する come entry
+// separata (動詞/不規則), collegata al nome in entrambe le direzioni.
+function buildSuruVerbs(words, jmdictIndex) {
+  const byWriting = new Map(words.map((w) => [w.scrittura, w]));
+  const generated = [];
+
+  const updated = words.map((word) => {
+    if (!word.tipo_jp.startsWith("名詞")) return word;
+    const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
+    if (!entry) return word;
+    const pos = new Set((entry.sense ?? []).flatMap((s) => s.partOfSpeech ?? []));
+    if (!pos.has("vs")) return word;
+
+    const verbWriting = `${word.scrittura}する`;
+    const existing = byWriting.get(verbWriting);
+    if (existing) {
+      existing.id_nome_origine = word.id;
+      return { ...word, id_verbo_suru: existing.id };
+    }
+
+    let transitivity;
+    for (const sense of entry.sense ?? []) {
+      const p = sense.partOfSpeech ?? [];
+      if (p.includes("vt")) { transitivity = "他動詞[たどうし]"; break; }
+      if (p.includes("vi")) { transitivity = "自動詞[じどうし]"; break; }
+    }
+
+    const verb = {
+      id: verbWriting,
+      scrittura: verbWriting,
+      lettura: `${word.lettura}する`,
+      significato: {
+        it: word.significato.it.map((g, i) => (i === 0 ? `fare: ${g}` : g)),
+        en: word.significato.en.map((g, i) => (i === 0 ? `to do: ${g}` : g))
+      },
+      study_tags: [...(word.study_tags ?? []), "suru-verb"],
+      source_name: word.source_name,
+      source_license: word.source_license,
+      source_url: word.source_url,
+      livello_jlpt: word.livello_jlpt,
+      tipo_jp: "動詞[どうし]",
+      classe_verbo_jp: "不規則動詞[ふきそくどうし]",
+      ...(transitivity ? { transitivita_jp: transitivity } : {}),
+      id_nome_origine: word.id,
+      kanji_usati: word.kanji_usati,
+      frasi_esempio: word.frasi_esempio,
+      sinonimi: [],
+      contrari: [],
+      omofoni: [],
+      updated_at: Date.now()
+    };
+    generated.push(verb);
+    return { ...word, id_verbo_suru: verb.id };
+  });
+
+  console.log(`Verbi in -する generati: ${generated.length}`);
+  return [...updated, ...generated];
+}
+
 async function loadOverrides() {
   try {
     return JSON.parse(await fs.readFile(OVERRIDES_PATH, "utf8"));
@@ -748,8 +828,7 @@ function normalizeWords(importedRows, existingSeedWords) {
   }
 
   const merged = [...byId.values()].sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
-  const withRelations = enrichWordRelations(merged);
-  const withVerbMetadata = enrichVerbMetadata(withRelations);
+  const withVerbMetadata = enrichVerbMetadata(merged);
   return enrichAdjectiveMetadata(withVerbMetadata);
 }
 
@@ -847,7 +926,14 @@ async function main() {
   const overrides = await loadOverrides();
 
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
-  const normalizedWords = applyJmdictMetadata(heuristicWords, jmdictIndex, overrides);
+  const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
+  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides);
+  const withSuruVerbs = buildSuruVerbs(enrichedWords, jmdictIndex);
+  // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
+  // su tipi corretti e catalogo completo dei verbi in -する.
+  const normalizedWords = enrichWordRelations(withSuruVerbs).sort(
+    (a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja")
+  );
   const counters = await buildCounters(normalizedWords);
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
   const normalizedGrammar = normalizeGrammar([
