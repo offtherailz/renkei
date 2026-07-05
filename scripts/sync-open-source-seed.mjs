@@ -84,6 +84,16 @@ function isKanjiChar(char) {
   return /[一-龯々]/u.test(char);
 }
 
+// Verbi/parole inglesi troppo generici: da soli non provano sinonimia JP.
+// Memorizzati già "stemmed" per confrontarli coi token dei significati.
+const GENERIC_GLOSS_TOKENS = new Set(
+  ["raise", "take", "make", "do", "go", "come", "get", "put", "give", "become",
+   "use", "hold", "bring", "turn", "set", "run", "keep", "have", "let", "way",
+   "thing", "person", "place", "one", "kind", "able"].map((t) =>
+    t.replace(/(ations|ation|ments|ings|ing|ies|ied|ers|er|es|ed|s|e)$/, "")
+  )
+);
+
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
@@ -230,17 +240,21 @@ function enrichWordRelations(words) {
 
     const sameBucket = byType.get(word.tipo_jp) ?? [];
     const currentSignature = signatures.get(word.id) ?? new Set();
+    const norm = (s) => String(s ?? "").toLowerCase().trim();
     const synonyms = sameBucket
       .filter((candidate) => candidate.id !== word.id)
       .map((candidate) => {
         const candidateSignature = signatures.get(candidate.id) ?? new Set();
-        const sameMainMeaning = (word.significato.en[0] ?? "").toLowerCase() === (candidate.significato.en[0] ?? "").toLowerCase();
-        return {
-          id: candidate.id,
-          score: intersectionCount(currentSignature, candidateSignature) + (sameMainMeaning ? 1 : 0)
-        };
+        // token condivisi ESCLUSI quelli generici: "to raise" da solo non basta
+        // (差す "alzare la mano" ≠ 育てる "crescere") — è il difetto del match EN.
+        let meaningful = 0;
+        for (const t of currentSignature) {
+          if (candidateSignature.has(t) && !GENERIC_GLOSS_TOKENS.has(t)) meaningful += 1;
+        }
+        const exactSame = norm(word.significato.en[0]) === norm(candidate.significato.en[0]) && norm(word.significato.en[0]) !== "";
+        return { id: candidate.id, score: meaningful + (exactSame ? 2 : 0) };
       })
-      .filter((entry) => entry.score >= 1)
+      .filter((entry) => entry.score >= 2)
       .sort((a, b) => b.score - a.score)
       .map((entry) => entry.id)
       .slice(0, 8);
