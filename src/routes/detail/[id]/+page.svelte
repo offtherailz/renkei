@@ -13,6 +13,7 @@
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
 	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
+	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -216,6 +217,10 @@
 			<ConjugationTable {word} />
 			<ConjugationDrill {word} />
 		{/if}
+
+		{#key word.id}
+			<UsageDrill {word} />
+		{/key}
 
 		{#if word.frasi_esempio?.length}
 		<article class="detail-card">
