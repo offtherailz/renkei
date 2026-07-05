@@ -56,5 +56,14 @@ export const appState = $state({
 	sessionState: null as StudySessionState | null,
 	lastSummary: null as StudySessionState | null,
 	activeQuiz: null as ActiveQuiz | null,
-	detailItemRef: null as ItemRef | null
+	detailItemRef: null as ItemRef | null,
+	lastDeepDive: null as DeepDivePayload | null
 });
+
+export interface DeepDivePayload {
+	title: string;
+	reading?: string;
+	meaning?: string;
+	dives: { label: string; href: string; primary?: boolean }[];
+	notes: { choice: string; reason: string }[];
+}

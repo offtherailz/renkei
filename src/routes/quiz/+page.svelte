@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
+	import { goto } from '$app/navigation';
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
@@ -57,7 +58,6 @@
 	let quiz = $state<ActiveQuiz | null>(null);
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
-	let showDives = $state(false);
 	let bankTokens = $state<string[]>([]);
 	let answerTokens = $state<string[]>([]);
 	let nowTick = $state(Date.now());
@@ -261,7 +261,6 @@
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
 					answerFeedback = null;
-					showDives = false;
 					bankTokens = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
 					startAnswerTimer();
@@ -274,7 +273,6 @@
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
 		answerFeedback = null;
-		showDives = false;
 		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
 		answerTokens = [];
 		if (question.mode === 'listening') speakSentenceJapanese(question.readingToSpeak);
@@ -596,6 +594,22 @@
 			return;
 		}
 		endSession();
+	}
+
+	// Apre la pagina Approfondisci: mette in pausa la sessione e ci porta tutti
+	// gli elementi della domanda (argomento, distrattori con glosse, frase).
+	function openDeepDive(): void {
+		stopAutoNext();
+		if (session && !session.pausedAt) session.pausedAt = Date.now();
+		const recap = answeredRecap;
+		appState.lastDeepDive = {
+			title: recap?.jp ?? '',
+			reading: recap?.reading,
+			meaning: recap?.text,
+			dives: buildDeepDives(),
+			notes: wrongChoiceNotes()
+		};
+		goto(`${base}/approfondisci`);
 	}
 
 	async function handleAnswer(correct: boolean, selectedText = '', isTimeout = false): Promise<void> {
@@ -1133,33 +1147,9 @@
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>
 			{/if}
-			{#if showDives}
-				{#if wrongChoiceNotes().length > 0}
-					<div class="wrong-notes">
-						<span class="deep-dives-label">Perché le altre erano sbagliate:</span>
-						{#each wrongChoiceNotes() as note (note.choice)}
-							<div class="wrong-note"><span class="wn-choice">{note.choice}</span> — {note.reason}</div>
-						{/each}
-					</div>
-				{/if}
-				<div class="deep-dives">
-					<span class="deep-dives-label">🔍 Approfondisci:</span>
-					{#each buildDeepDives() as dive (dive.href)}
-						<a class="dive-chip" class:dive-primary={dive.primary} href={dive.href}>{dive.label}</a>
-					{/each}
-				</div>
-			{/if}
 			<div class="after-actions">
-				{#if !showDives && buildDeepDives().length > 0}
-					<button
-						class="dives-toggle"
-						onclick={() => {
-							// ferma countdown e timer di sessione: c'è tempo per guardare
-							stopAutoNext();
-							if (session && !session.pausedAt) session.pausedAt = Date.now();
-							showDives = true;
-						}}
-					>🔍 Approfondisci</button>
+				{#if buildDeepDives().length > 0}
+					<button class="dives-toggle" onclick={openDeepDive}>🔍 Approfondisci</button>
 				{/if}
 				<button
 					class="skip-btn"
@@ -1507,49 +1497,6 @@
 
 	.feedback-correct { background: #dcfce7; color: #166534; }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
-
-	.wrong-notes {
-		display: grid;
-		gap: 3px;
-		padding: 8px 10px;
-		border: 1px solid var(--line);
-		border-radius: 8px;
-		background: var(--surface-2);
-	}
-	.wrong-note { font-size: 0.8rem; color: var(--muted); }
-	.wn-choice { font-weight: 700; color: var(--ink); }
-
-	.deep-dives {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 6px;
-	}
-
-	.deep-dives-label {
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: var(--muted);
-	}
-
-	.dive-chip {
-		padding: 4px 12px;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: var(--surface-2);
-		color: var(--ink);
-		font-size: 0.95rem;
-		text-decoration: none;
-	}
-
-	.dive-chip:hover { border-color: var(--brand); }
-
-	.dive-primary {
-		border-color: var(--brand);
-		background: rgba(107, 160, 242, 0.14);
-		color: var(--brand);
-		font-weight: 700;
-	}
 
 	.after-actions {
 		display: flex;
