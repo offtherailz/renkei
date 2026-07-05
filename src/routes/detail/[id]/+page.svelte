@@ -7,7 +7,8 @@
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { normalizeMastery } from '$lib/core/srs';
-	import { speakWordReading } from '$lib/core/tts';
+	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
+	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
@@ -225,7 +226,10 @@
 			<p class="card-title">Frasi esempio</p>
 			{#each word.frasi_esempio as ex}
 				<div class="example-row">
-					<InteractiveSentence text={ex.testo} />
+					<div class="example-line">
+						<InteractiveSentence text={ex.testo} />
+						<button class="tts-mini" onclick={() => speakSentenceJapanese(stripFuriganaNotation(ex.testo))} title="Ascolta">🔊</button>
+					</div>
 					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
 				</div>
 			{/each}
@@ -368,7 +372,10 @@
 			<p class="card-title">Frasi esempio</p>
 			{#each grammar.frasi_esempio as ex}
 				<div class="example-row">
-					<InteractiveSentence text={ex.testo} />
+					<div class="example-line">
+						<InteractiveSentence text={ex.testo} />
+						<button class="tts-mini" onclick={() => speakSentenceJapanese(stripFuriganaNotation(ex.testo))} title="Ascolta">🔊</button>
+					</div>
 					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
 					{#if ex.parole_linkate.length > 0}
 						<div class="linked-words">
@@ -558,6 +565,8 @@
 	}
 
 	:global(.example-ja) { font-size: 1.15rem; line-height: 1.9; }
+	.example-line { display: flex; align-items: flex-start; gap: 6px; }
+	.tts-mini { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0; flex-shrink: 0; }
 	.example-trans { font-size: 0.82rem; color: var(--muted); margin: 0; }
 
 	.linked-words { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
