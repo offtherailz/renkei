@@ -335,6 +335,34 @@ Candidati da valutare (licenze da verificare voce per voce):
       non è latency-sensitive). Costo una tantum irrisorio; la cache
       incrementale evita di ripagarlo ai re-sync.
 
+## In coda (2026-07-05) — parole multi-uso (たくさん & co.)
+
+**Problema (segnalato dall'utente).** たくさん in JMdict è
+`[adj-no, adj-na, n, adv]` su un unico senso, ma nell'app risulta solo
+な形容詞. Causa verificata: `deriveJmdictMetadata` appiattisce l'unione dei
+POS in **una sola** `tipo_jp` con priorità fissa (verbo > adj-i > adj-na >
+ctr > adv > n), quindi adj-na vince su nome e avverbio. È sistematico:
+**154 parole del seed** hanno più categorie POS in JMdict (安心, 安全,
+一生懸命, 一度, 皆, この間...).
+
+**Direzione proposta: una scheda sola, sezione "Usi" multipla** (non schede
+separate). A differenza dei verbi in -する — dove la forma scritta cambia e
+la coniugazione pure, quindi le schede separate hanno senso — qui la parola
+è identica: schede multiple romperebbero l'identità SRS e produrrebbero
+scelte duplicate nei quiz di riconoscimento. Design:
+
+1. **Modello**: `Word.usi?: { tipi_jp: WordTypeJP[]; significati; esempio? }[]`
+   — un elemento per senso JMdict (i sensi portano già POS, glosse e frase
+   Tatoeba propria: mappano 1:1 su "uso + esempio per sfumatura").
+2. **Primario**: `tipo_jp` resta il campo primario ma va derivato dal
+   **primo POS del primo senso** (l'ordine JMdict riflette l'importanza),
+   con `adj-no → 名詞`; たくさん diventerebbe 名詞 con usi な形容詞 e 副詞.
+3. **Badge**: un badge per categoria distinta (primario per primo).
+4. **Dettaglio**: sezione "Usi" — per ogni uso: badge, glosse, frase
+   d'esempio di quel senso con TTS.
+5. **Quiz/drill**: invariati sul primario; il drill aggettivi si attiva se
+   tra gli usi c'è adj-na/adj-i.
+
 ## Problemi noti / TODO tecnici
 
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.
