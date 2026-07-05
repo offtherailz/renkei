@@ -24,7 +24,7 @@
 		calculateQuizXp,
 		shuffle
 	} from '$lib/quiz/engine';
-	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
+	import { DEFAULT_KNOWN_FORMS, buildConjugationTable } from '$lib/core/conjugation';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
@@ -539,31 +539,55 @@
 			'correctChoice' in q ? q.correctChoice : 'correctAnswer' in q ? q.correctAnswer : '';
 		if (choices.length === 0) return [];
 
+		const allWords = [...(context?.wordsById.values() ?? [])];
+		const firstMeaning = (w: Word) => pickLocalizedArray(w.significato, locale)[0] ?? '';
+		// significato (IT) → parola giapponese che lo esprime (per le domande dirette)
+		const wordByMeaning = (m: string) => {
+			const t = m.trim().toLowerCase();
+			return allWords.find((w) => firstMeaning(w).toLowerCase() === t);
+		};
+		// scrittura (JP) → parola del catalogo (per le domande inverse/lettura)
+		const wordByScrittura = (s: string) =>
+			context?.wordsById.get(s) ?? allWords.find((w) => w.scrittura === s);
+
+		// domanda diretta: il prompt è in giapponese, le opzioni sono significati IT
+		const promptIsJapanese = q.mode === 'multiple-choice';
+
+		// coniugazione: quale forma sarebbe davvero il distrattore?
+		const rawId = quiz.itemRef.key.split(':').slice(1).join(':');
+		const itemWord = context?.wordsById.get(rawId);
+		const conjTable = q.mode === 'conjugation' && itemWord ? buildConjugationTable(itemWord) : [];
+
 		const reasonByMode: Record<string, string> = {
-			'multiple-choice': 'significato di un altro termine',
-			'flashcard-recognition': 'scrittura di un altro termine',
-			'flashcard-reading-recognition': 'scrittura di un altro termine',
-			listening: 'scrittura di un altro termine',
 			cloze: 'non adatto al contesto',
 			'reading-choice': 'lettura non corretta',
 			'particle-cloze': 'particella non adatta qui',
-			'counter-quiz': 'contatore di un\'altra categoria',
+			'counter-quiz': "contatore di un'altra categoria",
 			'counter-reading': 'lettura errata (rendaku/concatenazione)',
 			'time-reading': 'lettura regolare errata',
-			conjugation: 'forma non corretta',
 			'transitivity-pair': 'verbo gemello (transitività opposta)'
 		};
 
 		return choices
 			.filter((c) => c !== correct)
 			.map((choice) => {
-				// se il distrattore è una parola del catalogo, mostrane il significato
-				const w = context?.wordsById.get(choice) ?? [...(context?.wordsById.values() ?? [])].find((x) => x.scrittura === choice);
-				const gloss = w ? pickLocalizedArray(w.significato, locale)[0] : '';
-				return {
-					choice,
-					reason: gloss ? `= ${gloss}` : (reasonByMode[q.mode] ?? 'non corretto')
-				};
+				let reason = reasonByMode[q.mode] ?? 'non corretto';
+
+				if (promptIsJapanese) {
+					// opzione = significato di un'altra parola → mostrane il giapponese
+					const src = wordByMeaning(choice);
+					reason = src
+						? `«${choice}» = ${src.scrittura}${src.lettura !== src.scrittura ? ` (${src.lettura})` : ''}`
+						: 'significato di un altro termine';
+				} else if (q.mode === 'conjugation') {
+					const form = conjTable.find((f) => f.value === choice);
+					reason = form ? `sarebbe la ${form.label}` : 'forma non corretta';
+				} else {
+					// opzione in giapponese → mostrane il significato
+					const w = wordByScrittura(choice);
+					reason = w ? `= ${firstMeaning(w)}` : (reasonByMode[q.mode] ?? 'scrittura di un altro termine');
+				}
+				return { choice, reason };
 			});
 	}
 
