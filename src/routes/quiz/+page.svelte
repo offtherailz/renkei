@@ -426,6 +426,104 @@
 		return null;
 	});
 
+	// ── Approfondimenti post-risposta: argomento principale + elementi della frase ──
+	interface DeepDive {
+		label: string;
+		href: string;
+		primary?: boolean;
+	}
+
+	function wordsInSentence(sentence: string, excludeId?: string): DeepDive[] {
+		return words
+			.filter((w) => w.id !== excludeId && !w.id_nome_origine)
+			.filter((w) => (w.scrittura.length >= 2 || /[一-龯]/.test(w.scrittura)) && sentence.includes(w.scrittura))
+			.sort((a, b) => b.scrittura.length - a.scrittura.length)
+			.slice(0, 4)
+			.map((w) => ({ label: w.scrittura, href: `${base}/detail/${encodeURIComponent(`word:${w.id}`)}` }));
+	}
+
+	function buildDeepDives(): DeepDive[] {
+		if (!quiz) return [];
+		const q = quiz.question;
+		const rawId = quiz.itemRef.key.split(':').slice(1).join(':');
+		const word = quiz.itemRef.kind === 'word' ? context?.wordsById.get(rawId) : undefined;
+		const wordLink: DeepDive | null = word
+			? { label: word.scrittura, href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}` }
+			: null;
+		const dives: DeepDive[] = [];
+
+		if (q.mode === 'particle-cloze') {
+			dives.push(
+				q.correctChoice === 'な'
+					? { label: 'Aggettivi in -な', href: `${base}/forme#na-keiyoushi`, primary: true }
+					: q.correctChoice === 'の' && word?.tipo_jp.startsWith('名詞')
+						? { label: 'Il の tra nomi', href: `${base}/forme#meishi`, primary: true }
+						: { label: `Particella ${q.correctChoice}`, href: `${base}/forme#joshi`, primary: true }
+			);
+			if (wordLink) dives.push(wordLink);
+			dives.push(...wordsInSentence(q.fullSentence, word?.id));
+		} else if (q.mode === 'transitivity-pair') {
+			dives.push({ label: 'Transitivo vs intransitivo', href: `${base}/forme#tadoushi`, primary: true });
+			if (wordLink) dives.push(wordLink);
+			if (word?.id_verbo_corrispondente) {
+				const pair = context?.wordsById.get(word.id_verbo_corrispondente);
+				if (pair) dives.push({ label: pair.scrittura, href: `${base}/detail/${encodeURIComponent(`word:${pair.id}`)}` });
+			}
+			dives.push(...wordsInSentence(q.fullSentence, word?.id));
+		} else if (q.mode === 'conjugation') {
+			const classSlug = word?.classe_verbo_jp?.startsWith('五段')
+				? 'godan'
+				: word?.classe_verbo_jp?.startsWith('一段')
+					? 'ichidan'
+					: word?.classe_verbo_jp?.startsWith('不規則')
+						? 'fukisoku'
+						: word?.tipo_aggettivo_jp?.startsWith('な')
+							? 'na-keiyoushi'
+							: 'i-keiyoushi';
+			dives.push({ label: q.formLabel, href: `${base}/forme#${classSlug}`, primary: true });
+			if (wordLink) dives.push(wordLink);
+		} else if (q.mode === 'counter-quiz' || q.mode === 'counter-reading') {
+			const counterId = word?.id_contatore_suggerito;
+			if (counterId) {
+				dives.push({
+					label: `Contatore ${counterId}`,
+					href: `${base}/contatori#${encodeURIComponent(counterId)}`,
+					primary: true
+				});
+			}
+			if (wordLink) dives.push(wordLink);
+		} else if (q.mode === 'time-reading') {
+			dives.push({ label: `Lettura di ${q.prompt}`, href: `${base}/contatori`, primary: true });
+			if (wordLink) dives.push(wordLink);
+		} else if (quiz.itemRef.kind === 'grammar') {
+			const grammar = context?.grammarById.get(rawId);
+			dives.push({
+				label: grammar?.struttura ?? 'Grammatica',
+				href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}`,
+				primary: true
+			});
+			const sentence =
+				q.mode === 'reading-choice'
+					? q.plainSentence
+					: q.mode === 'sentence-ordering'
+						? q.correctOrder.join('')
+						: q.mode === 'cloze'
+							? q.sentenceWithBlank.replace(/<[^>]*>/g, '').replace(/___/g, '')
+							: '';
+			if (sentence) dives.push(...wordsInSentence(sentence));
+		} else {
+			// modalità parola classiche: la parola stessa + i suoi kanji
+			if (wordLink) dives.push({ ...wordLink, primary: true });
+			for (const k of word?.kanji_usati ?? []) {
+				dives.push({ label: k, href: `${base}/detail/${encodeURIComponent(`kanji:${k}`)}` });
+			}
+		}
+
+		// dedupe per href, massimo 6 chip
+		const seen = new Set<string>();
+		return dives.filter((d) => !seen.has(d.href) && seen.add(d.href)).slice(0, 6);
+	}
+
 	function confirmEndSession(): void {
 		if (session && session.answers > 0 && !window.confirm('Terminare la sessione di studio?')) {
 			return;
@@ -967,14 +1065,20 @@
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>
 			{/if}
+			{#if buildDeepDives().length > 0}
+				<div class="deep-dives">
+					<span class="deep-dives-label">🔍 Approfondisci:</span>
+					{#each buildDeepDives() as dive (dive.href)}
+						<a
+							class="dive-chip"
+							class:dive-primary={dive.primary}
+							href={dive.href}
+							onclick={stopAutoNext}
+						>{dive.label}</a>
+					{/each}
+				</div>
+			{/if}
 			<div class="after-actions">
-				{#if quiz.itemRef.kind !== 'objective'}
-					<a
-						class="detail-link"
-						href="{base}/detail/{encodeURIComponent(quiz.itemRef.key)}"
-						onclick={stopAutoNext}
-					>🔍 Approfondisci</a>
-				{/if}
 				<button
 					class="skip-btn"
 					style="--countdown-progress: {Math.round(autoNextProgress * 100)}%"
@@ -1321,24 +1425,44 @@
 	.feedback-correct { background: #dcfce7; color: #166534; }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
 
+	.deep-dives {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.deep-dives-label {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--muted);
+	}
+
+	.dive-chip {
+		padding: 4px 12px;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: var(--surface-2);
+		color: var(--ink);
+		font-size: 0.95rem;
+		text-decoration: none;
+	}
+
+	.dive-chip:hover { border-color: var(--brand); }
+
+	.dive-primary {
+		border-color: var(--brand);
+		background: rgba(107, 160, 242, 0.14);
+		color: var(--brand);
+		font-weight: 700;
+	}
+
 	.after-actions {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 		gap: 8px;
 	}
-
-	.detail-link {
-		padding: 8px 12px;
-		border-radius: 8px;
-		font-size: 0.85rem;
-		font-weight: 600;
-		color: var(--brand);
-		text-decoration: none;
-		border: 1px solid var(--line);
-	}
-
-	.detail-link:hover { background: #eef2ff; }
 
 	.skip-btn {
 		--countdown-progress: 0%;
