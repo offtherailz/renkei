@@ -1,0 +1,1 @@
+import{p as e}from"./DAexrU41.js";import{D as t}from"./BR0uDQ5A.js";const s={id:"default",auto_next_delay_ms:2e3,max_answer_time_ms:2e4,session_duration_minutes:5,session_timer_runs_in_detail:!1,forme_note:t,updated_at:0},i=e({initialized:!1,settings:{...s},studyGoal:null,userProfile:null,sessionState:null,lastSummary:null,activeQuiz:null,detailItemRef:null});export{i as a};
