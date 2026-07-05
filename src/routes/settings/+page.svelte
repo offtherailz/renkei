@@ -39,12 +39,20 @@
 
 	async function save(): Promise<void> {
 		saving = true;
-		const updated = { ...appState.settings, updated_at: Date.now() };
-		await db.app_settings.put(updated);
-		appState.settings = updated;
-		saving = false;
-		saved = true;
-		setTimeout(() => (saved = false), 2000);
+		try {
+			// $state.snapshot: Dexie non sa clonare i proxy di Svelte 5
+			// (forme_note è un array reattivo) — serve la copia piatta.
+			const updated = { ...$state.snapshot(appState.settings), updated_at: Date.now() };
+			await db.app_settings.put(updated);
+			appState.settings = updated;
+			saved = true;
+			setTimeout(() => (saved = false), 2000);
+		} catch (e) {
+			console.error('Salvataggio impostazioni fallito:', e);
+			alert('Salvataggio fallito: ' + e);
+		} finally {
+			saving = false;
+		}
 	}
 
 	async function resetProgress(): Promise<void> {
@@ -112,6 +120,11 @@
 			class="num-input"
 			bind:value={appState.settings.max_answer_time_ms}
 		/>
+	</label>
+
+	<label class="setting-row">
+		<span>Il timer di sessione continua in "Approfondisci"</span>
+		<input type="checkbox" bind:checked={appState.settings.session_timer_runs_in_detail} />
 	</label>
 
 	<button class="btn-primary" onclick={save} disabled={saving}>

@@ -162,8 +162,15 @@ export async function ensureDefaultObjectives(): Promise<void> {
 		.map((row) => row.id)
 		.filter((id) => id.startsWith("obj-catalog-") && !syncedDefaults.some((next) => next.id === id));
 
-	if (staleSystemIds.length > 0) {
-		await db.study_objectives.bulkDelete(staleSystemIds);
+	// Bonifica dei fossili pre-V1: obiettivi di sistema con la vecchia
+	// nomenclatura ("Obiettivo N5") rimasti in IndexedDB da versioni antiche.
+	const legacyIds = rows
+		.filter((row) => /^Obiettivo N[1-5]/.test(row.name))
+		.map((row) => row.id);
+
+	const toDelete = [...new Set([...staleSystemIds, ...legacyIds])];
+	if (toDelete.length > 0) {
+		await db.study_objectives.bulkDelete(toDelete);
 	}
 
 	await db.study_objectives.bulkPut(syncedDefaults);

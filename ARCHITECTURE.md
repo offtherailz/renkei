@@ -363,6 +363,51 @@ scelte duplicate nei quiz di riconoscimento. Design:
 5. **Quiz/drill**: invariati sul primario; il drill aggettivi si attiva se
    tra gli usi c'è adj-na/adj-i.
 
+## In coda (2026-07-05) — quiz avanzati e allenamento ascolto JLPT
+
+1. **Espressioni idiomatiche (慣用表現) con distrattori pedagogici**
+   - Cloze dell'espressione nella sua frase Tatoeba, distrattori = altre
+     idiomatiche dello stesso livello.
+   - Distrattore principe: il **significato letterale** (お腹が空いた →
+     "la pancia si è svuotata") — da generare una tantum in pipeline nello
+     stesso batch LLM della traduzione (`significato_letterale` sul Word).
+
+2. **Keigo, al livello opportuno**
+   - N5/N4: forme fisse (いらっしゃいませ, いただきます, ください) e です/ます
+     vs forma piana → quiz "che registro serve qui?".
+   - N3+: coppie 尊敬語/謙譲語 (言う→おっしゃる/申す, 見る→ご覧になる/拝見する...)
+     in un modulo dati; quiz di trasformazione con distrattori incrociati —
+     l'errore classico è usare l'umile per il soggetto da rispettare.
+   - Nuova scheda in /forme; gating sul target JLPT dello study goal.
+
+3. **Domande in stile JLPT (mai item ufficiali: copyright)**
+   - Generazione in pipeline (LLM batch, stesso meccanismo della traduzione)
+     sul formato ufficiale: 語彙 (kanji-lettura, parafrasi, uso), 文法
+     (riempimento, ordinamento con ★), 読解 breve.
+   - Seed dedicato `jlpt-items.json` con revisione; modalità "Simulazione"
+     con timer d'esame e punteggio per sezione.
+
+4. **Ascolto JLPT (聴解) — il punto debole dichiarato**
+   Il choukai ufficiale depista di proposito: menziona tutte le opzioni,
+   cambia idea a metà (やっぱり…), nega tardi, dice per prima la risposta
+   sbagliata. Piano per allenarlo:
+   a. **Generatore di dialoghi-trappola in pipeline**: prompt LLM che
+      replica i pattern ufficiali per tipo di prova — 課題理解 (cosa deve
+      fare la persona DOPO il dialogo), ポイント理解 (dettaglio chiave),
+      即時応答 (risposta immediata) — con i trucchi codificati nel prompt.
+      Output: dialogo a battute con personaggi + domanda + 4 opzioni +
+      spiegazione del tranello. Formato: estensione di `dialoghi_nuovi`
+      (COURSE_FORMAT) con campo `domande[]`. ~100 dialoghi con Haiku/Sonnet
+      in batch = pochi €.
+   b. **Riproduzione**: Web Speech TTS con voce diversa per personaggio e
+      velocità regolabile (0.8x → 1x → 1.25x come progressione); testo
+      NASCOSTO fino alla risposta; replay limitato come all'esame.
+   c. **Progressione**: liv.1 trascrizione visibile dopo il primo ascolto →
+      liv.2 solo audio, 2 ascolti → liv.3 regole d'esame (1 ascolto; per
+      即時応答 anche le opzioni sono solo audio).
+   d. **Statistiche per skill** (ascolto/lettura/grammatica separate) per
+      vedere dove si è deboli.
+
 ## Problemi noti / TODO tecnici
 
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.
