@@ -98,15 +98,51 @@
 				if (cq && !seen.has(cq.formLabel)) { seen.add(cq.formLabel); qs.push(cq); }
 			}
 		}
-		if (w.id_verbo_corrispondente && w.frasi_esempio?.length) {
-			const tq = createTransitivityPairQuestion(w, context, locale);
+		if (w.id_verbo_corrispondente) {
+			// transitività in contesto (se c'è una frase) o riconoscimento del gemello
+			const tq = w.frasi_esempio?.length ? createTransitivityPairQuestion(w, context, locale) : null;
 			if (tq) qs.push(tq);
+			const rel = relationQuestion(w, [w.id_verbo_corrispondente], context,
+				w.transitivita_jp?.startsWith('他') ? "verbo intransitivo corrispondente" : "verbo transitivo corrispondente");
+			if (rel) qs.push(rel);
 		}
+		const syn = relationQuestion(w, w.sinonimi ?? [], context, 'sinonimo');
+		if (syn) qs.push(syn);
+		const ant = relationQuestion(w, w.contrari ?? [], context, 'contrario');
+		if (ant) qs.push(ant);
 		if (w.id_contatore_suggerito) {
 			const cq = createCounterQuestion(w, counters, locale);
 			if (cq) qs.push(cq);
 		}
 		return qs;
+	}
+
+	// Domanda a scelta: "Quale è il <relazione> di X?" — corretta = una parola
+	// collegata, distrattori dello stesso tipo. Riusa la forma FlashcardQuestion
+	// (prompt in IT, opzioni in JP) così il TTS legge la risposta giusta.
+	function relationQuestion(
+		w: Word,
+		relatedIds: string[],
+		context: QuizContext,
+		label: string
+	): QuizQuestion | null {
+		const target = relatedIds.map((id) => context.wordsById.get(id)).find((x) => x);
+		if (!target) return null;
+		const pool = [...context.wordsById.values()].filter(
+			(x) => x.id !== w.id && x.id !== target.id && x.tipo_jp === w.tipo_jp
+		);
+		const distractors = shuffle(pool).slice(0, 3).map((x) => x.scrittura);
+		if (distractors.length < 2) return null;
+		const gloss = pickLocalizedArray(w.significato, locale)[0] ?? '';
+		return {
+			mode: 'flashcard-recognition',
+			wordId: w.id,
+			prompt: `${label} di ${w.scrittura}${gloss ? ` (${gloss})` : ''}`,
+			promptLanguage: locale,
+			choices: shuffle([target.scrittura, ...distractors]),
+			correctAnswer: target.scrittura,
+			warningMultipleDefinitions: false
+		};
 	}
 
 	function choicesOf(q: QuizQuestion): string[] {
