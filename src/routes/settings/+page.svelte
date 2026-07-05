@@ -4,6 +4,7 @@
 	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
 	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
+	import { BUILD_ID } from '$lib/buildInfo';
 
 	let saving = $state(false);
 	let saved = $state(false);
@@ -198,7 +199,8 @@
 <section class="section-card">
 	<p class="card-title">Informazioni</p>
 	<p class="info-text">連携 Renkei — Studio giapponese JLPT</p>
-	<div class="setting-row"><span>Versione app (dati attesi)</span><strong>{SEED_REVISION}</strong></div>
+	<div class="setting-row"><span>Build app</span><strong>{BUILD_ID}</strong></div>
+	<div class="setting-row"><span>Versione dati (attesi)</span><strong>{SEED_REVISION}</strong></div>
 	<div class="setting-row">
 		<span>Dati caricati</span>
 		<strong class:stale={loadedSeed !== SEED_REVISION}>{loadedSeed ?? '—'}</strong>

@@ -6,3 +6,4 @@ build/
 .DS_Store
 scripts/.cache/
 scripts/validation-report.json
+src/lib/buildInfo.ts
