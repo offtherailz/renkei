@@ -26,8 +26,6 @@
 	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective } from '$lib/types/models';
 	import type { ItemRef, StudySessionState, ActiveQuiz } from '$lib/stores.svelte';
 
-	const STUDY_STATS_KEY = 'renkei_study_session_stats_v1';
-
 	const locale = detectUserLocale();
 
 	// ── State ─────────────────────────────────────────────────────────────────────
@@ -244,16 +242,16 @@
 		appState.sessionState = null;
 		appState.lastSummary = summarySession;
 
-		const stats = JSON.parse(localStorage.getItem(STUDY_STATS_KEY) ?? '[]');
-		stats.push({
+		void db.study_sessions.put({
+			id: String(session.startedAt),
 			startedAt: session.startedAt,
 			endedAt: Date.now(),
 			answers: session.answers,
 			correct: session.correct,
 			wrong: session.wrong,
-			timeout: session.timeout
+			timeout: session.timeout,
+			xp: session.xp ?? 0
 		});
-		localStorage.setItem(STUDY_STATS_KEY, JSON.stringify(stats.slice(-200)));
 
 		session = null;
 		phase = 'summary';
@@ -344,6 +342,43 @@
 		}
 	}
 
+	// Recap dell'elemento dopo la risposta: è il momento di massimo apprendimento.
+	const answeredRecap = $derived.by(() => {
+		if (!quiz?.answered) return null;
+		const rawId = quiz.itemRef.key.split(':').slice(1).join(':');
+		if (quiz.itemRef.kind === 'word') {
+			const w = context?.wordsById.get(rawId);
+			if (!w) return null;
+			return {
+				jp: w.scrittura,
+				reading: w.lettura !== w.scrittura ? w.lettura : '',
+				text: pickLocalizedArray(w.significato, locale).join(' / ')
+			};
+		}
+		if (quiz.itemRef.kind === 'grammar') {
+			const g = context?.grammarById.get(rawId);
+			if (!g) return null;
+			return { jp: g.struttura, reading: '', text: pickLocalizedText(g.spiegazione, locale) };
+		}
+		if (quiz.itemRef.kind === 'kanji') {
+			const k = kanjiRows.find((row) => row.id === rawId);
+			if (!k) return null;
+			return {
+				jp: k.id,
+				reading: [...k.letture_kun, ...k.letture_on].slice(0, 3).join('、'),
+				text: locale === 'it' ? k.significato.it : k.significato.en
+			};
+		}
+		return null;
+	});
+
+	function confirmEndSession(): void {
+		if (session && session.answers > 0 && !window.confirm('Terminare la sessione di studio?')) {
+			return;
+		}
+		endSession();
+	}
+
 	async function handleAnswer(correct: boolean, selectedText = '', isTimeout = false): Promise<void> {
 		if (!quiz || quiz.answered || !session) return;
 		quiz.answered = true;
@@ -381,6 +416,7 @@
 			srsStage: before.srs_stage,
 			completedCustomGroup: false
 		});
+		session.xp += correct ? xpBreakdown.total : -6;
 		await addXp(correct ? xpBreakdown.total : -6);
 
 		// TTS
@@ -500,6 +536,7 @@
 				correct: 0,
 				wrong: 0,
 				timeout: 0,
+				xp: 0,
 				pausedAt: null,
 				wrongAnswers: []
 			};
@@ -592,7 +629,7 @@
 			</div>
 		{/if}
 		<div class="timer">{timeLeftLabel}</div>
-		<button class="ghost-btn" onclick={endSession}>Termina</button>
+		<button class="ghost-btn" onclick={confirmEndSession}>Termina</button>
 	</div>
 
 	<div class="quiz-meta">
@@ -732,10 +769,23 @@
 			</div>
 		{/if}
 
+		{#if !quiz.answered && quiz.question.mode !== 'flashcard-production'}
+			<button class="dontknow-btn" onclick={() => handleAnswer(false, 'Non la so', true)}>
+				🤷 Non la so
+			</button>
+		{/if}
+
 		{#if quiz.answered && answerFeedback}
 			<div class="feedback-bar" class:feedback-correct={answerFeedback === 'correct'} class:feedback-wrong={answerFeedback === 'wrong'}>
 				{answerFeedback === 'correct' ? '✅ Corretto!' : '❌ Sbagliato'}
 			</div>
+			{#if answeredRecap}
+				<div class="answer-recap">
+					<span class="recap-jp">{answeredRecap.jp}</span>
+					{#if answeredRecap.reading}<span class="recap-reading">{answeredRecap.reading}</span>{/if}
+					<span class="recap-meaning">{answeredRecap.text}</span>
+				</div>
+			{/if}
 			<div class="after-actions">
 				{#if quiz.itemRef.kind !== 'objective'}
 					<a
@@ -774,6 +824,10 @@
 			<div class="summary-stat">
 				<span class="stat-num">{accuracy()}%</span>
 				<span class="stat-label">Accuracy</span>
+			</div>
+			<div class="summary-stat">
+				<span class="stat-num">{(summarySession.xp ?? 0) >= 0 ? '+' : ''}{summarySession.xp ?? 0}</span>
+				<span class="stat-label">XP</span>
 			</div>
 		</div>
 		{#if summarySession.wrongAnswers.length > 0}
@@ -994,6 +1048,35 @@
 		border-radius: 8px;
 	}
 
+	.dontknow-btn {
+		justify-self: center;
+		padding: 6px 14px;
+		border: 1px dashed var(--line);
+		border-radius: 8px;
+		background: transparent;
+		color: var(--muted);
+		font-size: 0.8rem;
+		cursor: pointer;
+	}
+
+	.dontknow-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+	.answer-recap {
+		display: grid;
+		gap: 2px;
+		padding: 10px 14px;
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		background: var(--surface-2);
+		text-align: center;
+	}
+
+	.recap-jp { font-size: 1.5rem; font-weight: 700; }
+
+	.recap-reading { font-size: 0.95rem; color: var(--brand); }
+
+	.recap-meaning { font-size: 0.85rem; color: var(--muted); }
+
 	.feedback-bar {
 		padding: 8px 14px;
 		border-radius: 8px;
@@ -1076,7 +1159,7 @@
 
 	.summary-stats {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 		gap: 8px;
 	}
 

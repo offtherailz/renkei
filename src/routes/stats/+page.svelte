@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { appState } from '$lib/stores.svelte';
+	import { db } from '$lib/db/schema';
 
 	const STUDY_STATS_KEY = 'renkei_study_session_stats_v1';
 
@@ -48,15 +49,36 @@
 		return new Date(ts).toISOString().slice(0, 10);
 	}
 
-	function loadStats(): void {
-		const raw = localStorage.getItem(STUDY_STATS_KEY) ?? '[]';
+	// Migrazione una tantum: la cronologia viveva in localStorage,
+	// ora sta in Dexie (study_sessions) come il resto dei dati.
+	async function migrateLegacyStats(): Promise<void> {
+		const raw = localStorage.getItem(STUDY_STATS_KEY);
+		if (!raw) return;
 		try {
-			history = (JSON.parse(raw) as SessionStats[]).filter(
+			const rows = (JSON.parse(raw) as SessionStats[]).filter(
 				(r) => typeof r.startedAt === 'number'
 			);
-		} catch {
-			history = [];
+			await db.study_sessions.bulkPut(
+				rows.map((r) => ({
+					id: String(r.startedAt),
+					startedAt: r.startedAt,
+					endedAt: r.endedAt,
+					answers: r.answers,
+					correct: r.correct,
+					wrong: r.wrong,
+					timeout: r.timeout ?? 0,
+					xp: 0
+				}))
+			);
+		} catch (e) {
+			console.error('Migrazione stats fallita:', e);
 		}
+		localStorage.removeItem(STUDY_STATS_KEY);
+	}
+
+	async function loadStats(): Promise<void> {
+		await migrateLegacyStats();
+		history = await db.study_sessions.orderBy('startedAt').toArray();
 
 		const now = Date.now();
 		const cutoff = now - 7 * 24 * 60 * 60 * 1000;

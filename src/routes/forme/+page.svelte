@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { db } from '$lib/db/schema';
+	import type { Word } from '$lib/types/models';
 
 	function scrollToHash(): void {
 		const slug = $page.url.hash.replace('#', '');
@@ -17,6 +20,56 @@
 
 	function formTitle(slug: string): string {
 		return GRAMMAR_FORMS.find((f) => f.slug === slug)?.title ?? slug;
+	}
+
+	// Predicato parola per ogni scheda: collega le forme al catalogo.
+	const WORD_FILTERS: Record<string, (w: Word) => boolean> = {
+		meishi: (w) => w.tipo_jp.startsWith('名詞'),
+		doushi: (w) => w.tipo_jp.startsWith('動詞'),
+		keiyoushi: (w) => w.tipo_jp.startsWith('形容詞'),
+		fukushi: (w) => w.tipo_jp.startsWith('副詞'),
+		joshi: (w) => w.tipo_jp.startsWith('助詞'),
+		josuushi: (w) => w.tipo_jp.startsWith('助数詞'),
+		kanyouhyougen: (w) => w.tipo_jp.startsWith('慣用表現'),
+		godan: (w) => Boolean(w.classe_verbo_jp?.startsWith('五段')),
+		ichidan: (w) => Boolean(w.classe_verbo_jp?.startsWith('一段')),
+		fukisoku: (w) => Boolean(w.classe_verbo_jp?.startsWith('不規則')),
+		tadoushi: (w) => Boolean(w.transitivita_jp?.startsWith('他動詞')),
+		jidoushi: (w) => Boolean(w.transitivita_jp?.startsWith('自動詞')),
+		'i-keiyoushi': (w) => Boolean(w.tipo_aggettivo_jp?.startsWith('い形容詞')),
+		'na-keiyoushi': (w) => Boolean(w.tipo_aggettivo_jp?.startsWith('な形容詞'))
+	};
+
+	const WORDS_PAGE_SIZE = 30;
+	let counts = $state<Record<string, number>>({});
+	let openWords = $state<Record<string, Word[]>>({});
+	let shownCount = $state<Record<string, number>>({});
+	let allWords: Word[] = [];
+
+	onMount(async () => {
+		allWords = await db.words.toArray();
+		const next: Record<string, number> = {};
+		for (const [slug, filter] of Object.entries(WORD_FILTERS)) {
+			next[slug] = allWords.filter(filter).length;
+		}
+		counts = next;
+	});
+
+	function toggleWords(slug: string): void {
+		if (openWords[slug]) {
+			const { [slug]: _removed, ...rest } = openWords;
+			openWords = rest;
+			return;
+		}
+		const filter = WORD_FILTERS[slug];
+		if (!filter) return;
+		const matched = allWords.filter(filter).sort((a, b) => a.lettura.localeCompare(b.lettura, 'ja'));
+		openWords = { ...openWords, [slug]: matched };
+		shownCount = { ...shownCount, [slug]: WORDS_PAGE_SIZE };
+	}
+
+	function showMore(slug: string): void {
+		shownCount = { ...shownCount, [slug]: (shownCount[slug] ?? WORDS_PAGE_SIZE) + WORDS_PAGE_SIZE };
 	}
 </script>
 
@@ -63,6 +116,26 @@
 						<a class="related-chip" href="#{slug}">{formTitle(slug)}</a>
 					{/each}
 				</div>
+			{/if}
+			{#if (counts[form.slug] ?? 0) > 0}
+				<button class="words-toggle" onclick={() => toggleWords(form.slug)}>
+					{openWords[form.slug] ? '▾ Nascondi le parole' : `▸ Vedi le ${counts[form.slug]} parole di questo tipo`}
+				</button>
+				{#if openWords[form.slug]}
+					<div class="words-list">
+						{#each openWords[form.slug].slice(0, shownCount[form.slug] ?? WORDS_PAGE_SIZE) as w (w.id)}
+							<a class="word-chip" href="{base}/detail/{encodeURIComponent(`word:${w.id}`)}">
+								<span class="word-chip-jp">{w.scrittura}</span>
+								{#if w.lettura !== w.scrittura}<span class="word-chip-reading">{w.lettura}</span>{/if}
+							</a>
+						{/each}
+					</div>
+					{#if openWords[form.slug].length > (shownCount[form.slug] ?? WORDS_PAGE_SIZE)}
+						<button class="words-toggle" onclick={() => showMore(form.slug)}>
+							Mostra altre {Math.min(WORDS_PAGE_SIZE, openWords[form.slug].length - (shownCount[form.slug] ?? WORDS_PAGE_SIZE))}…
+						</button>
+					{/if}
+				{/if}
 			{/if}
 		</article>
 	{/each}
@@ -162,4 +235,41 @@
 	}
 
 	.related-chip:hover { background: #eef2ff; border-color: var(--brand); }
+
+	.words-toggle {
+		justify-self: start;
+		border: none;
+		background: none;
+		padding: 0;
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--brand);
+		cursor: pointer;
+	}
+
+	.words-toggle:hover { text-decoration: underline; }
+
+	.words-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	.word-chip {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 5px;
+		padding: 4px 10px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface-2);
+		text-decoration: none;
+		color: var(--ink);
+	}
+
+	.word-chip:hover { border-color: var(--brand); background: #eef2ff; }
+
+	.word-chip-jp { font-size: 1.05rem; font-weight: 600; }
+
+	.word-chip-reading { font-size: 0.72rem; color: var(--muted); }
 </style>

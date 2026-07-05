@@ -24,6 +24,7 @@ export interface StudySessionState {
 	correct: number;
 	wrong: number;
 	timeout: number;
+	xp: number;
 	pausedAt: number | null;
 	wrongAnswers: SessionWrongAnswer[];
 }

@@ -60,7 +60,7 @@
 <section class="section-card">
 	<div class="section-header">
 		<h2 class="section-title">Obiettivi di studio</h2>
-		<a href="{base}/quiz" class="btn btn-primary">▶ Avvia sessione</a>
+		<a href="{base}/quiz" class="btn btn-primary">▶ Avvia sessione{dueCount > 0 ? ` · ${dueCount}` : ''}</a>
 	</div>
 
 	{#if loading}

@@ -62,6 +62,17 @@ export interface WordExample {
   traduzione: LocalizedText;
 }
 
+export interface StudySessionRecord {
+  id: string;
+  startedAt: number;
+  endedAt: number;
+  answers: number;
+  correct: number;
+  wrong: number;
+  timeout: number;
+  xp: number;
+}
+
 export interface Kanji extends BaseEntity {
   id: string;
   significato: LocalizedText;
