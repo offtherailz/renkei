@@ -2,15 +2,20 @@ import { pickLocalizedArray, pickLocalizedText } from "../core/i18n";
 import { createDefaultTokenizer } from "../core/tokenizer";
 import { renderFuriganaToHtml } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
-import type { JLPTLevel, Word } from "../types/models";
+import { blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
+import { buildConjugationQuestions } from "../core/conjugation";
+import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
 import type {
   ClozeQuestion,
   ClozeSource,
+  ConjugationQuizQuestion,
+  CounterQuestion,
   DistractorIndex,
   FlashcardQuestion,
   ListeningQuestion,
   MultipleChoiceQuestion,
+  ParticleClozeQuestion,
   QuizContext,
   ReadingChoiceQuestion,
   SentenceOrderingQuestion,
@@ -316,6 +321,108 @@ export async function createClozeQuestion(
   };
 }
 
+// ── Quiz particelle: cloze sulla frase d'esempio con distrattori confondibili ──
+export async function createParticleClozeQuestion(
+  word: Word,
+  locale: LocaleCode
+): Promise<ParticleClozeQuestion | null> {
+  const example = (word.frasi_esempio ?? [])[0];
+  if (!example) return null;
+
+  const sentence = stripFuriganaNotation(example.testo);
+  const tokenizer = await createDefaultTokenizer();
+  const hits = findParticles(tokenizer.tokenize(sentence));
+  if (hits.length === 0) return null;
+
+  const hit = hits[Math.floor(Math.random() * hits.length)]!;
+  const distractors = (CONFUSABLE_PARTICLES[hit.particle] ?? [])
+    .filter((p) => p !== hit.particle)
+    .slice(0, 3);
+  if (distractors.length < 2) return null;
+
+  return {
+    mode: "particle-cloze",
+    wordId: word.id,
+    sentenceWithBlank: blankParticleAt(sentence, hit),
+    fullSentence: sentence,
+    translation: pickLocalizedText(example.traduzione, locale),
+    choices: shuffle([hit.particle, ...distractors]),
+    correctChoice: hit.particle
+  };
+}
+
+// ── Quiz contatori: con cosa si conta questa parola? ──
+// Distrattori pedagogici: i contatori della stessa "famiglia" che si confondono.
+const CONFUSABLE_COUNTERS: Record<string, string[]> = {
+  匹: ["頭", "羽", "本"],
+  頭: ["匹", "羽", "人"],
+  羽: ["匹", "頭", "枚"],
+  本: ["枚", "個", "冊"],
+  枚: ["本", "個", "台"],
+  冊: ["本", "枚", "個"],
+  台: ["個", "本", "枚"],
+  個: ["つ", "本", "枚"],
+  つ: ["個", "本", "枚"],
+  人: ["匹", "個", "つ"],
+  杯: ["本", "個", "枚"],
+  階: ["回", "台", "個"],
+  回: ["階", "番", "本"],
+  歳: ["回", "個", "人"],
+  分: ["回", "本", "個"],
+  番: ["回", "個", "台"],
+  足: ["本", "個", "枚"],
+  軒: ["台", "個", "本"]
+};
+
+export function createCounterQuestion(
+  word: Word,
+  counters: Counter[],
+  locale: LocaleCode
+): CounterQuestion | null {
+  if (!word.id_contatore_suggerito) return null;
+  const byId = new Map(counters.map((c) => [c.id, c]));
+  const correct = byId.get(word.id_contatore_suggerito);
+  if (!correct) return null;
+
+  const label = (c: Counter) => `${c.simbolo}（${c.lettura}）`;
+  const confusable = (CONFUSABLE_COUNTERS[correct.id] ?? [])
+    .map((id) => byId.get(id))
+    .filter((c): c is Counter => Boolean(c));
+  const fallback = shuffle(counters.filter((c) => c.id !== correct.id));
+  const distractors = [...new Set([...confusable, ...fallback].map(label))]
+    .filter((l) => l !== label(correct))
+    .slice(0, 3);
+  if (distractors.length < 2) return null;
+
+  return {
+    mode: "counter-quiz",
+    wordId: word.id,
+    prompt: word.scrittura,
+    promptMeaning: pickLocalizedArray(word.significato, locale)[0] ?? "",
+    choices: shuffle([label(correct), ...distractors]),
+    correctChoice: label(correct)
+  };
+}
+
+// ── Quiz coniugazioni: una forma a caso tra quelle che l'utente conosce ──
+export function createConjugationQuizQuestion(
+  word: Word,
+  allowedForms: Set<string>
+): ConjugationQuizQuestion | null {
+  const questions = buildConjugationQuestions(word, allowedForms);
+  if (questions.length === 0) return null;
+  const q = questions[Math.floor(Math.random() * questions.length)]!;
+  if (q.choices.length < 3) return null;
+  return {
+    mode: "conjugation",
+    wordId: word.id,
+    dictionary: q.dictionary,
+    formLabel: q.prompt,
+    choices: shuffle(q.choices),
+    correctChoice: q.correct
+  };
+}
+
 const JLPT_DIFFICULTY_MULTIPLIER: Record<JLPTLevel, number> = {
   N5: 1,
   N4: 1.15,
@@ -332,7 +439,10 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "sentence-ordering": 15,
   cloze: 14,
   "reading-choice": 13,
-  listening: 11
+  listening: 11,
+  "particle-cloze": 13,
+  "counter-quiz": 12,
+  conjugation: 13
 };
 
 export async function createGrammarQuestion(

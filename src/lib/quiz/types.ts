@@ -8,7 +8,10 @@ export type QuizMode =
   | "sentence-ordering"
   | "cloze"
   | "reading-choice"
-  | "listening";
+  | "listening"
+  | "particle-cloze"
+  | "counter-quiz"
+  | "conjugation";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -62,13 +65,44 @@ export interface ListeningQuestion {
   correctChoice: string;
 }
 
+export interface ParticleClozeQuestion {
+  mode: "particle-cloze";
+  wordId: string;
+  sentenceWithBlank: string;
+  fullSentence: string;
+  translation: string;
+  choices: string[];
+  correctChoice: string;
+}
+
+export interface CounterQuestion {
+  mode: "counter-quiz";
+  wordId: string;
+  prompt: string; // scrittura della parola da contare
+  promptMeaning: string;
+  choices: string[]; // "匹 (ひき)"
+  correctChoice: string;
+}
+
+export interface ConjugationQuizQuestion {
+  mode: "conjugation";
+  wordId: string;
+  dictionary: string;
+  formLabel: string;
+  choices: string[];
+  correctChoice: string;
+}
+
 export type QuizQuestion =
   | FlashcardQuestion
   | MultipleChoiceQuestion
   | SentenceOrderingQuestion
   | ClozeQuestion
   | ReadingChoiceQuestion
-  | ListeningQuestion;
+  | ListeningQuestion
+  | ParticleClozeQuestion
+  | CounterQuestion
+  | ConjugationQuizQuestion;
 
 export interface DistractorEntry {
   id: string;

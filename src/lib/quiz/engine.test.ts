@@ -87,6 +87,50 @@ describe("distrattori senza duplicati", () => {
   });
 });
 
+describe("nuove modalità con distrattori pedagogici", () => {
+  it("counter-quiz: distrattori dalla stessa famiglia di contatori", async () => {
+    const { createCounterQuestion } = await import("./engine");
+    const counters = [
+      { id: "匹", simbolo: "匹", lettura: "ひき" },
+      { id: "頭", simbolo: "頭", lettura: "とう" },
+      { id: "羽", simbolo: "羽", lettura: "わ" },
+      { id: "冊", simbolo: "冊", lettura: "さつ" }
+    ] as never[];
+    const word = { ...makeWord("犬", "犬", "cane"), id_contatore_suggerito: "匹" };
+    const q = createCounterQuestion(word, counters as never, "it");
+    expect(q).not.toBeNull();
+    expect(q!.correctChoice).toBe("匹（ひき）");
+    expect(q!.choices).toContain("頭（とう）"); // confondibile: animali grandi
+    expect(new Set(q!.choices).size).toBe(q!.choices.length);
+  });
+
+  it("conjugation: pesca una forma tra quelle consentite", async () => {
+    const { createConjugationQuizQuestion } = await import("./engine");
+    const verb = {
+      ...makeWord("飲む", "飲む", "bere"),
+      tipo_jp: "動詞[どうし]",
+      classe_verbo_jp: "五段動詞[ごだんどうし]"
+    };
+    const q = createConjugationQuizQuestion(verb as never, new Set(["te"]));
+    expect(q).not.toBeNull();
+    expect(q!.correctChoice).toBe("飲んで");
+    expect(q!.choices).toContain("飲んで");
+  });
+
+  it("particle-cloze: oscura una particella e offre confondibili", async () => {
+    const { createParticleClozeQuestion } = await import("./engine");
+    const word = {
+      ...makeWord("水", "水", "acqua"),
+      frasi_esempio: [{ testo: "犬が水を飲む。", traduzione: { it: "Il cane beve acqua.", en: "" } }]
+    };
+    const q = await createParticleClozeQuestion(word as never, "it");
+    expect(q).not.toBeNull();
+    expect(q!.sentenceWithBlank).toContain("＿＿");
+    expect(q!.choices).toContain(q!.correctChoice);
+    expect(["が", "を"]).toContain(q!.correctChoice);
+  });
+});
+
 describe("calculateQuizXp", () => {
   it("risposta sbagliata: zero XP", () => {
     const xp = calculateQuizXp(makeInput({ isCorrect: false }));

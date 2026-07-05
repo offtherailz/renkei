@@ -15,15 +15,20 @@
 		createMultipleChoiceQuestion,
 		createListeningQuestion,
 		createGrammarQuestion,
+		createParticleClozeQuestion,
+		createCounterQuestion,
+		createConjugationQuizQuestion,
 		calculateQuizXp,
 		shuffle
 	} from '$lib/quiz/engine';
+	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion
+		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
+		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion
 	} from '$lib/quiz/types';
-	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective } from '$lib/types/models';
+	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective, Counter } from '$lib/types/models';
 	import type { ItemRef, StudySessionState, ActiveQuiz } from '$lib/stores.svelte';
 
 	const locale = detectUserLocale();
@@ -36,6 +41,7 @@
 	let words = $state<Word[]>([]);
 	let kanjiRows = $state<Kanji[]>([]);
 	let grammarRows = $state<Grammar[]>([]);
+	let counterRows = $state<Counter[]>([]);
 	let objectives = $state<StudyObjective[]>([]);
 	let srsMap = $state(new Map<string, SrsProgress>());
 	let context = $state<QuizContext | null>(null);
@@ -118,6 +124,25 @@
 			const word = context.wordsById.get(ref.key.replace('word:', ''));
 			if (!word) return null;
 			const srs = getSrs(ref.key) ?? createInitialSrs(ref.key);
+
+			// Modalità speciali con distrattori pedagogici, se la parola le supporta.
+			const roll = Math.random();
+			if (word.frasi_esempio?.length && roll < 0.15) {
+				const particleQ = await createParticleClozeQuestion(word, locale);
+				if (particleQ) return particleQ;
+			} else if (word.id_contatore_suggerito && roll < 0.35) {
+				const counterQ = createCounterQuestion(word, counterRows, locale);
+				if (counterQ) return counterQ;
+			} else if (
+				(word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')) &&
+				srs.srs_stage >= 1 &&
+				roll < 0.35
+			) {
+				const allowed = new Set(appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS);
+				const conjQ = createConjugationQuizQuestion(word, allowed);
+				if (conjQ) return conjQ;
+			}
+
 			const mode = pickWordMode(srs.srs_stage, word);
 			if (mode === 'flashcard-production') return createFlashcardProductionQuestion(word, locale);
 			if (mode === 'flashcard-recognition') return createFlashcardRecognitionQuestion(word, locale, distractorIndex, context);
@@ -340,6 +365,12 @@
 				return { prompt: q.plainSentence, correct: q.correctChoice };
 			case 'listening':
 				return { prompt: `🔊 ${q.readingToSpeak}`, correct: q.correctChoice };
+			case 'particle-cloze':
+				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
+			case 'counter-quiz':
+				return { prompt: `Contatore per ${q.prompt}`, correct: q.correctChoice };
+			case 'conjugation':
+				return { prompt: `${q.dictionary} → ${q.formLabel}`, correct: q.correctChoice };
 			case 'cloze':
 				return { prompt: q.sentenceWithBlank.replace(/<[^>]*>/g, ''), correct: q.correctChoice };
 		}
@@ -423,7 +454,11 @@
 		await addXp(correct ? xpBreakdown.total : -6);
 
 		// TTS
-		if (quiz.itemRef.kind === 'word') {
+		if (quiz.question.mode === 'particle-cloze') {
+			speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
+		} else if (quiz.question.mode === 'conjugation') {
+			speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
+		} else if (quiz.itemRef.kind === 'word') {
 			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
 			if (word) speakWordReading(word);
 		} else if (quiz.question.mode === 'sentence-ordering') {
@@ -443,6 +478,9 @@
 		else if (q.mode === 'cloze') correct = choice === (q as ClozeQuestion).correctChoice;
 		else if (q.mode === 'reading-choice') correct = choice === (q as ReadingChoiceQuestion).correctChoice;
 		else if (q.mode === 'listening') correct = choice === (q as ListeningQuestion).correctChoice;
+		else if (q.mode === 'particle-cloze') correct = choice === (q as ParticleClozeQuestion).correctChoice;
+		else if (q.mode === 'counter-quiz') correct = choice === (q as CounterQuestion).correctChoice;
+		else if (q.mode === 'conjugation') correct = choice === (q as ConjugationQuizQuestion).correctChoice;
 		handleAnswer(correct, choice);
 	}
 
@@ -510,10 +548,11 @@
 		loadError = '';
 		appState.lastSummary = null;
 		try {
-			[words, kanjiRows, grammarRows, objectives] = await Promise.all([
+			[words, kanjiRows, grammarRows, counterRows, objectives] = await Promise.all([
 				db.words.toArray(),
 				db.kanji.toArray(),
 				db.grammar.toArray(),
+				db.counters.toArray(),
 				db.study_objectives.toArray()
 			]);
 			const srsRows = await db.srs_progress.toArray();
@@ -778,6 +817,60 @@
 				{/each}
 			</div>
 
+		<!-- particle-cloze -->
+		{:else if quiz.question.mode === 'particle-cloze'}
+			{@const q = quiz.question as ParticleClozeQuestion}
+			<p class="question-hint">Quale particella completa la frase?</p>
+			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
+			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
+			<div class="choices ja-choices particle-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- counter-quiz -->
+		{:else if quiz.question.mode === 'counter-quiz'}
+			{@const q = quiz.question as CounterQuestion}
+			<p class="question-hint">Con quale contatore si conta?</p>
+			<p class="question-prompt ja-text">{q.prompt}</p>
+			<p class="question-hint">{q.promptMeaning}</p>
+			<div class="choices ja-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- conjugation -->
+		{:else if quiz.question.mode === 'conjugation'}
+			{@const q = quiz.question as ConjugationQuizQuestion}
+			<p class="question-hint">Coniuga il verbo/aggettivo</p>
+			<p class="question-prompt ja-text">{q.dictionary}</p>
+			<p class="question-hint">→ {q.formLabel}</p>
+			<div class="choices ja-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
 		<!-- cloze -->
 		{:else}
 			{@const q = quiz.question as ClozeQuestion}
@@ -992,6 +1085,14 @@
 	.choice-btn:hover:not(:disabled) { border-color: var(--brand); background: #eef2ff; }
 
 	.ja-choices .choice-btn { font-size: 1.2rem; }
+
+	.ja-sentence { font-size: 1.35rem; line-height: 1.9; text-align: center; }
+
+	.particle-choices {
+		grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+	}
+
+	.particle-choices .choice-btn { text-align: center; font-size: 1.4rem; }
 
 	.key-hint {
 		display: inline-block;

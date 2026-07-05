@@ -47,7 +47,7 @@
 						class="counter-symbol"
 						onclick={() => speakSentenceJapanese(c.lettura)}
 						title="Ascolta"
-					>{c.simbolo}</button>
+					><ruby>{c.simbolo}<rt>{c.lettura}</rt></ruby></button>
 					<div class="counter-info">
 						<p class="counter-reading">{c.lettura}</p>
 						<p class="counter-meaning">{pickLocalizedText(c.significato, locale)}</p>
@@ -102,10 +102,10 @@
 	}
 
 	.counter-symbol {
-		font-size: 2rem;
+		font-size: 1.9rem;
 		font-weight: 700;
-		width: 58px;
-		height: 58px;
+		width: 64px;
+		height: 64px;
 		display: grid;
 		place-items: center;
 		border: 1.5px solid var(--line);
@@ -114,6 +114,13 @@
 		color: var(--ink);
 		cursor: pointer;
 		flex-shrink: 0;
+		line-height: 1;
+	}
+
+	.counter-symbol rt {
+		font-size: 0.62rem;
+		font-weight: 600;
+		color: var(--brand);
 	}
 
 	.counter-symbol:hover { border-color: var(--brand); }
