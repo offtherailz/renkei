@@ -324,9 +324,16 @@ Candidati da valutare (licenze da verificare voce per voce):
       `grammar.spiegazione.it`, `frasi_esempio.traduzione.it`.
    3. **Revisione**: report `[jp, en, it]` per controllo a campione; le
       correzioni manuali entrano in `word-overrides.json`.
-   4. **Da decidere insieme**: il motore di traduzione (LLM via API nello
-      script locale: quale modello, costi; gira solo in pipeline, mai nel
-      client).
+   4. **Motore di traduzione — deciso (2026-07-05)**: Claude API nello script
+      locale (mai nel client). Non serve un modello top: per glosse brevi di
+      dizionario basta **Claude Haiku 4.5** (`claude-haiku-4-5`, $1/$5 per
+      milione di token in/out); per le 167 spiegazioni grammaticali, che
+      richiedono più sfumatura, eventualmente **Claude Sonnet 4.6**
+      (`claude-sonnet-4-6`, $3/$15). Volume stimato (~1400 parole + 167
+      grammatiche + ~2500 frasi ≈ 1M token input, ~0.3M output): con Haiku
+      ~2–3 $, dimezzabili usando la **Batch API** (−50%, va benissimo perché
+      non è latency-sensitive). Costo una tantum irrisorio; la cache
+      incrementale evita di ripagarlo ai re-sync.
 
 ## Problemi noti / TODO tecnici
 
