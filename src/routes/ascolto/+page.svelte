@@ -2,9 +2,10 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { db } from '$lib/db/schema';
 	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
-	import { speakDialogue, stopSpeaking } from '$lib/core/tts';
+	import { speakDialogue, stopSpeaking, speakSentenceJapanese } from '$lib/core/tts';
 	import { shuffle } from '$lib/quiz/engine';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import type { Dialogue } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -83,6 +84,22 @@
 				<p class="listen-context">{pickLocalizedText(current.contesto, locale)}</p>
 			{/if}
 
+			{#if question.domanda_jp}
+				<div class="task-box">
+					<div class="task-row">
+						{#if question.tipo}<span class="task-tag">{question.tipo}</span>{/if}
+						<span class="task-jp">{question.domanda_jp}</span>
+						<button class="task-tts" onclick={() => speakSentenceJapanese(question.domanda_jp ?? '')}>🔊</button>
+					</div>
+					{#if question.parole_chiave?.length}
+						<div class="triggers">
+							<span class="trig-label">🎯 cattura:</span>
+							{#each question.parole_chiave as kw}<span class="trigger">{kw}</span>{/each}
+						</div>
+					{/if}
+				</div>
+			{/if}
+
 			<div class="listen-controls">
 				<button class="play-btn" onclick={play} disabled={playing || listens >= MAX_LISTENS}>
 					{playing ? '🔊 In riproduzione…' : listens === 0 ? '▶️ Ascolta' : `🔁 Riascolta (${MAX_LISTENS - listens})`}
@@ -123,7 +140,7 @@
 					{#each current.righe as line}
 						<div class="transcript-line">
 							<span class="speaker">{line.personaggio}</span>
-							<span class="line-jp">{line.testo}</span>
+							<InteractiveSentence text={line.testo} />
 							<span class="line-it">{pickLocalizedText(line.traduzione, locale)}</span>
 						</div>
 					{/each}
@@ -152,6 +169,15 @@
 
 	.listen-head { display: flex; align-items: center; gap: 8px; }
 	.listen-context { margin: 0; font-size: 0.82rem; color: var(--muted); }
+
+	.task-box { display: grid; gap: 6px; padding: 10px 12px; border: 1px solid var(--brand); border-radius: 10px; background: rgba(107,160,242,0.1); }
+	.task-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+	.task-tag { font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--brand); color: #fff; }
+	.task-jp { font-size: 1.05rem; font-weight: 700; }
+	.task-tts { border: none; background: none; cursor: pointer; font-size: 0.9rem; }
+	.triggers { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+	.trig-label { font-size: 0.72rem; color: var(--muted); }
+	.trigger { font-size: 0.85rem; padding: 1px 8px; border-radius: 6px; background: #fffbeb; border: 1px solid #fbbf24; color: #92400e; }
 
 	.listen-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
@@ -196,7 +222,6 @@
 	.transcript-title { margin: 0; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; }
 	.transcript-line { display: grid; gap: 1px; }
 	.speaker { font-size: 0.7rem; font-weight: 700; color: var(--brand); }
-	.line-jp { font-size: 1.05rem; }
 	.line-it { font-size: 0.76rem; color: var(--muted); }
 
 	.next-dialogue {

@@ -329,6 +329,9 @@ export interface DialogueQuestion {
   opzioni: string[];
   corretta: string;
   spiegazione: LocalizedText;
+  domanda_jp?: string; // domanda in giapponese stile JLPT (letta all'inizio)
+  parole_chiave?: string[]; // "trigger" da catturare nell'audio
+  tipo?: string; // categoria: task, sequenza, logistica, punto...
 }
 
 export interface Dialogue extends BaseEntity {

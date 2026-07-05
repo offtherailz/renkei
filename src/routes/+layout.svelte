@@ -17,7 +17,7 @@
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-07-05-idioms-v7';
+	const SEED_DATA_REVISION = '2026-07-05-ux-v8';
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(

@@ -84,22 +84,26 @@
 	const hasTts = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
 	function pickWordMode(stage: number, word: Word): FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' {
-		const hasKanji = word.kanji_usati.length > 0;
+		// reading-recognition è tautologica per parole in sola kana (それほど→それほど):
+		// serve un kanji per avere senso (lettura → scrittura kanji).
+		const hasKanji = word.kanji_usati.length > 0 && word.scrittura !== word.lettura;
 		// Ascolto: skill separata, entra in rotazione dallo stage 1.
 		if (hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
 		if (stage <= 1) {
 			const r = Math.random();
-			if (r < (hasKanji ? 0.45 : 0.2)) return 'flashcard-reading-recognition';
-			return r < (hasKanji ? 0.8 : 0.45) ? 'flashcard-recognition' : 'multiple-choice';
+			if (r < (hasKanji ? 0.45 : 0)) return 'flashcard-reading-recognition';
+			return r < 0.6 ? 'flashcard-recognition' : 'multiple-choice';
 		}
 		if (stage <= 3) {
 			const r = Math.random();
-			if (hasKanji && r < 0.35) return 'flashcard-reading-recognition';
-			return r < (hasKanji ? 0.6 : 0.75) ? 'multiple-choice' : 'flashcard-recognition';
+			if (hasKanji && r < 0.3) return 'flashcard-reading-recognition';
+			// produzione inversa (IT→JP) entra da stage 2
+			if (r < 0.45) return 'flashcard-production';
+			return r < 0.75 ? 'multiple-choice' : 'flashcard-recognition';
 		}
-		if (hasKanji && Math.random() < 0.28) return 'flashcard-reading-recognition';
-		if (hasKanji && Math.random() < 0.3) return 'flashcard-recognition';
-		return Math.random() < 0.55 ? 'flashcard-production' : 'multiple-choice';
+		if (hasKanji && Math.random() < 0.25) return 'flashcard-reading-recognition';
+		if (Math.random() < 0.25) return 'flashcard-recognition';
+		return Math.random() < 0.6 ? 'flashcard-production' : 'multiple-choice';
 	}
 
 	function getActivePool(): ItemRef[] {
@@ -525,6 +529,44 @@
 		return dives.filter((d) => !seen.has(d.href) && seen.add(d.href)).slice(0, 6);
 	}
 
+	// Glosse dei distrattori: per le domande a scelta, spiega perché ogni
+	// opzione errata era sbagliata (significato nel catalogo o motivo per modalità).
+	function wrongChoiceNotes(): { choice: string; reason: string }[] {
+		if (!quiz) return [];
+		const q = quiz.question;
+		const choices = 'choices' in q && q.choices ? q.choices : [];
+		const correct =
+			'correctChoice' in q ? q.correctChoice : 'correctAnswer' in q ? q.correctAnswer : '';
+		if (choices.length === 0) return [];
+
+		const reasonByMode: Record<string, string> = {
+			'multiple-choice': 'significato di un altro termine',
+			'flashcard-recognition': 'scrittura di un altro termine',
+			'flashcard-reading-recognition': 'scrittura di un altro termine',
+			listening: 'scrittura di un altro termine',
+			cloze: 'non adatto al contesto',
+			'reading-choice': 'lettura non corretta',
+			'particle-cloze': 'particella non adatta qui',
+			'counter-quiz': 'contatore di un\'altra categoria',
+			'counter-reading': 'lettura errata (rendaku/concatenazione)',
+			'time-reading': 'lettura regolare errata',
+			conjugation: 'forma non corretta',
+			'transitivity-pair': 'verbo gemello (transitività opposta)'
+		};
+
+		return choices
+			.filter((c) => c !== correct)
+			.map((choice) => {
+				// se il distrattore è una parola del catalogo, mostrane il significato
+				const w = context?.wordsById.get(choice) ?? [...(context?.wordsById.values() ?? [])].find((x) => x.scrittura === choice);
+				const gloss = w ? pickLocalizedArray(w.significato, locale)[0] : '';
+				return {
+					choice,
+					reason: gloss ? `= ${gloss}` : (reasonByMode[q.mode] ?? 'non corretto')
+				};
+			});
+	}
+
 	function confirmEndSession(): void {
 		if (session && session.answers > 0 && !window.confirm('Terminare la sessione di studio?')) {
 			return;
@@ -812,6 +854,7 @@
 		{/if}
 	</div>
 
+	{#key quiz.startedAt}
 	<article class="quiz-card" class:correct={answerFeedback === 'correct'} class:wrong={answerFeedback === 'wrong'}>
 		{#if !quiz.answered && answerRemainingS > 0}
 			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5} title="Tempo per rispondere">
@@ -1067,6 +1110,14 @@
 				</div>
 			{/if}
 			{#if showDives}
+				{#if wrongChoiceNotes().length > 0}
+					<div class="wrong-notes">
+						<span class="deep-dives-label">Perché le altre erano sbagliate:</span>
+						{#each wrongChoiceNotes() as note (note.choice)}
+							<div class="wrong-note"><span class="wn-choice">{note.choice}</span> — {note.reason}</div>
+						{/each}
+					</div>
+				{/if}
 				<div class="deep-dives">
 					<span class="deep-dives-label">🔍 Approfondisci:</span>
 					{#each buildDeepDives() as dive (dive.href)}
@@ -1096,6 +1147,7 @@
 			</div>
 		{/if}
 	</article>
+	{/key}
 </div>
 
 <!-- SUMMARY PHASE -->
@@ -1431,6 +1483,17 @@
 
 	.feedback-correct { background: #dcfce7; color: #166534; }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
+
+	.wrong-notes {
+		display: grid;
+		gap: 3px;
+		padding: 8px 10px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface-2);
+	}
+	.wrong-note { font-size: 0.8rem; color: var(--muted); }
+	.wn-choice { font-weight: 700; color: var(--ink); }
 
 	.deep-dives {
 		display: flex;

@@ -7,8 +7,8 @@
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { normalizeMastery } from '$lib/core/srs';
-	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
-	import FuriganaText from '$lib/components/FuriganaText.svelte';
+	import { speakWordReading } from '$lib/core/tts';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
@@ -160,6 +160,7 @@
 					<span class="item-reading">{word.lettura}</span>
 				{/if}
 				<button class="tts-btn" onclick={() => speakWordReading(word!)} title="Ascolta">🔊</button>
+				<a class="consolida-btn" href="{base}/consolida/{encodeURIComponent(word.id)}">💪 Consolida</a>
 			</div>
 			<div class="badges-row">
 				<JlptBadge level={word.livello_jlpt} />
@@ -224,8 +225,7 @@
 			<p class="card-title">Frasi esempio</p>
 			{#each word.frasi_esempio as ex}
 				<div class="example-row">
-					<FuriganaText text={ex.testo} class="example-ja" />
-					<button class="tts-mini" onclick={() => speakSentenceJapanese(ex.testo)} title="Ascolta">🔊</button>
+					<InteractiveSentence text={ex.testo} />
 					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
 				</div>
 			{/each}
@@ -367,8 +367,7 @@
 			<p class="card-title">Frasi esempio</p>
 			{#each grammar.frasi_esempio as ex}
 				<div class="example-row">
-					<FuriganaText text={ex.testo} class="example-ja" />
-					<button class="tts-mini" onclick={() => speakSentenceJapanese(ex.testo)} title="Ascolta">🔊</button>
+					<InteractiveSentence text={ex.testo} />
 					<p class="example-trans">{pickLocalizedText(ex.traduzione, locale)}</p>
 					{#if ex.parole_linkate.length > 0}
 						<div class="linked-words">
@@ -447,13 +446,16 @@
 		margin-left: auto;
 	}
 
-	.tts-mini {
-		background: none;
-		border: none;
-		cursor: pointer;
-		font-size: 0.85rem;
-		padding: 0;
+	.consolida-btn {
+		border: 1px solid var(--brand);
+		border-radius: 8px;
+		padding: 5px 12px;
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--brand);
+		text-decoration: none;
 	}
+	.consolida-btn:hover { background: rgba(107, 160, 242, 0.14); }
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
