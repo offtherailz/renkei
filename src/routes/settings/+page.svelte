@@ -1,9 +1,28 @@
 <script lang="ts">
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
+	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 
 	let saving = $state(false);
 	let saved = $state(false);
+
+	const verbForms = DRILL_FORMS.filter((f) => f.category === 'verb');
+	const adjectiveForms = DRILL_FORMS.filter((f) => f.category === 'adjective');
+
+	function knownForms(): string[] {
+		return appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS;
+	}
+
+	function isKnown(key: string): boolean {
+		return knownForms().includes(key);
+	}
+
+	function toggleForm(key: string): void {
+		const current = knownForms();
+		appState.settings.forme_note = current.includes(key)
+			? current.filter((k) => k !== key)
+			: [...current, key];
+	}
 
 	const settings = $derived(appState.settings);
 
@@ -90,6 +109,35 @@
 </section>
 
 <section class="section-card">
+	<p class="card-title">Coniugazioni che conosco</p>
+	<p class="hint-text">Il drill "Mettimi alla prova" chiede solo le forme spuntate. Spunta quelle che hai già studiato.</p>
+
+	<p class="forms-group-title">Verbi</p>
+	<div class="forms-grid">
+		{#each verbForms as form (form.key)}
+			<label class="form-check">
+				<input type="checkbox" checked={isKnown(form.key)} onchange={() => toggleForm(form.key)} />
+				<span>{form.label}</span>
+			</label>
+		{/each}
+	</div>
+
+	<p class="forms-group-title">Aggettivi</p>
+	<div class="forms-grid">
+		{#each adjectiveForms as form (form.key)}
+			<label class="form-check">
+				<input type="checkbox" checked={isKnown(form.key)} onchange={() => toggleForm(form.key)} />
+				<span>{form.label}</span>
+			</label>
+		{/each}
+	</div>
+
+	<button class="btn-primary" onclick={save} disabled={saving}>
+		{saving ? 'Salvataggio…' : saved ? '✅ Salvato!' : 'Salva impostazioni'}
+	</button>
+</section>
+
+<section class="section-card">
 	<p class="card-title">Dati</p>
 
 	<div class="data-actions">
@@ -116,6 +164,31 @@
 
 <style>
 	.page-title { margin: 0 0 4px; font-size: 1.2rem; font-weight: 700; }
+
+	.forms-group-title {
+		margin: 6px 0 0;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.forms-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 6px;
+	}
+
+	.form-check {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.82rem;
+		cursor: pointer;
+	}
+
+	.form-check input { accent-color: var(--brand); }
 
 	.section-card {
 		background: var(--surface);

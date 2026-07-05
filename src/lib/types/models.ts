@@ -181,6 +181,7 @@ export interface AppSettings extends BaseEntity {
   max_answer_time_ms: number;
   session_duration_minutes: number;
   session_timer_runs_in_detail: boolean;
+  forme_note?: string[];
 }
 
 export interface DatabaseSeed {

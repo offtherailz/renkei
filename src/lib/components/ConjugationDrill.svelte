@@ -1,10 +1,17 @@
 <script lang="ts">
 	import type { Word } from '$lib/types/models';
-	import { buildConjugationQuestions, type ConjugationQuestion } from '$lib/core/conjugation';
+	import {
+		buildConjugationQuestions,
+		DEFAULT_KNOWN_FORMS,
+		type ConjugationQuestion
+	} from '$lib/core/conjugation';
+	import { appState } from '$lib/stores.svelte';
 	import { shuffle } from '$lib/quiz/engine';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 
 	const { word }: { word: Word } = $props();
+
+	const allowedForms = $derived(new Set(appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS));
 
 	let questions = $state<ConjugationQuestion[]>([]);
 	let index = $state(0);
@@ -17,7 +24,7 @@
 	const shuffledChoices = $derived(current ? shuffle(current.choices) : []);
 
 	function start(): void {
-		questions = shuffle(buildConjugationQuestions(word));
+		questions = shuffle(buildConjugationQuestions(word, allowedForms));
 		index = 0;
 		selected = null;
 		correctCount = 0;
@@ -42,7 +49,7 @@
 	}
 </script>
 
-{#if buildConjugationQuestions(word).length > 0}
+{#if buildConjugationQuestions(word, allowedForms).length > 0}
 	<article class="detail-card drill-card">
 		{#if !running}
 			<button class="drill-start" onclick={start}>🎯 Mettimi alla prova con le coniugazioni</button>

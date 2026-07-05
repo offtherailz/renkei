@@ -1,5 +1,6 @@
 import type { AppSettings, StudyGoal, UserProfile } from "./types/models";
 import type { QuizQuestion } from "./quiz/types";
+import { DEFAULT_KNOWN_FORMS } from "./core/conjugation";
 
 export type ItemKind = "word" | "grammar" | "kanji" | "dialogue" | "objective";
 
@@ -42,6 +43,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
 	max_answer_time_ms: 20000,
 	session_duration_minutes: 5,
 	session_timer_runs_in_detail: false,
+	forme_note: DEFAULT_KNOWN_FORMS,
 	updated_at: 0
 };
 

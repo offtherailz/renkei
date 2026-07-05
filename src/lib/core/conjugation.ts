@@ -261,64 +261,128 @@ function uniqueNonEmpty(values: (string | null | undefined)[], correct: string):
 	return [...new Set(values)].filter((v): v is string => Boolean(v) && v !== correct);
 }
 
+// Catalogo forme per la checklist "forme che conosco" nelle impostazioni.
+export interface DrillFormMeta {
+	key: string;
+	label: string;
+	category: 'verb' | 'adjective';
+}
+
+export const DRILL_FORMS: DrillFormMeta[] = [
+	{ key: 'masu', label: 'Cortese (ます形)', category: 'verb' },
+	{ key: 'nai', label: 'Negativa (ない形)', category: 'verb' },
+	{ key: 'ta', label: 'Passato (た形)', category: 'verb' },
+	{ key: 'nakatta', label: 'Passato negativo (なかった形)', category: 'verb' },
+	{ key: 'te', label: 'Forma て (て形)', category: 'verb' },
+	{ key: 'tai', label: 'Desiderativa (たい形)', category: 'verb' },
+	{ key: 'potential', label: 'Potenziale (可能形)', category: 'verb' },
+	{ key: 'volitional', label: 'Volitiva (意向形)', category: 'verb' },
+	{ key: 'ba', label: 'Condizionale (ば形)', category: 'verb' },
+	{ key: 'tara', label: 'Condizionale (たら形)', category: 'verb' },
+	{ key: 'imperative', label: 'Imperativa (命令形)', category: 'verb' },
+	{ key: 'passive', label: 'Passiva (受身形)', category: 'verb' },
+	{ key: 'causative', label: 'Causativa (使役形)', category: 'verb' },
+	{ key: 'teiru', label: 'Progressiva (ている形)', category: 'verb' },
+	{ key: 'neg', label: 'Agg. negativo (〜くない/じゃない)', category: 'adjective' },
+	{ key: 'past', label: 'Agg. passato (〜かった/だった)', category: 'adjective' },
+	{ key: 'pastneg', label: 'Agg. passato negativo', category: 'adjective' },
+	{ key: 'adv', label: 'Avverbiale (〜く/に)', category: 'adjective' },
+	{ key: 'attr', label: 'Attributiva (〜な)', category: 'adjective' },
+	{ key: 'adj-te', label: 'Agg. forma て (〜くて/で)', category: 'adjective' },
+	{ key: 'adj-ba', label: 'Agg. condizionale (〜ければ/なら)', category: 'adjective' },
+	{ key: 'naru', label: 'Diventare (〜くなる/になる)', category: 'adjective' }
+];
+
+// Default: le forme base N5.
+export const DEFAULT_KNOWN_FORMS = ['masu', 'nai', 'ta', 'te', 'neg', 'past', 'pastneg', 'adv', 'attr'];
+
+// Le chiavi degli aggettivi te/ba/nara nella tabella si chiamano te/ba/nara:
+// nella checklist sono raggruppate come adj-te / adj-ba.
+function adjectiveKeyAllowed(key: string, allowed: Set<string>): boolean {
+	if (key === 'te') return allowed.has('adj-te');
+	if (key === 'ba' || key === 'nara') return allowed.has('adj-ba');
+	return allowed.has(key);
+}
+
 // Distrattori pedagogici: la stessa forma generata con le regole
 // delle altre classi (l'errore tipico di chi studia).
-export function buildVerbQuestions(word: Word): ConjugationQuestion[] {
+export function buildVerbQuestions(word: Word, allowed?: Set<string>): ConjugationQuestion[] {
 	const verbClass = detectVerbClass(word);
 	if (!verbClass) return [];
-	const correctForms = conjugateVerb(word.scrittura, verbClass);
-	if (!correctForms) return [];
+	const table = buildVerbTable(word.scrittura, verbClass);
+	if (!table) return [];
 
 	const otherClasses: VerbClass[] = (['godan', 'ichidan', 'irregular'] as VerbClass[]).filter(
 		(c) => c !== verbClass
 	);
+	const otherTables = otherClasses
+		.map((c) => buildVerbTable(word.scrittura, c))
+		.filter((t): t is ConjugationForm[] => t !== null);
 
-	return correctForms.map((form) => {
-		const wrong: (string | undefined)[] = [
-			...otherClasses.map((c) => conjugateVerb(word.scrittura, c)?.find((f) => f.key === form.key)?.value),
-			// errore comune: attaccare la desinenza alla forma dizionario
-			form.key === 'masu' ? `${word.scrittura}ます` : undefined,
-			form.key === 'nai' ? `${word.scrittura}ない` : undefined,
-			form.key === 'te' ? `${word.scrittura.slice(0, -1)}て` : undefined,
-			form.key === 'ta' ? `${word.scrittura.slice(0, -1)}た` : undefined
-		];
-		const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
-		return {
-			prompt: form.label,
-			dictionary: word.scrittura,
-			correct: form.value,
-			choices: [form.value, ...distractors]
-		};
-	});
+	return table
+		.filter((form) => form.key !== 'dict')
+		.filter((form) => !allowed || allowed.has(form.key))
+		.map((form) => {
+			const wrong: (string | undefined)[] = [
+				...otherTables.map((t) => t.find((f) => f.key === form.key)?.value),
+				// errore comune: attaccare la desinenza alla forma dizionario
+				form.key === 'masu' ? `${word.scrittura}ます` : undefined,
+				form.key === 'nai' ? `${word.scrittura}ない` : undefined,
+				// riempitivi: altre forme dello stesso verbo
+				...table.filter((f) => f.key !== form.key && f.key !== 'dict').map((f) => f.value)
+			];
+			const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
+			return {
+				prompt: form.label,
+				dictionary: word.scrittura,
+				correct: form.value,
+				choices: [form.value, ...distractors]
+			};
+		});
 }
 
-export function buildAdjectiveQuestions(word: Word): ConjugationQuestion[] {
+export function buildAdjectiveQuestions(word: Word, allowed?: Set<string>): ConjugationQuestion[] {
 	const type = detectAdjectiveType(word);
 	if (!type) return [];
-	const correctForms = conjugateAdjective(word.scrittura, type);
-	if (!correctForms) return [];
+	const table = buildAdjectiveTable(word.scrittura, type);
+	if (!table) return [];
 
 	const other: AdjectiveType = type === 'i' ? 'na' : 'i';
+	const otherTable = buildAdjectiveTable(word.scrittura, other) ?? [];
 
-	return correctForms.map((form) => {
-		const wrong = [
-			conjugateAdjective(word.scrittura, other)?.find((f) => f.key === form.key)?.value,
-			// errori tipici incrociati い/な
-			type === 'i' ? `${word.scrittura}じゃない` : `${word.scrittura.slice(0, -1)}くない`,
-			type === 'i' ? `${word.scrittura}だった` : `${word.scrittura}かった`
-		];
-		const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
-		return {
-			prompt: form.label,
-			dictionary: word.scrittura,
-			correct: form.value,
-			choices: [form.value, ...distractors]
-		};
-	});
+	return table
+		.filter((form) => form.key !== 'dict')
+		.filter((form) => !allowed || adjectiveKeyAllowed(form.key, allowed))
+		.map((form) => {
+			const wrong: (string | undefined)[] = [
+				otherTable.find((f) => f.key === form.key)?.value,
+				// errori tipici incrociati い/な
+				type === 'i' ? `${word.scrittura}じゃない` : `${word.scrittura.slice(0, -1)}くない`,
+				type === 'i' ? `${word.scrittura}だった` : `${word.scrittura}かった`,
+				...table.filter((f) => f.key !== form.key && f.key !== 'dict').map((f) => f.value)
+			];
+			const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
+			return {
+				prompt: form.label,
+				dictionary: word.scrittura,
+				correct: form.value,
+				choices: [form.value, ...distractors]
+			};
+		});
 }
 
-export function buildConjugationQuestions(word: Word): ConjugationQuestion[] {
-	if (word.tipo_jp.startsWith('動詞')) return buildVerbQuestions(word);
-	if (word.tipo_jp.startsWith('形容詞')) return buildAdjectiveQuestions(word);
-	return [];
+export function buildConjugationQuestions(word: Word, allowed?: Set<string>): ConjugationQuestion[] {
+	const build = (filter?: Set<string>) =>
+		word.tipo_jp.startsWith('動詞')
+			? buildVerbQuestions(word, filter)
+			: word.tipo_jp.startsWith('形容詞')
+				? buildAdjectiveQuestions(word, filter)
+				: [];
+
+	const questions = build(allowed);
+	// se il filtro svuota tutto (checklist troppo stretta), ricadi sulle forme base
+	if (questions.length === 0 && allowed) {
+		return build(new Set(DEFAULT_KNOWN_FORMS));
+	}
+	return questions;
 }
