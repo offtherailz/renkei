@@ -303,7 +303,13 @@ Candidati da valutare (licenze da verificare voce per voce):
 1. **Icone aggettivi い/な** — sostituire 🔴/🧩 nei badge con i kana い e な
    stilizzati via CSS (cerchietto colorato, stile emoticon), così l'icona È la
    desinenza da ricordare.
-2. **Localizzazione italiana dei contenuti, partendo dal giapponese** — oggi i
+2. **Coniugazioni complete nel drill** — oggi il drill testa 4 forme (ます/ない/
+   た/て per i verbi; negativo/passato/passato neg./avverbiale per gli
+   aggettivi). Vanno coperte **tutte** le forme: volitiva, potenziale,
+   condizionale (ば/たら), imperativa, passiva, causativa, たい, ecc.
+   Nelle **Impostazioni** una checklist "forme che conosco": quelle non
+   ancora studiate vengono escluse dal drill (default: solo le base N5).
+3. **Localizzazione italiana dei contenuti, partendo dal giapponese** — oggi i
    significati inglesi riempiono sia `it` che `en`. La traduzione va fatta
    **dal giapponese** (non dall'inglese, altrimenti si accumulano errori di
    doppia traduzione), presumibilmente con un passo di generazione nella
