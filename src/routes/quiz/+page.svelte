@@ -664,7 +664,7 @@
 			{@const q = quiz.question as FlashcardQuestion}
 			<p class="question-prompt">{q.prompt}</p>
 			<p class="question-hint">{quiz.question.mode === 'flashcard-reading-recognition' ? 'Scegli la scrittura corretta' : 'Scegli la parola giusta'}</p>
-			<div class="choices">
+			<div class="choices ja-choices">
 				{#each (q.choices ?? []) as choice, i}
 					<button
 						class="choice-btn"
@@ -739,7 +739,7 @@
 			<button class="listen-btn" onclick={() => speakSentenceJapanese(q.readingToSpeak)}>
 				🔊 Riascolta
 			</button>
-			<div class="choices">
+			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"
@@ -963,6 +963,8 @@
 	}
 
 	.choice-btn:hover:not(:disabled) { border-color: var(--brand); background: #eef2ff; }
+
+	.ja-choices .choice-btn { font-size: 1.2rem; }
 
 	.key-hint {
 		display: inline-block;

@@ -467,7 +467,7 @@
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }
-	.chip-writing { font-size: 1rem; font-weight: 600; }
+	.chip-writing { font-size: 1.15rem; font-weight: 600; }
 	.chip-meaning { font-size: 0.68rem; color: var(--muted); }
 
 	.grammar-row {
@@ -505,13 +505,13 @@
 		gap: 4px;
 	}
 
-	:global(.example-ja) { font-size: 1.05rem; line-height: 1.8; }
+	:global(.example-ja) { font-size: 1.15rem; line-height: 1.9; }
 	.example-trans { font-size: 0.82rem; color: var(--muted); margin: 0; }
 
 	.linked-words { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 
 	.mini-chip {
-		font-size: 0.7rem;
+		font-size: 0.85rem;
 		padding: 2px 8px;
 		border-radius: 6px;
 		background: #eef2ff;

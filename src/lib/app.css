@@ -13,6 +13,24 @@
   --progress-low: #f59e0b;
   --progress-mid: #3b82f6;
   --progress-good: #10b981;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1622;
+    --surface: #1a2332;
+    --surface-2: #212c3e;
+    --ink: #e7edf7;
+    --muted: #93a3bb;
+    --line: #33415a;
+    --brand: #6ba0f2;
+    --brand-2: #9db8e8;
+    --accent: #2fbdb7;
+    --danger: #ef6b6b;
+    --success: #34c98a;
+    color-scheme: dark;
+  }
 }
 
 * {
@@ -27,6 +45,44 @@ body {
     radial-gradient(circle at 95% 0%, rgba(14, 165, 160, 0.16), transparent 30%),
     linear-gradient(160deg, var(--bg), #e2ebf8);
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background:
+      radial-gradient(circle at 5% 15%, rgba(80, 133, 226, 0.18), transparent 30%),
+      radial-gradient(circle at 95% 0%, rgba(20, 148, 143, 0.12), transparent 30%),
+      linear-gradient(160deg, var(--bg), #131c2c);
+  }
+
+  /* I componenti usano alcuni fondi chiari cablati (hover, token, chip):
+     in dark diventano un velo di brand traslucido, leggibile con --ink chiaro. */
+  .choice-btn:hover:not(:disabled),
+  .token,
+  .token:hover:not(:disabled),
+  .listen-btn,
+  .detail-link:hover,
+  .error-row:hover,
+  .word-chip:hover,
+  .toc-chip:hover,
+  .related-chip:hover,
+  .quick-card:hover,
+  .course-card:hover,
+  .course-card.selected,
+  .grammar-row:hover,
+  .kanji-chip:hover {
+    background: rgba(107, 160, 242, 0.16) !important;
+  }
+
+  .solution {
+    background: rgba(52, 201, 138, 0.14) !important;
+    border-color: rgba(52, 201, 138, 0.4) !important;
+  }
+
+  .listen-btn:hover {
+    background: var(--brand) !important;
+    color: #0f1622 !important;
+  }
 }
 
 .app-shell {
