@@ -116,6 +116,8 @@ export interface Counter extends BaseEntity {
   significato: LocalizedText;
   livello_jlpt: JLPTLevel;
   note?: LocalizedText;
+  letture_irregolari?: string;
+  parole_tipiche?: string[];
 }
 
 export interface SrsProgress extends BaseEntity {

@@ -16,7 +16,7 @@
 
 	const { children } = $props();
 
-	const SEED_DATA_REVISION = '2026-07-04-jmdict-v3';
+	const SEED_DATA_REVISION = '2026-07-05-counters-v4';
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(

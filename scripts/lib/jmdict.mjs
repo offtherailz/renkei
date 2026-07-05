@@ -130,7 +130,9 @@ export function deriveJmdictMetadata(entry) {
   } else if (pos.has("adj-na")) {
     result.tipo_jp = "形容詞[けいようし]";
     result.tipo_aggettivo_jp = "な形容詞[なけいようし]";
-  } else if (pos.has("ctr")) {
+  } else if (pos.has("ctr") && !pos.has("n") && !pos.has("n-adv") && !pos.has("n-t")) {
+    // "ctr" da solo = contatore puro; molti nomi (本, 山, 手...) hanno un senso
+    // contatore secondario ma restano sostantivi per lo studio.
     result.tipo_jp = "助数詞[じょすうし]";
   } else if (pos.has("adv") || pos.has("adv-to")) {
     result.tipo_jp = "副詞[ふくし]";

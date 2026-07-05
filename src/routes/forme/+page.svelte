@@ -117,6 +117,9 @@
 					{/each}
 				</div>
 			{/if}
+			{#if form.slug === 'josuushi'}
+				<a class="words-toggle" href="{base}/contatori">→ Vai al catalogo dei contatori</a>
+			{/if}
 			{#if (counts[form.slug] ?? 0) > 0}
 				<button class="words-toggle" onclick={() => toggleWords(form.slug)}>
 					{openWords[form.slug] ? '▾ Nascondi le parole' : `▸ Vedi le ${counts[form.slug]} parole di questo tipo`}
@@ -245,6 +248,7 @@
 		font-weight: 600;
 		color: var(--brand);
 		cursor: pointer;
+		text-decoration: none;
 	}
 
 	.words-toggle:hover { text-decoration: underline; }

@@ -12,6 +12,7 @@ const ROOT = process.cwd();
 const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
 const JMDICT_CACHE_DIR = path.join(ROOT, "scripts", ".cache");
 const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json");
+const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
 const OPEN_SOURCE = {
   name: "allenlu2009/japanese-learning-datasets",
   license: "MIT",
@@ -678,6 +679,30 @@ async function loadOverrides() {
   }
 }
 
+// Catalogo curato dei contatori (scripts/data/counters-n5n4.json): entità
+// separate dalle parole/kanji. Collega anche le parole tipiche al loro
+// contatore tramite id_contatore_suggerito.
+async function buildCounters(words) {
+  const curated = JSON.parse(await fs.readFile(COUNTERS_PATH, "utf8"));
+  const now = Date.now();
+  const wordsById = new Map(words.map((w) => [w.id, w]));
+
+  for (const counter of curated) {
+    counter.updated_at = now;
+    for (const wordId of counter.parole_tipiche ?? []) {
+      const word = wordsById.get(wordId);
+      if (word && !word.id_contatore_suggerito) {
+        word.id_contatore_suggerito = counter.id;
+      }
+    }
+    // tieni nella lista solo le parole davvero presenti nel seed
+    if (counter.parole_tipiche) {
+      counter.parole_tipiche = counter.parole_tipiche.filter((id) => wordsById.has(id));
+    }
+  }
+  return curated;
+}
+
 function normalizeWords(importedRows, existingSeedWords) {
   const existingLookup = buildExistingWordLookup(existingSeedWords);
   const duplicateCounts = buildImportedWordCounts(importedRows);
@@ -823,6 +848,7 @@ async function main() {
 
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
   const normalizedWords = applyJmdictMetadata(heuristicWords, jmdictIndex, overrides);
+  const counters = await buildCounters(normalizedWords);
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
   const normalizedGrammar = normalizeGrammar([
     { level: "N5", rows: grammarN5 },
@@ -833,7 +859,7 @@ async function main() {
     words: normalizedWords,
     kanji: normalizedKanji,
     grammar: normalizedGrammar,
-    counters: existingSeed.counters ?? [],
+    counters,
     srs_progress: existingSeed.srs_progress ?? [],
     user_personalization: existingSeed.user_personalization ?? [],
     user_profile: existingSeed.user_profile ?? []

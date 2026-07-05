@@ -113,6 +113,10 @@
 			<span class="quick-icon">📖</span>
 			<span>Forme grammaticali</span>
 		</a>
+		<a href="{base}/contatori" class="quick-card">
+			<span class="quick-icon">🔢</span>
+			<span>Contatori</span>
+		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
 			<span>Impostazioni</span>

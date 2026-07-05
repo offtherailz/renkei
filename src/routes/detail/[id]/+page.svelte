@@ -12,7 +12,7 @@
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
-	import type { Word, Kanji, Grammar } from '$lib/types/models';
+	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
 
 	const locale = detectUserLocale();
 
@@ -30,6 +30,7 @@
 	let grammarUsing = $state<Grammar[]>([]);
 	let wordsUsingKanji = $state<Word[]>([]);
 	let verbPair = $state<Word | null>(null);
+	let suggestedCounter = $state<Counter | null>(null);
 
 	// SRS info
 	let masteryPct = $state(0);
@@ -39,7 +40,8 @@
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null;
-		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = []; verbPair = null;
+		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
+		verbPair = null; suggestedCounter = null;
 
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
@@ -59,6 +61,9 @@
 					grammarUsing = grammarItems;
 					if (word.id_verbo_corrispondente) {
 						verbPair = (await db.words.get(word.id_verbo_corrispondente)) ?? null;
+					}
+					if (word.id_contatore_suggerito) {
+						suggestedCounter = (await db.counters.get(word.id_contatore_suggerito)) ?? null;
 					}
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
@@ -170,6 +175,11 @@
 					<span class="meaning-item">{i + 1}. {meaning}</span>
 				{/each}
 			</div>
+			{#if suggestedCounter}
+				<a class="counter-hint" href="{base}/contatori#{encodeURIComponent(suggestedCounter.id)}">
+					🔢 Si conta con <strong>{suggestedCounter.simbolo}</strong> ({suggestedCounter.lettura}) →
+				</a>
+			{/if}
 		</article>
 
 		{#if masteryPct > 0 || srsStage > 0}
@@ -437,6 +447,21 @@
 	}
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+	.counter-hint {
+		justify-self: start;
+		font-size: 0.82rem;
+		padding: 5px 12px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface-2);
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.counter-hint:hover { border-color: var(--brand); }
+
+	.counter-hint strong { font-size: 1.05rem; }
 
 	.meanings { display: flex; flex-direction: column; gap: 4px; }
 	.meaning-item { font-size: 1rem; color: var(--ink); }

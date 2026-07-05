@@ -1,0 +1,176 @@
+[
+  {
+    "id": "つ",
+    "simbolo": "つ",
+    "lettura": "つ",
+    "significato": { "it": "contatore generico (1-10)", "en": "generic counter (1-10)" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Il jolly: conta quasi tutto fino a 10. Serie nativa giapponese.", "en": "The wildcard: counts almost anything up to 10. Native Japanese series." },
+    "letture_irregolari": "ひとつ・ふたつ・みっつ・よっつ・いつつ・むっつ・ななつ・やっつ・ここのつ・とお",
+    "parole_tipiche": ["りんご", "卵", "椅子"]
+  },
+  {
+    "id": "人",
+    "simbolo": "人",
+    "lettura": "にん",
+    "significato": { "it": "contatore per persone", "en": "counter for people" },
+    "livello_jlpt": "N5",
+    "note": { "it": "1 e 2 sono irregolari, dal 3 in poi è regolare (さんにん, よにん...).", "en": "1 and 2 are irregular; regular from 3 on (sannin, yonin...)." },
+    "letture_irregolari": "ひとり (1)・ふたり (2)・よにん (4, non ×よんにん)",
+    "parole_tipiche": ["人", "学生", "友達", "子供"]
+  },
+  {
+    "id": "個",
+    "simbolo": "個",
+    "lettura": "こ",
+    "significato": { "it": "contatore per oggetti piccoli e compatti", "en": "counter for small compact objects" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Frutta, uova, palline, oggetti tondeggianti.", "en": "Fruit, eggs, balls, roundish objects." },
+    "letture_irregolari": "いっこ (1)・ろっこ (6)・はっこ (8)・じゅっこ (10)",
+    "parole_tipiche": ["りんご", "卵"]
+  },
+  {
+    "id": "本",
+    "simbolo": "本",
+    "lettura": "ほん",
+    "significato": { "it": "contatore per oggetti lunghi e sottili", "en": "counter for long thin objects" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Matite, bottiglie, ombrelli, alberi... NON i libri (quelli usano 冊)!", "en": "Pencils, bottles, umbrellas, trees... NOT books (those use 冊)!" },
+    "letture_irregolari": "いっぽん (1)・さんぼん (3)・ろっぽん (6)・はっぽん (8)・じゅっぽん (10)",
+    "parole_tipiche": ["鉛筆", "傘", "木"]
+  },
+  {
+    "id": "枚",
+    "simbolo": "枚",
+    "lettura": "まい",
+    "significato": { "it": "contatore per oggetti piatti e sottili", "en": "counter for flat thin objects" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Fogli, francobolli, camicie, piatti, biglietti.", "en": "Sheets of paper, stamps, shirts, plates, tickets." },
+    "parole_tipiche": ["紙", "切符", "シャツ"]
+  },
+  {
+    "id": "匹",
+    "simbolo": "匹",
+    "lettura": "ひき",
+    "significato": { "it": "contatore per animali piccoli", "en": "counter for small animals" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Cani, gatti, pesci, insetti. Gli animali grandi usano 頭, gli uccelli 羽.", "en": "Dogs, cats, fish, insects. Large animals use 頭, birds use 羽." },
+    "letture_irregolari": "いっぴき (1)・さんびき (3)・ろっぴき (6)・はっぴき (8)・じゅっぴき (10)",
+    "parole_tipiche": ["犬", "猫", "魚"]
+  },
+  {
+    "id": "冊",
+    "simbolo": "冊",
+    "lettura": "さつ",
+    "significato": { "it": "contatore per libri e quaderni", "en": "counter for bound books" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Tutto ciò che è rilegato: libri, quaderni, riviste, agende.", "en": "Anything bound: books, notebooks, magazines, planners." },
+    "letture_irregolari": "いっさつ (1)・はっさつ (8)・じゅっさつ (10)",
+    "parole_tipiche": ["本", "ノート", "雑誌", "辞書"]
+  },
+  {
+    "id": "台",
+    "simbolo": "台",
+    "lettura": "だい",
+    "significato": { "it": "contatore per macchine e veicoli", "en": "counter for machines and vehicles" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Auto, biciclette, computer, televisori, elettrodomestici.", "en": "Cars, bicycles, computers, TVs, appliances." },
+    "parole_tipiche": ["車", "自転車", "テレビ", "パソコン"]
+  },
+  {
+    "id": "回",
+    "simbolo": "回",
+    "lettura": "かい",
+    "significato": { "it": "contatore per le volte / occorrenze", "en": "counter for times / occurrences" },
+    "livello_jlpt": "N5",
+    "note": { "it": "一回 = una volta, 何回も = tante volte.", "en": "一回 = once, 何回も = many times." },
+    "letture_irregolari": "いっかい (1)・ろっかい (6)・はっかい (8)・じゅっかい (10)"
+  },
+  {
+    "id": "歳",
+    "simbolo": "歳",
+    "lettura": "さい",
+    "significato": { "it": "contatore per l'età (anni)", "en": "counter for age (years old)" },
+    "livello_jlpt": "N5",
+    "note": { "it": "20 anni si dice はたち, non ×にじゅっさい (nell'uso tradizionale).", "en": "20 years old is はたち, not ×nijussai (traditionally)." },
+    "letture_irregolari": "いっさい (1)・はっさい (8)・じゅっさい (10)・はたち (20)"
+  },
+  {
+    "id": "杯",
+    "simbolo": "杯",
+    "lettura": "はい",
+    "significato": { "it": "contatore per bicchieri e tazze (piene)", "en": "counter for cupfuls / glassfuls" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Bevande servite: 一杯 = un bicchiere/una tazza. Anche \"un drink\".", "en": "Served drinks: 一杯 = one glass/cup. Also \"a drink\"." },
+    "letture_irregolari": "いっぱい (1)・さんばい (3)・ろっぱい (6)・はっぱい (8)・じゅっぱい (10)",
+    "parole_tipiche": ["お茶", "コーヒー", "水"]
+  },
+  {
+    "id": "階",
+    "simbolo": "階",
+    "lettura": "かい",
+    "significato": { "it": "contatore per i piani degli edifici", "en": "counter for building floors" },
+    "livello_jlpt": "N5",
+    "note": { "it": "何階 (なんがい) = a che piano? 一階 = piano terra (all'occidentale: primo piano).", "en": "何階 (nangai) = which floor? 一階 = ground floor." },
+    "letture_irregolari": "いっかい (1)・さんがい (3)・じゅっかい (10)",
+    "parole_tipiche": ["建物", "デパート"]
+  },
+  {
+    "id": "分",
+    "simbolo": "分",
+    "lettura": "ふん",
+    "significato": { "it": "contatore per i minuti", "en": "counter for minutes" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Alterna ふん/ぷん secondo il numero.", "en": "Alternates fun/pun depending on the number." },
+    "letture_irregolari": "いっぷん (1)・さんぷん (3)・よんぷん (4)・ろっぷん (6)・はっぷん (8)・じゅっぷん (10)",
+    "parole_tipiche": ["時間"]
+  },
+  {
+    "id": "番",
+    "simbolo": "番",
+    "lettura": "ばん",
+    "significato": { "it": "contatore ordinale (numero...)", "en": "ordinal counter (number...)" },
+    "livello_jlpt": "N5",
+    "note": { "it": "一番 = il numero uno / il migliore. 何番 = che numero?", "en": "一番 = number one / the best. 何番 = what number?" }
+  },
+  {
+    "id": "頭",
+    "simbolo": "頭",
+    "lettura": "とう",
+    "significato": { "it": "contatore per animali grandi", "en": "counter for large animals" },
+    "livello_jlpt": "N4",
+    "note": { "it": "Mucche, cavalli, elefanti. Quelli piccoli usano 匹.", "en": "Cows, horses, elephants. Small ones use 匹." },
+    "letture_irregolari": "いっとう (1)・じゅっとう (10)",
+    "parole_tipiche": ["牛", "馬"]
+  },
+  {
+    "id": "羽",
+    "simbolo": "羽",
+    "lettura": "わ",
+    "significato": { "it": "contatore per uccelli (e conigli)", "en": "counter for birds (and rabbits)" },
+    "livello_jlpt": "N4",
+    "note": { "it": "Curiosità: anche i conigli si contano con 羽.", "en": "Fun fact: rabbits are also counted with 羽." },
+    "letture_irregolari": "さんば (3)・ろっぱ (6)・じゅっぱ (10)",
+    "parole_tipiche": ["鳥"]
+  },
+  {
+    "id": "足",
+    "simbolo": "足",
+    "lettura": "そく",
+    "significato": { "it": "contatore per paia di scarpe/calze", "en": "counter for pairs of footwear" },
+    "livello_jlpt": "N4",
+    "note": { "it": "Scarpe, calze, stivali: 一足 = un paio.", "en": "Shoes, socks, boots: 一足 = one pair." },
+    "letture_irregolari": "いっそく (1)・さんぞく (3)・じゅっそく (10)",
+    "parole_tipiche": ["靴", "靴下"]
+  },
+  {
+    "id": "軒",
+    "simbolo": "軒",
+    "lettura": "けん",
+    "significato": { "it": "contatore per case e negozi", "en": "counter for houses and shops" },
+    "livello_jlpt": "N4",
+    "note": { "it": "Edifici piccoli: case, negozi, ristoranti.", "en": "Small buildings: houses, shops, restaurants." },
+    "letture_irregolari": "いっけん (1)・さんげん (3)・じゅっけん (10)",
+    "parole_tipiche": ["家", "店"]
+  }
+]
