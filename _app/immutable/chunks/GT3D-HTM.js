@@ -1,1 +1,0 @@
-function i(){return typeof navigator>"u"?"en":(navigator.language||"en").toLowerCase().startsWith("it")?"it":"en"}function t(n,a){return n[a]||n.en||n.it}function o(n,a){var r;const e=n[a];return e!=null&&e.length?e:(r=n.en)!=null&&r.length?n.en:n.it}export{o as a,i as d,t as p};
