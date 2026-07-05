@@ -4,13 +4,14 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
-	import { speakWordReading } from '$lib/core/tts';
+	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import {
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
 		createConjugationQuizQuestion,
 		createCounterQuestion,
+		createTransitivityPairQuestion,
 		shuffle
 	} from '$lib/quiz/engine';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
@@ -22,6 +23,8 @@
 	const wordId = $derived($page.params.id ?? '');
 
 	let word = $state<Word | null>(null);
+	let kanjiChar = $state<string | null>(null);
+	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
 	let picked = $state<string | null>(null);
@@ -34,9 +37,7 @@
 	async function build(): Promise<void> {
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
-		const w = await db.words.get(wordId);
-		word = w ?? null;
-		if (!w) { loading = false; return; }
+		word = null; kanjiChar = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -46,27 +47,66 @@
 		};
 		const distractors: DistractorIndex = await preloadDistractorIndex();
 
+		const w = await db.words.get(wordId);
+		if (w) {
+			word = w;
+			title = w.scrittura;
+			queue = shuffle(buildWordQuestions(w, context, distractors, counters as Counter[]));
+			loading = false;
+			return;
+		}
+
+		// Kanji: drill sulle parole in catalogo che usano questo kanji.
+		const k = await db.kanji.get(wordId);
+		if (k) {
+			kanjiChar = k.id;
+			title = k.id;
+			const withKanji = words.filter((x) => x.kanji_usati.includes(k.id));
+			const qs: QuizQuestion[] = [];
+			for (const x of shuffle(withKanji).slice(0, 8)) {
+				qs.push(
+					Math.random() < 0.5
+						? createMultipleChoiceQuestion(x, context, distractors)
+						: createFlashcardRecognitionQuestion(x, locale, distractors, context)
+				);
+			}
+			queue = qs;
+			loading = false;
+			return;
+		}
+
+		loading = false;
+	}
+
+	function buildWordQuestions(
+		w: Word,
+		context: QuizContext,
+		distractors: DistractorIndex,
+		counters: Counter[]
+	): QuizQuestion[] {
 		const qs: QuizQuestion[] = [];
-		// Diretto (JP→significato)
-		qs.push(createMultipleChoiceQuestion(w, context, distractors));
-		// Inverso (significato→scrittura)
-		qs.push(createFlashcardRecognitionQuestion(w, locale, distractors, context));
-		// Lettura (se ha kanji)
+		qs.push(createMultipleChoiceQuestion(w, context, distractors)); // diretto JP→IT
+		qs.push(createFlashcardRecognitionQuestion(w, locale, distractors, context)); // inverso IT→JP
 		if (w.kanji_usati.length > 0 && w.scrittura !== w.lettura) {
 			qs.push(createFlashcardReadingRecognitionQuestion(w, locale, distractors, context));
 		}
-		// Coniugazione (verbi/aggettivi)
 		if (w.tipo_jp.startsWith('動詞') || w.tipo_jp.startsWith('形容詞')) {
-			const cq = createConjugationQuizQuestion(w, new Set(DEFAULT_KNOWN_FORMS));
-			if (cq) qs.push(cq);
+			// più forme di coniugazione (fino a 2 distinte)
+			const seen = new Set<string>();
+			for (let i = 0; i < 4 && seen.size < 2; i += 1) {
+				const cq = createConjugationQuizQuestion(w, new Set(DEFAULT_KNOWN_FORMS));
+				if (cq && !seen.has(cq.formLabel)) { seen.add(cq.formLabel); qs.push(cq); }
+			}
 		}
-		// Contatore
+		if (w.id_verbo_corrispondente && w.frasi_esempio?.length) {
+			const tq = createTransitivityPairQuestion(w, context, locale);
+			if (tq) qs.push(tq);
+		}
 		if (w.id_contatore_suggerito) {
-			const cq = createCounterQuestion(w, counters as Counter[], locale);
+			const cq = createCounterQuestion(w, counters, locale);
 			if (cq) qs.push(cq);
 		}
-		queue = shuffle(qs);
-		loading = false;
+		return qs;
 	}
 
 	function choicesOf(q: QuizQuestion): string[] {
@@ -80,6 +120,7 @@
 	function promptOf(q: QuizQuestion): string {
 		if (q.mode === 'conjugation') return `${q.dictionary} → ${q.formLabel}`;
 		if (q.mode === 'counter-quiz') return `Contatore per ${q.prompt}`;
+		if (q.mode === 'transitivity-pair') return q.sentenceWithBlank;
 		if ('prompt' in q && q.prompt) return q.prompt;
 		return '';
 	}
@@ -89,7 +130,13 @@
 		picked = choice;
 		revealed = true;
 		score = { ok: score.ok + (choice === correctOf(current) ? 1 : 0), tot: score.tot + 1 };
-		if (word) speakWordReading(word);
+		// per coniugazione/transitività leggi la forma corretta, non la parola base
+		const m = current.mode;
+		if (m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-recognition' || m === 'flashcard-reading-recognition') {
+			speakSentenceJapanese(correctOf(current));
+		} else if (word) {
+			speakWordReading(word);
+		}
 	}
 
 	function next(): void {
@@ -106,15 +153,18 @@
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
-	{:else if !word}
-		<p class="muted">Parola non trovata.</p>
+	{:else if !word && !kanjiChar}
+		<p class="muted">Elemento non trovato.</p>
 	{:else}
 		<header class="head">
-			<h1>💪 Consolida: {word.scrittura}</h1>
-			<p class="sub">Allenamento libero — non conta nei punteggi. {score.ok}/{score.tot}</p>
+			<h1>💪 Consolida: {title}</h1>
+			<p class="sub">
+				{kanjiChar ? 'Parole con questo kanji in studio' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
+			</p>
 		</header>
 
 		{#if current}
+			{#key idx}
 			<article class="card">
 				<p class="qmode">{current.mode}</p>
 				<p class="qprompt">{promptOf(current)}</p>
@@ -133,11 +183,16 @@
 					<button class="next" onclick={next}>{idx + 1 >= queue.length ? '🔁 Altro giro' : 'Avanti →'}</button>
 				{/if}
 			</article>
+			{/key}
+		{:else if kanjiChar}
+			<p class="muted">Nessuna parola in catalogo con {kanjiChar}.</p>
 		{/if}
 
-		<div class="meanings">
-			{#each pickLocalizedArray(word.significato, locale) as m, i}<span>{i + 1}. {m}</span>{/each}
-		</div>
+		{#if word}
+			<div class="meanings">
+				{#each pickLocalizedArray(word.significato, locale) as m, i}<span>{i + 1}. {m}</span>{/each}
+			</div>
+		{/if}
 	{/if}
 </div>
 

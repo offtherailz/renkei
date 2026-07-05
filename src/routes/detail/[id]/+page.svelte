@@ -295,6 +295,7 @@
 		<article class="detail-card">
 			<div class="detail-hero">
 				<span class="kanji-hero">{kanji.id}</span>
+				<a class="consolida-btn" href="{base}/consolida/{encodeURIComponent(kanji.id)}">💪 Consolida</a>
 			</div>
 			<div class="meanings">
 				<span class="meaning-item">{locale === 'it' ? kanji.significato.it : kanji.significato.en}</span>
