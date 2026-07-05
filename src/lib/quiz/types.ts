@@ -11,7 +11,10 @@ export type QuizMode =
   | "listening"
   | "particle-cloze"
   | "counter-quiz"
-  | "conjugation";
+  | "conjugation"
+  | "transitivity-pair"
+  | "counter-reading"
+  | "time-reading";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -75,6 +78,33 @@ export interface ParticleClozeQuestion {
   correctChoice: string;
 }
 
+export interface TransitivityPairQuestion {
+  mode: "transitivity-pair";
+  wordId: string;
+  sentenceWithBlank: string;
+  fullSentence: string;
+  translation: string;
+  choices: string[];
+  correctChoice: string;
+}
+
+export interface CounterReadingQuestion {
+  mode: "counter-reading";
+  wordId: string;
+  prompt: string; // es. 3本
+  choices: string[];
+  correctChoice: string;
+}
+
+export interface TimeReadingQuestion {
+  mode: "time-reading";
+  wordId: string;
+  prompt: string; // es. 4時
+  hint: string;
+  choices: string[];
+  correctChoice: string;
+}
+
 export interface CounterQuestion {
   mode: "counter-quiz";
   wordId: string;
@@ -102,7 +132,10 @@ export type QuizQuestion =
   | ListeningQuestion
   | ParticleClozeQuestion
   | CounterQuestion
-  | ConjugationQuizQuestion;
+  | ConjugationQuizQuestion
+  | TransitivityPairQuestion
+  | CounterReadingQuestion
+  | TimeReadingQuestion;
 
 export interface DistractorEntry {
   id: string;

@@ -18,15 +18,20 @@
 		createParticleClozeQuestion,
 		createCounterQuestion,
 		createConjugationQuizQuestion,
+		createTransitivityPairQuestion,
+		createCounterReadingQuestion,
+		createTimeReadingQuestion,
 		calculateQuizXp,
 		shuffle
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
+	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
 		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
-		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion
+		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
+		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
 	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective, Counter } from '$lib/types/models';
 	import type { ItemRef, StudySessionState, ActiveQuiz } from '$lib/stores.svelte';
@@ -125,22 +130,33 @@
 			if (!word) return null;
 			const srs = getSrs(ref.key) ?? createInitialSrs(ref.key);
 
-			// Modalità speciali con distrattori pedagogici, se la parola le supporta.
-			const roll = Math.random();
-			if (word.frasi_esempio?.length && roll < 0.15) {
-				const particleQ = await createParticleClozeQuestion(word, locale);
-				if (particleQ) return particleQ;
-			} else if (word.id_contatore_suggerito && roll < 0.35) {
-				const counterQ = createCounterQuestion(word, counterRows, locale);
-				if (counterQ) return counterQ;
-			} else if (
+			// Modalità speciali con distrattori pedagogici: si raccolgono quelle
+			// applicabili alla parola e se ne tenta una a caso (~40% delle volte).
+			const specials: (() => QuizQuestion | null | Promise<QuizQuestion | null>)[] = [];
+			if (word.frasi_esempio?.length) {
+				specials.push(() => createParticleClozeQuestion(word, locale));
+				if (word.id_verbo_corrispondente) {
+					specials.push(() => createTransitivityPairQuestion(word, context!, locale));
+				}
+			}
+			if (word.id_contatore_suggerito) {
+				specials.push(() => createCounterQuestion(word, counterRows, locale));
+				specials.push(() => createCounterReadingQuestion(word, counterRows));
+			}
+			if (
 				(word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')) &&
-				srs.srs_stage >= 1 &&
-				roll < 0.35
+				srs.srs_stage >= 1
 			) {
 				const allowed = new Set(appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS);
-				const conjQ = createConjugationQuizQuestion(word, allowed);
-				if (conjQ) return conjQ;
+				specials.push(() => createConjugationQuizQuestion(word, allowed));
+			}
+			if (isTimeTriggerWord(word.scrittura)) {
+				specials.push(() => createTimeReadingQuestion(word));
+			}
+			if (specials.length > 0 && Math.random() < 0.4) {
+				const pick = specials[Math.floor(Math.random() * specials.length)]!;
+				const special = await pick();
+				if (special) return special;
 			}
 
 			const mode = pickWordMode(srs.srs_stage, word);
@@ -366,11 +382,15 @@
 			case 'listening':
 				return { prompt: `🔊 ${q.readingToSpeak}`, correct: q.correctChoice };
 			case 'particle-cloze':
+			case 'transitivity-pair':
 				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
 			case 'counter-quiz':
 				return { prompt: `Contatore per ${q.prompt}`, correct: q.correctChoice };
 			case 'conjugation':
 				return { prompt: `${q.dictionary} → ${q.formLabel}`, correct: q.correctChoice };
+			case 'counter-reading':
+			case 'time-reading':
+				return { prompt: `Lettura di ${q.prompt}`, correct: q.correctChoice };
 			case 'cloze':
 				return { prompt: q.sentenceWithBlank.replace(/<[^>]*>/g, ''), correct: q.correctChoice };
 		}
@@ -454,9 +474,9 @@
 		await addXp(correct ? xpBreakdown.total : -6);
 
 		// TTS
-		if (quiz.question.mode === 'particle-cloze') {
+		if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair') {
 			speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
-		} else if (quiz.question.mode === 'conjugation') {
+		} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
 			speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
 		} else if (quiz.itemRef.kind === 'word') {
 			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
@@ -481,6 +501,9 @@
 		else if (q.mode === 'particle-cloze') correct = choice === (q as ParticleClozeQuestion).correctChoice;
 		else if (q.mode === 'counter-quiz') correct = choice === (q as CounterQuestion).correctChoice;
 		else if (q.mode === 'conjugation') correct = choice === (q as ConjugationQuizQuestion).correctChoice;
+		else if (q.mode === 'transitivity-pair') correct = choice === (q as TransitivityPairQuestion).correctChoice;
+		else if (q.mode === 'counter-reading') correct = choice === (q as CounterReadingQuestion).correctChoice;
+		else if (q.mode === 'time-reading') correct = choice === (q as TimeReadingQuestion).correctChoice;
 		handleAnswer(correct, choice);
 	}
 
@@ -817,10 +840,48 @@
 				{/each}
 			</div>
 
+		<!-- transitivity-pair -->
+		{:else if quiz.question.mode === 'transitivity-pair'}
+			{@const q = quiz.question as TransitivityPairQuestion}
+			<p class="question-hint">Quale verbo serve qui? Attento a chi agisce (が/を)</p>
+			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
+			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
+			<div class="choices ja-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- counter-reading / time-reading -->
+		{:else if quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading'}
+			{@const q = quiz.question as CounterReadingQuestion | TimeReadingQuestion}
+			<p class="question-hint">Come si legge?</p>
+			<p class="question-prompt ja-text">{q.prompt}</p>
+			{#if quiz.question.mode === 'time-reading'}
+				<p class="question-hint">{(quiz.question as TimeReadingQuestion).hint}</p>
+			{/if}
+			<div class="choices ja-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
 		<!-- particle-cloze -->
 		{:else if quiz.question.mode === 'particle-cloze'}
 			{@const q = quiz.question as ParticleClozeQuestion}
-			<p class="question-hint">Quale particella completa la frase?</p>
+			<p class="question-hint">Cosa completa la frase?</p>
 			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
 			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
 			<div class="choices ja-choices particle-choices">

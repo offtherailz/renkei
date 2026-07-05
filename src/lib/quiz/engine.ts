@@ -3,7 +3,10 @@ import { createDefaultTokenizer } from "../core/tokenizer";
 import { renderFuriganaToHtml } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
 import { blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
-import { buildConjugationQuestions } from "../core/conjugation";
+import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
+import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
+import { naiveReading, parseIrregularReadings, voicingVariants } from "../core/counterReadings";
+import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
 import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
 import type {
@@ -11,6 +14,7 @@ import type {
   ClozeSource,
   ConjugationQuizQuestion,
   CounterQuestion,
+  CounterReadingQuestion,
   DistractorIndex,
   FlashcardQuestion,
   ListeningQuestion,
@@ -19,6 +23,8 @@ import type {
   QuizContext,
   ReadingChoiceQuestion,
   SentenceOrderingQuestion,
+  TimeReadingQuestion,
+  TransitivityPairQuestion,
   XpBreakdown,
   XpInput
 } from "./types";
@@ -80,6 +86,16 @@ export function createFlashcardRecognitionQuestion(
   };
 }
 
+// Errore di okurigana classico: 送る scritto 送くる (kanji + un kana di troppo).
+export function okuriganaErrorVariant(word: Word): string | null {
+  const match = word.scrittura.match(/^(.*[一-龯々])([ぁ-ん]+)$/);
+  if (!match) return null;
+  const [, kanjiPart, okurigana] = match;
+  if (word.lettura.length <= okurigana!.length) return null;
+  const wrong = `${kanjiPart}${word.lettura.slice(-(okurigana!.length + 1))}`;
+  return wrong !== word.scrittura ? wrong : null;
+}
+
 export function createFlashcardReadingRecognitionQuestion(
   word: Word,
   locale: "it" | "en",
@@ -87,10 +103,17 @@ export function createFlashcardReadingRecognitionQuestion(
   context: QuizContext
 ): FlashcardQuestion {
   const correct = word.scrittura;
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 4)
-    .map((d) => d.id)
+  // Priorità pedagogica: omofoni veri (送る/贈る) e l'errore di okurigana,
+  // poi si riempie con distrattori casuali dello stesso livello.
+  const homophones = (word.omofoni ?? [])
     .map((id) => context.wordsById.get(id)?.scrittura)
-    .filter((v): v is string => Boolean(v))
+    .filter((v): v is string => Boolean(v));
+  const okuriganaError = okuriganaErrorVariant(word);
+  const random = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 5)
+    .map((d) => context.wordsById.get(d.id)?.scrittura)
+    .filter((v): v is string => Boolean(v));
+
+  const distractors = [...homophones, ...(okuriganaError ? [okuriganaError] : []), ...random]
     .filter((value, index, values) => values.indexOf(value) === index)
     .filter((value) => value !== correct)
     .slice(0, 3);
@@ -330,6 +353,32 @@ export async function createParticleClozeQuestion(
   if (!example) return null;
 
   const sentence = stripFuriganaNotation(example.testo);
+
+  // Linker な/の: per aggettivi-na e nomi, l'esercizio "ci va な, の o niente?"
+  // ha priorità quando la frase contiene proprio quel collegamento.
+  const linker = word.tipo_aggettivo_jp?.startsWith("な形容詞")
+    ? "な"
+    : word.tipo_jp.startsWith("名詞")
+      ? "の"
+      : null;
+  if (linker && Math.random() < 0.5) {
+    const target = `${word.scrittura}${linker}`;
+    const index = sentence.indexOf(target);
+    const after = sentence[index + target.length] ?? "";
+    if (index >= 0 && /[一-龯ぁ-んァ-ヶ]/.test(after)) {
+      const blankIndex = index + word.scrittura.length;
+      return {
+        mode: "particle-cloze",
+        wordId: word.id,
+        sentenceWithBlank: `${sentence.slice(0, blankIndex)}＿＿${sentence.slice(blankIndex + linker.length)}`,
+        fullSentence: sentence,
+        translation: pickLocalizedText(example.traduzione, locale),
+        choices: shuffle(linker === "な" ? ["な", "の", "い", "に"] : ["の", "な", "が", "に"]),
+        correctChoice: linker
+      };
+    }
+  }
+
   const tokenizer = await createDefaultTokenizer();
   const hits = findParticles(tokenizer.tokenize(sentence));
   if (hits.length === 0) return null;
@@ -404,6 +453,94 @@ export function createCounterQuestion(
   };
 }
 
+// ── Quiz coppie transitivo/intransitivo: quale verbo serve nella frase? ──
+// Il distrattore principe è il gemello della coppia (開ける vs 開く),
+// coniugato nella stessa forma: l'errore が/を per eccellenza.
+export function createTransitivityPairQuestion(
+  word: Word,
+  context: QuizContext,
+  locale: LocaleCode
+): TransitivityPairQuestion | null {
+  if (!word.id_verbo_corrispondente) return null;
+  const pair = context.wordsById.get(word.id_verbo_corrispondente);
+  const example = (word.frasi_esempio ?? [])[0];
+  if (!pair || !example) return null;
+
+  const verbClass = detectVerbClass(word);
+  const pairClass = detectVerbClass(pair);
+  if (!verbClass || !pairClass) return null;
+  const forms = buildVerbTable(word.scrittura, verbClass);
+  const pairForms = buildVerbTable(pair.scrittura, pairClass);
+  if (!forms || !pairForms) return null;
+
+  const sentence = stripFuriganaNotation(example.testo);
+  const hit = findConjugatedForm(sentence, forms);
+  if (!hit) return null;
+
+  const pairSameForm = pairForms.find((f) => f.key === hit.key)?.value;
+  if (!pairSameForm || pairSameForm === hit.value) return null;
+
+  const extra = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
+    .map((f) => f.value)
+    .filter((v) => v !== hit.value && v !== pairSameForm)
+    .slice(0, 2);
+
+  return {
+    mode: "transitivity-pair",
+    wordId: word.id,
+    sentenceWithBlank: sentence.replace(hit.value, USAGE_BLANK),
+    fullSentence: sentence,
+    translation: pickLocalizedText(example.traduzione, locale),
+    choices: shuffle([hit.value, pairSameForm, ...extra]).slice(0, 4),
+    correctChoice: hit.value
+  };
+}
+
+// ── Quiz lettura numero+contatore: さんぼん o さんほん? ──
+export function createCounterReadingQuestion(
+  word: Word,
+  counters: Counter[]
+): CounterReadingQuestion | null {
+  if (!word.id_contatore_suggerito) return null;
+  const counter = counters.find((c) => c.id === word.id_contatore_suggerito);
+  if (!counter) return null;
+
+  const pairs = parseIrregularReadings(counter);
+  if (pairs.length === 0) return null;
+  const pick = pairs[Math.floor(Math.random() * pairs.length)]!;
+
+  const distractors = [
+    ...voicingVariants(pick.reading),
+    naiveReading(pick.num, counter)
+  ]
+    .filter((v): v is string => Boolean(v) && v !== pick.reading)
+    .filter((value, index, values) => values.indexOf(value) === index)
+    .slice(0, 3);
+  if (distractors.length < 2) return null;
+
+  return {
+    mode: "counter-reading",
+    wordId: word.id,
+    prompt: `${pick.num}${counter.simbolo}`,
+    choices: shuffle([pick.reading, ...distractors]),
+    correctChoice: pick.reading
+  };
+}
+
+// ── Quiz letture di ore/date: le trappole classiche (よじ, ついたち...) ──
+export function createTimeReadingQuestion(word: Word): TimeReadingQuestion | null {
+  if (!isTimeTriggerWord(word.scrittura)) return null;
+  const entry = TIME_READINGS[Math.floor(Math.random() * TIME_READINGS.length)]!;
+  return {
+    mode: "time-reading",
+    wordId: word.id,
+    prompt: entry.jp,
+    hint: entry.hint,
+    choices: shuffle([entry.correct, ...entry.wrong.slice(0, 3)]),
+    correctChoice: entry.correct
+  };
+}
+
 // ── Quiz coniugazioni: una forma a caso tra quelle che l'utente conosce ──
 export function createConjugationQuizQuestion(
   word: Word,
@@ -442,7 +579,10 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   listening: 11,
   "particle-cloze": 13,
   "counter-quiz": 12,
-  conjugation: 13
+  conjugation: 13,
+  "transitivity-pair": 15,
+  "counter-reading": 12,
+  "time-reading": 12
 };
 
 export async function createGrammarQuestion(

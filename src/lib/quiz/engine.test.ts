@@ -131,6 +131,53 @@ describe("nuove modalità con distrattori pedagogici", () => {
   });
 });
 
+describe("transitivity-pair e nuove letture", () => {
+  it("transitivity-pair: il distrattore principe è il gemello nella stessa forma", async () => {
+    const { createTransitivityPairQuestion } = await import("./engine");
+    const akeru = {
+      ...makeWord("開ける", "開ける", "aprire"),
+      tipo_jp: "動詞[どうし]",
+      classe_verbo_jp: "一段動詞[いちだんどうし]",
+      transitivita_jp: "他動詞[たどうし]",
+      id_verbo_corrispondente: "開く",
+      frasi_esempio: [{ testo: "ドアを開けます。", traduzione: { it: "Apro la porta.", en: "" } }]
+    };
+    const aku = {
+      ...makeWord("開く", "開く", "aprirsi"),
+      tipo_jp: "動詞[どうし]",
+      classe_verbo_jp: "五段動詞[ごだんどうし]"
+    };
+    const { context } = makeContext([akeru, aku] as never[]);
+    const q = createTransitivityPairQuestion(akeru as never, context, "it");
+    expect(q).not.toBeNull();
+    expect(q!.correctChoice).toBe("開けます");
+    expect(q!.choices).toContain("開きます"); // il gemello intransitivo, stessa forma
+    expect(q!.sentenceWithBlank).toContain("＿＿");
+  });
+
+  it("counter-reading: distrattori di rendaku", async () => {
+    const { createCounterReadingQuestion } = await import("./engine");
+    const counters = [{
+      id: "本", simbolo: "本", lettura: "ほん",
+      significato: { it: "", en: "" }, livello_jlpt: "N5",
+      letture_irregolari: "さんぼん (3)", updated_at: 0
+    }];
+    const word = { ...makeWord("鉛筆", "鉛筆", "matita"), id_contatore_suggerito: "本" };
+    const q = createCounterReadingQuestion(word as never, counters as never);
+    expect(q).not.toBeNull();
+    expect(q!.prompt).toBe("3本");
+    expect(q!.correctChoice).toBe("さんぼん");
+    expect(q!.choices).toContain("さんほん");
+  });
+
+  it("okurigana error variant: 送る → 送くる", async () => {
+    const { okuriganaErrorVariant } = await import("./engine");
+    const word = makeWord("送る", "送る", "inviare");
+    (word as { lettura: string }).lettura = "おくる";
+    expect(okuriganaErrorVariant(word)).toBe("送くる");
+  });
+});
+
 describe("calculateQuizXp", () => {
   it("risposta sbagliata: zero XP", () => {
     const xp = calculateQuizXp(makeInput({ isCorrect: false }));
