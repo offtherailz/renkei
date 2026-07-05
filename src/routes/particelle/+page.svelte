@@ -59,8 +59,9 @@
 
 	.toc { display: flex; flex-wrap: wrap; gap: 6px; }
 	.toc-chip {
-		width: 42px;
+		min-width: 42px;
 		height: 42px;
+		padding: 0 10px;
 		display: grid;
 		place-items: center;
 		border: 1.5px solid var(--line);
@@ -70,6 +71,7 @@
 		font-size: 1.25rem;
 		font-weight: 700;
 		text-decoration: none;
+		white-space: nowrap;
 	}
 	.toc-chip:hover { border-color: var(--brand); }
 
@@ -85,8 +87,9 @@
 
 	.particle-head { display: flex; align-items: center; gap: 12px; }
 	.particle-symbol {
-		width: 52px;
+		min-width: 52px;
 		height: 52px;
+		padding: 0 12px;
 		display: grid;
 		place-items: center;
 		border-radius: 12px;
@@ -95,6 +98,7 @@
 		color: var(--brand);
 		font-size: 1.7rem;
 		font-weight: 800;
+		white-space: nowrap;
 	}
 	.particle-name { font-size: 0.95rem; }
 

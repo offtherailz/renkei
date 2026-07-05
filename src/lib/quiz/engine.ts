@@ -480,18 +480,25 @@ export function createTransitivityPairQuestion(
   const pairSameForm = pairForms.find((f) => f.key === hit.key)?.value;
   if (!pairSameForm || pairSameForm === hit.value) return null;
 
-  const extra = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
+  // Domanda mirata: "パソコンが＿＿" — si estrae nome+particella (が/を)
+  // subito prima del verbo nella frase reale, e le opzioni sono i due
+  // gemelli della coppia nella stessa forma (più un filler).
+  const prefix = sentence.slice(0, sentence.indexOf(hit.value));
+  const nounMatch = prefix.match(/([一-龯ぁ-んァ-ヶーA-Za-z0-9]{1,8})([がを])\s*$/);
+  if (!nounMatch) return null;
+
+  const filler = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
     .map((f) => f.value)
     .filter((v) => v !== hit.value && v !== pairSameForm)
-    .slice(0, 2);
+    .slice(0, 1);
 
   return {
     mode: "transitivity-pair",
     wordId: word.id,
-    sentenceWithBlank: sentence.replace(hit.value, USAGE_BLANK),
+    sentenceWithBlank: `${nounMatch[1]}${nounMatch[2]}${USAGE_BLANK}`,
     fullSentence: sentence,
     translation: pickLocalizedText(example.traduzione, locale),
-    choices: shuffle([hit.value, pairSameForm, ...extra]).slice(0, 4),
+    choices: shuffle([hit.value, pairSameForm, ...filler]),
     correctChoice: hit.value
   };
 }
