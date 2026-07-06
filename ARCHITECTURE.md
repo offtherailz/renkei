@@ -188,16 +188,17 @@ Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighsco
 **Leggi come si pronuncia** (scelta multipla):
 - **日/時/分/円** — `generateReading`.
 - **Che ore sono?** — `generateClockReading` (orario 時+分 combinato, es. 4:30 → よじさんじゅっぷん).
+- **Conta gli oggetti** — `generateCountObjects(counters)` (in `engine.ts`): N emoji a schermo → lettura numero+contatore giusta; distrattori con lo stesso numero ma contatore sbagliato (さんびき/さんぼん/さんまい). Usa `readCounterN` (irregolare dal catalogo o concatenazione regolare).
 - **Misto**.
 
 **Ascolta e agisci** (TTS + azione):
 - **Scrivi il numero** — `generateNumberDictation`: il TTS legge un numero, l'utente digita le cifre.
-- **Alla cassa** — `generateShopPrice` + `YEN_DENOMINATIONS`: il commesso dice il totale (「ぜんぶで〜円です」), l'utente compone l'importo esatto toccando banconote/monete.
+- **Alla cassa** — `generateShopPrice` + `YEN_DENOMINATIONS`: il commesso annuncia il totale (frase variata tra 2-3 tipi), l'utente compone l'importo esatto con banconote/monete; alla fine il commesso risponde (ちょうど… / すみません…).
 - **Appuntamento** — `generateAppointment`: il TTS legge data + ora (「3月9日の4時半」), l'utente inserisce mese/giorno/ora/minuti (半 = 30).
 
-Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`.
+**Timer** (opzionale, toggle in home): countdown per la risposta che, se scade, azzera la serie. Nei giochi d'ascolto parte **dopo** l'audio (`speakSentenceJapaneseAsync` → Promise su `onend`), coordinato con un `qGen` per non armare timer di domande superate.
 
-Idee per altri giochi: **conta gli oggetti** (N oggetti di una categoria → numero+contatore giusto).
+Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`; `readCounterN` in `counterReadings.ts`.
 
 ---
 

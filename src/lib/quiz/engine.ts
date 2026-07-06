@@ -5,8 +5,8 @@ import { stripFuriganaNotation } from "../core/furigana";
 import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
 import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
 import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
-import { naiveReading, parseIrregularReadings, voicingVariants } from "../core/counterReadings";
-import { GENERATED_COUNTERS, generateReading } from "../core/counterGen";
+import { naiveReading, parseIrregularReadings, readCounterN, voicingVariants } from "../core/counterReadings";
+import { GENERATED_COUNTERS, generateReading, type GeneratedReading } from "../core/counterGen";
 import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
 import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
@@ -496,6 +496,43 @@ export function createCounterDrillQuestion(counter: Counter): CounterReadingQues
     choices: shuffle([pick.reading, ...distractors]),
     correctChoice: pick.reading
   };
+}
+
+// ── Gioco "conta gli oggetti": N oggetti a schermo → lettura numero+contatore ──
+// I distrattori usano lo stesso numero ma il contatore SBAGLIATO (さんびき vs
+// さんぼん vs さんまい): allena sia "quale contatore" sia il rendaku.
+const COUNT_OBJECTS: { emoji: string; counter: string; confus: string[] }[] = [
+  { emoji: "🐟", counter: "匹", confus: ["本", "枚"] },
+  { emoji: "🐕", counter: "匹", confus: ["頭", "羽"] },
+  { emoji: "🍎", counter: "個", confus: ["本", "枚"] },
+  { emoji: "📖", counter: "冊", confus: ["枚", "個"] },
+  { emoji: "🚗", counter: "台", confus: ["個", "本"] },
+  { emoji: "✏️", counter: "本", confus: ["枚", "冊"] },
+  { emoji: "👕", counter: "枚", confus: ["本", "個"] },
+  { emoji: "🧑", counter: "人", confus: ["匹", "個"] },
+  { emoji: "🍺", counter: "杯", confus: ["本", "個"] }
+];
+
+export function generateCountObjects(counters: Counter[]): (GeneratedReading & { emoji: string; count: number }) | null {
+  const byId = new Map(counters.map((c) => [c.id, c]));
+  const pool = COUNT_OBJECTS.filter((o) => byId.has(o.counter));
+  if (pool.length === 0) return null;
+  const obj = pool[Math.floor(Math.random() * pool.length)]!;
+  const counter = byId.get(obj.counter)!;
+  const n = 1 + Math.floor(Math.random() * 9);
+  const correct = readCounterN(counter, n);
+  if (!correct) return null;
+  const distractors = [
+    ...new Set(
+      obj.confus
+        .map((id) => byId.get(id))
+        .filter((c): c is Counter => Boolean(c))
+        .map((c) => readCounterN(c, n))
+        .filter((r): r is string => Boolean(r))
+    )
+  ].filter((r) => r !== correct).slice(0, 3);
+  if (distractors.length < 2) return null;
+  return { prompt: obj.emoji.repeat(n), correct, distractors, emoji: obj.emoji, count: n };
 }
 
 // ── Quiz coppie transitivo/intransitivo: quale verbo serve nella frase? ──

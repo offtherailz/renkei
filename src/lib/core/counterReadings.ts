@@ -70,3 +70,11 @@ export function naiveReading(num: number, counter: Counter): string | null {
 	if (!numReading) return null;
 	return `${numReading}${counter.lettura}`;
 }
+
+// Lettura corretta di num+contatore: usa l'irregolare dal catalogo se c'è
+// (さんびき per 3匹), altrimenti la concatenazione regolare (にひき per 2匹).
+export function readCounterN(counter: Counter, num: number): string | null {
+	const hit = parseIrregularReadings(counter).find((p) => p.num === num);
+	if (hit) return hit.reading;
+	return naiveReading(num, counter);
+}

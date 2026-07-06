@@ -36,6 +36,27 @@ export function speakSentenceJapanese(sentenceWithFurigana: string, options?: Sp
   window.speechSynthesis.speak(buildUtterance(plainText, options));
 }
 
+// Come speakSentenceJapanese, ma ritorna una Promise che si risolve quando
+// l'audio è finito (o subito, se il TTS non è disponibile): utile per far
+// partire un timer solo dopo che la voce ha finito di parlare.
+export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options?: SpeakOptions): Promise<void> {
+  if (typeof window === "undefined" || !window.speechSynthesis) {
+    return Promise.resolve();
+  }
+  const plainText = stripFuriganaNotation(sentenceWithFurigana);
+  window.speechSynthesis.cancel();
+  return new Promise((resolve) => {
+    const utterance = buildUtterance(plainText, options);
+    let done = false;
+    const finish = (): void => { if (!done) { done = true; resolve(); } };
+    utterance.onend = finish;
+    utterance.onerror = finish;
+    // Fallback: alcune implementazioni non emettono onend in modo affidabile.
+    setTimeout(finish, Math.min(8000, 1200 + plainText.length * 180));
+    window.speechSynthesis.speak(utterance);
+  });
+}
+
 // ── Dialoghi (choukai): battute in sequenza, voce diversa per personaggio ──
 
 function getJapaneseVoices(): SpeechSynthesisVoice[] {

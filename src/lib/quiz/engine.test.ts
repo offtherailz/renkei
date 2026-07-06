@@ -171,6 +171,24 @@ describe("transitivity-pair e nuove letture", () => {
     expect(q!.choices).toContain("さんほん");
   });
 
+  it("conta oggetti: prompt di emoji e distrattori con contatore diverso", async () => {
+    const { generateCountObjects } = await import("./engine");
+    const counters = [
+      { id: "匹", simbolo: "匹", lettura: "ひき", significato: { it: "", en: "" }, livello_jlpt: "N5", letture_irregolari: "いっぴき (1)・さんびき (3)・ろっぴき (6)", updated_at: 0 },
+      { id: "本", simbolo: "本", lettura: "ほん", significato: { it: "", en: "" }, livello_jlpt: "N5", letture_irregolari: "いっぽん (1)・さんぼん (3)", updated_at: 0 },
+      { id: "枚", simbolo: "枚", lettura: "まい", significato: { it: "", en: "" }, livello_jlpt: "N5", updated_at: 0 }
+    ];
+    let sawFish = false;
+    for (let i = 0; i < 80 && !sawFish; i += 1) {
+      const q = generateCountObjects(counters as never);
+      if (!q) continue;
+      expect(q.distractors).not.toContain(q.correct);
+      expect(q.prompt).toBe(q.emoji.repeat(q.count));
+      if (q.emoji === "🐟") sawFish = true;
+    }
+    expect(sawFish).toBe(true);
+  });
+
   it("okurigana error variant: 送る → 送くる", async () => {
     const { okuriganaErrorVariant } = await import("./engine");
     const word = makeWord("送る", "送る", "inviare");
