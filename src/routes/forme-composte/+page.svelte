@@ -46,10 +46,10 @@
 	<h1 class="page-title">Forme composte</h1>
 	<p class="page-sub">Costruzioni che si agganciano a verbi, aggettivi o nomi (〜てみる, 〜たい, condizionali…). Ognuna dice <strong>a cosa si attacca</strong> e <strong>con quale forma</strong>.</p>
 
-	<!-- Legenda degli schemi di attacco -->
+	<!-- Legenda delle regole d'uso -->
 	<section class="legend">
-		<h2 class="legend-title">Schemi di attacco</h2>
-		<p class="legend-hint">A quale parola si aggancia la forma e con quale forma verbale. Forme con lo <strong>stesso schema</strong> si usano allo stesso modo.</p>
+		<h2 class="legend-title">Regole d'uso</h2>
+		<p class="legend-hint">A quale parola si aggancia la forma e con quale forma verbale. Forme con la <strong>stessa regola</strong> si usano allo stesso modo.</p>
 		{#each schemasUsed as sc}
 			<div class="legend-row">
 				<div class="legend-head">
@@ -84,7 +84,7 @@
 
 			{#if form.attachment && form.attachment.length > 0}
 				<div class="attach-box">
-					<span class="attach-title">▸ Si attacca a</span>
+					<span class="attach-title">▸ Regole d'uso — si attacca a</span>
 					<ul class="attach-list">
 						{#each form.attachment as a}
 							<li><span class="attach-base">{a.base}</span> <span class="attach-arrow">→</span> <span class="attach-conn">{a.connessione}</span></li>
@@ -92,9 +92,9 @@
 					</ul>
 					{#if form.schemaId && ATTACHMENT_SCHEMAS[form.schemaId]}
 						<div class="schema-line">
-							<span class="schema-badge">schema: {ATTACHMENT_SCHEMAS[form.schemaId].label}</span>
+							<span class="schema-badge">regola: {ATTACHMENT_SCHEMAS[form.schemaId].label}</span>
 							{#if sameSchema(form).length > 0}
-								<span class="schema-also">stesso schema di:</span>
+								<span class="schema-also">stessa regola di:</span>
 								{#each sameSchema(form) as other}
 									<a class="mini-chip" href="#{other.slug}">{stripFuriganaNotation(other.label)}</a>
 								{/each}
@@ -198,39 +198,39 @@
 	.form-text { margin: 0; font-size: 0.85rem; line-height: 1.5; }
 
 	.attach-box {
-		background: #f0f7ff;
-		border: 1px solid #cfe3ff;
+		background: #eaf2fe;
+		border: 1px solid #93b4e8;
 		border-radius: 10px;
 		padding: 10px 12px;
 		display: grid;
 		gap: 6px;
 	}
-	.attach-title { font-size: 0.78rem; font-weight: 700; color: #1e40af; }
-	.attach-list { margin: 0; padding-left: 4px; list-style: none; display: grid; gap: 3px; }
-	.attach-list li { font-size: 0.85rem; }
-	.attach-base { font-weight: 600; }
-	.attach-arrow { color: var(--muted); margin: 0 4px; }
-	.attach-conn { color: var(--brand); }
+	.attach-title { font-size: 0.82rem; font-weight: 800; color: #14306e; }
+	.attach-list { margin: 0; padding-left: 4px; list-style: none; display: grid; gap: 4px; }
+	.attach-list li { font-size: 0.9rem; color: #14306e; }
+	.attach-base { font-weight: 700; color: #0f2350; }
+	.attach-arrow { color: #4b6bb0; margin: 0 4px; }
+	.attach-conn { color: #1d3f8f; font-weight: 600; }
 	.schema-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 2px; }
 	.schema-badge {
-		font-size: 0.7rem;
+		font-size: 0.72rem;
 		font-weight: 700;
-		background: #dbeafe;
-		color: #1e40af;
+		background: #1d3f8f;
+		color: #fff;
 		border-radius: 999px;
-		padding: 2px 8px;
+		padding: 3px 10px;
 	}
-	.schema-also { font-size: 0.72rem; color: var(--muted); }
+	.schema-also { font-size: 0.76rem; color: #334155; font-weight: 600; }
 
 	.exc-box {
-		background: #fff7ed;
-		border: 1px solid #fed7aa;
+		background: #fdeede;
+		border: 1px solid #e6a978;
 		border-radius: 10px;
-		padding: 8px 12px;
+		padding: 10px 12px;
 	}
-	.exc-title { font-size: 0.76rem; font-weight: 700; color: #9a3412; }
-	.exc-list { margin: 4px 0 0; padding-left: 18px; display: grid; gap: 2px; }
-	.exc-list li { font-size: 0.82rem; }
+	.exc-title { font-size: 0.82rem; font-weight: 800; color: #7c2d12; }
+	.exc-list { margin: 5px 0 0; padding-left: 18px; display: grid; gap: 3px; }
+	.exc-list li { font-size: 0.88rem; color: #6b2410; }
 
 	.form-examples { display: grid; gap: 8px; }
 	.form-example {

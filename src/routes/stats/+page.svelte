@@ -17,11 +17,13 @@
 	let week = $state<DailyAggregate[]>([]);
 	let skills = $state<SkillMastery | null>(null);
 	type Acc = { answers: number; correct: number };
-	let skillAcc = $state<Record<'words' | 'kanji' | 'grammar', Acc>>({
+	const emptyAcc = (): Record<'words' | 'kanji' | 'grammar', Acc> => ({
 		words: { answers: 0, correct: 0 },
 		kanji: { answers: 0, correct: 0 },
 		grammar: { answers: 0, correct: 0 }
 	});
+	let skillAcc = $state(emptyAcc());
+	let weekSkillAcc = $state(emptyAcc());
 
 	const SKILL_META = [
 		{ key: 'words', label: 'Parole', icon: '📦' },
@@ -78,26 +80,35 @@
 		week = [...map.values()].sort((a, b) => a.day.localeCompare(b.day));
 		skills = await loadSkillMastery();
 
-		// Accuracy per skill: somma su tutte le sessioni che hanno il dettaglio.
-		const acc: Record<'words' | 'kanji' | 'grammar', Acc> = {
-			words: { answers: 0, correct: 0 },
-			kanji: { answers: 0, correct: 0 },
-			grammar: { answers: 0, correct: 0 }
-		};
+		// Accuracy per skill: cumulata (tutte le sessioni) e ultimi 7 giorni.
+		const acc = emptyAcc();
+		const wacc = emptyAcc();
 		for (const row of history) {
 			if (!row.answersByType) continue;
+			const inWeek = row.endedAt >= cutoff;
 			for (const k of ['words', 'kanji', 'grammar'] as const) {
-				acc[k].answers += row.answersByType[k]?.answers ?? 0;
-				acc[k].correct += row.answersByType[k]?.correct ?? 0;
+				const a = row.answersByType[k]?.answers ?? 0;
+				const c = row.answersByType[k]?.correct ?? 0;
+				acc[k].answers += a;
+				acc[k].correct += c;
+				if (inWeek) { wacc[k].answers += a; wacc[k].correct += c; }
 			}
 		}
 		skillAcc = acc;
+		weekSkillAcc = wacc;
 	}
 
 	function accPct(k: 'words' | 'kanji' | 'grammar'): number | null {
 		const a = skillAcc[k];
 		return a.answers > 0 ? Math.round((a.correct / a.answers) * 100) : null;
 	}
+	function weekAccPct(k: 'words' | 'kanji' | 'grammar'): number | null {
+		const a = weekSkillAcc[k];
+		return a.answers > 0 ? Math.round((a.correct / a.answers) * 100) : null;
+	}
+	const hasWeekAcc = $derived(
+		(['words', 'kanji', 'grammar'] as const).some((k) => weekSkillAcc[k].answers > 0)
+	);
 
 	onMount(loadStats);
 
@@ -196,6 +207,28 @@
 		{/each}
 	</div>
 	<p class="muted-text skill-note">Consolidamento = foto dello stato SRS. Accuracy = risposte corrette su totale, cumulata dalle sessioni.</p>
+</section>
+{/if}
+
+<!-- Accuracy per skill, ultimi 7 giorni -->
+{#if hasWeekAcc}
+<section class="section-card">
+	<p class="card-title">Accuracy per skill · ultimi 7 giorni</p>
+	<div class="acc-chart">
+		{#each SKILL_META as meta}
+			{@const p = weekAccPct(meta.key)}
+			<div class="acc-col">
+				<span class="acc-val">{p !== null ? `${p}%` : '—'}</span>
+				<div class="acc-bar-track">
+					<div class="acc-bar" style="height:{p ?? 0}%; background:{masteryColor(p ?? 0)}"></div>
+				</div>
+				<span class="acc-label">
+					<span class="acc-icon" class:kanji-icon={meta.icon === '漢'}>{meta.icon}</span>
+					{meta.label}
+				</span>
+			</div>
+		{/each}
+	</div>
 </section>
 {/if}
 
@@ -353,6 +386,37 @@
 	.skill-pct { font-size: 0.9rem; font-weight: 700; color: var(--ink); min-width: 38px; text-align: right; }
 
 	.skill-note { margin-top: 10px; }
+
+	.acc-chart {
+		display: flex;
+		justify-content: space-around;
+		align-items: flex-end;
+		gap: 16px;
+		padding-top: 6px;
+	}
+	.acc-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+	.acc-val { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
+	.acc-bar-track {
+		width: 100%;
+		max-width: 54px;
+		height: 96px;
+		background: var(--line);
+		border-radius: 8px;
+		display: flex;
+		align-items: flex-end;
+		overflow: hidden;
+	}
+	.acc-bar { width: 100%; border-radius: 8px 8px 0 0; min-height: 4px; transition: height 0.4s; }
+	.acc-label { font-size: 0.72rem; color: var(--ink); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+	.acc-icon { font-size: 1rem; }
+	.acc-icon.kanji-icon {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: #fff;
+		background: var(--brand);
+		border-radius: 4px;
+		padding: 1px 4px;
+	}
 
 	.goal-row {
 		display: flex;
