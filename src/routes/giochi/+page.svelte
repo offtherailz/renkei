@@ -528,6 +528,11 @@
 
 			<p class="group-title">Al konbini</p>
 			<div class="cat-grid">
+				<a class="cat-card" href="{base}/konbini">
+					<span class="cat-icon">🏮</span>
+					<span class="cat-label">Avventura al konbini</span>
+					<span class="cat-hint">lista → vai → ordina → paga → torna</span>
+				</a>
 				<button class="cat-card" onclick={() => start({ kind: 'order' })}>
 					<span class="cat-icon">🏪</span>
 					<span class="cat-label">Ordina al konbini</span>

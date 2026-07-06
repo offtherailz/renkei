@@ -213,8 +213,18 @@ Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading
 
 Idee future che spremono lo stesso catalogo: **trova il prodotto** (find-it), **trova il reparto**, **cassa col resto** (おつり).
 
-### Avventura al konbini (semplificata) — roadmap incrementale
-Da costruire e deployare **un pezzo per volta**, riusando i micro-giochi esistenti:
+### Avventura al konbini — `/konbini` (assemblata)
+Route dedicata con macchina a **scene** (`intro → depart → call? → order → pay → return → done`), riusa `shopItems`/`readCounterN`/voci/denominazioni:
+1. **intro**: la kanojo (voce femminile) detta la lista (visibile come riferimento).
+2. **depart**: scegli il saluto d'uscita (いってきます) → risposta いってらっしゃい.
+3. **call** (~55%): telefonata a sorpresa che aggiunge/toglie/cambia un prodotto, **senza conferma** (non ripetibile); la lista finale è aggiornata.
+4. **order**: prodotto per prodotto, componi numero+contatore (kanji o lettura); gli errori si accumulano.
+5. **pay**: il commesso (voce opposta) annuncia il totale, paghi **esatto** con le banconote (riprovi se sbagli).
+6. **return**: ただいま → la kanojo verifica ("tutto giusto?" in base agli errori) → riepilogo finale.
+Non è a serie/highscore: è una "missione" con conteggio errori. *Idee:* modalità memoria pura (icone non aggiornate dalla telefonata), pagamento col resto.
+
+### Roadmap storica (micro-giochi) — riferimento
+Costruiti e deployati **un pezzo per volta**, riusando i micro-giochi esistenti:
 1. **Lista della spesa** (お使い) — *fatto*.
 2. **Saluto in partenza**: scegli la frase idiomatica giusta (いってきます) e senti la risposta (いってらっしゃい).
 3. **Chiamata a sorpresa** (mentre vai): l'interlocutore aggiunge o toglie un prodotto — **niente conferma**, va ricordato al volo.

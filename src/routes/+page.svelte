@@ -137,6 +137,10 @@
 			<span class="quick-icon">🎮</span>
 			<span>Giochi numeri</span>
 		</a>
+		<a href="{base}/konbini" class="quick-card">
+			<span class="quick-icon">🏮</span>
+			<span>Avventura konbini</span>
+		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
 			<span>Impostazioni</span>
