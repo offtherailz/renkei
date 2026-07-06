@@ -217,17 +217,34 @@
 		return updated;
 	}
 
+	function localDayKey(ts: number): string {
+		const d = new Date(ts);
+		return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+	}
+
+	// Striscia giornaliera: +1 se l'ultima attività era ieri, invariata se è
+	// già stata oggi, riparte da 1 dopo un buco di più giorni.
+	function computeStreak(prevStreak: number, prevTs: number, now: number): number {
+		const prevDay = localDayKey(prevTs);
+		const today = localDayKey(now);
+		if (prevDay === today) return Math.max(1, prevStreak);
+		if (prevDay === localDayKey(now - 24 * 60 * 60 * 1000)) return prevStreak + 1;
+		return 1;
+	}
+
 	async function addXp(delta: number): Promise<void> {
 		const current = await db.user_profile.get('default');
 		const now = Date.now();
 		if (!current) {
 			const xp = Math.max(0, delta);
-			await db.user_profile.put({ id: 'default', xp_totali: xp, livello: 1, streak_giorni: 0, badge_sbloccati: [], updated_at: now });
-			if (appState.userProfile) appState.userProfile = { ...appState.userProfile, xp_totali: xp };
+			const created = { id: 'default' as const, xp_totali: xp, livello: 1, streak_giorni: 1, badge_sbloccati: [], updated_at: now };
+			await db.user_profile.put(created);
+			appState.userProfile = created;
 			return;
 		}
 		const total = Math.max(0, current.xp_totali + delta);
-		const updated = { ...current, xp_totali: total, livello: Math.max(1, Math.floor(total / 220) + 1), updated_at: now };
+		const streak_giorni = computeStreak(current.streak_giorni ?? 0, current.updated_at, now);
+		const updated = { ...current, xp_totali: total, livello: Math.max(1, Math.floor(total / 220) + 1), streak_giorni, updated_at: now };
 		await db.user_profile.put(updated);
 		appState.userProfile = updated;
 	}

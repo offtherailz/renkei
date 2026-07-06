@@ -110,8 +110,7 @@ export async function loadSkillMastery(): Promise<SkillMastery> {
 
 export async function countDueCards(): Promise<number> {
 	const now = Date.now();
-	return db.srs_progress
-		.where('[srs_stage+next_review_date]')
-		.between([0, 0], [7, now], true, true)
-		.count();
+	// Due = next_review_date <= adesso (a qualunque stage). Vedi nota in
+	// getDueSrsCards: l'indice composto sovrastimerebbe includendo date future.
+	return db.srs_progress.where('next_review_date').belowOrEqual(now).count();
 }

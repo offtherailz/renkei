@@ -157,9 +157,12 @@ export class JapaneseStudyDB extends Dexie {
 export const db = new JapaneseStudyDB();
 
 export async function getDueSrsCards(nowTs = Date.now()): Promise<SrsProgress[]> {
+  // Una carta è "da ripassare" se next_review_date <= adesso, a prescindere
+  // dallo stage. (L'indice composto [srs_stage+next_review_date] non va bene
+  // qui: confronto lessicografico → conterebbe anche carte con data futura.)
   return db.srs_progress
-    .where("[srs_stage+next_review_date]")
-    .between([Dexie.minKey, Dexie.minKey], [7, nowTs], true, true)
+    .where("next_review_date")
+    .belowOrEqual(nowTs)
     .sortBy("next_review_date");
 }
 
