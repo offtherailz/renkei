@@ -1,31 +1,45 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { generateReading, type GeneratedReading } from '$lib/core/counterGen';
+	import {
+		generateReading,
+		generateClockReading,
+		generateNumberDictation,
+		type GeneratedReading
+	} from '$lib/core/counterGen';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 
-	// Categorie giocabili: ognuna tiene il proprio record.
-	const CATEGORIES = [
-		{ id: '日', label: 'Giorni del mese', icon: '📅', hint: '1-31, con le native irregolari' },
+	// Giochi a scelta multipla ("leggi come si pronuncia"). id = contatore o 'clock'/'mix'.
+	const READ_GAMES = [
+		{ id: '日', label: 'Giorni del mese', icon: '📅', hint: '1-31, native irregolari' },
 		{ id: '時', label: 'Ore', icon: '🕐', hint: 'よじ, しちじ, くじ…' },
 		{ id: '分', label: 'Minuti', icon: '⏱️', hint: 'rendaku ふん / ぷん' },
 		{ id: '円', label: 'Prezzi (yen)', icon: '💴', hint: 'rendaku di 百 e 千' },
-		{ id: 'mix', label: 'Misto', icon: '🎲', hint: 'un po\' di tutto' }
+		{ id: 'clock', label: 'Che ore sono?', icon: '⏰', hint: 'ore + minuti (4:30)' },
+		{ id: 'mix', label: 'Misto', icon: '🎲', hint: "un po' di tutto" }
 	] as const;
 
-	type CatId = (typeof CATEGORIES)[number]['id'];
+	type ReadId = (typeof READ_GAMES)[number]['id'];
+	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | null;
 
-	let category = $state<CatId | null>(null);
-	let question = $state<GeneratedReading | null>(null);
-	let choices = $state<string[]>([]);
-	let picked = $state<string | null>(null);
+	let game = $state<Game>(null);
 	let streak = $state(0);
 	let best = $state(0);
 	let isRecord = $state(false);
 	let gameOver = $state(false);
 
-	function gameId(cat: CatId): string {
-		return `read-${cat}`;
+	// scelta multipla
+	let question = $state<GeneratedReading | null>(null);
+	let choices = $state<string[]>([]);
+	let picked = $state<string | null>(null);
+
+	// dettato
+	let dictation = $state<{ n: number; reading: string } | null>(null);
+	let answer = $state('');
+	let checked = $state(false);
+
+	function gameId(g: NonNullable<Game>): string {
+		return g.kind === 'read' ? `read-${g.cat}` : 'listen-number';
 	}
 
 	function shuffle<T>(xs: T[]): T[] {
@@ -37,15 +51,15 @@
 		return a;
 	}
 
-	function nextQuestion(): void {
-		if (!category) return;
-		const counterId = category === 'mix'
-			? (['日', '時', '分', '円'][Math.floor(Math.random() * 4)] as string)
-			: category;
-		// generateReading può occasionalmente dare pochi distrattori: riprova.
+	function newReadQuestion(cat: ReadId): void {
 		let gen: GeneratedReading | null = null;
 		for (let i = 0; i < 8 && !gen; i += 1) {
-			const g = generateReading(counterId);
+			let g: GeneratedReading | null;
+			if (cat === 'clock') g = generateClockReading();
+			else {
+				const counterId = cat === 'mix' ? (['日', '時', '分', '円', 'clock'][Math.floor(Math.random() * 5)] as string) : cat;
+				g = counterId === 'clock' ? generateClockReading() : generateReading(counterId);
+			}
 			if (g && g.distractors.length >= 1) gen = g;
 		}
 		if (!gen) return;
@@ -54,63 +68,91 @@
 		picked = null;
 	}
 
-	function start(cat: CatId): void {
-		category = cat;
+	function newDictation(): void {
+		dictation = generateNumberDictation();
+		answer = '';
+		checked = false;
+		speakSentenceJapanese(dictation.reading);
+	}
+
+	function start(g: NonNullable<Game>): void {
+		game = g;
 		streak = 0;
-		best = getHighscore(gameId(cat));
+		best = getHighscore(gameId(g));
 		isRecord = false;
 		gameOver = false;
-		nextQuestion();
+		if (g.kind === 'read') newReadQuestion(g.cat);
+		else newDictation();
+	}
+
+	function registerResult(correct: boolean): void {
+		if (correct) {
+			streak += 1;
+			if (streak > best) { best = streak; isRecord = true; }
+		} else {
+			gameOver = true;
+			if (game) submitScore(gameId(game), streak);
+		}
 	}
 
 	function pick(choice: string): void {
 		if (picked !== null || !question) return;
 		picked = choice;
 		speakSentenceJapanese(question.correct);
-		if (choice === question.correct) {
-			streak += 1;
-			if (streak > best) {
-				best = streak;
-				isRecord = true;
-			}
-		} else {
-			gameOver = true;
-			if (category) submitScore(gameId(category), streak);
-		}
+		registerResult(choice === question.correct);
+	}
+
+	function checkDictation(): void {
+		if (checked || !dictation || answer.trim() === '') return;
+		checked = true;
+		registerResult(Number(answer.replace(/[^\d]/g, '')) === dictation.n);
 	}
 
 	function proceed(): void {
-		if (gameOver) {
-			if (category) start(category);
-			return;
-		}
-		nextQuestion();
+		if (!game) return;
+		if (gameOver) { start(game); return; }
+		if (game.kind === 'read') newReadQuestion(game.cat);
+		else newDictation();
 	}
 
 	function quit(): void {
-		if (category && !gameOver) submitScore(gameId(category), streak);
-		category = null;
+		if (game && !gameOver) submitScore(gameId(game), streak);
+		game = null;
 		question = null;
+		dictation = null;
 	}
 </script>
 
 <div class="games-page">
-	{#if !category}
+	{#if !game}
 		<h1 class="page-title">🎮 Giochi sui numeri</h1>
 		<p class="page-sub">
-			Leggi numero + contatore il più a lungo possibile: un errore e la serie riparte.
-			Il record è tuo, separato dall'XP di studio.
+			Vai avanti il più a lungo possibile: un errore e la serie riparte. Il record è tuo,
+			separato dall'XP di studio.
 		</p>
+
+		<p class="group-title">Leggi come si pronuncia</p>
 		<div class="cat-grid">
-			{#each CATEGORIES as cat}
-				<button class="cat-card" onclick={() => start(cat.id)}>
-					<span class="cat-icon">{cat.icon}</span>
-					<span class="cat-label">{cat.label}</span>
-					<span class="cat-hint">{cat.hint}</span>
-					<span class="cat-best">🏆 record: {getHighscore(gameId(cat.id))}</span>
+			{#each READ_GAMES as g}
+				<button class="cat-card" onclick={() => start({ kind: 'read', cat: g.id })}>
+					<span class="cat-icon">{g.icon}</span>
+					<span class="cat-label">{g.label}</span>
+					<span class="cat-hint">{g.hint}</span>
+					<span class="cat-best">🏆 record: {getHighscore(`read-${g.id}`)}</span>
 				</button>
 			{/each}
 		</div>
+
+		<p class="group-title">Ascolta e scrivi</p>
+		<div class="cat-grid">
+			<button class="cat-card" onclick={() => start({ kind: 'listen' })}>
+				<span class="cat-icon">👂</span>
+				<span class="cat-label">Scrivi il numero</span>
+				<span class="cat-hint">senti la lettura, digita le cifre</span>
+				<span class="cat-best">🏆 record: {getHighscore('listen-number')}</span>
+			</button>
+		</div>
+
 		<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
 	{:else}
 		<div class="game-head">
@@ -118,7 +160,7 @@
 			<span class="score">Serie: <strong>{streak}</strong> · 🏆 {best}</span>
 		</div>
 
-		{#if question}
+		{#if game.kind === 'read' && question}
 			<article class="game-card">
 				<p class="game-hint">Come si legge?</p>
 				<p class="game-prompt">{question.prompt}</p>
@@ -136,12 +178,38 @@
 
 				{#if picked !== null}
 					{#if gameOver}
-						<p class="verdict ko">Ahi! Era <strong>{question.correct}</strong>. Serie: {streak}{#if best > 0} · record {best}{/if}</p>
+						<p class="verdict ko">Ahi! Era <strong>{question.correct}</strong>. Serie: {streak}</p>
 						<button class="proceed" onclick={proceed}>🔁 Rigioca</button>
 					{:else}
 						<p class="verdict ok">{isRecord ? '🏆 Nuovo record!' : '✓ Giusto!'}</p>
 						<button class="proceed" onclick={proceed}>Avanti →</button>
 					{/if}
+				{/if}
+			</article>
+		{:else if game.kind === 'listen' && dictation}
+			<article class="game-card">
+				<p class="game-hint">Che numero senti?</p>
+				<button class="replay" onclick={() => speakSentenceJapanese(dictation!.reading)}>🔊 Riascolta</button>
+				<input
+					class="num-input"
+					type="text"
+					inputmode="numeric"
+					placeholder="cifre…"
+					bind:value={answer}
+					disabled={checked}
+					onkeydown={(e) => { if (e.key === 'Enter') checkDictation(); }}
+				/>
+				{#if !checked}
+					<button class="proceed" onclick={checkDictation} disabled={answer.trim() === ''}>Controlla</button>
+				{:else}
+					<p class="verdict" class:ok={!gameOver} class:ko={gameOver}>
+						{#if gameOver}
+							Era <strong>{dictation.n.toLocaleString('en-US')}</strong> ({dictation.reading}). Serie: {streak}
+						{:else}
+							{isRecord ? '🏆 Nuovo record!' : '✓ Giusto!'} — {dictation.reading}
+						{/if}
+					</p>
+					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
 				{/if}
 			</article>
 		{/if}
@@ -152,6 +220,7 @@
 	.games-page { display: grid; gap: 14px; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 	.page-sub { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.group-title { margin: 6px 0 0; font-size: 0.9rem; font-weight: 700; }
 
 	.cat-grid { display: grid; gap: 10px; }
 	.cat-card {
@@ -186,10 +255,16 @@
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success); background: rgba(52,201,138,0.16); }
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
+
+	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
+	.num-input { justify-self: center; width: 60%; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); }
+	.num-input:focus { border-color: var(--brand); outline: none; }
+
 	.verdict { margin: 0; text-align: center; font-size: 0.95rem; font-weight: 600; }
 	.verdict.ok { color: var(--success, #16a34a); }
 	.verdict.ko { color: var(--danger, #dc2626); }
 	.proceed { justify-self: center; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
+	.proceed:disabled { opacity: 0.5; cursor: default; }
 
 	.back-link { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 </style>

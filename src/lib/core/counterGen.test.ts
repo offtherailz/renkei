@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readNumber, dayReading, hourReading, minuteReading, yenReading, generateReading, GENERATED_COUNTERS } from './counterGen';
+import { readNumber, dayReading, hourReading, minuteReading, yenReading, generateReading, generateClockReading, generateNumberDictation, clockReading, GENERATED_COUNTERS } from './counterGen';
 
 describe('readNumber', () => {
 	it('legge unità e decine', () => {
@@ -78,5 +78,30 @@ describe('generateReading', () => {
 	});
 	it('ritorna null per contatori non generati', () => {
 		expect(generateReading('本')).toBeNull();
+	});
+});
+
+describe('clockReading / orario', () => {
+	it('concatena ore e minuti', () => {
+		expect(clockReading(4, 30)).toBe('よじさんじゅっぷん');
+		expect(clockReading(9, 0)).toBe('くじ');
+		expect(clockReading(7, 15)).toBe('しちじじゅうごふん');
+	});
+	it('generateClockReading ha prompt HH:MM e distrattori distinti', () => {
+		for (let i = 0; i < 30; i += 1) {
+			const g = generateClockReading();
+			expect(g.prompt).toMatch(/^\d+:\d{2}$/);
+			expect(g.distractors).not.toContain(g.correct);
+			expect(g.distractors.length).toBeGreaterThanOrEqual(2);
+		}
+	});
+});
+
+describe('generateNumberDictation', () => {
+	it('lettura coerente col numero', () => {
+		for (let i = 0; i < 20; i += 1) {
+			const d = generateNumberDictation();
+			expect(d.reading).toBe(readNumber(d.n));
+		}
 	});
 });

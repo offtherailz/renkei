@@ -75,7 +75,7 @@ export function minuteReading(n: number): string {
 	if (n <= 10) return MIN_1_10[n]!;
 	const t = Math.floor(n / 10);
 	const u = n % 10;
-	const tensWord = UNITS[t] + 'じゅ'; // にじゅ, さんじゅ…
+	const tensWord = (t === 1 ? '' : UNITS[t]) + 'じゅ'; // じゅ, にじゅ, さんじゅ…
 	if (u === 0) return tensWord + 'っぷん'; // 20 → にじゅっぷん
 	return tensWord + 'う' + MIN_1_10[u]!; // 21 → にじゅう + いっぷん
 }
@@ -150,6 +150,46 @@ export function generateReading(counterId: string): GeneratedReading | null {
 		default:
 			return null;
 	}
+}
+
+// ── Orario combinato ore+minuti (4:30 → よじさんじゅっぷん) ──
+export function clockReading(h: number, m: number): string {
+	return hourReading(h) + (m === 0 ? '' : minuteReading(m));
+}
+
+export function generateClockReading(): GeneratedReading {
+	const h = 1 + RAND(12);
+	const m = RAND(60);
+	const correct = clockReading(h, m);
+	const minPart = m === 0 ? '' : minuteReading(m);
+	const swappedMin = minPart.includes('ぷん')
+		? minPart.replace(/ぷん$/, 'ふん')
+		: minPart.replace(/ふん$/, 'ぷん');
+	const cands = [
+		readNumber(h) + 'じ' + minPart, // ora "regolare" sbagliata (よじ→よんじ)
+		hourReading(h) + swappedMin, // rendaku minuti sbagliato
+		clockReading(((h % 12) + 1), (m + 5) % 60)
+	];
+	const distractors: string[] = [];
+	for (const c of cands) if (c && c !== correct && !distractors.includes(c)) distractors.push(c);
+	let guard = 0;
+	while (distractors.length < 3 && guard++ < 30) {
+		const c = clockReading(1 + RAND(12), RAND(60));
+		if (c !== correct && !distractors.includes(c)) distractors.push(c);
+	}
+	return { prompt: `${h}:${String(m).padStart(2, '0')}`, correct, distractors };
+}
+
+// ── Dettato: numero letto dal TTS, l'utente scrive le cifre ──
+// Pool con parecchi valori "trappola" (rendaku di 百/千) per allenare l'ascolto.
+const DICTATION_POOL = [
+	3, 4, 7, 9, 15, 24, 30, 48, 100, 150, 300, 480, 500, 600, 800, 980,
+	1000, 1200, 1500, 3000, 6000, 8000, 9800, 12000, 15000, 30000
+];
+
+export function generateNumberDictation(): { n: number; reading: string } {
+	const n = DICTATION_POOL[RAND(DICTATION_POOL.length)]!;
+	return { n, reading: readNumber(n) };
 }
 
 // Lettura "ingenua" senza rendaku: buon distrattore per i prezzi.
