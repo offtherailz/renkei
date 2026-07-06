@@ -6,6 +6,7 @@ import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticl
 import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
 import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
 import { naiveReading, parseIrregularReadings, voicingVariants } from "../core/counterReadings";
+import { GENERATED_COUNTERS, generateReading } from "../core/counterGen";
 import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
 import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
@@ -457,6 +458,43 @@ export function createCounterQuestion(
     promptMeaning: pickLocalizedArray(word.significato, locale)[0] ?? "",
     choices: shuffle([label(correct), ...distractors]),
     correctChoice: label(correct)
+  };
+}
+
+// ── Drill contatore: come si legge N+contatore? ──
+// Pensato per Consolida su un contatore (non su una parola): i distrattori
+// migliori sono le ALTRE letture irregolari dello stesso contatore
+// (みっか vs よっか vs むいか), rinforzate da varianti di voicing e dalla
+// concatenazione ingenua numero+contatore.
+export function createCounterDrillQuestion(counter: Counter): CounterReadingQuestion | null {
+  // Contatori a valore randomizzato (giorni 1-31, ore, minuti, yen): lettura
+  // generata al volo, così ogni ripetizione è un numero diverso.
+  if (GENERATED_COUNTERS.has(counter.id)) {
+    const gen = generateReading(counter.id);
+    if (!gen || gen.distractors.length < 2) return null;
+    return {
+      mode: "counter-reading",
+      wordId: `counter:${counter.id}`,
+      prompt: gen.prompt,
+      choices: shuffle([gen.correct, ...gen.distractors.slice(0, 3)]),
+      correctChoice: gen.correct
+    };
+  }
+  const pairs = parseIrregularReadings(counter);
+  if (pairs.length < 3) return null;
+  const pick = pairs[Math.floor(Math.random() * pairs.length)]!;
+  const siblings = pairs.filter((p) => p.reading !== pick.reading).map((p) => p.reading);
+  const naive = naiveReading(pick.num, counter);
+  const distractors = [...new Set([...shuffle(siblings), ...voicingVariants(pick.reading), ...(naive ? [naive] : [])])]
+    .filter((v) => v && v !== pick.reading)
+    .slice(0, 3);
+  if (distractors.length < 2) return null;
+  return {
+    mode: "counter-reading",
+    wordId: `counter:${counter.id}`,
+    prompt: `${pick.num}${counter.simbolo}`,
+    choices: shuffle([pick.reading, ...distractors]),
+    correctChoice: pick.reading
   };
 }
 

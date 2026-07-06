@@ -145,9 +145,45 @@ Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:
 4. **Arricchimento verbi** (`enrichVerbMetadata`): classe (五段/一段/不規則) e transitività (自動詞/他動詞).
 5. **Arricchimento aggettivi** (`enrichAdjectiveMetadata`): tipo い/な.
 6. **Costruzione link grammaticali** (`buildGrammarLinkedWords`): matching frase→parole con verifica coniugazione.
-7. **Scrittura `seed-n5n4.json`**.
+7. **Numeri e contatori** (`classifyNumbersAndCounters`, `scripts/lib/numbers-counters.mjs`): ricategorizza i numerali come `数詞[すうし]`, i giorni/persone come `助数詞` legati al contatore (`日`/`人`), e azzera i sinonimi euristici fasulli (三日 non è sinonimo di 四日). Gira **dopo** `enrichWordRelations` così sovrascrive i sinonimi generati.
+8. **Scrittura `seed-n5n4.json`**.
 
 > **Non modificare `seed-n5n4.json` a mano**: viene sovrascritto ad ogni sync.
+> Eccezione: `node scripts/fix-numbers-counters.mjs` riapplica al seed committato solo la ricategorizzazione numeri/contatori (stessa logica del pipeline, senza fetch di rete) — utile dopo aver toccato `counters-n5n4.json`.
+
+---
+
+## Numeri e contatori
+
+### Categorizzazione nel catalogo
+- **`数詞[すうし]`** (numerali): 一, 二, 三…, la serie nativa 一つ/二つ…, 百/千/万/億, ゼロ/零. Badge 🔟.
+- **`助数詞[じょすうし]`** (contatori): i simboli-contatore (`counters-n5n4.json`, entità separate in `db.counters`) **e** le parole che sono istanze numero+contatore: date del mese (ついたち…はつか → contatore `日`), persone (一人/二人 → `人`). Badge 🔢.
+- I sinonimi euristici tra elementi della stessa serie di conteggio sono **errati** e vengono azzerati (si tiene solo ゼロ↔零). Le date sono "riferite" al loro contatore via `id_contatore_suggerito`, non come sinonimi.
+- Eccezioni note: 一月 (ひとつき, resta 名詞), 一番 (いちばん, resta 副詞 — uso ordinale).
+
+### Catalogo contatori (`/contatori`)
+Card per contatore con simbolo, lettura, note, **letture irregolari** e parole tipiche. Ogni card ha un link **Consolida** → `/consolida/counter:<id>`.
+
+### Consolida contatori (`createCounterDrillQuestion`, `src/lib/core/counterGen.ts`)
+Drill sulle letture numero+contatore. Due strategie:
+- **Lista fissa**: per contatori con set chiuso di irregolari (本, 匹, 分…) i distrattori sono le *altre* letture irregolari dello stesso contatore + varianti di voicing (rendaku sbagliato).
+- **Generazione randomizzata** (`GENERATED_COUNTERS` = 日, 時, 分, 円): la lettura viene generata al volo per un numero casuale, così ogni ripetizione è diversa:
+  - **日** (giorni): 1-31 — native irregolari (1-10, 14, 20, 24), regolari +にち altrove.
+  - **時** (ore): 1-12 — trappole よじ/しちじ/くじ.
+  - **分** (minuti): 1-59 — rendaku ふん/ぷん.
+  - **円** (yen): prezzi tipici — rendaku di 百/千 (300 さんびゃく, 800 はっぴゃく, 3000 さんぜん, 8000 はっせん).
+
+`readNumber(n)` (0–99999) è il lettore di numerali riusabile (con rendaku di centinaia/migliaia); testato in `counterGen.test.ts`.
+
+### Idee: giochi sui numeri (da fare)
+Mini-giochi dedicati ai numerali, oltre al drill letture:
+- **Ascolta e scrivi il numero**: TTS legge un numero/prezzo, l'utente digita le cifre (allena il parsing 万/千/百).
+- **Prezzo al volo**: mostra un cartellino ¥ e cronometra la lettura corretta (a scelta multipla o vocale).
+- **Che ore sono?**: orologio randomizzato → lettura 時+分 combinata (よじさんじゅっぷん).
+- **Calendario**: data casuale → lettura del giorno; oppure "che giorno è il 3° lunedì?".
+- **Conta gli oggetti**: immagine/elenco di N oggetti di una categoria → scegli numero+contatore giusto (unisce `createCounterQuestion` e la lettura).
+- **Countdown/somme**: piccole operazioni lette in giapponese.
+Base tecnica già pronta: `readNumber`, `generateReading`, `dayReading/hourReading/minuteReading/yenReading`.
 
 ---
 

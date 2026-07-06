@@ -15,6 +15,7 @@
 		if (tipo.startsWith('連体詞')) return '📌';
 		if (tipo.startsWith('接続詞')) return '➕';
 		if (tipo.startsWith('助詞')) return '🪝';
+		if (tipo.startsWith('数詞')) return '🔟';
 		if (tipo.startsWith('助数詞')) return '🔢';
 		if (tipo.startsWith('慣用表現')) return '💬';
 		return '📖';

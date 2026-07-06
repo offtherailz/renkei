@@ -10,6 +10,16 @@
     "parole_tipiche": ["りんご", "卵", "椅子"]
   },
   {
+    "id": "日",
+    "simbolo": "日",
+    "lettura": "にち／か",
+    "significato": { "it": "contatore per i giorni e le date del mese", "en": "counter for days and days of the month" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Serie mista: durata in giorni con にち, ma le date dall'1 al 10 usano letture native irregolari. Restano irregolari anche 14, 20 e 24 (…よっか / はつか). Dal resto è regolare: じゅういちにち (11), にじゅうごにち (25)…", "en": "Mixed series: duration in days uses にち, but dates 1-10 use irregular native readings. Also irregular: 14, 20, 24. Otherwise regular: 11th = じゅういちにち, 25th = にじゅうごにち…" },
+    "letture_irregolari": "ついたち (1)・ふつか (2)・みっか (3)・よっか (4)・いつか (5)・むいか (6)・なのか (7)・ようか (8)・ここのか (9)・とおか (10)・じゅうよっか (14)・はつか (20)・にじゅうよっか (24)",
+    "parole_tipiche": ["三日", "五日", "二十日"]
+  },
+  {
     "id": "人",
     "simbolo": "人",
     "lettura": "にん",
@@ -78,6 +88,15 @@
     "parole_tipiche": ["車", "自転車", "テレビ", "パソコン"]
   },
   {
+    "id": "円",
+    "simbolo": "円",
+    "lettura": "えん",
+    "significato": { "it": "contatore per i soldi (yen)", "en": "counter for money (yen)" },
+    "livello_jlpt": "N5",
+    "note": { "it": "Il suffisso えん è regolare, ma il numero no: attenzione a 300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3000 さんぜん, 8000 はっせん.", "en": "The えん suffix is regular, but the number isn't: watch 300 sanbyaku, 600 roppyaku, 800 happyaku, 3000 sanzen, 8000 hassen." },
+    "letture_irregolari": "さんびゃくえん (300)・ろっぴゃくえん (600)・はっぴゃくえん (800)・さんぜんえん (3000)・はっせんえん (8000)"
+  },
+  {
     "id": "回",
     "simbolo": "回",
     "lettura": "かい",
@@ -114,6 +133,35 @@
     "note": { "it": "何階 (なんがい) = a che piano? 一階 = piano terra (all'occidentale: primo piano).", "en": "何階 (nangai) = which floor? 一階 = ground floor." },
     "letture_irregolari": "いっかい (1)・さんがい (3)・じゅっかい (10)",
     "parole_tipiche": ["建物", "デパート"]
+  },
+  {
+    "id": "時",
+    "simbolo": "時",
+    "lettura": "じ",
+    "significato": { "it": "contatore per le ore (che ora è)", "en": "counter for o'clock (hours of the day)" },
+    "livello_jlpt": "N5",
+    "note": { "it": "何時 (なんじ) = che ore sono? Attenzione a 4, 7, 9: よじ / しちじ / くじ, mai ×よんじ・ななじ・きゅうじ.", "en": "何時 (nanji) = what time? Watch 4, 7, 9: yoji / shichiji / kuji, never ×yonji/nanaji/kyuuji." },
+    "letture_irregolari": "いちじ (1)・よじ (4)・しちじ (7)・くじ (9)・じゅうじ (10)",
+    "parole_tipiche": ["時間"]
+  },
+  {
+    "id": "年",
+    "simbolo": "年",
+    "lettura": "ねん",
+    "significato": { "it": "contatore per gli anni", "en": "counter for years" },
+    "livello_jlpt": "N5",
+    "note": { "it": "何年 (なんねん) = quanti anni / quale anno. Irregolare solo il 4: よねん, non ×よんねん.", "en": "何年 (nannen) = how many years / which year. Only 4 is irregular: yonen, not ×yonnen." },
+    "letture_irregolari": "いちねん (1)・よねん (4)・しちねん (7)・くねん (9)",
+    "parole_tipiche": ["年"]
+  },
+  {
+    "id": "ヶ月",
+    "simbolo": "ヶ月",
+    "lettura": "かげつ",
+    "significato": { "it": "contatore per la durata in mesi", "en": "counter for duration in months" },
+    "livello_jlpt": "N4",
+    "note": { "it": "Quanti mesi dura qualcosa: 三ヶ月 = tre mesi. Diverso da 〜月 (がつ) che indica il mese del calendario (一月 = gennaio).", "en": "How many months long: 三ヶ月 = three months. Different from 〜月 (gatsu) for calendar months (一月 = January)." },
+    "letture_irregolari": "いっかげつ (1)・ろっかげつ (6)・はっかげつ (8)・じゅっかげつ (10)"
   },
   {
     "id": "分",

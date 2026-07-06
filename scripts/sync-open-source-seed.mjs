@@ -8,6 +8,7 @@ import {
   extractXrefs,
   lookupJmdict
 } from "./lib/jmdict.mjs";
+import { classifyNumbersAndCounters } from "./lib/numbers-counters.mjs";
 
 const ROOT = process.cwd();
 const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
@@ -1048,6 +1049,10 @@ async function main() {
   const normalizedWords = enrichWordRelations(withSuruVerbs).sort(
     (a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja")
   );
+  // Numeri → 数詞, giorni/persone → 助数詞, via i sinonimi euristici fasulli.
+  // Dopo enrichWordRelations, così sovrascrive anche eventuali sinonimi generati.
+  const nc = classifyNumbersAndCounters(normalizedWords);
+  console.log(`Numeri/contatori: ${nc.numeri} numerali, ${nc.contatori} contatori ricategorizzati.`);
   const counters = await buildCounters(normalizedWords);
   const now = Date.now();
   const dialogues = JSON.parse(await fs.readFile(CHOUKAI_PATH, "utf8")).map((d) => ({

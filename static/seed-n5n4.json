@@ -6666,7 +6666,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N4",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "億"
       ],
@@ -33241,7 +33241,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [],
       "sinonimi": [
         "零"
@@ -37307,7 +37307,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "一"
       ],
@@ -37352,7 +37352,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "副詞[ふくし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "一"
       ],
@@ -37402,9 +37402,7 @@
         "一",
         "月"
       ],
-      "sinonimi": [
-        "一日::ついたち"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707539,
@@ -37517,7 +37515,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "副詞[ふくし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "一",
         "人"
@@ -37541,7 +37539,8 @@
             "en": "Jim awoke and found himself alone in the room."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "人"
     },
     {
       "id": "一日::いちにち",
@@ -37563,15 +37562,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "副詞[ふくし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "一",
         "日"
       ],
-      "sinonimi": [
-        "今度",
-        "昼間"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707536,
@@ -37590,7 +37586,8 @@
             "en": "My e-mail address will be as follows effective April 1."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "一日::ついたち",
@@ -37614,21 +37611,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "一",
         "日"
       ],
-      "sinonimi": [
-        "一月",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707538,
@@ -37640,7 +37628,8 @@
             "en": "I will start working on July the first."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "一番",
@@ -41603,13 +41592,11 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "九"
       ],
-      "sinonimi": [
-        "九::く"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [
         "急"
@@ -41645,13 +41632,11 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "九"
       ],
-      "sinonimi": [
-        "九::きゅう"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707537,
@@ -41685,7 +41670,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "九"
       ],
@@ -41725,21 +41710,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "九",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707537,
@@ -41758,7 +41734,8 @@
             "en": "The top eight players survived the ninth day of the tournament."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "空",
@@ -42933,15 +42910,14 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "形容詞[けいようし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "五"
       ],
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707537,
-      "tipo_aggettivo_jp": "な形容詞[なけいようし]"
+      "updated_at": 1783296707537
     },
     {
       "id": "五つ",
@@ -42963,7 +42939,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "五"
       ],
@@ -43003,21 +42979,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "五",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707536,
@@ -43036,7 +43003,8 @@
             "en": "Maybe three to five days."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "午後",
@@ -45025,7 +44993,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "三"
       ],
@@ -45063,7 +45031,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "三"
       ],
@@ -45103,21 +45071,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "三",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707540,
@@ -45136,7 +45095,8 @@
             "en": "I met her three days ago."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "傘",
@@ -45466,7 +45426,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "四"
       ],
@@ -45506,7 +45466,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "四"
       ],
@@ -45546,21 +45506,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "四",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "七日",
-        "十日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707540,
@@ -45579,7 +45530,8 @@
             "en": "July 4th is a red-letter day in America."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "始まる",
@@ -46396,7 +46348,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "七"
       ],
@@ -46434,7 +46386,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "七"
       ],
@@ -46474,21 +46426,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "七",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "十日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707539,
@@ -46500,7 +46443,8 @@
             "en": "Thank you very much for your letter of January 7th."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "質問",
@@ -47210,7 +47154,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "十"
       ],
@@ -47288,21 +47232,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "十",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "二十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707538,
@@ -47314,7 +47249,8 @@
             "en": "The meeting is ten days away."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "重い",
@@ -49981,7 +49917,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "千"
       ],
@@ -53950,7 +53886,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "二"
       ],
@@ -53988,7 +53924,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "二"
       ],
@@ -54068,22 +54004,13 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "二",
         "十",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707539,
@@ -54095,7 +54022,8 @@
             "en": "I expect to be back by the 20th."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "二人",
@@ -54117,7 +54045,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "二",
         "人"
@@ -54134,7 +54062,8 @@
             "en": "The two men were released from jail."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "人"
     },
     {
       "id": "二日",
@@ -54158,21 +54087,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "二",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707539,
@@ -54191,7 +54111,8 @@
             "en": "We covered three states in two days."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "肉",
@@ -54546,7 +54467,8 @@
             "en": "January is the first month of the year."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "年"
     },
     {
       "id": "背",
@@ -55065,7 +54987,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "八"
       ],
@@ -55103,7 +55025,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "八"
       ],
@@ -55143,21 +55065,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "八",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707540,
@@ -55169,7 +55082,8 @@
             "en": "School begins on April 8."
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "八百屋",
@@ -55650,7 +55564,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "百"
       ],
@@ -57349,7 +57263,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "副詞[ふくし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "万"
       ],
@@ -59436,7 +59350,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "零"
       ],
@@ -59589,7 +59503,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "六"
       ],
@@ -59627,7 +59541,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "数詞[すうし]",
       "kanji_usati": [
         "六"
       ],
@@ -59667,21 +59581,12 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "助数詞[じょすうし]",
       "kanji_usati": [
         "六",
         "日"
       ],
-      "sinonimi": [
-        "一日::ついたち",
-        "九日",
-        "五日",
-        "三日",
-        "四日",
-        "七日",
-        "十日",
-        "二十日"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783296707540,
@@ -59693,7 +59598,8 @@
             "en": "Would it be possible to set up a meeting with us on April 5 or 6?"
           }
         }
-      ]
+      ],
+      "id_contatore_suggerito": "日"
     },
     {
       "id": "話",
@@ -73907,6 +73813,7 @@
         "en": "一回 = once, 何回も = many times."
       },
       "letture_irregolari": "いっかい (1)・ろっかい (6)・はっかい (8)・じゅっかい (10)",
+      "parole_tipiche": [],
       "updated_at": 1783296707826
     },
     {
@@ -73923,6 +73830,7 @@
         "en": "20 years old is はたち, not ×nijussai (traditionally)."
       },
       "letture_irregolari": "いっさい (1)・はっさい (8)・じゅっさい (10)・はたち (20)",
+      "parole_tipiche": [],
       "updated_at": 1783296707826
     },
     {
@@ -73998,6 +73906,7 @@
         "it": "一番 = il numero uno / il migliore. 何番 = che numero?",
         "en": "一番 = number one / the best. 何番 = what number?"
       },
+      "parole_tipiche": [],
       "updated_at": 1783296707826
     },
     {
@@ -74075,6 +73984,99 @@
         "店"
       ],
       "updated_at": 1783296707826
+    },
+    {
+      "id": "日",
+      "simbolo": "日",
+      "lettura": "にち／か",
+      "significato": {
+        "it": "contatore per i giorni e le date del mese",
+        "en": "counter for days and days of the month"
+      },
+      "livello_jlpt": "N5",
+      "note": {
+        "it": "Serie mista: durata in giorni con にち, ma le date dall'1 al 10 usano letture native irregolari. Restano irregolari anche 14, 20 e 24 (…よっか / はつか). Dal resto è regolare: じゅういちにち (11), にじゅうごにち (25)…",
+        "en": "Mixed series: duration in days uses にち, but dates 1-10 use irregular native readings. Also irregular: 14, 20, 24. Otherwise regular: 11th = じゅういちにち, 25th = にじゅうごにち…"
+      },
+      "letture_irregolari": "ついたち (1)・ふつか (2)・みっか (3)・よっか (4)・いつか (5)・むいか (6)・なのか (7)・ようか (8)・ここのか (9)・とおか (10)・じゅうよっか (14)・はつか (20)・にじゅうよっか (24)",
+      "parole_tipiche": [
+        "三日",
+        "五日",
+        "二十日"
+      ],
+      "updated_at": 1783343193772
+    },
+    {
+      "id": "時",
+      "simbolo": "時",
+      "lettura": "じ",
+      "significato": {
+        "it": "contatore per le ore (che ora è)",
+        "en": "counter for o'clock (hours of the day)"
+      },
+      "livello_jlpt": "N5",
+      "note": {
+        "it": "何時 (なんじ) = che ore sono? Attenzione a 4, 7, 9: よじ / しちじ / くじ, mai ×よんじ・ななじ・きゅうじ.",
+        "en": "何時 (nanji) = what time? Watch 4, 7, 9: yoji / shichiji / kuji, never ×yonji/nanaji/kyuuji."
+      },
+      "letture_irregolari": "いちじ (1)・よじ (4)・しちじ (7)・くじ (9)・じゅうじ (10)",
+      "parole_tipiche": [
+        "時間"
+      ],
+      "updated_at": 1783343327432
+    },
+    {
+      "id": "年",
+      "simbolo": "年",
+      "lettura": "ねん",
+      "significato": {
+        "it": "contatore per gli anni",
+        "en": "counter for years"
+      },
+      "livello_jlpt": "N5",
+      "note": {
+        "it": "何年 (なんねん) = quanti anni / quale anno. Irregolare solo il 4: よねん, non ×よんねん.",
+        "en": "何年 (nannen) = how many years / which year. Only 4 is irregular: yonen, not ×yonnen."
+      },
+      "letture_irregolari": "いちねん (1)・よねん (4)・しちねん (7)・くねん (9)",
+      "parole_tipiche": [
+        "年"
+      ],
+      "updated_at": 1783343327432
+    },
+    {
+      "id": "ヶ月",
+      "simbolo": "ヶ月",
+      "lettura": "かげつ",
+      "significato": {
+        "it": "contatore per la durata in mesi",
+        "en": "counter for duration in months"
+      },
+      "livello_jlpt": "N4",
+      "note": {
+        "it": "Quanti mesi dura qualcosa: 三ヶ月 = tre mesi. Diverso da 〜月 (がつ) che indica il mese del calendario (一月 = gennaio).",
+        "en": "How many months long: 三ヶ月 = three months. Different from 〜月 (gatsu) for calendar months (一月 = January)."
+      },
+      "letture_irregolari": "いっかげつ (1)・ろっかげつ (6)・はっかげつ (8)・じゅっかげつ (10)",
+      "parole_tipiche": [],
+      "updated_at": 1783343327432
+    },
+    {
+      "id": "円",
+      "simbolo": "円",
+      "lettura": "えん",
+      "significato": {
+        "it": "contatore per i soldi (yen)",
+        "en": "counter for money (yen)"
+      },
+      "livello_jlpt": "N5",
+      "note": {
+        "it": "Il suffisso えん è regolare, ma il numero no: attenzione a 300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3000 さんぜん, 8000 はっせん.",
+        "en": "The えん suffix is regular, but the number isn't: watch 300 sanbyaku, 600 roppyaku, 800 happyaku, 3000 sanzen, 8000 hassen."
+      },
+      "letture_irregolari": "さんびゃくえん (300)・ろっぴゃくえん (600)・はっぴゃくえん (800)・さんぜんえん (3000)・はっせんえん (8000)",
+      "parole_tipiche": [],
+      "updated_at": 1783343554268
     }
   ],
   "dialogues": [

@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
+	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import {
 		createFlashcardRecognitionQuestion,
@@ -11,6 +11,7 @@
 		createMultipleChoiceQuestion,
 		createConjugationQuizQuestion,
 		createCounterQuestion,
+		createCounterDrillQuestion,
 		createTransitivityPairQuestion,
 		createGrammarQuestion,
 		shuffle
@@ -28,6 +29,7 @@
 	let word = $state<Word | null>(null);
 	let kanjiChar = $state<string | null>(null);
 	let grammarMode = $state(false);
+	let counterMode = $state(false);
 	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
@@ -41,7 +43,7 @@
 	async function build(): Promise<void> {
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
-		word = null; kanjiChar = null; grammarMode = false;
+		word = null; kanjiChar = null; grammarMode = false; counterMode = false;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -68,6 +70,18 @@
 					if (q.mode === 'cloze' || q.mode === 'reading-choice') qs.push(q);
 				}
 				queue = qs;
+			}
+			loading = false;
+			return;
+		}
+
+		// Contatore: drill sulle letture irregolari (N+contatore) + uso.
+		if (kind === 'counter') {
+			const c = (counters as Counter[]).find((x) => x.id === rawId);
+			if (c) {
+				counterMode = true;
+				title = `${c.simbolo}（${c.lettura}）`;
+				queue = buildCounterQuestions(c, counters as Counter[]);
 			}
 			loading = false;
 			return;
@@ -102,6 +116,40 @@
 		}
 
 		loading = false;
+	}
+
+	// Drill contatore: più letture N+contatore (distrattori = le altre letture
+	// irregolari dello stesso contatore) + una domanda "cosa conta?".
+	function buildCounterQuestions(c: Counter, counters: Counter[]): QuizQuestion[] {
+		const qs: QuizQuestion[] = [];
+		const seen = new Set<string>();
+		for (let i = 0; i < 12 && qs.length < 6; i += 1) {
+			const q = createCounterDrillQuestion(c);
+			if (q && !seen.has(q.prompt)) { seen.add(q.prompt); qs.push(q); }
+		}
+		const usage = counterMeaningQuestion(c, counters);
+		if (usage) qs.push(usage);
+		return shuffle(qs);
+	}
+
+	// "Cosa conta 日?" — opzioni = significati di altri contatori.
+	function counterMeaningQuestion(c: Counter, counters: Counter[]): QuizQuestion | null {
+		const correct = pickLocalizedText(c.significato, locale);
+		const pool = counters
+			.filter((x) => x.id !== c.id)
+			.map((x) => pickLocalizedText(x.significato, locale))
+			.filter((m) => m && m !== correct);
+		const distractors = shuffle([...new Set(pool)]).slice(0, 3);
+		if (distractors.length < 2) return null;
+		return {
+			mode: 'flashcard-recognition',
+			wordId: `counter:${c.id}`,
+			prompt: `Cosa conta ${c.simbolo}（${c.lettura}）?`,
+			promptLanguage: locale,
+			choices: shuffle([correct, ...distractors]),
+			correctAnswer: correct,
+			warningMultipleDefinitions: false
+		};
 	}
 
 	function buildWordQuestions(
@@ -222,7 +270,10 @@
 		score = { ok: score.ok + (choice === correctOf(current) ? 1 : 0), tot: score.tot + 1 };
 		// per coniugazione/transitività leggi la forma corretta, non la parola base
 		const m = current.mode;
-		if (m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-recognition' || m === 'flashcard-reading-recognition') {
+		if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
+			speakSentenceJapanese(correctOf(current));
+		} else if (m === 'flashcard-recognition' && !counterMode) {
+			// in modalità contatore la flashcard chiede il significato (italiano): niente TTS
 			speakSentenceJapanese(correctOf(current));
 		} else if (word) {
 			speakWordReading(word);
@@ -243,13 +294,13 @@
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
-	{:else if !word && !kanjiChar && !grammarMode}
+	{:else if !word && !kanjiChar && !grammarMode && !counterMode}
 		<p class="muted">Elemento non trovato.</p>
 	{:else}
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
 			</p>
 		</header>
 

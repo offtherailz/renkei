@@ -73,6 +73,9 @@
 						{/each}
 					</div>
 				{/if}
+				{#if c.letture_irregolari}
+					<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`counter:${c.id}`)}">💪 Esercitati con le letture</a>
+				{/if}
 			</article>
 		{/each}
 	{/if}
@@ -165,6 +168,21 @@
 	}
 
 	.counter-word-chip:hover { border-color: var(--brand); }
+
+	.drill-link {
+		justify-self: start;
+		display: inline-block;
+		background: #eff6ff;
+		border: 1px solid #bfdbfe;
+		border-radius: 10px;
+		padding: 6px 12px;
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--brand);
+		text-decoration: none;
+	}
+
+	.drill-link:hover { background: #dbeafe; }
 
 	.muted-text { color: var(--muted); }
 </style>
