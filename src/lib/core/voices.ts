@@ -7,8 +7,8 @@ import type { SpeakOptions } from './tts';
 
 export type Gender = 'maschile' | 'femminile';
 
-const FEMALE_HINTS = ['female', 'kyoko', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'o-ren', 'women', 'josei'];
-const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'daichi', 'naoki', 'takeru', 'dansei'];
+const FEMALE_HINTS = ['female', 'kyoko', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'o-ren', 'women', 'josei', '女'];
+const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'keita', 'daichi', 'naoki', 'takeru', 'takumi', 'kenji', 'shinji', 'ren', 'dansei', '男'];
 
 function jaVoices(): SpeechSynthesisVoice[] {
 	if (typeof window === 'undefined' || !window.speechSynthesis) return [];
@@ -30,17 +30,23 @@ export function opposite(g: Gender): Gender {
 	return g === 'maschile' ? 'femminile' : 'maschile';
 }
 
-// Parametri di voce per un genere.
-// - femminile: se c'è una voce femminile la usiamo a tono naturale; altrimenti
-//   lasciamo la voce di default (di solito è già femminile e "bella").
-// - maschile: voce maschile se c'è (tono leggermente basso); altrimenti la
-//   default abbassata parecchio per renderla più profonda.
+// Parametri di voce per un genere. Il pitch-shift del Web Speech distorce la
+// voce (suono "robotico"), quindi lo usiamo il meno possibile: se troviamo una
+// voce vera del genere giusto la lasciamo al naturale.
+// - femminile: voce femminile al naturale; altrimenti la default (di solito già
+//   femminile) con un ritocco minimo.
+// - maschile: voce maschile al naturale se c'è; altrimenti, se ci sono più voci
+//   giapponesi, ne prendiamo una diversa dalla default con un abbassamento lieve;
+//   in ultima istanza abbassiamo di poco la default (naturale > profondo).
 export function voiceParams(gender: Gender): SpeakOptions {
 	const v = findGenderVoice(gender);
 	if (gender === 'femminile') {
-		return v ? { voice: v, pitch: 1.0, rate: 1 } : { voice: null, pitch: 1.1, rate: 1 };
+		return v ? { voice: v, pitch: 1.0, rate: 1 } : { voice: null, pitch: 1.06, rate: 1 };
 	}
-	return v ? { voice: v, pitch: 0.85, rate: 0.98 } : { voice: null, pitch: 0.6, rate: 0.94 };
+	if (v) return { voice: v, pitch: 1.0, rate: 0.98 };
+	const voices = jaVoices();
+	if (voices.length > 1) return { voice: voices[voices.length - 1]!, pitch: 0.92, rate: 0.97 };
+	return { voice: null, pitch: 0.82, rate: 0.96 };
 }
 
 // Alcuni browser popolano le voci in modo asincrono: forza un caricamento.
