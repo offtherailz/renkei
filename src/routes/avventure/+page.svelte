@@ -10,6 +10,13 @@
 			title: 'Kaimono · fare la spesa',
 			desc: 'Ascolta la lista, esci di casa, ordina al konbini, paga e torna a casa.',
 			ready: true
+		},
+		{
+			href: `${base}/ristorante`,
+			icon: '🍽️',
+			title: 'Al ristorante',
+			desc: 'Scegli il locale, di\' in quanti siete, ordina dal menu, paga il conto.',
+			ready: true
 		}
 	];
 </script>
