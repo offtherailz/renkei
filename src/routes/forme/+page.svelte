@@ -118,6 +118,18 @@
 					{/each}
 				</div>
 			{/if}
+			{#if form.contractions}
+				<div class="contractions">
+					{#each form.contractions as c}
+						<div class="contraction-row">
+							<span class="contraction-short"><FuriganaText text={c.short} /></span>
+							<span class="contraction-badge">contrazione di</span>
+							<span class="contraction-full"><FuriganaText text={c.full} /></span>
+							{#if c.note}<span class="contraction-note">{c.note}</span>{/if}
+						</div>
+					{/each}
+				</div>
+			{/if}
 			{#if form.related.length > 0}
 				<div class="form-related">
 					<span class="related-label">Vedi anche:</span>
@@ -125,6 +137,9 @@
 						<a class="related-chip" href="#{slug}">{formTitle(slug)}</a>
 					{/each}
 				</div>
+			{/if}
+			{#if form.consolidaId}
+				<a class="words-toggle drill-link" href="{base}/consolida/{encodeURIComponent(`grammar:${form.consolidaId}`)}">💪 Esercitati con questa forma</a>
 			{/if}
 			{#if form.slug === 'josuushi'}
 				<a class="words-toggle" href="{base}/contatori">→ Vai al catalogo dei contatori</a>
@@ -250,6 +265,52 @@
 		cursor: pointer;
 		font-size: 0.9rem;
 		padding: 0 4px;
+	}
+
+	.contractions {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin: 4px 0 2px;
+	}
+
+	.contraction-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		font-size: 0.9rem;
+	}
+
+	.contraction-short {
+		font-weight: 700;
+		color: var(--ink);
+	}
+
+	.contraction-badge {
+		font-size: 0.68rem;
+		font-weight: 600;
+		color: #92400e;
+		background: #fef3c7;
+		border-radius: 999px;
+		padding: 1px 8px;
+		white-space: nowrap;
+	}
+
+	.contraction-full { color: var(--brand); font-weight: 600; }
+
+	.contraction-note {
+		font-size: 0.72rem;
+		color: var(--muted);
+	}
+
+	.drill-link {
+		display: inline-block;
+		margin-top: 4px;
+		background: #eff6ff;
+		border: 1px solid #bfdbfe;
+		border-radius: 10px;
+		padding: 6px 12px;
 	}
 
 	.form-related {

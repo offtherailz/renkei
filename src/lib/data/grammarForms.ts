@@ -6,6 +6,13 @@ export interface GrammarFormExample {
 	it: string;
 }
 
+// Coppia contrazione ↔ forma intera, mostrata con badge "contrazione di…".
+export interface GrammarContraction {
+	short: string; // forma contratta (colloquiale)
+	full: string; // forma intera (scritto/esame)
+	note?: string;
+}
+
 export interface GrammarForm {
 	slug: string;
 	label: string; // con furigana, come appare nei badge
@@ -15,6 +22,10 @@ export interface GrammarForm {
 	explanation: string[];
 	examples: GrammarFormExample[];
 	related: string[];
+	// Solo per la scheda delle contrazioni: mappa contratta → forma intera.
+	contractions?: GrammarContraction[];
+	// id di una voce grammar del seed per lanciare un drill Consolida mirato.
+	consolidaId?: string;
 }
 
 export const GRAMMAR_FORMS: GrammarForm[] = [
@@ -281,7 +292,142 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '宿題[しゅくだい]をやっちゃった。', it: 'Ho finito i compiti (= やってしまった).' },
 			{ jp: 'もう行[い]かなきゃ。', it: 'Devo andare ormai (= 行かなければならない).' }
 		],
-		related: ['doushi']
+		related: ['te-shimau', 'te-oku', 'te-iru'],
+		contractions: [
+			{ short: '〜ちゃう / 〜じゃう', full: '〜てしまう / 〜でしまう', note: 'completamento o rammarico' },
+			{ short: '〜なきゃ', full: '〜なければ(ならない)', note: 'dovere / obbligo' },
+			{ short: '〜なくちゃ', full: '〜なくては(いけない)', note: 'dovere / obbligo' },
+			{ short: '〜とく', full: '〜ておく', note: 'fare in anticipo' },
+			{ short: '〜てる', full: '〜ている', note: 'azione in corso / stato' },
+			{ short: '〜てく', full: '〜ていく', note: 'andare a fare / continuare' },
+			{ short: '〜って', full: '〜という', note: 'citazione / "chiamato"' }
+		]
+	},
+	{
+		slug: 'to-omou',
+		label: '〜と思[おも]う',
+		icon: '💭',
+		title: 'Forma composta: 〜と思う',
+		summary: 'Esprimere una propria opinione o supposizione: "penso che…".',
+		explanation: [
+			'Si attacca la forma piana (辞書形/ない形/passato) + と思う: 明日は雨だと思う = "penso che domani pioverà".',
+			'Con un nome o un な-aggettivo serve だ prima di と: 便利だと思う = "penso sia comodo"; 学生だと思う = "penso sia uno studente".',
+			'Per un\'intenzione si usa la forma volitiva + と思う: 行こうと思う = "penso di andarci" (vedi 意向形).'
+		],
+		examples: [
+			{ jp: 'この本[ほん]は面白[おもしろ]いと思[おも]います。', it: 'Penso che questo libro sia interessante.' },
+			{ jp: '明日[あした]は晴[は]れると思[おも]う。', it: 'Penso che domani sarà sereno.' }
+		],
+		related: ['doushi', 'you-volitiva'],
+		consolidaId: 'grammar-api-N4-56'
+	},
+	{
+		slug: 'te-miru',
+		label: '〜てみる',
+		icon: '🧪',
+		title: 'Forma composta: 〜てみる',
+		summary: 'Provare a fare qualcosa per vedere com\'è: "provare a…".',
+		explanation: [
+			'Forma て del verbo + みる (da 見る, ma qui in hiragana): 食べてみる = "provo a mangiare (per vedere che gusto ha)".',
+			'みる si coniuga come un normale verbo ichidan: 食べてみます, 食べてみた, 食べてみたい.',
+			'Sfumatura: si tenta qualcosa senza sapere il risultato. 着てみる = "provo a indossarlo".'
+		],
+		examples: [
+			{ jp: '新[あたら]しいレストランに行[い]ってみます。', it: 'Provo ad andare al ristorante nuovo.' },
+			{ jp: 'この服[ふく]を着[き]てみてもいいですか。', it: 'Posso provare a indossare questo vestito?' }
+		],
+		related: ['doushi'],
+		consolidaId: 'grammar-api-N4-65'
+	},
+	{
+		slug: 'te-oku',
+		label: '〜ておく',
+		icon: '📦',
+		title: 'Forma composta: 〜ておく',
+		summary: 'Fare qualcosa in anticipo, in preparazione: "fare per prepararsi".',
+		explanation: [
+			'Forma て + おく (da 置く): 予約しておく = "prenoto in anticipo (e lascio pronto)".',
+			'Indica un\'azione fatta prima, di proposito, per essere pronti dopo: 買っておく = "compro in anticipo".',
+			'Nel parlato si contrae in 〜とく: 買っておく → 買っとく (vedi 縮約形).'
+		],
+		examples: [
+			{ jp: '旅行[りょこう]の前[まえ]にホテルを予約[よやく]しておきます。', it: 'Prima del viaggio prenoto l\'hotel (in anticipo).' },
+			{ jp: 'ビールを冷[ひ]やしておいた。', it: 'Ho messo la birra a rinfrescare (in anticipo).' }
+		],
+		related: ['doushi', 'contrazioni'],
+		consolidaId: 'grammar-api-N4-20'
+	},
+	{
+		slug: 'te-shimau',
+		label: '〜てしまう',
+		icon: '💥',
+		title: 'Forma composta: 〜てしまう',
+		summary: 'Completare un\'azione, spesso con rammarico: "finire per…".',
+		explanation: [
+			'Forma て + しまう: 全部[ぜんぶ]食べてしまった = "ho finito per mangiare tutto".',
+			'Due sfumature: completamento ("l\'ho fatto del tutto") oppure rammarico/involontarietà ("ahimè, è successo").',
+			'Nel parlato si contrae in 〜ちゃう / 〜じゃう: 食べてしまう → 食べちゃう (vedi 縮約形).'
+		],
+		examples: [
+			{ jp: '財布[さいふ]を忘[わす]れてしまった。', it: 'Ho dimenticato il portafoglio (purtroppo).' },
+			{ jp: '宿題[しゅくだい]をやってしまいました。', it: 'Ho finito (completamente) i compiti.' }
+		],
+		related: ['doushi', 'contrazioni'],
+		consolidaId: 'grammar-api-N4-21'
+	},
+	{
+		slug: 'te-iru',
+		label: '〜ている',
+		icon: '🔄',
+		title: 'Forma composta: 〜ている',
+		summary: 'Azione in corso o stato risultante: "sto facendo / è in uno stato".',
+		explanation: [
+			'Forma て + いる: 食べている = "sto mangiando". Con alcuni verbi indica lo stato: 結婚している = "sono sposato", 知っている = "lo so".',
+			'いる si coniuga come ichidan: 食べています, 食べていた, 食べていない.',
+			'Nel parlato la い cade: 食べている → 食べてる (vedi 縮約形).'
+		],
+		examples: [
+			{ jp: '今[いま]、音楽[おんがく]を聞[き]いています。', it: 'Adesso sto ascoltando musica.' },
+			{ jp: '兄[あに]は東京[とうきょう]に住[す]んでいます。', it: 'Mio fratello vive a Tokyo.' }
+		],
+		related: ['doushi', 'contrazioni'],
+		consolidaId: 'grammar-api-N5-66'
+	},
+	{
+		slug: 'sou-apparenza',
+		label: '〜そう',
+		icon: '👀',
+		title: 'Forma composta: 〜そう (apparenza)',
+		summary: 'Come appare qualcosa a prima vista: "sembra…".',
+		explanation: [
+			'Radice del verbo/aggettivo + そう per dire l\'impressione a occhio: おいしそう = "sembra buono", 雨[あめ]が降[ふ]りそう = "sembra che stia per piovere".',
+			'Con gli い-aggettivi cade la -い: 高い → 高そう. Con い-aggettivo いい l\'eccezione è よさそう.',
+			'Attenzione: 〜そうだ come "sentito dire" (dopo forma piana, 雨だそうだ = "dicono che piove") è un uso diverso da questo.'
+		],
+		examples: [
+			{ jp: 'このケーキはおいしそうです。', it: 'Questa torta sembra buona.' },
+			{ jp: '空[そら]を見[み]ると、雨[あめ]が降[ふ]りそうだ。', it: 'A guardare il cielo, sembra che pioverà.' }
+		],
+		related: ['keiyoushi', 'doushi'],
+		consolidaId: 'grammar-api-N4-54'
+	},
+	{
+		slug: 'you-volitiva',
+		label: '意向形[いこうけい] 〜よう',
+		icon: '🙌',
+		title: 'Forma volitiva: 〜よう / 〜おう',
+		summary: 'Proporre o esprimere l\'intenzione di fare qualcosa: "facciamo… / proviamo a…".',
+		explanation: [
+			'È la versione piana di 〜ましょう. Ichidan: togli る + よう (食べる → 食べよう). Godan: cambia -u in -ō (行く → 行こう, 飲む → 飲もう). する → しよう, 来る → 来よう.',
+			'Da sola propone o incita: 行こう! = "andiamo!".',
+			'Con 〜と思う esprime un proposito personale: 日本語[にほんご]を勉強[べんきょう]しようと思う = "penso di mettermi a studiare giapponese".'
+		],
+		examples: [
+			{ jp: '一緒[いっしょ]に帰[かえ]ろう。', it: 'Torniamo insieme.' },
+			{ jp: '週末[しゅうまつ]は早[はや]く起[お]きようと思[おも]う。', it: 'Nel weekend penso di alzarmi presto.' }
+		],
+		related: ['doushi', 'to-omou'],
+		consolidaId: 'grammar-api-N4-14'
 	}
 ];
 
