@@ -23,20 +23,25 @@
 		return opposite(userGender());
 	}
 
-	type Scene = 'pick' | 'seats' | 'menu' | 'order' | 'pay' | 'done';
+	type Scene = 'pick' | 'seats' | 'wait' | 'seat-type' | 'smoking' | 'menu' | 'order' | 'pay' | 'done';
 
 	let counters = $state<Counter[]>([]);
 	let scene = $state<Scene>('pick');
 	let rest = $state<Restaurant | null>(null);
 	let errors = $state(0);
 
-	// coperti
+	// coperti + preferenze
 	let seats = $state(1);
 	let seatsPicked = $state<string | null>(null);
 	let seatsChoices = $state<string[]>([]);
 	let seatsCorrect = $state('');
+	let wantWait = $state(false);
+	let wantSmoking = $state(false);
+	let seatType = $state<string | null>(null);
+	let smokingPref = $state<string | null>(null);
+	let staffLine = $state('');
 
-	// ordine (carrello libero dal menu)
+	// ordine
 	let cart = $state<Record<string, number>>({});
 	let queue = $state<{ dish: Dish; qty: number }[]>([]);
 	let orderIdx = $state(0);
@@ -90,29 +95,70 @@
 		payChecked = false;
 		picked = null;
 		seatsPicked = null;
+		seatType = null;
+		smokingPref = null;
 		scene = 'pick';
 	}
 
 	function pickRest(r: Restaurant): void {
 		rest = r;
-		say('いらっしゃいませ！', staff());
-		// coperti: 1-4 persone
+		say('いらっしゃいませ！何名様ですか？', staff());
 		seats = 1 + Math.floor(Math.random() * 4);
 		seatsCorrect = counterReading('人', seats);
 		const others = [1, 2, 3, 4].filter((n) => n !== seats).map((n) => counterReading('人', n));
 		seatsChoices = shuffle([seatsCorrect, ...shuffle(others).slice(0, 3)]);
 		seatsPicked = null;
+		wantWait = Math.random() < 0.35;
+		wantSmoking = Math.random() < 0.5;
 		scene = 'seats';
 	}
 
 	function pickSeats(choice: string): void {
 		if (seatsPicked !== null) return;
 		seatsPicked = choice;
-		if (choice !== seatsCorrect) { errors += 1; }
+		if (choice !== seatsCorrect) errors += 1;
 		else speakUser(choice + 'です');
+		staffLine = `${seatsCorrect}様ですね、かしこまりました。`;
+		say(staffLine, staff());
 	}
-	function toMenu(): void {
+	function afterSeats(): void {
+		if (wantWait) enterWait();
+		else enterSeatType();
+	}
+	function enterWait(): void {
+		scene = 'wait';
+		staffLine = '申し訳ございません、ただいま満席です。少々お待ちください。';
+		say(staffLine, staff());
+	}
+	function enterSeatType(): void {
+		scene = 'seat-type';
+		staffLine = 'お席はカウンターとテーブル、どちらになさいますか？';
+		say(staffLine, staff());
+	}
+	function pickSeatType(choice: string): void {
+		if (seatType !== null) return;
+		seatType = choice;
+		speakUser(choice + 'で');
+		say('かしこまりました。', staff());
+	}
+	function afterSeatType(): void {
+		if (wantSmoking) enterSmoking();
+		else enterMenu();
+	}
+	function enterSmoking(): void {
+		scene = 'smoking';
+		staffLine = '禁煙席と喫煙席、どちらがよろしいですか？';
+		say(staffLine, staff());
+	}
+	function pickSmoking(choice: string): void {
+		if (smokingPref !== null) return;
+		smokingPref = choice;
+		speakUser(choice + 'で');
+		say('こちらへどうぞ。', staff());
+	}
+	function enterMenu(): void {
 		scene = 'menu';
+		say('こちらメニューです。ごゆっくりどうぞ。', staff());
 	}
 
 	// ── Menu: scegli liberamente cosa ordinare ──
@@ -170,12 +216,14 @@
 		if (orderIdx < queue.length - 1) {
 			orderIdx += 1;
 			setOrderItem();
+		} else if (cartTotal() === 0) {
+			toDone();
 		} else {
 			scene = 'pay';
 			tendered = 0;
 			stack = [];
 			payChecked = false;
-			say(`おあいそは${readNumber(cartTotal())}えんです`, staff());
+			say(`お会計は${readNumber(cartTotal())}円です`, staff());
 		}
 	}
 
@@ -201,7 +249,7 @@
 			payChecked = true;
 			say('ありがとうございました！', staff());
 		} else {
-			say(`すみません、${readNumber(cartTotal())}えんです。`, staff());
+			say(`すみません、${readNumber(cartTotal())}円です。`, staff());
 			errors += 1;
 			resetTender();
 		}
@@ -230,7 +278,7 @@
 		<article class="scene">
 			<p class="who">🧑‍🍳 {rest.nome}</p>
 			<p class="bubble">いらっしゃいませ！何名様ですか？</p>
-			<div class="seats-people">{'🧑'.repeat(seats)}</div>
+			<div class="people">{'🧑'.repeat(seats)}</div>
 			<p class="hint">Siete in {seats}: come lo dici?</p>
 			<div class="choices">
 				{#each seatsChoices as c (c)}
@@ -238,7 +286,44 @@
 				{/each}
 			</div>
 			{#if seatsPicked !== null}
-				<button class="proceed" onclick={toMenu}>Al tavolo → guarda il menu</button>
+				<p class="bubble sm">🧑‍🍳「{staffLine}」</p>
+				<button class="proceed" onclick={afterSeats}>→</button>
+			{/if}
+		</article>
+	{:else if scene === 'wait'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Cameriere</p>
+			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<p class="bubble big">{staffLine}</p>
+			<p class="hint">È pieno: devi aspettare un attimo (満席)</p>
+			<button class="proceed" onclick={enterSeatType}>待ちます →</button>
+		</article>
+	{:else if scene === 'seat-type'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Cameriere</p>
+			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<p class="bubble">{staffLine}</p>
+			<p class="hint">Quale posto preferisci?</p>
+			<div class="choices">
+				<button class="choice" class:right={seatType === 'カウンター席'} disabled={seatType !== null} onclick={() => pickSeatType('カウンター席')}>🍶 カウンター席<small>al banco</small></button>
+				<button class="choice" class:right={seatType === 'テーブル席'} disabled={seatType !== null} onclick={() => pickSeatType('テーブル席')}>🪑 テーブル席<small>al tavolo</small></button>
+			</div>
+			{#if seatType !== null}
+				<button class="proceed" onclick={afterSeatType}>→</button>
+			{/if}
+		</article>
+	{:else if scene === 'smoking'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Cameriere</p>
+			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<p class="bubble">{staffLine}</p>
+			<p class="hint">Fumatori o no?</p>
+			<div class="choices">
+				<button class="choice" class:right={smokingPref === '禁煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('禁煙席')}>🚭 禁煙席<small>non fumatori</small></button>
+				<button class="choice" class:right={smokingPref === '喫煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('喫煙席')}>🚬 喫煙席<small>fumatori</small></button>
+			</div>
+			{#if smokingPref !== null}
+				<button class="proceed" onclick={enterMenu}>→</button>
 			{/if}
 		</article>
 	{:else if scene === 'menu' && rest}
@@ -250,7 +335,7 @@
 					<li>
 						<span class="d-emoji">{d.emoji}</span>
 						<span class="d-name">{d.nome}<small>（{d.lettura}）</small></span>
-						<span class="d-price">¥{d.prezzo}</span>
+						<span class="d-price">{d.prezzo === 0 ? '無料' : `¥${d.prezzo}`}</span>
 						<span class="d-ctrl">
 							<button class="step" onclick={() => removeDish(d.id)} disabled={have === 0}>−</button>
 							<span class="d-have">{have}</span>
@@ -283,7 +368,7 @@
 	{:else if scene === 'pay' && rest}
 		<article class="scene">
 			<p class="who">💴 Il conto</p>
-			<button class="replay" onclick={() => say(`おあいそは${readNumber(cartTotal())}えんです`, staff())}>🔊 Riascolta il totale</button>
+			<button class="replay" onclick={() => say(`お会計は${readNumber(cartTotal())}円です`, staff())}>🔊 Riascolta il totale</button>
 			<div class="till"><span class="till-label">Stai porgendo</span><span class="till-amount">¥{tendered.toLocaleString('en-US')}</span></div>
 			<div class="denoms">
 				{#each YEN_DENOMINATIONS as d}
@@ -333,9 +418,11 @@
 	.who { margin: 0; font-size: 0.9rem; font-weight: 700; }
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
+	.bubble.big { font-size: 1.2rem; }
+	.bubble.sm { font-size: 0.95rem; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
-	.seats-people { text-align: center; font-size: 2rem; }
+	.people { text-align: center; font-size: 2rem; }
 
 	.menu { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.menu li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
@@ -353,7 +440,8 @@
 	.ref-item.current { opacity: 1; border-color: var(--brand); font-weight: 700; }
 
 	.choices { display: grid; gap: 8px; }
-	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.2rem; text-align: center; cursor: pointer; }
+	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.2rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+	.choice small { font-size: 0.7rem; color: var(--muted); font-weight: 400; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success, #16a34a); background: rgba(52,201,138,0.16); }
