@@ -121,6 +121,10 @@
 			<span class="quick-icon">📖</span>
 			<span>Forme grammaticali</span>
 		</a>
+		<a href="{base}/forme-composte" class="quick-card">
+			<span class="quick-icon">🧩</span>
+			<span>Forme composte</span>
+		</a>
 		<a href="{base}/particelle" class="quick-card">
 			<span class="quick-icon">🪝</span>
 			<span>Particelle</span>

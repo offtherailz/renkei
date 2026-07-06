@@ -16,6 +16,12 @@
 	let history = $state<StudySessionRecord[]>([]);
 	let week = $state<DailyAggregate[]>([]);
 	let skills = $state<SkillMastery | null>(null);
+	type Acc = { answers: number; correct: number };
+	let skillAcc = $state<Record<'words' | 'kanji' | 'grammar', Acc>>({
+		words: { answers: 0, correct: 0 },
+		kanji: { answers: 0, correct: 0 },
+		grammar: { answers: 0, correct: 0 }
+	});
 
 	const SKILL_META = [
 		{ key: 'words', label: 'Parole', icon: '📦' },
@@ -71,6 +77,26 @@
 		}
 		week = [...map.values()].sort((a, b) => a.day.localeCompare(b.day));
 		skills = await loadSkillMastery();
+
+		// Accuracy per skill: somma su tutte le sessioni che hanno il dettaglio.
+		const acc: Record<'words' | 'kanji' | 'grammar', Acc> = {
+			words: { answers: 0, correct: 0 },
+			kanji: { answers: 0, correct: 0 },
+			grammar: { answers: 0, correct: 0 }
+		};
+		for (const row of history) {
+			if (!row.answersByType) continue;
+			for (const k of ['words', 'kanji', 'grammar'] as const) {
+				acc[k].answers += row.answersByType[k]?.answers ?? 0;
+				acc[k].correct += row.answersByType[k]?.correct ?? 0;
+			}
+		}
+		skillAcc = acc;
+	}
+
+	function accPct(k: 'words' | 'kanji' | 'grammar'): number | null {
+		const a = skillAcc[k];
+		return a.answers > 0 ? Math.round((a.correct / a.answers) * 100) : null;
 	}
 
 	onMount(loadStats);
@@ -158,7 +184,7 @@
 					<div class="skill-head">
 						<span class="skill-label">{meta.label}</span>
 						<span class="skill-meta">
-							{s.total} in studio{#if s.due > 0} · <span class="skill-due">{s.due} da ripassare</span>{/if}
+							{s.total} in studio{#if s.due > 0} · <span class="skill-due">{s.due} da ripassare</span>{/if}{#if accPct(meta.key) !== null} · accuracy <span class="skill-acc">{accPct(meta.key)}%</span>{/if}
 						</span>
 					</div>
 					<div class="skill-bar-wrap">
@@ -169,7 +195,7 @@
 			</div>
 		{/each}
 	</div>
-	<p class="muted-text skill-note">Foto dello stato attuale (SRS), non l'andamento nel tempo.</p>
+	<p class="muted-text skill-note">Consolidamento = foto dello stato SRS. Accuracy = risposte corrette su totale, cumulata dalle sessioni.</p>
 </section>
 {/if}
 
@@ -313,6 +339,7 @@
 	.skill-label { font-size: 0.85rem; font-weight: 600; }
 	.skill-meta { font-size: 0.68rem; color: var(--muted); }
 	.skill-due { color: var(--brand); font-weight: 600; }
+	.skill-acc { color: var(--success, #16a34a); font-weight: 700; }
 
 	.skill-bar-wrap {
 		height: 6px;

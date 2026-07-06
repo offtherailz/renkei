@@ -2,7 +2,11 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
-	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
+	import { GRAMMAR_FORMS, formPage } from '$lib/data/grammarForms';
+
+	// In /forme stanno le parti del discorso + le contrazioni; le forme
+	// composte hanno una pagina dedicata (/forme-composte).
+	const forms = GRAMMAR_FORMS.filter((f) => !f.composed);
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
@@ -77,8 +81,10 @@
 	<h1 class="page-title">Forme grammaticali</h1>
 	<p class="page-sub">Le categorie che vedi nei badge, spiegate. Tocca un badge in qualsiasi punto dell'app per arrivare qui.</p>
 
+	<a class="composte-link" href="{base}/forme-composte">🧩 Forme composte (〜てみる, 〜たい, condizionali…) →</a>
+
 	<nav class="forms-toc">
-		{#each GRAMMAR_FORMS as form}
+		{#each forms as form}
 			<a class="toc-chip" href="#{form.slug}">
 				{#if form.icon === 'い' || form.icon === 'な'}
 					<span class="kana-emoji kana-emoji-{form.icon === 'い' ? 'i' : 'na'}">{form.icon}</span>
@@ -88,7 +94,7 @@
 		{/each}
 	</nav>
 
-	{#each GRAMMAR_FORMS as form}
+	{#each forms as form}
 		<article class="form-card" id={form.slug}>
 			<div class="form-head">
 				{#if form.icon === 'い' || form.icon === 'な'}
@@ -124,7 +130,11 @@
 						<div class="contraction-row">
 							<span class="contraction-short"><FuriganaText text={c.short} /></span>
 							<span class="contraction-badge">contrazione di</span>
-							<span class="contraction-full"><FuriganaText text={c.full} /></span>
+							{#if c.fullSlug}
+								<a class="contraction-full is-link" href="{base}/{formPage(c.fullSlug)}#{c.fullSlug}"><FuriganaText text={c.full} /></a>
+							{:else}
+								<span class="contraction-full"><FuriganaText text={c.full} /></span>
+							{/if}
 							{#if c.note}<span class="contraction-note">{c.note}</span>{/if}
 						</div>
 					{/each}
@@ -134,7 +144,7 @@
 				<div class="form-related">
 					<span class="related-label">Vedi anche:</span>
 					{#each form.related as slug}
-						<a class="related-chip" href="#{slug}">{formTitle(slug)}</a>
+						<a class="related-chip" href="{base}/{formPage(slug)}#{slug}">{formTitle(slug)}</a>
 					{/each}
 				</div>
 			{/if}
@@ -298,6 +308,21 @@
 	}
 
 	.contraction-full { color: var(--brand); font-weight: 600; }
+	.contraction-full.is-link { text-decoration: none; border-bottom: 1px dashed var(--brand); }
+	.contraction-full.is-link:hover { border-bottom-style: solid; }
+
+	.composte-link {
+		display: inline-block;
+		background: #eef2ff;
+		border: 1px solid #c7d2fe;
+		border-radius: 12px;
+		padding: 10px 14px;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--brand);
+		text-decoration: none;
+	}
+	.composte-link:hover { background: #e0e7ff; }
 
 	.contraction-note {
 		font-size: 0.72rem;

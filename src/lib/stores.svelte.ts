@@ -18,6 +18,17 @@ export interface SessionWrongAnswer {
 	correctAnswer: string;
 }
 
+export type SkillKey = 'words' | 'kanji' | 'grammar';
+export type SkillCounts = Record<SkillKey, { answers: number; correct: number }>;
+
+export function emptySkillCounts(): SkillCounts {
+	return {
+		words: { answers: 0, correct: 0 },
+		kanji: { answers: 0, correct: 0 },
+		grammar: { answers: 0, correct: 0 }
+	};
+}
+
 export interface StudySessionState {
 	startedAt: number;
 	deadlineAt: number;
@@ -28,6 +39,7 @@ export interface StudySessionState {
 	xp: number;
 	pausedAt: number | null;
 	wrongAnswers: SessionWrongAnswer[];
+	answersByType: SkillCounts;
 }
 
 export interface ActiveQuiz {

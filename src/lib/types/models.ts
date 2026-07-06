@@ -76,6 +76,8 @@ export interface StudySessionRecord {
   wrong: number;
   timeout: number;
   xp: number;
+  // Ripartizione per skill (opzionale: le sessioni precedenti non ce l'hanno).
+  answersByType?: Record<'words' | 'kanji' | 'grammar', { answers: number; correct: number }>;
 }
 
 export interface Kanji extends BaseEntity {

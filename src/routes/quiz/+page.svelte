@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import { db } from '$lib/db/schema';
-	import { appState } from '$lib/stores.svelte';
+	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { createInitialSrs, applySrsReview, normalizeMastery } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
@@ -316,7 +316,8 @@
 			correct: session.correct,
 			wrong: session.wrong,
 			timeout: session.timeout,
-			xp: session.xp ?? 0
+			xp: session.xp ?? 0,
+			answersByType: $state.snapshot(session.answersByType)
 		});
 
 		session = null;
@@ -682,6 +683,9 @@
 		stopAnswerTimer();
 
 		session.answers++;
+		const skill: SkillKey = quiz.itemRef.kind === 'kanji' ? 'kanji' : quiz.itemRef.kind === 'grammar' ? 'grammar' : 'words';
+		session.answersByType[skill].answers++;
+		if (correct) session.answersByType[skill].correct++;
 		if (correct) session.correct++;
 		else {
 			session.wrong++;
@@ -859,7 +863,8 @@
 				timeout: 0,
 				xp: 0,
 				pausedAt: null,
-				wrongAnswers: []
+				wrongAnswers: [],
+				answersByType: emptySkillCounts()
 			};
 			appState.sessionState = session;
 			phase = 'quiz';

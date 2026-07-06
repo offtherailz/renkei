@@ -438,15 +438,30 @@ Possibile evoluzione futura (non urgente): campo `forma_base_id` sulle voci
 `grammar` del seed per collegare le contrazioni a livello dati, e generazione
 in batch di altre forme composte.
 
-## Statistiche per skill (parziale, 2026-07-06)
+## Pagina /forme-composte (2026-07-06)
 
-Aggiunto pannello "Consolidamento per skill" in /stats (`loadSkillMastery`):
-parole / kanji / grammatica con % media di consolidamento e conteggio ripassi,
-ricavati da `srs_progress` per prefisso `id_item`. È una **foto dello stato
-attuale**, non l'accuracy nel tempo: `StudySessionRecord` salva solo aggregati
-(answers/correct/wrong) senza il tipo di ogni risposta. Per l'andamento per
-skill nel tempo servirebbe registrare la categoria a livello di risposta
-(cambio di schema, dati solo in avanti) — rimandato.
+Le forme composte/costruzioni sono state separate dalle parti del discorso:
+`GrammarForm.composed === true` → pagina dedicata `/forme-composte`, il resto
+resta in `/forme`. Helper `formPage(slug)` + `COMPOSED_SLUGS` per i link
+incrociati. In grammarForms.ts:
+- Schema di attacco (`attachment[]` = base+connessione, `schemaId`, `exceptions`)
+  con legenda `ATTACHMENT_SCHEMAS` in cima alla pagina + dettaglio inline in
+  ogni scheda; le forme con lo stesso `schemaId` si linkano ("stesso schema di").
+- Nuove forme N5/N4: 〜たい, 〜すぎる, 〜やすい/〜にくい, 〜ながら, condizionali
+  〜ば/〜たら/〜と/〜なら, 可能形/受身形/使役形, 〜ほうがいい, 〜つもり,
+  〜たことがある, 〜なければならない (tutte con consolidaId dove esiste nel seed).
+- Contrazioni: la scheda 縮約形 ora linka la forma intera navigabile (`fullSlug`).
+
+## Statistiche per skill (2026-07-06)
+
+Pannello "Consolidamento per skill" in /stats:
+- **Consolidamento** (`loadSkillMastery`): % media SRS + ripassi per
+  parole/kanji/grammatica, da `srs_progress` per prefisso `id_item`. Foto dello
+  stato attuale.
+- **Accuracy** per skill: ora `StudySessionState`/`StudySessionRecord` hanno
+  `answersByType` (words/kanji/grammar), popolato in `handleAnswer` da
+  `itemRef.kind` e salvato in `endSession`. La stats somma su tutte le sessioni
+  che hanno il campo (le vecchie non ce l'hanno → semplicemente non contano).
 
 ## Problemi noti / TODO tecnici
 

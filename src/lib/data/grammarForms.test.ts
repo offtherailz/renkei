@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import seedData from '../../../static/seed-n5n4.json';
-import { GRAMMAR_FORMS, FORM_SLUG_BY_LABEL } from './grammarForms';
+import { GRAMMAR_FORMS, FORM_SLUG_BY_LABEL, ATTACHMENT_SCHEMAS } from './grammarForms';
 
 interface SeedGrammar {
 	id: string;
@@ -44,6 +44,18 @@ describe('grammarForms integrità', () => {
 				expect(c.short.length).toBeGreaterThan(0);
 				expect(c.full.length).toBeGreaterThan(0);
 			}
+		}
+	});
+
+	it('ogni forma composta ha schema di attacco valido', () => {
+		for (const form of GRAMMAR_FORMS) {
+			if (!form.composed) continue;
+			expect(form.attachment?.length ?? 0, `${form.slug} senza attachment`).toBeGreaterThan(0);
+			expect(form.schemaId, `${form.slug} senza schemaId`).toBeDefined();
+			expect(
+				ATTACHMENT_SCHEMAS[form.schemaId!],
+				`${form.slug} → schema "${form.schemaId}" assente dalla legenda`
+			).toBeDefined();
 		}
 	});
 
