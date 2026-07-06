@@ -130,6 +130,14 @@
 		<input type="checkbox" bind:checked={appState.settings.session_timer_runs_in_detail} />
 	</label>
 
+	<label class="setting-row">
+		<span>La tua voce (nei giochi)<br /><small class="hint-text">L'interlocutore parla con la voce dell'altro sesso.</small></span>
+		<select class="num-input" bind:value={appState.settings.voce_utente}>
+			<option value="femminile">Femminile</option>
+			<option value="maschile">Maschile</option>
+		</select>
+	</label>
+
 	<button class="btn-primary" onclick={save} disabled={saving}>
 		{saving ? 'Salvataggio…' : saved ? '✅ Salvato!' : 'Salva impostazioni'}
 	</button>

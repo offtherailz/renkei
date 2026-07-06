@@ -189,6 +189,7 @@ export interface AppSettings extends BaseEntity {
   session_timer_runs_in_detail: boolean;
   forme_note?: string[];
   lingua_contenuti?: "auto" | "it" | "en";
+  voce_utente?: "maschile" | "femminile";
 }
 
 export interface DatabaseSeed {

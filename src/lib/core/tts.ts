@@ -6,6 +6,7 @@ export interface SpeakOptions {
   rate?: number;
   pitch?: number;
   volume?: number;
+  voice?: SpeechSynthesisVoice | null;
 }
 
 function buildUtterance(text: string, options?: SpeakOptions): SpeechSynthesisUtterance {
@@ -14,6 +15,7 @@ function buildUtterance(text: string, options?: SpeakOptions): SpeechSynthesisUt
   utterance.rate = options?.rate ?? 1;
   utterance.pitch = options?.pitch ?? 1;
   utterance.volume = options?.volume ?? 1;
+  if (options?.voice) utterance.voice = options.voice;
   return utterance;
 }
 

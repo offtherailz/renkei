@@ -195,7 +195,9 @@ Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighsco
 - **Scrivi il numero** — `generateNumberDictation`: il TTS legge un numero, l'utente digita le cifre.
 - **Alla cassa** — `generateShopPrice` + `YEN_DENOMINATIONS`: il commesso annuncia il totale (frase variata tra 2-3 tipi), l'utente compone l'importo esatto con banconote/monete; alla fine il commesso risponde (ちょうど… / すみません…).
 - **Appuntamento** — `generateAppointment`: il TTS legge data + ora (「3月9日の4時半」), l'utente inserisce mese/giorno/ora/minuti (半 = 30).
-- **Lista della spesa** (お使い) — `generateShoppingList` (`shopItems.ts`): il TTS chiede più prodotti con quantità (「牛乳を2本、卵を3こ…」), l'utente riempie il carrello cliccando le emoji nella griglia (tocca = +1, click destro = −1); si verifica che il carrello combaci esatto.
+- **Lista della spesa** (お使い) — `generateShoppingList` (`shopItems.ts`): **fase 1** l'interlocutore detta la lista e la lista **non è mostrata** (va ricordata); riempi il carrello cliccando le emoji (tocca = +1, click destro/lungo = −1) e a ogni tap **senti la quantità** (ひとつ、ふたつ…, voce utente). **Fase 2** (Ho finito): compare la lista, tu riepiloghi a voce (「じゃあ、りんごを…ですね？」) e l'interlocutore conferma/corregge, con errori evidenziati e complimenti occasionali.
+
+**Voce (TTS)** — impostazione `voce_utente` (maschile/femminile) in Settings; `voices.ts` sceglie una voce giapponese per genere (euristica sul nome, fallback sul pitch). Nei giochi: `speakAs(text, 'user'|'other')` — l'interlocutore parla con la voce **dell'altro sesso**.
 
 **Catalogo prodotti** (`src/lib/core/shopItems.ts`): ~24 voci `emoji · scrittura · lettura · it · reparto/repartoJp · prezzo · counterId`. È il mattone riusabile per i giochi situazionali; le quantità si leggono con `readCounterN(counter, n)` (serve che il contatore abbia letture numerate, es. つ → `ひとつ (1)…`).
 
@@ -203,7 +205,18 @@ Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighsco
 
 Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`; `readCounterN` in `counterReadings.ts`; catalogo prodotti in `shopItems.ts`.
 
-Idee future che spremono lo stesso catalogo: **trova il prodotto** (find-it), **trova il reparto**, **cassa col resto** (おつり), **mini-avventure a scene** (konbini: indicazioni → lista → reparti → cassa; treno: meta → biglietto → binario) concatenando i micro-giochi.
+Idee future che spremono lo stesso catalogo: **trova il prodotto** (find-it), **trova il reparto**, **cassa col resto** (おつり).
+
+### Avventura al konbini (semplificata) — roadmap incrementale
+Da costruire e deployare **un pezzo per volta**, riusando i micro-giochi esistenti:
+1. **Lista della spesa** (お使い) — *fatto*.
+2. **Saluto in partenza**: scegli la frase idiomatica giusta (いってきます) e senti la risposta (いってらっしゃい).
+3. **Chiamata a sorpresa** (mentre vai): l'interlocutore aggiunge o toglie un prodotto — **niente conferma**, va ricordato al volo.
+4. **Al konbini — ordina**: chiedi al commesso componendo nella frase i numeri+contatori giusti (presentati a volte in kanji, a volte in lettura), con le icone della lista come riferimento; alla fine senti la frase completa.
+5. **Paga** (riusa la cassa, poi con resto/おつり).
+6. **Rientro**: ただいま → l'interlocutore conta le cose e verifica se hai preso giusto (tenendo conto della chiamata).
+
+Regole UX condivise: nei giochi d'ascolto la soluzione **non si mostra prima** (si ascolta e basta); il timer parte dopo l'audio; l'interlocutore ha voce del sesso opposto a `voce_utente`.
 
 ---
 

@@ -56,6 +56,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
 	session_duration_minutes: 5,
 	session_timer_runs_in_detail: false,
 	forme_note: DEFAULT_KNOWN_FORMS,
+	voce_utente: "femminile",
 	updated_at: 0
 };
 
