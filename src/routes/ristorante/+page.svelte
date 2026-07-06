@@ -7,31 +7,52 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { speakSentenceJapanese } from '$lib/core/tts';
+	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
 	}
-	function say(text: string, g: Gender): void {
-		speakSentenceJapanese(text, voiceParams(g));
-	}
-	function speakUser(text: string): void {
-		say(text, userGender());
-	}
 	function staff(): Gender {
 		return opposite(userGender());
 	}
+	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
 
-	type Scene = 'pick' | 'seats' | 'wait' | 'seat-type' | 'smoking' | 'menu' | 'order' | 'pay' | 'done';
+	type Line = { who: 'staff' | 'me'; text: string };
+	let dialog = $state<Line[]>([]);
+	function staffSay(text: string): void {
+		speakSentenceJapanese(text, voiceParams(staff()));
+		dialog = [...dialog, { who: 'staff', text }];
+	}
+	function mySay(text: string): void {
+		speakSentenceJapanese(text, voiceParams(userGender()));
+		dialog = [...dialog, { who: 'me', text }];
+	}
+
+	// ── Frasi con varianti (dialogo più reale) ──
+	const GREET = ['いらっしゃいませ！', 'いらっしゃいませ！ようこそ。'];
+	const SEATS_Q = ['何名様ですか？', '何名様でしょうか？'];
+	const SEATTYPE_Q = ['お席はカウンターとテーブル、どちらになさいますか？', 'カウンター席とテーブル席、どちらがよろしいですか？'];
+	const OK = ['かしこまりました。', 'はい、承知しました。'];
+	const SMOKE_Q = ['禁煙席と喫煙席、どちらがよろしいですか？', 'お煙草はお吸いになりますか？'];
+	const WAIT = ['申し訳ございません、ただいま満席です。少々お待ちください。', 'ただいま混んでおります。少々お待ちください。'];
+	const MENU_L = ['こちらメニューです。ごゆっくりどうぞ。', 'メニューをどうぞ。ごゆっくりご覧ください。'];
+	const SERVE = ['お待たせしました！どうぞ。', 'お待たせいたしました。ごゆっくりどうぞ。'];
+	const MORE_Q = ['ご注文は以上でよろしいですか？', '他にご注文はございますか？'];
+	const THANKS = ['ありがとうございました！', 'ありがとうございました！またお越しくださいませ。'];
+
+	type Scene = 'pick' | 'seats' | 'wait' | 'seat-type' | 'smoking' | 'menu' | 'order' | 'serve' | 'eat' | 'more' | 'pay' | 'done';
 
 	let counters = $state<Counter[]>([]);
 	let scene = $state<Scene>('pick');
 	let rest = $state<Restaurant | null>(null);
 	let errors = $state(0);
+	let staffLine = $state('');
 
 	// coperti + preferenze
 	let seats = $state(1);
+	let seatsQuestion = $state('');
 	let seatsPicked = $state<string | null>(null);
 	let seatsChoices = $state<string[]>([]);
 	let seatsCorrect = $state('');
@@ -39,10 +60,10 @@
 	let wantSmoking = $state(false);
 	let seatType = $state<string | null>(null);
 	let smokingPref = $state<string | null>(null);
-	let staffLine = $state('');
 
-	// ordine
+	// ordine: cart = aggiunte del giro; ordered = tutto il confermato
 	let cart = $state<Record<string, number>>({});
+	let ordered = $state<{ dish: Dish; qty: number }[]>([]);
 	let queue = $state<{ dish: Dish; qty: number }[]>([]);
 	let orderIdx = $state(0);
 	let orderChoices = $state<string[]>([]);
@@ -75,8 +96,8 @@
 	function fmtQty(counterId: string, q: number, display: 'kanji' | 'kana'): string {
 		return display === 'kanji' ? kanjiNum(q) + counterId : counterReading(counterId, q);
 	}
-	function cartTotal(): number {
-		return queue.reduce((s, e) => s + e.dish.prezzo * e.qty, 0);
+	function orderedTotal(): number {
+		return ordered.reduce((s, e) => s + e.dish.prezzo * e.qty, 0);
 	}
 
 	onMount(async () => {
@@ -87,7 +108,9 @@
 	function start(): void {
 		rest = null;
 		errors = 0;
+		dialog = [];
 		cart = {};
+		ordered = [];
 		queue = [];
 		orderIdx = 0;
 		tendered = 0;
@@ -102,7 +125,9 @@
 
 	function pickRest(r: Restaurant): void {
 		rest = r;
-		say('いらっしゃいませ！何名様ですか？', staff());
+		staffSay(rnd(GREET));
+		seatsQuestion = rnd(SEATS_Q);
+		staffSay(seatsQuestion);
 		seats = 1 + Math.floor(Math.random() * 4);
 		seatsCorrect = counterReading('人', seats);
 		const others = [1, 2, 3, 4].filter((n) => n !== seats).map((n) => counterReading('人', n));
@@ -117,9 +142,9 @@
 		if (seatsPicked !== null) return;
 		seatsPicked = choice;
 		if (choice !== seatsCorrect) errors += 1;
-		else speakUser(choice + 'です');
-		staffLine = `${seatsCorrect}様ですね、かしこまりました。`;
-		say(staffLine, staff());
+		mySay(choice + 'です');
+		staffLine = `${seatsCorrect}様ですね、` + rnd(OK);
+		staffSay(staffLine);
 	}
 	function afterSeats(): void {
 		if (wantWait) enterWait();
@@ -127,19 +152,19 @@
 	}
 	function enterWait(): void {
 		scene = 'wait';
-		staffLine = '申し訳ございません、ただいま満席です。少々お待ちください。';
-		say(staffLine, staff());
+		staffLine = rnd(WAIT);
+		staffSay(staffLine);
 	}
 	function enterSeatType(): void {
 		scene = 'seat-type';
-		staffLine = 'お席はカウンターとテーブル、どちらになさいますか？';
-		say(staffLine, staff());
+		staffLine = rnd(SEATTYPE_Q);
+		staffSay(staffLine);
 	}
 	function pickSeatType(choice: string): void {
 		if (seatType !== null) return;
 		seatType = choice;
-		speakUser(choice + 'で');
-		say('かしこまりました。', staff());
+		mySay(choice + 'でおねがいします');
+		staffSay(rnd(OK));
 	}
 	function afterSeatType(): void {
 		if (wantSmoking) enterSmoking();
@@ -147,21 +172,22 @@
 	}
 	function enterSmoking(): void {
 		scene = 'smoking';
-		staffLine = '禁煙席と喫煙席、どちらがよろしいですか？';
-		say(staffLine, staff());
+		staffLine = rnd(SMOKE_Q);
+		staffSay(staffLine);
 	}
 	function pickSmoking(choice: string): void {
 		if (smokingPref !== null) return;
 		smokingPref = choice;
-		speakUser(choice + 'で');
-		say('こちらへどうぞ。', staff());
+		mySay(choice + 'でおねがいします');
+		staffSay('こちらへどうぞ。');
 	}
 	function enterMenu(): void {
 		scene = 'menu';
-		say('こちらメニューです。ごゆっくりどうぞ。', staff());
+		cart = {};
+		staffSay(rnd(MENU_L));
 	}
 
-	// ── Menu: scegli liberamente cosa ordinare ──
+	// ── Menu ──
 	function addDish(id: string): void {
 		cart = { ...cart, [id]: (cart[id] ?? 0) + 1 };
 	}
@@ -176,7 +202,7 @@
 		return Object.values(cart).reduce((a, b) => a + b, 0);
 	}
 
-	// ── Ordine: per ogni piatto scelto, componi numero+contatore ──
+	// ── Ordine ──
 	function toOrder(): void {
 		if (!rest || cartCount() === 0) return;
 		queue = Object.entries(cart)
@@ -209,25 +235,54 @@
 		if (picked !== null) return;
 		picked = choice;
 		const e = queue[orderIdx]!;
-		if (choice === orderCorrect) speakUser(e.dish.nome + 'を' + counterReading(e.dish.counterId, e.qty) + 'ください');
+		if (choice === orderCorrect) mySay(e.dish.nome + 'を' + counterReading(e.dish.counterId, e.qty) + 'ください');
 		else errors += 1;
 	}
 	function nextOrder(): void {
 		if (orderIdx < queue.length - 1) {
 			orderIdx += 1;
 			setOrderItem();
-		} else if (cartTotal() === 0) {
-			toDone();
+			return;
+		}
+		// unisci il giro all'ordine confermato
+		for (const e of queue) {
+			const found = ordered.find((o) => o.dish.id === e.dish.id);
+			if (found) found.qty += e.qty;
+			else ordered = [...ordered, { dish: e.dish, qty: e.qty }];
+		}
+		enterServe();
+	}
+
+	function enterServe(): void {
+		scene = 'serve';
+		staffSay(rnd(SERVE));
+	}
+	function enterEat(): void {
+		scene = 'eat';
+		mySay('いただきます！');
+		playClink();
+	}
+	function enterMore(): void {
+		scene = 'more';
+		staffLine = rnd(MORE_Q);
+		staffSay(staffLine);
+	}
+	function pickMore(add: boolean): void {
+		if (add) {
+			mySay('すみません、追加でおねがいします。');
+			enterMenu();
 		} else {
+			mySay('これで大丈夫です。');
+			if (orderedTotal() === 0) { toDone(); return; }
 			scene = 'pay';
 			tendered = 0;
 			stack = [];
 			payChecked = false;
-			say(`お会計は${readNumber(cartTotal())}円です`, staff());
+			staffSay(`お会計は${readNumber(orderedTotal())}円です。`);
 		}
 	}
 
-	// ── Pagamento (esatto) ──
+	// ── Pagamento ──
 	function addDenom(d: number): void {
 		if (payChecked) return;
 		stack = [...stack, d];
@@ -245,17 +300,17 @@
 	}
 	function payNow(): void {
 		if (tendered === 0) return;
-		if (tendered === cartTotal()) {
+		if (tendered === orderedTotal()) {
 			payChecked = true;
-			say('ありがとうございました！', staff());
+			staffSay(rnd(THANKS));
 		} else {
-			say(`すみません、${readNumber(cartTotal())}円です。`, staff());
+			staffSay(`すみません、${readNumber(orderedTotal())}円です。`);
 			errors += 1;
 			resetTender();
 		}
 	}
 	function toDone(): void {
-		speakUser('ごちそうさまでした！');
+		mySay('ごちそうさまでした！');
 		scene = 'done';
 	}
 </script>
@@ -277,7 +332,7 @@
 	{:else if scene === 'seats' && rest}
 		<article class="scene">
 			<p class="who">🧑‍🍳 {rest.nome}</p>
-			<p class="bubble">いらっしゃいませ！何名様ですか？</p>
+			<p class="bubble">いらっしゃいませ！{seatsQuestion}</p>
 			<div class="people">{'🧑'.repeat(seats)}</div>
 			<p class="hint">Siete in {seats}: come lo dici?</p>
 			<div class="choices">
@@ -293,15 +348,15 @@
 	{:else if scene === 'wait'}
 		<article class="scene">
 			<p class="who">🧑‍🍳 Cameriere</p>
-			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<button class="replay" onclick={() => staffSay(staffLine)}>🔊 Riascolta</button>
 			<p class="bubble big">{staffLine}</p>
-			<p class="hint">È pieno: devi aspettare un attimo (満席)</p>
+			<p class="hint">È pieno: aspetta un attimo (満席)</p>
 			<button class="proceed" onclick={enterSeatType}>待ちます →</button>
 		</article>
 	{:else if scene === 'seat-type'}
 		<article class="scene">
 			<p class="who">🧑‍🍳 Cameriere</p>
-			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<button class="replay" onclick={() => staffSay(staffLine)}>🔊 Riascolta</button>
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Quale posto preferisci?</p>
 			<div class="choices">
@@ -315,7 +370,7 @@
 	{:else if scene === 'smoking'}
 		<article class="scene">
 			<p class="who">🧑‍🍳 Cameriere</p>
-			<button class="replay" onclick={() => say(staffLine, staff())}>🔊 Riascolta</button>
+			<button class="replay" onclick={() => staffSay(staffLine)}>🔊 Riascolta</button>
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Fumatori o no?</p>
 			<div class="choices">
@@ -362,13 +417,40 @@
 				{/each}
 			</div>
 			{#if picked !== null}
-				<button class="proceed" onclick={nextOrder}>{orderIdx < queue.length - 1 ? 'Prossimo →' : 'Il conto →'}</button>
+				<button class="proceed" onclick={nextOrder}>{orderIdx < queue.length - 1 ? 'Prossimo →' : 'OK, ordinato →'}</button>
 			{/if}
 		</article>
-	{:else if scene === 'pay' && rest}
+	{:else if scene === 'serve'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Il cameriere porta i piatti</p>
+			<button class="replay" onclick={() => staffSay(staffLine || rnd(SERVE))}>🔊 Riascolta</button>
+			<p class="dishes">{ordered.map((e) => e.dish.emoji.repeat(e.qty)).join(' ')}</p>
+			<button class="proceed" onclick={enterEat}>いただきます →</button>
+		</article>
+	{:else if scene === 'eat'}
+		<article class="scene">
+			<p class="who">🍚 Buon appetito!</p>
+			<p class="prompt">いただきます</p>
+			<p class="dishes eating">{ordered.map((e) => e.dish.emoji.repeat(e.qty)).join(' ')}</p>
+			<div class="eat-actions">
+				<button class="replay" onclick={playClink}>🍴 *tin tin*</button>
+				<button class="proceed" onclick={enterMore}>Finito di mangiare →</button>
+			</div>
+		</article>
+	{:else if scene === 'more'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Cameriere</p>
+			<button class="replay" onclick={() => staffSay(staffLine)}>🔊 Riascolta</button>
+			<p class="bubble">{staffLine}</p>
+			<div class="choices">
+				<button class="choice" onclick={() => pickMore(true)}>➕ 追加します<small>ordino altro</small></button>
+				<button class="choice" onclick={() => pickMore(false)}>✅ これで大丈夫です<small>va bene così, il conto</small></button>
+			</div>
+		</article>
+	{:else if scene === 'pay'}
 		<article class="scene">
 			<p class="who">💴 Il conto</p>
-			<button class="replay" onclick={() => say(`お会計は${readNumber(cartTotal())}円です`, staff())}>🔊 Riascolta il totale</button>
+			<button class="replay" onclick={() => staffSay(`お会計は${readNumber(orderedTotal())}円です。`)}>🔊 Riascolta il totale</button>
 			<div class="till"><span class="till-label">Stai porgendo</span><span class="till-amount">¥{tendered.toLocaleString('en-US')}</span></div>
 			<div class="denoms">
 				{#each YEN_DENOMINATIONS as d}
@@ -382,19 +464,20 @@
 					<button class="proceed" onclick={payNow} disabled={tendered === 0}>💴 Paga</button>
 				</div>
 			{:else}
-				<p class="bubble">🧑‍🍳「ありがとうございました！」</p>
+				<p class="bubble">🧑‍🍳「{rnd(THANKS)}」</p>
 				<button class="proceed" onclick={toDone}>ごちそうさま →</button>
 			{/if}
 		</article>
-	{:else if scene === 'done' && rest}
+	{:else if scene === 'done'}
 		<article class="scene">
 			<p class="who">{errors === 0 ? '🎉 Perfetto!' : '📝 Fine pasto'}</p>
-			<ul class="menu">
-				{#each queue as e (e.dish.id)}
-					<li><span class="d-emoji">{e.dish.emoji}</span> <span class="d-name">{e.dish.nome}</span> <span class="d-price">×{e.qty}</span></li>
+			<p class="hint">Totale: ¥{orderedTotal()} · {errors === 0 ? 'nessun errore!' : `errori: ${errors}`}</p>
+			<div class="script">
+				<p class="script-title">📜 Il dialogo di oggi</p>
+				{#each dialog as l}
+					<p class="line {l.who}"><span class="line-who">{l.who === 'staff' ? '🧑‍🍳' : '🙂'}</span> {l.text}</p>
 				{/each}
-			</ul>
-			<p class="hint">Totale: ¥{cartTotal()} · {errors === 0 ? 'nessun errore!' : `errori: ${errors}`}</p>
+			</div>
 			<button class="proceed" onclick={start}>🔁 Un altro giro</button>
 		</article>
 	{/if}
@@ -421,8 +504,12 @@
 	.bubble.big { font-size: 1.2rem; }
 	.bubble.sm { font-size: 0.95rem; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
+	.dishes { margin: 0; text-align: center; font-size: 2rem; line-height: 1.4; overflow-wrap: anywhere; }
+	.dishes.eating { animation: bob 0.8s ease-in-out infinite; }
+	@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
 	.people { text-align: center; font-size: 2rem; }
+	.eat-actions { display: flex; gap: 8px; justify-content: center; align-items: center; }
 
 	.menu { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.menu li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
@@ -457,6 +544,13 @@
 	.till-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
 	.mini:disabled { opacity: 0.4; cursor: default; }
+
+	.script { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 4px; }
+	.script-title { margin: 0 0 4px; font-size: 0.85rem; font-weight: 700; }
+	.line { margin: 0; font-size: 0.95rem; padding: 4px 8px; border-radius: 8px; }
+	.line.staff { background: var(--surface-2); }
+	.line.me { background: #eff6ff; text-align: right; }
+	.line-who { font-size: 0.9rem; }
 
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 	.proceed:disabled { opacity: 0.5; cursor: default; }
