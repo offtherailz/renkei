@@ -1,49 +1,46 @@
 // Selezione della voce TTS per genere. Il Web Speech API non espone il genere
-// in modo standard: lo indoviniamo dal nome della voce (voci giapponesi note +
-// parole chiave). Se non troviamo una voce del genere giusto, ripieghiamo sul
-// pitch (più alto = femminile, più basso = maschile) così l'effetto resta.
+// in modo standard: lo indoviniamo dal nome della voce. Se non troviamo una
+// voce chiaramente del genere giusto, ripieghiamo sulla voce di default
+// regolando il pitch (femminile ≈ default, maschile più profondo).
 
 import type { SpeakOptions } from './tts';
 
 export type Gender = 'maschile' | 'femminile';
-type Who = 'user' | 'other';
 
-const FEMALE_HINTS = ['female', 'kyoko', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'o-ren', 'women', 'josei', 'she'];
-const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'daichi', 'naoki', 'ren', 'takeru', 'dansei', 'he '];
+const FEMALE_HINTS = ['female', 'kyoko', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'o-ren', 'women', 'josei'];
+const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'daichi', 'naoki', 'takeru', 'dansei'];
 
 function jaVoices(): SpeechSynthesisVoice[] {
 	if (typeof window === 'undefined' || !window.speechSynthesis) return [];
 	return window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('ja'));
 }
 
-function guessGender(v: SpeechSynthesisVoice): Gender | null {
-	const n = `${v.name} ${v.voiceURI}`.toLowerCase();
-	if (FEMALE_HINTS.some((h) => n.includes(h))) return 'femminile';
-	if (MALE_HINTS.some((h) => n.includes(h))) return 'maschile';
-	return null;
-}
-
-function pickVoice(gender: Gender): SpeechSynthesisVoice | null {
+// Ritorna una voce del genere richiesto SOLO se il nome lo indica chiaramente,
+// altrimenti null (meglio la default di sistema che una voce a caso).
+function findGenderVoice(gender: Gender): SpeechSynthesisVoice | null {
+	const hints = gender === 'femminile' ? FEMALE_HINTS : MALE_HINTS;
 	const voices = jaVoices();
-	if (voices.length === 0) return null;
-	const match = voices.find((v) => guessGender(v) === gender);
-	if (match) return match;
-	// Nessuna corrispondenza sul genere: se ci sono almeno due voci JP, dai la
-	// seconda all'"altro" così suonano diverse; altrimenti la prima.
-	return gender === 'maschile' ? voices[voices.length - 1]! : voices[0]!;
+	return voices.find((v) => {
+		const n = `${v.name} ${v.voiceURI}`.toLowerCase();
+		return hints.some((h) => n.includes(h));
+	}) ?? null;
 }
 
-// Parametri di voce per chi parla ('user' = l'utente, 'other' = interlocutore
-// di sesso opposto), dato il genere scelto dall'utente nelle impostazioni.
-export function voiceParams(userGender: Gender, who: Who): SpeakOptions {
-	const target: Gender = who === 'user'
-		? userGender
-		: userGender === 'maschile' ? 'femminile' : 'maschile';
-	const voice = pickVoice(target);
-	const matched = voice ? guessGender(voice) === target : false;
-	// Se la voce trovata non è chiaramente del genere giusto, spingiamo il pitch.
-	const pitch = target === 'femminile' ? (matched ? 1.05 : 1.35) : (matched ? 0.95 : 0.7);
-	return { voice, pitch };
+export function opposite(g: Gender): Gender {
+	return g === 'maschile' ? 'femminile' : 'maschile';
+}
+
+// Parametri di voce per un genere.
+// - femminile: se c'è una voce femminile la usiamo a tono naturale; altrimenti
+//   lasciamo la voce di default (di solito è già femminile e "bella").
+// - maschile: voce maschile se c'è (tono leggermente basso); altrimenti la
+//   default abbassata parecchio per renderla più profonda.
+export function voiceParams(gender: Gender): SpeakOptions {
+	const v = findGenderVoice(gender);
+	if (gender === 'femminile') {
+		return v ? { voice: v, pitch: 1.0, rate: 1 } : { voice: null, pitch: 1.1, rate: 1 };
+	}
+	return v ? { voice: v, pitch: 0.85, rate: 0.98 } : { voice: null, pitch: 0.6, rate: 0.94 };
 }
 
 // Alcuni browser popolano le voci in modo asincrono: forza un caricamento.
