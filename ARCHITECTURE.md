@@ -197,7 +197,10 @@ Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighsco
 - **Appuntamento** — `generateAppointment`: il TTS legge data + ora (「3月9日の4時半」), l'utente inserisce mese/giorno/ora/minuti (半 = 30).
 - **Lista della spesa** (お使い) — `generateShoppingList` (`shopItems.ts`): **fase 1** l'interlocutore detta la lista e la lista **non è mostrata** (va ricordata); riempi il carrello cliccando le emoji (tocca = +1, click destro/lungo = −1) e a ogni tap **senti la quantità** (ひとつ、ふたつ…, voce utente). **Fase 2** (Ho finito): compare la lista, tu riepiloghi a voce (「じゃあ、りんごを…ですね？」) e l'interlocutore conferma/corregge, con errori evidenziati e complimenti occasionali.
 
-**Voce (TTS)** — impostazione `voce_utente` (maschile/femminile) in Settings; `voices.ts` sceglie una voce giapponese per genere (euristica sul nome, fallback sul pitch). Nei giochi: `speakAs(text, 'user'|'other')` — l'interlocutore parla con la voce **dell'altro sesso**.
+**Conversazione:**
+- **Saluti e convenevoli** (挨拶) — `generateGreeting` (`greetings.ts`): dato uno stimolo (una frase a cui rispondere, con audio, o una situazione in italiano) scegli la formula idiomatica giusta (いってきます→いってらっしゃい, ただいま→おかえり, いただきます…). Quiz a parte; l'avventura konbini ci si appoggerà per il saluto.
+
+**Voce (TTS)** — impostazione `voce_utente` (maschile/femminile) in Settings; `voices.ts` `voiceParams(gender)` sceglie una voce giapponese per genere (euristica sul nome; femminile = voce di default naturale, maschile abbassato di pitch se non c'è una voce maschile). Nella pagina: `speakUser(text)` (tua voce) e `speakGender(text, gender)`. La **kanojo** (chi manda a fare la spesa) ha voce femminile fissa; il commesso ha voce del sesso opposto alla tua. *Futuro:* più personaggi (kanojo/shachou/…) con registri e voci diversi, e risposta al livello opportuno.
 
 **Catalogo prodotti** (`src/lib/core/shopItems.ts`): ~24 voci `emoji · scrittura · lettura · it · reparto/repartoJp · prezzo · counterId`. È il mattone riusabile per i giochi situazionali; le quantità si leggono con `readCounterN(counter, n)` (serve che il contatore abbia letture numerate, es. つ → `ひとつ (1)…`).
 
