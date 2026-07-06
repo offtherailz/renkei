@@ -52,7 +52,7 @@
 	] as const;
 
 	type ReadId = (typeof READ_GAMES)[number]['id'];
-	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt' } | { kind: 'shopping' } | { kind: 'greet' } | null;
+	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt' } | { kind: 'shopping' } | { kind: 'greet' } | { kind: 'order' } | null;
 
 	let counters = $state<Counter[]>([]);
 	onMount(async () => { primeVoices(); counters = await db.counters.toArray(); });
@@ -94,6 +94,13 @@
 	// saluti / convenevoli
 	let greet = $state<GreetingQuestion | null>(null);
 
+	// al konbini: ordina componendo numero+contatore
+	let order = $state<{ list: ShoppingRequest[]; idx: number } | null>(null);
+	let orderDisplay = $state<'kanji' | 'kana'>('kana');
+	const KNUM = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+	const ALT_COUNTERS = ['個', '本', '枚', 'つ', '匹', '杯', '冊', '台'];
+	function kanjiNum(n: number): string { return n <= 10 ? KNUM[n]! : n === 20 ? '二十' : String(n); }
+
 	// ── Timer per la risposta ("pepe"). Parte dopo l'audio nei giochi d'ascolto. ──
 	let timerOn = $state(true);
 	let timeLeft = $state(0); // decimi di secondo rimasti
@@ -101,7 +108,7 @@
 	let timerId: ReturnType<typeof setInterval> | null = null;
 	let qGen = 0; // invalida timer di domande vecchie (audio async)
 
-	const TIMER_SECONDS: Record<string, number> = { read: 8, listen: 8, appt: 22, shop: 28, shopping: 40, greet: 7 };
+	const TIMER_SECONDS: Record<string, number> = { read: 8, listen: 8, appt: 22, shop: 28, shopping: 40, greet: 7, order: 9 };
 	function timerSeconds(g: NonNullable<Game>): number {
 		return TIMER_SECONDS[g.kind] ?? 8;
 	}
@@ -130,6 +137,7 @@
 		else if (game.kind === 'shop') { settleShop(null); return; }
 		else if (game.kind === 'shopping') { deliver(); return; }
 		else if (game.kind === 'greet') { picked = ' '; }
+		else if (game.kind === 'order') { picked = ' '; }
 		else { checked = true; }
 		registerResult(false);
 	}
@@ -140,6 +148,7 @@
 		if (g.kind === 'appt') return 'listen-appt';
 		if (g.kind === 'shopping') return 'shopping-list';
 		if (g.kind === 'greet') return 'greetings';
+		if (g.kind === 'order') return 'konbini-order';
 		return 'listen-number';
 	}
 
@@ -223,6 +232,7 @@
 		else if (g.kind === 'appt') newAppt();
 		else if (g.kind === 'shopping') newShopping();
 		else if (g.kind === 'greet') newGreet();
+		else if (g.kind === 'order') newOrder();
 		else newDictation();
 	}
 
@@ -352,6 +362,52 @@
 		registerResult(choice === greet.correct);
 	}
 
+// ── Al konbini: ordina componendo numero + contatore ──
+	function orderReading(r: ShoppingRequest): string {
+		const c = counters.find((x) => x.id === r.item.counterId);
+		return (c && readCounterN(c, r.qty)) || String(r.qty);
+	}
+	function fmtQty(counterId: string, q: number, display: 'kanji' | 'kana'): string {
+		if (display === 'kanji') return kanjiNum(q) + counterId;
+		const c = counters.find((x) => x.id === counterId);
+		return (c && readCounterN(c, q)) || String(q);
+	}
+	function setOrderQuestion(): void {
+		if (!order) return;
+		qGen += 1;
+		const r = order.list[order.idx]!;
+		const display: 'kanji' | 'kana' = Math.random() < 0.5 ? 'kanji' : 'kana';
+		orderDisplay = display;
+		const correct = fmtQty(r.item.counterId, r.qty, display);
+		const seen = new Set([correct]);
+		const distractors: string[] = [];
+		for (const cid of shuffle(ALT_COUNTERS.filter((x) => x !== r.item.counterId))) {
+			const d = fmtQty(cid, r.qty, display);
+			if (!seen.has(d)) { seen.add(d); distractors.push(d); }
+			if (distractors.length >= 2) break;
+		}
+		const q2 = r.qty > 1 ? r.qty - 1 : r.qty + 1;
+		const dq = fmtQty(r.item.counterId, q2, display);
+		if (!seen.has(dq)) distractors.push(dq);
+		question = { prompt: '', correct, distractors: distractors.slice(0, 3) };
+		choices = shuffle([correct, ...distractors.slice(0, 3)]);
+		picked = null;
+		startCountdown(TIMER_SECONDS.order!);
+	}
+	function newOrder(): void {
+		order = { list: generateShoppingList(2 + Math.floor(Math.random() * 2), 0).list, idx: 0 };
+		setOrderQuestion();
+	}
+	function advanceOrder(): void {
+		if (!order) return;
+		if (order.idx < order.list.length - 1) { order.idx += 1; setOrderQuestion(); }
+		else {
+			const phrase = order.list.map((r) => r.item.scrittura + 'を' + orderReading(r)).join('、') + 'ください';
+			speakUser(phrase);
+			newOrder();
+		}
+	}
+
 	function registerResult(correct: boolean): void {
 		stopCountdown();
 		if (correct) {
@@ -381,6 +437,7 @@
 	function proceed(): void {
 		if (!game) return;
 		if (gameOver) { start(game); return; }
+		if (game.kind === 'order') { advanceOrder(); return; }
 		if (game.kind === 'read') newReadQuestion(game.cat);
 		else if (game.kind === 'shop') newShop();
 		else if (game.kind === 'appt') newAppt();
@@ -401,6 +458,7 @@
 		shopList = [];
 		cart = {};
 		greet = null;
+		order = null;
 	}
 
 	onDestroy(stopCountdown);
@@ -465,6 +523,16 @@
 					<span class="cat-label">Saluti e convenevoli</span>
 					<span class="cat-hint">rispondi con la formula giusta</span>
 					<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
+				</button>
+			</div>
+
+			<p class="group-title">Al konbini</p>
+			<div class="cat-grid">
+				<button class="cat-card" onclick={() => start({ kind: 'order' })}>
+					<span class="cat-icon">🏪</span>
+					<span class="cat-label">Ordina al konbini</span>
+					<span class="cat-hint">chiedi con numero + contatore giusto</span>
+					<span class="cat-best">🏆 record: {getHighscore('konbini-order')}</span>
 				</button>
 			</div>
 
@@ -593,6 +661,31 @@
 					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
 				{/if}
 			</article>
+		{:else if game.kind === 'order' && order}
+			<article class="game-card">
+				<p class="game-hint">🏪 Ordina al commesso: di' la quantità giusta</p>
+				<div class="order-ref">
+					{#each order.list as r, i}
+						<span class="ref-item" class:current={i === order.idx}>{r.item.emoji}×{r.qty}</span>
+					{/each}
+				</div>
+				<p class="game-prompt small">{order.list[order.idx].item.emoji} {order.list[order.idx].item.scrittura}</p>
+				<p class="prompt-it">「{order.list[order.idx].item.scrittura}を ___ ください」 · {orderDisplay === 'kanji' ? 'in kanji' : 'in lettura'}</p>
+				<div class="choices">
+					{#each choices as choice (choice)}
+						<button class="choice" class:right={picked !== null && !!question && choice === question.correct} class:wrong={picked === choice && !!question && choice !== question.correct} disabled={picked !== null} onclick={() => pick(choice)}>{choice}</button>
+					{/each}
+				</div>
+				{#if picked !== null && question}
+					{#if gameOver}
+						<p class="verdict ko">Era <strong>{question.correct}</strong>. Serie: {streak}</p>
+						<button class="proceed" onclick={proceed}>🔁 Rigioca</button>
+					{:else}
+						<p class="verdict ok">{isRecord ? '🏆 Nuovo record!' : order.idx < order.list.length - 1 ? '✓ Bene!' : '✓ Ordine completo!'}</p>
+						<button class="proceed" onclick={proceed}>{order.idx < order.list.length - 1 ? 'Prossimo →' : 'Ordine completo →'}</button>
+					{/if}
+				{/if}
+			</article>
 		{:else if game.kind === 'greet' && greet}
 			<article class="game-card">
 				{#if greet.ja}
@@ -706,6 +799,9 @@
 	.game-prompt.small { font-size: 2rem; }
 	.prompt-it { margin: 0; text-align: center; font-size: 0.9rem; color: var(--muted); }
 	.prompt-it.big { font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+	.order-ref { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+	.ref-item { font-size: 1rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); opacity: 0.55; }
+	.ref-item.current { opacity: 1; border-color: var(--brand); font-weight: 700; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.25rem; text-align: center; cursor: pointer; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
