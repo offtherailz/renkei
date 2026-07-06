@@ -6,7 +6,7 @@
 	import { RESTAURANTS, type Restaurant, type Dish } from '$lib/core/restaurants';
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
-	import { speakSentenceJapanese, speakSentenceJapaneseAsync } from '$lib/core/tts';
+	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
@@ -33,6 +33,11 @@
 	function mySay(text: string): void {
 		speakSentenceJapanese(text, voiceParams(userGender()));
 		pushLine('me', text);
+	}
+	// Più battute di fila (anche di voci diverse) senza annullarsi.
+	function sequence(lines: { who: 'staff' | 'me'; text: string }[]): void {
+		speakSequence(lines.map((l) => ({ text: l.text, options: voiceParams(l.who === 'staff' ? staff() : userGender()) })));
+		for (const l of lines) pushLine(l.who, l.text);
 	}
 
 	// ── Frasi con varianti (dialogo più reale) ──
@@ -93,6 +98,7 @@
 	let tendered = $state(0);
 	let stack = $state<number[]>([]);
 	let payChecked = $state(false);
+	let payAttempts = $state(0);
 
 	const KNUM = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 	const ALT_COUNTERS = ['個', '本', '杯', 'つ', '枚'];
@@ -134,6 +140,7 @@
 		tendered = 0;
 		stack = [];
 		payChecked = false;
+		payAttempts = 0;
 		picked = null;
 		seatsPicked = null;
 		seatType = null;
@@ -143,9 +150,8 @@
 
 	function pickRest(r: Restaurant): void {
 		rest = r;
-		staffSay(rnd(GREET));
 		seatsQuestion = rnd(SEATS_Q);
-		staffSay(seatsQuestion);
+		sequence([{ who: 'staff', text: rnd(GREET) }, { who: 'staff', text: seatsQuestion }]);
 		seats = 1 + Math.floor(Math.random() * 4);
 		seatsCorrect = counterReading('人', seats);
 		const others = [1, 2, 3, 4].filter((n) => n !== seats).map((n) => counterReading('人', n));
@@ -160,9 +166,8 @@
 		if (seatsPicked !== null) return;
 		seatsPicked = choice;
 		if (choice !== seatsCorrect) errors += 1;
-		mySay(choice + 'です');
 		staffLine = `${seatsCorrect}様ですね、` + rnd(OK);
-		staffSay(staffLine);
+		sequence([{ who: 'me', text: choice + 'です' }, { who: 'staff', text: staffLine }]);
 	}
 	function afterSeats(): void {
 		if (wantWait) enterWait();
@@ -181,8 +186,7 @@
 	function pickSeatType(choice: string): void {
 		if (seatType !== null) return;
 		seatType = choice;
-		mySay(choice + 'でおねがいします');
-		staffSay(rnd(OK));
+		sequence([{ who: 'me', text: choice + 'でおねがいします' }, { who: 'staff', text: rnd(OK) }]);
 	}
 	function afterSeatType(): void {
 		if (wantSmoking) enterSmoking();
@@ -196,8 +200,7 @@
 	function pickSmoking(choice: string): void {
 		if (smokingPref !== null) return;
 		smokingPref = choice;
-		mySay(choice + 'でおねがいします');
-		staffSay('こちらへどうぞ。');
+		sequence([{ who: 'me', text: choice + 'でおねがいします' }, { who: 'staff', text: 'こちらへどうぞ。' }]);
 	}
 	function enterMenu(): void {
 		scene = 'menu';
@@ -296,17 +299,18 @@
 	}
 	function pickMore(add: boolean): void {
 		if (add) {
-			mySay('すみません、追加でおねがいします。');
-			enterMenu();
+			cart = {};
+			scene = 'menu';
+			sequence([{ who: 'me', text: 'すみません、追加でおねがいします。' }, { who: 'staff', text: rnd(MENU_L) }]);
 		} else {
-			mySay('これで大丈夫です。');
 			if (orderedTotal() === 0) { toDone(); return; }
 			scene = 'pay';
 			tendered = 0;
 			stack = [];
 			payChecked = false;
+			payAttempts = 0;
 			payLine = `お会計は${readNumber(orderedTotal())}円です。`;
-			staffSay(payLine);
+			sequence([{ who: 'me', text: 'これで大丈夫です。' }, { who: 'staff', text: payLine }]);
 		}
 	}
 
@@ -333,10 +337,16 @@
 			staffLine = rnd(THANKS);
 			staffSay(staffLine);
 		} else {
+			payAttempts += 1;
 			staffSay(`すみません、${readNumber(orderedTotal())}円です。`);
 			errors += 1;
 			resetTender();
 		}
+	}
+	function giveUp(): void {
+		payChecked = true;
+		staffLine = 'あ、お会計はこちらで大丈夫ですよ。ありがとうございました！';
+		staffSay(staffLine);
 	}
 	function toDone(): void {
 		mySay('ごちそうさまでした！');
@@ -397,8 +407,8 @@
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Quale posto preferisci?</p>
 			<div class="choices">
-				<button class="choice" class:right={seatType === 'カウンター席'} disabled={seatType !== null} onclick={() => pickSeatType('カウンター席')}>🍶 カウンター席<small>al banco</small></button>
-				<button class="choice" class:right={seatType === 'テーブル席'} disabled={seatType !== null} onclick={() => pickSeatType('テーブル席')}>🪑 テーブル席<small>al tavolo</small></button>
+				<button class="choice" class:right={seatType === 'カウンター席'} disabled={seatType !== null} onclick={() => pickSeatType('カウンター席')}>🍶 カウンター席</button>
+				<button class="choice" class:right={seatType === 'テーブル席'} disabled={seatType !== null} onclick={() => pickSeatType('テーブル席')}>🪑 テーブル席</button>
 			</div>
 			{#if seatType !== null}
 				<button class="proceed" onclick={afterSeatType}>→</button>
@@ -411,8 +421,8 @@
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Fumatori o no?</p>
 			<div class="choices">
-				<button class="choice" class:right={smokingPref === '禁煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('禁煙席')}>🚭 禁煙席<small>non fumatori</small></button>
-				<button class="choice" class:right={smokingPref === '喫煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('喫煙席')}>🚬 喫煙席<small>fumatori</small></button>
+				<button class="choice" class:right={smokingPref === '禁煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('禁煙席')}>🚭 禁煙席</button>
+				<button class="choice" class:right={smokingPref === '喫煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('喫煙席')}>🚬 喫煙席</button>
 			</div>
 			{#if smokingPref !== null}
 				<button class="proceed" onclick={enterMenu}>→</button>
@@ -464,6 +474,7 @@
 		<article class="scene">
 			<p class="who">🧑‍🍳 Il cameriere porta i piatti</p>
 			{@render repeatBar(staffLine)}
+			<p class="bubble">{staffLine}</p>
 			<p class="dishes">{ordered.map((e) => e.dish.emoji.repeat(e.qty)).join(' ')}</p>
 			<button class="proceed" onclick={enterEat}>いただきます →</button>
 		</article>
@@ -483,8 +494,8 @@
 			{@render repeatBar(staffLine)}
 			<p class="bubble">{staffLine}</p>
 			<div class="choices">
-				<button class="choice" onclick={() => pickMore(true)}>➕ 追加します<small>ordino altro</small></button>
-				<button class="choice" onclick={() => pickMore(false)}>✅ これで大丈夫です<small>va bene così, il conto</small></button>
+				<button class="choice" onclick={() => pickMore(true)}>➕ 追加します</button>
+				<button class="choice" onclick={() => pickMore(false)}>✅ これで大丈夫です</button>
 			</div>
 		</article>
 	{:else if scene === 'pay'}
@@ -503,6 +514,9 @@
 					<button class="mini" onclick={resetTender} disabled={tendered === 0}>↺ Svuota</button>
 					<button class="proceed" onclick={payNow} disabled={tendered === 0}>💴 Paga</button>
 				</div>
+				{#if payAttempts >= 3}
+					<button class="giveup" onclick={giveUp}>🏳️ Mi arrendo (pago e basta)</button>
+				{/if}
 			{:else}
 				<p class="bubble">🧑‍🍳「{staffLine}」</p>
 				<button class="proceed" onclick={toDone}>ごちそうさま →</button>
@@ -511,6 +525,7 @@
 	{:else if scene === 'done'}
 		<article class="scene">
 			<p class="who">{errors === 0 ? '🎉 Perfetto!' : '📝 Fine pasto'}</p>
+			<p class="bubble">🙂「ごちそうさまでした！」</p>
 			<p class="hint">Totale: ¥{orderedTotal()} · {errors === 0 ? 'nessun errore!' : `errori: ${errors}`}</p>
 			<div class="script">
 				<p class="script-title">📜 Il dialogo di oggi</p>
@@ -569,7 +584,6 @@
 
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.2rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
-	.choice small { font-size: 0.7rem; color: var(--muted); font-weight: 400; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success, #16a34a); background: rgba(52,201,138,0.16); }
@@ -595,4 +609,5 @@
 
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 	.proceed:disabled { opacity: 0.5; cursor: default; }
+	.giveup { justify-self: center; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 0.85rem; cursor: pointer; }
 </style>

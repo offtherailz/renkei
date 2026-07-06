@@ -59,6 +59,27 @@ export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options
   });
 }
 
+// Parla più battute in sequenza SENZA che l'una annulli l'altra (utile quando
+// due personaggi parlano uno dopo l'altro nella stessa azione). Cancella solo
+// una volta all'inizio, poi concatena con onend.
+export function speakSequence(items: { text: string; options?: SpeakOptions }[]): void {
+  if (typeof window === "undefined" || !window.speechSynthesis || items.length === 0) {
+    return;
+  }
+  window.speechSynthesis.cancel();
+  let i = 0;
+  const next = (): void => {
+    if (i >= items.length) return;
+    const it = items[i]!;
+    i += 1;
+    const utterance = buildUtterance(stripFuriganaNotation(it.text), it.options);
+    utterance.onend = () => next();
+    utterance.onerror = () => next();
+    window.speechSynthesis.speak(utterance);
+  };
+  next();
+}
+
 // ── Dialoghi (choukai): battute in sequenza, voce diversa per personaggio ──
 
 function getJapaneseVoices(): SpeechSynthesisVoice[] {

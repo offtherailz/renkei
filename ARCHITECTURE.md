@@ -223,6 +223,9 @@ Route dedicata con macchina a **scene** (`intro → depart → call? → order �
 6. **return**: ただいま → la kanojo verifica ("tutto giusto?" in base agli errori) → riepilogo finale.
 Non è a serie/highscore: è una "missione" con conteggio errori. *Idee:* modalità memoria pura (icone non aggiornate dalla telefonata), pagamento col resto.
 
+### Idea aperta: copione con collegamenti al ripasso
+Il copione finale delle avventure (log `dialog`) dovrebbe rendere **parole/frasi cliccabili** → apri al volo il ripasso (dettaglio parola `/detail`, forma grammaticale `/forme`, contatore `/contatori`). È il punto di forza dell'app: "se non so qualcosa lo ripasso subito". Da elaborare: tokenizzare le battute (BudouX già presente), matchare i token contro il seed (parole/kanji/grammatica) — riusando la logica di `buildGrammarLinkedWords`/distractor index — e rendere link solo i match sicuri. Aprire in overlay/nuova scheda per non perdere il punto dell'avventura. Vale per tutte le avventure e potenzialmente per gli esempi ovunque.
+
 ### Avventura al ristorante — `/ristorante`
 Route a scene (`pick → seats → menu → order → pay → done`). Dati in `restaurants.ts` (2 ristoranti, menu di piatti con prezzo+contatore; struttura pronta per menu più complessi). Flusso: scegli il locale → いらっしゃいませ, 何名様 (scegli lettura persone) → menu con stepper +/− → per ogni piatto componi numero+contatore (kanji/lettura) → il cameriere annuncia おあいそ, paghi esatto → ごちそうさま. Le avventure sono elencate in `/avventure`.
 
