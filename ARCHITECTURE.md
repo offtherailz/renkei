@@ -408,6 +408,20 @@ scelte duplicate nei quiz di riconoscimento. Design:
    d. **Statistiche per skill** (ascolto/lettura/grammatica separate) per
       vedere dove si è deboli.
 
+## In coda (2026-07-06) — forme grammaticali collegate
+
+Aggiunte schede curate in /forme: 授受 (あげる/くれる/もらう) e 縮約形
+(contrazioni: ちゃう/なきゃ/とく/てる…) con la mappa contratta→intera.
+Da fare per completare:
+- Collegare ogni **contrazione alla forma intera** come voci `grammar`
+  navigabili (ちゃう ↔ てしまう, なきゃ ↔ なければならない): oggi il legame è
+  solo testuale nella scheda. Servirebbe un campo `forma_base_id` sulle
+  voci grammar e un badge "contrazione di …".
+- Espandere le forme composte (〜と思う, 〜てみる, 〜ておく, 〜そう, 〜よう…)
+  come schede /forme collegate ai verbi, con drill Consolida dedicato.
+- Fonte: generarle in batch (stessa pipeline della traduzione) o curarle
+  a mano in un `grammar-forms.json` con esempi nel livello.
+
 ## Problemi noti / TODO tecnici
 
 - Il matching nelle espressioni idiomatiche (`buildExpressionLinkedWords`) usa sottostringa semplice e può generare falsi positivi per espressioni molto corte.

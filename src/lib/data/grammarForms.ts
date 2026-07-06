@@ -245,6 +245,43 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'この町[まち]は有名[ゆうめい]です。', it: 'Questa città è famosa.' }
 		],
 		related: ['i-keiyoushi', 'keiyoushi', 'meishi']
+	},
+	{
+		slug: 'juju',
+		label: '授受[じゅじゅ]',
+		icon: '🎁',
+		title: 'Dare e ricevere (あげる・くれる・もらう)',
+		summary: 'Chi dà a chi: la scelta del verbo dipende dalla direzione del favore.',
+		explanation: [
+			'あげる = io/qualcuno DÀ a qualcun altro (verso l\'esterno): 私は友達にプレゼントをあげた.',
+			'くれる = qualcun altro DÀ a ME (verso di me/mio gruppo): 友達が私にプレゼントをくれた.',
+			'もらう = io RICEVO da qualcuno: 私は友達にプレゼントをもらった (chi dà prende に/から).',
+			'Con la forma て diventano favori: 〜てあげる (faccio un favore), 〜てくれる (mi fanno un favore), 〜てもらう (mi faccio fare qualcosa).'
+		],
+		examples: [
+			{ jp: '母[はは]が本[ほん]を買[か]ってくれた。', it: 'Mia madre mi ha comprato un libro (per me).' },
+			{ jp: '先生[せんせい]に日本語[にほんご]を教[おし]えてもらった。', it: 'Mi sono fatto insegnare il giapponese dal maestro.' }
+		],
+		related: ['doushi']
+	},
+	{
+		slug: 'contrazioni',
+		label: '縮約形[しゅくやくけい]',
+		icon: '✂️',
+		title: 'Forme contratte (parlato)',
+		summary: 'Nel parlato molte forme si accorciano. Riconoscere la forma intera dietro la contrazione.',
+		explanation: [
+			'〜てしまう → 〜ちゃう / 〜でしまう → 〜じゃう: 食べてしまう → 食べちゃう ("finire per…", con sfumatura di rammarico/completamento).',
+			'〜なければ → 〜なきゃ / 〜なくては → 〜なくちゃ: 行かなければならない → 行かなきゃ ("devo andare").',
+			'〜ておく → 〜とく: 買っておく → 買っとく ("fare in anticipo").',
+			'〜ている → 〜てる, 〜ていく → 〜てく, 〜という → 〜って: 食べている → 食べてる.',
+			'Regola pratica: la contrazione è solo colloquiale — negli scritti/esame torna alla forma intera.'
+		],
+		examples: [
+			{ jp: '宿題[しゅくだい]をやっちゃった。', it: 'Ho finito i compiti (= やってしまった).' },
+			{ jp: 'もう行[い]かなきゃ。', it: 'Devo andare ormai (= 行かなければならない).' }
+		],
+		related: ['doushi']
 	}
 ];
 

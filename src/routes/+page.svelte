@@ -149,13 +149,18 @@
 		box-shadow: 0 14px 28px rgba(20, 52, 103, 0.28);
 	}
 
-	.logo { border-radius: 10px; }
+	.logo { border-radius: 10px; width: 52px; height: 52px; display: block; }
+
+	.topbar-info { min-width: 0; }
 
 	.topbar-title {
 		margin: 0;
 		font-size: 1.15rem;
 		font-weight: 700;
 		letter-spacing: -0.01em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.topbar-sub {
