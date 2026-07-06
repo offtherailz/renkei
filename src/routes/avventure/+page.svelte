@@ -5,10 +5,10 @@
 	// contatori, saluti, pagamento…). Per ora solo il konbini.
 	const ADVENTURES = [
 		{
-			href: `${base}/konbini`,
-			icon: '🏮',
-			title: 'Al konbini',
-			desc: 'Ascolta la lista, esci di casa, ordina al commesso, paga e torna a casa.',
+			href: `${base}/kaimono`,
+			icon: '🛒',
+			title: 'Kaimono · fare la spesa',
+			desc: 'Ascolta la lista, esci di casa, ordina al konbini, paga e torna a casa.',
 			ready: true
 		}
 	];

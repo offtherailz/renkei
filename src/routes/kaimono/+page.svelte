@@ -297,7 +297,7 @@
 </script>
 
 <div class="konbini">
-	<div class="nav"><a class="back" href="{base}/giochi">← Giochi</a></div>
+	<div class="nav"><a class="back" href="{base}/avventure">← Avventure</a></div>
 
 	{#if scene === 'intro'}
 		<article class="scene">

@@ -213,7 +213,7 @@ Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading
 
 Idee future che spremono lo stesso catalogo: **trova il prodotto** (find-it), **trova il reparto**, **cassa col resto** (おつり).
 
-### Avventura al konbini — `/konbini` (assemblata)
+### Avventura al konbini — `/kaimono` (assemblata)
 Route dedicata con macchina a **scene** (`intro → depart → call? → order → pay → return → done`), riusa `shopItems`/`readCounterN`/voci/denominazioni:
 1. **intro**: la kanojo (voce femminile) detta la lista (visibile come riferimento).
 2. **depart**: scegli il saluto d'uscita (いってきます) → risposta いってらっしゃい.
