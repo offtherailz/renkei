@@ -67217,6 +67217,22 @@
             "中",
             "話"
           ]
+        },
+        {
+          "testo": "この問題は難しそうに見える。",
+          "traduzione": {
+            "it": "Questo problema sembra difficile.",
+            "en": "Questo problema sembra difficile."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "空を見ると、雨が降りそうだ。",
+          "traduzione": {
+            "it": "A guardare il cielo, sembra che pioverà.",
+            "en": "A guardare il cielo, sembra che pioverà."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -67472,6 +67488,22 @@
             "置く",
             "来る"
           ]
+        },
+        {
+          "testo": "旅行の前にホテルを予約しておきます。",
+          "traduzione": {
+            "it": "Prima del viaggio prenoto l'hotel (in anticipo).",
+            "en": "Prima del viaggio prenoto l'hotel (in anticipo)."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "飲み物を冷やしておいた。",
+          "traduzione": {
+            "it": "Ho messo le bevande a rinfrescare (in anticipo).",
+            "en": "Ho messo le bevande a rinfrescare (in anticipo)."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -67763,6 +67795,22 @@
           "parole_linkate": [
             "全部"
           ]
+        },
+        {
+          "testo": "宿題を全部やってしまいました。",
+          "traduzione": {
+            "it": "Ho finito tutti i compiti.",
+            "en": "Ho finito tutti i compiti."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "大事な財布を忘れてしまった。",
+          "traduzione": {
+            "it": "Ho dimenticato il portafoglio importante (purtroppo).",
+            "en": "Ho dimenticato il portafoglio importante (purtroppo)."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -67850,6 +67898,22 @@
             "この",
             "服"
           ]
+        },
+        {
+          "testo": "新しいレストランに行ってみます。",
+          "traduzione": {
+            "it": "Provo ad andare al ristorante nuovo.",
+            "en": "Provo ad andare al ristorante nuovo."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "この漢字を書いてみてください。",
+          "traduzione": {
+            "it": "Prova a scrivere questo kanji.",
+            "en": "Prova a scrivere questo kanji."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -68143,6 +68207,22 @@
             "それ",
             "居る"
           ]
+        },
+        {
+          "testo": "明日は雨だと思います。",
+          "traduzione": {
+            "it": "Penso che domani pioverà.",
+            "en": "Penso che domani pioverà."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "彼は来ないと思う。",
+          "traduzione": {
+            "it": "Penso che lui non verrà.",
+            "en": "Penso che lui non verrà."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -69635,6 +69715,22 @@
           "parole_linkate": [
             "もう"
           ]
+        },
+        {
+          "testo": "一緒に帰ろう。",
+          "traduzione": {
+            "it": "Torniamo insieme.",
+            "en": "Torniamo insieme."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "週末は早く起きようと思う。",
+          "traduzione": {
+            "it": "Nel weekend penso di alzarmi presto.",
+            "en": "Nel weekend penso di alzarmi presto."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [
@@ -71415,6 +71511,22 @@
             "今",
             "本"
           ]
+        },
+        {
+          "testo": "今、音楽を聞いています。",
+          "traduzione": {
+            "it": "Adesso sto ascoltando musica.",
+            "en": "Adesso sto ascoltando musica."
+          },
+          "parole_linkate": []
+        },
+        {
+          "testo": "兄は東京に住んでいます。",
+          "traduzione": {
+            "it": "Mio fratello vive a Tokyo.",
+            "en": "Mio fratello vive a Tokyo."
+          },
+          "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [

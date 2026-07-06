@@ -67,6 +67,47 @@ export async function loadObjectiveSummaries(): Promise<ObjectiveSummary[]> {
 	});
 }
 
+export interface SkillStat {
+	total: number; // item di questo tipo con progresso registrato (in studio)
+	mastery: number; // 0–100 medio di consolidamento
+	due: number; // in ritardo (ripasso pronto)
+}
+export interface SkillMastery {
+	words: SkillStat;
+	kanji: SkillStat;
+	grammar: SkillStat;
+}
+
+// Consolidamento diviso per skill (parole / kanji / grammatica), ricavato dai
+// progressi SRS. NB: è una foto dello stato attuale, non l'accuracy nel tempo
+// (le sessioni non registrano il tipo di ogni risposta).
+export async function loadSkillMastery(): Promise<SkillMastery> {
+	const allSrs = await db.srs_progress.toArray();
+	const now = Date.now();
+	const empty = (): SkillStat & { sum: number } => ({ total: 0, mastery: 0, due: 0, sum: 0 });
+	const acc: Record<'words' | 'kanji' | 'grammar', SkillStat & { sum: number }> = {
+		words: empty(),
+		kanji: empty(),
+		grammar: empty()
+	};
+	for (const srs of allSrs) {
+		let bucket: (SkillStat & { sum: number }) | null = null;
+		if (srs.id_item.startsWith('word:')) bucket = acc.words;
+		else if (srs.id_item.startsWith('kanji:')) bucket = acc.kanji;
+		else if (srs.id_item.startsWith('grammar:')) bucket = acc.grammar;
+		if (!bucket) continue;
+		bucket.total += 1;
+		bucket.sum += normalizeMastery(srs.srs_stage, srs.mastery_points);
+		if (srs.next_review_date <= now) bucket.due += 1;
+	}
+	const finalize = (b: SkillStat & { sum: number }): SkillStat => ({
+		total: b.total,
+		mastery: b.total > 0 ? Math.round(b.sum / b.total) : 0,
+		due: b.due
+	});
+	return { words: finalize(acc.words), kanji: finalize(acc.kanji), grammar: finalize(acc.grammar) };
+}
+
 export async function countDueCards(): Promise<number> {
 	const now = Date.now();
 	return db.srs_progress

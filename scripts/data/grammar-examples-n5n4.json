@@ -1,0 +1,33 @@
+{
+  "_note": "Frasi d'esempio extra curate a mano per le forme composte collegate in /forme. Vengono aggiunte a frasi_esempio della voce grammar corrispondente (dedupe per testo) così il micro-drill Consolida ha più materiale. Testo in giapponese semplice N5/N4, senza notazione furigana (coerente col resto del seed).",
+  "examples": {
+    "grammar-api-N4-56": [
+      { "jp": "明日は雨だと思います。", "it": "Penso che domani pioverà." },
+      { "jp": "彼は来ないと思う。", "it": "Penso che lui non verrà." }
+    ],
+    "grammar-api-N4-65": [
+      { "jp": "新しいレストランに行ってみます。", "it": "Provo ad andare al ristorante nuovo." },
+      { "jp": "この漢字を書いてみてください。", "it": "Prova a scrivere questo kanji." }
+    ],
+    "grammar-api-N4-20": [
+      { "jp": "旅行の前にホテルを予約しておきます。", "it": "Prima del viaggio prenoto l'hotel (in anticipo)." },
+      { "jp": "飲み物を冷やしておいた。", "it": "Ho messo le bevande a rinfrescare (in anticipo)." }
+    ],
+    "grammar-api-N4-21": [
+      { "jp": "宿題を全部やってしまいました。", "it": "Ho finito tutti i compiti." },
+      { "jp": "大事な財布を忘れてしまった。", "it": "Ho dimenticato il portafoglio importante (purtroppo)." }
+    ],
+    "grammar-api-N5-66": [
+      { "jp": "今、音楽を聞いています。", "it": "Adesso sto ascoltando musica." },
+      { "jp": "兄は東京に住んでいます。", "it": "Mio fratello vive a Tokyo." }
+    ],
+    "grammar-api-N4-54": [
+      { "jp": "この問題は難しそうに見える。", "it": "Questo problema sembra difficile." },
+      { "jp": "空を見ると、雨が降りそうだ。", "it": "A guardare il cielo, sembra che pioverà." }
+    ],
+    "grammar-api-N4-14": [
+      { "jp": "一緒に帰ろう。", "it": "Torniamo insieme." },
+      { "jp": "週末は早く起きようと思う。", "it": "Nel weekend penso di alzarmi presto." }
+    ]
+  }
+}

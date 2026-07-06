@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { appState } from '$lib/stores.svelte';
 	import { db } from '$lib/db/schema';
+	import { loadSkillMastery, type SkillMastery } from '$lib/db/queries';
 	import type { StudySessionRecord } from '$lib/types/models';
 
 	interface DailyAggregate {
@@ -14,6 +15,19 @@
 
 	let history = $state<StudySessionRecord[]>([]);
 	let week = $state<DailyAggregate[]>([]);
+	let skills = $state<SkillMastery | null>(null);
+
+	const SKILL_META = [
+		{ key: 'words', label: 'Parole', icon: '📦' },
+		{ key: 'kanji', label: 'Kanji', icon: '漢' },
+		{ key: 'grammar', label: 'Grammatica', icon: '📖' }
+	] as const;
+
+	function masteryColor(p: number): string {
+		if (p >= 75) return 'var(--success, #16a34a)';
+		if (p >= 40) return '#d97706';
+		return '#dc2626';
+	}
 
 	const weekTotals = $derived(() => {
 		return week.reduce(
@@ -56,6 +70,7 @@
 			map.set(day, cur);
 		}
 		week = [...map.values()].sort((a, b) => a.day.localeCompare(b.day));
+		skills = await loadSkillMastery();
 	}
 
 	onMount(loadStats);
@@ -129,6 +144,34 @@
 	<p class="muted-text">Nessuna sessione questa settimana.</p>
 	{/if}
 </section>
+
+<!-- Consolidamento per skill -->
+{#if skills}
+<section class="section-card">
+	<p class="card-title">Consolidamento per skill</p>
+	<div class="skill-list">
+		{#each SKILL_META as meta}
+			{@const s = skills[meta.key]}
+			<div class="skill-row">
+				<span class="skill-icon" class:kanji-icon={meta.icon === '漢'}>{meta.icon}</span>
+				<div class="skill-body">
+					<div class="skill-head">
+						<span class="skill-label">{meta.label}</span>
+						<span class="skill-meta">
+							{s.total} in studio{#if s.due > 0} · <span class="skill-due">{s.due} da ripassare</span>{/if}
+						</span>
+					</div>
+					<div class="skill-bar-wrap">
+						<div class="skill-bar" style="width:{s.mastery}%; background:{masteryColor(s.mastery)}"></div>
+					</div>
+				</div>
+				<span class="skill-pct">{s.mastery}%</span>
+			</div>
+		{/each}
+	</div>
+	<p class="muted-text skill-note">Foto dello stato attuale (SRS), non l'andamento nel tempo.</p>
+</section>
+{/if}
 
 <!-- Obiettivi giornalieri -->
 <section class="section-card">
@@ -235,6 +278,54 @@
 	}
 
 	.chart-label { font-size: 0.6rem; color: var(--muted); }
+
+	.skill-list { display: grid; gap: 12px; }
+
+	.skill-row { display: flex; align-items: center; gap: 10px; }
+
+	.skill-icon {
+		font-size: 1.3rem;
+		width: 32px;
+		text-align: center;
+		flex-shrink: 0;
+	}
+
+	.skill-icon.kanji-icon {
+		font-size: 1rem;
+		font-weight: 700;
+		color: #fff;
+		background: var(--brand);
+		border-radius: 6px;
+		line-height: 32px;
+		height: 32px;
+	}
+
+	.skill-body { flex: 1; min-width: 0; }
+
+	.skill-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 8px;
+		margin-bottom: 4px;
+	}
+
+	.skill-label { font-size: 0.85rem; font-weight: 600; }
+	.skill-meta { font-size: 0.68rem; color: var(--muted); }
+	.skill-due { color: var(--brand); font-weight: 600; }
+
+	.skill-bar-wrap {
+		height: 6px;
+		background: var(--line);
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.skill-bar { height: 100%; border-radius: 4px; transition: width 0.4s; }
+
+	.skill-pct { font-size: 0.9rem; font-weight: 700; color: var(--ink); min-width: 38px; text-align: right; }
+
+	.skill-note { margin-top: 10px; }
 
 	.goal-row {
 		display: flex;

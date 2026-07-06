@@ -16,6 +16,30 @@ const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json")
 const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
 const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
+const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
+
+// Aggiunge frasi d'esempio curate alle voci grammar delle forme composte
+// (〜てみる, 〜ておく…): l'API sorgente ne dà spesso una sola, e il micro-drill
+// Consolida in /forme ne ha bisogno di più. Dedupe per testo.
+async function mergeGrammarExamples(grammar) {
+  const curated = JSON.parse(await fs.readFile(GRAMMAR_EXAMPLES_PATH, "utf8")).examples;
+  const byId = new Map(grammar.map((g) => [g.id, g]));
+  let enriched = 0;
+  for (const [id, extra] of Object.entries(curated)) {
+    const g = byId.get(id);
+    if (!g) continue;
+    g.frasi_esempio = g.frasi_esempio ?? [];
+    const seen = new Set(g.frasi_esempio.map((f) => f.testo));
+    for (const ex of extra) {
+      if (seen.has(ex.jp)) continue;
+      g.frasi_esempio.push({ testo: ex.jp, traduzione: { it: ex.it, en: ex.it }, parole_linkate: [] });
+      seen.add(ex.jp);
+    }
+    enriched += 1;
+  }
+  console.log(`Esempi grammar curati: ${enriched} voci arricchite.`);
+  return grammar;
+}
 
 // Espressioni idiomatiche essenziali curate a mano: entrano nel catalogo come
 // 慣用表現 con significati italiani veri (le prime voci realmente localizzate).
@@ -1031,10 +1055,10 @@ async function main() {
     updated_at: now
   }));
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
-  const normalizedGrammar = normalizeGrammar([
+  const normalizedGrammar = await mergeGrammarExamples(normalizeGrammar([
     { level: "N5", rows: grammarN5 },
     { level: "N4", rows: grammarN4 }
-  ], existingSeed.grammar ?? [], normalizedWords);
+  ], existingSeed.grammar ?? [], normalizedWords));
 
   const nextSeed = {
     words: normalizedWords,

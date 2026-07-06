@@ -16,6 +16,13 @@
 	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
+	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
+
+	// Forme composte più utili da collegare alla scheda di un verbo.
+	const VERB_COMPOSED_SLUGS = ['te-miru', 'te-oku', 'te-shimau', 'te-iru', 'to-omou', 'you-volitiva', 'sou-apparenza'];
+	const verbComposedForms = VERB_COMPOSED_SLUGS
+		.map((s) => GRAMMAR_FORMS.find((f) => f.slug === s))
+		.filter((f): f is NonNullable<typeof f> => Boolean(f));
 
 	const locale = detectUserLocale();
 
@@ -223,6 +230,20 @@
 		{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
 			<ConjugationTable {word} />
 			<ConjugationDrill {word} />
+		{/if}
+
+		{#if word.tipo_jp.startsWith('動詞')}
+		<article class="detail-card">
+			<p class="card-title">Forme composte utili</p>
+			<p class="composed-hint">Costruzioni che partono da questo verbo. Tocca per spiegazione ed esercizio.</p>
+			<div class="chip-row">
+				{#each verbComposedForms as form}
+					<a href="{base}/forme#{form.slug}" class="composed-chip">
+						{stripFuriganaNotation(form.label)}
+					</a>
+				{/each}
+			</div>
+		</article>
 		{/if}
 
 		{#key word.id}
@@ -542,6 +563,21 @@
 	}
 
 	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
+
+	.composed-hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 8px; }
+
+	.composed-chip {
+		padding: 6px 12px;
+		border-radius: 999px;
+		background: var(--surface-2);
+		border: 1px solid var(--line);
+		text-decoration: none;
+		color: var(--brand);
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	.composed-chip:hover { background: #eef2ff; border-color: var(--brand); }
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }

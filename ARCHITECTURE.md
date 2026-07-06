@@ -423,9 +423,30 @@ Schede curate in `src/lib/data/grammarForms.ts`, renderizzate in /forme:
   che apre un micro-drill Consolida sulla voce grammar del seed corrispondente
   (id `grammar-api-N4-56/65/20/21`, `grammar-api-N5-66`, `grammar-api-N4-54/14`).
 
+Rifiniture (2026-07-06, v12):
+- Drill più ricco: file curato `scripts/data/grammar-examples-n5n4.json`
+  + `mergeGrammarExamples()` nello script aggiungono 2 frasi extra alle 7
+  voci grammar collegate (l'API ne dava 1 sola). Il seed committato è già
+  patchato con le stesse frasi (SEED_REVISION → `…-grammar-examples-v12`).
+- Scoperta dal verbo: la scheda dettaglio dei 動詞 mostra "Forme composte
+  utili" con chip verso /forme#slug.
+- Test di integrità `src/lib/data/grammarForms.test.ts`: slug unici, `related`
+  e `consolidaId` esistenti (+ frasi_esempio presenti), coerenza di
+  `FORM_SLUG_BY_LABEL`.
+
 Possibile evoluzione futura (non urgente): campo `forma_base_id` sulle voci
 `grammar` del seed per collegare le contrazioni a livello dati, e generazione
 in batch di altre forme composte.
+
+## Statistiche per skill (parziale, 2026-07-06)
+
+Aggiunto pannello "Consolidamento per skill" in /stats (`loadSkillMastery`):
+parole / kanji / grammatica con % media di consolidamento e conteggio ripassi,
+ricavati da `srs_progress` per prefisso `id_item`. È una **foto dello stato
+attuale**, non l'accuracy nel tempo: `StudySessionRecord` salva solo aggregati
+(answers/correct/wrong) senza il tipo di ogni risposta. Per l'andamento per
+skill nel tempo servirebbe registrare la categoria a livello di risposta
+(cambio di schema, dati solo in avanti) — rimandato.
 
 ## Problemi noti / TODO tecnici
 
