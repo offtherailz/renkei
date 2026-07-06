@@ -5,6 +5,7 @@ import {
   deriveJmdictMetadata,
   ensureJmdictData,
   extractJmdictExamples,
+  extractXrefs,
   lookupJmdict
 } from "./lib/jmdict.mjs";
 
@@ -220,6 +221,16 @@ function enrichWordRelations(words) {
   ];
 
   const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
+  // risolve una "testa" xref JMdict (kanji o kana) a un id del nostro catalogo
+  const headToId = (head) => {
+    if (!head) return null;
+    if (byWriting.has(head)) return byWriting.get(head);
+    const bucket = byReading.get(normalizeReading(head));
+    return bucket && bucket.length ? bucket[0].id : null;
+  };
+  const resolveXrefs = (heads) =>
+    unique((heads ?? []).map(headToId).filter(Boolean));
+
   const antonymById = new Map();
   for (const [left, right] of antonymPairs) {
     const leftId = byWriting.get(left);
@@ -259,11 +270,20 @@ function enrichWordRelations(words) {
       .map((entry) => entry.id)
       .slice(0, 8);
 
+    // JMdict ha priorità: antonimi e correlati (related/see) presi dai xref.
+    const xrefAnt = resolveXrefs(word._xrefAnt).filter((id) => id !== word.id);
+    const xrefRel = resolveXrefs(word._xrefRel).filter((id) => id !== word.id);
+
+    const finalAnt = unique([...xrefAnt, ...(antonymById.get(word.id) ?? [])]);
+    // sinonimi: prima i correlati JMdict, poi i candidati euristici EN
+    const finalSyn = unique([...xrefRel, ...synonyms]).filter((id) => !finalAnt.includes(id));
+
+    const { _xrefAnt, _xrefRel, ...clean } = word;
     return {
-      ...word,
-      sinonimi: word.sinonimi?.length ? word.sinonimi : unique(synonyms),
-      contrari: word.contrari?.length ? word.contrari : unique(antonymById.get(word.id) ?? []),
-      omofoni: word.omofoni?.length ? word.omofoni : unique(homophones)
+      ...clean,
+      sinonimi: clean.sinonimi?.length ? clean.sinonimi : finalSyn.slice(0, 8),
+      contrari: clean.contrari?.length ? clean.contrari : finalAnt.slice(0, 8),
+      omofoni: clean.omofoni?.length ? clean.omofoni : unique(homophones)
     };
   });
 }
@@ -720,9 +740,12 @@ function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji) {
         2,
         allowedKanji ? new Set([...allowedKanji, ...(word.kanji_usati ?? [])]) : null
       );
+      const xrefs = extractXrefs(entry);
       next = {
         ...word,
         ...metadata,
+        _xrefAnt: xrefs.antonyms,
+        _xrefRel: xrefs.related,
         frasi_esempio: examples.length
           ? examples.map((ex) => ({ testo: ex.jp, traduzione: { it: ex.en, en: ex.en } }))
           : word.frasi_esempio

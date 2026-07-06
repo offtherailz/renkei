@@ -147,6 +147,24 @@ export function deriveJmdictMetadata(entry) {
   return result;
 }
 
+// Riferimenti incrociati di JMdict: antonimi (ant) e correlati (related/see).
+// Ogni voce è un array la cui testa è la parola bersaglio (kanji o kana).
+export function extractXrefs(entry) {
+  const antonyms = new Set();
+  const related = new Set();
+  for (const sense of entry.sense ?? []) {
+    for (const a of sense.antonym ?? []) {
+      const head = Array.isArray(a) ? a[0] : a;
+      if (head) antonyms.add(head);
+    }
+    for (const r of sense.related ?? []) {
+      const head = Array.isArray(r) ? r[0] : r;
+      if (head) related.add(head);
+    }
+  }
+  return { antonyms: [...antonyms], related: [...related] };
+}
+
 // Frasi d'esempio (Tatoeba): si preferiscono le più corte e pedagogiche
 // (lunghezza ideale ~18 caratteri) e SENZA kanji fuori dal livello:
 // ogni kanji non presente nel catalogo N5/N4 pesa come un macigno.
