@@ -7,23 +7,32 @@ import type { SpeakOptions } from './tts';
 
 export type Gender = 'maschile' | 'femminile';
 
-const FEMALE_HINTS = ['female', 'kyoko', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'o-ren', 'women', 'josei', '女'];
-const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'keita', 'daichi', 'naoki', 'takeru', 'takumi', 'kenji', 'shinji', 'ren', 'dansei', '男'];
+// Nomi standard delle voci giapponesi nei vari sistemi:
+// Apple: Kyoko/O-ren (F), Otoya/Hattori (M). Microsoft: Haruka/Ayumi/Nanami (F),
+// Ichiro/Keita (M). Google/Android usa il naming ...-A/-B (F) e ...-C/-D (M).
+const FEMALE_HINTS = ['female', 'kyoko', 'o-ren', 'haruka', 'ayumi', 'nanami', 'sayaka', 'mizuki', 'women', 'josei', '女'];
+const MALE_HINTS = ['male', 'otoya', 'hattori', 'ichiro', 'keita', 'daichi', 'naoki', 'takeru', 'takumi', 'kenji', 'dansei', '男'];
 
 function jaVoices(): SpeechSynthesisVoice[] {
 	if (typeof window === 'undefined' || !window.speechSynthesis) return [];
 	return window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('ja'));
 }
 
-// Ritorna una voce del genere richiesto SOLO se il nome lo indica chiaramente,
+// Indovina il genere di una voce dal nome/URI. Copre i naming standard.
+function classifyVoice(v: SpeechSynthesisVoice): Gender | null {
+	const n = `${v.name} ${v.voiceURI}`.toLowerCase();
+	// Google/Android: ja-JP-Standard/Wavenet/Neural2-A|B = femminili, -C|D = maschili.
+	const m = n.match(/(?:standard|wavenet|neural2)-([a-d])/);
+	if (m) return m[1] === 'a' || m[1] === 'b' ? 'femminile' : 'maschile';
+	if (MALE_HINTS.some((h) => n.includes(h))) return 'maschile';
+	if (FEMALE_HINTS.some((h) => n.includes(h))) return 'femminile';
+	return null;
+}
+
+// Ritorna una voce del genere richiesto SOLO se identificabile con certezza,
 // altrimenti null (meglio la default di sistema che una voce a caso).
 function findGenderVoice(gender: Gender): SpeechSynthesisVoice | null {
-	const hints = gender === 'femminile' ? FEMALE_HINTS : MALE_HINTS;
-	const voices = jaVoices();
-	return voices.find((v) => {
-		const n = `${v.name} ${v.voiceURI}`.toLowerCase();
-		return hints.some((h) => n.includes(h));
-	}) ?? null;
+	return jaVoices().find((v) => classifyVoice(v) === gender) ?? null;
 }
 
 export function opposite(g: Gender): Gender {
