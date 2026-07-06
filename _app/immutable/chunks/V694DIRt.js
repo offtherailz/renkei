@@ -1,1 +1,0 @@
-import{m as s,H as t,U as i}from"./Cd87xsFY.js";import{B as m}from"./CWMRCDR-.js";const c=Symbol("NaN");function h(r,e,n){s&&t();var o=new m(r);i(()=>{var a=e();a!==a&&(a=c),o.ensure(a,n)})}export{h as k};

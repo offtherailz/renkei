@@ -1,1 +1,0 @@
-import{a6 as f,ar as e,j as t}from"./Cd87xsFY.js";function c(n){throw new Error("https://svelte.dev/e/lifecycle_outside_component")}function r(n){e===null&&c(),f(()=>{const o=t(n);if(typeof o=="function")return o})}function i(n){e===null&&c(),r(()=>()=>t(n))}export{i as a,r as o};
