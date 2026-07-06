@@ -20,6 +20,9 @@
 	function sayAsync(text: string, g: Gender): Promise<void> {
 		return speakSentenceJapaneseAsync(text, voiceParams(g));
 	}
+	function speakUser(text: string): void {
+		say(text, userGender());
+	}
 	const KANOJO: Gender = 'femminile';
 	function clerk(): Gender {
 		return opposite(userGender());
@@ -32,6 +35,11 @@
 	let list = $state<ShoppingRequest[]>([]);
 	let errors = $state(0);
 	let missed = $state<string[]>([]);
+
+	// scena iniziale: mini お使い (ascolta e riempi il carrello)
+	let gridItems = $state<ShopItem[]>([]);
+	let cart = $state<Record<string, number>>({});
+	let introDone = $state(false);
 
 	// telefonata
 	let callText = $state('');
@@ -88,7 +96,11 @@
 	});
 
 	function start(): void {
-		list = generateShoppingList(2 + Math.floor(Math.random() * 2), 0).list;
+		const g = generateShoppingList(2 + Math.floor(Math.random() * 2), 3);
+		list = g.list;
+		gridItems = g.grid;
+		cart = {};
+		introDone = false;
 		errors = 0;
 		missed = [];
 		callText = '';
@@ -106,7 +118,35 @@
 		say(listPhrase() + '、おねがいね！', KANOJO);
 	}
 
-	// intro → chiede la lista
+	// ── Scena iniziale: お使い (ascolta la lista, riempi il carrello) ──
+	function addToCart(id: string): void {
+		if (introDone) return;
+		const q = (cart[id] ?? 0) + 1;
+		cart = { ...cart, [id]: q };
+		const it = gridItems.find((x) => x.id === id);
+		if (it) speakUser(itemReading(it, q));
+	}
+	function removeFromCart(id: string): void {
+		if (introDone || !cart[id]) return;
+		const n = cart[id]! - 1;
+		const next = { ...cart };
+		if (n <= 0) delete next[id]; else next[id] = n;
+		cart = next;
+	}
+	function resetCart(): void {
+		if (introDone) return;
+		cart = {};
+	}
+	function deliverIntro(): void {
+		if (introDone) return;
+		introDone = true;
+		const ok = list.every((r) => (cart[r.item.id] ?? 0) === r.qty) &&
+			Object.entries(cart).every(([id, n]) => n === 0 || list.some((r) => r.item.id === id));
+		if (!ok) { errors += 1; missed.push('spesa'); }
+		say(ok ? 'ありがとう、じゃあおねがいね！' : 'えっと…まあいいや、おねがいね！', KANOJO);
+	}
+
+	// intro → esci di casa
 	function toDepart(): void {
 		scene = 'depart';
 		greetPicked = null;
@@ -262,14 +302,32 @@
 	{#if scene === 'intro'}
 		<article class="scene">
 			<p class="who">🧑‍🦰 la kanojo</p>
-			<p class="bubble">ねえ、お使いおねがい！</p>
-			<button class="replay" onclick={speakList}>🔊 Riascolta la lista</button>
-			<ul class="shop-list">
-				{#each list as r (r.item.id)}
-					<li><span class="li-emoji">{r.item.emoji}</span> <span class="li-name">{r.item.scrittura}</span> <span class="li-qty">{r.qty}{r.item.counterId}</span></li>
-				{/each}
-			</ul>
-			<button class="proceed" onclick={toDepart}>はい！ →</button>
+			<p class="bubble">ねえ、お使いおねがい！よく聞いてね。</p>
+			<button class="replay" onclick={speakList}>🔊 Riascolta la richiesta</button>
+			{#if !introDone}
+				<div class="shelf">
+					{#each gridItems as item (item.id)}
+						{@const have = cart[item.id] ?? 0}
+						<button class="product" class:in-cart={have > 0} onclick={() => addToCart(item.id)} oncontextmenu={(e) => { e.preventDefault(); removeFromCart(item.id); }}>
+							<span class="prod-emoji">{item.emoji}</span>
+							{#if have > 0}<span class="prod-badge">{have}</span>{/if}
+						</button>
+					{/each}
+				</div>
+				<p class="hint">Ascolta e riempi il carrello · tocca = +1, a lungo/click destro = −1</p>
+				<div class="till-actions">
+					<button class="mini" onclick={resetCart} disabled={Object.keys(cart).length === 0}>↺ Svuota</button>
+					<button class="proceed" onclick={deliverIntro}>🧺 Ho preso tutto</button>
+				</div>
+			{:else}
+				<ul class="shop-list">
+					{#each list as r (r.item.id)}
+						{@const have = cart[r.item.id] ?? 0}
+						<li><span class="li-emoji">{r.item.emoji}</span> <span class="li-name">{r.item.scrittura}</span> <span class="li-qty">{r.qty}{r.item.counterId}</span> <span class="li-mark">{have === r.qty ? '✓' : '✗'}</span></li>
+					{/each}
+				</ul>
+				<button class="proceed" onclick={toDepart}>Esci di casa →</button>
+			{/if}
 		</article>
 	{:else if scene === 'depart'}
 		<article class="scene">
@@ -378,6 +436,13 @@
 	.li-emoji { font-size: 1.4rem; }
 	.li-name { flex: 1; font-weight: 600; }
 	.li-qty { font-weight: 700; }
+	.li-mark { font-weight: 800; }
+
+	.shelf { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+	.product { position: relative; aspect-ratio: 1; display: grid; place-items: center; border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface-2); cursor: pointer; }
+	.product.in-cart { border-color: var(--brand); background: #eff6ff; }
+	.prod-emoji { font-size: 2rem; }
+	.prod-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; display: grid; place-items: center; border-radius: 999px; background: var(--brand); color: #fff; font-size: 0.75rem; font-weight: 700; }
 
 	.order-ref { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 	.ref-item { font-size: 1rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); opacity: 0.55; }
