@@ -195,10 +195,15 @@ Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighsco
 - **Scrivi il numero** — `generateNumberDictation`: il TTS legge un numero, l'utente digita le cifre.
 - **Alla cassa** — `generateShopPrice` + `YEN_DENOMINATIONS`: il commesso annuncia il totale (frase variata tra 2-3 tipi), l'utente compone l'importo esatto con banconote/monete; alla fine il commesso risponde (ちょうど… / すみません…).
 - **Appuntamento** — `generateAppointment`: il TTS legge data + ora (「3月9日の4時半」), l'utente inserisce mese/giorno/ora/minuti (半 = 30).
+- **Lista della spesa** (お使い) — `generateShoppingList` (`shopItems.ts`): il TTS chiede più prodotti con quantità (「牛乳を2本、卵を3こ…」), l'utente riempie il carrello cliccando le emoji nella griglia (tocca = +1, click destro = −1); si verifica che il carrello combaci esatto.
+
+**Catalogo prodotti** (`src/lib/core/shopItems.ts`): ~24 voci `emoji · scrittura · lettura · it · reparto/repartoJp · prezzo · counterId`. È il mattone riusabile per i giochi situazionali; le quantità si leggono con `readCounterN(counter, n)` (serve che il contatore abbia letture numerate, es. つ → `ひとつ (1)…`).
 
 **Timer** (opzionale, toggle in home): countdown per la risposta che, se scade, azzera la serie. Nei giochi d'ascolto parte **dopo** l'audio (`speakSentenceJapaneseAsync` → Promise su `onend`), coordinato con un `qGen` per non armare timer di domande superate.
 
-Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`; `readCounterN` in `counterReadings.ts`.
+Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`; `readCounterN` in `counterReadings.ts`; catalogo prodotti in `shopItems.ts`.
+
+Idee future che spremono lo stesso catalogo: **trova il prodotto** (find-it), **trova il reparto**, **cassa col resto** (おつり), **mini-avventure a scene** (konbini: indicazioni → lista → reparti → cassa; treno: meta → biglietto → binario) concatenando i micro-giochi.
 
 ---
 
