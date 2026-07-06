@@ -7,14 +7,16 @@
 		{
 			href: `${base}/kaimono`,
 			icon: '🛒',
-			title: 'Kaimono · fare la spesa',
+			title: '買い物',
+			yomi: 'かいもの',
 			desc: 'Ascolta la lista, esci di casa, ordina al konbini, paga e torna a casa.',
 			ready: true
 		},
 		{
 			href: `${base}/ristorante`,
 			icon: '🍽️',
-			title: 'Al ristorante',
+			title: 'お店',
+			yomi: 'おみせ',
 			desc: 'Scegli il locale, di\' in quanti siete, ordina dal menu, paga il conto.',
 			ready: true
 		}
@@ -30,7 +32,7 @@
 			<a class="adv-card" href={a.href}>
 				<span class="adv-icon">{a.icon}</span>
 				<span class="adv-body">
-					<span class="adv-title">{a.title}</span>
+					<span class="adv-title">{a.title}<small>（{a.yomi}）</small></span>
 					<span class="adv-desc">{a.desc}</span>
 				</span>
 			</a>
@@ -60,6 +62,7 @@
 	.adv-icon { font-size: 2.4rem; }
 	.adv-body { display: grid; gap: 3px; }
 	.adv-title { font-weight: 700; font-size: 1.05rem; }
+	.adv-title small { color: var(--muted); font-weight: 400; font-size: 0.72rem; }
 	.adv-desc { font-size: 0.82rem; color: var(--muted); }
 	.back-link { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 </style>

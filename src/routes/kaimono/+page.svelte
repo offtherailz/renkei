@@ -6,9 +6,13 @@
 	import { SHOP_ITEMS, generateShoppingList, type ShopItem, type ShoppingRequest } from '$lib/core/shopItems';
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
-	import { speakSentenceJapanese, speakSentenceJapaneseAsync } from '$lib/core/tts';
+	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
+
+	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
+	const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？', 'すみません、もう一度よろしいですか？'];
+	const SLOWER_REQ = ['すみません、もう少しゆっくりおねがいします。', 'もう少しゆっくり話していただけますか？', 'ゆっくりおねがいします。'];
 
 	// ── Voci: kanojo = femminile, commesso = opposto a te, tu = voce impostazioni ──
 	function userGender(): Gender {
@@ -17,15 +21,21 @@
 	function say(text: string, g: Gender): void {
 		speakSentenceJapanese(text, voiceParams(g));
 	}
-	function sayAsync(text: string, g: Gender): Promise<void> {
-		return speakSentenceJapaneseAsync(text, voiceParams(g));
-	}
 	function speakUser(text: string): void {
 		say(text, userGender());
 	}
 	const KANOJO: Gender = 'femminile';
 	function clerk(): Gender {
 		return opposite(userGender());
+	}
+	// Più battute di fila senza annullarsi.
+	function sequence(lines: { g: Gender; text: string }[]): void {
+		speakSequence(lines.map((l) => ({ text: l.text, options: voiceParams(l.g) })));
+	}
+	// もう一度 / ゆっくり: dici la richiesta, poi risenti la frase (più piano se slow).
+	async function askRepeat(slow: boolean, line: string, g: Gender): Promise<void> {
+		await speakSentenceJapaneseAsync(slow ? rnd(SLOWER_REQ) : rnd(REPEAT_REQ), voiceParams(userGender()));
+		speakSentenceJapanese(line, { ...voiceParams(g), rate: slow ? 0.6 : 1 });
 	}
 
 	type Scene = 'intro' | 'depart' | 'call' | 'order' | 'pay' | 'return' | 'done';
@@ -114,10 +124,6 @@
 		scene = 'intro';
 	}
 
-	function speakList(): void {
-		say(listPhrase() + '、おねがいね！', KANOJO);
-	}
-
 	// ── Scena iniziale: お使い (ascolta la lista, riempi il carrello) ──
 	function addToCart(id: string): void {
 		if (introDone) return;
@@ -157,7 +163,7 @@
 		if (greetPicked !== null) return;
 		greetPicked = choice;
 		if (choice !== 'いってきます') { errors += 1; missed.push('partenza'); }
-		say('いってらっしゃい！', KANOJO);
+		sequence([{ g: userGender(), text: choice }, { g: KANOJO, text: 'いってらっしゃい！' }]);
 	}
 	function afterDepart(): void {
 		// ~55% una telefonata a sorpresa modifica la lista
@@ -289,12 +295,19 @@
 		const reply = errors === 0
 			? 'おかえりなさい！ぜんぶあってるよ、ありがとう！'
 			: 'おかえりなさい！んー、ちょっとちがうかも…';
-		say(reply, KANOJO);
+		sequence([{ g: userGender(), text: choice }, { g: KANOJO, text: reply }]);
 	}
 	function toDone(): void {
 		scene = 'done';
 	}
 </script>
+
+{#snippet repeatBar(line: string, g: Gender)}
+	<div class="repeat-bar">
+		<button class="mini" onclick={() => askRepeat(false, line, g)}>🔁 もう一度</button>
+		<button class="mini" onclick={() => askRepeat(true, line, g)}>🐢 ゆっくり</button>
+	</div>
+{/snippet}
 
 <div class="konbini">
 	<div class="nav"><a class="back" href="{base}/avventure">← Avventure</a></div>
@@ -303,7 +316,7 @@
 		<article class="scene">
 			<p class="who">🧑‍🦰 la kanojo</p>
 			<p class="bubble">ねえ、お使いおねがい！よく聞いてね。</p>
-			<button class="replay" onclick={speakList}>🔊 Riascolta la richiesta</button>
+			{@render repeatBar(listPhrase() + '、おねがいね！', KANOJO)}
 			{#if !introDone}
 				<div class="shelf">
 					{#each gridItems as item (item.id)}
@@ -346,7 +359,7 @@
 	{:else if scene === 'call'}
 		<article class="scene">
 			<p class="who">📞 Ti chiama la kanojo!</p>
-			<button class="replay" onclick={() => say(callText, KANOJO)}>🔊 Riascolta</button>
+			{@render repeatBar(callText, KANOJO)}
 			<p class="bubble big">{callText}</p>
 			<p class="hint">Niente conferma: ricordatelo!</p>
 			<button class="proceed" onclick={afterCall}>わかった！ →</button>
@@ -373,7 +386,7 @@
 	{:else if scene === 'pay'}
 		<article class="scene">
 			<p class="who">💴 Alla cassa</p>
-			<button class="replay" onclick={() => say(`ぜんぶで${readNumber(total())}えんです`, clerk())}>🔊 Riascolta il totale</button>
+			{@render repeatBar(`ぜんぶで${readNumber(total())}えんです`, clerk())}
 			<div class="till"><span class="till-label">Stai porgendo</span><span class="till-amount">¥{tendered.toLocaleString('en-US')}</span></div>
 			<div class="denoms">
 				{#each YEN_DENOMINATIONS as d}
@@ -429,7 +442,7 @@
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.big { font-size: 1.25rem; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
-	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
+	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
