@@ -134,8 +134,13 @@ export function deriveJmdictMetadata(entry) {
     // "ctr" da solo = contatore puro; molti nomi (本, 山, 手...) hanno un senso
     // contatore secondario ma restano sostantivi per lo studio.
     result.tipo_jp = "助数詞[じょすうし]";
+  } else if (pos.has("adj-pn")) {
+    // 連体詞: pre-nominale (この/その/あの/大きな…), non un aggettivo vero
+    result.tipo_jp = "連体詞[れんたいし]";
   } else if (pos.has("adv") || pos.has("adv-to")) {
     result.tipo_jp = "副詞[ふくし]";
+  } else if (pos.has("conj")) {
+    result.tipo_jp = "接続詞[せつぞくし]";
   } else if (pos.has("prt")) {
     result.tipo_jp = "助詞[じょし]";
   } else if (pos.has("exp") && !pos.has("n")) {
