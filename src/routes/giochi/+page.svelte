@@ -4,7 +4,11 @@
 		generateReading,
 		generateClockReading,
 		generateNumberDictation,
-		type GeneratedReading
+		generateShopPrice,
+		generateAppointment,
+		YEN_DENOMINATIONS,
+		type GeneratedReading,
+		type Appointment
 	} from '$lib/core/counterGen';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
@@ -20,7 +24,7 @@
 	] as const;
 
 	type ReadId = (typeof READ_GAMES)[number]['id'];
-	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | null;
+	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt' } | null;
 
 	let game = $state<Game>(null);
 	let streak = $state(0);
@@ -38,8 +42,20 @@
 	let answer = $state('');
 	let checked = $state(false);
 
+	// alla cassa
+	let shop = $state<{ n: number; reading: string } | null>(null);
+	let tendered = $state(0);
+	let stack = $state<number[]>([]);
+
+	// appuntamento (data + ora)
+	let appt = $state<Appointment | null>(null);
+	let apptIn = $state({ month: '', day: '', hour: '', minute: '' });
+
 	function gameId(g: NonNullable<Game>): string {
-		return g.kind === 'read' ? `read-${g.cat}` : 'listen-number';
+		if (g.kind === 'read') return `read-${g.cat}`;
+		if (g.kind === 'shop') return 'shop-pay';
+		if (g.kind === 'appt') return 'listen-appt';
+		return 'listen-number';
 	}
 
 	function shuffle<T>(xs: T[]): T[] {
@@ -75,6 +91,21 @@
 		speakSentenceJapanese(dictation.reading);
 	}
 
+	function newShop(): void {
+		shop = generateShopPrice();
+		tendered = 0;
+		stack = [];
+		checked = false;
+		speakSentenceJapanese(`ぜんぶで${shop.reading}えんです`);
+	}
+
+	function newAppt(): void {
+		appt = generateAppointment();
+		apptIn = { month: '', day: '', hour: '', minute: '' };
+		checked = false;
+		speakSentenceJapanese(appt.reading);
+	}
+
 	function start(g: NonNullable<Game>): void {
 		game = g;
 		streak = 0;
@@ -82,7 +113,44 @@
 		isRecord = false;
 		gameOver = false;
 		if (g.kind === 'read') newReadQuestion(g.cat);
+		else if (g.kind === 'shop') newShop();
+		else if (g.kind === 'appt') newAppt();
 		else newDictation();
+	}
+
+	function checkAppt(): void {
+		if (checked || !appt) return;
+		const asNum = (s: string) => Number(s.replace(/[^\d]/g, ''));
+		if ([apptIn.month, apptIn.day, apptIn.hour, apptIn.minute].some((v) => v.trim() === '')) return;
+		checked = true;
+		registerResult(
+			asNum(apptIn.month) === appt.month &&
+				asNum(apptIn.day) === appt.day &&
+				asNum(apptIn.hour) === appt.hour &&
+				asNum(apptIn.minute) === appt.minute
+		);
+	}
+
+	function addDenom(d: number): void {
+		if (checked) return;
+		stack = [...stack, d];
+		tendered += d;
+	}
+	function undo(): void {
+		if (checked || stack.length === 0) return;
+		const last = stack[stack.length - 1]!;
+		stack = stack.slice(0, -1);
+		tendered -= last;
+	}
+	function resetTender(): void {
+		if (checked) return;
+		stack = [];
+		tendered = 0;
+	}
+	function payNow(): void {
+		if (checked || !shop || tendered === 0) return;
+		checked = true;
+		registerResult(tendered === shop.n);
 	}
 
 	function registerResult(correct: boolean): void {
@@ -112,6 +180,8 @@
 		if (!game) return;
 		if (gameOver) { start(game); return; }
 		if (game.kind === 'read') newReadQuestion(game.cat);
+		else if (game.kind === 'shop') newShop();
+		else if (game.kind === 'appt') newAppt();
 		else newDictation();
 	}
 
@@ -120,6 +190,8 @@
 		game = null;
 		question = null;
 		dictation = null;
+		shop = null;
+		appt = null;
 	}
 </script>
 
@@ -143,13 +215,25 @@
 			{/each}
 		</div>
 
-		<p class="group-title">Ascolta e scrivi</p>
+		<p class="group-title">Ascolta e agisci</p>
 		<div class="cat-grid">
 			<button class="cat-card" onclick={() => start({ kind: 'listen' })}>
 				<span class="cat-icon">👂</span>
 				<span class="cat-label">Scrivi il numero</span>
 				<span class="cat-hint">senti la lettura, digita le cifre</span>
 				<span class="cat-best">🏆 record: {getHighscore('listen-number')}</span>
+			</button>
+			<button class="cat-card" onclick={() => start({ kind: 'shop' })}>
+				<span class="cat-icon">🛒</span>
+				<span class="cat-label">Alla cassa</span>
+				<span class="cat-hint">il commesso dice il totale: paga esatto</span>
+				<span class="cat-best">🏆 record: {getHighscore('shop-pay')}</span>
+			</button>
+			<button class="cat-card" onclick={() => start({ kind: 'appt' })}>
+				<span class="cat-icon">📅</span>
+				<span class="cat-label">Appuntamento</span>
+				<span class="cat-hint">senti data e ora, segnala sull'agenda</span>
+				<span class="cat-best">🏆 record: {getHighscore('listen-appt')}</span>
 			</button>
 		</div>
 
@@ -212,6 +296,61 @@
 					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
 				{/if}
 			</article>
+		{:else if game.kind === 'shop' && shop}
+			<article class="game-card">
+				<p class="game-hint">🛒 Il commesso dice il totale — paga esatto</p>
+				<button class="replay" onclick={() => speakSentenceJapanese(`ぜんぶで${shop!.reading}えんです`)}>🔊 Riascolta</button>
+				<div class="till">
+					<span class="till-label">Stai porgendo</span>
+					<span class="till-amount">¥{tendered.toLocaleString('en-US')}</span>
+				</div>
+				<div class="denoms">
+					{#each YEN_DENOMINATIONS as d}
+						<button class="denom" class:coin={d < 1000} disabled={checked} onclick={() => addDenom(d)}>
+							¥{d.toLocaleString('en-US')}
+						</button>
+					{/each}
+				</div>
+				{#if !checked}
+					<div class="till-actions">
+						<button class="mini" onclick={undo} disabled={stack.length === 0}>↩︎ Annulla</button>
+						<button class="mini" onclick={resetTender} disabled={tendered === 0}>↺ Svuota</button>
+						<button class="proceed" onclick={payNow} disabled={tendered === 0}>💴 Paga</button>
+					</div>
+				{:else}
+					<p class="verdict" class:ok={!gameOver} class:ko={gameOver}>
+						{#if gameOver}
+							Era <strong>¥{shop.n.toLocaleString('en-US')}</strong> ({shop.reading}えん). Hai dato ¥{tendered.toLocaleString('en-US')}. Serie: {streak}
+						{:else}
+							{isRecord ? '🏆 Nuovo record!' : '✓ Pagato giusto!'} — {shop.reading}えん
+						{/if}
+					</p>
+					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
+				{/if}
+			</article>
+		{:else if game.kind === 'appt' && appt}
+			<article class="game-card">
+				<p class="game-hint">📅 Quando è l'appuntamento?</p>
+				<button class="replay" onclick={() => speakSentenceJapanese(appt!.reading)}>🔊 Riascolta</button>
+				<div class="appt-grid">
+					<label class="appt-field"><span>Mese</span><input type="text" inputmode="numeric" bind:value={apptIn.month} disabled={checked} /></label>
+					<label class="appt-field"><span>Giorno</span><input type="text" inputmode="numeric" bind:value={apptIn.day} disabled={checked} /></label>
+					<label class="appt-field"><span>Ora</span><input type="text" inputmode="numeric" bind:value={apptIn.hour} disabled={checked} /></label>
+					<label class="appt-field"><span>Minuti</span><input type="text" inputmode="numeric" bind:value={apptIn.minute} disabled={checked} onkeydown={(e) => { if (e.key === 'Enter') checkAppt(); }} /></label>
+				</div>
+				{#if !checked}
+					<button class="proceed" onclick={checkAppt}>Controlla</button>
+				{:else}
+					<p class="verdict" class:ok={!gameOver} class:ko={gameOver}>
+						{#if gameOver}
+							Era <strong>{appt.month}/{appt.day} · {appt.hour}:{String(appt.minute).padStart(2, '0')}</strong> ({appt.reading}). Serie: {streak}
+						{:else}
+							{isRecord ? '🏆 Nuovo record!' : '✓ Giusto!'} — {appt.reading}
+						{/if}
+					</p>
+					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
+				{/if}
+			</article>
 		{/if}
 	{/if}
 </div>
@@ -259,6 +398,24 @@
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
 	.num-input { justify-self: center; width: 60%; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); }
 	.num-input:focus { border-color: var(--brand); outline: none; }
+
+	.till { display: grid; gap: 2px; justify-items: center; }
+	.till-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+	.till-amount { font-size: 2.2rem; font-weight: 800; }
+	.denoms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+	.denom { padding: 12px 6px; border-radius: 10px; border: 1.5px solid #c6a15b; background: #fdf3d8; color: #6b4e12; font-weight: 700; font-size: 1rem; cursor: pointer; }
+	.denom.coin { border-color: var(--line); background: var(--surface-2); color: var(--ink); }
+	.denom:hover:not(:disabled) { filter: brightness(0.96); }
+	.denom:disabled { opacity: 0.5; cursor: default; }
+	.till-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
+	.mini:disabled { opacity: 0.4; cursor: default; }
+
+	.appt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+	.appt-field { display: grid; gap: 4px; justify-items: center; }
+	.appt-field span { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+	.appt-field input { width: 100%; text-align: center; font-size: 1.4rem; font-weight: 700; padding: 6px 4px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); }
+	.appt-field input:focus { border-color: var(--brand); outline: none; }
 
 	.verdict { margin: 0; text-align: center; font-size: 0.95rem; font-weight: 600; }
 	.verdict.ok { color: var(--success, #16a34a); }

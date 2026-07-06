@@ -192,6 +192,48 @@ export function generateNumberDictation(): { n: number; reading: string } {
 	return { n, reading: readNumber(n) };
 }
 
+// ── Alla cassa: prezzi realistici da pagare componendo banconote/monete ──
+const SHOP_PRICES = [
+	80, 120, 150, 250, 380, 480, 500, 680, 780, 980,
+	1200, 1480, 1980, 2500, 3400, 4800, 5600, 8800
+];
+
+export function generateShopPrice(): { n: number; reading: string } {
+	const n = SHOP_PRICES[RAND(SHOP_PRICES.length)]!;
+	return { n, reading: readNumber(n) };
+}
+
+// Tagli yen in circolazione (banconote + monete), dal più grande al più piccolo.
+export const YEN_DENOMINATIONS = [10000, 5000, 1000, 500, 100, 50, 10, 5, 1];
+
+// ── Mesi del calendario (〜月 = がつ): irregolari 4 しがつ, 7 しちがつ, 9 くがつ ──
+const MONTH_UNITS: Record<number, string> = { 4: 'し', 7: 'しち', 9: 'く' };
+
+export function monthReading(m: number): string {
+	return (MONTH_UNITS[m] ?? readNumber(m)) + 'がつ';
+}
+
+// ── Ascolto: data + ora di un appuntamento (3月9日の4時半) ──
+const APPT_MINUTES = [0, 15, 30, 45];
+
+export interface Appointment {
+	month: number;
+	day: number;
+	hour: number;
+	minute: number;
+	reading: string;
+}
+
+export function generateAppointment(): Appointment {
+	const month = 1 + RAND(12);
+	const day = 1 + RAND(31);
+	const hour = 1 + RAND(12);
+	const minute = APPT_MINUTES[RAND(APPT_MINUTES.length)]!;
+	const minPart = minute === 0 ? '' : minute === 30 ? 'はん' : minuteReading(minute);
+	const reading = `${monthReading(month)}${dayReading(day)}の${hourReading(hour)}${minPart}`;
+	return { month, day, hour, minute, reading };
+}
+
 // Lettura "ingenua" senza rendaku: buon distrattore per i prezzi.
 function naiveNumber(n: number): string {
 	const th = Math.floor(n / 1000);

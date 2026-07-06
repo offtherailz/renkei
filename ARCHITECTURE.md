@@ -183,12 +183,21 @@ Tre livelli distinti, per non rendere l'XP gonfiabile:
 3. **Highscore dei giochi** (`gameScores.ts` → localStorage): punteggio **a parte**, separato da XP e SRS. Un record per gioco/categoria.
 
 ### Giochi sui numeri (`/giochi`)
-Implementato: **"Leggi il numero"** — serie a scelta multipla su una categoria (`日`/`時`/`分`/`円`/misto) generata con `generateReading`; ogni corretta allunga la serie, un errore la azzera. Record per categoria via `submitScore`/`getHighscore`.
+Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighscore`. Due gruppi:
 
-Idee per altri giochi (base tecnica già pronta: `readNumber`, `generateReading`, `dayReading/hourReading/minuteReading/yenReading`):
-- **Ascolta e scrivi il numero**: TTS legge un numero/prezzo, l'utente digita le cifre.
-- **Che ore sono?**: orologio randomizzato → lettura 時+分 combinata (よじさんじゅっぷん).
-- **Conta gli oggetti**: N oggetti di una categoria → scegli numero+contatore giusto.
+**Leggi come si pronuncia** (scelta multipla):
+- **日/時/分/円** — `generateReading`.
+- **Che ore sono?** — `generateClockReading` (orario 時+分 combinato, es. 4:30 → よじさんじゅっぷん).
+- **Misto**.
+
+**Ascolta e agisci** (TTS + azione):
+- **Scrivi il numero** — `generateNumberDictation`: il TTS legge un numero, l'utente digita le cifre.
+- **Alla cassa** — `generateShopPrice` + `YEN_DENOMINATIONS`: il commesso dice il totale (「ぜんぶで〜円です」), l'utente compone l'importo esatto toccando banconote/monete.
+- **Appuntamento** — `generateAppointment`: il TTS legge data + ora (「3月9日の4時半」), l'utente inserisce mese/giorno/ora/minuti (半 = 30).
+
+Base tecnica riusabile in `counterGen.ts`: `readNumber`, `dayReading/hourReading/minuteReading/monthReading/yenReading/clockReading`.
+
+Idee per altri giochi: **conta gli oggetti** (N oggetti di una categoria → numero+contatore giusto).
 
 ---
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readNumber, dayReading, hourReading, minuteReading, yenReading, generateReading, generateClockReading, generateNumberDictation, clockReading, GENERATED_COUNTERS } from './counterGen';
+import { readNumber, dayReading, hourReading, minuteReading, yenReading, monthReading, generateReading, generateClockReading, generateNumberDictation, generateAppointment, clockReading, GENERATED_COUNTERS } from './counterGen';
 
 describe('readNumber', () => {
 	it('legge unità e decine', () => {
@@ -102,6 +102,29 @@ describe('generateNumberDictation', () => {
 		for (let i = 0; i < 20; i += 1) {
 			const d = generateNumberDictation();
 			expect(d.reading).toBe(readNumber(d.n));
+		}
+	});
+});
+
+describe('monthReading', () => {
+	it('gestisce i mesi trappola', () => {
+		expect(monthReading(4)).toBe('しがつ');
+		expect(monthReading(7)).toBe('しちがつ');
+		expect(monthReading(9)).toBe('くがつ');
+		expect(monthReading(12)).toBe('じゅうにがつ');
+	});
+});
+
+describe('generateAppointment', () => {
+	it('campi in range e half = 30', () => {
+		for (let i = 0; i < 30; i += 1) {
+			const a = generateAppointment();
+			expect(a.month).toBeGreaterThanOrEqual(1);
+			expect(a.month).toBeLessThanOrEqual(12);
+			expect(a.day).toBeLessThanOrEqual(31);
+			expect(a.hour).toBeLessThanOrEqual(12);
+			expect([0, 15, 30, 45]).toContain(a.minute);
+			if (a.minute === 30) expect(a.reading).toContain('はん');
 		}
 	});
 });
