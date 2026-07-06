@@ -28,7 +28,9 @@
 	let loading = $state(true);
 
 	// Related items
-	let relatedWords = $state<Word[]>([]);
+	let synonyms = $state<Word[]>([]);
+	let antonyms = $state<Word[]>([]);
+	let homophones = $state<Word[]>([]);
 	let kanjiUsed = $state<Kanji[]>([]);
 	let grammarUsing = $state<Grammar[]>([]);
 	let wordsUsingKanji = $state<Word[]>([]);
@@ -45,7 +47,7 @@
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null;
-		relatedWords = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
+		synonyms = []; antonyms = []; homophones = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 
 		const currentKind = itemId.split(':')[0];
@@ -55,13 +57,19 @@
 			if (currentKind === 'word') {
 				word = (await db.words.get(currentRawId)) ?? null;
 				if (word) {
-					const [srs, related, kanjiItems, grammarItems] = await Promise.all([
+					const resolve = (ids: string[]) =>
+						Promise.all(ids.slice(0, 8).map((id) => db.words.get(id))).then((r) => r.filter((w): w is Word => !!w));
+					const [srs, syn, ant, homo, kanjiItems, grammarItems] = await Promise.all([
 						db.srs_progress.get(`word:${currentRawId}`),
-						Promise.all([...word.sinonimi, ...word.contrari].slice(0, 6).map((id) => db.words.get(id))),
+						resolve(word.sinonimi ?? []),
+						resolve(word.contrari ?? []),
+						resolve(word.omofoni ?? []),
 						Promise.all(word.kanji_usati.map((k) => db.kanji.get(k))),
 						db.grammar.where('frasi_esempio_parole_linkate').equals(currentRawId).toArray()
 					]);
-					relatedWords = related.filter((w): w is Word => !!w);
+					synonyms = syn;
+					antonyms = ant;
+					homophones = homo;
 					kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
 					grammarUsing = grammarItems;
 					if (word.id_verbo_corrispondente) {
@@ -250,19 +258,25 @@
 		</article>
 		{/if}
 
-		{#if relatedWords.length > 0}
-		<article class="detail-card">
-			<p class="card-title">Parole correlate</p>
-			<div class="chip-row">
-				{#each relatedWords as w}
-					<a href="{base}/detail/word:{w.id}" class="word-chip">
-						<span class="chip-writing">{w.scrittura}</span>
-						<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
-					</a>
-				{/each}
-			</div>
-		</article>
-		{/if}
+		{#snippet relCard(titolo: string, list: Word[])}
+			{#if list.length > 0}
+			<article class="detail-card">
+				<p class="card-title">{titolo}</p>
+				<div class="chip-row">
+					{#each list as w}
+						<a href="{base}/detail/word:{w.id}" class="word-chip">
+							<span class="chip-writing">{w.scrittura}</span>
+							<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
+						</a>
+					{/each}
+				</div>
+			</article>
+			{/if}
+		{/snippet}
+
+		{@render relCard('Sinonimi', synonyms)}
+		{@render relCard('Contrari', antonyms)}
+		{@render relCard('Omofoni (stessa lettura)', homophones)}
 
 		{#if grammarUsing.length > 0}
 		<article class="detail-card">
