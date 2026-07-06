@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applySrsReview, createInitialSrs, normalizeMastery } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -10,6 +10,21 @@ describe("createInitialSrs", () => {
     expect(srs.next_review_date).toBe(NOW);
     expect(srs.mastery_points).toBe(0);
     expect(srs.streak).toBe(0);
+  });
+});
+
+describe("applyPracticeReview", () => {
+  it("muove solo il mastery, non stage né data di ripasso", () => {
+    const srs = applySrsReview(createInitialSrs("counter:日", NOW), true, NOW); // stage 1
+    const beforeStage = srs.srs_stage;
+    const beforeDate = srs.next_review_date;
+    const ok = applyPracticeReview(srs, true, NOW);
+    expect(ok.srs_stage).toBe(beforeStage);
+    expect(ok.next_review_date).toBe(beforeDate);
+    expect(ok.mastery_points).toBe(srs.mastery_points + 4);
+    const ko = applyPracticeReview(srs, false, NOW);
+    expect(ko.srs_stage).toBe(beforeStage);
+    expect(ko.mastery_points).toBe(srs.mastery_points - 6);
   });
 });
 

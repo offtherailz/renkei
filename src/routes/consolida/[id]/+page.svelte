@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
+	import { createInitialSrs, applyPracticeReview } from '$lib/core/srs';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import {
@@ -30,6 +31,8 @@
 	let kanjiChar = $state<string | null>(null);
 	let grammarMode = $state(false);
 	let counterMode = $state(false);
+	// item SRS che questa sessione consolida (pratica: muove solo il mastery)
+	let srsTarget = $state<string | null>(null);
 	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
@@ -43,7 +46,7 @@
 	async function build(): Promise<void> {
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
-		word = null; kanjiChar = null; grammarMode = false; counterMode = false;
+		word = null; kanjiChar = null; grammarMode = false; counterMode = false; srsTarget = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -62,6 +65,7 @@
 			const g = await db.grammar.get(rawId);
 			if (g && g.frasi_esempio?.length) {
 				grammarMode = true;
+				srsTarget = `grammar:${g.id}`;
 				title = g.struttura;
 				const qs: QuizQuestion[] = [];
 				for (let i = 0; i < 8 && qs.length < 5; i += 1) {
@@ -80,6 +84,7 @@
 			const c = (counters as Counter[]).find((x) => x.id === rawId);
 			if (c) {
 				counterMode = true;
+				srsTarget = `counter:${c.id}`;
 				title = `${c.simbolo}（${c.lettura}）`;
 				queue = buildCounterQuestions(c, counters as Counter[]);
 			}
@@ -90,6 +95,7 @@
 		const w = await db.words.get(rawId);
 		if (w) {
 			word = w;
+			srsTarget = `word:${w.id}`;
 			title = w.scrittura;
 			queue = shuffle(buildWordQuestions(w, context, distractors, counters as Counter[]));
 			loading = false;
@@ -100,6 +106,7 @@
 		const k = await db.kanji.get(rawId);
 		if (k) {
 			kanjiChar = k.id;
+			srsTarget = `kanji:${k.id}`;
 			title = k.id;
 			const withKanji = words.filter((x) => x.kanji_usati.includes(k.id));
 			const qs: QuizQuestion[] = [];
@@ -267,7 +274,9 @@
 		if (picked !== null || !current) return;
 		picked = choice;
 		revealed = true;
-		score = { ok: score.ok + (choice === correctOf(current) ? 1 : 0), tot: score.tot + 1 };
+		const correct = choice === correctOf(current);
+		score = { ok: score.ok + (correct ? 1 : 0), tot: score.tot + 1 };
+		void recordPractice(correct);
 		// per coniugazione/transitività leggi la forma corretta, non la parola base
 		const m = current.mode;
 		if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
@@ -278,6 +287,14 @@
 		} else if (word) {
 			speakWordReading(word);
 		}
+	}
+
+	// La pratica consolida davvero (muove il mastery dell'item), ma non dà XP.
+	async function recordPractice(correct: boolean): Promise<void> {
+		if (!srsTarget) return;
+		const existing = await db.srs_progress.get(srsTarget);
+		const updated = applyPracticeReview(existing ?? createInitialSrs(srsTarget), correct);
+		await db.srs_progress.put(updated);
 	}
 
 	function next(): void {
@@ -300,7 +317,7 @@
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : 'Allenamento libero'} — non conta nei punteggi. {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : 'Allenamento libero'} — consolida (niente XP). {score.ok}/{score.tot}
 			</p>
 		</header>
 

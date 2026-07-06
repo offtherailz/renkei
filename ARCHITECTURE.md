@@ -175,15 +175,20 @@ Drill sulle letture numero+contatore. Due strategie:
 
 `readNumber(n)` (0–99999) è il lettore di numerali riusabile (con rendaku di centinaia/migliaia); testato in `counterGen.test.ts`.
 
-### Idee: giochi sui numeri (da fare)
-Mini-giochi dedicati ai numerali, oltre al drill letture:
-- **Ascolta e scrivi il numero**: TTS legge un numero/prezzo, l'utente digita le cifre (allena il parsing 万/千/百).
-- **Prezzo al volo**: mostra un cartellino ¥ e cronometra la lettura corretta (a scelta multipla o vocale).
+## Modello dei punteggi
+
+Tre livelli distinti, per non rendere l'XP gonfiabile:
+1. **XP globale + livello + streak** (`user_profile`): **solo** dalle sessioni di quiz (con timer). È il punteggio "ufficiale".
+2. **Consolidamento per item** (`srs_progress`): il quiz lo fa avanzare pienamente (`applySrsReview`: stage + intervallo + mastery). Il **Consolida** applica invece `applyPracticeReview`, che muove **solo i `mastery_points`** (peso 30% in `normalizeMastery`), senza toccare stage né data di ripasso e **senza XP**. Così la pratica libera e ripetibile "conta" verso il consolidamento (visibile in Stats, contatori inclusi) ma non falsa gli intervalli SRS né l'XP.
+3. **Highscore dei giochi** (`gameScores.ts` → localStorage): punteggio **a parte**, separato da XP e SRS. Un record per gioco/categoria.
+
+### Giochi sui numeri (`/giochi`)
+Implementato: **"Leggi il numero"** — serie a scelta multipla su una categoria (`日`/`時`/`分`/`円`/misto) generata con `generateReading`; ogni corretta allunga la serie, un errore la azzera. Record per categoria via `submitScore`/`getHighscore`.
+
+Idee per altri giochi (base tecnica già pronta: `readNumber`, `generateReading`, `dayReading/hourReading/minuteReading/yenReading`):
+- **Ascolta e scrivi il numero**: TTS legge un numero/prezzo, l'utente digita le cifre.
 - **Che ore sono?**: orologio randomizzato → lettura 時+分 combinata (よじさんじゅっぷん).
-- **Calendario**: data casuale → lettura del giorno; oppure "che giorno è il 3° lunedì?".
-- **Conta gli oggetti**: immagine/elenco di N oggetti di una categoria → scegli numero+contatore giusto (unisce `createCounterQuestion` e la lettura).
-- **Countdown/somme**: piccole operazioni lette in giapponese.
-Base tecnica già pronta: `readNumber`, `generateReading`, `dayReading/hourReading/minuteReading/yenReading`.
+- **Conta gli oggetti**: N oggetti di una categoria → scegli numero+contatore giusto.
 
 ---
 

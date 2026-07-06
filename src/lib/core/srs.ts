@@ -45,6 +45,20 @@ export function applySrsReview(progress: SrsProgress, isCorrect: boolean, nowTs 
   };
 }
 
+// Ripasso "pratica" (Consolida, allenamento libero, ripetibile all'infinito):
+// muove solo i mastery_points (peso 30% nel consolidamento), NON lo stage SRS né
+// la data di ripasso. Così la pratica "conta" davvero verso il consolidamento
+// senza gonfiare gli intervalli SRS ufficiali (guidati solo dalle sessioni quiz)
+// e senza dare XP.
+export function applyPracticeReview(progress: SrsProgress, isCorrect: boolean, nowTs = Date.now()): SrsProgress {
+  const delta = isCorrect ? 4 : -6;
+  return {
+    ...progress,
+    mastery_points: clamp(progress.mastery_points + delta, -100, 100),
+    updated_at: nowTs
+  };
+}
+
 export function normalizeMastery(stage: number, masteryPoints: number): number {
   const stageWeight = (stage / 7) * 70;
   const masteryWeight = ((masteryPoints + 100) / 200) * 30;

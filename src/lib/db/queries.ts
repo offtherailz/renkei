@@ -76,6 +76,7 @@ export interface SkillMastery {
 	words: SkillStat;
 	kanji: SkillStat;
 	grammar: SkillStat;
+	counters: SkillStat;
 }
 
 // Consolidamento diviso per skill (parole / kanji / grammatica), ricavato dai
@@ -85,16 +86,18 @@ export async function loadSkillMastery(): Promise<SkillMastery> {
 	const allSrs = await db.srs_progress.toArray();
 	const now = Date.now();
 	const empty = (): SkillStat & { sum: number } => ({ total: 0, mastery: 0, due: 0, sum: 0 });
-	const acc: Record<'words' | 'kanji' | 'grammar', SkillStat & { sum: number }> = {
+	const acc: Record<'words' | 'kanji' | 'grammar' | 'counters', SkillStat & { sum: number }> = {
 		words: empty(),
 		kanji: empty(),
-		grammar: empty()
+		grammar: empty(),
+		counters: empty()
 	};
 	for (const srs of allSrs) {
 		let bucket: (SkillStat & { sum: number }) | null = null;
 		if (srs.id_item.startsWith('word:')) bucket = acc.words;
 		else if (srs.id_item.startsWith('kanji:')) bucket = acc.kanji;
 		else if (srs.id_item.startsWith('grammar:')) bucket = acc.grammar;
+		else if (srs.id_item.startsWith('counter:')) bucket = acc.counters;
 		if (!bucket) continue;
 		bucket.total += 1;
 		bucket.sum += normalizeMastery(srs.srs_stage, srs.mastery_points);
@@ -105,7 +108,12 @@ export async function loadSkillMastery(): Promise<SkillMastery> {
 		mastery: b.total > 0 ? Math.round(b.sum / b.total) : 0,
 		due: b.due
 	});
-	return { words: finalize(acc.words), kanji: finalize(acc.kanji), grammar: finalize(acc.grammar) };
+	return {
+		words: finalize(acc.words),
+		kanji: finalize(acc.kanji),
+		grammar: finalize(acc.grammar),
+		counters: finalize(acc.counters)
+	};
 }
 
 export async function countDueCards(): Promise<number> {

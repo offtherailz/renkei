@@ -28,8 +28,12 @@
 	const SKILL_META = [
 		{ key: 'words', label: 'Parole', icon: '📦' },
 		{ key: 'kanji', label: 'Kanji', icon: '漢' },
-		{ key: 'grammar', label: 'Grammatica', icon: '📖' }
+		{ key: 'grammar', label: 'Grammatica', icon: '📖' },
+		{ key: 'counters', label: 'Contatori', icon: '🔢' }
 	] as const;
+	// I contatori si consolidano solo dalla pratica (Consolida): niente accuracy
+	// nelle sessioni, quindi restano fuori dal grafico accuracy.
+	const ACC_META = SKILL_META.filter((m) => m.key !== 'counters');
 
 	function masteryColor(p: number): string {
 		if (p >= 75) return 'var(--success, #16a34a)';
@@ -98,7 +102,8 @@
 		weekSkillAcc = wacc;
 	}
 
-	function accPct(k: 'words' | 'kanji' | 'grammar'): number | null {
+	function accPct(k: string): number | null {
+		if (k !== 'words' && k !== 'kanji' && k !== 'grammar') return null;
 		const a = skillAcc[k];
 		return a.answers > 0 ? Math.round((a.correct / a.answers) * 100) : null;
 	}
@@ -206,7 +211,7 @@
 			</div>
 		{/each}
 	</div>
-	<p class="muted-text skill-note">Consolidamento = foto dello stato SRS. Accuracy = risposte corrette su totale, cumulata dalle sessioni.</p>
+	<p class="muted-text skill-note">Consolidamento = foto dello stato SRS. Accuracy = risposte corrette su totale, cumulata dalle sessioni. I contatori si consolidano esercitandosi nel Consolida (niente XP).</p>
 </section>
 {/if}
 
@@ -215,7 +220,7 @@
 <section class="section-card">
 	<p class="card-title">Accuracy per skill · ultimi 7 giorni</p>
 	<div class="acc-chart">
-		{#each SKILL_META as meta}
+		{#each ACC_META as meta}
 			{@const p = weekAccPct(meta.key)}
 			<div class="acc-col">
 				<span class="acc-val">{p !== null ? `${p}%` : '—'}</span>

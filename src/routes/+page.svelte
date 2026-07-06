@@ -133,6 +133,10 @@
 			<span class="quick-icon">🔢</span>
 			<span>Contatori</span>
 		</a>
+		<a href="{base}/giochi" class="quick-card">
+			<span class="quick-icon">🎮</span>
+			<span>Giochi numeri</span>
+		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
 			<span>Impostazioni</span>
