@@ -29,9 +29,23 @@
 	function clerk(): Gender {
 		return opposite(userGender());
 	}
-	// Più battute di fila senza annullarsi.
-	function sequence(lines: { g: Gender; text: string }[]): void {
+
+	// Copione: log delle battute di dialogo (non i feedback né le ripetizioni).
+	type Line = { who: 'me' | 'other'; text: string };
+	let dialog = $state<Line[]>([]);
+	function pushLine(who: 'me' | 'other', text: string): void {
+		const last = dialog[dialog.length - 1];
+		if (last && last.who === who && last.text === text) return;
+		dialog = [...dialog, { who, text }];
+	}
+	// Più battute di fila senza annullarsi; con role finiscono nel copione.
+	function sequence(lines: { g: Gender; text: string; role?: 'me' | 'other' }[]): void {
 		speakSequence(lines.map((l) => ({ text: l.text, options: voiceParams(l.g) })));
+		for (const l of lines) if (l.role) pushLine(l.role, l.text);
+	}
+	// Battuta singola di storia (parla + copione).
+	function line(g: Gender, text: string, role: 'me' | 'other'): void {
+		sequence([{ g, text, role }]);
 	}
 	// もう一度 / ゆっくり: dici la richiesta, poi risenti la frase (più piano se slow).
 	async function askRepeat(slow: boolean, line: string, g: Gender): Promise<void> {
@@ -129,7 +143,10 @@
 		start();
 	});
 
+	let showScript = $state(false);
 	function start(): void {
+		dialog = [];
+		showScript = false;
 		const g = generateShoppingList(2 + Math.floor(Math.random() * 2), 3);
 		list = g.list;
 		gridItems = g.grid;
@@ -149,8 +166,8 @@
 		introRequest = rnd(INTRO_REQUESTS);
 		// chiede di fare la spesa, poi detta la lista (risentibile con もう一度 / ゆっくり)
 		sequence([
-			{ g: KANOJO, text: introRequest },
-			{ g: KANOJO, text: listPhrase() + '、おねがいね！' }
+			{ g: KANOJO, text: introRequest, role: 'other' },
+			{ g: KANOJO, text: listPhrase() + '、おねがいね！', role: 'other' }
 		]);
 	}
 
@@ -179,7 +196,7 @@
 		const ok = list.every((r) => (cart[r.item.id] ?? 0) === r.qty) &&
 			Object.entries(cart).every(([id, n]) => n === 0 || list.some((r) => r.item.id === id));
 		if (!ok) { errors += 1; missed.push('spesa'); }
-		say(ok ? 'ありがとう、じゃあおねがいね！' : 'えっと…まあいいや、おねがいね！', KANOJO);
+		line(KANOJO, ok ? 'ありがとう、じゃあおねがいね！' : 'えっと…まあいいや、おねがいね！', 'other');
 	}
 
 	// intro → esci di casa
@@ -193,7 +210,7 @@
 		if (greetPicked !== null) return;
 		greetPicked = choice;
 		if (choice !== 'いってきます') { errors += 1; missed.push('partenza'); }
-		sequence([{ g: userGender(), text: choice }, { g: KANOJO, text: 'いってらっしゃい！' }]);
+		sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: 'いってらっしゃい！', role: 'other' }]);
 	}
 	function afterDepart(): void {
 		// ~55% una telefonata a sorpresa modifica la lista
@@ -263,7 +280,7 @@
 	// Rispondi al telefono.
 	function answerPhone(): void {
 		callStep = 'request';
-		sequence([{ g: userGender(), text: 'もしもし？' }, { g: KANOJO, text: callText }]);
+		sequence([{ g: userGender(), text: 'もしもし？', role: 'me' }, { g: KANOJO, text: callText, role: 'other' }]);
 	}
 	// Ho finito di modificare la lista → bivio.
 	function callDone(): void {
@@ -271,7 +288,7 @@
 		const ok = sameAsTarget();
 		if (!callConfirm) {
 			// taglia corto: nessuna conferma
-			sequence([{ g: userGender(), text: 'えっと…' }, { g: KANOJO, text: 'ごめん、時間がないから、じゃあね！' }]);
+			sequence([{ g: userGender(), text: 'えっと…', role: 'me' }, { g: KANOJO, text: 'ごめん、時間がないから、じゃあね！', role: 'other' }]);
 			if (!ok) { errors += 1; missed.push('telefonata'); }
 			callReply = '（うまく聞き取れたかな…）';
 		} else {
@@ -279,13 +296,13 @@
 			const mine = list.map((r) => r.item.scrittura + 'を' + itemReading(r.item, r.qty)).join('、');
 			if (ok) {
 				callReply = 'うん、正解！じゃあね。';
-				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？` }, { g: KANOJO, text: callReply }]);
+				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？`, role: 'me' }, { g: KANOJO, text: callReply, role: 'other' }]);
 			} else {
 				callReply = `ううん、${targetPhrase()}、だよ。`;
 				list = targetList.map((r) => ({ ...r })); // lei ti corregge
 				errors += 1;
 				missed.push('telefonata');
-				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？` }, { g: KANOJO, text: callReply }]);
+				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？`, role: 'me' }, { g: KANOJO, text: callReply, role: 'other' }]);
 			}
 		}
 	}
@@ -300,7 +317,7 @@
 		clerkGreet = rnd(CLERK_GREET);
 		setOrderItem();
 		// il commesso ti dà il benvenuto, poi cominci tu a ordinare
-		say(clerkGreet, clerk());
+		line(clerk(), clerkGreet, 'other');
 	}
 	function setOrderItem(): void {
 		const r = list[orderIdx]!;
@@ -326,12 +343,12 @@
 		picked = choice;
 		const r = list[orderIdx]!;
 		if (choice === orderCorrect) {
-			say(r.item.scrittura + 'を' + itemReading(r.item, r.qty) + 'ください', userGender());
+			line(userGender(), r.item.scrittura + 'を' + itemReading(r.item, r.qty) + 'ください', 'me');
 		} else {
 			errors += 1;
 			missed.push(r.item.scrittura);
 			orderStaffLine = rnd(NOT_UNDERSTOOD_K);
-			say(orderStaffLine, clerk());
+			line(clerk(), orderStaffLine, 'other');
 		}
 	}
 	function retryOrder(): void {
@@ -344,7 +361,7 @@
 		} else {
 			// il commesso riassume l'ordine (registro konbini) e conferma
 			scene = 'orderdone';
-			sequence([{ g: clerk(), text: `はい、${listPhrase()}ですね。` }, { g: clerk(), text: rnd(CLERK_OK) }]);
+			sequence([{ g: clerk(), text: `はい、${listPhrase()}ですね。`, role: 'other' }, { g: clerk(), text: rnd(CLERK_OK), role: 'other' }]);
 		}
 	}
 	function toPay(): void {
@@ -352,7 +369,7 @@
 		tendered = 0;
 		stack = [];
 		payChecked = false;
-		say(`ぜんぶで${readNumber(total())}えんです`, clerk());
+		line(clerk(), `ぜんぶで${readNumber(total())}えんです`, 'other');
 	}
 
 	// ── Pagamento (esatto) ──
@@ -376,10 +393,10 @@
 		payOk = tendered === total();
 		if (payOk) {
 			payChecked = true;
-			say('ちょうどいただきます。ありがとうございました！', clerk());
+			line(clerk(), 'ちょうどいただきます。ありがとうございました！', 'other');
 		} else {
 			// non blocca: fai riprovare
-			say(`すみません、${readNumber(total())}えんちょうどおねがいします。`, clerk());
+			line(clerk(), `すみません、${readNumber(total())}えんちょうどおねがいします。`, 'other');
 			errors += 1;
 			resetTender();
 		}
@@ -398,7 +415,7 @@
 		const reply = errors === 0
 			? 'おかえりなさい！ぜんぶあってるよ、ありがとう！'
 			: 'おかえりなさい！んー、ちょっとちがうかも…';
-		sequence([{ g: userGender(), text: choice }, { g: KANOJO, text: reply }]);
+		sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: reply, role: 'other' }]);
 	}
 	function toDone(): void {
 		scene = 'done';
@@ -413,7 +430,20 @@
 {/snippet}
 
 <div class="konbini">
-	<div class="nav"><a class="back" href="{base}/avventure">← Avventure</a></div>
+	<div class="nav">
+		<a class="back" href="{base}/avventure">← Avventure</a>
+		{#if dialog.length > 0}
+			<button class="script-toggle" onclick={() => (showScript = !showScript)}>📜 Copione ({dialog.length})</button>
+		{/if}
+	</div>
+	{#if showScript}
+		<div class="script">
+			<p class="script-title">📜 Il dialogo finora</p>
+			{#each dialog as l}
+				<p class="line {l.who}"><span class="line-who">{l.who === 'me' ? '🙂' : '🗣️'}</span> {l.text}</p>
+			{/each}
+		</div>
+	{/if}
 
 	{#if scene === 'intro'}
 		<article class="scene">
@@ -584,6 +614,14 @@
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
 	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
+	.nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
+	.script { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 4px; }
+	.script-title { margin: 0 0 4px; font-size: 0.85rem; font-weight: 700; }
+	.line { margin: 0; font-size: 0.95rem; padding: 5px 9px; border-radius: 8px; color: var(--ink); background: var(--surface-2); border-left: 3px solid var(--line); }
+	.line.other { border-left-color: #94a3b8; }
+	.line.me { border-left-color: var(--brand); text-align: right; }
+	.line-who { font-size: 0.9rem; }
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
