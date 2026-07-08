@@ -20,6 +20,12 @@ describe("findParticles", () => {
     const hits = findParticles(["学校から", "帰る。"]);
     expect(hits[0]?.particle).toBe("から");
   });
+
+  it("non tratta il の di この/その/あの/どの come particella", () => {
+    expect(findParticles(["この", "映画"])).toEqual([]);
+    expect(findParticles(["その", "コンサート"])).toEqual([]);
+    expect(findParticles(["私の"]).map((h) => h.particle)).toEqual(["の"]);
+  });
 });
 
 describe("blankParticleAt", () => {

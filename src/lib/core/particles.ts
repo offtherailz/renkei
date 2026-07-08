@@ -40,6 +40,10 @@ export function findParticles(segments: string[]): ParticleHit[] {
 	for (const segment of segments) {
 		for (const particle of PARTICLES) {
 			if (segment.length > particle.length && segment.endsWith(particle)) {
+				// の di この/その/あの/どの (rentaishi) NON è una particella.
+				if (particle === 'の' && 'こそあど'.includes(segment[segment.length - 2] ?? '')) {
+					break;
+				}
 				hits.push({ particle, index: offset + segment.length - particle.length });
 				break;
 			}
