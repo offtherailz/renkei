@@ -52,7 +52,7 @@
 
 {#if dueCount > 0}
 <div class="due-banner">
-	<span>📋 <strong>{dueCount}</strong> ripasso{dueCount === 1 ? '' : 'i'} in attesa</span>
+	<span>📋 <strong>{dueCount}</strong> ripass{dueCount === 1 ? 'o' : 'i'} in attesa</span>
 	<a href="{base}/quiz" class="btn btn-primary btn-sm">Ripassare ora</a>
 </div>
 {/if}
@@ -86,7 +86,7 @@
 						{s.totalItems} item • {s.words} parole • {s.kanji} kanji • {s.grammar} grammatica
 					</div>
 					{#if s.dueCount > 0}
-						<div class="obj-due">{s.dueCount} ripasso{s.dueCount === 1 ? '' : 'i'} pronti</div>
+						<div class="obj-due">{s.dueCount} ripass{s.dueCount === 1 ? 'o' : 'i'} pront{s.dueCount === 1 ? 'o' : 'i'}</div>
 					{/if}
 					<div class="bar-wrap">
 						<div class="bar-fill" style="width:{s.progress}%; background:{progressColor(s.progress)}"></div>
