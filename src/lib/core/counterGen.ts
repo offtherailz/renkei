@@ -136,7 +136,10 @@ export function generateReading(counterId: string): GeneratedReading | null {
 			return { prompt: `${n}分`, correct, distractors: distractors.slice(0, 3) };
 		}
 		case '円': {
-			const n = TYPICAL_PRICES[RAND(TYPICAL_PRICES.length)]!;
+			// ~20% delle volte un prezzo "alto" fino a 30000 (a scaglioni di 100)
+			const n = Math.random() < 0.2
+				? (100 + RAND(201)) * 100
+				: TYPICAL_PRICES[RAND(TYPICAL_PRICES.length)]!;
 			const correct = yenReading(n);
 			// distrattore: numero senza rendaku (さんひゃく invece di さんびゃく)
 			const naive = naiveNumber(n) + 'えん';
