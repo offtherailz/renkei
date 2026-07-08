@@ -129,10 +129,12 @@
 		counters = await db.counters.toArray();
 	});
 
+	let showScript = $state(false);
 	function start(): void {
 		rest = null;
 		errors = 0;
 		dialog = [];
+		showScript = false;
 		cart = {};
 		ordered = [];
 		queue = [];
@@ -362,7 +364,20 @@
 {/snippet}
 
 <div class="rist">
-	<div class="nav"><a class="back" href="{base}/avventure">← Avventure</a></div>
+	<div class="nav">
+		<a class="back" href="{base}/avventure">← Avventure</a>
+		{#if dialog.length > 0}
+			<button class="script-toggle" onclick={() => (showScript = !showScript)}>📜 Copione ({dialog.length})</button>
+		{/if}
+	</div>
+	{#if showScript}
+		<div class="script script-box">
+			<p class="script-title">📜 Il dialogo finora</p>
+			{#each dialog as l}
+				<p class="line {l.who}"><span class="line-who">{l.who === 'staff' ? '🧑‍🍳' : '🙂'}</span> {l.text}</p>
+			{/each}
+		</div>
+	{/if}
 
 	{#if scene === 'pick'}
 		<h1 class="page-title">🍽️ Dove mangiamo?</h1>
@@ -540,7 +555,9 @@
 
 <style>
 	.rist { display: grid; gap: 14px; }
-	.nav { margin-bottom: 2px; }
+	.nav { margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
+	.script-box { border-top: none; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 
