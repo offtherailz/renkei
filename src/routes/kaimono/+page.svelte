@@ -7,6 +7,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
+	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 
@@ -53,6 +54,11 @@
 
 	// telefonata
 	let callText = $state('');
+	let callStep = $state<'ring' | 'request' | 'branch'>('ring');
+	let targetList = $state<ShoppingRequest[]>([]);
+	let callConfirm = $state(false); // true = fa il riepilogo e lei conferma/corregge
+	let callReply = $state('');
+	let callGrid = $state<ShopItem[]>([]);
 
 	// ordine
 	let orderIdx = $state(0);
@@ -177,29 +183,89 @@
 		}
 	}
 
+	// La telefonata chiede una modifica alla lista (NON la applica: la capisci
+	// tu e modifichi la spesa a mano). targetList = lista corretta dopo la modifica.
 	function makeCall(): void {
 		const roll = Math.random();
 		if (roll < 0.4 && SHOP_ITEMS.some((x) => !list.find((r) => r.item.id === x.id))) {
-			// aggiungi un prodotto
 			const extra = shuffle(SHOP_ITEMS.filter((x) => !list.find((r) => r.item.id === x.id)))[0]!;
-			const qty = 1 + Math.floor(Math.random() * 3);
-			list = [...list, { item: extra, qty }];
+			const qty = 1 + Math.floor(Math.random() * 2);
+			targetList = [...list.map((r) => ({ ...r })), { item: extra, qty }];
 			callText = `あ、ごめん！${extra.scrittura}も${itemReading(extra, qty)}おねがい！`;
 		} else if (roll < 0.7 && list.length > 1) {
-			// togli un prodotto
 			const idx = Math.floor(Math.random() * list.length);
 			const removed = list[idx]!;
-			list = list.filter((_, i) => i !== idx);
-			callText = `やっぱり${removed.item.scrittura}はいらないや、ごめんね！`;
+			targetList = list.filter((_, i) => i !== idx).map((r) => ({ ...r }));
+			callText = `あ、${removed.item.scrittura}はやっぱりいらないや、ごめん！`;
 		} else {
-			// cambia quantità
 			const idx = Math.floor(Math.random() * list.length);
 			const r = list[idx]!;
 			const nq = r.qty === 1 ? 2 : r.qty - 1;
-			list = list.map((x, i) => (i === idx ? { ...x, qty: nq } : x));
-			callText = `${r.item.scrittura}、やっぱり${itemReading(r.item, nq)}にして！`;
+			targetList = list.map((x, i) => (i === idx ? { ...x, qty: nq } : { ...x }));
+			callText = `あ、${r.item.scrittura}、やっぱり${itemReading(r.item, nq)}にして！`;
 		}
-		say(callText, KANOJO);
+		// griglia editabile: prodotti già in lista + eventuale nuovo prodotto
+		const ids = new Set<string>();
+		callGrid = [...list, ...targetList]
+			.map((r) => r.item)
+			.filter((it) => (ids.has(it.id) ? false : (ids.add(it.id), true)));
+		callConfirm = Math.random() < 0.5;
+		callReply = '';
+		callStep = 'ring';
+		playRing();
+	}
+	// L'utente modifica la lista secondo quanto ha capito.
+	function callQty(id: string): number {
+		return list.find((r) => r.item.id === id)?.qty ?? 0;
+	}
+	function callAdd(id: string): void {
+		const found = list.find((r) => r.item.id === id);
+		if (found) list = list.map((r) => (r.item.id === id ? { ...r, qty: r.qty + 1 } : r));
+		else {
+			const it = callGrid.find((x) => x.id === id);
+			if (it) list = [...list, { item: it, qty: 1 }];
+		}
+	}
+	function callRemove(id: string): void {
+		const found = list.find((r) => r.item.id === id);
+		if (!found) return;
+		list = found.qty <= 1 ? list.filter((r) => r.item.id !== id) : list.map((r) => (r.item.id === id ? { ...r, qty: r.qty - 1 } : r));
+	}
+	function sameAsTarget(): boolean {
+		if (list.length !== targetList.length) return false;
+		return targetList.every((t) => callQty(t.item.id) === t.qty);
+	}
+	function targetPhrase(): string {
+		return targetList.map((r) => r.item.scrittura + 'を' + itemReading(r.item, r.qty)).join('、');
+	}
+	// Rispondi al telefono.
+	function answerPhone(): void {
+		callStep = 'request';
+		sequence([{ g: userGender(), text: 'もしもし？' }, { g: KANOJO, text: callText }]);
+	}
+	// Ho finito di modificare la lista → bivio.
+	function callDone(): void {
+		callStep = 'branch';
+		const ok = sameAsTarget();
+		if (!callConfirm) {
+			// taglia corto: nessuna conferma
+			sequence([{ g: userGender(), text: 'えっと…' }, { g: KANOJO, text: 'ごめん、時間がないから、じゃあね！' }]);
+			if (!ok) { errors += 1; missed.push('telefonata'); }
+			callReply = '（うまく聞き取れたかな…）';
+		} else {
+			// riepiloghi e lei conferma o corregge
+			const mine = list.map((r) => r.item.scrittura + 'を' + itemReading(r.item, r.qty)).join('、');
+			if (ok) {
+				callReply = 'うん、正解！じゃあね。';
+				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？` }, { g: KANOJO, text: callReply }]);
+			} else {
+				callReply = `ううん、${targetPhrase()}、だよ。`;
+				list = targetList.map((r) => ({ ...r })); // lei ti corregge
+				errors += 1;
+				missed.push('telefonata');
+				sequence([{ g: userGender(), text: `えっと、${mine}、ですね？` }, { g: KANOJO, text: callReply }]);
+			}
+		}
 	}
 	function afterCall(): void {
 		startOrder();
@@ -359,11 +425,40 @@
 		</article>
 	{:else if scene === 'call'}
 		<article class="scene">
-			<p class="who">📞 Il telefono squilla</p>
-			{@render repeatBar(callText, KANOJO)}
-			<p class="bubble big">{callText}</p>
-			<p class="hint">Niente conferma: ricordatelo!</p>
-			<button class="proceed" onclick={afterCall}>わかった！ →</button>
+			{#if callStep === 'ring'}
+				<p class="who">📞 Il telefono squilla</p>
+				<p class="dishes">📱</p>
+				<div class="eat-actions">
+					<button class="replay" onclick={playRing}>🔔 …</button>
+					<button class="proceed" onclick={answerPhone}>📞 Rispondi</button>
+				</div>
+			{:else if callStep === 'request'}
+				<p class="who">📞 In chiamata</p>
+				{@render repeatBar(callText, KANOJO)}
+				<p class="bubble">{callText}</p>
+				<p class="hint">Modifica la spesa secondo quello che senti</p>
+				<ul class="shop-list">
+					{#each callGrid as it (it.id)}
+						{@const q = callQty(it.id)}
+						<li class:done={q > 0}>
+							<span class="li-emoji">{it.emoji}</span>
+							<span class="li-name">{it.scrittura}</span>
+							<span class="d-ctrl">
+								<button class="step" onclick={() => callRemove(it.id)} disabled={q === 0}>−</button>
+								<span class="d-have">{q}</span>
+								<button class="step" onclick={() => callAdd(it.id)}>＋</button>
+							</span>
+						</li>
+					{/each}
+				</ul>
+				<button class="proceed" onclick={callDone}>できた →</button>
+			{:else}
+				{#if callConfirm}
+					<p class="bubble sm">🙂「えっと、{listPhrase()}、ですね？」</p>
+				{/if}
+				<p class="bubble">{callConfirm ? '🧑‍🦰' : '🙂'}「{callReply}」</p>
+				<button class="proceed" onclick={afterCall}>お店へ →</button>
+			{/if}
 		</article>
 	{:else if scene === 'order'}
 		<article class="scene">
@@ -441,12 +536,18 @@
 	.who { margin: 0; font-size: 0.9rem; font-weight: 700; }
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
-	.bubble.big { font-size: 1.25rem; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
 	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+	.shop-list li.done { border-color: var(--brand); }
+	.d-ctrl { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+	.step { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); font-size: 1.1rem; cursor: pointer; }
+	.step:disabled { opacity: 0.4; cursor: default; }
+	.d-have { min-width: 16px; text-align: center; font-weight: 700; }
+	.dishes { margin: 0; text-align: center; font-size: 2.4rem; }
+	.eat-actions { display: flex; gap: 8px; justify-content: center; align-items: center; }
 	.li-emoji { font-size: 1.4rem; }
 	.li-name { flex: 1; font-weight: 600; }
 	.li-qty { font-weight: 700; }
