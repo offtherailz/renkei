@@ -49,6 +49,12 @@
 		'ごめん、コンビニで買ってきてほしいものがあるんだけど、いい？'
 	];
 	const CLERK_OK = ['かしこまりました。', 'はい、少々お待ちください。', 'ありがとうございます。'];
+	// Benvenuto del commesso (varianti tipiche konbini).
+	const CLERK_GREET = [
+		'いらっしゃいませ！ご注文をどうぞ。',
+		'いらっしゃいませ、こんにちは！何になさいますか？',
+		'いらっしゃいませ！お決まりですか？'
+	];
 
 	let counters = $state<Counter[]>([]);
 	let scene = $state<Scene>('intro');
@@ -75,6 +81,7 @@
 	let orderChoices = $state<string[]>([]);
 	let orderCorrect = $state('');
 	let orderStaffLine = $state('');
+	let clerkGreet = $state('');
 	let orderDisplay = $state<'kanji' | 'kana'>('kana');
 	let picked = $state<string | null>(null);
 
@@ -290,7 +297,10 @@
 	function startOrder(): void {
 		orderIdx = 0;
 		scene = 'order';
+		clerkGreet = rnd(CLERK_GREET);
 		setOrderItem();
+		// il commesso ti dà il benvenuto, poi cominci tu a ordinare
+		say(clerkGreet, clerk());
 	}
 	function setOrderItem(): void {
 		const r = list[orderIdx]!;
@@ -488,6 +498,8 @@
 	{:else if scene === 'order'}
 		<article class="scene">
 			<p class="who">🏪 Al konbini — ordina</p>
+			<p class="bubble sm">🧑‍🍳「{clerkGreet}」</p>
+			{@render repeatBar(clerkGreet, clerk())}
 			<div class="order-ref">
 				{#each list as r, i}
 					<span class="ref-item" class:current={i === orderIdx}>{r.item.emoji}×{r.qty}</span>
