@@ -14,7 +14,7 @@
 	const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？', 'すみません、もう一度よろしいですか？'];
 	const SLOWER_REQ = ['すみません、もう少しゆっくりおねがいします。', 'もう少しゆっくり話していただけますか？', 'ゆっくりおねがいします。'];
 
-	// ── Voci: kanojo = femminile, commesso = opposto a te, tu = voce impostazioni ──
+	// ── Voci: interlocutrice = femminile, commesso = opposto a te, tu = voce impostazioni ──
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
 	}
@@ -122,6 +122,8 @@
 		picked = null;
 		greetPicked = null;
 		scene = 'intro';
+		// detta subito la lista (poi si può risentire con もう一度 / ゆっくり)
+		say(listPhrase() + '、おねがいね！', KANOJO);
 	}
 
 	// ── Scena iniziale: お使い (ascolta la lista, riempi il carrello) ──
@@ -314,7 +316,6 @@
 
 	{#if scene === 'intro'}
 		<article class="scene">
-			<p class="who">🧑‍🦰 la kanojo</p>
 			<p class="bubble">ねえ、お使いおねがい！よく聞いてね。</p>
 			{@render repeatBar(listPhrase() + '、おねがいね！', KANOJO)}
 			{#if !introDone}
@@ -358,7 +359,7 @@
 		</article>
 	{:else if scene === 'call'}
 		<article class="scene">
-			<p class="who">📞 Ti chiama la kanojo!</p>
+			<p class="who">📞 Il telefono squilla</p>
 			{@render repeatBar(callText, KANOJO)}
 			<p class="bubble big">{callText}</p>
 			<p class="hint">Niente conferma: ricordatelo!</p>
