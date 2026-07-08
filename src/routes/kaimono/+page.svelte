@@ -39,7 +39,9 @@
 		speakSentenceJapanese(line, { ...voiceParams(g), rate: slow ? 0.6 : 1 });
 	}
 
-	type Scene = 'intro' | 'depart' | 'call' | 'order' | 'pay' | 'return' | 'done';
+	type Scene = 'intro' | 'depart' | 'call' | 'order' | 'orderdone' | 'pay' | 'return' | 'done';
+	const NOT_UNDERSTOOD_K = ['すみません、もう一度よろしいですか？', '恐れ入ります、もう一度おねがいします。', 'えっと、もう一度いいですか？'];
+	const CLERK_OK = ['かしこまりました。', 'はい、少々お待ちください。', 'ありがとうございます。'];
 
 	let counters = $state<Counter[]>([]);
 	let scene = $state<Scene>('intro');
@@ -64,6 +66,7 @@
 	let orderIdx = $state(0);
 	let orderChoices = $state<string[]>([]);
 	let orderCorrect = $state('');
+	let orderStaffLine = $state('');
 	let orderDisplay = $state<'kanji' | 'kana'>('kana');
 	let picked = $state<string | null>(null);
 
@@ -305,19 +308,29 @@
 		} else {
 			errors += 1;
 			missed.push(r.item.scrittura);
+			orderStaffLine = rnd(NOT_UNDERSTOOD_K);
+			say(orderStaffLine, clerk());
 		}
+	}
+	function retryOrder(): void {
+		setOrderItem(); // rigenera e riprova lo stesso prodotto
 	}
 	function nextOrder(): void {
 		if (orderIdx < list.length - 1) {
 			orderIdx += 1;
 			setOrderItem();
 		} else {
-			scene = 'pay';
-			tendered = 0;
-			stack = [];
-			payChecked = false;
-			say(`ぜんぶで${readNumber(total())}えんです`, clerk());
+			// il commesso riassume l'ordine (registro konbini) e conferma
+			scene = 'orderdone';
+			sequence([{ g: clerk(), text: `はい、${listPhrase()}ですね。` }, { g: clerk(), text: rnd(CLERK_OK) }]);
 		}
+	}
+	function toPay(): void {
+		scene = 'pay';
+		tendered = 0;
+		stack = [];
+		payChecked = false;
+		say(`ぜんぶで${readNumber(total())}えんです`, clerk());
 	}
 
 	// ── Pagamento (esatto) ──
@@ -475,9 +488,18 @@
 					<button class="choice" class:right={picked !== null && c === orderCorrect} class:wrong={picked === c && c !== orderCorrect} disabled={picked !== null} onclick={() => pickOrder(c)}>{c}</button>
 				{/each}
 			</div>
-			{#if picked !== null}
-				<button class="proceed" onclick={nextOrder}>{orderIdx < list.length - 1 ? 'Prossimo →' : 'Alla cassa →'}</button>
+			{#if picked !== null && picked === orderCorrect}
+				<button class="proceed" onclick={nextOrder}>{orderIdx < list.length - 1 ? 'Prossimo →' : 'Fatto →'}</button>
+			{:else if picked !== null}
+				<p class="bubble sm">🧑‍🍳「{orderStaffLine}」</p>
+				<button class="proceed" onclick={retryOrder}>もう一度 →</button>
 			{/if}
+		</article>
+	{:else if scene === 'orderdone'}
+		<article class="scene">
+			<p class="who">🧑‍🍳 Il commesso ripete l'ordine</p>
+			<p class="bubble">はい、{listPhrase()}ですね。</p>
+			<button class="proceed" onclick={toPay}>お会計 →</button>
 		</article>
 	{:else if scene === 'pay'}
 		<article class="scene">
