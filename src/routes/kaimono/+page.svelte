@@ -41,6 +41,13 @@
 
 	type Scene = 'intro' | 'depart' | 'call' | 'order' | 'orderdone' | 'pay' | 'return' | 'done';
 	const NOT_UNDERSTOOD_K = ['すみません、もう一度よろしいですか？', '恐れ入ります、もう一度おねがいします。', 'えっと、もう一度いいですか？'];
+	// L'interlocutrice chiede di fare la spesa (varianti).
+	const INTRO_REQUESTS = [
+		'ねえ、ちょっとコンビニで買い物おねがいできる？',
+		'悪いんだけど、コンビニでいくつか買ってきてくれる？',
+		'今ちょっと手が離せなくて…コンビニでお使いたのめる？',
+		'ごめん、コンビニで買ってきてほしいものがあるんだけど、いい？'
+	];
 	const CLERK_OK = ['かしこまりました。', 'はい、少々お待ちください。', 'ありがとうございます。'];
 
 	let counters = $state<Counter[]>([]);
@@ -56,6 +63,7 @@
 
 	// telefonata
 	let callText = $state('');
+	let introRequest = $state('');
 	let callStep = $state<'ring' | 'request' | 'branch'>('ring');
 	let targetList = $state<ShoppingRequest[]>([]);
 	let callConfirm = $state(false); // true = fa il riepilogo e lei conferma/corregge
@@ -131,8 +139,12 @@
 		picked = null;
 		greetPicked = null;
 		scene = 'intro';
-		// detta subito la lista (poi si può risentire con もう一度 / ゆっくり)
-		say(listPhrase() + '、おねがいね！', KANOJO);
+		introRequest = rnd(INTRO_REQUESTS);
+		// chiede di fare la spesa, poi detta la lista (risentibile con もう一度 / ゆっくり)
+		sequence([
+			{ g: KANOJO, text: introRequest },
+			{ g: KANOJO, text: listPhrase() + '、おねがいね！' }
+		]);
 	}
 
 	// ── Scena iniziale: お使い (ascolta la lista, riempi il carrello) ──
@@ -395,7 +407,7 @@
 
 	{#if scene === 'intro'}
 		<article class="scene">
-			<p class="bubble">ねえ、お使いおねがい！よく聞いてね。</p>
+			<p class="bubble">{introRequest}</p>
 			{@render repeatBar(listPhrase() + '、おねがいね！', KANOJO)}
 			{#if !introDone}
 				<div class="shelf">
