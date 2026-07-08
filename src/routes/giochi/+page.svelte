@@ -242,12 +242,16 @@
 		if ([apptIn.month, apptIn.day, apptIn.hour, apptIn.minute].some((v) => v.trim() === '')) return;
 		stopCountdown();
 		checked = true;
-		registerResult(
+		const ok =
 			asNum(apptIn.month) === appt.month &&
-				asNum(apptIn.day) === appt.day &&
-				asNum(apptIn.hour) === appt.hour &&
-				asNum(apptIn.minute) === appt.minute
-		);
+			asNum(apptIn.day) === appt.day &&
+			asNum(apptIn.hour) === appt.hour &&
+			asNum(apptIn.minute) === appt.minute;
+		if (!ok) {
+			const intro = ['ざんねん、', 'ちがうよ、', 'おしい！', 'ちがう、こたえは'];
+			speakSentenceJapanese(intro[Math.floor(Math.random() * intro.length)] + appt.reading + 'だよ。');
+		}
+		registerResult(ok);
 	}
 
 	function addDenom(d: number): void {
