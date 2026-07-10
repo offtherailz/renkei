@@ -61,6 +61,12 @@
 		loading = false;
 	}
 
+	// Attiva/pausa un obiettivo: il quiz pesca solo da quelli "in studio".
+	async function toggleObjective(id: string, enabled: boolean): Promise<void> {
+		await db.study_objectives.update(id, { study_enabled: enabled, updated_at: Date.now() });
+		summaries = await loadObjectiveSummaries();
+	}
+
 	onMount(loadData);
 
 	// Ricarica quando appState viene inizializzato
@@ -158,9 +164,14 @@
 								<JlptBadge level={s.objective.target_jlpt} />
 							{/if}
 						</div>
-						<span class="obj-status" class:enabled={s.objective.study_enabled}>
-							{s.objective.study_enabled ? 'In studio' : 'Pausa'}
-						</span>
+						<button
+							class="obj-status"
+							class:enabled={s.objective.study_enabled}
+							title={s.objective.study_enabled ? 'Tocca per mettere in pausa' : 'Tocca per mettere in studio'}
+							onclick={() => toggleObjective(s.objective.id, !s.objective.study_enabled)}
+						>
+							{s.objective.study_enabled ? '✓ In studio' : '⏸ Pausa'}
+						</button>
 					</div>
 					<div class="obj-meta">
 						{s.totalItems} item • {s.words} parole • {s.kanji} kanji • {s.grammar} grammatica
@@ -380,7 +391,10 @@
 		white-space: nowrap;
 		background: #f1f5f9;
 		color: #475569;
+		border: 1px solid transparent;
+		cursor: pointer;
 	}
+	.obj-status:hover { border-color: var(--brand); }
 
 	.obj-status.enabled {
 		background: #dcfce7;
