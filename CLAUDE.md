@@ -31,6 +31,7 @@ App di studio giapponese N5/N4 (SvelteKit 2 + Svelte 5 runes, Dexie, adapter-sta
 - Errori nelle avventure → `recordPracticeMiss('counter:X' | ...)` così alimentano il consolidamento.
 - Microfono: `speech.ts` (listenJapanese/speechMatches/phraseVariants), fallback a bottoni dove non supportato.
 - Prezzi/valori parlati: **kana** (えん, non 円 dopo kana: il TTS sbaglia).
+- **MAI colori esadecimali nei componenti**: usare i token del tema (--warn-*, --info-*, --ok-*, --gold-*, --danger, --success) — i cablati diventano chiaro-su-chiaro in dark mode.
 
 ## Sicurezza
 
