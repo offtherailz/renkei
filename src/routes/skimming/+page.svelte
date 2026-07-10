@@ -133,7 +133,7 @@
 		<article class="scene">
 			<div class="progress timer"><div class="bar" style="width:{(timeLeft / budget) * 100}%"></div></div>
 			<p class="q-recall">❓ {question.q}</p>
-			<p class="fulltext-body">{run.rendered}</p>
+			<p class="fulltext-body">{run.plain}</p>
 			<div class="choices">
 				{#each question.choices as c, i (c)}
 					<button

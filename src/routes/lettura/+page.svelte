@@ -12,6 +12,7 @@
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import { renderFuriganaToHtml } from '$lib/core/furigana';
 
 	const QUESTION_SECONDS = 20;
 	const DEFAULT_CPM: Record<JlptLevel, number> = { N5: 100, N4: 120 };
@@ -147,7 +148,7 @@
 	async function startRsvp(): Promise<void> {
 		if (!run) return;
 		stopSpeaking();
-		chunks = chunkText(run.rendered);
+		chunks = chunkText(run.plain);
 		chunkIdx = 0;
 		paused = false;
 		scene = 'rsvp';
@@ -234,6 +235,7 @@
 
 	// ── Risultato: la velocità si adatta ──
 	let cpmDelta = $state(0);
+	let showFuri = $state(false);
 	function finish(): void {
 		if (!run) return;
 		const wrong = run.questions.length - score;
@@ -393,13 +395,23 @@
 				{/each}
 			</div>
 			<div class="fulltext">
-				<p class="script-title">📄 Il testo completo <button class="v-btn" title="Ascolta il testo" onclick={() => speakSentenceJapanese(run!.rendered)}>🔊</button></p>
+				<p class="script-title">
+					📄 Il testo completo
+					<button class="v-btn" title="Ascolta il testo" onclick={() => speakSentenceJapanese(run!.rendered)}>🔊</button>
+					{#if run.rendered !== run.plain}
+						<button class="v-btn" class:on={showFuri} onclick={() => (showFuri = !showFuri)}>ふりがな</button>
+					{/if}
+				</p>
 				{#if qLog.some((l) => !l.ok && l.evidence)}
 					<p class="hint">Le frasi evidenziate contenevano le risposte che hai sbagliato. Tocca le parole per la scheda.</p>
 				{/if}
-				{#key run}
-					<InteractiveSentence text={run.rendered} mark={qLog.filter((l) => !l.ok && l.evidence).map((l) => l.evidence!)} />
-				{/key}
+				{#if showFuri && run.rendered !== run.plain}
+					<p class="furi-text">{@html renderFuriganaToHtml(run.rendered)}</p>
+				{:else}
+					{#key run}
+						<InteractiveSentence text={run.rendered} mark={qLog.filter((l) => !l.ok && l.evidence).map((l) => l.evidence!)} />
+					{/key}
+				{/if}
 			</div>
 			{#if hist.length >= 2}
 				<svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points={sparkPoints(hist)} /></svg>
@@ -474,6 +486,8 @@
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
 	.mini.turbo { border-color: #f59e0b; color: #b45309; background: #fffbeb; font-weight: 700; }
+	.v-btn.on { border-color: var(--brand); color: var(--brand); font-weight: 700; }
+	.furi-text { margin: 0; font-size: 1.1rem; line-height: 2.3; }
 	.spark-box { display: grid; gap: 4px; }
 	.spark { width: 100%; height: 34px; }
 	.spark polyline { fill: none; stroke: var(--brand); stroke-width: 2; vector-effect: non-scaling-stroke; }

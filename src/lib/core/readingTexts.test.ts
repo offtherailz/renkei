@@ -60,7 +60,7 @@ describe('readingTexts', () => {
 					const run = instantiate(t);
 					const tq = run.questions[t.questions.indexOf(q)]!;
 					const correct = tq.choices[tq.correct]!;
-					expect(run.rendered, `${t.id}: risposta nel testo`).toContain(correct);
+					expect(run.plain, `${t.id}: risposta nel testo`).toContain(correct);
 					expect(tq.evidence, `${t.id}: evidenza`).toBeDefined();
 				}
 			}

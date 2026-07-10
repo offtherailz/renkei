@@ -3,6 +3,8 @@
 // pescati, così bisogna leggere davvero (i distrattori sono le altre opzioni
 // dello stesso slot, volutamente simili = trabocchetti).
 
+import { stripFuriganaNotation } from './furigana';
+
 export type JlptLevel = 'N5' | 'N4';
 
 export interface Slot {
@@ -58,7 +60,8 @@ export interface ReadingText {
 
 export interface ReadingRun {
 	text: ReadingText;
-	rendered: string;
+	rendered: string; // con notazione furigana 漢字[かんじ] (dove annotata)
+	plain: string; // senza notazione: per RSVP, skimming e ricerca evidenze
 	picked: Record<string, string>;
 	questions: { q: string; choices: string[]; correct: number; evidence?: string }[];
 }
@@ -100,42 +103,44 @@ export function instantiate(text: ReadingText): ReadingRun {
 		picked[s.id] = s.options[pickedIdx[s.id]!]!.replace(/\{(\w+)\}/g, (_, id: string) => picked[id]!);
 	}
 	const rendered = text.parts.map((p) => (typeof p === 'string' ? p : picked[p.slot]!)).join('');
+	const plain = stripFuriganaNotation(rendered);
+	const strip = stripFuriganaNotation;
 	const questions = text.questions.map((q) => {
 		if ('truthOf' in q) {
 			const slot = text.slots.find((s) => s.id === q.truthOf)!;
-			const correct = picked[slot.answerSlot![pickedIdx[slot.id]!]!]!;
+			const correct = strip(picked[slot.answerSlot![pickedIdx[slot.id]!]!]!);
 			// distrattori: gli altri valori in gioco nella correzione (nel testo!)
 			const candidateSlots = [...new Set(slot.answerSlot!)];
 			const pool = [
-				...candidateSlots.map((id) => picked[id]!),
-				...candidateSlots.flatMap((id) => text.slots.find((s) => s.id === id)!.options)
+				...candidateSlots.map((id) => strip(picked[id]!)),
+				...candidateSlots.flatMap((id) => text.slots.find((s) => s.id === id)!.options.map(strip))
 			].filter((v) => v !== correct);
 			const others = [...new Set(pool)].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
-			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(rendered, correct) };
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(plain, correct) };
 		}
 		if ('slot' in q) {
 			const slot = text.slots.find((s) => s.id === q.slot)!;
-			const correct = picked[q.slot]!;
+			const correct = strip(picked[q.slot]!);
 			// prima i valori pescati dagli slot "fratelli" (compaiono nel testo!)
 			const crossTraps = text.slots
 				.filter((s) => s.id !== q.slot && s.kind !== undefined && s.kind === slot.kind)
-				.map((s) => picked[s.id]!)
+				.map((s) => strip(picked[s.id]!))
 				.filter((v) => v !== correct);
-			const sameSlot = shuffle(slot.options.filter((o) => o !== correct && !crossTraps.includes(o)));
+			const sameSlot = shuffle(slot.options.map(strip).filter((o) => o !== correct && !crossTraps.includes(o)));
 			const others = [...new Set([...crossTraps, ...sameSlot])].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
-			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(rendered, correct) };
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(plain, correct) };
 		}
 		const order = shuffle(q.choices.map((_, i) => i));
 		return {
 			q: q.q,
 			choices: order.map((i) => q.choices[i]!),
 			correct: order.indexOf(q.correct),
-			evidence: findEvidence(rendered, q.choices[q.correct]!)
+			evidence: findEvidence(plain, q.choices[q.correct]!)
 		};
 	});
-	return { text, rendered, picked, questions };
+	return { text, rendered, plain, picked, questions };
 }
 
 export const READING_TEXTS: ReadingText[] = [
@@ -326,21 +331,21 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'メール',
 		titolo: 'Email di lavoro (riunione)',
 		parts: [
-			'みなさま、お疲れさまです。来週の',
+			'みなさま、お疲[つか]れさまです。来週[らいしゅう]の',
 			{ slot: 'day' },
-			'に会議がありますので、お知らせします。会議は',
+			'に会議[かいぎ]がありますので、お知[し]らせします。会議[かいぎ]は',
 			{ slot: 'time' },
-			'に始まって、',
+			'に始[はじ]まって、',
 			{ slot: 'duration' },
-			'ぐらいかかる予定です。場所は',
+			'ぐらいかかる予定[よてい]です。場所[ばしょ]は',
 			{ slot: 'place' },
-			'です。資料は今日中に送りますから、会議の前に読んでおいてください。都合が悪い人は、早めに連絡してください。'
+			'です。資料[しりょう]は今日中[きょうじゅう]に送[おく]りますから、会議[かいぎ]の前[まえ]に読[よ]んでおいてください。都合[つごう]が悪[わる]い人[ひと]は、早[はや]めに連絡[れんらく]してください。'
 		],
 		slots: [
-			{ id: 'day', options: ['月曜日', '火曜日', '水曜日', '木曜日'] },
-			{ id: 'time', options: ['十時', '十時半', '二時', '三時半'] },
-			{ id: 'duration', options: ['一時間', '一時間半', '二時間'] },
-			{ id: 'place', options: ['第一会議室', '第二会議室', '三階の会議室', '五階のホール'] }
+			{ id: 'day', options: ['月曜日[げつようび]', '火曜日[かようび]', '水曜日[すいようび]', '木曜日[もくようび]'] },
+			{ id: 'time', options: ['十時[じゅうじ]', '十時半[じゅうじはん]', '二時[にじ]', '三時半[さんじはん]'] },
+			{ id: 'duration', options: ['一時間[いちじかん]', '一時間半[いちじかんはん]', '二時間[にじかん]'] },
+			{ id: 'place', options: ['第一会議室[だいいちかいぎしつ]', '第二会議室[だいにかいぎしつ]', '三階[さんがい]の会議室[かいぎしつ]', '五階[ごかい]のホール'] }
 		],
 		questions: [
 			{ q: '会議はいつありますか。', slot: 'day' },
@@ -364,17 +369,17 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: '手紙',
 		titolo: 'Lettera di ringraziamento',
 		parts: [
-			'田中さん、お元気ですか。先日はほんとうにありがとうございました。田中さんのおかげで、',
+			'田中[たなか]さん、お元気[げんき]ですか。先日[せんじつ]はほんとうにありがとうございました。田中[たなか]さんのおかげで、',
 			{ slot: 'event' },
-			'がとても楽しかったです。いい思い出になりました。今度、',
+			'がとても楽[たの]しかったです。いい思[おも]い出[で]になりました。今度[こんど]、',
 			{ slot: 'month' },
-			'にそちらへ行くつもりです。そのとき、',
+			'にそちらへ行[い]くつもりです。そのとき、',
 			{ slot: 'gift' },
-			'を持って行きますね。楽しみにしていてください。それでは、また。'
+			'を持[も]って行[い]きますね。楽[たの]しみにしていてください。それでは、また。'
 		],
 		slots: [
-			{ id: 'event', options: ['お祭り', '旅行', 'パーティー', '花見'] },
-			{ id: 'month', options: ['二月', '四月', '七月', '九月'] },
+			{ id: 'event', options: ['お祭[まつ]り', '旅行[りょこう]', 'パーティー', '花見[はなみ]'] },
+			{ id: 'month', options: ['二月[にがつ]', '四月[しがつ]', '七月[しちがつ]', '九月[くがつ]'] },
 			{ id: 'gift', options: ['ワイン', 'おかし', 'チーズ', 'コーヒー'] }
 		],
 		questions: [
@@ -395,7 +400,7 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'お知らせ',
 		titolo: 'Avviso del condominio',
 		parts: [
-			'マンションにお住まいのみなさまへ。',
+			'マンションにお住[す]まいのみなさまへ。',
 			{ slot: 'reason' },
 			'のため、',
 			{ slot: 'day' },
@@ -403,13 +408,13 @@ export const READING_TEXTS: ReadingText[] = [
 			{ slot: 'from' },
 			'から',
 			{ slot: 'to' },
-			'まで、水が止まります。エレベーターも使えませんので、階段をご利用ください。ご迷惑をおかけしますが、よろしくお願いいたします。'
+			'まで、水[みず]が止[と]まります。エレベーターも使[つか]えませんので、階段[かいだん]をご利用[りよう]ください。ご迷惑[めいわく]をおかけしますが、よろしくお願[ねが]いいたします。'
 		],
 		slots: [
-			{ id: 'reason', options: ['工事', '点検', 'そうじ'] },
-			{ id: 'day', options: ['十日', '十四日', '二十日', '二十四日'] },
-			{ id: 'from', options: ['朝九時', '朝十時', '午後一時'], kind: 'ora' },
-			{ id: 'to', options: ['午後三時', '午後四時', '午後五時'], kind: 'ora' }
+			{ id: 'reason', options: ['工事[こうじ]', '点検[てんけん]', 'そうじ'] },
+			{ id: 'day', options: ['十日[とおか]', '十四日[じゅうよっか]', '二十日[はつか]', '二十四日[にじゅうよっか]'] },
+			{ id: 'from', options: ['朝九時[あさくじ]', '朝十時[あさじゅうじ]', '午後一時[ごごいちじ]'], kind: 'ora' },
+			{ id: 'to', options: ['午後三時[ごごさんじ]', '午後四時[ごごよじ]', '午後五時[ごごごじ]'], kind: 'ora' }
 		],
 		questions: [
 			{ q: 'どうして水が止まりますか。（〜のため）', slot: 'reason' },
@@ -433,21 +438,21 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: '記事',
 		titolo: 'Articolo: nuovo negozio',
 		parts: [
-			'駅の前に新しい',
+			'駅[えき]の前[まえ]に新[あたら]しい',
 			{ slot: 'shop' },
 			'ができて、',
 			{ slot: 'day' },
-			'にオープンした。値段が安くて、店の中も広いので、若い人に人気がある。店の人によると、いちばん売れているのは',
+			'にオープンした。値段[ねだん]が安[やす]くて、店[みせ]の中[なか]も広[ひろ]いので、若[わか]い人[ひと]に人気[にんき]がある。店[みせ]の人[ひと]によると、いちばん売[う]れているのは',
 			{ slot: 'item' },
-			'だそうだ。店は夜',
+			'だそうだ。店[みせ]は夜[よる]',
 			{ slot: 'close' },
-			'まで開いているので、仕事の帰りに寄ることもできる。'
+			'まで開[あ]いているので、仕事[しごと]の帰[かえ]りに寄[よ]ることもできる。'
 		],
 		slots: [
-			{ id: 'shop', options: ['パン屋', 'カフェ', '本屋', 'ラーメン屋'] },
-			{ id: 'day', options: ['三日', '八日', '十三日', '十八日'] },
-			{ id: 'item', options: ['チョコレートのケーキ', 'メロンパン', '抹茶のクッキー', 'いちごのジュース'] },
-			{ id: 'close', options: ['八時', '九時', '十時', '十一時'] }
+			{ id: 'shop', options: ['パン屋[や]', 'カフェ', '本屋[ほんや]', 'ラーメン屋[や]'] },
+			{ id: 'day', options: ['三日[みっか]', '八日[ようか]', '十三日[じゅうさんにち]', '十八日[じゅうはちにち]'] },
+			{ id: 'item', options: ['チョコレートのケーキ', 'メロンパン', '抹茶[まっちゃ]のクッキー', 'いちごのジュース'] },
+			{ id: 'close', options: ['八時[はちじ]', '九時[くじ]', '十時[じゅうじ]', '十一時[じゅういちじ]'] }
 		],
 		questions: [
 			{ q: '駅の前に何ができましたか。', slot: 'shop' },
@@ -467,18 +472,18 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'レポート',
 		titolo: 'Report: sondaggio in classe',
 		parts: [
-			'クラスのみんなに「いちばん好きな日本の食べ物」について聞きました。いちばん人気があったのは',
+			'クラスのみんなに「いちばん好[す]きな日本[にほん]の食[た]べ物[もの]」について聞[き]きました。いちばん人気[にんき]があったのは',
 			{ slot: 'first' },
-			'で、クラスの半分の人がそう答えました。二番目は',
+			'で、クラスの半分[はんぶん]の人[ひと]がそう答[こた]えました。二番目[にばんめ]は',
 			{ slot: 'second' },
-			'でした。「きらいなものはない」と答えた人も',
+			'でした。「きらいなものはない」と答[こた]えた人[ひと]も',
 			{ slot: 'count' },
-			'いました。国によって答えがちがうので、おもしろかったです。'
+			'いました。国[くに]によって答[こた]えがちがうので、おもしろかったです。'
 		],
 		slots: [
 			{ id: 'first', options: ['すし', 'ラーメン', 'てんぷら', 'カレー'] },
 			{ id: 'second', options: ['うどん', 'おにぎり', 'やきそば', 'みそしる'] },
-			{ id: 'count', options: ['二人', '三人', '四人', '五人'] }
+			{ id: 'count', options: ['二人[ふたり]', '三人[さんにん]', '四人[よにん]', '五人[ごにん]'] }
 		],
 		questions: [
 			{ q: 'いちばん人気があったのは何ですか。', slot: 'first' },
@@ -669,21 +674,21 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'お知らせ',
 		titolo: "Chiusura dell'ufficio",
 		parts: [
-			'社員のみなさまへ。',
+			'社員[しゃいん]のみなさまへ。',
 			{ slot: 'reason' },
 			'のため、',
 			{ slot: 'from' },
 			'から',
 			{ slot: 'to' },
-			'まで、会社は休みになります。休みの間、急ぎの用事がある方は、',
+			'まで、会社[かいしゃ]は休[やす]みになります。休[やす]みの間[あいだ]、急[いそ]ぎの用事[ようじ]がある方[かた]は、',
 			{ slot: 'contact' },
-			'にメールで連絡してください。休みの前に、机の上を片づけておいてください。'
+			'にメールで連絡[れんらく]してください。休[やす]みの前[まえ]に、机[つくえ]の上[うえ]を片[かた]づけておいてください。'
 		],
 		slots: [
-			{ id: 'reason', options: ['ビルの工事', '夏休み', '年末年始'] },
-			{ id: 'from', options: ['三日', '十日', '十三日'], kind: 'giorno' },
-			{ id: 'to', options: ['十六日', '十八日', '二十日'], kind: 'giorno' },
-			{ id: 'contact', options: ['田中さん', '山田さん', '佐藤さん', '鈴木さん'] }
+			{ id: 'reason', options: ['ビルの工事[こうじ]', '夏休[なつやす]み', '年末年始[ねんまつねんし]'] },
+			{ id: 'from', options: ['三日[みっか]', '十日[とおか]', '十三日[じゅうさんにち]'], kind: 'giorno' },
+			{ id: 'to', options: ['十六日[じゅうろくにち]', '十八日[じゅうはちにち]', '二十日[はつか]'], kind: 'giorno' },
+			{ id: 'contact', options: ['田中[たなか]さん', '山田[やまだ]さん', '佐藤[さとう]さん', '鈴木[すずき]さん'] }
 		],
 		questions: [
 			{ q: 'どうして会社が休みになりますか。（〜のため）', slot: 'reason' },
@@ -703,24 +708,24 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: '記事',
 		titolo: 'Presentazione di un film',
 		parts: [
-			'今週の映画館のおすすめは「',
+			'今週[こんしゅう]の映画館[えいがかん]のおすすめは「',
 			{ slot: 'title' },
 			'」です。',
 			{ slot: 'genre' },
-			'の映画で、時間は',
+			'の映画[えいが]で、時間[じかん]は',
 			{ slot: 'duration' },
 			'ぐらいです。',
 			{ slot: 'until' },
-			'までやっていますから、見たい人は早く行ったほうがいいですよ。学生は',
+			'までやっていますから、見[み]たい人[ひと]は早[はや]く行[い]ったほうがいいですよ。学生[がくせい]は',
 			{ slot: 'price' },
-			'円で見ることができます。'
+			'円[えん]で見[み]ることができます。'
 		],
 		slots: [
-			{ id: 'title', options: ['海の音', '星の夜', '雨の街', '風の歌'] },
+			{ id: 'title', options: ['海[うみ]の音[おと]', '星[ほし]の夜[よる]', '雨[あめ]の街[まち]', '風[かぜ]の歌[うた]'] },
 			{ id: 'genre', options: ['アニメ', 'ラブストーリー', 'ホラー', 'コメディー'] },
-			{ id: 'duration', options: ['一時間半', '二時間', '二時間半'] },
-			{ id: 'until', options: ['今週の日曜日', '来週の金曜日', '月末'] },
-			{ id: 'price', options: ['千', '千二百', '千五百'] }
+			{ id: 'duration', options: ['一時間半[いちじかんはん]', '二時間[にじかん]', '二時間半[にじかんはん]'] },
+			{ id: 'until', options: ['今週[こんしゅう]の日曜日[にちようび]', '来週[らいしゅう]の金曜日[きんようび]', '月末[げつまつ]'] },
+			{ id: 'price', options: ['千[せん]', '千二百[せんにひゃく]', '千五百[せんごひゃく]'] }
 		],
 		questions: [
 			{ q: 'どんな映画ですか。', slot: 'genre' },
@@ -739,21 +744,21 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'お知らせ',
 		titolo: 'Oggetto smarrito',
 		parts: [
-			'お客様にお知らせします。',
+			'お客様[きゃくさま]にお知[し]らせします。',
 			{ slot: 'day' },
-			'の夕方、',
+			'の夕方[ゆうがた]、',
 			{ slot: 'place' },
 			'で',
 			{ slot: 'item' },
-			'の忘れ物がありました。心当たりのある方は、',
+			'の忘[わす]れ物[もの]がありました。心当[こころあ]たりのある方[かた]は、',
 			{ slot: 'counter' },
-			'の窓口までお越しください。お名前と電話番号をうかがいます。'
+			'の窓口[まどぐち]までお越[こ]しください。お名前[なまえ]と電話番号[でんわばんごう]をうかがいます。'
 		],
 		slots: [
-			{ id: 'day', options: ['きのう', 'おととい', '先週の土曜日'] },
-			{ id: 'place', options: ['二階のトイレの前', '三階のレストラン', '一階の入口', 'エレベーターの中'] },
-			{ id: 'item', options: ['黒いかさ', '赤い手袋', '青いかばん', '白いぼうし'] },
-			{ id: 'counter', options: ['一階', '二階', '五階'] }
+			{ id: 'day', options: ['きのう', 'おととい', '先週[せんしゅう]の土曜日[どようび]'] },
+			{ id: 'place', options: ['二階[にかい]のトイレの前[まえ]', '三階[さんがい]のレストラン', '一階[いっかい]の入口[いりぐち]', 'エレベーターの中[なか]'] },
+			{ id: 'item', options: ['黒[くろ]いかさ', '赤[あか]い手袋[てぶくろ]', '青[あお]いかばん', '白[しろ]いぼうし'] },
+			{ id: 'counter', options: ['一階[いっかい]', '二階[にかい]', '五階[ごかい]'] }
 		],
 		questions: [
 			{ q: 'どこで忘れ物がありましたか。', slot: 'place' },
@@ -773,24 +778,24 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'ブログ',
 		titolo: 'Blog di viaggio',
 		parts: [
-			'先週、',
+			'先週[せんしゅう]、',
 			{ slot: 'city' },
-			'へ行ってきた。',
+			'へ行[い]ってきた。',
 			{ slot: 'transport' },
 			'で',
 			{ slot: 'duration' },
-			'かかったが、景色がきれいだったので、ぜんぜん疲れなかった。いちばんよかったのは',
+			'かかったが、景色[けしき]がきれいだったので、ぜんぜん疲[つか]れなかった。いちばんよかったのは',
 			{ slot: 'spot' },
-			'だ。写真をたくさん撮った。今度は',
+			'だ。写真[しゃしん]をたくさん撮[と]った。今度[こんど]は',
 			{ slot: 'season' },
-			'に行こうと思っている。'
+			'に行[い]こうと思[おも]っている。'
 		],
 		slots: [
-			{ id: 'city', options: ['京都', '奈良', '広島', '日光'] },
-			{ id: 'transport', options: ['新幹線', 'バス', '車'] },
-			{ id: 'duration', options: ['二時間', '三時間', '四時間半'] },
-			{ id: 'spot', options: ['古いお寺', '大きい公園', '山の上からの景色', '川の近くの町'] },
-			{ id: 'season', options: ['春', '夏', '秋', '冬'] }
+			{ id: 'city', options: ['京都[きょうと]', '奈良[なら]', '広島[ひろしま]', '日光[にっこう]'] },
+			{ id: 'transport', options: ['新幹線[しんかんせん]', 'バス', '車[くるま]'] },
+			{ id: 'duration', options: ['二時間[にじかん]', '三時間[さんじかん]', '四時間半[よじかんはん]'] },
+			{ id: 'spot', options: ['古[ふる]いお寺[てら]', '大[おお]きい公園[こうえん]', '山[やま]の上[うえ]からの景色[けしき]', '川[かわ]の近[ちか]くの町[まち]'] },
+			{ id: 'season', options: ['春[はる]', '夏[なつ]', '秋[あき]', '冬[ふゆ]'] }
 		],
 		questions: [
 			{ q: 'どうやって行きましたか。', slot: 'transport' },
@@ -810,21 +815,21 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'お知らせ',
 		titolo: 'Nuovi orari della clinica',
 		parts: [
-			'患者のみなさまへ。',
+			'患者[かんじゃ]のみなさまへ。',
 			{ slot: 'from' },
-			'から、診察の時間が変わります。午前は',
+			'から、診察[しんさつ]の時間[じかん]が変[か]わります。午前[ごぜん]は',
 			{ slot: 'am' },
-			'までで、午後は',
+			'までで、午後[ごご]は',
 			{ slot: 'pm' },
 			'からになります。',
 			{ slot: 'closed' },
-			'はお休みです。予約は電話でもインターネットでもできます。保険証を忘れずにお持ちください。'
+			'はお休[やす]みです。予約[よやく]は電話[でんわ]でもインターネットでもできます。保険証[ほけんしょう]を忘[わす]れずにお持[も]ちください。'
 		],
 		slots: [
-			{ id: 'from', options: ['来週', '来月', '四月'] },
-			{ id: 'am', options: ['十一時半', '十二時', '十二時半'], kind: 'ora' },
-			{ id: 'pm', options: ['二時', '二時半', '三時'], kind: 'ora' },
-			{ id: 'closed', options: ['水曜日', '木曜日', '土曜日の午後', '日曜日と祝日'] }
+			{ id: 'from', options: ['来週[らいしゅう]', '来月[らいげつ]', '四月[しがつ]'] },
+			{ id: 'am', options: ['十一時半[じゅういちじはん]', '十二時[じゅうにじ]', '十二時半[じゅうにじはん]'], kind: 'ora' },
+			{ id: 'pm', options: ['二時[にじ]', '二時半[にじはん]', '三時[さんじ]'], kind: 'ora' },
+			{ id: 'closed', options: ['水曜日[すいようび]', '木曜日[もくようび]', '土曜日[どようび]の午後[ごご]', '日曜日[にちようび]と祝日[しゅくじつ]'] }
 		],
 		questions: [
 			{ q: 'いつから時間が変わりますか。', slot: 'from' },
@@ -883,26 +888,26 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'メール',
 		titolo: 'La riunione cambia orario?',
 		parts: [
-			'お疲れさまです。',
+			'お疲[つか]れさまです。',
 			{ slot: 'day' },
-			'の会議についてお知らせします。会議は',
+			'の会議[かいぎ]についてお知[し]らせします。会議[かいぎ]は',
 			{ slot: 't1' },
-			'からの予定です。',
+			'からの予定[よてい]です。',
 			{ slot: 'rev' },
-			'場所はいつもの会議室で、変更はありません。よろしくお願いします。'
+			'場所[ばしょ]はいつもの会議室[かいぎしつ]で、変更[へんこう]はありません。よろしくお願[ねが]いします。'
 		],
 		slots: [
-			{ id: 'day', options: ['月曜日', '水曜日', '金曜日'] },
-			{ id: 't1', options: ['十時', '十時半'], kind: 'ora' },
-			{ id: 't2', options: ['一時', '二時'], kind: 'ora' },
-			{ id: 't3', options: ['三時', '四時'], kind: 'ora' },
+			{ id: 'day', options: ['月曜日[げつようび]', '水曜日[すいようび]', '金曜日[きんようび]'] },
+			{ id: 't1', options: ['十時[じゅうじ]', '十時半[じゅうじはん]'], kind: 'ora' },
+			{ id: 't2', options: ['一時[いちじ]', '二時[にじ]'], kind: 'ora' },
+			{ id: 't3', options: ['三時[さんじ]', '四時[よじ]'], kind: 'ora' },
 			{
 				id: 'rev',
 				options: [
-					'時間の変更はありません。予定どおり行います。',
-					'すみませんが、{t2}からに変更になりました。お間違えのないように。',
-					'一度{t2}からに変更になりましたが、部長の都合で、やはり{t1}からに戻りました。',
-					'{t2}からに変更になり、その後さらに{t3}からに変わりました。ご注意ください。'
+					'時間[じかん]の変更[へんこう]はありません。予定[よてい]どおり行[おこな]います。',
+					'すみませんが、{t2}からに変更[へんこう]になりました。お間違[まちが]えのないように。',
+					'一度[いちど]{t2}からに変更[へんこう]になりましたが、部長[ぶちょう]の都合[つごう]で、やはり{t1}からに戻[もど]りました。',
+					'{t2}からに変更[へんこう]になり、その後[ご]さらに{t3}からに変[か]わりました。ご注意[ちゅうい]ください。'
 				],
 				answerSlot: ['t1', 't2', 't1', 't3']
 			}
@@ -929,26 +934,26 @@ export const READING_TEXTS: ReadingText[] = [
 		tipo: 'お知らせ',
 		titolo: 'La gita cambia data?',
 		parts: [
-			'来月の社員旅行についてお知らせします。出発は',
+			'来月[らいげつ]の社員旅行[しゃいんりょこう]についてお知[し]らせします。出発[しゅっぱつ]は',
 			{ slot: 'd1' },
-			'の予定でした。',
+			'の予定[よてい]でした。',
 			{ slot: 'rev' },
-			'ホテルは去年と同じところです。行きたい人は',
+			'ホテルは去年[きょねん]と同[おな]じところです。行[い]きたい人[ひと]は',
 			{ slot: 'deadline' },
-			'までに申し込んでください。'
+			'までに申[もう]し込[こ]んでください。'
 		],
 		slots: [
-			{ id: 'd1', options: ['五日', '六日'], kind: 'giorno' },
-			{ id: 'd2', options: ['十二日', '十三日'], kind: 'giorno' },
-			{ id: 'd3', options: ['十九日', '二十日'], kind: 'giorno' },
-			{ id: 'deadline', options: ['今週の金曜日', '来週の月曜日', '月末'] },
+			{ id: 'd1', options: ['五日[いつか]', '六日[むいか]'], kind: 'giorno' },
+			{ id: 'd2', options: ['十二日[じゅうににち]', '十三日[じゅうさんにち]'], kind: 'giorno' },
+			{ id: 'd3', options: ['十九日[じゅうくにち]', '二十日[はつか]'], kind: 'giorno' },
+			{ id: 'deadline', options: ['今週[こんしゅう]の金曜日[きんようび]', '来週[らいしゅう]の月曜日[げつようび]', '月末[げつまつ]'] },
 			{
 				id: 'rev',
 				options: [
-					'予定どおり、{d1}に出発します。',
-					'台風が来るかもしれませんので、{d2}に変更になりました。',
-					'一度{d2}に変わりましたが、ホテルの都合で、結局{d1}に戻りました。',
-					'{d2}に変わり、その後もう一度変わって、今は{d3}の予定です。'
+					'予定[よてい]どおり、{d1}に出発[しゅっぱつ]します。',
+					'台風[たいふう]が来[く]るかもしれませんので、{d2}に変更[へんこう]になりました。',
+					'一度[いちど]{d2}に変[か]わりましたが、ホテルの都合[つごう]で、結局[けっきょく]{d1}に戻[もど]りました。',
+					'{d2}に変[か]わり、その後[ご]もう一度[いちど]変[か]わって、今[いま]は{d3}の予定[よてい]です。'
 				],
 				answerSlot: ['d1', 'd2', 'd1', 'd3']
 			}
