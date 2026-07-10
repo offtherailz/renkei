@@ -540,6 +540,15 @@
 				</button>
 			</div>
 
+			<p class="group-title">Lettura</p>
+			<div class="cat-grid">
+				<a class="cat-card" href="{base}/lettura">
+					<span class="cat-icon">⚡</span>
+					<span class="cat-label">Lettura veloce</span>
+					<span class="cat-hint">il testo scorre da solo, poi domande a tempo</span>
+				</a>
+			</div>
+
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
 	{:else}
 		<div class="game-head">
@@ -780,6 +789,7 @@
 		cursor: pointer;
 	}
 	.cat-card:hover { border-color: var(--brand); }
+	a.cat-card { text-decoration: none; color: var(--ink); }
 	.cat-icon { grid-row: 1 / 3; font-size: 1.9rem; }
 	.cat-label { font-weight: 700; font-size: 1rem; }
 	.cat-hint { font-size: 0.78rem; color: var(--muted); }
