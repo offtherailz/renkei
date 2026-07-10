@@ -36792,7 +36792,7 @@
       "lettura": "エレベーター",
       "significato": {
         "it": [
-          "elevator"
+          "ascensore"
         ],
         "en": [
           "elevator"
@@ -36811,7 +36811,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "エレベーターで三階へ行きます。",
@@ -36940,7 +36940,7 @@
       "lettura": "おととし",
       "significato": {
         "it": [
-          "year before last"
+          "due anni fa"
         ],
         "en": [
           "year before last"
@@ -36961,7 +36961,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "おととし、東京に住んでいました。",
@@ -36997,8 +36997,7 @@
       "lettura": "おばあさん",
       "significato": {
         "it": [
-          "grandmother",
-          "female senior-citizen"
+          "nonna"
         ],
         "en": [
           "grandmother",
@@ -37021,7 +37020,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "おばあさんは九十さいです。",
@@ -37038,7 +37037,7 @@
       "lettura": "おまわりさん",
       "significato": {
         "it": [
-          "policeman (friendly term)"
+          "poliziotto (colloquiale)"
         ],
         "en": [
           "policeman (friendly term)"
@@ -37057,7 +37056,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "おまわりさんに道を聞きました。",
@@ -37108,9 +37107,8 @@
       "lettura": "おかし",
       "significato": {
         "it": [
-          "confections",
-          "sweets",
-          "snack"
+          "dolciumi",
+          "dolcetti"
         ],
         "en": [
           "confections",
@@ -37134,7 +37132,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "お茶とお菓子をどうぞ。",
@@ -37227,7 +37225,7 @@
       "lettura": "おにいさん",
       "significato": {
         "it": [
-          "(someone else's) older brother (formal)"
+          "fratello maggiore (altrui)"
         ],
         "en": [
           "(someone else's) older brother (formal)"
@@ -37254,7 +37252,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "お兄さんは何さいですか。",
@@ -37311,7 +37309,7 @@
       "lettura": "おねえさん",
       "significato": {
         "it": [
-          "older sister (formal)"
+          "sorella maggiore (altrui)"
         ],
         "en": [
           "older sister (formal)"
@@ -37335,7 +37333,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "お姉さんはとても親切です。",
@@ -37397,8 +37395,8 @@
       "lettura": "おさけ",
       "significato": {
         "it": [
-          "sake",
-          "alcohol"
+          "sakè",
+          "alcolici"
         ],
         "en": [
           "sake",
@@ -37420,7 +37418,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "父は少しお酒を飲みます。",
@@ -37559,7 +37557,8 @@
       "lettura": "おとうさん",
       "significato": {
         "it": [
-          "father (formal)"
+          "papà",
+          "padre (altrui)"
         ],
         "en": [
           "father (formal)"
@@ -37580,7 +37579,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "お父さんは今、仕事です。",
@@ -37636,7 +37635,8 @@
       "lettura": "おなか",
       "significato": {
         "it": [
-          "stomach"
+          "pancia",
+          "stomaco"
         ],
         "en": [
           "stomach"
@@ -37657,7 +37657,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "お腹がすきました。",
@@ -37710,7 +37710,7 @@
       "lettura": "おべんとう",
       "significato": {
         "it": [
-          "a boxed lunch"
+          "bentō (pranzo al sacco)"
         ],
         "en": [
           "a boxed lunch"
@@ -37732,7 +37732,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "公園でお弁当を食べました。",
@@ -38144,8 +38144,7 @@
       "lettura": "かばん",
       "significato": {
         "it": [
-          "bag",
-          "basket"
+          "borsa"
         ],
         "en": [
           "bag",
@@ -38165,7 +38164,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "このかばんは少し重いです。",
@@ -38182,8 +38181,7 @@
       "lettura": "かぶる",
       "significato": {
         "it": [
-          "to wear",
-          "to put on (e.g., a hat on the head)"
+          "indossare (in testa)"
         ],
         "en": [
           "to wear",
@@ -38203,7 +38201,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -38258,7 +38256,7 @@
       "lettura": "カレー",
       "significato": {
         "it": [
-          "curry (abbr. for curry and rice)"
+          "curry (riso al curry)"
         ],
         "en": [
           "curry (abbr. for curry and rice)"
@@ -38277,7 +38275,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "昼ごはんはカレーを食べました。",
@@ -38294,7 +38292,7 @@
       "lettura": "カレンダー",
       "significato": {
         "it": [
-          "calendar"
+          "calendario"
         ],
         "en": [
           "calendar"
@@ -38313,7 +38311,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "へやのかべにカレンダーがあります。",
@@ -38330,7 +38328,7 @@
       "lettura": "ギター",
       "significato": {
         "it": [
-          "guitar"
+          "chitarra"
         ],
         "en": [
           "guitar"
@@ -38349,7 +38347,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "兄はギターをひきます。",
@@ -38424,7 +38422,7 @@
       "lettura": "クラス",
       "significato": {
         "it": [
-          "a class"
+          "classe"
         ],
         "en": [
           "a class"
@@ -38443,7 +38441,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "クラスに学生が二十人います。",
@@ -38536,7 +38534,7 @@
       "lettura": "コーヒー",
       "significato": {
         "it": [
-          "coffee"
+          "caffè"
         ],
         "en": [
           "coffee"
@@ -38555,7 +38553,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "朝はコーヒーを飲みます。",
@@ -38760,8 +38758,7 @@
       "lettura": "コップ",
       "significato": {
         "it": [
-          "a tumbler",
-          "a glass"
+          "bicchiere"
         ],
         "en": [
           "a tumbler",
@@ -38781,7 +38778,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "コップに水を入れました。",
@@ -38992,8 +38989,8 @@
       "lettura": "こんな",
       "significato": {
         "it": [
-          "such",
-          "like this"
+          "così",
+          "di questo tipo"
         ],
         "en": [
           "such",
@@ -39017,7 +39014,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "こんな大きいケーキ、はじめてです。",
@@ -39072,7 +39069,8 @@
       "lettura": "さらいねん",
       "significato": {
         "it": [
-          "year after next"
+          "fra due anni",
+          "l'anno dopo il prossimo"
         ],
         "en": [
           "year after next"
@@ -39098,7 +39096,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "さ来年、日本へ行きます。",
@@ -39203,7 +39201,7 @@
       "lettura": "シャツ",
       "significato": {
         "it": [
-          "shirt"
+          "camicia"
         ],
         "en": [
           "shirt"
@@ -39222,7 +39220,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "白いシャツを着ています。",
@@ -39737,7 +39735,7 @@
       "lettura": "セーター",
       "significato": {
         "it": [
-          "sweater"
+          "maglione"
         ],
         "en": [
           "sweater"
@@ -39756,7 +39754,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "寒いですから、セーターを着ます。",
@@ -39794,7 +39792,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "今日のテストはミスがゼロでした。",
@@ -40026,7 +40024,7 @@
       "lettura": "その",
       "significato": {
         "it": [
-          "that"
+          "quel, quello (vicino a chi ascolta)"
         ],
         "en": [
           "that"
@@ -40049,7 +40047,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "その本はおもしろいですか。",
@@ -40102,10 +40100,8 @@
       "lettura": "そば",
       "significato": {
         "it": [
-          "near",
-          "close",
-          "beside",
-          "Japanese traditional buckwheat noodle"
+          "vicino",
+          "accanto"
         ],
         "en": [
           "near",
@@ -40129,7 +40125,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "駅のそばに住んでいます。",
@@ -40186,8 +40182,8 @@
       "lettura": "それから",
       "significato": {
         "it": [
-          "and then",
-          "after that"
+          "e poi",
+          "dopo di che"
         ],
         "en": [
           "and then",
@@ -40207,7 +40203,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "買い物をして、それから帰りました。",
@@ -40447,8 +40443,8 @@
       "lettura": "たて",
       "significato": {
         "it": [
-          "length",
-          "height"
+          "verticale",
+          "lunghezza"
         ],
         "en": [
           "length",
@@ -40468,7 +40464,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "かみをたてに切ってください。",
@@ -40936,7 +40932,8 @@
       "lettura": "テスト",
       "significato": {
         "it": [
-          "test"
+          "test",
+          "verifica"
         ],
         "en": [
           "test"
@@ -40955,7 +40952,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "明日は日本語のテストがあります。",
@@ -41781,8 +41778,8 @@
       "lettura": "どちら",
       "significato": {
         "it": [
-          "which (one) (way)",
-          "where (polite)"
+          "quale (dei due)",
+          "dove (cortese)"
         ],
         "en": [
           "which (one) (way)",
@@ -41808,7 +41805,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "コーヒーとお茶、どちらがいいですか。",
@@ -41825,8 +41822,7 @@
       "lettura": "どっち",
       "significato": {
         "it": [
-          "which one",
-          "which way"
+          "quale (colloquiale)"
         ],
         "en": [
           "which one",
@@ -41852,7 +41848,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "どっちのケーキにする？",
@@ -42551,7 +42547,7 @@
       "lettura": "ノート",
       "significato": {
         "it": [
-          "notebook"
+          "quaderno"
         ],
         "en": [
           "notebook"
@@ -42570,7 +42566,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "ノートに名前を書いてください。",
@@ -42701,9 +42697,7 @@
       "lettura": "バス",
       "significato": {
         "it": [
-          "bus",
-          "bath",
-          "bass"
+          "autobus"
         ],
         "en": [
           "bus",
@@ -42724,7 +42718,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "バスで学校へ行きます。",
@@ -43136,7 +43130,7 @@
       "lettura": "ボールペン",
       "significato": {
         "it": [
-          "ball-point pen"
+          "penna a sfera"
         ],
         "en": [
           "ball-point pen"
@@ -43155,7 +43149,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "ボールペンで書いてください。",
@@ -43208,9 +43202,7 @@
       "lettura": "ポスト",
       "significato": {
         "it": [
-          "mailbox",
-          "post",
-          "position"
+          "cassetta della posta"
         ],
         "en": [
           "mailbox",
@@ -43231,7 +43223,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "手紙をポストに入れました。",
@@ -43507,8 +43499,7 @@
       "lettura": "まっすぐ",
       "significato": {
         "it": [
-          "straight (ahead)",
-          "direct"
+          "dritto"
         ],
         "en": [
           "straight (ahead)",
@@ -43528,7 +43519,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "tipo_aggettivo_jp": "な形容詞[なけいようし]",
       "frasi_esempio": [
         {
@@ -44670,7 +44661,7 @@
       "lettura": "あめ",
       "significato": {
         "it": [
-          "(hard) candy"
+          "caramella"
         ],
         "en": [
           "(hard) candy"
@@ -44693,7 +44684,7 @@
       "omofoni": [
         "雨"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "子どもに飴を一つあげました。",
@@ -44710,8 +44701,8 @@
       "lettura": "やすい",
       "significato": {
         "it": [
-          "inexpensive",
-          "cheap (things)"
+          "economico",
+          "a buon mercato"
         ],
         "en": [
           "inexpensive",
@@ -44735,7 +44726,7 @@
         "高い"
       ],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {
@@ -45362,7 +45353,7 @@
       "lettura": "ひとつき",
       "significato": {
         "it": [
-          "one month"
+          "un mese (durata)"
         ],
         "en": [
           "one month"
@@ -45384,7 +45375,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "一月に一回、映画を見ます。",
@@ -45401,7 +45392,7 @@
       "lettura": "おととい",
       "significato": {
         "it": [
-          "the day before yesterday"
+          "l'altro ieri"
         ],
         "en": [
           "the day before yesterday"
@@ -45424,7 +45415,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "一昨日、友だちと映画を見ました。",
@@ -46238,7 +46229,7 @@
       "lettura": "およぐ",
       "significato": {
         "it": [
-          "to swim"
+          "nuotare"
         ],
         "en": [
           "to swim"
@@ -46259,7 +46250,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -46600,7 +46591,7 @@
       "lettura": "おくさん",
       "significato": {
         "it": [
-          "(someone else's) wife (hon.)"
+          "moglie (altrui)"
         ],
         "en": [
           "(someone else's) wife (hon.)"
@@ -46625,7 +46616,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "田中さんの奥さんに会いました。",
@@ -46728,7 +46719,7 @@
       "lettura": "きいろ",
       "significato": {
         "it": [
-          "yellow"
+          "giallo"
         ],
         "en": [
           "yellow"
@@ -46752,7 +46743,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "黄色の花がすきです。",
@@ -47688,7 +47679,7 @@
       "lettura": "くだもの",
       "significato": {
         "it": [
-          "fruit"
+          "frutta"
         ],
         "en": [
           "fruit"
@@ -47710,7 +47701,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "朝は果物を食べます。",
@@ -47864,7 +47855,7 @@
       "lettura": "はな",
       "significato": {
         "it": [
-          "flower"
+          "fiore"
         ],
         "en": [
           "flower"
@@ -47887,7 +47878,7 @@
       "omofoni": [
         "鼻"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "母に花をあげました。",
@@ -48109,8 +48100,8 @@
       "lettura": "かいしゃ",
       "significato": {
         "it": [
-          "company",
-          "corporation"
+          "azienda",
+          "ditta"
         ],
         "en": [
           "company",
@@ -48133,7 +48124,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "父は会社で働いています。",
@@ -48190,7 +48181,7 @@
       "lettura": "はいざら",
       "significato": {
         "it": [
-          "ashtray"
+          "posacenere"
         ],
         "en": [
           "ashtray"
@@ -48212,7 +48203,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "すみません、灰皿はありますか。",
@@ -48269,9 +48260,8 @@
       "lettura": "え",
       "significato": {
         "it": [
-          "a painting",
-          "a picture",
-          "a drawing"
+          "disegno",
+          "quadro"
         ],
         "en": [
           "a painting",
@@ -48294,7 +48284,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "兄は絵が上手です。",
@@ -49018,8 +49008,7 @@
       "lettura": "かんじ",
       "significato": {
         "it": [
-          "kanji",
-          "Chinese character"
+          "kanji"
         ],
         "en": [
           "kanji",
@@ -49042,7 +49031,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "毎日、漢字をおぼえます。",
@@ -49390,7 +49379,7 @@
       "lettura": "つくえ",
       "significato": {
         "it": [
-          "desk"
+          "scrivania"
         ],
         "en": [
           "desk"
@@ -49411,7 +49400,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "机の上に本があります。",
@@ -49785,7 +49774,7 @@
       "lettura": "ぎゅうにゅう",
       "significato": {
         "it": [
-          "milk"
+          "latte"
         ],
         "en": [
           "milk"
@@ -49807,7 +49796,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "毎朝、牛乳を飲みます。",
@@ -50179,7 +50168,7 @@
       "lettura": "はし",
       "significato": {
         "it": [
-          "bridge"
+          "ponte"
         ],
         "en": [
           "bridge"
@@ -50202,7 +50191,7 @@
       "omofoni": [
         "箸"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "この橋をわたると、駅です。",
@@ -50311,7 +50300,8 @@
       "lettura": "つとめる",
       "significato": {
         "it": [
-          "to work (for)"
+          "lavorare (presso)",
+          "essere impiegato"
         ],
         "en": [
           "to work (for)"
@@ -50332,7 +50322,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -50673,7 +50663,7 @@
       "lettura": "ここのつ",
       "significato": {
         "it": [
-          "nine things"
+          "nove (cose)"
         ],
         "en": [
           "nine things"
@@ -50694,7 +50684,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "あめが九つあります。",
@@ -51084,7 +51074,7 @@
       "lettura": "けいかん",
       "significato": {
         "it": [
-          "police officer"
+          "agente di polizia"
         ],
         "en": [
           "police officer"
@@ -51106,7 +51096,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "駅の前に警官がいます。",
@@ -51349,7 +51339,7 @@
       "lettura": "けっこん",
       "significato": {
         "it": [
-          "marriage (get married)"
+          "matrimonio"
         ],
         "en": [
           "marriage (get married)"
@@ -51371,7 +51361,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "兄は来月結婚します。",
@@ -51702,7 +51692,7 @@
       "lettura": "いぬ",
       "significato": {
         "it": [
-          "dog"
+          "cane"
         ],
         "en": [
           "dog"
@@ -51723,7 +51713,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "うちの犬はとても小さいです。",
@@ -54022,7 +54012,7 @@
       "lettura": "くろ",
       "significato": {
         "it": [
-          "black"
+          "nero"
         ],
         "en": [
           "black"
@@ -54043,7 +54033,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "黒のくつがほしいです。",
@@ -54787,7 +54777,7 @@
       "lettura": "さとう",
       "significato": {
         "it": [
-          "sugar"
+          "zucchero"
         ],
         "en": [
           "sugar"
@@ -54809,7 +54799,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "コーヒーに砂糖を入れますか。",
@@ -54866,9 +54856,8 @@
       "lettura": "ほそい",
       "significato": {
         "it": [
-          "thin",
-          "slender",
-          "fine"
+          "sottile",
+          "stretto"
         ],
         "en": [
           "thin",
@@ -54893,7 +54882,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {
@@ -55446,7 +55435,7 @@
       "lettura": "さん",
       "significato": {
         "it": [
-          "three"
+          "tre"
         ],
         "en": [
           "three"
@@ -55467,7 +55456,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "りんごが三つあります。",
@@ -55915,10 +55904,7 @@
       "lettura": "しごと",
       "significato": {
         "it": [
-          "work",
-          "job",
-          "occupation",
-          "employment"
+          "lavoro"
         ],
         "en": [
           "work",
@@ -55943,7 +55929,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "父の仕事はいそがしいです。",
@@ -56050,7 +56036,7 @@
       "lettura": "し",
       "significato": {
         "it": [
-          "four"
+          "quattro"
         ],
         "en": [
           "four"
@@ -56073,7 +56059,7 @@
       "omofoni": [
         "市"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "四人で食事をしました。",
@@ -56436,8 +56422,7 @@
       "lettura": "わたし",
       "significato": {
         "it": [
-          "I",
-          "myself"
+          "io"
         ],
         "en": [
           "I",
@@ -56459,7 +56444,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "私は学生です。",
@@ -59510,7 +59495,7 @@
       "lettura": "しょうゆ",
       "significato": {
         "it": [
-          "soy sauce"
+          "salsa di soia"
         ],
         "en": [
           "soy sauce"
@@ -59532,7 +59517,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "醤油を少しかけてください。",
@@ -60303,7 +60288,7 @@
       "lettura": "いろ",
       "significato": {
         "it": [
-          "color"
+          "colore"
         ],
         "en": [
           "color"
@@ -60324,7 +60309,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "すきな色は何ですか。",
@@ -60465,7 +60450,7 @@
       "lettura": "たべもの",
       "significato": {
         "it": [
-          "food"
+          "cibo"
         ],
         "en": [
           "food"
@@ -60487,7 +60472,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "すきな食べ物は何ですか。",
@@ -60504,8 +60489,8 @@
       "lettura": "しょくどう",
       "significato": {
         "it": [
-          "cafeteria",
-          "dining hall"
+          "mensa",
+          "tavola calda"
         ],
         "en": [
           "cafeteria",
@@ -60528,7 +60513,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "昼は食堂で食べます。",
@@ -60866,7 +60851,7 @@
       "lettura": "みず",
       "significato": {
         "it": [
-          "water"
+          "acqua"
         ],
         "en": [
           "water"
@@ -60889,7 +60874,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "水を一ぱいください。",
@@ -61249,7 +61234,8 @@
       "lettura": "あお",
       "significato": {
         "it": [
-          "blue"
+          "blu",
+          "verde (dei semafori)"
         ],
         "en": [
           "blue"
@@ -61270,7 +61256,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "しんごうが青になりました。",
@@ -61478,7 +61464,7 @@
       "lettura": "あか",
       "significato": {
         "it": [
-          "red"
+          "rosso"
         ],
         "en": [
           "red"
@@ -61499,7 +61485,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "赤のかさを買いました。",
@@ -62273,7 +62259,7 @@
       "lettura": "あらう",
       "significato": {
         "it": [
-          "to wash"
+          "lavare"
         ],
         "en": [
           "to wash"
@@ -62294,7 +62280,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -62313,8 +62299,7 @@
       "lettura": "せんたく",
       "significato": {
         "it": [
-          "washing",
-          "laundry"
+          "bucato"
         ],
         "en": [
           "washing",
@@ -62337,7 +62322,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "日曜日に洗濯をします。",
@@ -62589,9 +62574,8 @@
       "lettura": "ぜんぶ",
       "significato": {
         "it": [
-          "all",
-          "entire",
-          "whole"
+          "tutto",
+          "per intero"
         ],
         "en": [
           "all",
@@ -62618,7 +62602,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "宿題は全部終わりました。",
@@ -62997,8 +62981,8 @@
       "lettura": "おおい",
       "significato": {
         "it": [
-          "many",
-          "there are a lot"
+          "numerosi",
+          "tanti"
         ],
         "en": [
           "many",
@@ -63024,7 +63008,7 @@
         "少ない"
       ],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {
@@ -63154,8 +63138,7 @@
       "lettura": "からだ",
       "significato": {
         "it": [
-          "body",
-          "health"
+          "corpo"
         ],
         "en": [
           "body",
@@ -63177,7 +63160,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "運動は体にいいです。",
@@ -63405,8 +63388,7 @@
       "lettura": "だいがく",
       "significato": {
         "it": [
-          "college",
-          "university"
+          "università"
         ],
         "en": [
           "college",
@@ -63431,7 +63413,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "姉は大学の学生です。",
@@ -63490,7 +63472,7 @@
       "lettura": "たいしかん",
       "significato": {
         "it": [
-          "embassy"
+          "ambasciata"
         ],
         "en": [
           "embassy"
@@ -63513,7 +63495,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "大使館はこの近くにあります。",
@@ -63923,8 +63905,8 @@
       "lettura": "たくさん",
       "significato": {
         "it": [
-          "many",
-          "much"
+          "tanto",
+          "molti"
         ],
         "en": [
           "many",
@@ -63949,7 +63931,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "公園に人が沢山います。",
@@ -65822,7 +65804,7 @@
       "lettura": "おとうと",
       "significato": {
         "it": [
-          "younger brother"
+          "fratello minore"
         ],
         "en": [
           "younger brother"
@@ -65845,7 +65827,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "弟は十さいです。",
@@ -65862,9 +65844,8 @@
       "lettura": "しめる",
       "significato": {
         "it": [
-          "to tie",
-          "to fasten",
-          "to tighten"
+          "allacciare",
+          "stringere"
         ],
         "en": [
           "to tie",
@@ -65889,7 +65870,7 @@
       "omofoni": [
         "閉める"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -66116,7 +66097,7 @@
       "lettura": "でんわ",
       "significato": {
         "it": [
-          "a telephone"
+          "telefono"
         ],
         "en": [
           "a telephone"
@@ -66138,7 +66119,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "友だちに電話をかけました。",
@@ -66830,7 +66811,7 @@
       "lettura": "ぶたにく",
       "significato": {
         "it": [
-          "pork"
+          "carne di maiale"
         ],
         "en": [
           "pork"
@@ -66852,7 +66833,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "今日は豚肉を食べます。",
@@ -67037,7 +67018,7 @@
       "lettura": "に",
       "significato": {
         "it": [
-          "two"
+          "due"
         ],
         "en": [
           "two"
@@ -67058,7 +67039,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "ケーキを二つ食べました。",
@@ -67196,7 +67177,8 @@
       "lettura": "ふたり",
       "significato": {
         "it": [
-          "two people"
+          "due persone",
+          "in due"
         ],
         "en": [
           "two people"
@@ -67218,7 +67200,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "二人で公園に行きました。",
@@ -67529,7 +67511,7 @@
       "lettura": "ねこ",
       "significato": {
         "it": [
-          "cat"
+          "gatto"
         ],
         "en": [
           "cat"
@@ -67550,7 +67532,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "うちには猫が二ひきいます。",
@@ -68246,7 +68228,7 @@
       "lettura": "はし",
       "significato": {
         "it": [
-          "chopsticks"
+          "bacchette"
         ],
         "en": [
           "chopsticks"
@@ -68269,7 +68251,7 @@
       "omofoni": [
         "橋"
       ],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "箸でごはんを食べます。",
@@ -68699,8 +68681,7 @@
       "lettura": "ばんごはん",
       "significato": {
         "it": [
-          "dinner",
-          "evening meal"
+          "cena"
         ],
         "en": [
           "dinner",
@@ -68726,7 +68707,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "晩御飯はカレーでした。",
@@ -68784,8 +68765,7 @@
       "lettura": "つかれる",
       "significato": {
         "it": [
-          "to get (become) tired",
-          "to become fatigued"
+          "stancarsi"
         ],
         "en": [
           "to get (become) tired",
@@ -68807,7 +68787,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -69841,8 +69821,8 @@
       "lettura": "ならぶ",
       "significato": {
         "it": [
-          "to line up",
-          "to stand in a line (v.i.)"
+          "mettersi in fila",
+          "allinearsi"
         ],
         "en": [
           "to line up",
@@ -69864,7 +69844,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -70789,7 +70769,7 @@
       "lettura": "ほんだな",
       "significato": {
         "it": [
-          "bookshelf"
+          "scaffale dei libri"
         ],
         "en": [
           "bookshelf"
@@ -70811,7 +70791,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "本棚に本をならべました。",
@@ -71226,9 +71206,7 @@
       "lettura": "まいねん; まいとし",
       "significato": {
         "it": [
-          "every year",
-          "yearly",
-          "annually"
+          "ogni anno"
         ],
         "en": [
           "every year",
@@ -71252,7 +71230,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "毎年、家族と旅行します。",
@@ -71346,7 +71324,7 @@
       "lettura": "まん",
       "significato": {
         "it": [
-          "ten thousand"
+          "diecimila"
         ],
         "en": [
           "ten thousand"
@@ -71367,7 +71345,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "このかばんは一万円です。",
@@ -72036,7 +72014,8 @@
       "lettura": "もん",
       "significato": {
         "it": [
-          "gate"
+          "cancello",
+          "portone"
         ],
         "en": [
           "gate"
@@ -72057,7 +72036,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "学校の門の前で待っています。",
@@ -72232,7 +72211,8 @@
       "lettura": "くすり",
       "significato": {
         "it": [
-          "medicine"
+          "medicina",
+          "farmaco"
         ],
         "en": [
           "medicine"
@@ -72253,7 +72233,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "食事のあとで薬を飲みます。",
@@ -72435,7 +72415,7 @@
       "lettura": "ゆうめい",
       "significato": {
         "it": [
-          "famous"
+          "famoso"
         ],
         "en": [
           "famous"
@@ -72457,7 +72437,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "tipo_aggettivo_jp": "な形容詞[なけいようし]",
       "frasi_esempio": [
         {
@@ -72838,7 +72818,7 @@
       "lettura": "はがき",
       "significato": {
         "it": [
-          "postcard"
+          "cartolina"
         ],
         "en": [
           "postcard"
@@ -72860,7 +72840,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "友だちに葉書を出しました。",
@@ -73149,7 +73129,7 @@
       "lettura": "らいげつ",
       "significato": {
         "it": [
-          "next month"
+          "il mese prossimo"
         ],
         "en": [
           "next month"
@@ -73173,7 +73153,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "来月、京都へ行きます。",
@@ -74027,7 +74007,7 @@
       "lettura": "れいぞうこ",
       "significato": {
         "it": [
-          "refrigerator"
+          "frigorifero"
         ],
         "en": [
           "refrigerator"
@@ -74050,7 +74030,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "牛乳は冷蔵庫の中にあります。",
@@ -74183,7 +74163,7 @@
       "lettura": "ろうか",
       "significato": {
         "it": [
-          "corridor"
+          "corridoio"
         ],
         "en": [
           "corridor"
@@ -74205,7 +74185,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "廊下を走らないでください。",
@@ -74260,7 +74240,7 @@
       "lettura": "むっつ",
       "significato": {
         "it": [
-          "six things"
+          "sei (cose)"
         ],
         "en": [
           "six things"
@@ -74281,7 +74261,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783682198678,
+      "updated_at": 1783683116702,
       "frasi_esempio": [
         {
           "testo": "りんごを六つ買いました。",
