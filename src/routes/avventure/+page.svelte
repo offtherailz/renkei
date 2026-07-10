@@ -19,6 +19,14 @@
 			yomi: 'おみせ',
 			desc: 'Scegli il locale, di\' in quanti siete, ordina dal menu, paga il conto.',
 			ready: true
+		},
+		{
+			href: `${base}/treno`,
+			icon: '🚃',
+			title: '電車',
+			yomi: 'でんしゃ',
+			desc: 'Compra il biglietto, trova il binario, sali sul treno giusto e scendi alla fermata giusta.',
+			ready: true
 		}
 	];
 </script>
