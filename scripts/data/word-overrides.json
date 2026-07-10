@@ -14330,7 +14330,16 @@
         "sudden",
         "steep"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "急な用事で帰りました。",
+        "traduzione": {
+          "it": "È tornato a casa per un impegno urgente.",
+          "en": "He went home due to urgent business."
+        }
+      }
+    ]
   },
   "急ぐ": {
     "significato": {
@@ -14342,7 +14351,16 @@
         "to be in a hurry",
         "to rush"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "時間がないから、急ぎましょう。",
+        "traduzione": {
+          "it": "Non c'è tempo, sbrighiamoci.",
+          "en": "There's no time, let's hurry."
+        }
+      }
+    ]
   },
   "急行": {
     "significato": {
@@ -14352,7 +14370,16 @@
       "en": [
         "express train or bus"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "急行はこの駅に止まりません。",
+        "traduzione": {
+          "it": "L'espresso non ferma in questa stazione.",
+          "en": "The express doesn't stop at this station."
+        }
+      }
+    ]
   },
   "泣く": {
     "significato": {
@@ -14362,7 +14389,16 @@
       "en": [
         "to cry"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "赤ちゃんが泣いています。",
+        "traduzione": {
+          "it": "Il neonato sta piangendo.",
+          "en": "The baby is crying."
+        }
+      }
+    ]
   },
   "競争": {
     "significato": {
@@ -14484,7 +14520,16 @@
       "en": [
         "bitter"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この薬はとても苦いです。",
+        "traduzione": {
+          "it": "Questa medicina è amarissima.",
+          "en": "This medicine is very bitter."
+        }
+      }
+    ]
   },
   "具合": {
     "significato": {
@@ -14509,7 +14554,16 @@
         "to open",
         "to become empty (vacant)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "席が空きましたよ。どうぞ。",
+        "traduzione": {
+          "it": "Si è liberato un posto: prego.",
+          "en": "A seat has opened up — please."
+        }
+      }
+    ]
   },
   "空く::すく": {
     "significato": {
@@ -14521,7 +14575,16 @@
         "to be empty (in reference to people)",
         "to be less crowded"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この時間は電車が空いています。",
+        "traduzione": {
+          "it": "A quest'ora il treno è vuoto.",
+          "en": "The train is empty at this hour."
+        }
+      }
+    ]
   },
   "空気": {
     "significato": {
@@ -14533,7 +14596,16 @@
         "air",
         "atmosphere"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "山の空気はきれいです。",
+        "traduzione": {
+          "it": "L'aria di montagna è pulita.",
+          "en": "The mountain air is clean."
+        }
+      }
+    ]
   },
   "空港": {
     "significato": {
@@ -14796,7 +14868,16 @@
       "en": [
         "to build"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "駅の前に新しいビルを建てています。",
+        "traduzione": {
+          "it": "Stanno costruendo un palazzo nuovo davanti alla stazione.",
+          "en": "They're building a new building in front of the station."
+        }
+      }
+    ]
   },
   "研究": {
     "significato": {
@@ -14808,7 +14889,16 @@
         "research",
         "investigation"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "兄は大学で研究をしています。",
+        "traduzione": {
+          "it": "Mio fratello fa ricerca all'università.",
+          "en": "My brother does research at the university."
+        }
+      }
+    ]
   },
   "研究室": {
     "significato": {
@@ -14839,7 +14929,16 @@
       "en": [
         "silk"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "このスカーフは絹です。",
+        "traduzione": {
+          "it": "Questa sciarpa è di seta.",
+          "en": "This scarf is silk."
+        }
+      }
+    ]
   },
   "見える": {
     "significato": {
@@ -14927,7 +15026,16 @@
         "origin",
         "source"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "火事の原因は何でしたか。",
+        "traduzione": {
+          "it": "Qual era la causa dell'incendio?",
+          "en": "What was the cause of the fire?"
+        }
+      }
+    ]
   },
   "厳しい": {
     "significato": {
@@ -14959,7 +15067,16 @@
       "en": [
         "breakdown"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "エレベーターは故障中です。",
+        "traduzione": {
+          "it": "L'ascensore è guasto.",
+          "en": "The elevator is out of order."
+        }
+      }
+    ]
   },
   "湖": {
     "significato": {
@@ -14969,7 +15086,16 @@
       "en": [
         "lake"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "湖のそばでキャンプをしました。",
+        "traduzione": {
+          "it": "Abbiamo campeggiato in riva al lago.",
+          "en": "We camped by the lake."
+        }
+      }
+    ]
   },
   "交通": {
     "significato": {
@@ -14981,7 +15107,16 @@
         "traffic",
         "transportation"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この町は交通が便利です。",
+        "traduzione": {
+          "it": "In questa città i trasporti sono comodi.",
+          "en": "Transportation is convenient in this town."
+        }
+      }
+    ]
   },
   "光": {
     "significato": {
@@ -15003,7 +15138,16 @@
         "to shine",
         "to glitter"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "夜空に星が光っています。",
+        "traduzione": {
+          "it": "Le stelle brillano nel cielo notturno.",
+          "en": "Stars are shining in the night sky."
+        }
+      }
+    ]
   },
   "公務員": {
     "significato": {
@@ -15035,7 +15179,16 @@
         "to face",
         "to go towards"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "いま駅に向かっています。",
+        "traduzione": {
+          "it": "Sto andando verso la stazione.",
+          "en": "I'm heading to the station now."
+        }
+      }
+    ]
   },
   "喉": {
     "significato": {
@@ -15094,7 +15247,16 @@
         "principal",
         "headmaster"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "校長先生があいさつをしました。",
+        "traduzione": {
+          "it": "Il preside ha fatto il discorso di saluto.",
+          "en": "The principal gave a speech."
+        }
+      }
+    ]
   },
   "港": {
     "significato": {
@@ -15105,7 +15267,16 @@
         "harbor",
         "port"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "港から船が出ます。",
+        "traduzione": {
+          "it": "Le navi partono dal porto.",
+          "en": "Ships leave from the harbor."
+        }
+      }
+    ]
   },
   "考える": {
     "significato": {
@@ -15159,7 +15330,16 @@
       "en": [
         "auditorium"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "講堂で説明会があります。",
+        "traduzione": {
+          "it": "In aula magna c'è una presentazione.",
+          "en": "There's an information session in the auditorium."
+        }
+      }
+    ]
   },
   "郊外": {
     "significato": {
@@ -15395,7 +15575,16 @@
       "en": [
         "wife (humble)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "妻と買い物に行きました。",
+        "traduzione": {
+          "it": "Sono andato a fare spese con mia moglie.",
+          "en": "I went shopping with my wife."
+        }
+      }
+    ]
   },
   "済む": {
     "significato": {
@@ -15420,7 +15609,16 @@
         "fine",
         "minute"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "細かいお金がありますか。",
+        "traduzione": {
+          "it": "Hai spiccioli?",
+          "en": "Do you have small change?"
+        }
+      }
+    ]
   },
   "坂": {
     "significato": {
@@ -15485,7 +15683,16 @@
         "regret",
         "regrettable"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "行けなくて、残念です。",
+        "traduzione": {
+          "it": "Peccato non poter venire.",
+          "en": "It's a shame I can't go."
+        }
+      }
+    ]
   },
   "仕方": {
     "significato": {
@@ -15529,7 +15736,16 @@
       "en": [
         "child"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "あの子はだれの子どもですか。",
+        "traduzione": {
+          "it": "Di chi è quel bambino?",
+          "en": "Whose child is that?"
+        }
+      }
+    ]
   },
   "市": {
     "significato": {
@@ -15591,7 +15807,16 @@
         "to think",
         "to feel"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "あしたは雨だと思います。",
+        "traduzione": {
+          "it": "Penso che domani pioverà.",
+          "en": "I think it will rain tomorrow."
+        }
+      }
+    ]
   },
   "指": {
     "significato": {
@@ -15611,7 +15836,16 @@
       "en": [
         "(finger) ring"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "妻に指輪を送りました。",
+        "traduzione": {
+          "it": "Ho regalato un anello a mia moglie.",
+          "en": "I gave my wife a ring."
+        }
+      }
+    ]
   },
   "支度": {
     "significato": {
@@ -15664,7 +15898,16 @@
         "to end",
         "to stop"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "たばこを止めました。",
+        "traduzione": {
+          "it": "Ho smesso di fumare.",
+          "en": "I quit smoking."
+        }
+      }
+    ]
   },
   "止める::とめる": {
     "significato": {
@@ -15675,7 +15918,16 @@
         "to stop (something)"
       ]
     },
-    "id_verbo_corrispondente": "止まる"
+    "id_verbo_corrispondente": "止まる",
+    "frasi_esempio": [
+      {
+        "testo": "ここに車を止めてもいいですか。",
+        "traduzione": {
+          "it": "Posso fermare la macchina qui?",
+          "en": "May I park the car here?"
+        }
+      }
+    ]
   },
   "糸": {
     "significato": {
@@ -15759,7 +16011,16 @@
       "en": [
         "accident"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "駅の前で事故がありました。",
+        "traduzione": {
+          "it": "C'è stato un incidente davanti alla stazione.",
+          "en": "There was an accident in front of the station."
+        }
+      }
+    ]
   },
   "事務所": {
     "significato": {
@@ -15769,7 +16030,16 @@
       "en": [
         "office"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "事務所は五階にあります。",
+        "traduzione": {
+          "it": "L'ufficio è al quinto piano.",
+          "en": "The office is on the fifth floor."
+        }
+      }
+    ]
   },
   "似る": {
     "significato": {
@@ -15792,7 +16062,16 @@
         "letter",
         "character"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "彼は字がきれいです。",
+        "traduzione": {
+          "it": "Lui ha una bella calligrafia.",
+          "en": "He has beautiful handwriting."
+        }
+      }
+    ]
   },
   "寺": {
     "significato": {
@@ -15845,7 +16124,16 @@
         "to get better",
         "to recover from illness (v.i.)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "風邪はもう治りました。",
+        "traduzione": {
+          "it": "Il raffreddore è già passato.",
+          "en": "My cold is already better."
+        }
+      }
+    ]
   },
   "自由": {
     "significato": {
@@ -15855,7 +16143,16 @@
       "en": [
         "freedom"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "あしたは自由な時間があります。",
+        "traduzione": {
+          "it": "Domani ho del tempo libero.",
+          "en": "I have free time tomorrow."
+        }
+      }
+    ]
   },
   "辞典": {
     "significato": {
@@ -15972,7 +16269,16 @@
       "en": [
         "president of a company"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "社長は今、出張中です。",
+        "traduzione": {
+          "it": "Il presidente ora è in trasferta.",
+          "en": "The president is on a business trip now."
+        }
+      }
+    ]
   },
   "謝る": {
     "significato": {
@@ -15982,7 +16288,16 @@
       "en": [
         "to apologize"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "遅れたことを謝りました。",
+        "traduzione": {
+          "it": "Mi sono scusato per il ritardo.",
+          "en": "I apologized for being late."
+        }
+      }
+    ]
   },
   "邪魔": {
     "significato": {
@@ -16006,7 +16321,16 @@
         "lonely",
         "lonesome"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "一人だと、寂しいです。",
+        "traduzione": {
+          "it": "Da solo mi sento solo.",
+          "en": "I feel lonely by myself."
+        }
+      }
+    ]
   },
   "取り替える": {
     "significato": {
@@ -16028,7 +16352,16 @@
       "en": [
         "glove(s)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "寒いから手袋をしました。",
+        "traduzione": {
+          "it": "Fa freddo, ho messo i guanti.",
+          "en": "It's cold, so I put on gloves."
+        }
+      }
+    ]
   },
   "手伝う": {
     "significato": {
@@ -16093,7 +16426,16 @@
       "en": [
         "reception(ist) desk"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "受付で名前を書いてください。",
+        "traduzione": {
+          "it": "Scriva il nome alla reception.",
+          "en": "Please write your name at the reception."
+        }
+      }
+    ]
   },
   "周り": {
     "significato": {
@@ -16104,7 +16446,16 @@
       "en": [
         "surroundings"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "駅の周りに店がたくさんあります。",
+        "traduzione": {
+          "it": "Attorno alla stazione ci sono tanti negozi.",
+          "en": "There are many shops around the station."
+        }
+      }
+    ]
   },
   "拾う": {
     "significato": {
@@ -16125,7 +16476,16 @@
       "en": [
         "end"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "今日はこれで終わりです。",
+        "traduzione": {
+          "it": "Per oggi è tutto.",
+          "en": "That's all for today."
+        }
+      }
+    ]
   },
   "習慣": {
     "significato": {
@@ -16168,7 +16528,16 @@
         "to collect"
       ]
     },
-    "id_verbo_corrispondente": "集める"
+    "id_verbo_corrispondente": "集める",
+    "frasi_esempio": [
+      {
+        "testo": "駅の前に十人集まりました。",
+        "traduzione": {
+          "it": "Davanti alla stazione si sono radunate dieci persone.",
+          "en": "Ten people gathered in front of the station."
+        }
+      }
+    ]
   },
   "集める": {
     "significato": {
@@ -16182,7 +16551,16 @@
         "to assemble"
       ]
     },
-    "id_verbo_corrispondente": "集まる"
+    "id_verbo_corrispondente": "集まる",
+    "frasi_esempio": [
+      {
+        "testo": "古い切手を集めています。",
+        "traduzione": {
+          "it": "Colleziono francobolli antichi.",
+          "en": "I collect old stamps."
+        }
+      }
+    ]
   },
   "住所": {
     "significato": {
@@ -16193,7 +16571,16 @@
         "address",
         "place of residence"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "ここに住所を書いてください。",
+        "traduzione": {
+          "it": "Scriva qui l'indirizzo.",
+          "en": "Please write your address here."
+        }
+      }
+    ]
   },
   "十分": {
     "significato": {
@@ -16216,7 +16603,16 @@
         "soft (in reference to texture)",
         "tender"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この肉は柔らかいですね。",
+        "traduzione": {
+          "it": "Questa carne è tenera!",
+          "en": "This meat is tender!"
+        }
+      }
+    ]
   },
   "柔道": {
     "significato": {
@@ -16226,7 +16622,16 @@
       "en": [
         "judo"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "弟は柔道を習っています。",
+        "traduzione": {
+          "it": "Mio fratello minore studia judo.",
+          "en": "My little brother is learning judo."
+        }
+      }
+    ]
   },
   "出席": {
     "significato": {
@@ -16307,7 +16712,16 @@
         "(in the) future",
         "prospects"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "将来、医者になりたいです。",
+        "traduzione": {
+          "it": "In futuro vorrei diventare medico.",
+          "en": "I want to become a doctor in the future."
+        }
+      }
+    ]
   },
   "小学校": {
     "significato": {
@@ -16417,7 +16831,16 @@
         "to laugh",
         "to smile"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "みんなで大きな声で笑いました。",
+        "traduzione": {
+          "it": "Abbiamo riso tutti di gusto.",
+          "en": "We all laughed out loud."
+        }
+      }
+    ]
   },
   "紹介": {
     "significato": {
@@ -16427,7 +16850,16 @@
       "en": [
         "an introduction"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "友だちの紹介でこの店に来ました。",
+        "traduzione": {
+          "it": "Sono venuto in questo locale su presentazione di un amico.",
+          "en": "I came to this place on a friend's recommendation."
+        }
+      }
+    ]
   },
   "上がる": {
     "significato": {
@@ -16451,7 +16883,16 @@
         "to transfer (trains)",
         "to change (bus, train, etc.)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "新宿で山手線に乗り換えます。",
+        "traduzione": {
+          "it": "A Shinjuku cambio con la linea Yamanote.",
+          "en": "I transfer to the Yamanote Line at Shinjuku."
+        }
+      }
+    ]
   },
   "乗り物": {
     "significato": {
@@ -16503,7 +16944,16 @@
         "place",
         "location"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "待ち合わせの場所を決めましょう。",
+        "traduzione": {
+          "it": "Decidiamo il posto dell'appuntamento.",
+          "en": "Let's decide on a meeting place."
+        }
+      }
+    ]
   },
   "畳": {
     "significato": {
@@ -16513,7 +16963,16 @@
       "en": [
         "tatami mat (Japanese straw mat)"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "畳の部屋で寝ました。",
+        "traduzione": {
+          "it": "Ho dormito in una stanza col tatami.",
+          "en": "I slept in a tatami room."
+        }
+      }
+    ]
   },
   "飾る": {
     "significato": {
@@ -16544,7 +17003,16 @@
       "en": [
         "to plant"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "庭に木を植えました。",
+        "traduzione": {
+          "it": "Ho piantato un albero in giardino.",
+          "en": "I planted a tree in the garden."
+        }
+      }
+    ]
   },
   "触る": {
     "significato": {
@@ -16594,7 +17062,16 @@
         "foodstuff",
         "groceries"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "スーパーで食料品を買いました。",
+        "traduzione": {
+          "it": "Ho comprato generi alimentari al supermercato.",
+          "en": "I bought groceries at the supermarket."
+        }
+      }
+    ]
   },
   "寝坊": {
     "significato": {
@@ -16605,7 +17082,16 @@
       "en": [
         "sleeping in late"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "寝坊して、電車に乗り遅れました。",
+        "traduzione": {
+          "it": "Ho dormito troppo e ho perso il treno.",
+          "en": "I overslept and missed the train."
+        }
+      }
+    ]
   },
   "心": {
     "significato": {
@@ -16647,7 +17133,16 @@
       "en": [
         "newspaper company"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "兄は新聞社で働いています。",
+        "traduzione": {
+          "it": "Mio fratello lavora in un giornale.",
+          "en": "My brother works at a newspaper company."
+        }
+      }
+    ]
   },
   "森": {
     "significato": {
@@ -16658,7 +17153,16 @@
       "en": [
         "forest"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "森の中を散歩しました。",
+        "traduzione": {
+          "it": "Ho passeggiato nel bosco.",
+          "en": "I took a walk in the forest."
+        }
+      }
+    ]
   },
   "深い": {
     "significato": {
@@ -16669,7 +17173,16 @@
         "deep",
         "profound"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この川は深いから、気をつけて。",
+        "traduzione": {
+          "it": "Questo fiume è profondo: attenzione.",
+          "en": "This river is deep, so be careful."
+        }
+      }
+    ]
   },
   "申し上げる": {
     "significato": {
@@ -16680,7 +17193,16 @@
         "(humble)to say",
         "to tell"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "お礼を申し上げます。",
+        "traduzione": {
+          "it": "Porgo i miei ringraziamenti (umilissimo).",
+          "en": "I offer my thanks (very humble)."
+        }
+      }
+    ]
   },
   "申す": {
     "significato": {
@@ -16715,7 +17237,16 @@
         "diligent",
         "serious"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "彼は真面目な学生です。",
+        "traduzione": {
+          "it": "Lui è uno studente serio.",
+          "en": "He is a serious student."
+        }
+      }
+    ]
   },
   "神社": {
     "significato": {
@@ -16725,7 +17256,16 @@
       "en": [
         "Shinto shrine"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "お正月に神社へ行きました。",
+        "traduzione": {
+          "it": "A Capodanno siamo andati al santuario.",
+          "en": "We went to a shrine at New Year's."
+        }
+      }
+    ]
   },
   "親": {
     "significato": {
@@ -16839,7 +17379,16 @@
         "water service",
         "water line"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "水道の水が出ません。",
+        "traduzione": {
+          "it": "Non esce l'acqua dal rubinetto.",
+          "en": "No water is coming from the tap."
+        }
+      }
+    ]
   },
   "随分": {
     "significato": {
@@ -16879,7 +17428,16 @@
       "en": [
         "world"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "世界にはいろいろな国があります。",
+        "traduzione": {
+          "it": "Nel mondo ci sono tanti paesi diversi.",
+          "en": "There are many different countries in the world."
+        }
+      }
+    ]
   },
   "世話": {
     "significato": {
@@ -16925,7 +17483,16 @@
         "terrific",
         "great"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "凄い！　全部できましたね。",
+        "traduzione": {
+          "it": "Fantastico! Le hai fatte tutte.",
+          "en": "Amazing! You got them all."
+        }
+      }
+    ]
   },
   "政治": {
     "significato": {
@@ -16965,7 +17532,16 @@
       "en": [
         "correct"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "正しい答えを選んでください。",
+        "traduzione": {
+          "it": "Scegliete la risposta corretta.",
+          "en": "Please choose the correct answer."
+        }
+      }
+    ]
   },
   "正月": {
     "significato": {
@@ -17040,7 +17616,16 @@
         "active",
         "thriving"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この町はサッカーが盛んです。",
+        "traduzione": {
+          "it": "In questa città il calcio va forte.",
+          "en": "Soccer is popular in this town."
+        }
+      }
+    ]
   },
   "西洋": {
     "significato": {
@@ -17051,7 +17636,16 @@
         "the West",
         "Western countries"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "西洋の音楽をよく聞きます。",
+        "traduzione": {
+          "it": "Ascolto spesso musica occidentale.",
+          "en": "I often listen to Western music."
+        }
+      }
+    ]
   },
   "席": {
     "significato": {
@@ -17073,7 +17667,16 @@
         "old days",
         "past"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "昔、ここは海でした。",
+        "traduzione": {
+          "it": "Un tempo qui c'era il mare.",
+          "en": "Long ago, this place was the sea."
+        }
+      }
+    ]
   },
   "石": {
     "significato": {
@@ -17105,7 +17708,16 @@
         "baby",
         "infant"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "赤ちゃんが笑っています。",
+        "traduzione": {
+          "it": "Il neonato sta sorridendo.",
+          "en": "The baby is smiling."
+        }
+      }
+    ]
   },
   "赤ん坊": {
     "significato": {
@@ -17247,7 +17859,16 @@
         "line",
         "wire"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "この線から出ないでください。",
+        "traduzione": {
+          "it": "Non oltrepassate questa linea.",
+          "en": "Please don't cross this line."
+        }
+      }
+    ]
   },
   "選ぶ": {
     "significato": {
@@ -17258,7 +17879,16 @@
         "to choose",
         "to select"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "好きな色を選んでください。",
+        "traduzione": {
+          "it": "Scegli il colore che preferisci.",
+          "en": "Please choose your favorite color."
+        }
+      }
+    ]
   },
   "全然": {
     "significato": {
@@ -17300,7 +17930,16 @@
       "en": [
         "grandmother"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "祖母は料理が上手です。",
+        "traduzione": {
+          "it": "Mia nonna cucina benissimo.",
+          "en": "My grandmother is a great cook."
+        }
+      }
+    ]
   },
   "素晴らしい": {
     "significato": {
@@ -17312,7 +17951,16 @@
         "wonderful",
         "terrific"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "素晴らしい景色ですね！",
+        "traduzione": {
+          "it": "Che panorama meraviglioso!",
+          "en": "What a wonderful view!"
+        }
+      }
+    ]
   },
   "痩せる": {
     "significato": {
@@ -17361,7 +18009,16 @@
       "en": [
         "grass"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "庭の草を取りました。",
+        "traduzione": {
+          "it": "Ho tolto le erbacce dal giardino.",
+          "en": "I pulled the weeds in the garden."
+        }
+      }
+    ]
   },
   "送る": {
     "significato": {
@@ -17478,7 +18135,16 @@
         "to be continued"
       ]
     },
-    "id_verbo_corrispondente": "続ける"
+    "id_verbo_corrispondente": "続ける",
+    "frasi_esempio": [
+      {
+        "testo": "雨の日が続いています。",
+        "traduzione": {
+          "it": "I giorni di pioggia continuano.",
+          "en": "The rainy days continue."
+        }
+      }
+    ]
   },
   "続ける": {
     "significato": {
@@ -17511,7 +18177,16 @@
       "en": [
         "to gain weight"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "最近、少し太りました。",
+        "traduzione": {
+          "it": "Ultimamente sono un po' ingrassato.",
+          "en": "I've gained a little weight recently."
+        }
+      }
+    ]
   },
   "打つ": {
     "significato": {
@@ -17533,7 +18208,16 @@
       "en": [
         "leaving hospital"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "祖父は昨日、退院しました。",
+        "traduzione": {
+          "it": "Ieri mio nonno è stato dimesso.",
+          "en": "My grandfather left the hospital yesterday."
+        }
+      }
+    ]
   },
   "代わり": {
     "significato": {
@@ -17588,7 +18272,16 @@
         "valuable",
         "serious matter"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "これは大事な書類です。",
+        "traduzione": {
+          "it": "Questi sono documenti importanti.",
+          "en": "These are important documents."
+        }
+      }
+    ]
   },
   "大体": {
     "significato": {
@@ -17614,7 +18307,16 @@
         "generally",
         "usually"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "日曜日は大抵、家にいます。",
+        "traduzione": {
+          "it": "La domenica di solito sto a casa.",
+          "en": "I'm usually at home on Sundays."
+        }
+      }
+    ]
   },
   "大分": {
     "significato": {
@@ -17628,7 +18330,16 @@
         "considerably",
         "pretty much"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "日本語が大分わかるようになりました。",
+        "traduzione": {
+          "it": "Ormai capisco parecchio giapponese.",
+          "en": "I've come to understand quite a lot of Japanese."
+        }
+      }
+    ]
   },
   "棚": {
     "significato": {
@@ -17640,7 +18351,16 @@
         "shelves",
         "rack"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "本を棚にもどしてください。",
+        "traduzione": {
+          "it": "Rimetti il libro sullo scaffale.",
+          "en": "Please put the book back on the shelf."
+        }
+      }
+    ]
   },
   "探す": {
     "significato": {
@@ -17722,7 +18442,16 @@
       "en": [
         "to notify"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "着いたら、知らせてください。",
+        "traduzione": {
+          "it": "Quando arrivi, fammi sapere.",
+          "en": "Let me know when you arrive."
+        }
+      }
+    ]
   },
   "地震": {
     "significato": {
@@ -17772,7 +18501,16 @@
         "ashamed",
         "embarrassed"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "人の前で歌うのは恥ずかしいです。",
+        "traduzione": {
+          "it": "Cantare davanti alla gente mi imbarazza.",
+          "en": "Singing in front of people is embarrassing."
+        }
+      }
+    ]
   },
   "致す": {
     "significato": {
@@ -17813,7 +18551,16 @@
         "kimono",
         "Japanese traditional dress"
       ]
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "お祭りで着物を着ました。",
+        "traduzione": {
+          "it": "Al matsuri ho indossato il kimono.",
+          "en": "I wore a kimono at the festival."
+        }
+      }
+    ]
   },
   "中々": {
     "significato": {
@@ -20507,6 +21254,83 @@
         "traduzione": {
           "it": "Sto a pensione da mio fratello.",
           "en": "I board at my brother's house."
+        }
+      }
+    ]
+  },
+  "急行する": {
+    "frasi_esempio": [
+      {
+        "testo": "救急車が病院へ急行する。",
+        "traduzione": {
+          "it": "L'ambulanza corre verso l'ospedale.",
+          "en": "The ambulance rushes to the hospital."
+        }
+      }
+    ]
+  },
+  "研究する": {
+    "frasi_esempio": [
+      {
+        "testo": "日本の文化を研究する。",
+        "traduzione": {
+          "it": "Faccio ricerca sulla cultura giapponese.",
+          "en": "I research Japanese culture."
+        }
+      }
+    ]
+  },
+  "原因する": {
+    "frasi_esempio": [
+      {
+        "testo": "ねぶそくに原因する頭痛です。",
+        "traduzione": {
+          "it": "È un mal di testa causato dal poco sonno.",
+          "en": "It's a headache caused by lack of sleep."
+        }
+      }
+    ]
+  },
+  "故障する": {
+    "frasi_esempio": [
+      {
+        "testo": "車が故障して、遅れました。",
+        "traduzione": {
+          "it": "L'auto si è guastata e ho fatto tardi.",
+          "en": "My car broke down and I was late."
+        }
+      }
+    ]
+  },
+  "交通する": {
+    "frasi_esempio": [
+      {
+        "testo": "バスで交通する人が多いです。",
+        "traduzione": {
+          "it": "Molti si spostano in autobus.",
+          "en": "Many people get around by bus."
+        }
+      }
+    ]
+  },
+  "紹介する": {
+    "frasi_esempio": [
+      {
+        "testo": "妹を紹介します。",
+        "traduzione": {
+          "it": "Ti presento mia sorella minore.",
+          "en": "Let me introduce my little sister."
+        }
+      }
+    ]
+  },
+  "退院する": {
+    "frasi_esempio": [
+      {
+        "testo": "来週には退院する。",
+        "traduzione": {
+          "it": "La settimana prossima esco dall'ospedale.",
+          "en": "I'll leave the hospital next week."
         }
       }
     ]
