@@ -7,11 +7,16 @@ export type JlptLevel = 'N5' | 'N4';
 
 export interface Slot {
 	id: string;
+	// Le opzioni possono contenere {altroSlot}: il valore pescato viene
+	// sostituito (serve per le "correzioni in corsa": 〜でしたが、…に変わりました).
 	options: string[];
 	// Slot con lo stesso kind nello stesso testo si "rubano" i valori come
 	// distrattori: la domanda sull'orario di chiusura offre anche l'orario di
 	// apertura (che nel testo c'è davvero) — trabocchetto da JLPT.
 	kind?: string;
+	// answerSlot[i] = quale slot contiene la verità se viene pescata l'opzione i
+	// (conferma → l'originale; cambio → il nuovo; doppio cambio → il terzo…).
+	answerSlot?: string[];
 }
 
 export interface FixedQuestion {
@@ -25,7 +30,14 @@ export interface SlotQuestion {
 	slot: string; // risposta giusta = opzione pescata per questo slot
 }
 
-export type Question = FixedQuestion | SlotQuestion;
+// Domanda la cui risposta dipende da QUALE variante di uno slot con
+// answerSlot è stata pescata (il trabocchetto della correzione in corsa).
+export interface TruthQuestion {
+	q: string;
+	truthOf: string;
+}
+
+export type Question = FixedQuestion | SlotQuestion | TruthQuestion;
 
 export interface VocabEntry {
 	w: string;
@@ -75,9 +87,33 @@ function shuffle<T>(xs: T[]): T[] {
 // (con le scelte già mischiate).
 export function instantiate(text: ReadingText): ReadingRun {
 	const picked: Record<string, string> = {};
-	for (const s of text.slots) picked[s.id] = rnd(s.options);
+	const pickedIdx: Record<string, number> = {};
+	// prima gli slot semplici, poi quelli con riferimenti {x} da sostituire
+	const simple = text.slots.filter((s) => !s.options.some((o) => o.includes('{')));
+	const templated = text.slots.filter((s) => s.options.some((o) => o.includes('{')));
+	for (const s of simple) {
+		pickedIdx[s.id] = Math.floor(Math.random() * s.options.length);
+		picked[s.id] = s.options[pickedIdx[s.id]!]!;
+	}
+	for (const s of templated) {
+		pickedIdx[s.id] = Math.floor(Math.random() * s.options.length);
+		picked[s.id] = s.options[pickedIdx[s.id]!]!.replace(/\{(\w+)\}/g, (_, id: string) => picked[id]!);
+	}
 	const rendered = text.parts.map((p) => (typeof p === 'string' ? p : picked[p.slot]!)).join('');
 	const questions = text.questions.map((q) => {
+		if ('truthOf' in q) {
+			const slot = text.slots.find((s) => s.id === q.truthOf)!;
+			const correct = picked[slot.answerSlot![pickedIdx[slot.id]!]!]!;
+			// distrattori: gli altri valori in gioco nella correzione (nel testo!)
+			const candidateSlots = [...new Set(slot.answerSlot!)];
+			const pool = [
+				...candidateSlots.map((id) => picked[id]!),
+				...candidateSlots.flatMap((id) => text.slots.find((s) => s.id === id)!.options)
+			].filter((v) => v !== correct);
+			const others = [...new Set(pool)].slice(0, 3);
+			const choices = shuffle([correct, ...others]);
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(rendered, correct) };
+		}
 		if ('slot' in q) {
 			const slot = text.slots.find((s) => s.id === q.slot)!;
 			const correct = picked[q.slot]!;
@@ -800,6 +836,137 @@ export const READING_TEXTS: ReadingText[] = [
 			{ w: '変わる', yomi: 'かわる', it: 'cambiare' },
 			{ w: '予約', yomi: 'よやく', it: 'prenotazione' },
 			{ w: '忘れずに', yomi: 'わすれずに', it: 'senza dimenticare' }
+		]
+	},
+	// ─────────── Correzioni in corsa (conferma / cambio / ritorno) ───────────
+	{
+		id: 'n5-yakusoku-henko',
+		livello: 'N5',
+		tipo: 'でんわ',
+		titolo: "Telefonata: l'appuntamento cambia?",
+		parts: [
+			'もしもし、たなかです。あしたの　やくそくですが、',
+			{ slot: 't1' },
+			'に　',
+			{ slot: 'place' },
+			'で　あいましょう。……',
+			{ slot: 'rev' },
+			'じゃあ、また　あした！'
+		],
+		slots: [
+			{ id: 't1', options: ['三じ', '四じ'], kind: 'ora' },
+			{ id: 't2', options: ['五じ', '五じはん'], kind: 'ora' },
+			{ id: 'place', options: ['えきの　まえ', 'としょかんの　まえ', 'こうえんの　いりぐち'] },
+			{
+				id: 'rev',
+				options: [
+					'はい、だいじょうぶですね。では、そう　しましょう。',
+					'あ、すみません。ようじが　あるので、{t2}に　して　ください。',
+					'あ、{t2}は　どうですか。……いえ、ごめんなさい、やっぱり　{t1}で　だいじょうぶです。'
+				],
+				answerSlot: ['t1', 't2', 't1']
+			}
+		],
+		questions: [
+			{ q: 'なんじに　あいますか。', truthOf: 'rev' },
+			{ q: 'どこで　あいますか。', slot: 'place' }
+		],
+		vocab: [
+			{ w: 'やくそく', yomi: 'やくそく', it: 'appuntamento, promessa' },
+			{ w: 'ようじ', yomi: 'ようじ', it: 'impegno' },
+			{ w: 'やっぱり', yomi: 'やっぱり', it: 'alla fine, come pensavo' }
+		]
+	},
+	{
+		id: 'n4-kaigi-henko',
+		livello: 'N4',
+		tipo: 'メール',
+		titolo: 'La riunione cambia orario?',
+		parts: [
+			'お疲れさまです。',
+			{ slot: 'day' },
+			'の会議についてお知らせします。会議は',
+			{ slot: 't1' },
+			'からの予定です。',
+			{ slot: 'rev' },
+			'場所はいつもの会議室で、変更はありません。よろしくお願いします。'
+		],
+		slots: [
+			{ id: 'day', options: ['月曜日', '水曜日', '金曜日'] },
+			{ id: 't1', options: ['十時', '十時半'], kind: 'ora' },
+			{ id: 't2', options: ['一時', '二時'], kind: 'ora' },
+			{ id: 't3', options: ['三時', '四時'], kind: 'ora' },
+			{
+				id: 'rev',
+				options: [
+					'時間の変更はありません。予定どおり行います。',
+					'すみませんが、{t2}からに変更になりました。お間違えのないように。',
+					'一度{t2}からに変更になりましたが、部長の都合で、やはり{t1}からに戻りました。',
+					'{t2}からに変更になり、その後さらに{t3}からに変わりました。ご注意ください。'
+				],
+				answerSlot: ['t1', 't2', 't1', 't3']
+			}
+		],
+		questions: [
+			{ q: '会議は何時から始まりますか。', truthOf: 'rev' },
+			{ q: '会議はいつありますか。', slot: 'day' },
+			{
+				q: '場所はどうなりましたか。',
+				choices: ['変更はない', '別の会議室になった', 'まだ決まっていない', '五階のホールになった'],
+				correct: 0
+			}
+		],
+		vocab: [
+			{ w: '予定どおり', yomi: 'よていどおり', it: 'come da programma' },
+			{ w: '変更', yomi: 'へんこう', it: 'modifica, cambiamento' },
+			{ w: '戻る', yomi: 'もどる', it: 'tornare (allo stato di prima)' },
+			{ w: '都合', yomi: 'つごう', it: 'disponibilità, convenienza' }
+		]
+	},
+	{
+		id: 'n4-ryoko-henko',
+		livello: 'N4',
+		tipo: 'お知らせ',
+		titolo: 'La gita cambia data?',
+		parts: [
+			'来月の社員旅行についてお知らせします。出発は',
+			{ slot: 'd1' },
+			'の予定でした。',
+			{ slot: 'rev' },
+			'ホテルは去年と同じところです。行きたい人は',
+			{ slot: 'deadline' },
+			'までに申し込んでください。'
+		],
+		slots: [
+			{ id: 'd1', options: ['五日', '六日'], kind: 'giorno' },
+			{ id: 'd2', options: ['十二日', '十三日'], kind: 'giorno' },
+			{ id: 'd3', options: ['十九日', '二十日'], kind: 'giorno' },
+			{ id: 'deadline', options: ['今週の金曜日', '来週の月曜日', '月末'] },
+			{
+				id: 'rev',
+				options: [
+					'予定どおり、{d1}に出発します。',
+					'台風が来るかもしれませんので、{d2}に変更になりました。',
+					'一度{d2}に変わりましたが、ホテルの都合で、結局{d1}に戻りました。',
+					'{d2}に変わり、その後もう一度変わって、今は{d3}の予定です。'
+				],
+				answerSlot: ['d1', 'd2', 'd1', 'd3']
+			}
+		],
+		questions: [
+			{ q: '旅行はいつ出発しますか。', truthOf: 'rev' },
+			{ q: 'いつまでに申し込みますか。', slot: 'deadline' },
+			{
+				q: 'ホテルはどうなりましたか。',
+				choices: ['去年と同じ', '新しいホテルになった', 'まだ決まっていない', '二つから選べる'],
+				correct: 0
+			}
+		],
+		vocab: [
+			{ w: '社員旅行', yomi: 'しゃいんりょこう', it: 'gita aziendale' },
+			{ w: '結局', yomi: 'けっきょく', it: 'alla fine, in conclusione' },
+			{ w: '申し込む', yomi: 'もうしこむ', it: 'iscriversi, fare domanda' },
+			{ w: '〜かもしれません', yomi: 'かもしれません', it: 'forse, può darsi che…' }
 		]
 	}
 ];
