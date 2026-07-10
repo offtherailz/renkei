@@ -8,6 +8,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -141,6 +142,7 @@
 
 	onMount(async () => {
 		primeVoices();
+		canSpeak = speechAvailable();
 		counters = await db.counters.toArray();
 		start();
 	});
@@ -355,7 +357,36 @@
 		}
 	}
 	function retryOrder(): void {
+		heard = '';
 		setOrderItem(); // rigenera e riprova lo stesso prodotto
+	}
+
+	// ── Ordina a voce (dove il browser lo supporta) ──
+	let canSpeak = $state(false);
+	let micState = $state<'idle' | 'listening'>('idle');
+	let heard = $state('');
+	async function speakOrder(): Promise<void> {
+		if (micState !== 'idle' || picked !== null) return;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		const r = list[orderIdx]!;
+		if (alts.length === 0) {
+			heard = '（何も聞こえませんでした…riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const qtyVariants = [
+			fmtQty(r.item.counterId, r.qty, 'kanji'),
+			itemReading(r.item, r.qty),
+			String(r.qty) + r.item.counterId
+		];
+		if (speechMatches(alts, [[r.item.scrittura, r.item.lettura], qtyVariants])) {
+			pickOrder(orderCorrect);
+		} else {
+			pickOrder('🎤');
+		}
 	}
 	function nextOrder(): void {
 		if (orderIdx < list.length - 1) {
@@ -541,6 +572,14 @@
 			</div>
 			<p class="prompt">{list[orderIdx].item.emoji} {list[orderIdx].item.scrittura}</p>
 			<p class="hint">「{list[orderIdx].item.scrittura}を ___ ください」 · {orderDisplay === 'kanji' ? 'in kanji' : 'in lettura'}</p>
+			{#if canSpeak}
+				<button class="mic" class:listening={micState === 'listening'} disabled={picked !== null} onclick={speakOrder}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				{#if heard}
+					<p class="heard">Ho sentito: 「{heard}」</p>
+				{/if}
+			{/if}
 			<div class="choices">
 				{#each orderChoices as c (c)}
 					<button class="choice" class:right={picked !== null && c === orderCorrect} class:wrong={picked === c && c !== orderCorrect} disabled={picked !== null} onclick={() => pickOrder(c)}>{c}</button>
@@ -618,6 +657,11 @@
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.prompt { margin: 0; text-align: center; font-size: 1.6rem; font-weight: 800; }
 	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
+	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	.mic:disabled { opacity: 0.5; cursor: default; }
+	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
 	.script { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 4px; }
