@@ -259,6 +259,10 @@
 
 	<h2 class="section-title group">⚙️ Altro</h2>
 	<div class="quick-grid">
+		<a href="{base}/guida" class="quick-card">
+			<span class="quick-icon">📖</span>
+			<span>Guida</span>
+		</a>
 		<a href="{base}/stats" class="quick-card">
 			<span class="quick-icon">📊</span>
 			<span>Statistiche</span>
