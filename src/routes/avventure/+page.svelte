@@ -47,7 +47,7 @@
 		{/each}
 	</div>
 
-	<a class="back-link" href="{base}/giochi">← Giochi sui numeri</a>
+	<a class="back-link" href="{base}/giochi">← Giochi</a>
 </div>
 
 <style>

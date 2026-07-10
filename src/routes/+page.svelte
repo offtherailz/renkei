@@ -135,7 +135,7 @@
 		</a>
 		<a href="{base}/giochi" class="quick-card">
 			<span class="quick-icon">🎮</span>
-			<span>Giochi numeri</span>
+			<span>Giochi</span>
 		</a>
 		<a href="{base}/avventure" class="quick-card">
 			<span class="quick-icon">🗺️</span>

@@ -36,7 +36,7 @@
 		In giapponese non si conta mai "nudo": al numero si attacca il contatore giusto per la
 		categoria. Qui trovi quelli N5/N4 con le letture irregolari da memorizzare.
 	</p>
-	<a class="games-link" href="{base}/giochi">🎮 Mettiti alla prova con i giochi sui numeri →</a>
+	<a class="games-link" href="{base}/giochi">🎮 Mettiti alla prova con i giochi →</a>
 
 	{#if loading}
 		<p class="muted-text">Caricamento…</p>

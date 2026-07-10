@@ -470,7 +470,7 @@
 
 <div class="games-page">
 	{#if !game}
-		<h1 class="page-title">🎮 Giochi sui numeri</h1>
+		<h1 class="page-title">🎮 Giochi</h1>
 		<p class="page-sub">
 			Vai avanti il più a lungo possibile: un errore e la serie riparte. Il record è tuo,
 			separato dall'XP di studio.
