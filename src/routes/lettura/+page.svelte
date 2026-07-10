@@ -43,9 +43,41 @@
 		}
 	}
 
+	// storico delle letture (per il grafico della velocità)
+	type HistEntry = { t: number; cpm: number; ok: number; tot: number };
+	let hist = $state<HistEntry[]>([]);
+	function histKey(l: JlptLevel): string {
+		return `renkei-lettura-hist-${l}`;
+	}
+	function loadHist(l: JlptLevel): HistEntry[] {
+		try {
+			return JSON.parse(localStorage.getItem(histKey(l)) ?? '[]') as HistEntry[];
+		} catch {
+			return [];
+		}
+	}
+	function pushHist(e: HistEntry): void {
+		hist = [...hist, e].slice(-60);
+		try {
+			localStorage.setItem(histKey(level), JSON.stringify(hist));
+		} catch {
+			/* niente storage: pazienza */
+		}
+	}
+	function sparkPoints(h: HistEntry[]): string {
+		const vals = h.map((e) => e.cpm);
+		const min = Math.min(...vals);
+		const max = Math.max(...vals);
+		const span = Math.max(1, max - min);
+		return h
+			.map((e, i) => `${(i / Math.max(1, h.length - 1)) * 100},${26 - ((e.cpm - min) / span) * 24}`)
+			.join(' ');
+	}
+
 	function pickLevel(l: JlptLevel): void {
 		level = l;
 		cpm = loadCpm(l);
+		hist = loadHist(l);
 		scene = 'texts';
 	}
 	function textsOfLevel(): ReadingText[] {
@@ -55,6 +87,7 @@
 
 	function pickText(t: ReadingText): void {
 		run = instantiate(t);
+		boostCpm = null;
 		scene = 'prep';
 		void resolveVocab(t);
 	}
@@ -100,8 +133,13 @@
 		}
 		return tok ? tok.tokenize(rendered) : [rendered];
 	}
+	// rilettura più veloce: cpm temporaneo, promosso a base solo se vai bene
+	let boostCpm = $state<number | null>(null);
+	function effCpm(): number {
+		return boostCpm ?? cpm;
+	}
 	function chunkMs(c: string): number {
-		const ms = (c.length * 60000) / cpm;
+		const ms = (c.length * 60000) / effCpm();
 		return Math.max(380, ms) + (/[。！？]$/.test(c) ? 350 : 0);
 	}
 	const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -200,11 +238,23 @@
 		if (!run) return;
 		const wrong = run.questions.length - score;
 		const old = cpm;
-		if (wrong === 0) cpm = Math.round(cpm * 1.1);
-		else if (wrong >= 2) cpm = Math.max(40, Math.round(cpm * 0.9));
+		if (boostCpm !== null) {
+			// rilettura veloce: la promuovi a velocità base solo se è filata liscia
+			if (wrong === 0) cpm = boostCpm;
+		} else if (wrong === 0) {
+			cpm = Math.round(cpm * 1.1);
+		} else if (wrong >= 2) {
+			cpm = Math.max(40, Math.round(cpm * 0.9));
+		}
+		pushHist({ t: Date.now(), cpm: boostCpm ?? old, ok: score, tot: run.questions.length });
+		boostCpm = null;
 		cpmDelta = cpm - old;
 		saveCpm();
 		scene = 'result';
+	}
+	function rereadFaster(): void {
+		boostCpm = Math.round(cpm * 1.2);
+		void startRsvp();
 	}
 
 	function again(sameText: boolean): void {
@@ -222,7 +272,7 @@
 	<div class="nav">
 		<a class="back" href="{base}/giochi">← Giochi</a>
 		{#if scene !== 'level'}
-			<span class="lvl-chip">{level} · ⚡ {cpm} caratteri/min</span>
+			<span class="lvl-chip">{level} · ⚡ {boostCpm ?? cpm} caratteri/min{boostCpm !== null ? ' (turbo!)' : ''}</span>
 		{/if}
 	</div>
 
@@ -241,6 +291,12 @@
 	{:else if scene === 'texts'}
 		<article class="scene">
 			<p class="who">📚 Scegli un testo ({level})</p>
+			{#if hist.length >= 2}
+				<div class="spark-box">
+					<svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points={sparkPoints(hist)} /></svg>
+					<p class="hint">La tua velocità nelle ultime {hist.length} letture ({hist[0]!.cpm} → {hist[hist.length - 1]!.cpm} caratteri/min)</p>
+				</div>
+			{/if}
 			<div class="text-grid">
 				{#each textsOfLevel() as t (t.id)}
 					<button class="text-card" onclick={() => pickText(t)}>
@@ -345,8 +401,14 @@
 					<InteractiveSentence text={run.rendered} mark={qLog.filter((l) => !l.ok && l.evidence).map((l) => l.evidence!)} />
 				{/key}
 			</div>
+			{#if hist.length >= 2}
+				<svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points={sparkPoints(hist)} /></svg>
+			{/if}
 			<div class="rsvp-actions">
 				<button class="proceed" onclick={() => again(false)}>🎲 Altro testo</button>
+				{#if score === run.questions.length}
+					<button class="mini turbo" onclick={rereadFaster}>⚡ Rileggilo a +20%</button>
+				{/if}
 				<button class="mini" onclick={() => again(true)}>🔁 Stesso testo (varia)</button>
 				<button class="mini" onclick={() => (scene = 'texts')}>📚 Scegli tu</button>
 			</div>
@@ -411,5 +473,9 @@
 	.script-title { margin: 0; font-size: 0.85rem; font-weight: 700; }
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
+	.mini.turbo { border-color: #f59e0b; color: #b45309; background: #fffbeb; font-weight: 700; }
+	.spark-box { display: grid; gap: 4px; }
+	.spark { width: 100%; height: 34px; }
+	.spark polyline { fill: none; stroke: var(--brand); stroke-width: 2; vector-effect: non-scaling-stroke; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 </style>
