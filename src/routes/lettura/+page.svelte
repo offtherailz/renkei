@@ -1,3 +1,15 @@
+<script lang="ts" module>
+	import type { ReadingRun as SavedRun, JlptLevel as SavedLevel } from '$lib/core/readingTexts';
+	// Stato che sopravvive alla navigazione SPA: aprire una scheda (📖/💪) e
+	// tornare indietro non deve buttare via il testo in corso.
+	let savedLettura: {
+		level: SavedLevel;
+		run: SavedRun;
+		qLog: { q: string; pickedText: string; correctText: string; ok: boolean; evidence?: string }[];
+		scene: 'prep' | 'result';
+	} | null = null;
+</script>
+
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
@@ -19,7 +31,26 @@
 
 	let tok: JapaneseTokenizer | null = null;
 	onMount(async () => {
+		// si torna da una scheda aperta dal pre-ripasso/risultato: riprendi da lì
+		if (savedLettura) {
+			level = savedLettura.level;
+			cpm = loadCpm(level);
+			hist = loadHist(level);
+			run = savedLettura.run;
+			qLog = savedLettura.qLog;
+			scene = savedLettura.scene;
+			void resolveVocab(run.text);
+		}
 		tok = await createDefaultTokenizer();
+	});
+
+	// tieni aggiornato lo stato salvato (solo scene "stabili")
+	$effect(() => {
+		if (run && (scene === 'prep' || scene === 'result')) {
+			savedLettura = { level, run, qLog, scene };
+		} else if (scene === 'level' || scene === 'texts') {
+			savedLettura = null;
+		}
 	});
 
 	type Scene = 'level' | 'texts' | 'prep' | 'rsvp' | 'quiz' | 'result';
@@ -447,12 +478,12 @@
 	.text-titolo { font-size: 0.95rem; font-weight: 600; }
 
 	.vocab { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-	.vocab li { display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); flex-wrap: wrap; }
-	.v-w { font-weight: 700; font-size: 1.05rem; }
+	.vocab li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+	.v-w { font-weight: 700; font-size: 1.05rem; flex: none; }
 	.v-w.linked { color: var(--brand); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-	.v-yomi { font-size: 0.8rem; color: var(--brand); }
-	.v-it { margin-left: auto; font-size: 0.82rem; color: var(--muted); }
-	.v-actions { display: inline-flex; gap: 6px; }
+	.v-yomi { font-size: 0.8rem; color: var(--brand); flex: none; }
+	.v-it { flex: 1; min-width: 0; font-size: 0.82rem; color: var(--muted); }
+	.v-actions { display: inline-flex; gap: 6px; flex: none; margin-left: auto; }
 	.v-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 3px 8px; font-size: 0.85rem; cursor: pointer; text-decoration: none; }
 	.v-btn:hover { border-color: var(--brand); }
 
