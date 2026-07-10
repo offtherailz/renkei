@@ -1,4 +1,4 @@
 // Versione unica di app e dati (seed). Bump SEED_REVISION a ogni rigenerazione
 // del seed: l'app la usa per il cache-busting e la mostra nelle Impostazioni.
-export const SEED_REVISION = '2026-07-11-frasi-n4-2-v27';
+export const SEED_REVISION = '2026-07-11-frasi-n4-3-v28';
 export const SEED_LOADED_KEY = 'renkei_seed_loaded';
