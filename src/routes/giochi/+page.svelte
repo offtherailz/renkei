@@ -545,8 +545,13 @@
 				</button>
 			</div>
 
-			<p class="group-title">Lettura</p>
+			<p class="group-title">Lettura e frasi</p>
 			<div class="cat-grid">
+				<a class="cat-card" href="{base}/riordina">
+					<span class="cat-icon">🧩</span>
+					<span class="cat-label">Riordina la frase</span>
+					<span class="cat-hint">i pezzi sono in disordine: ricomponila</span>
+				</a>
 				<a class="cat-card" href="{base}/lettura">
 					<span class="cat-icon">⚡</span>
 					<span class="cat-label">Lettura veloce</span>
