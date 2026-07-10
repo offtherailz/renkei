@@ -146,7 +146,7 @@
 		stack = [];
 		ticketDone = false;
 		ticketAttempts = 0;
-		ticketLine = `${target.nome}までは、${readNumber(target.prezzo)}円です。`;
+		ticketLine = `${target.nome}までは、${readNumber(target.prezzo)}えんです。`;
 		say('anno', ticketLine);
 	}
 	function addDenom(d: number): void {
@@ -172,7 +172,7 @@
 		} else {
 			ticketAttempts += 1;
 			errors += 1;
-			say('anno', `${readNumber(target.prezzo)}円です。`);
+			say('anno', `${readNumber(target.prezzo)}えんです。`);
 			resetTender();
 		}
 	}

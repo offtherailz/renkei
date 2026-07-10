@@ -312,7 +312,7 @@
 			stack = [];
 			payChecked = false;
 			payAttempts = 0;
-			payLine = `お会計は${readNumber(orderedTotal())}円です。`;
+			payLine = `お会計は${readNumber(orderedTotal())}えんです。`;
 			sequence([{ who: 'me', text: 'これで大丈夫です。' }, { who: 'staff', text: payLine }]);
 		}
 	}
@@ -341,7 +341,7 @@
 			staffSay(staffLine);
 		} else {
 			payAttempts += 1;
-			staffSay(`すみません、${readNumber(orderedTotal())}円です。`);
+			staffSay(`すみません、${readNumber(orderedTotal())}えんです。`);
 			errors += 1;
 			resetTender();
 		}
