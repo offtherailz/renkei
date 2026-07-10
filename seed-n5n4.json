@@ -34662,7 +34662,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783715061114,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -34680,7 +34680,8 @@
             "en": "Tony took off his shirt and cleaned the piano with it."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "落る"
     },
     {
       "id": "落る",
@@ -34712,7 +34713,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783715061114,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -34730,7 +34731,8 @@
             "en": "The server was down."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "落す"
     },
     {
       "id": "利用",
