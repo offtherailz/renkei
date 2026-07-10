@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { db } from '$lib/db/schema';
-	import { exportCorrections, countCorrections } from '$lib/db/corrections';
+	import { exportCorrections, listCorrections, removeCorrection } from '$lib/db/corrections';
+	import type { UserCorrection } from '$lib/types/models';
+	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
 	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
@@ -88,10 +90,22 @@
 
 	// Correzioni utente → JSON nel formato degli override della pipeline:
 	// si copia in scripts/data/ (o si passa all'agente) e rientra nel seed.
-	let correctionsCount = $state(0);
+	let corrections = $state<UserCorrection[]>([]);
+	const correctionsCount = $derived(corrections.length);
 	onMount(async () => {
-		correctionsCount = await countCorrections();
+		corrections = await listCorrections();
 	});
+	async function dropCorrection(id: string): Promise<void> {
+		if (!confirm('Rimuovere questa correzione e ripristinare il valore originale?')) return;
+		await removeCorrection(id);
+		corrections = await listCorrections();
+	}
+	function correctionLabel(c: UserCorrection): string {
+		return c.id.slice(c.kind.length + 1);
+	}
+	function correctionFields(c: UserCorrection): string {
+		return Object.keys(c.patch).join(', ');
+	}
 	async function exportUserCorrections(): Promise<void> {
 		const json = await exportCorrections();
 		const blob = new Blob([json], { type: 'application/json' });
@@ -212,6 +226,22 @@
 			✏️ Esporta correzioni ({correctionsCount})
 		</button>
 		<p class="hint-text">Le correzioni fatte dalle schede (✏️ Correggi), nel formato degli override: si fondono nel repo e la prossima versione dell'app le include per tutti.</p>
+		{#if corrections.length > 0}
+			<div class="corr-list">
+				{#each corrections as c (c.id)}
+					<div class="corr-row">
+						<a class="corr-main" href="{base}/detail/{encodeURIComponent(c.id)}">
+							<span class="corr-kind">{c.kind === 'word' ? '📖' : '📐'}</span>
+							<span class="corr-id">{correctionLabel(c)}</span>
+							<span class="corr-fields">{correctionFields(c)}</span>
+							{#if c.stale}<span class="corr-stale">⚠️ il dato sotto è cambiato con un aggiornamento: verifica</span>{/if}
+							{#if c.motivo}<span class="corr-motivo">「{c.motivo}」</span>{/if}
+						</a>
+						<button class="corr-del" title="Rimuovi e ripristina l'originale" onclick={() => dropCorrection(c.id)}>🗑</button>
+					</div>
+				{/each}
+			</div>
+		{/if}
 		<button class="btn-outline" onclick={exportBundle}>
 			📦 Esporta bundle completo
 		</button>
@@ -363,6 +393,17 @@
 	.btn-danger:hover { background: var(--danger); color: #fff; }
 
 	.hint-text { font-size: 0.73rem; color: var(--muted); margin: 0; }
+	.corr-list { display: grid; gap: 6px; }
+	.corr-row { display: flex; align-items: stretch; gap: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); overflow: hidden; }
+	.corr-main { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 10px; text-decoration: none; color: var(--ink); font-size: 0.85rem; }
+	.corr-main:hover { background: rgba(107,160,242,0.1); }
+	.corr-kind { font-size: 1rem; }
+	.corr-id { font-weight: 700; }
+	.corr-fields { color: var(--brand); font-size: 0.75rem; }
+	.corr-motivo { color: var(--muted); font-size: 0.75rem; }
+	.corr-stale { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
+	.corr-del { border: none; border-left: 1px solid var(--line); background: none; padding: 0 12px; cursor: pointer; font-size: 0.95rem; }
+	.corr-del:hover { background: rgba(239,107,107,0.12); }
 	.info-text { font-size: 0.9rem; font-weight: 600; margin: 0; }
 	.stale { color: var(--danger); }
 </style>

@@ -73,6 +73,11 @@ export interface UserCorrection extends BaseEntity {
   id: string; // "word:<id>" | "grammar:<id>"
   kind: "word" | "grammar";
   patch: Record<string, unknown>;
+  // valori originali dei campi patchati, per poter rimuovere la correzione
+  original?: Record<string, unknown>;
+  // true se un aggiornamento del seed ha cambiato il dato sotto la patch:
+  // la correzione va riverificata (magari upstream ha già sistemato).
+  stale?: boolean;
   motivo?: string;
 }
 
