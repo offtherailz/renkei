@@ -3,13 +3,14 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
-	import { loadObjectiveSummaries, countDueCards, type ObjectiveSummary } from '$lib/db/queries';
+	import { loadObjectiveSummaries, countDueCards, getActiveItemKeys, type ObjectiveSummary } from '$lib/db/queries';
 	import { db } from '$lib/db/schema';
 	import { normalizeMastery } from '$lib/core/srs';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
+	let duePaused = $state(0);
 	let loading = $state(true);
 
 	// ── Piano di oggi ──
@@ -28,7 +29,10 @@
 
 	async function loadWeakest(): Promise<void> {
 		const rows = await db.srs_progress.toArray();
+		const active = await getActiveItemKeys();
+		const isPlan = (k: string) => k.startsWith('word:') || k.startsWith('kanji:') || k.startsWith('grammar:');
 		const scored = rows
+			.filter((r) => !isPlan(r.id_item) || active.has(r.id_item))
 			.map((r) => ({ r, pct: normalizeMastery(r.srs_stage, r.mastery_points) }))
 			.filter((x) => x.pct < 60)
 			.sort((a, b) => a.pct - b.pct)
@@ -56,7 +60,10 @@
 
 	async function loadData() {
 		loading = true;
-		[summaries, dueCount] = await Promise.all([loadObjectiveSummaries(), countDueCards()]);
+		const [s, due] = await Promise.all([loadObjectiveSummaries(), countDueCards()]);
+		summaries = s;
+		dueCount = due.attivi;
+		duePaused = due.inPausa;
 		void loadWeakest();
 		loading = false;
 	}
@@ -115,7 +122,7 @@
 			<span class="plan-icon">{dueCount > 0 ? '📋' : '✅'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
-				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : 'tutto fatto — torna più tardi'}</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in obiettivi in pausa)` : ''}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>

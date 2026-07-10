@@ -116,9 +116,44 @@ export async function loadSkillMastery(): Promise<SkillMastery> {
 	};
 }
 
-export async function countDueCards(): Promise<number> {
+// Item nel "pool attivo": obiettivi in studio (+figli in studio). I ripassi
+// di obiettivi in pausa restano salvati ma non vengono proposti né contati.
+export async function getActiveItemKeys(): Promise<Set<string>> {
+	const objectives = await db.study_objectives.toArray();
+	const enabled = objectives.filter((o) => o.study_enabled);
+	const keys = new Set<string>();
+	const stack = [...enabled];
+	const seen = new Set(enabled.map((o) => o.id));
+	while (stack.length) {
+		const obj = stack.pop()!;
+		for (const k of obj.catalog_item_keys) keys.add(k);
+		for (const child of objectives.filter(
+			(o) => o.parent_objective_id === obj.id && o.study_enabled && !seen.has(o.id)
+		)) {
+			seen.add(child.id);
+			stack.push(child);
+		}
+	}
+	return keys;
+}
+
+// Le pratiche fuori piano (contatori dalle avventure…) sono sempre "attive":
+// non appartengono a nessun obiettivo.
+function isPlanKey(key: string): boolean {
+	return key.startsWith('word:') || key.startsWith('kanji:') || key.startsWith('grammar:');
+}
+
+export async function countDueCards(): Promise<{ attivi: number; inPausa: number }> {
 	const now = Date.now();
 	// Due = next_review_date <= adesso (a qualunque stage). Vedi nota in
 	// getDueSrsCards: l'indice composto sovrastimerebbe includendo date future.
-	return db.srs_progress.where('next_review_date').belowOrEqual(now).count();
+	const due = await db.srs_progress.where('next_review_date').belowOrEqual(now).toArray();
+	const active = await getActiveItemKeys();
+	let attivi = 0;
+	let inPausa = 0;
+	for (const r of due) {
+		if (!isPlanKey(r.id_item) || active.has(r.id_item)) attivi += 1;
+		else inPausa += 1;
+	}
+	return { attivi, inPausa };
 }
