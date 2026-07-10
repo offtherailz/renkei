@@ -90,6 +90,9 @@ export interface DeepDivePayload {
 	meaning?: string;
 	question?: string; // riassunto della domanda
 	correctReason?: string; // perché la risposta corretta è giusta
+	// La frase della domanda (o l'esempio della parola): testo piano,
+	// eventuale versione annotata 漢字[かんじ] per le furigana, traduzione.
+	sentence?: { testo: string; annotated?: string; traduzione?: string };
 	dives: DeepDiveItem[];
 	notes: { choice: string; reason: string }[];
 }

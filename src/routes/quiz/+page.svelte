@@ -7,7 +7,7 @@
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { createInitialSrs, applySrsReview, normalizeMastery } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
-	import { renderFuriganaToHtml } from '$lib/core/furigana';
+	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
 		createFlashcardProductionQuestion,
@@ -659,7 +659,48 @@
 		}
 	}
 
-	function openDeepDive(): void {
+	// La frase della domanda per Approfondisci: piana + annotata (furigana) +
+	// traduzione, ripescando l'esempio d'origine dal catalogo quando serve.
+	async function buildDiveSentence(): Promise<{ testo: string; annotated?: string; traduzione?: string } | undefined> {
+		const q = quiz!.question;
+		const strip = stripFuriganaNotation;
+		const pickTrans = (t?: { it: string; en: string }) => (t ? pickLocalizedText(t, locale) : undefined);
+		const fromExamples = (exs: { testo: string; traduzione?: { it: string; en: string } }[] | undefined, plain: string) => {
+			const ex = (exs ?? []).find((e) => strip(e.testo) === plain);
+			return ex ? { testo: plain, annotated: ex.testo !== plain ? ex.testo : undefined, traduzione: pickTrans(ex.traduzione) } : { testo: plain };
+		};
+		if (q.mode === 'particle-cloze' || q.mode === 'transitivity-pair') {
+			const w = await db.words.get(q.wordId);
+			const found = fromExamples(w?.frasi_esempio, q.fullSentence);
+			return { ...found, traduzione: found.traduzione ?? q.translation };
+		}
+		if (q.mode === 'reading-choice') {
+			const g = await db.grammar.get(q.grammarId);
+			return fromExamples(g?.frasi_esempio, q.plainSentence);
+		}
+		if (q.mode === 'cloze') {
+			const g = await db.grammar.get(q.grammarId);
+			const blankedPlain = q.sentenceWithBlank.replace(/<[^>]*>/g, '');
+			const full = blankedPlain.includes('___') ? blankedPlain.replace('___', q.correctChoice) : blankedPlain;
+			const exact = fromExamples(g?.frasi_esempio, full);
+			if (exact.traduzione || exact.annotated) return exact;
+			const loose = (g?.frasi_esempio ?? []).find((e) => strip(e.testo).includes(q.correctChoice));
+			return loose ? { testo: strip(loose.testo), annotated: loose.testo, traduzione: pickTrans(loose.traduzione) } : exact;
+		}
+		if (q.mode === 'sentence-ordering') {
+			const g = await db.grammar.get(q.grammarId);
+			return fromExamples(g?.frasi_esempio, q.correctOrder.join(''));
+		}
+		// domande senza frase: mostra l'esempio della parola, se c'è
+		if ('wordId' in q && q.wordId && !q.wordId.includes(':')) {
+			const w = await db.words.get(q.wordId);
+			const ex = w?.frasi_esempio?.[0];
+			if (ex) return { testo: strip(ex.testo), annotated: ex.testo !== strip(ex.testo) ? ex.testo : undefined, traduzione: pickTrans(ex.traduzione) };
+		}
+		return undefined;
+	}
+
+	async function openDeepDive(): Promise<void> {
 		stopAutoNext();
 		if (session && !session.pausedAt) session.pausedAt = Date.now();
 		const recap = answeredRecap;
@@ -670,6 +711,7 @@
 			meaning: recap?.text,
 			question: summary.question,
 			correctReason: summary.correctReason,
+			sentence: await buildDiveSentence().catch(() => undefined),
 			dives: buildDeepDives(),
 			notes: wrongChoiceNotes()
 		};

@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { appState } from '$lib/stores.svelte';
 	import { base } from '$app/paths';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import { renderFuriganaToHtml } from '$lib/core/furigana';
+	import { speakSentenceJapanese } from '$lib/core/tts';
 
 	const dive = $derived(appState.lastDeepDive);
+	let showFuri = $state(false);
 
 	// icona tipo parola per le righe (come nei badge)
 	function typeIcon(tipo?: string, kanji?: boolean): string {
@@ -52,6 +56,27 @@
 			</section>
 		{/if}
 
+		{#if dive.sentence}
+			<section class="block">
+				<p class="block-title">
+					La frase
+					<button class="s-btn" title="Ascolta" onclick={() => speakSentenceJapanese(dive.sentence!.annotated ?? dive.sentence!.testo)}>🔊</button>
+					{#if dive.sentence.annotated && dive.sentence.annotated !== dive.sentence.testo}
+						<button class="s-btn" class:on={showFuri} onclick={() => (showFuri = !showFuri)}>ふりがな</button>
+					{/if}
+				</p>
+				{#if showFuri && dive.sentence.annotated}
+					<p class="furi-text">{@html renderFuriganaToHtml(dive.sentence.annotated)}</p>
+				{:else}
+					<InteractiveSentence text={dive.sentence.annotated ?? dive.sentence.testo} />
+				{/if}
+				{#if dive.sentence.traduzione}
+					<p class="s-trans">💬 {dive.sentence.traduzione}</p>
+				{/if}
+				<p class="s-hint">Tocca una parola per lettura e scheda.</p>
+			</section>
+		{/if}
+
 		<section class="block">
 			<p class="block-title">Da approfondire</p>
 			<div class="rows">
@@ -93,6 +118,11 @@
 	.block { background: var(--surface); border-radius: 14px; padding: 14px; box-shadow: 0 2px 10px rgba(14,29,51,0.07); display: grid; gap: 8px; }
 	.block-title { margin: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 	.q-text { margin: 0; font-size: 1.05rem; font-weight: 600; }
+	.s-btn { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 2px 8px; font-size: 0.8rem; cursor: pointer; color: var(--ink); margin-left: 6px; text-transform: none; letter-spacing: 0; }
+	.s-btn.on { border-color: var(--brand); color: var(--brand); font-weight: 700; }
+	.furi-text { margin: 0; font-size: 1.1rem; line-height: 2.3; }
+	.s-trans { margin: 0; font-size: 0.88rem; color: var(--ink); }
+	.s-hint { margin: 0; font-size: 0.72rem; color: var(--muted); }
 	.correct-note { margin: 0; font-size: 0.9rem; color: var(--success); font-weight: 600; }
 	.wrong-note { margin: 0; font-size: 0.85rem; color: var(--muted); }
 	.nc { font-weight: 700; color: var(--ink); }
