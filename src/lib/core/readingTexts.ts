@@ -435,5 +435,351 @@ export const READING_TEXTS: ReadingText[] = [
 			{ w: '答える', yomi: 'こたえる', it: 'rispondere' },
 			{ w: '〜によって', yomi: 'によって', it: 'a seconda di…' }
 		]
+	},
+	// ─────────────────────── N5 (secondo lotto) ───────────────────────
+	{
+		id: 'n5-tenki',
+		livello: 'N5',
+		tipo: 'てんきよほう',
+		titolo: 'Previsioni del tempo',
+		parts: [
+			'きょうの　てんきです。ごぜんは　',
+			{ slot: 'am' },
+			'です。ごごから　',
+			{ slot: 'pm' },
+			'に　なります。あしたは　',
+			{ slot: 'tomorrow' },
+			'でしょう。きょうの　きおんは　',
+			{ slot: 'temp' },
+			'どです。でかける　ときは　きを　つけて　ください。'
+		],
+		slots: [
+			{ id: 'am', options: ['はれ', 'くもり'] },
+			{ id: 'pm', options: ['あめ', 'ゆき', 'つよい　かぜ'] },
+			{ id: 'tomorrow', options: ['はれ', 'あめ', 'ゆき', 'くもり'] },
+			{ id: 'temp', options: ['八', '十二', '十八', '二十五'] }
+		],
+		questions: [
+			{ q: 'ごごの　てんきは　どう　なりますか。', slot: 'pm' },
+			{ q: 'あしたの　てんきは　どうでしょうか。', slot: 'tomorrow' },
+			{ q: 'きょうの　きおんは　なんどですか。', slot: 'temp' }
+		],
+		vocab: [
+			{ w: 'てんきよほう', yomi: 'てんきよほう', it: 'previsioni del tempo' },
+			{ w: 'きおん', yomi: 'きおん', it: 'temperatura' },
+			{ w: '〜でしょう', yomi: 'でしょう', it: 'probabilmente sarà…' }
+		]
+	},
+	{
+		id: 'n5-party',
+		livello: 'N5',
+		tipo: 'おしらせ',
+		titolo: 'Invito a una festa',
+		parts: [
+			'みなさん、',
+			{ slot: 'day' },
+			'に　わたしの　うちで　パーティーを　します。',
+			{ slot: 'time' },
+			'に　きて　ください。',
+			{ slot: 'bring' },
+			'を　もって　きて　ください。たべものは　たくさん　ありますから、だいじょうぶです。うちは　えきから　あるいて　',
+			{ slot: 'min' },
+			'ふんです。'
+		],
+		slots: [
+			{ id: 'day', options: ['どようび', 'にちようび', 'きんようび'] },
+			{ id: 'time', options: ['六じ', '六じはん', '七じ', '七じはん'] },
+			{ id: 'bring', options: ['のみもの', 'おかし', 'カメラ', 'ゲーム'] },
+			{ id: 'min', options: ['五', '十', '十五'] }
+		],
+		questions: [
+			{ q: 'パーティーは　いつですか。', slot: 'day' },
+			{ q: 'なにを　もって　いきますか。', slot: 'bring' },
+			{ q: 'えきから　うちまで　なんぷんですか。（あるいて）', slot: 'min' }
+		],
+		vocab: [
+			{ w: 'もって　きて', yomi: 'もってきて', it: 'porta (con te)' },
+			{ w: 'たくさん', yomi: 'たくさん', it: 'tanto, in abbondanza' },
+			{ w: 'あるいて', yomi: 'あるいて', it: 'a piedi' }
+		]
+	},
+	{
+		id: 'n5-toshokan',
+		livello: 'N5',
+		tipo: 'おしらせ',
+		titolo: 'Regole della biblioteca',
+		parts: [
+			'としょかんの　おしらせです。ほんは　',
+			{ slot: 'weeks' },
+			'しゅうかん　かりる　ことが　できます。いちどに　',
+			{ slot: 'count' },
+			'さつまでです。まいしゅう　',
+			{ slot: 'day' },
+			'は　やすみです。としょかんの　なかで　',
+			{ slot: 'rule' },
+			'ないで　ください。'
+		],
+		slots: [
+			{ id: 'weeks', options: ['一', '二', '三'] },
+			{ id: 'count', options: ['三', '五', '八', '十'] },
+			{ id: 'day', options: ['げつようび', 'かようび', 'きんようび', 'にちようび'] },
+			{ id: 'rule', options: ['たべ', 'のみものを　のま', 'でんわを　し'] }
+		],
+		questions: [
+			{ q: 'ほんは　なんしゅうかん　かりる　ことが　できますか。', slot: 'weeks' },
+			{ q: 'いちどに　なんさつまで　かりられますか。', slot: 'count' },
+			{ q: 'としょかんの　やすみは　いつですか。', slot: 'day' }
+		],
+		vocab: [
+			{ w: 'かりる', yomi: 'かりる', it: 'prendere in prestito' },
+			{ w: '〜ことが　できます', yomi: 'ことができます', it: 'si può…' },
+			{ w: '〜ないで　ください', yomi: 'ないでください', it: 'per favore non…' }
+		]
+	},
+	{
+		id: 'n5-michi',
+		livello: 'N5',
+		tipo: 'メール',
+		titolo: 'Indicazioni per arrivare',
+		parts: [
+			'あした、うちに　きて　ください。みちを　おしえます。えきを　でて、',
+			{ slot: 'dir' },
+			'に　まがって　ください。まっすぐ　いくと、',
+			{ slot: 'landmark' },
+			'が　あります。わたしの　うちは　その　となりです。えきから　あるいて　',
+			{ slot: 'min' },
+			'ふんぐらいです。わからない　ときは　でんわして　ください。'
+		],
+		slots: [
+			{ id: 'dir', options: ['みぎ', 'ひだり'] },
+			{ id: 'landmark', options: ['ゆうびんきょく', 'ぎんこう', 'こうえん', 'スーパー'] },
+			{ id: 'min', options: ['三', '五', '八', '十'] }
+		],
+		questions: [
+			{ q: 'えきを　でて、どちらに　まがりますか。', slot: 'dir' },
+			{ q: 'うちは　なんの　となりに　ありますか。', slot: 'landmark' },
+			{
+				q: 'わからない　とき、どう　しますか。',
+				choices: ['でんわします', 'えきで　まちます', 'ちずを　かいます', 'タクシーに　のります'],
+				correct: 0
+			}
+		],
+		vocab: [
+			{ w: 'まがって', yomi: 'まがって', it: 'gira (svolta)' },
+			{ w: 'まっすぐ', yomi: 'まっすぐ', it: 'dritto' },
+			{ w: 'となり', yomi: 'となり', it: 'accanto, vicino' }
+		]
+	},
+	{
+		id: 'n5-nikki',
+		livello: 'N5',
+		tipo: 'にっき',
+		titolo: 'Diario di una giornata',
+		parts: [
+			'きょうは　',
+			{ slot: 'wake' },
+			'に　おきました。ごぜんは　へやの　そうじを　しました。ごごは　ともだちと　',
+			{ slot: 'activity' },
+			'。とても　たのしかったです。よるは　',
+			{ slot: 'dinner' },
+			'を　たべました。',
+			{ slot: 'sleep' },
+			'に　ねます。'
+		],
+		slots: [
+			{ id: 'wake', options: ['六じ', '七じ', '八じ', '九じ'] },
+			{
+				id: 'activity',
+				options: ['えいがを　みました', 'プールで　およぎました', 'テニスを　しました', 'かいものを　しました']
+			},
+			{ id: 'dinner', options: ['カレー', 'すし', 'ラーメン', 'スパゲッティ'] },
+			{ id: 'sleep', options: ['十じ', '十じはん', '十一じ'] }
+		],
+		questions: [
+			{ q: 'なんじに　おきましたか。', slot: 'wake' },
+			{ q: 'ごごは　ともだちと　なにを　しましたか。', slot: 'activity' },
+			{ q: 'よるは　なにを　たべましたか。', slot: 'dinner' }
+		],
+		vocab: [
+			{ w: 'おきました', yomi: 'おきました', it: 'mi sono alzato' },
+			{ w: 'そうじ', yomi: 'そうじ', it: 'pulizie' },
+			{ w: 'たのしかった', yomi: 'たのしかった', it: 'è stato divertente' }
+		]
+	},
+	// ─────────────────────── N4 (secondo lotto) ───────────────────────
+	{
+		id: 'n4-kaisha-yasumi',
+		livello: 'N4',
+		tipo: 'お知らせ',
+		titolo: "Chiusura dell'ufficio",
+		parts: [
+			'社員のみなさまへ。',
+			{ slot: 'reason' },
+			'のため、',
+			{ slot: 'from' },
+			'から',
+			{ slot: 'to' },
+			'まで、会社は休みになります。休みの間、急ぎの用事がある方は、',
+			{ slot: 'contact' },
+			'にメールで連絡してください。休みの前に、机の上を片づけておいてください。'
+		],
+		slots: [
+			{ id: 'reason', options: ['ビルの工事', '夏休み', '年末年始'] },
+			{ id: 'from', options: ['三日', '十日', '十三日'] },
+			{ id: 'to', options: ['十六日', '十八日', '二十日'] },
+			{ id: 'contact', options: ['田中さん', '山田さん', '佐藤さん', '鈴木さん'] }
+		],
+		questions: [
+			{ q: 'どうして会社が休みになりますか。（〜のため）', slot: 'reason' },
+			{ q: '何日から休みになりますか。', slot: 'from' },
+			{ q: '急ぎの用事があるとき、だれに連絡しますか。', slot: 'contact' }
+		],
+		vocab: [
+			{ w: '急ぎ', yomi: 'いそぎ', it: 'urgente' },
+			{ w: '用事', yomi: 'ようじ', it: 'impegno, faccenda' },
+			{ w: '片づける', yomi: 'かたづける', it: 'mettere in ordine' },
+			{ w: '〜の間', yomi: 'のあいだ', it: 'durante…' }
+		]
+	},
+	{
+		id: 'n4-eiga',
+		livello: 'N4',
+		tipo: '記事',
+		titolo: 'Presentazione di un film',
+		parts: [
+			'今週の映画館のおすすめは「',
+			{ slot: 'title' },
+			'」です。',
+			{ slot: 'genre' },
+			'の映画で、時間は',
+			{ slot: 'duration' },
+			'ぐらいです。',
+			{ slot: 'until' },
+			'までやっていますから、見たい人は早く行ったほうがいいですよ。学生は',
+			{ slot: 'price' },
+			'円で見ることができます。'
+		],
+		slots: [
+			{ id: 'title', options: ['海の音', '星の夜', '雨の街', '風の歌'] },
+			{ id: 'genre', options: ['アニメ', 'ラブストーリー', 'ホラー', 'コメディー'] },
+			{ id: 'duration', options: ['一時間半', '二時間', '二時間半'] },
+			{ id: 'until', options: ['今週の日曜日', '来週の金曜日', '月末'] },
+			{ id: 'price', options: ['千', '千二百', '千五百'] }
+		],
+		questions: [
+			{ q: 'どんな映画ですか。', slot: 'genre' },
+			{ q: '映画はどのぐらいかかりますか。', slot: 'duration' },
+			{ q: '学生はいくらで見られますか。（〜円）', slot: 'price' }
+		],
+		vocab: [
+			{ w: 'おすすめ', yomi: 'おすすめ', it: 'consigliato' },
+			{ w: '〜たほうがいい', yomi: 'たほうがいい', it: 'è meglio…' },
+			{ w: '〜ことができる', yomi: 'ことができる', it: 'potere…' }
+		]
+	},
+	{
+		id: 'n4-wasuremono',
+		livello: 'N4',
+		tipo: 'お知らせ',
+		titolo: 'Oggetto smarrito',
+		parts: [
+			'お客様にお知らせします。',
+			{ slot: 'day' },
+			'の夕方、',
+			{ slot: 'place' },
+			'で',
+			{ slot: 'item' },
+			'の忘れ物がありました。心当たりのある方は、',
+			{ slot: 'counter' },
+			'の窓口までお越しください。お名前と電話番号をうかがいます。'
+		],
+		slots: [
+			{ id: 'day', options: ['きのう', 'おととい', '先週の土曜日'] },
+			{ id: 'place', options: ['二階のトイレの前', '三階のレストラン', '一階の入口', 'エレベーターの中'] },
+			{ id: 'item', options: ['黒いかさ', '赤い手袋', '青いかばん', '白いぼうし'] },
+			{ id: 'counter', options: ['一階', '二階', '五階'] }
+		],
+		questions: [
+			{ q: 'どこで忘れ物がありましたか。', slot: 'place' },
+			{ q: '忘れ物は何ですか。', slot: 'item' },
+			{ q: '何階の窓口へ行きますか。', slot: 'counter' }
+		],
+		vocab: [
+			{ w: '忘れ物', yomi: 'わすれもの', it: 'oggetto dimenticato' },
+			{ w: '心当たり', yomi: 'こころあたり', it: 'riconoscerlo come proprio (averne idea)' },
+			{ w: 'お越しください', yomi: 'おこしください', it: 'venga (formale)' },
+			{ w: '窓口', yomi: 'まどぐち', it: 'sportello' }
+		]
+	},
+	{
+		id: 'n4-ryoko-blog',
+		livello: 'N4',
+		tipo: 'ブログ',
+		titolo: 'Blog di viaggio',
+		parts: [
+			'先週、',
+			{ slot: 'city' },
+			'へ行ってきた。',
+			{ slot: 'transport' },
+			'で',
+			{ slot: 'duration' },
+			'かかったが、景色がきれいだったので、ぜんぜん疲れなかった。いちばんよかったのは',
+			{ slot: 'spot' },
+			'だ。写真をたくさん撮った。今度は',
+			{ slot: 'season' },
+			'に行こうと思っている。'
+		],
+		slots: [
+			{ id: 'city', options: ['京都', '奈良', '広島', '日光'] },
+			{ id: 'transport', options: ['新幹線', 'バス', '車'] },
+			{ id: 'duration', options: ['二時間', '三時間', '四時間半'] },
+			{ id: 'spot', options: ['古いお寺', '大きい公園', '山の上からの景色', '川の近くの町'] },
+			{ id: 'season', options: ['春', '夏', '秋', '冬'] }
+		],
+		questions: [
+			{ q: 'どうやって行きましたか。', slot: 'transport' },
+			{ q: 'いちばんよかったのは何ですか。', slot: 'spot' },
+			{ q: '今度はいつ行こうと思っていますか。', slot: 'season' }
+		],
+		vocab: [
+			{ w: '〜てきた', yomi: 'てきた', it: 'sono andato e tornato (esperienza)' },
+			{ w: '景色', yomi: 'けしき', it: 'panorama' },
+			{ w: '疲れる', yomi: 'つかれる', it: 'stancarsi' },
+			{ w: '〜ようと思っている', yomi: 'ようとおもっている', it: 'sto pensando di…' }
+		]
+	},
+	{
+		id: 'n4-byoin',
+		livello: 'N4',
+		tipo: 'お知らせ',
+		titolo: 'Nuovi orari della clinica',
+		parts: [
+			'患者のみなさまへ。',
+			{ slot: 'from' },
+			'から、診察の時間が変わります。午前は',
+			{ slot: 'am' },
+			'までで、午後は',
+			{ slot: 'pm' },
+			'からになります。',
+			{ slot: 'closed' },
+			'はお休みです。予約は電話でもインターネットでもできます。保険証を忘れずにお持ちください。'
+		],
+		slots: [
+			{ id: 'from', options: ['来週', '来月', '四月'] },
+			{ id: 'am', options: ['十一時半', '十二時', '十二時半'] },
+			{ id: 'pm', options: ['二時', '二時半', '三時'] },
+			{ id: 'closed', options: ['水曜日', '木曜日', '土曜日の午後', '日曜日と祝日'] }
+		],
+		questions: [
+			{ q: 'いつから時間が変わりますか。', slot: 'from' },
+			{ q: '午後は何時からですか。', slot: 'pm' },
+			{ q: 'お休みはいつですか。', slot: 'closed' }
+		],
+		vocab: [
+			{ w: '診察', yomi: 'しんさつ', it: 'visita medica' },
+			{ w: '変わる', yomi: 'かわる', it: 'cambiare' },
+			{ w: '予約', yomi: 'よやく', it: 'prenotazione' },
+			{ w: '忘れずに', yomi: 'わすれずに', it: 'senza dimenticare' }
+		]
 	}
 ];

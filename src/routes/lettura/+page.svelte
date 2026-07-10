@@ -9,6 +9,8 @@
 		type ReadingRun
 	} from '$lib/core/readingTexts';
 	import { createDefaultTokenizer, type JapaneseTokenizer } from '$lib/core/tokenizer';
+	import { db } from '$lib/db/schema';
+	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 
 	const QUESTION_SECONDS = 20;
 	const DEFAULT_CPM: Record<JlptLevel, number> = { N5: 100, N4: 120 };
@@ -53,6 +55,32 @@
 	function pickText(t: ReadingText): void {
 		run = instantiate(t);
 		scene = 'prep';
+		void resolveVocab(t);
+	}
+
+	// Collega i vocaboli del pre-ripasso alle card dell'app (parola o forma
+	// grammaticale): match a runtime su scrittura/lettura, così i dati dei
+	// testi restano semplici. Chi non matcha resta testo semplice.
+	type VocabLink = { detail: string; consolida: string };
+	let vocabLinks = $state<Record<string, VocabLink | null>>({});
+	const clean = (s: string): string => s.replace(/[〜～\s　]/g, '');
+	async function resolveVocab(t: ReadingText): Promise<void> {
+		const links: Record<string, VocabLink | null> = {};
+		const grammar = await db.grammar.toArray();
+		for (const v of t.vocab) {
+			const cw = clean(v.w);
+			const cy = clean(v.yomi);
+			const w =
+				(await db.words.where('scrittura').equals(cw).first()) ??
+				(await db.words.where('lettura').equals(cy).first());
+			if (w) {
+				links[v.w] = { detail: `word:${w.id}`, consolida: w.id };
+				continue;
+			}
+			const g = grammar.find((x) => cw.length >= 2 && clean(x.struttura).includes(cw));
+			links[v.w] = g ? { detail: `grammar:${g.id}`, consolida: `grammar:${g.id}` } : null;
+		}
+		vocabLinks = links;
 	}
 
 	// ── RSVP ──
@@ -79,6 +107,7 @@
 
 	async function startRsvp(): Promise<void> {
 		if (!run) return;
+		stopSpeaking();
 		chunks = chunkText(run.rendered);
 		chunkIdx = 0;
 		paused = false;
@@ -163,12 +192,12 @@
 	}
 
 	function again(sameText: boolean): void {
+		stopSpeaking();
 		if (sameText && run) {
 			run = instantiate(run.text); // stesso testo, slot nuovi
 			scene = 'prep';
 		} else {
-			run = instantiate(rnd(textsOfLevel()));
-			scene = 'prep';
+			pickText(rnd(textsOfLevel()));
 		}
 	}
 </script>
@@ -212,10 +241,21 @@
 			<p class="hint">Parole e forme che troverai. Consolidale ora: dopo non si torna indietro!</p>
 			<ul class="vocab">
 				{#each run.text.vocab as v (v.w)}
+					{@const link = vocabLinks[v.w]}
 					<li>
-						<span class="v-w">{v.w}</span>
+						{#if link}
+							<a class="v-w linked" href="{base}/detail/{encodeURIComponent(link.detail)}">{v.w}</a>
+						{:else}
+							<span class="v-w">{v.w}</span>
+						{/if}
 						{#if v.yomi !== v.w}<span class="v-yomi">{v.yomi}</span>{/if}
 						<span class="v-it">{v.it}</span>
+						<span class="v-actions">
+							<button class="v-btn" title="Ascolta" onclick={() => speakSentenceJapanese(v.yomi)}>🔊</button>
+							{#if link}
+								<a class="v-btn" title="Consolida" href="{base}/consolida/{encodeURIComponent(link.consolida)}">💪</a>
+							{/if}
+						</span>
 					</li>
 				{/each}
 			</ul>
@@ -271,7 +311,7 @@
 				<p class="hint">⚡ Velocità invariata: {cpm} caratteri/min</p>
 			{/if}
 			<div class="fulltext">
-				<p class="script-title">📄 Il testo completo</p>
+				<p class="script-title">📄 Il testo completo <button class="v-btn" title="Ascolta il testo" onclick={() => speakSentenceJapanese(run!.rendered)}>🔊</button></p>
 				<p class="fulltext-body">{run.rendered}</p>
 			</div>
 			<div class="rsvp-actions">
@@ -304,8 +344,12 @@
 	.vocab { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.vocab li { display: flex; align-items: baseline; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); flex-wrap: wrap; }
 	.v-w { font-weight: 700; font-size: 1.05rem; }
+	.v-w.linked { color: var(--brand); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 	.v-yomi { font-size: 0.8rem; color: var(--brand); }
 	.v-it { margin-left: auto; font-size: 0.82rem; color: var(--muted); }
+	.v-actions { display: inline-flex; gap: 6px; }
+	.v-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 3px 8px; font-size: 0.85rem; cursor: pointer; text-decoration: none; }
+	.v-btn:hover { border-color: var(--brand); }
 
 	.speed { display: flex; align-items: center; justify-content: center; gap: 10px; }
 	.speed-val { font-weight: 700; }
