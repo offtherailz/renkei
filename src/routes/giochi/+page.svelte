@@ -547,6 +547,11 @@
 					<span class="cat-label">Lettura veloce</span>
 					<span class="cat-hint">il testo scorre da solo, poi domande a tempo</span>
 				</a>
+				<a class="cat-card" href="{base}/skimming">
+					<span class="cat-icon">🔎</span>
+					<span class="cat-label">Skimming</span>
+					<span class="cat-hint">prima la domanda, poi trova l'informazione nel testo</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
