@@ -6,6 +6,7 @@
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { createDefaultTokenizer, type JapaneseTokenizer } from '$lib/core/tokenizer';
 	import { speakSentenceJapanese } from '$lib/core/tts';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import type { JLPTLevel } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -200,7 +201,8 @@
 			<p class="score-big">Serie: {streak}</p>
 			<p class="hint">🏆 Record {level}: {best}</p>
 			<p class="bubble sm">La tua: {composed()}</p>
-			<p class="bubble">✅ {correctTokens.join('')}</p>
+			<div class="bubble solution-line"><span>✅</span> <InteractiveSentence text={correctTokens.join('')} /></div>
+			<p class="hint">Tocca le parole che non conoscevi: «➕ Non la conoscevo» le mette nei tuoi ripassi.</p>
 			{#if current.hint}<p class="hint">💬 {current.hint}</p>{/if}
 			<div class="play-actions">
 				<a class="mini" href="{base}/detail/{encodeURIComponent(current.detail)}">📖 Scheda</a>
@@ -239,6 +241,7 @@
 	.choice:hover { border-color: var(--brand); }
 
 	.score-big { margin: 0; text-align: center; font-size: 2.2rem; font-weight: 800; }
+	.solution-line { display: flex; gap: 6px; align-items: baseline; justify-content: center; flex-wrap: wrap; text-align: left; }
 	.play-actions { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; text-decoration: none; }
 	.mini:disabled { opacity: 0.4; cursor: default; }

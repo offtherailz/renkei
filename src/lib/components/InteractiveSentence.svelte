@@ -6,6 +6,7 @@
 	import { ensureWordIndex, lookupToken, jishoUrl, type WordHit } from '$lib/core/wordLookup';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
+	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 
 	// testo con eventuale notazione furigana base[lettura]; mark = sottostringhe
 	// del testo da evidenziare (es. la frase che conteneva la risposta)
@@ -55,6 +56,14 @@
 	function toggle(i: number): void {
 		open = open === i ? null : i;
 	}
+
+	// «Non la conoscevo»: la parola entra nel consolidamento (punti deboli in
+	// home) senza lasciare il flusso — stessa via degli errori nelle avventure.
+	let flagged = $state<Set<string>>(new Set());
+	async function flagUnknown(hit: WordHit): Promise<void> {
+		await recordPracticeMiss('word:' + hit.id);
+		flagged = new Set([...flagged, hit.id]);
+	}
 </script>
 
 <span class="isentence">
@@ -75,6 +84,11 @@
 							<span class="pop-actions">
 								<a href="{base}/detail/{encodeURIComponent(`word:${hits[i]!.id}`)}">📖 Scheda</a>
 								<a href="{base}/consolida/{encodeURIComponent(hits[i]!.id)}">💪 Consolida</a>
+								{#if flagged.has(hits[i]!.id)}
+									<span class="pop-flagged">✓ nei ripassi</span>
+								{:else}
+									<button class="pop-flag" onclick={() => flagUnknown(hits[i]!)}>➕ Non la conoscevo</button>
+								{/if}
 							</span>
 						{:else}
 							<span class="pop-gloss">🔗 fuori catalogo</span>
@@ -125,7 +139,9 @@
 	.pop-reading { color: var(--brand); font-weight: 700; }
 	.pop-form { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.pop-gloss { color: var(--muted); }
-	.pop-actions { display: inline-flex; gap: 8px; }
+	.pop-actions { display: inline-flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 	.pop-actions a { color: var(--brand); text-decoration: none; font-weight: 600; }
+	.pop-flag { border: 1px solid var(--warn-border); background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+	.pop-flagged { color: var(--success); font-weight: 700; font-size: 0.78rem; }
 	.pop-tts { border: none; background: none; cursor: pointer; font-size: 0.85rem; }
 </style>
