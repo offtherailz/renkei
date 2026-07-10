@@ -117,8 +117,10 @@
 	.counter-symbol {
 		font-size: 1.9rem;
 		font-weight: 700;
-		width: 64px;
+		min-width: 64px;
 		height: 64px;
+		padding: 0 8px;
+		box-sizing: border-box;
 		display: grid;
 		place-items: center;
 		border: 1.5px solid var(--line);
