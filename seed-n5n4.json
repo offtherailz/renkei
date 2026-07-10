@@ -66836,8 +66836,8 @@
       "id": "grammar-api-N4-72",
       "struttura": "〜がする",
       "spiegazione": {
-        "it": "can hear, see, smell",
-        "en": "can hear, see, smell"
+        "it": "Percepire con i sensi: 音がする (si sente un suono), においがする, 味がする, 気がする.",
+        "en": "To sense something: 音がする (there is a sound), においがする, 味がする, 気がする."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -66854,30 +66854,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "彼らが興奮して話すのが聞こえる。",
+          "testo": "隣の部屋から変な音がする。",
           "traduzione": {
-            "it": "They are talking excitedly.",
-            "en": "They are talking excitedly."
+            "it": "Dalla stanza accanto viene uno strano rumore.",
+            "en": "There is a strange sound coming from the next room."
           },
-          "parole_linkate": [
-            "聞こえる",
-            "彼ら",
-            "する",
-            "話す",
-            "彼",
-            "話"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "聞こえる",
-        "彼ら",
-        "する",
-        "話す",
-        "彼",
-        "話"
-      ],
-      "updated_at": 1783296707879
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-78",
@@ -66940,28 +66926,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "もう少しで、時間に間に合わないかも知れません。",
+          "testo": "明日は雨が降るかもしれません。",
           "traduzione": {
-            "it": "We may not be able to make it in time.",
-            "en": "We may not be able to make it in time."
+            "it": "Domani forse pioverà.",
+            "en": "It might rain tomorrow."
           },
-          "parole_linkate": [
-            "ない",
-            "もう",
-            "時間",
-            "少し",
-            "間"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "ない",
-        "もう",
-        "時間",
-        "少し",
-        "間"
-      ],
-      "updated_at": 1783296707873
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-75",
@@ -67284,8 +67258,8 @@
       "id": "grammar-api-N4-2",
       "struttura": "〜て",
       "spiegazione": {
-        "it": "a cause or reason",
-        "en": "a cause or reason"
+        "it": "La forma in -te come causa o motivo (più leggera di から/ので).",
+        "en": "The -te form expressing a cause or reason (lighter than から/ので)."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -67302,22 +67276,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "しゅくだいをわすれたので、先生にしかられた。",
+          "testo": "頭が痛くて、学校を休みました。",
           "traduzione": {
-            "it": "The teacher scolded me for forgetting to do my homework.",
-            "en": "The teacher scolded me for forgetting to do my homework."
+            "it": "Mi faceva male la testa, così sono rimasto a casa da scuola.",
+            "en": "I had a headache, so I stayed home from school."
           },
-          "parole_linkate": [
-            "先生",
-            "先"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "先生",
-        "先"
-      ],
-      "updated_at": 1783296707847
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-6",
@@ -67468,10 +67436,10 @@
     },
     {
       "id": "grammar-api-N4-84",
-      "struttura": "〜ておる/〜ておく/ 〜ておる/",
+      "struttura": "〜てくださる",
       "spiegazione": {
-        "it": "Receiving, Giving honorific",
-        "en": "Receiving, Giving honorific"
+        "it": "Un superiore fa gentilmente qualcosa per me: onorifico di 〜てくれる.",
+        "en": "A respected person kindly does something for me: honorific of 〜てくれる."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -67488,28 +67456,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "社長が 電話 とってくださいました。",
+          "testo": "先生が漢字を教えてくださいました。",
           "traduzione": {
-            "it": "The president made time for me.",
-            "en": "The president made time for me."
+            "it": "L'insegnante mi ha gentilmente insegnato i kanji.",
+            "en": "The teacher kindly taught me kanji."
           },
-          "parole_linkate": [
-            "社長",
-            "する",
-            "居る",
-            "電話",
-            "話"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "社長",
-        "する",
-        "居る",
-        "電話",
-        "話"
-      ],
-      "updated_at": 1783296707884
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-34",
@@ -67570,24 +67526,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "コンビニに行ってきます。",
+          "testo": "ちょっとコンビニへ行ってくるね。",
           "traduzione": {
-            "it": "I'm going to the convenience store.",
-            "en": "I'm going to the convenience store."
+            "it": "Faccio un salto al konbini (e torno).",
+            "en": "I'll pop over to the convenience store (and come back)."
           },
-          "parole_linkate": [
-            "送る",
-            "作る",
-            "来る"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "送る",
-        "作る",
-        "来る"
-      ],
-      "updated_at": 1783296707880
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-9",
@@ -67693,36 +67641,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "ジュースを全部飲んでしまった。",
+          "testo": "宿題を忘れてしまいました。",
           "traduzione": {
-            "it": "I drink up all the juice that I bought yesterday.",
-            "en": "I drink up all the juice that I bought yesterday."
-          },
-          "parole_linkate": [
-            "全部"
-          ]
-        },
-        {
-          "testo": "宿題を全部やってしまいました。",
-          "traduzione": {
-            "it": "Ho finito tutti i compiti.",
-            "en": "Ho finito tutti i compiti."
-          },
-          "parole_linkate": []
-        },
-        {
-          "testo": "大事な財布を忘れてしまった。",
-          "traduzione": {
-            "it": "Ho dimenticato il portafoglio importante (purtroppo).",
-            "en": "Ho dimenticato il portafoglio importante (purtroppo)."
+            "it": "Ho dimenticato i compiti (purtroppo).",
+            "en": "I (regrettably) forgot my homework."
           },
           "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "全部"
-      ],
-      "updated_at": 1783296707858
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-55",
@@ -68139,10 +68067,10 @@
     },
     {
       "id": "grammar-api-N4-59",
-      "struttura": "〜ない",
+      "struttura": "〜なさい",
       "spiegazione": {
-        "it": "do.. (command)",
-        "en": "do.. (command)"
+        "it": "Ordine gentile ma fermo, tipico di genitori e insegnanti.",
+        "en": "Soft but firm command, typical of parents and teachers."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -68159,24 +68087,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "もっとよく聞いてください。",
+          "testo": "早く寝なさい。",
           "traduzione": {
-            "it": "Listen carefully, again.",
-            "en": "Listen carefully, again."
+            "it": "Vai a dormire presto.",
+            "en": "Go to bed early."
           },
-          "parole_linkate": [
-            "もっと",
-            "よく",
-            "居る"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "もっと",
-        "よく",
-        "居る"
-      ],
-      "updated_at": 1783296707874
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-31",
@@ -68323,24 +68243,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "学校では制服を着なければいけません。",
+          "testo": "明日は早く起きなければいけない。",
           "traduzione": {
-            "it": "You have to wear a uniform at school.",
-            "en": "You have to wear a uniform at school."
+            "it": "Domani devo alzarmi presto.",
+            "en": "I have to get up early tomorrow."
           },
-          "parole_linkate": [
-            "では",
-            "学校",
-            "服"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "では",
-        "学校",
-        "服"
-      ],
-      "updated_at": 1783296707874
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-48",
@@ -68422,10 +68334,10 @@
     },
     {
       "id": "grammar-api-N4-71",
-      "struttura": "〜になることにする",
+      "struttura": "〜ことになる",
       "spiegazione": {
-        "it": "has been decided",
-        "en": "has been decided"
+        "it": "È stato deciso che… (decisione presa da altri o dalle circostanze).",
+        "en": "It has been decided that… (decision made by others or circumstances)."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -68444,28 +68356,14 @@
         {
           "testo": "父が入院することになりました。",
           "traduzione": {
-            "it": "My father has been hospitalized.",
-            "en": "My father has been hospitalized."
+            "it": "È stato deciso che mio padre sarà ricoverato.",
+            "en": "It has been decided that my father will be hospitalized."
           },
-          "parole_linkate": [
-            "入院する",
-            "入院",
-            "鳴る",
-            "する",
-            "なる",
-            "父"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "入院する",
-        "入院",
-        "鳴る",
-        "する",
-        "なる",
-        "父"
-      ],
-      "updated_at": 1783296707878
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-5",
@@ -68489,28 +68387,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "何かしなくてはいけない。だから、しんぱいします。",
+          "testo": "時間がないので、タクシーで行きます。",
           "traduzione": {
-            "it": "There's something I need to do, so excuse me for leaving before you.",
-            "en": "There's something I need to do, so excuse me for leaving before you."
+            "it": "Siccome non c'è tempo, vado in taxi.",
+            "en": "Since there's no time, I'll go by taxi."
           },
-          "parole_linkate": [
-            "だから",
-            "する",
-            "ない",
-            "はい",
-            "何"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "だから",
-        "する",
-        "ない",
-        "はい",
-        "何"
-      ],
-      "updated_at": 1783296707851
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-49",
@@ -68688,10 +68574,10 @@
     },
     {
       "id": "grammar-api-N4-58",
-      "struttura": "〜べき",
+      "struttura": "〜はず",
       "spiegazione": {
-        "it": "be supposed to be the case",
-        "en": "be supposed to be the case"
+        "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa.",
+        "en": "Should be the case: expectation based on logic or knowledge."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -68710,24 +68596,14 @@
         {
           "testo": "その店は、開いているはずです。",
           "traduzione": {
-            "it": "That shop must be opened, because today is Monday.",
-            "en": "That shop must be opened, because today is Monday."
+            "it": "Quel negozio dovrebbe essere aperto.",
+            "en": "That shop should be open."
           },
-          "parole_linkate": [
-            "はず",
-            "その",
-            "居る",
-            "店"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "はず",
-        "その",
-        "居る",
-        "店"
-      ],
-      "updated_at": 1783296707873
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-52",
@@ -68774,8 +68650,8 @@
       "id": "grammar-api-N4-53",
       "struttura": "〜ような",
       "spiegazione": {
-        "it": "像 (describing things)",
-        "en": "像 (describing things)"
+        "it": "Come, simile a: paragone con un esempio concreto.",
+        "en": "Like, such as: comparison with a concrete example."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -68792,22 +68668,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "このスープ、からそうですね。",
+          "testo": "東京のような大きい町に住みたいです。",
           "traduzione": {
-            "it": "This soup looks spicy.",
-            "en": "This soup looks spicy."
+            "it": "Vorrei vivere in una grande città come Tokyo.",
+            "en": "I want to live in a big city like Tokyo."
           },
-          "parole_linkate": [
-            "そう",
-            "この"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "そう",
-        "この"
-      ],
-      "updated_at": 1783296707871
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-67",
@@ -69028,10 +68898,10 @@
     },
     {
       "id": "grammar-api-N4-44",
-      "struttura": "+の +",
+      "struttura": "〜のは／〜のが",
       "spiegazione": {
-        "it": "as a nominaliser",
-        "en": "as a nominaliser"
+        "it": "の nominalizzatore: trasforma un verbo in nome (fare X è…).",
+        "en": "の as a nominalizer: turns a verb into a noun (doing X is…)."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69063,14 +68933,14 @@
         "もし",
         "する"
       ],
-      "updated_at": 1783296707867
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-43",
-      "struttura": "+は/も",
+      "struttura": "〜には／〜にも",
       "spiegazione": {
-        "it": "emphasis or comparison",
-        "en": "emphasis or comparison"
+        "it": "は・も dopo un'altra particella: enfasi o contrasto sul complemento.",
+        "en": "は・も after another particle: emphasis or contrast on that complement."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69104,11 +68974,11 @@
         "母",
         "話"
       ],
-      "updated_at": 1783296707867
+      "updated_at": 1783666652072
     },
     {
       "id": "g-n4-teiru",
-      "struttura": "Vている",
+      "struttura": "〜ている",
       "spiegazione": {
         "it": "Azione in corso o stato risultante.",
         "en": "Progressive action or resulting state."
@@ -69138,7 +69008,7 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1717700000201
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-33",
@@ -69224,10 +69094,10 @@
     },
     {
       "id": "grammar-api-N4-35",
-      "struttura": "かえって",
+      "struttura": "〜までに",
       "spiegazione": {
-        "it": "before..., by...(time limit)",
-        "en": "before..., by...(time limit)"
+        "it": "Entro (limite di tempo): l'azione va fatta prima di quel momento.",
+        "en": "By (time limit): the action must happen before that moment."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69263,14 +69133,14 @@
         "明日::あした",
         "日"
       ],
-      "updated_at": 1783296707864
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-79",
-      "struttura": "く",
+      "struttura": "〜さ",
       "spiegazione": {
-        "it": "an Adjective to turn into a Noun",
-        "en": "an Adjective to turn into a Noun"
+        "it": "Da aggettivo a nome: 高い → 高さ (altezza), 長い → 長さ.",
+        "en": "Adjective → noun: 高い → 高さ (height), 長い → 長さ."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69304,7 +69174,7 @@
         "居る",
         "山"
       ],
-      "updated_at": 1783296707882
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-29",
@@ -69412,33 +69282,23 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "ここはコーヒーが100円です。だから、人がたくさん来てる。",
+          "testo": "雨が降ってきた。そこで、タクシーに乗った。",
           "traduzione": {
-            "it": "The coffee is 100Yen here. That's why it's popular.",
-            "en": "The coffee is 100Yen here. That's why it's popular."
+            "it": "Ha iniziato a piovere. Perciò ho preso un taxi.",
+            "en": "It started raining. So I took a taxi."
           },
-          "parole_linkate": [
-            "コーヒー",
-            "だから",
-            "ここ",
-            "人"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "コーヒー",
-        "だから",
-        "ここ",
-        "人"
-      ],
-      "updated_at": 1783296707850
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-85",
-      "struttura": "でください/いただけますか",
+      "struttura": "〜せてください／〜させてください",
       "spiegazione": {
-        "it": "Would you please let me do..?",
-        "en": "Would you please let me do..?"
+        "it": "Mi lasci fare…: chiedere il permesso con il causativo + ください.",
+        "en": "Please let me…: asking permission with causative + ください."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69457,24 +69317,14 @@
         {
           "testo": "明日、休ませてくださいませんか。",
           "traduzione": {
-            "it": "Would you please let me get a day off tomorrow?",
-            "en": "Would you please let me get a day off tomorrow?"
+            "it": "Domani potrebbe lasciarmi stare a casa?",
+            "en": "Could you please let me take tomorrow off?"
           },
-          "parole_linkate": [
-            "明日::あす",
-            "居る",
-            "明日::あした",
-            "日"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "明日::あす",
-        "居る",
-        "明日::あした",
-        "日"
-      ],
-      "updated_at": 1783296707885
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-27",
@@ -69511,10 +69361,10 @@
     },
     {
       "id": "grammar-api-N4-25",
-      "struttura": "まえている",
+      "struttura": "まだ〜ている",
       "spiegazione": {
-        "it": "still...",
-        "en": "still..."
+        "it": "Ancora in corso: l'azione o lo stato continua.",
+        "en": "Still …ing: the action or state continues."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69531,20 +69381,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "雨が降っているよ。",
+          "testo": "まだ雨が降っている。",
           "traduzione": {
-            "it": "It's still raining.",
-            "en": "It's still raining."
+            "it": "Sta ancora piovendo.",
+            "en": "It is still raining."
           },
-          "parole_linkate": [
-            "雨"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "雨"
-      ],
-      "updated_at": 1783296707859
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-42",
@@ -69693,10 +69539,10 @@
     },
     {
       "id": "grammar-api-N4-40",
-      "struttura": "下",
+      "struttura": "一番〜",
       "spiegazione": {
-        "it": "[Noun] express many different meaning",
-        "en": "[Noun] express many different meaning"
+        "it": "Il più…: superlativo con 一番 (letteralmente \"numero uno\").",
+        "en": "The most…: superlative with 一番 (literally \"number one\")."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69734,7 +69580,7 @@
         "一",
         "山"
       ],
-      "updated_at": 1783296707866
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-10",
@@ -69838,16 +69684,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "To show your respect to particular people's actions",
+          "testo": "先生はもうお帰りになりました。",
           "traduzione": {
-            "it": "To show your respect to particular people's actions.",
-            "en": "To show your respect to particular people's actions."
+            "it": "L'insegnante è già tornato a casa (onorifico).",
+            "en": "The teacher has already gone home (honorific)."
           },
           "parole_linkate": []
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707883
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-82",
@@ -69974,10 +69820,10 @@
     },
     {
       "id": "grammar-api-N4-61",
-      "struttura": "今/今日/会社形",
+      "struttura": "〜て（依頼）",
       "spiegazione": {
-        "it": "We don't have time, hurry up.",
-        "en": "We don't have time, hurry up."
+        "it": "Forma in -te da sola: richiesta o comando colloquiale.",
+        "en": "Bare -te form: casual request or command."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -69994,28 +69840,24 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "時間がありません。急いで。",
+          "testo": "ちょっと待って！",
           "traduzione": {
-            "it": "We don't have time, hurry up.",
-            "en": "We don't have time, hurry up."
+            "it": "Aspetta un attimo!",
+            "en": "Wait a second!"
           },
-          "parole_linkate": [
-            "在る",
-            "時間",
-            "有る",
-            "間",
-            "急"
-          ]
+          "parole_linkate": []
+        },
+        {
+          "testo": "時間がありません。急いで！",
+          "traduzione": {
+            "it": "Non c'è tempo. Sbrigati!",
+            "en": "There's no time. Hurry up!"
+          },
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "在る",
-        "時間",
-        "有る",
-        "間",
-        "急"
-      ],
-      "updated_at": 1783296707874
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-16",
@@ -70085,10 +69927,10 @@
     },
     {
       "id": "grammar-api-N4-62",
-      "struttura": "思う",
+      "struttura": "〜（よ）うと思う",
       "spiegazione": {
-        "it": "I think I'll [Verb Volitional-form]",
-        "en": "I think I'll [Verb Volitional-form]"
+        "it": "Penso di fare…: forma volitiva + と思う per un'intenzione.",
+        "en": "I think I'll…: volitional form + と思う for an intention."
       },
       "chapter_tags": [
         "jlpt-n4-core"
@@ -70128,7 +69970,7 @@
         "夏",
         "海"
       ],
-      "updated_at": 1783296707875
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N4-19",
@@ -70405,7 +70247,7 @@
     },
     {
       "id": "g-n5-desu",
-      "struttura": "AはBです",
+      "struttura": "〜は〜です",
       "spiegazione": {
         "it": "Struttura base copulativa per identificare o descrivere.",
         "en": "Basic copula pattern for identity and description."
@@ -70435,11 +70277,11 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1717700000200
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-16",
-      "struttura": "い-adjectives",
+      "struttura": "い形容詞",
       "spiegazione": {
         "it": "i-adjectives",
         "en": "i-adjectives"
@@ -70472,7 +70314,7 @@
       "frasi_esempio_parole_linkate": [
         "この"
       ],
-      "updated_at": 1783296707834
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-19",
@@ -71387,7 +71229,7 @@
     },
     {
       "id": "grammar-api-N5-66",
-      "struttura": "ている",
+      "struttura": "〜ている／〜でいる",
       "spiegazione": {
         "it": "ongoing action or current state",
         "en": "ongoing action or current state"
@@ -71440,7 +71282,7 @@
         "今",
         "本"
       ],
-      "updated_at": 1783296707844
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-67",
@@ -71614,24 +71456,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "行きたいけど、忙しい。",
+          "testo": "高いです。でも、買います。",
           "traduzione": {
-            "it": "I want to go, but I'm busy.",
-            "en": "I want to go, but I'm busy."
+            "it": "È caro. Però lo compro.",
+            "en": "It's expensive. But I'll buy it."
           },
-          "parole_linkate": [
-            "忙しい",
-            "作る",
-            "来る"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "忙しい",
-        "作る",
-        "来る"
-      ],
-      "updated_at": 1783296707831
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-70",
@@ -71914,7 +71748,7 @@
     },
     {
       "id": "grammar-api-N5-36",
-      "struttura": "な-adjectives",
+      "struttura": "な形容詞",
       "spiegazione": {
         "it": "na-adjectives",
         "en": "na-adjectives"
@@ -71934,24 +71768,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "この部屋は静かな。",
+          "testo": "ここは静かな町です。",
           "traduzione": {
-            "it": "This room is quiet.",
-            "en": "This room is quiet."
+            "it": "Questa è una città tranquilla.",
+            "en": "This is a quiet town."
           },
-          "parole_linkate": [
-            "この",
-            "静か",
-            "部屋"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "この",
-        "静か",
-        "部屋"
-      ],
-      "updated_at": 1783296707838
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-37",
@@ -72228,7 +72054,7 @@
     },
     {
       "id": "grammar-api-N5-44",
-      "struttura": "なる",
+      "struttura": "〜くなる／〜になる",
       "spiegazione": {
         "it": "to become",
         "en": "to become"
@@ -72265,7 +72091,7 @@
         "なる",
         "天気"
       ],
-      "updated_at": 1783296707840
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-47",
@@ -72351,7 +72177,7 @@
     },
     {
       "id": "grammar-api-N5-48",
-      "struttura": "にいく",
+      "struttura": "〜に行く",
       "spiegazione": {
         "it": "go to do",
         "en": "go to do"
@@ -72390,7 +72216,7 @@
         "来る",
         "物"
       ],
-      "updated_at": 1783296707841
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-49",
@@ -72414,20 +72240,16 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "ピザにします。",
+          "testo": "飲み物はお茶にする。",
           "traduzione": {
-            "it": "I'll decide on pizza.",
-            "en": "I'll decide on pizza."
+            "it": "Da bere prendo il tè.",
+            "en": "For a drink, I'll go with tea."
           },
-          "parole_linkate": [
-            "する"
-          ]
+          "parole_linkate": []
         }
       ],
-      "frasi_esempio_parole_linkate": [
-        "する"
-      ],
-      "updated_at": 1783296707841
+      "frasi_esempio_parole_linkate": [],
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-46",
@@ -72726,7 +72548,7 @@
     },
     {
       "id": "grammar-api-N5-56",
-      "struttura": "の中で[A]が一番",
+      "struttura": "〜の中で〜が一番〜",
       "spiegazione": {
         "it": "out of this group, [A] is best",
         "en": "out of this group, [A] is best"
@@ -72767,7 +72589,7 @@
         "一",
         "中"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783666652072
     },
     {
       "id": "grammar-api-N5-75",
