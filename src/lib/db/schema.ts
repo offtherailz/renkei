@@ -13,6 +13,7 @@ import type {
   StudyObjective,
   StudySessionRecord,
   StudyTask,
+  UserCorrection,
   UserPersonalization,
   UserProfile,
   Word
@@ -34,6 +35,7 @@ export class JapaneseStudyDB extends Dexie {
   course_lessons!: Table<CourseLessonMeta, string>;
   dialogues!: Table<Dialogue, string>;
   study_sessions!: Table<StudySessionRecord, string>;
+  user_corrections!: Table<UserCorrection, string>;
 
   constructor() {
     super("japanese_study_pwa");
@@ -150,6 +152,10 @@ export class JapaneseStudyDB extends Dexie {
       course_lessons: "&id, corso_id, numero, objective_id, updated_at",
       dialogues: "&id, corso_id, livello_jlpt, *parole_linkate, *grammatica_linkata, updated_at",
       study_sessions: "&id, startedAt"
+    });
+
+    this.version(9).stores({
+      user_corrections: "&id, kind, updated_at"
     });
   }
 }

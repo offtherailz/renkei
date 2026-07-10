@@ -9,6 +9,7 @@
 	import { normalizeMastery } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { saveCorrection } from '$lib/db/corrections';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
@@ -40,6 +41,73 @@
 	let homophones = $state<Word[]>([]);
 	let kanjiUsed = $state<Kanji[]>([]);
 	let kanjiMissing = $state<string[]>([]);
+
+	// ── Correzione voce (parole e grammatica): patch in user_corrections ──
+	let fixOpen = $state(false);
+	let fixLettura = $state('');
+	let fixStruttura = $state('');
+	let fixGlosse = $state(''); // una per riga
+	let fixFrasi = $state(''); // "frase :: traduzione" per riga
+	let fixMotivo = $state('');
+	let fixStatus = $state<'idle' | 'saved'>('idle');
+	function openFix(): void {
+		fixOpen = !fixOpen;
+		fixStatus = 'idle';
+		if (!fixOpen) return;
+		if (word) {
+			fixLettura = word.lettura;
+			fixGlosse = (word.significato.it ?? []).join('\n');
+			fixFrasi = (word.frasi_esempio ?? [])
+				.map((ex) => `${ex.testo} :: ${ex.traduzione?.it ?? ''}`)
+				.join('\n');
+		} else if (grammar) {
+			fixStruttura = grammar.struttura;
+			fixGlosse = pickLocalizedText(grammar.spiegazione, locale);
+			fixFrasi = (grammar.frasi_esempio ?? [])
+				.map((ex) => `${ex.testo} :: ${pickLocalizedText(ex.traduzione, locale)}`)
+				.join('\n');
+		}
+	}
+	function parseFrasi(): { testo: string; traduzione: { it: string; en: string }; parole_linkate: string[] }[] {
+		return fixFrasi
+			.split('\n')
+			.map((l) => l.trim())
+			.filter(Boolean)
+			.map((l) => {
+				const [testo, trad = ''] = l.split('::').map((s) => s.trim());
+				return { testo: testo!, traduzione: { it: trad, en: trad }, parole_linkate: [] };
+			})
+			.filter((ex) => ex.testo);
+	}
+	async function saveFix(): Promise<void> {
+		if (word) {
+			const patch: Record<string, unknown> = {};
+			if (fixLettura.trim() && fixLettura.trim() !== word.lettura) patch.lettura = fixLettura.trim();
+			const glosse = fixGlosse.split('\n').map((s) => s.trim()).filter(Boolean);
+			if (glosse.length && glosse.join('|') !== (word.significato.it ?? []).join('|')) {
+				patch.significato = { it: glosse, en: word.significato.en };
+			}
+			const frasi = parseFrasi();
+			if (fixFrasi.trim()) patch.frasi_esempio = frasi;
+			if (Object.keys(patch).length === 0) return;
+			await saveCorrection('word', word.id, patch, fixMotivo.trim() || undefined);
+		} else if (grammar) {
+			const patch: Record<string, unknown> = {};
+			if (fixStruttura.trim() && fixStruttura.trim() !== grammar.struttura) patch.struttura = fixStruttura.trim();
+			if (fixGlosse.trim() && fixGlosse.trim() !== pickLocalizedText(grammar.spiegazione, locale)) {
+				patch.spiegazione = { it: fixGlosse.trim(), en: grammar.spiegazione.en };
+			}
+			if (fixFrasi.trim()) {
+				const frasi = parseFrasi();
+				patch.frasi_esempio = frasi;
+				patch.frasi_esempio_parole_linkate = [];
+			}
+			if (Object.keys(patch).length === 0) return;
+			await saveCorrection('grammar', grammar.id, patch, fixMotivo.trim() || undefined);
+		}
+		fixStatus = 'saved';
+		await loadItem(); // ricarica la voce corretta
+	}
 
 	// ── Note personali (persistite in user_personalization) ──
 	let noteText = $state('');
@@ -497,6 +565,43 @@
 		<p class="muted-text">Elemento non trovato: {itemId}</p>
 	{/if}
 
+	{#if word || grammar}
+	<article class="detail-card">
+		<p class="card-title">
+			✏️ Correggi questa voce
+			<button class="v-toggle" onclick={openFix}>{fixOpen ? 'chiudi' : 'apri'}</button>
+			{#if fixStatus === 'saved'}<span class="note-status">corretta ✓ (vale anche dopo gli aggiornamenti)</span>{/if}
+		</p>
+		{#if fixOpen}
+			<div class="fix-form">
+				{#if word}
+					<label class="fix-label">Lettura
+						<input class="fix-input" bind:value={fixLettura} />
+					</label>
+					<label class="fix-label">Significati (uno per riga)
+						<textarea class="fix-area" rows="3" bind:value={fixGlosse}></textarea>
+					</label>
+				{:else if grammar}
+					<label class="fix-label">Struttura
+						<input class="fix-input" bind:value={fixStruttura} />
+					</label>
+					<label class="fix-label">Spiegazione
+						<textarea class="fix-area" rows="3" bind:value={fixGlosse}></textarea>
+					</label>
+				{/if}
+				<label class="fix-label">Frasi d'esempio (una per riga: frase :: traduzione)
+					<textarea class="fix-area" rows="3" bind:value={fixFrasi}></textarea>
+				</label>
+				<label class="fix-label">Motivo (opzionale)
+					<input class="fix-input" bind:value={fixMotivo} placeholder="es. lettura sbagliata, esempio troppo difficile…" />
+				</label>
+				<button class="fix-save" onclick={saveFix}>💾 Salva correzione</button>
+				<p class="fix-hint">La correzione si applica subito e sopravvive agli aggiornamenti dell'app. Da Impostazioni puoi esportarla per farla entrare nell'app pubblicata.</p>
+			</div>
+		{/if}
+	</article>
+	{/if}
+
 	{#if word || kanji || grammar}
 	<article class="detail-card">
 		<p class="card-title">📝 Le mie note {#if noteStatus === 'saved'}<span class="note-status">salvate ✓</span>{:else if noteStatus === 'saving'}<span class="note-status">…</span>{/if}</p>
@@ -648,6 +753,14 @@
 	.uso-example { display: flex; align-items: baseline; gap: 6px; }
 	.uso-trans { margin: 0; font-size: 0.78rem; color: var(--muted); }
 	.note-status { font-size: 0.72rem; color: var(--success, #16a34a); font-weight: 600; margin-left: 6px; }
+	.v-toggle { margin-left: 6px; border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 2px 8px; font-size: 0.72rem; cursor: pointer; color: var(--muted); text-transform: none; letter-spacing: 0; }
+	.fix-form { display: grid; gap: 10px; }
+	.fix-label { display: grid; gap: 4px; font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+	.fix-input, .fix-area { border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); padding: 8px 10px; font: inherit; font-size: 0.92rem; }
+	.fix-area { resize: vertical; }
+	.fix-input:focus, .fix-area:focus { outline: none; border-color: var(--brand); }
+	.fix-save { justify-self: start; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
+	.fix-hint { margin: 0; font-size: 0.72rem; color: var(--muted); }
 	.note-area { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); padding: 10px 12px; font: inherit; font-size: 0.92rem; resize: vertical; }
 	.note-area:focus { outline: none; border-color: var(--brand); }
 

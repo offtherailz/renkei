@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { db } from '$lib/db/schema';
+	import { exportCorrections, countCorrections } from '$lib/db/corrections';
 	import { appState } from '$lib/stores.svelte';
 	import { DRILL_FORMS, DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
@@ -80,6 +82,23 @@
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = `renkei-bundle-${new Date().toISOString().slice(0, 10)}.json`;
+		a.click();
+		URL.revokeObjectURL(url);
+	}
+
+	// Correzioni utente → JSON nel formato degli override della pipeline:
+	// si copia in scripts/data/ (o si passa all'agente) e rientra nel seed.
+	let correctionsCount = $state(0);
+	onMount(async () => {
+		correctionsCount = await countCorrections();
+	});
+	async function exportUserCorrections(): Promise<void> {
+		const json = await exportCorrections();
+		const blob = new Blob([json], { type: 'application/json' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `renkei-correzioni-${new Date().toISOString().slice(0, 10)}.json`;
 		a.click();
 		URL.revokeObjectURL(url);
 	}
@@ -189,6 +208,10 @@
 	<p class="card-title">Dati</p>
 
 	<div class="data-actions">
+		<button class="btn-outline" onclick={exportUserCorrections} disabled={correctionsCount === 0}>
+			✏️ Esporta correzioni ({correctionsCount})
+		</button>
+		<p class="hint-text">Le correzioni fatte dalle schede (✏️ Correggi), nel formato degli override: si fondono nel repo e la prossima versione dell'app le include per tutti.</p>
 		<button class="btn-outline" onclick={exportBundle}>
 			📦 Esporta bundle completo
 		</button>

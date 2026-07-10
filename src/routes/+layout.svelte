@@ -7,6 +7,7 @@
 	import '../lib/app.css';
 	import { db } from '$lib/db/schema';
 	import { importDatabaseFromJson } from '$lib/db/import';
+	import { applyAllCorrections } from '$lib/db/corrections';
 	import {
 		ensureDefaultObjectives,
 		ensureDefaultSettings,
@@ -53,6 +54,8 @@
 			await importDatabaseFromJson(payload);
 		}
 		localStorage.setItem(SEED_LOADED_KEY, SEED_DATA_REVISION);
+		// le correzioni utente vincono sul seed appena importato
+		await applyAllCorrections();
 	}
 
 	async function setupServiceWorker(): Promise<void> {

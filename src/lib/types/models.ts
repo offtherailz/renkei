@@ -66,6 +66,16 @@ export interface Word extends BaseEntity {
   omofoni: string[];
 }
 
+// Correzione utente a una voce del catalogo: patch parziale che si applica
+// subito in locale e si riapplica dopo ogni re-import del seed. L'export usa
+// lo stesso formato di scripts/data/word-overrides.json / grammar-overrides.json.
+export interface UserCorrection extends BaseEntity {
+  id: string; // "word:<id>" | "grammar:<id>"
+  kind: "word" | "grammar";
+  patch: Record<string, unknown>;
+  motivo?: string;
+}
+
 export interface WordUso {
   tipi_jp: string[];
   significato: LocalizedText;
