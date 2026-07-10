@@ -65,7 +65,28 @@ describe('lookupToken', () => {
 	});
 
 	it('le sottostringhe kana interne non pescano parole a caso', () => {
-		// なんとなく contiene なか? no — usa ぶんなかろ: contiene なか ma non è 中
 		expect(lookupToken(map2, 'そのなかで')?.id).not.toBe('中');
+	});
+
+	const map3 = mapOf([
+		hit('速い', '速い', 'はやい', '形容詞[けいようし]'),
+		hit('高い', '高い', 'たかい', '形容詞[けいようし]'),
+		hit('走る', '走る', 'はしる', '動詞[どうし]'),
+		hit('食べる', '食べる', 'たべる', '動詞[どうし]')
+	]);
+
+	it('速く trova 速い (avverbiale); 高かった trova 高い', () => {
+		const r = lookupToken(map3, '速く');
+		expect(r?.id).toBe('速い');
+		expect(r?.forma).toContain('avverbiale');
+		expect(lookupToken(map3, '高かった')?.id).toBe('高い');
+		expect(lookupToken(map3, '高くない')?.id).toBe('高い');
+	});
+
+	it('走れる trova 走る (potenziale); 食べられる trova 食べる', () => {
+		const r = lookupToken(map3, '走れる');
+		expect(r?.id).toBe('走る');
+		expect(r?.forma).toContain('potenziale');
+		expect(lookupToken(map3, '食べられる')?.id).toBe('食べる');
 	});
 });

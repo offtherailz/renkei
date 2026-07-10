@@ -78,10 +78,38 @@ function fromNaiStem(stem: string): string[] {
 	return out;
 }
 
+// Riga え → う per il potenziale godan: 走れ→走る, 書け→書く, 飲め→飲む.
+const GODAN_POT_BACK: Record<string, string> = {
+	え: 'う', け: 'く', げ: 'ぐ', せ: 'す', て: 'つ', ね: 'ぬ', べ: 'ぶ', め: 'む', れ: 'る'
+};
+
 // Desinenze cortesi/te/ta → candidati alla forma del dizionario, con
-// l'etichetta della forma (così il popup può spiegarla).
-function deconjugate(t: string): { candidates: string[]; forma: string }[] {
-	const out: { candidates: string[]; forma: string }[] = [];
+// l'etichetta della forma (così il popup può spiegarla). adj=true: il
+// candidato è un aggettivo (accettato anche se non è un verbo).
+function deconjugate(t: string): { candidates: string[]; forma: string; adj?: boolean }[] {
+	const out: { candidates: string[]; forma: string; adj?: boolean }[] = [];
+	// aggettivi in い: 速く→速い, 高かった→高い, 寒くない→寒い, 安くて→安い
+	const adjForms: [string, string][] = [
+		['くなかった', 'negativa passata (〜くなかった)'],
+		['くない', 'negativa (〜くない)'],
+		['かった', 'passato (〜かった)'],
+		['くて', 'forma in て (〜くて)'],
+		['く', 'avverbiale (〜く)']
+	];
+	for (const [suffix, forma] of adjForms) {
+		if (!t.endsWith(suffix) || t.length <= suffix.length) continue;
+		out.push({ candidates: [t.slice(0, -suffix.length) + 'い'], forma, adj: true });
+	}
+	// potenziale: 走れる→走る (godan), 食べられる→食べる (ichidan)
+	if (t.endsWith('られる') && t.length > 3) {
+		out.push({ candidates: [t.slice(0, -3) + 'る'], forma: 'potenziale/passiva (〜られる)' });
+	}
+	if (t.endsWith('る') && t.length >= 3) {
+		const pre = t[t.length - 2]!;
+		if (GODAN_POT_BACK[pre]) {
+			out.push({ candidates: [t.slice(0, -2) + GODAN_POT_BACK[pre]], forma: 'potenziale (〜' + pre + 'る)' });
+		}
+	}
 	const masuForms: [string, string][] = [
 		['ましょうか', 'proposta cortese (〜ましょうか)'],
 		['ましょう', 'volitiva cortese (〜ましょう)'],
@@ -159,11 +187,13 @@ export function lookupToken(map: Map<string, WordHit>, token: string): WordHit |
 	// forme coniugate: prova i candidati al dizionario prima dei prefissi,
 	// così しましょう trova する (non 島) e 踊らなかったの trova 踊る (non 中).
 	for (const f of forms) {
-		for (const { candidates, forma } of deconjugate(f)) {
+		for (const { candidates, forma, adj } of deconjugate(f)) {
 			for (const c of candidates) {
 				const hit = map.get(c);
-				if (hit && hit.tipo_jp.startsWith('動詞')) return { ...hit, forma };
-				if (hit && c.endsWith('する')) return { ...hit, forma };
+				if (!hit) continue;
+				if (adj && hit.tipo_jp.startsWith('形容詞')) return { ...hit, forma };
+				if (hit.tipo_jp.startsWith('動詞')) return { ...hit, forma };
+				if (c.endsWith('する')) return { ...hit, forma };
 			}
 		}
 	}
