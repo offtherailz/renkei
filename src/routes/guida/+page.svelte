@@ -33,12 +33,12 @@
 		<p><strong>👂 聴解 Ascolto trappola</strong> — dialoghi stile JLPT solo audio: cambiano idea, tornano all'originale… tu non cascarci.</p>
 		<p><strong>⚡ Lettura veloce</strong> — il testo scorre da solo (RSVP), poi domande a tempo con trabocchetti; la velocità si adatta a te. <strong>🔎 Skimming</strong> — domanda prima, trova l'informazione in fretta. <strong>🧩 Riordina la frase</strong> — sintassi a tocchi.</p>
 		<p><strong>🗺️ Avventure</strong> — Kaimono (spesa + telefonata), Ristorante, Treno: ascolti, agisci, parli davvero col microfono 🎤. Il copione 📜 è cliccabile; gli errori finiscono nel tuo consolidamento.</p>
-		<p><strong>🆘 Frasi utili</strong> — le frasi di sopravvivenza per situazione, con il come/quando usarle e la pratica a voce.</p>
 	</section>
 
 	<section class="g-card">
 		<h2>📖 Cataloghi</h2>
 		<p><strong>Vocabolario</strong> — tutte le parole, ricerca + filtri per livello e categoria, scorrimento infinito. <strong>Forme grammaticali</strong>, <strong>forme composte</strong>, <strong>particelle</strong>, <strong>contatori</strong> — ogni voce ha la sua scheda con drill dedicato.</p>
+		<p><strong>🆘 Frasi utili</strong> — il catalogo delle frasi di sopravvivenza per situazione, con il come/quando usarle e la pratica a voce.</p>
 		<p>Nelle schede trovi anche: <strong>Usi</strong> (parole con più ruoli), <strong>📝 note personali</strong>, e <strong>✏️ Correggi</strong> se un dato è sbagliato.</p>
 	</section>
 
