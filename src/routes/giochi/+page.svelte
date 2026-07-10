@@ -518,6 +518,11 @@
 				<span class="cat-hint">senti cosa prendere e riempi il carrello</span>
 				<span class="cat-best">🏆 record: {getHighscore('shopping-list')}</span>
 			</button>
+			<a class="cat-card" href="{base}/choukai">
+				<span class="cat-icon">👂</span>
+				<span class="cat-label">聴解 — Ascolto trappola</span>
+				<span class="cat-hint">dialoghi stile JLPT: cambiano idea, tu non cascarci</span>
+			</a>
 		</div>
 
 		<p class="group-title">Conversazione</p>
