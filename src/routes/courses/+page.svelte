@@ -76,10 +76,45 @@
 		await loadCourses();
 	}
 
+	// Corso consigliato incluso nell'app: Genki I mappato sul catalogo N5.
+	let genkiImporting = $state(false);
+	async function importGenki(): Promise<void> {
+		genkiImporting = true;
+		importError = '';
+		importSuccess = '';
+		try {
+			const resp = await fetch(`${base}/corso-genki-1.json`);
+			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+			const result = await importCourseDataset(await resp.text());
+			importSuccess = `✅ Genki I importato! ${result.lezioniFinalizzate} lezioni.`;
+			await loadCourses();
+		} catch (e) {
+			importError = `Errore: ${String(e)}`;
+		} finally {
+			genkiImporting = false;
+		}
+	}
+
 	onMount(loadCourses);
 </script>
 
 <h1 class="page-title">Corsi</h1>
+
+{#if !loading && !courses.some((c) => c.id === 'genki-1')}
+<section class="section-card recommended">
+	<p class="card-title">⭐ Corso consigliato</p>
+	<div class="rec-row">
+		<div class="rec-body">
+			<strong>Genki I (ordine del libro)</strong>
+			<p class="course-meta">La grammatica N5 nell'ordine delle 12 lezioni di Genki I, con le parole delle frasi d'esempio. Un tocco e hai il percorso.</p>
+		</div>
+		<button class="btn-primary" disabled={genkiImporting} onclick={importGenki}>
+			{genkiImporting ? 'Importo…' : '⬇️ Importa'}
+		</button>
+	</div>
+	{#if importError}<p class="error-text">{importError}</p>{/if}
+</section>
+{/if}
 
 <!-- Import section -->
 <section class="section-card">
@@ -193,6 +228,10 @@
 		display: grid;
 		gap: 12px;
 	}
+
+	.section-card.recommended { border: 1.5px solid var(--brand); }
+	.rec-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+	.rec-body { flex: 1; min-width: 200px; display: grid; gap: 4px; }
 
 	.card-title {
 		font-size: 0.78rem;
