@@ -349,9 +349,16 @@
 	}
 
 	// Timer per singola domanda (max_answer_time_ms): allo scadere conta timeout.
+	// Le domande di composizione richiedono più tempo di una scelta multipla.
+	function answerTimeMultiplier(): number {
+		const mode = quiz?.question.mode;
+		if (mode === 'sentence-ordering') return 3;
+		if (mode === 'cloze' || mode === 'reading-choice') return 1.5;
+		return 1;
+	}
 	function startAnswerTimer(): void {
 		stopAnswerTimer();
-		const maxMs = appState.settings.max_answer_time_ms;
+		const maxMs = appState.settings.max_answer_time_ms * answerTimeMultiplier();
 		if (!maxMs || maxMs <= 0) { answerRemainingS = 0; return; }
 		const startedAt = Date.now();
 		answerRemainingS = maxMs / 1000;
