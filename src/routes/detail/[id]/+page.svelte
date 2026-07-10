@@ -298,6 +298,31 @@
 		</article>
 		{/if}
 
+		{#if word.usi && word.usi.length > 0}
+		<article class="detail-card">
+			<p class="card-title">Usi — la stessa parola, più ruoli</p>
+			<div class="usi-list">
+				{#each word.usi as uso, i (i)}
+					<div class="uso-row">
+						<div class="uso-badges">
+							{#each uso.tipi_jp as t (t)}
+								<JpBadge label={t} variant="jp-badge-pos" />
+							{/each}
+						</div>
+						<p class="uso-gloss">{pickLocalizedText(uso.significato, locale)}</p>
+						{#if uso.esempio}
+							<div class="uso-example">
+								<InteractiveSentence text={uso.esempio.testo} />
+								<button class="tts-mini" onclick={() => speakSentenceJapanese(stripFuriganaNotation(uso.esempio!.testo))} title="Ascolta">🔊</button>
+							</div>
+							<p class="uso-trans">{pickLocalizedText(uso.esempio.traduzione, locale)}</p>
+						{/if}
+					</div>
+				{/each}
+			</div>
+		</article>
+		{/if}
+
 		{#if kanjiUsed.length > 0 || kanjiMissing.length > 0}
 		<article class="detail-card">
 			<p class="card-title">Kanji usati</p>
@@ -616,6 +641,12 @@
 
 	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
 	.kanji-chip.out { opacity: 0.75; border-style: dashed; }
+	.usi-list { display: grid; gap: 10px; }
+	.uso-row { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2); display: grid; gap: 6px; }
+	.uso-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+	.uso-gloss { margin: 0; font-size: 0.85rem; color: var(--ink); }
+	.uso-example { display: flex; align-items: baseline; gap: 6px; }
+	.uso-trans { margin: 0; font-size: 0.78rem; color: var(--muted); }
 	.note-status { font-size: 0.72rem; color: var(--success, #16a34a); font-weight: 600; margin-left: 6px; }
 	.note-area { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); padding: 10px 12px; font: inherit; font-size: 0.92rem; resize: vertical; }
 	.note-area:focus { outline: none; border-color: var(--brand); }

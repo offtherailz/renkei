@@ -58,9 +58,18 @@ export interface Word extends BaseEntity {
   id_nome_origine?: string;
   tipo_aggettivo_jp?: AdjectiveTypeJP;
   frasi_esempio?: WordExample[];
+  // Parole multi-uso (たくさん & co.): un elemento per senso JMdict, con le
+  // categorie di quel senso, le glosse e un'eventuale frase d'esempio propria.
+  usi?: WordUso[];
   sinonimi: string[];
   contrari: string[];
   omofoni: string[];
+}
+
+export interface WordUso {
+  tipi_jp: string[];
+  significato: LocalizedText;
+  esempio?: WordExample;
 }
 
 export interface WordExample {

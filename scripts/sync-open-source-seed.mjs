@@ -3,6 +3,7 @@ import path from "node:path";
 import {
   buildJmdictIndex,
   deriveJmdictMetadata,
+  deriveJmdictUsi,
   ensureJmdictData,
   extractJmdictExamples,
   extractXrefs,
@@ -766,9 +767,11 @@ function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji) {
         allowedKanji ? new Set([...allowedKanji, ...(word.kanji_usati ?? [])]) : null
       );
       const xrefs = extractXrefs(entry);
+      const usi = deriveJmdictUsi(entry);
       next = {
         ...word,
         ...metadata,
+        ...(usi.length > 0 ? { usi } : {}),
         _xrefAnt: xrefs.antonyms,
         _xrefRel: xrefs.related,
         frasi_esempio: examples.length

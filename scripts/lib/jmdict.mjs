@@ -94,6 +94,81 @@ function collectPos(entry) {
   return new Set((entry.sense ?? []).flatMap((s) => s.partOfSpeech ?? []));
 }
 
+// Etichetta d'uso (più fine di tipo_jp) per un singolo tag POS di un senso.
+const USO_LABELS = new Map([
+  ["adj-i", "い形容詞[いけいようし]"],
+  ["adj-ix", "い形容詞[いけいようし]"],
+  ["adj-na", "な形容詞[なけいようし]"],
+  ["adj-no", "の形容詞[のけいようし]"],
+  ["adj-pn", "連体詞[れんたいし]"],
+  ["adv", "副詞[ふくし]"],
+  ["adv-to", "副詞[ふくし]"],
+  ["n", "名詞[めいし]"],
+  ["n-adv", "名詞[めいし]"],
+  ["n-t", "名詞[めいし]"],
+  ["pn", "名詞[めいし]"],
+  ["n-suf", "接尾語[せつびご]"],
+  ["n-pref", "接頭語[せっとうご]"],
+  ["pref", "接頭語[せっとうご]"],
+  ["ctr", "助数詞[じょすうし]"],
+  ["num", "数詞[すうし]"],
+  ["conj", "接続詞[せつぞくし]"],
+  ["prt", "助詞[じょし]"],
+  ["exp", "慣用表現[かんようひょうげん]"],
+  ["int", "感動詞[かんどうし]"],
+  ["aux-v", "助動詞[じょどうし]"],
+  ["aux", "助動詞[じょどうし]"],
+  ["aux-adj", "助動詞[じょどうし]"]
+]);
+
+function usoLabel(p) {
+  if (p.startsWith("v5") || p === "v1" || p === "v1-s" || p === "vk" || p === "vs-i" || p === "vs-s") {
+    return "動詞[どうし]";
+  }
+  return USO_LABELS.get(p) ?? null; // "vs" & co.: coperti dalle schede -する
+}
+
+// tipo_jp primario da un tag POS (categorie del seed, più grosse degli usi):
+// の-adjective e nomi temporali restano 名詞.
+function primaryLabel(p) {
+  const uso = usoLabel(p);
+  if (!uso) return null;
+  if (uso === "の形容詞[のけいようし]" || uso === "接尾語[せつびご]" || uso === "接頭語[せっとうご]") {
+    return "名詞[めいし]";
+  }
+  if (uso === "い形容詞[いけいようし]" || uso === "な形容詞[なけいようし]") {
+    return "形容詞[けいようし]";
+  }
+  return uso;
+}
+
+// Parole multi-uso: un elemento per senso JMdict (categorie del senso, glosse,
+// eventuale esempio proprio). Ritorna [] se la parola non è multi-uso.
+export function deriveJmdictUsi(entry) {
+  const usi = [];
+  for (const sense of entry.sense ?? []) {
+    const tipi = [...new Set((sense.partOfSpeech ?? []).map(usoLabel).filter(Boolean))];
+    if (tipi.length === 0) continue;
+    const glosses = (sense.gloss ?? [])
+      .map((g) => (typeof g === "string" ? g : g?.text))
+      .filter(Boolean)
+      .slice(0, 3)
+      .join("; ");
+    if (!glosses) continue;
+    const uso = { tipi_jp: tipi, significato: { it: glosses, en: glosses } };
+    const ex = (sense.examples ?? [])
+      .map((e) => ({
+        jp: e.sentences?.find((s) => s.lang === "jpn")?.text,
+        en: e.sentences?.find((s) => s.lang === "eng")?.text
+      }))
+      .find((e) => e.jp && e.en && e.jp.length <= 34);
+    if (ex) uso.esempio = { testo: ex.jp, traduzione: { it: ex.en, en: ex.en } };
+    usi.push(uso);
+  }
+  const distinct = new Set(usi.flatMap((u) => u.tipi_jp));
+  return distinct.size > 1 ? usi : [];
+}
+
 // Deriva i campi del seed dai tag POS di JMdict. Un tag "vs" da solo
 // (nome che accetta する) resta sostantivo: il verbo è la forma in -する.
 export function deriveJmdictMetadata(entry) {
@@ -147,6 +222,29 @@ export function deriveJmdictMetadata(entry) {
     result.tipo_jp = "慣用表現[かんようひょうげん]";
   } else if (pos.has("n") || pos.has("n-adv") || pos.has("n-t") || pos.has("pn")) {
     result.tipo_jp = "名詞[めいし]";
+  }
+
+  // Parole multi-uso (non verbi): il primario segue il PRIMO POS del PRIMO
+  // senso (l'ordine JMdict riflette l'importanza) — たくさん [adj-no,adj-na,
+  // n,adv] diventa 名詞, non な形容詞. Vedi ARCHITECTURE §"parole multi-uso".
+  if (!isVerb) {
+    const cats = new Set([...pos].map(primaryLabel).filter(Boolean));
+    if (cats.size > 1) {
+      outer: for (const sense of entry.sense ?? []) {
+        for (const p of sense.partOfSpeech ?? []) {
+          const lab = primaryLabel(p);
+          if (!lab) continue;
+          result.tipo_jp = lab;
+          if (lab === "形容詞[けいようし]") {
+            result.tipo_aggettivo_jp =
+              usoLabel(p) === "い形容詞[いけいようし]" ? "い形容詞[いけいようし]" : "な形容詞[なけいようし]";
+          } else {
+            delete result.tipo_aggettivo_jp;
+          }
+          break outer;
+        }
+      }
+    }
   }
 
   return result;
