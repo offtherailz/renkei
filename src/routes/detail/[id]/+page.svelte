@@ -40,6 +40,26 @@
 	let homophones = $state<Word[]>([]);
 	let kanjiUsed = $state<Kanji[]>([]);
 	let kanjiMissing = $state<string[]>([]);
+
+	// ── Note personali (persistite in user_personalization) ──
+	let noteText = $state('');
+	let noteStatus = $state<'idle' | 'saving' | 'saved'>('idle');
+	let noteTimer: ReturnType<typeof setTimeout> | null = null;
+	function onNoteInput(): void {
+		noteStatus = 'saving';
+		if (noteTimer) clearTimeout(noteTimer);
+		noteTimer = setTimeout(() => void saveNote(), 600);
+	}
+	async function saveNote(): Promise<void> {
+		const existing = await db.user_personalization.get(itemId);
+		await db.user_personalization.put({
+			id_item: itemId,
+			note_personali: noteText,
+			id_gruppi_personalizzati: existing?.id_gruppi_personalizzati ?? [],
+			updated_at: Date.now()
+		});
+		noteStatus = 'saved';
+	}
 	let grammarUsing = $state<Grammar[]>([]);
 	let wordsUsingKanji = $state<Word[]>([]);
 	let verbPair = $state<Word | null>(null);
@@ -60,6 +80,15 @@
 
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
+
+		// note personali della carta (user_personalization, chiave = itemId completo)
+		noteText = '';
+		noteStatus = 'idle';
+		try {
+			noteText = (await db.user_personalization.get(itemId))?.note_personali ?? '';
+		} catch {
+			/* niente note */
+		}
 
 		try {
 			if (currentKind === 'word') {
@@ -442,6 +471,19 @@
 	{:else}
 		<p class="muted-text">Elemento non trovato: {itemId}</p>
 	{/if}
+
+	{#if word || kanji || grammar}
+	<article class="detail-card">
+		<p class="card-title">📝 Le mie note {#if noteStatus === 'saved'}<span class="note-status">salvate ✓</span>{:else if noteStatus === 'saving'}<span class="note-status">…</span>{/if}</p>
+		<textarea
+			class="note-area"
+			rows="3"
+			placeholder="Mnemonici, trucchi, esempi tuoi… restano su questo dispositivo."
+			bind:value={noteText}
+			oninput={onNoteInput}
+		></textarea>
+	</article>
+	{/if}
 </div>
 
 <style>
@@ -574,6 +616,9 @@
 
 	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
 	.kanji-chip.out { opacity: 0.75; border-style: dashed; }
+	.note-status { font-size: 0.72rem; color: var(--success, #16a34a); font-weight: 600; margin-left: 6px; }
+	.note-area { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); padding: 10px 12px; font: inherit; font-size: 0.92rem; resize: vertical; }
+	.note-area:focus { outline: none; border-color: var(--brand); }
 
 	.composed-hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 8px; }
 
