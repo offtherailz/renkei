@@ -123,8 +123,8 @@
 		font-size: 0.8rem;
 		padding: 8px 10px;
 		border-radius: 8px;
-		background: #fffbeb;
-		border: 1px solid #fbbf24;
-		color: #92400e;
+		background: var(--warn-bg);
+		border: 1px solid var(--warn-border);
+		color: var(--warn-ink);
 	}
 </style>

@@ -156,7 +156,7 @@
 	}
 
 	.kana-icon-i {
-		background: radial-gradient(circle at 30% 30%, #fb7185, #dc2626);
+		background: radial-gradient(circle at 30% 30%, #fb7185, var(--danger));
 	}
 
 	.kana-icon-na {

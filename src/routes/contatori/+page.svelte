@@ -153,9 +153,9 @@
 		font-size: 0.8rem;
 		padding: 8px 10px;
 		border-radius: 8px;
-		background: #fffbeb;
-		border: 1px solid #fbbf24;
-		color: #92400e;
+		background: var(--warn-bg);
+		border: 1px solid var(--warn-border);
+		color: var(--warn-ink);
 	}
 
 	.counter-irregular .ja { font-size: 0.95rem; }
@@ -184,8 +184,8 @@
 	.drill-link {
 		justify-self: start;
 		display: inline-block;
-		background: #eff6ff;
-		border: 1px solid #bfdbfe;
+		background: var(--info-bg);
+		border: 1px solid var(--info-border);
 		border-radius: 10px;
 		padding: 6px 12px;
 		font-size: 0.8rem;
@@ -194,7 +194,7 @@
 		text-decoration: none;
 	}
 
-	.drill-link:hover { background: #dbeafe; }
+	.drill-link:hover { background: var(--info-border); }
 
 	.muted-text { color: var(--muted); }
 </style>

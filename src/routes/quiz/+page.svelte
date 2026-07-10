@@ -1361,8 +1361,8 @@
 		font-weight: 700;
 		padding: 3px 8px;
 		border-radius: 8px;
-		background: #dcfce7;
-		color: #166534;
+		background: var(--ok-bg);
+		color: var(--ok-ink);
 	}
 
 	.stat-chip.bad { background: #fee2e2; color: #991b1b; }
@@ -1474,9 +1474,9 @@
 		.key-hint { display: none; }
 	}
 	.choice-btn:disabled { cursor: default; }
-	.choice-btn.good { border-color: var(--success); background: #dcfce7; color: #166534; }
+	.choice-btn.good { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); }
 	.choice-btn.bad { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
-	.choice-btn.correct-choice { border-color: var(--success); background: #dcfce7; color: #166534; }
+	.choice-btn.correct-choice { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); }
 	.choice-btn.wrong-choice { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
 
 	.solution {
@@ -1618,7 +1618,7 @@
 		text-align: center;
 	}
 
-	.feedback-correct { background: #dcfce7; color: #166534; }
+	.feedback-correct { background: var(--ok-bg); color: var(--ok-ink); }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
 
 	.after-actions {

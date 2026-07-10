@@ -338,9 +338,9 @@
 	}
 
 	.due-banner {
-		background: #fffbeb;
-		border: 1px solid #fbbf24;
-		color: #92400e;
+		background: var(--warn-bg);
+		border: 1px solid var(--warn-border);
+		color: var(--warn-ink);
 		border-radius: 12px;
 		padding: 10px 16px;
 		display: flex;
@@ -404,16 +404,16 @@
 		padding: 2px 8px;
 		border-radius: 8px;
 		white-space: nowrap;
-		background: #f1f5f9;
-		color: #475569;
+		background: var(--surface-2);
+		color: var(--muted);
 		border: 1px solid transparent;
 		cursor: pointer;
 	}
 	.obj-status:hover { border-color: var(--brand); }
 
 	.obj-status.enabled {
-		background: #dcfce7;
-		color: #166534;
+		background: var(--ok-bg);
+		color: var(--ok-ink);
 	}
 
 	.obj-meta {

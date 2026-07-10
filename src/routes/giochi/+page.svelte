@@ -845,7 +845,7 @@
 
 	.timer-track { height: 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
 	.timer-fill { height: 100%; background: var(--brand); transition: width 100ms linear; }
-	.timer-fill.low { background: var(--danger, #dc2626); }
+	.timer-fill.low { background: var(--danger); }
 
 	.game-head { display: flex; align-items: center; justify-content: space-between; }
 	.quit { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; cursor: pointer; color: var(--muted); }
@@ -870,7 +870,7 @@
 
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
-	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.num-input { justify-self: center; width: 60%; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); }
@@ -880,7 +880,7 @@
 	.till-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
 	.till-amount { font-size: 2.2rem; font-weight: 800; }
 	.denoms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-	.denom { padding: 12px 6px; border-radius: 10px; border: 1.5px solid #c6a15b; background: #fdf3d8; color: #6b4e12; font-weight: 700; font-size: 1rem; cursor: pointer; }
+	.denom { padding: 12px 6px; border-radius: 10px; border: 1.5px solid var(--gold-border); background: var(--gold-bg); color: var(--gold-ink); font-weight: 700; font-size: 1rem; cursor: pointer; }
 	.denom.coin { border-color: var(--line); background: var(--surface-2); color: var(--ink); }
 	.denom:hover:not(:disabled) { filter: brightness(0.96); }
 	.denom:disabled { opacity: 0.5; cursor: default; }
@@ -896,8 +896,8 @@
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
-	.shop-list li.done { border-color: var(--success, #16a34a); background: rgba(52,201,138,0.12); }
-	.shop-list li.over { border-color: var(--danger, #dc2626); background: rgba(239,107,107,0.12); }
+	.shop-list li.done { border-color: var(--success); background: rgba(52,201,138,0.12); }
+	.shop-list li.over { border-color: var(--danger); background: rgba(239,107,107,0.12); }
 	.shop-list li.manca { border-color: #d97706; background: rgba(217,119,6,0.12); }
 	.li-emoji { font-size: 1.4rem; }
 	.li-name { font-size: 0.95rem; font-weight: 600; }
@@ -908,7 +908,7 @@
 	.shelf { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 	.product { position: relative; aspect-ratio: 1; display: grid; place-items: center; border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface-2); cursor: pointer; }
 	.product:hover:not(:disabled) { border-color: var(--brand); }
-	.product.in-cart { border-color: var(--brand); background: #eff6ff; }
+	.product.in-cart { border-color: var(--brand); background: var(--info-bg); }
 	.product:disabled { cursor: default; }
 	.prod-emoji { font-size: 2rem; }
 	.prod-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; display: grid; place-items: center; border-radius: 999px; background: var(--brand); color: #fff; font-size: 0.75rem; font-weight: 700; }
@@ -919,8 +919,8 @@
 	.you { margin: 0; text-align: center; font-size: 1rem; font-weight: 600; color: var(--brand); }
 
 	.verdict { margin: 0; text-align: center; font-size: 0.95rem; font-weight: 600; }
-	.verdict.ok { color: var(--success, #16a34a); }
-	.verdict.ko { color: var(--danger, #dc2626); }
+	.verdict.ok { color: var(--success); }
+	.verdict.ko { color: var(--danger); }
 	.proceed { justify-self: center; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 	.proceed:disabled { opacity: 0.5; cursor: default; }
 

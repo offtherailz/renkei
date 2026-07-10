@@ -17,7 +17,7 @@
 	};
 
 	// Characters get consistent colors
-	const CHAR_PALETTE = ['#4f46e5', '#dc2626', '#059669', '#d97706', '#7c3aed', '#0891b2'];
+	const CHAR_PALETTE = ['#4f46e5', 'var(--danger)', '#059669', '#d97706', '#7c3aed', '#0891b2'];
 	const charColors = new Map<string, string>();
 	let paletteIdx = 0;
 	function colorFor(personaggio: string): string {

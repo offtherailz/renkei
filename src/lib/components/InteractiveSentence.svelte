@@ -123,7 +123,7 @@
 		vertical-align: middle;
 	}
 	.pop-reading { color: var(--brand); font-weight: 700; }
-	.pop-form { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
+	.pop-form { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.pop-gloss { color: var(--muted); }
 	.pop-actions { display: inline-flex; gap: 8px; }
 	.pop-actions a { color: var(--brand); text-decoration: none; font-weight: 600; }

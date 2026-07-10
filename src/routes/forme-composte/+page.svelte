@@ -260,8 +260,8 @@
 	.drill-link {
 		justify-self: start;
 		display: inline-block;
-		background: #eff6ff;
-		border: 1px solid #bfdbfe;
+		background: var(--info-bg);
+		border: 1px solid var(--info-border);
 		border-radius: 10px;
 		padding: 6px 12px;
 		font-size: 0.8rem;

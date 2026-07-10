@@ -177,7 +177,7 @@
 	.task-tts { border: none; background: none; cursor: pointer; font-size: 0.9rem; }
 	.triggers { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 	.trig-label { font-size: 0.72rem; color: var(--muted); }
-	.trigger { font-size: 0.85rem; padding: 1px 8px; border-radius: 6px; background: #fffbeb; border: 1px solid #fbbf24; color: #92400e; }
+	.trigger { font-size: 0.85rem; padding: 1px 8px; border-radius: 6px; background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-ink); }
 
 	.listen-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 

@@ -224,7 +224,7 @@
 	.bubble.sm { font-size: 0.95rem; }
 
 	.answer { min-height: 3em; display: grid; place-items: center; text-align: center; font-size: 1.3rem; font-weight: 700; background: var(--surface-2); border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; line-height: 1.8; overflow-wrap: anywhere; }
-	.answer.right { border-color: var(--success, #16a34a); border-style: solid; background: rgba(52,201,138,0.16); }
+	.answer.right { border-color: var(--success); border-style: solid; background: rgba(52,201,138,0.16); }
 	.placeholder { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
 
 	.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }

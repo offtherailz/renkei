@@ -392,8 +392,8 @@
 	.lesson-num { font-size: 0.9rem; color: var(--muted); min-width: 20px; }
 	.lesson-info { display: grid; gap: 4px; flex: 1; }
 	.lesson-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-	.lesson-toggle { font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 8px; white-space: nowrap; background: #f1f5f9; color: #475569; border: 1px solid transparent; cursor: pointer; }
-	.lesson-toggle.enabled { background: #dcfce7; color: #166534; }
+	.lesson-toggle { font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 8px; white-space: nowrap; background: var(--surface-2); color: var(--muted); border: 1px solid transparent; cursor: pointer; }
+	.lesson-toggle.enabled { background: var(--ok-bg); color: var(--ok-ink); }
 	.lesson-toggle:hover { border-color: var(--brand); }
 	.focus-row { display: grid; gap: 6px; }
 	.lesson-stats { display: flex; gap: 6px; flex-wrap: wrap; }

@@ -752,7 +752,7 @@
 	.uso-gloss { margin: 0; font-size: 0.85rem; color: var(--ink); }
 	.uso-example { display: flex; align-items: baseline; gap: 6px; }
 	.uso-trans { margin: 0; font-size: 0.78rem; color: var(--muted); }
-	.note-status { font-size: 0.72rem; color: var(--success, #16a34a); font-weight: 600; margin-left: 6px; }
+	.note-status { font-size: 0.72rem; color: var(--success); font-weight: 600; margin-left: 6px; }
 	.v-toggle { margin-left: 6px; border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 2px 8px; font-size: 0.72rem; cursor: pointer; color: var(--muted); text-transform: none; letter-spacing: 0; }
 	.fix-form { display: grid; gap: 10px; }
 	.fix-label { display: grid; gap: 4px; font-size: 0.78rem; font-weight: 600; color: var(--muted); }

@@ -505,8 +505,8 @@
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.05rem; text-align: center; cursor: pointer; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
-	.choice.right { border-color: var(--success, #16a34a); background: rgba(52,201,138,0.16); }
-	.choice.wrong { border-color: var(--danger, #dc2626); background: rgba(239,107,107,0.16); }
+	.choice.right { border-color: var(--success); background: rgba(52,201,138,0.16); }
+	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 	.q-review { display: grid; gap: 6px; }
@@ -518,7 +518,7 @@
 	.script-title { margin: 0; font-size: 0.85rem; font-weight: 700; }
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
-	.mini.turbo { border-color: #f59e0b; color: #b45309; background: #fffbeb; font-weight: 700; }
+	.mini.turbo { border-color: #f59e0b; color: var(--warn-ink); background: var(--warn-bg); font-weight: 700; }
 	.v-btn.on { border-color: var(--brand); color: var(--brand); font-weight: 700; }
 	.furi-text { margin: 0; font-size: 1.1rem; line-height: 2.3; }
 	.spark-box { display: grid; gap: 4px; }

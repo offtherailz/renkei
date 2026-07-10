@@ -124,3 +124,19 @@ const SET_PHRASE_KANJI: Record<string, string[]> = {
 export function phraseVariants(phrase: string): string[] {
 	return [phrase, ...(SET_PHRASE_KANJI[phrase] ?? [])];
 }
+
+// Varianti di match per una frase intera detta a voce: la frase completa più
+// i suoi segmenti (spezzati su 、): chi parla fa pausa alla virgola e il
+// riconoscimento spesso si chiude lì — basta il segmento più sostanzioso.
+export function sentenceMatchVariants(...phrases: (string | undefined)[]): string[] {
+	const out = new Set<string>();
+	for (const p of phrases) {
+		if (!p) continue;
+		out.add(p);
+		for (const seg of p.split(/[、,]/)) {
+			const s = seg.trim();
+			if (normalizeSpeech(s).length >= 4) out.add(s);
+		}
+	}
+	return [...out];
+}

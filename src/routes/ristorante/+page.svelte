@@ -629,7 +629,7 @@
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
 	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
-	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
@@ -655,14 +655,14 @@
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.2rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
-	.choice.right { border-color: var(--success, #16a34a); background: rgba(52,201,138,0.16); }
-	.choice.wrong { border-color: var(--danger, #dc2626); background: rgba(239,107,107,0.16); }
+	.choice.right { border-color: var(--success); background: rgba(52,201,138,0.16); }
+	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 
 	.till { display: grid; gap: 2px; justify-items: center; }
 	.till-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
 	.till-amount { font-size: 2.2rem; font-weight: 800; }
 	.denoms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-	.denom { padding: 12px 6px; border-radius: 10px; border: 1.5px solid #c6a15b; background: #fdf3d8; color: #6b4e12; font-weight: 700; font-size: 1rem; cursor: pointer; }
+	.denom { padding: 12px 6px; border-radius: 10px; border: 1.5px solid var(--gold-border); background: var(--gold-bg); color: var(--gold-ink); font-weight: 700; font-size: 1rem; cursor: pointer; }
 	.denom.coin { border-color: var(--line); background: var(--surface-2); color: var(--ink); }
 	.denom:disabled { opacity: 0.5; cursor: default; }
 	.till-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }

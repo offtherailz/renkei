@@ -77,7 +77,7 @@
 	.export-btn:disabled { opacity: 0.5; cursor: default; }
 	.corr-list { display: grid; gap: 6px; }
 	.corr-row { display: flex; align-items: stretch; gap: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
-	.corr-row.stale { border-color: #fbbf24; }
+	.corr-row.stale { border-color: var(--warn-border); }
 	.corr-main { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 12px; text-decoration: none; color: var(--ink); font-size: 0.9rem; }
 	.corr-main:hover { background: rgba(107,160,242,0.1); }
 	.corr-kind { font-size: 1.05rem; }
@@ -85,7 +85,7 @@
 	.corr-fields { color: var(--brand); font-size: 0.75rem; }
 	.corr-date { color: var(--muted); font-size: 0.72rem; }
 	.corr-motivo { color: var(--muted); font-size: 0.75rem; }
-	.corr-stale { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
+	.corr-stale { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.corr-del { border: none; border-left: 1px solid var(--line); background: none; padding: 0 14px; cursor: pointer; font-size: 1rem; }
 	.corr-del:hover { background: rgba(239,107,107,0.12); }
 	.muted { color: var(--muted); font-size: 0.85rem; }

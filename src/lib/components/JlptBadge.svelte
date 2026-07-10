@@ -2,8 +2,8 @@
 	const { level }: { level: string } = $props();
 
 	const COLORS: Record<string, { bg: string; fg: string }> = {
-		N5: { bg: '#dcfce7', fg: '#166534' },
-		N4: { bg: '#dbeafe', fg: '#1e40af' },
+		N5: { bg: 'var(--ok-bg)', fg: 'var(--ok-ink)' },
+		N4: { bg: 'var(--info-border)', fg: '#1e40af' },
 		N3: { bg: '#fef9c3', fg: '#854d0e' },
 		N2: { bg: '#ffedd5', fg: '#9a3412' },
 		N1: { bg: '#fee2e2', fg: '#991b1b' }

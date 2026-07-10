@@ -36,9 +36,9 @@
 	const ACC_META = SKILL_META.filter((m) => m.key !== 'counters');
 
 	function masteryColor(p: number): string {
-		if (p >= 75) return 'var(--success, #16a34a)';
+		if (p >= 75) return 'var(--success)';
 		if (p >= 40) return '#d97706';
-		return '#dc2626';
+		return 'var(--danger)';
 	}
 
 	const weekTotals = $derived(() => {
@@ -287,7 +287,7 @@
 		gap: 12px;
 	}
 
-	.session-live { border: 1.5px solid #fbbf24; background: #fffbeb; }
+	.session-live { border: 1.5px solid var(--warn-border); background: var(--warn-bg); }
 
 	.card-title {
 		font-size: 0.78rem;
@@ -377,7 +377,7 @@
 	.skill-label { font-size: 0.85rem; font-weight: 600; }
 	.skill-meta { font-size: 0.68rem; color: var(--muted); }
 	.skill-due { color: var(--brand); font-weight: 600; }
-	.skill-acc { color: var(--success, #16a34a); font-weight: 700; }
+	.skill-acc { color: var(--success); font-weight: 700; }
 
 	.skill-bar-wrap {
 		height: 6px;

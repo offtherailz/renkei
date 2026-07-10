@@ -242,7 +242,7 @@
 
 	.kana-emoji-big { width: 1.5em; height: 1.5em; font-size: 1.4rem; }
 
-	.kana-emoji-i { background: radial-gradient(circle at 30% 30%, #fb7185, #dc2626); }
+	.kana-emoji-i { background: radial-gradient(circle at 30% 30%, #fb7185, var(--danger)); }
 
 	.kana-emoji-na { background: radial-gradient(circle at 30% 30%, #5eead4, #0d9488); }
 
@@ -300,7 +300,7 @@
 	.contraction-badge {
 		font-size: 0.68rem;
 		font-weight: 600;
-		color: #92400e;
+		color: var(--warn-ink);
 		background: #fef3c7;
 		border-radius: 999px;
 		padding: 1px 8px;
@@ -332,8 +332,8 @@
 	.drill-link {
 		display: inline-block;
 		margin-top: 4px;
-		background: #eff6ff;
-		border: 1px solid #bfdbfe;
+		background: var(--info-bg);
+		border: 1px solid var(--info-border);
 		border-radius: 10px;
 		padding: 6px 12px;
 	}

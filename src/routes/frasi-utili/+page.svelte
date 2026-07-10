@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { SITUATIONS, type Situation, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapanese } from '$lib/core/tts';
-	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
 
 	let current = $state<Situation | null>(null);
 	let canSpeak = $state(false);
@@ -38,7 +38,7 @@
 			return;
 		}
 		heard = { ...heard, [i]: alts[0]! };
-		if (speechMatches(alts, [[p.jp, p.yomi, ...(p.varianti ?? [])]])) {
+		if (speechMatches(alts, [sentenceMatchVariants(p.jp, p.yomi, ...(p.varianti ?? []))])) {
 			okSet = new Set([...okSet, i]);
 		}
 	}
@@ -111,11 +111,11 @@
 	.sit-title { font-weight: 700; font-size: 0.92rem; text-align: center; }
 	.sit-count { font-size: 0.72rem; color: var(--muted); }
 
-	.consigli { margin: 0; font-size: 0.85rem; color: var(--ink); background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 10px 12px; line-height: 1.55; }
+	.consigli { margin: 0; font-size: 0.85rem; color: var(--ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 12px; padding: 10px 12px; line-height: 1.55; }
 
 	.phrase-list { display: grid; gap: 10px; }
 	.phrase-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 4px; }
-	.phrase-card.done { border-color: var(--success, #16a34a); }
+	.phrase-card.done { border-color: var(--success); }
 	.p-jp { margin: 0; font-size: 1.2rem; font-weight: 700; }
 	.p-yomi { margin: 0; font-size: 0.8rem; color: var(--brand); }
 	.p-it { margin: 0; font-size: 0.9rem; }
@@ -126,7 +126,7 @@
 	.mini { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 0.82rem; cursor: pointer; }
 	.mini:hover { border-color: var(--brand); }
 	.mic { padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
-	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 </style>
