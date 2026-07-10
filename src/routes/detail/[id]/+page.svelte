@@ -39,6 +39,7 @@
 	let antonyms = $state<Word[]>([]);
 	let homophones = $state<Word[]>([]);
 	let kanjiUsed = $state<Kanji[]>([]);
+	let kanjiMissing = $state<string[]>([]);
 	let grammarUsing = $state<Grammar[]>([]);
 	let wordsUsingKanji = $state<Word[]>([]);
 	let verbPair = $state<Word | null>(null);
@@ -54,7 +55,7 @@
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null;
-		synonyms = []; antonyms = []; homophones = []; kanjiUsed = []; grammarUsing = []; wordsUsingKanji = [];
+		synonyms = []; antonyms = []; homophones = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 
 		const currentKind = itemId.split(':')[0];
@@ -78,6 +79,9 @@
 					antonyms = ant;
 					homophones = homo;
 					kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
+					// kanji citati dalla parola ma fuori dal catalogo N5/N4 (es. 交差点):
+					// si mostrano lo stesso, con link esterno.
+					kanjiMissing = word.kanji_usati.filter((c, i) => !kanjiItems[i]);
 					grammarUsing = grammarItems;
 					if (word.id_verbo_corrispondente) {
 						verbPair = (await db.words.get(word.id_verbo_corrispondente)) ?? null;
@@ -265,7 +269,7 @@
 		</article>
 		{/if}
 
-		{#if kanjiUsed.length > 0}
+		{#if kanjiUsed.length > 0 || kanjiMissing.length > 0}
 		<article class="detail-card">
 			<p class="card-title">Kanji usati</p>
 			<div class="chip-row">
@@ -273,6 +277,12 @@
 					<a href="{base}/detail/kanji:{k.id}" class="kanji-chip">
 						<span class="kanji-char">{k.id}</span>
 						<span class="kanji-meaning">{locale === 'it' ? k.significato.it : k.significato.en}</span>
+					</a>
+				{/each}
+				{#each kanjiMissing as c (c)}
+					<a href="https://jisho.org/search/{encodeURIComponent(c)}%20%23kanji" target="_blank" rel="noopener" class="kanji-chip out">
+						<span class="kanji-char">{c}</span>
+						<span class="kanji-meaning">fuori catalogo · Jisho ↗</span>
 					</a>
 				{/each}
 			</div>
@@ -563,6 +573,7 @@
 	}
 
 	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
+	.kanji-chip.out { opacity: 0.75; border-style: dashed; }
 
 	.composed-hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 8px; }
 
