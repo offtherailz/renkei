@@ -48,7 +48,16 @@ export interface ReadingRun {
 	text: ReadingText;
 	rendered: string;
 	picked: Record<string, string>;
-	questions: { q: string; choices: string[]; correct: number }[];
+	questions: { q: string; choices: string[]; correct: number; evidence?: string }[];
+}
+
+// La frase del testo che contiene la risposta (per mostrarla dopo un errore).
+// Confronto senza spazi: i testi N5 sono in わかち書き.
+function findEvidence(rendered: string, correctText: string): string | undefined {
+	const sentences = rendered.match(/[^。！？]+[。！？]?/g) ?? [rendered];
+	const norm = (s: string) => s.replace(/[\s　]/g, '');
+	const target = norm(correctText);
+	return sentences.find((s) => norm(s).includes(target));
 }
 
 const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
@@ -80,13 +89,14 @@ export function instantiate(text: ReadingText): ReadingRun {
 			const sameSlot = shuffle(slot.options.filter((o) => o !== correct && !crossTraps.includes(o)));
 			const others = [...new Set([...crossTraps, ...sameSlot])].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
-			return { q: q.q, choices, correct: choices.indexOf(correct) };
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidence: findEvidence(rendered, correct) };
 		}
 		const order = shuffle(q.choices.map((_, i) => i));
 		return {
 			q: q.q,
 			choices: order.map((i) => q.choices[i]!),
-			correct: order.indexOf(q.correct)
+			correct: order.indexOf(q.correct),
+			evidence: findEvidence(rendered, q.choices[q.correct]!)
 		};
 	});
 	return { text, rendered, picked, questions };

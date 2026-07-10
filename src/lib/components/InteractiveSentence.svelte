@@ -7,13 +7,44 @@
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 
-	// testo con eventuale notazione furigana base[lettura]
-	const { text }: { text: string } = $props();
+	// testo con eventuale notazione furigana base[lettura]; mark = sottostringhe
+	// del testo da evidenziare (es. la frase che conteneva la risposta)
+	const { text, mark = [] }: { text: string; mark?: string[] } = $props();
 
 	const plain = $derived(stripFuriganaNotation(text));
 	let tokens = $state<string[]>([]);
 	let hits = $state<(WordHit | null)[]>([]);
 	let open = $state<number | null>(null);
+
+	// intervalli [inizio, fine) delle sottostringhe da evidenziare
+	const ranges = $derived(
+		mark
+			.map((m) => {
+				const i = plain.indexOf(m);
+				return i >= 0 ? ([i, i + m.length] as const) : null;
+			})
+			.filter((r) => r !== null)
+	);
+	// offset dei token nel testo (BudouX scarta gli spazi: si riallinea cercando)
+	const offsets = $derived.by(() => {
+		const out: [number, number][] = [];
+		let cursor = 0;
+		for (const t of tokens) {
+			const i = plain.indexOf(t, cursor);
+			if (i < 0) {
+				out.push([cursor, cursor]);
+				continue;
+			}
+			out.push([i, i + t.length]);
+			cursor = i + t.length;
+		}
+		return out;
+	});
+	function marked(i: number): boolean {
+		const o = offsets[i];
+		if (!o) return false;
+		return ranges.some(([a, b]) => o[0] < b && o[1] > a);
+	}
 
 	onMount(async () => {
 		const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(detectUserLocale())]);
@@ -32,7 +63,7 @@
 	{:else}
 		{#each tokens as tok, i (i)}
 			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok)}
-				<button class="tok" class:known={hits[i]} onclick={() => toggle(i)}>{tok}</button>
+				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={() => toggle(i)}>{tok}</button>
 				{#if open === i}
 					<span class="tok-pop">
 						{#if hits[i]}
@@ -52,7 +83,7 @@
 					</span>
 				{/if}
 			{:else}
-				<span class="punct">{tok}</span>
+				<span class="punct" class:marked={marked(i)}>{tok}</span>
 			{/if}
 		{/each}
 	{/if}
@@ -70,6 +101,7 @@
 		border-bottom: 2px dotted var(--line);
 	}
 	.tok.known { border-bottom-color: var(--brand); }
+	.marked { background: rgba(245, 158, 11, 0.22); border-radius: 4px; }
 	.tok:hover { background: rgba(107, 160, 242, 0.14); border-radius: 4px; }
 	.punct { color: var(--ink); }
 

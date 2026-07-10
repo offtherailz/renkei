@@ -11,6 +11,7 @@
 	import { createDefaultTokenizer, type JapaneseTokenizer } from '$lib/core/tokenizer';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	const QUESTION_SECONDS = 20;
 	const DEFAULT_CPM: Record<JlptLevel, number> = { N5: 100, N4: 120 };
@@ -134,6 +135,8 @@
 	let qIdx = $state(0);
 	let qPicked = $state<number | null>(null);
 	let score = $state(0);
+	type QLog = { q: string; pickedText: string; correctText: string; ok: boolean; evidence?: string };
+	let qLog = $state<QLog[]>([]);
 	let timeLeft = $state(QUESTION_SECONDS);
 	let ticker: ReturnType<typeof setInterval> | null = null;
 
@@ -142,6 +145,7 @@
 		scene = 'quiz';
 		qIdx = 0;
 		score = 0;
+		qLog = [];
 		armQuestion();
 	}
 	function armQuestion(): void {
@@ -166,7 +170,19 @@
 		if (qPicked !== null || !run) return;
 		clearTicker();
 		qPicked = i;
-		if (i === run.questions[qIdx]!.correct) score += 1;
+		const q = run.questions[qIdx]!;
+		const ok = i === q.correct;
+		if (ok) score += 1;
+		qLog = [
+			...qLog,
+			{
+				q: q.q,
+				pickedText: i >= 0 ? q.choices[i]! : '⏰ tempo scaduto',
+				correctText: q.choices[q.correct]!,
+				ok,
+				evidence: q.evidence
+			}
+		];
 	}
 	function nextQuestion(): void {
 		if (!run) return;
@@ -310,9 +326,24 @@
 			{:else}
 				<p class="hint">⚡ Velocità invariata: {cpm} caratteri/min</p>
 			{/if}
+			<div class="q-review">
+				{#each qLog as l}
+					<div class="q-row" class:bad={!l.ok}>
+						<p class="q-row-q">{l.ok ? '✅' : '❌'} {l.q}</p>
+						{#if !l.ok}
+							<p class="q-row-a">Hai risposto: {l.pickedText} · Giusto: <strong>{l.correctText}</strong></p>
+						{/if}
+					</div>
+				{/each}
+			</div>
 			<div class="fulltext">
 				<p class="script-title">📄 Il testo completo <button class="v-btn" title="Ascolta il testo" onclick={() => speakSentenceJapanese(run!.rendered)}>🔊</button></p>
-				<p class="fulltext-body">{run.rendered}</p>
+				{#if qLog.some((l) => !l.ok && l.evidence)}
+					<p class="hint">Le frasi evidenziate contenevano le risposte che hai sbagliato. Tocca le parole per la scheda.</p>
+				{/if}
+				{#key run}
+					<InteractiveSentence text={run.rendered} mark={qLog.filter((l) => !l.ok && l.evidence).map((l) => l.evidence!)} />
+				{/key}
 			</div>
 			<div class="rsvp-actions">
 				<button class="proceed" onclick={() => again(false)}>🎲 Altro testo</button>
@@ -371,9 +402,13 @@
 	.choice.wrong { border-color: var(--danger, #dc2626); background: rgba(239,107,107,0.16); }
 
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
+	.q-review { display: grid; gap: 6px; }
+	.q-row { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--surface-2); display: grid; gap: 2px; }
+	.q-row.bad { border-color: rgba(220, 38, 38, 0.4); }
+	.q-row-q { margin: 0; font-size: 0.92rem; font-weight: 600; }
+	.q-row-a { margin: 0; font-size: 0.82rem; color: var(--muted); }
 	.fulltext { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 6px; }
 	.script-title { margin: 0; font-size: 0.85rem; font-weight: 700; }
-	.fulltext-body { margin: 0; font-size: 1rem; line-height: 1.9; }
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }

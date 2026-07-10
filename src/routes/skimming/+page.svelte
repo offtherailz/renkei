@@ -7,6 +7,7 @@
 		type JlptLevel,
 		type ReadingRun
 	} from '$lib/core/readingTexts';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
 
@@ -14,7 +15,7 @@
 	let scene = $state<Scene>('level');
 	let level = $state<JlptLevel>('N5');
 	let run = $state<ReadingRun | null>(null);
-	let question = $state<{ q: string; choices: string[]; correct: number } | null>(null);
+	let question = $state<{ q: string; choices: string[]; correct: number; evidence?: string } | null>(null);
 	let lastTextId = '';
 	let streak = $state(0);
 	let best = $state(0);
@@ -155,8 +156,8 @@
 			<p class="hint">🏆 Record {level}: {best}</p>
 			<p class="bubble sm">❓ {question.q} → <strong>{question.choices[question.correct]}</strong></p>
 			<div class="fulltext">
-				<p class="script-title">📄 Il testo</p>
-				<p class="fulltext-body">{run.rendered}</p>
+				<p class="script-title">📄 Il testo (la frase evidenziata aveva la risposta)</p>
+				<InteractiveSentence text={run.rendered} mark={question.evidence ? [question.evidence] : []} />
 			</div>
 			<div class="over-actions">
 				<button class="proceed" onclick={() => { streak = 0; nextRound(); }}>🔁 Ricomincia</button>
