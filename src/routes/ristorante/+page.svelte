@@ -156,7 +156,7 @@
 			String(e.qty) + e.dish.counterId
 		];
 		if (speechMatches(alts, [[e.dish.nome, e.dish.lettura], qtyVariants])) {
-			pickOrder(orderCorrect);
+			pickOrder(orderCorrect, true);
 		} else {
 			pickOrder('🎤');
 		}
@@ -290,12 +290,15 @@
 		orderChoices = shuffle([correct, ...distractors.slice(0, 3)]);
 		picked = null;
 	}
-	function pickOrder(choice: string): void {
+	function pickOrder(choice: string, viaVoce = false): void {
 		if (picked !== null) return;
 		picked = choice;
 		const e = queue[orderIdx]!;
 		if (choice === orderCorrect) {
-			mySay(e.dish.nome + 'を' + counterReading(e.dish.counterId, e.qty) + 'ください');
+			const frase = e.dish.nome + 'を' + counterReading(e.dish.counterId, e.qty) + 'ください';
+			// l'hai già detta tu: niente eco del sintetizzatore, solo copione
+			if (viaVoce) pushLine('me', frase);
+			else mySay(frase);
 		} else {
 			errors += 1;
 			void recordPracticeMiss('counter:' + e.dish.counterId);

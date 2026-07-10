@@ -72,7 +72,7 @@
 		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
 		heard = alts[0]!;
 		const hit = greet.choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
-		if (hit) pickGreet(hit);
+		if (hit) pickGreet(hit, true);
 	}
 
 	let game = $state<Game>(null);
@@ -377,11 +377,12 @@
 		if (greet.ja) armAfterAudio(speakGenderAsync(greet.ja, opposite(userGender())), TIMER_SECONDS.greet);
 		else startCountdown(TIMER_SECONDS.greet);
 	}
-	function pickGreet(choice: string): void {
+	function pickGreet(choice: string, viaVoce = false): void {
 		if (picked !== null || !greet) return;
 		stopCountdown();
 		picked = choice;
-		speakUser(greet.correct);
+		// se l'hai detta tu a voce (e giusta), niente eco del sintetizzatore
+		if (!(viaVoce && choice === greet.correct)) speakUser(greet.correct);
 		registerResult(choice === greet.correct);
 	}
 

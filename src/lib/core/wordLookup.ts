@@ -114,6 +114,7 @@ function deconjugate(t: string): { candidates: string[]; forma: string; adj?: bo
 		['ましょうか', 'proposta cortese (〜ましょうか)'],
 		['ましょう', 'volitiva cortese (〜ましょう)'],
 		['ませんでした', 'negativa passata cortese (〜ませんでした)'],
+		['ませんか', 'invito (〜ませんか)'],
 		['ました', 'passato cortese (〜ました)'],
 		['ません', 'negativa cortese (〜ません)'],
 		['ます', 'cortese (〜ます)']
@@ -175,12 +176,21 @@ function deconjugate(t: string): { candidates: string[]; forma: string; adj?: bo
 // Cerca il token: match esatto → de-coniugazione (しましょう→する) →
 // prefisso più lungo → qualunque sottostringa con kanji (また別の→別).
 export function lookupToken(map: Map<string, WordHit>, token: string): WordHit | null {
-	const t = token.trim();
+	// via la punteggiatura ai bordi: BudouX la lascia attaccata (飲みませんか。)
+	const t = token.trim().replace(/^[「『（(【…・]+|[」』）)】…・、。，．！？!?〜～]+$/g, '');
 	if (!t) return null;
-	// varianti da provare: il token e il token senza particelle finali
-	// (踊らなかったの → 踊らなかった)
+	// varianti da provare: il token, senza particelle finali (踊らなかったの →
+	// 踊らなかった) e senza ausiliari dopo la forma in て (脱いでください →
+	// 脱いで, 飲んでいます → 飲んで)
+	const forms = [t];
 	const bare = t.replace(/(かな|よね|[のねよかわ])$/, '');
-	const forms = bare.length >= 2 && bare !== t ? [t, bare] : [t];
+	if (bare.length >= 2 && bare !== t) forms.push(bare);
+	for (const f of [...forms]) {
+		const aux = f.match(
+			/^(.{2,}?[てで])(ください(?:ませんか)?|いただけますか|もらえますか|います|いました|いません|いる|いた|おきます|おく|しまいました|しまった|しまう|みます|みる|みたい|もいいですか|もいいです)$/
+		);
+		if (aux) forms.push(aux[1]!);
+	}
 	for (const f of forms) {
 		if (map.has(f)) return map.get(f)!;
 	}

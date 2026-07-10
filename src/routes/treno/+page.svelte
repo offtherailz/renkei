@@ -136,7 +136,7 @@
 		}
 		heard = alts[0]!;
 		const hit = missionChoices.find((s) => speechMatches(alts, [[s.nome, s.lettura]]));
-		if (hit) pickMission(hit);
+		if (hit) pickMission(hit, true);
 	}
 
 	function start(): void {
@@ -151,14 +151,16 @@
 		say('friend', missionLine);
 	}
 
-	function pickMission(s: Station): void {
+	function pickMission(s: Station, viaVoce = false): void {
 		if (missionPicked === target.id) return;
 		missionPicked = s.id;
 		if (s.id !== target.id) {
 			errors += 1;
 			return;
 		}
-		say('me', `わかった！${target.nome}だね。じゃあ、あとで！`);
+		const frase = `わかった！${target.nome}だね。じゃあ、あとで！`;
+		if (viaVoce) pushLine('me', frase);
+		else say('me', frase);
 	}
 
 	// ── Biglietto ──

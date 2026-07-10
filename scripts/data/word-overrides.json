@@ -17831,7 +17831,8 @@
         "to drop",
         "to lose"
       ]
-    }
+    },
+    "id_verbo_corrispondente": "落る"
   },
   "落る": {
     "significato": {
@@ -17842,7 +17843,8 @@
         "to fall",
         "to drop"
       ]
-    }
+    },
+    "id_verbo_corrispondente": "落す"
   },
   "利用": {
     "significato": {

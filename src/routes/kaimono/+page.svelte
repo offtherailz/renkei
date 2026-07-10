@@ -211,11 +211,16 @@
 	}
 
 	const DEPART_CHOICES = ['いってきます', 'ただいま', 'おかえり', 'おやすみ'];
-	function pickDepart(choice: string): void {
+	function pickDepart(choice: string, viaVoce = false): void {
 		if (greetPicked !== null) return;
 		greetPicked = choice;
 		if (choice !== 'いってきます') { errors += 1; missed.push('partenza'); }
-		sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: 'いってらっしゃい！', role: 'other' }]);
+		if (viaVoce) {
+			pushLine('me', choice);
+			sequence([{ g: KANOJO, text: 'いってらっしゃい！', role: 'other' }]);
+		} else {
+			sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: 'いってらっしゃい！', role: 'other' }]);
+		}
 	}
 	function afterDepart(): void {
 		// ~55% una telefonata a sorpresa modifica la lista
@@ -343,12 +348,14 @@
 		orderChoices = shuffle([correct, ...distractors.slice(0, 3)]);
 		picked = null;
 	}
-	function pickOrder(choice: string): void {
+	function pickOrder(choice: string, viaVoce = false): void {
 		if (picked !== null) return;
 		picked = choice;
 		const r = list[orderIdx]!;
 		if (choice === orderCorrect) {
-			line(userGender(), r.item.scrittura + 'を' + itemReading(r.item, r.qty) + 'ください', 'me');
+			const frase = r.item.scrittura + 'を' + itemReading(r.item, r.qty) + 'ください';
+			if (viaVoce) pushLine('me', frase);
+			else line(userGender(), frase, 'me');
 		} else {
 			errors += 1;
 			missed.push(r.item.scrittura);
@@ -368,7 +375,7 @@
 	let heard = $state('');
 
 	// Saluti a voce: di' la frase giusta (いってきます／ただいま…)
-	async function speakGreet(choices: string[], pick: (c: string) => void): Promise<void> {
+	async function speakGreet(choices: string[], pick: (c: string, viaVoce?: boolean) => void): Promise<void> {
 		if (micState !== 'idle' || greetPicked !== null) return;
 		micState = 'listening';
 		heard = '';
@@ -380,7 +387,7 @@
 		}
 		heard = alts[0]!;
 		const hit = choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
-		if (hit) pick(hit);
+		if (hit) pick(hit, true);
 	}
 	async function speakOrder(): Promise<void> {
 		if (micState !== 'idle' || picked !== null) return;
@@ -400,7 +407,7 @@
 			String(r.qty) + r.item.counterId
 		];
 		if (speechMatches(alts, [[r.item.scrittura, r.item.lettura], qtyVariants])) {
-			pickOrder(orderCorrect);
+			pickOrder(orderCorrect, true);
 		} else {
 			pickOrder('🎤');
 		}
@@ -461,14 +468,19 @@
 
 	// ── Rientro ──
 	const RETURN_CHOICES = ['ただいま', 'いってきます', 'いってらっしゃい', 'おやすみ'];
-	function pickReturn(choice: string): void {
+	function pickReturn(choice: string, viaVoce = false): void {
 		if (greetPicked !== null) return;
 		greetPicked = choice;
 		if (choice !== 'ただいま') { errors += 1; missed.push('rientro'); }
 		const reply = errors === 0
 			? 'おかえりなさい！ぜんぶあってるよ、ありがとう！'
 			: 'おかえりなさい！んー、ちょっとちがうかも…';
-		sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: reply, role: 'other' }]);
+		if (viaVoce) {
+			pushLine('me', choice);
+			sequence([{ g: KANOJO, text: reply, role: 'other' }]);
+		} else {
+			sequence([{ g: userGender(), text: choice, role: 'me' }, { g: KANOJO, text: reply, role: 'other' }]);
+		}
 	}
 	function toDone(): void {
 		scene = 'done';

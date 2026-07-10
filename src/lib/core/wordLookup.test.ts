@@ -89,4 +89,26 @@ describe('lookupToken', () => {
 		expect(r?.forma).toContain('potenziale');
 		expect(lookupToken(map3, '食べられる')?.id).toBe('食べる');
 	});
+
+	const map4 = mapOf([
+		hit('飲む', '飲む', 'のむ', '動詞[どうし]'),
+		hit('乾く', '乾く', 'かわく', '動詞[どうし]'),
+		hit('川', '川', 'かわ'),
+		hit('脱ぐ', '脱ぐ', 'ぬぐ', '動詞[どうし]')
+	]);
+
+	it('la punteggiatura attaccata non rompe il match (飲みませんか。)', () => {
+		const r = lookupToken(map4, '飲みませんか。');
+		expect(r?.id).toBe('飲む');
+		expect(r?.forma).toContain('invito');
+	});
+
+	it('かわきました。 trova 乾く, non 川', () => {
+		expect(lookupToken(map4, 'かわきました。')?.id).toBe('乾く');
+	});
+
+	it('composti て+ausiliare: 脱いでください→脱ぐ, 飲んでいます→飲む', () => {
+		expect(lookupToken(map4, '脱いでください')?.id).toBe('脱ぐ');
+		expect(lookupToken(map4, '飲んでいます')?.id).toBe('飲む');
+	});
 });
