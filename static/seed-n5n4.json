@@ -3332,12 +3332,10 @@
       "lettura": "ごしゅじん",
       "significato": {
         "it": [
-          "(your",
-          "her) husband"
+          "(your, her) husband"
         ],
         "en": [
-          "(your",
-          "her) husband"
+          "(your, her) husband"
         ]
       },
       "study_tags": [
@@ -3356,7 +3354,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707548,
+      "updated_at": 1783681804479,
       "frasi_esempio": [
         {
           "testo": "あなたのご主人は食事にうるさいのかな？",
@@ -18604,15 +18602,11 @@
       "lettura": "うける",
       "significato": {
         "it": [
-          "to take (an examination",
-          "interview",
-          "etc.)",
+          "to take (an examination, interview, etc.)",
           "to receive"
         ],
         "en": [
-          "to take (an examination",
-          "interview",
-          "etc.)",
+          "to take (an examination, interview, etc.)",
           "to receive"
         ]
       },
@@ -18631,7 +18625,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707542,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -20683,15 +20677,11 @@
       "significato": {
         "it": [
           "to transfer (trains)",
-          "to change (bus",
-          "train",
-          "etc.)"
+          "to change (bus, train, etc.)"
         ],
         "en": [
           "to transfer (trains)",
-          "to change (bus",
-          "train",
-          "etc.)"
+          "to change (bus, train, etc.)"
         ]
       },
       "study_tags": [
@@ -20712,7 +20702,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707550,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -37392,14 +37382,12 @@
         "it": [
           "toilet",
           "restroom",
-          "bathroom (lit.",
-          "a place to wash one's hands)"
+          "bathroom (lit., a place to wash one's hands)"
         ],
         "en": [
           "toilet",
           "restroom",
-          "bathroom (lit.",
-          "a place to wash one's hands)"
+          "bathroom (lit., a place to wash one's hands)"
         ]
       },
       "study_tags": [
@@ -37420,7 +37408,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804481,
       "frasi_esempio": [
         {
           "testo": "お手洗いはどこですか。",
@@ -37827,12 +37815,10 @@
       "lettura": "かかる",
       "significato": {
         "it": [
-          "it takes (amount of time",
-          "money) (v.i.)"
+          "it takes (amount of time, money) (v.i.)"
         ],
         "en": [
-          "it takes (amount of time",
-          "money) (v.i.)"
+          "it takes (amount of time, money) (v.i.)"
         ]
       },
       "study_tags": [
@@ -37848,7 +37834,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783680432949,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -38098,14 +38084,12 @@
       "significato": {
         "it": [
           "to dial",
-          "call (e.g.",
-          "phone)",
+          "call (e.g., phone)",
           "to sit down"
         ],
         "en": [
           "to dial",
-          "call (e.g.",
-          "phone)",
+          "call (e.g., phone)",
           "to sit down"
         ]
       },
@@ -38124,7 +38108,7 @@
       "omofoni": [
         "掛ける"
       ],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -38227,13 +38211,11 @@
       "significato": {
         "it": [
           "to wear",
-          "to put on (e.g.",
-          "a hat on the head)"
+          "to put on (e.g., a hat on the head)"
         ],
         "en": [
           "to wear",
-          "to put on (e.g.",
-          "a hat on the head)"
+          "to put on (e.g., a hat on the head)"
         ]
       },
       "study_tags": [
@@ -38249,7 +38231,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783679387355,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -38543,13 +38525,11 @@
       "significato": {
         "it": [
           "coat",
-          "court (e.g.",
-          "tennis)"
+          "court (e.g., tennis)"
         ],
         "en": [
           "coat",
-          "court (e.g.",
-          "tennis)"
+          "court (e.g., tennis)"
         ]
       },
       "study_tags": [
@@ -38567,7 +38547,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707537,
+      "updated_at": 1783681804481,
       "frasi_esempio": [
         {
           "testo": "あなたが家を出た後で、私はあなたのコートに気づきました。",
@@ -39544,18 +39524,12 @@
         "it": [
           "to do",
           "to try",
-          "to wear small items (e.g.",
-          "necktie",
-          "watch",
-          "etc.)"
+          "to wear small items (e.g., necktie, watch, etc.)"
         ],
         "en": [
           "to do",
           "to try",
-          "to wear small items (e.g.",
-          "necktie",
-          "watch",
-          "etc.)"
+          "to wear small items (e.g., necktie, watch, etc.)"
         ]
       },
       "study_tags": [
@@ -39573,7 +39547,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783680432949,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -40768,13 +40742,11 @@
       "lettura": "つける",
       "significato": {
         "it": [
-          "to turn on (e.g.",
-          "a light)",
+          "to turn on (e.g., a light)",
           "to take"
         ],
         "en": [
-          "to turn on (e.g.",
-          "a light)",
+          "to turn on (e.g., a light)",
           "to take"
         ]
       },
@@ -40793,7 +40765,7 @@
       "omofoni": [
         "漬ける"
       ],
-      "updated_at": 1783296707538,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -44041,17 +44013,11 @@
       "significato": {
         "it": [
           "to do",
-          "to give (to pets",
-          "parents",
-          "siblings",
-          "etc.)"
+          "to give (to pets, parents, siblings, etc.)"
         ],
         "en": [
           "to do",
-          "to give (to pets",
-          "parents",
-          "siblings",
-          "etc.)"
+          "to give (to pets, parents, siblings, etc.)"
         ]
       },
       "study_tags": [
@@ -44069,7 +44035,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783680432949,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -46790,14 +46756,12 @@
         "it": [
           "to push",
           "to press",
-          "to stamp (e.g.",
-          "a passport)"
+          "to stamp (e.g., a passport)"
         ],
         "en": [
           "to push",
           "to press",
-          "to stamp (e.g.",
-          "a passport)"
+          "to stamp (e.g., a passport)"
         ]
       },
       "study_tags": [
@@ -46815,7 +46779,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804481,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -48953,14 +48917,10 @@
       "lettura": "かど",
       "significato": {
         "it": [
-          "corner (e.g.",
-          "desk",
-          "pavement)"
+          "corner (e.g., desk, pavement)"
         ],
         "en": [
-          "corner (e.g.",
-          "desk",
-          "pavement)"
+          "corner (e.g., desk, pavement)"
         ]
       },
       "study_tags": [
@@ -48978,7 +48938,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804482,
       "frasi_esempio": [
         {
           "testo": "私は角にある劇場に行くところです。",
@@ -49124,16 +49084,12 @@
       "lettura": "かける",
       "significato": {
         "it": [
-          "to put on (e.g.",
-          "glasses)",
-          "to hang (e.g.",
-          "on a wall)"
+          "to put on (e.g., glasses)",
+          "to hang (e.g., on a wall)"
         ],
         "en": [
-          "to put on (e.g.",
-          "glasses)",
-          "to hang (e.g.",
-          "on a wall)"
+          "to put on (e.g., glasses)",
+          "to hang (e.g., on a wall)"
         ]
       },
       "study_tags": [
@@ -49153,7 +49109,7 @@
       "omofoni": [
         "かける"
       ],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804482,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -49720,13 +49676,11 @@
       "lettura": "おきる",
       "significato": {
         "it": [
-          "to get up (e.g.",
-          "from sleeping)",
+          "to get up (e.g., from sleeping)",
           "to happen"
         ],
         "en": [
-          "to get up (e.g.",
-          "from sleeping)",
+          "to get up (e.g., from sleeping)",
           "to happen"
         ]
       },
@@ -49745,7 +49699,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804482,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -52528,14 +52482,12 @@
       "lettura": "ふるい",
       "significato": {
         "it": [
-          "old (in reference to objects",
-          "not people)",
+          "old (in reference to objects, not people)",
           "aged",
           "ancient"
         ],
         "en": [
-          "old (in reference to objects",
-          "not people)",
+          "old (in reference to objects, not people)",
           "aged",
           "ancient"
         ]
@@ -52557,7 +52509,7 @@
         "新しい"
       ],
       "omofoni": [],
-      "updated_at": 1783296707540,
+      "updated_at": 1783681804482,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {
@@ -54104,17 +54056,11 @@
       "significato": {
         "it": [
           "to precipitate",
-          "to fall (e.g.",
-          "rain",
-          "snow",
-          "etc.)"
+          "to fall (e.g., rain, snow, etc.)"
         ],
         "en": [
           "to precipitate",
-          "to fall (e.g.",
-          "rain",
-          "snow",
-          "etc.)"
+          "to fall (e.g., rain, snow, etc.)"
         ]
       },
       "study_tags": [
@@ -54132,7 +54078,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707540,
+      "updated_at": 1783681804482,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -54959,13 +54905,11 @@
       "significato": {
         "it": [
           "to raise (stretch out) hands",
-          "to raise (e.g.",
-          "umbrella)"
+          "to raise (e.g., umbrella)"
         ],
         "en": [
           "to raise (stretch out) hands",
-          "to raise (e.g.",
-          "umbrella)"
+          "to raise (e.g., umbrella)"
         ]
       },
       "study_tags": [
@@ -54985,7 +54929,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783679387355,
+      "updated_at": 1783681804482,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -59766,16 +59710,12 @@
       "lettura": "うえ",
       "significato": {
         "it": [
-          "above (up",
-          "top",
-          "etc.)",
+          "above (up, top, etc.)",
           "over",
           "on top of"
         ],
         "en": [
-          "above (up",
-          "top",
-          "etc.)",
+          "above (up, top, etc.)",
           "over",
           "on top of"
         ]
@@ -59795,7 +59735,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783680432951,
+      "updated_at": 1783681804482,
       "frasi_esempio": [
         {
           "testo": "彼は私の兄よりも年が上に見えます。",
@@ -61038,12 +60978,10 @@
       "lettura": "ふく",
       "significato": {
         "it": [
-          "to blow (wind",
-          "etc.)"
+          "to blow (wind, etc.)"
         ],
         "en": [
-          "to blow (wind",
-          "etc.)"
+          "to blow (wind, etc.)"
         ]
       },
       "study_tags": [
@@ -61063,7 +61001,7 @@
       "omofoni": [
         "服"
       ],
-      "updated_at": 1783296707539,
+      "updated_at": 1783681804482,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -65882,12 +65820,10 @@
       "lettura": "とり",
       "significato": {
         "it": [
-          "chicken (lit.",
-          "bird)"
+          "chicken (lit., bird)"
         ],
         "en": [
-          "chicken (lit.",
-          "bird)"
+          "chicken (lit., bird)"
         ]
       },
       "study_tags": [
@@ -65905,7 +65841,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707539,
+      "updated_at": 1783681804482,
       "frasi_esempio": [
         {
           "testo": "鳥は料理人がほどよく焼いた。",
@@ -68705,12 +68641,10 @@
       "lettura": "はん",
       "significato": {
         "it": [
-          "half (e.g.",
-          "にじはん | half-past two)"
+          "half (e.g., にじはん | half-past two)"
         ],
         "en": [
-          "half (e.g.",
-          "にじはん | half-past two)"
+          "half (e.g., にじはん | half-past two)"
         ]
       },
       "study_tags": [
@@ -68728,7 +68662,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783680432951,
+      "updated_at": 1783681804482,
       "frasi_esempio": [
         {
           "testo": "半時間したら彼はここに来るでしょう。",
@@ -70789,12 +70723,10 @@
       "lettura": "いそがしい",
       "significato": {
         "it": [
-          "busy (people",
-          "days)"
+          "busy (people, days)"
         ],
         "en": [
-          "busy (people",
-          "days)"
+          "busy (people, days)"
         ]
       },
       "study_tags": [
@@ -70812,7 +70744,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707536,
+      "updated_at": 1783681804482,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {
@@ -73909,12 +73841,10 @@
       "lettura": "りょうしん",
       "significato": {
         "it": [
-          "parents (lit.",
-          "both parents)"
+          "parents (lit., both parents)"
         ],
         "en": [
-          "parents (lit.",
-          "both parents)"
+          "parents (lit., both parents)"
         ]
       },
       "study_tags": [
@@ -73933,7 +73863,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783296707540,
+      "updated_at": 1783681804482,
       "frasi_esempio": [
         {
           "testo": "あなたを私の両親に紹介したい。",
@@ -74231,12 +74161,10 @@
       "lettura": "つめたい",
       "significato": {
         "it": [
-          "cold (things",
-          "people)"
+          "cold (things, people)"
         ],
         "en": [
-          "cold (things",
-          "people)"
+          "cold (things, people)"
         ]
       },
       "study_tags": [
@@ -74256,7 +74184,7 @@
         "熱い"
       ],
       "omofoni": [],
-      "updated_at": 1783296707538,
+      "updated_at": 1783681804482,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
       "frasi_esempio": [
         {

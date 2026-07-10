@@ -130,11 +130,29 @@ function supportsLevel(level, target) {
   return (rank[level] ?? 99) <= (rank[target] ?? 99);
 }
 
+// Spezza le glosse solo FUORI dalle parentesi: "above (up, top, etc.)" è
+// UN significato, non tre monconi.
+function splitAtTopLevel(text, seps) {
+  const out = [];
+  let depth = 0;
+  let cur = "";
+  for (const ch of String(text)) {
+    if (ch === "(" || ch === "（") depth += 1;
+    else if (ch === ")" || ch === "）") depth = Math.max(0, depth - 1);
+    if (depth === 0 && seps.includes(ch)) {
+      out.push(cur);
+      cur = "";
+      continue;
+    }
+    cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
 function splitMeanings(text) {
   return unique(
-    String(text)
-      .split(/;|\//g)
-      .flatMap((chunk) => chunk.split(","))
+    splitAtTopLevel(text, [";", "/", ","])
       .map((chunk) => chunk.trim())
       .filter(Boolean)
   );
