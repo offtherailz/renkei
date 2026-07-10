@@ -19,6 +19,27 @@ const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
 const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
 const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
+const USI_IT_PATH = path.join(ROOT, "scripts", "data", "usi-it.json");
+
+// Traduzioni italiane degli "Usi" (glosse ed esempi JMdict), chiavate sul
+// testo inglese: sopravvivono ai riordini dei sensi tra release JMdict.
+async function loadUsiIt() {
+  try {
+    return JSON.parse(await fs.readFile(USI_IT_PATH, "utf8"));
+  } catch {
+    return { glosses: {}, esempi: {} };
+  }
+}
+
+function translateUsi(usi, usiIt) {
+  for (const uso of usi) {
+    const it = usiIt.glosses[uso.significato.en];
+    if (it) uso.significato.it = it;
+    const exIt = uso.esempio && usiIt.esempi[uso.esempio.traduzione.en];
+    if (exIt) uso.esempio.traduzione.it = exIt;
+  }
+  return usi;
+}
 
 // Aggiunge frasi d'esempio curate alle voci grammar delle forme composte
 // (〜てみる, 〜ておく…): l'API sorgente ne dà spesso una sola, e il micro-drill
@@ -770,7 +791,7 @@ async function fetchJson(url) {
 // tipo aggettivo: sovrascrive le euristiche. Aggiunge anche le frasi
 // d'esempio Tatoeba. Le euristiche restano come fallback per le parole
 // assenti da JMdict; gli override manuali vincono su tutto.
-function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji) {
+function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji, usiIt = { glosses: {}, esempi: {} }) {
   let matched = 0;
   const result = words.map((word) => {
     const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
@@ -785,7 +806,7 @@ function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji) {
         allowedKanji ? new Set([...allowedKanji, ...(word.kanji_usati ?? [])]) : null
       );
       const xrefs = extractXrefs(entry);
-      const usi = deriveJmdictUsi(entry);
+      const usi = translateUsi(deriveJmdictUsi(entry), usiIt);
       next = {
         ...word,
         ...metadata,
@@ -1092,7 +1113,7 @@ async function main() {
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
   const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
   const allowedKanji = new Set([...kanjiN5.kanji, ...kanjiN4.kanji].map((row) => row.character));
-  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji);
+  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt());
   const withSuruVerbs = await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex));
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.
