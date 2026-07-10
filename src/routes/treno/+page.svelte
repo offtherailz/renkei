@@ -74,7 +74,7 @@
 	];
 	const TRANSFER_LINES = ['中央線', '地下鉄銀座線', '京浜東北線', '湘南新宿ライン'];
 
-	type Scene = 'intro' | 'mission' | 'ticket' | 'platform' | 'board' | 'ride' | 'exit' | 'done';
+	type Scene = 'intro' | 'mission' | 'ticket' | 'delay' | 'platform' | 'board' | 'ride' | 'exit' | 'done';
 	let scene = $state<Scene>('intro');
 	let errors = $state(0);
 	let showScript = $state(false);
@@ -91,6 +91,16 @@
 	let stack = $state<number[]>([]);
 	let ticketDone = $state(false);
 	let ticketAttempts = $state(0);
+
+	// imprevisto: servizio sospeso (運転見合わせ)
+	const DELAY_REASONS = [
+		{ jp: '人身事故', it: 'incidente a persone' },
+		{ jp: '強風', it: 'vento forte' },
+		{ jp: '安全確認', it: 'controlli di sicurezza' }
+	];
+	let delayReason = $state(DELAY_REASONS[0]!);
+	let delayLine = $state('');
+	let delayPicked = $state<string | null>(null);
 
 	// binario
 	let platformN = $state(1);
@@ -206,6 +216,28 @@
 		say('anno', 'きっぷをお取りください。');
 	}
 
+	// ── Imprevisto: 運転を見合わせています ──
+	function afterTicket(): void {
+		if (Math.random() < 0.3) enterDelay();
+		else enterPlatform();
+	}
+	function enterDelay(): void {
+		scene = 'delay';
+		delayReason = rnd(DELAY_REASONS);
+		delayPicked = null;
+		delayLine = `${delayReason.jp}の影響で、山手線は運転を見合わせています。運転再開まで、しばらくお待ちください。`;
+		say('anno', delayLine);
+	}
+	function pickDelay(jp: string): void {
+		if (delayPicked === delayReason.jp) return;
+		delayPicked = jp;
+		if (jp !== delayReason.jp) errors += 1;
+	}
+	function resumeService(): void {
+		say('anno', 'ご迷惑をおかけしました。まもなく、運転を再開いたします。');
+		enterPlatform();
+	}
+
 	// ── Binario ──
 	function enterPlatform(): void {
 		scene = 'platform';
@@ -225,20 +257,27 @@
 
 	// ── Salire sul treno giusto ──
 	function makeCorrectTrain(): Train {
+		const loop = rnd(['外回り', '内回り']);
 		return {
 			display: `山手線 ${target.nome}方面`,
-			announce: `この電車は山手線・各駅停車、${target.nome}方面行きです。`,
+			announce: `この電車は山手線${loop}・各駅停車、${target.nome}方面行きです。`,
 			ok: true
 		};
 	}
 	function enterBoard(): void {
 		scene = 'board';
 		const wrongDir = rnd(STATIONS.filter((s) => s.id !== target.id));
+		const beyond = rnd(STATIONS.filter((s) => s.id !== target.id && s.id !== wrongDir.id));
 		const wrongs: Train[] = shuffle([
 			{ display: '回送', announce: 'この電車は回送です。ご乗車になれません。', ok: false },
 			{
 				display: `山手線 ${wrongDir.nome}方面`,
 				announce: `この電車は山手線、${wrongDir.nome}方面行きです。`,
+				ok: false
+			},
+			{
+				display: `快速 ${beyond.nome}方面`,
+				announce: `この電車は快速、${beyond.nome}方面行きです。${target.nome}には止まりません。ご注意ください。`,
 				ok: false
 			}
 		]);
@@ -451,7 +490,30 @@
 				{/if}
 			{:else}
 				<p class="bubble sm">🎫 Biglietto per {target.nome} comprato!</p>
-				<button class="proceed" onclick={enterPlatform}>Ai binari →</button>
+				<button class="proceed" onclick={afterTicket}>Ai binari →</button>
+			{/if}
+		</article>
+	{:else if scene === 'delay'}
+		<article class="scene">
+			<p class="who">⚠️ Annuncio in stazione — qualcosa non va</p>
+			<p class="bubble">{delayLine}</p>
+			{@render repeatBar(delayLine, 'anno')}
+			<p class="hint">Perché i treni sono fermi?</p>
+			<div class="choices">
+				{#each DELAY_REASONS as r (r.jp)}
+					<button
+						class="choice"
+						class:right={delayPicked !== null && r.jp === delayReason.jp && delayPicked === delayReason.jp}
+						class:wrong={delayPicked === r.jp && r.jp !== delayReason.jp}
+						onclick={() => pickDelay(r.jp)}
+					>{r.jp}<small>（{r.it}）</small></button>
+				{/each}
+			</div>
+			{#if delayPicked !== null && delayPicked !== delayReason.jp}
+				<p class="hint">No, riascolta l'annuncio.</p>
+			{/if}
+			{#if delayPicked === delayReason.jp}
+				<button class="proceed" onclick={resumeService}>Il servizio riprende →</button>
 			{/if}
 		</article>
 	{:else if scene === 'platform'}
