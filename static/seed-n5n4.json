@@ -80626,7 +80626,7 @@
       "id": "grammar-api-N4-74",
       "struttura": "〜(に)する/にする",
       "spiegazione": {
-        "it": "turn/make to do, decide to do",
+        "it": "Trasformare/decidere: 〜にする = rendere qualcosa in un certo modo, o scegliere (「お茶にします」 = prendo il tè).",
         "en": "turn/make to do, decide to do"
       },
       "chapter_tags": [
@@ -80667,13 +80667,13 @@
         "今",
         "年"
       ],
-      "updated_at": 1783296707880
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-77",
       "struttura": "〜か",
       "spiegazione": {
-        "it": "..what/when/where/who/how..",
+        "it": "Domanda incorporata: 何/いつ/どこ/だれ + か dentro una frase (「いつ来るか分かりません」 = non so quando viene).",
         "en": "..what/when/where/who/how.."
       },
       "chapter_tags": [
@@ -80708,7 +80708,7 @@
         "何",
         "今"
       ],
-      "updated_at": 1783296707881
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-72",
@@ -80747,7 +80747,7 @@
       "id": "grammar-api-N4-78",
       "struttura": "〜かどうか",
       "spiegazione": {
-        "it": "whether it's ..or not",
+        "it": "Se… o no: 〜かどうか incorpora una domanda sì/no (「行くかどうか分かりません」).",
         "en": "whether it's ..or not"
       },
       "chapter_tags": [
@@ -80780,13 +80780,13 @@
         "どう",
         "ない"
       ],
-      "updated_at": 1783296707881
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-57",
       "struttura": "〜かもしれない",
       "spiegazione": {
-        "it": "may...",
+        "it": "Forse, può darsi: possibilità non certa, più debole di でしょう.",
         "en": "may..."
       },
       "chapter_tags": [
@@ -80813,13 +80813,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-75",
       "struttura": "〜から/できている",
       "spiegazione": {
-        "it": "made from/of",
+        "it": "Fatto di/da: 〜でできている (materiale visibile), 〜からできている (ingrediente trasformato).",
         "en": "made from/of"
       },
       "chapter_tags": [
@@ -80862,13 +80862,13 @@
         "来る",
         "木"
       ],
-      "updated_at": 1783296707880
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-1",
       "struttura": "〜し、〜し",
       "spiegazione": {
-        "it": "expressing multiple reasons or repeating similar things",
+        "it": "E poi…, e anche…: 〜し elenca più motivi o qualità (「安いし、おいしいし」).",
         "en": "expressing multiple reasons or repeating similar things"
       },
       "chapter_tags": [
@@ -80901,13 +80901,13 @@
         "できる",
         "安い"
       ],
-      "updated_at": 1783296707847
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-37",
       "struttura": "〜すぎる",
       "spiegazione": {
-        "it": "too much",
+        "it": "Troppo: 〜すぎる attaccato allo stem (食べすぎる = mangiare troppo, 高すぎる = troppo caro).",
         "en": "too much"
       },
       "chapter_tags": [
@@ -80940,13 +80940,13 @@
         "ズボン",
         "この"
       ],
-      "updated_at": 1783296707865
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-54",
       "struttura": "〜そう",
       "spiegazione": {
-        "it": "they say that...(hearsay)",
+        "it": "Si dice che…: 〜そうだ riporta ciò che si è sentito (da non confondere con l'apparenza 〜そう sullo stem).",
         "en": "they say that...(hearsay)"
       },
       "chapter_tags": [
@@ -80999,13 +80999,13 @@
         "中",
         "話"
       ],
-      "updated_at": 1783296707871
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-68",
       "struttura": "〜ために",
       "spiegazione": {
-        "it": "for.., in order to...",
+        "it": "Per, allo scopo di: 〜ために esprime finalità (con verbo dizionario o nome + の).",
         "en": "for.., in order to..."
       },
       "chapter_tags": [
@@ -81044,13 +81044,13 @@
         "練習",
         "日"
       ],
-      "updated_at": 1783296707877
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-47",
       "struttura": "〜たら",
       "spiegazione": {
-        "it": "if, when, after, once",
+        "it": "Se/quando/dopo che: 〜たら copre condizione e sequenza temporale (「着いたら電話して」).",
         "en": "if, when, after, once"
       },
       "chapter_tags": [
@@ -81083,13 +81083,13 @@
         "テスト",
         "どう"
       ],
-      "updated_at": 1783296707868
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-64",
       "struttura": "〜つもり",
       "spiegazione": {
-        "it": "intent/plan to...",
+        "it": "Intenzione: 〜つもりだ = avere in programma di fare (「行くつもりです」).",
         "en": "intent/plan to..."
       },
       "chapter_tags": [
@@ -81130,7 +81130,7 @@
         "年",
         "本"
       ],
-      "updated_at": 1783296707875
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-2",
@@ -81169,7 +81169,7 @@
       "id": "grammar-api-N4-6",
       "struttura": "〜てあげる",
       "spiegazione": {
-        "it": "doing something for someone else",
+        "it": "Fare qualcosa PER un altro: 〜てあげる (io → altri; attenzione al tono, può suonare paternalistico).",
         "en": "doing something for someone else"
       },
       "chapter_tags": [
@@ -81202,13 +81202,13 @@
         "する",
         "料理"
       ],
-      "updated_at": 1783296707851
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-20",
       "struttura": "〜ておく",
       "spiegazione": {
-        "it": "the state after having done something with a particular purpose",
+        "it": "Stato lasciato apposta: 〜ておく = fatto e lasciato così per uno scopo (「窓を開けておく」).",
         "en": "the state after having done something with a particular purpose"
       },
       "chapter_tags": [
@@ -81267,13 +81267,13 @@
         "置く",
         "来る"
       ],
-      "updated_at": 1783296707857
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-66",
       "struttura": "〜ておく",
       "spiegazione": {
-        "it": "making preparations in advance",
+        "it": "Preparare in anticipo: 〜ておく = fare prima qualcosa in vista di dopo (「資料を読んでおく」).",
         "en": "making preparations in advance"
       },
       "chapter_tags": [
@@ -81310,7 +81310,7 @@
         "置く",
         "子"
       ],
-      "updated_at": 1783296707876
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-84",
@@ -81349,7 +81349,7 @@
       "id": "grammar-api-N4-34",
       "struttura": "〜てから VS 〜あとで",
       "spiegazione": {
-        "it": "The action continues.",
+        "it": "〜てから = subito dopo e in sequenza stretta; 〜あとで = dopo, in generale.",
         "en": "The action continues."
       },
       "chapter_tags": [
@@ -81380,13 +81380,13 @@
       "frasi_esempio_parole_linkate": [
         "食べる"
       ],
-      "updated_at": 1783296707864
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-76",
       "struttura": "〜てくる",
       "spiegazione": {
-        "it": "get.., come ..",
+        "it": "Verso di me / cambiamento in arrivo: 行ってくる (vado e torno), 寒くなってくる (inizia a far freddo).",
         "en": "get.., come .."
       },
       "chapter_tags": [
@@ -81413,13 +81413,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-9",
       "struttura": "〜てくれませんか / 〜ていただけませんか",
       "spiegazione": {
-        "it": "Could you...?",
+        "it": "Potrebbe…per favore?: richiesta cortese; 〜ていただけませんか è la versione più formale.",
         "en": "Could you...?"
       },
       "chapter_tags": [
@@ -81456,13 +81456,13 @@
         "居る",
         "話"
       ],
-      "updated_at": 1783296707853
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-7",
       "struttura": "〜てくれる",
       "spiegazione": {
-        "it": "something is done by someone for me or my family",
+        "it": "Qualcuno fa qualcosa per me: 〜てくれる (altri → io/la mia famiglia), con gratitudine.",
         "en": "something is done by someone for me or my family"
       },
       "chapter_tags": [
@@ -81495,13 +81495,13 @@
         "する",
         "人"
       ],
-      "updated_at": 1783296707852
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-21",
       "struttura": "〜てしまう",
       "spiegazione": {
-        "it": "emphasis, regret",
+        "it": "Azione completata (del tutto) o rimpianto: 「食べてしまった」 = l'ho mangiato tutto / ahimè l'ho mangiato.",
         "en": "emphasis, regret"
       },
       "chapter_tags": [
@@ -81528,13 +81528,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-55",
       "struttura": "〜でしょう",
       "spiegazione": {
-        "it": "it will probably...",
+        "it": "Probabilmente: previsione o supposizione (「明日は晴れるでしょう」).",
         "en": "it will probably..."
       },
       "chapter_tags": [
@@ -81577,13 +81577,13 @@
         "雨",
         "後"
       ],
-      "updated_at": 1783296707872
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-65",
       "struttura": "〜てみる",
       "spiegazione": {
-        "it": "try to do",
+        "it": "Provare a fare: 〜てみる = fare per vedere com'è (「食べてみます」 = assaggio).",
         "en": "try to do"
       },
       "chapter_tags": [
@@ -81632,13 +81632,13 @@
         "この",
         "服"
       ],
-      "updated_at": 1783296707876
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-50",
       "struttura": "〜ても",
       "spiegazione": {
-        "it": "even if...",
+        "it": "Anche se: 〜ても concede (「雨が降っても行きます」 = vado anche se piove).",
         "en": "even if..."
       },
       "chapter_tags": [
@@ -81669,13 +81669,13 @@
       "frasi_esempio_parole_linkate": [
         "雨"
       ],
-      "updated_at": 1783296707870
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-8",
       "struttura": "〜てもらう",
       "spiegazione": {
-        "it": "something is done by someone for me or my family",
+        "it": "Ricevere un favore: 〜てもらう = qualcuno fa qualcosa per me (visto dal ricevente).",
         "en": "something is done by someone for me or my family"
       },
       "chapter_tags": [
@@ -81710,13 +81710,13 @@
         "する",
         "中"
       ],
-      "updated_at": 1783296707852
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-45",
       "struttura": "〜と",
       "spiegazione": {
-        "it": "if..., then",
+        "it": "Se/quando (automatico): 〜と per conseguenze naturali e istruzioni (「押すと開きます」).",
         "en": "if..., then"
       },
       "chapter_tags": [
@@ -81755,13 +81755,13 @@
         "顔",
         "赤"
       ],
-      "updated_at": 1783296707868
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-30",
       "struttura": "〜という意味",
       "spiegazione": {
-        "it": "it mean...",
+        "it": "Significa…: 〜という意味です spiega il senso di una parola o frase.",
         "en": "it mean..."
       },
       "chapter_tags": [
@@ -81800,13 +81800,13 @@
         "字",
         "味"
       ],
-      "updated_at": 1783296707862
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-24",
       "struttura": "〜ところ",
       "spiegazione": {
-        "it": "just about/on the verge of doing something",
+        "it": "Sul punto di / appena fatto: 〜ところ con dizionario (sto per), 〜ているところ (sto facendo), 〜たところ (appena fatto).",
         "en": "just about/on the verge of doing something"
       },
       "chapter_tags": [
@@ -81837,13 +81837,13 @@
       "frasi_esempio_parole_linkate": [
         "今"
       ],
-      "updated_at": 1783296707859
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-23",
       "struttura": "〜と言う",
       "spiegazione": {
-        "it": "(someone) say...",
+        "it": "Dire: 〜と言う riporta parole dette (「田中さんは行くと言いました」).",
         "en": "(someone) say..."
       },
       "chapter_tags": [
@@ -81886,13 +81886,13 @@
         "日",
         "木"
       ],
-      "updated_at": 1783296707859
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-56",
       "struttura": "〜と思う",
       "spiegazione": {
-        "it": "I think...",
+        "it": "Penso che…: 〜と思う esprime opinione propria (con forma piana davanti).",
         "en": "I think..."
       },
       "chapter_tags": [
@@ -81941,7 +81941,7 @@
         "それ",
         "居る"
       ],
-      "updated_at": 1783296707872
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-59",
@@ -81980,7 +81980,7 @@
       "id": "grammar-api-N4-31",
       "struttura": "〜ないで",
       "spiegazione": {
-        "it": "without V-ing",
+        "it": "Senza fare: 〜ないで = senza aver fatto (「朝ごはんを食べないで来ました」).",
         "en": "without V-ing"
       },
       "chapter_tags": [
@@ -82015,13 +82015,13 @@
         "勉強",
         "晩"
       ],
-      "updated_at": 1783296707862
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-36",
       "struttura": "〜ながら",
       "spiegazione": {
-        "it": "while V-ing",
+        "it": "Mentre: 〜ながら = due azioni insieme, stessa persona (「音楽を聞きながら勉強する」).",
         "en": "while V-ing"
       },
       "chapter_tags": [
@@ -82054,13 +82054,13 @@
         "テレビ",
         "食べる"
       ],
-      "updated_at": 1783296707864
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-28",
       "struttura": "〜なくてもいい",
       "spiegazione": {
-        "it": "need not do..., don't have to...",
+        "it": "Non c'è bisogno di: 〜なくてもいい = va bene anche non farlo.",
         "en": "need not do..., don't have to..."
       },
       "chapter_tags": [
@@ -82097,13 +82097,13 @@
         "日",
         "今"
       ],
-      "updated_at": 1783296707861
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-60",
       "struttura": "〜なければいけない",
       "spiegazione": {
-        "it": "must, have to...",
+        "it": "Dovere: 〜なければいけない = obbligo (forma colloquiale: 〜なきゃ).",
         "en": "must, have to..."
       },
       "chapter_tags": [
@@ -82130,13 +82130,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-48",
       "struttura": "〜なら",
       "spiegazione": {
-        "it": "if (giving information)",
+        "it": "Se (in quel caso): 〜なら risponde a un tema introdotto dall'altro (「京都なら秋がいいですよ」).",
         "en": "if (giving information)"
       },
       "chapter_tags": [
@@ -82167,13 +82167,13 @@
       "frasi_esempio_parole_linkate": [
         "行く"
       ],
-      "updated_at": 1783296707869
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-41",
       "struttura": "〜なんか",
       "spiegazione": {
-        "it": "..or (colloquial)",
+        "it": "…o roba simile (colloquiale): 〜なんか sminuisce o esemplifica.",
         "en": "..or (colloquial)"
       },
       "chapter_tags": [
@@ -82208,7 +82208,7 @@
         "する",
         "では"
       ],
-      "updated_at": 1783296707866
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-71",
@@ -82247,7 +82247,7 @@
       "id": "grammar-api-N4-5",
       "struttura": "〜ので",
       "spiegazione": {
-        "it": "because..., ...so",
+        "it": "Poiché: 〜ので motivo oggettivo e cortese (più morbido di から).",
         "en": "because..., ...so"
       },
       "chapter_tags": [
@@ -82274,13 +82274,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-49",
       "struttura": "〜のに",
       "spiegazione": {
-        "it": "even though..",
+        "it": "Eppure, nonostante: 〜のに esprime contrasto con sorpresa o disappunto.",
         "en": "even though.."
       },
       "chapter_tags": [
@@ -82317,13 +82317,13 @@
         "勉強",
         "点"
       ],
-      "updated_at": 1783296707869
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-69",
       "struttura": "〜のに",
       "spiegazione": {
-        "it": "for..,...",
+        "it": "Per (uso/scopo): 〜のに con strumenti e impieghi (「このナイフは肉を切るのに使います」).",
         "en": "for..,..."
       },
       "chapter_tags": [
@@ -82362,13 +82362,13 @@
         "間",
         "車"
       ],
-      "updated_at": 1783296707877
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-46",
       "struttura": "〜ば",
       "spiegazione": {
-        "it": "if.. (hypothetical condition)",
+        "it": "Se (ipotesi): forma in 〜ば (行けば, 食べれば) per condizioni generali.",
         "en": "if.. (hypothetical condition)"
       },
       "chapter_tags": [
@@ -82407,13 +82407,13 @@
         "よく",
         "薬"
       ],
-      "updated_at": 1783296707868
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-26",
       "struttura": "〜ばかり",
       "spiegazione": {
-        "it": "just finished, something just occurred",
+        "it": "Appena fatto: 〜たばかり (「食べたばかりです」 = ho appena mangiato).",
         "en": "just finished, something just occurred"
       },
       "chapter_tags": [
@@ -82448,7 +82448,7 @@
         "会社",
         "君"
       ],
-      "updated_at": 1783296707860
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-58",
@@ -82487,7 +82487,7 @@
       "id": "grammar-api-N4-52",
       "struttura": "〜ようだ/みたいだ",
       "spiegazione": {
-        "it": "it seems that...",
+        "it": "Sembra che: 〜ようだ (formale) / みたいだ (colloquiale), giudizio da indizi.",
         "en": "it seems that..."
       },
       "chapter_tags": [
@@ -82522,7 +82522,7 @@
         "出る",
         "頭"
       ],
-      "updated_at": 1783296707870
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-53",
@@ -82561,7 +82561,7 @@
       "id": "grammar-api-N4-67",
       "struttura": "〜ように",
       "spiegazione": {
-        "it": "so that, in order to",
+        "it": "Affinché: 〜ように per lo scopo con verbi non volitivi (「聞こえるように大きい声で話す」).",
         "en": "so that, in order to"
       },
       "chapter_tags": [
@@ -82594,13 +82594,13 @@
         "聞こえる",
         "みんな"
       ],
-      "updated_at": 1783296707877
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-73",
       "struttura": "〜ようにする",
       "spiegazione": {
-        "it": "making a conscious effort to do something",
+        "it": "Sforzarsi di: 〜ようにする = impegnarsi a fare abitualmente (「毎日運動するようにしている」).",
         "en": "making a conscious effort to do something"
       },
       "chapter_tags": [
@@ -82645,13 +82645,13 @@
         "事",
         "日"
       ],
-      "updated_at": 1783296707879
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-70",
       "struttura": "〜ようになる",
       "spiegazione": {
-        "it": "to reach the point that/ to come to be that/ to turn into",
+        "it": "Arrivare a: 〜ようになる = cambiamento di capacità o abitudine (「話せるようになった」).",
         "en": "to reach the point that/ to come to be that/ to turn into"
       },
       "chapter_tags": [
@@ -82690,13 +82690,13 @@
         "英語",
         "話"
       ],
-      "updated_at": 1783296707878
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-3",
       "struttura": "〜んです",
       "spiegazione": {
-        "it": "explanation, reason",
+        "it": "Spiegazione: 〜んです aggiunge il tono di 'è che…' (motivare, chiedere spiegazioni).",
         "en": "explanation, reason"
       },
       "chapter_tags": [
@@ -82733,13 +82733,13 @@
         "居る",
         "頭"
       ],
-      "updated_at": 1783296707848
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-80",
       "struttura": "+[Verb]",
       "spiegazione": {
-        "it": "Please write a bigger.",
+        "it": "Richieste con comparativo: 「もっと大きく書いてください」 = scriva più in grande.",
         "en": "Please write a bigger."
       },
       "chapter_tags": [
@@ -82772,7 +82772,7 @@
         "もっと",
         "居る"
       ],
-      "updated_at": 1783296707882
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-44",
@@ -82892,7 +82892,7 @@
       "id": "grammar-api-N4-33",
       "struttura": "あとで",
       "spiegazione": {
-        "it": "after, later",
+        "it": "Dopo: あとで = più tardi, in seguito (「あとで電話します」).",
         "en": "after, later"
       },
       "chapter_tags": [
@@ -82931,13 +82931,13 @@
         "来る",
         "事"
       ],
-      "updated_at": 1783296707863
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-22",
       "struttura": "いる",
       "spiegazione": {
-        "it": "the circumstance of remaining effects",
+        "it": "Effetto che permane: 〜ている per stati risultanti (「窓が開いている」 = la finestra è aperta).",
         "en": "the circumstance of remaining effects"
       },
       "chapter_tags": [
@@ -82968,7 +82968,7 @@
       "frasi_esempio_parole_linkate": [
         "ドア"
       ],
-      "updated_at": 1783296707858
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-35",
@@ -83058,7 +83058,7 @@
       "id": "grammar-api-N4-29",
       "struttura": "この/その/あの/どの",
       "spiegazione": {
-        "it": "to refer to the thing not visible to the speaker or the hearer",
+        "it": "あの/どの per cose lontane da entrambi o note a entrambi; この/その per vicinanza a chi parla/ascolta.",
         "en": "to refer to the thing not visible to the speaker or the hearer"
       },
       "chapter_tags": [
@@ -83097,13 +83097,13 @@
         "山",
         "話"
       ],
-      "updated_at": 1783296707861
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-38",
       "struttura": "しかない",
       "spiegazione": {
-        "it": "only [Noun] and no other...",
+        "it": "Non resta che / solo: 〜しかない con verbo (「歩くしかない」) o nome + しか…ない.",
         "en": "only [Noun] and no other..."
       },
       "chapter_tags": [
@@ -83136,13 +83136,13 @@
         "ない",
         "パン"
       ],
-      "updated_at": 1783296707865
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-4",
       "struttura": "そこで",
       "spiegazione": {
-        "it": "therefore/that's why",
+        "it": "Perciò, a quel punto: そこで collega causa e mossa conseguente.",
         "en": "therefore/that's why"
       },
       "chapter_tags": [
@@ -83169,7 +83169,7 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-85",
@@ -83208,7 +83208,7 @@
       "id": "grammar-api-N4-27",
       "struttura": "ほうがいい",
       "spiegazione": {
-        "it": "you should...",
+        "it": "Faresti meglio a: 〜たほうがいい consiglio (negativo: 〜ないほうがいい).",
         "en": "you should..."
       },
       "chapter_tags": [
@@ -83235,7 +83235,7 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707860
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-25",
@@ -83274,7 +83274,7 @@
       "id": "grammar-api-N4-42",
       "struttura": "も",
       "spiegazione": {
-        "it": "or something",
+        "it": "…o qualcosa: でも/も esemplificativo (「お茶でも飲みませんか」).",
         "en": "or something"
       },
       "chapter_tags": [
@@ -83313,13 +83313,13 @@
         "する",
         "でも"
       ],
-      "updated_at": 1783296707867
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-14",
       "struttura": "意向形",
       "spiegazione": {
-        "it": "Verb Volitional form",
+        "it": "Forma volitiva: 飲もう, 食べよう, しよう, 来よう — proposte e intenzioni (piano di 〜ましょう).",
         "en": "Verb Volitional form"
       },
       "chapter_tags": [
@@ -83366,13 +83366,13 @@
       "frasi_esempio_parole_linkate": [
         "もう"
       ],
-      "updated_at": 1783296707855
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-39",
       "struttura": "下",
       "spiegazione": {
-        "it": "showing a limit",
+        "it": "Limite: espressioni con 一番/最も per il grado massimo.",
         "en": "showing a limit"
       },
       "chapter_tags": [
@@ -83413,7 +83413,7 @@
         "車",
         "万"
       ],
-      "updated_at": 1783296707865
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-40",
@@ -83464,7 +83464,7 @@
       "id": "grammar-api-N4-10",
       "struttura": "可能形",
       "spiegazione": {
-        "it": "Verb Potential form",
+        "it": "Forma potenziale: 飲める, 食べられる, できる, 来られる — saper/poter fare.",
         "en": "Verb Potential form"
       },
       "chapter_tags": [
@@ -83495,13 +83495,13 @@
       "frasi_esempio_parole_linkate": [
         "できる"
       ],
-      "updated_at": 1783296707853
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-12",
       "struttura": "禁止形",
       "spiegazione": {
-        "it": "Verb Prohibitive form",
+        "it": "Forma proibitiva: 飲むな, 食べるな — divieto brusco (maschile/cartelli).",
         "en": "Verb Prohibitive form"
       },
       "chapter_tags": [
@@ -83538,13 +83538,13 @@
         "飲む",
         "来る"
       ],
-      "updated_at": 1783296707854
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-81",
       "struttura": "敬語",
       "spiegazione": {
-        "it": "honorific expressions",
+        "it": "Espressioni onorifiche: elevano le azioni altrui (お帰りになる, いらっしゃる).",
         "en": "honorific expressions"
       },
       "chapter_tags": [
@@ -83571,13 +83571,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-82",
       "struttura": "敬語",
       "spiegazione": {
-        "it": "Respectful expressions",
+        "it": "Sonkeigo: rispetto per le azioni di superiori e clienti (召し上がる, おっしゃる).",
         "en": "Respectful expressions"
       },
       "chapter_tags": [
@@ -83612,13 +83612,13 @@
         "する",
         "上"
       ],
-      "updated_at": 1783296707884
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-18",
       "struttura": "見える/聞こえる",
       "spiegazione": {
-        "it": "be audible/ be visible",
+        "it": "見える/聞こえる: visibile/udibile da sé, senza sforzo (diverso da 見られる/聞ける).",
         "en": "be audible/ be visible"
       },
       "chapter_tags": [
@@ -83653,13 +83653,13 @@
         "テレビ",
         "音"
       ],
-      "updated_at": 1783296707857
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-83",
       "struttura": "謙譲語",
       "spiegazione": {
-        "it": "Humble expressions",
+        "it": "Kenjōgo: umiltà per le proprie azioni verso gli altri (いただく, 伺う, 申す).",
         "en": "Humble expressions"
       },
       "chapter_tags": [
@@ -83694,7 +83694,7 @@
         "居る",
         "本"
       ],
-      "updated_at": 1783296707884
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-61",
@@ -83741,7 +83741,7 @@
       "id": "grammar-api-N4-16",
       "struttura": "使役形",
       "spiegazione": {
-        "it": "Verb Causative form",
+        "it": "Forma causativa: 飲ませる, 食べさせる — far fare / lasciar fare.",
         "en": "Verb Causative form"
       },
       "chapter_tags": [
@@ -83768,13 +83768,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707856
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-17",
       "struttura": "使役受身形",
       "spiegazione": {
-        "it": "Verb Causative passive form",
+        "it": "Causativo-passiva: 飲まされる, 食べさせられる — essere costretti a fare.",
         "en": "Verb Causative passive form"
       },
       "chapter_tags": [
@@ -83801,7 +83801,7 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707856
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-62",
@@ -83854,7 +83854,7 @@
       "id": "grammar-api-N4-19",
       "struttura": "自動詞/他動詞",
       "spiegazione": {
-        "it": "Intransitive/Transitive Verb",
+        "it": "自動詞 (intransitivo: ドアが開く) vs 他動詞 (transitivo: ドアを開ける): coppia che cambia particella.",
         "en": "Intransitive/Transitive Verb"
       },
       "chapter_tags": [
@@ -83887,13 +83887,13 @@
         "パソコン",
         "する"
       ],
-      "updated_at": 1783296707857
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-15",
       "struttura": "受身形",
       "spiegazione": {
-        "it": "Verb Passive form",
+        "it": "Forma passiva: 飲まれる, 食べられる — subire l'azione (anche passivo di disturbo).",
         "en": "Verb Passive form"
       },
       "chapter_tags": [
@@ -83920,13 +83920,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707856
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-32",
       "struttura": "小さい/少ない/短い",
       "spiegazione": {
-        "it": "easy to.../ hard to...",
+        "it": "〜やすい/〜にくい sullo stem: facile/difficile da fare (「読みやすい」).",
         "en": "easy to.../ hard to..."
       },
       "chapter_tags": [
@@ -83963,13 +83963,13 @@
         "紙",
         "手"
       ],
-      "updated_at": 1783296707863
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-51",
       "struttura": "場合",
       "spiegazione": {
-        "it": "in the event of, in the case that...",
+        "it": "In caso di: 〜場合(は) per ipotesi e istruzioni (「雨の場合は中止」).",
         "en": "in the event of, in the case that..."
       },
       "chapter_tags": [
@@ -84010,13 +84010,13 @@
         "時間",
         "間"
       ],
-      "updated_at": 1783296707870
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-13",
       "struttura": "条件形",
       "spiegazione": {
-        "it": "Verb Conditional form",
+        "it": "Forma condizionale: 飲めば, 食べれば, すれば, 来れば.",
         "en": "Verb Conditional form"
       },
       "chapter_tags": [
@@ -84043,13 +84043,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707855
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-11",
       "struttura": "命令形",
       "spiegazione": {
-        "it": "Verb Imperative form",
+        "it": "Forma imperativa: 飲め, 食べろ, しろ, 来い — ordine secco (cartelli, emergenze, tifo).",
         "en": "Verb Imperative form"
       },
       "chapter_tags": [
@@ -84076,13 +84076,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707854
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N4-63",
       "struttura": "予定",
       "spiegazione": {
-        "it": "schedule",
+        "it": "Programma: 〜予定だ = è in programma che (「三時に着く予定です」).",
         "en": "schedule"
       },
       "chapter_tags": [
@@ -84121,7 +84121,7 @@
         "在る",
         "有る"
       ],
-      "updated_at": 1783296707875
+      "updated_at": 1783719298911
     },
     {
       "id": "g-n5-desu",
@@ -84161,7 +84161,7 @@
       "id": "grammar-api-N5-16",
       "struttura": "い形容詞",
       "spiegazione": {
-        "it": "i-adjectives",
+        "it": "Aggettivi in い: si flettono da soli (高い→高くない→高かった), niente な.",
         "en": "i-adjectives"
       },
       "chapter_tags": [
@@ -84192,13 +84192,13 @@
       "frasi_esempio_parole_linkate": [
         "この"
       ],
-      "updated_at": 1783666652072
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-19",
       "struttura": "いつも",
       "spiegazione": {
-        "it": "always; usually; habitually",
+        "it": "いつも: sempre, di solito — avverbio di frequenza in cima alla scala.",
         "en": "always; usually; habitually"
       },
       "chapter_tags": [
@@ -84233,13 +84233,13 @@
         "いつ",
         "朝"
       ],
-      "updated_at": 1783296707834
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-21",
       "struttura": "か",
       "spiegazione": {
-        "it": "question particle",
+        "it": "か finale: trasforma la frase in domanda, senza punto interrogativo necessario.",
         "en": "question particle"
       },
       "chapter_tags": [
@@ -84270,13 +84270,13 @@
       "frasi_esempio_parole_linkate": [
         "これ"
       ],
-      "updated_at": 1783296707835
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-11",
       "struttura": "が",
       "spiegazione": {
-        "it": "subject marker; however; but",
+        "it": "が: marca il soggetto (nuova informazione); dopo una frase = 'ma'.",
         "en": "subject marker; however; but"
       },
       "chapter_tags": [
@@ -84309,13 +84309,13 @@
         "好き",
         "猫"
       ],
-      "updated_at": 1783296707832
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-22",
       "struttura": "か〜か",
       "spiegazione": {
-        "it": "or",
+        "it": "A か B: oppure, tra due alternative (「お茶かコーヒー」).",
         "en": "or"
       },
       "chapter_tags": [
@@ -84348,13 +84348,13 @@
         "コーヒー",
         "紅茶"
       ],
-      "updated_at": 1783296707835
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-12",
       "struttura": "があります",
       "spiegazione": {
-        "it": "there is; is (non-living things)",
+        "it": "があります: esistenza di cose inanimate (「机の上に本があります」).",
         "en": "there is; is (non-living things)"
       },
       "chapter_tags": [
@@ -84393,13 +84393,13 @@
         "上",
         "本"
       ],
-      "updated_at": 1783296707833
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-14",
       "struttura": "がいます",
       "spiegazione": {
-        "it": "there is; to be; is (living things)",
+        "it": "がいます: esistenza di esseri animati (「犬がいます」).",
         "en": "there is; to be; is (living things)"
       },
       "chapter_tags": [
@@ -84434,13 +84434,13 @@
         "犬",
         "庭"
       ],
-      "updated_at": 1783296707833
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-13",
       "struttura": "がほしい",
       "spiegazione": {
-        "it": "to want something",
+        "it": "がほしい: volere una cosa (「新しいくつがほしい」); per le azioni si usa 〜たい.",
         "en": "to want something"
       },
       "chapter_tags": [
@@ -84473,13 +84473,13 @@
         "新しい",
         "車"
       ],
-      "updated_at": 1783296707833
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-23",
       "struttura": "から",
       "spiegazione": {
-        "it": "because; since; from",
+        "it": "から: perché (dopo il motivo) e 'da' (origine: 「九時から」).",
         "en": "because; since; from"
       },
       "chapter_tags": [
@@ -84510,13 +84510,13 @@
       "frasi_esempio_parole_linkate": [
         "休み"
       ],
-      "updated_at": 1783296707835
+      "updated_at": 1783719298911
     },
     {
       "id": "grammar-api-N5-25",
       "struttura": "けど",
       "spiegazione": {
-        "it": "but; however; although",
+        "it": "Ma, però (colloquiale): けど chiude o collega con contrasto leggero.",
         "en": "but; however; although"
       },
       "chapter_tags": [
@@ -84553,13 +84553,13 @@
         "作る",
         "来る"
       ],
-      "updated_at": 1783296707836
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-26",
       "struttura": "けれども",
       "spiegazione": {
-        "it": "but; however; although",
+        "it": "Ma, sebbene: けれども, versione più formale di けど.",
         "en": "but; however; although"
       },
       "chapter_tags": [
@@ -84592,13 +84592,13 @@
         "忙しい",
         "居る"
       ],
-      "updated_at": 1783296707836
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-60",
       "struttura": "しかし",
       "spiegazione": {
-        "it": "but; however",
+        "it": "Tuttavia: しかし apre la frase con un contrasto netto (scritto/formale).",
         "en": "but; however"
       },
       "chapter_tags": [
@@ -84637,13 +84637,13 @@
         "時間",
         "来る"
       ],
-      "updated_at": 1783296707843
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-20",
       "struttura": "じゃない・ではない",
       "spiegazione": {
-        "it": "to not be (am not; is not; are not)",
+        "it": "Non essere: negazione di です (「学生じゃないです」); ではない è più formale.",
         "en": "to not be (am not; is not; are not)"
       },
       "chapter_tags": [
@@ -84678,13 +84678,13 @@
         "ない",
         "猫"
       ],
-      "updated_at": 1783296707835
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-61",
       "struttura": "すぎる",
       "spiegazione": {
-        "it": "too much",
+        "it": "Troppo: すぎる sullo stem (食べすぎる, 高すぎる).",
         "en": "too much"
       },
       "chapter_tags": [
@@ -84711,13 +84711,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707843
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-2",
       "struttura": "だ・です",
       "spiegazione": {
-        "it": "to be (am, is, are, were, used to)",
+        "it": "Essere (copula): だ piano, です cortese (「学生です」).",
         "en": "to be (am, is, are, were, used to)"
       },
       "chapter_tags": [
@@ -84750,13 +84750,13 @@
         "これ",
         "本"
       ],
-      "updated_at": 1783296707830
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-63",
       "struttura": "たい",
       "spiegazione": {
-        "it": "want to do something",
+        "it": "Volere fare: 〜たい sullo stem (「日本へ行きたい」); per le cose si usa がほしい.",
         "en": "want to do something"
       },
       "chapter_tags": [
@@ -84783,13 +84783,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-3",
       "struttura": "だけ",
       "spiegazione": {
-        "it": "only; just; as much as",
+        "it": "Solo, soltanto: だけ dopo nome o verbo (「一つだけ」).",
         "en": "only; just; as much as"
       },
       "chapter_tags": [
@@ -84820,13 +84820,13 @@
       "frasi_esempio_parole_linkate": [
         "水"
       ],
-      "updated_at": 1783296707830
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-62",
       "struttura": "たことがある",
       "spiegazione": {
-        "it": "to have done something before",
+        "it": "Esperienza passata: 〜たことがある = mi è capitato di… (「日本へ行ったことがある」).",
         "en": "to have done something before"
       },
       "chapter_tags": [
@@ -84861,13 +84861,13 @@
         "有る",
         "本"
       ],
-      "updated_at": 1783296707843
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-64",
       "struttura": "たり〜たり",
       "spiegazione": {
-        "it": "do such things as A and B",
+        "it": "Fare cose come A e B: 〜たり〜たりする elenca azioni non esaustive.",
         "en": "do such things as A and B"
       },
       "chapter_tags": [
@@ -84904,13 +84904,13 @@
         "映画",
         "物"
       ],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-4",
       "struttura": "だろう",
       "spiegazione": {
-        "it": "I think; it seems; probably; right?",
+        "it": "Probabilmente (piano): だろう, versione informale di でしょう.",
         "en": "I think; it seems; probably; right?"
       },
       "chapter_tags": [
@@ -84941,13 +84941,13 @@
       "frasi_esempio_parole_linkate": [
         "ない"
       ],
-      "updated_at": 1783296707830
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-1",
       "struttura": "ちゃいけない・じゃいけない",
       "spiegazione": {
-        "it": "must not do (spoken Japanese)",
+        "it": "Non si deve (parlato): ちゃいけない/じゃいけない = contrazione di てはいけない.",
         "en": "must not do (spoken Japanese)"
       },
       "chapter_tags": [
@@ -84980,13 +84980,13 @@
         "ここ",
         "ない"
       ],
-      "updated_at": 1783296707829
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-74",
       "struttura": "つもり",
       "spiegazione": {
-        "it": "plan to ~; intend to ~",
+        "it": "Intenzione: つもり = avere in mente di fare (「行くつもりです」).",
         "en": "plan to ~; intend to ~"
       },
       "chapter_tags": [
@@ -85021,13 +85021,13 @@
         "行く",
         "明日::あした"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-5",
       "struttura": "で",
       "spiegazione": {
-        "it": "in; at; on; by; with; via",
+        "it": "で: luogo dell'azione (「図書館で勉強する」), mezzo (「バスで」), strumento e causa.",
         "en": "in; at; on; by; with; via"
       },
       "chapter_tags": [
@@ -85062,13 +85062,13 @@
         "学校",
         "勉強"
       ],
-      "updated_at": 1783296707831
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-65",
       "struttura": "てある",
       "spiegazione": {
-        "it": "is/has been done (resulting state)",
+        "it": "Stato risultante (fatto apposta): 〜てある (「窓が開けてある」 = qualcuno l'ha aperta e lasciata così).",
         "en": "is/has been done (resulting state)"
       },
       "chapter_tags": [
@@ -85103,13 +85103,13 @@
         "有る",
         "窓"
       ],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-66",
       "struttura": "〜ている／〜でいる",
       "spiegazione": {
-        "it": "ongoing action or current state",
+        "it": "Azione in corso o stato attuale: 〜ている (「食べている」 = sto mangiando; 「結婚している」 = è sposato).",
         "en": "ongoing action or current state"
       },
       "chapter_tags": [
@@ -85160,13 +85160,13 @@
         "今",
         "本"
       ],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-67",
       "struttura": "てから",
       "spiegazione": {
-        "it": "after doing~",
+        "it": "Dopo aver fatto: 〜てから in sequenza (「手を洗ってから食べます」).",
         "en": "after doing~"
       },
       "chapter_tags": [
@@ -85199,13 +85199,13 @@
         "する",
         "宿題"
       ],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-68",
       "struttura": "てください",
       "spiegazione": {
-        "it": "please do",
+        "it": "Per favore, faccia: 〜てください, la richiesta cortese standard.",
         "en": "please do"
       },
       "chapter_tags": [
@@ -85232,13 +85232,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-7",
       "struttura": "でしょう",
       "spiegazione": {
-        "it": "I think; it seems; probably; right?",
+        "it": "Probabilmente / vero?: でしょう per previsioni e conferme (「寒いでしょう？」).",
         "en": "I think; it seems; probably; right?"
       },
       "chapter_tags": [
@@ -85271,13 +85271,13 @@
         "明日::あした",
         "雨"
       ],
-      "updated_at": 1783296707831
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-69",
       "struttura": "てはいけない",
       "spiegazione": {
-        "it": "must not; may not; cannot",
+        "it": "È vietato: 〜てはいけない (「ここで走ってはいけません」).",
         "en": "must not; may not; cannot"
       },
       "chapter_tags": [
@@ -85310,13 +85310,13 @@
         "ここ",
         "はい"
       ],
-      "updated_at": 1783296707844
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-6",
       "struttura": "でも",
       "spiegazione": {
-        "it": "but; however",
+        "it": "Ma, però: でも apre la frase col contrasto (più colloquiale di しかし).",
         "en": "but; however"
       },
       "chapter_tags": [
@@ -85343,13 +85343,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-70",
       "struttura": "てもいいです",
       "spiegazione": {
-        "it": "is OK to..; is alright to..; may I..?",
+        "it": "Si può: 〜てもいいです = permesso (「入ってもいいですか」 = posso entrare?).",
         "en": "is OK to..; is alright to..; may I..?"
       },
       "chapter_tags": [
@@ -85380,13 +85380,13 @@
       "frasi_esempio_parole_linkate": [
         "ここ"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-71",
       "struttura": "と",
       "spiegazione": {
-        "it": "and; with; as; connecting particle",
+        "it": "と: 'e' tra nomi (lista completa), 'con' qualcuno, e citazione (〜と言う).",
         "en": "and; with; as; connecting particle"
       },
       "chapter_tags": [
@@ -85421,13 +85421,13 @@
         "犬",
         "猫"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-9",
       "struttura": "どうして",
       "spiegazione": {
-        "it": "why; for what reason; how",
+        "it": "Perché?: どうして chiede il motivo (più colloquiale di なぜ).",
         "en": "why; for what reason; how"
       },
       "chapter_tags": [
@@ -85462,13 +85462,13 @@
         "する",
         "どう"
       ],
-      "updated_at": 1783296707832
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-10",
       "struttura": "どうやって",
       "spiegazione": {
-        "it": "how; in what way; by what means",
+        "it": "In che modo?: どうやって chiede il come (「どうやって行きますか」).",
         "en": "how; in what way; by what means"
       },
       "chapter_tags": [
@@ -85503,13 +85503,13 @@
         "行く",
         "駅"
       ],
-      "updated_at": 1783296707832
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-72",
       "struttura": "とき",
       "spiegazione": {
-        "it": "when; at this time",
+        "it": "Quando: 〜とき = al tempo in cui (「子どものとき」 = da bambino).",
         "en": "when; at this time"
       },
       "chapter_tags": [
@@ -85542,13 +85542,13 @@
         "よく",
         "子供"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-73",
       "struttura": "とても",
       "spiegazione": {
-        "it": "very; awfully; exceedingly",
+        "it": "Molto: とても davanti ad aggettivi (「とてもおいしい」).",
         "en": "very; awfully; exceedingly"
       },
       "chapter_tags": [
@@ -85581,13 +85581,13 @@
         "とても",
         "する"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-8",
       "struttura": "どんな",
       "spiegazione": {
-        "it": "what kind of; what sort of",
+        "it": "Che tipo di: どんな + nome (「どんな音楽が好き？」).",
         "en": "what kind of; what sort of"
       },
       "chapter_tags": [
@@ -85622,13 +85622,13 @@
         "映画",
         "好き"
       ],
-      "updated_at": 1783296707832
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-36",
       "struttura": "な形容詞",
       "spiegazione": {
-        "it": "na-adjectives",
+        "it": "Aggettivi in な: legano al nome con な (静かな町); si negano con じゃない.",
         "en": "na-adjectives"
       },
       "chapter_tags": [
@@ -85655,13 +85655,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-37",
       "struttura": "なあ",
       "spiegazione": {
-        "it": "sentence ending particle; confirmation; admiration, etc",
+        "it": "なあ finale: ammirazione o desiderio tra sé (「いいなあ」).",
         "en": "sentence ending particle; confirmation; admiration, etc"
       },
       "chapter_tags": [
@@ -85692,13 +85692,13 @@
       "frasi_esempio_parole_linkate": [
         "天気"
       ],
-      "updated_at": 1783296707839
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-38",
       "struttura": "ないで",
       "spiegazione": {
-        "it": "without doing ; To do [B] without doing [A]",
+        "it": "Senza fare: 〜ないで (「朝ごはんを食べないで出かけた」).",
         "en": "without doing ; To do [B] without doing [A]"
       },
       "chapter_tags": [
@@ -85733,13 +85733,13 @@
         "ない",
         "歯"
       ],
-      "updated_at": 1783296707839
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-39",
       "struttura": "ないでください",
       "spiegazione": {
-        "it": "please don't do",
+        "it": "Per favore non: 〜ないでください (「ここでたばこを吸わないでください」).",
         "en": "please don't do"
       },
       "chapter_tags": [
@@ -85774,13 +85774,13 @@
         "ない",
         "写真"
       ],
-      "updated_at": 1783296707840
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-41",
       "struttura": "なくちゃ",
       "spiegazione": {
-        "it": "must do; need to; gotta do",
+        "it": "Devo (parlato): なくちゃ, contrazione di なくては (「もう行かなくちゃ」).",
         "en": "must do; need to; gotta do"
       },
       "chapter_tags": [
@@ -85811,13 +85811,13 @@
       "frasi_esempio_parole_linkate": [
         "宿題"
       ],
-      "updated_at": 1783296707840
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-42",
       "struttura": "なくてはいけない",
       "spiegazione": {
-        "it": "must do; need to do",
+        "it": "Dovere: 〜なくてはいけない = è necessario fare.",
         "en": "must do; need to do"
       },
       "chapter_tags": [
@@ -85854,13 +85854,13 @@
         "勉強",
         "毎日"
       ],
-      "updated_at": 1783296707840
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-43",
       "struttura": "なくてはならない",
       "spiegazione": {
-        "it": "must do; need to do",
+        "it": "Dovere (formale): 〜なくてはならない, tono più rigido/scritto.",
         "en": "must do; need to do"
       },
       "chapter_tags": [
@@ -85895,13 +85895,13 @@
         "ない",
         "仕事"
       ],
-      "updated_at": 1783296707840
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-40",
       "struttura": "なくてもいい",
       "spiegazione": {
-        "it": "don't have to",
+        "it": "Non serve: 〜なくてもいい = va bene anche non fare (「急がなくてもいいです」).",
         "en": "don't have to"
       },
       "chapter_tags": [
@@ -85928,13 +85928,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707840
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-44",
       "struttura": "〜くなる／〜になる",
       "spiegazione": {
-        "it": "to become",
+        "it": "Diventare: aggettivo+くなる (寒くなる), nome/な+になる (医者になる).",
         "en": "to become"
       },
       "chapter_tags": [
@@ -85969,13 +85969,13 @@
         "なる",
         "天気"
       ],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-47",
       "struttura": "に",
       "spiegazione": {
-        "it": "destination particle; in; at; on; to",
+        "it": "に: destinazione, luogo di esistenza (います/あります), orario puntuale, destinatario.",
         "en": "destination particle; in; at; on; to"
       },
       "chapter_tags": [
@@ -86010,13 +86010,13 @@
         "来る",
         "本"
       ],
-      "updated_at": 1783296707841
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-50",
       "struttura": "に/へ",
       "spiegazione": {
-        "it": "to (indicates direction / destination)",
+        "it": "Verso: に e へ per la direzione (へ più 'in direzione di', に più 'fino a destinazione').",
         "en": "to (indicates direction / destination)"
       },
       "chapter_tags": [
@@ -86051,13 +86051,13 @@
         "作る",
         "来る"
       ],
-      "updated_at": 1783296707841
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-48",
       "struttura": "〜に行く",
       "spiegazione": {
-        "it": "go to do",
+        "it": "Andare a fare: stem + に行く (「買い物に行く」, 「泳ぎに行く」).",
         "en": "go to do"
       },
       "chapter_tags": [
@@ -86094,13 +86094,13 @@
         "来る",
         "物"
       ],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-49",
       "struttura": "にする",
       "spiegazione": {
-        "it": "to decide on",
+        "it": "Decidere per: 〜にする quando scegli (「お茶にします」 = prendo il tè).",
         "en": "to decide on"
       },
       "chapter_tags": [
@@ -86127,13 +86127,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-46",
       "struttura": "ね",
       "spiegazione": {
-        "it": "isn't it? right? eh?",
+        "it": "ね finale: cerca accordo o conferma (「いい天気ですね」).",
         "en": "isn't it? right? eh?"
       },
       "chapter_tags": [
@@ -86160,13 +86160,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707841
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-51",
       "struttura": "の",
       "spiegazione": {
-        "it": "possessive particle",
+        "it": "の: possesso e legame tra nomi (「私の本」, 「日本語の先生」).",
         "en": "possessive particle"
       },
       "chapter_tags": [
@@ -86201,13 +86201,13 @@
         "私::わたくし",
         "本"
       ],
-      "updated_at": 1783296707841
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-53",
       "struttura": "のが下手",
       "spiegazione": {
-        "it": "to be bad at doing something",
+        "it": "Essere negato in: 〜のが下手 (「歌うのが下手です」).",
         "en": "to be bad at doing something"
       },
       "chapter_tags": [
@@ -86250,13 +86250,13 @@
         "私::わたくし",
         "手"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-55",
       "struttura": "のが好き",
       "spiegazione": {
-        "it": "to like doing something",
+        "it": "Piacere fare: 〜のが好き (「映画を見るのが好きです」).",
         "en": "to like doing something"
       },
       "chapter_tags": [
@@ -86291,13 +86291,13 @@
         "読む",
         "本"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-54",
       "struttura": "のが上手",
       "spiegazione": {
-        "it": "to be good at",
+        "it": "Essere bravo in: 〜のが上手 (「料理を作るのが上手です」).",
         "en": "to be good at"
       },
       "chapter_tags": [
@@ -86338,13 +86338,13 @@
         "手",
         "上"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-57",
       "struttura": "ので",
       "spiegazione": {
-        "it": "because of; given that; since",
+        "it": "Poiché: ので, motivo oggettivo e cortese (più morbido di から).",
         "en": "because of; given that; since"
       },
       "chapter_tags": [
@@ -86383,13 +86383,13 @@
         "雨",
         "傘"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-52",
       "struttura": "のです",
       "spiegazione": {
-        "it": "to explain something; show emphasis",
+        "it": "È che…: のです spiega o chiede spiegazione (versione scritta di んです).",
         "en": "to explain something; show emphasis"
       },
       "chapter_tags": [
@@ -86422,13 +86422,13 @@
         "作る",
         "来る"
       ],
-      "updated_at": 1783296707842
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-56",
       "struttura": "〜の中で〜が一番〜",
       "spiegazione": {
-        "it": "out of this group, [A] is best",
+        "it": "Superlativo nel gruppo: 「〜の中で〜が一番〜」 (「この中でりんごが一番好き」).",
         "en": "out of this group, [A] is best"
       },
       "chapter_tags": [
@@ -86467,13 +86467,13 @@
         "一",
         "中"
       ],
-      "updated_at": 1783666652072
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-75",
       "struttura": "は",
       "spiegazione": {
-        "it": "topic marker",
+        "it": "は: marca il tema della frase — 'quanto a…' (「私は学生です」).",
         "en": "topic marker"
       },
       "chapter_tags": [
@@ -86508,13 +86508,13 @@
         "私::わたし",
         "私::わたくし"
       ],
-      "updated_at": 1783296707845
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-76",
       "struttura": "は〜より・・・です",
       "spiegazione": {
-        "it": "[A] is more ~ than [B]",
+        "it": "A è più … di B: 「AはBより高いです」.",
         "en": "[A] is more ~ than [B]"
       },
       "chapter_tags": [
@@ -86547,13 +86547,13 @@
         "犬",
         "猫"
       ],
-      "updated_at": 1783296707846
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-77",
       "struttura": "はどうですか",
       "spiegazione": {
-        "it": "how about; how is",
+        "it": "Che ne dici di…?: 〜はどうですか per proporre (「コーヒーはどうですか」).",
         "en": "how about; how is"
       },
       "chapter_tags": [
@@ -86588,13 +86588,13 @@
         "この",
         "どう"
       ],
-      "updated_at": 1783296707846
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-15",
       "struttura": "ほうがいい",
       "spiegazione": {
-        "it": "had better; it'd be better to; should",
+        "it": "Faresti meglio a: 〜ほうがいい consiglio (「早く寝たほうがいい」).",
         "en": "had better; it'd be better to; should"
       },
       "chapter_tags": [
@@ -86621,13 +86621,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707833
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-32",
       "struttura": "ましょう",
       "spiegazione": {
-        "it": "let's ; shall we ~",
+        "it": "Facciamo…: 〜ましょう propone insieme (「行きましょう」).",
         "en": "let's ; shall we ~"
       },
       "chapter_tags": [
@@ -86658,13 +86658,13 @@
       "frasi_esempio_parole_linkate": [
         "映画"
       ],
-      "updated_at": 1783296707837
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-33",
       "struttura": "ましょうか",
       "spiegazione": {
-        "it": "shall I ~; used to offer help to the listener",
+        "it": "Faccio io…?: 〜ましょうか offre aiuto (「手伝いましょうか」).",
         "en": "shall I ~; used to offer help to the listener"
       },
       "chapter_tags": [
@@ -86697,13 +86697,13 @@
         "荷物",
         "物"
       ],
-      "updated_at": 1783296707837
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-31",
       "struttura": "ませんか",
       "spiegazione": {
-        "it": "would you; do you want to; shall we",
+        "it": "Ti va di…?: 〜ませんか invita gentilmente (「一緒に食べませんか」).",
         "en": "would you; do you want to; shall we"
       },
       "chapter_tags": [
@@ -86740,13 +86740,13 @@
         "来る",
         "一"
       ],
-      "updated_at": 1783296707837
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-27",
       "struttura": "まだ",
       "spiegazione": {
-        "it": "still; not yet",
+        "it": "Ancora / non ancora: まだ (「まだ雨が降っている」; con negazione = non ancora).",
         "en": "still; not yet"
       },
       "chapter_tags": [
@@ -86783,13 +86783,13 @@
         "居る",
         "宿題"
       ],
-      "updated_at": 1783296707836
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-28",
       "struttura": "まだ〜ていません",
       "spiegazione": {
-        "it": "have not yet",
+        "it": "Non ancora fatto: まだ〜ていません (「まだ食べていません」).",
         "en": "have not yet"
       },
       "chapter_tags": [
@@ -86822,13 +86822,13 @@
         "まだ",
         "居る"
       ],
-      "updated_at": 1783296707836
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-29",
       "struttura": "まで",
       "spiegazione": {
-        "it": "until ~; as far as ~; to (an extent); even ~",
+        "it": "Fino a: まで di tempo e luogo (「五時まで」, 「駅まで」).",
         "en": "until ~; as far as ~; to (an extent); even ~"
       },
       "chapter_tags": [
@@ -86863,13 +86863,13 @@
         "来る",
         "駅"
       ],
-      "updated_at": 1783296707837
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-34",
       "struttura": "も",
       "spiegazione": {
-        "it": "too; also; as well",
+        "it": "Anche: も sostituisce は/が/を (「私も行きます」).",
         "en": "too; also; as well"
       },
       "chapter_tags": [
@@ -86906,13 +86906,13 @@
         "私::わたし",
         "私::わたくし"
       ],
-      "updated_at": 1783296707838
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-35",
       "struttura": "もう",
       "spiegazione": {
-        "it": "already; anymore; again; other",
+        "it": "Già / non più: もう (「もう食べました」; もう＋negazione = non più).",
         "en": "already; anymore; again; other"
       },
       "chapter_tags": [
@@ -86945,13 +86945,13 @@
         "する",
         "もう"
       ],
-      "updated_at": 1783296707838
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-78",
       "struttura": "や",
       "spiegazione": {
-        "it": "and; or; connecting particle",
+        "it": "E (lista aperta): や elenca esempi non esaustivi (「本やペン」).",
         "en": "and; or; connecting particle"
       },
       "chapter_tags": [
@@ -86984,13 +86984,13 @@
         "する",
         "居る"
       ],
-      "updated_at": 1783296707846
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-79",
       "struttura": "よ",
       "spiegazione": {
-        "it": "you know; emphasis (ending particle)",
+        "it": "よ finale: informa con enfasi — 'sai?' (「おいしいですよ」).",
         "en": "you know; emphasis (ending particle)"
       },
       "chapter_tags": [
@@ -87017,13 +87017,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707846
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-80",
       "struttura": "より〜ほうが",
       "spiegazione": {
-        "it": "[A] is more than [B]",
+        "it": "Meglio A di B: 「BよりAのほうが〜」 per confrontare.",
         "en": "[A] is more than [B]"
       },
       "chapter_tags": [
@@ -87058,13 +87058,13 @@
         "好き",
         "紅茶"
       ],
-      "updated_at": 1783296707846
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-58",
       "struttura": "を",
       "spiegazione": {
-        "it": "object marker particle",
+        "it": "を: marca il complemento oggetto (「本を読む」).",
         "en": "object marker particle"
       },
       "chapter_tags": [
@@ -87091,13 +87091,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707843
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-59",
       "struttura": "をください",
       "spiegazione": {
-        "it": "please give me",
+        "it": "Mi dia…: 〜をください per chiedere cose (「水をください」).",
         "en": "please give me"
       },
       "chapter_tags": [
@@ -87128,13 +87128,13 @@
       "frasi_esempio_parole_linkate": [
         "水"
       ],
-      "updated_at": 1783296707843
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-45",
       "struttura": "んです",
       "spiegazione": {
-        "it": "to explain something; show emphasis",
+        "it": "È che…: んです per spiegare o chiedere il perché con partecipazione.",
         "en": "to explain something; show emphasis"
       },
       "chapter_tags": [
@@ -87161,13 +87161,13 @@
         }
       ],
       "frasi_esempio_parole_linkate": [],
-      "updated_at": 1783296707841
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-18",
       "struttura": "一緒に",
       "spiegazione": {
-        "it": "together",
+        "it": "Insieme: 一緒に (「一緒に行きましょう」).",
         "en": "together"
       },
       "chapter_tags": [
@@ -87206,13 +87206,13 @@
         "友達",
         "一"
       ],
-      "updated_at": 1783296707834
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-17",
       "struttura": "一番",
       "spiegazione": {
-        "it": "the most; the best",
+        "it": "Il più: 一番 davanti ad aggettivo (「一番好き」, 「一番高い」).",
         "en": "the most; the best"
       },
       "chapter_tags": [
@@ -87247,13 +87247,13 @@
         "一番",
         "一"
       ],
-      "updated_at": 1783296707834
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-30",
       "struttura": "前に",
       "spiegazione": {
-        "it": "before ~; in front of ~",
+        "it": "Prima di / davanti a: 〜前に di tempo (「寝る前に」) e luogo (「駅の前に」).",
         "en": "before ~; in front of ~"
       },
       "chapter_tags": [
@@ -87288,13 +87288,13 @@
         "前",
         "本"
       ],
-      "updated_at": 1783296707837
+      "updated_at": 1783720580160
     },
     {
       "id": "grammar-api-N5-24",
       "struttura": "方",
       "spiegazione": {
-        "it": "the way of doing something; how to do",
+        "it": "Come si fa: stem + 方 (「読み方」 = il modo di leggere, la lettura).",
         "en": "the way of doing something; how to do"
       },
       "chapter_tags": [
@@ -87329,7 +87329,7 @@
         "漢字",
         "方"
       ],
-      "updated_at": 1783296707836
+      "updated_at": 1783720580160
     }
   ],
   "counters": [

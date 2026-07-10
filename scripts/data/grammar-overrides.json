@@ -1,114 +1,1225 @@
 {
   "grammar-api-N4-72": {
-    "spiegazione": { "it": "Percepire con i sensi: 音がする (si sente un suono), においがする, 味がする, 気がする.", "en": "To sense something: 音がする (there is a sound), においがする, 味がする, 気がする." },
-    "frasi_esempio": [{ "testo": "隣の部屋から変な音がする。", "traduzione": { "it": "Dalla stanza accanto viene uno strano rumore.", "en": "There is a strange sound coming from the next room." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Percepire con i sensi: 音がする (si sente un suono), においがする, 味がする, 気がする.",
+      "en": "To sense something: 音がする (there is a sound), においがする, 味がする, 気がする."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "隣の部屋から変な音がする。",
+        "traduzione": {
+          "it": "Dalla stanza accanto viene uno strano rumore.",
+          "en": "There is a strange sound coming from the next room."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-57": {
-    "frasi_esempio": [{ "testo": "明日は雨が降るかもしれません。", "traduzione": { "it": "Domani forse pioverà.", "en": "It might rain tomorrow." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "明日は雨が降るかもしれません。",
+        "traduzione": {
+          "it": "Domani forse pioverà.",
+          "en": "It might rain tomorrow."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Forse, può darsi: possibilità non certa, più debole di でしょう.",
+      "en": "may..."
+    }
   },
   "grammar-api-N4-2": {
-    "spiegazione": { "it": "La forma in -te come causa o motivo (più leggera di から/ので).", "en": "The -te form expressing a cause or reason (lighter than から/ので)." },
-    "frasi_esempio": [{ "testo": "頭が痛くて、学校を休みました。", "traduzione": { "it": "Mi faceva male la testa, così sono rimasto a casa da scuola.", "en": "I had a headache, so I stayed home from school." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "La forma in -te come causa o motivo (più leggera di から/ので).",
+      "en": "The -te form expressing a cause or reason (lighter than から/ので)."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "頭が痛くて、学校を休みました。",
+        "traduzione": {
+          "it": "Mi faceva male la testa, così sono rimasto a casa da scuola.",
+          "en": "I had a headache, so I stayed home from school."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-84": {
     "struttura": "〜てくださる",
-    "spiegazione": { "it": "Un superiore fa gentilmente qualcosa per me: onorifico di 〜てくれる.", "en": "A respected person kindly does something for me: honorific of 〜てくれる." },
-    "frasi_esempio": [{ "testo": "先生が漢字を教えてくださいました。", "traduzione": { "it": "L'insegnante mi ha gentilmente insegnato i kanji.", "en": "The teacher kindly taught me kanji." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Un superiore fa gentilmente qualcosa per me: onorifico di 〜てくれる.",
+      "en": "A respected person kindly does something for me: honorific of 〜てくれる."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "先生が漢字を教えてくださいました。",
+        "traduzione": {
+          "it": "L'insegnante mi ha gentilmente insegnato i kanji.",
+          "en": "The teacher kindly taught me kanji."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-76": {
-    "frasi_esempio": [{ "testo": "ちょっとコンビニへ行ってくるね。", "traduzione": { "it": "Faccio un salto al konbini (e torno).", "en": "I'll pop over to the convenience store (and come back)." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "ちょっとコンビニへ行ってくるね。",
+        "traduzione": {
+          "it": "Faccio un salto al konbini (e torno).",
+          "en": "I'll pop over to the convenience store (and come back)."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Verso di me / cambiamento in arrivo: 行ってくる (vado e torno), 寒くなってくる (inizia a far freddo).",
+      "en": "get.., come .."
+    }
   },
   "grammar-api-N4-21": {
-    "frasi_esempio": [{ "testo": "宿題を忘れてしまいました。", "traduzione": { "it": "Ho dimenticato i compiti (purtroppo).", "en": "I (regrettably) forgot my homework." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "宿題を忘れてしまいました。",
+        "traduzione": {
+          "it": "Ho dimenticato i compiti (purtroppo).",
+          "en": "I (regrettably) forgot my homework."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Azione completata (del tutto) o rimpianto: 「食べてしまった」 = l'ho mangiato tutto / ahimè l'ho mangiato.",
+      "en": "emphasis, regret"
+    }
   },
   "grammar-api-N4-59": {
     "struttura": "〜なさい",
-    "spiegazione": { "it": "Ordine gentile ma fermo, tipico di genitori e insegnanti.", "en": "Soft but firm command, typical of parents and teachers." },
-    "frasi_esempio": [{ "testo": "早く寝なさい。", "traduzione": { "it": "Vai a dormire presto.", "en": "Go to bed early." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Ordine gentile ma fermo, tipico di genitori e insegnanti.",
+      "en": "Soft but firm command, typical of parents and teachers."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "早く寝なさい。",
+        "traduzione": {
+          "it": "Vai a dormire presto.",
+          "en": "Go to bed early."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-60": {
-    "frasi_esempio": [{ "testo": "明日は早く起きなければいけない。", "traduzione": { "it": "Domani devo alzarmi presto.", "en": "I have to get up early tomorrow." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "明日は早く起きなければいけない。",
+        "traduzione": {
+          "it": "Domani devo alzarmi presto.",
+          "en": "I have to get up early tomorrow."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Dovere: 〜なければいけない = obbligo (forma colloquiale: 〜なきゃ).",
+      "en": "must, have to..."
+    }
   },
   "grammar-api-N4-71": {
     "struttura": "〜ことになる",
-    "spiegazione": { "it": "È stato deciso che… (decisione presa da altri o dalle circostanze).", "en": "It has been decided that… (decision made by others or circumstances)." },
-    "frasi_esempio": [{ "testo": "父が入院することになりました。", "traduzione": { "it": "È stato deciso che mio padre sarà ricoverato.", "en": "It has been decided that my father will be hospitalized." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "È stato deciso che… (decisione presa da altri o dalle circostanze).",
+      "en": "It has been decided that… (decision made by others or circumstances)."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "父が入院することになりました。",
+        "traduzione": {
+          "it": "È stato deciso che mio padre sarà ricoverato.",
+          "en": "It has been decided that my father will be hospitalized."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-5": {
-    "frasi_esempio": [{ "testo": "時間がないので、タクシーで行きます。", "traduzione": { "it": "Siccome non c'è tempo, vado in taxi.", "en": "Since there's no time, I'll go by taxi." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "時間がないので、タクシーで行きます。",
+        "traduzione": {
+          "it": "Siccome non c'è tempo, vado in taxi.",
+          "en": "Since there's no time, I'll go by taxi."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Poiché: 〜ので motivo oggettivo e cortese (più morbido di から).",
+      "en": "because..., ...so"
+    }
   },
   "grammar-api-N4-58": {
     "struttura": "〜はず",
-    "spiegazione": { "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa.", "en": "Should be the case: expectation based on logic or knowledge." },
-    "frasi_esempio": [{ "testo": "その店は、開いているはずです。", "traduzione": { "it": "Quel negozio dovrebbe essere aperto.", "en": "That shop should be open." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa.",
+      "en": "Should be the case: expectation based on logic or knowledge."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "その店は、開いているはずです。",
+        "traduzione": {
+          "it": "Quel negozio dovrebbe essere aperto.",
+          "en": "That shop should be open."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-53": {
-    "spiegazione": { "it": "Come, simile a: paragone con un esempio concreto.", "en": "Like, such as: comparison with a concrete example." },
-    "frasi_esempio": [{ "testo": "東京のような大きい町に住みたいです。", "traduzione": { "it": "Vorrei vivere in una grande città come Tokyo.", "en": "I want to live in a big city like Tokyo." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Come, simile a: paragone con un esempio concreto.",
+      "en": "Like, such as: comparison with a concrete example."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "東京のような大きい町に住みたいです。",
+        "traduzione": {
+          "it": "Vorrei vivere in una grande città come Tokyo.",
+          "en": "I want to live in a big city like Tokyo."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-44": {
     "struttura": "〜のは／〜のが",
-    "spiegazione": { "it": "の nominalizzatore: trasforma un verbo in nome (fare X è…).", "en": "の as a nominalizer: turns a verb into a noun (doing X is…)." }
+    "spiegazione": {
+      "it": "の nominalizzatore: trasforma un verbo in nome (fare X è…).",
+      "en": "の as a nominalizer: turns a verb into a noun (doing X is…)."
+    }
   },
   "grammar-api-N4-43": {
     "struttura": "〜には／〜にも",
-    "spiegazione": { "it": "は・も dopo un'altra particella: enfasi o contrasto sul complemento.", "en": "は・も after another particle: emphasis or contrast on that complement." }
+    "spiegazione": {
+      "it": "は・も dopo un'altra particella: enfasi o contrasto sul complemento.",
+      "en": "は・も after another particle: emphasis or contrast on that complement."
+    }
   },
-  "g-n4-teiru": { "struttura": "〜ている" },
+  "g-n4-teiru": {
+    "struttura": "〜ている"
+  },
   "grammar-api-N4-35": {
     "struttura": "〜までに",
-    "spiegazione": { "it": "Entro (limite di tempo): l'azione va fatta prima di quel momento.", "en": "By (time limit): the action must happen before that moment." }
+    "spiegazione": {
+      "it": "Entro (limite di tempo): l'azione va fatta prima di quel momento.",
+      "en": "By (time limit): the action must happen before that moment."
+    }
   },
   "grammar-api-N4-79": {
     "struttura": "〜さ",
-    "spiegazione": { "it": "Da aggettivo a nome: 高い → 高さ (altezza), 長い → 長さ.", "en": "Adjective → noun: 高い → 高さ (height), 長い → 長さ." }
+    "spiegazione": {
+      "it": "Da aggettivo a nome: 高い → 高さ (altezza), 長い → 長さ.",
+      "en": "Adjective → noun: 高い → 高さ (height), 長い → 長さ."
+    }
   },
   "grammar-api-N4-4": {
-    "frasi_esempio": [{ "testo": "雨が降ってきた。そこで、タクシーに乗った。", "traduzione": { "it": "Ha iniziato a piovere. Perciò ho preso un taxi.", "en": "It started raining. So I took a taxi." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "雨が降ってきた。そこで、タクシーに乗った。",
+        "traduzione": {
+          "it": "Ha iniziato a piovere. Perciò ho preso un taxi.",
+          "en": "It started raining. So I took a taxi."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Perciò, a quel punto: そこで collega causa e mossa conseguente.",
+      "en": "therefore/that's why"
+    }
   },
   "grammar-api-N4-85": {
     "struttura": "〜せてください／〜させてください",
-    "spiegazione": { "it": "Mi lasci fare…: chiedere il permesso con il causativo + ください.", "en": "Please let me…: asking permission with causative + ください." },
-    "frasi_esempio": [{ "testo": "明日、休ませてくださいませんか。", "traduzione": { "it": "Domani potrebbe lasciarmi stare a casa?", "en": "Could you please let me take tomorrow off?" }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Mi lasci fare…: chiedere il permesso con il causativo + ください.",
+      "en": "Please let me…: asking permission with causative + ください."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "明日、休ませてくださいませんか。",
+        "traduzione": {
+          "it": "Domani potrebbe lasciarmi stare a casa?",
+          "en": "Could you please let me take tomorrow off?"
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-25": {
     "struttura": "まだ〜ている",
-    "spiegazione": { "it": "Ancora in corso: l'azione o lo stato continua.", "en": "Still …ing: the action or state continues." },
-    "frasi_esempio": [{ "testo": "まだ雨が降っている。", "traduzione": { "it": "Sta ancora piovendo.", "en": "It is still raining." }, "parole_linkate": [] }]
+    "spiegazione": {
+      "it": "Ancora in corso: l'azione o lo stato continua.",
+      "en": "Still …ing: the action or state continues."
+    },
+    "frasi_esempio": [
+      {
+        "testo": "まだ雨が降っている。",
+        "traduzione": {
+          "it": "Sta ancora piovendo.",
+          "en": "It is still raining."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-81": {
-    "frasi_esempio": [{ "testo": "先生はもうお帰りになりました。", "traduzione": { "it": "L'insegnante è già tornato a casa (onorifico).", "en": "The teacher has already gone home (honorific)." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "先生はもうお帰りになりました。",
+        "traduzione": {
+          "it": "L'insegnante è già tornato a casa (onorifico).",
+          "en": "The teacher has already gone home (honorific)."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Espressioni onorifiche: elevano le azioni altrui (お帰りになる, いらっしゃる).",
+      "en": "honorific expressions"
+    }
   },
   "grammar-api-N4-61": {
     "struttura": "〜て（依頼）",
-    "spiegazione": { "it": "Forma in -te da sola: richiesta o comando colloquiale.", "en": "Bare -te form: casual request or command." },
+    "spiegazione": {
+      "it": "Forma in -te da sola: richiesta o comando colloquiale.",
+      "en": "Bare -te form: casual request or command."
+    },
     "frasi_esempio": [
-      { "testo": "ちょっと待って！", "traduzione": { "it": "Aspetta un attimo!", "en": "Wait a second!" }, "parole_linkate": [] },
-      { "testo": "時間がありません。急いで！", "traduzione": { "it": "Non c'è tempo. Sbrigati!", "en": "There's no time. Hurry up!" }, "parole_linkate": [] }
+      {
+        "testo": "ちょっと待って！",
+        "traduzione": {
+          "it": "Aspetta un attimo!",
+          "en": "Wait a second!"
+        },
+        "parole_linkate": []
+      },
+      {
+        "testo": "時間がありません。急いで！",
+        "traduzione": {
+          "it": "Non c'è tempo. Sbrigati!",
+          "en": "There's no time. Hurry up!"
+        },
+        "parole_linkate": []
+      }
     ]
   },
   "grammar-api-N4-40": {
     "struttura": "一番〜",
-    "spiegazione": { "it": "Il più…: superlativo con 一番 (letteralmente \"numero uno\").", "en": "The most…: superlative with 一番 (literally \"number one\")." }
+    "spiegazione": {
+      "it": "Il più…: superlativo con 一番 (letteralmente \"numero uno\").",
+      "en": "The most…: superlative with 一番 (literally \"number one\")."
+    }
   },
   "grammar-api-N4-62": {
     "struttura": "〜（よ）うと思う",
-    "spiegazione": { "it": "Penso di fare…: forma volitiva + と思う per un'intenzione.", "en": "I think I'll…: volitional form + と思う for an intention." }
+    "spiegazione": {
+      "it": "Penso di fare…: forma volitiva + と思う per un'intenzione.",
+      "en": "I think I'll…: volitional form + と思う for an intention."
+    }
   },
-  "g-n5-desu": { "struttura": "〜は〜です" },
-  "grammar-api-N5-16": { "struttura": "い形容詞" },
-  "grammar-api-N5-66": { "struttura": "〜ている／〜でいる" },
+  "g-n5-desu": {
+    "struttura": "〜は〜です"
+  },
+  "grammar-api-N5-16": {
+    "struttura": "い形容詞",
+    "spiegazione": {
+      "it": "Aggettivi in い: si flettono da soli (高い→高くない→高かった), niente な.",
+      "en": "i-adjectives"
+    }
+  },
+  "grammar-api-N5-66": {
+    "struttura": "〜ている／〜でいる",
+    "spiegazione": {
+      "it": "Azione in corso o stato attuale: 〜ている (「食べている」 = sto mangiando; 「結婚している」 = è sposato).",
+      "en": "ongoing action or current state"
+    }
+  },
   "grammar-api-N5-6": {
-    "frasi_esempio": [{ "testo": "高いです。でも、買います。", "traduzione": { "it": "È caro. Però lo compro.", "en": "It's expensive. But I'll buy it." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "高いです。でも、買います。",
+        "traduzione": {
+          "it": "È caro. Però lo compro.",
+          "en": "It's expensive. But I'll buy it."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Ma, però: でも apre la frase col contrasto (più colloquiale di しかし).",
+      "en": "but; however"
+    }
   },
   "grammar-api-N5-36": {
     "struttura": "な形容詞",
-    "frasi_esempio": [{ "testo": "ここは静かな町です。", "traduzione": { "it": "Questa è una città tranquilla.", "en": "This is a quiet town." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "ここは静かな町です。",
+        "traduzione": {
+          "it": "Questa è una città tranquilla.",
+          "en": "This is a quiet town."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Aggettivi in な: legano al nome con な (静かな町); si negano con じゃない.",
+      "en": "na-adjectives"
+    }
   },
-  "grammar-api-N5-44": { "struttura": "〜くなる／〜になる" },
-  "grammar-api-N5-48": { "struttura": "〜に行く" },
+  "grammar-api-N5-44": {
+    "struttura": "〜くなる／〜になる",
+    "spiegazione": {
+      "it": "Diventare: aggettivo+くなる (寒くなる), nome/な+になる (医者になる).",
+      "en": "to become"
+    }
+  },
+  "grammar-api-N5-48": {
+    "struttura": "〜に行く",
+    "spiegazione": {
+      "it": "Andare a fare: stem + に行く (「買い物に行く」, 「泳ぎに行く」).",
+      "en": "go to do"
+    }
+  },
   "grammar-api-N5-49": {
-    "frasi_esempio": [{ "testo": "飲み物はお茶にする。", "traduzione": { "it": "Da bere prendo il tè.", "en": "For a drink, I'll go with tea." }, "parole_linkate": [] }]
+    "frasi_esempio": [
+      {
+        "testo": "飲み物はお茶にする。",
+        "traduzione": {
+          "it": "Da bere prendo il tè.",
+          "en": "For a drink, I'll go with tea."
+        },
+        "parole_linkate": []
+      }
+    ],
+    "spiegazione": {
+      "it": "Decidere per: 〜にする quando scegli (「お茶にします」 = prendo il tè).",
+      "en": "to decide on"
+    }
   },
-  "grammar-api-N5-56": { "struttura": "〜の中で〜が一番〜" }
+  "grammar-api-N5-56": {
+    "struttura": "〜の中で〜が一番〜",
+    "spiegazione": {
+      "it": "Superlativo nel gruppo: 「〜の中で〜が一番〜」 (「この中でりんごが一番好き」).",
+      "en": "out of this group, [A] is best"
+    }
+  },
+  "grammar-api-N4-74": {
+    "spiegazione": {
+      "it": "Trasformare/decidere: 〜にする = rendere qualcosa in un certo modo, o scegliere (「お茶にします」 = prendo il tè).",
+      "en": "turn/make to do, decide to do"
+    }
+  },
+  "grammar-api-N4-77": {
+    "spiegazione": {
+      "it": "Domanda incorporata: 何/いつ/どこ/だれ + か dentro una frase (「いつ来るか分かりません」 = non so quando viene).",
+      "en": "..what/when/where/who/how.."
+    }
+  },
+  "grammar-api-N4-78": {
+    "spiegazione": {
+      "it": "Se… o no: 〜かどうか incorpora una domanda sì/no (「行くかどうか分かりません」).",
+      "en": "whether it's ..or not"
+    }
+  },
+  "grammar-api-N4-75": {
+    "spiegazione": {
+      "it": "Fatto di/da: 〜でできている (materiale visibile), 〜からできている (ingrediente trasformato).",
+      "en": "made from/of"
+    }
+  },
+  "grammar-api-N4-1": {
+    "spiegazione": {
+      "it": "E poi…, e anche…: 〜し elenca più motivi o qualità (「安いし、おいしいし」).",
+      "en": "expressing multiple reasons or repeating similar things"
+    }
+  },
+  "grammar-api-N4-37": {
+    "spiegazione": {
+      "it": "Troppo: 〜すぎる attaccato allo stem (食べすぎる = mangiare troppo, 高すぎる = troppo caro).",
+      "en": "too much"
+    }
+  },
+  "grammar-api-N4-54": {
+    "spiegazione": {
+      "it": "Si dice che…: 〜そうだ riporta ciò che si è sentito (da non confondere con l'apparenza 〜そう sullo stem).",
+      "en": "they say that...(hearsay)"
+    }
+  },
+  "grammar-api-N4-68": {
+    "spiegazione": {
+      "it": "Per, allo scopo di: 〜ために esprime finalità (con verbo dizionario o nome + の).",
+      "en": "for.., in order to..."
+    }
+  },
+  "grammar-api-N4-47": {
+    "spiegazione": {
+      "it": "Se/quando/dopo che: 〜たら copre condizione e sequenza temporale (「着いたら電話して」).",
+      "en": "if, when, after, once"
+    }
+  },
+  "grammar-api-N4-64": {
+    "spiegazione": {
+      "it": "Intenzione: 〜つもりだ = avere in programma di fare (「行くつもりです」).",
+      "en": "intent/plan to..."
+    }
+  },
+  "grammar-api-N4-6": {
+    "spiegazione": {
+      "it": "Fare qualcosa PER un altro: 〜てあげる (io → altri; attenzione al tono, può suonare paternalistico).",
+      "en": "doing something for someone else"
+    }
+  },
+  "grammar-api-N4-20": {
+    "spiegazione": {
+      "it": "Stato lasciato apposta: 〜ておく = fatto e lasciato così per uno scopo (「窓を開けておく」).",
+      "en": "the state after having done something with a particular purpose"
+    }
+  },
+  "grammar-api-N4-66": {
+    "spiegazione": {
+      "it": "Preparare in anticipo: 〜ておく = fare prima qualcosa in vista di dopo (「資料を読んでおく」).",
+      "en": "making preparations in advance"
+    }
+  },
+  "grammar-api-N4-34": {
+    "spiegazione": {
+      "it": "〜てから = subito dopo e in sequenza stretta; 〜あとで = dopo, in generale.",
+      "en": "The action continues."
+    }
+  },
+  "grammar-api-N4-9": {
+    "spiegazione": {
+      "it": "Potrebbe…per favore?: richiesta cortese; 〜ていただけませんか è la versione più formale.",
+      "en": "Could you...?"
+    }
+  },
+  "grammar-api-N4-7": {
+    "spiegazione": {
+      "it": "Qualcuno fa qualcosa per me: 〜てくれる (altri → io/la mia famiglia), con gratitudine.",
+      "en": "something is done by someone for me or my family"
+    }
+  },
+  "grammar-api-N4-55": {
+    "spiegazione": {
+      "it": "Probabilmente: previsione o supposizione (「明日は晴れるでしょう」).",
+      "en": "it will probably..."
+    }
+  },
+  "grammar-api-N4-65": {
+    "spiegazione": {
+      "it": "Provare a fare: 〜てみる = fare per vedere com'è (「食べてみます」 = assaggio).",
+      "en": "try to do"
+    }
+  },
+  "grammar-api-N4-50": {
+    "spiegazione": {
+      "it": "Anche se: 〜ても concede (「雨が降っても行きます」 = vado anche se piove).",
+      "en": "even if..."
+    }
+  },
+  "grammar-api-N4-8": {
+    "spiegazione": {
+      "it": "Ricevere un favore: 〜てもらう = qualcuno fa qualcosa per me (visto dal ricevente).",
+      "en": "something is done by someone for me or my family"
+    }
+  },
+  "grammar-api-N4-45": {
+    "spiegazione": {
+      "it": "Se/quando (automatico): 〜と per conseguenze naturali e istruzioni (「押すと開きます」).",
+      "en": "if..., then"
+    }
+  },
+  "grammar-api-N4-30": {
+    "spiegazione": {
+      "it": "Significa…: 〜という意味です spiega il senso di una parola o frase.",
+      "en": "it mean..."
+    }
+  },
+  "grammar-api-N4-24": {
+    "spiegazione": {
+      "it": "Sul punto di / appena fatto: 〜ところ con dizionario (sto per), 〜ているところ (sto facendo), 〜たところ (appena fatto).",
+      "en": "just about/on the verge of doing something"
+    }
+  },
+  "grammar-api-N4-23": {
+    "spiegazione": {
+      "it": "Dire: 〜と言う riporta parole dette (「田中さんは行くと言いました」).",
+      "en": "(someone) say..."
+    }
+  },
+  "grammar-api-N4-56": {
+    "spiegazione": {
+      "it": "Penso che…: 〜と思う esprime opinione propria (con forma piana davanti).",
+      "en": "I think..."
+    }
+  },
+  "grammar-api-N4-31": {
+    "spiegazione": {
+      "it": "Senza fare: 〜ないで = senza aver fatto (「朝ごはんを食べないで来ました」).",
+      "en": "without V-ing"
+    }
+  },
+  "grammar-api-N4-36": {
+    "spiegazione": {
+      "it": "Mentre: 〜ながら = due azioni insieme, stessa persona (「音楽を聞きながら勉強する」).",
+      "en": "while V-ing"
+    }
+  },
+  "grammar-api-N4-28": {
+    "spiegazione": {
+      "it": "Non c'è bisogno di: 〜なくてもいい = va bene anche non farlo.",
+      "en": "need not do..., don't have to..."
+    }
+  },
+  "grammar-api-N4-48": {
+    "spiegazione": {
+      "it": "Se (in quel caso): 〜なら risponde a un tema introdotto dall'altro (「京都なら秋がいいですよ」).",
+      "en": "if (giving information)"
+    }
+  },
+  "grammar-api-N4-41": {
+    "spiegazione": {
+      "it": "…o roba simile (colloquiale): 〜なんか sminuisce o esemplifica.",
+      "en": "..or (colloquial)"
+    }
+  },
+  "grammar-api-N4-49": {
+    "spiegazione": {
+      "it": "Eppure, nonostante: 〜のに esprime contrasto con sorpresa o disappunto.",
+      "en": "even though.."
+    }
+  },
+  "grammar-api-N4-69": {
+    "spiegazione": {
+      "it": "Per (uso/scopo): 〜のに con strumenti e impieghi (「このナイフは肉を切るのに使います」).",
+      "en": "for..,..."
+    }
+  },
+  "grammar-api-N4-46": {
+    "spiegazione": {
+      "it": "Se (ipotesi): forma in 〜ば (行けば, 食べれば) per condizioni generali.",
+      "en": "if.. (hypothetical condition)"
+    }
+  },
+  "grammar-api-N4-26": {
+    "spiegazione": {
+      "it": "Appena fatto: 〜たばかり (「食べたばかりです」 = ho appena mangiato).",
+      "en": "just finished, something just occurred"
+    }
+  },
+  "grammar-api-N4-52": {
+    "spiegazione": {
+      "it": "Sembra che: 〜ようだ (formale) / みたいだ (colloquiale), giudizio da indizi.",
+      "en": "it seems that..."
+    }
+  },
+  "grammar-api-N4-67": {
+    "spiegazione": {
+      "it": "Affinché: 〜ように per lo scopo con verbi non volitivi (「聞こえるように大きい声で話す」).",
+      "en": "so that, in order to"
+    }
+  },
+  "grammar-api-N4-73": {
+    "spiegazione": {
+      "it": "Sforzarsi di: 〜ようにする = impegnarsi a fare abitualmente (「毎日運動するようにしている」).",
+      "en": "making a conscious effort to do something"
+    }
+  },
+  "grammar-api-N4-70": {
+    "spiegazione": {
+      "it": "Arrivare a: 〜ようになる = cambiamento di capacità o abitudine (「話せるようになった」).",
+      "en": "to reach the point that/ to come to be that/ to turn into"
+    }
+  },
+  "grammar-api-N4-3": {
+    "spiegazione": {
+      "it": "Spiegazione: 〜んです aggiunge il tono di 'è che…' (motivare, chiedere spiegazioni).",
+      "en": "explanation, reason"
+    }
+  },
+  "grammar-api-N4-80": {
+    "spiegazione": {
+      "it": "Richieste con comparativo: 「もっと大きく書いてください」 = scriva più in grande.",
+      "en": "Please write a bigger."
+    }
+  },
+  "grammar-api-N4-33": {
+    "spiegazione": {
+      "it": "Dopo: あとで = più tardi, in seguito (「あとで電話します」).",
+      "en": "after, later"
+    }
+  },
+  "grammar-api-N4-22": {
+    "spiegazione": {
+      "it": "Effetto che permane: 〜ている per stati risultanti (「窓が開いている」 = la finestra è aperta).",
+      "en": "the circumstance of remaining effects"
+    }
+  },
+  "grammar-api-N4-29": {
+    "spiegazione": {
+      "it": "あの/どの per cose lontane da entrambi o note a entrambi; この/その per vicinanza a chi parla/ascolta.",
+      "en": "to refer to the thing not visible to the speaker or the hearer"
+    }
+  },
+  "grammar-api-N4-38": {
+    "spiegazione": {
+      "it": "Non resta che / solo: 〜しかない con verbo (「歩くしかない」) o nome + しか…ない.",
+      "en": "only [Noun] and no other..."
+    }
+  },
+  "grammar-api-N4-27": {
+    "spiegazione": {
+      "it": "Faresti meglio a: 〜たほうがいい consiglio (negativo: 〜ないほうがいい).",
+      "en": "you should..."
+    }
+  },
+  "grammar-api-N4-42": {
+    "spiegazione": {
+      "it": "…o qualcosa: でも/も esemplificativo (「お茶でも飲みませんか」).",
+      "en": "or something"
+    }
+  },
+  "grammar-api-N4-14": {
+    "spiegazione": {
+      "it": "Forma volitiva: 飲もう, 食べよう, しよう, 来よう — proposte e intenzioni (piano di 〜ましょう).",
+      "en": "Verb Volitional form"
+    }
+  },
+  "grammar-api-N4-39": {
+    "spiegazione": {
+      "it": "Limite: espressioni con 一番/最も per il grado massimo.",
+      "en": "showing a limit"
+    }
+  },
+  "grammar-api-N4-10": {
+    "spiegazione": {
+      "it": "Forma potenziale: 飲める, 食べられる, できる, 来られる — saper/poter fare.",
+      "en": "Verb Potential form"
+    }
+  },
+  "grammar-api-N4-12": {
+    "spiegazione": {
+      "it": "Forma proibitiva: 飲むな, 食べるな — divieto brusco (maschile/cartelli).",
+      "en": "Verb Prohibitive form"
+    }
+  },
+  "grammar-api-N4-82": {
+    "spiegazione": {
+      "it": "Sonkeigo: rispetto per le azioni di superiori e clienti (召し上がる, おっしゃる).",
+      "en": "Respectful expressions"
+    }
+  },
+  "grammar-api-N4-18": {
+    "spiegazione": {
+      "it": "見える/聞こえる: visibile/udibile da sé, senza sforzo (diverso da 見られる/聞ける).",
+      "en": "be audible/ be visible"
+    }
+  },
+  "grammar-api-N4-83": {
+    "spiegazione": {
+      "it": "Kenjōgo: umiltà per le proprie azioni verso gli altri (いただく, 伺う, 申す).",
+      "en": "Humble expressions"
+    }
+  },
+  "grammar-api-N4-16": {
+    "spiegazione": {
+      "it": "Forma causativa: 飲ませる, 食べさせる — far fare / lasciar fare.",
+      "en": "Verb Causative form"
+    }
+  },
+  "grammar-api-N4-17": {
+    "spiegazione": {
+      "it": "Causativo-passiva: 飲まされる, 食べさせられる — essere costretti a fare.",
+      "en": "Verb Causative passive form"
+    }
+  },
+  "grammar-api-N4-19": {
+    "spiegazione": {
+      "it": "自動詞 (intransitivo: ドアが開く) vs 他動詞 (transitivo: ドアを開ける): coppia che cambia particella.",
+      "en": "Intransitive/Transitive Verb"
+    }
+  },
+  "grammar-api-N4-15": {
+    "spiegazione": {
+      "it": "Forma passiva: 飲まれる, 食べられる — subire l'azione (anche passivo di disturbo).",
+      "en": "Verb Passive form"
+    }
+  },
+  "grammar-api-N4-32": {
+    "spiegazione": {
+      "it": "〜やすい/〜にくい sullo stem: facile/difficile da fare (「読みやすい」).",
+      "en": "easy to.../ hard to..."
+    }
+  },
+  "grammar-api-N4-51": {
+    "spiegazione": {
+      "it": "In caso di: 〜場合(は) per ipotesi e istruzioni (「雨の場合は中止」).",
+      "en": "in the event of, in the case that..."
+    }
+  },
+  "grammar-api-N4-13": {
+    "spiegazione": {
+      "it": "Forma condizionale: 飲めば, 食べれば, すれば, 来れば.",
+      "en": "Verb Conditional form"
+    }
+  },
+  "grammar-api-N4-11": {
+    "spiegazione": {
+      "it": "Forma imperativa: 飲め, 食べろ, しろ, 来い — ordine secco (cartelli, emergenze, tifo).",
+      "en": "Verb Imperative form"
+    }
+  },
+  "grammar-api-N4-63": {
+    "spiegazione": {
+      "it": "Programma: 〜予定だ = è in programma che (「三時に着く予定です」).",
+      "en": "schedule"
+    }
+  },
+  "grammar-api-N5-19": {
+    "spiegazione": {
+      "it": "いつも: sempre, di solito — avverbio di frequenza in cima alla scala.",
+      "en": "always; usually; habitually"
+    }
+  },
+  "grammar-api-N5-21": {
+    "spiegazione": {
+      "it": "か finale: trasforma la frase in domanda, senza punto interrogativo necessario.",
+      "en": "question particle"
+    }
+  },
+  "grammar-api-N5-11": {
+    "spiegazione": {
+      "it": "が: marca il soggetto (nuova informazione); dopo una frase = 'ma'.",
+      "en": "subject marker; however; but"
+    }
+  },
+  "grammar-api-N5-22": {
+    "spiegazione": {
+      "it": "A か B: oppure, tra due alternative (「お茶かコーヒー」).",
+      "en": "or"
+    }
+  },
+  "grammar-api-N5-12": {
+    "spiegazione": {
+      "it": "があります: esistenza di cose inanimate (「机の上に本があります」).",
+      "en": "there is; is (non-living things)"
+    }
+  },
+  "grammar-api-N5-14": {
+    "spiegazione": {
+      "it": "がいます: esistenza di esseri animati (「犬がいます」).",
+      "en": "there is; to be; is (living things)"
+    }
+  },
+  "grammar-api-N5-13": {
+    "spiegazione": {
+      "it": "がほしい: volere una cosa (「新しいくつがほしい」); per le azioni si usa 〜たい.",
+      "en": "to want something"
+    }
+  },
+  "grammar-api-N5-23": {
+    "spiegazione": {
+      "it": "から: perché (dopo il motivo) e 'da' (origine: 「九時から」).",
+      "en": "because; since; from"
+    }
+  },
+  "grammar-api-N5-25": {
+    "spiegazione": {
+      "it": "Ma, però (colloquiale): けど chiude o collega con contrasto leggero.",
+      "en": "but; however; although"
+    }
+  },
+  "grammar-api-N5-26": {
+    "spiegazione": {
+      "it": "Ma, sebbene: けれども, versione più formale di けど.",
+      "en": "but; however; although"
+    }
+  },
+  "grammar-api-N5-60": {
+    "spiegazione": {
+      "it": "Tuttavia: しかし apre la frase con un contrasto netto (scritto/formale).",
+      "en": "but; however"
+    }
+  },
+  "grammar-api-N5-20": {
+    "spiegazione": {
+      "it": "Non essere: negazione di です (「学生じゃないです」); ではない è più formale.",
+      "en": "to not be (am not; is not; are not)"
+    }
+  },
+  "grammar-api-N5-61": {
+    "spiegazione": {
+      "it": "Troppo: すぎる sullo stem (食べすぎる, 高すぎる).",
+      "en": "too much"
+    }
+  },
+  "grammar-api-N5-2": {
+    "spiegazione": {
+      "it": "Essere (copula): だ piano, です cortese (「学生です」).",
+      "en": "to be (am, is, are, were, used to)"
+    }
+  },
+  "grammar-api-N5-63": {
+    "spiegazione": {
+      "it": "Volere fare: 〜たい sullo stem (「日本へ行きたい」); per le cose si usa がほしい.",
+      "en": "want to do something"
+    }
+  },
+  "grammar-api-N5-3": {
+    "spiegazione": {
+      "it": "Solo, soltanto: だけ dopo nome o verbo (「一つだけ」).",
+      "en": "only; just; as much as"
+    }
+  },
+  "grammar-api-N5-62": {
+    "spiegazione": {
+      "it": "Esperienza passata: 〜たことがある = mi è capitato di… (「日本へ行ったことがある」).",
+      "en": "to have done something before"
+    }
+  },
+  "grammar-api-N5-64": {
+    "spiegazione": {
+      "it": "Fare cose come A e B: 〜たり〜たりする elenca azioni non esaustive.",
+      "en": "do such things as A and B"
+    }
+  },
+  "grammar-api-N5-4": {
+    "spiegazione": {
+      "it": "Probabilmente (piano): だろう, versione informale di でしょう.",
+      "en": "I think; it seems; probably; right?"
+    }
+  },
+  "grammar-api-N5-1": {
+    "spiegazione": {
+      "it": "Non si deve (parlato): ちゃいけない/じゃいけない = contrazione di てはいけない.",
+      "en": "must not do (spoken Japanese)"
+    }
+  },
+  "grammar-api-N5-74": {
+    "spiegazione": {
+      "it": "Intenzione: つもり = avere in mente di fare (「行くつもりです」).",
+      "en": "plan to ~; intend to ~"
+    }
+  },
+  "grammar-api-N5-5": {
+    "spiegazione": {
+      "it": "で: luogo dell'azione (「図書館で勉強する」), mezzo (「バスで」), strumento e causa.",
+      "en": "in; at; on; by; with; via"
+    }
+  },
+  "grammar-api-N5-65": {
+    "spiegazione": {
+      "it": "Stato risultante (fatto apposta): 〜てある (「窓が開けてある」 = qualcuno l'ha aperta e lasciata così).",
+      "en": "is/has been done (resulting state)"
+    }
+  },
+  "grammar-api-N5-67": {
+    "spiegazione": {
+      "it": "Dopo aver fatto: 〜てから in sequenza (「手を洗ってから食べます」).",
+      "en": "after doing~"
+    }
+  },
+  "grammar-api-N5-68": {
+    "spiegazione": {
+      "it": "Per favore, faccia: 〜てください, la richiesta cortese standard.",
+      "en": "please do"
+    }
+  },
+  "grammar-api-N5-7": {
+    "spiegazione": {
+      "it": "Probabilmente / vero?: でしょう per previsioni e conferme (「寒いでしょう？」).",
+      "en": "I think; it seems; probably; right?"
+    }
+  },
+  "grammar-api-N5-69": {
+    "spiegazione": {
+      "it": "È vietato: 〜てはいけない (「ここで走ってはいけません」).",
+      "en": "must not; may not; cannot"
+    }
+  },
+  "grammar-api-N5-70": {
+    "spiegazione": {
+      "it": "Si può: 〜てもいいです = permesso (「入ってもいいですか」 = posso entrare?).",
+      "en": "is OK to..; is alright to..; may I..?"
+    }
+  },
+  "grammar-api-N5-71": {
+    "spiegazione": {
+      "it": "と: 'e' tra nomi (lista completa), 'con' qualcuno, e citazione (〜と言う).",
+      "en": "and; with; as; connecting particle"
+    }
+  },
+  "grammar-api-N5-9": {
+    "spiegazione": {
+      "it": "Perché?: どうして chiede il motivo (più colloquiale di なぜ).",
+      "en": "why; for what reason; how"
+    }
+  },
+  "grammar-api-N5-10": {
+    "spiegazione": {
+      "it": "In che modo?: どうやって chiede il come (「どうやって行きますか」).",
+      "en": "how; in what way; by what means"
+    }
+  },
+  "grammar-api-N5-72": {
+    "spiegazione": {
+      "it": "Quando: 〜とき = al tempo in cui (「子どものとき」 = da bambino).",
+      "en": "when; at this time"
+    }
+  },
+  "grammar-api-N5-73": {
+    "spiegazione": {
+      "it": "Molto: とても davanti ad aggettivi (「とてもおいしい」).",
+      "en": "very; awfully; exceedingly"
+    }
+  },
+  "grammar-api-N5-8": {
+    "spiegazione": {
+      "it": "Che tipo di: どんな + nome (「どんな音楽が好き？」).",
+      "en": "what kind of; what sort of"
+    }
+  },
+  "grammar-api-N5-37": {
+    "spiegazione": {
+      "it": "なあ finale: ammirazione o desiderio tra sé (「いいなあ」).",
+      "en": "sentence ending particle; confirmation; admiration, etc"
+    }
+  },
+  "grammar-api-N5-38": {
+    "spiegazione": {
+      "it": "Senza fare: 〜ないで (「朝ごはんを食べないで出かけた」).",
+      "en": "without doing ; To do [B] without doing [A]"
+    }
+  },
+  "grammar-api-N5-39": {
+    "spiegazione": {
+      "it": "Per favore non: 〜ないでください (「ここでたばこを吸わないでください」).",
+      "en": "please don't do"
+    }
+  },
+  "grammar-api-N5-41": {
+    "spiegazione": {
+      "it": "Devo (parlato): なくちゃ, contrazione di なくては (「もう行かなくちゃ」).",
+      "en": "must do; need to; gotta do"
+    }
+  },
+  "grammar-api-N5-42": {
+    "spiegazione": {
+      "it": "Dovere: 〜なくてはいけない = è necessario fare.",
+      "en": "must do; need to do"
+    }
+  },
+  "grammar-api-N5-43": {
+    "spiegazione": {
+      "it": "Dovere (formale): 〜なくてはならない, tono più rigido/scritto.",
+      "en": "must do; need to do"
+    }
+  },
+  "grammar-api-N5-40": {
+    "spiegazione": {
+      "it": "Non serve: 〜なくてもいい = va bene anche non fare (「急がなくてもいいです」).",
+      "en": "don't have to"
+    }
+  },
+  "grammar-api-N5-47": {
+    "spiegazione": {
+      "it": "に: destinazione, luogo di esistenza (います/あります), orario puntuale, destinatario.",
+      "en": "destination particle; in; at; on; to"
+    }
+  },
+  "grammar-api-N5-50": {
+    "spiegazione": {
+      "it": "Verso: に e へ per la direzione (へ più 'in direzione di', に più 'fino a destinazione').",
+      "en": "to (indicates direction / destination)"
+    }
+  },
+  "grammar-api-N5-46": {
+    "spiegazione": {
+      "it": "ね finale: cerca accordo o conferma (「いい天気ですね」).",
+      "en": "isn't it? right? eh?"
+    }
+  },
+  "grammar-api-N5-51": {
+    "spiegazione": {
+      "it": "の: possesso e legame tra nomi (「私の本」, 「日本語の先生」).",
+      "en": "possessive particle"
+    }
+  },
+  "grammar-api-N5-53": {
+    "spiegazione": {
+      "it": "Essere negato in: 〜のが下手 (「歌うのが下手です」).",
+      "en": "to be bad at doing something"
+    }
+  },
+  "grammar-api-N5-55": {
+    "spiegazione": {
+      "it": "Piacere fare: 〜のが好き (「映画を見るのが好きです」).",
+      "en": "to like doing something"
+    }
+  },
+  "grammar-api-N5-54": {
+    "spiegazione": {
+      "it": "Essere bravo in: 〜のが上手 (「料理を作るのが上手です」).",
+      "en": "to be good at"
+    }
+  },
+  "grammar-api-N5-57": {
+    "spiegazione": {
+      "it": "Poiché: ので, motivo oggettivo e cortese (più morbido di から).",
+      "en": "because of; given that; since"
+    }
+  },
+  "grammar-api-N5-52": {
+    "spiegazione": {
+      "it": "È che…: のです spiega o chiede spiegazione (versione scritta di んです).",
+      "en": "to explain something; show emphasis"
+    }
+  },
+  "grammar-api-N5-75": {
+    "spiegazione": {
+      "it": "は: marca il tema della frase — 'quanto a…' (「私は学生です」).",
+      "en": "topic marker"
+    }
+  },
+  "grammar-api-N5-76": {
+    "spiegazione": {
+      "it": "A è più … di B: 「AはBより高いです」.",
+      "en": "[A] is more ~ than [B]"
+    }
+  },
+  "grammar-api-N5-77": {
+    "spiegazione": {
+      "it": "Che ne dici di…?: 〜はどうですか per proporre (「コーヒーはどうですか」).",
+      "en": "how about; how is"
+    }
+  },
+  "grammar-api-N5-15": {
+    "spiegazione": {
+      "it": "Faresti meglio a: 〜ほうがいい consiglio (「早く寝たほうがいい」).",
+      "en": "had better; it'd be better to; should"
+    }
+  },
+  "grammar-api-N5-32": {
+    "spiegazione": {
+      "it": "Facciamo…: 〜ましょう propone insieme (「行きましょう」).",
+      "en": "let's ; shall we ~"
+    }
+  },
+  "grammar-api-N5-33": {
+    "spiegazione": {
+      "it": "Faccio io…?: 〜ましょうか offre aiuto (「手伝いましょうか」).",
+      "en": "shall I ~; used to offer help to the listener"
+    }
+  },
+  "grammar-api-N5-31": {
+    "spiegazione": {
+      "it": "Ti va di…?: 〜ませんか invita gentilmente (「一緒に食べませんか」).",
+      "en": "would you; do you want to; shall we"
+    }
+  },
+  "grammar-api-N5-27": {
+    "spiegazione": {
+      "it": "Ancora / non ancora: まだ (「まだ雨が降っている」; con negazione = non ancora).",
+      "en": "still; not yet"
+    }
+  },
+  "grammar-api-N5-28": {
+    "spiegazione": {
+      "it": "Non ancora fatto: まだ〜ていません (「まだ食べていません」).",
+      "en": "have not yet"
+    }
+  },
+  "grammar-api-N5-29": {
+    "spiegazione": {
+      "it": "Fino a: まで di tempo e luogo (「五時まで」, 「駅まで」).",
+      "en": "until ~; as far as ~; to (an extent); even ~"
+    }
+  },
+  "grammar-api-N5-34": {
+    "spiegazione": {
+      "it": "Anche: も sostituisce は/が/を (「私も行きます」).",
+      "en": "too; also; as well"
+    }
+  },
+  "grammar-api-N5-35": {
+    "spiegazione": {
+      "it": "Già / non più: もう (「もう食べました」; もう＋negazione = non più).",
+      "en": "already; anymore; again; other"
+    }
+  },
+  "grammar-api-N5-78": {
+    "spiegazione": {
+      "it": "E (lista aperta): や elenca esempi non esaustivi (「本やペン」).",
+      "en": "and; or; connecting particle"
+    }
+  },
+  "grammar-api-N5-79": {
+    "spiegazione": {
+      "it": "よ finale: informa con enfasi — 'sai?' (「おいしいですよ」).",
+      "en": "you know; emphasis (ending particle)"
+    }
+  },
+  "grammar-api-N5-80": {
+    "spiegazione": {
+      "it": "Meglio A di B: 「BよりAのほうが〜」 per confrontare.",
+      "en": "[A] is more than [B]"
+    }
+  },
+  "grammar-api-N5-58": {
+    "spiegazione": {
+      "it": "を: marca il complemento oggetto (「本を読む」).",
+      "en": "object marker particle"
+    }
+  },
+  "grammar-api-N5-59": {
+    "spiegazione": {
+      "it": "Mi dia…: 〜をください per chiedere cose (「水をください」).",
+      "en": "please give me"
+    }
+  },
+  "grammar-api-N5-45": {
+    "spiegazione": {
+      "it": "È che…: んです per spiegare o chiedere il perché con partecipazione.",
+      "en": "to explain something; show emphasis"
+    }
+  },
+  "grammar-api-N5-18": {
+    "spiegazione": {
+      "it": "Insieme: 一緒に (「一緒に行きましょう」).",
+      "en": "together"
+    }
+  },
+  "grammar-api-N5-17": {
+    "spiegazione": {
+      "it": "Il più: 一番 davanti ad aggettivo (「一番好き」, 「一番高い」).",
+      "en": "the most; the best"
+    }
+  },
+  "grammar-api-N5-30": {
+    "spiegazione": {
+      "it": "Prima di / davanti a: 〜前に di tempo (「寝る前に」) e luogo (「駅の前に」).",
+      "en": "before ~; in front of ~"
+    }
+  },
+  "grammar-api-N5-24": {
+    "spiegazione": {
+      "it": "Come si fa: stem + 方 (「読み方」 = il modo di leggere, la lettura).",
+      "en": "the way of doing something; how to do"
+    }
+  }
 }
