@@ -22,6 +22,7 @@ App di studio giapponese N5/N4 (SvelteKit 2 + Svelte 5 runes, Dexie, adapter-sta
 - Correzioni/contenuti curati: **SEMPRE negli overrides** (`scripts/data/word-overrides.json`, `grammar-overrides.json`) e poi applicati al seed — mai solo nel seed, o il prossimo sync li cancella.
 - Le correzioni dell'utente arrivano da `/correzioni` (export JSON nello stesso formato): si fondono negli overrides.
 - Frasi d'esempio nuove: livello della carta (N5 kana-spaziato semplice; N4 con kanji), traduzioni it+en vere.
+- Traduzioni italiane: **sempre dal testo giapponese**, mai dall'inglese intermedio (l'EN serve solo come chiave di lookup, es. `scripts/data/usi-it.json`). Altri dizionari en→it: `kanji-it.json` (significati kanji).
 
 ## Convenzioni UX consolidate (giochi/avventure)
 
