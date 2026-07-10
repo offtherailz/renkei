@@ -179,23 +179,43 @@
 </section>
 
 <section class="section-card quick-links">
-	<h2 class="section-title">Naviga</h2>
+	<h2 class="section-title">🧠 Studia</h2>
 	<div class="quick-grid">
+		<a href="{base}/quiz" class="quick-card">
+			<span class="quick-icon">📋</span>
+			<span>Sessione quiz</span>
+		</a>
 		<a href="{base}/courses" class="quick-card">
 			<span class="quick-icon">📚</span>
 			<span>Corsi</span>
 		</a>
-		<a href="{base}/stats" class="quick-card">
-			<span class="quick-icon">📊</span>
-			<span>Statistiche</span>
-		</a>
 		<a href="{base}/ascolto" class="quick-card">
 			<span class="quick-icon">🎧</span>
-			<span>Ascolto (聴解)</span>
+			<span>Ascolto dialoghi</span>
 		</a>
+	</div>
+
+	<h2 class="section-title group">🎮 Gioca e vivi</h2>
+	<div class="quick-grid">
+		<a href="{base}/giochi" class="quick-card">
+			<span class="quick-icon">🎮</span>
+			<span>Giochi</span>
+		</a>
+		<a href="{base}/avventure" class="quick-card">
+			<span class="quick-icon">🗺️</span>
+			<span>Avventure</span>
+		</a>
+		<a href="{base}/lettura" class="quick-card">
+			<span class="quick-icon">⚡</span>
+			<span>Lettura veloce</span>
+		</a>
+	</div>
+
+	<h2 class="section-title group">📖 Cataloghi</h2>
+	<div class="quick-grid">
 		<a href="{base}/consolida" class="quick-card">
 			<span class="quick-icon">💪</span>
-			<span>Vocabolario / Consolida</span>
+			<span>Vocabolario</span>
 		</a>
 		<a href="{base}/forme" class="quick-card">
 			<span class="quick-icon">📖</span>
@@ -213,13 +233,13 @@
 			<span class="quick-icon">🔢</span>
 			<span>Contatori</span>
 		</a>
-		<a href="{base}/giochi" class="quick-card">
-			<span class="quick-icon">🎮</span>
-			<span>Giochi</span>
-		</a>
-		<a href="{base}/avventure" class="quick-card">
-			<span class="quick-icon">🗺️</span>
-			<span>Avventure</span>
+	</div>
+
+	<h2 class="section-title group">⚙️ Altro</h2>
+	<div class="quick-grid">
+		<a href="{base}/stats" class="quick-card">
+			<span class="quick-icon">📊</span>
+			<span>Statistiche</span>
 		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
@@ -413,6 +433,7 @@
 	.weak-chip:hover { border-color: var(--brand); }
 
 	.quick-links .section-title { margin-bottom: 12px; }
+	.quick-links .section-title.group { margin-top: 18px; }
 
 	.quick-grid {
 		display: grid;
