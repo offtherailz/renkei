@@ -9189,7 +9189,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783697440698,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -9200,7 +9200,8 @@
             "en": "That destroyed all his dreams."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "壊れる"
     },
     {
       "id": "壊れる",
@@ -9230,7 +9231,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783697440698,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -9248,7 +9249,8 @@
             "en": "That broken vase is my grandfather's."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "壊す"
     },
     {
       "id": "海岸",
@@ -11205,7 +11207,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783697440698,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -11216,7 +11218,8 @@
             "en": "This flung him into a passion."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "起きる"
     },
     {
       "id": "技術",
@@ -13028,7 +13031,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -13039,7 +13042,8 @@
             "en": "It is still undecided when we will begin."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "決める"
     },
     {
       "id": "決める",
@@ -13068,7 +13072,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -13079,7 +13083,8 @@
             "en": "I made up my mind to go there."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "決まる"
     },
     {
       "id": "血",
@@ -13512,7 +13517,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -13523,7 +13528,8 @@
             "en": "He had no luck in finding work."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "見つける"
     },
     {
       "id": "見つける",
@@ -13554,7 +13560,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -13565,7 +13571,8 @@
             "en": "I found a rare book I had been looking for."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "見つかる"
     },
     {
       "id": "見物",
@@ -16205,7 +16212,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -16274,7 +16281,8 @@
             }
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "始まる"
     },
     {
       "id": "子",
@@ -16946,7 +16954,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -16957,7 +16965,8 @@
             "en": "This document is for your eyes only."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "止まる"
     },
     {
       "id": "糸",
@@ -18875,7 +18884,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -18886,7 +18895,8 @@
             "en": "We gathered around the teacher."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "集める"
     },
     {
       "id": "集める",
@@ -18920,7 +18930,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -18931,7 +18941,8 @@
             "en": "My hobby is collecting stamps."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "集まる"
     },
     {
       "id": "住所",
@@ -20047,7 +20058,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -20065,7 +20076,8 @@
             "en": "Could you cook this meat a little more?"
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "焼ける"
     },
     {
       "id": "焼ける",
@@ -20096,7 +20108,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -20107,7 +20119,8 @@
             "en": "This toast is not done enough."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "焼く"
     },
     {
       "id": "笑う",
@@ -20263,7 +20276,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698059224,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -20580,7 +20593,8 @@
             "en": "above; north of"
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "上げる"
     },
     {
       "id": "乗り換える",
@@ -23275,7 +23289,7 @@
       "omofoni": [
         "おる"
       ],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -23286,7 +23300,8 @@
             "en": "Her fingers were too weak to fold it."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "折れる"
     },
     {
       "id": "折れる",
@@ -23322,7 +23337,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -23340,7 +23355,8 @@
             "en": "The doctor set his broken leg."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "折る"
     },
     {
       "id": "説明",
@@ -24527,7 +24543,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -24545,7 +24561,8 @@
             "en": "The road which leads to the hotel is narrow."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "続ける"
     },
     {
       "id": "続ける",
@@ -24575,7 +24592,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -24614,7 +24631,8 @@
             }
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "続く"
     },
     {
       "id": "卒業",
@@ -26663,7 +26681,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -26681,7 +26699,8 @@
             "en": "Put the book back where you found it."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "直る"
     },
     {
       "id": "直る",
@@ -26713,7 +26732,7 @@
       "omofoni": [
         "治る"
       ],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -26724,7 +26743,8 @@
             "en": "When will you ever loosen your purse strings?"
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "直す"
     },
     {
       "id": "珍しい",
@@ -27698,7 +27718,7 @@
       "omofoni": [
         "着く"
       ],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -27716,7 +27736,8 @@
             "en": "The lights have been burning all night."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "つける"
     },
     {
       "id": "伝える",
@@ -31208,7 +31229,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -31219,7 +31240,8 @@
             "en": "Jessie is boiling water to make coffee."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "沸く"
     },
     {
       "id": "沸く",
@@ -31251,7 +31273,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -31269,7 +31291,8 @@
             "en": "All the industries in the city are booming."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "沸かす"
     },
     {
       "id": "文化",
@@ -31782,7 +31805,7 @@
       "omofoni": [
         "帰る"
       ],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -31793,7 +31816,8 @@
             "en": "What made him change his mind?"
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "変わる"
     },
     {
       "id": "変わる",
@@ -31827,7 +31851,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -31845,7 +31869,8 @@
             "en": "A strange marine creature was found recently."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "変える"
     },
     {
       "id": "片付ける",
@@ -33035,7 +33060,7 @@
       "omofoni": [
         "亡くなる"
       ],
-      "updated_at": 1783698130092,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -33053,7 +33078,8 @@
             "en": "The sands are running out."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "無くす"
     },
     {
       "id": "無理",
@@ -40563,7 +40589,7 @@
       "omofoni": [
         "漬ける"
       ],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -40574,7 +40600,8 @@
             "en": "Please turn on the light in the room."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "点く"
     },
     {
       "id": "つまらない",
@@ -48118,7 +48145,7 @@
       "omofoni": [
         "空く::あく"
       ],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -48129,7 +48156,8 @@
             "en": "The shop opens at ten."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "開ける"
     },
     {
       "id": "開ける",
@@ -48160,7 +48188,7 @@
         "閉める"
       ],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -48171,7 +48199,8 @@
             "en": "Please open the window."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "開く-あく"
     },
     {
       "id": "階段",
@@ -49304,7 +49333,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -49322,7 +49351,8 @@
             "en": "I got up at about six."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "起こす"
     },
     {
       "id": "喫茶店",
@@ -55932,7 +55962,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -55943,7 +55973,8 @@
             "en": "Class begins at nine."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "始める"
     },
     {
       "id": "姉",
@@ -56058,7 +56089,7 @@
       "omofoni": [
         "泊まる"
       ],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -56069,7 +56100,8 @@
             "en": "Then, the train screeched to a halt."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "止める::とめる"
     },
     {
       "id": "死ぬ",
@@ -58174,7 +58206,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -58192,7 +58224,8 @@
             "en": "I want to remain anonymous in this."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "出る"
     },
     {
       "id": "出る",
@@ -58225,7 +58258,7 @@
         "入る"
       ],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -58243,7 +58276,8 @@
             "en": "It's true that a ghost appeared at my house."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "出す"
     },
     {
       "id": "出口",
@@ -59104,7 +59138,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -59122,7 +59156,8 @@
             "en": "Fashions grow old and die."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "消す"
     },
     {
       "id": "消す",
@@ -59154,7 +59189,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -59165,7 +59200,8 @@
             "en": "I turn off the light before sleeping."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "消える"
     },
     {
       "id": "醤油",
@@ -59443,7 +59479,7 @@
       "omofoni": [
         "あげる"
       ],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -59738,7 +59774,8 @@
             "en": "to humbly do ..."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "上がる"
     },
     {
       "id": "上手",
@@ -65788,7 +65825,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -65806,7 +65843,8 @@
             "en": "Then, please give him this note. This is urgent."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "渡る"
     },
     {
       "id": "渡る",
@@ -65838,7 +65876,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -65849,7 +65887,8 @@
             "en": "Cross the bridge and you'll reach the park."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "渡す"
     },
     {
       "id": "登る",
@@ -66958,7 +66997,7 @@
         "出る"
       ],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -66969,7 +67008,8 @@
             "en": "Please, come in."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "入れる"
     },
     {
       "id": "入れる",
@@ -66999,7 +67039,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -67017,7 +67057,8 @@
             "en": "I put it in the drawer."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "入る"
     },
     {
       "id": "入口",
@@ -69394,7 +69435,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -69405,7 +69446,8 @@
             "en": "People are lining up in front of the shop."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "並べる"
     },
     {
       "id": "並べる",
@@ -69436,7 +69478,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -69447,7 +69489,8 @@
             "en": "The maid arranged the knives and forks on the table."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "並ぶ"
     },
     {
       "id": "閉まる",
@@ -69479,7 +69522,7 @@
       ],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
@@ -69497,7 +69540,8 @@
             "en": "The door was locked, so I couldn't get in."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "閉める"
     },
     {
       "id": "閉める",
@@ -69533,7 +69577,7 @@
       "omofoni": [
         "締める"
       ],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319004,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -69544,7 +69588,8 @@
             "en": "Will you please shut the door?"
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "閉まる"
     },
     {
       "id": "片仮名",
@@ -71018,7 +71063,7 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783683898721,
+      "updated_at": 1783716319005,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
@@ -71029,7 +71074,8 @@
             "en": "I lost my ticket at the station."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "無くなる"
     },
     {
       "id": "名前",
