@@ -1,81 +1,1795 @@
 {
-  "カレンダー": { "frasi_esempio": [{ "testo": "へやのかべにカレンダーがあります。", "traduzione": { "it": "Nella stanza c'è un calendario appeso al muro.", "en": "There is a calendar on the wall of the room." } }] },
-  "廊下": { "frasi_esempio": [{ "testo": "廊下を走らないでください。", "traduzione": { "it": "Non correre in corridoio.", "en": "Don't run in the hallway." } }] },
-  "疲れる": { "frasi_esempio": [{ "testo": "今日はとても疲れました。", "traduzione": { "it": "Oggi mi sono stancato molto.", "en": "I got very tired today." } }] },
-  "一昨日": { "frasi_esempio": [{ "testo": "一昨日、友だちと映画を見ました。", "traduzione": { "it": "L'altro ieri ho visto un film con un amico.", "en": "The day before yesterday I watched a movie with a friend." } }] },
-  "さ来年": { "frasi_esempio": [{ "testo": "さ来年、日本へ行きます。", "traduzione": { "it": "Fra due anni andrò in Giappone.", "en": "I will go to Japan the year after next." } }] },
-  "結婚": { "frasi_esempio": [{ "testo": "兄は来月結婚します。", "traduzione": { "it": "Mio fratello maggiore si sposa il mese prossimo.", "en": "My older brother is getting married next month." } }] },
-  "結婚する": { "frasi_esempio": [{ "testo": "二人は去年結婚しました。", "traduzione": { "it": "I due si sono sposati l'anno scorso.", "en": "The two got married last year." } }] },
-  "大使館": { "frasi_esempio": [{ "testo": "大使館はこの近くにあります。", "traduzione": { "it": "L'ambasciata è qui vicino.", "en": "The embassy is near here." } }] },
-  "有名": { "frasi_esempio": [{ "testo": "この店はラーメンで有名です。", "traduzione": { "it": "Questo locale è famoso per il ramen.", "en": "This place is famous for its ramen." } }] },
-  "葉書": { "frasi_esempio": [{ "testo": "友だちに葉書を出しました。", "traduzione": { "it": "Ho spedito una cartolina a un amico.", "en": "I sent a postcard to a friend." } }] },
-  "六つ": { "frasi_esempio": [{ "testo": "りんごを六つ買いました。", "traduzione": { "it": "Ho comprato sei mele.", "en": "I bought six apples." } }] },
-  "猫": { "frasi_esempio": [{ "testo": "うちには猫が二ひきいます。", "traduzione": { "it": "A casa abbiamo due gatti.", "en": "We have two cats at home." } }] },
-  "九つ": { "frasi_esempio": [{ "testo": "あめが九つあります。", "traduzione": { "it": "Ci sono nove caramelle.", "en": "There are nine candies." } }] },
-  "カレー": { "frasi_esempio": [{ "testo": "昼ごはんはカレーを食べました。", "traduzione": { "it": "A pranzo ho mangiato il curry.", "en": "I had curry for lunch." } }] },
-  "ポスト": { "frasi_esempio": [{ "testo": "手紙をポストに入れました。", "traduzione": { "it": "Ho imbucato la lettera nella cassetta.", "en": "I put the letter in the mailbox." } }] },
-  "黄色": { "frasi_esempio": [{ "testo": "黄色の花がすきです。", "traduzione": { "it": "Mi piacciono i fiori gialli.", "en": "I like yellow flowers." } }] },
-  "赤": { "frasi_esempio": [{ "testo": "赤のかさを買いました。", "traduzione": { "it": "Ho comprato un ombrello rosso.", "en": "I bought a red umbrella." } }] },
-  "二人": { "frasi_esempio": [{ "testo": "二人で公園に行きました。", "traduzione": { "it": "Siamo andati al parco in due.", "en": "The two of us went to the park." } }] },
-  "並ぶ": { "frasi_esempio": [{ "testo": "店の前に人が並んでいます。", "traduzione": { "it": "Davanti al negozio c'è gente in fila.", "en": "People are lining up in front of the shop." } }] },
-  "冷蔵庫": { "frasi_esempio": [{ "testo": "牛乳は冷蔵庫の中にあります。", "traduzione": { "it": "Il latte è nel frigorifero.", "en": "The milk is in the fridge." } }] },
-  "豚肉": { "frasi_esempio": [{ "testo": "今日は豚肉を食べます。", "traduzione": { "it": "Oggi mangio carne di maiale.", "en": "Today I'm eating pork." } }] },
-  "おととし": { "frasi_esempio": [{ "testo": "おととし、東京に住んでいました。", "traduzione": { "it": "Due anni fa vivevo a Tokyo.", "en": "The year before last I lived in Tokyo." } }] },
-  "おまわりさん": { "frasi_esempio": [{ "testo": "おまわりさんに道を聞きました。", "traduzione": { "it": "Ho chiesto la strada a un poliziotto.", "en": "I asked a policeman for directions." } }] },
-  "お父さん": { "frasi_esempio": [{ "testo": "お父さんは今、仕事です。", "traduzione": { "it": "Papà adesso è al lavoro.", "en": "Dad is at work now." } }] },
-  "お腹": { "frasi_esempio": [{ "testo": "お腹がすきました。", "traduzione": { "it": "Ho fame.", "en": "I'm hungry." } }] },
-  "かばん": { "frasi_esempio": [{ "testo": "このかばんは少し重いです。", "traduzione": { "it": "Questa borsa è un po' pesante.", "en": "This bag is a little heavy." } }] },
-  "ゼロ": { "frasi_esempio": [{ "testo": "今日のテストはミスがゼロでした。", "traduzione": { "it": "Nel test di oggi ho fatto zero errori.", "en": "I made zero mistakes on today's test." } }] },
-  "飴": { "frasi_esempio": [{ "testo": "子どもに飴を一つあげました。", "traduzione": { "it": "Ho dato una caramella al bambino.", "en": "I gave the child a candy." } }] },
-  "一月": { "frasi_esempio": [{ "testo": "一月に一回、映画を見ます。", "traduzione": { "it": "Vedo un film una volta al mese.", "en": "I watch a movie once a month." } }] },
-  "泳ぐ": { "frasi_esempio": [{ "testo": "夏は海で泳ぎます。", "traduzione": { "it": "D'estate nuoto al mare.", "en": "In summer I swim in the sea." } }] },
-  "牛乳": { "frasi_esempio": [{ "testo": "毎朝、牛乳を飲みます。", "traduzione": { "it": "Ogni mattina bevo il latte.", "en": "I drink milk every morning." } }] },
-  "警官": { "frasi_esempio": [{ "testo": "駅の前に警官がいます。", "traduzione": { "it": "Davanti alla stazione c'è un poliziotto.", "en": "There is a police officer in front of the station." } }] },
-  "黒": { "frasi_esempio": [{ "testo": "黒のくつがほしいです。", "traduzione": { "it": "Vorrei delle scarpe nere.", "en": "I want black shoes." } }] },
-  "砂糖": { "frasi_esempio": [{ "testo": "コーヒーに砂糖を入れますか。", "traduzione": { "it": "Metti lo zucchero nel caffè?", "en": "Do you put sugar in your coffee?" } }] },
-  "細い": { "frasi_esempio": [{ "testo": "この道はとても細いです。", "traduzione": { "it": "Questa strada è molto stretta.", "en": "This road is very narrow." } }] },
-  "醤油": { "frasi_esempio": [{ "testo": "醤油を少しかけてください。", "traduzione": { "it": "Metti un po' di salsa di soia, per favore.", "en": "Please pour on a little soy sauce." } }] },
-  "色": { "frasi_esempio": [{ "testo": "すきな色は何ですか。", "traduzione": { "it": "Qual è il tuo colore preferito?", "en": "What is your favorite color?" } }] },
-  "洗う": { "frasi_esempio": [{ "testo": "ごはんの前に手を洗います。", "traduzione": { "it": "Prima di mangiare mi lavo le mani.", "en": "I wash my hands before eating." } }] },
-  "洗濯": { "frasi_esempio": [{ "testo": "日曜日に洗濯をします。", "traduzione": { "it": "La domenica faccio il bucato.", "en": "I do the laundry on Sundays." } }] },
-  "洗濯する": { "frasi_esempio": [{ "testo": "シャツを洗濯しました。", "traduzione": { "it": "Ho lavato le camicie.", "en": "I washed the shirts." } }] },
-  "全部": { "frasi_esempio": [{ "testo": "宿題は全部終わりました。", "traduzione": { "it": "Ho finito tutti i compiti.", "en": "I finished all my homework." } }] },
-  "沢山": { "frasi_esempio": [{ "testo": "公園に人が沢山います。", "traduzione": { "it": "Al parco c'è tanta gente.", "en": "There are many people in the park." } }] },
-  "締める": { "frasi_esempio": [{ "testo": "車でシートベルトを締めます。", "traduzione": { "it": "In macchina allaccio la cintura.", "en": "I fasten my seatbelt in the car." } }] },
-  "晩御飯": { "frasi_esempio": [{ "testo": "晩御飯はカレーでした。", "traduzione": { "it": "Per cena c'era il curry.", "en": "Dinner was curry." } }] },
-  "本棚": { "frasi_esempio": [{ "testo": "本棚に本をならべました。", "traduzione": { "it": "Ho sistemato i libri sullo scaffale.", "en": "I lined up the books on the bookshelf." } }] },
-  "毎年": { "frasi_esempio": [{ "testo": "毎年、家族と旅行します。", "traduzione": { "it": "Ogni anno viaggio con la famiglia.", "en": "Every year I travel with my family." } }] },
-  "門": { "frasi_esempio": [{ "testo": "学校の門の前で待っています。", "traduzione": { "it": "Ti aspetto davanti al cancello della scuola.", "en": "I'm waiting in front of the school gate." } }] },
-  "薬": { "frasi_esempio": [{ "testo": "食事のあとで薬を飲みます。", "traduzione": { "it": "Prendo la medicina dopo i pasti.", "en": "I take my medicine after meals." } }] },
-  "来月": { "frasi_esempio": [{ "testo": "来月、京都へ行きます。", "traduzione": { "it": "Il mese prossimo vado a Kyoto.", "en": "Next month I'm going to Kyoto." } }] },
-  "コップ": { "frasi_esempio": [{ "testo": "コップに水を入れました。", "traduzione": { "it": "Ho versato l'acqua nel bicchiere.", "en": "I poured water into the glass." } }] },
-  "安い": { "frasi_esempio": [{ "testo": "この店は安くておいしいです。", "traduzione": { "it": "Questo locale è economico e buono.", "en": "This place is cheap and tasty." } }] },
-  "テスト": { "frasi_esempio": [{ "testo": "明日は日本語のテストがあります。", "traduzione": { "it": "Domani c'è il test di giapponese.", "en": "There is a Japanese test tomorrow." } }] },
-  "テストする": { "frasi_esempio": [{ "testo": "先生は毎週、漢字をテストします。", "traduzione": { "it": "L'insegnante ogni settimana ci testa sui kanji.", "en": "The teacher tests us on kanji every week." } }] },
-  "私::わたし": { "frasi_esempio": [{ "testo": "私は学生です。", "traduzione": { "it": "Io sono uno studente.", "en": "I am a student." } }] },
-  "体": { "frasi_esempio": [{ "testo": "運動は体にいいです。", "traduzione": { "it": "Fare movimento fa bene al corpo.", "en": "Exercise is good for the body." } }] },
-  "お菓子": { "frasi_esempio": [{ "testo": "お茶とお菓子をどうぞ。", "traduzione": { "it": "Prego, tè e dolcetti.", "en": "Please have some tea and sweets." } }] },
-  "お姉さん": { "frasi_esempio": [{ "testo": "お姉さんはとても親切です。", "traduzione": { "it": "Tua sorella maggiore è molto gentile.", "en": "Your older sister is very kind." } }] },
-  "お酒": { "frasi_esempio": [{ "testo": "父は少しお酒を飲みます。", "traduzione": { "it": "Mio padre beve un po' di sakè.", "en": "My father drinks a little sake." } }] },
-  "お弁当": { "frasi_esempio": [{ "testo": "公園でお弁当を食べました。", "traduzione": { "it": "Abbiamo mangiato il bentō al parco.", "en": "We ate our boxed lunch in the park." } }] },
-  "シャツ": { "frasi_esempio": [{ "testo": "白いシャツを着ています。", "traduzione": { "it": "Indossa una camicia bianca.", "en": "He is wearing a white shirt." } }] },
-  "セーター": { "frasi_esempio": [{ "testo": "寒いですから、セーターを着ます。", "traduzione": { "it": "Fa freddo, quindi mi metto il maglione.", "en": "It's cold, so I'll put on a sweater." } }] },
-  "その": { "frasi_esempio": [{ "testo": "その本はおもしろいですか。", "traduzione": { "it": "Quel libro è interessante?", "en": "Is that book interesting?" } }] },
-  "それから": { "frasi_esempio": [{ "testo": "買い物をして、それから帰りました。", "traduzione": { "it": "Ho fatto spese e poi sono tornato a casa.", "en": "I did some shopping and then went home." } }] },
-  "たて": { "frasi_esempio": [{ "testo": "かみをたてに切ってください。", "traduzione": { "it": "Taglia il foglio in verticale, per favore.", "en": "Please cut the paper lengthwise." } }] },
-  "どちら": { "frasi_esempio": [{ "testo": "コーヒーとお茶、どちらがいいですか。", "traduzione": { "it": "Caffè o tè: quale preferisci?", "en": "Coffee or tea — which would you like?" } }] },
-  "どっち": { "frasi_esempio": [{ "testo": "どっちのケーキにする？", "traduzione": { "it": "Quale torta prendi?", "en": "Which cake will you have?" } }] },
-  "ノート": { "frasi_esempio": [{ "testo": "ノートに名前を書いてください。", "traduzione": { "it": "Scrivi il nome sul quaderno, per favore.", "en": "Please write your name in the notebook." } }] },
-  "バス": { "frasi_esempio": [{ "testo": "バスで学校へ行きます。", "traduzione": { "it": "Vado a scuola in autobus.", "en": "I go to school by bus." } }] },
-  "ボールペン": { "frasi_esempio": [{ "testo": "ボールペンで書いてください。", "traduzione": { "it": "Scrivi con la penna, per favore.", "en": "Please write with a ballpoint pen." } }] },
-  "まっすぐ": { "frasi_esempio": [{ "testo": "この道をまっすぐ行ってください。", "traduzione": { "it": "Vai dritto per questa strada.", "en": "Go straight along this road." } }] },
-  "奥さん": { "frasi_esempio": [{ "testo": "田中さんの奥さんに会いました。", "traduzione": { "it": "Ho incontrato la moglie del signor Tanaka.", "en": "I met Mr. Tanaka's wife." } }] },
-  "果物": { "frasi_esempio": [{ "testo": "朝は果物を食べます。", "traduzione": { "it": "La mattina mangio frutta.", "en": "I eat fruit in the morning." } }] },
-  "花": { "frasi_esempio": [{ "testo": "母に花をあげました。", "traduzione": { "it": "Ho regalato dei fiori a mia madre.", "en": "I gave my mother flowers." } }] },
-  "会社": { "frasi_esempio": [{ "testo": "父は会社で働いています。", "traduzione": { "it": "Mio padre lavora in un'azienda.", "en": "My father works at a company." } }] },
-  "灰皿": { "frasi_esempio": [{ "testo": "すみません、灰皿はありますか。", "traduzione": { "it": "Scusi, c'è un posacenere?", "en": "Excuse me, is there an ashtray?" } }] },
-  "絵": { "frasi_esempio": [{ "testo": "兄は絵が上手です。", "traduzione": { "it": "Mio fratello maggiore è bravo a disegnare.", "en": "My older brother is good at drawing." } }] },
-  "机": { "frasi_esempio": [{ "testo": "机の上に本があります。", "traduzione": { "it": "Sulla scrivania c'è un libro.", "en": "There is a book on the desk." } }] },
-  "橋": { "frasi_esempio": [{ "testo": "この橋をわたると、駅です。", "traduzione": { "it": "Attraversato questo ponte c'è la stazione.", "en": "Cross this bridge and you'll reach the station." } }] },
-  "勤める": { "frasi_esempio": [{ "testo": "姉は銀行に勤めています。", "traduzione": { "it": "Mia sorella maggiore lavora in banca.", "en": "My older sister works at a bank." } }] }
+  "カレンダー": {
+    "frasi_esempio": [
+      {
+        "testo": "へやのかべにカレンダーがあります。",
+        "traduzione": {
+          "it": "Nella stanza c'è un calendario appeso al muro.",
+          "en": "There is a calendar on the wall of the room."
+        }
+      }
+    ]
+  },
+  "廊下": {
+    "frasi_esempio": [
+      {
+        "testo": "廊下を走らないでください。",
+        "traduzione": {
+          "it": "Non correre in corridoio.",
+          "en": "Don't run in the hallway."
+        }
+      }
+    ]
+  },
+  "疲れる": {
+    "frasi_esempio": [
+      {
+        "testo": "今日はとても疲れました。",
+        "traduzione": {
+          "it": "Oggi mi sono stancato molto.",
+          "en": "I got very tired today."
+        }
+      }
+    ]
+  },
+  "一昨日": {
+    "frasi_esempio": [
+      {
+        "testo": "一昨日、友だちと映画を見ました。",
+        "traduzione": {
+          "it": "L'altro ieri ho visto un film con un amico.",
+          "en": "The day before yesterday I watched a movie with a friend."
+        }
+      }
+    ]
+  },
+  "さ来年": {
+    "frasi_esempio": [
+      {
+        "testo": "さ来年、日本へ行きます。",
+        "traduzione": {
+          "it": "Fra due anni andrò in Giappone.",
+          "en": "I will go to Japan the year after next."
+        }
+      }
+    ]
+  },
+  "結婚": {
+    "frasi_esempio": [
+      {
+        "testo": "兄は来月結婚します。",
+        "traduzione": {
+          "it": "Mio fratello maggiore si sposa il mese prossimo.",
+          "en": "My older brother is getting married next month."
+        }
+      }
+    ]
+  },
+  "結婚する": {
+    "frasi_esempio": [
+      {
+        "testo": "二人は去年結婚しました。",
+        "traduzione": {
+          "it": "I due si sono sposati l'anno scorso.",
+          "en": "The two got married last year."
+        }
+      }
+    ]
+  },
+  "大使館": {
+    "frasi_esempio": [
+      {
+        "testo": "大使館はこの近くにあります。",
+        "traduzione": {
+          "it": "L'ambasciata è qui vicino.",
+          "en": "The embassy is near here."
+        }
+      }
+    ]
+  },
+  "有名": {
+    "frasi_esempio": [
+      {
+        "testo": "この店はラーメンで有名です。",
+        "traduzione": {
+          "it": "Questo locale è famoso per il ramen.",
+          "en": "This place is famous for its ramen."
+        }
+      }
+    ]
+  },
+  "葉書": {
+    "frasi_esempio": [
+      {
+        "testo": "友だちに葉書を出しました。",
+        "traduzione": {
+          "it": "Ho spedito una cartolina a un amico.",
+          "en": "I sent a postcard to a friend."
+        }
+      }
+    ]
+  },
+  "六つ": {
+    "frasi_esempio": [
+      {
+        "testo": "りんごを六つ買いました。",
+        "traduzione": {
+          "it": "Ho comprato sei mele.",
+          "en": "I bought six apples."
+        }
+      }
+    ]
+  },
+  "猫": {
+    "frasi_esempio": [
+      {
+        "testo": "うちには猫が二ひきいます。",
+        "traduzione": {
+          "it": "A casa abbiamo due gatti.",
+          "en": "We have two cats at home."
+        }
+      }
+    ]
+  },
+  "九つ": {
+    "frasi_esempio": [
+      {
+        "testo": "あめが九つあります。",
+        "traduzione": {
+          "it": "Ci sono nove caramelle.",
+          "en": "There are nine candies."
+        }
+      }
+    ]
+  },
+  "カレー": {
+    "frasi_esempio": [
+      {
+        "testo": "昼ごはんはカレーを食べました。",
+        "traduzione": {
+          "it": "A pranzo ho mangiato il curry.",
+          "en": "I had curry for lunch."
+        }
+      }
+    ]
+  },
+  "ポスト": {
+    "frasi_esempio": [
+      {
+        "testo": "手紙をポストに入れました。",
+        "traduzione": {
+          "it": "Ho imbucato la lettera nella cassetta.",
+          "en": "I put the letter in the mailbox."
+        }
+      }
+    ]
+  },
+  "黄色": {
+    "frasi_esempio": [
+      {
+        "testo": "黄色の花がすきです。",
+        "traduzione": {
+          "it": "Mi piacciono i fiori gialli.",
+          "en": "I like yellow flowers."
+        }
+      }
+    ]
+  },
+  "赤": {
+    "frasi_esempio": [
+      {
+        "testo": "赤のかさを買いました。",
+        "traduzione": {
+          "it": "Ho comprato un ombrello rosso.",
+          "en": "I bought a red umbrella."
+        }
+      }
+    ]
+  },
+  "二人": {
+    "frasi_esempio": [
+      {
+        "testo": "二人で公園に行きました。",
+        "traduzione": {
+          "it": "Siamo andati al parco in due.",
+          "en": "The two of us went to the park."
+        }
+      }
+    ]
+  },
+  "並ぶ": {
+    "frasi_esempio": [
+      {
+        "testo": "店の前に人が並んでいます。",
+        "traduzione": {
+          "it": "Davanti al negozio c'è gente in fila.",
+          "en": "People are lining up in front of the shop."
+        }
+      }
+    ]
+  },
+  "冷蔵庫": {
+    "frasi_esempio": [
+      {
+        "testo": "牛乳は冷蔵庫の中にあります。",
+        "traduzione": {
+          "it": "Il latte è nel frigorifero.",
+          "en": "The milk is in the fridge."
+        }
+      }
+    ]
+  },
+  "豚肉": {
+    "frasi_esempio": [
+      {
+        "testo": "今日は豚肉を食べます。",
+        "traduzione": {
+          "it": "Oggi mangio carne di maiale.",
+          "en": "Today I'm eating pork."
+        }
+      }
+    ]
+  },
+  "おととし": {
+    "frasi_esempio": [
+      {
+        "testo": "おととし、東京に住んでいました。",
+        "traduzione": {
+          "it": "Due anni fa vivevo a Tokyo.",
+          "en": "The year before last I lived in Tokyo."
+        }
+      }
+    ]
+  },
+  "おまわりさん": {
+    "frasi_esempio": [
+      {
+        "testo": "おまわりさんに道を聞きました。",
+        "traduzione": {
+          "it": "Ho chiesto la strada a un poliziotto.",
+          "en": "I asked a policeman for directions."
+        }
+      }
+    ]
+  },
+  "お父さん": {
+    "frasi_esempio": [
+      {
+        "testo": "お父さんは今、仕事です。",
+        "traduzione": {
+          "it": "Papà adesso è al lavoro.",
+          "en": "Dad is at work now."
+        }
+      }
+    ]
+  },
+  "お腹": {
+    "frasi_esempio": [
+      {
+        "testo": "お腹がすきました。",
+        "traduzione": {
+          "it": "Ho fame.",
+          "en": "I'm hungry."
+        }
+      }
+    ]
+  },
+  "かばん": {
+    "frasi_esempio": [
+      {
+        "testo": "このかばんは少し重いです。",
+        "traduzione": {
+          "it": "Questa borsa è un po' pesante.",
+          "en": "This bag is a little heavy."
+        }
+      }
+    ]
+  },
+  "ゼロ": {
+    "frasi_esempio": [
+      {
+        "testo": "今日のテストはミスがゼロでした。",
+        "traduzione": {
+          "it": "Nel test di oggi ho fatto zero errori.",
+          "en": "I made zero mistakes on today's test."
+        }
+      }
+    ]
+  },
+  "飴": {
+    "frasi_esempio": [
+      {
+        "testo": "子どもに飴を一つあげました。",
+        "traduzione": {
+          "it": "Ho dato una caramella al bambino.",
+          "en": "I gave the child a candy."
+        }
+      }
+    ]
+  },
+  "一月": {
+    "frasi_esempio": [
+      {
+        "testo": "一月に一回、映画を見ます。",
+        "traduzione": {
+          "it": "Vedo un film una volta al mese.",
+          "en": "I watch a movie once a month."
+        }
+      }
+    ]
+  },
+  "泳ぐ": {
+    "frasi_esempio": [
+      {
+        "testo": "夏は海で泳ぎます。",
+        "traduzione": {
+          "it": "D'estate nuoto al mare.",
+          "en": "In summer I swim in the sea."
+        }
+      }
+    ]
+  },
+  "牛乳": {
+    "frasi_esempio": [
+      {
+        "testo": "毎朝、牛乳を飲みます。",
+        "traduzione": {
+          "it": "Ogni mattina bevo il latte.",
+          "en": "I drink milk every morning."
+        }
+      }
+    ]
+  },
+  "警官": {
+    "frasi_esempio": [
+      {
+        "testo": "駅の前に警官がいます。",
+        "traduzione": {
+          "it": "Davanti alla stazione c'è un poliziotto.",
+          "en": "There is a police officer in front of the station."
+        }
+      }
+    ]
+  },
+  "黒": {
+    "frasi_esempio": [
+      {
+        "testo": "黒のくつがほしいです。",
+        "traduzione": {
+          "it": "Vorrei delle scarpe nere.",
+          "en": "I want black shoes."
+        }
+      }
+    ]
+  },
+  "砂糖": {
+    "frasi_esempio": [
+      {
+        "testo": "コーヒーに砂糖を入れますか。",
+        "traduzione": {
+          "it": "Metti lo zucchero nel caffè?",
+          "en": "Do you put sugar in your coffee?"
+        }
+      }
+    ]
+  },
+  "細い": {
+    "frasi_esempio": [
+      {
+        "testo": "この道はとても細いです。",
+        "traduzione": {
+          "it": "Questa strada è molto stretta.",
+          "en": "This road is very narrow."
+        }
+      }
+    ]
+  },
+  "醤油": {
+    "frasi_esempio": [
+      {
+        "testo": "醤油を少しかけてください。",
+        "traduzione": {
+          "it": "Metti un po' di salsa di soia, per favore.",
+          "en": "Please pour on a little soy sauce."
+        }
+      }
+    ]
+  },
+  "色": {
+    "frasi_esempio": [
+      {
+        "testo": "すきな色は何ですか。",
+        "traduzione": {
+          "it": "Qual è il tuo colore preferito?",
+          "en": "What is your favorite color?"
+        }
+      }
+    ]
+  },
+  "洗う": {
+    "frasi_esempio": [
+      {
+        "testo": "ごはんの前に手を洗います。",
+        "traduzione": {
+          "it": "Prima di mangiare mi lavo le mani.",
+          "en": "I wash my hands before eating."
+        }
+      }
+    ]
+  },
+  "洗濯": {
+    "frasi_esempio": [
+      {
+        "testo": "日曜日に洗濯をします。",
+        "traduzione": {
+          "it": "La domenica faccio il bucato.",
+          "en": "I do the laundry on Sundays."
+        }
+      }
+    ]
+  },
+  "洗濯する": {
+    "frasi_esempio": [
+      {
+        "testo": "シャツを洗濯しました。",
+        "traduzione": {
+          "it": "Ho lavato le camicie.",
+          "en": "I washed the shirts."
+        }
+      }
+    ]
+  },
+  "全部": {
+    "frasi_esempio": [
+      {
+        "testo": "宿題は全部終わりました。",
+        "traduzione": {
+          "it": "Ho finito tutti i compiti.",
+          "en": "I finished all my homework."
+        }
+      }
+    ]
+  },
+  "沢山": {
+    "frasi_esempio": [
+      {
+        "testo": "公園に人が沢山います。",
+        "traduzione": {
+          "it": "Al parco c'è tanta gente.",
+          "en": "There are many people in the park."
+        }
+      }
+    ]
+  },
+  "締める": {
+    "frasi_esempio": [
+      {
+        "testo": "車でシートベルトを締めます。",
+        "traduzione": {
+          "it": "In macchina allaccio la cintura.",
+          "en": "I fasten my seatbelt in the car."
+        }
+      }
+    ]
+  },
+  "晩御飯": {
+    "frasi_esempio": [
+      {
+        "testo": "晩御飯はカレーでした。",
+        "traduzione": {
+          "it": "Per cena c'era il curry.",
+          "en": "Dinner was curry."
+        }
+      }
+    ]
+  },
+  "本棚": {
+    "frasi_esempio": [
+      {
+        "testo": "本棚に本をならべました。",
+        "traduzione": {
+          "it": "Ho sistemato i libri sullo scaffale.",
+          "en": "I lined up the books on the bookshelf."
+        }
+      }
+    ]
+  },
+  "毎年": {
+    "frasi_esempio": [
+      {
+        "testo": "毎年、家族と旅行します。",
+        "traduzione": {
+          "it": "Ogni anno viaggio con la famiglia.",
+          "en": "Every year I travel with my family."
+        }
+      }
+    ]
+  },
+  "門": {
+    "frasi_esempio": [
+      {
+        "testo": "学校の門の前で待っています。",
+        "traduzione": {
+          "it": "Ti aspetto davanti al cancello della scuola.",
+          "en": "I'm waiting in front of the school gate."
+        }
+      }
+    ]
+  },
+  "薬": {
+    "frasi_esempio": [
+      {
+        "testo": "食事のあとで薬を飲みます。",
+        "traduzione": {
+          "it": "Prendo la medicina dopo i pasti.",
+          "en": "I take my medicine after meals."
+        }
+      }
+    ]
+  },
+  "来月": {
+    "frasi_esempio": [
+      {
+        "testo": "来月、京都へ行きます。",
+        "traduzione": {
+          "it": "Il mese prossimo vado a Kyoto.",
+          "en": "Next month I'm going to Kyoto."
+        }
+      }
+    ]
+  },
+  "コップ": {
+    "frasi_esempio": [
+      {
+        "testo": "コップに水を入れました。",
+        "traduzione": {
+          "it": "Ho versato l'acqua nel bicchiere.",
+          "en": "I poured water into the glass."
+        }
+      }
+    ]
+  },
+  "安い": {
+    "frasi_esempio": [
+      {
+        "testo": "この店は安くておいしいです。",
+        "traduzione": {
+          "it": "Questo locale è economico e buono.",
+          "en": "This place is cheap and tasty."
+        }
+      }
+    ]
+  },
+  "テスト": {
+    "frasi_esempio": [
+      {
+        "testo": "明日は日本語のテストがあります。",
+        "traduzione": {
+          "it": "Domani c'è il test di giapponese.",
+          "en": "There is a Japanese test tomorrow."
+        }
+      }
+    ]
+  },
+  "テストする": {
+    "frasi_esempio": [
+      {
+        "testo": "先生は毎週、漢字をテストします。",
+        "traduzione": {
+          "it": "L'insegnante ogni settimana ci testa sui kanji.",
+          "en": "The teacher tests us on kanji every week."
+        }
+      }
+    ]
+  },
+  "私::わたし": {
+    "frasi_esempio": [
+      {
+        "testo": "私は学生です。",
+        "traduzione": {
+          "it": "Io sono uno studente.",
+          "en": "I am a student."
+        }
+      }
+    ]
+  },
+  "体": {
+    "frasi_esempio": [
+      {
+        "testo": "運動は体にいいです。",
+        "traduzione": {
+          "it": "Fare movimento fa bene al corpo.",
+          "en": "Exercise is good for the body."
+        }
+      }
+    ]
+  },
+  "お菓子": {
+    "frasi_esempio": [
+      {
+        "testo": "お茶とお菓子をどうぞ。",
+        "traduzione": {
+          "it": "Prego, tè e dolcetti.",
+          "en": "Please have some tea and sweets."
+        }
+      }
+    ]
+  },
+  "お姉さん": {
+    "frasi_esempio": [
+      {
+        "testo": "お姉さんはとても親切です。",
+        "traduzione": {
+          "it": "Tua sorella maggiore è molto gentile.",
+          "en": "Your older sister is very kind."
+        }
+      }
+    ]
+  },
+  "お酒": {
+    "frasi_esempio": [
+      {
+        "testo": "父は少しお酒を飲みます。",
+        "traduzione": {
+          "it": "Mio padre beve un po' di sakè.",
+          "en": "My father drinks a little sake."
+        }
+      }
+    ]
+  },
+  "お弁当": {
+    "frasi_esempio": [
+      {
+        "testo": "公園でお弁当を食べました。",
+        "traduzione": {
+          "it": "Abbiamo mangiato il bentō al parco.",
+          "en": "We ate our boxed lunch in the park."
+        }
+      }
+    ]
+  },
+  "シャツ": {
+    "frasi_esempio": [
+      {
+        "testo": "白いシャツを着ています。",
+        "traduzione": {
+          "it": "Indossa una camicia bianca.",
+          "en": "He is wearing a white shirt."
+        }
+      }
+    ]
+  },
+  "セーター": {
+    "frasi_esempio": [
+      {
+        "testo": "寒いですから、セーターを着ます。",
+        "traduzione": {
+          "it": "Fa freddo, quindi mi metto il maglione.",
+          "en": "It's cold, so I'll put on a sweater."
+        }
+      }
+    ]
+  },
+  "その": {
+    "frasi_esempio": [
+      {
+        "testo": "その本はおもしろいですか。",
+        "traduzione": {
+          "it": "Quel libro è interessante?",
+          "en": "Is that book interesting?"
+        }
+      }
+    ]
+  },
+  "それから": {
+    "frasi_esempio": [
+      {
+        "testo": "買い物をして、それから帰りました。",
+        "traduzione": {
+          "it": "Ho fatto spese e poi sono tornato a casa.",
+          "en": "I did some shopping and then went home."
+        }
+      }
+    ]
+  },
+  "たて": {
+    "frasi_esempio": [
+      {
+        "testo": "かみをたてに切ってください。",
+        "traduzione": {
+          "it": "Taglia il foglio in verticale, per favore.",
+          "en": "Please cut the paper lengthwise."
+        }
+      }
+    ]
+  },
+  "どちら": {
+    "frasi_esempio": [
+      {
+        "testo": "コーヒーとお茶、どちらがいいですか。",
+        "traduzione": {
+          "it": "Caffè o tè: quale preferisci?",
+          "en": "Coffee or tea — which would you like?"
+        }
+      }
+    ]
+  },
+  "どっち": {
+    "frasi_esempio": [
+      {
+        "testo": "どっちのケーキにする？",
+        "traduzione": {
+          "it": "Quale torta prendi?",
+          "en": "Which cake will you have?"
+        }
+      }
+    ]
+  },
+  "ノート": {
+    "frasi_esempio": [
+      {
+        "testo": "ノートに名前を書いてください。",
+        "traduzione": {
+          "it": "Scrivi il nome sul quaderno, per favore.",
+          "en": "Please write your name in the notebook."
+        }
+      }
+    ]
+  },
+  "バス": {
+    "frasi_esempio": [
+      {
+        "testo": "バスで学校へ行きます。",
+        "traduzione": {
+          "it": "Vado a scuola in autobus.",
+          "en": "I go to school by bus."
+        }
+      }
+    ]
+  },
+  "ボールペン": {
+    "frasi_esempio": [
+      {
+        "testo": "ボールペンで書いてください。",
+        "traduzione": {
+          "it": "Scrivi con la penna, per favore.",
+          "en": "Please write with a ballpoint pen."
+        }
+      }
+    ]
+  },
+  "まっすぐ": {
+    "frasi_esempio": [
+      {
+        "testo": "この道をまっすぐ行ってください。",
+        "traduzione": {
+          "it": "Vai dritto per questa strada.",
+          "en": "Go straight along this road."
+        }
+      }
+    ]
+  },
+  "奥さん": {
+    "frasi_esempio": [
+      {
+        "testo": "田中さんの奥さんに会いました。",
+        "traduzione": {
+          "it": "Ho incontrato la moglie del signor Tanaka.",
+          "en": "I met Mr. Tanaka's wife."
+        }
+      }
+    ]
+  },
+  "果物": {
+    "frasi_esempio": [
+      {
+        "testo": "朝は果物を食べます。",
+        "traduzione": {
+          "it": "La mattina mangio frutta.",
+          "en": "I eat fruit in the morning."
+        }
+      }
+    ]
+  },
+  "花": {
+    "frasi_esempio": [
+      {
+        "testo": "母に花をあげました。",
+        "traduzione": {
+          "it": "Ho regalato dei fiori a mia madre.",
+          "en": "I gave my mother flowers."
+        }
+      }
+    ]
+  },
+  "会社": {
+    "frasi_esempio": [
+      {
+        "testo": "父は会社で働いています。",
+        "traduzione": {
+          "it": "Mio padre lavora in un'azienda.",
+          "en": "My father works at a company."
+        }
+      }
+    ]
+  },
+  "灰皿": {
+    "frasi_esempio": [
+      {
+        "testo": "すみません、灰皿はありますか。",
+        "traduzione": {
+          "it": "Scusi, c'è un posacenere?",
+          "en": "Excuse me, is there an ashtray?"
+        }
+      }
+    ]
+  },
+  "絵": {
+    "frasi_esempio": [
+      {
+        "testo": "兄は絵が上手です。",
+        "traduzione": {
+          "it": "Mio fratello maggiore è bravo a disegnare.",
+          "en": "My older brother is good at drawing."
+        }
+      }
+    ]
+  },
+  "机": {
+    "frasi_esempio": [
+      {
+        "testo": "机の上に本があります。",
+        "traduzione": {
+          "it": "Sulla scrivania c'è un libro.",
+          "en": "There is a book on the desk."
+        }
+      }
+    ]
+  },
+  "橋": {
+    "frasi_esempio": [
+      {
+        "testo": "この橋をわたると、駅です。",
+        "traduzione": {
+          "it": "Attraversato questo ponte c'è la stazione.",
+          "en": "Cross this bridge and you'll reach the station."
+        }
+      }
+    ]
+  },
+  "勤める": {
+    "frasi_esempio": [
+      {
+        "testo": "姉は銀行に勤めています。",
+        "traduzione": {
+          "it": "Mia sorella maggiore lavora in banca.",
+          "en": "My older sister works at a bank."
+        }
+      }
+    ]
+  },
+  "犬": {
+    "frasi_esempio": [
+      {
+        "testo": "うちの犬はとても小さいです。",
+        "traduzione": {
+          "it": "Il nostro cane è molto piccolo.",
+          "en": "Our dog is very small."
+        }
+      }
+    ]
+  },
+  "三": {
+    "frasi_esempio": [
+      {
+        "testo": "りんごが三つあります。",
+        "traduzione": {
+          "it": "Ci sono tre mele.",
+          "en": "There are three apples."
+        }
+      }
+    ]
+  },
+  "四": {
+    "frasi_esempio": [
+      {
+        "testo": "四人で食事をしました。",
+        "traduzione": {
+          "it": "Abbiamo mangiato in quattro.",
+          "en": "The four of us had a meal."
+        }
+      }
+    ]
+  },
+  "食べ物": {
+    "frasi_esempio": [
+      {
+        "testo": "すきな食べ物は何ですか。",
+        "traduzione": {
+          "it": "Qual è il tuo cibo preferito?",
+          "en": "What is your favorite food?"
+        }
+      }
+    ]
+  },
+  "食堂": {
+    "frasi_esempio": [
+      {
+        "testo": "昼は食堂で食べます。",
+        "traduzione": {
+          "it": "A pranzo mangio alla mensa.",
+          "en": "I eat at the cafeteria for lunch."
+        }
+      }
+    ]
+  },
+  "水": {
+    "frasi_esempio": [
+      {
+        "testo": "水を一ぱいください。",
+        "traduzione": {
+          "it": "Un bicchiere d'acqua, per favore.",
+          "en": "A glass of water, please."
+        }
+      }
+    ]
+  },
+  "青": {
+    "frasi_esempio": [
+      {
+        "testo": "しんごうが青になりました。",
+        "traduzione": {
+          "it": "Il semaforo è diventato verde.",
+          "en": "The traffic light turned green."
+        }
+      }
+    ]
+  },
+  "大学": {
+    "frasi_esempio": [
+      {
+        "testo": "姉は大学の学生です。",
+        "traduzione": {
+          "it": "Mia sorella maggiore è una studentessa universitaria.",
+          "en": "My older sister is a university student."
+        }
+      }
+    ]
+  },
+  "弟": {
+    "frasi_esempio": [
+      {
+        "testo": "弟は十さいです。",
+        "traduzione": {
+          "it": "Mio fratello minore ha dieci anni.",
+          "en": "My little brother is ten years old."
+        }
+      }
+    ]
+  },
+  "電話": {
+    "frasi_esempio": [
+      {
+        "testo": "友だちに電話をかけました。",
+        "traduzione": {
+          "it": "Ho telefonato a un amico.",
+          "en": "I phoned a friend."
+        }
+      }
+    ]
+  },
+  "電話する": {
+    "frasi_esempio": [
+      {
+        "testo": "夜、母に電話する。",
+        "traduzione": {
+          "it": "La sera telefono a mia madre.",
+          "en": "In the evening I call my mother."
+        }
+      }
+    ]
+  },
+  "二": {
+    "frasi_esempio": [
+      {
+        "testo": "ケーキを二つ食べました。",
+        "traduzione": {
+          "it": "Ho mangiato due fette di torta.",
+          "en": "I ate two pieces of cake."
+        }
+      }
+    ]
+  },
+  "箸": {
+    "frasi_esempio": [
+      {
+        "testo": "箸でごはんを食べます。",
+        "traduzione": {
+          "it": "Mangio il riso con le bacchette.",
+          "en": "I eat rice with chopsticks."
+        }
+      }
+    ]
+  },
+  "万": {
+    "frasi_esempio": [
+      {
+        "testo": "このかばんは一万円です。",
+        "traduzione": {
+          "it": "Questa borsa costa diecimila yen.",
+          "en": "This bag costs ten thousand yen."
+        }
+      }
+    ]
+  },
+  "多い": {
+    "frasi_esempio": [
+      {
+        "testo": "この町は人が多いです。",
+        "traduzione": {
+          "it": "In questa città c'è tanta gente.",
+          "en": "This town has many people."
+        }
+      }
+    ]
+  },
+  "そば": {
+    "frasi_esempio": [
+      {
+        "testo": "駅のそばに住んでいます。",
+        "traduzione": {
+          "it": "Abito vicino alla stazione.",
+          "en": "I live near the station."
+        }
+      }
+    ]
+  },
+  "おばあさん": {
+    "frasi_esempio": [
+      {
+        "testo": "おばあさんは九十さいです。",
+        "traduzione": {
+          "it": "La nonna ha novant'anni.",
+          "en": "Grandma is ninety years old."
+        }
+      }
+    ]
+  },
+  "漢字": {
+    "frasi_esempio": [
+      {
+        "testo": "毎日、漢字をおぼえます。",
+        "traduzione": {
+          "it": "Ogni giorno imparo dei kanji.",
+          "en": "I memorize kanji every day."
+        }
+      }
+    ]
+  },
+  "仕事": {
+    "frasi_esempio": [
+      {
+        "testo": "父の仕事はいそがしいです。",
+        "traduzione": {
+          "it": "Il lavoro di mio padre è impegnativo.",
+          "en": "My father's job keeps him busy."
+        }
+      }
+    ]
+  },
+  "仕事する": {
+    "frasi_esempio": [
+      {
+        "testo": "明日も仕事する。",
+        "traduzione": {
+          "it": "Anche domani lavoro.",
+          "en": "I work tomorrow too."
+        }
+      }
+    ]
+  },
+  "エレベーター": {
+    "frasi_esempio": [
+      {
+        "testo": "エレベーターで三階へ行きます。",
+        "traduzione": {
+          "it": "Salgo al terzo piano con l'ascensore.",
+          "en": "I take the elevator to the third floor."
+        }
+      }
+    ]
+  },
+  "お兄さん": {
+    "frasi_esempio": [
+      {
+        "testo": "お兄さんは何さいですか。",
+        "traduzione": {
+          "it": "Quanti anni ha tuo fratello maggiore?",
+          "en": "How old is your older brother?"
+        }
+      }
+    ]
+  },
+  "かぶる": {
+    "frasi_esempio": [
+      {
+        "testo": "ぼうしをかぶって出かけます。",
+        "traduzione": {
+          "it": "Esco col cappello in testa.",
+          "en": "I put on a hat and go out."
+        }
+      }
+    ]
+  },
+  "ギター": {
+    "frasi_esempio": [
+      {
+        "testo": "兄はギターをひきます。",
+        "traduzione": {
+          "it": "Mio fratello maggiore suona la chitarra.",
+          "en": "My older brother plays the guitar."
+        }
+      }
+    ]
+  },
+  "クラス": {
+    "frasi_esempio": [
+      {
+        "testo": "クラスに学生が二十人います。",
+        "traduzione": {
+          "it": "In classe ci sono venti studenti.",
+          "en": "There are twenty students in the class."
+        }
+      }
+    ]
+  },
+  "コーヒー": {
+    "frasi_esempio": [
+      {
+        "testo": "朝はコーヒーを飲みます。",
+        "traduzione": {
+          "it": "La mattina bevo il caffè.",
+          "en": "I drink coffee in the morning."
+        }
+      }
+    ]
+  },
+  "こんな": {
+    "frasi_esempio": [
+      {
+        "testo": "こんな大きいケーキ、はじめてです。",
+        "traduzione": {
+          "it": "Una torta così grande, è la prima volta!",
+          "en": "It's my first time seeing such a big cake!"
+        }
+      }
+    ]
+  },
+  "しかし": {
+    "frasi_esempio": [
+      {
+        "testo": "行きたいです。しかし、時間がありません。",
+        "traduzione": {
+          "it": "Vorrei andare. Tuttavia, non ho tempo.",
+          "en": "I want to go. However, I have no time."
+        }
+      }
+    ]
+  },
+  "シャワー": {
+    "frasi_esempio": [
+      {
+        "testo": "毎晩シャワーをあびます。",
+        "traduzione": {
+          "it": "Faccio la doccia ogni sera.",
+          "en": "I take a shower every evening."
+        }
+      }
+    ]
+  },
+  "ストーブ": {
+    "frasi_esempio": [
+      {
+        "testo": "冬はストーブをつけます。",
+        "traduzione": {
+          "it": "D'inverno accendo la stufa.",
+          "en": "In winter I turn on the heater."
+        }
+      }
+    ]
+  },
+  "でも": {
+    "frasi_esempio": [
+      {
+        "testo": "雨です。でも、出かけます。",
+        "traduzione": {
+          "it": "Piove. Però esco.",
+          "en": "It's raining. But I'm going out."
+        }
+      }
+    ]
+  },
+  "ニュース": {
+    "frasi_esempio": [
+      {
+        "testo": "毎朝、ニュースを見ます。",
+        "traduzione": {
+          "it": "Ogni mattina guardo il notiziario.",
+          "en": "I watch the news every morning."
+        }
+      }
+    ]
+  },
+  "ネクタイ": {
+    "frasi_esempio": [
+      {
+        "testo": "父は青いネクタイをしています。",
+        "traduzione": {
+          "it": "Mio padre porta una cravatta blu.",
+          "en": "My father is wearing a blue tie."
+        }
+      }
+    ]
+  },
+  "パーティー": {
+    "frasi_esempio": [
+      {
+        "testo": "土曜日にパーティーがあります。",
+        "traduzione": {
+          "it": "Sabato c'è una festa.",
+          "en": "There is a party on Saturday."
+        }
+      }
+    ]
+  },
+  "はく": {
+    "frasi_esempio": [
+      {
+        "testo": "今日は白いズボンをはく。",
+        "traduzione": {
+          "it": "Oggi metto i pantaloni bianchi.",
+          "en": "Today I'll wear white trousers."
+        }
+      }
+    ]
+  },
+  "フィルム": {
+    "frasi_esempio": [
+      {
+        "testo": "カメラにフィルムを入れました。",
+        "traduzione": {
+          "it": "Ho messo il rullino nella macchina fotografica.",
+          "en": "I put film in the camera."
+        }
+      }
+    ]
+  },
+  "プール": {
+    "frasi_esempio": [
+      {
+        "testo": "夏はプールで泳ぎます。",
+        "traduzione": {
+          "it": "D'estate nuoto in piscina.",
+          "en": "In summer I swim in the pool."
+        }
+      }
+    ]
+  },
+  "ペン": {
+    "frasi_esempio": [
+      {
+        "testo": "ペンで名前を書いてください。",
+        "traduzione": {
+          "it": "Scrivi il nome con la penna, per favore.",
+          "en": "Please write your name with a pen."
+        }
+      }
+    ]
+  },
+  "マッチ": {
+    "frasi_esempio": [
+      {
+        "testo": "マッチで火をつけました。",
+        "traduzione": {
+          "it": "Ho acceso il fuoco con un fiammifero.",
+          "en": "I lit the fire with a match."
+        }
+      }
+    ]
+  },
+  "みんな": {
+    "frasi_esempio": [
+      {
+        "testo": "みんなで歌を歌いました。",
+        "traduzione": {
+          "it": "Abbiamo cantato tutti insieme.",
+          "en": "We all sang together."
+        }
+      }
+    ]
+  },
+  "もっと": {
+    "frasi_esempio": [
+      {
+        "testo": "もっとゆっくり話してください。",
+        "traduzione": {
+          "it": "Parla più lentamente, per favore.",
+          "en": "Please speak more slowly."
+        }
+      }
+    ]
+  },
+  "よく": {
+    "frasi_esempio": [
+      {
+        "testo": "よく図書館へ行きます。",
+        "traduzione": {
+          "it": "Vado spesso in biblioteca.",
+          "en": "I often go to the library."
+        }
+      }
+    ]
+  },
+  "ワイシャツ": {
+    "frasi_esempio": [
+      {
+        "testo": "白いワイシャツを買いました。",
+        "traduzione": {
+          "it": "Ho comprato una camicia bianca.",
+          "en": "I bought a white dress shirt."
+        }
+      }
+    ]
+  },
+  "医者": {
+    "frasi_esempio": [
+      {
+        "testo": "兄は医者です。",
+        "traduzione": {
+          "it": "Mio fratello maggiore è medico.",
+          "en": "My older brother is a doctor."
+        }
+      }
+    ]
+  },
+  "右": {
+    "frasi_esempio": [
+      {
+        "testo": "そこを右に曲がってください。",
+        "traduzione": {
+          "it": "Lì giri a destra, per favore.",
+          "en": "Please turn right there."
+        }
+      }
+    ]
+  },
+  "夏": {
+    "frasi_esempio": [
+      {
+        "testo": "夏は海へ行きます。",
+        "traduzione": {
+          "it": "D'estate vado al mare.",
+          "en": "In summer I go to the sea."
+        }
+      }
+    ]
+  },
+  "花瓶": {
+    "frasi_esempio": [
+      {
+        "testo": "花瓶に花を入れました。",
+        "traduzione": {
+          "it": "Ho messo i fiori nel vaso.",
+          "en": "I put the flowers in the vase."
+        }
+      }
+    ]
+  },
+  "会う": {
+    "frasi_esempio": [
+      {
+        "testo": "駅で先生に会いました。",
+        "traduzione": {
+          "it": "Ho incontrato l'insegnante alla stazione.",
+          "en": "I met my teacher at the station."
+        }
+      }
+    ]
+  },
+  "帰る": {
+    "frasi_esempio": [
+      {
+        "testo": "六時にうちへ帰ります。",
+        "traduzione": {
+          "it": "Torno a casa alle sei.",
+          "en": "I go home at six."
+        }
+      }
+    ]
+  },
+  "兄": {
+    "frasi_esempio": [
+      {
+        "testo": "兄は東京に住んでいます。",
+        "traduzione": {
+          "it": "Mio fratello maggiore vive a Tokyo.",
+          "en": "My older brother lives in Tokyo."
+        }
+      }
+    ]
+  },
+  "月曜日": {
+    "frasi_esempio": [
+      {
+        "testo": "月曜日から学校がはじまります。",
+        "traduzione": {
+          "it": "La scuola comincia lunedì.",
+          "en": "School starts on Monday."
+        }
+      }
+    ]
+  },
+  "建物": {
+    "frasi_esempio": [
+      {
+        "testo": "あの白い建物は病院です。",
+        "traduzione": {
+          "it": "Quell'edificio bianco è un ospedale.",
+          "en": "That white building is a hospital."
+        }
+      }
+    ]
+  },
+  "鍵": {
+    "frasi_esempio": [
+      {
+        "testo": "ドアの鍵をかけてください。",
+        "traduzione": {
+          "it": "Chiudi la porta a chiave, per favore.",
+          "en": "Please lock the door."
+        }
+      }
+    ]
+  },
+  "広い": {
+    "frasi_esempio": [
+      {
+        "testo": "このへやは広いですね。",
+        "traduzione": {
+          "it": "Questa stanza è spaziosa, eh!",
+          "en": "This room is spacious, isn't it?"
+        }
+      }
+    ]
+  },
+  "紅茶": {
+    "frasi_esempio": [
+      {
+        "testo": "紅茶にレモンを入れます。",
+        "traduzione": {
+          "it": "Metto il limone nel tè nero.",
+          "en": "I put lemon in my black tea."
+        }
+      }
+    ]
+  },
+  "高い": {
+    "frasi_esempio": [
+      {
+        "testo": "あのビルはとても高いです。",
+        "traduzione": {
+          "it": "Quel palazzo è altissimo.",
+          "en": "That building is very tall."
+        }
+      }
+    ]
+  },
+  "国": {
+    "frasi_esempio": [
+      {
+        "testo": "あなたの国はどこですか。",
+        "traduzione": {
+          "it": "Di che paese sei?",
+          "en": "What country are you from?"
+        }
+      }
+    ]
+  },
+  "今年": {
+    "frasi_esempio": [
+      {
+        "testo": "今年の夏は暑いです。",
+        "traduzione": {
+          "it": "Quest'estate fa caldo.",
+          "en": "This summer is hot."
+        }
+      }
+    ]
+  },
+  "差す": {
+    "frasi_esempio": [
+      {
+        "testo": "雨の日はかさを差す。",
+        "traduzione": {
+          "it": "Nei giorni di pioggia apro l'ombrello.",
+          "en": "On rainy days I put up an umbrella."
+        }
+      }
+    ]
+  },
+  "昨日": {
+    "frasi_esempio": [
+      {
+        "testo": "昨日は雨でした。",
+        "traduzione": {
+          "it": "Ieri pioveva.",
+          "en": "It rained yesterday."
+        }
+      }
+    ]
+  },
+  "四つ": {
+    "frasi_esempio": [
+      {
+        "testo": "みかんを四つください。",
+        "traduzione": {
+          "it": "Quattro mandarini, per favore.",
+          "en": "Four mandarins, please."
+        }
+      }
+    ]
+  },
+  "紙": {
+    "frasi_esempio": [
+      {
+        "testo": "紙に名前を書きます。",
+        "traduzione": {
+          "it": "Scrivo il nome sul foglio.",
+          "en": "I write my name on the paper."
+        }
+      }
+    ]
+  },
+  "辞書": {
+    "frasi_esempio": [
+      {
+        "testo": "辞書を使って勉強します。",
+        "traduzione": {
+          "it": "Studio usando il dizionario.",
+          "en": "I study using a dictionary."
+        }
+      }
+    ]
+  },
+  "七つ": {
+    "frasi_esempio": [
+      {
+        "testo": "あめを七つ買いました。",
+        "traduzione": {
+          "it": "Ho comprato sette caramelle.",
+          "en": "I bought seven candies."
+        }
+      }
+    ]
+  },
+  "質問": {
+    "frasi_esempio": [
+      {
+        "testo": "先生に質問があります。",
+        "traduzione": {
+          "it": "Ho una domanda per l'insegnante.",
+          "en": "I have a question for the teacher."
+        }
+      }
+    ]
+  },
+  "質問する": {
+    "frasi_esempio": [
+      {
+        "testo": "わからないとき、先生に質問する。",
+        "traduzione": {
+          "it": "Quando non capisco, chiedo all'insegnante.",
+          "en": "When I don't understand, I ask the teacher."
+        }
+      }
+    ]
+  },
+  "秋": {
+    "frasi_esempio": [
+      {
+        "testo": "秋はすずしいです。",
+        "traduzione": {
+          "it": "In autunno fa fresco.",
+          "en": "It is cool in autumn."
+        }
+      }
+    ]
+  },
+  "終る": {
+    "frasi_esempio": [
+      {
+        "testo": "じゅぎょうは三時に終る。",
+        "traduzione": {
+          "it": "La lezione finisce alle tre.",
+          "en": "Class ends at three."
+        }
+      }
+    ]
+  },
+  "住む": {
+    "frasi_esempio": [
+      {
+        "testo": "どこに住んでいますか。",
+        "traduzione": {
+          "it": "Dove abiti?",
+          "en": "Where do you live?"
+        }
+      }
+    ]
+  },
+  "女": {
+    "frasi_esempio": [
+      {
+        "testo": "あの女の人はだれですか。",
+        "traduzione": {
+          "it": "Chi è quella donna?",
+          "en": "Who is that woman?"
+        }
+      }
+    ]
+  },
+  "女の子": {
+    "frasi_esempio": [
+      {
+        "testo": "女の子が三人います。",
+        "traduzione": {
+          "it": "Ci sono tre bambine.",
+          "en": "There are three girls."
+        }
+      }
+    ]
+  },
+  "小さな": {
+    "frasi_esempio": [
+      {
+        "testo": "小さな犬がいます。",
+        "traduzione": {
+          "it": "C'è un piccolo cane.",
+          "en": "There is a small dog."
+        }
+      }
+    ]
+  },
+  "水曜日": {
+    "frasi_esempio": [
+      {
+        "testo": "水曜日はテストがあります。",
+        "traduzione": {
+          "it": "Mercoledì c'è il test.",
+          "en": "There is a test on Wednesday."
+        }
+      }
+    ]
+  },
+  "千": {
+    "frasi_esempio": [
+      {
+        "testo": "この本は千円です。",
+        "traduzione": {
+          "it": "Questo libro costa mille yen.",
+          "en": "This book costs one thousand yen."
+        }
+      }
+    ]
+  },
+  "太い": {
+    "frasi_esempio": [
+      {
+        "testo": "この木はとても太いです。",
+        "traduzione": {
+          "it": "Questo albero è molto grosso.",
+          "en": "This tree is very thick."
+        }
+      }
+    ]
+  },
+  "台所": {
+    "frasi_esempio": [
+      {
+        "testo": "母は台所にいます。",
+        "traduzione": {
+          "it": "La mamma è in cucina.",
+          "en": "Mom is in the kitchen."
+        }
+      }
+    ]
+  },
+  "大変": {
+    "frasi_esempio": [
+      {
+        "testo": "この仕事は大変です。",
+        "traduzione": {
+          "it": "Questo lavoro è faticoso.",
+          "en": "This job is tough."
+        }
+      }
+    ]
+  },
+  "茶碗": {
+    "frasi_esempio": [
+      {
+        "testo": "茶碗にごはんを入れます。",
+        "traduzione": {
+          "it": "Metto il riso nella ciotola.",
+          "en": "I put rice in the bowl."
+        }
+      }
+    ]
+  },
+  "着く": {
+    "frasi_esempio": [
+      {
+        "testo": "九時に駅に着きました。",
+        "traduzione": {
+          "it": "Sono arrivato in stazione alle nove.",
+          "en": "I arrived at the station at nine."
+        }
+      }
+    ]
+  },
+  "中": {
+    "frasi_esempio": [
+      {
+        "testo": "はこの中に何がありますか。",
+        "traduzione": {
+          "it": "Cosa c'è dentro la scatola?",
+          "en": "What is inside the box?"
+        }
+      }
+    ]
+  },
+  "丁度": {
+    "frasi_esempio": [
+      {
+        "testo": "今、丁度十二時です。",
+        "traduzione": {
+          "it": "Adesso è mezzogiorno in punto.",
+          "en": "It is exactly twelve o'clock now."
+        }
+      }
+    ]
+  },
+  "貼る": {
+    "frasi_esempio": [
+      {
+        "testo": "ふうとうに切手を貼ります。",
+        "traduzione": {
+          "it": "Attacco il francobollo sulla busta.",
+          "en": "I stick a stamp on the envelope."
+        }
+      }
+    ]
+  },
+  "電気": {
+    "frasi_esempio": [
+      {
+        "testo": "へやの電気をつけました。",
+        "traduzione": {
+          "it": "Ho acceso la luce della stanza.",
+          "en": "I turned on the light in the room."
+        }
+      }
+    ]
+  },
+  "渡る": {
+    "frasi_esempio": [
+      {
+        "testo": "はしを渡ると、公園です。",
+        "traduzione": {
+          "it": "Attraversato il ponte c'è il parco.",
+          "en": "Cross the bridge and you'll reach the park."
+        }
+      }
+    ]
+  }
 }
