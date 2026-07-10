@@ -8,6 +8,10 @@ export type JlptLevel = 'N5' | 'N4';
 export interface Slot {
 	id: string;
 	options: string[];
+	// Slot con lo stesso kind nello stesso testo si "rubano" i valori come
+	// distrattori: la domanda sull'orario di chiusura offre anche l'orario di
+	// apertura (che nel testo c'è davvero) — trabocchetto da JLPT.
+	kind?: string;
 }
 
 export interface FixedQuestion {
@@ -68,7 +72,13 @@ export function instantiate(text: ReadingText): ReadingRun {
 		if ('slot' in q) {
 			const slot = text.slots.find((s) => s.id === q.slot)!;
 			const correct = picked[q.slot]!;
-			const others = shuffle(slot.options.filter((o) => o !== correct)).slice(0, 3);
+			// prima i valori pescati dagli slot "fratelli" (compaiono nel testo!)
+			const crossTraps = text.slots
+				.filter((s) => s.id !== q.slot && s.kind !== undefined && s.kind === slot.kind)
+				.map((s) => picked[s.id]!)
+				.filter((v) => v !== correct);
+			const sameSlot = shuffle(slot.options.filter((o) => o !== correct && !crossTraps.includes(o)));
+			const others = [...new Set([...crossTraps, ...sameSlot])].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
 			return { q: q.q, choices, correct: choices.indexOf(correct) };
 		}
@@ -214,8 +224,8 @@ export const READING_TEXTS: ReadingText[] = [
 		],
 		slots: [
 			{ id: 'day', options: ['げつようび', 'すいようび', 'もくようび', 'にちようび'] },
-			{ id: 'open', options: ['九じ', '十じ', '十一じ'] },
-			{ id: 'close', options: ['八じ', '九じ', '十じ'] },
+			{ id: 'open', options: ['九じ', '十じ', '十一じ'], kind: 'ora' },
+			{ id: 'close', options: ['八じ', '九じ', '十じ'], kind: 'ora' },
 			{ id: 'item', options: ['りんご', 'たまご', 'パン', 'おちゃ'] },
 			{ id: 'price', options: ['百', '百五十', '二百', '二百五十'] }
 		],
@@ -352,8 +362,8 @@ export const READING_TEXTS: ReadingText[] = [
 		slots: [
 			{ id: 'reason', options: ['工事', '点検', 'そうじ'] },
 			{ id: 'day', options: ['十日', '十四日', '二十日', '二十四日'] },
-			{ id: 'from', options: ['朝九時', '朝十時', '午後一時'] },
-			{ id: 'to', options: ['午後三時', '午後四時', '午後五時'] }
+			{ id: 'from', options: ['朝九時', '朝十時', '午後一時'], kind: 'ora' },
+			{ id: 'to', options: ['午後三時', '午後四時', '午後五時'], kind: 'ora' }
 		],
 		questions: [
 			{ q: 'どうして水が止まりますか。（〜のため）', slot: 'reason' },
@@ -454,9 +464,9 @@ export const READING_TEXTS: ReadingText[] = [
 			'どです。でかける　ときは　きを　つけて　ください。'
 		],
 		slots: [
-			{ id: 'am', options: ['はれ', 'くもり'] },
-			{ id: 'pm', options: ['あめ', 'ゆき', 'つよい　かぜ'] },
-			{ id: 'tomorrow', options: ['はれ', 'あめ', 'ゆき', 'くもり'] },
+			{ id: 'am', options: ['はれ', 'くもり'], kind: 'meteo' },
+			{ id: 'pm', options: ['あめ', 'ゆき', 'つよい　かぜ'], kind: 'meteo' },
+			{ id: 'tomorrow', options: ['はれ', 'あめ', 'ゆき', 'くもり'], kind: 'meteo' },
 			{ id: 'temp', options: ['八', '十二', '十八', '二十五'] }
 		],
 		questions: [
@@ -520,8 +530,8 @@ export const READING_TEXTS: ReadingText[] = [
 			'ないで　ください。'
 		],
 		slots: [
-			{ id: 'weeks', options: ['一', '二', '三'] },
-			{ id: 'count', options: ['三', '五', '八', '十'] },
+			{ id: 'weeks', options: ['一', '二', '三'], kind: 'num' },
+			{ id: 'count', options: ['三', '五', '八', '十'], kind: 'num' },
 			{ id: 'day', options: ['げつようび', 'かようび', 'きんようび', 'にちようび'] },
 			{ id: 'rule', options: ['たべ', 'のみものを　のま', 'でんわを　し'] }
 		],
@@ -587,13 +597,13 @@ export const READING_TEXTS: ReadingText[] = [
 			'に　ねます。'
 		],
 		slots: [
-			{ id: 'wake', options: ['六じ', '七じ', '八じ', '九じ'] },
+			{ id: 'wake', options: ['六じ', '七じ', '八じ', '九じ'], kind: 'ora' },
 			{
 				id: 'activity',
 				options: ['えいがを　みました', 'プールで　およぎました', 'テニスを　しました', 'かいものを　しました']
 			},
 			{ id: 'dinner', options: ['カレー', 'すし', 'ラーメン', 'スパゲッティ'] },
-			{ id: 'sleep', options: ['十じ', '十じはん', '十一じ'] }
+			{ id: 'sleep', options: ['十じ', '十じはん', '十一じ'], kind: 'ora' }
 		],
 		questions: [
 			{ q: 'なんじに　おきましたか。', slot: 'wake' },
@@ -625,8 +635,8 @@ export const READING_TEXTS: ReadingText[] = [
 		],
 		slots: [
 			{ id: 'reason', options: ['ビルの工事', '夏休み', '年末年始'] },
-			{ id: 'from', options: ['三日', '十日', '十三日'] },
-			{ id: 'to', options: ['十六日', '十八日', '二十日'] },
+			{ id: 'from', options: ['三日', '十日', '十三日'], kind: 'giorno' },
+			{ id: 'to', options: ['十六日', '十八日', '二十日'], kind: 'giorno' },
 			{ id: 'contact', options: ['田中さん', '山田さん', '佐藤さん', '鈴木さん'] }
 		],
 		questions: [
@@ -766,8 +776,8 @@ export const READING_TEXTS: ReadingText[] = [
 		],
 		slots: [
 			{ id: 'from', options: ['来週', '来月', '四月'] },
-			{ id: 'am', options: ['十一時半', '十二時', '十二時半'] },
-			{ id: 'pm', options: ['二時', '二時半', '三時'] },
+			{ id: 'am', options: ['十一時半', '十二時', '十二時半'], kind: 'ora' },
+			{ id: 'pm', options: ['二時', '二時半', '三時'], kind: 'ora' },
 			{ id: 'closed', options: ['水曜日', '木曜日', '土曜日の午後', '日曜日と祝日'] }
 		],
 		questions: [
