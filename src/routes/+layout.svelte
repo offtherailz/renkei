@@ -104,8 +104,6 @@
 			</a>
 			{#if appState.sessionState}
 				<a class="back-to-quiz" href="{base}/quiz">⏸ Torna al quiz</a>
-			{:else}
-				<span class="brand-hint">← torna alla home</span>
 			{/if}
 		</header>
 	{/if}
@@ -133,11 +131,6 @@
 	.brand-logo {
 		width: 26px;
 		height: 26px;
-	}
-
-	.brand-hint {
-		font-size: 0.72rem;
-		color: var(--muted);
 	}
 
 	.back-to-quiz {

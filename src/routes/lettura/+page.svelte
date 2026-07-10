@@ -483,9 +483,11 @@
 	.v-w.linked { color: var(--brand); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 	.v-yomi { font-size: 0.8rem; color: var(--brand); flex: none; }
 	.v-it { flex: 1; min-width: 0; font-size: 0.82rem; color: var(--muted); }
-	.v-actions { display: inline-flex; gap: 6px; flex: none; margin-left: auto; }
-	.v-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 3px 8px; font-size: 0.85rem; cursor: pointer; text-decoration: none; }
+	.v-actions { display: inline-flex; gap: 6px; flex: none; margin-left: auto; align-items: center; }
+	.v-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 3px 8px; font-size: 0.85rem; cursor: pointer; text-decoration: none; color: var(--ink); }
 	.v-btn:hover { border-color: var(--brand); }
+	/* 🔊 (button) e 💪 (link) identici: quadrati e centrati */
+	.v-actions .v-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; font-size: 1rem; line-height: 1; }
 
 	.speed { display: flex; align-items: center; justify-content: center; gap: 10px; }
 	.speed-val { font-weight: 700; }
