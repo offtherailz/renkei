@@ -110,10 +110,16 @@
 		const enabled = objectives.filter((o) => o.study_enabled);
 		const keys = new Set<string>();
 		const stack = [...enabled];
+		const seen = new Set(enabled.map((o) => o.id));
 		while (stack.length) {
 			const obj = stack.pop()!;
 			for (const k of obj.catalog_item_keys) keys.add(k);
-			for (const child of objectives.filter((o) => o.parent_objective_id === obj.id)) {
+			// i figli in pausa restano fuori: mettere in pausa "Parole N5"
+			// deve funzionare anche col padre "Catalogo N5" attivo
+			for (const child of objectives.filter(
+				(o) => o.parent_objective_id === obj.id && o.study_enabled && !seen.has(o.id)
+			)) {
+				seen.add(child.id);
 				stack.push(child);
 			}
 		}

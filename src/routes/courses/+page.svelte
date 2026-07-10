@@ -26,6 +26,41 @@
 	async function selectCourse(c: CourseDatasetMeta): Promise<void> {
 		selectedCourse = c;
 		lessons = await getLessonsForCourse(c.id);
+		await loadLessonStates();
+	}
+
+	// stato "in studio" per lezione (obiettivi delle lezioni)
+	let lessonEnabled = $state<Record<string, boolean>>({});
+	async function loadLessonStates(): Promise<void> {
+		const map: Record<string, boolean> = {};
+		for (const l of lessons) {
+			map[l.objective_id] = (await db.study_objectives.get(l.objective_id))?.study_enabled ?? false;
+		}
+		lessonEnabled = map;
+	}
+	async function toggleLesson(objectiveId: string): Promise<void> {
+		const next = !lessonEnabled[objectiveId];
+		await db.study_objectives.update(objectiveId, { study_enabled: next, updated_at: Date.now() });
+		lessonEnabled = { ...lessonEnabled, [objectiveId]: next };
+	}
+
+	// Modalità corso: mette in pausa tutti gli obiettivi fuori dal corso e
+	// attiva la prima lezione — il quiz pesca solo dal corso.
+	let focusMsg = $state('');
+	async function studyOnlyThisCourse(): Promise<void> {
+		if (!selectedCourse) return;
+		const prefix = `course:${selectedCourse.id}:`;
+		const all = await db.study_objectives.toArray();
+		for (const o of all) {
+			const inCourse = o.id.startsWith(prefix) || o.id === `course:${selectedCourse.id}`;
+			if (!inCourse && o.study_enabled) {
+				await db.study_objectives.update(o.id, { study_enabled: false, updated_at: Date.now() });
+			}
+		}
+		const first = lessons[0];
+		if (first) await db.study_objectives.update(first.objective_id, { study_enabled: true, updated_at: Date.now() });
+		await loadLessonStates();
+		focusMsg = `✅ Ora studi solo «${selectedCourse.nome}»: lezione 1 attiva, il resto in pausa. Attiva le lezioni successive da qui man mano che procedi.`;
 	}
 
 	async function handleFileImport(e: Event): Promise<void> {
@@ -190,11 +225,25 @@
 		<p class="card-title">Lezioni — {selectedCourse.nome}</p>
 		<button class="delete-btn" onclick={() => handleDelete(selectedCourse!.id)}>🗑 Elimina corso</button>
 	</div>
+	<div class="focus-row">
+		<button class="btn-primary" onclick={studyOnlyThisCourse}>🎯 Studia solo questo corso</button>
+		<p class="course-meta">Mette in pausa gli altri obiettivi (i cataloghi N5/N4 coprono già tutto: senza pausa il corso non cambia niente) e attiva la lezione 1. I ripassi già avviati non si perdono: restano in attesa finché non riattivi il loro obiettivo.</p>
+	</div>
+	{#if focusMsg}<p class="success-text">{focusMsg}</p>{/if}
 	{#each lessons as lesson}
 		<article class="lesson-card">
 			<strong class="lesson-num">{lesson.numero}.</strong>
 			<div class="lesson-info">
-				<strong>{lesson.titolo}</strong>
+				<div class="lesson-title-row">
+					<strong>{lesson.titolo}</strong>
+					<button
+						class="lesson-toggle"
+						class:enabled={lessonEnabled[lesson.objective_id]}
+						onclick={() => toggleLesson(lesson.objective_id)}
+					>
+						{lessonEnabled[lesson.objective_id] ? '✓ In studio' : '⏸ Pausa'}
+					</button>
+				</div>
 				{#if lesson.descrizione}<p class="course-meta">{lesson.descrizione}</p>{/if}
 				<div class="lesson-stats">
 					{#if lesson.parole.length > 0}<span class="stat-pill">{lesson.parole.length} parole</span>{/if}
@@ -342,6 +391,11 @@
 
 	.lesson-num { font-size: 0.9rem; color: var(--muted); min-width: 20px; }
 	.lesson-info { display: grid; gap: 4px; flex: 1; }
+	.lesson-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+	.lesson-toggle { font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 8px; white-space: nowrap; background: #f1f5f9; color: #475569; border: 1px solid transparent; cursor: pointer; }
+	.lesson-toggle.enabled { background: #dcfce7; color: #166534; }
+	.lesson-toggle:hover { border-color: var(--brand); }
+	.focus-row { display: grid; gap: 6px; }
 	.lesson-stats { display: flex; gap: 6px; flex-wrap: wrap; }
 
 	.stat-pill {
