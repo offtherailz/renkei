@@ -546,6 +546,11 @@
 
 		<p class="group-title">Conversazione</p>
 			<div class="cat-grid">
+				<a class="cat-card" href="{base}/frasi-utili">
+					<span class="cat-icon">🆘</span>
+					<span class="cat-label">Frasi utili</span>
+					<span class="cat-hint">sopravvivenza: cosa dire e come, con pratica a voce</span>
+				</a>
 				<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
 					<span class="cat-icon">🗣️</span>
 					<span class="cat-label">Saluti e convenevoli</span>

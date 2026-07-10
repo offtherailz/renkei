@@ -227,6 +227,10 @@
 			<span class="quick-icon">⚡</span>
 			<span>Lettura veloce</span>
 		</a>
+		<a href="{base}/frasi-utili" class="quick-card">
+			<span class="quick-icon">🆘</span>
+			<span>Frasi utili</span>
+		</a>
 	</div>
 
 	<h2 class="section-title group">📖 Cataloghi</h2>
