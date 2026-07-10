@@ -5,6 +5,7 @@
 	import { STATIONS, type Station } from '$lib/core/stations';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
@@ -116,7 +117,27 @@
 
 	onMount(() => {
 		primeVoices();
+		canSpeak = speechAvailable();
 	});
+
+	// ── Rispondi a voce: di' la stazione che hai capito ──
+	let canSpeak = $state(false);
+	let micState = $state<'idle' | 'listening'>('idle');
+	let heard = $state('');
+	async function speakMission(): Promise<void> {
+		if (micState !== 'idle' || missionPicked === target.id) return;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (alts.length === 0) {
+			heard = '（何も聞こえませんでした…riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const hit = missionChoices.find((s) => speechMatches(alts, [[s.nome, s.lettura]]));
+		if (hit) pickMission(hit);
+	}
 
 	function start(): void {
 		errors = 0;
@@ -380,7 +401,15 @@
 			<p class="who">🧑 Al telefono</p>
 			<p class="bubble">{missionLine}</p>
 			{@render repeatBar(missionLine, 'friend')}
-			<p class="hint">Dove ti aspetta? Scegli la stazione.</p>
+			<p class="hint">Dove ti aspetta? Scegli la stazione — o dillo a voce.</p>
+			{#if canSpeak && missionPicked !== target.id}
+				<button class="mic" class:listening={micState === 'listening'} onclick={speakMission}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				{#if heard}
+					<p class="heard">Ho sentito: 「{heard}」</p>
+				{/if}
+			{/if}
 			<div class="choices">
 				{#each missionChoices as s (s.id)}
 					<button
@@ -544,6 +573,10 @@
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.sm { font-size: 0.95rem; }
 	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
+	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
 	.train-display { margin: 0; text-align: center; font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; }
 	.train-display span { background: #0f172a; color: #fbbf24; border-radius: 8px; padding: 6px 14px; font-size: 1.1rem; letter-spacing: 0.04em; }
