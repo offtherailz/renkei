@@ -873,6 +873,35 @@ async function loadOverrides() {
   }
 }
 
+// Correzioni manuali alle voci grammaticali upstream (strutture pasticciate,
+// esempi incoerenti): scripts/data/grammar-overrides.json, id → patch parziale.
+// Vincono sul dato scaricato e sopravvivono ai sync.
+const GRAMMAR_OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "grammar-overrides.json");
+
+async function loadGrammarOverrides() {
+  try {
+    return JSON.parse(await fs.readFile(GRAMMAR_OVERRIDES_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
+function applyGrammarOverrides(grammar, overrides) {
+  let patched = 0;
+  const next = grammar.map((g) => {
+    const patch = overrides[g.id];
+    if (!patch) return g;
+    patched += 1;
+    const merged = { ...g, ...patch, updated_at: Date.now() };
+    if (patch.frasi_esempio) {
+      merged.frasi_esempio_parole_linkate = patch.frasi_esempio.flatMap((ex) => ex.parole_linkate ?? []);
+    }
+    return merged;
+  });
+  console.log(`Grammar overrides applicati: ${patched}.`);
+  return next;
+}
+
 // Catalogo curato dei contatori (scripts/data/counters-n5n4.json): entità
 // separate dalle parole/kanji. Collega anche le parole tipiche al loro
 // contatore tramite id_contatore_suggerito.
@@ -1060,10 +1089,13 @@ async function main() {
     updated_at: now
   }));
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
-  const normalizedGrammar = await mergeGrammarExamples(normalizeGrammar([
-    { level: "N5", rows: grammarN5 },
-    { level: "N4", rows: grammarN4 }
-  ], existingSeed.grammar ?? [], normalizedWords));
+  const normalizedGrammar = applyGrammarOverrides(
+    await mergeGrammarExamples(normalizeGrammar([
+      { level: "N5", rows: grammarN5 },
+      { level: "N4", rows: grammarN4 }
+    ], existingSeed.grammar ?? [], normalizedWords)),
+    await loadGrammarOverrides()
+  );
 
   const nextSeed = {
     words: normalizedWords,

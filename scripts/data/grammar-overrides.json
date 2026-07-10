@@ -1,0 +1,114 @@
+{
+  "grammar-api-N4-72": {
+    "spiegazione": { "it": "Percepire con i sensi: 音がする (si sente un suono), においがする, 味がする, 気がする.", "en": "To sense something: 音がする (there is a sound), においがする, 味がする, 気がする." },
+    "frasi_esempio": [{ "testo": "隣の部屋から変な音がする。", "traduzione": { "it": "Dalla stanza accanto viene uno strano rumore.", "en": "There is a strange sound coming from the next room." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-57": {
+    "frasi_esempio": [{ "testo": "明日は雨が降るかもしれません。", "traduzione": { "it": "Domani forse pioverà.", "en": "It might rain tomorrow." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-2": {
+    "spiegazione": { "it": "La forma in -te come causa o motivo (più leggera di から/ので).", "en": "The -te form expressing a cause or reason (lighter than から/ので)." },
+    "frasi_esempio": [{ "testo": "頭が痛くて、学校を休みました。", "traduzione": { "it": "Mi faceva male la testa, così sono rimasto a casa da scuola.", "en": "I had a headache, so I stayed home from school." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-84": {
+    "struttura": "〜てくださる",
+    "spiegazione": { "it": "Un superiore fa gentilmente qualcosa per me: onorifico di 〜てくれる.", "en": "A respected person kindly does something for me: honorific of 〜てくれる." },
+    "frasi_esempio": [{ "testo": "先生が漢字を教えてくださいました。", "traduzione": { "it": "L'insegnante mi ha gentilmente insegnato i kanji.", "en": "The teacher kindly taught me kanji." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-76": {
+    "frasi_esempio": [{ "testo": "ちょっとコンビニへ行ってくるね。", "traduzione": { "it": "Faccio un salto al konbini (e torno).", "en": "I'll pop over to the convenience store (and come back)." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-21": {
+    "frasi_esempio": [{ "testo": "宿題を忘れてしまいました。", "traduzione": { "it": "Ho dimenticato i compiti (purtroppo).", "en": "I (regrettably) forgot my homework." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-59": {
+    "struttura": "〜なさい",
+    "spiegazione": { "it": "Ordine gentile ma fermo, tipico di genitori e insegnanti.", "en": "Soft but firm command, typical of parents and teachers." },
+    "frasi_esempio": [{ "testo": "早く寝なさい。", "traduzione": { "it": "Vai a dormire presto.", "en": "Go to bed early." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-60": {
+    "frasi_esempio": [{ "testo": "明日は早く起きなければいけない。", "traduzione": { "it": "Domani devo alzarmi presto.", "en": "I have to get up early tomorrow." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-71": {
+    "struttura": "〜ことになる",
+    "spiegazione": { "it": "È stato deciso che… (decisione presa da altri o dalle circostanze).", "en": "It has been decided that… (decision made by others or circumstances)." },
+    "frasi_esempio": [{ "testo": "父が入院することになりました。", "traduzione": { "it": "È stato deciso che mio padre sarà ricoverato.", "en": "It has been decided that my father will be hospitalized." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-5": {
+    "frasi_esempio": [{ "testo": "時間がないので、タクシーで行きます。", "traduzione": { "it": "Siccome non c'è tempo, vado in taxi.", "en": "Since there's no time, I'll go by taxi." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-58": {
+    "struttura": "〜はず",
+    "spiegazione": { "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa.", "en": "Should be the case: expectation based on logic or knowledge." },
+    "frasi_esempio": [{ "testo": "その店は、開いているはずです。", "traduzione": { "it": "Quel negozio dovrebbe essere aperto.", "en": "That shop should be open." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-53": {
+    "spiegazione": { "it": "Come, simile a: paragone con un esempio concreto.", "en": "Like, such as: comparison with a concrete example." },
+    "frasi_esempio": [{ "testo": "東京のような大きい町に住みたいです。", "traduzione": { "it": "Vorrei vivere in una grande città come Tokyo.", "en": "I want to live in a big city like Tokyo." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-44": {
+    "struttura": "〜のは／〜のが",
+    "spiegazione": { "it": "の nominalizzatore: trasforma un verbo in nome (fare X è…).", "en": "の as a nominalizer: turns a verb into a noun (doing X is…)." }
+  },
+  "grammar-api-N4-43": {
+    "struttura": "〜には／〜にも",
+    "spiegazione": { "it": "は・も dopo un'altra particella: enfasi o contrasto sul complemento.", "en": "は・も after another particle: emphasis or contrast on that complement." }
+  },
+  "g-n4-teiru": { "struttura": "〜ている" },
+  "grammar-api-N4-35": {
+    "struttura": "〜までに",
+    "spiegazione": { "it": "Entro (limite di tempo): l'azione va fatta prima di quel momento.", "en": "By (time limit): the action must happen before that moment." }
+  },
+  "grammar-api-N4-79": {
+    "struttura": "〜さ",
+    "spiegazione": { "it": "Da aggettivo a nome: 高い → 高さ (altezza), 長い → 長さ.", "en": "Adjective → noun: 高い → 高さ (height), 長い → 長さ." }
+  },
+  "grammar-api-N4-4": {
+    "frasi_esempio": [{ "testo": "雨が降ってきた。そこで、タクシーに乗った。", "traduzione": { "it": "Ha iniziato a piovere. Perciò ho preso un taxi.", "en": "It started raining. So I took a taxi." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-85": {
+    "struttura": "〜せてください／〜させてください",
+    "spiegazione": { "it": "Mi lasci fare…: chiedere il permesso con il causativo + ください.", "en": "Please let me…: asking permission with causative + ください." },
+    "frasi_esempio": [{ "testo": "明日、休ませてくださいませんか。", "traduzione": { "it": "Domani potrebbe lasciarmi stare a casa?", "en": "Could you please let me take tomorrow off?" }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-25": {
+    "struttura": "まだ〜ている",
+    "spiegazione": { "it": "Ancora in corso: l'azione o lo stato continua.", "en": "Still …ing: the action or state continues." },
+    "frasi_esempio": [{ "testo": "まだ雨が降っている。", "traduzione": { "it": "Sta ancora piovendo.", "en": "It is still raining." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-81": {
+    "frasi_esempio": [{ "testo": "先生はもうお帰りになりました。", "traduzione": { "it": "L'insegnante è già tornato a casa (onorifico).", "en": "The teacher has already gone home (honorific)." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N4-61": {
+    "struttura": "〜て（依頼）",
+    "spiegazione": { "it": "Forma in -te da sola: richiesta o comando colloquiale.", "en": "Bare -te form: casual request or command." },
+    "frasi_esempio": [
+      { "testo": "ちょっと待って！", "traduzione": { "it": "Aspetta un attimo!", "en": "Wait a second!" }, "parole_linkate": [] },
+      { "testo": "時間がありません。急いで！", "traduzione": { "it": "Non c'è tempo. Sbrigati!", "en": "There's no time. Hurry up!" }, "parole_linkate": [] }
+    ]
+  },
+  "grammar-api-N4-40": {
+    "struttura": "一番〜",
+    "spiegazione": { "it": "Il più…: superlativo con 一番 (letteralmente \"numero uno\").", "en": "The most…: superlative with 一番 (literally \"number one\")." }
+  },
+  "grammar-api-N4-62": {
+    "struttura": "〜（よ）うと思う",
+    "spiegazione": { "it": "Penso di fare…: forma volitiva + と思う per un'intenzione.", "en": "I think I'll…: volitional form + と思う for an intention." }
+  },
+  "g-n5-desu": { "struttura": "〜は〜です" },
+  "grammar-api-N5-16": { "struttura": "い形容詞" },
+  "grammar-api-N5-66": { "struttura": "〜ている／〜でいる" },
+  "grammar-api-N5-6": {
+    "frasi_esempio": [{ "testo": "高いです。でも、買います。", "traduzione": { "it": "È caro. Però lo compro.", "en": "It's expensive. But I'll buy it." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N5-36": {
+    "struttura": "な形容詞",
+    "frasi_esempio": [{ "testo": "ここは静かな町です。", "traduzione": { "it": "Questa è una città tranquilla.", "en": "This is a quiet town." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N5-44": { "struttura": "〜くなる／〜になる" },
+  "grammar-api-N5-48": { "struttura": "〜に行く" },
+  "grammar-api-N5-49": {
+    "frasi_esempio": [{ "testo": "飲み物はお茶にする。", "traduzione": { "it": "Da bere prendo il tè.", "en": "For a drink, I'll go with tea." }, "parole_linkate": [] }]
+  },
+  "grammar-api-N5-56": { "struttura": "〜の中で〜が一番〜" }
+}

@@ -27,6 +27,10 @@ function stripFurigana(text) {
   return text.replace(FURIGANA_REGEX, (_m, base) => base);
 }
 
+// Etichette di forme/categorie: la struttura è un nome (命令形, 敬語…) che per
+// definizione non compare nell'esempio — non vanno giudicate.
+const FORM_LABEL_REGEX = /^(意向形|可能形|禁止形|命令形|条件形|使役形|受身形|使役受身形|自動詞|他動詞|敬語|謙譲語|尊敬語|い形容詞|な形容詞)$/;
+
 // Una voce grammaticale è coerente se almeno un pezzo giapponese della
 // struttura compare nella frase d'esempio (stessa logica del quiz engine).
 function grammarExampleMatchesStructure(grammar) {
@@ -35,16 +39,22 @@ function grammarExampleMatchesStructure(grammar) {
     .map((t) => t.trim())
     .filter((t) => /[ぁ-んァ-ヶ一-龯]/.test(t));
   if (structureTokens.length === 0) {
-    return true; // struttura non ispezionabile (es. etichette di forme): non giudicabile
+    return true; // struttura non ispezionabile: non giudicabile
+  }
+  if (structureTokens.every((t) => FORM_LABEL_REGEX.test(t))) {
+    return true;
   }
   return (grammar.frasi_esempio ?? []).some((ex) => {
     const sentence = stripFurigana(ex.testo ?? "");
     return structureTokens.some((token) => {
       if (sentence.includes(token)) return true;
-      // Le frasi usano forme coniugate: accetta anche lo stem senza la
-      // desinenza finale (てあげる → てあげ matcha てあげました).
-      const stem = token.length >= 3 ? token.slice(0, -1) : token;
-      return stem.length >= 2 && sentence.includes(stem);
+      // Le frasi usano forme coniugate: accetta anche lo stem senza 1 o 2
+      // caratteri finali (てしまう → てしま/てし matcha てしまいました;
+      // ようにする → ようにし).
+      const stem1 = token.length >= 3 ? token.slice(0, -1) : token;
+      if (stem1.length >= 2 && sentence.includes(stem1)) return true;
+      const stem2 = token.length >= 4 ? token.slice(0, -2) : "";
+      return stem2.length >= 2 && sentence.includes(stem2);
     });
   });
 }
