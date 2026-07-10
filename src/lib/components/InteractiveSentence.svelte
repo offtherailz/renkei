@@ -67,8 +67,11 @@
 				{#if open === i}
 					<span class="tok-pop">
 						{#if hits[i]}
-							<span class="pop-reading">{hits[i]!.lettura}</span>
+							<span class="pop-reading">{hits[i]!.scrittura !== tok ? hits[i]!.scrittura + '・' : ''}{hits[i]!.lettura}</span>
 							<span class="pop-gloss">{hits[i]!.significato}</span>
+							{#if hits[i]!.forma}
+								<span class="pop-form">{hits[i]!.forma}</span>
+							{/if}
 							<span class="pop-actions">
 								<a href="{base}/detail/{encodeURIComponent(`word:${hits[i]!.id}`)}">📖 Scheda</a>
 								<a href="{base}/consolida/{encodeURIComponent(hits[i]!.id)}">💪 Consolida</a>
@@ -120,6 +123,7 @@
 		vertical-align: middle;
 	}
 	.pop-reading { color: var(--brand); font-weight: 700; }
+	.pop-form { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.pop-gloss { color: var(--muted); }
 	.pop-actions { display: inline-flex; gap: 8px; }
 	.pop-actions a { color: var(--brand); text-decoration: none; font-weight: 600; }
