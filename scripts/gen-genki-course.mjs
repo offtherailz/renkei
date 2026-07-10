@@ -72,7 +72,7 @@ const lezioni = [...Object.keys(TITLES)].map(Number).sort((a, b) => a - b).map((
 		if (parole.length >= 25) break;
 	}
 	return {
-		lesson_id: `L${String(n).padStart(2, "0")}`,
+		id: `L${String(n).padStart(2, "0")}`,
 		numero: n,
 		titolo: TITLES[n][0],
 		descrizione: TITLES[n][1],
@@ -96,5 +96,5 @@ const dataset = {
 
 await fs.writeFile("static/corso-genki-1.json", `${JSON.stringify(dataset, null, 2)}\n`, "utf8");
 console.log(`Genki I: ${lezioni.length} lezioni, ${lezioni.reduce((s, l) => s + l.grammatica.length, 0)}/${grammarN5.length} voci N5, ${lezioni.reduce((s, l) => s + l.parole.length, 0)} parole.`);
-for (const l of lezioni) console.log(` ${l.lesson_id} grammatica=${l.grammatica.length} parole=${l.parole.length}`);
+for (const l of lezioni) console.log(` ${l.id} grammatica=${l.grammatica.length} parole=${l.parole.length}`);
 if (unassigned.length) console.log("NON ASSEGNATE:\n " + unassigned.join("\n "));
