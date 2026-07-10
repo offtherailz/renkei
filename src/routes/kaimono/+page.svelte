@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -440,7 +441,7 @@
 		<div class="script">
 			<p class="script-title">📜 Il dialogo finora</p>
 			{#each dialog as l}
-				<p class="line {l.who}"><span class="line-who">{l.who === 'me' ? '🙂' : '🗣️'}</span> {l.text}</p>
+				<p class="line {l.who}"><span class="line-who">{l.who === 'me' ? '🙂' : '🗣️'}</span> <InteractiveSentence text={l.text} /></p>
 			{/each}
 		</div>
 	{/if}

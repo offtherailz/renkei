@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { STATIONS, type Station } from '$lib/core/stations';
@@ -358,7 +359,7 @@
 		<div class="script script-box">
 			<p class="script-title">📜 Il dialogo finora</p>
 			{#each dialog as l}
-				<p class="line {l.who}"><span class="line-who">{l.who === 'anno' ? '📢' : l.who === 'friend' ? '🧑' : '🙂'}</span> {l.text}</p>
+				<p class="line {l.who}"><span class="line-who">{l.who === 'anno' ? '📢' : l.who === 'friend' ? '🧑' : '🙂'}</span> <InteractiveSentence text={l.text} /></p>
 			{/each}
 		</div>
 	{/if}
@@ -516,7 +517,7 @@
 			<div class="script">
 				<p class="script-title">📜 Il viaggio di oggi</p>
 				{#each dialog as l}
-					<p class="line {l.who}"><span class="line-who">{l.who === 'anno' ? '📢' : l.who === 'friend' ? '🧑' : '🙂'}</span> {l.text}</p>
+					<p class="line {l.who}"><span class="line-who">{l.who === 'anno' ? '📢' : l.who === 'friend' ? '🧑' : '🙂'}</span> <InteractiveSentence text={l.text} /></p>
 				{/each}
 			</div>
 			<button class="proceed" onclick={start}>🔁 Un altro viaggio</button>
