@@ -49,6 +49,35 @@ const GODAN_BACK: Record<string, string> = {
 	い: 'う', き: 'く', ぎ: 'ぐ', し: 'す', ち: 'つ', に: 'ぬ', ひ: 'ふ', び: 'ぶ', み: 'む', り: 'る'
 };
 
+// Riga あ → う per lo stem negativo (godan): 踊ら→踊る, 飲ま→飲む, 買わ→買う.
+const GODAN_NEG_BACK: Record<string, string> = {
+	わ: 'う', か: 'く', が: 'ぐ', さ: 'す', た: 'つ', な: 'ぬ', ば: 'ぶ', ま: 'む', ら: 'る'
+};
+
+// Candidati al dizionario da uno stem in ます (連用形): 食べ→食べる, 飲み→飲む.
+function fromMasuStem(stem: string): string[] {
+	const out: string[] = [];
+	if (stem === 'し') out.push('する');
+	if (stem === 'き' || stem === '来') out.push('くる', '来る');
+	if (stem.endsWith('し')) out.push(stem.slice(0, -1) + 'する');
+	out.push(stem + 'る');
+	const last = stem[stem.length - 1]!;
+	if (GODAN_BACK[last]) out.push(stem.slice(0, -1) + GODAN_BACK[last]);
+	return out;
+}
+
+// Candidati da uno stem negativo (未然形): 踊ら→踊る, 食べ→食べる, し→する.
+function fromNaiStem(stem: string): string[] {
+	const out: string[] = [];
+	if (stem === 'し') out.push('する');
+	if (stem === 'こ' || stem === '来') out.push('くる', '来る');
+	if (stem.endsWith('し')) out.push(stem.slice(0, -1) + 'する');
+	out.push(stem + 'る'); // ichidan: 食べ→食べる
+	const last = stem[stem.length - 1]!;
+	if (GODAN_NEG_BACK[last]) out.push(stem.slice(0, -1) + GODAN_NEG_BACK[last]);
+	return out;
+}
+
 // Desinenze cortesi/te/ta → candidati alla forma del dizionario, con
 // l'etichetta della forma (così il popup può spiegarla).
 function deconjugate(t: string): { candidates: string[]; forma: string }[] {
@@ -65,14 +94,32 @@ function deconjugate(t: string): { candidates: string[]; forma: string }[] {
 		if (!t.endsWith(suffix)) continue;
 		const stem = t.slice(0, -suffix.length);
 		if (!stem) continue;
-		const candidates: string[] = [];
-		if (stem === 'し') candidates.push('する');
-		if (stem === 'き' || stem === '来') candidates.push('くる', '来る');
-		if (stem.endsWith('し')) candidates.push(stem.slice(0, -1) + 'する'); // 勉強し→勉強する
-		candidates.push(stem + 'る'); // ichidan: 食べ→食べる
-		const last = stem[stem.length - 1]!;
-		if (GODAN_BACK[last]) candidates.push(stem.slice(0, -1) + GODAN_BACK[last]); // godan
-		out.push({ candidates, forma });
+		out.push({ candidates: fromMasuStem(stem), forma });
+	}
+	// forme piane: negativa (踊らない/踊らなかった) e desiderativa (飲みたい)
+	const naiForms: [string, string][] = [
+		['なかったら', 'condizionale negativa (〜なかったら)'],
+		['なかった', 'negativa passata (〜なかった)'],
+		['なくて', 'negativa in て (〜なくて)'],
+		['ないで', 'negativa in で (〜ないで)'],
+		['ない', 'negativa (〜ない)']
+	];
+	for (const [suffix, forma] of naiForms) {
+		if (!t.endsWith(suffix)) continue;
+		const stem = t.slice(0, -suffix.length);
+		if (!stem) continue;
+		out.push({ candidates: fromNaiStem(stem), forma });
+	}
+	const taiForms: [string, string][] = [
+		['たかった', 'desiderativa passata (〜たかった)'],
+		['たくない', 'desiderativa negativa (〜たくない)'],
+		['たい', 'desiderativa (〜たい)']
+	];
+	for (const [suffix, forma] of taiForms) {
+		if (!t.endsWith(suffix)) continue;
+		const stem = t.slice(0, -suffix.length);
+		if (!stem) continue;
+		out.push({ candidates: fromMasuStem(stem), forma });
 	}
 	const FORMA_TETA = 'forma in て/た';
 	const end2 = t.slice(-2);
@@ -102,25 +149,34 @@ function deconjugate(t: string): { candidates: string[]; forma: string }[] {
 export function lookupToken(map: Map<string, WordHit>, token: string): WordHit | null {
 	const t = token.trim();
 	if (!t) return null;
-	if (map.has(t)) return map.get(t)!;
+	// varianti da provare: il token e il token senza particelle finali
+	// (踊らなかったの → 踊らなかった)
+	const bare = t.replace(/(かな|よね|[のねよかわ])$/, '');
+	const forms = bare.length >= 2 && bare !== t ? [t, bare] : [t];
+	for (const f of forms) {
+		if (map.has(f)) return map.get(f)!;
+	}
 	// forme coniugate: prova i candidati al dizionario prima dei prefissi,
-	// così しましょう trova する e non 島 (しま).
-	for (const { candidates, forma } of deconjugate(t)) {
-		for (const c of candidates) {
-			const hit = map.get(c);
-			if (hit && hit.tipo_jp.startsWith('動詞')) return { ...hit, forma };
-			if (hit && c.endsWith('する')) return { ...hit, forma };
+	// così しましょう trova する (non 島) e 踊らなかったの trova 踊る (non 中).
+	for (const f of forms) {
+		for (const { candidates, forma } of deconjugate(f)) {
+			for (const c of candidates) {
+				const hit = map.get(c);
+				if (hit && hit.tipo_jp.startsWith('動詞')) return { ...hit, forma };
+				if (hit && c.endsWith('する')) return { ...hit, forma };
+			}
 		}
 	}
 	for (let end = t.length - 1; end >= 2; end -= 1) {
 		const sub = t.slice(0, end);
 		if (map.has(sub)) return map.get(sub)!;
 	}
-	// parole di un solo carattere (kanji) e parole interne: 「また別の」→ 別
+	// parole interne SOLO con kanji (また別の → 別): le sottostringhe di soli
+	// kana pescano parole a caso (なか di 踊らなかった ≠ 中).
 	for (let len = t.length - 1; len >= 1; len -= 1) {
 		for (let start = 0; start + len <= t.length; start += 1) {
 			const sub = t.slice(start, start + len);
-			if (len === 1 && !HAS_KANJI.test(sub)) continue;
+			if (!HAS_KANJI.test(sub)) continue;
 			if (map.has(sub)) return map.get(sub)!;
 		}
 	}

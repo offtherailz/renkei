@@ -45,4 +45,27 @@ describe('lookupToken', () => {
 	it('また別の trova 別 (kanji singolo interno)', () => {
 		expect(lookupToken(map, 'また別の')?.id).toBe('別');
 	});
+
+	const map2 = mapOf([
+		hit('踊る', '踊る', 'おどる', '動詞[どうし]'),
+		hit('中', '中', 'なか'),
+		hit('飲む', '飲む', 'のむ', '動詞[どうし]'),
+		hit('食べる', '食べる', 'たべる', '動詞[どうし]')
+	]);
+
+	it('踊らなかったの trova 踊る (non 中)', () => {
+		const r = lookupToken(map2, '踊らなかったの');
+		expect(r?.id).toBe('踊る');
+		expect(r?.forma).toContain('なかった');
+	});
+
+	it('飲みたい trova 飲む; 食べない trova 食べる', () => {
+		expect(lookupToken(map2, '飲みたい')?.id).toBe('飲む');
+		expect(lookupToken(map2, '食べない')?.id).toBe('食べる');
+	});
+
+	it('le sottostringhe kana interne non pescano parole a caso', () => {
+		// なんとなく contiene なか? no — usa ぶんなかろ: contiene なか ma non è 中
+		expect(lookupToken(map2, 'そのなかで')?.id).not.toBe('中');
+	});
 });
