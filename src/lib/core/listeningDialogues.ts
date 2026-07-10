@@ -426,5 +426,254 @@ export const LISTENING_DIALOGUES: ListeningDialogue[] = [
 			}
 		],
 		questions: [{ q: '男の人は何をしなければなりませんか。', truthOf: 'rev' }]
+	},
+	// ──────────────────────── N5 (secondo lotto) ────────────────────────
+	{
+		id: 'n5-basu',
+		livello: 'N5',
+		titolo: 'Che autobus prende?',
+		scena: 'Una signora chiede alla fermata quale autobus va al parco.',
+		domanda: 'おんなのひとは　なんばんの　バスに　のりますか。',
+		lines: [
+			{ who: 'F', parts: ['すみません、こうえんに　いきたいんですが。'] },
+			{ who: 'M', parts: [{ slot: 'b1' }, 'ばんの　バスですよ。あ、でも　', { slot: 'b1' }, 'ばんは　いま　でました。つぎは　', { slot: 'b2' }, 'ばんに　のって　ください。おなじ　こうえんに　いきますから。'] },
+			{ who: 'F', parts: ['わかりました。ありがとうございます。'] }
+		],
+		slots: [
+			{ id: 'b1', options: ['三', '五'], kind: 'num' },
+			{ id: 'b2', options: ['七', '九'], kind: 'num' }
+		],
+		questions: [
+			{ q: 'おんなのひとは　なんばんの　バスに　のりますか。', slot: 'b2' },
+			{ q: 'どの　バスは　もう　でましたか。', slot: 'b1' }
+		]
+	},
+	{
+		id: 'n5-resutoran-denwa',
+		livello: 'N5',
+		titolo: 'Prenotazione al telefono',
+		scena: 'Un cliente prenota un tavolo per telefono.',
+		domanda: 'おとこのひとは　なんじに　いきますか。',
+		lines: [
+			{ who: 'M', parts: ['もしもし、こんばん　', { slot: 't1' }, 'に　', { slot: 'p1' }, 'にんで　よやくできますか。'] },
+			{ who: 'F', parts: ['もうしわけありません、', { slot: 't1' }, 'は　いっぱいです。', { slot: 't2' }, 'なら　だいじょうぶですが…'] },
+			{ who: 'M', parts: ['じゃあ、', { slot: 't2' }, 'で　おねがいします。'] }
+		],
+		slots: [
+			{ id: 't1', options: ['六じ', '七じ'], kind: 'ora' },
+			{ id: 't2', options: ['八じ', '八じはん'], kind: 'ora' },
+			{ id: 'p1', options: ['二', '三', '四'] }
+		],
+		questions: [
+			{ q: 'おとこのひとは　なんじに　いきますか。', slot: 't2' },
+			{ q: 'なんにんで　いきますか。', slot: 'p1' }
+		]
+	},
+	{
+		id: 'n5-wasuremono-kasa',
+		livello: 'N5',
+		titolo: 'Dove ha dimenticato…?',
+		scena: 'Un ragazzo cerca il suo ombrello.',
+		domanda: 'かさは　どこに　ありましたか。',
+		lines: [
+			{ who: 'M', parts: ['あれ？　かさが　ない！　', { slot: 'p1' }, 'に　わすれたかな…'] },
+			{ who: 'F', parts: [{ slot: 'p1' }, 'じゃなくて、', { slot: 'p2' }, 'に　あったよ。はい、どうぞ。'] },
+			{ who: 'M', parts: ['ああ、よかった！　ありがとう。'] }
+		],
+		slots: [
+			{ id: 'p1', options: ['がっこう', 'としょかん'], kind: 'luogo' },
+			{ id: 'p2', options: ['げんかん', 'だいどころ'], kind: 'luogo' }
+		],
+		questions: [{ q: 'かさは　どこに　ありましたか。', slot: 'p2' }]
+	},
+	{
+		id: 'n5-nichiyobi',
+		livello: 'N5',
+		titolo: 'I piani per domenica',
+		scena: 'Due amici parlano di domenica: il piano cambia col tempo.',
+		domanda: 'ふたりは　にちようびに　なにを　しますか。',
+		lines: [
+			{ who: 'F', parts: ['にちようび、', { slot: 'a1' }, 'に　いきましょうよ。'] },
+			{ who: 'M', parts: ['でも　てんきよほうでは、にちようびは　あめですよ。', { slot: 'rev' }] },
+			{ who: 'F', parts: ['そうですね。じゃあ、そうしましょう。'] }
+		],
+		slots: [
+			{ id: 'a1', options: ['うみ', 'やま'], kind: 'attivita' },
+			{ id: 'a2', options: ['えいがかん', 'びじゅつかん'], kind: 'attivita' },
+			{
+				id: 'rev',
+				options: [
+					'だから、{a2}の　ほうが　いいと　おもいます。',
+					'でも、あめでも　だいじょうぶですよ。{a1}に　いきましょう。'
+				],
+				answerSlot: ['a2', 'a1']
+			}
+		],
+		questions: [{ q: 'ふたりは　どこへ　いきますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-kusuriya',
+		livello: 'N5',
+		titolo: 'In farmacia',
+		scena: 'Un signore compra una medicina: quante volte al giorno?',
+		domanda: 'くすりは　いちにちに　なんかい　のみますか。',
+		lines: [
+			{ who: 'M', parts: ['あたまが　いたいんですが…'] },
+			{ who: 'F', parts: ['では、この　くすりを　どうぞ。いちにちに　', { slot: 'k1' }, 'かい、', { slot: 'k2' }, 'のんで　ください。'] },
+			{ who: 'M', parts: ['わかりました。ありがとうございます。'] }
+		],
+		slots: [
+			{ id: 'k1', options: ['二', '三'], kind: 'num' },
+			{ id: 'k2', options: ['ごはんの　あとで', 'ごはんの　まえに'] }
+		],
+		questions: [
+			{ q: 'くすりは　いちにちに　なんかい　のみますか。', slot: 'k1' },
+			{ q: 'いつ　のみますか。', slot: 'k2' }
+		]
+	},
+	// ──────────────────────── N4 (secondo lotto) ────────────────────────
+	{
+		id: 'n4-machiawase',
+		livello: 'N4',
+		titolo: "L'appuntamento si sposta",
+		scena: 'Messaggio vocale: il punto d\'incontro cambia.',
+		domanda: '二人はどこで会いますか。',
+		lines: [
+			{
+				who: 'F',
+				parts: [
+					'もしもし？あしたのことだけど、',
+					{ slot: 'p1' },
+					'で会う約束だったよね。',
+					{ slot: 'rev' },
+					'じゃあ、また明日ね。'
+				]
+			}
+		],
+		slots: [
+			{ id: 'p1', options: ['駅の北口', '駅の南口'], kind: 'luogo' },
+			{ id: 'p2', options: ['本屋の前', 'カフェの中'], kind: 'luogo' },
+			{
+				id: 'rev',
+				options: [
+					'予定どおり、そこで待ってるね。',
+					'ごめん、工事中だから{p2}に変えない？',
+					'一度{p2}にしようと思ったけど、やっぱり{p1}でいいや。'
+				],
+				answerSlot: ['p1', 'p2', 'p1']
+			}
+		],
+		questions: [{ q: '二人はどこで会いますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-shigoto-denwa',
+		livello: 'N4',
+		titolo: 'La telefonata del capo',
+		scena: 'Il capo chiama: cosa deve portare il collega alla riunione?',
+		domanda: '男の人は何を持って行かなければなりませんか。',
+		lines: [
+			{ who: 'F', parts: ['あ、田中さん？会議に', { slot: 'm1' }, 'を持ってきてもらえますか。'] },
+			{ who: 'M', parts: [{ slot: 'm1' }, 'ですね。わかりました。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['はい、では後ほど。'] }
+		],
+		slots: [
+			{ id: 'm1', options: ['先月の資料', 'パソコン'], kind: 'cosa' },
+			{ id: 'm2', options: ['プロジェクター', 'カメラ'], kind: 'cosa' },
+			{
+				id: 'rev',
+				options: [
+					'それだけでお願いします。',
+					'あ、やっぱり{m1}はいいです。かわりに{m2}をお願いします。',
+					'あと、{m2}も一緒にお願いできますか。'
+				],
+				answerSlot: ['m1', 'm2', 'm2']
+			}
+		],
+		questions: [{ q: '男の人は結局、何を持って行きますか。（最後に頼まれた物）', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-tenkiyoho',
+		livello: 'N4',
+		titolo: 'Le previsioni della settimana',
+		scena: 'La radio dà le previsioni: quando si può fare il picnic?',
+		domanda: 'ピクニックにいちばんいい日はいつですか。',
+		lines: [
+			{
+				who: 'M',
+				parts: [
+					'天気予報をお伝えします。',
+					{ slot: 'd1' },
+					'は一日中雨が降るでしょう。',
+					{ slot: 'd2' },
+					'は晴れて、あたたかくなりそうです。ピクニックには',
+					{ slot: 'd2' },
+					'がおすすめですよ。'
+				]
+			}
+		],
+		slots: [
+			{ id: 'd1', options: ['土曜日', '金曜日'], kind: 'giorno' },
+			{ id: 'd2', options: ['日曜日', '月曜日'], kind: 'giorno' }
+		],
+		questions: [
+			{ q: 'ピクニックにいちばんいい日はいつですか。', slot: 'd2' },
+			{ q: '雨が降るのはいつですか。', slot: 'd1' }
+		]
+	},
+	{
+		id: 'n4-yakkyoku-hoken',
+		livello: 'N4',
+		titolo: 'In ospedale: la ricezione',
+		scena: 'Alla reception dell\'ospedale: dove deve andare prima?',
+		domanda: '女の人はまず、どこへ行きますか。',
+		lines: [
+			{ who: 'F', parts: ['すみません、初めてなんですが…'] },
+			{
+				who: 'M',
+				parts: [
+					'では、まず',
+					{ slot: 'f1' },
+					'で書類を書いてください。それから',
+					{ slot: 'f2' },
+					'へどうぞ。お会計は最後です。'
+				]
+			},
+			{ who: 'F', parts: ['わかりました。ありがとうございます。'] }
+		],
+		slots: [
+			{ id: 'f1', options: ['受付', '二階の窓口'], kind: 'luogo' },
+			{ id: 'f2', options: ['三階の内科', '一階の外科'], kind: 'luogo' }
+		],
+		questions: [
+			{ q: '女の人はまず、どこへ行きますか。', slot: 'f1' },
+			{ q: 'そのあと、どこへ行きますか。', slot: 'f2' }
+		]
+	},
+	{
+		id: 'n4-purezento',
+		livello: 'N4',
+		titolo: 'Il regalo per la mamma',
+		scena: 'Fratello e sorella scelgono il regalo: la decisione balla.',
+		domanda: '二人は何を買いますか。',
+		lines: [
+			{ who: 'M', parts: ['母の誕生日、', { slot: 'g1' }, 'はどう？'] },
+			{ who: 'F', parts: ['うーん、', { slot: 'g1' }, 'は去年あげたよ。', { slot: 'g2' }, 'のほうがいいんじゃない？'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['うん、決まり！'] }
+		],
+		slots: [
+			{ id: 'g1', options: ['花', 'ハンカチ'], kind: 'regalo' },
+			{ id: 'g2', options: ['財布', 'かばん'], kind: 'regalo' },
+			{
+				id: 'rev',
+				options: [
+					'そうだね、{g2}にしよう。',
+					'でも{g2}は高いよ。やっぱり{g1}にしない？きっとよろこぶよ。'
+				],
+				answerSlot: ['g2', 'g1']
+			}
+		],
+		questions: [{ q: '二人は何を買いますか。', truthOf: 'rev' }]
 	}
 ];
