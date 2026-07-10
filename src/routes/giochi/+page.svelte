@@ -21,6 +21,7 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -55,7 +56,24 @@
 	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt' } | { kind: 'shopping' } | { kind: 'greet' } | { kind: 'order' } | null;
 
 	let counters = $state<Counter[]>([]);
-	onMount(async () => { primeVoices(); counters = await db.counters.toArray(); });
+	onMount(async () => { primeVoices(); canSpeak = speechAvailable(); counters = await db.counters.toArray(); });
+
+	// ── Rispondi a voce nel gioco dei saluti ──
+	let canSpeak = $state(false);
+	let micState = $state<'idle' | 'listening'>('idle');
+	let heard = $state('');
+	async function speakGreetGame(): Promise<void> {
+		if (micState !== 'idle' || picked !== null || !greet) return;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (!greet || picked !== null) return;
+		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
+		heard = alts[0]!;
+		const hit = greet.choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
+		if (hit) pickGreet(hit);
+	}
 
 	let game = $state<Game>(null);
 	let streak = $state(0);
@@ -352,6 +370,7 @@
 	// ── Saluti / convenevoli ──
 	function newGreet(): void {
 		qGen += 1;
+		heard = '';
 		greet = generateGreeting();
 		choices = greet.choices;
 		picked = null;
@@ -725,6 +744,12 @@
 					<p class="game-hint">Cosa dici in questa situazione?</p>
 					<p class="prompt-it big">{greet.it}</p>
 				{/if}
+				{#if canSpeak && picked === null}
+					<button class="mic" class:listening={micState === 'listening'} onclick={speakGreetGame}>
+						{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+					</button>
+					{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+				{/if}
 				<div class="choices">
 					{#each choices as choice (choice)}
 						<button class="choice" class:right={picked !== null && choice === greet.correct} class:wrong={picked === choice && choice !== greet.correct} disabled={picked !== null} onclick={() => pickGreet(choice)}>{choice}</button>
@@ -839,6 +864,10 @@
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
+	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+	.mic.listening { background: rgba(239,107,107,0.12); border-color: #dc2626; color: #dc2626; animation: micpulse 1s ease-in-out infinite; }
+	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.num-input { justify-self: center; width: 60%; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); }
 	.num-input:focus { border-color: var(--brand); outline: none; }
 

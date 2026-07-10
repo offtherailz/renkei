@@ -8,7 +8,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
-	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -207,6 +207,7 @@
 	function toDepart(): void {
 		scene = 'depart';
 		greetPicked = null;
+		heard = '';
 	}
 
 	const DEPART_CHOICES = ['いってきます', 'ただいま', 'おかえり', 'おやすみ'];
@@ -365,6 +366,22 @@
 	let canSpeak = $state(false);
 	let micState = $state<'idle' | 'listening'>('idle');
 	let heard = $state('');
+
+	// Saluti a voce: di' la frase giusta (いってきます／ただいま…)
+	async function speakGreet(choices: string[], pick: (c: string) => void): Promise<void> {
+		if (micState !== 'idle' || greetPicked !== null) return;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (alts.length === 0) {
+			heard = '（何も聞こえませんでした…riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const hit = choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
+		if (hit) pick(hit);
+	}
 	async function speakOrder(): Promise<void> {
 		if (micState !== 'idle' || picked !== null) return;
 		micState = 'listening';
@@ -439,6 +456,7 @@
 	function toReturn(): void {
 		scene = 'return';
 		greetPicked = null;
+		heard = '';
 	}
 
 	// ── Rientro ──
@@ -513,6 +531,12 @@
 		<article class="scene">
 			<p class="who">🚪 Stai uscendo di casa</p>
 			<p class="hint">Cosa dici?</p>
+			{#if canSpeak && greetPicked === null}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakGreet(DEPART_CHOICES, pickDepart)}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+			{/if}
 			<div class="choices">
 				{#each DEPART_CHOICES as c (c)}
 					<button class="choice" class:right={greetPicked !== null && c === 'いってきます'} class:wrong={greetPicked === c && c !== 'いってきます'} disabled={greetPicked !== null} onclick={() => pickDepart(c)}>{c}</button>
@@ -623,6 +647,12 @@
 		<article class="scene">
 			<p class="who">🏠 Sei tornato a casa</p>
 			<p class="hint">Cosa dici entrando?</p>
+			{#if canSpeak && greetPicked === null}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakGreet(RETURN_CHOICES, pickReturn)}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+			{/if}
 			<div class="choices">
 				{#each RETURN_CHOICES as c (c)}
 					<button class="choice" class:right={greetPicked !== null && c === 'ただいま'} class:wrong={greetPicked === c && c !== 'ただいま'} disabled={greetPicked !== null} onclick={() => pickReturn(c)}>{c}</button>
