@@ -547,10 +547,10 @@
 
 		<p class="group-title">Conversazione</p>
 			<div class="cat-grid">
-				<a class="cat-card" href="{base}/frasi-utili">
-					<span class="cat-icon">🆘</span>
-					<span class="cat-label">Frasi utili</span>
-					<span class="cat-hint">sopravvivenza: cosa dire e come, con pratica a voce</span>
+				<a class="cat-card" href="{base}/giornata">
+					<span class="cat-icon">🌅</span>
+					<span class="cat-label">Una giornata</span>
+					<span class="cat-hint">dalla sveglia alla buonanotte: la frase giusta al momento giusto</span>
 				</a>
 				<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
 					<span class="cat-icon">🗣️</span>
