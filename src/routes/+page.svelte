@@ -4,15 +4,60 @@
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
 	import { loadObjectiveSummaries, countDueCards, type ObjectiveSummary } from '$lib/db/queries';
+	import { db } from '$lib/db/schema';
+	import { normalizeMastery } from '$lib/core/srs';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
 	let loading = $state(true);
 
+	// ── Piano di oggi ──
+	type WeakItem = { label: string; consolida: string; pct: number };
+	let weakest = $state<WeakItem[]>([]);
+	// attività a rotazione giornaliera (varietà senza dover scegliere)
+	const ACTIVITIES = [
+		{ href: 'avventure', icon: '🗺️', label: "Un'avventura", hint: 'kaimono, ristorante o treno' },
+		{ href: 'lettura', icon: '⚡', label: 'Lettura veloce', hint: 'un testo a tempo' },
+		{ href: 'choukai', icon: '👂', label: '聴解 trappola', hint: 'un dialogo solo audio' },
+		{ href: 'skimming', icon: '🔎', label: 'Skimming', hint: "trova l'informazione" },
+		{ href: 'riordina', icon: '🧩', label: 'Riordina la frase', hint: 'sintassi a tocchi' }
+	];
+	const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+	const activity = ACTIVITIES[dayOfYear % ACTIVITIES.length]!;
+
+	async function loadWeakest(): Promise<void> {
+		const rows = await db.srs_progress.toArray();
+		const scored = rows
+			.map((r) => ({ r, pct: normalizeMastery(r.srs_stage, r.mastery_points) }))
+			.filter((x) => x.pct < 60)
+			.sort((a, b) => a.pct - b.pct)
+			.slice(0, 3);
+		const out: WeakItem[] = [];
+		for (const { r, pct } of scored) {
+			const [kind, ...rest] = r.id_item.includes(':') ? r.id_item.split(':') : ['word', r.id_item];
+			const raw = rest.join(':') || r.id_item;
+			let label = raw;
+			let consolida = r.id_item;
+			if (kind === 'word') {
+				label = (await db.words.get(raw))?.scrittura ?? raw;
+				consolida = raw;
+			} else if (kind === 'grammar') {
+				label = (await db.grammar.get(raw))?.struttura ?? raw;
+			} else if (kind === 'counter') {
+				label = (await db.counters.get(raw))?.simbolo ?? raw;
+			} else if (kind === 'kanji') {
+				consolida = raw;
+			}
+			out.push({ label, consolida, pct });
+		}
+		weakest = out;
+	}
+
 	async function loadData() {
 		loading = true;
 		[summaries, dueCount] = await Promise.all([loadObjectiveSummaries(), countDueCards()]);
+		void loadWeakest();
 		loading = false;
 	}
 
@@ -56,6 +101,41 @@
 	<a href="{base}/quiz" class="btn btn-primary btn-sm">Ripassare ora</a>
 </div>
 {/if}
+
+<section class="section-card">
+	<h2 class="section-title">☀️ Il piano di oggi</h2>
+	<div class="plan-list">
+		<a class="plan-row" href="{base}/quiz">
+			<span class="plan-icon">{dueCount > 0 ? '📋' : '✅'}</span>
+			<span class="plan-body">
+				<span class="plan-label">Ripassi SRS</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : 'tutto fatto — torna più tardi'}</span>
+			</span>
+			<span class="plan-go">→</span>
+		</a>
+		{#if weakest.length > 0}
+			<div class="plan-row static">
+				<span class="plan-icon">💪</span>
+				<span class="plan-body">
+					<span class="plan-label">I tuoi punti deboli</span>
+					<span class="plan-chips">
+						{#each weakest as w (w.consolida)}
+							<a class="weak-chip" href="{base}/consolida/{encodeURIComponent(w.consolida)}">{w.label} <small>{w.pct}%</small></a>
+						{/each}
+					</span>
+				</span>
+			</div>
+		{/if}
+		<a class="plan-row" href="{base}/{activity.href}">
+			<span class="plan-icon">{activity.icon}</span>
+			<span class="plan-body">
+				<span class="plan-label">Attività del giorno: {activity.label}</span>
+				<span class="plan-hint">{activity.hint} — domani cambia</span>
+			</span>
+			<span class="plan-go">→</span>
+		</a>
+	</div>
+</section>
 
 <section class="section-card">
 	<div class="section-header">
@@ -318,6 +398,19 @@
 		font-size: 0.7rem;
 		color: var(--muted);
 	}
+
+	.plan-list { display: grid; gap: 8px; }
+	.plan-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); text-decoration: none; color: var(--ink); }
+	.plan-row:not(.static):hover { border-color: var(--brand); }
+	.plan-icon { font-size: 1.4rem; }
+	.plan-body { flex: 1; min-width: 0; display: grid; gap: 2px; }
+	.plan-label { font-size: 0.88rem; font-weight: 700; }
+	.plan-hint { font-size: 0.75rem; color: var(--muted); }
+	.plan-go { color: var(--brand); font-weight: 700; }
+	.plan-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+	.weak-chip { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); text-decoration: none; color: var(--ink); font-size: 0.85rem; }
+	.weak-chip small { color: var(--muted); font-size: 0.7rem; }
+	.weak-chip:hover { border-color: var(--brand); }
 
 	.quick-links .section-title { margin-bottom: 12px; }
 
