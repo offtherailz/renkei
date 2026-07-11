@@ -212,6 +212,13 @@
      "it": "Ho comprato sei mele.",
      "en": "I bought six apples."
     }
+   },
+   {
+    "testo": "たまごを 六つ つかいました。",
+    "traduzione": {
+     "it": "Ho usato sei uova.",
+     "en": "I used six eggs."
+    }
    }
   ],
   "significato": {
@@ -368,6 +375,13 @@
      "it": "Siamo andati al parco in due.",
      "en": "The two of us went to the park."
     }
+   },
+   {
+    "testo": "二人は とても なかが いいです。",
+    "traduzione": {
+     "it": "Quei due vanno molto d'accordo.",
+     "en": "The two of them get along very well."
+    }
    }
   ],
   "significato": {
@@ -416,6 +430,13 @@
     "traduzione": {
      "it": "Il latte è nel frigorifero.",
      "en": "The milk is in the fridge."
+    }
+   },
+   {
+    "testo": "冷蔵庫に ケーキが はいって います。",
+    "traduzione": {
+     "it": "In frigorifero c'è una torta.",
+     "en": "There is a cake in the refrigerator."
     }
    }
   ],
@@ -864,6 +885,13 @@
      "it": "Ho finito tutti i compiti.",
      "en": "I finished all my homework."
     }
+   },
+   {
+    "testo": "この ほんは 全部で 五さつです。",
+    "traduzione": {
+     "it": "Questi libri sono cinque in tutto.",
+     "en": "These books are five in total."
+    }
    }
   ],
   "significato": {
@@ -1160,6 +1188,13 @@
     "traduzione": {
      "it": "Fare movimento fa bene al corpo.",
      "en": "Exercise is good for the body."
+    }
+   },
+   {
+    "testo": "体の ちょうしが よくないです。",
+    "traduzione": {
+     "it": "Non sto bene fisicamente.",
+     "en": "I'm not feeling well physically."
     }
    }
   ],
@@ -1643,6 +1678,13 @@
      "it": "Mio padre lavora in un'azienda.",
      "en": "My father works at a company."
     }
+   },
+   {
+    "testo": "会社まで でんしゃで 三十ぷんです。",
+    "traduzione": {
+     "it": "Fino all'azienda ci vogliono trenta minuti di treno.",
+     "en": "It takes thirty minutes by train to the company."
+    }
    }
   ],
   "significato": {
@@ -1975,6 +2017,13 @@
      "it": "Ho mangiato due fette di torta.",
      "en": "I ate two pieces of cake."
     }
+   },
+   {
+    "testo": "二かいから けしきが みえます。",
+    "traduzione": {
+     "it": "Dal secondo piano si vede il panorama.",
+     "en": "You can see the view from the second floor."
+    }
    }
   ],
   "significato": {
@@ -2137,6 +2186,13 @@
      "it": "Il lavoro di mio padre è impegnativo.",
      "en": "My father's job keeps him busy."
     }
+   },
+   {
+    "testo": "あたらしい 仕事を さがして います。",
+    "traduzione": {
+     "it": "Sto cercando un nuovo lavoro.",
+     "en": "I am looking for a new job."
+    }
    }
   ],
   "significato": {
@@ -2158,6 +2214,13 @@
     "traduzione": {
      "it": "Anche domani lavoro.",
      "en": "I work tomorrow too."
+    }
+   },
+   {
+    "testo": "にちようびも 仕事する ことが あります。",
+    "traduzione": {
+     "it": "A volte lavoro anche la domenica.",
+     "en": "Sometimes I work even on Sundays."
     }
    }
   ]
@@ -2862,6 +2925,13 @@
      "it": "Ho incontrato l'insegnante alla stazione.",
      "en": "I met my teacher at the station."
     }
+   },
+   {
+    "testo": "ひさしぶりに ともだちに 会いました。",
+    "traduzione": {
+     "it": "Ho rivisto un amico dopo tanto tempo.",
+     "en": "I met a friend after a long time."
+    }
    }
   ],
   "significato": {
@@ -2902,6 +2972,13 @@
     "traduzione": {
      "it": "Mio fratello maggiore vive a Tokyo.",
      "en": "My older brother lives in Tokyo."
+    }
+   },
+   {
+    "testo": "兄は わたしより 三さい うえです。",
+    "traduzione": {
+     "it": "Mio fratello maggiore ha tre anni più di me.",
+     "en": "My older brother is three years older than me."
     }
    }
   ],
@@ -3064,6 +3141,13 @@
     "traduzione": {
      "it": "Quest'estate fa caldo.",
      "en": "This summer is hot."
+    }
+   },
+   {
+    "testo": "今年こそ にほんへ いきたいです。",
+    "traduzione": {
+     "it": "Quest'anno sì che voglio andare in Giappone.",
+     "en": "This year for sure I want to go to Japan."
     }
    }
   ],
@@ -3278,6 +3362,13 @@
     "traduzione": {
      "it": "Dove abiti?",
      "en": "Where do you live?"
+    }
+   },
+   {
+    "testo": "そふは いなかに 住んで います。",
+    "traduzione": {
+     "it": "Il nonno vive in campagna.",
+     "en": "My grandfather lives in the countryside."
     }
    }
   ],
@@ -3662,6 +3753,13 @@
      "it": "Mia sorella minore quest'anno compie vent'anni.",
      "en": "My younger sister turns twenty this year."
     }
+   },
+   {
+    "testo": "日本では 二十歳から お酒が のめます。",
+    "traduzione": {
+     "it": "In Giappone si può bere alcol dai vent'anni.",
+     "en": "In Japan you can drink alcohol from age twenty."
+    }
    }
   ],
   "significato": {
@@ -3699,6 +3797,13 @@
     "traduzione": {
      "it": "Ogni mattina mi alzo alle otto.",
      "en": "I get up at eight every morning."
+    }
+   },
+   {
+    "testo": "たこの あしは 八ほんです。",
+    "traduzione": {
+     "it": "Il polpo ha otto tentacoli.",
+     "en": "An octopus has eight legs."
     }
    }
   ],
@@ -4046,6 +4151,13 @@
     "traduzione": {
      "it": "Questo kanji si usa spesso.",
      "en": "This kanji is used often."
+    }
+   },
+   {
+    "testo": "この きかいの 使いかたを おしえて ください。",
+    "traduzione": {
+     "it": "Insegnami come si usa questa macchina.",
+     "en": "Please teach me how to use this machine."
     }
    }
   ],
@@ -6005,6 +6117,13 @@
      "it": "Uso cinque uova.",
      "en": "I use five eggs."
     }
+   },
+   {
+    "testo": "おかしが 五つ のこって います。",
+    "traduzione": {
+     "it": "Sono rimasti cinque dolcetti.",
+     "en": "Five sweets are left."
+    }
    }
   ],
   "significato": {
@@ -6045,6 +6164,13 @@
     "traduzione": {
      "it": "Davanti alla stazione c'è un posto di polizia.",
      "en": "There is a police box in front of the station."
+    }
+   },
+   {
+    "testo": "さいふを ひろって、交番に とどけました。",
+    "traduzione": {
+     "it": "Ho raccolto un portafoglio e l'ho portato al koban.",
+     "en": "I found a wallet and took it to the police box."
     }
    }
   ],
@@ -6088,6 +6214,13 @@
      "it": "Stamattina mi sono alzato alle sette.",
      "en": "I got up at seven this morning."
     }
+   },
+   {
+    "testo": "今朝は なにも たべませんでした。",
+    "traduzione": {
+     "it": "Stamattina non ho mangiato niente.",
+     "en": "I didn't eat anything this morning."
+    }
    }
   ],
   "significato": {
@@ -6106,6 +6239,13 @@
     "traduzione": {
      "it": "Stasera ti chiamo.",
      "en": "I'll call you tonight."
+    }
+   },
+   {
+    "testo": "今晩は カレーに しましょう。",
+    "traduzione": {
+     "it": "Stasera facciamo il curry.",
+     "en": "Let's have curry tonight."
     }
    }
   ],
@@ -6204,6 +6344,13 @@
      "it": "Ho fatto una torta con mia madre.",
      "en": "I made a cake with my mother."
     }
+   },
+   {
+    "testo": "にわで やさいを 作って います。",
+    "traduzione": {
+     "it": "Coltivo verdure in giardino.",
+     "en": "I grow vegetables in the garden."
+    }
    }
   ],
   "significato": {
@@ -6225,6 +6372,13 @@
      "it": "Ho scritto un tema in giapponese.",
      "en": "I wrote an essay in Japanese."
     }
+   },
+   {
+    "testo": "作文の テーマは 「わたしの ゆめ」です。",
+    "traduzione": {
+     "it": "Il tema del componimento è «il mio sogno».",
+     "en": "The topic of the essay is \"my dream.\""
+    }
    }
   ],
   "significato": {
@@ -6245,6 +6399,13 @@
     "traduzione": {
      "it": "Scrivo un tema sul fine settimana.",
      "en": "I write an essay about my weekend."
+    }
+   },
+   {
+    "testo": "ふゆやすみの おもいでを 作文しました。",
+    "traduzione": {
+     "it": "Ho scritto un tema sui ricordi delle vacanze invernali.",
+     "en": "I wrote an essay about my winter vacation memories."
     }
    }
   ]
@@ -6276,6 +6437,13 @@
     "traduzione": {
      "it": "Piove, quindi porto l'ombrello.",
      "en": "It's raining, so I'll take an umbrella."
+    }
+   },
+   {
+    "testo": "傘を もって くるのを わすれました。",
+    "traduzione": {
+     "it": "Ho dimenticato di portare l'ombrello.",
+     "en": "I forgot to bring my umbrella."
     }
    }
   ],
@@ -6452,6 +6620,13 @@
      "it": "Ho fatto una foto alla famiglia.",
      "en": "I took a picture of my family."
     }
+   },
+   {
+    "testo": "ここで 写真を とっても いいですか。",
+    "traduzione": {
+     "it": "Si possono fare foto qui?",
+     "en": "May I take pictures here?"
+    }
    }
   ],
   "significato": {
@@ -6570,6 +6745,13 @@
     "traduzione": {
      "it": "Sono andato in Giappone per la prima volta.",
      "en": "I went to Japan for the first time."
+    }
+   },
+   {
+    "testo": "初めて おすしを たべました。",
+    "traduzione": {
+     "it": "Ho mangiato il sushi per la prima volta.",
+     "en": "I ate sushi for the first time."
     }
    }
   ],
@@ -7024,6 +7206,13 @@
      "it": "Ho comprato francobolli alla posta.",
      "en": "I bought stamps at the post office."
     }
+   },
+   {
+    "testo": "きれいな 切手を あつめて います。",
+    "traduzione": {
+     "it": "Colleziono francobolli belli.",
+     "en": "I collect beautiful stamps."
+    }
    }
   ],
   "significato": {
@@ -7062,6 +7251,13 @@
      "it": "Il mese scorso sono andato a Kyoto.",
      "en": "Last month I went to Kyoto."
     }
+   },
+   {
+    "testo": "先月から ジムに かよって います。",
+    "traduzione": {
+     "it": "Dal mese scorso frequento la palestra.",
+     "en": "I have been going to the gym since last month."
+    }
    }
   ],
   "significato": {
@@ -7081,6 +7277,13 @@
      "it": "La settimana scorsa ero impegnato.",
      "en": "I was busy last week."
     }
+   },
+   {
+    "testo": "先週の にちようびは うみへ いきました。",
+    "traduzione": {
+     "it": "Domenica scorsa sono andato al mare.",
+     "en": "Last Sunday I went to the sea."
+    }
    }
   ],
   "significato": {
@@ -7099,6 +7302,13 @@
     "traduzione": {
      "it": "Il professor Tanaka insegna inglese.",
      "en": "Mr. Tanaka is an English teacher."
+    }
+   },
+   {
+    "testo": "わからない ときは 先生に ききます。",
+    "traduzione": {
+     "it": "Quando non capisco, chiedo all'insegnante.",
+     "en": "When I don't understand, I ask the teacher."
     }
    }
   ],
@@ -8916,7 +9126,23 @@
    "en": [
     "what"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今のアナウンスは何だったのですか。",
+    "traduzione": {
+     "it": "What did the announcement just say?",
+     "en": "What did the announcement just say?"
+    }
+   },
+   {
+    "testo": "これは 何ですか。",
+    "traduzione": {
+     "it": "Che cos'è questo?",
+     "en": "What is this?"
+    }
+   }
+  ]
  },
  "可愛い": {
   "significato": {
@@ -9341,7 +9567,23 @@
     "siblings (humble)",
     "brothers and sisters"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは何人兄弟がいますか。",
+    "traduzione": {
+     "it": "How many siblings do you have?",
+     "en": "How many siblings do you have?"
+    }
+   },
+   {
+    "testo": "三にん兄弟の まんなかです。",
+    "traduzione": {
+     "it": "Sono il secondo di tre fratelli.",
+     "en": "I am the middle of three siblings."
+    }
+   }
+  ]
  },
  "鶏肉": {
   "significato": {
@@ -9388,7 +9630,23 @@
     "health(y)",
     "energetic"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "こんにちは、ロジャー。とっても元気よ。",
+    "traduzione": {
+     "it": "Hi, Roger. I'm pretty good!",
+     "en": "Hi, Roger. I'm pretty good!"
+    }
+   },
+   {
+    "testo": "おじいちゃんは 九十さいでも 元気です。",
+    "traduzione": {
+     "it": "Il nonno è in forma anche a novant'anni.",
+     "en": "Grandpa is healthy even at ninety."
+    }
+   }
+  ]
  },
  "玄関": {
   "significato": {
@@ -9539,7 +9797,23 @@
    "en": [
     "intersection"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの交差点で何が起こったのか。",
+    "traduzione": {
+     "it": "What happened at that crossing?",
+     "en": "What happened at that crossing?"
+    }
+   },
+   {
+    "testo": "つぎの 交差点を ひだりに まがって ください。",
+    "traduzione": {
+     "it": "Al prossimo incrocio gira a sinistra.",
+     "en": "Please turn left at the next intersection."
+    }
+   }
+  ]
  },
  "公園": {
   "significato": {
@@ -9549,7 +9823,23 @@
    "en": [
     "a park"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この公園はすべての人に公開されている。",
+    "traduzione": {
+     "it": "The park is open to everybody.",
+     "en": "The park is open to everybody."
+    }
+   },
+   {
+    "testo": "あさ、公園を さんぽします。",
+    "traduzione": {
+     "it": "La mattina passeggio al parco.",
+     "en": "In the morning I take a walk in the park."
+    }
+   }
+  ]
  },
  "口": {
   "significato": {
@@ -9639,7 +9929,23 @@
    "en": [
     "now"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今のアナウンスは何だったのですか。",
+    "traduzione": {
+     "it": "What did the announcement just say?",
+     "en": "What did the announcement just say?"
+    }
+   },
+   {
+    "testo": "今、なんじですか。",
+    "traduzione": {
+     "it": "Che ore sono adesso?",
+     "en": "What time is it now?"
+    }
+   }
+  ]
  },
  "今月": {
   "significato": {
@@ -9649,7 +9955,23 @@
    "en": [
     "this month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今月の売り上げはよくない。",
+    "traduzione": {
+     "it": "Sales have been off this month.",
+     "en": "Sales have been off this month."
+    }
+   },
+   {
+    "testo": "今月は やすみが おおいです。",
+    "traduzione": {
+     "it": "Questo mese ci sono tante ferie.",
+     "en": "There are many days off this month."
+    }
+   }
+  ]
  },
  "今週": {
   "significato": {
@@ -9659,7 +9981,23 @@
    "en": [
     "this week"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今週はどちらにいらしゃいましたか。",
+    "traduzione": {
+     "it": "Where have you been this week?",
+     "en": "Where have you been this week?"
+    }
+   },
+   {
+    "testo": "今週の どようびは ひまですか。",
+    "traduzione": {
+     "it": "Sabato di questa settimana sei libero?",
+     "en": "Are you free this Saturday?"
+    }
+   }
+  ]
  },
  "今日": {
   "significato": {
@@ -10079,7 +10417,23 @@
     "to go out",
     "to depart"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１０分前に出かけました。",
+    "traduzione": {
+     "it": "She left home ten minutes ago.",
+     "en": "She left home ten minutes ago."
+    }
+   },
+   {
+    "testo": "はれたら、出かけましょう。",
+    "traduzione": {
+     "it": "Se si rasserena, usciamo.",
+     "en": "If it clears up, let's go out."
+    }
+   }
+  ]
  },
  "出す": {
   "significato": {
@@ -10115,7 +10469,23 @@
    "en": [
     "an exit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "出口が わからなくて、まよいました。",
+    "traduzione": {
+     "it": "Non trovavo l'uscita e mi sono perso.",
+     "en": "I couldn't find the exit and got lost."
+    }
+   },
+   {
+    "testo": "出口は あちらです。",
+    "traduzione": {
+     "it": "L'uscita è da quella parte.",
+     "en": "The exit is over there."
+    }
+   }
+  ]
  },
  "初め; 始め": {
   "significato": {
@@ -10322,7 +10692,23 @@
    "en": [
     "a ticket"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この切符で二人入れるよ。",
+    "traduzione": {
+     "it": "The ticket admits two persons.",
+     "en": "The ticket admits two persons."
+    }
+   },
+   {
+    "testo": "切符を なくさないで ください。",
+    "traduzione": {
+     "it": "Non perdere il biglietto.",
+     "en": "Please don't lose your ticket."
+    }
+   }
+  ]
  },
  "先": {
   "significato": {
@@ -10933,6 +11319,13 @@
      "it": "Questa sedia è un po' bassa.",
      "en": "This chair is a little low."
     }
+   },
+   {
+    "testo": "この やまは 低いですから、のぼりやすいです。",
+    "traduzione": {
+     "it": "Questa montagna è bassa, quindi è facile da scalare.",
+     "en": "This mountain is low, so it is easy to climb."
+    }
    }
   ]
  },
@@ -11038,7 +11431,23 @@
    "en": [
     "winter"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "まもなく冬だ。",
+    "traduzione": {
+     "it": "It will be winter before long.",
+     "en": "It will be winter before long."
+    }
+   },
+   {
+    "testo": "冬は ゆきが たくさん ふります。",
+    "traduzione": {
+     "it": "D'inverno nevica molto.",
+     "en": "It snows a lot in winter."
+    }
+   }
+  ]
  },
  "東": {
   "significato": {
@@ -11208,7 +11617,23 @@
    "en": [
     "two things"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "二つ しつもんを しても いいですか。",
+    "traduzione": {
+     "it": "Posso fare due domande?",
+     "en": "May I ask two questions?"
+    }
+   },
+   {
+    "testo": "パンを 二つ かいました。",
+    "traduzione": {
+     "it": "Ho comprato due panini.",
+     "en": "I bought two pieces of bread."
+    }
+   }
+  ]
  },
  "二十日": {
   "significato": {
@@ -11220,7 +11645,23 @@
     "twenty days",
     "twentieth (day of the month)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は二十日までに帰るつもりです。",
+    "traduzione": {
+     "it": "I expect to be back by the 20th.",
+     "en": "I expect to be back by the 20th."
+    }
+   },
+   {
+    "testo": "二十日に しけんが あります。",
+    "traduzione": {
+     "it": "Il venti c'è l'esame.",
+     "en": "There is an exam on the twentieth."
+    }
+   }
+  ]
  },
  "二日": {
   "significato": {
@@ -11290,6 +11731,13 @@
      "it": "Prego, entra pure.",
      "en": "Please, come in."
     }
+   },
+   {
+    "testo": "さむいので、はやく おふろに 入りたいです。",
+    "traduzione": {
+     "it": "Fa freddo, quindi voglio subito fare il bagno.",
+     "en": "It's cold, so I want to take a bath soon."
+    }
    }
   ],
   "id_verbo_corrispondente": "入れる"
@@ -11315,7 +11763,23 @@
    "en": [
     "entrance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "びじゅつかんの 入口で まちあわせました。",
+    "traduzione": {
+     "it": "Ci siamo dati appuntamento all'ingresso del museo.",
+     "en": "We met up at the museum entrance."
+    }
+   },
+   {
+    "testo": "入口で くつを ぬいで ください。",
+    "traduzione": {
+     "it": "Togliti le scarpe all'ingresso.",
+     "en": "Please take off your shoes at the entrance."
+    }
+   }
+  ]
  },
  "熱い": {
   "significato": {
@@ -11562,6 +12026,13 @@
      "it": "Ho comprato otto caramelle.",
      "en": "I bought eight candies."
     }
+   },
+   {
+    "testo": "はこに ケーキが 八つ あります。",
+    "traduzione": {
+     "it": "Nella scatola ci sono otto dolci.",
+     "en": "There are eight cakes in the box."
+    }
    }
   ]
  },
@@ -11575,7 +12046,23 @@
     "eight days",
     "eighth day of the month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "しごとは 八日に おわる よていです。",
+    "traduzione": {
+     "it": "Il lavoro dovrebbe finire il giorno otto.",
+     "en": "The work is scheduled to finish on the eighth."
+    }
+   },
+   {
+    "testo": "八日は ちちの たんじょうびです。",
+    "traduzione": {
+     "it": "L'otto è il compleanno di mio padre.",
+     "en": "The eighth is my father's birthday."
+    }
+   }
+  ]
  },
  "八百屋": {
   "significato": {
@@ -11592,6 +12079,13 @@
     "traduzione": {
      "it": "Compro la verdura dal fruttivendolo.",
      "en": "I buy vegetables at the greengrocer's."
+    }
+   },
+   {
+    "testo": "八百屋の トマトは やすくて おいしいです。",
+    "traduzione": {
+     "it": "I pomodori del fruttivendolo sono economici e buoni.",
+     "en": "The greengrocer's tomatoes are cheap and tasty."
     }
    }
   ]
@@ -11819,6 +12313,13 @@
      "it": "Capisci il significato di questa parola?",
      "en": "Do you understand the meaning of this word?"
     }
+   },
+   {
+    "testo": "せつめいを きいて、やっと 分かりました。",
+    "traduzione": {
+     "it": "Ho ascoltato la spiegazione e finalmente ho capito.",
+     "en": "After hearing the explanation, I finally understood."
+    }
    }
   ]
  },
@@ -11968,7 +12469,23 @@
     "convenient",
     "handy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "電話は便利なものである。",
+    "traduzione": {
+     "it": "The telephone is a convenience.",
+     "en": "The telephone is a convenience."
+    }
+   },
+   {
+    "testo": "えきに ちかくて、便利な ところです。",
+    "traduzione": {
+     "it": "È un posto comodo, vicino alla stazione.",
+     "en": "It's a convenient place, close to the station."
+    }
+   }
+  ]
  },
  "勉強": {
   "significato": {
@@ -12650,7 +13167,23 @@
    "en": [
     "cold (things, people)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "もう手が冷たくって。",
+    "traduzione": {
+     "it": "My hand's getting too cold.",
+     "en": "My hand's getting too cold."
+    }
+   },
+   {
+    "testo": "冷たい みずが のみたいです。",
+    "traduzione": {
+     "it": "Voglio bere dell'acqua fredda.",
+     "en": "I want to drink cold water."
+    }
+   }
+  ]
  },
  "零": {
   "significato": {
@@ -12698,7 +13231,23 @@
    "en": [
     "six"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は毎朝六時に起きます。",
+    "traduzione": {
+     "it": "I get up at six every morning.",
+     "en": "I get up at six every morning."
+    }
+   },
+   {
+    "testo": "かいぎは 六じに おわりました。",
+    "traduzione": {
+     "it": "La riunione è finita alle sei.",
+     "en": "The meeting ended at six."
+    }
+   }
+  ]
  },
  "六日": {
   "significato": {
@@ -12710,7 +13259,23 @@
     "six days",
     "sixth day of month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "六日の ごご、あいて いますか。",
+    "traduzione": {
+     "it": "Il pomeriggio del sei sei libero?",
+     "en": "Are you free on the afternoon of the sixth?"
+    }
+   },
+   {
+    "testo": "六日から りょこうに いきます。",
+    "traduzione": {
+     "it": "Dal sei parto per un viaggio.",
+     "en": "I am going on a trip from the sixth."
+    }
+   }
+  ]
  },
  "話": {
   "significato": {
