@@ -18,9 +18,15 @@ const wordsById = new Map(seed.words.map((w) => [w.id, w]));
 
 // La parola può comparire coniugata: accetta scrittura/lettura intere o lo
 // stem (senza l'ultimo kana per verbi/aggettivi, senza する per i suru-verbi).
+// Gli id multi-forma ("いい; よい", "回る、回す") valgono per ciascuna forma.
 function stemVariants(scrittura: string, lettura: string): string[] {
-	const out = new Set([scrittura, lettura]);
-	for (const base of [scrittura, lettura]) {
+	const bases = [scrittura, lettura]
+		.filter(Boolean)
+		.flatMap((s) => s.split(/[;、]/))
+		.map((s) => s.trim())
+		.filter(Boolean);
+	const out = new Set(bases);
+	for (const base of bases) {
 		if (base.length >= 2 && 'るうくぐすつぬぶむい'.includes(base[base.length - 1]!)) out.add(base.slice(0, -1));
 		if (base.endsWith('する')) out.add(base.slice(0, -2));
 	}
