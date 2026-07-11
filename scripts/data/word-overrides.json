@@ -139,6 +139,13 @@
      "it": "Mio fratello maggiore si sposa il mese prossimo.",
      "en": "My older brother is getting married next month."
     }
+   },
+   {
+    "testo": "けっこんしきは はるに します。二人の 結婚を いわいましょう。",
+    "traduzione": {
+     "it": "Il matrimonio sarà in primavera: festeggiamo le loro nozze!",
+     "en": "The wedding will be in spring—let's celebrate their marriage!"
+    }
    }
   ],
   "significato": {
@@ -157,6 +164,13 @@
     "traduzione": {
      "it": "I due si sono sposati l'anno scorso.",
      "en": "The two got married last year."
+    }
+   },
+   {
+    "testo": "わたしと 結婚して ください。",
+    "traduzione": {
+     "it": "Sposami, ti prego.",
+     "en": "Please marry me."
     }
    }
   ]
@@ -220,6 +234,13 @@
     "traduzione": {
      "it": "Ho spedito una cartolina a un amico.",
      "en": "I sent a postcard to a friend."
+    }
+   },
+   {
+    "testo": "りょこうさきから 葉書を おくります。",
+    "traduzione": {
+     "it": "Ti mando una cartolina dal viaggio.",
+     "en": "I'll send you a postcard from my trip."
     }
    }
   ],
@@ -805,6 +826,13 @@
      "it": "Metti lo zucchero nel caffè?",
      "en": "Do you put sugar in your coffee?"
     }
+   },
+   {
+    "testo": "砂糖を いれすぎて、あますぎます。",
+    "traduzione": {
+     "it": "Ho messo troppo zucchero ed è troppo dolce.",
+     "en": "I put in too much sugar and it's too sweet."
+    }
    }
   ],
   "significato": {
@@ -823,6 +851,13 @@
     "traduzione": {
      "it": "Questa strada è molto stretta.",
      "en": "This road is very narrow."
+    }
+   },
+   {
+    "testo": "細い いとで ぬいました。",
+    "traduzione": {
+     "it": "Ho cucito con un filo sottile.",
+     "en": "I sewed it with thin thread."
     }
    }
   ],
@@ -864,6 +899,13 @@
     "traduzione": {
      "it": "Qual è il tuo colore preferito?",
      "en": "What is your favorite color?"
+    }
+   },
+   {
+    "testo": "この くつ、ほかの 色は ありますか。",
+    "traduzione": {
+     "it": "Di queste scarpe avete altri colori?",
+     "en": "Do you have these shoes in other colors?"
     }
    }
   ],
@@ -1012,6 +1054,13 @@
      "it": "In macchina allaccio la cintura.",
      "en": "I fasten my seatbelt in the car."
     }
+   },
+   {
+    "testo": "ネクタイを 締めて、かいしゃへ いきます。",
+    "traduzione": {
+     "it": "Mi annodo la cravatta e vado in azienda.",
+     "en": "I put on my tie and go to the office."
+    }
    }
   ],
   "significato": {
@@ -1134,6 +1183,13 @@
     "traduzione": {
      "it": "Prendo la medicina dopo i pasti.",
      "en": "I take my medicine after meals."
+    }
+   },
+   {
+    "testo": "この 薬は いちにち 三かい のみます。",
+    "traduzione": {
+     "it": "Questa medicina si prende tre volte al giorno.",
+     "en": "Take this medicine three times a day."
     }
    }
   ],
@@ -1280,6 +1336,13 @@
     "traduzione": {
      "it": "Io sono uno studente.",
      "en": "I am a student."
+    }
+   },
+   {
+    "testo": "私の しゅみは りょこうです。",
+    "traduzione": {
+     "it": "Il mio hobby è viaggiare.",
+     "en": "My hobby is traveling."
     }
    }
   ],
@@ -1785,6 +1848,13 @@
      "it": "Ho regalato dei fiori a mia madre.",
      "en": "I gave my mother flowers."
     }
+   },
+   {
+    "testo": "にわの 花に みずを やります。",
+    "traduzione": {
+     "it": "Do l'acqua ai fiori del giardino.",
+     "en": "I water the flowers in the garden."
+    }
    }
   ],
   "significato": {
@@ -1857,6 +1927,13 @@
     "traduzione": {
      "it": "Mio fratello maggiore è bravo a disegnare.",
      "en": "My older brother is good at drawing."
+    }
+   },
+   {
+    "testo": "かべに うみの 絵を かざりました。",
+    "traduzione": {
+     "it": "Ho appeso alla parete un quadro del mare.",
+     "en": "I hung a painting of the sea on the wall."
     }
    }
   ],
@@ -2231,6 +2308,13 @@
     "traduzione": {
      "it": "Mangio il riso con le bacchette.",
      "en": "I eat rice with chopsticks."
+    }
+   },
+   {
+    "testo": "箸の つかいかたが じょうずですね。",
+    "traduzione": {
+     "it": "Sei bravo a usare le bacchette!",
+     "en": "You're good at using chopsticks!"
     }
    }
   ],
@@ -3130,6 +3214,13 @@
      "it": "Ho messo i fiori nel vaso.",
      "en": "I put the flowers in the vase."
     }
+   },
+   {
+    "testo": "花瓶が われて しまいました。",
+    "traduzione": {
+     "it": "Il vaso si è rotto.",
+     "en": "The vase broke."
+    }
    }
   ],
   "significato": {
@@ -3332,6 +3423,13 @@
      "it": "Metto il limone nel tè nero.",
      "en": "I put lemon in my black tea."
     }
+   },
+   {
+    "testo": "あさは コーヒーより 紅茶を のみます。",
+    "traduzione": {
+     "it": "La mattina bevo tè nero piuttosto che caffè.",
+     "en": "In the morning I drink black tea rather than coffee."
+    }
    }
   ],
   "significato": {
@@ -3507,6 +3605,13 @@
      "it": "Scrivo il nome sul foglio.",
      "en": "I write my name on the paper."
     }
+   },
+   {
+    "testo": "紙を はんぶんに おって ください。",
+    "traduzione": {
+     "it": "Piega il foglio a metà, per favore.",
+     "en": "Please fold the paper in half."
+    }
    }
   ],
   "significato": {
@@ -3603,6 +3708,13 @@
      "it": "In autunno fa fresco.",
      "en": "It is cool in autumn."
     }
+   },
+   {
+    "testo": "秋に なると、はっぱが あかく なります。",
+    "traduzione": {
+     "it": "In autunno le foglie diventano rosse.",
+     "en": "In autumn the leaves turn red."
+    }
    }
   ],
   "significato": {
@@ -3621,6 +3733,13 @@
     "traduzione": {
      "it": "La lezione finisce alle tre.",
      "en": "Class ends at three."
+    }
+   },
+   {
+    "testo": "しごとが 終ったら、でんわします。",
+    "traduzione": {
+     "it": "Quando finisce il lavoro ti chiamo.",
+     "en": "I'll call you when work is over."
     }
    }
   ],
@@ -3887,6 +4006,13 @@
      "it": "Metto il riso nella ciotola.",
      "en": "I put rice in the bowl."
     }
+   },
+   {
+    "testo": "茶碗を おとして、わって しまいました。",
+    "traduzione": {
+     "it": "Ho fatto cadere la ciotola e l'ho rotta.",
+     "en": "I dropped the rice bowl and broke it."
+    }
    }
   ],
   "significato": {
@@ -3905,6 +4031,13 @@
     "traduzione": {
      "it": "Sono arrivato in stazione alle nove.",
      "en": "I arrived at the station at nine."
+    }
+   },
+   {
+    "testo": "てがみは 三かで 着きます。",
+    "traduzione": {
+     "it": "La lettera arriva in tre giorni.",
+     "en": "The letter arrives in three days."
     }
    }
   ],
@@ -4200,6 +4333,13 @@
      "it": "Questa mela costa cento yen.",
      "en": "This apple costs one hundred yen."
     }
+   },
+   {
+    "testo": "かんじを 百 おぼえました。",
+    "traduzione": {
+     "it": "Ho imparato cento kanji.",
+     "en": "I have learned one hundred kanji."
+    }
    }
   ],
   "significato": {
@@ -4272,6 +4412,13 @@
     "traduzione": {
      "it": "Ogni sera ascolto musica.",
      "en": "I listen to music every evening."
+    }
+   },
+   {
+    "testo": "みちが わからなかったら、ひとに 聞いて ください。",
+    "traduzione": {
+     "it": "Se non sai la strada, chiedi a qualcuno.",
+     "en": "If you don't know the way, ask someone."
     }
    }
   ],
@@ -4348,6 +4495,13 @@
     "traduzione": {
      "it": "Prima di dormire mi lavo i denti.",
      "en": "I brush my teeth before going to bed."
+    }
+   },
+   {
+    "testo": "くつを 磨いて、ぴかぴかに しました。",
+    "traduzione": {
+     "it": "Ho lucidato le scarpe e le ho fatte brillare.",
+     "en": "I polished my shoes until they shone."
     }
    }
   ],
@@ -4550,6 +4704,13 @@
     "traduzione": {
      "it": "Mi preparo da mangiare da solo.",
      "en": "I cook my own meals."
+    }
+   },
+   {
+    "testo": "自分の ことは 自分で します。",
+    "traduzione": {
+     "it": "Le mie cose me le faccio da solo.",
+     "en": "I do my own things by myself."
     }
    }
   ],
@@ -6008,6 +6169,13 @@
      "it": "Lascia qui i bagagli, per favore.",
      "en": "Please put your luggage here."
     }
+   },
+   {
+    "testo": "荷物が おもくて、もてません。",
+    "traduzione": {
+     "it": "Il bagaglio è troppo pesante da portare.",
+     "en": "The luggage is too heavy to carry."
+    }
    }
   ],
   "significato": {
@@ -6446,6 +6614,13 @@
     "traduzione": {
      "it": "Oggi il cielo è bellissimo.",
      "en": "The sky is beautiful today."
+    }
+   },
+   {
+    "testo": "空に ほしが たくさん でて います。",
+    "traduzione": {
+     "it": "Nel cielo ci sono tante stelle.",
+     "en": "There are many stars in the sky."
     }
    }
   ],
@@ -7144,6 +7319,13 @@
      "it": "I conigli hanno le orecchie lunghe.",
      "en": "Rabbits have long ears."
     }
+   },
+   {
+    "testo": "さむさで 耳が いたく なりました。",
+    "traduzione": {
+     "it": "Per il freddo mi facevano male le orecchie.",
+     "en": "My ears started hurting from the cold."
+    }
    }
   ],
   "significato": {
@@ -7163,6 +7345,13 @@
      "it": "Vado a scuola in bicicletta.",
      "en": "I go to school by bicycle."
     }
+   },
+   {
+    "testo": "あたらしい 自転車が ほしいです。",
+    "traduzione": {
+     "it": "Vorrei una bicicletta nuova.",
+     "en": "I want a new bicycle."
+    }
    }
   ],
   "significato": {
@@ -7181,6 +7370,13 @@
     "traduzione": {
      "it": "Mio padre lavora in un'azienda di automobili.",
      "en": "My father works at a car company."
+    }
+   },
+   {
+    "testo": "じこで 自動車が こわれました。",
+    "traduzione": {
+     "it": "Con l'incidente l'automobile si è rovinata.",
+     "en": "The car was damaged in the accident."
     }
    }
   ],
@@ -7255,6 +7451,13 @@
     "traduzione": {
      "it": "Quell'insegnante è ancora giovane.",
      "en": "That teacher is still young."
+    }
+   },
+   {
+    "testo": "わかい ひとに にんきの みせです。若い ひとで いっぱいです。",
+    "traduzione": {
+     "it": "È un locale amato dai giovani: ne è pieno.",
+     "en": "It's a shop popular with young people—it's full of them."
     }
    }
   ],
@@ -7627,6 +7830,13 @@
      "it": "In negozio ho visto tante cose diverse.",
      "en": "I saw various things at the shop."
     }
+   },
+   {
+    "testo": "色々 おせわに なりました。",
+    "traduzione": {
+     "it": "Grazie di tutto quello che hai fatto per me.",
+     "en": "Thank you for everything you've done."
+    }
    }
   ],
   "significato": {
@@ -7846,6 +8056,13 @@
     "traduzione": {
      "it": "A ovest della stazione c'è un ospedale.",
      "en": "There is a hospital west of the station."
+    }
+   },
+   {
+    "testo": "ひは 西に しずみます。",
+    "traduzione": {
+     "it": "Il sole tramonta a ovest.",
+     "en": "The sun sets in the west."
     }
    }
   ],
@@ -9838,7 +10055,23 @@
    "en": [
     "English (language)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "アメリカでは英語を話します。",
+    "traduzione": {
+     "it": "They speak English in America.",
+     "en": "They speak English in America."
+    }
+   },
+   {
+    "testo": "英語と にほんごが はなせます。",
+    "traduzione": {
+     "it": "So parlare inglese e giapponese.",
+     "en": "I can speak English and Japanese."
+    }
+   }
+  ]
  },
  "駅": {
   "significato": {
@@ -10270,7 +10503,23 @@
     "all of you",
     "everyone"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "皆さんじっとしていてください。",
+    "traduzione": {
+     "it": "Could you keep still, everyone?",
+     "en": "Could you keep still, everyone?"
+    }
+   },
+   {
+    "testo": "皆さん、こちらを みて ください。",
+    "traduzione": {
+     "it": "Signori, guardate da questa parte, per favore.",
+     "en": "Everyone, please look this way."
+    }
+   }
+  ]
  },
  "階段": {
   "significato": {
@@ -10395,7 +10644,23 @@
    "en": [
     "eye glasses"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "眼鏡が ないと、よめません。",
+    "traduzione": {
+     "it": "Senza occhiali non riesco a leggere.",
+     "en": "I can't read without my glasses."
+    }
+   },
+   {
+    "testo": "あたらしい 眼鏡を つくりました。",
+    "traduzione": {
+     "it": "Mi sono fatto degli occhiali nuovi.",
+     "en": "I got new glasses made."
+    }
+   }
+  ]
  },
  "顔": {
   "significato": {
@@ -11742,7 +12007,23 @@
    "en": [
     "to learn"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "車の運転を習っています。",
+    "traduzione": {
+     "it": "I've been learning to drive.",
+     "en": "I've been learning to drive."
+    }
+   },
+   {
+    "testo": "こどもの とき、ピアノを 習いました。",
+    "traduzione": {
+     "it": "Da bambino ho preso lezioni di piano.",
+     "en": "I took piano lessons as a child."
+    }
+   }
+  ]
  },
  "十::じゅう": {
   "significato": {
@@ -12123,7 +12404,23 @@
    "en": [
     "soap"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この 石鹸は いい においが します。",
+    "traduzione": {
+     "it": "Questo sapone ha un buon profumo.",
+     "en": "This soap smells nice."
+    }
+   },
+   {
+    "testo": "石鹸で てを よく あらいましょう。",
+    "traduzione": {
+     "it": "Laviamoci bene le mani con il sapone.",
+     "en": "Let's wash our hands well with soap."
+    }
+   }
+  ]
  },
  "切る": {
   "significato": {
@@ -12222,7 +12519,23 @@
    "en": [
     "window"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "窓を開けっぱなしにしておいたの？",
+    "traduzione": {
+     "it": "Did you leave the window open?",
+     "en": "Did you leave the window open?"
+    }
+   },
+   {
+    "testo": "窓から やまが みえます。",
+    "traduzione": {
+     "it": "Dalla finestra si vedono le montagne.",
+     "en": "You can see the mountains from the window."
+    }
+   }
+  ]
  },
  "走る": {
   "significato": {
@@ -12462,6 +12775,13 @@
      "it": "Toglietevi le scarpe qui, per favore.",
      "en": "Please take off your shoes here."
     }
+   },
+   {
+    "testo": "あつくて うわぎを 脱ぎました。",
+    "traduzione": {
+     "it": "Faceva caldo e mi sono tolto la giacca.",
+     "en": "It was hot, so I took off my jacket."
+    }
    }
   ]
  },
@@ -12644,6 +12964,13 @@
      "it": "Conosci quella storia?",
      "en": "Do you know that story?"
     }
+   },
+   {
+    "testo": "かれの じゅうしょを 知って いますか。",
+    "traduzione": {
+     "it": "Conosci il suo indirizzo?",
+     "en": "Do you know his address?"
+    }
    }
   ]
  },
@@ -12770,7 +13097,23 @@
    "en": [
     "brown"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その犬は茶色で小さくて、やせています。",
+    "traduzione": {
+     "it": "The dog is brown, small and thin.",
+     "en": "The dog is brown, small and thin."
+    }
+   },
+   {
+    "testo": "茶色の かばんを かいました。",
+    "traduzione": {
+     "it": "Ho comprato una borsa marrone.",
+     "en": "I bought a brown bag."
+    }
+   }
+  ]
  },
  "着る": {
   "significato": {
@@ -12788,6 +13131,13 @@
     "traduzione": {
      "it": "Oggi metto la camicia bianca.",
      "en": "Today I'll wear a white shirt."
+    }
+   },
+   {
+    "testo": "きょうは あたたかい セーターを 着ます。",
+    "traduzione": {
+     "it": "Oggi indosso un maglione caldo.",
+     "en": "Today I will wear a warm sweater."
     }
    }
   ]
@@ -12960,6 +13310,13 @@
     "traduzione": {
      "it": "Oggi mi fa male la testa.",
      "en": "I have a headache today."
+    }
+   },
+   {
+    "testo": "はしりすぎて、あしが 痛いです。",
+    "traduzione": {
+     "it": "Ho corso troppo e mi fanno male le gambe.",
+     "en": "I ran too much and my legs hurt."
     }
    }
   ]
@@ -13192,7 +13549,23 @@
     "to answer",
     "to reply"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "「はい、ありません」とジョーダンさんは答えた。",
+    "traduzione": {
+     "it": "\"No, I don't,\" said Mr Jordan.",
+     "en": "\"No, I don't,\" said Mr Jordan."
+    }
+   },
+   {
+    "testo": "しつもんに にほんごで 答えて ください。",
+    "traduzione": {
+     "it": "Rispondi alla domanda in giapponese.",
+     "en": "Please answer the question in Japanese."
+    }
+   }
+  ]
  },
  "頭": {
   "significato": {
@@ -13459,6 +13832,13 @@
      "it": "Stasera mangio carne.",
      "en": "I'm eating meat tonight."
     }
+   },
+   {
+    "testo": "やさいも 肉も バランスよく たべましょう。",
+    "traduzione": {
+     "it": "Mangiamo in modo bilanciato sia verdura sia carne.",
+     "en": "Let's eat both vegetables and meat in balance."
+    }
    }
   ]
  },
@@ -13631,7 +14011,23 @@
    "en": [
     "men's suit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は新しい背広を買った。",
+    "traduzione": {
+     "it": "I bought a new suit of clothes.",
+     "en": "I bought a new suit of clothes."
+    }
+   },
+   {
+    "testo": "ちちは まいにち 背広で でかけます。",
+    "traduzione": {
+     "it": "Mio padre esce ogni giorno in giacca e cravatta.",
+     "en": "My father goes out in a business suit every day."
+    }
+   }
+  ]
  },
  "買い物": {
   "significato": {
@@ -13758,6 +14154,13 @@
      "it": "Cade la neve bianca.",
      "en": "White snow is falling."
     }
+   },
+   {
+    "testo": "白い とりが とんで います。",
+    "traduzione": {
+     "it": "Un uccello bianco sta volando.",
+     "en": "A white bird is flying."
+    }
    }
   ]
  },
@@ -13788,6 +14191,13 @@
     "traduzione": {
      "it": "Cosa c'è nella scatola?",
      "en": "What is in the box?"
+    }
+   },
+   {
+    "testo": "ふるい ほんを 箱に いれました。",
+    "traduzione": {
+     "it": "Ho messo i libri vecchi in una scatola.",
+     "en": "I put the old books in a box."
     }
    }
   ]
@@ -13984,7 +14394,23 @@
     "delicious",
     "tasty"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "おいしい食事をありがとう。",
+    "traduzione": {
+     "it": "Thanks for the delicious meal.",
+     "en": "Thanks for the delicious meal."
+    }
+   },
+   {
+    "testo": "この みせの ラーメンは 美味しいです。",
+    "traduzione": {
+     "it": "Il ramen di questo locale è buonissimo.",
+     "en": "The ramen at this shop is delicious."
+    }
+   }
+  ]
  },
  "鼻": {
   "significato": {
@@ -14004,7 +14430,23 @@
    "en": [
     "hospital"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この近くに病院はありますか。",
+    "traduzione": {
+     "it": "Is there a hospital near here?",
+     "en": "Is there a hospital near here?"
+    }
+   },
+   {
+    "testo": "あしたの あさ、病院へ いきます。",
+    "traduzione": {
+     "it": "Domani mattina vado in ospedale.",
+     "en": "Tomorrow morning I'm going to the hospital."
+    }
+   }
+  ]
  },
  "病気": {
   "significato": {
@@ -14857,6 +15299,13 @@
      "it": "I conigli hanno gli occhi rossi.",
      "en": "Rabbits have red eyes."
     }
+   },
+   {
+    "testo": "ほこりが 目に はいりました。",
+    "traduzione": {
+     "it": "Mi è entrata della polvere in un occhio.",
+     "en": "Dust got into my eye."
+    }
    }
   ]
  },
@@ -15115,7 +15564,23 @@
    "en": [
     "to need"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今のところお金はいらない。",
+    "traduzione": {
+     "it": "I don't need money at present.",
+     "en": "I don't need money at present."
+    }
+   },
+   {
+    "testo": "パスポートには しゃしんが 要ります。",
+    "traduzione": {
+     "it": "Per il passaporto serve una fototessera.",
+     "en": "You need a photo for the passport."
+    }
+   }
+  ]
  },
  "来る": {
   "significato": {
@@ -15191,6 +15656,13 @@
     "traduzione": {
      "it": "In piedi, per favore.",
      "en": "Everyone, please stand up."
+    }
+   },
+   {
+    "testo": "でんしゃで ずっと 立って いました。",
+    "traduzione": {
+     "it": "In treno sono rimasto in piedi tutto il tempo.",
+     "en": "I stood the whole time on the train."
     }
    }
   ]
@@ -15376,7 +15848,23 @@
    "en": [
     "(to) practice"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはいつピアノの練習をしますか。",
+    "traduzione": {
+     "it": "When do you practice the piano?",
+     "en": "When do you practice the piano?"
+    }
+   },
+   {
+    "testo": "はっぴょうかいの まえは 練習が ふえます。",
+    "traduzione": {
+     "it": "Prima del saggio gli allenamenti aumentano.",
+     "en": "Before the recital, practice increases."
+    }
+   }
+  ]
  },
  "六": {
   "significato": {
@@ -15472,6 +15960,13 @@
     "traduzione": {
      "it": "Questo fiore è bellissimo.",
      "en": "This flower is very beautiful."
+    }
+   },
+   {
+    "testo": "へやを 綺麗に かたづけました。",
+    "traduzione": {
+     "it": "Ho riordinato la stanza per bene.",
+     "en": "I tidied the room up nicely."
     }
    }
   ]
@@ -27317,6 +27812,24 @@
     "traduzione": {
      "it": "È buio: torna a casa con prudenza.",
      "en": "It's dark, so please be careful on your way home."
+    }
+   }
+  ]
+ },
+ "練習する": {
+  "frasi_esempio": [
+   {
+    "testo": "あなたはいつピアノの練習をしますか。",
+    "traduzione": {
+     "it": "When do you practice the piano?",
+     "en": "When do you practice the piano?"
+    }
+   },
+   {
+    "testo": "まいにち かんじを 練習して います。",
+    "traduzione": {
+     "it": "Mi esercito con i kanji ogni giorno.",
+     "en": "I practice kanji every day."
     }
    }
   ]
