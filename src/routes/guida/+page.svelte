@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 </script>
 
 <div class="guide">
@@ -60,7 +61,7 @@
 
 	<section class="g-card">
 		<h2>❓ Domande frequenti</h2>
-		<p><strong>Perché i ripassi non calano mai?</strong> — Gli intervalli iniziali sono corti (10–60 min): le carte nuove tornano presto. È voluto; col tempo si diradano.</p>
+		<p><strong>Perché i ripassi non calano mai?</strong> — Gli intervalli iniziali sono corti (10–60 min): le carte nuove tornano presto, e col tempo si diradano. Per non farle crescere più in fretta di quanto riesci a smaltirle, ogni giorno entrano in circolo solo un tot di carte MAI viste (in Impostazioni → «Carte nuove al giorno», di default {DEFAULT_NEW_CARDS_PER_DAY}); i ripassi già dovuti restano invece sempre illimitati e si esauriscono nella giornata.</p>
 		<p><strong>Ho messo tutto in pausa e…?</strong> — Il quiz non propone nulla e i contatori vanno a zero; i ripassi sospesi aspettano il riattivo.</p>
 		<p><strong>La voce legge male qualcosa?</strong> — Le voci sono quelle del dispositivo: installane di migliori dalle impostazioni di sistema (voci giapponesi). Se è un testo dell'app a essere sbagliato, usa ✏️ Correggi.</p>
 	</section>

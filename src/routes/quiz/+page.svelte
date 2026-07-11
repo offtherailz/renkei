@@ -27,6 +27,7 @@
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS, buildConjugationTable } from '$lib/core/conjugation';
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
+	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
@@ -74,6 +75,9 @@
 
 	// Summary
 	let summarySession = $state<StudySessionState | null>(null);
+	// true quando la sessione finisce perché non c'è più nulla di dovuto né
+	// carte nuove da introdurre (tetto giornaliero), non per scadenza del timer.
+	let finishedEverything = $state(false);
 	// celebrazione a fine sessione: streak, record personale, coriandoli
 	let summaryStreak = $state<Streak | null>(null);
 	let summaryBest = $state(false);
@@ -228,6 +232,11 @@
 		return createGrammarQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context, locale);
 	}
 
+	// I ripassi dovuti sono sempre illimitati; solo l'ingresso di carte MAI
+	// viste è razionato (altrimenti, con gli intervalli iniziali corti, il
+	// conto dei ripassi non scende mai). Al tetto raggiunto, se non c'è nulla
+	// di dovuto, si torna null: la sessione finisce da sola (niente da fare
+	// finché non torni domani) invece di ripetere a caso carte non ancora dovute.
 	function pickNextItem(pool: ItemRef[]): ItemRef | null {
 		if (pool.length === 0) return null;
 		const now = Date.now();
@@ -237,15 +246,36 @@
 		}).sort((a, b) => (getSrs(a.key)?.next_review_date ?? 0) - (getSrs(b.key)?.next_review_date ?? 0));
 
 		if (due.length > 0) return due[0]!;
+		const cap = appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY;
+		if (!canIntroduceNewCard(appState.userProfile ?? {}, cap, now)) return null;
 		const unseen = pool.filter((item) => !getSrs(item.key));
-		return unseen.length > 0 ? sample(unseen) : sample(pool);
+		return unseen.length > 0 ? sample(unseen) : null;
+	}
+
+	// Traccia una carta mai vista appena introdotta nel conteggio giornaliero
+	// (stesso profilo che tiene XP/streak: addXp, chiamato subito dopo per
+	// ogni risposta, legge questo aggiornamento a sua volta e lo preserva).
+	async function recordNewCardToday(): Promise<void> {
+		const now = Date.now();
+		// $state.snapshot: Dexie non sa clonare i proxy di Svelte 5 (badge_sbloccati
+		// è un array reattivo) — serve la copia piatta, altrimenti IndexedDB lancia
+		// DataCloneError.
+		const profile = appState.userProfile ? $state.snapshot(appState.userProfile) : null;
+		const patch = recordNewCardIntroduced(profile ?? {}, now);
+		const updated = profile
+			? { ...profile, ...patch, updated_at: now }
+			: { id: 'default' as const, xp_totali: 0, livello: 1, streak_giorni: 0, badge_sbloccati: [], ...patch, updated_at: now };
+		await db.user_profile.put(updated);
+		appState.userProfile = updated;
 	}
 
 	async function upsertSrs(key: string, correct: boolean): Promise<SrsProgress> {
+		const wasNew = !getSrs(key);
 		const current = getSrs(key) ?? createInitialSrs(key);
 		const updated = applySrsReview(current, correct);
 		await db.srs_progress.put(updated);
 		srsMap.set(key, updated);
+		if (wasNew) await recordNewCardToday();
 		return updated;
 	}
 
@@ -296,6 +326,7 @@
 		const pool = getActivePool();
 		const next = pickNextItem(pool);
 		if (!next) {
+			finishedEverything = true;
 			endSession();
 			return;
 		}
@@ -316,6 +347,7 @@
 					return;
 				}
 			}
+			finishedEverything = true;
 			endSession();
 			return;
 		}
@@ -901,6 +933,7 @@
 	async function startSession(): Promise<void> {
 		loadError = '';
 		appState.lastSummary = null;
+		finishedEverything = false;
 		try {
 			[words, kanjiRows, grammarRows, counterRows, objectives] = await Promise.all([
 				db.words.toArray(),
@@ -1341,7 +1374,10 @@
 <div class="summary-shell">
 	<div class="summary-card">
 		<div class="summary-tier">{getTier(accuracy())}</div>
-		<h2 class="summary-title">Sessione completata!</h2>
+		<h2 class="summary-title">{finishedEverything ? '🎉 Tutto fatto per oggi!' : 'Sessione completata!'}</h2>
+		{#if finishedEverything}
+			<p class="summary-hint">Hai ripassato tutto il dovuto e raggiunto il limite di carte nuove di oggi — torna domani per il resto. 🌙</p>
+		{/if}
 		{#if summaryConfetti}
 			<Confetti />
 		{/if}
@@ -1762,6 +1798,7 @@
 	.summary-tier { font-size: 2rem; }
 	.summary-title { margin: 0; font-size: 1.3rem; font-weight: 700; }
 	.summary-streak { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--warn-ink); }
+	.summary-hint { margin: 0; font-size: 0.85rem; color: var(--muted); text-align: center; }
 	.summary-best { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--success); }
 
 	.summary-stats {

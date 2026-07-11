@@ -33,6 +33,27 @@ test('quiz: si apre senza errori', async ({ page }) => {
 	expect(errors).toEqual([]);
 });
 
+test('quiz: rispondere a una domanda flashcard-recognition non lancia errori', async ({ page }) => {
+	// Modalità scelta a caso tra ~8 possibili: qui forziamo flashcard-recognition
+	// (la più semplice, un solo click) ripetendo il tentativo se ne esce un'altra,
+	// per verificare in modo stabile che upsertSrs/recordNewCardToday non esplodano.
+	const errors: string[] = [];
+	page.on('pageerror', (e) => errors.push(String(e)));
+	await gotoHome(page);
+	for (let attempt = 0; attempt < 15; attempt += 1) {
+		await page.goto('/quiz');
+		const hint = page.locator('.question-hint');
+		await expect(hint).toBeVisible({ timeout: 30_000 });
+		if ((await hint.textContent())?.includes('Scegli la parola giusta')) {
+			await page.locator('.choice-btn:not([disabled])').first().click();
+			await page.waitForTimeout(500);
+			expect(errors).toEqual([]);
+			return;
+		}
+	}
+	throw new Error('flashcard-recognition non è mai uscita in 15 tentativi (improbabile ma non impossibile)');
+});
+
 test('keigo: partita, risposta e snapshot su back', async ({ page }) => {
 	await gotoHome(page);
 	await page.goto('/keigo');

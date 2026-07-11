@@ -174,6 +174,10 @@ export interface UserProfile extends BaseEntity {
   livello: number;
   streak_giorni: number;
   badge_sbloccati: string[];
+  // Carte MAI viste introdotte oggi (limite giornaliero, vedi $lib/core/dailyNewCards):
+  // i ripassi dovuti restano illimitati, solo l'ingresso di materiale nuovo è razionato.
+  nuove_oggi?: number;
+  nuove_oggi_data?: string;
 }
 
 export interface StudyGoal extends BaseEntity {
@@ -216,6 +220,7 @@ export interface AppSettings extends BaseEntity {
   lingua_contenuti?: "auto" | "it" | "en";
   voce_utente?: "maschile" | "femminile";
   furigana_kanji_avanzati?: boolean;
+  nuove_carte_al_giorno?: number;
 }
 
 export interface DatabaseSeed {

@@ -8,6 +8,7 @@
 	import { LOCALE_OVERRIDE_KEY } from '$lib/core/i18n';
 	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
 	import { BUILD_ID } from '$lib/buildInfo';
+	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 
 	let saving = $state(false);
 	let saved = $state(false);
@@ -150,6 +151,19 @@
 	<label class="setting-row">
 		<span>Furigana per kanji avanzati<br /><small class="hint-text">Nel quiz "produci la parola", se la parola contiene un kanji di livello più alto del suo, mostra la lettura in aiuto.</small></span>
 		<input type="checkbox" bind:checked={appState.settings.furigana_kanji_avanzati} />
+	</label>
+
+	<label class="setting-row">
+		<span>Carte nuove al giorno<br /><small class="hint-text">Quante parole/kanji/grammatica MAI viste entrano in circolo ogni giorno. I ripassi già dovuti restano sempre illimitati — questo limite serve solo a far scendere il contatore invece di farlo crescere sempre.</small></span>
+		<input
+			type="number"
+			min="5"
+			max="100"
+			step="5"
+			class="num-input"
+			value={appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY}
+			oninput={(e) => (appState.settings.nuove_carte_al_giorno = Number((e.target as HTMLInputElement).value))}
+		/>
 	</label>
 
 	<button class="btn-primary" onclick={save} disabled={saving}>

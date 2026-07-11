@@ -1,6 +1,7 @@
 import type { AppSettings, StudyGoal, UserProfile } from "./types/models";
 import type { QuizQuestion } from "./quiz/types";
 import { DEFAULT_KNOWN_FORMS } from "./core/conjugation";
+import { DEFAULT_NEW_CARDS_PER_DAY } from "./core/dailyNewCards";
 
 export type ItemKind = "word" | "grammar" | "kanji" | "dialogue" | "objective";
 
@@ -57,6 +58,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
 	session_timer_runs_in_detail: false,
 	forme_note: DEFAULT_KNOWN_FORMS,
 	voce_utente: "femminile",
+	nuove_carte_al_giorno: DEFAULT_NEW_CARDS_PER_DAY,
 	updated_at: 0
 };
 
