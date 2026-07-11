@@ -7,6 +7,13 @@
      "it": "Nella stanza c'è un calendario appeso al muro.",
      "en": "There is a calendar on the wall of the room."
     }
+   },
+   {
+    "testo": "カレンダーに よていを かきました。",
+    "traduzione": {
+     "it": "Ho scritto gli impegni sul calendario.",
+     "en": "I wrote my plans on the calendar."
+    }
    }
   ],
   "significato": {
@@ -83,6 +90,13 @@
     "traduzione": {
      "it": "Fra due anni andrò in Giappone.",
      "en": "I will go to Japan the year after next."
+    }
+   },
+   {
+    "testo": "さ来年、むすこは しょうがくせいに なります。",
+    "traduzione": {
+     "it": "Fra due anni mio figlio andrà alle elementari.",
+     "en": "The year after next, my son will start elementary school."
     }
    }
   ],
@@ -248,6 +262,13 @@
      "it": "A pranzo ho mangiato il curry.",
      "en": "I had curry for lunch."
     }
+   },
+   {
+    "testo": "ばんごはんに カレーを つくります。",
+    "traduzione": {
+     "it": "Per cena preparo il curry.",
+     "en": "I will make curry for dinner."
+    }
    }
   ],
   "significato": {
@@ -406,6 +427,13 @@
      "it": "Due anni fa vivevo a Tokyo.",
      "en": "The year before last I lived in Tokyo."
     }
+   },
+   {
+    "testo": "おととしの なつは あつかったです。",
+    "traduzione": {
+     "it": "L'estate di due anni fa è stata calda.",
+     "en": "The summer two years ago was hot."
+    }
    }
   ],
   "significato": {
@@ -425,6 +453,13 @@
      "it": "Ho chiesto la strada a un poliziotto.",
      "en": "I asked a policeman for directions."
     }
+   },
+   {
+    "testo": "えきの まえに おまわりさんが います。",
+    "traduzione": {
+     "it": "Davanti alla stazione c'è un poliziotto.",
+     "en": "There is a police officer in front of the station."
+    }
    }
   ],
   "significato": {
@@ -443,6 +478,13 @@
     "traduzione": {
      "it": "Papà adesso è al lavoro.",
      "en": "Dad is at work now."
+    }
+   },
+   {
+    "testo": "お父さんと つりに いきました。",
+    "traduzione": {
+     "it": "Sono andato a pescare con papà.",
+     "en": "I went fishing with my dad."
     }
    }
   ],
@@ -464,6 +506,13 @@
      "it": "Ho fame.",
      "en": "I'm hungry."
     }
+   },
+   {
+    "testo": "たべすぎて お腹が いたいです。",
+    "traduzione": {
+     "it": "Ho mangiato troppo e mi fa male la pancia.",
+     "en": "I ate too much and my stomach hurts."
+    }
    }
   ],
   "significato": {
@@ -483,6 +532,13 @@
     "traduzione": {
      "it": "Questa borsa è un po' pesante.",
      "en": "This bag is a little heavy."
+    }
+   },
+   {
+    "testo": "かばんの なかに ほんが あります。",
+    "traduzione": {
+     "it": "Nella borsa ci sono dei libri.",
+     "en": "There are books in the bag."
     }
    }
   ],
@@ -950,6 +1006,13 @@
      "it": "Ho versato l'acqua nel bicchiere.",
      "en": "I poured water into the glass."
     }
+   },
+   {
+    "testo": "コップが われて しまいました。",
+    "traduzione": {
+     "it": "Il bicchiere si è rotto.",
+     "en": "The glass broke."
+    }
    }
   ],
   "significato": {
@@ -1062,6 +1125,13 @@
      "it": "Prego, tè e dolcetti.",
      "en": "Please have some tea and sweets."
     }
+   },
+   {
+    "testo": "こどもたちに お菓子を あげました。",
+    "traduzione": {
+     "it": "Ho dato dei dolcetti ai bambini.",
+     "en": "I gave sweets to the children."
+    }
    }
   ],
   "significato": {
@@ -1084,6 +1154,13 @@
      "it": "Tua sorella maggiore è molto gentile.",
      "en": "Your older sister is very kind."
     }
+   },
+   {
+    "testo": "お姉さんは だいがくせいですか。",
+    "traduzione": {
+     "it": "Tua sorella maggiore è una studentessa universitaria?",
+     "en": "Is your older sister a university student?"
+    }
    }
   ],
   "significato": {
@@ -1102,6 +1179,13 @@
     "traduzione": {
      "it": "Mio padre beve un po' di sakè.",
      "en": "My father drinks a little sake."
+    }
+   },
+   {
+    "testo": "お酒を のんだら、うんてんしないで ください。",
+    "traduzione": {
+     "it": "Se bevi alcolici, non guidare.",
+     "en": "If you drink alcohol, please don't drive."
     }
    }
   ],
@@ -1124,6 +1208,13 @@
      "it": "Abbiamo mangiato il bentō al parco.",
      "en": "We ate our boxed lunch in the park."
     }
+   },
+   {
+    "testo": "まいあさ お弁当を つくります。",
+    "traduzione": {
+     "it": "Ogni mattina preparo il bentō.",
+     "en": "I make a boxed lunch every morning."
+    }
    }
   ],
   "significato": {
@@ -1142,6 +1233,13 @@
     "traduzione": {
      "it": "Indossa una camicia bianca.",
      "en": "He is wearing a white shirt."
+    }
+   },
+   {
+    "testo": "この シャツは ちょっと ちいさいです。",
+    "traduzione": {
+     "it": "Questa camicia è un po' piccola.",
+     "en": "This shirt is a little small."
     }
    }
   ],
@@ -1845,6 +1943,13 @@
      "it": "La nonna ha novant'anni.",
      "en": "Grandma is ninety years old."
     }
+   },
+   {
+    "testo": "おばあさんに てがみを かきました。",
+    "traduzione": {
+     "it": "Ho scritto una lettera alla nonna.",
+     "en": "I wrote a letter to my grandmother."
+    }
    }
   ],
   "significato": {
@@ -1918,6 +2023,13 @@
      "it": "Salgo al terzo piano con l'ascensore.",
      "en": "I take the elevator to the third floor."
     }
+   },
+   {
+    "testo": "エレベーターが こしょうして います。",
+    "traduzione": {
+     "it": "L'ascensore è guasto.",
+     "en": "The elevator is out of order."
+    }
    }
   ],
   "significato": {
@@ -1937,6 +2049,13 @@
      "it": "Quanti anni ha tuo fratello maggiore?",
      "en": "How old is your older brother?"
     }
+   },
+   {
+    "testo": "お兄さんは サッカーが じょうずです。",
+    "traduzione": {
+     "it": "Tuo fratello maggiore è bravo a calcio.",
+     "en": "Your older brother is good at soccer."
+    }
    }
   ],
   "significato": {
@@ -1955,6 +2074,13 @@
     "traduzione": {
      "it": "Esco col cappello in testa.",
      "en": "I put on a hat and go out."
+    }
+   },
+   {
+    "testo": "さむいから、ぼうしを かぶりなさい。",
+    "traduzione": {
+     "it": "Fa freddo, quindi mettiti il cappello.",
+     "en": "It's cold, so put on your hat."
     }
    }
   ],
@@ -1976,6 +2102,13 @@
      "it": "Mio fratello maggiore suona la chitarra.",
      "en": "My older brother plays the guitar."
     }
+   },
+   {
+    "testo": "まいばん ギターの れんしゅうを します。",
+    "traduzione": {
+     "it": "Ogni sera mi esercito con la chitarra.",
+     "en": "I practice the guitar every evening."
+    }
    }
   ],
   "significato": {
@@ -1994,6 +2127,13 @@
     "traduzione": {
      "it": "In classe ci sono venti studenti.",
      "en": "There are twenty students in the class."
+    }
+   },
+   {
+    "testo": "かのじょは クラスで いちばん せが たかいです。",
+    "traduzione": {
+     "it": "Lei è la più alta della classe.",
+     "en": "She is the tallest in the class."
     }
    }
   ],
@@ -2014,6 +2154,13 @@
      "it": "La mattina bevo il caffè.",
      "en": "I drink coffee in the morning."
     }
+   },
+   {
+    "testo": "コーヒーに さとうを いれますか。",
+    "traduzione": {
+     "it": "Metti lo zucchero nel caffè?",
+     "en": "Do you put sugar in your coffee?"
+    }
    }
   ],
   "significato": {
@@ -2032,6 +2179,13 @@
     "traduzione": {
      "it": "Una torta così grande, è la prima volta!",
      "en": "It's my first time seeing such a big cake!"
+    }
+   },
+   {
+    "testo": "こんな あめの ひは うちに いたいです。",
+    "traduzione": {
+     "it": "In un giorno di pioggia come questo vorrei stare a casa.",
+     "en": "On a rainy day like this, I want to stay home."
     }
    }
   ],
@@ -2054,6 +2208,13 @@
      "it": "Vorrei andare. Tuttavia, non ho tempo.",
      "en": "I want to go. However, I have no time."
     }
+   },
+   {
+    "testo": "がんばりました。しかし、まけました。",
+    "traduzione": {
+     "it": "Ci ho messo tutto l'impegno. Però ho perso.",
+     "en": "I did my best. However, I lost."
+    }
    }
   ],
   "significato": {
@@ -2074,6 +2235,13 @@
     "traduzione": {
      "it": "Faccio la doccia ogni sera.",
      "en": "I take a shower every evening."
+    }
+   },
+   {
+    "testo": "あさ シャワーを あびてから、がっこうへ いきます。",
+    "traduzione": {
+     "it": "La mattina faccio la doccia e poi vado a scuola.",
+     "en": "In the morning I take a shower and then go to school."
     }
    }
   ],
@@ -3187,6 +3355,13 @@
      "it": "Io vado, scusate. — Buon lavoro!",
      "en": "I'm heading out, excuse me. — Good work today!"
     }
+   },
+   {
+    "testo": "かいぎの あとで 「お疲れさまです」と いいます。",
+    "traduzione": {
+     "it": "Dopo la riunione si dice «otsukaresama desu».",
+     "en": "After the meeting we say \"otsukaresama desu.\""
+    }
    }
   ]
  },
@@ -3618,6 +3793,13 @@
      "it": "Vivo in un appartamento vicino alla stazione.",
      "en": "I live in an apartment near the station."
     }
+   },
+   {
+    "testo": "あたらしい アパートは ひろいです。",
+    "traduzione": {
+     "it": "L'appartamento nuovo è spazioso.",
+     "en": "The new apartment is spacious."
+    }
    }
   ],
   "significato": {
@@ -3636,6 +3818,13 @@
     "traduzione": {
      "it": "Sei uno studente? — No, non lo sono.",
      "en": "Are you a student? — No, I'm not."
+    }
+   },
+   {
+    "testo": "「つかれましたか。」「いいえ、だいじょうぶです。」と いいました。",
+    "traduzione": {
+     "it": "«Sei stanco?» «No, sto bene», ho risposto.",
+     "en": "\"Are you tired?\" \"No, I'm fine,\" I said."
     }
    }
   ],
@@ -3656,6 +3845,13 @@
     "traduzione": {
      "it": "Oggi me ne sto tranquillo a casa.",
      "en": "Today I'll relax at home."
+    }
+   },
+   {
+    "testo": "うちに ねこが 二ひき います。",
+    "traduzione": {
+     "it": "A casa nostra ci sono due gatti.",
+     "en": "We have two cats at home."
     }
    }
   ],
@@ -3678,6 +3874,13 @@
      "it": "Ci vai? — Sì, ci vado.",
      "en": "Are you going? — Yes, I am."
     }
+   },
+   {
+    "testo": "「さむいですね」と いったら、「ええ」と こたえました。",
+    "traduzione": {
+     "it": "Quando ho detto «fa freddo, eh», mi ha risposto «sì».",
+     "en": "When I said \"it's cold,\" they answered \"yes.\""
+    }
    }
   ],
   "significato": {
@@ -3696,6 +3899,13 @@
     "traduzione": {
      "it": "Il nonno passeggia ogni mattina.",
      "en": "Grandpa takes a walk every morning."
+    }
+   },
+   {
+    "testo": "おじいさんは おちゃが すきです。",
+    "traduzione": {
+     "it": "Al nonno piace il tè.",
+     "en": "Grandfather likes tea."
     }
    }
   ],
@@ -3718,6 +3928,13 @@
      "it": "Tira fuori tre piatti, per favore.",
      "en": "Please take out three plates."
     }
+   },
+   {
+    "testo": "お皿を あらって ください。",
+    "traduzione": {
+     "it": "Lava i piatti, per favore.",
+     "en": "Please wash the dishes."
+    }
    }
   ],
   "significato": {
@@ -3738,6 +3955,13 @@
      "it": "Ho versato il caffè nella tazza.",
      "en": "I poured coffee into the cup."
     }
+   },
+   {
+    "testo": "この カップは プレゼントです。",
+    "traduzione": {
+     "it": "Questa tazza è un regalo.",
+     "en": "This cup is a present."
+    }
    }
   ],
   "significato": {
@@ -3757,6 +3981,13 @@
      "it": "Ho comprato trecento grammi di carne.",
      "en": "I bought three hundred grams of meat."
     }
+   },
+   {
+    "testo": "さとうを 百グラム いれて ください。",
+    "traduzione": {
+     "it": "Aggiungi cento grammi di zucchero, per favore.",
+     "en": "Please add one hundred grams of sugar."
+    }
    }
   ],
   "significato": {
@@ -3775,6 +4006,13 @@
     "traduzione": {
      "it": "Questo libro è molto interessante.",
      "en": "This book is very interesting."
+    }
+   },
+   {
+    "testo": "この みちを まっすぐ いって ください。",
+    "traduzione": {
+     "it": "Vai dritto per questa strada.",
+     "en": "Go straight along this road."
     }
    }
   ],
@@ -6488,7 +6726,23 @@
    "en": [
     "you"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ねえあなたたち行かないで。",
+    "traduzione": {
+     "it": "Don't go, dears.",
+     "en": "Don't go, dears."
+    }
+   },
+   {
+    "testo": "あなたの おなまえは なんですか。",
+    "traduzione": {
+     "it": "Come ti chiami?",
+     "en": "What is your name?"
+    }
+   }
+  ]
  },
  "あの": {
   "significato": {
@@ -6501,7 +6755,23 @@
     "that way",
     "um..."
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのおいしいワインをなぜ飲まないんだい。",
+    "traduzione": {
+     "it": "Why not try that delicious wine?",
+     "en": "Why not try that delicious wine?"
+    }
+   },
+   {
+    "testo": "あの たてものは ぎんこうです。",
+    "traduzione": {
+     "it": "Quell'edificio laggiù è una banca.",
+     "en": "That building over there is a bank."
+    }
+   }
+  ]
  },
  "あれ": {
   "significato": {
@@ -6550,7 +6820,23 @@
     "how",
     "in what way"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "コンタクトを入れるというのはいかがでしょう？",
+    "traduzione": {
+     "it": "How about wearing contact lenses?",
+     "en": "How about wearing contact lenses?"
+    }
+   },
+   {
+    "testo": "おちゃは いかがですか。",
+    "traduzione": {
+     "it": "Gradisce del tè?",
+     "en": "How about some tea?"
+    }
+   }
+  ]
  },
  "いくつ": {
   "significato": {
@@ -6583,7 +6869,23 @@
    "en": [
     "when"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いつ旅行においでになりますか。",
+    "traduzione": {
+     "it": "When will you go on a journey?",
+     "en": "When will you go on a journey?"
+    }
+   },
+   {
+    "testo": "たんじょうびは いつですか。",
+    "traduzione": {
+     "it": "Quando è il tuo compleanno?",
+     "en": "When is your birthday?"
+    }
+   }
+  ]
  },
  "いつも": {
   "significato": {
@@ -6620,7 +6922,23 @@
    "en": [
     "money"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どうやってそのお金を手に入れたんですか。",
+    "traduzione": {
+     "it": "How did you come by the money?",
+     "en": "How did you come by the money?"
+    }
+   },
+   {
+    "testo": "りょこうの ために お金を ためて います。",
+    "traduzione": {
+     "it": "Sto mettendo da parte i soldi per il viaggio.",
+     "en": "I am saving money for a trip."
+    }
+   }
+  ]
  },
  "お手洗い": {
   "significato": {
@@ -6633,7 +6951,23 @@
     "restroom",
     "bathroom (lit., a place to wash one's hands)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お手洗いはどこですか。",
+    "traduzione": {
+     "it": "Where's the restroom?",
+     "en": "Where's the restroom?"
+    }
+   },
+   {
+    "testo": "お手洗いを かりても いいですか。",
+    "traduzione": {
+     "it": "Posso usare il bagno?",
+     "en": "May I use the restroom?"
+    }
+   }
+  ]
  },
  "お茶": {
   "significato": {
@@ -6643,7 +6977,23 @@
    "en": [
     "(green) tea"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "３時はお茶にしよう。",
+    "traduzione": {
+     "it": "Let's have tea at 3:00.",
+     "en": "Let's have tea at 3:00."
+    }
+   },
+   {
+    "testo": "あついので、つめたい お茶を のみました。",
+    "traduzione": {
+     "it": "Faceva caldo, così ho bevuto del tè freddo.",
+     "en": "It was hot, so I drank cold tea."
+    }
+   }
+  ]
  },
  "お風呂": {
   "significato": {
@@ -6653,7 +7003,23 @@
    "en": [
     "a bath"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はほとんど毎日お風呂に入ります。",
+    "traduzione": {
+     "it": "I take a bath almost every day.",
+     "en": "I take a bath almost every day."
+    }
+   },
+   {
+    "testo": "ねる まえに お風呂に はいります。",
+    "traduzione": {
+     "it": "Prima di dormire faccio il bagno.",
+     "en": "I take a bath before going to bed."
+    }
+   }
+  ]
  },
  "お母さん": {
   "significato": {
@@ -6664,7 +7030,23 @@
    "en": [
     "mother (formal)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お母さんに口答えしてはいけませんよ。",
+    "traduzione": {
+     "it": "Don't answer your mother back.",
+     "en": "Don't answer your mother back."
+    }
+   },
+   {
+    "testo": "お母さんは りょうりが じょうずです。",
+    "traduzione": {
+     "it": "La mamma è brava a cucinare.",
+     "en": "Mom is good at cooking."
+    }
+   }
+  ]
  },
  "かかる": {
   "significato": {
@@ -6697,7 +7079,23 @@
    "en": [
     "camera"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "おじさんがぼくにカメラをくれました。",
+    "traduzione": {
+     "it": "My uncle gave me a camera.",
+     "en": "My uncle gave me a camera."
+    }
+   },
+   {
+    "testo": "あたらしい カメラで しゃしんを とりました。",
+    "traduzione": {
+     "it": "Ho fatto delle foto con la macchina fotografica nuova.",
+     "en": "I took pictures with my new camera."
+    }
+   }
+  ]
  },
  "キロ; キログラム": {
   "significato": {
@@ -6768,6 +7166,13 @@
     "traduzione": {
      "it": "D'inverno metto il cappotto.",
      "en": "In winter I wear a coat."
+    }
+   },
+   {
+    "testo": "コートを ぬいで、いすに かけました。",
+    "traduzione": {
+     "it": "Mi sono tolto il cappotto e l'ho appeso alla sedia.",
+     "en": "I took off my coat and hung it on the chair."
     }
    }
   ]
@@ -6854,7 +7259,23 @@
     "come now",
     "well"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "さあ東京駅に着きました。",
+    "traduzione": {
+     "it": "Here we were at Tokyo Station.",
+     "en": "Here we were at Tokyo Station."
+    }
+   },
+   {
+    "testo": "さあ、はじめましょう！",
+    "traduzione": {
+     "it": "Su, cominciamo!",
+     "en": "Come on, let's begin!"
+    }
+   }
+  ]
  },
  "じゃ; じゃあ": {
   "significato": {
@@ -22914,6 +23335,150 @@
     "traduzione": {
      "it": "Mi piace studiare in biblioteca.",
      "en": "I like studying at the library."
+    }
+   }
+  ]
+ },
+ "いただきます": {
+  "frasi_esempio": [
+   {
+    "testo": "おいしそう！いただきます。",
+    "traduzione": {
+     "it": "Che buono! Buon appetito.",
+     "en": "Che buono! Buon appetito."
+    }
+   },
+   {
+    "testo": "てを あらってから、「いただきます」を いいます。",
+    "traduzione": {
+     "it": "Dopo essersi lavati le mani si dice «itadakimasu».",
+     "en": "After washing hands, we say \"itadakimasu.\""
+    }
+   }
+  ]
+ },
+ "おかえりなさい": {
+  "frasi_esempio": [
+   {
+    "testo": "ただいま。— おかえりなさい。ごはんできてるよ。",
+    "traduzione": {
+     "it": "Sono a casa! — Bentornato, la cena è pronta.",
+     "en": "Sono a casa! — Bentornato, la cena è pronta."
+    }
+   },
+   {
+    "testo": "げんかんで 「おかえりなさい」と いいました。",
+    "traduzione": {
+     "it": "All'ingresso ho detto «bentornato».",
+     "en": "At the entrance I said \"welcome home.\""
+    }
+   }
+  ]
+ },
+ "おじゃまします": {
+  "frasi_esempio": [
+   {
+    "testo": "どうぞ。— おじゃまします。",
+    "traduzione": {
+     "it": "Prego, entra. — Permesso.",
+     "en": "Prego, entra. — Permesso."
+    }
+   },
+   {
+    "testo": "ともだちの いえで 「おじゃまします」と いいます。",
+    "traduzione": {
+     "it": "A casa di un amico si dice «ojama shimasu».",
+     "en": "At a friend's house we say \"ojama shimasu.\""
+    }
+   }
+  ]
+ },
+ "おめでとうございます": {
+  "frasi_esempio": [
+   {
+    "testo": "たんじょうび、おめでとうございます。",
+    "traduzione": {
+     "it": "Buon compleanno!",
+     "en": "Buon compleanno!"
+    }
+   },
+   {
+    "testo": "ごうかく、おめでとうございます！",
+    "traduzione": {
+     "it": "Congratulazioni per la promozione!",
+     "en": "Congratulations on passing!"
+    }
+   }
+  ]
+ },
+ "お久しぶりです": {
+  "frasi_esempio": [
+   {
+    "testo": "お久しぶりです。お元気でしたか。",
+    "traduzione": {
+     "it": "Quanto tempo! Come sei stato?",
+     "en": "Quanto tempo! Come sei stato?"
+    }
+   },
+   {
+    "testo": "お久しぶりです。十ねんぶりですね。",
+    "traduzione": {
+     "it": "Quanto tempo! Sono passati dieci anni, eh.",
+     "en": "Long time no see. It's been ten years."
+    }
+   }
+  ]
+ },
+ "お大事に": {
+  "frasi_esempio": [
+   {
+    "testo": "かぜですか。お大事に。",
+    "traduzione": {
+     "it": "Hai il raffreddore? Rimettiti presto.",
+     "en": "Hai il raffreddore? Rimettiti presto."
+    }
+   },
+   {
+    "testo": "びょういんの かえりに 「お大事に」と いわれました。",
+    "traduzione": {
+     "it": "Uscendo dall'ospedale mi hanno detto «riguardati».",
+     "en": "Leaving the hospital, they told me \"take care.\""
+    }
+   }
+  ]
+ },
+ "お腹が空いた": {
+  "frasi_esempio": [
+   {
+    "testo": "お腹が空いた。何か食べよう。",
+    "traduzione": {
+     "it": "Ho fame. Mangiamo qualcosa.",
+     "en": "Ho fame. Mangiamo qualcosa."
+    }
+   },
+   {
+    "testo": "あさから なにも たべて いないので、お腹が空いた。",
+    "traduzione": {
+     "it": "Non mangio niente da stamattina, quindi ho fame.",
+     "en": "I haven't eaten since morning, so I'm hungry."
+    }
+   }
+  ]
+ },
+ "ごちそうさまでした": {
+  "frasi_esempio": [
+   {
+    "testo": "ごちそうさまでした。おいしかったです。",
+    "traduzione": {
+     "it": "Grazie per il pasto, era buonissimo.",
+     "en": "Grazie per il pasto, era buonissimo."
+    }
+   },
+   {
+    "testo": "たべおわったら 「ごちそうさまでした」と いいましょう。",
+    "traduzione": {
+     "it": "Quando si finisce di mangiare, diciamo «gochisōsama deshita».",
+     "en": "When we finish eating, let's say \"gochisousama deshita.\""
     }
    }
   ]
