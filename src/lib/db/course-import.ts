@@ -413,14 +413,21 @@ export async function deleteCourse(corsoId: string): Promise<void> {
   const lessonObjectiveIds = lessons.map((l) => l.objective_id);
   const courseObjectiveId = `course:${corsoId}`;
 
-  // Collect word IDs that were added by this course (identified by study_tags)
-  const courseWords = await db.words.where("study_tags").startsWith(`corso:${corsoId}`).toArray();
+  // Collect word IDs that were added by this course (identified by study_tags).
+  // study_tags NON è indicizzato su queste tabelle: .where(...).startsWith(...)
+  // lancia SchemaError e fa fallire silenziosamente l'intera transazione (bug
+  // reale, trovato testando "Elimina corso" — niente veniva mai cancellato).
+  // Scan lineare invece: tabelle piccole (parole/kanji/grammatica ~1500 righe),
+  // costo trascurabile per un'azione rara e deliberata dell'utente.
+  const prefix = `corso:${corsoId}`;
+  const hasTag = (tags: string[] | undefined) => (tags ?? []).some((t) => t.startsWith(prefix));
+  const courseWords = (await db.words.toArray()).filter((w) => hasTag(w.study_tags));
   const courseWordIds = courseWords.map((w) => w.id);
 
-  const courseKanji = await db.kanji.where("study_tags").startsWith(`corso:${corsoId}`).toArray();
+  const courseKanji = (await db.kanji.toArray()).filter((k) => hasTag(k.study_tags));
   const courseKanjiIds = courseKanji.map((k) => k.id);
 
-  const courseGrammar = await db.grammar.where("study_tags").startsWith(`corso:${corsoId}`).toArray();
+  const courseGrammar = (await db.grammar.toArray()).filter((g) => hasTag(g.study_tags));
   const courseGrammarIds = courseGrammar.map((g) => g.id);
 
   const courseDialogues = await db.dialogues.where('corso_id').equals(corsoId).toArray();

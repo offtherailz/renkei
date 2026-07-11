@@ -145,6 +145,36 @@ test('catalogo aperto in /courses: espandibile fino ai pack, toggle funziona', a
 	await expect(packToggle).toHaveText('⏸');
 });
 
+test('elimina corso: rimuove davvero dataset/lezioni/obiettivi', async ({ page }) => {
+	// deleteCourse() interrogava study_tags come indice su words/kanji/grammar,
+	// ma non è indicizzato: SchemaError, transazione fallita, NIENTE veniva
+	// cancellato e nessun errore era visibile (segnalato: "non funziona e non
+	// si capisce cosa fa"). Ora usa uno scan lineare invece dell'indice.
+	page.on('dialog', (d) => d.accept());
+	await gotoHome(page);
+	await page.goto('/courses');
+	await expect(page.getByText('Catalogo aperto (N5/N4)')).toBeVisible({ timeout: 15_000 });
+	await page.getByRole('button', { name: /Importa$/ }).click();
+	await expect(page.getByText(/Genki I importato/)).toBeVisible({ timeout: 15_000 });
+	await page.getByRole('button', { name: 'Genki I (ordine del libro)' }).click();
+	await expect(page.getByText('Lezioni — Genki I')).toBeVisible();
+
+	await page.getByRole('button', { name: '🗑 Elimina corso' }).click();
+	await page.waitForTimeout(500);
+
+	const after = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		return {
+			datasets: await db.course_datasets.count(),
+			objectives: (await db.study_objectives.toArray()).filter((o) => o.id.startsWith('course:genki-1')).length
+		};
+	});
+	expect(after.datasets).toBe(0);
+	expect(after.objectives).toBe(0);
+	// la card "corso consigliato" ricompare, invitando a reimportare
+	await expect(page.getByText('⭐ Corso consigliato')).toBeVisible();
+});
+
 test('route profonda caricata direttamente (refresh)', async ({ page }) => {
 	await page.goto('/giochi');
 	await expect(page.getByText('Conversazione')).toBeVisible({ timeout: 45_000 });

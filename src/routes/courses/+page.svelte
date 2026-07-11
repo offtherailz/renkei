@@ -141,12 +141,17 @@
 		}
 	}
 
-	async function handleDelete(courseId: string): Promise<void> {
-		if (!confirm('Eliminare questo corso e tutti i suoi contenuti?')) return;
-		await deleteCourse(courseId);
-		selectedCourse = null;
-		lessons = [];
-		await loadCourses();
+	async function handleDelete(courseId: string, courseName: string): Promise<void> {
+		if (!confirm(`Eliminare «${courseName}»? Le lezioni e l'obiettivo del corso spariscono. Le parole/kanji/grammatica del catalogo aperto (e i loro progressi) restano intatti — si cancella solo il materiale che il corso stesso aveva aggiunto, se ce n'è.`)) return;
+		try {
+			await deleteCourse(courseId);
+			selectedCourse = null;
+			lessons = [];
+			await loadCourses();
+			await loadCatalogRoots();
+		} catch (e) {
+			alert(`Cancellazione fallita: ${String(e)}`);
+		}
 	}
 
 	// Corso consigliato incluso nell'app: Genki I mappato sul catalogo N5.
@@ -336,7 +341,7 @@
 <section class="section-card">
 	<div class="lesson-header">
 		<p class="card-title">Lezioni — {selectedCourse.nome}</p>
-		<button class="delete-btn" onclick={() => handleDelete(selectedCourse!.id)}>🗑 Elimina corso</button>
+		<button class="delete-btn" onclick={() => handleDelete(selectedCourse!.id, selectedCourse!.nome)}>🗑 Elimina corso</button>
 	</div>
 	<div class="focus-row">
 		<button class="btn-primary" onclick={studyOnlyThisCourse}>🎯 Studia solo questo corso</button>
