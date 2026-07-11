@@ -560,6 +560,13 @@
      "it": "Nel test di oggi ho fatto zero errori.",
      "en": "I made zero mistakes on today's test."
     }
+   },
+   {
+    "testo": "きょうの ごぜん れいじは きおんが ゼロでした。",
+    "traduzione": {
+     "it": "Oggi a mezzanotte la temperatura era zero.",
+     "en": "At midnight today the temperature was zero."
+    }
    }
   ],
   "significato": {
@@ -1054,6 +1061,13 @@
      "it": "Domani c'è il test di giapponese.",
      "en": "There is a Japanese test tomorrow."
     }
+   },
+   {
+    "testo": "テストの まえに よく ねて ください。",
+    "traduzione": {
+     "it": "Prima della verifica dormi bene.",
+     "en": "Please sleep well before the test."
+    }
    }
   ],
   "significato": {
@@ -1073,6 +1087,13 @@
     "traduzione": {
      "it": "L'insegnante ogni settimana ci testa sui kanji.",
      "en": "The teacher tests us on kanji every week."
+    }
+   },
+   {
+    "testo": "あたらしい きかいを テストして います。",
+    "traduzione": {
+     "it": "Stiamo testando la macchina nuova.",
+     "en": "We are testing the new machine."
     }
    }
   ]
@@ -1260,6 +1281,13 @@
      "it": "Fa freddo, quindi mi metto il maglione.",
      "en": "It's cold, so I'll put on a sweater."
     }
+   },
+   {
+    "testo": "母が セーターを あんで くれました。",
+    "traduzione": {
+     "it": "La mamma mi ha fatto un maglione a maglia.",
+     "en": "My mother knitted me a sweater."
+    }
    }
   ],
   "significato": {
@@ -1279,6 +1307,13 @@
      "it": "Quel libro è interessante?",
      "en": "Is that book interesting?"
     }
+   },
+   {
+    "testo": "その かさは だれのですか。",
+    "traduzione": {
+     "it": "Di chi è quell'ombrello?",
+     "en": "Whose umbrella is that?"
+    }
    }
   ],
   "significato": {
@@ -1297,6 +1332,13 @@
     "traduzione": {
      "it": "Ho fatto spese e poi sono tornato a casa.",
      "en": "I did some shopping and then went home."
+    }
+   },
+   {
+    "testo": "シャワーを あびて、それから ねました。",
+    "traduzione": {
+     "it": "Ho fatto la doccia e poi sono andato a dormire.",
+     "en": "I took a shower, and after that I went to bed."
     }
    }
   ],
@@ -1319,6 +1361,13 @@
      "it": "Taglia il foglio in verticale, per favore.",
      "en": "Please cut the paper lengthwise."
     }
+   },
+   {
+    "testo": "たての せんを 三ぼん ひいて ください。",
+    "traduzione": {
+     "it": "Traccia tre linee verticali, per favore.",
+     "en": "Please draw three vertical lines."
+    }
    }
   ],
   "significato": {
@@ -1339,6 +1388,13 @@
     "traduzione": {
      "it": "Caffè o tè: quale preferisci?",
      "en": "Coffee or tea — which would you like?"
+    }
+   },
+   {
+    "testo": "おくには どちらですか。",
+    "traduzione": {
+     "it": "Di che paese è lei? (cortese)",
+     "en": "Where are you from?"
     }
    }
   ],
@@ -1361,6 +1417,13 @@
      "it": "Quale torta prendi?",
      "en": "Which cake will you have?"
     }
+   },
+   {
+    "testo": "あかと あお、どっちが すき？",
+    "traduzione": {
+     "it": "Rosso o blu: quale ti piace?",
+     "en": "Red or blue—which do you like?"
+    }
    }
   ],
   "significato": {
@@ -1381,6 +1444,13 @@
      "it": "Scrivi il nome sul quaderno, per favore.",
      "en": "Please write your name in the notebook."
     }
+   },
+   {
+    "testo": "あたらしい ノートを 二さつ かいました。",
+    "traduzione": {
+     "it": "Ho comprato due quaderni nuovi.",
+     "en": "I bought two new notebooks."
+    }
    }
   ],
   "significato": {
@@ -1399,6 +1469,13 @@
     "traduzione": {
      "it": "Vado a scuola in autobus.",
      "en": "I go to school by bus."
+    }
+   },
+   {
+    "testo": "バスが なかなか きません。",
+    "traduzione": {
+     "it": "L'autobus non arriva proprio.",
+     "en": "The bus just won't come."
     }
    }
   ],
@@ -1920,6 +1997,13 @@
      "it": "Abito vicino alla stazione.",
      "en": "I live near the station."
     }
+   },
+   {
+    "testo": "まどの そばに つくえが あります。",
+    "traduzione": {
+     "it": "Vicino alla finestra c'è una scrivania.",
+     "en": "There is a desk by the window."
+    }
    }
   ],
   "significato": {
@@ -2262,6 +2346,13 @@
      "it": "D'inverno accendo la stufa.",
      "en": "In winter I turn on the heater."
     }
+   },
+   {
+    "testo": "ねる まえに ストーブを けして ください。",
+    "traduzione": {
+     "it": "Prima di dormire spegni la stufa.",
+     "en": "Please turn off the heater before going to bed."
+    }
    }
   ],
   "significato": {
@@ -2280,6 +2371,13 @@
     "traduzione": {
      "it": "Piove. Però esco.",
      "en": "It's raining. But I'm going out."
+    }
+   },
+   {
+    "testo": "つかれました。でも、たのしかったです。",
+    "traduzione": {
+     "it": "Mi sono stancato. Però mi sono divertito.",
+     "en": "I got tired. But it was fun."
     }
    }
   ],
@@ -2302,6 +2400,13 @@
      "it": "Ogni mattina guardo il notiziario.",
      "en": "I watch the news every morning."
     }
+   },
+   {
+    "testo": "その ニュースを きいて、おどろきました。",
+    "traduzione": {
+     "it": "Sentendo quella notizia mi sono stupito.",
+     "en": "I was surprised to hear that news."
+    }
    }
   ],
   "significato": {
@@ -2321,6 +2426,13 @@
     "traduzione": {
      "it": "Mio padre porta una cravatta blu.",
      "en": "My father is wearing a blue tie."
+    }
+   },
+   {
+    "testo": "ちちの ひに ネクタイを あげました。",
+    "traduzione": {
+     "it": "Per la festa del papà ho regalato una cravatta.",
+     "en": "I gave my father a tie for Father's Day."
     }
    }
   ],
@@ -2342,6 +2454,13 @@
      "it": "Sabato c'è una festa.",
      "en": "There is a party on Saturday."
     }
+   },
+   {
+    "testo": "パーティーで ともだちが たくさん できました。",
+    "traduzione": {
+     "it": "Alla festa mi sono fatto tanti amici.",
+     "en": "I made many friends at the party."
+    }
    }
   ],
   "significato": {
@@ -2360,6 +2479,13 @@
     "traduzione": {
      "it": "Oggi metto i pantaloni bianchi.",
      "en": "Today I'll wear white trousers."
+    }
+   },
+   {
+    "testo": "あたらしい くつを はいて でかけました。",
+    "traduzione": {
+     "it": "Sono uscito con le scarpe nuove.",
+     "en": "I went out wearing my new shoes."
     }
    }
   ],
@@ -4033,6 +4159,13 @@
      "it": "Indossa una gonna blu.",
      "en": "She is wearing a blue skirt."
     }
+   },
+   {
+    "testo": "この スカートは ながすぎます。",
+    "traduzione": {
+     "it": "Questa gonna è troppo lunga.",
+     "en": "This skirt is too long."
+    }
    }
   ],
   "significato": {
@@ -4051,6 +4184,13 @@
     "traduzione": {
      "it": "Arrivo subito.",
      "en": "I'll come right away."
+    }
+   },
+   {
+    "testo": "でんわに でられなくて、すぐに かけなおしました。",
+    "traduzione": {
+     "it": "Non ho potuto rispondere e ho richiamato subito.",
+     "en": "I couldn't answer the phone, so I called back right away."
     }
    }
   ],
@@ -4073,6 +4213,13 @@
      "it": "Mangio la zuppa col cucchiaio.",
      "en": "I eat soup with a spoon."
     }
+   },
+   {
+    "testo": "あかちゃんは スプーンで たべます。",
+    "traduzione": {
+     "it": "Il bambino piccolo mangia con il cucchiaio.",
+     "en": "The baby eats with a spoon."
+    }
    }
   ],
   "significato": {
@@ -4092,6 +4239,13 @@
      "it": "Che sport ti piacciono?",
      "en": "What sports do you like?"
     }
+   },
+   {
+    "testo": "けんこうの ために スポーツを して います。",
+    "traduzione": {
+     "it": "Faccio sport per la salute.",
+     "en": "I play sports for my health."
+    }
    }
   ],
   "significato": {
@@ -4110,6 +4264,13 @@
     "traduzione": {
      "it": "Cosa fai domenica?",
      "en": "What will you do on Sunday?"
+    }
+   },
+   {
+    "testo": "しゅくだいを してから、あそびます。",
+    "traduzione": {
+     "it": "Prima faccio i compiti, poi gioco.",
+     "en": "I do my homework, and then I play."
     }
    }
   ],
@@ -4131,6 +4292,13 @@
     "traduzione": {
      "it": "Lì c'è la mia borsa.",
      "en": "My bag is over there."
+    }
+   },
+   {
+    "testo": "そこで まって いて ください。",
+    "traduzione": {
+     "it": "Aspetta lì, per favore.",
+     "en": "Please wait there."
     }
    }
   ],
@@ -4155,6 +4323,13 @@
      "it": "Che cos'è quello?",
      "en": "What is that?"
     }
+   },
+   {
+    "testo": "それを みせて ください。",
+    "traduzione": {
+     "it": "Fammi vedere quello, per favore.",
+     "en": "Please show me that."
+    }
    }
   ],
   "significato": {
@@ -4173,6 +4348,13 @@
     "traduzione": {
      "it": "Bene allora, cominciamo.",
      "en": "Well then, let's begin."
+    }
+   },
+   {
+    "testo": "それでは、また らいしゅう あいましょう。",
+    "traduzione": {
+     "it": "Allora ci vediamo la settimana prossima.",
+     "en": "Well then, let's meet again next week."
     }
    }
   ],
@@ -4195,6 +4377,13 @@
      "it": "Sono andato in taxi fino alla stazione.",
      "en": "I took a taxi to the station."
     }
+   },
+   {
+    "testo": "あめだったので、タクシーを よびました。",
+    "traduzione": {
+     "it": "Pioveva, così ho chiamato un taxi.",
+     "en": "It was raining, so I called a taxi."
+    }
    }
   ],
   "significato": {
@@ -4213,6 +4402,13 @@
     "traduzione": {
      "it": "Accendi la luce della stanza, per favore.",
      "en": "Please turn on the light in the room."
+    }
+   },
+   {
+    "testo": "さむいので、ストーブを つけました。",
+    "traduzione": {
+     "it": "Faceva freddo, così ho acceso la stufa.",
+     "en": "It was cold, so I turned on the heater."
     }
    }
   ],
@@ -4236,6 +4432,13 @@
      "it": "Ho chiuso la scatola col nastro adesivo.",
      "en": "I sealed the box with tape."
     }
+   },
+   {
+    "testo": "テープを はさみで きりました。",
+    "traduzione": {
+     "it": "Ho tagliato il nastro con le forbici.",
+     "en": "I cut the tape with scissors."
+    }
    }
   ],
   "significato": {
@@ -4255,6 +4458,13 @@
      "it": "Sul tavolo ci sono dei fiori.",
      "en": "There are flowers on the table."
     }
+   },
+   {
+    "testo": "テーブルを ふいて ください。",
+    "traduzione": {
+     "it": "Pulisci il tavolo, per favore.",
+     "en": "Please wipe the table."
+    }
    }
   ],
   "significato": {
@@ -4273,6 +4483,13 @@
     "traduzione": {
      "it": "Allora, a domani.",
      "en": "Well then, see you tomorrow."
+    }
+   },
+   {
+    "testo": "では、はじめに じこしょうかいを しましょう。",
+    "traduzione": {
+     "it": "Dunque, per prima cosa presentiamoci.",
+     "en": "Well then, let's start with self-introductions."
     }
    }
   ],
@@ -4296,6 +4513,13 @@
      "it": "Apri la porta, per favore.",
      "en": "Please open the door."
     }
+   },
+   {
+    "testo": "ドアが しまって いますから、ノックして ください。",
+    "traduzione": {
+     "it": "La porta è chiusa, quindi bussa.",
+     "en": "The door is closed, so please knock."
+    }
    }
   ],
   "significato": {
@@ -4314,6 +4538,13 @@
     "traduzione": {
      "it": "Com'è la vita in Giappone?",
      "en": "How is life in Japan?"
+    }
+   },
+   {
+    "testo": "この ことばは どう よみますか。",
+    "traduzione": {
+     "it": "Come si legge questa parola?",
+     "en": "How do you read this word?"
     }
    }
   ],
@@ -4335,6 +4566,13 @@
      "it": "Perché non sei venuto?",
      "en": "Why didn't you come?"
     }
+   },
+   {
+    "testo": "どうして そらは あおいのですか。",
+    "traduzione": {
+     "it": "Perché il cielo è azzurro?",
+     "en": "Why is the sky blue?"
+    }
    }
   ],
   "significato": {
@@ -4355,6 +4593,13 @@
      "it": "Qual è il tuo ombrello?",
      "en": "Which one is your umbrella?"
     }
+   },
+   {
+    "testo": "どれが いちばん やすいですか。",
+    "traduzione": {
+     "it": "Qual è il più economico?",
+     "en": "Which one is the cheapest?"
+    }
    }
   ],
   "significato": {
@@ -4373,6 +4618,13 @@
     "traduzione": {
      "it": "Che tipo di musica ti piace?",
      "en": "What kind of music do you like?"
+    }
+   },
+   {
+    "testo": "どんな ひとに なりたいですか。",
+    "traduzione": {
+     "it": "Che tipo di persona vorresti diventare?",
+     "en": "What kind of person do you want to become?"
     }
    }
   ],
@@ -4393,6 +4645,13 @@
     "traduzione": {
      "it": "Non c'è tempo.",
      "en": "There is no time."
+    }
+   },
+   {
+    "testo": "れいぞうこに なにも ないです。",
+    "traduzione": {
+     "it": "Nel frigorifero non c'è niente.",
+     "en": "There is nothing in the refrigerator."
     }
    }
   ],
@@ -4415,6 +4674,13 @@
      "it": "Taglio il pane col coltello.",
      "en": "I cut bread with a knife."
     }
+   },
+   {
+    "testo": "ナイフと フォークで たべます。",
+    "traduzione": {
+     "it": "Mangio con coltello e forchetta.",
+     "en": "I eat with a knife and fork."
+    }
    }
   ],
   "significato": {
@@ -4433,6 +4699,13 @@
     "traduzione": {
      "it": "Perché studi giapponese?",
      "en": "Why do you study Japanese?"
+    }
+   },
+   {
+    "testo": "なぜ おくれたのか、せつめいして ください。",
+    "traduzione": {
+     "it": "Spiega perché sei arrivato in ritardo.",
+     "en": "Please explain why you were late."
     }
    }
   ],
@@ -4453,6 +4726,13 @@
      "it": "Mio fratello minore è diventato medico.",
      "en": "My younger brother became a doctor."
     }
+   },
+   {
+    "testo": "らいねん、二十さいに なります。",
+    "traduzione": {
+     "it": "L'anno prossimo compio vent'anni.",
+     "en": "Next year I will turn twenty."
+    }
    }
   ],
   "significato": {
@@ -4471,6 +4751,13 @@
     "traduzione": {
      "it": "Questa città è vivace.",
      "en": "This town is lively."
+    }
+   },
+   {
+    "testo": "まつりで まちが にぎやかに なりました。",
+    "traduzione": {
+     "it": "Con la festa la città si è animata.",
+     "en": "The town became lively with the festival."
     }
    }
   ],
@@ -4492,6 +4779,13 @@
     "traduzione": {
      "it": "Spalmo il burro sul pane.",
      "en": "I spread butter on the bread."
+    }
+   },
+   {
+    "testo": "バターで たまごを やきました。",
+    "traduzione": {
+     "it": "Ho cotto le uova nel burro.",
+     "en": "I fried the eggs in butter."
     }
    }
   ],
@@ -7313,7 +7607,23 @@
    "en": [
     "trousers"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは私のズボンをどうしたのですか。",
+    "traduzione": {
+     "it": "What did you do with my pants?",
+     "en": "What did you do with my pants?"
+    }
+   },
+   {
+    "testo": "この ズボンは すこし みじかいです。",
+    "traduzione": {
+     "it": "Questi pantaloni sono un po' corti.",
+     "en": "These trousers are a little short."
+    }
+   }
+  ]
  },
  "そう; そうです": {
   "significato": {
@@ -7442,7 +7752,23 @@
     "dull",
     "insignificant"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの あたらしい えいがは つまらなかったです。",
+    "traduzione": {
+     "it": "Quel film nuovo era noioso.",
+     "en": "That new movie was boring."
+    }
+   },
+   {
+    "testo": "やすみの ひは ひとりだと つまらないです。",
+    "traduzione": {
+     "it": "Nei giorni di riposo, da solo mi annoio.",
+     "en": "On days off, it's boring being alone."
+    }
+   }
+  ]
  },
  "テープレコーダー": {
   "significato": {
@@ -7452,7 +7778,23 @@
    "en": [
     "tape recorder"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このテープレコーダーは新しくない。",
+    "traduzione": {
+     "it": "This tape recorder is not new.",
+     "en": "This tape recorder is not new."
+    }
+   },
+   {
+    "testo": "テープレコーダーで こえを ろくおんしました。",
+    "traduzione": {
+     "it": "Ho registrato la voce con il registratore a nastro.",
+     "en": "I recorded my voice with the tape recorder."
+    }
+   }
+  ]
  },
  "できる": {
   "significato": {
@@ -7473,7 +7815,23 @@
    "en": [
     "(abbr.) department store"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのデパートで新しいコートを買いたい。",
+    "traduzione": {
+     "it": "I would like to buy a new coat at that department store.",
+     "en": "I would like to buy a new coat at that department store."
+    }
+   },
+   {
+    "testo": "デパートは えきの まえに あります。",
+    "traduzione": {
+     "it": "Il grande magazzino è davanti alla stazione.",
+     "en": "The department store is in front of the station."
+    }
+   }
+  ]
  },
  "テレビ": {
   "significato": {
@@ -7484,7 +7842,23 @@
     "television",
     "TV"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはどこでテレビを見ますか。",
+    "traduzione": {
+     "it": "Where do you watch television?",
+     "en": "Where do you watch television?"
+    }
+   },
+   {
+    "testo": "ゆうべは テレビで えいがを みました。",
+    "traduzione": {
+     "it": "Ieri sera ho visto un film in televisione.",
+     "en": "Last night I watched a movie on TV."
+    }
+   }
+  ]
  },
  "トイレ": {
   "significato": {
@@ -7496,7 +7870,23 @@
     "bathroom",
     "toilet"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "トイレの水が止まりません。",
+    "traduzione": {
+     "it": "The toilet won't stop running.",
+     "en": "The toilet won't stop running."
+    }
+   },
+   {
+    "testo": "トイレは ろうかの つきあたりです。",
+    "traduzione": {
+     "it": "Il bagno è in fondo al corridoio.",
+     "en": "The toilet is at the end of the hallway."
+    }
+   }
+  ]
  },
  "どうぞ": {
   "significato": {
@@ -7529,6 +7919,13 @@
      "it": "Grazie mille.",
      "en": "Thank you very much."
     }
+   },
+   {
+    "testo": "きのうは どうも すみませんでした。",
+    "traduzione": {
+     "it": "Mi scuso davvero per ieri.",
+     "en": "I'm really sorry about yesterday."
+    }
    }
   ]
  },
@@ -7541,7 +7938,23 @@
     "where",
     "what place"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはどこでテレビを見ますか。",
+    "traduzione": {
+     "it": "Where do you watch television?",
+     "en": "Where do you watch television?"
+    }
+   },
+   {
+    "testo": "すみません、えきは どこですか。",
+    "traduzione": {
+     "it": "Scusi, dov'è la stazione?",
+     "en": "Excuse me, where is the station?"
+    }
+   }
+  ]
  },
  "とても": {
   "significato": {
@@ -7563,7 +7976,23 @@
    "en": [
     "who"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "「どなたですか」「お母さんよ」",
+    "traduzione": {
+     "it": "\"Who is it?\" \"It's your mother.\"",
+     "en": "\"Who is it?\" \"It's your mother.\""
+    }
+   },
+   {
+    "testo": "この かさは どなたのですか。",
+    "traduzione": {
+     "it": "Di chi è questo ombrello? (cortese)",
+     "en": "Whose umbrella is this?"
+    }
+   }
+  ]
  },
  "どの": {
   "significato": {
@@ -7599,7 +8028,23 @@
    "en": [
     "yes"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "「もしもし、ブラウンさんですか」「はい、そうです」",
+    "traduzione": {
+     "it": "\"Hello, is this Mrs. Brown?\" \"Yes, this is Mrs. Brown.\"",
+     "en": "\"Hello, is this Mrs. Brown?\" \"Yes, this is Mrs. Brown.\""
+    }
+   },
+   {
+    "testo": "なまえを よばれたら、「はい」と こたえて ください。",
+    "traduzione": {
+     "it": "Quando chiamano il tuo nome, rispondi «sì».",
+     "en": "When your name is called, please answer \"yes.\""
+    }
+   }
+  ]
  },
  "パン": {
   "significato": {
@@ -7609,7 +8054,23 @@
    "en": [
     "bread"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は今朝バターつきのパンを食べた。",
+    "traduzione": {
+     "it": "I ate bread and butter this morning.",
+     "en": "I ate bread and butter this morning."
+    }
+   },
+   {
+    "testo": "あさは パンと ぎゅうにゅうです。",
+    "traduzione": {
+     "it": "A colazione, pane e latte.",
+     "en": "For breakfast, bread and milk."
+    }
+   }
+  ]
  },
  "ハンカチ": {
   "significato": {
@@ -23479,6 +23940,42 @@
     "traduzione": {
      "it": "Quando si finisce di mangiare, diciamo «gochisōsama deshita».",
      "en": "When we finish eating, let's say \"gochisousama deshita.\""
+    }
+   }
+  ]
+ },
+ "ただいま": {
+  "frasi_esempio": [
+   {
+    "testo": "ただいま。— おかえりなさい。",
+    "traduzione": {
+     "it": "Sono a casa! — Bentornato.",
+     "en": "Sono a casa! — Bentornato."
+    }
+   },
+   {
+    "testo": "げんきな こえで 「ただいま」と いいました。",
+    "traduzione": {
+     "it": "Ho detto «sono a casa!» con voce allegra.",
+     "en": "I said \"I'm home!\" in a cheerful voice."
+    }
+   }
+  ]
+ },
+ "どういたしまして": {
+  "frasi_esempio": [
+   {
+    "testo": "ありがとう。— どういたしまして。",
+    "traduzione": {
+     "it": "Grazie. — Di niente.",
+     "en": "Grazie. — Di niente."
+    }
+   },
+   {
+    "testo": "おれいを いわれて、「どういたしまして」と こたえました。",
+    "traduzione": {
+     "it": "Mi hanno ringraziato e ho risposto «di niente».",
+     "en": "They thanked me, and I replied \"you're welcome.\""
     }
    }
   ]
