@@ -35,6 +35,14 @@ for (const [id, nuove] of Object.entries(wave)) {
     seen.add(n.testo);
     applied += 1;
   }
+  // le regole del test valgono anche per le frasi legacy che finiscono
+  // negli overrides insieme alla nuova: meglio scoprirlo qui che a vitest
+  for (const f of frasi) {
+    if (!/[。！？!?]$/.test(f.testo)) problems.push(`${id}: senza punteggiatura finale → ${f.testo}`);
+    if (/[A-Za-z]/.test(f.testo)) problems.push(`${id}: caratteri latini → ${f.testo}`);
+    if (f.testo.length > 34) problems.push(`${id}: troppo lunga (${f.testo.length}) → ${f.testo}`);
+    if (/をを|がが|はは|にに|でで/.test(f.testo)) problems.push(`${id}: particella doppia → ${f.testo}`);
+  }
   word.frasi_esempio = frasi;
   overrides[id] = { ...(overrides[id] ?? {}), frasi_esempio: frasi };
 }

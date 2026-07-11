@@ -7979,10 +7979,10 @@
   },
   "frasi_esempio": [
    {
-    "testo": "「どなたですか」「お母さんよ」",
+    "testo": "「どなたですか」と きくと、「お母さんよ」と いいました。",
     "traduzione": {
-     "it": "\"Who is it?\" \"It's your mother.\"",
-     "en": "\"Who is it?\" \"It's your mother.\""
+     "it": "Ho chiesto «chi è?» e ha risposto «sono la mamma».",
+     "en": "I asked \"Who is it?\" and she said \"It's Mom.\""
     }
    },
    {
@@ -8031,10 +8031,10 @@
   },
   "frasi_esempio": [
    {
-    "testo": "「もしもし、ブラウンさんですか」「はい、そうです」",
+    "testo": "でんわに でて、「はい、田中です」と いいました。",
     "traduzione": {
-     "it": "\"Hello, is this Mrs. Brown?\" \"Yes, this is Mrs. Brown.\"",
-     "en": "\"Hello, is this Mrs. Brown?\" \"Yes, this is Mrs. Brown.\""
+     "it": "Ho risposto al telefono dicendo «sì, sono Tanaka».",
+     "en": "I answered the phone, saying \"Yes, this is Tanaka.\""
     }
    },
    {
