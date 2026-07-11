@@ -675,5 +675,400 @@ export const LISTENING_DIALOGUES: ListeningDialogue[] = [
 			}
 		],
 		questions: [{ q: '二人は何を買いますか。', truthOf: 'rev' }]
+	},
+	// ── Lotto 3 (2026-07-12) ──
+	{
+		id: 'n5-shatsu-iro',
+		livello: 'N5',
+		titolo: 'La camicia in negozio',
+		scena: 'Una cliente sceglie il colore di una camicia, ma la scelta balla.',
+		domanda: 'おんなのひとは　なにいろの　シャツを　かいますか。',
+		lines: [
+			{ who: 'F', parts: ['すみません、この　シャツの　', { slot: 'c1' }, 'は　ありますか。'] },
+			{ who: 'M', parts: [{ slot: 'c1' }, 'は　いま　ありません。', { slot: 'c2' }, 'なら　あります。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['かしこまりました。'] }
+		],
+		slots: [
+			{ id: 'c1', options: ['しろ', 'あお'], kind: 'colore' },
+			{ id: 'c2', options: ['くろ', 'あか'], kind: 'colore' },
+			{
+				id: 'rev',
+				options: [
+					'じゃあ、{c2}を　ください。',
+					'{c2}ですか…。うーん、{c2}は　もって　いるから、{c2}じゃなくて　それを　ください。あ、この　みどりのです。'
+				],
+				answerSlot: ['c2', 'green']
+			},
+			{ id: 'green', options: ['みどり'] }
+		],
+		questions: [{ q: 'おんなのひとは　なにいろの　シャツを　かいますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-eki-deguchi',
+		livello: 'N5',
+		titolo: 'A quale uscita?',
+		scena: 'Appuntamento alla stazione: quale uscita e a che ora?',
+		domanda: 'ふたりは　どの　でぐちで　あいますか。',
+		lines: [
+			{ who: 'M', parts: ['あした、えきの　', { slot: 'e1' }, 'で　あいましょう。'] },
+			{ who: 'F', parts: ['えっ、', { slot: 'e1' }, 'は　ひとが　おおいですよ。', { slot: 'e2' }, 'は　どうですか。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['わかりました。じゃ、', { slot: 'time' }, 'に。'] }
+		],
+		slots: [
+			{ id: 'e1', options: ['ひがしぐち', 'きたぐち'], kind: 'uscita' },
+			{ id: 'e2', options: ['にしぐち', 'みなみぐち'], kind: 'uscita' },
+			{ id: 'time', options: ['十じ', '三じ'] },
+			{
+				id: 'rev',
+				options: [
+					'そうですね。{e2}に　しましょう。',
+					'うーん、{e2}は　とおいから、やっぱり　{e1}で　いいですよ。'
+				],
+				answerSlot: ['e2', 'e1']
+			}
+		],
+		questions: [
+			{ q: 'ふたりは　どの　でぐちで　あいますか。', truthOf: 'rev' },
+			{ q: 'なんじに　あいますか。', slot: 'time' }
+		]
+	},
+	{
+		id: 'n5-nomimono',
+		livello: 'N5',
+		titolo: 'Le bevande al bar',
+		scena: 'Al bar: lui prima copia l\'ordine di lei, poi…',
+		domanda: 'おとこのひとは　なにを　のみますか。',
+		lines: [
+			{ who: 'F', parts: ['わたしは　', { slot: 'd1' }, 'に　します。なにに　しますか。'] },
+			{ who: 'M', parts: ['ぼくも　', { slot: 'd1' }, 'に　します。'] },
+			{ who: 'F', parts: ['あ、ここの　', { slot: 'd2' }, 'は　おいしいですよ。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] }
+		],
+		slots: [
+			{ id: 'd1', options: ['コーヒー', 'こうちゃ'], kind: 'bevanda' },
+			{ id: 'd2', options: ['ジュース', 'ココア'], kind: 'bevanda' },
+			{
+				id: 'rev',
+				options: [
+					'そうですか。じゃ、{d2}に　します。',
+					'ほんとうですか。でも、やっぱり　{d1}が　いいです。'
+				],
+				answerSlot: ['d2', 'd1']
+			}
+		],
+		questions: [{ q: 'おとこのひとは　なにを　のみますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-soji-basho',
+		livello: 'N5',
+		titolo: 'Le pulizie di casa',
+		scena: 'La mamma divide le pulizie: dove pulisce il figlio?',
+		domanda: 'おとこのこは　どこを　そうじしますか。',
+		lines: [
+			{ who: 'F', parts: ['きょうは　そうじの　ひよ。あなたは　', { slot: 'p1' }, 'を　おねがい。'] },
+			{ who: 'M', parts: ['ええー、', { slot: 'p1' }, 'は　ひろいよ。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['はーい、わかった。'] }
+		],
+		slots: [
+			{ id: 'p1', options: ['にわ', 'げんかん'], kind: 'posto' },
+			{ id: 'p2', options: ['おふろ', 'トイレ'], kind: 'posto' },
+			{
+				id: 'rev',
+				options: [
+					'じゃ、{p2}に　して。せまいから　すぐ　おわるよ。',
+					'だめよ。{p1}を　おねがいね。{p2}は　おかあさんが　するから。'
+				],
+				answerSlot: ['p2', 'p1']
+			}
+		],
+		questions: [{ q: 'おとこのこは　どこを　そうじしますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-nichiyobi-nanji',
+		livello: 'N5',
+		titolo: 'La partenza di domenica',
+		scena: 'A che ora si parte per la gita? Attenzione ai cambi.',
+		domanda: 'ふたりは　なんじに　でかけますか。',
+		lines: [
+			{ who: 'F', parts: ['にちようび、', { slot: 't1' }, 'に　でかけましょう。'] },
+			{ who: 'M', parts: ['うーん、', { slot: 't1' }, 'は　はやいなあ。', { slot: 't2' }, 'は？'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['わかりました。'] }
+		],
+		slots: [
+			{ id: 't1', options: ['七じ', '八じ'], kind: 'ora' },
+			{ id: 't2', options: ['九じ', '十じ'], kind: 'ora' },
+			{
+				id: 'rev',
+				options: [
+					'いいですよ。{t2}に　しましょう。',
+					'{t2}は　おそすぎます。やっぱり　{t1}に　しましょう。'
+				],
+				answerSlot: ['t2', 't1']
+			}
+		],
+		questions: [{ q: 'ふたりは　なんじに　でかけますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-pet-namae',
+		livello: 'N5',
+		titolo: 'Il nome del gatto',
+		scena: 'Un nome per il gattino nuovo: la famiglia discute.',
+		domanda: 'ねこの　なまえは　なんに　なりましたか。',
+		lines: [
+			{ who: 'M', parts: ['ねこの　なまえ、', { slot: 'n1' }, 'は　どう？'] },
+			{ who: 'F', parts: ['うーん、', { slot: 'n2' }, 'の　ほうが　かわいいよ。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['きまり！'] }
+		],
+		slots: [
+			{ id: 'n1', options: ['モモ', 'ハナ'], kind: 'nome' },
+			{ id: 'n2', options: ['ソラ', 'ユキ'], kind: 'nome' },
+			{
+				id: 'rev',
+				options: [
+					'そうだね。{n2}に　しよう。',
+					'ええー、やっぱり　{n1}が　いいよ。ね、{n1}に　しよう。'
+				],
+				answerSlot: ['n2', 'n1']
+			}
+		],
+		questions: [{ q: 'ねこの　なまえは　なんに　なりましたか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-densha-basu',
+		livello: 'N5',
+		titolo: 'Treno o autobus?',
+		scena: 'Come andare dal medico: il mezzo cambia in corsa.',
+		domanda: 'ふたりは　なにで　いきますか。',
+		lines: [
+			{ who: 'F', parts: ['びょういんまで　', { slot: 'm1' }, 'で　いきましょうか。'] },
+			{ who: 'M', parts: ['きょうは　', { slot: 'm1' }, 'が　こんで　いますよ。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['そう　しましょう。'] }
+		],
+		slots: [
+			{ id: 'm1', options: ['バス', 'でんしゃ'], kind: 'mezzo' },
+			{ id: 'm2', options: ['タクシー', 'じてんしゃ'], kind: 'mezzo' },
+			{
+				id: 'rev',
+				options: [
+					'じゃ、{m2}で　いきましょう。',
+					'でも　{m2}は　たかいから、やっぱり　{m1}で　いきましょう。'
+				],
+				answerSlot: ['m2', 'm1']
+			}
+		],
+		questions: [{ q: 'ふたりは　なにで　いきますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n5-tanjobi-ryori',
+		livello: 'N5',
+		titolo: 'La cena di compleanno',
+		scena: 'Cosa si cucina per il compleanno del papà?',
+		domanda: 'ふたりは　なにを　つくりますか。',
+		lines: [
+			{ who: 'F', parts: ['おとうさんの　たんじょうびに　', { slot: 'r1' }, 'を　つくらない？'] },
+			{ who: 'M', parts: ['おとうさんは　', { slot: 'r2' }, 'の　ほうが　すきだよ。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['うん、そうしよう。'] }
+		],
+		slots: [
+			{ id: 'r1', options: ['カレー', 'ハンバーグ'], kind: 'piatto' },
+			{ id: 'r2', options: ['すし', 'てんぷら'], kind: 'piatto' },
+			{
+				id: 'rev',
+				options: [
+					'そうね。じゃ、{r2}に　しましょう。',
+					'{r2}は　むずかしいよ。やっぱり　{r1}に　しよう。'
+				],
+				answerSlot: ['r2', 'r1']
+			}
+		],
+		questions: [{ q: 'ふたりは　なにを　つくりますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-kaigi-heya',
+		livello: 'N4',
+		titolo: 'La sala della riunione',
+		scena: 'In ufficio: sala (e forse orario) cambiano all\'ultimo.',
+		domanda: '会議はどの部屋でありますか。',
+		lines: [
+			{ who: 'M', parts: ['三時の会議は', { slot: 'r1' }, 'ですよね。'] },
+			{ who: 'F', parts: ['あ、', { slot: 'r1' }, 'は今、使っています。', { slot: 'rev' }] },
+			{ who: 'M', parts: ['わかりました。みんなに伝えます。'] }
+		],
+		slots: [
+			{ id: 'r1', options: ['二階の会議室', '三階の会議室'], kind: 'stanza' },
+			{ id: 'r2', options: ['五階の会議室', '一階の会議室'], kind: 'stanza' },
+			{
+				id: 'rev',
+				options: [
+					'{r2}に変わりました。',
+					'{r2}に…あ、すみません、四時からは{r1}が空くので、時間を四時にして{r1}でやりましょう。'
+				],
+				answerSlot: ['r2', 'r1']
+			}
+		],
+		questions: [{ q: '会議はどの部屋でありますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-hikkoshi-bi',
+		livello: 'N4',
+		titolo: 'Il giorno del trasloco',
+		scena: 'Si fissa il giorno del trasloco con la ditta.',
+		domanda: '引っ越しはいつになりましたか。',
+		lines: [
+			{ who: 'F', parts: ['引っ越しは', { slot: 'd1' }, 'にお願いしたいんですが。'] },
+			{ who: 'M', parts: ['申し訳ありません、', { slot: 'd1' }, 'はいっぱいでして…。', { slot: 'd2' }, 'はいかがですか。'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['かしこまりました。'] }
+		],
+		slots: [
+			{ id: 'd1', options: ['土曜日', '日曜日'], kind: 'giorno' },
+			{ id: 'd2', options: ['金曜日', '月曜日'], kind: 'giorno' },
+			{
+				id: 'rev',
+				options: [
+					'じゃあ、{d2}でお願いします。',
+					'{d2}は仕事が…。あ、でも午後からなら大丈夫です。{d2}の午後でお願いします。'
+				],
+				answerSlot: ['d2', 'd2']
+			}
+		],
+		questions: [{ q: '引っ越しはいつになりましたか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-densha-bansen',
+		livello: 'N4',
+		titolo: 'Il binario giusto',
+		scena: 'In stazione: lavori in corso e binari che cambiano.',
+		domanda: '大阪行きの電車は何番線から出ますか。',
+		lines: [
+			{ who: 'F', parts: ['すみません、大阪行きは', { slot: 'b1' }, 'ですか。'] },
+			{ who: 'M', parts: ['いつもは', { slot: 'b1' }, 'ですが、今日は工事で', { slot: 'rev' }] },
+			{ who: 'F', parts: ['ありがとうございます。'] }
+		],
+		slots: [
+			{ id: 'b1', options: ['三番線', '五番線'], kind: 'binario' },
+			{ id: 'b2', options: ['七番線', '一番線'], kind: 'binario' },
+			{
+				id: 'rev',
+				options: [
+					'{b2}から出ます。',
+					'{b2}…ではなくて、ええと、すみません、工事は昨日終わったので、今日も{b1}で大丈夫です。'
+				],
+				answerSlot: ['b2', 'b1']
+			}
+		],
+		questions: [{ q: '大阪行きの電車は何番線から出ますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-omiyage',
+		livello: 'N4',
+		titolo: 'L\'omiyage per l\'ufficio',
+		scena: 'Cosa portare ai colleghi dal viaggio?',
+		domanda: '女の人は会社に何を買っていきますか。',
+		lines: [
+			{ who: 'F', parts: ['会社へのお土産、', { slot: 'o1' }, 'はどうかな。'] },
+			{ who: 'M', parts: [{ slot: 'o1' }, 'は重いよ。', { slot: 'o2' }, 'のほうが配りやすいんじゃない？'] },
+			{ who: 'F', parts: [{ slot: 'rev' }] },
+			{ who: 'M', parts: ['それがいいね。'] }
+		],
+		slots: [
+			{ id: 'o1', options: ['ジャムのびん', 'おさけ'], kind: 'omiyage' },
+			{ id: 'o2', options: ['おかし', 'おせんべい'], kind: 'omiyage' },
+			{
+				id: 'rev',
+				options: [
+					'そうだね、{o2}にする。',
+					'うーん、でも{o2}はこの間も買ったから、やっぱり{o1}にするよ。'
+				],
+				answerSlot: ['o2', 'o1']
+			}
+		],
+		questions: [{ q: '女の人は会社に何を買っていきますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-byoin-yoyaku',
+		livello: 'N4',
+		titolo: 'La prenotazione dal medico',
+		scena: 'Si prenota una visita: l\'orario si sposta.',
+		domanda: '男の人は何時に病院へ行きますか。',
+		lines: [
+			{ who: 'M', parts: ['もしもし、予約をお願いします。', { slot: 't1' }, 'は空いていますか。'] },
+			{ who: 'F', parts: [{ slot: 't1' }, 'はいっぱいです。', { slot: 't2' }, 'か', { slot: 't3' }, 'なら大丈夫です。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['はい、お待ちしております。'] }
+		],
+		slots: [
+			{ id: 't1', options: ['十時', '九時'], kind: 'ora' },
+			{ id: 't2', options: ['十一時', '二時'], kind: 'ora' },
+			{ id: 't3', options: ['四時', '五時'], kind: 'ora' },
+			{
+				id: 'rev',
+				options: [
+					'じゃあ、{t2}でお願いします。',
+					'{t2}は…ちょっと用事があります。{t3}でお願いします。'
+				],
+				answerSlot: ['t2', 't3']
+			}
+		],
+		questions: [{ q: '男の人は何時に病院へ行きますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-arubaito',
+		livello: 'N4',
+		titolo: 'Il turno del part-time',
+		scena: 'Il capo chiede di cambiare turno: quale giorno lavorerà la studentessa?',
+		domanda: '学生はいつ働きますか。',
+		lines: [
+			{ who: 'M', parts: ['すみません、', { slot: 'g1' }, 'のシフト、代わってもらえない？'] },
+			{ who: 'F', parts: [{ slot: 'g1' }, 'ですか。テストがあるので…。', { slot: 'g2' }, 'なら大丈夫です。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['わかりました。'] }
+		],
+		slots: [
+			{ id: 'g1', options: ['木曜日', '水曜日'], kind: 'giorno' },
+			{ id: 'g2', options: ['金曜日', '土曜日'], kind: 'giorno' },
+			{
+				id: 'rev',
+				options: [
+					'じゃあ、{g2}にお願いね。',
+					'{g2}か…。ごめん、テストは午後でしょう？やっぱり{g1}の午前中だけお願い。'
+				],
+				answerSlot: ['g2', 'g1']
+			}
+		],
+		questions: [{ q: '学生はいつ働きますか。', truthOf: 'rev' }]
+	},
+	{
+		id: 'n4-eiga-seki',
+		livello: 'N4',
+		titolo: 'I posti al cinema',
+		scena: 'Alla cassa del cinema: quali posti restano?',
+		domanda: '二人はどこの席に座りますか。',
+		lines: [
+			{ who: 'M', parts: [{ slot: 's1' }, 'の席、二つありますか。'] },
+			{ who: 'F', parts: ['申し訳ありません、', { slot: 's1' }, 'はもういっぱいです。', { slot: 's2' }, 'ならございます。'] },
+			{ who: 'M', parts: [{ slot: 'rev' }] },
+			{ who: 'F', parts: ['かしこまりました。'] }
+		],
+		slots: [
+			{ id: 's1', options: ['まんなか', '前のほう'], kind: 'posto' },
+			{ id: 's2', options: ['うしろのほう', '横のほう'], kind: 'posto' },
+			{
+				id: 'rev',
+				options: [
+					'じゃあ、{s2}でお願いします。',
+					'{s2}は見にくいなあ…。次の回の{s1}は空いていますか。じゃ、次の回の{s1}にします。'
+				],
+				answerSlot: ['s2', 's1']
+			}
+		],
+		questions: [{ q: '二人はどこの席に座りますか。', truthOf: 'rev' }]
 	}
 ];
