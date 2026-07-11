@@ -3,7 +3,7 @@ import type { QuizQuestion } from "./quiz/types";
 import { DEFAULT_KNOWN_FORMS } from "./core/conjugation";
 import { DEFAULT_NEW_CARDS_PER_DAY } from "./core/dailyNewCards";
 
-export type ItemKind = "word" | "grammar" | "kanji" | "dialogue" | "objective";
+export type ItemKind = "word" | "grammar" | "kanji" | "counter" | "dialogue" | "objective";
 
 export interface ItemRef {
 	key: string;

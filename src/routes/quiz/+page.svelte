@@ -18,6 +18,7 @@
 		createGrammarQuestion,
 		createParticleClozeQuestion,
 		createCounterQuestion,
+		createCounterDrillQuestion,
 		createConjugationQuizQuestion,
 		createTransitivityPairQuestion,
 		createCounterReadingQuestion,
@@ -153,7 +154,7 @@
 				stack.push(child);
 			}
 		}
-		return [...keys]
+		const fromObjectives = [...keys]
 			.map((key): ItemRef | null => {
 				if (key.startsWith('word:')) return { key, kind: 'word' };
 				if (key.startsWith('kanji:')) return { key, kind: 'kanji' };
@@ -161,6 +162,16 @@
 				return null;
 			})
 			.filter((x): x is ItemRef => x !== null);
+
+		// I contatori non appartengono a nessun obiettivo (sono "fuori piano", come
+		// countDueCards li tratta): se un errore in un'avventura ne ha reso uno
+		// dovuto, deve poter tornare a essere ripassato qui — altrimenti resta
+		// "dovuto" per sempre (nessun altro posto avanza il suo SRS).
+		const dueCounters: ItemRef[] = counterRows
+			.map((c): ItemRef => ({ key: `counter:${c.id}`, kind: 'counter' }))
+			.filter((ref) => srsMap.has(ref.key));
+
+		return [...fromObjectives, ...dueCounters];
 	}
 
 	async function generateQuestion(ref: ItemRef): Promise<QuizQuestion | null> {
@@ -206,6 +217,11 @@
 			if (mode === 'flashcard-reading-recognition') return createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'listening') return createListeningQuestion(word, distractorIndex, context);
 			return createMultipleChoiceQuestion(word, context, distractorIndex);
+		}
+
+		if (ref.kind === 'counter') {
+			const counter = counterRows.find((c) => c.id === ref.key.replace('counter:', ''));
+			return counter ? createCounterDrillQuestion(counter) : null;
 		}
 
 		if (ref.kind === 'kanji') {
@@ -520,6 +536,11 @@
 				reading: [...k.letture_kun, ...k.letture_on].slice(0, 3).join('、'),
 				text: locale === 'it' ? k.significato.it : k.significato.en
 			};
+		}
+		if (quiz.itemRef.kind === 'counter') {
+			const c = counterRows.find((row) => row.id === rawId);
+			if (!c) return null;
+			return { jp: c.simbolo, reading: c.lettura, text: locale === 'it' ? c.significato.it : c.significato.en };
 		}
 		return null;
 	});
@@ -1411,7 +1432,8 @@
 			<div class="summary-errors">
 				<p class="errors-title">Errori da ripassare ({summarySession.wrongAnswers.length})</p>
 				{#each summarySession.wrongAnswers as wa}
-					<a class="error-row" href="{base}/detail/{encodeURIComponent(wa.itemRef.key)}">
+					{@const errorHref = wa.itemRef.kind === 'counter' ? `${base}/consolida/${encodeURIComponent(wa.itemRef.key)}` : `${base}/detail/${encodeURIComponent(wa.itemRef.key)}`}
+					<a class="error-row" href={errorHref}>
 						<span class="error-prompt">{wa.prompt}</span>
 						<span class="error-detail">
 							<span class="error-selected">{wa.selectedAnswer || '—'}</span>

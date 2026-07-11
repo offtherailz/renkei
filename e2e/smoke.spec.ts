@@ -54,6 +54,43 @@ test('quiz: rispondere a una domanda flashcard-recognition non lancia errori', a
 	throw new Error('flashcard-recognition non è mai uscita in 15 tentativi (improbabile ma non impossibile)');
 });
 
+test('contatore dovuto (da un errore in avventura): il quiz lo ripassa davvero', async ({ page }) => {
+	// Un errore in un'avventura rende subito "dovuto" un contatore
+	// (recordPracticeMiss → createInitialSrs), ma niente lo riprogrammava mai
+	// in avanti: restava dovuto per sempre, invisibile al quiz principale.
+	// Seed diretto via lo stesso modulo Dexie dell'app (dev server Vite).
+	const errors: string[] = [];
+	page.on('pageerror', (e) => errors.push(String(e)));
+	await gotoHome(page);
+	await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		await db.srs_progress.put({
+			id_item: 'counter:人',
+			srs_stage: 0,
+			next_review_date: Date.now() - 1000,
+			ease_factor: 2.3,
+			streak: 0,
+			mastery_points: -20,
+			updated_at: Date.now()
+		});
+	});
+	await page.goto('/quiz');
+	// il contatore dovuto ha priorità assoluta: è la prima domanda proposta
+	await expect(page.getByText('Come si legge?')).toBeVisible({ timeout: 15_000 });
+	await expect(page.locator('.question-prompt')).toContainText('人');
+	await page.locator('.choice-btn:not([disabled])').first().click();
+	await page.waitForTimeout(500);
+	expect(errors).toEqual([]);
+
+	// dopo la risposta l'SRS del contatore è avanzato: non è più "dovuto adesso"
+	const stillDue = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const row = await db.srs_progress.get('counter:人');
+		return row ? row.next_review_date <= Date.now() : true;
+	});
+	expect(stillDue).toBe(false);
+});
+
 test('keigo: partita, risposta e snapshot su back', async ({ page }) => {
 	await gotoHome(page);
 	await page.goto('/keigo');
