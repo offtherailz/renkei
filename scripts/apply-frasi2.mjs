@@ -55,7 +55,7 @@ for (const [id, nuove] of Object.entries(wave)) {
   const variants = stemVariants(word.scrittura, word.lettura);
   for (const f of frasi) {
     if (!/[。！？!?]$/.test(f.testo)) problems.push(`${id}: senza punteggiatura finale → ${f.testo}`);
-    if (/[A-Za-z]/.test(f.testo)) problems.push(`${id}: caratteri latini → ${f.testo}`);
+    if (/[A-Za-zＡ-Ｚａ-ｚа-яА-Я]/.test(f.testo)) problems.push(`${id}: caratteri non giapponesi → ${f.testo}`);
     if (f.testo.length > 34) problems.push(`${id}: troppo lunga (${f.testo.length}) → ${f.testo}`);
     if (/をを|がが|はは|にに|でで/.test(f.testo)) problems.push(`${id}: particella doppia → ${f.testo}`);
     if (!variants.some((v) => f.testo.includes(v))) problems.push(`${id}: non contiene la parola → ${f.testo}`);
