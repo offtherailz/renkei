@@ -59,6 +59,13 @@
      "it": "Oggi mi sono stancato molto.",
      "en": "I got very tired today."
     }
+   },
+   {
+    "testo": "めが 疲れたので、すこし やすみます。",
+    "traduzione": {
+     "it": "Mi si sono stancati gli occhi, quindi riposo un po'.",
+     "en": "My eyes are tired, so I'll rest a bit."
+    }
    }
   ],
   "significato": {
@@ -258,6 +265,13 @@
     "traduzione": {
      "it": "A casa abbiamo due gatti.",
      "en": "We have two cats at home."
+    }
+   },
+   {
+    "testo": "猫が まどから そとを みて います。",
+    "traduzione": {
+     "it": "Il gatto guarda fuori dalla finestra.",
+     "en": "The cat is looking outside from the window."
     }
    }
   ],
@@ -701,6 +715,13 @@
      "it": "D'estate nuoto al mare.",
      "en": "In summer I swim in the sea."
     }
+   },
+   {
+    "testo": "わたしは 百メートル 泳げます。",
+    "traduzione": {
+     "it": "So nuotare per cento metri.",
+     "en": "I can swim one hundred meters."
+    }
    }
   ],
   "significato": {
@@ -719,6 +740,13 @@
     "traduzione": {
      "it": "Ogni mattina bevo il latte.",
      "en": "I drink milk every morning."
+    }
+   },
+   {
+    "testo": "パンと 牛乳を かって きて ください。",
+    "traduzione": {
+     "it": "Compra pane e latte, per favore.",
+     "en": "Please go buy bread and milk."
     }
    }
   ],
@@ -856,6 +884,13 @@
      "it": "Prima di mangiare mi lavo le mani.",
      "en": "I wash my hands before eating."
     }
+   },
+   {
+    "testo": "くるまを 洗って、きれいに しました。",
+    "traduzione": {
+     "it": "Ho lavato la macchina e l'ho fatta splendere.",
+     "en": "I washed the car and made it clean."
+    }
    }
   ],
   "significato": {
@@ -874,6 +909,13 @@
     "traduzione": {
      "it": "La domenica faccio il bucato.",
      "en": "I do the laundry on Sundays."
+    }
+   },
+   {
+    "testo": "あめで 洗濯ものが かわきません。",
+    "traduzione": {
+     "it": "Con la pioggia il bucato non si asciuga.",
+     "en": "With the rain, the laundry won't dry."
     }
    }
   ],
@@ -894,6 +936,13 @@
     "traduzione": {
      "it": "Ho lavato le camicie.",
      "en": "I washed the shirts."
+    }
+   },
+   {
+    "testo": "シーツを 洗濯しました。",
+    "traduzione": {
+     "it": "Ho lavato le lenzuola.",
+     "en": "I washed the sheets."
     }
    }
   ]
@@ -934,6 +983,13 @@
     "traduzione": {
      "it": "Al parco c'è tanta gente.",
      "en": "There are many people in the park."
+    }
+   },
+   {
+    "testo": "しゅくだいが 沢山 あって、あそべません。",
+    "traduzione": {
+     "it": "Ho tanti compiti e non posso giocare.",
+     "en": "I have a lot of homework and can't play."
     }
    }
   ],
@@ -1030,6 +1086,13 @@
     "traduzione": {
      "it": "Ogni anno viaggio con la famiglia.",
      "en": "Every year I travel with my family."
+    }
+   },
+   {
+    "testo": "毎年、さくらを みに いきます。",
+    "traduzione": {
+     "it": "Ogni anno vado a vedere i ciliegi in fiore.",
+     "en": "Every year I go to see the cherry blossoms."
     }
    }
   ],
@@ -1769,6 +1832,13 @@
      "it": "Scusi, c'è un posacenere?",
      "en": "Excuse me, is there an ashtray?"
     }
+   },
+   {
+    "testo": "テーブルの うえの 灰皿を かたづけました。",
+    "traduzione": {
+     "it": "Ho tolto il posacenere dal tavolo.",
+     "en": "I cleared away the ashtray on the table."
+    }
    }
   ],
   "significato": {
@@ -1836,6 +1906,13 @@
      "it": "Attraversato questo ponte c'è la stazione.",
      "en": "Cross this bridge and you'll reach the station."
     }
+   },
+   {
+    "testo": "この かわには ふるい 橋が かかって います。",
+    "traduzione": {
+     "it": "Su questo fiume c'è un vecchio ponte.",
+     "en": "An old bridge spans this river."
+    }
    }
   ],
   "significato": {
@@ -1881,6 +1958,13 @@
     "traduzione": {
      "it": "Il nostro cane è molto piccolo.",
      "en": "Our dog is very small."
+    }
+   },
+   {
+    "testo": "まいあさ 犬と さんぽします。",
+    "traduzione": {
+     "it": "Ogni mattina passeggio con il cane.",
+     "en": "Every morning I walk with my dog."
     }
    }
   ],
@@ -1992,6 +2076,13 @@
     "traduzione": {
      "it": "Un bicchiere d'acqua, per favore.",
      "en": "A glass of water, please."
+    }
+   },
+   {
+    "testo": "この 水は のめますか。",
+    "traduzione": {
+     "it": "Quest'acqua è potabile?",
+     "en": "Is this water drinkable?"
     }
    }
   ],
@@ -2270,6 +2361,13 @@
     "traduzione": {
      "it": "Ogni giorno imparo dei kanji.",
      "en": "I memorize kanji every day."
+    }
+   },
+   {
+    "testo": "この 漢字は なんと よみますか。",
+    "traduzione": {
+     "it": "Come si legge questo kanji?",
+     "en": "How do you read this kanji?"
     }
    }
   ],
@@ -3654,6 +3752,13 @@
      "it": "Mercoledì c'è il test.",
      "en": "There is a test on Wednesday."
     }
+   },
+   {
+    "testo": "水曜日は はやく かえれます。",
+    "traduzione": {
+     "it": "Il mercoledì posso tornare a casa presto.",
+     "en": "On Wednesdays I can go home early."
+    }
    }
   ],
   "significato": {
@@ -3921,6 +4026,13 @@
     "traduzione": {
      "it": "Attraversato il ponte c'è il parco.",
      "en": "Cross the bridge and you'll reach the park."
+    }
+   },
+   {
+    "testo": "みちを 渡る とき、みぎと ひだりを みます。",
+    "traduzione": {
+     "it": "Quando attraverso la strada guardo a destra e a sinistra.",
+     "en": "When crossing the street, I look right and left."
     }
    }
   ],
@@ -4258,6 +4370,13 @@
      "it": "Ogni mese leggo tre libri.",
      "en": "I read three books every month."
     }
+   },
+   {
+    "testo": "毎月 すこしずつ ちょきんして います。",
+    "traduzione": {
+     "it": "Ogni mese risparmio un po' alla volta.",
+     "en": "I save a little money every month."
+    }
    }
   ],
   "significato": {
@@ -4304,6 +4423,13 @@
      "it": "Vorrei una bicicletta nuova.",
      "en": "I want a new bicycle."
     }
+   },
+   {
+    "testo": "たんじょうびに なにが 欲しいですか。",
+    "traduzione": {
+     "it": "Cosa desideri per il compleanno?",
+     "en": "What do you want for your birthday?"
+    }
    }
   ],
   "significato": {
@@ -4324,6 +4450,13 @@
     "traduzione": {
      "it": "La mattina faccio la doccia.",
      "en": "I take a shower in the morning."
+    }
+   },
+   {
+    "testo": "あせを かいたので、シャワーを 浴びたいです。",
+    "traduzione": {
+     "it": "Ho sudato, quindi voglio fare una doccia.",
+     "en": "I sweated, so I want to take a shower."
     }
    }
   ],
@@ -6143,6 +6276,13 @@
      "it": "Cinquecento grammi di manzo, per favore.",
      "en": "Five hundred grams of beef, please."
     }
+   },
+   {
+    "testo": "この りょうりには 牛肉を つかいます。",
+    "traduzione": {
+     "it": "Per questo piatto si usa carne di manzo.",
+     "en": "Beef is used for this dish."
+    }
    }
   ],
   "significato": {
@@ -6188,6 +6328,13 @@
     "traduzione": {
      "it": "La mia stanza è piccola.",
      "en": "My room is small."
+    }
+   },
+   {
+    "testo": "この みちは 狭いですから、きを つけて ください。",
+    "traduzione": {
+     "it": "Questa strada è stretta, quindi fai attenzione.",
+     "en": "This road is narrow, so please be careful."
     }
    }
   ],
@@ -7337,6 +7484,13 @@
      "it": "Prima di dormire spengo la luce.",
      "en": "I turn off the light before sleeping."
     }
+   },
+   {
+    "testo": "こくばんの じを 消して ください。",
+    "traduzione": {
+     "it": "Cancella la lavagna, per favore.",
+     "en": "Please erase the writing on the blackboard."
+    }
    }
   ],
   "significato": {
@@ -7640,6 +7794,13 @@
      "it": "Sono nato a Osaka.",
      "en": "I was born in Osaka."
     }
+   },
+   {
+    "testo": "いもうとに あかちゃんが 生まれました。",
+    "traduzione": {
+     "it": "A mia sorella è nato un bambino.",
+     "en": "My sister had a baby."
+    }
    }
   ],
   "significato": {
@@ -7658,6 +7819,13 @@
     "traduzione": {
      "it": "Gli alunni di questa scuola sono gentili.",
      "en": "The students of this school are kind."
+    }
+   },
+   {
+    "testo": "この クラスの 生徒は 三十にんです。",
+    "traduzione": {
+     "it": "Gli alunni di questa classe sono trenta.",
+     "en": "There are thirty students in this class."
     }
    }
   ],
@@ -9728,7 +9896,23 @@
     "unclean",
     "filthy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジャックは私に汚いいたずらをした。",
+    "traduzione": {
+     "it": "Jack played a dirty trick on me.",
+     "en": "Jack played a dirty trick on me."
+    }
+   },
+   {
+    "testo": "汚い てで さわらないで ください。",
+    "traduzione": {
+     "it": "Non toccare con le mani sporche.",
+     "en": "Please don't touch it with dirty hands."
+    }
+   }
+  ]
  },
  "押す": {
   "significato": {
@@ -9767,7 +9951,23 @@
    "en": [
     "lukewarm"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このコーヒーはぬるいです。",
+    "traduzione": {
+     "it": "This coffee is not hot enough.",
+     "en": "This coffee is not hot enough."
+    }
+   },
+   {
+    "testo": "おふろが 温くて、さむかったです。",
+    "traduzione": {
+     "it": "Il bagno era tiepido e ho sentito freddo.",
+     "en": "The bath was lukewarm and I felt cold."
+    }
+   }
+  ]
  },
  "下": {
   "significato": {
@@ -9963,7 +10163,23 @@
    "en": [
     "a song"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この歌を聞くと私はいつも、学生時代を思い出す。",
+    "traduzione": {
+     "it": "Whenever I hear this song, I am reminded of my school days.",
+     "en": "Whenever I hear this song, I am reminded of my school days."
+    }
+   },
+   {
+    "testo": "にほんの 歌を ひとつ おぼえました。",
+    "traduzione": {
+     "it": "Ho imparato una canzone giapponese.",
+     "en": "I learned one Japanese song."
+    }
+   }
+  ]
  },
  "歌う": {
   "significato": {
@@ -9973,7 +10189,23 @@
    "en": [
     "to sing"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョンはステージで何を歌いましたか。",
+    "traduzione": {
+     "it": "What did John sing on the stage?",
+     "en": "What did John sing on the stage?"
+    }
+   },
+   {
+    "testo": "おふろで 歌うのが すきです。",
+    "traduzione": {
+     "it": "Mi piace cantare nella vasca da bagno.",
+     "en": "I like singing in the bath."
+    }
+   }
+  ]
  },
  "火曜日": {
   "significato": {
@@ -9983,7 +10215,23 @@
    "en": [
     "Tuesday"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "火曜日に国会が開かれる。",
+    "traduzione": {
+     "it": "The Diet will meet on Tuesday.",
+     "en": "The Diet will meet on Tuesday."
+    }
+   },
+   {
+    "testo": "火曜日は やすみの みせが おおいです。",
+    "traduzione": {
+     "it": "Il martedì molti negozi sono chiusi.",
+     "en": "Many shops are closed on Tuesdays."
+    }
+   }
+  ]
  },
  "海": {
   "significato": {
@@ -9994,7 +10242,23 @@
     "sea",
     "beach"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "何としても海をひと目みたいものだ。",
+    "traduzione": {
+     "it": "I ache for a sight of the sea.",
+     "en": "I ache for a sight of the sea."
+    }
+   },
+   {
+    "testo": "ホテルから 海が みえます。",
+    "traduzione": {
+     "it": "Dall'hotel si vede il mare.",
+     "en": "You can see the sea from the hotel."
+    }
+   }
+  ]
  },
  "皆さん": {
   "significato": {
@@ -10461,6 +10725,13 @@
     "traduzione": {
      "it": "All'ingresso ci si toglie le scarpe.",
      "en": "You take off your shoes at the entrance."
+    }
+   },
+   {
+    "testo": "玄関の ドアを しめて ください。",
+    "traduzione": {
+     "it": "Chiudi la porta d'ingresso, per favore.",
+     "en": "Please close the front door."
     }
    }
   ]
@@ -11045,7 +11316,23 @@
     "to come to a halt"
    ]
   },
-  "id_verbo_corrispondente": "止める::とめる"
+  "id_verbo_corrispondente": "止める::とめる",
+  "frasi_esempio": [
+   {
+    "testo": "そして、電車はキーッという音を立てて止まった。",
+    "traduzione": {
+     "it": "Then, the train screeched to a halt.",
+     "en": "Then, the train screeched to a halt."
+    }
+   },
+   {
+    "testo": "この でんしゃは つぎの えきに 止まりますか。",
+    "traduzione": {
+     "it": "Questo treno ferma alla prossima stazione?",
+     "en": "Does this train stop at the next station?"
+    }
+   }
+  ]
  },
  "死ぬ": {
   "significato": {
@@ -11055,7 +11342,23 @@
    "en": [
     "to die"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その少年は死んだものとしてあきらめられた。",
+    "traduzione": {
+     "it": "The boy was given up for dead.",
+     "en": "The boy was given up for dead."
+    }
+   },
+   {
+    "testo": "かって いた きんぎょが 死んで しまいました。",
+    "traduzione": {
+     "it": "Il pesce rosso che tenevo è morto.",
+     "en": "The goldfish I kept died."
+    }
+   }
+  ]
  },
  "私::わたくし": {
   "significato": {
@@ -11093,7 +11396,23 @@
    "en": [
     "tooth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その赤ちゃんは歯が生えはじめている。",
+    "traduzione": {
+     "it": "The baby is cutting his teeth.",
+     "en": "The baby is cutting his teeth."
+    }
+   },
+   {
+    "testo": "ねる まえに 歯を みがきます。",
+    "traduzione": {
+     "it": "Prima di dormire mi lavo i denti.",
+     "en": "I brush my teeth before going to bed."
+    }
+   }
+  ]
  },
  "字引": {
   "significato": {
@@ -11239,7 +11558,23 @@
    "en": [
     "next"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この次来るときは、花を持ってきてあげよう。",
+    "traduzione": {
+     "it": "Next time I come, I'll bring you some flowers.",
+     "en": "Next time I come, I'll bring you some flowers."
+    }
+   },
+   {
+    "testo": "次の えきで おります。",
+    "traduzione": {
+     "it": "Scendo alla prossima stazione.",
+     "en": "I get off at the next station."
+    }
+   }
+  ]
  },
  "七": {
   "significato": {
@@ -12226,6 +12561,13 @@
      "it": "A poco a poco si è fatto più caldo.",
      "en": "It gradually got warmer."
     }
+   },
+   {
+    "testo": "ひが 段々 みじかく なります。",
+    "traduzione": {
+     "it": "Le giornate si accorciano a poco a poco.",
+     "en": "The days gradually get shorter."
+    }
    }
   ]
  },
@@ -12247,6 +12589,13 @@
      "it": "Quell'uomo è un insegnante.",
      "en": "That man is a teacher."
     }
+   },
+   {
+    "testo": "にわに 男の ひとが たって います。",
+    "traduzione": {
+     "it": "In giardino c'è un uomo in piedi.",
+     "en": "A man is standing in the garden."
+    }
    }
   ]
  },
@@ -12259,7 +12608,23 @@
    "en": [
     "boy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのハンサムな男の子を見て。",
+    "traduzione": {
+     "it": "Look at that good-looking boy.",
+     "en": "Look at that good-looking boy."
+    }
+   },
+   {
+    "testo": "男の子が こうえんで ボールを けって います。",
+    "traduzione": {
+     "it": "Un bambino calcia il pallone al parco.",
+     "en": "A boy is kicking a ball in the park."
+    }
+   }
+  ]
  },
  "知る": {
   "significato": {
@@ -12345,7 +12710,23 @@
    "en": [
     "pond"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この前の夏にこの池は水がなくなりました。",
+    "traduzione": {
+     "it": "The pond dried up last summer.",
+     "en": "The pond dried up last summer."
+    }
+   },
+   {
+    "testo": "池に こいが たくさん います。",
+    "traduzione": {
+     "it": "Nello stagno ci sono tante carpe.",
+     "en": "There are many carp in the pond."
+    }
+   }
+  ]
  },
  "置く": {
   "significato": {
@@ -12519,6 +12900,13 @@
     "traduzione": {
      "it": "Questa cittadina è tranquilla.",
      "en": "This town is quiet."
+    }
+   },
+   {
+    "testo": "この 町には おおきな びょういんが あります。",
+    "traduzione": {
+     "it": "In questa città c'è un grande ospedale.",
+     "en": "There is a big hospital in this town."
     }
    }
   ]
@@ -13185,6 +13573,13 @@
      "it": "Il tè scotta, fai attenzione.",
      "en": "The tea is hot, so be careful."
     }
+   },
+   {
+    "testo": "熱い おふろに ゆっくり はいりました。",
+    "traduzione": {
+     "it": "Ho fatto con calma un bagno bollente.",
+     "en": "I took a long soak in a hot bath."
+    }
    }
   ]
  },
@@ -13539,7 +13934,23 @@
     "number",
     "series of digits"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ええ、じゃあ私の電話番号教えるね。",
+    "traduzione": {
+     "it": "OK. Let me give you my number.",
+     "en": "OK. Let me give you my number."
+    }
+   },
+   {
+    "testo": "へやの 番号を わすれました。",
+    "traduzione": {
+     "it": "Ho dimenticato il numero della stanza.",
+     "en": "I forgot my room number."
+    }
+   }
+  ]
  },
  "飛ぶ": {
   "significato": {
@@ -13612,6 +14023,13 @@
      "it": "Mio fratello è rimasto a casa da scuola per malattia.",
      "en": "My brother stayed home from school because he was sick."
     }
+   },
+   {
+    "testo": "病気が なおって、げんきに なりました。",
+    "traduzione": {
+     "it": "La malattia è guarita e sono tornato in forze.",
+     "en": "I recovered from my illness and got well."
+    }
    }
   ]
  },
@@ -13630,6 +14048,13 @@
     "traduzione": {
      "it": "Mio padre beve caffè ogni mattina.",
      "en": "My father drinks coffee every morning."
+    }
+   },
+   {
+    "testo": "父は つりが しゅみです。",
+    "traduzione": {
+     "it": "L'hobby di mio padre è la pesca.",
+     "en": "My father's hobby is fishing."
     }
    }
   ]
@@ -13929,7 +14354,23 @@
    "en": [
     "to walk"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "歩いて行きますか？それともバスで行きますか？",
+    "traduzione": {
+     "it": "Will you go on foot or by bus?",
+     "en": "Will you go on foot or by bus?"
+    }
+   },
+   {
+    "testo": "えきまで 歩いて 十ぷんです。",
+    "traduzione": {
+     "it": "Fino alla stazione sono dieci minuti a piedi.",
+     "en": "It is a ten-minute walk to the station."
+    }
+   }
+  ]
  },
  "母": {
   "significato": {
@@ -13946,6 +14387,13 @@
     "traduzione": {
      "it": "Mia madre è brava a cucinare.",
      "en": "My mother is good at cooking."
+    }
+   },
+   {
+    "testo": "母に セーターを もらいました。",
+    "traduzione": {
+     "it": "Ho ricevuto un maglione dalla mamma.",
+     "en": "I got a sweater from my mother."
     }
    }
   ]
@@ -14110,6 +14558,13 @@
      "it": "Ogni settimana vado in biblioteca.",
      "en": "I go to the library every week."
     }
+   },
+   {
+    "testo": "毎週 かようびに ピアノを ならって います。",
+    "traduzione": {
+     "it": "Ogni martedì prendo lezioni di piano.",
+     "en": "I take piano lessons every Tuesday."
+    }
    }
   ]
  },
@@ -14121,7 +14576,23 @@
    "en": [
     "every morning"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は毎朝六時に起きます。",
+    "traduzione": {
+     "it": "I get up at six every morning.",
+     "en": "I get up at six every morning."
+    }
+   },
+   {
+    "testo": "毎朝 ジュースを つくって のみます。",
+    "traduzione": {
+     "it": "Ogni mattina mi preparo un succo e lo bevo.",
+     "en": "Every morning I make and drink juice."
+    }
+   }
+  ]
  },
  "毎日": {
   "significato": {
@@ -14131,7 +14602,23 @@
    "en": [
     "every day"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その犬に毎日食べ物をやって下さい。",
+    "traduzione": {
+     "it": "Please feed the dog every day.",
+     "en": "Please feed the dog every day."
+    }
+   },
+   {
+    "testo": "毎日 三十ぷん あるいて います。",
+    "traduzione": {
+     "it": "Cammino trenta minuti ogni giorno.",
+     "en": "I walk for thirty minutes every day."
+    }
+   }
+  ]
  },
  "毎晩": {
   "significato": {
@@ -14141,7 +14628,23 @@
    "en": [
     "every night"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は毎晩家にいます。",
+    "traduzione": {
+     "it": "I am at home every evening.",
+     "en": "I am at home every evening."
+    }
+   },
+   {
+    "testo": "毎晩 ねる まえに ほんを よみます。",
+    "traduzione": {
+     "it": "Ogni sera leggo prima di dormire.",
+     "en": "Every night I read before going to bed."
+    }
+   }
+  ]
  },
  "万年筆": {
   "significato": {
@@ -14184,6 +14687,13 @@
     "traduzione": {
      "it": "Ho perso il biglietto in stazione.",
      "en": "I lost my ticket at the station."
+    }
+   },
+   {
+    "testo": "だいじな かぎを 無くさないで ください。",
+    "traduzione": {
+     "it": "Non perdere quella chiave importante.",
+     "en": "Please don't lose the important key."
     }
    }
   ],
@@ -14578,7 +15088,23 @@
    "en": [
     "Western-style clothes"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お前に新しい洋服を作ってあげよう。",
+    "traduzione": {
+     "it": "I will make a new suit for you.",
+     "en": "I will make a new suit for you."
+    }
+   },
+   {
+    "testo": "デパートで 洋服を みました。",
+    "traduzione": {
+     "it": "Ai grandi magazzini ho guardato dei vestiti.",
+     "en": "I looked at clothes at the department store."
+    }
+   }
+  ]
  },
  "要る": {
   "significato": {
@@ -14685,6 +15211,13 @@
      "it": "Lui è uno studente in scambio dall'America.",
      "en": "He is an exchange student from America."
     }
+   },
+   {
+    "testo": "りょうに 留学生が おおぜい すんで います。",
+    "traduzione": {
+     "it": "Nel dormitorio vivono molti studenti stranieri.",
+     "en": "Many international students live in the dormitory."
+    }
    }
   ]
  },
@@ -14759,6 +15292,13 @@
     "traduzione": {
      "it": "L'autunno è fresco e piacevole.",
      "en": "Autumn is cool and pleasant."
+    }
+   },
+   {
+    "testo": "あさばんは 涼しく なりました。",
+    "traduzione": {
+     "it": "Mattina e sera è diventato fresco.",
+     "en": "It has become cool in the mornings and evenings."
     }
    }
   ]
@@ -26759,6 +27299,24 @@
     "traduzione": {
      "it": "L'anno prossimo vorrei viaggiare in Europa.",
      "en": "Next year I want to travel around Europe."
+    }
+   }
+  ]
+ },
+ "気をつけて": {
+  "frasi_esempio": [
+   {
+    "testo": "雨ですよ。気をつけて。",
+    "traduzione": {
+     "it": "Piove, stai attento.",
+     "en": "Piove, stai attento."
+    }
+   },
+   {
+    "testo": "くらいですから、気をつけて かえって ください。",
+    "traduzione": {
+     "it": "È buio: torna a casa con prudenza.",
+     "en": "It's dark, so please be careful on your way home."
     }
    }
   ]
