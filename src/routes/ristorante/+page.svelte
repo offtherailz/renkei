@@ -1,5 +1,5 @@
 <script lang="ts">
-	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import ScriptLog from '$lib/components/ScriptLog.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -406,12 +406,7 @@
 		{/if}
 	</div>
 	{#if showScript}
-		<div class="script script-box">
-			<p class="script-title">📜 Il dialogo finora</p>
-			{#each dialog as l}
-				<p class="line {l.who}"><span class="line-who">{l.who === 'staff' ? '🧑‍🍳' : '🙂'}</span> <InteractiveSentence text={l.text} /></p>
-			{/each}
-		</div>
+		<ScriptLog lines={dialog} icons={{ staff: '🧑‍🍳' }} />
 	{/if}
 
 	{#if scene === 'pick'}
@@ -585,12 +580,7 @@
 			<p class="who">{errors === 0 ? '🎉 Perfetto!' : '📝 Fine pasto'}</p>
 			<p class="bubble">🙂「ごちそうさまでした！」</p>
 			<p class="hint">Totale: ¥{orderedTotal()} · {errors === 0 ? 'nessun errore!' : `errori: ${errors}`}</p>
-			<div class="script">
-				<p class="script-title">📜 Il dialogo di oggi</p>
-				{#each dialog as l}
-					<p class="line {l.who}"><span class="line-who">{l.who === 'staff' ? '🧑‍🍳' : '🙂'}</span> <InteractiveSentence text={l.text} /></p>
-				{/each}
-			</div>
+			<ScriptLog lines={dialog} icons={{ staff: '🧑‍🍳' }} title="📜 Il dialogo di oggi" />
 			<button class="proceed" onclick={start}>🔁 Un altro giro</button>
 		</article>
 	{/if}
@@ -600,7 +590,6 @@
 	.rist { display: grid; gap: 14px; }
 	.nav { margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
-	.script-box { border-top: none; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 
@@ -665,12 +654,6 @@
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
 	.mini:disabled { opacity: 0.4; cursor: default; }
 
-	.script { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 4px; }
-	.script-title { margin: 0 0 4px; font-size: 0.85rem; font-weight: 700; }
-	.line { margin: 0; font-size: 0.95rem; padding: 5px 9px; border-radius: 8px; color: var(--ink); background: var(--surface-2); border-left: 3px solid var(--line); }
-	.line.staff { border-left-color: #94a3b8; }
-	.line.me { border-left-color: var(--brand); text-align: right; }
-	.line-who { font-size: 0.9rem; }
 
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 	.proceed:disabled { opacity: 0.5; cursor: default; }

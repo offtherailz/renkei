@@ -6,7 +6,7 @@
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { appState } from '$lib/stores.svelte';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
-	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import ScriptLog from '$lib/components/ScriptLog.svelte';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -145,11 +145,7 @@
 		{/if}
 	</div>
 	{#if showScript}
-		<div class="script script-box">
-			{#each dialog as l}
-				<p class="line {l.who}"><span>{l.who === 'me' ? '🙂' : '🗣️'}</span> <InteractiveSentence text={l.text} /></p>
-			{/each}
-		</div>
+		<ScriptLog lines={dialog} />
 	{/if}
 
 	{#if scene === 'intro'}
@@ -198,12 +194,7 @@
 			<p class="who">{errors === 0 ? '🎉 Giornata perfetta!' : '🌙 Fine giornata'}</p>
 			<p class="score-big">{day.length - errors} / {day.length}</p>
 			<p class="hint">{errors === 0 ? 'Tutte le frasi al posto giusto!' : `frasi sbagliate: ${errors} — riguarda il copione 📜`}</p>
-			<div class="script">
-				<p class="script-title">📜 La giornata di oggi</p>
-				{#each dialog as l}
-					<p class="line {l.who}"><span>{l.who === 'me' ? '🙂' : '🗣️'}</span> <InteractiveSentence text={l.text} /></p>
-				{/each}
-			</div>
+			<ScriptLog lines={dialog} title="📜 La giornata di oggi" />
 			<button class="proceed" onclick={start}>🔁 Un altro giorno</button>
 		</article>
 	{/if}
@@ -235,12 +226,6 @@
 	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
-	.script { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 4px; }
-	.script-box { border-top: none; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
-	.script-title { margin: 0 0 4px; font-size: 0.85rem; font-weight: 700; }
-	.line { margin: 0; font-size: 0.95rem; padding: 5px 9px; border-radius: 8px; color: var(--ink); background: var(--surface-2); border-left: 3px solid var(--line); display: flex; gap: 6px; align-items: baseline; }
-	.line.me { border-left-color: var(--brand); }
-	.line.other { border-left-color: var(--warn-border); }
 
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 </style>

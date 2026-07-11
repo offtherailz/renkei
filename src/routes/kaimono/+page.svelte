@@ -1,5 +1,5 @@
 <script lang="ts">
-	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import ScriptLog from '$lib/components/ScriptLog.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -495,12 +495,7 @@
 		{/if}
 	</div>
 	{#if showScript}
-		<div class="script">
-			<p class="script-title">📜 Il dialogo finora</p>
-			{#each dialog as l}
-				<p class="line {l.who}"><span class="line-who">{l.who === 'me' ? '🙂' : '🗣️'}</span> <InteractiveSentence text={l.text} /></p>
-			{/each}
-		</div>
+		<ScriptLog lines={dialog} />
 	{/if}
 
 	{#if scene === 'intro'}
@@ -699,13 +694,6 @@
 	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
-	.script { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 4px; }
-	.script-title { margin: 0 0 4px; font-size: 0.85rem; font-weight: 700; }
-	.line { margin: 0; font-size: 0.95rem; padding: 5px 9px; border-radius: 8px; color: var(--ink); background: var(--surface-2); border-left: 3px solid var(--line); }
-	.line.other { border-left-color: #94a3b8; }
-	.line.me { border-left-color: var(--brand); text-align: right; }
-	.line-who { font-size: 0.9rem; }
-
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
 	.shop-list li.done { border-color: var(--brand); }
