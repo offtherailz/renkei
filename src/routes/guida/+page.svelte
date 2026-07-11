@@ -15,16 +15,17 @@
 		<h2>🧭 Il giro consigliato</h2>
 		<ol>
 			<li><strong>Il piano di oggi</strong> (in home): prima i ripassi SRS, poi i tuoi punti deboli, poi l'attività del giorno.</li>
-			<li><strong>Corsi</strong>: importa Genki I (un tocco), premi «🎯 Studia solo questo corso» e avanza lezione per lezione.</li>
+			<li><strong>Corsi</strong>: importa Genki I (un tocco), premi «🎯 Studia solo questo corso» e avanza lezione per lezione — si sblocca da sola.</li>
 			<li>Quando qualcosa non torna, aprine la <strong>scheda</strong>: esempi, usi, coniugazioni, note tue — e 💪 Consolida per il drill senza penalità.</li>
 		</ol>
+		<p class="page-sub" style="margin:0;">Al primo avvio te lo chiediamo subito: «Ho già delle basi» lascia tutto il catalogo attivo com'è oggi; «Sono all'inizio» imposta da solo il percorso guidato sopra.</p>
 	</section>
 
 	<section class="g-card">
 		<h2>🧠 Studia</h2>
 		<p><strong>Sessione quiz</strong> — domande a tempo sugli obiettivi «✓ In studio»; le risposte muovono l'SRS (intervalli 10 min → 1 h → 8 h → 1 g → 3 g → 7 g → 14 g → 30 g). Dopo ogni risposta puoi aprire «🔍 Approfondisci»: la frase spezzettata e cliccabile, con furigana e traduzione. Ovunque una frase sia cliccabile, il popup ha <strong>«➕ Non la conoscevo»</strong>: un tocco e la parola entra nei tuoi punti deboli. Le domande sui kanji restano nel loro livello reale (una parola N4 può contenere un kanji più avanzato: non te lo chiede finché non studi quel livello) — in Impostazioni puoi attivare la <strong>furigana d'aiuto</strong> per quei casi nel «produci la parola».</p>
 			<p><strong>Obiettivi</strong> — il badge «✓ In studio / ⏸ Pausa» in home è un interruttore. La pausa non cancella nulla: i ripassi restano in attesa (li vedi come «+N in pausa»).</p>
-		<p><strong>Corsi</strong> — ogni lezione è un obiettivo. Le lezioni si attivano da /courses o dalla home.</p>
+		<p><strong>Corsi</strong> — ogni lezione è un obiettivo. Le lezioni si attivano da /courses o dalla home. In «🎯 Studia solo questo corso» le prossime lezioni si sbloccano da sole man mano che completi quella attiva (tutte le carte viste almeno una volta) — niente da spuntare a mano.</p>
 		<p><strong>Ascolto dialoghi</strong> — dialoghi con domande, massimo 2 ascolti come all'esame.</p>
 		<p><strong>🔥 Streak e traguardi</strong> — in home vedi i giorni di studio di fila (un giorno saltato non la azzera: si rompe dopo due). A fine sessione festeggi record personali e traguardi (3, 7, 14, 30 giorni…); in Statistiche c'è il racconto della tua settimana. Quando un pack o una lezione arriva a «tutte le carte viste almeno una volta», la home lo festeggia (una volta sola).</p>
 	</section>

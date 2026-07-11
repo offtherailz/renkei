@@ -9,6 +9,7 @@
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
+	import { autoAdvanceCompletedLessons, listCourses, importCourseDataset, studyOnlyCourse } from '$lib/db/course-import';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -76,13 +77,16 @@
 	}
 
 	// Festa (una volta sola) quando un pack/lezione arriva a "tutte le carte
-	// viste almeno una volta". Lo snapshot vive in localStorage.
+	// viste almeno una volta". Lo snapshot vive in localStorage. Se è una
+	// lezione di un corso, sblocca subito la successiva (percorso guidato che
+	// avanza da solo, niente da spuntare a mano su /courses).
 	async function loadPackParty(): Promise<void> {
 		const done = await loadCompletedObjectives();
 		const fresh = detectNewCompletions(done.map((d) => d.id));
 		if (fresh.length === 0) return;
 		const names = new Map(done.map((d) => [d.id, d.name]));
-		packParty = fresh.map((id) => names.get(id) ?? id);
+		const unlocked = await autoAdvanceCompletedLessons(fresh);
+		packParty = [...fresh.map((id) => names.get(id) ?? id), ...unlocked.map((t) => `→ sbloccata: ${t}`)];
 		showConfetti = true;
 		setTimeout(() => (showConfetti = false), 3500);
 	}
@@ -104,11 +108,56 @@
 		summaries = await loadObjectiveSummaries();
 	}
 
+	// Onboarding al primo avvio: chi ha già basi non tocca nulla (comportamento
+	// di oggi, tutto il catalogo attivo); chi parte da zero importa Genki I e
+	// studia solo la lezione 1 — le prossime si sbloccano da sole.
+	const ONBOARDING_KEY = 'renkei_onboarding_seen';
+	let showOnboarding = $state(false);
+	let onboardingBusy = $state(false);
+	let onboardingError = $state('');
+
+	function dismissOnboarding(): void {
+		try {
+			localStorage.setItem(ONBOARDING_KEY, '1');
+		} catch { /* niente storage: pazienza, ricomparirà */ }
+		showOnboarding = false;
+	}
+
+	function chooseConsolidamento(): void {
+		dismissOnboarding();
+	}
+
+	async function chooseGuidato(): Promise<void> {
+		onboardingBusy = true;
+		onboardingError = '';
+		try {
+			const existing = await listCourses();
+			if (!existing.some((c) => c.id === 'genki-1')) {
+				const resp = await fetch(`${base}/corso-genki-1.json`);
+				if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+				await importCourseDataset(await resp.text());
+			}
+			await studyOnlyCourse('genki-1');
+			dismissOnboarding();
+			await loadData();
+		} catch (e) {
+			onboardingError = `Non sono riuscito a impostare il percorso guidato (${String(e)}). Puoi farlo comunque da Corsi quando vuoi.`;
+		} finally {
+			onboardingBusy = false;
+		}
+	}
+
 	onMount(loadData);
 
-	// Ricarica quando appState viene inizializzato
+	// Ricarica quando appState viene inizializzato; l'onboarding si mostra solo
+	// a quel punto (serve il seed pronto se si sceglie il percorso guidato).
 	$effect(() => {
-		if (appState.initialized) loadData();
+		if (appState.initialized) {
+			loadData();
+			if (typeof localStorage !== 'undefined' && !localStorage.getItem(ONBOARDING_KEY)) {
+				showOnboarding = true;
+			}
+		}
 	});
 
 	function progressColor(p: number): string {
@@ -138,6 +187,26 @@
 		</div>
 	</div>
 </header>
+
+{#if showOnboarding}
+<div class="onboarding-backdrop">
+	<div class="onboarding-card">
+		<h2 class="onboarding-title">Benvenuto su Renkei 👋</h2>
+		<p class="onboarding-sub">Come vuoi iniziare?</p>
+		<button class="onboarding-choice" onclick={chooseConsolidamento} disabled={onboardingBusy}>
+			<span class="onboarding-choice-title">📚 Ho già delle basi</span>
+			<span class="onboarding-choice-hint">Voglio ripassare e consolidare — tutto il catalogo N5/N4 è già pronto, comincio da qui.</span>
+		</button>
+		<button class="onboarding-choice" onclick={chooseGuidato} disabled={onboardingBusy}>
+			<span class="onboarding-choice-title">🌱 Sono all'inizio</span>
+			<span class="onboarding-choice-hint">Voglio un percorso guidato — importo Genki I e parto dalla lezione 1, il resto resta in pausa.</span>
+		</button>
+		{#if onboardingBusy}<p class="onboarding-status">Preparo il percorso…</p>{/if}
+		{#if onboardingError}<p class="onboarding-status error">{onboardingError}</p>{/if}
+		<button class="onboarding-skip" onclick={dismissOnboarding} disabled={onboardingBusy}>Scelgo dopo</button>
+	</div>
+</div>
+{/if}
 
 {#if dueCount > 0}
 <div class="due-banner">
@@ -400,6 +469,45 @@
 		font-size: 0.9rem;
 		gap: 8px;
 	}
+
+	.onboarding-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(14, 29, 51, 0.55);
+		display: grid;
+		place-items: center;
+		padding: 20px;
+		z-index: 500;
+	}
+	.onboarding-card {
+		background: var(--surface);
+		border-radius: 18px;
+		padding: 22px;
+		max-width: 400px;
+		width: 100%;
+		display: grid;
+		gap: 12px;
+		box-shadow: 0 12px 40px rgba(14, 29, 51, 0.3);
+	}
+	.onboarding-title { margin: 0; font-size: 1.2rem; text-align: center; }
+	.onboarding-sub { margin: 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+	.onboarding-choice {
+		display: grid;
+		gap: 4px;
+		text-align: left;
+		background: var(--surface-2);
+		border: 1.5px solid var(--line);
+		border-radius: 12px;
+		padding: 14px;
+		cursor: pointer;
+	}
+	.onboarding-choice:hover:not(:disabled) { border-color: var(--brand); }
+	.onboarding-choice:disabled { opacity: 0.6; cursor: default; }
+	.onboarding-choice-title { font-weight: 700; font-size: 1rem; }
+	.onboarding-choice-hint { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+	.onboarding-status { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
+	.onboarding-status.error { color: var(--danger); }
+	.onboarding-skip { background: none; border: none; color: var(--muted); font-size: 0.82rem; text-decoration: underline; cursor: pointer; justify-self: center; }
 
 	.party-banner {
 		background: var(--gold-bg);

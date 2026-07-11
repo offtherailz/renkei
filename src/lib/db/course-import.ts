@@ -360,6 +360,48 @@ export async function getLessonsForCourse(corsoId: string): Promise<CourseLesson
   return db.course_lessons.where("corso_id").equals(corsoId).sortBy("numero");
 }
 
+// Mette in pausa tutto il resto del catalogo (fuori dal corso) e attiva solo
+// la prima lezione: il quiz da quel momento pesca solo da lì. Usata sia da
+// /courses ("🎯 Studia solo questo corso") sia dall'onboarding guidato —
+// le lezioni successive si sbloccano da sole man mano (autoAdvanceCompletedLessons).
+export async function studyOnlyCourse(corsoId: string): Promise<void> {
+  const prefix = `course:${corsoId}:`;
+  const all = await db.study_objectives.toArray();
+  for (const o of all) {
+    const inCourse = o.id.startsWith(prefix) || o.id === `course:${corsoId}`;
+    if (!inCourse && o.study_enabled) {
+      await db.study_objectives.update(o.id, { study_enabled: false, updated_at: Date.now() });
+    }
+  }
+  const lessons = await getLessonsForCourse(corsoId);
+  const first = lessons[0];
+  if (first) await db.study_objectives.update(first.objective_id, { study_enabled: true, updated_at: Date.now() });
+}
+
+// Quando una lezione "si completa" (tutte le sue carte hanno almeno una
+// review — stesso segnale della festa in home, vedi $lib/db/queries.ts
+// loadCompletedObjectives), sblocca la lezione successiva dello stesso corso
+// se non era già attiva. Così un percorso guidato avanza da solo: non serve
+// tornare su /courses a spuntare "a mano" la lezione dopo.
+export async function autoAdvanceCompletedLessons(completedObjectiveIds: string[]): Promise<string[]> {
+  const unlocked: string[] = [];
+  for (const id of completedObjectiveIds) {
+    const match = id.match(/^course:([^:]+):lesson:(.+)$/);
+    if (!match) continue;
+    const corsoId = match[1]!;
+    const lessons = await getLessonsForCourse(corsoId);
+    const idx = lessons.findIndex((l) => l.objective_id === id);
+    if (idx < 0 || idx + 1 >= lessons.length) continue;
+    const next = lessons[idx + 1]!;
+    const nextObjective = await db.study_objectives.get(next.objective_id);
+    if (nextObjective && !nextObjective.study_enabled) {
+      await db.study_objectives.update(next.objective_id, { study_enabled: true, updated_at: Date.now() });
+      unlocked.push(next.titolo);
+    }
+  }
+  return unlocked;
+}
+
 export async function deleteCourse(corsoId: string): Promise<void> {
   const lessons = await getLessonsForCourse(corsoId);
   const lessonObjectiveIds = lessons.map((l) => l.objective_id);

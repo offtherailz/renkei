@@ -17,6 +17,79 @@ test('primo avvio: seed importato e home con il piano di oggi', async ({ page })
 	expect(errors).toEqual([]);
 });
 
+test('onboarding: percorso guidato importa Genki I e attiva solo la lezione 1', async ({ page }) => {
+	const errors: string[] = [];
+	page.on('pageerror', (e) => errors.push(String(e)));
+	await gotoHome(page);
+	await expect(page.getByText('Benvenuto su Renkei')).toBeVisible({ timeout: 15_000 });
+	await page.getByRole('button', { name: /Sono all'inizio/ }).click();
+	// import + studyOnlyCourse sono asincroni: aspetta che l'overlay sparisca
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 20_000 });
+	expect(errors).toEqual([]);
+
+	const state = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const objectives = await db.study_objectives.toArray();
+		const lesson1 = objectives.find((o) => o.id === 'course:genki-1:lesson:L01');
+		const catalogRoots = objectives.filter((o) => o.id === 'obj-catalog-n5' || o.id === 'obj-catalog-n4');
+		return {
+			lesson1Enabled: lesson1?.study_enabled ?? false,
+			catalogRootsStillEnabled: catalogRoots.some((o) => o.study_enabled)
+		};
+	});
+	expect(state.lesson1Enabled).toBe(true);
+	expect(state.catalogRootsStillEnabled).toBe(false);
+});
+
+test('onboarding: "scelgo dopo" lascia tutto attivo come oggi', async ({ page }) => {
+	await gotoHome(page);
+	await expect(page.getByText('Benvenuto su Renkei')).toBeVisible({ timeout: 15_000 });
+	await page.getByRole('button', { name: 'Scelgo dopo' }).click();
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible();
+	const catalogEnabled = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const obj = await db.study_objectives.get('obj-catalog-n5');
+		return obj?.study_enabled ?? false;
+	});
+	expect(catalogEnabled).toBe(true);
+	// non ricompare al prossimo giro sulla home
+	await page.goto('/');
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 5_000 });
+});
+
+test('corso: completare una lezione sblocca da sola la successiva', async ({ page }) => {
+	await gotoHome(page);
+	await page.getByRole('button', { name: /Sono all'inizio/ }).click();
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 20_000 });
+
+	await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const lesson1 = await db.study_objectives.get('course:genki-1:lesson:L01');
+		const now = Date.now();
+		for (const key of lesson1?.catalog_item_keys ?? []) {
+			await db.srs_progress.put({
+				id_item: key,
+				srs_stage: 1,
+				next_review_date: now + 60 * 60 * 1000,
+				ease_factor: 2.3,
+				streak: 1,
+				mastery_points: 10,
+				updated_at: now
+			});
+		}
+	});
+
+	await page.goto('/'); // ricarica: loadPackParty rileva il completamento e sblocca L02
+	await expect(page.getByText('Il piano di oggi')).toBeVisible({ timeout: 20_000 });
+	await page.waitForTimeout(1000);
+
+	const lesson2Enabled = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		return (await db.study_objectives.get('course:genki-1:lesson:L02'))?.study_enabled ?? false;
+	});
+	expect(lesson2Enabled).toBe(true);
+});
+
 test('route profonda caricata direttamente (refresh)', async ({ page }) => {
 	await page.goto('/giochi');
 	await expect(page.getByText('Conversazione')).toBeVisible({ timeout: 45_000 });

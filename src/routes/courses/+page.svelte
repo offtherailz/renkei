@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse } from '$lib/db/course-import';
+	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse, studyOnlyCourse } from '$lib/db/course-import';
 	import type { CourseDatasetMeta, CourseLessonMeta } from '$lib/types/models';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 
@@ -45,22 +45,14 @@
 	}
 
 	// Modalità corso: mette in pausa tutti gli obiettivi fuori dal corso e
-	// attiva la prima lezione — il quiz pesca solo dal corso.
+	// attiva la prima lezione — il quiz pesca solo dal corso. Le lezioni
+	// successive si sbloccano da sole in home man mano che le completi.
 	let focusMsg = $state('');
 	async function studyOnlyThisCourse(): Promise<void> {
 		if (!selectedCourse) return;
-		const prefix = `course:${selectedCourse.id}:`;
-		const all = await db.study_objectives.toArray();
-		for (const o of all) {
-			const inCourse = o.id.startsWith(prefix) || o.id === `course:${selectedCourse.id}`;
-			if (!inCourse && o.study_enabled) {
-				await db.study_objectives.update(o.id, { study_enabled: false, updated_at: Date.now() });
-			}
-		}
-		const first = lessons[0];
-		if (first) await db.study_objectives.update(first.objective_id, { study_enabled: true, updated_at: Date.now() });
+		await studyOnlyCourse(selectedCourse.id);
 		await loadLessonStates();
-		focusMsg = `✅ Ora studi solo «${selectedCourse.nome}»: lezione 1 attiva, il resto in pausa. Attiva le lezioni successive da qui man mano che procedi.`;
+		focusMsg = `✅ Ora studi solo «${selectedCourse.nome}»: lezione 1 attiva, il resto in pausa. Le prossime lezioni si sbloccano da sole man mano che le completi.`;
 	}
 
 	async function handleFileImport(e: Event): Promise<void> {
