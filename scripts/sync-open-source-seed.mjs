@@ -137,7 +137,13 @@ const OPEN_SOURCE = {
     vocabN5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n5.json",
     vocabN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n4.json",
     kanjiN5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n5.json",
-    kanjiN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n4.json"
+    kanjiN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n4.json",
+    // Livello JLPT "storico" per kanji (davidluzgouveia/kanji-data, via lo stesso
+    // mirror): copre anche i kanji fuori da N5/N4 usati dal vocabolario, che
+    // KANJIDIC2 non classifica più per livello.
+    kanjiN3: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n3.json",
+    kanjiN2: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n2.json",
+    kanjiN1: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n1.json"
   }
 };
 
@@ -1040,7 +1046,32 @@ function normalizeWords(importedRows, existingSeedWords) {
   return enrichAdjectiveMetadata(withVerbMetadata);
 }
 
-function normalizeKanji(importedRows, words, existingSeedKanji) {
+// Livello JLPT del kanji: fonte primaria è il catalogo storico
+// davidluzgouveia/kanji-data (tutti e 5 i livelli, vedi buildKanjiLevelLookup).
+// Solo per i pochi kanji fuori da quel catalogo (es. 誰, 箸, 椅…) si ricade
+// sulla derivazione dalle parole del vocabolario che li usano (prima quella
+// N5 se c'è, altrimenti N4).
+function buildKanjiLevelLookup(levelGroups) {
+  // livelli in ordine dal più avanzato al meno: un kanji nella lista N1 E in
+  // quella N3 (capita) prende il livello più alto pubblicato per lui.
+  const lookup = new Map();
+  for (const { level, rows } of levelGroups) {
+    for (const row of rows) {
+      if (!lookup.has(row.character)) lookup.set(row.character, level);
+    }
+  }
+  return lookup;
+}
+
+function deriveKanjiLevelFromWords(wordIds, wordsById, fallbackTag) {
+  const levels = wordIds.map((id) => wordsById.get(id)?.livello_jlpt).filter(Boolean);
+  if (levels.includes("N5")) return "N5";
+  if (levels.includes("N4")) return "N4";
+  const tag = String(fallbackTag ?? "").toUpperCase();
+  return tag === "N5" || tag === "N4" ? tag : "N4";
+}
+
+function normalizeKanji(importedRows, words, existingSeedKanji, levelLookup) {
   const relatedWordsByKanji = new Map();
   for (const word of words) {
     for (const char of word.kanji_usati ?? []) {
@@ -1049,6 +1080,9 @@ function normalizeKanji(importedRows, words, existingSeedKanji) {
       relatedWordsByKanji.set(char, current);
     }
   }
+  const wordsById = new Map(words.map((w) => [w.id, w]));
+  const levelOf = (id, fallbackTag) =>
+    levelLookup.get(id) ?? deriveKanjiLevelFromWords(relatedWordsByKanji.get(id) ?? [], wordsById, fallbackTag);
 
   const imported = importedRows.map((row) => ({
     id: row.character,
@@ -1056,6 +1090,7 @@ function normalizeKanji(importedRows, words, existingSeedKanji) {
       it: row.meanings.join(" / "),
       en: row.meanings.join(" / ")
     },
+    livello_jlpt: levelOf(row.character, row.jlptLevel),
     study_tags: [String(row.jlptLevel).toLowerCase()],
     source_name: OPEN_SOURCE.name,
     source_license: OPEN_SOURCE.license,
@@ -1070,7 +1105,13 @@ function normalizeKanji(importedRows, words, existingSeedKanji) {
 
   const byId = new Map(imported.map((kanji) => [kanji.id, kanji]));
   for (const kanji of existingSeedKanji) {
-    byId.set(kanji.id, { ...byId.get(kanji.id), ...kanji, parole_correlate: unique(relatedWordsByKanji.get(kanji.id) ?? kanji.parole_correlate ?? []) });
+    const parole_correlate = unique(relatedWordsByKanji.get(kanji.id) ?? kanji.parole_correlate ?? []);
+    byId.set(kanji.id, {
+      ...byId.get(kanji.id),
+      ...kanji,
+      livello_jlpt: levelOf(kanji.id, kanji.study_tags?.[0]),
+      parole_correlate
+    });
   }
 
   return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id, "ja"));
@@ -1122,13 +1163,25 @@ function normalizeGrammar(importedGroups, existingSeedGrammar, words) {
 
 async function main() {
   const existingSeed = JSON.parse(await fs.readFile(SEED_PATH, "utf8"));
-  const [vocabN5, vocabN4, kanjiN5, kanjiN4, grammarN5, grammarN4] = await Promise.all([
+  const [vocabN5, vocabN4, kanjiN5, kanjiN4, kanjiN3, kanjiN2, kanjiN1, grammarN5, grammarN4] = await Promise.all([
     fetchJson(OPEN_SOURCE.urls.vocabN5),
     fetchJson(OPEN_SOURCE.urls.vocabN4),
     fetchJson(OPEN_SOURCE.urls.kanjiN5),
     fetchJson(OPEN_SOURCE.urls.kanjiN4),
+    fetchJson(OPEN_SOURCE.urls.kanjiN3),
+    fetchJson(OPEN_SOURCE.urls.kanjiN2),
+    fetchJson(OPEN_SOURCE.urls.kanjiN1),
     fetchJson(GRAMMAR_SOURCE.urls.grammarN5),
     fetchJson(GRAMMAR_SOURCE.urls.grammarN4)
+  ]);
+  // Livello JLPT storico per kanji, dal più avanzato: un kanji in più liste
+  // prende il livello più alto pubblicato (vedi buildKanjiLevelLookup).
+  const kanjiLevelLookup = buildKanjiLevelLookup([
+    { level: "N1", rows: kanjiN1.kanji },
+    { level: "N2", rows: kanjiN2.kanji },
+    { level: "N3", rows: kanjiN3.kanji },
+    { level: "N4", rows: kanjiN4.kanji },
+    { level: "N5", rows: kanjiN5.kanji }
   ]);
   const jmdictIndex = buildJmdictIndex(await ensureJmdictData(JMDICT_CACHE_DIR));
   const overrides = await loadOverrides();
@@ -1155,7 +1208,7 @@ async function main() {
     ...d,
     updated_at: now
   }));
-  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? []);
+  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? [], kanjiLevelLookup);
   const normalizedGrammar = applyGrammarOverrides(
     await mergeGrammarExamples(normalizeGrammar([
       { level: "N5", rows: grammarN5 },

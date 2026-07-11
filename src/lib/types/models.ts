@@ -108,6 +108,7 @@ export interface StudySessionRecord {
 export interface Kanji extends BaseEntity {
   id: string;
   significato: LocalizedText;
+  livello_jlpt: JLPTLevel;
   chapter_tags?: string[];
   study_tags?: string[];
   source_name?: string;

@@ -169,21 +169,36 @@ export async function importCourseDataset(jsonText: string): Promise<CourseImpor
   }
 
   // ── 3. Import new kanji ───────────────────────────────────────────────────
-  const newKanji: Kanji[] = (dataset.kanji_nuovi ?? []).map((k) => ({
-    id: k.id,
-    significato: {
-      it: k.significato_it,
-      en: k.significato_en ?? k.significato_it
-    },
-    letture_on: k.letture_on,
-    letture_kun: k.letture_kun,
-    parole_correlate: k.parole_correlate ?? [],
-    link_jisho: `https://jisho.org/search/${encodeURIComponent(k.id)}%23kanji`,
-    link_koohii: `https://kanji.koohii.com/study/kanji/${encodeURIComponent(k.id)}`,
-    source_name: dataset.corso.nome,
-    study_tags: [`corso:${corsoId}`],
-    updated_at: now
-  }));
+  // Il corso non porta un livello JLPT per i suoi kanji (organizza per
+  // lezione, non per livello): lo deriviamo dalle parole collegate, come fa
+  // la pipeline del seed principale (preferendo N5 se una lo usa, poi N4).
+  const newWordsById = new Map(newWords.map((w) => [w.id, w]));
+  async function resolveWordLevel(id: string): Promise<JLPTLevel | undefined> {
+    return newWordsById.get(id)?.livello_jlpt ?? (await db.words.get(id))?.livello_jlpt;
+  }
+  const newKanji: Kanji[] = await Promise.all(
+    (dataset.kanji_nuovi ?? []).map(async (k) => {
+      const correlate = k.parole_correlate ?? [];
+      const levels = await Promise.all(correlate.map(resolveWordLevel));
+      const livello_jlpt: JLPTLevel = levels.includes("N5") ? "N5" : levels.includes("N4") ? "N4" : "N4";
+      return {
+        id: k.id,
+        significato: {
+          it: k.significato_it,
+          en: k.significato_en ?? k.significato_it
+        },
+        livello_jlpt,
+        letture_on: k.letture_on,
+        letture_kun: k.letture_kun,
+        parole_correlate: correlate,
+        link_jisho: `https://jisho.org/search/${encodeURIComponent(k.id)}%23kanji`,
+        link_koohii: `https://kanji.koohii.com/study/kanji/${encodeURIComponent(k.id)}`,
+        source_name: dataset.corso.nome,
+        study_tags: [`corso:${corsoId}`],
+        updated_at: now
+      };
+    })
+  );
 
   // ── 4. Import new grammar ─────────────────────────────────────────────────
   const newGrammar: Grammar[] = (dataset.grammatica_nuova ?? []).map((g) => {

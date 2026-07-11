@@ -20,11 +20,15 @@
   --warn-ink: #92400e;
   --info-bg: #eff6ff;
   --info-border: #bfdbfe;
+  --info-ink: #1e40af;
   --ok-bg: #dcfce7;
   --ok-ink: #166534;
   --gold-bg: #fdf3d8;
   --gold-border: #c6a15b;
   --gold-ink: #6b4e12;
+  --n2-bg: #ffedd5;
+  --n2-ink: #9a3412;
+  --danger-bg: #fee2e2;
   color-scheme: light;
 }
 
@@ -46,11 +50,15 @@
     --warn-ink: #fcd34d;
     --info-bg: rgba(107, 160, 242, 0.14);
     --info-border: rgba(107, 160, 242, 0.4);
+    --info-ink: #bcd4fb;
     --ok-bg: rgba(52, 201, 138, 0.16);
     --ok-ink: #6fe3ae;
     --gold-bg: rgba(198, 161, 91, 0.15);
     --gold-border: rgba(198, 161, 91, 0.55);
     --gold-ink: #e5c988;
+    --n2-bg: rgba(251, 146, 60, 0.16);
+    --n2-ink: #fdba74;
+    --danger-bg: rgba(239, 107, 107, 0.16);
     color-scheme: dark;
   }
 }

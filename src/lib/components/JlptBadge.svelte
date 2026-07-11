@@ -3,13 +3,13 @@
 
 	const COLORS: Record<string, { bg: string; fg: string }> = {
 		N5: { bg: 'var(--ok-bg)', fg: 'var(--ok-ink)' },
-		N4: { bg: 'var(--info-border)', fg: '#1e40af' },
-		N3: { bg: '#fef9c3', fg: '#854d0e' },
-		N2: { bg: '#ffedd5', fg: '#9a3412' },
-		N1: { bg: '#fee2e2', fg: '#991b1b' }
+		N4: { bg: 'var(--info-bg)', fg: 'var(--info-ink)' },
+		N3: { bg: 'var(--gold-bg)', fg: 'var(--gold-ink)' },
+		N2: { bg: 'var(--n2-bg)', fg: 'var(--n2-ink)' },
+		N1: { bg: 'var(--danger-bg)', fg: 'var(--danger)' }
 	};
 
-	const color = $derived(COLORS[level] ?? { bg: '#e0e7ff', fg: '#3730a3' });
+	const color = $derived(COLORS[level] ?? { bg: 'var(--surface-2)', fg: 'var(--muted)' });
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->

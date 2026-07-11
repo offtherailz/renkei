@@ -52,6 +52,13 @@ test('keigo: partita, risposta e snapshot su back', async ({ page }) => {
 	await expect(page.getByRole('button', { name: /Avanti|Risultato/ })).toBeVisible();
 });
 
+test('scheda kanji 悪: badge di livello JLPT visibile', async ({ page }) => {
+	await gotoHome(page);
+	await page.goto('/detail/kanji:悪');
+	await expect(page.locator('.jlpt-badge')).toBeVisible({ timeout: 15_000 });
+	await expect(page.locator('.jlpt-badge')).toContainText('N4');
+});
+
 test('scheda grammatica 〜てみる: regole d\'uso della forma composta', async ({ page }) => {
 	await gotoHome(page);
 	await page.goto('/detail/grammar:grammar-api-N4-65');
