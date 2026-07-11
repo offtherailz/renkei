@@ -412,6 +412,13 @@
      "it": "Ho comprato un ombrello rosso.",
      "en": "I bought a red umbrella."
     }
+   },
+   {
+    "testo": "しんごうが 赤の ときは とまります。",
+    "traduzione": {
+     "it": "Quando il semaforo è rosso ci si ferma.",
+     "en": "When the light is red, you stop."
+    }
    }
   ],
   "significato": {
@@ -512,6 +519,13 @@
     "traduzione": {
      "it": "Oggi mangio carne di maiale.",
      "en": "Today I'm eating pork."
+    }
+   },
+   {
+    "testo": "この りょうりは 豚肉で つくります。",
+    "traduzione": {
+     "it": "Questo piatto si prepara con carne di maiale.",
+     "en": "This dish is made with pork."
     }
    }
   ],
@@ -788,6 +802,13 @@
      "it": "Davanti alla stazione c'è un poliziotto.",
      "en": "There is a police officer in front of the station."
     }
+   },
+   {
+    "testo": "警官に みちを おしえて もらいました。",
+    "traduzione": {
+     "it": "Un agente mi ha indicato la strada.",
+     "en": "A police officer showed me the way."
+    }
    }
   ],
   "significato": {
@@ -880,6 +901,13 @@
     "traduzione": {
      "it": "Metti un po' di salsa di soia, per favore.",
      "en": "Please pour on a little soy sauce."
+    }
+   },
+   {
+    "testo": "おさしみは 醤油で たべます。",
+    "traduzione": {
+     "it": "Il sashimi si mangia con la salsa di soia.",
+     "en": "Sashimi is eaten with soy sauce."
     }
    }
   ],
@@ -1163,6 +1191,13 @@
     "traduzione": {
      "it": "Ti aspetto davanti al cancello della scuola.",
      "en": "I'm waiting in front of the school gate."
+    }
+   },
+   {
+    "testo": "門は よる 十じに しまります。",
+    "traduzione": {
+     "it": "Il cancello chiude alle dieci di sera.",
+     "en": "The gate closes at ten at night."
     }
    }
   ],
@@ -2180,6 +2215,13 @@
      "it": "Il semaforo è diventato verde.",
      "en": "The traffic light turned green."
     }
+   },
+   {
+    "testo": "青に なってから わたりましょう。",
+    "traduzione": {
+     "it": "Attraversiamo quando diventa verde.",
+     "en": "Let's cross when the light turns green."
+    }
    }
   ],
   "significato": {
@@ -2253,6 +2295,13 @@
      "it": "Ho telefonato a un amico.",
      "en": "I phoned a friend."
     }
+   },
+   {
+    "testo": "あとで 電話を ください。",
+    "traduzione": {
+     "it": "Chiamami più tardi, per favore.",
+     "en": "Please call me later."
+    }
    }
   ],
   "significato": {
@@ -2271,6 +2320,13 @@
     "traduzione": {
      "it": "La sera telefono a mia madre.",
      "en": "In the evening I call my mother."
+    }
+   },
+   {
+    "testo": "えきに ついたら 電話します。",
+    "traduzione": {
+     "it": "Quando arrivo in stazione ti telefono.",
+     "en": "I'll call you when I get to the station."
     }
    }
   ]
@@ -3373,6 +3429,13 @@
      "it": "Chiudi la porta a chiave, per favore.",
      "en": "Please lock the door."
     }
+   },
+   {
+    "testo": "鍵を どこに おいたか わすれました。",
+    "traduzione": {
+     "it": "Non ricordo dove ho messo le chiavi.",
+     "en": "I forgot where I put my keys."
+    }
    }
   ],
   "significato": {
@@ -3632,6 +3695,13 @@
      "it": "Studio usando il dizionario.",
      "en": "I study using a dictionary."
     }
+   },
+   {
+    "testo": "この ことばを 辞書で しらべて ください。",
+    "traduzione": {
+     "it": "Cerca questa parola sul dizionario.",
+     "en": "Please look up this word in the dictionary."
+    }
    }
   ],
   "significato": {
@@ -3677,6 +3747,13 @@
      "it": "Ho una domanda per l'insegnante.",
      "en": "I have a question for the teacher."
     }
+   },
+   {
+    "testo": "質問が あったら、てを あげて ください。",
+    "traduzione": {
+     "it": "Se avete domande, alzate la mano.",
+     "en": "If you have questions, please raise your hand."
+    }
    }
   ],
   "significato": {
@@ -3696,6 +3773,13 @@
     "traduzione": {
      "it": "Quando non capisco, chiedo all'insegnante.",
      "en": "When I don't understand, I ask the teacher."
+    }
+   },
+   {
+    "testo": "いみが わからなくて、質問しました。",
+    "traduzione": {
+     "it": "Non capivo il significato e ho fatto una domanda.",
+     "en": "I didn't understand the meaning, so I asked a question."
     }
    }
   ]
@@ -4117,6 +4201,13 @@
      "it": "Attacco il francobollo sulla busta.",
      "en": "I stick a stamp on the envelope."
     }
+   },
+   {
+    "testo": "かべに ポスターを 貼りました。",
+    "traduzione": {
+     "it": "Ho attaccato un poster alla parete.",
+     "en": "I put a poster on the wall."
+    }
    }
   ],
   "significato": {
@@ -4138,6 +4229,13 @@
     "traduzione": {
      "it": "Ho acceso la luce della stanza.",
      "en": "I turned on the light in the room."
+    }
+   },
+   {
+    "testo": "でかける まえに 電気を けします。",
+    "traduzione": {
+     "it": "Prima di uscire spengo la luce.",
+     "en": "I turn off the lights before going out."
     }
    }
   ],
@@ -4205,6 +4303,13 @@
     "traduzione": {
      "it": "Questa strada porta alla stazione.",
      "en": "This road goes to the station."
+    }
+   },
+   {
+    "testo": "道に まよって しまいました。",
+    "traduzione": {
+     "it": "Mi sono perso per strada.",
+     "en": "I lost my way."
     }
    }
   ],
@@ -4683,6 +4788,13 @@
     "traduzione": {
      "it": "Accanto alla stazione c'è un supermercato.",
      "en": "There is a supermarket next to the station."
+    }
+   },
+   {
+    "testo": "隣の ひとに あいさつしました。",
+    "traduzione": {
+     "it": "Ho salutato il vicino di casa.",
+     "en": "I greeted my next-door neighbor."
     }
    }
   ],
@@ -5915,6 +6027,13 @@
      "it": "Quello è sbagliato.",
      "en": "That's wrong."
     }
+   },
+   {
+    "testo": "わたしの かんがえは すこし 違います。",
+    "traduzione": {
+     "it": "La mia opinione è un po' diversa.",
+     "en": "My opinion is a little different."
+    }
    }
   ],
   "significato": {
@@ -5982,6 +6101,13 @@
      "it": "Domani probabilmente pioverà.",
      "en": "It will probably rain tomorrow."
     }
+   },
+   {
+    "testo": "あさから 雨が ふって います。",
+    "traduzione": {
+     "it": "Piove da stamattina.",
+     "en": "It has been raining since morning."
+    }
    }
   ],
   "significato": {
@@ -6027,6 +6153,13 @@
     "traduzione": {
      "it": "La scuola è lontana da qui.",
      "en": "The school is far from here."
+    }
+   },
+   {
+    "testo": "遠い くにから ともだちが きました。",
+    "traduzione": {
+     "it": "È venuto un amico da un paese lontano.",
+     "en": "A friend came from a faraway country."
     }
    }
   ],
@@ -6197,6 +6330,13 @@
      "it": "Il negozio apre alle dieci.",
      "en": "The shop opens at ten."
     }
+   },
+   {
+    "testo": "ドアが じどうで 開きます。",
+    "traduzione": {
+     "it": "La porta si apre automaticamente.",
+     "en": "The door opens automatically."
+    }
    }
   ],
   "significato": {
@@ -6217,6 +6357,13 @@
     "traduzione": {
      "it": "Apri la finestra, per favore.",
      "en": "Please open the window."
+    }
+   },
+   {
+    "testo": "はこを 開けても いいですか。",
+    "traduzione": {
+     "it": "Posso aprire la scatola?",
+     "en": "May I open the box?"
     }
    }
   ],
@@ -6291,6 +6438,13 @@
     "traduzione": {
      "it": "Al prossimo angolo giri a sinistra.",
      "en": "Turn left at the next corner."
+    }
+   },
+   {
+    "testo": "その 角に ポストが あります。",
+    "traduzione": {
+     "it": "A quell'angolo c'è una cassetta postale.",
+     "en": "There is a mailbox at that corner."
     }
    }
   ],
@@ -6525,6 +6679,13 @@
      "it": "Il venerdì sera guardo un film.",
      "en": "On Friday nights I watch a movie."
     }
+   },
+   {
+    "testo": "金曜日の よるは ひとで いっぱいです。",
+    "traduzione": {
+     "it": "Il venerdì sera è pieno di gente.",
+     "en": "Friday nights are full of people."
+    }
    }
   ],
   "significato": {
@@ -6543,6 +6704,13 @@
     "traduzione": {
      "it": "La banca apre alle nove.",
      "en": "The bank opens at nine."
+    }
+   },
+   {
+    "testo": "銀行で おかねを おろしました。",
+    "traduzione": {
+     "it": "Ho prelevato dei soldi in banca.",
+     "en": "I withdrew money at the bank."
     }
    }
   ],
@@ -6641,6 +6809,13 @@
      "it": "Indosso scarpe nuove.",
      "en": "I am wearing new shoes."
     }
+   },
+   {
+    "testo": "靴の ひもが ほどけて いますよ。",
+    "traduzione": {
+     "it": "Hai le stringhe delle scarpe slacciate.",
+     "en": "Your shoelaces are untied."
+    }
    }
   ],
   "significato": {
@@ -6679,6 +6854,13 @@
     "traduzione": {
      "it": "Questa borsa è leggera.",
      "en": "This bag is light."
+    }
+   },
+   {
+    "testo": "軽い あさごはんを たべました。",
+    "traduzione": {
+     "it": "Ho fatto una colazione leggera.",
+     "en": "I had a light breakfast."
     }
    }
   ],
@@ -6756,6 +6938,13 @@
     "traduzione": {
      "it": "Fammi vedere la foto, per favore.",
      "en": "Please show me the photo."
+    }
+   },
+   {
+    "testo": "パスポートを 見せて ください。",
+    "traduzione": {
+     "it": "Mi mostri il passaporto, per favore.",
+     "en": "Please show me your passport."
     }
    }
   ],
@@ -7073,6 +7262,13 @@
     "traduzione": {
      "it": "Ho dimenticato il portafoglio a casa.",
      "en": "I left my wallet at home."
+    }
+   },
+   {
+    "testo": "財布を おとして しまいました。",
+    "traduzione": {
+     "it": "Ho perso il portafoglio.",
+     "en": "I dropped my wallet."
     }
    }
   ],
@@ -7506,6 +7702,13 @@
      "it": "Questo bagaglio è pesantissimo.",
      "en": "This luggage is very heavy."
     }
+   },
+   {
+    "testo": "この はこは 重くて もてません。",
+    "traduzione": {
+     "it": "Questa scatola è troppo pesante da sollevare.",
+     "en": "This box is too heavy to carry."
+    }
    }
   ],
   "significato": {
@@ -7931,6 +8134,13 @@
      "it": "Questo curry è piccantissimo.",
      "en": "This curry is very spicy."
     }
+   },
+   {
+    "testo": "辛い ものが たべられますか。",
+    "traduzione": {
+     "it": "Riesci a mangiare cibi piccanti?",
+     "en": "Can you eat spicy food?"
+    }
    }
   ],
   "significato": {
@@ -8083,6 +8293,13 @@
      "it": "In biblioteca fate silenzio, per favore.",
      "en": "Please be quiet in the library."
     }
+   },
+   {
+    "testo": "よるは この まちは とても 静かです。",
+    "traduzione": {
+     "it": "Di notte questa città è molto silenziosa.",
+     "en": "At night this town is very quiet."
+    }
    }
   ],
   "significato": {
@@ -8103,6 +8320,13 @@
     "traduzione": {
      "it": "Ho comprato fiori rossi.",
      "en": "I bought red flowers."
+    }
+   },
+   {
+    "testo": "赤い りんごが おいしそうです。",
+    "traduzione": {
+     "it": "Le mele rosse sembrano buone.",
+     "en": "The red apples look delicious."
     }
    }
   ],
@@ -8148,6 +8372,13 @@
     "traduzione": {
      "it": "In Hokkaidō nevica molto.",
      "en": "It snows a lot in Hokkaido."
+    }
+   },
+   {
+    "testo": "はじめて 雪を みました。",
+    "traduzione": {
+     "it": "Ho visto la neve per la prima volta.",
+     "en": "I saw snow for the first time."
     }
    }
   ],
@@ -8322,6 +8553,13 @@
      "it": "Lo shinkansen è velocissimo.",
      "en": "The bullet train is very fast."
     }
+   },
+   {
+    "testo": "かれは はしるのが 速いです。",
+    "traduzione": {
+     "it": "Lui è veloce a correre.",
+     "en": "He is a fast runner."
+    }
    }
   ],
   "significato": {
@@ -8370,6 +8608,13 @@
     "traduzione": {
      "it": "Prestami una penna, per favore.",
      "en": "Please lend me a pen."
+    }
+   },
+   {
+    "testo": "ともだちに ほんを 貸しました。",
+    "traduzione": {
+     "it": "Ho prestato un libro a un amico.",
+     "en": "I lent a book to my friend."
     }
    }
   ],
@@ -10091,7 +10336,23 @@
    "en": [
     "pencil"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ペンか鉛筆を持っていますか。",
+    "traduzione": {
+     "it": "Do you have a pen or a pencil?",
+     "en": "Do you have a pen or a pencil?"
+    }
+   },
+   {
+    "testo": "鉛筆で かいてから、ペンで かきます。",
+    "traduzione": {
+     "it": "Prima scrivo a matita, poi ripasso a penna.",
+     "en": "I write in pencil first, then in pen."
+    }
+   }
+  ]
  },
  "塩": {
   "significato": {
@@ -10529,7 +10790,23 @@
    "en": [
     "stairs"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その階段を上ってはいけません。",
+    "traduzione": {
+     "it": "You must not go up the stairs.",
+     "en": "You must not go up the stairs."
+    }
+   },
+   {
+    "testo": "エレベーターより 階段を つかいます。",
+    "traduzione": {
+     "it": "Uso le scale piuttosto che l'ascensore.",
+     "en": "I use the stairs rather than the elevator."
+    }
+   }
+  ]
  },
  "外::そと": {
   "significato": {
@@ -10859,7 +11136,23 @@
     "close by",
     "short"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "クリスマスが近くなってきた。",
+    "traduzione": {
+     "it": "Christmas is fast approaching.",
+     "en": "Christmas is fast approaching."
+    }
+   },
+   {
+    "testo": "いえから えきまで 近いです。",
+    "traduzione": {
+     "it": "Da casa alla stazione è vicino.",
+     "en": "It is close from my house to the station."
+    }
+   }
+  ]
  },
  "近く": {
   "significato": {
@@ -11273,7 +11566,23 @@
     "to precipitate",
     "to fall (e.g., rain, snow, etc.)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "シカゴのあたりでは雨が降っていました。",
+    "traduzione": {
+     "it": "It was raining around Chicago.",
+     "en": "It was raining around Chicago."
+    }
+   },
+   {
+    "testo": "ゆきが 降って、まちが しろく なりました。",
+    "traduzione": {
+     "it": "È nevicato e la città è diventata bianca.",
+     "en": "It snowed and the town turned white."
+    }
+   }
+  ]
  },
  "黒い": {
   "significato": {
@@ -11467,7 +11776,23 @@
     "magazine",
     "journal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その雑誌はどこで買えますか。",
+    "traduzione": {
+     "it": "Where can I buy that magazine?",
+     "en": "Where can I buy that magazine?"
+    }
+   },
+   {
+    "testo": "びょういんで 雑誌を よみながら まちました。",
+    "traduzione": {
+     "it": "In ospedale ho aspettato leggendo una rivista.",
+     "en": "At the hospital I waited while reading a magazine."
+    }
+   }
+  ]
  },
  "三つ": {
   "significato": {
@@ -11884,6 +12209,13 @@
     "traduzione": {
      "it": "Siamo andati al mare in macchina.",
      "en": "We went to the sea by car."
+    }
+   },
+   {
+    "testo": "車を えきの ちかくに とめました。",
+    "traduzione": {
+     "it": "Ho parcheggiato la macchina vicino alla stazione.",
+     "en": "I parked the car near the station."
     }
    }
   ]
@@ -12793,7 +13125,23 @@
    "en": [
     "who"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あそこに立ってる女の人はだれですか。",
+    "traduzione": {
+     "it": "Who is the woman standing there?",
+     "en": "Who is the woman standing there?"
+    }
+   },
+   {
+    "testo": "この かばんは 誰のですか。",
+    "traduzione": {
+     "it": "Di chi è questa borsa?",
+     "en": "Whose bag is this?"
+    }
+   }
+  ]
  },
  "誰か": {
   "significato": {
@@ -12803,7 +13151,23 @@
    "en": [
     "someone"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "くるまの なかに 誰か いますか。",
+    "traduzione": {
+     "it": "C'è qualcuno dentro la macchina?",
+     "en": "Is there someone in the car?"
+    }
+   },
+   {
+    "testo": "誰か てつだって ください！",
+    "traduzione": {
+     "it": "Qualcuno mi aiuti, per favore!",
+     "en": "Somebody please help me!"
+    }
+   }
+  ]
  },
  "短い": {
   "significato": {
@@ -12824,7 +13188,23 @@
    "en": [
     "birthday"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日は、妹の誕生日です。",
+    "traduzione": {
+     "it": "Today is my sister's birthday.",
+     "en": "Today is my sister's birthday."
+    }
+   },
+   {
+    "testo": "誕生日に ケーキを たべました。",
+    "traduzione": {
+     "it": "Per il compleanno ho mangiato la torta.",
+     "en": "I ate cake on my birthday."
+    }
+   }
+  ]
  },
  "弾く": {
   "significato": {
@@ -13085,6 +13465,13 @@
     "traduzione": {
      "it": "È già tardi, torno a casa.",
      "en": "It's late, so I'm going home."
+    }
+   },
+   {
+    "testo": "バスが 遅いので、あるいて いきました。",
+    "traduzione": {
+     "it": "L'autobus era lento, così sono andato a piedi.",
+     "en": "The bus was slow, so I walked."
     }
    }
   ]
@@ -13436,7 +13823,23 @@
    "en": [
     "electric train"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは始発電車に間にあいましたか。",
+    "traduzione": {
+     "it": "Did you catch the first train?",
+     "en": "Did you catch the first train?"
+    }
+   },
+   {
+    "testo": "電車が こんで いて、すわれませんでした。",
+    "traduzione": {
+     "it": "Il treno era affollato e non ho potuto sedermi.",
+     "en": "The train was crowded and I couldn't sit down."
+    }
+   }
+  ]
  },
  "渡す": {
   "significato": {
@@ -13747,6 +14150,13 @@
      "it": "Questo problema è difficile.",
      "en": "This problem is difficult."
     }
+   },
+   {
+    "testo": "かんじを おぼえるのは 難しいです。",
+    "traduzione": {
+     "it": "Memorizzare i kanji è difficile.",
+     "en": "Memorizing kanji is difficult."
+    }
    }
   ]
  },
@@ -14038,7 +14448,23 @@
    "en": [
     "shopping"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１日おきに買い物に行く。",
+    "traduzione": {
+     "it": "I go shopping every other day.",
+     "en": "I go shopping every other day."
+    }
+   },
+   {
+    "testo": "えきまえの スーパーで 買い物を します。",
+    "traduzione": {
+     "it": "Faccio la spesa al supermercato davanti alla stazione.",
+     "en": "I do my shopping at the supermarket by the station."
+    }
+   }
+  ]
  },
  "買う": {
   "significato": {
@@ -14055,6 +14481,13 @@
     "traduzione": {
      "it": "Ho comprato frutta al supermercato.",
      "en": "I bought fruit at the supermarket."
+    }
+   },
+   {
+    "testo": "あたらしい くつを 買いたいです。",
+    "traduzione": {
+     "it": "Voglio comprare delle scarpe nuove.",
+     "en": "I want to buy new shoes."
     }
    }
   ]
@@ -14675,7 +15108,23 @@
     "to shut"
    ]
   },
-  "id_verbo_corrispondente": "閉まる"
+  "id_verbo_corrispondente": "閉まる",
+  "frasi_esempio": [
+   {
+    "testo": "どうかドアを閉めてくれませんか。",
+    "traduzione": {
+     "it": "Will you please shut the door?",
+     "en": "Will you please shut the door?"
+    }
+   },
+   {
+    "testo": "さむいので、まどを 閉めました。",
+    "traduzione": {
+     "it": "Faceva freddo, così ho chiuso la finestra.",
+     "en": "It was cold, so I closed the window."
+    }
+   }
+  ]
  },
  "片仮名": {
   "significato": {
@@ -14720,6 +15169,13 @@
     "traduzione": {
      "it": "C'è un konbini da queste parti?",
      "en": "Is there a convenience store around here?"
+    }
+   },
+   {
+    "testo": "この 辺は よる 静かです。",
+    "traduzione": {
+     "it": "Questa zona di notte è tranquilla.",
+     "en": "This area is quiet at night."
     }
    }
   ]
@@ -15372,7 +15828,23 @@
    "en": [
     "vegetable"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その店は野菜を売っている。",
+    "traduzione": {
+     "it": "The store deals in vegetables.",
+     "en": "The store deals in vegetables."
+    }
+   },
+   {
+    "testo": "まいにち 野菜を たべましょう。",
+    "traduzione": {
+     "it": "Mangiamo verdura ogni giorno.",
+     "en": "Let's eat vegetables every day."
+    }
+   }
+  ]
  },
  "友達": {
   "significato": {
@@ -15447,6 +15919,13 @@
      "it": "I bambini giocano al parco.",
      "en": "The children are playing in the park."
     }
+   },
+   {
+    "testo": "なつやすみに いとこと 遊びました。",
+    "traduzione": {
+     "it": "Nelle vacanze estive ho giocato con i cugini.",
+     "en": "During summer vacation I played with my cousins."
+    }
    }
   ]
  },
@@ -15458,7 +15937,23 @@
    "en": [
     "post office"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの〜郵便局はどちらでしょうか。",
+    "traduzione": {
+     "it": "Uh..., where's the post office?",
+     "en": "Uh..., where's the post office?"
+    }
+   },
+   {
+    "testo": "郵便局で にもつを おくりました。",
+    "traduzione": {
+     "it": "Ho spedito un pacco all'ufficio postale.",
+     "en": "I sent a package at the post office."
+    }
+   }
+  ]
  },
  "夕飯": {
   "significato": {
@@ -27830,6 +28325,24 @@
     "traduzione": {
      "it": "Mi esercito con i kanji ogni giorno.",
      "en": "I practice kanji every day."
+    }
+   }
+  ]
+ },
+ "買い物する": {
+  "frasi_esempio": [
+   {
+    "testo": "１日おきに買い物に行く。",
+    "traduzione": {
+     "it": "I go shopping every other day.",
+     "en": "I go shopping every other day."
+    }
+   },
+   {
+    "testo": "にちようびに かぞくと 買い物します。",
+    "traduzione": {
+     "it": "La domenica faccio spese con la famiglia.",
+     "en": "On Sundays I go shopping with my family."
     }
    }
   ]
