@@ -561,3 +561,10 @@ Pannello "Consolidamento per skill" in /stats:
 - Il seed non include i dati pitch accent per la maggior parte delle voci N5/N4: la sezione viene nascosta correttamente ma non sarà mai mostrata finché il campo non viene arricchito.
 - `src/routes/quiz/+page.svelte` è la route più grande (~1000 righe): candidata naturale all'estrazione di componenti (es. pannello domanda, riepilogo sessione).
 - **Rimandati per scelta (2026-07-04)**: export/import dei progressi utente (si valuterà un approccio migliore, forse app dedicata); deploy automatico via GitHub Actions (nei "forse" per il futuro).
+
+## Dizionari dati aggiuntivi (2026-07-11)
+
+- `scripts/data/kanji-extra.json` — 523 kanji oltre i 248 ufficiali (tutti quelli citati dal vocabolario), generati da KANJIDIC2 (EDRDG, CC BY-SA). Letture in kana per tutto il catalogo (ON katakana, kun hiragana, punto = okurigana). Il merge del sync preserva i kanji già nel seed.
+- `scripts/data/kanji-it.json` — significati kanji en→it (766 voci).
+- `scripts/data/usi-it.json` — glosse (1099) ed esempi (536) della sezione "Usi" in italiano, chiavati sul testo inglese JMdict (robusti ai riordini dei sensi); applicati da `translateUsi` nel sync. Gli esempi sono tradotti dal testo giapponese, l'EN è solo chiave.
+- `scripts/data/iikae-n5n4.json` — gruppi 言い換え (29, sinonimi curati collegati bidirezionalmente nel seed via `applyIikaeGroups`) + item quiz stile JLPT usati dal gioco `/iikae` (import diretto del JSON a build time).
