@@ -15,6 +15,21 @@ const overrides = JSON.parse(fs.readFileSync("scripts/data/word-overrides.json",
 const seed = JSON.parse(fs.readFileSync("static/seed-n5n4.json", "utf8"));
 const byId = new Map(seed.words.map((w) => [w.id, w]));
 
+// stessa logica del test overrides: forme multiple + stem di verbi/aggettivi
+function stemVariants(scrittura, lettura) {
+  const bases = [scrittura, lettura]
+    .filter(Boolean)
+    .flatMap((s) => s.split(/[;、]/))
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const out = new Set(bases);
+  for (const base of bases) {
+    if (base.length >= 2 && "るうくぐすつぬぶむい".includes(base[base.length - 1])) out.add(base.slice(0, -1));
+    if (base.endsWith("する")) out.add(base.slice(0, -2));
+  }
+  return [...out].filter(Boolean);
+}
+
 let applied = 0;
 const problems = [];
 for (const [id, nuove] of Object.entries(wave)) {
@@ -37,11 +52,13 @@ for (const [id, nuove] of Object.entries(wave)) {
   }
   // le regole del test valgono anche per le frasi legacy che finiscono
   // negli overrides insieme alla nuova: meglio scoprirlo qui che a vitest
+  const variants = stemVariants(word.scrittura, word.lettura);
   for (const f of frasi) {
     if (!/[。！？!?]$/.test(f.testo)) problems.push(`${id}: senza punteggiatura finale → ${f.testo}`);
     if (/[A-Za-z]/.test(f.testo)) problems.push(`${id}: caratteri latini → ${f.testo}`);
     if (f.testo.length > 34) problems.push(`${id}: troppo lunga (${f.testo.length}) → ${f.testo}`);
     if (/をを|がが|はは|にに|でで/.test(f.testo)) problems.push(`${id}: particella doppia → ${f.testo}`);
+    if (!variants.some((v) => f.testo.includes(v))) problems.push(`${id}: non contiene la parola → ${f.testo}`);
   }
   word.frasi_esempio = frasi;
   overrides[id] = { ...(overrides[id] ?? {}), frasi_esempio: frasi };

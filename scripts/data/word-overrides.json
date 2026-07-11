@@ -9728,10 +9728,10 @@
   },
   "frasi_esempio": [
    {
-    "testo": "ボーイさん、コーヒー３つください。",
+    "testo": "みかんを 三つ たべました。",
     "traduzione": {
-     "it": "Waiter, three coffees, please.",
-     "en": "Waiter, three coffees, please."
+     "it": "Ho mangiato tre mandarini.",
+     "en": "I ate three mandarins."
     }
    },
    {
@@ -9940,9 +9940,9 @@
   },
   "frasi_esempio": [
    {
-    "testo": "私は今朝7時に起きた。",
+    "testo": "けさ 七じに おきました。",
     "traduzione": {
-     "it": "I got up at seven this morning.",
+     "it": "Stamattina mi sono alzato alle sette.",
      "en": "I got up at seven this morning."
     }
    },
