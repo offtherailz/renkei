@@ -474,10 +474,10 @@
     }
    },
    {
-    "testo": "きっぷを かう ひとが ながく 並んで います。",
+    "testo": "きっぷを かう ひとが おおぜい 並んで います。",
     "traduzione": {
-     "it": "C'è una lunga fila di persone che comprano i biglietti.",
-     "en": "People buying tickets are standing in a long line."
+     "it": "C'è tanta gente in fila per comprare i biglietti.",
+     "en": "Many people are lined up to buy tickets."
     }
    }
   ],
@@ -688,10 +688,10 @@
     }
    },
    {
-    "testo": "きょうの ごぜん れいじは きおんが ゼロでした。",
+    "testo": "こんげつの ちこくは ゼロです。",
     "traduzione": {
-     "it": "Oggi a mezzanotte la temperatura era zero.",
-     "en": "At midnight today the temperature was zero."
+     "it": "Questo mese i ritardi sono zero.",
+     "en": "My late arrivals this month are zero."
     }
    }
   ],
@@ -24243,10 +24243,10 @@
     }
    },
    {
-    "testo": "漢字の 覚え方の いい 仕方を 教えて ください。",
+    "testo": "勉強の 仕方を 変えたら、成績が 上がりました。",
     "traduzione": {
-     "it": "Insegnami un buon modo per memorizzare i kanji.",
-     "en": "Please teach me a good way to memorize kanji."
+     "it": "Cambiando il modo di studiare, i voti sono migliorati.",
+     "en": "When I changed the way I study, my grades improved."
     }
    }
   ]
@@ -33327,10 +33327,10 @@
     }
    },
    {
-    "testo": "つかれに 原因する ミスが 多いです。",
+    "testo": "その 火事は たばこの 火に 原因して いました。",
     "traduzione": {
-     "it": "Molti errori hanno origine dalla stanchezza.",
-     "en": "Many mistakes are caused by fatigue."
+     "it": "Quell'incendio era stato causato da una sigaretta.",
+     "en": "That fire was caused by a cigarette."
     }
    }
   ]
