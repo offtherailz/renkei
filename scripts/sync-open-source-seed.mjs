@@ -78,7 +78,7 @@ async function mergeGrammarExamples(grammar) {
     const seen = new Set(g.frasi_esempio.map((f) => f.testo));
     for (const ex of extra) {
       if (seen.has(ex.jp)) continue;
-      g.frasi_esempio.push({ testo: ex.jp, traduzione: { it: ex.it, en: ex.it }, parole_linkate: [] });
+      g.frasi_esempio.push({ testo: ex.jp, traduzione: { it: ex.it, en: ex.en ?? ex.it }, parole_linkate: [] });
       seen.add(ex.jp);
     }
     enriched += 1;

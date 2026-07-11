@@ -1,33 +1,626 @@
 {
-  "_note": "Frasi d'esempio extra curate a mano per le forme composte collegate in /forme. Vengono aggiunte a frasi_esempio della voce grammar corrispondente (dedupe per testo) così il micro-drill Consolida ha più materiale. Testo in giapponese semplice N5/N4, senza notazione furigana (coerente col resto del seed).",
-  "examples": {
-    "grammar-api-N4-56": [
-      { "jp": "明日は雨だと思います。", "it": "Penso che domani pioverà." },
-      { "jp": "彼は来ないと思う。", "it": "Penso che lui non verrà." }
-    ],
-    "grammar-api-N4-65": [
-      { "jp": "新しいレストランに行ってみます。", "it": "Provo ad andare al ristorante nuovo." },
-      { "jp": "この漢字を書いてみてください。", "it": "Prova a scrivere questo kanji." }
-    ],
-    "grammar-api-N4-20": [
-      { "jp": "旅行の前にホテルを予約しておきます。", "it": "Prima del viaggio prenoto l'hotel (in anticipo)." },
-      { "jp": "飲み物を冷やしておいた。", "it": "Ho messo le bevande a rinfrescare (in anticipo)." }
-    ],
-    "grammar-api-N4-21": [
-      { "jp": "宿題を全部やってしまいました。", "it": "Ho finito tutti i compiti." },
-      { "jp": "大事な財布を忘れてしまった。", "it": "Ho dimenticato il portafoglio importante (purtroppo)." }
-    ],
-    "grammar-api-N5-66": [
-      { "jp": "今、音楽を聞いています。", "it": "Adesso sto ascoltando musica." },
-      { "jp": "兄は東京に住んでいます。", "it": "Mio fratello vive a Tokyo." }
-    ],
-    "grammar-api-N4-54": [
-      { "jp": "この問題は難しそうに見える。", "it": "Questo problema sembra difficile." },
-      { "jp": "空を見ると、雨が降りそうだ。", "it": "A guardare il cielo, sembra che pioverà." }
-    ],
-    "grammar-api-N4-14": [
-      { "jp": "一緒に帰ろう。", "it": "Torniamo insieme." },
-      { "jp": "週末は早く起きようと思う。", "it": "Nel weekend penso di alzarmi presto." }
-    ]
-  }
+ "_note": "Frasi d'esempio extra curate a mano per le forme composte collegate in /forme. Vengono aggiunte a frasi_esempio della voce grammar corrispondente (dedupe per testo) così il micro-drill Consolida ha più materiale. Testo in giapponese semplice N5/N4, senza notazione furigana (coerente col resto del seed).",
+ "examples": {
+  "grammar-api-N4-56": [
+   {
+    "jp": "明日は雨だと思います。",
+    "it": "Penso che domani pioverà."
+   },
+   {
+    "jp": "彼は来ないと思う。",
+    "it": "Penso che lui non verrà."
+   }
+  ],
+  "grammar-api-N4-65": [
+   {
+    "jp": "新しいレストランに行ってみます。",
+    "it": "Provo ad andare al ristorante nuovo."
+   },
+   {
+    "jp": "この漢字を書いてみてください。",
+    "it": "Prova a scrivere questo kanji."
+   }
+  ],
+  "grammar-api-N4-20": [
+   {
+    "jp": "旅行の前にホテルを予約しておきます。",
+    "it": "Prima del viaggio prenoto l'hotel (in anticipo)."
+   },
+   {
+    "jp": "飲み物を冷やしておいた。",
+    "it": "Ho messo le bevande a rinfrescare (in anticipo)."
+   }
+  ],
+  "grammar-api-N4-21": [
+   {
+    "jp": "宿題を全部やってしまいました。",
+    "it": "Ho finito tutti i compiti."
+   },
+   {
+    "jp": "大事な財布を忘れてしまった。",
+    "it": "Ho dimenticato il portafoglio importante (purtroppo)."
+   },
+   {
+    "jp": "大事な 書類を なくして しまいました。",
+    "it": "Ho perso dei documenti importanti (purtroppo).",
+    "en": "I ended up losing important documents."
+   }
+  ],
+  "grammar-api-N5-66": [
+   {
+    "jp": "今、音楽を聞いています。",
+    "it": "Adesso sto ascoltando musica."
+   },
+   {
+    "jp": "兄は東京に住んでいます。",
+    "it": "Mio fratello vive a Tokyo."
+   }
+  ],
+  "grammar-api-N4-54": [
+   {
+    "jp": "この問題は難しそうに見える。",
+    "it": "Questo problema sembra difficile."
+   },
+   {
+    "jp": "空を見ると、雨が降りそうだ。",
+    "it": "A guardare il cielo, sembra che pioverà."
+   }
+  ],
+  "grammar-api-N4-14": [
+   {
+    "jp": "一緒に帰ろう。",
+    "it": "Torniamo insieme."
+   },
+   {
+    "jp": "週末は早く起きようと思う。",
+    "it": "Nel weekend penso di alzarmi presto."
+   }
+  ],
+  "grammar-api-N4-74": [
+   {
+    "jp": "飲み物は お茶に します。",
+    "it": "Come bevanda scelgo il tè.",
+    "en": "I'll have tea to drink."
+   }
+  ],
+  "grammar-api-N4-77": [
+   {
+    "jp": "かれが どこに いるか 知って いますか。",
+    "it": "Sai dove si trova lui?",
+    "en": "Do you know where he is?"
+   }
+  ],
+  "grammar-api-N4-72": [
+   {
+    "jp": "この スープは しょうがの 味が します。",
+    "it": "Questa zuppa sa di zenzero.",
+    "en": "This soup tastes of ginger."
+   }
+  ],
+  "grammar-api-N4-78": [
+   {
+    "jp": "あした 行けるか どうか、まだ わかりません。",
+    "it": "Non so ancora se domani potrò andare o no.",
+    "en": "I don't yet know whether I can go tomorrow."
+   }
+  ],
+  "grammar-api-N4-57": [
+   {
+    "jp": "かれは もう 帰ったかもしれません。",
+    "it": "Può darsi che lui sia già tornato a casa.",
+    "en": "He may have already gone home."
+   }
+  ],
+  "grammar-api-N4-75": [
+   {
+    "jp": "チーズは 牛乳から できて います。",
+    "it": "Il formaggio è fatto dal latte.",
+    "en": "Cheese is made from milk."
+   }
+  ],
+  "grammar-api-N4-1": [
+   {
+    "jp": "この 町は 静かだし、人も 親切だし、住みやすいです。",
+    "it": "Questa città è tranquilla, la gente è gentile: ci si vive bene.",
+    "en": "This town is quiet and people are kind, so it's easy to live in."
+   }
+  ],
+  "grammar-api-N4-37": [
+   {
+    "jp": "ゆうべ 食べすぎて、おなかが 痛いです。",
+    "it": "Ieri sera ho mangiato troppo e mi fa male la pancia.",
+    "en": "I ate too much last night and my stomach hurts."
+   }
+  ],
+  "grammar-api-N4-68": [
+   {
+    "jp": "家族の ために、まいにち 働いて います。",
+    "it": "Lavoro ogni giorno per la famiglia.",
+    "en": "I work every day for my family."
+   }
+  ],
+  "grammar-api-N4-47": [
+   {
+    "jp": "駅に 着いたら、電話して ください。",
+    "it": "Quando arrivi alla stazione, chiamami.",
+    "en": "When you get to the station, call me."
+   }
+  ],
+  "grammar-api-N4-64": [
+   {
+    "jp": "今晩は 早く 寝る つもりです。",
+    "it": "Stasera ho intenzione di andare a letto presto.",
+    "en": "I intend to go to bed early tonight."
+   }
+  ],
+  "grammar-api-N4-2": [
+   {
+    "jp": "ニュースを 聞いて、びっくりしました。",
+    "it": "Ho sentito la notizia e mi sono stupito.",
+    "en": "I heard the news and was surprised."
+   }
+  ],
+  "grammar-api-N4-6": [
+   {
+    "jp": "おばあさんに 道を 教えて あげました。",
+    "it": "Ho indicato la strada a un'anziana signora.",
+    "en": "I showed an old lady the way."
+   }
+  ],
+  "grammar-api-N4-66": [
+   {
+    "jp": "旅行の 前に、切符を 買って おきます。",
+    "it": "Prima del viaggio compro i biglietti in anticipo.",
+    "en": "Before the trip, I'll buy the tickets in advance."
+   }
+  ],
+  "grammar-api-N4-84": [
+   {
+    "jp": "社長が 駅まで 送って くださいました。",
+    "it": "Il presidente mi ha gentilmente accompagnato alla stazione.",
+    "en": "The president kindly took me to the station."
+   }
+  ],
+  "grammar-api-N4-34": [
+   {
+    "jp": "手を 洗ってから、ご飯を 食べます。",
+    "it": "Prima mi lavo le mani e subito dopo mangio.",
+    "en": "I wash my hands and then eat."
+   }
+  ],
+  "grammar-api-N4-76": [
+   {
+    "jp": "さいきん、朝は 寒く なって きました。",
+    "it": "Ultimamente le mattine si stanno facendo fredde.",
+    "en": "Lately the mornings have been getting cold."
+   }
+  ],
+  "grammar-api-N4-9": [
+   {
+    "jp": "この 漢字の 読み方を 教えて いただけませんか。",
+    "it": "Potrebbe insegnarmi come si legge questo kanji?",
+    "en": "Could you kindly teach me how to read this kanji?"
+   }
+  ],
+  "grammar-api-N4-7": [
+   {
+    "jp": "友だちが 宿題を 手伝って くれました。",
+    "it": "Un amico mi ha aiutato con i compiti.",
+    "en": "A friend helped me with my homework."
+   }
+  ],
+  "grammar-api-N4-55": [
+   {
+    "jp": "かれは たぶん 来ないでしょう。",
+    "it": "Lui probabilmente non verrà.",
+    "en": "He probably won't come."
+   }
+  ],
+  "grammar-api-N4-50": [
+   {
+    "jp": "何度 読んでも、意味が わかりません。",
+    "it": "Per quante volte lo legga, non ne capisco il senso.",
+    "en": "No matter how many times I read it, I don't understand."
+   }
+  ],
+  "grammar-api-N4-8": [
+   {
+    "jp": "先生に 作文を 直して もらいました。",
+    "it": "Mi sono fatto correggere il tema dall'insegnante.",
+    "en": "I had the teacher correct my essay."
+   }
+  ],
+  "grammar-api-N4-45": [
+   {
+    "jp": "この ボタンを 押すと、ドアが 開きます。",
+    "it": "Premendo questo pulsante, la porta si apre.",
+    "en": "When you press this button, the door opens."
+   }
+  ],
+  "grammar-api-N4-30": [
+   {
+    "jp": "「立入禁止」は 入っては いけない という意味です。",
+    "it": "«Tachiiri kinshi» significa che è vietato entrare.",
+    "en": "\"Tachiiri kinshi\" means you must not enter."
+   }
+  ],
+  "grammar-api-N4-24": [
+   {
+    "jp": "これから 出かける ところです。",
+    "it": "Sto giusto per uscire.",
+    "en": "I am just about to go out."
+   }
+  ],
+  "grammar-api-N4-23": [
+   {
+    "jp": "母は 早く 帰りなさいと 言いました。",
+    "it": "La mamma ha detto di tornare presto.",
+    "en": "My mother said to come home early."
+   }
+  ],
+  "grammar-api-N4-59": [
+   {
+    "jp": "野菜も ちゃんと 食べなさい。",
+    "it": "Mangia per bene anche le verdure!",
+    "en": "Eat your vegetables properly!"
+   }
+  ],
+  "grammar-api-N4-31": [
+   {
+    "jp": "辞書を 使わないで、読んで みましょう。",
+    "it": "Proviamo a leggere senza usare il dizionario.",
+    "en": "Let's try reading without using a dictionary."
+   }
+  ],
+  "grammar-api-N4-36": [
+   {
+    "jp": "歌を 歌いながら、そうじを しました。",
+    "it": "Ho fatto le pulizie cantando.",
+    "en": "I cleaned while singing."
+   }
+  ],
+  "grammar-api-N4-28": [
+   {
+    "jp": "あしたは 早く 来なくてもいいです。",
+    "it": "Domani non c'è bisogno che tu venga presto.",
+    "en": "You don't have to come early tomorrow."
+   }
+  ],
+  "grammar-api-N4-60": [
+   {
+    "jp": "今日中に レポートを 出さなければ いけません。",
+    "it": "Devo consegnare la relazione entro oggi.",
+    "en": "I must submit the report by the end of today."
+   }
+  ],
+  "grammar-api-N4-48": [
+   {
+    "jp": "日本語を 勉強するなら、この 本が いいですよ。",
+    "it": "Se studi giapponese, questo libro è ottimo.",
+    "en": "If you're studying Japanese, this book is good."
+   }
+  ],
+  "grammar-api-N4-41": [
+   {
+    "jp": "休みの 日は そうじなんか して います。",
+    "it": "Nei giorni liberi faccio le pulizie e cose così.",
+    "en": "On days off I do cleaning and things like that."
+   }
+  ],
+  "grammar-api-N4-71": [
+   {
+    "jp": "来月から 大阪で 働く ことに なりました。",
+    "it": "È stato deciso che dal mese prossimo lavorerò a Osaka.",
+    "en": "It has been decided that I will work in Osaka from next month."
+   }
+  ],
+  "grammar-api-N4-5": [
+   {
+    "jp": "雨が 降って いるので、家に います。",
+    "it": "Poiché piove, sto a casa.",
+    "en": "Since it's raining, I'm staying home."
+   }
+  ],
+  "grammar-api-N4-49": [
+   {
+    "jp": "約束したのに、かれは 来ませんでした。",
+    "it": "Nonostante la promessa, lui non è venuto.",
+    "en": "Even though he promised, he didn't come."
+   }
+  ],
+  "grammar-api-N4-69": [
+   {
+    "jp": "この はさみは 紙を 切るのに 便利です。",
+    "it": "Queste forbici sono comode per tagliare la carta.",
+    "en": "These scissors are handy for cutting paper."
+   }
+  ],
+  "grammar-api-N4-46": [
+   {
+    "jp": "急げば、まだ 間に合いますよ。",
+    "it": "Se ti sbrighi, fai ancora in tempo.",
+    "en": "If you hurry, you can still make it."
+   }
+  ],
+  "grammar-api-N4-26": [
+   {
+    "jp": "日本に 来たばかりで、まだ 慣れて いません。",
+    "it": "Sono appena arrivato in Giappone e non mi sono ancora abituato.",
+    "en": "I just came to Japan and am not used to it yet."
+   }
+  ],
+  "grammar-api-N4-58": [
+   {
+    "jp": "かれは 今日 来る はずです。",
+    "it": "Lui oggi dovrebbe venire.",
+    "en": "He should come today."
+   }
+  ],
+  "grammar-api-N4-52": [
+   {
+    "jp": "外は 雨が 降って いるようです。",
+    "it": "Fuori sembra che stia piovendo.",
+    "en": "It seems to be raining outside."
+   }
+  ],
+  "grammar-api-N4-53": [
+   {
+    "jp": "かれの ような 人に なりたいです。",
+    "it": "Vorrei diventare una persona come lui.",
+    "en": "I want to become a person like him."
+   }
+  ],
+  "grammar-api-N4-67": [
+   {
+    "jp": "忘れないように、メモを します。",
+    "it": "Prendo nota per non dimenticare.",
+    "en": "I take notes so as not to forget."
+   }
+  ],
+  "grammar-api-N4-73": [
+   {
+    "jp": "夜は コーヒーを 飲まないように して います。",
+    "it": "Cerco di non bere caffè la sera.",
+    "en": "I try not to drink coffee at night."
+   }
+  ],
+  "grammar-api-N4-70": [
+   {
+    "jp": "漢字が 読めるように なりました。",
+    "it": "Sono arrivato a saper leggere i kanji.",
+    "en": "I have become able to read kanji."
+   }
+  ],
+  "grammar-api-N4-3": [
+   {
+    "jp": "遅れて すみません。電車が 止まったんです。",
+    "it": "Scusa il ritardo: è che il treno si è fermato.",
+    "en": "Sorry I'm late—the train stopped, you see."
+   }
+  ],
+  "grammar-api-N4-80": [
+   {
+    "jp": "もう少し ゆっくり 歩いて ください。",
+    "it": "Cammina un po' più lentamente, per favore.",
+    "en": "Please walk a little more slowly."
+   }
+  ],
+  "grammar-api-N4-44": [
+   {
+    "jp": "朝 走るのが 好きです。",
+    "it": "Mi piace correre la mattina.",
+    "en": "I like running in the morning."
+   }
+  ],
+  "grammar-api-N4-43": [
+   {
+    "jp": "この 店には よく 来ます。",
+    "it": "In questo negozio ci vengo spesso.",
+    "en": "I often come to this shop."
+   }
+  ],
+  "grammar-api-N4-33": [
+   {
+    "jp": "じゅぎょうの あとで、質問に 行きます。",
+    "it": "Dopo la lezione vado a fare domande.",
+    "en": "After class, I'll go ask questions."
+   }
+  ],
+  "grammar-api-N4-22": [
+   {
+    "jp": "電気が ついて います。",
+    "it": "La luce è accesa.",
+    "en": "The light is on."
+   }
+  ],
+  "grammar-api-N4-35": [
+   {
+    "jp": "五時までに 帰って きて ください。",
+    "it": "Torna entro le cinque, per favore.",
+    "en": "Please come back by five."
+   }
+  ],
+  "grammar-api-N4-79": [
+   {
+    "jp": "この プールの 深さは 二メートルです。",
+    "it": "La profondità di questa piscina è di due metri.",
+    "en": "The depth of this pool is two meters."
+   }
+  ],
+  "grammar-api-N4-29": [
+   {
+    "jp": "あの 山を 見て ください。きれいでしょう。",
+    "it": "Guarda quella montagna laggiù: è bella, vero?",
+    "en": "Look at that mountain over there—beautiful, isn't it?"
+   }
+  ],
+  "grammar-api-N4-38": [
+   {
+    "jp": "バスが ないから、歩くしかない。",
+    "it": "Non c'è l'autobus: non resta che camminare.",
+    "en": "There's no bus, so we have no choice but to walk."
+   }
+  ],
+  "grammar-api-N4-4": [
+   {
+    "jp": "店が 閉まって いた。そこで、となりの 店に 入った。",
+    "it": "Il negozio era chiuso; a quel punto sono entrato in quello accanto.",
+    "en": "The shop was closed, so I went into the one next door."
+   }
+  ],
+  "grammar-api-N4-85": [
+   {
+    "jp": "この 仕事は 私に やらせて ください。",
+    "it": "Lasci fare questo lavoro a me.",
+    "en": "Please let me do this job."
+   }
+  ],
+  "grammar-api-N4-27": [
+   {
+    "jp": "熱が あるなら、休んだ ほうがいいですよ。",
+    "it": "Se hai la febbre, faresti meglio a riposare.",
+    "en": "If you have a fever, you'd better rest."
+   }
+  ],
+  "grammar-api-N4-25": [
+   {
+    "jp": "兄は まだ 寝て います。",
+    "it": "Mio fratello sta ancora dormendo.",
+    "en": "My brother is still sleeping."
+   }
+  ],
+  "grammar-api-N4-42": [
+   {
+    "jp": "こんど 映画でも 見に 行きませんか。",
+    "it": "La prossima volta andiamo a vedere un film o qualcosa del genere?",
+    "en": "Shall we go see a movie or something next time?"
+   }
+  ],
+  "grammar-api-N4-39": [
+   {
+    "jp": "三千円以下の プレゼントを 探して います。",
+    "it": "Cerco un regalo sotto i tremila yen.",
+    "en": "I'm looking for a present under three thousand yen."
+   }
+  ],
+  "grammar-api-N4-40": [
+   {
+    "jp": "クラスで 一番 背が 高いのは だれですか。",
+    "it": "Chi è il più alto della classe?",
+    "en": "Who is the tallest in the class?"
+   }
+  ],
+  "grammar-api-N4-10": [
+   {
+    "jp": "私は 漢字が 少し 読めます。",
+    "it": "Io so leggere un po' i kanji.",
+    "en": "I can read kanji a little."
+   }
+  ],
+  "grammar-api-N4-12": [
+   {
+    "jp": "ここで 泳ぐな と 書いて あります。",
+    "it": "C'è scritto «vietato nuotare qui».",
+    "en": "It says \"do not swim here.\""
+   }
+  ],
+  "grammar-api-N4-81": [
+   {
+    "jp": "先生は 何時に いらっしゃいますか。",
+    "it": "A che ora arriva il professore? (onorifico)",
+    "en": "What time will the teacher arrive?"
+   }
+  ],
+  "grammar-api-N4-82": [
+   {
+    "jp": "お客様、こちらを ご覧に なって ください。",
+    "it": "Gentile cliente, guardi qui, prego.",
+    "en": "Dear customer, please take a look at this."
+   }
+  ],
+  "grammar-api-N4-18": [
+   {
+    "jp": "ここから 富士山が 見えます。",
+    "it": "Da qui si vede il monte Fuji.",
+    "en": "You can see Mt. Fuji from here."
+   }
+  ],
+  "grammar-api-N4-83": [
+   {
+    "jp": "あしたの 朝、うかがいます。",
+    "it": "Verrò da lei domattina (umile).",
+    "en": "I will visit you tomorrow morning."
+   }
+  ],
+  "grammar-api-N4-16": [
+   {
+    "jp": "母は 弟に 野菜を 食べさせました。",
+    "it": "La mamma ha fatto mangiare le verdure a mio fratello.",
+    "en": "Mom made my brother eat vegetables."
+   }
+  ],
+  "grammar-api-N4-17": [
+   {
+    "jp": "きらいな ものを 食べさせられました。",
+    "it": "Mi hanno costretto a mangiare qualcosa che detesto.",
+    "en": "I was made to eat something I hate."
+   }
+  ],
+  "grammar-api-N4-62": [
+   {
+    "jp": "週末は へやを かたづけようと 思います。",
+    "it": "Nel fine settimana penso di riordinare la stanza.",
+    "en": "I'm thinking of tidying my room this weekend."
+   }
+  ],
+  "grammar-api-N4-19": [
+   {
+    "jp": "電気が 消えた。/ 電気を 消した。",
+    "it": "La luce si è spenta. / Ho spento la luce.",
+    "en": "The light went out. / I turned off the light."
+   }
+  ],
+  "grammar-api-N4-15": [
+   {
+    "jp": "弟に ケーキを 食べられました。",
+    "it": "Mio fratello mi ha mangiato la torta (l'ho subìto).",
+    "en": "My cake was eaten by my brother."
+   }
+  ],
+  "grammar-api-N4-32": [
+   {
+    "jp": "この ペンは 書きやすいです。",
+    "it": "Questa penna scrive che è un piacere.",
+    "en": "This pen is easy to write with."
+   }
+  ],
+  "grammar-api-N4-51": [
+   {
+    "jp": "雨の 場合は、家で 練習します。",
+    "it": "In caso di pioggia ci alleniamo a casa.",
+    "en": "In case of rain, we practice at home."
+   }
+  ],
+  "grammar-api-N4-13": [
+   {
+    "jp": "安ければ、二つ 買います。",
+    "it": "Se costa poco, ne compro due.",
+    "en": "If it's cheap, I'll buy two."
+   }
+  ],
+  "grammar-api-N4-11": [
+   {
+    "jp": "あぶない！ 止まれ！",
+    "it": "Pericolo! Fermati!",
+    "en": "Danger! Stop!"
+   }
+  ],
+  "grammar-api-N4-63": [
+   {
+    "jp": "来週、京都へ 行く 予定です。",
+    "it": "La settimana prossima ho in programma di andare a Kyoto.",
+    "en": "I plan to go to Kyoto next week."
+   }
+  ]
+ }
 }
