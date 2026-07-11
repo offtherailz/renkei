@@ -10,6 +10,7 @@
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
 	import { autoAdvanceCompletedLessons, listCourses, importCourseDataset, studyOnlyCourse } from '$lib/db/course-import';
+	import { setObjectiveTreeEnabled } from '$lib/db/objectives';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -113,6 +114,7 @@
 	// studia solo la lezione 1 — le prossime si sbloccano da sole.
 	const ONBOARDING_KEY = 'renkei_onboarding_seen';
 	let showOnboarding = $state(false);
+	let onboardingStep = $state<'choice' | 'level'>('choice');
 	let onboardingBusy = $state(false);
 	let onboardingError = $state('');
 
@@ -124,7 +126,19 @@
 	}
 
 	function chooseConsolidamento(): void {
-		dismissOnboarding();
+		onboardingStep = 'level';
+	}
+
+	async function pickLevel(level: 'N5' | 'N4' | 'tutti'): Promise<void> {
+		onboardingBusy = true;
+		try {
+			if (level === 'N5') await setObjectiveTreeEnabled('obj-catalog-n4', false);
+			else if (level === 'N4') await setObjectiveTreeEnabled('obj-catalog-n5', false);
+			dismissOnboarding();
+			await loadData();
+		} finally {
+			onboardingBusy = false;
+		}
 	}
 
 	async function chooseGuidato(): Promise<void> {
@@ -191,16 +205,33 @@
 {#if showOnboarding}
 <div class="onboarding-backdrop">
 	<div class="onboarding-card">
-		<h2 class="onboarding-title">Benvenuto su Renkei 👋</h2>
-		<p class="onboarding-sub">Come vuoi iniziare?</p>
-		<button class="onboarding-choice" onclick={chooseConsolidamento} disabled={onboardingBusy}>
-			<span class="onboarding-choice-title">📚 Ho già delle basi</span>
-			<span class="onboarding-choice-hint">Voglio ripassare e consolidare — tutto il catalogo N5/N4 è già pronto, comincio da qui.</span>
-		</button>
-		<button class="onboarding-choice" onclick={chooseGuidato} disabled={onboardingBusy}>
-			<span class="onboarding-choice-title">🌱 Sono all'inizio</span>
-			<span class="onboarding-choice-hint">Voglio un percorso guidato — importo Genki I e parto dalla lezione 1, il resto resta in pausa.</span>
-		</button>
+		{#if onboardingStep === 'choice'}
+			<h2 class="onboarding-title">Benvenuto su Renkei 👋</h2>
+			<p class="onboarding-sub">Come vuoi iniziare?</p>
+			<button class="onboarding-choice" onclick={chooseConsolidamento} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">📚 Ho già delle basi</span>
+				<span class="onboarding-choice-hint">Voglio ripassare e consolidare — scelgo io quale livello attivare.</span>
+			</button>
+			<button class="onboarding-choice" onclick={chooseGuidato} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">🌱 Sono all'inizio</span>
+				<span class="onboarding-choice-hint">Voglio un percorso guidato — importo Genki I e parto dalla lezione 1, il resto resta in pausa.</span>
+			</button>
+		{:else}
+			<h2 class="onboarding-title">Quale livello attivi?</h2>
+			<p class="onboarding-sub">Il resto resta in pausa — lo riattivi quando vuoi da «Il piano di oggi».</p>
+			<button class="onboarding-choice" onclick={() => pickLevel('N5')} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">🌱 Solo N5</span>
+				<span class="onboarding-choice-hint">Le basi: parole, kanji e grammatica di livello N5.</span>
+			</button>
+			<button class="onboarding-choice" onclick={() => pickLevel('N4')} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">📗 Solo N4</span>
+				<span class="onboarding-choice-hint">Hai già N5: parti dal livello successivo.</span>
+			</button>
+			<button class="onboarding-choice" onclick={() => pickLevel('tutti')} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">📚 Entrambi</span>
+				<span class="onboarding-choice-hint">N5 e N4 attivi insieme, come oggi.</span>
+			</button>
+		{/if}
 		{#if onboardingBusy}<p class="onboarding-status">Preparo il percorso…</p>{/if}
 		{#if onboardingError}<p class="onboarding-status error">{onboardingError}</p>{/if}
 		<button class="onboarding-skip" onclick={dismissOnboarding} disabled={onboardingBusy}>Scelgo dopo</button>

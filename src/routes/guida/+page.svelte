@@ -18,7 +18,7 @@
 			<li><strong>Corsi</strong>: importa Genki I (un tocco), premi «🎯 Studia solo questo corso» e avanza lezione per lezione — si sblocca da sola.</li>
 			<li>Quando qualcosa non torna, aprine la <strong>scheda</strong>: esempi, usi, coniugazioni, note tue — e 💪 Consolida per il drill senza penalità.</li>
 		</ol>
-		<p class="page-sub" style="margin:0;">Al primo avvio te lo chiediamo subito: «Ho già delle basi» lascia tutto il catalogo attivo com'è oggi; «Sono all'inizio» imposta da solo il percorso guidato sopra.</p>
+		<p class="page-sub" style="margin:0;">Al primo avvio te lo chiediamo subito: «Ho già delle basi» ti fa scegliere quale livello attivare (N5, N4 o entrambi); «Sono all'inizio» imposta da solo il percorso guidato sopra.</p>
 	</section>
 
 	<section class="g-card">

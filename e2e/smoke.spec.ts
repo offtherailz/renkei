@@ -57,6 +57,26 @@ test('onboarding: "scelgo dopo" lascia tutto attivo come oggi', async ({ page })
 	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 5_000 });
 });
 
+test('onboarding: "ho già basi" chiede il livello e mette in pausa l\'altro', async ({ page }) => {
+	await gotoHome(page);
+	await expect(page.getByText('Benvenuto su Renkei')).toBeVisible({ timeout: 15_000 });
+	await page.getByRole('button', { name: /Ho già delle basi/ }).click();
+	await expect(page.getByText('Quale livello attivi?')).toBeVisible();
+	await page.getByRole('button', { name: /Solo N5/ }).click();
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 10_000 });
+
+	const state = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const n5 = await db.study_objectives.get('obj-catalog-n5');
+		const n4 = await db.study_objectives.get('obj-catalog-n4');
+		const n4Words = await db.study_objectives.get('obj-catalog-n4-words');
+		return { n5Enabled: n5?.study_enabled, n4Enabled: n4?.study_enabled, n4WordsEnabled: n4Words?.study_enabled };
+	});
+	expect(state.n5Enabled).toBe(true);
+	expect(state.n4Enabled).toBe(false);
+	expect(state.n4WordsEnabled).toBe(false); // discende ricorsivamente ai figli
+});
+
 test('corso: completare una lezione sblocca da sola la successiva', async ({ page }) => {
 	await gotoHome(page);
 	await page.getByRole('button', { name: /Sono all'inizio/ }).click();

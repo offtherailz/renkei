@@ -176,6 +176,25 @@ export async function ensureDefaultObjectives(): Promise<void> {
 	await db.study_objectives.bulkPut(syncedDefaults);
 }
 
+// Attiva/pausa un intero ramo di obiettivi (es. tutto il catalogo N5),
+// scendendo ricorsivamente su parent_objective_id — non tocca gli altri rami.
+export async function setObjectiveTreeEnabled(rootId: string, enabled: boolean): Promise<void> {
+	const all = await db.study_objectives.toArray();
+	const ids = new Set<string>([rootId]);
+	let added = true;
+	while (added) {
+		added = false;
+		for (const o of all) {
+			if (o.parent_objective_id && ids.has(o.parent_objective_id) && !ids.has(o.id)) {
+				ids.add(o.id);
+				added = true;
+			}
+		}
+	}
+	const now = Date.now();
+	await Promise.all([...ids].map((id) => db.study_objectives.update(id, { study_enabled: enabled, updated_at: now })));
+}
+
 export async function ensureDefaultSettings(): Promise<void> {
 	const DEFAULT_SETTINGS = {
 		id: "default" as const,
