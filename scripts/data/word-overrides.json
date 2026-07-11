@@ -20049,6 +20049,13 @@
      "it": "Sapere che stai bene mi ha tranquillizzato.",
      "en": "I was relieved to hear you're safe."
     }
+   },
+   {
+    "testo": "あなたが いれば 安心です。",
+    "traduzione": {
+     "it": "Se ci sei tu sono tranquillo.",
+     "en": "With you here, I feel at ease."
+    }
    }
   ]
  },
@@ -20068,6 +20075,13 @@
     "traduzione": {
      "it": "Questa strada è sicura anche di notte.",
      "en": "This road is safe even at night."
+    }
+   },
+   {
+    "testo": "安全な 場所に にげて ください。",
+    "traduzione": {
+     "it": "Rifugiati in un luogo sicuro.",
+     "en": "Please flee to a safe place."
     }
    }
   ]
@@ -20356,7 +20370,23 @@
    "en": [
     "drawer"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "きれいなタオルは引き出しにありますよ。",
+    "traduzione": {
+     "it": "The clean towels are in the drawer.",
+     "en": "The clean towels are in the drawer."
+    }
+   },
+   {
+    "testo": "はさみは 上の 引き出しに あります。",
+    "traduzione": {
+     "it": "Le forbici sono nel cassetto in alto.",
+     "en": "The scissors are in the top drawer."
+    }
+   }
+  ]
  },
  "引っ越す": {
   "significato": {
@@ -20366,7 +20396,23 @@
    "en": [
     "to move to a new place of residence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "去年の秋、私たちはニューヨークに引っ越した。",
+    "traduzione": {
+     "it": "We moved to New York last fall.",
+     "en": "We moved to New York last fall."
+    }
+   },
+   {
+    "testo": "来月、駅の 近くに 引っ越します。",
+    "traduzione": {
+     "it": "Il mese prossimo trasloco vicino alla stazione.",
+     "en": "Next month I'm moving near the station."
+    }
+   }
+  ]
  },
  "運ぶ": {
   "significato": {
@@ -20553,7 +20599,23 @@
    "en": [
     "rooftop"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "デパートの屋上にアドバルーンが上がっている。",
+    "traduzione": {
+     "it": "There is an advertising balloon flying above the department store.",
+     "en": "There is an advertising balloon flying above the department store."
+    }
+   },
+   {
+    "testo": "屋上から 花火が 見えます。",
+    "traduzione": {
+     "it": "Dal tetto si vedono i fuochi d'artificio.",
+     "en": "You can see the fireworks from the rooftop."
+    }
+   }
+  ]
  },
  "音": {
   "significato": {
@@ -20714,7 +20776,23 @@
    "en": [
     "(one's own) wife"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "家内は海外旅行中で、よく電話をかけてくる。",
+    "traduzione": {
+     "it": "My wife often rings me up, while she travels abroad.",
+     "en": "My wife often rings me up, while she travels abroad."
+    }
+   },
+   {
+    "testo": "家内と 二人で 旅行しました。",
+    "traduzione": {
+     "it": "Ho viaggiato in due con mia moglie.",
+     "en": "I traveled together with my wife."
+    }
+   }
+  ]
  },
  "科学": {
   "significato": {
@@ -20968,6 +21046,13 @@
     "traduzione": {
      "it": "Mio fratello minore ha rotto la mia macchina fotografica.",
      "en": "My little brother broke my camera."
+    }
+   },
+   {
+    "testo": "古い 家を 壊して、新しいのを 建てます。",
+    "traduzione": {
+     "it": "Demoliscono la casa vecchia e ne costruiscono una nuova.",
+     "en": "They will tear down the old house and build a new one."
     }
    }
   ]
@@ -21359,7 +21444,23 @@
    "en": [
     "to stop by"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ちょっと寄って行きませんか。",
+    "traduzione": {
+     "it": "Won't you come in for a moment?",
+     "en": "Won't you come in for a moment?"
+    }
+   },
+   {
+    "testo": "帰りに スーパーに 寄ります。",
+    "traduzione": {
+     "it": "Al ritorno passo dal supermercato.",
+     "en": "I'll stop by the supermarket on the way home."
+    }
+   }
+  ]
  },
  "機会": {
   "significato": {
@@ -21389,6 +21490,13 @@
     "traduzione": {
      "it": "Al ritorno compra il latte, mi raccomando.",
      "en": "Buy some milk on your way home, okay?"
+    }
+   },
+   {
+    "testo": "帰りの 電車は こんで いました。",
+    "traduzione": {
+     "it": "Il treno del ritorno era affollato.",
+     "en": "The train home was crowded."
     }
    }
   ]
@@ -21492,6 +21600,13 @@
     "traduzione": {
      "it": "Qual è la tua stagione preferita?",
      "en": "Which season do you like best?"
+    }
+   },
+   {
+    "testo": "季節が 変わって、涼しく なりました。",
+    "traduzione": {
+     "it": "È cambiata la stagione ed è arrivato il fresco.",
+     "en": "The season changed and it became cool."
     }
    }
   ]
@@ -21975,6 +22090,13 @@
      "it": "Questa pietra ha la forma di una stella.",
      "en": "This stone is shaped like a star."
     }
+   },
+   {
+    "testo": "雲が 動物の 形に 見えます。",
+    "traduzione": {
+     "it": "Le nuvole sembrano avere forme di animali.",
+     "en": "The clouds look like animal shapes."
+    }
    }
   ]
  },
@@ -22211,6 +22333,13 @@
     "traduzione": {
      "it": "Stanno costruendo un palazzo nuovo davanti alla stazione.",
      "en": "They're building a new building in front of the station."
+    }
+   },
+   {
+    "testo": "いつか 自分の 家を 建てたいです。",
+    "traduzione": {
+     "it": "Un giorno vorrei costruire la mia casa.",
+     "en": "Someday I want to build my own house."
     }
    }
   ]
@@ -22626,6 +22755,13 @@
      "it": "In questa città l'industria è fiorente.",
      "en": "Industry is thriving in this town."
     }
+   },
+   {
+    "testo": "この 国は 工業が 発展して います。",
+    "traduzione": {
+     "it": "In questo paese l'industria è sviluppata.",
+     "en": "Industry is developed in this country."
+    }
    }
   ]
  },
@@ -22644,6 +22780,13 @@
     "traduzione": {
      "it": "Mio padre lavora in fabbrica.",
      "en": "My father works at a factory."
+    }
+   },
+   {
+    "testo": "この 工場では 車を 作って います。",
+    "traduzione": {
+     "it": "In questa fabbrica producono automobili.",
+     "en": "They make cars at this factory."
     }
    }
   ]
@@ -23110,6 +23253,13 @@
      "it": "Sono andato a fare spese con mia moglie.",
      "en": "I went shopping with my wife."
     }
+   },
+   {
+    "testo": "妻は 花が 好きです。",
+    "traduzione": {
+     "it": "A mia moglie piacciono i fiori.",
+     "en": "My wife likes flowers."
+    }
    }
   ]
  },
@@ -23164,6 +23314,13 @@
     "traduzione": {
      "it": "In cima a questa salita c'è un tempio.",
      "en": "At the top of this slope there is a temple."
+    }
+   },
+   {
+    "testo": "自転車で 坂を 下りるのは 気持ちが いいです。",
+    "traduzione": {
+     "it": "Scendere il pendio in bicicletta è piacevole.",
+     "en": "Going down the hill by bicycle feels good."
     }
    }
   ]
@@ -23287,6 +23444,13 @@
      "it": "Di chi è quel bambino?",
      "en": "Whose child is that?"
     }
+   },
+   {
+    "testo": "あの 子は とても 元気ですね。",
+    "traduzione": {
+     "it": "Quel bambino è proprio vivace!",
+     "en": "That child is very lively!"
+    }
    }
   ]
  },
@@ -23306,6 +23470,13 @@
      "it": "Ho preso un libro alla biblioteca comunale.",
      "en": "I borrowed a book from the city library."
     }
+   },
+   {
+    "testo": "市の 病院は 駅の 近くです。",
+    "traduzione": {
+     "it": "L'ospedale comunale è vicino alla stazione.",
+     "en": "The city hospital is near the station."
+    }
    }
   ]
  },
@@ -23324,6 +23495,13 @@
     "traduzione": {
      "it": "C'è una piscina per i cittadini.",
      "en": "There is a pool for citizens."
+    }
+   },
+   {
+    "testo": "市民マラソンに 参加しました。",
+    "traduzione": {
+     "it": "Ho partecipato alla maratona cittadina.",
+     "en": "I took part in the citizens' marathon."
     }
    }
   ]
@@ -23634,6 +23812,13 @@
      "it": "Lui ha una bella calligrafia.",
      "en": "He has beautiful handwriting."
     }
+   },
+   {
+    "testo": "もっと 大きい 字で 書いて ください。",
+    "traduzione": {
+     "it": "Scrivi con caratteri più grandi, per favore.",
+     "en": "Please write in bigger letters."
+    }
    }
   ]
  },
@@ -23652,6 +23837,13 @@
     "traduzione": {
      "it": "A Kyoto ho visto templi antichi.",
      "en": "I saw old temples in Kyoto."
+    }
+   },
+   {
+    "testo": "この 寺は 桜が 有名です。",
+    "traduzione": {
+     "it": "Questo tempio è famoso per i ciliegi.",
+     "en": "This temple is famous for its cherry blossoms."
     }
    }
   ]
@@ -23758,7 +23950,23 @@
     "failure",
     "mistake"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１度や２度の失敗はだれにでもある。",
+    "traduzione": {
+     "it": "Everybody fails once or twice.",
+     "en": "Everybody fails once or twice."
+    }
+   },
+   {
+    "testo": "失敗を おそれないで ください。",
+    "traduzione": {
+     "it": "Non temere gli errori.",
+     "en": "Don't be afraid of failure."
+    }
+   }
+  ]
  },
  "失礼": {
   "significato": {
@@ -23892,6 +24100,13 @@
     "traduzione": {
      "it": "Da solo mi sento solo.",
      "en": "I feel lonely by myself."
+    }
+   },
+   {
+    "testo": "友だちが 帰って、寂しく なりました。",
+    "traduzione": {
+     "it": "Il mio amico è partito e mi sono sentito solo.",
+     "en": "My friend left and I felt lonely."
     }
    }
   ]
@@ -24312,7 +24527,23 @@
    "en": [
     "woman"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その少女は大きくなってすらりとした女性になった。",
+    "traduzione": {
+     "it": "The girl has grown into a slender woman.",
+     "en": "The girl has grown into a slender woman."
+    }
+   },
+   {
+    "testo": "受付に 女性が 二人 います。",
+    "traduzione": {
+     "it": "Alla reception ci sono due donne.",
+     "en": "There are two women at the reception."
+    }
+   }
+  ]
  },
  "勝つ": {
   "significato": {
@@ -24383,6 +24614,13 @@
      "it": "In futuro vorrei diventare medico.",
      "en": "I want to become a doctor in the future."
     }
+   },
+   {
+    "testo": "将来の ことを よく 考えましょう。",
+    "traduzione": {
+     "it": "Pensiamo bene al futuro.",
+     "en": "Let's think carefully about the future."
+    }
    }
   ]
  },
@@ -24394,7 +24632,23 @@
    "en": [
     "elementary school"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは小学校に通っているの？",
+    "traduzione": {
+     "it": "Do you go to an elementary school?",
+     "en": "Do you go to an elementary school?"
+    }
+   },
+   {
+    "testo": "小学校の 友だちに 会いました。",
+    "traduzione": {
+     "it": "Ho incontrato un amico delle elementari.",
+     "en": "I met a friend from elementary school."
+    }
+   }
+  ]
  },
  "小説": {
   "significato": {
@@ -24414,7 +24668,23 @@
    "en": [
     "small bird"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "小鳥たちはたのしそうにさえずっています。",
+    "traduzione": {
+     "it": "The birds are singing merrily.",
+     "en": "The birds are singing merrily."
+    }
+   },
+   {
+    "testo": "庭に 小鳥が 来ます。",
+    "traduzione": {
+     "it": "In giardino vengono gli uccellini.",
+     "en": "Little birds come to the garden."
+    }
+   }
+  ]
  },
  "床屋": {
   "significato": {
@@ -24424,7 +24694,23 @@
    "en": [
     "barber's (shop)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "おや、床屋へ行ってきたのだね。",
+    "traduzione": {
+     "it": "Oh, you've been to the barbershop.",
+     "en": "Oh, you've been to the barbershop."
+    }
+   },
+   {
+    "testo": "月に 一度、床屋へ 行きます。",
+    "traduzione": {
+     "it": "Una volta al mese vado dal barbiere.",
+     "en": "I go to the barber once a month."
+    }
+   }
+  ]
  },
  "承知": {
   "significato": {
@@ -24608,6 +24894,13 @@
      "it": "In caso di pioggia si annulla.",
      "en": "In case of rain, it will be canceled."
     }
+   },
+   {
+    "testo": "火事の 場合は 119番に 電話して ください。",
+    "traduzione": {
+     "it": "In caso d'incendio, chiama il 119.",
+     "en": "In case of fire, call 119."
+    }
    }
   ]
  },
@@ -24628,6 +24921,13 @@
     "traduzione": {
      "it": "Decidiamo il posto dell'appuntamento.",
      "en": "Let's decide on a meeting place."
+    }
+   },
+   {
+    "testo": "静かな 場所で 勉強したいです。",
+    "traduzione": {
+     "it": "Voglio studiare in un posto tranquillo.",
+     "en": "I want to study in a quiet place."
     }
    }
   ]
@@ -24766,6 +25066,13 @@
     "traduzione": {
      "it": "Ho dormito troppo e ho perso il treno.",
      "en": "I overslept and missed the train."
+    }
+   },
+   {
+    "testo": "寝坊して、朝ごはんを 食べる 時間が ありませんでした。",
+    "traduzione": {
+     "it": "Mi sono svegliato tardi e non ho avuto tempo per la colazione.",
+     "en": "I overslept and had no time for breakfast."
     }
    }
   ]
@@ -25080,6 +25387,13 @@
     "traduzione": {
      "it": "Ho chiesto la strada per la stazione.",
      "en": "I asked the way to the station."
+    }
+   },
+   {
+    "testo": "わからない ことは 先生に 尋ねます。",
+    "traduzione": {
+     "it": "Le cose che non capisco le chiedo all'insegnante.",
+     "en": "I ask the teacher about things I don't understand."
     }
    }
   ]
@@ -25401,7 +25715,23 @@
    "en": [
     "a seat"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この席を見ていてくれませんか。",
+    "traduzione": {
+     "it": "Can you save this seat for me?",
+     "en": "Can you save this seat for me?"
+    }
+   },
+   {
+    "testo": "まどがわの 席を おねがいします。",
+    "traduzione": {
+     "it": "Un posto lato finestrino, per favore.",
+     "en": "A window seat, please."
+    }
+   }
+  ]
  },
  "昔": {
   "significato": {
@@ -25839,6 +26169,13 @@
      "it": "In questa città la gente sta aumentando.",
      "en": "The population of this town is increasing."
     }
+   },
+   {
+    "testo": "最近、体重が 増えました。",
+    "traduzione": {
+     "it": "Di recente il mio peso è aumentato.",
+     "en": "Recently my weight has increased."
+    }
    }
   ]
  },
@@ -25970,6 +26307,13 @@
      "it": "Ultimamente sono un po' ingrassato.",
      "en": "I've gained a little weight recently."
     }
+   },
+   {
+    "testo": "甘い ものを 食べすぎると、太りますよ。",
+    "traduzione": {
+     "it": "Se mangi troppi dolci ingrassi.",
+     "en": "If you eat too many sweets, you'll gain weight."
+    }
    }
   ]
  },
@@ -26067,7 +26411,23 @@
     "college student",
     "university student"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私の兄は大学生です。",
+    "traduzione": {
+     "it": "My brother is a college student.",
+     "en": "My brother is a college student."
+    }
+   },
+   {
+    "testo": "大学生の とき、日本へ 行きました。",
+    "traduzione": {
+     "it": "Da universitario sono andato in Giappone.",
+     "en": "When I was a university student, I went to Japan."
+    }
+   }
+  ]
  },
  "大事": {
   "significato": {
@@ -26087,6 +26447,13 @@
     "traduzione": {
      "it": "Questi sono documenti importanti.",
      "en": "These are important documents."
+    }
+   },
+   {
+    "testo": "体を 大事に して ください。",
+    "traduzione": {
+     "it": "Abbi cura della tua salute.",
+     "en": "Please take care of yourself."
     }
    }
   ]
@@ -26123,6 +26490,13 @@
      "it": "La domenica di solito sto a casa.",
      "en": "I'm usually at home on Sundays."
     }
+   },
+   {
+    "testo": "晩ごはんは 大抵 うちで 食べます。",
+    "traduzione": {
+     "it": "Di solito ceno a casa.",
+     "en": "I usually eat dinner at home."
+    }
    }
   ]
  },
@@ -26145,6 +26519,13 @@
     "traduzione": {
      "it": "Ormai capisco parecchio giapponese.",
      "en": "I've come to understand quite a lot of Japanese."
+    }
+   },
+   {
+    "testo": "かぜは 大分 よく なりました。",
+    "traduzione": {
+     "it": "Il raffreddore è migliorato parecchio.",
+     "en": "My cold has gotten much better."
     }
    }
   ]
@@ -26292,6 +26673,13 @@
     "traduzione": {
      "it": "Ieri sera c'è stato un piccolo terremoto.",
      "en": "There was a small earthquake last night."
+    }
+   },
+   {
+    "testo": "地震の ときは 火を 消して ください。",
+    "traduzione": {
+     "it": "In caso di terremoto, spegni il fuoco.",
+     "en": "In an earthquake, please turn off the fire."
     }
    }
   ]
@@ -26836,6 +27224,13 @@
      "it": "Secondo le previsioni, domani pioverà.",
      "en": "According to the forecast, it will rain tomorrow."
     }
+   },
+   {
+    "testo": "出かける 前に 天気予報を 見ます。",
+    "traduzione": {
+     "it": "Prima di uscire guardo le previsioni del tempo.",
+     "en": "I check the weather forecast before going out."
+    }
    }
   ]
  },
@@ -26848,7 +27243,23 @@
    "en": [
     "exhibition"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちは毎年展覧会を開く。",
+    "traduzione": {
+     "it": "We hold an exhibition every year.",
+     "en": "We hold an exhibition every year."
+    }
+   },
+   {
+    "testo": "絵の 展覧会に 行きました。",
+    "traduzione": {
+     "it": "Sono andato a una mostra di pittura.",
+     "en": "I went to an art exhibition."
+    }
+   }
+  ]
  },
  "店員": {
   "significato": {
@@ -26866,6 +27277,13 @@
     "traduzione": {
      "it": "Ho chiesto il prezzo al commesso.",
      "en": "I asked the clerk the price."
+    }
+   },
+   {
+    "testo": "店員が 親切に 教えて くれました。",
+    "traduzione": {
+     "it": "Il commesso mi ha spiegato gentilmente.",
+     "en": "The clerk kindly explained it to me."
     }
    }
   ]
@@ -26986,7 +27404,23 @@
     "to paint",
     "to plaster"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョンがドアにペンキを塗っていた。",
+    "traduzione": {
+     "it": "John has been painting the door.",
+     "en": "John has been painting the door."
+    }
+   },
+   {
+    "testo": "パンに バターを 塗りました。",
+    "traduzione": {
+     "it": "Ho spalmato il burro sul pane.",
+     "en": "I spread butter on the bread."
+    }
+   }
+  ]
  },
  "途中": {
   "significato": {
@@ -27095,6 +27529,13 @@
     "traduzione": {
      "it": "Il Giappone è un paese di isole.",
      "en": "Japan is a country of islands."
+    }
+   },
+   {
+    "testo": "船で 小さい 島へ 渡りました。",
+    "traduzione": {
+     "it": "Con la nave siamo passati su una piccola isola.",
+     "en": "We crossed to a small island by boat."
     }
    }
   ]
@@ -27336,7 +27777,23 @@
    "en": [
     "to deliver (v.t.)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "家に届けていただけますか。",
+    "traduzione": {
+     "it": "Can you deliver it to my house?",
+     "en": "Can you deliver it to my house?"
+    }
+   },
+   {
+    "testo": "この 書類を 事務所に 届けて ください。",
+    "traduzione": {
+     "it": "Consegna questi documenti in ufficio.",
+     "en": "Please deliver these documents to the office."
+    }
+   }
+  ]
  },
  "内": {
   "significato": {
@@ -27588,6 +28045,13 @@
      "it": "Il reparto scarpe è al terzo piano.",
      "en": "The shoe department is on the third floor."
     }
+   },
+   {
+    "testo": "おもちゃ売り場は 五階です。",
+    "traduzione": {
+     "it": "Il reparto giocattoli è al quinto piano.",
+     "en": "The toy department is on the fifth floor."
+    }
    }
   ]
  },
@@ -27706,6 +28170,13 @@
      "it": "Lui è bravo a tennis.",
      "en": "He is good at tennis."
     }
+   },
+   {
+    "testo": "彼は 約束を 守る 人です。",
+    "traduzione": {
+     "it": "Lui è uno che mantiene le promesse.",
+     "en": "He is a person who keeps his promises."
+    }
    }
   ]
  },
@@ -27724,6 +28195,13 @@
     "traduzione": {
      "it": "Loro sono compagni di classe.",
      "en": "They are classmates."
+    }
+   },
+   {
+    "testo": "彼らは 毎朝 いっしょに 走って います。",
+    "traduzione": {
+     "it": "Loro corrono insieme ogni mattina.",
+     "en": "They run together every morning."
     }
    }
   ]
@@ -27745,6 +28223,13 @@
     "traduzione": {
      "it": "Lei canta bene.",
      "en": "She sings well."
+    }
+   },
+   {
+    "testo": "彼女は 三か国語が 話せます。",
+    "traduzione": {
+     "it": "Lei sa parlare tre lingue.",
+     "en": "She can speak three languages."
     }
    }
   ]
@@ -27967,6 +28452,13 @@
      "it": "Mio marito ora è in trasferta.",
      "en": "My husband is on a business trip."
     }
+   },
+   {
+    "testo": "夫は 料理が 上手です。",
+    "traduzione": {
+     "it": "Mio marito è bravo a cucinare.",
+     "en": "My husband is good at cooking."
+    }
    }
   ]
  },
@@ -27985,6 +28477,13 @@
     "traduzione": {
      "it": "Ho steso il futon al sole e poi ho dormito.",
      "en": "I aired the futon and then slept."
+    }
+   },
+   {
+    "testo": "天気が いいので、布団を ほしました。",
+    "traduzione": {
+     "it": "C'era bel tempo, così ho steso il futon.",
+     "en": "The weather was nice, so I aired the futon."
     }
    }
   ]
@@ -28078,6 +28577,13 @@
     "traduzione": {
      "it": "Prima del test faccio il ripasso.",
      "en": "I review before the test."
+    }
+   },
+   {
+    "testo": "復習を すると、忘れません。",
+    "traduzione": {
+     "it": "Ripassando non si dimentica.",
+     "en": "If you review, you won't forget."
     }
    }
   ]
@@ -28268,6 +28774,13 @@
      "it": "Ho appeso una mappa al muro.",
      "en": "I put a map on the wall."
     }
+   },
+   {
+    "testo": "壁の 色を 白に しました。",
+    "traduzione": {
+     "it": "Abbiamo fatto le pareti di bianco.",
+     "en": "We made the walls white."
+    }
    }
   ]
  },
@@ -28321,7 +28834,23 @@
     "strange",
     "odd"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのオレンジは後味が変だった。",
+    "traduzione": {
+     "it": "The orange left a strange taste in my mouth.",
+     "en": "The orange left a strange taste in my mouth."
+    }
+   },
+   {
+    "testo": "へやから 変な 音が します。",
+    "traduzione": {
+     "it": "Dalla stanza arriva un rumore strano.",
+     "en": "A strange sound is coming from the room."
+    }
+   }
+  ]
  },
  "変える": {
   "significato": {
@@ -28341,6 +28870,13 @@
     "traduzione": {
      "it": "Ho cambiato l'orario della riunione.",
      "en": "I changed the meeting time."
+    }
+   },
+   {
+    "testo": "へやの 家具の 場所を 変えました。",
+    "traduzione": {
+     "it": "Ho spostato i mobili della stanza.",
+     "en": "I rearranged the furniture in the room."
     }
    }
   ]
@@ -28726,6 +29262,13 @@
      "it": "Stanotte ho fatto un sogno strano.",
      "en": "I had a strange dream last night."
     }
+   },
+   {
+    "testo": "夢に むかって がんばって います。",
+    "traduzione": {
+     "it": "Mi sto impegnando per il mio sogno.",
+     "en": "I am working hard toward my dream."
+    }
    }
   ]
  },
@@ -28769,6 +29312,13 @@
     "traduzione": {
      "it": "Mia figlia quest'anno è entrata all'università.",
      "en": "My daughter entered university this year."
+    }
+   },
+   {
+    "testo": "娘に 手紙を 書きました。",
+    "traduzione": {
+     "it": "Ho scritto una lettera a mia figlia.",
+     "en": "I wrote a letter to my daughter."
     }
    }
   ]
@@ -28864,7 +29414,23 @@
     "to be helpful",
     "to be useful"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それ以上はお役に立てません。",
+    "traduzione": {
+     "it": "Beyond that I cannot help you.",
+     "en": "Beyond that I cannot help you."
+    }
+   },
+   {
+    "testo": "この 辞書は とても 役に立ちます。",
+    "traduzione": {
+     "it": "Questo dizionario è molto utile.",
+     "en": "This dictionary is very useful."
+    }
+   }
+  ]
  },
  "約束": {
   "significato": {
@@ -30723,6 +31289,24 @@
     "traduzione": {
      "it": "Partiamo dall'hotel alle sei del mattino.",
      "en": "We leave the hotel at six in the morning."
+    }
+   }
+  ]
+ },
+ "失敗する": {
+  "frasi_esempio": [
+   {
+    "testo": "１度や２度の失敗はだれにでもある。",
+    "traduzione": {
+     "it": "Everybody fails once or twice.",
+     "en": "Everybody fails once or twice."
+    }
+   },
+   {
+    "testo": "ケーキ作りに 失敗しました。",
+    "traduzione": {
+     "it": "Ho sbagliato a fare la torta.",
+     "en": "I failed at making the cake."
     }
    }
   ]
