@@ -3,6 +3,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { db } from '$lib/db/schema';
 	import { loadSkillMastery, type SkillMastery } from '$lib/db/queries';
+	import { computeStreak, weeklyRecap, type Streak, type WeekRecap } from '$lib/core/celebration';
 	import type { StudySessionRecord } from '$lib/types/models';
 
 	interface DailyAggregate {
@@ -14,6 +15,8 @@
 	}
 
 	let history = $state<StudySessionRecord[]>([]);
+	let streak = $state<Streak | null>(null);
+	let recap = $state<WeekRecap | null>(null);
 	let week = $state<DailyAggregate[]>([]);
 	let skills = $state<SkillMastery | null>(null);
 	type Acc = { answers: number; correct: number };
@@ -67,6 +70,8 @@
 
 	async function loadStats(): Promise<void> {
 		history = await db.study_sessions.orderBy('startedAt').toArray();
+		streak = computeStreak(history);
+		recap = weeklyRecap(history);
 
 		const now = Date.now();
 		const cutoff = now - 7 * 24 * 60 * 60 * 1000;
@@ -129,6 +134,27 @@
 </script>
 
 <h1 class="page-title">Statistiche</h1>
+
+<!-- La tua settimana -->
+{#if recap}
+<section class="section-card">
+	<p class="card-title">La tua settimana</p>
+	<p class="week-story">
+		{#if streak && streak.giorni > 0}🔥 <strong>{streak.giorni}</strong> {streak.giorni === 1 ? 'giorno' : 'giorni'} di fila.{/if}
+		{#if recap.giorniAttivi > 0}
+			Hai studiato <strong>{recap.giorniAttivi}</strong> {recap.giorniAttivi === 1 ? 'giorno' : 'giorni'} su 7,
+			con <strong>{recap.risposte}</strong> risposte e un'accuratezza del <strong>{recap.accuratezza}%</strong>.
+			{#if recap.rispostePrec > 0 && recap.risposte > recap.rispostePrec}
+				📈 Più della settimana scorsa ({recap.rispostePrec}).
+			{:else if recap.rispostePrec > recap.risposte}
+				La settimana scorsa erano {recap.rispostePrec}: piccola spinta e la superi.
+			{/if}
+		{:else}
+			Questa settimana ancora nessuna sessione: 5 minuti bastano per accendere la 🔥.
+		{/if}
+	</p>
+</section>
+{/if}
 
 <!-- Sessione attiva -->
 {#if activeSession}
@@ -288,6 +314,8 @@
 	}
 
 	.session-live { border: 1.5px solid var(--warn-border); background: var(--warn-bg); }
+
+	.week-story { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--ink); }
 
 	.card-title {
 		font-size: 0.78rem;

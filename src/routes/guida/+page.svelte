@@ -25,6 +25,7 @@
 			<p><strong>Obiettivi</strong> — il badge «✓ In studio / ⏸ Pausa» in home è un interruttore. La pausa non cancella nulla: i ripassi restano in attesa (li vedi come «+N in pausa»).</p>
 		<p><strong>Corsi</strong> — ogni lezione è un obiettivo. Le lezioni si attivano da /courses o dalla home.</p>
 		<p><strong>Ascolto dialoghi</strong> — dialoghi con domande, massimo 2 ascolti come all'esame.</p>
+		<p><strong>🔥 Streak e traguardi</strong> — in home vedi i giorni di studio di fila (un giorno saltato non la azzera: si rompe dopo due). A fine sessione festeggi record personali e traguardi (3, 7, 14, 30 giorni…); in Statistiche c'è il racconto della tua settimana.</p>
 	</section>
 
 	<section class="g-card">

@@ -7,11 +7,15 @@
 	import { db } from '$lib/db/schema';
 	import { normalizeMastery } from '$lib/core/srs';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
+	import Confetti from '$lib/components/Confetti.svelte';
+	import { computeStreak, celebrateOncePerDay, type Streak } from '$lib/core/celebration';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
 	let duePaused = $state(0);
 	let loading = $state(true);
+	let sessionStreak = $state<Streak | null>(null);
+	let showConfetti = $state(false);
 
 	// ── Piano di oggi ──
 	type WeakItem = { label: string; consolida: string; pct: number };
@@ -65,7 +69,19 @@
 		dueCount = due.attivi;
 		duePaused = due.inPausa;
 		void loadWeakest();
+		void loadStreak(due.attivi);
 		loading = false;
+	}
+
+	// Streak dalle sessioni registrate + festa (una volta al giorno) quando i
+	// ripassi del giorno sono a zero DOPO aver studiato oggi.
+	async function loadStreak(due: number): Promise<void> {
+		const sessions = await db.study_sessions.toArray();
+		sessionStreak = computeStreak(sessions);
+		if (due === 0 && sessionStreak.attivoOggi && celebrateOncePerDay('zero')) {
+			showConfetti = true;
+			setTimeout(() => (showConfetti = false), 3500);
+		}
 	}
 
 	// Attiva/pausa un obiettivo: il quiz pesca solo da quelli "in studio".
@@ -89,7 +105,8 @@
 
 	const userLevel = $derived(appState.userProfile?.livello ?? 1);
 	const userXp = $derived(appState.userProfile?.xp_totali ?? 0);
-	const streak = $derived(appState.userProfile?.streak_giorni ?? 0);
+	// streak mostrata: quella tollerante dalle sessioni (fallback al profilo)
+	const streak = $derived(sessionStreak?.giorni ?? appState.userProfile?.streak_giorni ?? 0);
 	const xpForNextLevel = $derived(userLevel * 220);
 	const xpProgress = $derived(Math.min(100, Math.round((userXp % 220) / 220 * 100)));
 </script>
@@ -115,14 +132,23 @@
 </div>
 {/if}
 
+{#if showConfetti}
+	<Confetti />
+{/if}
 <section class="section-card">
-	<h2 class="section-title">☀️ Il piano di oggi</h2>
+	<h2 class="section-title">☀️ Il piano di oggi
+		{#if sessionStreak && sessionStreak.giorni > 0}
+			<span class="streak" class:risk={sessionStreak.aRischio} title={sessionStreak.aRischio ? 'Streak a rischio: una sessione oggi la salva!' : 'Giorni di studio di fila'}>🔥 {sessionStreak.giorni}{sessionStreak.aRischio ? ' !' : ''}</span>
+		{:else if sessionStreak?.aRischio}
+			<span class="streak risk" title="Ultima chiamata: una sessione oggi salva la streak">🔥 !</span>
+		{/if}
+	</h2>
 	<div class="plan-list">
 		<a class="plan-row" href="{base}/quiz">
-			<span class="plan-icon">{dueCount > 0 ? '📋' : '✅'}</span>
+			<span class="plan-icon">{dueCount > 0 ? '📋' : '✨'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
-				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in obiettivi in pausa)` : ''}</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in obiettivi in pausa)` : ''}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>
@@ -373,6 +399,19 @@
 	}
 
 	.section-header .section-title { margin: 0; }
+
+	.streak {
+		margin-left: 8px;
+		padding: 2px 10px;
+		border-radius: 999px;
+		background: var(--warn-bg);
+		border: 1px solid var(--warn-border);
+		color: var(--warn-ink);
+		font-size: 0.8rem;
+		font-weight: 800;
+		vertical-align: middle;
+	}
+	.streak.risk { background: rgba(239,107,107,0.14); border-color: var(--danger); color: var(--danger); }
 
 	.objective-list {
 		display: grid;

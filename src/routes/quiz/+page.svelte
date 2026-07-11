@@ -27,6 +27,8 @@
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS, buildConjugationTable } from '$lib/core/conjugation';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
+	import Confetti from '$lib/components/Confetti.svelte';
+	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
@@ -71,6 +73,29 @@
 
 	// Summary
 	let summarySession = $state<StudySessionState | null>(null);
+	// celebrazione a fine sessione: streak, record personale, coriandoli
+	let summaryStreak = $state<Streak | null>(null);
+	let summaryBest = $state(false);
+	let summaryConfetti = $state(false);
+
+	async function loadSummaryExtras(answers: number, correct: number, celebrate = true): Promise<void> {
+		const sessions = await db.study_sessions.toArray();
+		const st = computeSessionStreak(sessions);
+		summaryStreak = st;
+		const acc = answers > 0 ? correct / answers : 0;
+		// record personale: miglior accuratezza tra le sessioni con almeno 10 risposte
+		const prevBest = Math.max(
+			0,
+			...sessions
+				.filter((s) => s.answers >= 10 && s.startedAt !== Number(summarySession?.startedAt))
+				.map((s) => s.correct / s.answers)
+		);
+		summaryBest = answers >= 10 && acc > prevBest;
+		if (celebrate && (summaryBest || acc >= 0.9 || isMilestone(st.giorni))) {
+			summaryConfetti = true;
+			setTimeout(() => (summaryConfetti = false), 3500);
+		}
+	}
 
 	// ── Helpers ───────────────────────────────────────────────────────────────────
 	function sample<T>(arr: T[]): T {
@@ -314,17 +339,21 @@
 		appState.sessionState = null;
 		appState.lastSummary = summarySession;
 
-		void db.study_sessions.put({
-			id: String(session.startedAt),
-			startedAt: session.startedAt,
-			endedAt: Date.now(),
-			answers: session.answers,
-			correct: session.correct,
-			wrong: session.wrong,
-			timeout: session.timeout,
-			xp: session.xp ?? 0,
-			answersByType: $state.snapshot(session.answersByType)
-		});
+		const answers = session.answers;
+		const correct = session.correct;
+		void db.study_sessions
+			.put({
+				id: String(session.startedAt),
+				startedAt: session.startedAt,
+				endedAt: Date.now(),
+				answers,
+				correct,
+				wrong: session.wrong,
+				timeout: session.timeout,
+				xp: session.xp ?? 0,
+				answersByType: $state.snapshot(session.answersByType)
+			})
+			.then(() => loadSummaryExtras(answers, correct));
 
 		session = null;
 		phase = 'summary';
@@ -937,6 +966,7 @@
 		if (!appState.sessionState && appState.lastSummary) {
 			summarySession = appState.lastSummary;
 			phase = 'summary';
+			void loadSummaryExtras(summarySession.answers, summarySession.correct, false);
 			return;
 		}
 		startSession();
@@ -1293,6 +1323,17 @@
 	<div class="summary-card">
 		<div class="summary-tier">{getTier(accuracy())}</div>
 		<h2 class="summary-title">Sessione completata!</h2>
+		{#if summaryConfetti}
+			<Confetti />
+		{/if}
+		{#if summaryStreak && summaryStreak.giorni > 0}
+			<p class="summary-streak">
+				🔥 {summaryStreak.giorni} {summaryStreak.giorni === 1 ? 'giorno' : 'giorni'} di studio di fila{isMilestone(summaryStreak.giorni) ? ' — traguardo! 🎉' : ''}
+			</p>
+		{/if}
+		{#if summaryBest}
+			<p class="summary-best">🏆 Nuovo record personale di accuratezza!</p>
+		{/if}
 		<div class="summary-stats">
 			<div class="summary-stat">
 				<span class="stat-num">{summarySession.answers}</span>
@@ -1695,6 +1736,8 @@
 
 	.summary-tier { font-size: 2rem; }
 	.summary-title { margin: 0; font-size: 1.3rem; font-weight: 700; }
+	.summary-streak { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--warn-ink); }
+	.summary-best { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--success); }
 
 	.summary-stats {
 		display: grid;
