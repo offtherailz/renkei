@@ -20,6 +20,29 @@ const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
 const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
 const USI_IT_PATH = path.join(ROOT, "scripts", "data", "usi-it.json");
+const IIKAE_PATH = path.join(ROOT, "scripts", "data", "iikae-n5n4.json");
+
+// Gruppi 言い換え curati: parole equivalenti collegate come sinonimi in modo
+// bidirezionale (JMdict ha xref sparsi: 美しい↔綺麗 ad es. manca).
+async function applyIikaeGroups(words) {
+  let curated;
+  try {
+    curated = JSON.parse(await fs.readFile(IIKAE_PATH, "utf8"));
+  } catch {
+    return words;
+  }
+  const find = (p) => words.find((w) => w.scrittura === p) ?? words.find((w) => w.lettura === p);
+  for (const gruppo of curated.gruppi ?? []) {
+    const linked = gruppo.parole.map(find).filter(Boolean);
+    for (const word of linked) {
+      word.sinonimi = word.sinonimi ?? [];
+      for (const other of linked) {
+        if (other !== word && !word.sinonimi.includes(other.scrittura)) word.sinonimi.push(other.scrittura);
+      }
+    }
+  }
+  return words;
+}
 
 // Traduzioni italiane degli "Usi" (glosse ed esempi JMdict), chiavate sul
 // testo inglese: sopravvivono ai riordini dei sensi tra release JMdict.
@@ -1113,7 +1136,9 @@ async function main() {
   const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
   const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
   const allowedKanji = new Set([...kanjiN5.kanji, ...kanjiN4.kanji].map((row) => row.character));
-  const enrichedWords = applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt());
+  const enrichedWords = await applyIikaeGroups(
+    applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt())
+  );
   const withSuruVerbs = await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex));
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.

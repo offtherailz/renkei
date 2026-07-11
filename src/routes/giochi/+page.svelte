@@ -577,6 +577,11 @@
 					<span class="cat-label">Riordina la frase</span>
 					<span class="cat-hint">i pezzi sono in disordine: ricomponila</span>
 				</a>
+				<a class="cat-card" href="{base}/iikae">
+					<span class="cat-icon">🔁</span>
+					<span class="cat-label">言い換え — Dillo in un altro modo</span>
+					<span class="cat-hint">stile JLPT: scegli frase o parola con lo stesso significato</span>
+				</a>
 				<a class="cat-card" href="{base}/lettura">
 					<span class="cat-icon">⚡</span>
 					<span class="cat-label">Lettura veloce</span>

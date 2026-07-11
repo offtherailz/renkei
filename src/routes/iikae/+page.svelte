@@ -1,0 +1,195 @@
+<script lang="ts">
+	import { base } from '$app/paths';
+	import { db } from '$lib/db/schema';
+	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import raw from '../../../scripts/data/iikae-n5n4.json';
+
+	interface Gruppo {
+		parole: string[];
+		senso: string;
+	}
+	interface Item {
+		livello: string;
+		frase: string;
+		marcata: string;
+		parola: string;
+		opzioni: string[]; // la prima è quella corretta, si mescola a runtime
+	}
+	const GRUPPI = raw.gruppi as Gruppo[];
+	const ITEMS = raw.items as Item[];
+
+	// Un round: o un item frase (stile JLPT 言い換え類義) o una domanda
+	// parola→sinonimo costruita dai gruppi.
+	type Round =
+		| { kind: 'frase'; item: Item; opzioni: string[]; corretta: string }
+		| { kind: 'parola'; parola: string; senso: string; opzioni: string[]; corretta: string };
+
+	const ROUNDS_PER_GAME = 10;
+
+	function shuffle<T>(xs: T[]): T[] {
+		const a = [...xs];
+		for (let i = a.length - 1; i > 0; i -= 1) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j]!, a[i]!];
+		}
+		return a;
+	}
+
+	function buildWordRound(): Round {
+		const gs = shuffle(GRUPPI);
+		const g = gs[0]!;
+		const [prompt, corretta] = shuffle(g.parole);
+		// esche: una parola da ciascuno di 3 altri gruppi
+		const esche = gs.slice(1, 4).map((o) => o.parole[Math.floor(Math.random() * o.parole.length)]!);
+		return { kind: 'parola', parola: prompt!, senso: g.senso, opzioni: shuffle([corretta!, ...esche]), corretta: corretta! };
+	}
+
+	function buildRounds(livello: 'N5' | 'N4' | 'tutti'): Round[] {
+		const pool = ITEMS.filter((it) => livello === 'tutti' || it.livello === livello);
+		const frasi: Round[] = shuffle(pool)
+			.slice(0, 6)
+			.map((item) => ({ kind: 'frase', item, opzioni: shuffle(item.opzioni), corretta: item.opzioni[0]! }));
+		const parole: Round[] = Array.from({ length: ROUNDS_PER_GAME - frasi.length }, buildWordRound);
+		return shuffle([...frasi, ...parole]);
+	}
+
+	type Scene = 'intro' | 'play' | 'done';
+	let scene = $state<Scene>('intro');
+	let rounds = $state<Round[]>([]);
+	let idx = $state(0);
+	let score = $state(0);
+	let picked = $state<string | null>(null);
+
+	function start(livello: 'N5' | 'N4' | 'tutti'): void {
+		rounds = buildRounds(livello);
+		idx = 0;
+		score = 0;
+		picked = null;
+		scene = 'play';
+	}
+
+	function cur(): Round {
+		return rounds[idx]!;
+	}
+
+	// scheda della parola in gioco (per il link 📖 e per il consolidamento)
+	async function wordIdOf(scrittura: string): Promise<string | null> {
+		const w =
+			(await db.words.where('scrittura').equals(scrittura).first()) ??
+			(await db.words.where('lettura').equals(scrittura).first());
+		return w?.id ?? null;
+	}
+
+	let detailHref = $state<string | null>(null);
+	async function pick(choice: string): Promise<void> {
+		if (picked !== null) return;
+		picked = choice;
+		const r = cur();
+		const parola = r.kind === 'frase' ? r.item.parola : r.corretta;
+		const id = await wordIdOf(parola);
+		detailHref = id ? `${base}/detail/${encodeURIComponent(`word:${id}`)}` : null;
+		if (choice === r.corretta) {
+			score += 1;
+		} else if (id) {
+			// l'errore alimenta i punti deboli, come nelle avventure
+			await recordPracticeMiss('word:' + id);
+		}
+	}
+
+	function next(): void {
+		picked = null;
+		detailHref = null;
+		if (idx < rounds.length - 1) idx += 1;
+		else scene = 'done';
+	}
+</script>
+
+<div class="iikae">
+	<a class="back" href="{base}/giochi">← Giochi</a>
+
+	{#if scene === 'intro'}
+		<article class="scene">
+			<h1 class="page-title">🔁 言い換え — Dillo in un altro modo</h1>
+			<p class="hint">
+				Come all'esame JLPT (言い換え類義): scegli la frase o la parola che ha <strong>lo stesso
+				significato</strong>. Gli errori finiscono nei tuoi punti deboli.
+			</p>
+			<div class="levels">
+				<button class="proceed" onclick={() => start('N5')}>N5</button>
+				<button class="proceed" onclick={() => start('N4')}>N4</button>
+				<button class="proceed" onclick={() => start('tutti')}>Tutti</button>
+			</div>
+		</article>
+	{:else if scene === 'play'}
+		{@const r = cur()}
+		<article class="scene">
+			<p class="who">{idx + 1} / {rounds.length} — punti: {score}</p>
+			{#if r.kind === 'frase'}
+				<p class="hint">Quale frase ha lo stesso significato?</p>
+				<p class="prompt"><InteractiveSentence text={r.item.frase} mark={[r.item.marcata]} /></p>
+			{:else}
+				<p class="hint">Quale parola ha (quasi) lo stesso significato di…</p>
+				<p class="prompt big">「{r.parola}」</p>
+			{/if}
+			<div class="choices">
+				{#each r.opzioni as c (c)}
+					<button
+						class="choice"
+						class:right={picked !== null && c === r.corretta}
+						class:wrong={picked === c && c !== r.corretta}
+						disabled={picked !== null}
+						onclick={() => pick(c)}
+					>
+						{#if picked !== null}
+							<InteractiveSentence text={c} />
+						{:else}
+							{c}
+						{/if}
+					</button>
+				{/each}
+			</div>
+			{#if picked !== null}
+				{#if r.kind === 'parola'}
+					<p class="sense">💡 senso comune: <strong>{r.senso}</strong></p>
+				{/if}
+				<div class="after">
+					{#if detailHref}
+						<a class="detail-link" href={detailHref}>📖 Scheda</a>
+					{/if}
+					<button class="proceed" onclick={next}>{idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
+				</div>
+			{/if}
+		</article>
+	{:else}
+		<article class="scene">
+			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
+			<p class="score-big">{score} / {rounds.length}</p>
+			<p class="hint">Le parole sbagliate sono nei tuoi punti deboli: le ritroverai nel piano di oggi.</p>
+			<button class="proceed" onclick={() => (scene = 'intro')}>🔁 Un'altra serie</button>
+		</article>
+	{/if}
+</div>
+
+<style>
+	.iikae { display: grid; gap: 14px; }
+	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
+	.page-title { margin: 0; font-size: 1.25rem; text-align: center; }
+	.scene { background: var(--surface); border-radius: 16px; padding: 20px; box-shadow: 0 2px 10px rgba(14,29,51,0.07); display: grid; gap: 14px; }
+	.who { margin: 0; font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+	.hint { margin: 0; text-align: center; font-size: 0.86rem; color: var(--muted); }
+	.prompt { margin: 0; text-align: center; background: var(--surface-2); border-radius: 12px; padding: 12px; }
+	.prompt.big { font-size: 1.5rem; font-weight: 700; }
+	.levels { display: flex; gap: 10px; justify-content: center; }
+	.choices { display: grid; gap: 8px; }
+	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.02rem; text-align: left; cursor: pointer; }
+	.choice:hover:not(:disabled) { border-color: var(--brand); }
+	.choice:disabled { cursor: default; }
+	.choice.right { border-color: var(--success); background: var(--ok-bg); }
+	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
+	.sense { margin: 0; text-align: center; font-size: 0.86rem; color: var(--ink); }
+	.after { display: flex; gap: 12px; justify-content: center; align-items: center; }
+	.detail-link { color: var(--brand); font-weight: 600; text-decoration: none; }
+	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
+	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
+</style>
