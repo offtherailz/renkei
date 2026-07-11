@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
+	import RepeatBar from '$lib/components/RepeatBar.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -56,17 +57,6 @@
 	const MORE_Q = ['ご注文は以上でよろしいですか？', '他にご注文はございますか？'];
 	const THANKS = ['ありがとうございました！', 'ありがとうございました！またお越しくださいませ。'];
 	const NOT_UNDERSTOOD = ['すみません、もう一度おねがいします。', 'えっと、聞き取れませんでした。もう一度お願いします。', 'すみません、もう一度よろしいですか？'];
-	// Richieste di ripetizione (riusabili): l'utente le pronuncia, poi si riascolta.
-	const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？', 'すみません、もう一度よろしいですか？'];
-	const SLOWER_REQ = ['すみません、もう少しゆっくりおねがいします。', 'もう少しゆっくり話していただけますか？', 'ゆっくりおねがいします。'];
-
-	// もう一度 / ゆっくり: dici la richiesta (tua voce) poi risenti la frase (più
-	// piano se ゆっくり). Non finisce nel copione (è pratica, non storia).
-	async function askRepeat(slow: boolean, line: string): Promise<void> {
-		const req = slow ? rnd(SLOWER_REQ) : rnd(REPEAT_REQ);
-		await speakSentenceJapaneseAsync(req, voiceParams(userGender()));
-		speakSentenceJapanese(line, { ...voiceParams(staff()), rate: slow ? 0.6 : 1 });
-	}
 
 	type Scene = 'pick' | 'seats' | 'wait' | 'seat-type' | 'smoking' | 'menu' | 'order' | 'serve' | 'eat' | 'more' | 'pay' | 'done';
 
@@ -392,10 +382,7 @@
 </script>
 
 {#snippet repeatBar(line: string)}
-	<div class="repeat-bar">
-		<button class="mini" onclick={() => askRepeat(false, line)}>🔁 もう一度</button>
-		<button class="mini" onclick={() => askRepeat(true, line)}>🐢 ゆっくり</button>
-	</div>
+	<RepeatBar {line} gender={staff()} />
 {/snippet}
 
 <div class="rist">
@@ -612,7 +599,6 @@
 	.dishes.eating { animation: bob 0.8s ease-in-out infinite; }
 	@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 	.replay { justify-self: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 1rem; cursor: pointer; color: var(--ink); }
-	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }

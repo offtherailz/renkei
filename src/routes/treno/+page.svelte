@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
+	import RepeatBar from '$lib/components/RepeatBar.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { STATIONS, type Station } from '$lib/core/stations';
@@ -41,13 +42,6 @@
 		for (const l of lines) pushLine(l.who, l.text);
 	}
 
-	// もう一度 / ゆっくり: dici la richiesta, poi risenti (non finisce nel copione).
-	const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？'];
-	const SLOWER_REQ = ['すみません、もう少しゆっくりおねがいします。', 'ゆっくりおねがいします。'];
-	async function askRepeat(slow: boolean, line: string, who: Who): Promise<void> {
-		await speakSentenceJapaneseAsync(slow ? rnd(SLOWER_REQ) : rnd(REPEAT_REQ), voiceParams(userGender()));
-		speakSentenceJapanese(line, { ...voiceParams(genderOf(who)), rate: slow ? 0.6 : 1 });
-	}
 
 	// ── Frasi (varianti) ──
 	const MISSION = (t: Station) => [
@@ -402,10 +396,7 @@
 </script>
 
 {#snippet repeatBar(line: string, who: Who)}
-	<div class="repeat-bar">
-		<button class="mini" onclick={() => askRepeat(false, line, who)}>🔁 もう一度</button>
-		<button class="mini" onclick={() => askRepeat(true, line, who)}>🐢 ゆっくり</button>
-	</div>
+	<RepeatBar {line} gender={genderOf(who)} />
 {/snippet}
 
 <div class="treno">
@@ -618,7 +609,6 @@
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.sm { font-size: 0.95rem; }
-	.repeat-bar { display: flex; gap: 8px; justify-content: center; }
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }

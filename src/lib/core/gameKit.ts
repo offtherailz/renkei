@@ -4,6 +4,9 @@
 import { base } from '$app/paths';
 import { db } from '$lib/db/schema';
 import { recordPracticeMiss } from './practiceMiss';
+import { speakSentenceJapanese, speakSentenceJapaneseAsync } from './tts';
+import { voiceParams, opposite, type Gender } from './voices';
+import { appState } from '$lib/stores.svelte';
 
 export function shuffle<T>(xs: readonly T[]): T[] {
 	const a = [...xs];
@@ -33,6 +36,23 @@ export async function missWordByText(testo: string): Promise<string | null> {
 	const hit = await findWord(testo);
 	if (hit) await recordPracticeMiss('word:' + hit.id);
 	return hit?.detailHref ?? null;
+}
+
+// Voce dell'utente dalle impostazioni e voce dell'interlocutore (sesso opposto).
+export function userGender(): Gender {
+	return appState.settings.voce_utente ?? 'femminile';
+}
+export function otherGender(): Gender {
+	return opposite(userGender());
+}
+
+// もう一度 / ゆっくり: dici la richiesta (voce tua), poi risenti la battuta con
+// la voce di chi l'ha detta (più piano se slow). Non finisce nel copione.
+const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？', 'すみません、もう一度よろしいですか？'];
+const SLOWER_REQ = ['すみません、もう少しゆっくりおねがいします。', 'もう少しゆっくり話していただけますか？', 'ゆっくりおねがいします。'];
+export async function askRepeat(line: string, speaker: Gender, slow: boolean): Promise<void> {
+	await speakSentenceJapaneseAsync(pickRandom(slow ? SLOWER_REQ : REPEAT_REQ), voiceParams(userGender()));
+	speakSentenceJapanese(line, { ...voiceParams(speaker), rate: slow ? 0.6 : 1 });
 }
 
 // Snapshot SvelteKit per i giochi: conserva lo stato quando navighi via
