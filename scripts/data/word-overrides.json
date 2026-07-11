@@ -188,6 +188,13 @@
      "it": "Questo locale è famoso per il ramen.",
      "en": "This place is famous for its ramen."
     }
+   },
+   {
+    "testo": "ここは さくらで 有名な こうえんです。",
+    "traduzione": {
+     "it": "Questo è un parco famoso per i ciliegi.",
+     "en": "This is a park famous for its cherry blossoms."
+    }
    }
   ],
   "significato": {
@@ -971,6 +978,13 @@
      "it": "Per cena c'era il curry.",
      "en": "Dinner was curry."
     }
+   },
+   {
+    "testo": "晩御飯の まえに しゅくだいを します。",
+    "traduzione": {
+     "it": "Prima di cena faccio i compiti.",
+     "en": "I do my homework before dinner."
+    }
    }
   ],
   "significato": {
@@ -990,6 +1004,13 @@
     "traduzione": {
      "it": "Ho sistemato i libri sullo scaffale.",
      "en": "I lined up the books on the bookshelf."
+    }
+   },
+   {
+    "testo": "本棚が いっぱいに なりました。",
+    "traduzione": {
+     "it": "Lo scaffale dei libri è pieno.",
+     "en": "The bookshelf is full."
     }
    }
   ],
@@ -1070,6 +1091,13 @@
     "traduzione": {
      "it": "Il mese prossimo vado a Kyoto.",
      "en": "Next month I'm going to Kyoto."
+    }
+   },
+   {
+    "testo": "来月から あたらしい しごとが はじまります。",
+    "traduzione": {
+     "it": "Dal mese prossimo comincia il nuovo lavoro.",
+     "en": "My new job starts next month."
     }
    }
   ],
@@ -1668,6 +1696,13 @@
      "it": "La mattina mangio frutta.",
      "en": "I eat fruit in the morning."
     }
+   },
+   {
+    "testo": "デザートに 果物を どうぞ。",
+    "traduzione": {
+     "it": "Come dessert, prego, della frutta.",
+     "en": "Please have some fruit for dessert."
+    }
    }
   ],
   "significato": {
@@ -1774,6 +1809,13 @@
     "traduzione": {
      "it": "Sulla scrivania c'è un libro.",
      "en": "There is a book on the desk."
+    }
+   },
+   {
+    "testo": "机の ひきだしに ペンが あります。",
+    "traduzione": {
+     "it": "Nel cassetto della scrivania ci sono delle penne.",
+     "en": "There are pens in the desk drawer."
     }
    }
   ],
@@ -3090,6 +3132,13 @@
      "it": "La scuola comincia lunedì.",
      "en": "School starts on Monday."
     }
+   },
+   {
+    "testo": "月曜日の あさは でんしゃが こんで います。",
+    "traduzione": {
+     "it": "Il lunedì mattina i treni sono affollati.",
+     "en": "Trains are crowded on Monday mornings."
+    }
    }
   ],
   "significato": {
@@ -3307,6 +3356,13 @@
     "traduzione": {
      "it": "Ieri pioveva.",
      "en": "It rained yesterday."
+    }
+   },
+   {
+    "testo": "昨日の ばん、なにを たべましたか。",
+    "traduzione": {
+     "it": "Cosa hai mangiato ieri sera?",
+     "en": "What did you eat last night?"
     }
    }
   ],
@@ -4006,6 +4062,13 @@
      "it": "La sera vado a letto presto.",
      "en": "In the evening I go to bed early."
     }
+   },
+   {
+    "testo": "あしたの 晩、でんわしても いいですか。",
+    "traduzione": {
+     "it": "Posso chiamarti domani sera?",
+     "en": "May I call you tomorrow evening?"
+    }
    }
   ],
   "significato": {
@@ -4044,6 +4107,13 @@
      "it": "Ho comprato dei vestiti nuovi.",
      "en": "I bought new clothes."
     }
+   },
+   {
+    "testo": "服を きがえてから、でかけます。",
+    "traduzione": {
+     "it": "Mi cambio i vestiti e poi esco.",
+     "en": "I change my clothes and then go out."
+    }
    }
   ],
   "significato": {
@@ -4062,6 +4132,13 @@
     "traduzione": {
      "it": "Scrivo un testo in giapponese.",
      "en": "I write a passage in Japanese."
+    }
+   },
+   {
+    "testo": "みじかい 文章から よみはじめましょう。",
+    "traduzione": {
+     "it": "Cominciamo a leggere da testi brevi.",
+     "en": "Let's start reading with short texts."
     }
    }
   ],
@@ -4132,6 +4209,13 @@
      "it": "Quella storia è vera?",
      "en": "Is that story true?"
     }
+   },
+   {
+    "testo": "本当に ありがとう ございました。",
+    "traduzione": {
+     "it": "Grazie davvero di cuore.",
+     "en": "Thank you very much indeed."
+    }
    }
   ],
   "significato": {
@@ -4194,6 +4278,13 @@
      "it": "Giovedì c'è lezione di giapponese.",
      "en": "There is a Japanese class on Thursday."
     }
+   },
+   {
+    "testo": "木曜日は ごみの ひです。",
+    "traduzione": {
+     "it": "Il giovedì si buttano i rifiuti.",
+     "en": "Thursday is garbage day."
+    }
    }
   ],
   "significato": {
@@ -4253,6 +4344,13 @@
     "traduzione": {
      "it": "L'anno prossimo vorrei andare in Giappone.",
      "en": "I want to go to Japan next year."
+    }
+   },
+   {
+    "testo": "来年の はる、そつぎょうします。",
+    "traduzione": {
+     "it": "Mi diplomo la primavera prossima.",
+     "en": "I will graduate next spring."
     }
    }
   ],
@@ -5494,6 +5592,13 @@
      "it": "Questo test era facile.",
      "en": "This test was easy."
     }
+   },
+   {
+    "testo": "易しい ことばで せつめいして ください。",
+    "traduzione": {
+     "it": "Spiega con parole semplici, per favore.",
+     "en": "Please explain in easy words."
+    }
    }
   ],
   "significato": {
@@ -5602,6 +5707,13 @@
      "it": "Nel fine settimana vado al cinema.",
      "en": "I go to the movie theater on weekends."
     }
+   },
+   {
+    "testo": "えきの となりに あたらしい 映画館が できました。",
+    "traduzione": {
+     "it": "Accanto alla stazione ha aperto un cinema nuovo.",
+     "en": "A new movie theater opened next to the station."
+    }
    }
   ],
   "significato": {
@@ -5641,6 +5753,13 @@
     "traduzione": {
      "it": "Accanto alla porta c'è un ombrello.",
      "en": "There is an umbrella beside the door."
+    }
+   },
+   {
+    "testo": "ぎんこうの 横に ちゅうしゃじょうが あります。",
+    "traduzione": {
+     "it": "Di fianco alla banca c'è un parcheggio.",
+     "en": "There is a parking lot next to the bank."
     }
    }
   ],
@@ -5942,6 +6061,13 @@
     "traduzione": {
      "it": "Il viaggio è stato divertentissimo.",
      "en": "The trip was really fun."
+    }
+   },
+   {
+    "testo": "みんなと はなすのは 楽しいです。",
+    "traduzione": {
+     "it": "Chiacchierare con tutti è divertente.",
+     "en": "Talking with everyone is fun."
     }
    }
   ],
@@ -6719,6 +6845,13 @@
      "it": "Ieri sera sono andato a letto presto.",
      "en": "Last night I went to bed early."
     }
+   },
+   {
+    "testo": "昨夜、じしんが ありました。",
+    "traduzione": {
+     "it": "Stanotte c'è stato un terremoto.",
+     "en": "There was an earthquake last night."
+    }
    }
   ],
   "significato": {
@@ -6792,6 +6925,13 @@
      "it": "La passeggiata del mattino è piacevole.",
      "en": "A morning walk feels good."
     }
+   },
+   {
+    "testo": "ゆうがたの 散歩が しゅうかんです。",
+    "traduzione": {
+     "it": "La passeggiata serale è una mia abitudine.",
+     "en": "An evening walk is my habit."
+    }
    }
   ],
   "significato": {
@@ -6811,6 +6951,13 @@
     "traduzione": {
      "it": "Ogni mattina passeggio col cane.",
      "en": "I take a walk with my dog every morning."
+    }
+   },
+   {
+    "testo": "こうえんを ゆっくり 散歩しました。",
+    "traduzione": {
+     "it": "Ho passeggiato con calma nel parco.",
+     "en": "I took a leisurely walk in the park."
     }
    }
   ]
@@ -7056,6 +7203,13 @@
      "it": "In primavera sbocciano i fiori.",
      "en": "Flowers bloom in spring."
     }
+   },
+   {
+    "testo": "春に なると、あたたかく なります。",
+    "traduzione": {
+     "it": "Quando arriva la primavera, fa più caldo.",
+     "en": "When spring comes, it gets warmer."
+    }
    }
   ],
   "significato": {
@@ -7100,6 +7254,13 @@
     "traduzione": {
      "it": "Quest'estate fa molto caldo.",
      "en": "This summer is very hot."
+    }
+   },
+   {
+    "testo": "暑いので、まどを あけましょう。",
+    "traduzione": {
+     "it": "Fa caldo: apriamo la finestra.",
+     "en": "It's hot, so let's open the window."
     }
    }
   ],
@@ -7380,6 +7541,13 @@
      "it": "Ho comprato un nuovo smartphone.",
      "en": "I bought a new smartphone."
     }
+   },
+   {
+    "testo": "新しい ことばを ノートに かきます。",
+    "traduzione": {
+     "it": "Scrivo le parole nuove sul quaderno.",
+     "en": "I write new words in my notebook."
+    }
    }
   ],
   "significato": {
@@ -7445,6 +7613,13 @@
     "traduzione": {
      "it": "Domani probabilmente sarà sereno.",
      "en": "It will probably be sunny tomorrow."
+    }
+   },
+   {
+    "testo": "あさから きもちの いい 晴れです。",
+    "traduzione": {
+     "it": "Fin dal mattino è un bel sereno piacevole.",
+     "en": "It has been pleasantly sunny since morning."
     }
    }
   ],
@@ -7734,6 +7909,13 @@
     "traduzione": {
      "it": "Mi piace il mattino presto.",
      "en": "I like the early morning hours."
+    }
+   },
+   {
+    "testo": "あきらめるのは まだ 早いです。",
+    "traduzione": {
+     "it": "È ancora presto per arrendersi.",
+     "en": "It is still too early to give up."
     }
    }
   ],
@@ -9245,7 +9427,23 @@
     "dark",
     "gloomy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あたりがもう暗くなっていることに気がついた。",
+    "traduzione": {
+     "it": "I observed that it had already got dark.",
+     "en": "I observed that it had already got dark."
+    }
+   },
+   {
+    "testo": "暗く なる まえに かえりましょう。",
+    "traduzione": {
+     "it": "Torniamo prima che faccia buio.",
+     "en": "Let's go home before it gets dark."
+    }
+   }
+  ]
  },
  "意味": {
   "significato": {
@@ -9282,7 +9480,23 @@
    "en": [
     "chair"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ちょっと椅子をずらしてくれない？",
+    "traduzione": {
+     "it": "Could you move the chair a bit?",
+     "en": "Could you move the chair a bit?"
+    }
+   },
+   {
+    "testo": "この 椅子は すわりやすいです。",
+    "traduzione": {
+     "it": "Questa sedia è comoda.",
+     "en": "This chair is comfortable to sit on."
+    }
+   }
+  ]
  },
  "一": {
   "significato": {
@@ -9430,7 +9644,23 @@
     "movie",
     "film"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その映画をもう一度見たいな。",
+    "traduzione": {
+     "it": "I want to see the movie again.",
+     "en": "I want to see the movie again."
+    }
+   },
+   {
+    "testo": "どんな 映画が すきですか。",
+    "traduzione": {
+     "it": "Che genere di film ti piace?",
+     "en": "What kind of movies do you like?"
+    }
+   }
+  ]
  },
  "英語": {
   "significato": {
@@ -10674,7 +10904,23 @@
     "to take (a photo)",
     "to make (a film)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "これは私の妹を撮った写真です。",
+    "traduzione": {
+     "it": "This is a picture of my sister.",
+     "en": "This is a picture of my sister."
+    }
+   },
+   {
+    "testo": "ふじさんの しゃしんを 撮りました。",
+    "traduzione": {
+     "it": "Ho fotografato il monte Fuji.",
+     "en": "I took a photo of Mt. Fuji."
+    }
+   }
+  ]
  },
  "雑誌": {
   "significato": {
@@ -10912,7 +11158,23 @@
    "en": [
     "sometimes"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジェーンはときどき学校まで走っていく。",
+    "traduzione": {
+     "it": "Jane sometimes runs to school.",
+     "en": "Jane sometimes runs to school."
+    }
+   },
+   {
+    "testo": "時々、うみへ つりに いきます。",
+    "traduzione": {
+     "it": "A volte vado a pescare al mare.",
+     "en": "Sometimes I go fishing at the sea."
+    }
+   }
+  ]
  },
  "時間": {
   "significato": {
@@ -10923,7 +11185,23 @@
    "en": [
     "time"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いつだって読書の時間は見つけられる。",
+    "traduzione": {
+     "it": "We can always find time for reading.",
+     "en": "We can always find time for reading."
+    }
+   },
+   {
+    "testo": "もう 時間が ありません。いそぎましょう。",
+    "traduzione": {
+     "it": "Non c'è più tempo: sbrighiamoci.",
+     "en": "There's no more time. Let's hurry."
+    }
+   }
+  ]
  },
  "時計": {
   "significato": {
@@ -10934,7 +11212,23 @@
     "a watch",
     "a clock"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの時計では何時ですか。",
+    "traduzione": {
+     "it": "What time is it by your watch?",
+     "en": "What time is it by your watch?"
+    }
+   },
+   {
+    "testo": "この 時計は 五ふん すすんで います。",
+    "traduzione": {
+     "it": "Questo orologio va avanti di cinque minuti.",
+     "en": "This clock is five minutes fast."
+    }
+   }
+  ]
  },
  "次": {
   "significato": {
@@ -11293,7 +11587,23 @@
    "en": [
     "to write"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ここにあなたの名前をかいてくれませんか。",
+    "traduzione": {
+     "it": "Would you please write your name here?",
+     "en": "Would you please write your name here?"
+    }
+   },
+   {
+    "testo": "かんじで じゅうしょを 書きました。",
+    "traduzione": {
+     "it": "Ho scritto l'indirizzo in kanji.",
+     "en": "I wrote the address in kanji."
+    }
+   }
+  ]
  },
  "少し": {
   "significato": {
@@ -11384,7 +11694,23 @@
    "en": [
     "newspaper"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョンのことが新聞に出ていた。",
+    "traduzione": {
+     "it": "John was mentioned in the paper.",
+     "en": "John was mentioned in the paper."
+    }
+   },
+   {
+    "testo": "ちちは あさ、新聞を よみます。",
+    "traduzione": {
+     "it": "Mio padre legge il giornale la mattina.",
+     "en": "My father reads the newspaper in the morning."
+    }
+   }
+  ]
  },
  "人": {
   "significato": {
@@ -11415,7 +11741,23 @@
    "en": [
     "to be sunny"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "明日は晴れるだろう。",
+    "traduzione": {
+     "it": "It will be fine tomorrow.",
+     "en": "It will be fine tomorrow."
+    }
+   },
+   {
+    "testo": "ごごから 晴れて きました。",
+    "traduzione": {
+     "it": "Dal pomeriggio si è rasserenato.",
+     "en": "It cleared up in the afternoon."
+    }
+   }
+  ]
  },
  "声": {
   "significato": {
@@ -11593,7 +11935,23 @@
    "en": [
     "village"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "町は村よりも大きい。",
+    "traduzione": {
+     "it": "Towns are larger than villages.",
+     "en": "Towns are larger than villages."
+    }
+   },
+   {
+    "testo": "やまの 村で うまれました。",
+    "traduzione": {
+     "it": "Sono nato in un villaggio di montagna.",
+     "en": "I was born in a mountain village."
+    }
+   }
+  ]
  },
  "待つ": {
   "significato": {
@@ -12074,7 +12432,23 @@
     "lunch",
     "midday meal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "昼御飯を たべに でませんか。",
+    "traduzione": {
+     "it": "Usciamo a mangiare il pranzo?",
+     "en": "Shall we go out for lunch?"
+    }
+   },
+   {
+    "testo": "昼御飯は おべんとうを たべます。",
+    "traduzione": {
+     "it": "A pranzo mangio il bentō.",
+     "en": "For lunch I eat a boxed lunch."
+    }
+   }
+  ]
  },
  "朝": {
   "significato": {
@@ -12092,6 +12466,13 @@
      "it": "La mattina corro al parco.",
      "en": "In the morning I run in the park."
     }
+   },
+   {
+    "testo": "朝は パンと たまごを たべます。",
+    "traduzione": {
+     "it": "La mattina mangio pane e uova.",
+     "en": "In the morning I eat bread and eggs."
+    }
    }
   ]
  },
@@ -12103,7 +12484,23 @@
    "en": [
     "breakfast"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "朝御飯は なにが いいですか。",
+    "traduzione": {
+     "it": "Cosa preferisci per colazione?",
+     "en": "What would you like for breakfast?"
+    }
+   },
+   {
+    "testo": "朝御飯を たべないで がっこうへ いきました。",
+    "traduzione": {
+     "it": "Sono andato a scuola senza fare colazione.",
+     "en": "I went to school without eating breakfast."
+    }
+   }
+  ]
  },
  "町": {
   "significato": {
@@ -12388,6 +12785,13 @@
      "it": "A est della stazione c'è l'università.",
      "en": "The university is east of the station."
     }
+   },
+   {
+    "testo": "ひは 東から のぼります。",
+    "traduzione": {
+     "it": "Il sole sorge a est.",
+     "en": "The sun rises in the east."
+    }
    }
   ]
  },
@@ -12503,6 +12907,13 @@
      "it": "Oggi è nuvoloso.",
      "en": "It is cloudy today."
     }
+   },
+   {
+    "testo": "きょうは 曇りで、すこし さむいです。",
+    "traduzione": {
+     "it": "Oggi è nuvoloso e fa un po' freddo.",
+     "en": "Today it is cloudy and a little cold."
+    }
    }
   ]
  },
@@ -12522,6 +12933,13 @@
     "traduzione": {
      "it": "Dal pomeriggio il cielo si è annuvolato.",
      "en": "The sky clouded over in the afternoon."
+    }
+   },
+   {
+    "testo": "きゅうに そらが 曇って きました。",
+    "traduzione": {
+     "it": "All'improvviso il cielo si è annuvolato.",
+     "en": "The sky suddenly clouded over."
     }
    }
   ]
@@ -12671,6 +13089,13 @@
     "traduzione": {
      "it": "La domenica mi rilasso a casa.",
      "en": "On Sundays I relax at home."
+    }
+   },
+   {
+    "testo": "日曜日の あさは ゆっくり ねます。",
+    "traduzione": {
+     "it": "La domenica mattina dormo fino a tardi.",
+     "en": "On Sunday mornings I sleep in."
     }
    }
   ]
@@ -13543,6 +13968,13 @@
      "it": "Chi è quella persona?",
      "en": "Who is that person?"
     }
+   },
+   {
+    "testo": "あちらの 方が ごあんないします。",
+    "traduzione": {
+     "it": "Quella persona la accompagnerà.",
+     "en": "That person will show you the way."
+    }
    }
   ]
  },
@@ -13785,6 +14217,13 @@
      "it": "Questa stanza è luminosa.",
      "en": "This room is bright."
     }
+   },
+   {
+    "testo": "かのじょは 明るい ひとです。",
+    "traduzione": {
+     "it": "Lei è una persona solare.",
+     "en": "She is a cheerful person."
+    }
    }
   ]
  },
@@ -13804,6 +14243,13 @@
      "it": "Dopodomani vedo un amico.",
      "en": "I'm meeting a friend the day after tomorrow."
     }
+   },
+   {
+    "testo": "明後日までに おかねを はらいます。",
+    "traduzione": {
+     "it": "Pagherò entro dopodomani.",
+     "en": "I will pay by the day after tomorrow."
+    }
    }
   ]
  },
@@ -13815,7 +14261,23 @@
    "en": [
     "tomorrow"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あしたは一日中ひまです。",
+    "traduzione": {
+     "it": "I'll be free all day tomorrow.",
+     "en": "I'll be free all day tomorrow."
+    }
+   },
+   {
+    "testo": "明日の じゅんびは できましたか。",
+    "traduzione": {
+     "it": "Hai finito i preparativi per domani?",
+     "en": "Are you ready for tomorrow?"
+    }
+   }
+  ]
  },
  "鳴く": {
   "significato": {
@@ -13858,6 +14320,13 @@
     "traduzione": {
      "it": "In giardino c'è un grande albero.",
      "en": "There is a big tree in the garden."
+    }
+   },
+   {
+    "testo": "この つくえは 木で できて います。",
+    "traduzione": {
+     "it": "Questa scrivania è fatta di legno.",
+     "en": "This desk is made of wood."
     }
    }
   ]
@@ -13982,7 +14451,23 @@
     "to be",
     "to have"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "悪いけどほかに用事があるの。",
+    "traduzione": {
+     "it": "I'm sorry, I have another engagement.",
+     "en": "I'm sorry, I have another engagement."
+    }
+   },
+   {
+    "testo": "この まちには おおきな としょかんが あります。",
+    "traduzione": {
+     "it": "In questa città c'è una grande biblioteca.",
+     "en": "There is a big library in this town."
+    }
+   }
+  ]
  },
  "遊ぶ": {
   "significato": {
@@ -14124,7 +14609,23 @@
    "en": [
     "next week"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "来週ヨーロッパへ行くつもりなんです。",
+    "traduzione": {
+     "it": "I'm going to Europe next week.",
+     "en": "I'm going to Europe next week."
+    }
+   },
+   {
+    "testo": "来週の よていを おしえて ください。",
+    "traduzione": {
+     "it": "Dimmi i tuoi impegni della settimana prossima.",
+     "en": "Please tell me your plans for next week."
+    }
+   }
+  ]
  },
  "頼む": {
   "significato": {
@@ -14196,7 +14697,23 @@
     "travel",
     "trip"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いつ旅行においでになりますか。",
+    "traduzione": {
+     "it": "When will you go on a journey?",
+     "en": "When will you go on a journey?"
+    }
+   },
+   {
+    "testo": "かぞくで おんせん旅行を しました。",
+    "traduzione": {
+     "it": "Abbiamo fatto un viaggio alle terme in famiglia.",
+     "en": "We took a hot-spring trip as a family."
+    }
+   }
+  ]
  },
  "料理": {
   "significato": {
@@ -14208,7 +14725,23 @@
     "cooking",
     "cuisine"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "これらのりんごは料理用にもってこいだ。",
+    "traduzione": {
+     "it": "These apples are good cookers.",
+     "en": "These apples are good cookers."
+    }
+   },
+   {
+    "testo": "にほん料理の なかで なにが すきですか。",
+    "traduzione": {
+     "it": "Della cucina giapponese cosa ti piace?",
+     "en": "What do you like in Japanese cuisine?"
+    }
+   }
+  ]
  },
  "涼しい": {
   "significato": {
@@ -26190,6 +26723,42 @@
     "traduzione": {
      "it": "Oggi la lezione si è tenuta online.",
      "en": "Today the class was held online."
+    }
+   }
+  ]
+ },
+ "料理する": {
+  "frasi_esempio": [
+   {
+    "testo": "これらのりんごは料理用にもってこいだ。",
+    "traduzione": {
+     "it": "These apples are good cookers.",
+     "en": "These apples are good cookers."
+    }
+   },
+   {
+    "testo": "しゅうまつは ちちが 料理します。",
+    "traduzione": {
+     "it": "Nel fine settimana cucina papà.",
+     "en": "On weekends my father cooks."
+    }
+   }
+  ]
+ },
+ "旅行する": {
+  "frasi_esempio": [
+   {
+    "testo": "いつ旅行においでになりますか。",
+    "traduzione": {
+     "it": "When will you go on a journey?",
+     "en": "When will you go on a journey?"
+    }
+   },
+   {
+    "testo": "らいねん ヨーロッパを 旅行したいです。",
+    "traduzione": {
+     "it": "L'anno prossimo vorrei viaggiare in Europa.",
+     "en": "Next year I want to travel around Europe."
     }
    }
   ]
