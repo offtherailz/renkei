@@ -366,13 +366,19 @@ export async function getLessonsForCourse(corsoId: string): Promise<CourseLesson
 // le lezioni successive si sbloccano da sole man mano (autoAdvanceCompletedLessons).
 export async function studyOnlyCourse(corsoId: string): Promise<void> {
   const prefix = `course:${corsoId}:`;
+  const courseRootId = `course:${corsoId}`;
   const all = await db.study_objectives.toArray();
   for (const o of all) {
-    const inCourse = o.id.startsWith(prefix) || o.id === `course:${corsoId}`;
+    const inCourse = o.id.startsWith(prefix) || o.id === courseRootId;
     if (!inCourse && o.study_enabled) {
       await db.study_objectives.update(o.id, { study_enabled: false, updated_at: Date.now() });
     }
   }
+  // Il nodo radice del corso parte sempre in pausa (creato così all'import):
+  // va acceso qui, altrimenti la card del corso resta "⏸ Pausa" anche con
+  // la lezione 1 attiva — inconsistenza puramente di visualizzazione (il
+  // nodo radice non ha carte proprie), ma confonde.
+  await db.study_objectives.update(courseRootId, { study_enabled: true, updated_at: Date.now() });
   const lessons = await getLessonsForCourse(corsoId);
   const first = lessons[0];
   if (first) await db.study_objectives.update(first.objective_id, { study_enabled: true, updated_at: Date.now() });

@@ -306,6 +306,7 @@
 		<h2 class="section-title">Obiettivi di studio</h2>
 		<a href="{base}/quiz" class="btn btn-primary">▶ Avvia sessione{dueCount > 0 ? ` · ${dueCount}` : ''}</a>
 	</div>
+	<p class="obj-explainer">«✓ In studio» include tutto il suo contenuto nei ripassi del quiz; «⏸ Pausa» lo lascia da parte — i progressi non si perdono, restano in attesa finché non riattivi.</p>
 
 	{#if loading}
 		<p class="muted-text">Caricamento…</p>
@@ -717,6 +718,7 @@
 	.quick-icon { font-size: 1.4rem; }
 
 	.muted-text { color: var(--muted); font-size: 0.85rem; }
+	.obj-explainer { margin: -6px 0 4px; font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
 
 	.btn {
 		display: inline-flex;

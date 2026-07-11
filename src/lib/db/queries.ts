@@ -37,19 +37,14 @@ function countBreakdown(keys: string[]) {
 	return { words, kanji, grammar };
 }
 
-export async function loadObjectiveSummaries(): Promise<ObjectiveSummary[]> {
-	const [allObjectives, allSrs] = await Promise.all([
-		db.study_objectives.toArray(),
-		db.srs_progress.toArray()
-	]);
-
-	const srsMap = new Map<string, SrsProgress>(allSrs.map((s) => [s.id_item, s]));
-	const now = Date.now();
-
-	const topLevel = allObjectives.filter((o) => !o.parent_objective_id);
-	return topLevel.map((obj) => {
-		const keys = gatherKeys(obj.id, allObjectives);
-		const unique = [...new Set(keys)];
+function summarizeObjectives(
+	objectives: StudyObjective[],
+	allObjectives: StudyObjective[],
+	srsMap: Map<string, SrsProgress>,
+	now: number
+): ObjectiveSummary[] {
+	return objectives.map((obj) => {
+		const unique = gatherKeys(obj.id, allObjectives);
 		const { words, kanji, grammar } = countBreakdown(unique);
 
 		let masterySum = 0;
@@ -65,6 +60,32 @@ export async function loadObjectiveSummaries(): Promise<ObjectiveSummary[]> {
 		const progress = unique.length > 0 ? Math.round(masterySum / unique.length) : 0;
 		return { objective: obj, totalItems: unique.length, progress, words, kanji, grammar, dueCount };
 	});
+}
+
+export async function loadObjectiveSummaries(): Promise<ObjectiveSummary[]> {
+	const [allObjectives, allSrs] = await Promise.all([
+		db.study_objectives.toArray(),
+		db.srs_progress.toArray()
+	]);
+	const srsMap = new Map<string, SrsProgress>(allSrs.map((s) => [s.id_item, s]));
+	const topLevel = allObjectives.filter((o) => !o.parent_objective_id);
+	return summarizeObjectives(topLevel, allObjectives, srsMap, Date.now());
+}
+
+// L'albero (Parole/Kanji/Grammatica N5→pack) esiste nel DB ma non si vedeva
+// da nessuna parte: questa espone i figli diretti di un nodo (es. "Catalogo
+// N5" → Parole/Kanji/Grammatica, o "Kanji N5" → i suoi pack) con lo stesso
+// riepilogo dei nodi di primo livello, per renderli espandibili in UI.
+export async function loadObjectiveChildren(parentId: string): Promise<ObjectiveSummary[]> {
+	const [allObjectives, allSrs] = await Promise.all([
+		db.study_objectives.toArray(),
+		db.srs_progress.toArray()
+	]);
+	const srsMap = new Map<string, SrsProgress>(allSrs.map((s) => [s.id_item, s]));
+	const children = allObjectives
+		.filter((o) => o.parent_objective_id === parentId)
+		.sort((a, b) => a.name.localeCompare(b.name, 'it', { numeric: true }));
+	return summarizeObjectives(children, allObjectives, srsMap, Date.now());
 }
 
 // Obiettivi (pack e lezioni, a qualunque livello) "completati": ogni loro

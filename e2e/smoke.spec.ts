@@ -30,13 +30,19 @@ test('onboarding: percorso guidato importa Genki I e attiva solo la lezione 1', 
 	const state = await page.evaluate(async () => {
 		const { db } = await import('/src/lib/db/schema.ts');
 		const objectives = await db.study_objectives.toArray();
+		const courseRoot = objectives.find((o) => o.id === 'course:genki-1');
 		const lesson1 = objectives.find((o) => o.id === 'course:genki-1:lesson:L01');
 		const catalogRoots = objectives.filter((o) => o.id === 'obj-catalog-n5' || o.id === 'obj-catalog-n4');
 		return {
+			courseRootEnabled: courseRoot?.study_enabled ?? false,
 			lesson1Enabled: lesson1?.study_enabled ?? false,
 			catalogRootsStillEnabled: catalogRoots.some((o) => o.study_enabled)
 		};
 	});
+	// il nodo radice del corso deve risultare attivo, non solo la lezione 1 —
+	// altrimenti la card "Genki I" in home mostra "⏸ Pausa" mentre stai
+	// effettivamente studiando (era un bug reale, trovato testando a mano).
+	expect(state.courseRootEnabled).toBe(true);
 	expect(state.lesson1Enabled).toBe(true);
 	expect(state.catalogRootsStillEnabled).toBe(false);
 });
@@ -108,6 +114,28 @@ test('corso: completare una lezione sblocca da sola la successiva', async ({ pag
 		return (await db.study_objectives.get('course:genki-1:lesson:L02'))?.study_enabled ?? false;
 	});
 	expect(lesson2Enabled).toBe(true);
+});
+
+test('catalogo aperto in /courses: espandibile fino ai pack, toggle funziona', async ({ page }) => {
+	await gotoHome(page);
+	await page.goto('/courses');
+	await expect(page.getByText('Catalogo aperto (N5/N4)')).toBeVisible({ timeout: 15_000 });
+
+	const n5Root = page.locator('.objective-node', { hasText: 'Catalogo JLPT N5' });
+	await expect(n5Root).toBeVisible({ timeout: 15_000 });
+	await n5Root.getByRole('button', { name: /Catalogo JLPT N5/ }).click();
+
+	const kanjiNode = page.locator('.objective-node.sub', { hasText: 'Kanji N5' });
+	await expect(kanjiNode).toBeVisible();
+	await kanjiNode.getByRole('button', { name: /Kanji N5/ }).click();
+	await expect(page.locator('.obj-pack-row', { hasText: 'Pack 1' }).first()).toBeVisible();
+
+	// mette in pausa il pack: il badge passa da ✓ a ⏸
+	const packRow = page.locator('.obj-pack-row', { hasText: 'Pack 1' }).first();
+	const packToggle = packRow.locator('.obj-status');
+	await expect(packToggle).toHaveText('✓');
+	await packToggle.click();
+	await expect(packToggle).toHaveText('⏸');
 });
 
 test('route profonda caricata direttamente (refresh)', async ({ page }) => {

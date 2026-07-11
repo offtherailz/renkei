@@ -2,9 +2,55 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
+	import { appState } from '$lib/stores.svelte';
 	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse, studyOnlyCourse } from '$lib/db/course-import';
+	import { loadObjectiveSummaries, loadObjectiveChildren, type ObjectiveSummary } from '$lib/db/queries';
 	import type { CourseDatasetMeta, CourseLessonMeta } from '$lib/types/models';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
+
+	// ── Catalogo aperto (N5/N4): l'albero Parole/Kanji/Grammatica→pack esiste
+	// nel DB ma non si vedeva da nessuna parte — qui è espandibile come un
+	// corso, ma NON è un corso vero (niente lezioni curate, solo il materiale
+	// grezzo organizzato per tipo).
+	let catalogRoots = $state<ObjectiveSummary[]>([]);
+	let catalogExpanded = $state<Set<string>>(new Set());
+	let catalogChildren = $state<Record<string, ObjectiveSummary[]>>({});
+	let skillExpanded = $state<Set<string>>(new Set());
+	let packChildren = $state<Record<string, ObjectiveSummary[]>>({});
+
+	async function loadCatalogRoots(): Promise<void> {
+		const all = await loadObjectiveSummaries();
+		catalogRoots = all.filter((s) => s.objective.id === 'obj-catalog-n5' || s.objective.id === 'obj-catalog-n4');
+	}
+
+	async function toggleCatalogExpand(id: string): Promise<void> {
+		if (catalogExpanded.has(id)) {
+			catalogExpanded.delete(id);
+			catalogExpanded = new Set(catalogExpanded);
+			return;
+		}
+		catalogExpanded = new Set(catalogExpanded).add(id);
+		if (!catalogChildren[id]) catalogChildren = { ...catalogChildren, [id]: await loadObjectiveChildren(id) };
+	}
+
+	async function toggleSkillExpand(id: string): Promise<void> {
+		if (skillExpanded.has(id)) {
+			skillExpanded.delete(id);
+			skillExpanded = new Set(skillExpanded);
+			return;
+		}
+		skillExpanded = new Set(skillExpanded).add(id);
+		if (!packChildren[id]) packChildren = { ...packChildren, [id]: await loadObjectiveChildren(id) };
+	}
+
+	// Dopo un toggle riaggiorna tutto quello che è visibile ora, così progresso
+	// e stato restano coerenti a ogni livello senza dover ricaricare la pagina.
+	async function toggleCatalogObjective(id: string, enabled: boolean): Promise<void> {
+		await db.study_objectives.update(id, { study_enabled: enabled, updated_at: Date.now() });
+		await loadCatalogRoots();
+		for (const l1 of catalogExpanded) catalogChildren[l1] = await loadObjectiveChildren(l1);
+		for (const l2 of skillExpanded) packChildren[l2] = await loadObjectiveChildren(l2);
+	}
 
 	let courses = $state<CourseDatasetMeta[]>([]);
 	let selectedCourse = $state<CourseDatasetMeta | null>(null);
@@ -122,10 +168,85 @@
 		}
 	}
 
-	onMount(loadCourses);
+	onMount(() => {
+		loadCourses();
+		loadCatalogRoots();
+	});
+
+	// Su un refresh diretto di /courses (non da un link interno all'app) i dati
+	// possono non essere ancora pronti quando questo componente monta: ricarica
+	// quando l'inizializzazione finisce davvero (stesso pattern della home).
+	$effect(() => {
+		if (appState.initialized) {
+			loadCourses();
+			loadCatalogRoots();
+		}
+	});
 </script>
 
 <h1 class="page-title">Corsi</h1>
+
+<!-- Catalogo aperto: NON è un corso vero (nessuna lezione curata), è l'albero
+     Parole/Kanji/Grammatica→pack che oggi esiste solo nel DB. Espandibile
+     come un corso per coerenza visiva, ma dati e concetto restano separati. -->
+<section class="section-card">
+	<p class="card-title">📖 Catalogo aperto (N5/N4)</p>
+	<p class="hint-text">Non è un corso — è tutto il materiale del catalogo organizzato per tipo. Qui puoi accendere o mettere in pausa un pezzo alla volta (solo la grammatica, un pack di kanji…). «✓» include quel pezzo nei ripassi del quiz, «⏸» lo lascia da parte senza perdere i progressi.</p>
+	{#each catalogRoots as root (root.objective.id)}
+		<article class="objective-node" class:disabled={!root.objective.study_enabled}>
+			<div class="obj-top">
+				<button class="obj-expand-toggle" onclick={() => toggleCatalogExpand(root.objective.id)}>
+					{catalogExpanded.has(root.objective.id) ? '▾' : '▸'} <strong>{root.objective.name}</strong>
+				</button>
+				<button
+					class="obj-status"
+					class:enabled={root.objective.study_enabled}
+					onclick={() => toggleCatalogObjective(root.objective.id, !root.objective.study_enabled)}
+				>
+					{root.objective.study_enabled ? '✓ In studio' : '⏸ Pausa'}
+				</button>
+			</div>
+			<p class="obj-meta">{root.totalItems} item • {root.progress}% consolidamento{root.dueCount > 0 ? ` • ${root.dueCount} pronti` : ''}</p>
+			{#if catalogExpanded.has(root.objective.id)}
+				<div class="obj-children">
+					{#each (catalogChildren[root.objective.id] ?? []) as skill (skill.objective.id)}
+						<article class="objective-node sub" class:disabled={!skill.objective.study_enabled}>
+							<div class="obj-top">
+								<button class="obj-expand-toggle" onclick={() => toggleSkillExpand(skill.objective.id)}>
+									{skillExpanded.has(skill.objective.id) ? '▾' : '▸'} {skill.objective.name}
+								</button>
+								<button
+									class="obj-status sm"
+									class:enabled={skill.objective.study_enabled}
+									onclick={() => toggleCatalogObjective(skill.objective.id, !skill.objective.study_enabled)}
+								>
+									{skill.objective.study_enabled ? '✓' : '⏸'}
+								</button>
+							</div>
+							<p class="obj-meta">{skill.totalItems} item • {skill.progress}%</p>
+							{#if skillExpanded.has(skill.objective.id)}
+								<div class="obj-children">
+									{#each (packChildren[skill.objective.id] ?? []) as pack (pack.objective.id)}
+										<div class="obj-pack-row">
+											<span>{pack.objective.name} — {pack.totalItems} item, {pack.progress}%</span>
+											<button
+												class="obj-status sm"
+												class:enabled={pack.objective.study_enabled}
+												onclick={() => toggleCatalogObjective(pack.objective.id, !pack.objective.study_enabled)}
+											>
+												{pack.objective.study_enabled ? '✓' : '⏸'}
+											</button>
+										</div>
+									{/each}
+								</div>
+							{/if}
+						</article>
+					{/each}
+				</div>
+			{/if}
+		</article>
+	{/each}
+</section>
 
 {#if !loading && !courses.some((c) => c.id === 'genki-1')}
 <section class="section-card recommended">
@@ -371,6 +492,26 @@
 		font-size: 0.75rem;
 		cursor: pointer;
 	}
+
+	.objective-node {
+		display: grid;
+		gap: 6px;
+		padding: 10px 12px;
+		border-radius: 10px;
+		border: 1px solid var(--line);
+		background: var(--surface-2);
+		margin-bottom: 8px;
+	}
+	.objective-node.disabled { opacity: 0.7; }
+	.objective-node.sub { background: var(--surface); margin-top: 8px; margin-bottom: 0; }
+	.objective-node .obj-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+	.obj-expand-toggle { background: none; border: none; color: var(--ink); font-size: 0.88rem; cursor: pointer; text-align: left; padding: 0; }
+	.obj-status { font-size: 0.7rem; font-weight: 600; padding: 3px 9px; border-radius: 8px; white-space: nowrap; background: var(--surface); color: var(--muted); border: 1px solid var(--line); cursor: pointer; }
+	.obj-status.enabled { background: var(--ok-bg); color: var(--ok-ink); border-color: transparent; }
+	.obj-status.sm { padding: 2px 7px; font-size: 0.68rem; }
+	.obj-meta { margin: 0; font-size: 0.75rem; color: var(--muted); }
+	.obj-children { display: grid; gap: 6px; padding-left: 14px; border-left: 2px solid var(--line); }
+	.obj-pack-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; border-radius: 8px; background: var(--surface-2); font-size: 0.78rem; }
 
 	.lesson-card {
 		display: flex;
