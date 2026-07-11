@@ -67,6 +67,24 @@ export async function loadObjectiveSummaries(): Promise<ObjectiveSummary[]> {
 	});
 }
 
+// Obiettivi (pack e lezioni, a qualunque livello) "completati": ogni loro
+// carta ha almeno un record SRS, cioè è stata incontrata almeno una volta.
+export async function loadCompletedObjectives(): Promise<{ id: string; name: string }[]> {
+	const [allObjectives, allSrs] = await Promise.all([
+		db.study_objectives.toArray(),
+		db.srs_progress.toArray()
+	]);
+	const seen = new Set(allSrs.map((s) => s.id_item));
+	const done: { id: string; name: string }[] = [];
+	for (const obj of allObjectives) {
+		const keys = gatherKeys(obj.id, allObjectives);
+		if (keys.length > 0 && keys.every((k) => seen.has(k))) {
+			done.push({ id: obj.id, name: obj.name });
+		}
+	}
+	return done;
+}
+
 export interface SkillStat {
 	total: number; // item di questo tipo con progresso registrato (in studio)
 	mastery: number; // 0–100 medio di consolidamento

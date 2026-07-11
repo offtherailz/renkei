@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computeStreak, weeklyRecap, isMilestone } from './celebration';
+import { computeStreak, weeklyRecap, isMilestone, detectNewCompletions, type StorageLike } from './celebration';
 
 const DAY = 24 * 60 * 60 * 1000;
 const NOW = new Date('2026-07-12T15:00:00').getTime();
@@ -61,5 +61,43 @@ describe('milestones', () => {
 	it('riconosce i traguardi', () => {
 		expect(isMilestone(7)).toBe(true);
 		expect(isMilestone(8)).toBe(false);
+	});
+});
+
+describe('detectNewCompletions', () => {
+	const fakeStorage = (): StorageLike & { data: Map<string, string> } => {
+		const data = new Map<string, string>();
+		return {
+			data,
+			getItem: (k) => data.get(k) ?? null,
+			setItem: (k, v) => void data.set(k, v)
+		};
+	};
+
+	it('al primo avvio semina in silenzio (niente feste retroattive)', () => {
+		const st = fakeStorage();
+		expect(detectNewCompletions(['a', 'b'], st)).toEqual([]);
+		// ma da lì in poi rileva i nuovi
+		expect(detectNewCompletions(['a', 'b', 'c'], st)).toEqual(['c']);
+	});
+
+	it('festeggia una volta sola', () => {
+		const st = fakeStorage();
+		detectNewCompletions([], st);
+		expect(detectNewCompletions(['pack-1'], st)).toEqual(['pack-1']);
+		expect(detectNewCompletions(['pack-1'], st)).toEqual([]);
+	});
+
+	it('un pack tornato incompleto (nuove carte) non rifesteggia', () => {
+		const st = fakeStorage();
+		detectNewCompletions(['pack-1'], st);
+		expect(detectNewCompletions([], st)).toEqual([]);
+		expect(detectNewCompletions(['pack-1'], st)).toEqual([]);
+	});
+
+	it('snapshot corrotto: riparte senza esplodere', () => {
+		const st = fakeStorage();
+		st.setItem('renkei_packs_done', '{non-json');
+		expect(detectNewCompletions(['a'], st)).toEqual(['a']);
 	});
 });

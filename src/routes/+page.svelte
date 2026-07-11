@@ -3,12 +3,12 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
-	import { loadObjectiveSummaries, countDueCards, getActiveItemKeys, type ObjectiveSummary } from '$lib/db/queries';
+	import { loadObjectiveSummaries, countDueCards, getActiveItemKeys, loadCompletedObjectives, type ObjectiveSummary } from '$lib/db/queries';
 	import { db } from '$lib/db/schema';
 	import { normalizeMastery } from '$lib/core/srs';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import Confetti from '$lib/components/Confetti.svelte';
-	import { computeStreak, celebrateOncePerDay, type Streak } from '$lib/core/celebration';
+	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -16,6 +16,7 @@
 	let loading = $state(true);
 	let sessionStreak = $state<Streak | null>(null);
 	let showConfetti = $state(false);
+	let packParty = $state<string[]>([]); // nomi dei pack/lezioni appena completati
 
 	// ── Piano di oggi ──
 	type WeakItem = { label: string; consolida: string; pct: number };
@@ -70,7 +71,20 @@
 		duePaused = due.inPausa;
 		void loadWeakest();
 		void loadStreak(due.attivi);
+		void loadPackParty();
 		loading = false;
+	}
+
+	// Festa (una volta sola) quando un pack/lezione arriva a "tutte le carte
+	// viste almeno una volta". Lo snapshot vive in localStorage.
+	async function loadPackParty(): Promise<void> {
+		const done = await loadCompletedObjectives();
+		const fresh = detectNewCompletions(done.map((d) => d.id));
+		if (fresh.length === 0) return;
+		const names = new Map(done.map((d) => [d.id, d.name]));
+		packParty = fresh.map((id) => names.get(id) ?? id);
+		showConfetti = true;
+		setTimeout(() => (showConfetti = false), 3500);
 	}
 
 	// Streak dalle sessioni registrate + festa (una volta al giorno) quando i
@@ -134,6 +148,17 @@
 
 {#if showConfetti}
 	<Confetti />
+{/if}
+
+{#if packParty.length > 0}
+<div class="party-banner" role="status">
+	<span class="party-emoji">🏆</span>
+	<span>
+		<strong>{packParty.length === 1 ? 'Completato' : 'Completati'}: {packParty.join(' • ')}</strong>
+		— hai visto tutte le carte almeno una volta. すごい！
+	</span>
+	<button class="party-close" onclick={() => (packParty = [])} aria-label="Chiudi">✕</button>
+</div>
 {/if}
 <section class="section-card">
 	<h2 class="section-title">☀️ Il piano di oggi
@@ -374,6 +399,29 @@
 		justify-content: space-between;
 		font-size: 0.9rem;
 		gap: 8px;
+	}
+
+	.party-banner {
+		background: var(--gold-bg);
+		border: 1px solid var(--gold-border);
+		color: var(--gold-ink);
+		border-radius: 12px;
+		padding: 10px 16px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.9rem;
+		line-height: 1.45;
+	}
+	.party-emoji { font-size: 1.3rem; }
+	.party-close {
+		margin-left: auto;
+		background: none;
+		border: none;
+		color: var(--gold-ink);
+		font-size: 0.9rem;
+		cursor: pointer;
+		padding: 4px;
 	}
 
 	.section-card {

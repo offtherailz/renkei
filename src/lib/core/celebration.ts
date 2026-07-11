@@ -82,6 +82,40 @@ export function weeklyRecap(sessions: SessionLike[], now = Date.now()): WeekReca
 	};
 }
 
+// Completamento pack/lezione: confronta gli obiettivi completati con lo
+// snapshot salvato e restituisce SOLO i nuovi (festa una volta sola). Al primo
+// avvio lo snapshot non esiste: si semina in silenzio, niente feste retroattive.
+export interface StorageLike {
+	getItem(key: string): string | null;
+	setItem(key: string, value: string): void;
+}
+
+const PACKS_DONE_KEY = 'renkei_packs_done';
+
+export function detectNewCompletions(
+	completedIds: string[],
+	storage: StorageLike | undefined = typeof localStorage === 'undefined' ? undefined : localStorage
+): string[] {
+	if (!storage) return [];
+	const raw = storage.getItem(PACKS_DONE_KEY);
+	if (raw === null) {
+		storage.setItem(PACKS_DONE_KEY, JSON.stringify(completedIds));
+		return [];
+	}
+	let known: string[] = [];
+	try {
+		known = JSON.parse(raw) as string[];
+	} catch {
+		known = [];
+	}
+	const knownSet = new Set(known);
+	const fresh = completedIds.filter((id) => !knownSet.has(id));
+	if (fresh.length > 0) {
+		storage.setItem(PACKS_DONE_KEY, JSON.stringify([...new Set([...known, ...fresh])]));
+	}
+	return fresh;
+}
+
 // "una volta al giorno": ricorda in localStorage l'ultima celebrazione
 export function celebrateOncePerDay(key: string, now = Date.now()): boolean {
 	if (typeof localStorage === 'undefined') return false;
