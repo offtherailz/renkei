@@ -33,6 +33,13 @@
      "it": "Non correre in corridoio.",
      "en": "Don't run in the hallway."
     }
+   },
+   {
+    "testo": "トイレは 廊下の おくに あります。",
+    "traduzione": {
+     "it": "Il bagno è in fondo al corridoio.",
+     "en": "The toilet is at the end of the corridor."
+    }
    }
   ],
   "significato": {
@@ -1110,6 +1117,13 @@
      "it": "Questo locale è economico e buono.",
      "en": "This place is cheap and tasty."
     }
+   },
+   {
+    "testo": "やおやで やさいを 安く かいました。",
+    "traduzione": {
+     "it": "Dal fruttivendolo ho comprato la verdura a buon prezzo.",
+     "en": "I bought vegetables cheaply at the greengrocer's."
+    }
    }
   ],
   "significato": {
@@ -1628,6 +1642,13 @@
      "it": "Ho incontrato la moglie del signor Tanaka.",
      "en": "I met Mr. Tanaka's wife."
     }
+   },
+   {
+    "testo": "奥さんに よろしく おつたえ ください。",
+    "traduzione": {
+     "it": "Porga i miei saluti a sua moglie.",
+     "en": "Please give my regards to your wife."
+    }
    }
   ],
   "significato": {
@@ -1969,6 +1990,13 @@
      "it": "Mia sorella maggiore è una studentessa universitaria.",
      "en": "My older sister is a university student."
     }
+   },
+   {
+    "testo": "大学で けいざいを べんきょうして います。",
+    "traduzione": {
+     "it": "All'università studio economia.",
+     "en": "I study economics at university."
+    }
    }
   ],
   "significato": {
@@ -1988,6 +2016,13 @@
     "traduzione": {
      "it": "Mio fratello minore ha dieci anni.",
      "en": "My little brother is ten years old."
+    }
+   },
+   {
+    "testo": "弟と ゲームを しました。",
+    "traduzione": {
+     "it": "Ho giocato ai videogiochi con mio fratello minore.",
+     "en": "I played video games with my little brother."
     }
    }
   ],
@@ -3001,6 +3036,13 @@
      "it": "Torno a casa alle sei.",
      "en": "I go home at six."
     }
+   },
+   {
+    "testo": "きょうは はやく 帰っても いいですか。",
+    "traduzione": {
+     "it": "Oggi posso tornare a casa presto?",
+     "en": "May I go home early today?"
+    }
    }
   ],
   "significato": {
@@ -3067,6 +3109,13 @@
      "it": "Quell'edificio bianco è un ospedale.",
      "en": "That white building is a hospital."
     }
+   },
+   {
+    "testo": "この 建物は ひゃくねん まえに たてられました。",
+    "traduzione": {
+     "it": "Questo edificio fu costruito cento anni fa.",
+     "en": "This building was built a hundred years ago."
+    }
    }
   ],
   "significato": {
@@ -3106,6 +3155,13 @@
     "traduzione": {
      "it": "Questa stanza è spaziosa, eh!",
      "en": "This room is spacious, isn't it?"
+    }
+   },
+   {
+    "testo": "にわの 広い いえに すみたいです。",
+    "traduzione": {
+     "it": "Vorrei vivere in una casa con un giardino grande.",
+     "en": "I want to live in a house with a large garden."
     }
    }
   ],
@@ -3223,6 +3279,13 @@
     "traduzione": {
      "it": "Nei giorni di pioggia apro l'ombrello.",
      "en": "On rainy days I put up an umbrella."
+    }
+   },
+   {
+    "testo": "ひが つよいので、かさを 差しました。",
+    "traduzione": {
+     "it": "Il sole era forte, così ho aperto l'ombrello.",
+     "en": "The sun was strong, so I put up an umbrella."
     }
    }
   ],
@@ -3454,6 +3517,13 @@
      "it": "Chi è quella donna?",
      "en": "Who is that woman?"
     }
+   },
+   {
+    "testo": "うけつけに 女の ひとが います。",
+    "traduzione": {
+     "it": "Alla reception c'è una donna.",
+     "en": "There is a woman at the reception."
+    }
    }
   ],
   "significato": {
@@ -3474,6 +3544,13 @@
      "it": "Ci sono tre bambine.",
      "en": "There are three girls."
     }
+   },
+   {
+    "testo": "となりの 女の子は うたが じょうずです。",
+    "traduzione": {
+     "it": "La bambina della porta accanto canta bene.",
+     "en": "The girl next door sings well."
+    }
    }
   ],
   "significato": {
@@ -3493,6 +3570,13 @@
     "traduzione": {
      "it": "C'è un piccolo cane.",
      "en": "There is a small dog."
+    }
+   },
+   {
+    "testo": "小さな こえで はなして ください。",
+    "traduzione": {
+     "it": "Parla a voce bassa, per favore.",
+     "en": "Please speak in a small voice."
     }
    }
   ],
@@ -3558,6 +3642,13 @@
     "traduzione": {
      "it": "Questo albero è molto grosso.",
      "en": "This tree is very thick."
+    }
+   },
+   {
+    "testo": "太い ペンで なまえを かいて ください。",
+    "traduzione": {
+     "it": "Scrivi il nome con un pennarello grosso.",
+     "en": "Please write your name with a thick pen."
     }
    }
   ],
@@ -5800,6 +5891,13 @@
      "it": "Alle otto vado a scuola.",
      "en": "I go to school at eight."
     }
+   },
+   {
+    "testo": "学校の あとで サッカーを します。",
+    "traduzione": {
+     "it": "Dopo la scuola gioco a calcio.",
+     "en": "After school I play soccer."
+    }
    }
   ],
   "significato": {
@@ -5818,6 +5916,13 @@
     "traduzione": {
      "it": "Sono uno studente di giapponese.",
      "en": "I am a student of Japanese."
+    }
+   },
+   {
+    "testo": "この みせは 学生に にんきが あります。",
+    "traduzione": {
+     "it": "Questo locale è popolare tra gli studenti.",
+     "en": "This shop is popular with students."
     }
    }
   ],
@@ -5858,6 +5963,13 @@
     "traduzione": {
      "it": "Oggi fa molto freddo.",
      "en": "It is very cold today."
+    }
+   },
+   {
+    "testo": "けさは 寒くて、いけに こおりが はりました。",
+    "traduzione": {
+     "it": "Stamattina faceva freddo e lo stagno era ghiacciato.",
+     "en": "It was cold this morning and the pond froze over."
     }
    }
   ],
@@ -5923,6 +6035,13 @@
     "traduzione": {
      "it": "Oggi il vento è forte.",
      "en": "The wind is strong today."
+    }
+   },
+   {
+    "testo": "あの チームは とても 強いです。",
+    "traduzione": {
+     "it": "Quella squadra è fortissima.",
+     "en": "That team is very strong."
     }
    }
   ],
@@ -6134,6 +6253,13 @@
      "it": "I giorni di pioggia non mi piacciono.",
      "en": "I don't like rainy days."
     }
+   },
+   {
+    "testo": "あさ はやく おきるのは 嫌です。",
+    "traduzione": {
+     "it": "Alzarmi presto la mattina non mi va proprio.",
+     "en": "I hate getting up early in the morning."
+    }
    }
   ],
   "significato": {
@@ -6155,6 +6281,13 @@
     "traduzione": {
      "it": "Non mi piacciono le carote.",
      "en": "I dislike carrots."
+    }
+   },
+   {
+    "testo": "うそを つく ひとは 嫌いです。",
+    "traduzione": {
+     "it": "Non sopporto chi dice bugie.",
+     "en": "I dislike people who tell lies."
     }
    }
   ],
@@ -6224,6 +6357,13 @@
      "it": "Chiudi la porta scorrevole, per favore.",
      "en": "Please close the (sliding) door."
     }
+   },
+   {
+    "testo": "かぜで 戸が あきました。",
+    "traduzione": {
+     "it": "Il vento ha aperto la porta scorrevole.",
+     "en": "The wind opened the sliding door."
+    }
    }
   ],
   "significato": {
@@ -6268,6 +6408,13 @@
     "traduzione": {
      "it": "Dietro la scuola c'è una montagna.",
      "en": "There is a mountain behind the school."
+    }
+   },
+   {
+    "testo": "くるまの 後ろに きを つけて ください。",
+    "traduzione": {
+     "it": "Fai attenzione dietro l'auto.",
+     "en": "Be careful behind the car."
     }
    }
   ],
@@ -6427,6 +6574,13 @@
      "it": "Giri a sinistra, per favore.",
      "en": "Please turn left."
     }
+   },
+   {
+    "testo": "ゆうびんきょくは ぎんこうの 左に あります。",
+    "traduzione": {
+     "it": "L'ufficio postale è a sinistra della banca.",
+     "en": "The post office is to the left of the bank."
+    }
    }
   ],
   "significato": {
@@ -6445,6 +6599,13 @@
     "traduzione": {
      "it": "Prego, si sieda qui.",
      "en": "Please, have a seat here."
+    }
+   },
+   {
+    "testo": "いすに 座って、やすみました。",
+    "traduzione": {
+     "it": "Mi sono seduto sulla sedia e ho riposato.",
+     "en": "I sat on the chair and rested."
     }
    }
   ],
@@ -6605,6 +6766,13 @@
      "it": "D'estate scalo la montagna.",
      "en": "In summer I climb mountains."
     }
+   },
+   {
+    "testo": "山の うえから まちが みえます。",
+    "traduzione": {
+     "it": "Dalla cima della montagna si vede la città.",
+     "en": "You can see the town from the top of the mountain."
+    }
    }
   ],
   "significato": {
@@ -6654,6 +6822,13 @@
     "traduzione": {
      "it": "La lezione comincia alle nove.",
      "en": "Class begins at nine."
+    }
+   },
+   {
+    "testo": "えいがは もう 始まって います。",
+    "traduzione": {
+     "it": "Il film è già cominciato.",
+     "en": "The movie has already started."
     }
    }
   ],
@@ -6855,6 +7030,13 @@
      "it": "Oggi ci sono tanti compiti.",
      "en": "There is a lot of homework today."
     }
+   },
+   {
+    "testo": "ねる まえに 宿題を おわらせます。",
+    "traduzione": {
+     "it": "Finisco i compiti prima di andare a dormire.",
+     "en": "I finish my homework before going to bed."
+    }
    }
   ],
   "significato": {
@@ -6939,6 +7121,13 @@
      "it": "Queste scarpe sono un po' piccole.",
      "en": "These shoes are a little small."
     }
+   },
+   {
+    "testo": "じが 小さくて よめません。",
+    "traduzione": {
+     "it": "I caratteri sono troppo piccoli per leggerli.",
+     "en": "The letters are too small to read."
+    }
    }
   ],
   "significato": {
@@ -6958,6 +7147,13 @@
     "traduzione": {
      "it": "In questa città c'è poca gente.",
      "en": "This town has few people."
+    }
+   },
+   {
+    "testo": "ことしは あめが 少ないです。",
+    "traduzione": {
+     "it": "Quest'anno piove poco.",
+     "en": "There is little rain this year."
     }
    }
   ],
@@ -7154,6 +7350,13 @@
     "traduzione": {
      "it": "Vado a letto ogni giorno alle undici.",
      "en": "I go to bed at eleven every day."
+    }
+   },
+   {
+    "testo": "ゆうべは 十二じに 寝ました。",
+    "traduzione": {
+     "it": "Ieri sera sono andato a letto a mezzanotte.",
+     "en": "Last night I went to bed at midnight."
     }
    }
   ],
@@ -7487,6 +7690,13 @@
      "it": "Ho pulito la stanza.",
      "en": "I cleaned my room."
     }
+   },
+   {
+    "testo": "トイレの 掃除は わたしの ばんです。",
+    "traduzione": {
+     "it": "Tocca a me pulire il bagno.",
+     "en": "It's my turn to clean the toilet."
+    }
    }
   ],
   "significato": {
@@ -7506,6 +7716,13 @@
     "traduzione": {
      "it": "Il sabato pulisco casa.",
      "en": "I clean the house on Saturdays."
+    }
+   },
+   {
+    "testo": "まいしゅう へやを 掃除します。",
+    "traduzione": {
+     "it": "Ogni settimana pulisco la stanza.",
+     "en": "I clean my room every week."
     }
    }
   ]
@@ -9039,7 +9256,23 @@
     "meaning",
     "significance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その語にはいくつかの意味がある。",
+    "traduzione": {
+     "it": "The word has several meanings.",
+     "en": "The word has several meanings."
+    }
+   },
+   {
+    "testo": "この かんじの 意味を おしえて ください。",
+    "traduzione": {
+     "it": "Spiegami il significato di questo kanji.",
+     "en": "Please tell me the meaning of this kanji."
+    }
+   }
+  ]
  },
  "椅子": {
   "significato": {
@@ -9278,7 +9511,23 @@
     "to press",
     "to stamp (e.g., a passport)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "シャッターを押してくれますか。",
+    "traduzione": {
+     "it": "Could you press this button?",
+     "en": "Could you press this button?"
+    }
+   },
+   {
+    "testo": "この ボタンを 押すと、ドアが あきます。",
+    "traduzione": {
+     "it": "Premendo questo pulsante la porta si apre.",
+     "en": "If you press this button, the door opens."
+    }
+   }
+  ]
  },
  "温い": {
   "significato": {
@@ -9391,7 +9640,23 @@
     "house",
     "home"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "木立の間に家が見える。",
+    "traduzione": {
+     "it": "I see a house among the trees.",
+     "en": "I see a house among the trees."
+    }
+   },
+   {
+    "testo": "あたらしい 家に ひっこしました。",
+    "traduzione": {
+     "it": "Ci siamo trasferiti nella casa nuova.",
+     "en": "We moved to a new house."
+    }
+   }
+  ]
  },
  "家族": {
   "significato": {
@@ -9402,7 +9667,23 @@
     "family",
     "members of a family"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの家族はきっと親切でしょう。",
+    "traduzione": {
+     "it": "Your family must be very nice.",
+     "en": "Your family must be very nice."
+    }
+   },
+   {
+    "testo": "しゅうまつは 家族と すごします。",
+    "traduzione": {
+     "it": "Il fine settimana lo passo con la famiglia.",
+     "en": "I spend weekends with my family."
+    }
+   }
+  ]
  },
  "家庭": {
   "significato": {
@@ -9414,7 +9695,23 @@
     "home",
     "family"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "食事は家庭で食べますか、外食ですか。",
+    "traduzione": {
+     "it": "Do you eat at home or eat out?",
+     "en": "Do you eat at home or eat out?"
+    }
+   },
+   {
+    "testo": "あたたかい 家庭を つくりたいです。",
+    "traduzione": {
+     "it": "Voglio costruire una famiglia serena.",
+     "en": "I want to build a warm home."
+    }
+   }
+  ]
  },
  "暇": {
   "significato": {
@@ -10448,7 +10745,23 @@
    "en": [
     "(my) older sister (humble)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "姉は私のズボンにアイロンをかけてくれる。",
+    "traduzione": {
+     "it": "My sister presses my trousers.",
+     "en": "My sister presses my trousers."
+    }
+   },
+   {
+    "testo": "姉は びょういんで はたらいて います。",
+    "traduzione": {
+     "it": "Mia sorella maggiore lavora in ospedale.",
+     "en": "My older sister works at a hospital."
+    }
+   }
+  ]
  },
  "子供": {
   "significato": {
@@ -10459,7 +10772,23 @@
    "en": [
     "child(ren)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたには何人子供がいますか。",
+    "traduzione": {
+     "it": "How many children do you have?",
+     "en": "How many children do you have?"
+    }
+   },
+   {
+    "testo": "子供の とき、この まちに すんで いました。",
+    "traduzione": {
+     "it": "Da bambino vivevo in questa città.",
+     "en": "When I was a child, I lived in this town."
+    }
+   }
+  ]
  },
  "止まる": {
   "significato": {
@@ -10557,7 +10886,23 @@
     "to carry",
     "to possess"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "コートを持ちましょうか。",
+    "traduzione": {
+     "it": "Shall I carry your coat?",
+     "en": "Shall I carry your coat?"
+    }
+   },
+   {
+    "testo": "おもい にもつを 持って くれました。",
+    "traduzione": {
+     "it": "Mi ha portato il bagaglio pesante.",
+     "en": "He carried my heavy luggage for me."
+    }
+   }
+  ]
  },
  "時々": {
   "significato": {
@@ -10668,7 +11013,23 @@
    "en": [
     "weak"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それを言われると弱いなあ。",
+    "traduzione": {
+     "it": "That sure puts me on the spot.",
+     "en": "That sure puts me on the spot."
+    }
+   },
+   {
+    "testo": "わたしは おさけに 弱いです。",
+    "traduzione": {
+     "it": "Reggo poco l'alcol.",
+     "en": "I can't hold my liquor well."
+    }
+   }
+  ]
  },
  "取る": {
   "significato": {
@@ -10700,7 +11061,23 @@
    "en": [
     "letter"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ここにあなたあての手紙が何通かあります。",
+    "traduzione": {
+     "it": "Here are some letters for you.",
+     "en": "Here are some letters for you."
+    }
+   },
+   {
+    "testo": "そぼに 手紙を かきました。",
+    "traduzione": {
+     "it": "Ho scritto una lettera alla nonna.",
+     "en": "I wrote a letter to my grandmother."
+    }
+   }
+  ]
  },
  "授業": {
   "significato": {
@@ -10710,7 +11087,23 @@
    "en": [
     "a class (of school)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それは授業の終わりだった。",
+    "traduzione": {
+     "it": "That was the end of the class.",
+     "en": "That was the end of the class."
+    }
+   },
+   {
+    "testo": "授業に おくれないで ください。",
+    "traduzione": {
+     "it": "Non arrivare in ritardo a lezione.",
+     "en": "Please don't be late for class."
+    }
+   }
+  ]
  },
  "習う": {
   "significato": {
@@ -10911,7 +11304,23 @@
     "little",
     "few"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "少しテレビを見てもいいですか。",
+    "traduzione": {
+     "it": "Do you mind if I watch TV for a while?",
+     "en": "Do you mind if I watch TV for a while?"
+    }
+   },
+   {
+    "testo": "にほんごが 少し はなせます。",
+    "traduzione": {
+     "it": "Parlo un po' di giapponese.",
+     "en": "I can speak a little Japanese."
+    }
+   }
+  ]
  },
  "消える": {
   "significato": {
@@ -11194,7 +11603,23 @@
    "en": [
     "to wait"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "しばらく電話を切らずにお待ちください。",
+    "traduzione": {
+     "it": "Please hold the line a moment.",
+     "en": "Please hold the line a moment."
+    }
+   },
+   {
+    "testo": "ここで 十ぷん 待って ください。",
+    "traduzione": {
+     "it": "Aspetta qui dieci minuti, per favore.",
+     "en": "Please wait here for ten minutes."
+    }
+   }
+  ]
  },
  "大きい": {
   "significato": {
@@ -11224,6 +11649,13 @@
     "traduzione": {
      "it": "Adoro il sushi.",
      "en": "I love sushi."
+    }
+   },
+   {
+    "testo": "母の りょうりが 大好きです。",
+    "traduzione": {
+     "it": "Adoro la cucina della mamma.",
+     "en": "I love my mother's cooking."
     }
    }
   ]
@@ -11396,6 +11828,13 @@
     "traduzione": {
      "it": "Mia sorella maggiore suona il pianoforte.",
      "en": "My older sister plays the piano."
+    }
+   },
+   {
+    "testo": "ギターを 弾きながら うたいます。",
+    "traduzione": {
+     "it": "Canto suonando la chitarra.",
+     "en": "I sing while playing the guitar."
     }
    }
   ]
@@ -11783,6 +12222,13 @@
      "it": "In giardino ci sono tanti fiori.",
      "en": "There are many flowers in the garden."
     }
+   },
+   {
+    "testo": "庭で バーベキューを しました。",
+    "traduzione": {
+     "it": "Abbiamo fatto una grigliata in giardino.",
+     "en": "We had a barbecue in the garden."
+    }
    }
   ]
  },
@@ -11794,7 +12240,23 @@
    "en": [
     "weather"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日が天気ならいいのに。",
+    "traduzione": {
+     "it": "I wish it were fine today.",
+     "en": "I wish it were fine today."
+    }
+   },
+   {
+    "testo": "あしたの 天気は どうですか。",
+    "traduzione": {
+     "it": "Come sarà il tempo domani?",
+     "en": "How will the weather be tomorrow?"
+    }
+   }
+  ]
  },
  "店": {
   "significato": {
@@ -11813,6 +12275,13 @@
     "traduzione": {
      "it": "Il pane di quel negozio è buono.",
      "en": "The bread at that shop is delicious."
+    }
+   },
+   {
+    "testo": "その 店は なんじまで あいて いますか。",
+    "traduzione": {
+     "it": "Fino a che ora è aperto quel negozio?",
+     "en": "Until what time is that shop open?"
     }
    }
   ]
@@ -12767,6 +13236,13 @@
      "it": "Ho messo la lettera nella busta.",
      "en": "I put the letter in the envelope."
     }
+   },
+   {
+    "testo": "封筒に きってを はりました。",
+    "traduzione": {
+     "it": "Ho attaccato il francobollo sulla busta.",
+     "en": "I put a stamp on the envelope."
+    }
    }
   ]
  },
@@ -13079,7 +13555,23 @@
     "hat",
     "cap"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この帽子は１０００円なら安い。",
+    "traduzione": {
+     "it": "This hat is cheap at 1000 yen.",
+     "en": "This hat is cheap at 1000 yen."
+    }
+   },
+   {
+    "testo": "かぜで 帽子が とびました。",
+    "traduzione": {
+     "it": "Il vento mi ha portato via il cappello.",
+     "en": "The wind blew my hat away."
+    }
+   }
+  ]
  },
  "忘れる": {
   "significato": {
@@ -13116,7 +13608,23 @@
    "en": [
     "busy (people, days)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あいつはのらりくらりの仕事にお忙しい事だ。",
+    "traduzione": {
+     "it": "He is busy loafing on the job.",
+     "en": "He is busy loafing on the job."
+    }
+   },
+   {
+    "testo": "しごとが 忙しくて、やすめません。",
+    "traduzione": {
+     "it": "Il lavoro mi tiene occupato e non riesco a riposare.",
+     "en": "Work is so busy that I can't rest."
+    }
+   }
+  ]
  },
  "本": {
   "significato": {
@@ -13136,7 +13644,23 @@
    "en": [
     "younger sister (humble)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのかわいい少女は私の妹です。",
+    "traduzione": {
+     "it": "That pretty girl is my sister.",
+     "en": "That pretty girl is my sister."
+    }
+   },
+   {
+    "testo": "妹は らいねん しょうがっこうに はいります。",
+    "traduzione": {
+     "it": "Mia sorella minore l'anno prossimo inizia le elementari.",
+     "en": "My little sister starts elementary school next year."
+    }
+   }
+  ]
  },
  "毎週": {
   "significato": {
@@ -25630,6 +26154,42 @@
     "traduzione": {
      "it": "Dopo la corsa mi è venuta sete.",
      "en": "After running, I got thirsty."
+    }
+   }
+  ]
+ },
+ "意味する": {
+  "frasi_esempio": [
+   {
+    "testo": "その語にはいくつかの意味がある。",
+    "traduzione": {
+     "it": "The word has several meanings.",
+     "en": "The word has several meanings."
+    }
+   },
+   {
+    "testo": "あかい しるしは きけんを 意味します。",
+    "traduzione": {
+     "it": "Il segno rosso significa pericolo.",
+     "en": "The red mark means danger."
+    }
+   }
+  ]
+ },
+ "授業する": {
+  "frasi_esempio": [
+   {
+    "testo": "それは授業の終わりだった。",
+    "traduzione": {
+     "it": "That was the end of the class.",
+     "en": "That was the end of the class."
+    }
+   },
+   {
+    "testo": "きょうは オンラインで 授業しました。",
+    "traduzione": {
+     "it": "Oggi la lezione si è tenuta online.",
+     "en": "Today the class was held online."
     }
    }
   ]
