@@ -79,6 +79,14 @@
 	// true quando la sessione finisce perché non c'è più nulla di dovuto né
 	// carte nuove da introdurre (tetto giornaliero), non per scadenza del timer.
 	let finishedEverything = $state(false);
+	// Sblocco manuale del tetto giornaliero (bottone "Continua ancora un po'"):
+	// vale solo finché resti su questa pagina, non tocca l'impostazione salvata.
+	let extraCardsUnlocked = $state(0);
+
+	function continueWithMoreCards(n: number): void {
+		extraCardsUnlocked += n;
+		startSession();
+	}
 	// celebrazione a fine sessione: streak, record personale, coriandoli
 	let summaryStreak = $state<Streak | null>(null);
 	let summaryBest = $state(false);
@@ -262,7 +270,10 @@
 		}).sort((a, b) => (getSrs(a.key)?.next_review_date ?? 0) - (getSrs(b.key)?.next_review_date ?? 0));
 
 		if (due.length > 0) return due[0]!;
-		const cap = appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY;
+		// Sblocco esplicito e temporaneo (bottone "Continua ancora un po'" nel
+		// riepilogo, quando non c'è più nulla di dovuto): alza il tetto solo per
+		// questa sessione, senza toccare l'impostazione salvata.
+		const cap = (appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY) + extraCardsUnlocked;
 		if (!canIntroduceNewCard(appState.userProfile ?? {}, cap, now)) return null;
 		const unseen = pool.filter((item) => !getSrs(item.key));
 		return unseen.length > 0 ? sample(unseen) : null;
@@ -1448,7 +1459,11 @@
 			</div>
 		{/if}
 		<div class="summary-actions">
-			<button class="btn-primary" onclick={startSession}>🔁 Nuova sessione</button>
+			{#if finishedEverything}
+				<button class="btn-primary" onclick={() => continueWithMoreCards(5)}>➕ Continua ancora un po' (5 carte)</button>
+			{:else}
+				<button class="btn-primary" onclick={startSession}>🔁 Nuova sessione</button>
+			{/if}
 			<a href="{base}/" class="btn-ghost">← Home</a>
 		</div>
 	</div>

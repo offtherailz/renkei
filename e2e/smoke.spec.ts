@@ -237,6 +237,15 @@ test('sessione senza nulla da fare: niente badge bronze né statistiche a zero',
 	await expect(page.getByText('🎉 Tutto fatto per oggi!')).toBeVisible({ timeout: 20_000 });
 	await expect(page.locator('.summary-tier')).toHaveCount(0);
 	await expect(page.locator('.summary-stats')).toHaveCount(0);
+
+	// "🔁 Nuova sessione" con tetto raggiunto sembrava non fare nulla (stessa
+	// schermata identica) — ora c'è un bottone esplicito che sblocca altre
+	// carte solo per questa sessione, senza toccare l'impostazione salvata.
+	const continueBtn = page.getByRole('button', { name: /Continua ancora un po'/ });
+	await expect(continueBtn).toBeVisible();
+	await continueBtn.click();
+	// col tetto sbloccato per la sessione, ora propone davvero una domanda
+	await expect(page.locator('.choice-btn').first()).toBeVisible({ timeout: 15_000 });
 });
 
 test('contatore dovuto (da un errore in avventura): il quiz lo ripassa davvero', async ({ page }) => {
