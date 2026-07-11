@@ -26,6 +26,7 @@
 		shuffle
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS, buildConjugationTable } from '$lib/core/conjugation';
+	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
@@ -992,6 +993,18 @@
 	});
 
 	// ── Derived UI ────────────────────────────────────────────────────────────────
+	// Furigana d'aiuto (opzionale, Impostazioni): la parola può contenere un
+	// kanji classificato più avanti del suo livello — mostriamo la lettura
+	// solo in quel caso, solo nel "produci la parola" dove è nascosta.
+	const kanjiById = $derived(new Map(kanjiRows.map((k) => [k.id, k])));
+	const currentQuizWord = $derived.by(() => {
+		if (!quiz || quiz.itemRef.kind !== 'word') return null;
+		return context?.wordsById.get(quiz.itemRef.key.replace('word:', '')) ?? null;
+	});
+	const showAdvancedFurigana = $derived(
+		Boolean(appState.settings.furigana_kanji_avanzati && currentQuizWord && wordHasAdvancedKanji(currentQuizWord, kanjiById))
+	);
+
 	const timeLeftLabel = $derived.by(() => {
 		if (!session) return '';
 		const ref = session.pausedAt ?? nowTick;
@@ -1055,7 +1068,13 @@
 		<!-- flashcard-production -->
 		{#if quiz.question.mode === 'flashcard-production'}
 			{@const q = quiz.question as FlashcardQuestion}
-			<p class="question-prompt ja-text">{q.prompt}</p>
+			<p class="question-prompt ja-text">
+				{#if showAdvancedFurigana && currentQuizWord}
+					<ruby>{q.prompt}<rt class="advanced-furigana">{currentQuizWord.lettura}</rt></ruby>
+				{:else}
+					{q.prompt}
+				{/if}
+			</p>
 			<p class="question-hint">Produci significato e pronuncia</p>
 			{#if !quiz.answered}
 				{#if !revealedProduction}
@@ -1454,6 +1473,12 @@
 		font-weight: 700;
 		margin: 0;
 		line-height: 1.3;
+	}
+
+	.advanced-furigana {
+		font-size: 0.4em;
+		font-weight: 500;
+		color: var(--muted);
 	}
 
 	.ja-text {

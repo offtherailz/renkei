@@ -44,12 +44,12 @@ export async function ensureDefaultObjectives(): Promise<void> {
 	const levelGrammarKeys = (level: JLPTLevel): string[] =>
 		seedGrammar.filter((g) => g.livello_jlpt === level).map((g) => `grammar:${g.id}`);
 
-	const levelKanjiKeys = (level: JLPTLevel): string[] => {
-		const kanjiSet = new Set(
-			seedWords.filter((w) => w.livello_jlpt === level).flatMap((w) => w.kanji_usati)
-		);
-		return seedKanji.filter((k) => kanjiSet.has(k.id)).map((k) => `kanji:${k.id}`);
-	};
+	// Solo i kanji il cui livello JLPT REALE è "level": una parola N4 può usare
+	// un kanji classificato N3+ nel catalogo storico, ma quel kanji non entra
+	// nel pack "Kanji N4" — si quizza solo al suo livello, non a quello della
+	// parola che lo ospita (la parola stessa resta comunque tra le Parole N4).
+	const levelKanjiKeys = (level: JLPTLevel): string[] =>
+		seedKanji.filter((k) => k.livello_jlpt === level).map((k) => `kanji:${k.id}`);
 
 	const now = Date.now();
 	const defaults: StudyObjective[] = [

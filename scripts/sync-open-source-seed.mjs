@@ -21,6 +21,23 @@ const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
 const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
 const USI_IT_PATH = path.join(ROOT, "scripts", "data", "usi-it.json");
 const IIKAE_PATH = path.join(ROOT, "scripts", "data", "iikae-n5n4.json");
+// Catalogo kanji per livello (davidluzgouveia/kanji-data via allenlu2009):
+// scaricato una volta, salvato qui invece di rifetcharlo a ogni sync (non
+// cambia). Per riscaricarlo: curl le 5 url in KANJI_LEVEL_SOURCE_URLS.
+const KANJI_LEVEL_PATHS = {
+  N5: path.join(ROOT, "scripts", "data", "kanji-n5.json"),
+  N4: path.join(ROOT, "scripts", "data", "kanji-n4.json"),
+  N3: path.join(ROOT, "scripts", "data", "kanji-n3.json"),
+  N2: path.join(ROOT, "scripts", "data", "kanji-n2.json"),
+  N1: path.join(ROOT, "scripts", "data", "kanji-n1.json")
+};
+const KANJI_LEVEL_SOURCE_URLS = {
+  N5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n5.json",
+  N4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n4.json",
+  N3: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n3.json",
+  N2: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n2.json",
+  N1: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n1.json"
+};
 
 // Gruppi 言い換え curati: parole equivalenti collegate come sinonimi in modo
 // bidirezionale (JMdict ha xref sparsi: 美しい↔綺麗 ad es. manca).
@@ -46,6 +63,10 @@ async function applyIikaeGroups(words) {
 
 // Traduzioni italiane degli "Usi" (glosse ed esempi JMdict), chiavate sul
 // testo inglese: sopravvivono ai riordini dei sensi tra release JMdict.
+async function loadKanjiLevelCatalog(level) {
+  return JSON.parse(await fs.readFile(KANJI_LEVEL_PATHS[level], "utf8"));
+}
+
 async function loadUsiIt() {
   try {
     return JSON.parse(await fs.readFile(USI_IT_PATH, "utf8"));
@@ -135,15 +156,8 @@ const OPEN_SOURCE = {
   repo: "https://github.com/allenlu2009/japanese-learning-datasets",
   urls: {
     vocabN5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n5.json",
-    vocabN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n4.json",
-    kanjiN5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n5.json",
-    kanjiN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n4.json",
-    // Livello JLPT "storico" per kanji (davidluzgouveia/kanji-data, via lo stesso
-    // mirror): copre anche i kanji fuori da N5/N4 usati dal vocabolario, che
-    // KANJIDIC2 non classifica più per livello.
-    kanjiN3: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n3.json",
-    kanjiN2: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n2.json",
-    kanjiN1: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n1.json"
+    vocabN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n4.json"
+    // I cataloghi kanji per livello sono in cache locale, vedi KANJI_LEVEL_PATHS.
   }
 };
 
@@ -1166,11 +1180,11 @@ async function main() {
   const [vocabN5, vocabN4, kanjiN5, kanjiN4, kanjiN3, kanjiN2, kanjiN1, grammarN5, grammarN4] = await Promise.all([
     fetchJson(OPEN_SOURCE.urls.vocabN5),
     fetchJson(OPEN_SOURCE.urls.vocabN4),
-    fetchJson(OPEN_SOURCE.urls.kanjiN5),
-    fetchJson(OPEN_SOURCE.urls.kanjiN4),
-    fetchJson(OPEN_SOURCE.urls.kanjiN3),
-    fetchJson(OPEN_SOURCE.urls.kanjiN2),
-    fetchJson(OPEN_SOURCE.urls.kanjiN1),
+    loadKanjiLevelCatalog("N5"),
+    loadKanjiLevelCatalog("N4"),
+    loadKanjiLevelCatalog("N3"),
+    loadKanjiLevelCatalog("N2"),
+    loadKanjiLevelCatalog("N1"),
     fetchJson(GRAMMAR_SOURCE.urls.grammarN5),
     fetchJson(GRAMMAR_SOURCE.urls.grammarN4)
   ]);

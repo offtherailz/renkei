@@ -215,6 +215,7 @@ export interface AppSettings extends BaseEntity {
   forme_note?: string[];
   lingua_contenuti?: "auto" | "it" | "en";
   voce_utente?: "maschile" | "femminile";
+  furigana_kanji_avanzati?: boolean;
 }
 
 export interface DatabaseSeed {

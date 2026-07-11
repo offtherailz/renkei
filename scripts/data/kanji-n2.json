@@ -1,0 +1,6078 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "jlptLevel": "N2",
+    "lastUpdated": "2026-01-19",
+    "itemCount": 367,
+    "source": "davidluzgouveia/kanji-data",
+    "license": "MIT"
+  },
+  "kanji": [
+    {
+      "character": "了",
+      "meanings": [
+        "Complete",
+        "Finish"
+      ],
+      "onyomi": [
+        "ryou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "丸",
+      "meanings": [
+        "Round",
+        "Full (month)",
+        "Perfection",
+        "-ship",
+        "Pills",
+        "Make Round",
+        "Roll Up",
+        "Curl Up",
+        "Seduce",
+        "Explain Away"
+      ],
+      "onyomi": [
+        "gan"
+      ],
+      "kunyomi": [
+        "maru",
+        "maru.meru",
+        "maru.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "玉",
+      "meanings": [
+        "Jewel",
+        "Ball"
+      ],
+      "onyomi": [
+        "gyoku"
+      ],
+      "kunyomi": [
+        "tama",
+        "tama-",
+        "-dama"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "久",
+      "meanings": [
+        "Long Time",
+        "Old Story"
+      ],
+      "onyomi": [
+        "kyuu",
+        "ku"
+      ],
+      "kunyomi": [
+        "hisa.shii"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "戸",
+      "meanings": [
+        "Door",
+        "Counter For Houses",
+        "Door Radical (no. 63)"
+      ],
+      "onyomi": [
+        "ko"
+      ],
+      "kunyomi": [
+        "to"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "毛",
+      "meanings": [
+        "Fur",
+        "Hair",
+        "Feather",
+        "Down"
+      ],
+      "onyomi": [
+        "mou"
+      ],
+      "kunyomi": [
+        "ke"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "央",
+      "meanings": [
+        "Center",
+        "Middle"
+      ],
+      "onyomi": [
+        "ou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "氷",
+      "meanings": [
+        "Icicle",
+        "Ice",
+        "Hail",
+        "Freeze",
+        "Congeal"
+      ],
+      "onyomi": [
+        "hyou"
+      ],
+      "kunyomi": [
+        "koori",
+        "hi",
+        "koo.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "皮",
+      "meanings": [
+        "Pelt",
+        "Skin",
+        "Hide",
+        "Leather",
+        "Skin Radical (no. 107)"
+      ],
+      "onyomi": [
+        "hi"
+      ],
+      "kunyomi": [
+        "kawa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "皿",
+      "meanings": [
+        "Dish",
+        "A Helping",
+        "Plate"
+      ],
+      "onyomi": [
+        "bei"
+      ],
+      "kunyomi": [
+        "sara"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "竹",
+      "meanings": [
+        "Bamboo"
+      ],
+      "onyomi": [
+        "chiku"
+      ],
+      "kunyomi": [
+        "take"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "糸",
+      "meanings": [
+        "Thread"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "ito"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "虫",
+      "meanings": [
+        "Insect",
+        "Bug",
+        "Temper"
+      ],
+      "onyomi": [
+        "chuu",
+        "ki"
+      ],
+      "kunyomi": [
+        "mushi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "村",
+      "meanings": [
+        "Village",
+        "Town"
+      ],
+      "onyomi": [
+        "son"
+      ],
+      "kunyomi": [
+        "mura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "貝",
+      "meanings": [
+        "Shellfish"
+      ],
+      "onyomi": [
+        "bai"
+      ],
+      "kunyomi": [
+        "kai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "池",
+      "meanings": [
+        "Pond",
+        "Cistern",
+        "Pool",
+        "Reservoir"
+      ],
+      "onyomi": [
+        "chi"
+      ],
+      "kunyomi": [
+        "ike"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "羽",
+      "meanings": [
+        "Feathers",
+        "Counter For Birds, Rabbits"
+      ],
+      "onyomi": [
+        "u"
+      ],
+      "kunyomi": [
+        "ha",
+        "wa",
+        "hane"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "角",
+      "meanings": [
+        "Angle",
+        "Corner",
+        "Square",
+        "Horn",
+        "Antlers"
+      ],
+      "onyomi": [
+        "kaku"
+      ],
+      "kunyomi": [
+        "kado",
+        "tsuno"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "谷",
+      "meanings": [
+        "Valley"
+      ],
+      "onyomi": [
+        "koku"
+      ],
+      "kunyomi": [
+        "tani",
+        "kiwa.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "麦",
+      "meanings": [
+        "Barley",
+        "Wheat"
+      ],
+      "onyomi": [
+        "baku"
+      ],
+      "kunyomi": [
+        "mugi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "林",
+      "meanings": [
+        "Grove",
+        "Forest"
+      ],
+      "onyomi": [
+        "rin"
+      ],
+      "kunyomi": [
+        "hayashi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "州",
+      "meanings": [
+        "State",
+        "Province"
+      ],
+      "onyomi": [
+        "shuu",
+        "su"
+      ],
+      "kunyomi": [
+        "su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "血",
+      "meanings": [
+        "Blood"
+      ],
+      "onyomi": [
+        "ketsu"
+      ],
+      "kunyomi": [
+        "chi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "星",
+      "meanings": [
+        "Star",
+        "Spot",
+        "Dot",
+        "Mark"
+      ],
+      "onyomi": [
+        "sei",
+        "shou"
+      ],
+      "kunyomi": [
+        "hoshi",
+        "-boshi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "札",
+      "meanings": [
+        "Tag",
+        "Paper Money",
+        "Counter For Bonds",
+        "Placard",
+        "Bid"
+      ],
+      "onyomi": [
+        "satsu"
+      ],
+      "kunyomi": [
+        "fuda"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "辺",
+      "meanings": [
+        "Environs",
+        "Boundary",
+        "Border",
+        "Vicinity"
+      ],
+      "onyomi": [
+        "hen"
+      ],
+      "kunyomi": [
+        "ata.ri",
+        "hoto.ri",
+        "-be"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "弱",
+      "meanings": [
+        "Weak",
+        "Frail"
+      ],
+      "onyomi": [
+        "jaku"
+      ],
+      "kunyomi": [
+        "yowa.i",
+        "yowa.ru",
+        "yowa.maru",
+        "yowa.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "黄",
+      "meanings": [
+        "Yellow"
+      ],
+      "onyomi": [
+        "kou",
+        "ou"
+      ],
+      "kunyomi": [
+        "ki",
+        "ko-"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "森",
+      "meanings": [
+        "Forest",
+        "Woods"
+      ],
+      "onyomi": [
+        "shin"
+      ],
+      "kunyomi": [
+        "mori"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "雲",
+      "meanings": [
+        "Cloud"
+      ],
+      "onyomi": [
+        "un"
+      ],
+      "kunyomi": [
+        "kumo",
+        "-gumo"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "県",
+      "meanings": [
+        "Prefecture"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [
+        "ka.keru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "軽",
+      "meanings": [
+        "Lightly",
+        "Trifling",
+        "Unimportant"
+      ],
+      "onyomi": [
+        "kei",
+        "kyou",
+        "kin"
+      ],
+      "kunyomi": [
+        "karu.i",
+        "karo.yaka",
+        "karo.njiru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "農",
+      "meanings": [
+        "Agriculture",
+        "Farmers"
+      ],
+      "onyomi": [
+        "nou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "鉄",
+      "meanings": [
+        "Iron"
+      ],
+      "onyomi": [
+        "tetsu"
+      ],
+      "kunyomi": [
+        "kurogane"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "算",
+      "meanings": [
+        "Calculate",
+        "Divining",
+        "Number",
+        "Abacus",
+        "Probability"
+      ],
+      "onyomi": [
+        "san"
+      ],
+      "kunyomi": [
+        "soro"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "線",
+      "meanings": [
+        "Line",
+        "Track"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "suji"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "仲",
+      "meanings": [
+        "Go-between",
+        "Relationship"
+      ],
+      "onyomi": [
+        "chuu"
+      ],
+      "kunyomi": [
+        "naka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "低",
+      "meanings": [
+        "Lower",
+        "Short",
+        "Humble"
+      ],
+      "onyomi": [
+        "tei"
+      ],
+      "kunyomi": [
+        "hiku.i",
+        "hiku.meru",
+        "hiku.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "岸",
+      "meanings": [
+        "Beach"
+      ],
+      "onyomi": [
+        "gan"
+      ],
+      "kunyomi": [
+        "kishi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "波",
+      "meanings": [
+        "Waves",
+        "Billows",
+        "Poland"
+      ],
+      "onyomi": [
+        "ha"
+      ],
+      "kunyomi": [
+        "nami"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "拾",
+      "meanings": [
+        "Pick Up",
+        "Gather",
+        "Find",
+        "Go On Foot",
+        "Ten"
+      ],
+      "onyomi": [
+        "shuu",
+        "juu"
+      ],
+      "kunyomi": [
+        "hiro.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "秒",
+      "meanings": [
+        "Second (1/60 Minute)"
+      ],
+      "onyomi": [
+        "byou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "競",
+      "meanings": [
+        "Emulate",
+        "Compete With",
+        "Bid",
+        "Sell At Auction",
+        "Bout",
+        "Contest",
+        "Race"
+      ],
+      "onyomi": [
+        "kyou",
+        "kei"
+      ],
+      "kunyomi": [
+        "kiso.u",
+        "se.ru",
+        "kura.beru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "令",
+      "meanings": [
+        "Orders",
+        "Ancient Laws",
+        "Command",
+        "Decree"
+      ],
+      "onyomi": [
+        "rei"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "根",
+      "meanings": [
+        "Root",
+        "Radical",
+        "Head (pimple)"
+      ],
+      "onyomi": [
+        "kon"
+      ],
+      "kunyomi": [
+        "ne",
+        "-ne"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "倍",
+      "meanings": [
+        "Double",
+        "Twice",
+        "Times",
+        "Fold"
+      ],
+      "onyomi": [
+        "bai"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "島",
+      "meanings": [
+        "Island"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "shima"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "祭",
+      "meanings": [
+        "Ritual",
+        "Offer Prayers",
+        "Celebrate",
+        "Deify",
+        "Enshrine",
+        "Worship"
+      ],
+      "onyomi": [
+        "sai"
+      ],
+      "kunyomi": [
+        "matsu.ru",
+        "matsu.ri",
+        "matsuri"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "章",
+      "meanings": [
+        "Badge",
+        "Chapter",
+        "Composition",
+        "Poem",
+        "Design"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "童",
+      "meanings": [
+        "Juvenile",
+        "Child"
+      ],
+      "onyomi": [
+        "dou"
+      ],
+      "kunyomi": [
+        "warabe"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "階",
+      "meanings": [
+        "Storey",
+        "Stair",
+        "Counter For Storeys Of A Building"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "kizahashi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "植",
+      "meanings": [
+        "Plant"
+      ],
+      "onyomi": [
+        "shoku"
+      ],
+      "kunyomi": [
+        "u.eru",
+        "u.waru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "温",
+      "meanings": [
+        "Warm"
+      ],
+      "onyomi": [
+        "on"
+      ],
+      "kunyomi": [
+        "atata.ka",
+        "atata.kai",
+        "atata.maru",
+        "atata.meru",
+        "nuku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "湯",
+      "meanings": [
+        "Hot Water",
+        "Bath",
+        "Hot Spring"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "yu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "短",
+      "meanings": [
+        "Short",
+        "Brevity",
+        "Fault",
+        "Defect",
+        "Weak Point"
+      ],
+      "onyomi": [
+        "tan"
+      ],
+      "kunyomi": [
+        "mijika.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "泉",
+      "meanings": [
+        "Spring",
+        "Fountain"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "izumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "橋",
+      "meanings": [
+        "Bridge"
+      ],
+      "onyomi": [
+        "kyou"
+      ],
+      "kunyomi": [
+        "hashi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "緑",
+      "meanings": [
+        "Green"
+      ],
+      "onyomi": [
+        "ryoku",
+        "roku"
+      ],
+      "kunyomi": [
+        "midori"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "練",
+      "meanings": [
+        "Practice",
+        "Gloss",
+        "Train",
+        "Drill",
+        "Polish",
+        "Refine"
+      ],
+      "onyomi": [
+        "ren"
+      ],
+      "kunyomi": [
+        "ne.ru",
+        "ne.ri"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "億",
+      "meanings": [
+        "Hundred Million",
+        "10**8"
+      ],
+      "onyomi": [
+        "oku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "課",
+      "meanings": [
+        "Chapter",
+        "Lesson",
+        "Section",
+        "Department",
+        "Division",
+        "Counter For Chapters (of A Book)"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "賞",
+      "meanings": [
+        "Prize",
+        "Reward",
+        "Praise"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "ho.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "輪",
+      "meanings": [
+        "Wheel",
+        "Ring",
+        "Circle",
+        "Link",
+        "Loop",
+        "Counter For Wheels And Flowers"
+      ],
+      "onyomi": [
+        "rin"
+      ],
+      "kunyomi": [
+        "wa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "像",
+      "meanings": [
+        "Statue",
+        "Picture",
+        "Image",
+        "Figure",
+        "Portrait"
+      ],
+      "onyomi": [
+        "zou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "卒",
+      "meanings": [
+        "Graduate",
+        "Soldier",
+        "Private",
+        "Die"
+      ],
+      "onyomi": [
+        "sotsu",
+        "shutsu"
+      ],
+      "kunyomi": [
+        "so.suru",
+        "o.eru",
+        "o.waru",
+        "tsuini",
+        "niwaka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "協",
+      "meanings": [
+        "Co-",
+        "Cooperation"
+      ],
+      "onyomi": [
+        "kyou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "周",
+      "meanings": [
+        "Circumference",
+        "Circuit",
+        "Lap"
+      ],
+      "onyomi": [
+        "shuu"
+      ],
+      "kunyomi": [
+        "mawa.ri"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "囲",
+      "meanings": [
+        "Surround",
+        "Besiege",
+        "Store",
+        "Paling",
+        "Enclosure",
+        "Encircle",
+        "Preserve",
+        "Keep"
+      ],
+      "onyomi": [
+        "i"
+      ],
+      "kunyomi": [
+        "kako.mu",
+        "kako.u",
+        "kako.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "固",
+      "meanings": [
+        "Harden",
+        "Set",
+        "Clot",
+        "Curdle"
+      ],
+      "onyomi": [
+        "ko"
+      ],
+      "kunyomi": [
+        "kata.meru",
+        "kata.maru",
+        "kata.mari",
+        "kata.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "季",
+      "meanings": [
+        "Seasons"
+      ],
+      "onyomi": [
+        "ki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "希",
+      "meanings": [
+        "Hope",
+        "Beg",
+        "Request",
+        "Pray",
+        "Beseech",
+        "Greece",
+        "Dilute (acid)",
+        "Rare",
+        "Few",
+        "Phenomenal"
+      ],
+      "onyomi": [
+        "ki",
+        "ke"
+      ],
+      "kunyomi": [
+        "mare"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "材",
+      "meanings": [
+        "Lumber",
+        "Log",
+        "Timber",
+        "Wood",
+        "Materials",
+        "Ingredients",
+        "Talent"
+      ],
+      "onyomi": [
+        "zai"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "芸",
+      "meanings": [
+        "Technique",
+        "Art",
+        "Craft",
+        "Performance",
+        "Acting",
+        "Trick",
+        "Stunt"
+      ],
+      "onyomi": [
+        "gei",
+        "un"
+      ],
+      "kunyomi": [
+        "u.eru",
+        "nori",
+        "waza"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "技",
+      "meanings": [
+        "Skill",
+        "Art",
+        "Craft",
+        "Ability",
+        "Feat",
+        "Performance",
+        "Vocation",
+        "Arts"
+      ],
+      "onyomi": [
+        "gi"
+      ],
+      "kunyomi": [
+        "waza"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "骨",
+      "meanings": [
+        "Skeleton",
+        "Bone",
+        "Remains",
+        "Frame"
+      ],
+      "onyomi": [
+        "kotsu"
+      ],
+      "kunyomi": [
+        "hone"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "寺",
+      "meanings": [
+        "Buddhist Temple"
+      ],
+      "onyomi": [
+        "ji"
+      ],
+      "kunyomi": [
+        "tera"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "岩",
+      "meanings": [
+        "Boulder",
+        "Rock",
+        "Cliff"
+      ],
+      "onyomi": [
+        "gan"
+      ],
+      "kunyomi": [
+        "iwa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "区",
+      "meanings": [
+        "Ward",
+        "District"
+      ],
+      "onyomi": [
+        "ku",
+        "ou",
+        "kou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "坂",
+      "meanings": [
+        "Slope",
+        "Incline",
+        "Hill"
+      ],
+      "onyomi": [
+        "han"
+      ],
+      "kunyomi": [
+        "saka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "勇",
+      "meanings": [
+        "Courage",
+        "Cheer Up",
+        "Be In High Spirits",
+        "Bravery",
+        "Heroism"
+      ],
+      "onyomi": [
+        "yuu"
+      ],
+      "kunyomi": [
+        "isa.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "毒",
+      "meanings": [
+        "Poison",
+        "Virus",
+        "Venom",
+        "Germ",
+        "Harm",
+        "Injury",
+        "Spite"
+      ],
+      "onyomi": [
+        "doku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "浅",
+      "meanings": [
+        "Shallow",
+        "Superficial",
+        "Frivolous",
+        "Wretched",
+        "Shameful"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "asa.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "軍",
+      "meanings": [
+        "Army",
+        "Force",
+        "Troops",
+        "War",
+        "Battle"
+      ],
+      "onyomi": [
+        "gun"
+      ],
+      "kunyomi": [
+        "ikusa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "仏",
+      "meanings": [
+        "Buddha",
+        "The Dead",
+        "France"
+      ],
+      "onyomi": [
+        "butsu",
+        "futsu"
+      ],
+      "kunyomi": [
+        "hotoke"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "築",
+      "meanings": [
+        "Fabricate",
+        "Build",
+        "Construct"
+      ],
+      "onyomi": [
+        "chiku"
+      ],
+      "kunyomi": [
+        "kizu.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "門",
+      "meanings": [
+        "Gate",
+        "Counter For Cannons"
+      ],
+      "onyomi": [
+        "mon"
+      ],
+      "kunyomi": [
+        "kado",
+        "to"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "荷",
+      "meanings": [
+        "Baggage",
+        "Shoulder-pole Load",
+        "Bear (a Burden)",
+        "Shoulder (a Gun)",
+        "Load",
+        "Cargo",
+        "Freight"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [
+        "ni"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "府",
+      "meanings": [
+        "Borough",
+        "Urban Prefecture",
+        "Govt Office",
+        "Representative Body",
+        "Storehouse"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "浴",
+      "meanings": [
+        "Bathe",
+        "Be Favored With",
+        "Bask In"
+      ],
+      "onyomi": [
+        "yoku"
+      ],
+      "kunyomi": [
+        "a.biru",
+        "a.biseru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "専",
+      "meanings": [
+        "Specialty",
+        "Exclusive",
+        "Mainly",
+        "Solely"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "moppa.ra"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "細",
+      "meanings": [
+        "Dainty",
+        "Get Thin",
+        "Taper",
+        "Slender",
+        "Narrow",
+        "Detailed",
+        "Precise"
+      ],
+      "onyomi": [
+        "sai"
+      ],
+      "kunyomi": [
+        "hoso.i",
+        "hoso.ru",
+        "koma.ka",
+        "koma.kai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "鼻",
+      "meanings": [
+        "Nose",
+        "Snout"
+      ],
+      "onyomi": [
+        "bi"
+      ],
+      "kunyomi": [
+        "hana"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "兵",
+      "meanings": [
+        "Soldier",
+        "Private",
+        "Troops",
+        "Army",
+        "Warfare",
+        "Strategy",
+        "Tactics"
+      ],
+      "onyomi": [
+        "hei",
+        "hyou"
+      ],
+      "kunyomi": [
+        "tsuwamono"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "塩",
+      "meanings": [
+        "Salt"
+      ],
+      "onyomi": [
+        "en"
+      ],
+      "kunyomi": [
+        "shio"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "栄",
+      "meanings": [
+        "Flourish",
+        "Prosperity",
+        "Honor",
+        "Glory",
+        "Splendor"
+      ],
+      "onyomi": [
+        "ei",
+        "you"
+      ],
+      "kunyomi": [
+        "saka.eru",
+        "ha.e",
+        "-ba.e",
+        "ha.eru",
+        "e"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "干",
+      "meanings": [
+        "Dry",
+        "Parch",
+        "Ebb",
+        "Recede",
+        "Interfere",
+        "Intercede"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "ho.su",
+        "ho.shi-",
+        "-bo.shi",
+        "hi.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "底",
+      "meanings": [
+        "Bottom",
+        "Sole",
+        "Depth",
+        "Bottom Price",
+        "Base",
+        "Kind",
+        "Sort"
+      ],
+      "onyomi": [
+        "tei"
+      ],
+      "kunyomi": [
+        "soko"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "署",
+      "meanings": [
+        "Signature",
+        "Govt Office",
+        "Police Station"
+      ],
+      "onyomi": [
+        "sho"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "恋",
+      "meanings": [
+        "Romance",
+        "In Love",
+        "Yearn For",
+        "Miss",
+        "Darling"
+      ],
+      "onyomi": [
+        "ren"
+      ],
+      "kunyomi": [
+        "ko.u",
+        "koi",
+        "koi.shii"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "訓",
+      "meanings": [
+        "Instruction",
+        "Japanese Character Reading",
+        "Explanation",
+        "Read"
+      ],
+      "onyomi": [
+        "kun",
+        "kin"
+      ],
+      "kunyomi": [
+        "oshi.eru",
+        "yo.mu",
+        "kun.zuru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "祈",
+      "meanings": [
+        "Pray",
+        "Wish"
+      ],
+      "onyomi": [
+        "ki"
+      ],
+      "kunyomi": [
+        "ino.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "焼",
+      "meanings": [
+        "Bake",
+        "Burning"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "ya.ku",
+        "ya.ki",
+        "ya.ki-",
+        "-ya.ki",
+        "ya.keru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "胸",
+      "meanings": [
+        "Bosom",
+        "Breast",
+        "Chest",
+        "Heart",
+        "Feelings"
+      ],
+      "onyomi": [
+        "kyou"
+      ],
+      "kunyomi": [
+        "mune",
+        "muna-"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "脳",
+      "meanings": [
+        "Brain",
+        "Memory"
+      ],
+      "onyomi": [
+        "nou",
+        "dou"
+      ],
+      "kunyomi": [
+        "nouzuru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "枚",
+      "meanings": [
+        "Sheet Of...",
+        "Counter For Flat Thin Objects Or Sheets"
+      ],
+      "onyomi": [
+        "mai",
+        "bai"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "禁",
+      "meanings": [
+        "Prohibition",
+        "Ban",
+        "Forbid"
+      ],
+      "onyomi": [
+        "kin"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "喫",
+      "meanings": [
+        "Consume",
+        "Eat",
+        "Drink",
+        "Smoke",
+        "Receive (a Blow)"
+      ],
+      "onyomi": [
+        "kitsu"
+      ],
+      "kunyomi": [
+        "no.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "減",
+      "meanings": [
+        "Dwindle",
+        "Decrease",
+        "Reduce",
+        "Decline",
+        "Curtail",
+        "Get Hungry"
+      ],
+      "onyomi": [
+        "gen"
+      ],
+      "kunyomi": [
+        "he.ru",
+        "he.rasu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "順",
+      "meanings": [
+        "Obey",
+        "Order",
+        "Turn",
+        "Right",
+        "Docility",
+        "Occasion"
+      ],
+      "onyomi": [
+        "jun"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "布",
+      "meanings": [
+        "Linen",
+        "Cloth",
+        "Spread",
+        "Distribute"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [
+        "nuno"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "詞",
+      "meanings": [
+        "Part Of Speech",
+        "Words",
+        "Poetry"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "kotoba"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "歴",
+      "meanings": [
+        "Curriculum",
+        "Continuation",
+        "Passage Of Time"
+      ],
+      "onyomi": [
+        "reki",
+        "rekki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "冊",
+      "meanings": [
+        "Tome",
+        "Counter For Books",
+        "Volume"
+      ],
+      "onyomi": [
+        "satsu",
+        "saku"
+      ],
+      "kunyomi": [
+        "fumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "宇",
+      "meanings": [
+        "Eaves",
+        "Roof",
+        "House",
+        "Heaven"
+      ],
+      "onyomi": [
+        "u"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "団",
+      "meanings": [
+        "Group",
+        "Association"
+      ],
+      "onyomi": [
+        "dan",
+        "ton"
+      ],
+      "kunyomi": [
+        "katamari",
+        "maru.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "暴",
+      "meanings": [
+        "Outburst",
+        "Rave",
+        "Fret",
+        "Force",
+        "Violence",
+        "Cruelty",
+        "Outrage"
+      ],
+      "onyomi": [
+        "bou",
+        "baku"
+      ],
+      "kunyomi": [
+        "aba.ku",
+        "aba.reru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "混",
+      "meanings": [
+        "Mix",
+        "Blend",
+        "Confuse"
+      ],
+      "onyomi": [
+        "kon"
+      ],
+      "kunyomi": [
+        "ma.jiru",
+        "-ma.jiri",
+        "ma.zaru",
+        "ma.zeru",
+        "ko.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "乱",
+      "meanings": [
+        "Riot",
+        "War",
+        "Disorder",
+        "Disturb"
+      ],
+      "onyomi": [
+        "ran",
+        "ron"
+      ],
+      "kunyomi": [
+        "mida.reru",
+        "mida.ru",
+        "mida.su",
+        "mida",
+        "osa.meru",
+        "wata.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "改",
+      "meanings": [
+        "Reformation",
+        "Change",
+        "Modify",
+        "Mend",
+        "Renew",
+        "Examine",
+        "Inspect",
+        "Search"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "arata.meru",
+        "arata.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "絡",
+      "meanings": [
+        "Entwine",
+        "Coil Around",
+        "Get Caught In"
+      ],
+      "onyomi": [
+        "raku"
+      ],
+      "kunyomi": [
+        "kara.mu",
+        "kara.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "比",
+      "meanings": [
+        "Compare",
+        "Race",
+        "Ratio",
+        "Philippines"
+      ],
+      "onyomi": [
+        "hi"
+      ],
+      "kunyomi": [
+        "kura.beru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "被",
+      "meanings": [
+        "Incur",
+        "Cover",
+        "Veil",
+        "Brood Over",
+        "Shelter",
+        "Wear",
+        "Put On",
+        "Be Exposed (film)",
+        "Receiving"
+      ],
+      "onyomi": [
+        "hi"
+      ],
+      "kunyomi": [
+        "koumu.ru",
+        "oo.u",
+        "kabu.ru",
+        "kabu.seru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "震",
+      "meanings": [
+        "Quake",
+        "Shake",
+        "Tremble",
+        "Quiver",
+        "Shiver"
+      ],
+      "onyomi": [
+        "shin"
+      ],
+      "kunyomi": [
+        "furu.u",
+        "furu.eru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "械",
+      "meanings": [
+        "Contraption",
+        "Fetter",
+        "Machine",
+        "Instrument"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "kase"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "個",
+      "meanings": [
+        "Individual",
+        "Counter For Articles"
+      ],
+      "onyomi": [
+        "ko",
+        "ka"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "圧",
+      "meanings": [
+        "Pressure",
+        "Push",
+        "Overwhelm",
+        "Oppress",
+        "Dominate"
+      ],
+      "onyomi": [
+        "atsu",
+        "en",
+        "ou"
+      ],
+      "kunyomi": [
+        "o.su",
+        "he.su",
+        "osa.eru",
+        "o.saeru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "厚",
+      "meanings": [
+        "Thick",
+        "Heavy",
+        "Rich",
+        "Kind",
+        "Cordial",
+        "Brazen",
+        "Shameless"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "atsu.i",
+        "aka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "防",
+      "meanings": [
+        "Ward Off",
+        "Defend",
+        "Protect",
+        "Resist"
+      ],
+      "onyomi": [
+        "bou"
+      ],
+      "kunyomi": [
+        "fuse.gu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "史",
+      "meanings": [
+        "History",
+        "Chronicle"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "委",
+      "meanings": [
+        "Committee",
+        "Entrust To",
+        "Leave To",
+        "Devote",
+        "Discard"
+      ],
+      "onyomi": [
+        "i"
+      ],
+      "kunyomi": [
+        "yuda.neru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "査",
+      "meanings": [
+        "Investigate"
+      ],
+      "onyomi": [
+        "sa"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "総",
+      "meanings": [
+        "General",
+        "Whole",
+        "All",
+        "Full",
+        "Total"
+      ],
+      "onyomi": [
+        "sou"
+      ],
+      "kunyomi": [
+        "su.bete",
+        "sube.te",
+        "fusa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "設",
+      "meanings": [
+        "Establishment",
+        "Provision",
+        "Prepare"
+      ],
+      "onyomi": [
+        "setsu"
+      ],
+      "kunyomi": [
+        "mou.keru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "省",
+      "meanings": [
+        "Focus",
+        "Government Ministry",
+        "Conserve"
+      ],
+      "onyomi": [
+        "sei",
+        "shou"
+      ],
+      "kunyomi": [
+        "kaeri.miru",
+        "habu.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "税",
+      "meanings": [
+        "Tax",
+        "Duty"
+      ],
+      "onyomi": [
+        "zei"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "各",
+      "meanings": [
+        "Each",
+        "Every",
+        "Either"
+      ],
+      "onyomi": [
+        "kaku"
+      ],
+      "kunyomi": [
+        "onoono"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "勢",
+      "meanings": [
+        "Forces",
+        "Energy",
+        "Military Strength"
+      ],
+      "onyomi": [
+        "sei",
+        "zei"
+      ],
+      "kunyomi": [
+        "ikio.i",
+        "hazumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "営",
+      "meanings": [
+        "Occupation",
+        "Camp",
+        "Perform",
+        "Build",
+        "Conduct (business)"
+      ],
+      "onyomi": [
+        "ei"
+      ],
+      "kunyomi": [
+        "itona.mu",
+        "itona.mi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "領",
+      "meanings": [
+        "Jurisdiction",
+        "Dominion",
+        "Territory",
+        "Fief",
+        "Reign"
+      ],
+      "onyomi": [
+        "ryou"
+      ],
+      "kunyomi": [
+        "eri"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "副",
+      "meanings": [
+        "Vice-",
+        "Assistant",
+        "Aide",
+        "Duplicate",
+        "Copy"
+      ],
+      "onyomi": [
+        "fuku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "域",
+      "meanings": [
+        "Range",
+        "Region",
+        "Limits",
+        "Stage",
+        "Level"
+      ],
+      "onyomi": [
+        "iki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "停",
+      "meanings": [
+        "Halt",
+        "Stopping"
+      ],
+      "onyomi": [
+        "tei"
+      ],
+      "kunyomi": [
+        "to.meru",
+        "to.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "革",
+      "meanings": [
+        "Leather",
+        "Skin",
+        "Reform",
+        "Become Serious"
+      ],
+      "onyomi": [
+        "kaku"
+      ],
+      "kunyomi": [
+        "kawa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "律",
+      "meanings": [
+        "Rhythm",
+        "Law",
+        "Regulation",
+        "Gauge",
+        "Control"
+      ],
+      "onyomi": [
+        "ritsu",
+        "richi",
+        "retsu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "準",
+      "meanings": [
+        "Semi-",
+        "Correspond To",
+        "Proportionate To",
+        "Conform",
+        "Imitate"
+      ],
+      "onyomi": [
+        "jun"
+      ],
+      "kunyomi": [
+        "jun.jiru",
+        "jun.zuru",
+        "nazora.eru",
+        "nori",
+        "hito.shii",
+        "mizumori"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "則",
+      "meanings": [
+        "Rule",
+        "Follow",
+        "Based On",
+        "Model After"
+      ],
+      "onyomi": [
+        "soku"
+      ],
+      "kunyomi": [
+        "notto.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "導",
+      "meanings": [
+        "Guidance",
+        "Leading",
+        "Conduct",
+        "Usher"
+      ],
+      "onyomi": [
+        "dou"
+      ],
+      "kunyomi": [
+        "michibi.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "乳",
+      "meanings": [
+        "Milk",
+        "Breasts"
+      ],
+      "onyomi": [
+        "nyuu"
+      ],
+      "kunyomi": [
+        "chichi",
+        "chi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "城",
+      "meanings": [
+        "Castle"
+      ],
+      "onyomi": [
+        "jou",
+        "sei"
+      ],
+      "kunyomi": [
+        "shiro"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "担",
+      "meanings": [
+        "Shouldering",
+        "Carry",
+        "Raise",
+        "Bear"
+      ],
+      "onyomi": [
+        "tan"
+      ],
+      "kunyomi": [
+        "katsu.gu",
+        "nina.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "額",
+      "meanings": [
+        "Forehead",
+        "Tablet",
+        "Plaque",
+        "Framed Picture",
+        "Sum",
+        "Amount",
+        "Volume"
+      ],
+      "onyomi": [
+        "gaku"
+      ],
+      "kunyomi": [
+        "hitai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "輸",
+      "meanings": [
+        "Transport",
+        "Send",
+        "Be Inferior"
+      ],
+      "onyomi": [
+        "yu",
+        "shu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "燃",
+      "meanings": [
+        "Burn",
+        "Blaze",
+        "Glow"
+      ],
+      "onyomi": [
+        "nen"
+      ],
+      "kunyomi": [
+        "mo.eru",
+        "mo.yasu",
+        "mo.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "祝",
+      "meanings": [
+        "Celebrate",
+        "Congratulate"
+      ],
+      "onyomi": [
+        "shuku",
+        "shuu"
+      ],
+      "kunyomi": [
+        "iwa.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "届",
+      "meanings": [
+        "Deliver",
+        "Reach",
+        "Arrive",
+        "Report",
+        "Notify",
+        "Forward"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "todo.keru",
+        "-todo.ke",
+        "todo.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "肩",
+      "meanings": [
+        "Shoulder"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [
+        "kata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "腕",
+      "meanings": [
+        "Arm",
+        "Ability",
+        "Talent"
+      ],
+      "onyomi": [
+        "wan"
+      ],
+      "kunyomi": [
+        "ude"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "腰",
+      "meanings": [
+        "Loins",
+        "Hips",
+        "Waist",
+        "Low Wainscoting"
+      ],
+      "onyomi": [
+        "you"
+      ],
+      "kunyomi": [
+        "koshi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "触",
+      "meanings": [
+        "Contact",
+        "Touch",
+        "Feel",
+        "Hit",
+        "Proclaim",
+        "Announce",
+        "Conflict"
+      ],
+      "onyomi": [
+        "shoku"
+      ],
+      "kunyomi": [
+        "fu.reru",
+        "sawa.ru",
+        "sawa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "層",
+      "meanings": [
+        "Stratum",
+        "Social Class",
+        "Layer",
+        "Story",
+        "Floor"
+      ],
+      "onyomi": [
+        "sou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "型",
+      "meanings": [
+        "Mould",
+        "Type",
+        "Model"
+      ],
+      "onyomi": [
+        "kei"
+      ],
+      "kunyomi": [
+        "kata",
+        "-gata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "庁",
+      "meanings": [
+        "Government Office"
+      ],
+      "onyomi": [
+        "chou",
+        "tei"
+      ],
+      "kunyomi": [
+        "yakusho"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "管",
+      "meanings": [
+        "Pipe",
+        "Tube",
+        "Wind Instrument",
+        "Drunken Talk",
+        "Control",
+        "Jurisdiction"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "kuda"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "象",
+      "meanings": [
+        "Elephant",
+        "Pattern After",
+        "Imitate",
+        "Image",
+        "Shape",
+        "Sign (of The Times)"
+      ],
+      "onyomi": [
+        "shou",
+        "zou"
+      ],
+      "kunyomi": [
+        "katado.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "量",
+      "meanings": [
+        "Quantity",
+        "Measure",
+        "Weight",
+        "Amount",
+        "Consider",
+        "Estimate",
+        "Surmise"
+      ],
+      "onyomi": [
+        "ryou"
+      ],
+      "kunyomi": [
+        "haka.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "境",
+      "meanings": [
+        "Boundary",
+        "Border",
+        "Region"
+      ],
+      "onyomi": [
+        "kyou",
+        "kei"
+      ],
+      "kunyomi": [
+        "sakai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "武",
+      "meanings": [
+        "Warrior",
+        "Military",
+        "Chivalry",
+        "Arms"
+      ],
+      "onyomi": [
+        "bu",
+        "mu"
+      ],
+      "kunyomi": [
+        "take",
+        "take.shi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "述",
+      "meanings": [
+        "Mention",
+        "State",
+        "Speak",
+        "Relate"
+      ],
+      "onyomi": [
+        "jutsu"
+      ],
+      "kunyomi": [
+        "no.beru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "販",
+      "meanings": [
+        "Marketing",
+        "Sell",
+        "Trade"
+      ],
+      "onyomi": [
+        "han"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "含",
+      "meanings": [
+        "Contain",
+        "Include",
+        "Hold In The Mouth",
+        "Bear In Mind",
+        "Understand",
+        "Cherish"
+      ],
+      "onyomi": [
+        "gan"
+      ],
+      "kunyomi": [
+        "fuku.mu",
+        "fuku.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "況",
+      "meanings": [
+        "Condition",
+        "Situation"
+      ],
+      "onyomi": [
+        "kyou"
+      ],
+      "kunyomi": [
+        "mashi.te",
+        "iwa.n'ya",
+        "omomuki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "補",
+      "meanings": [
+        "Supplement",
+        "Supply",
+        "Make Good",
+        "Offset",
+        "Compensate",
+        "Assistant",
+        "Learner"
+      ],
+      "onyomi": [
+        "ho"
+      ],
+      "kunyomi": [
+        "ogina.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "効",
+      "meanings": [
+        "Merit",
+        "Efficacy",
+        "Efficiency",
+        "Benefit"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "ki.ku",
+        "kikime",
+        "nara.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "豊",
+      "meanings": [
+        "Bountiful",
+        "Excellent",
+        "Rich"
+      ],
+      "onyomi": [
+        "hou",
+        "bu"
+      ],
+      "kunyomi": [
+        "yuta.ka",
+        "toyo"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "巻",
+      "meanings": [
+        "Scroll",
+        "Volume",
+        "Book",
+        "Part",
+        "Roll Up",
+        "Wind Up",
+        "Tie",
+        "Coil",
+        "Counter For Texts (or Book Scrolls)"
+      ],
+      "onyomi": [
+        "kan",
+        "ken"
+      ],
+      "kunyomi": [
+        "ma.ku",
+        "maki",
+        "ma.ki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "捜",
+      "meanings": [
+        "Search",
+        "Look For",
+        "Locate"
+      ],
+      "onyomi": [
+        "sou",
+        "shu",
+        "shuu"
+      ],
+      "kunyomi": [
+        "saga.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "替",
+      "meanings": [
+        "Exchange",
+        "Spare",
+        "Substitute",
+        "Per-"
+      ],
+      "onyomi": [
+        "tai"
+      ],
+      "kunyomi": [
+        "ka.eru",
+        "ka.e-",
+        "ka.waru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "造",
+      "meanings": [
+        "Create",
+        "Make",
+        "Structure",
+        "Physique"
+      ],
+      "onyomi": [
+        "zou"
+      ],
+      "kunyomi": [
+        "tsuku.ru",
+        "tsuku.ri",
+        "-zuku.ri"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "印",
+      "meanings": [
+        "Stamp",
+        "Seal",
+        "Mark",
+        "Imprint",
+        "Symbol",
+        "Emblem",
+        "Trademark",
+        "Evidence",
+        "Souvenir",
+        "India"
+      ],
+      "onyomi": [
+        "in"
+      ],
+      "kunyomi": [
+        "shirushi",
+        "-jirushi",
+        "shiru.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "復",
+      "meanings": [
+        "Restore",
+        "Return To",
+        "Revert",
+        "Resume"
+      ],
+      "onyomi": [
+        "fuku"
+      ],
+      "kunyomi": [
+        "mata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "筆",
+      "meanings": [
+        "Writing Brush",
+        "Writing",
+        "Painting Brush",
+        "Handwriting"
+      ],
+      "onyomi": [
+        "hitsu"
+      ],
+      "kunyomi": [
+        "fude"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "貯",
+      "meanings": [
+        "Savings",
+        "Store",
+        "Lay In",
+        "Keep",
+        "Wear Mustache"
+      ],
+      "onyomi": [
+        "cho"
+      ],
+      "kunyomi": [
+        "ta.meru",
+        "takuwa.eru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "刺",
+      "meanings": [
+        "Thorn",
+        "Pierce",
+        "Stab",
+        "Prick",
+        "Sting",
+        "Calling Card"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "sa.su",
+        "sa.saru",
+        "sa.shi",
+        "sashi",
+        "toge"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "郵",
+      "meanings": [
+        "Mail",
+        "Stagecoach Stop"
+      ],
+      "onyomi": [
+        "yuu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "針",
+      "meanings": [
+        "Needle",
+        "Pin",
+        "Staple",
+        "Stinger"
+      ],
+      "onyomi": [
+        "shin"
+      ],
+      "kunyomi": [
+        "hari"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "菓",
+      "meanings": [
+        "Candy",
+        "Cakes",
+        "Fruit"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "河",
+      "meanings": [
+        "River"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [
+        "kawa"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "汗",
+      "meanings": [
+        "Sweat",
+        "Perspire"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "ase"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "再",
+      "meanings": [
+        "Again",
+        "Twice",
+        "Second Time"
+      ],
+      "onyomi": [
+        "sai",
+        "sa"
+      ],
+      "kunyomi": [
+        "futata.bi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "接",
+      "meanings": [
+        "Touch",
+        "Contact",
+        "Adjoin",
+        "Piece Together"
+      ],
+      "onyomi": [
+        "setsu",
+        "shou"
+      ],
+      "kunyomi": [
+        "tsu.gu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "占",
+      "meanings": [
+        "Fortune-telling",
+        "Divining",
+        "Forecasting",
+        "Occupy",
+        "Hold",
+        "Have",
+        "Get",
+        "Take"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "shi.meru",
+        "urana.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "胃",
+      "meanings": [
+        "Stomach",
+        "Paunch",
+        "Crop",
+        "Craw"
+      ],
+      "onyomi": [
+        "i"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "悩",
+      "meanings": [
+        "Trouble",
+        "Worry",
+        "In Pain",
+        "Distress",
+        "Illness"
+      ],
+      "onyomi": [
+        "nou"
+      ],
+      "kunyomi": [
+        "naya.mu",
+        "naya.masu",
+        "naya.mashii",
+        "nayami"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "昇",
+      "meanings": [
+        "Rise Up"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "nobo.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "濃",
+      "meanings": [
+        "Concentrated",
+        "Thick",
+        "Dark",
+        "Undiluted"
+      ],
+      "onyomi": [
+        "nou"
+      ],
+      "kunyomi": [
+        "ko.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "極",
+      "meanings": [
+        "Poles",
+        "Settlement",
+        "Conclusion",
+        "End",
+        "Highest Rank",
+        "Electric Poles",
+        "Very",
+        "Extremely",
+        "Most",
+        "Highly",
+        "10**48"
+      ],
+      "onyomi": [
+        "kyoku",
+        "goku"
+      ],
+      "kunyomi": [
+        "kiwa.meru",
+        "kiwa.maru",
+        "kiwa.mari",
+        "kiwa.mi",
+        "ki.meru",
+        "-gi.me",
+        "ki.maru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "逆",
+      "meanings": [
+        "Inverted",
+        "Reverse",
+        "Opposite",
+        "Wicked"
+      ],
+      "onyomi": [
+        "gyaku",
+        "geki"
+      ],
+      "kunyomi": [
+        "saka",
+        "saka.sa",
+        "saka.rau"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "巨",
+      "meanings": [
+        "Gigantic",
+        "Big",
+        "Large",
+        "Great"
+      ],
+      "onyomi": [
+        "kyo"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "庫",
+      "meanings": [
+        "Warehouse",
+        "Storehouse"
+      ],
+      "onyomi": [
+        "ko",
+        "ku"
+      ],
+      "kunyomi": [
+        "kura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "児",
+      "meanings": [
+        "Newborn Babe",
+        "Child",
+        "Young Of Animals"
+      ],
+      "onyomi": [
+        "ji",
+        "ni",
+        "gei"
+      ],
+      "kunyomi": [
+        "ko",
+        "-ko",
+        "-kko"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "凍",
+      "meanings": [
+        "Frozen",
+        "Congeal",
+        "Refrigerate"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "koo.ru",
+        "kogo.eru",
+        "kogo.ru",
+        "i.teru",
+        "shi.miru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "幼",
+      "meanings": [
+        "Infancy",
+        "Childhood"
+      ],
+      "onyomi": [
+        "you"
+      ],
+      "kunyomi": [
+        "osana.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "清",
+      "meanings": [
+        "Pure",
+        "Purify",
+        "Cleanse",
+        "Exorcise",
+        "Manchu Dynasty"
+      ],
+      "onyomi": [
+        "sei",
+        "shou",
+        "shin"
+      ],
+      "kunyomi": [
+        "kiyo.i",
+        "kiyo.maru",
+        "kiyo.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "録",
+      "meanings": [
+        "Record"
+      ],
+      "onyomi": [
+        "roku"
+      ],
+      "kunyomi": [
+        "shiru.su",
+        "to.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "券",
+      "meanings": [
+        "Ticket"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "移",
+      "meanings": [
+        "Shift",
+        "Move",
+        "Change",
+        "Drift",
+        "Catch (cold, Fire)",
+        "Pass Into"
+      ],
+      "onyomi": [
+        "i"
+      ],
+      "kunyomi": [
+        "utsu.ru",
+        "utsu.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "並",
+      "meanings": [
+        "Row",
+        "And",
+        "Besides",
+        "As Well As",
+        "Line Up",
+        "Rank With",
+        "Rival",
+        "Equal"
+      ],
+      "onyomi": [
+        "hei",
+        "hou"
+      ],
+      "kunyomi": [
+        "na.mi",
+        "nami",
+        "nara.beru",
+        "nara.bu",
+        "nara.bini"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "乾",
+      "meanings": [
+        "Drought",
+        "Dry",
+        "Dessicate",
+        "Drink Up",
+        "Heaven",
+        "Emperor"
+      ],
+      "onyomi": [
+        "kan",
+        "ken"
+      ],
+      "kunyomi": [
+        "kawa.ku",
+        "kawa.kasu",
+        "ho.su",
+        "hi.ru",
+        "inui"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "欧",
+      "meanings": [
+        "Europe"
+      ],
+      "onyomi": [
+        "ou"
+      ],
+      "kunyomi": [
+        "uta.u",
+        "ha.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "臣",
+      "meanings": [
+        "Retainer",
+        "Subject"
+      ],
+      "onyomi": [
+        "shin",
+        "jin"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "略",
+      "meanings": [
+        "Abbreviation",
+        "Omission",
+        "Outline",
+        "Shorten",
+        "Capture",
+        "Plunder"
+      ],
+      "onyomi": [
+        "ryaku"
+      ],
+      "kunyomi": [
+        "hobo",
+        "habu.ku",
+        "oka.su",
+        "osa.meru",
+        "hakarigoto",
+        "haka.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "航",
+      "meanings": [
+        "Navigate",
+        "Sail",
+        "Cruise",
+        "Fly"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "板",
+      "meanings": [
+        "Plank",
+        "Board",
+        "Plate",
+        "Stage"
+      ],
+      "onyomi": [
+        "han",
+        "ban"
+      ],
+      "kunyomi": [
+        "ita"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "詰",
+      "meanings": [
+        "Packed",
+        "Close",
+        "Pressed",
+        "Reprove",
+        "Rebuke",
+        "Blame"
+      ],
+      "onyomi": [
+        "kitsu",
+        "kichi"
+      ],
+      "kunyomi": [
+        "tsu.meru",
+        "tsu.me",
+        "-zu.me",
+        "tsu.maru",
+        "tsu.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "照",
+      "meanings": [
+        "Illuminate",
+        "Shine",
+        "Compare",
+        "Bashful"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "te.ru",
+        "te.rasu",
+        "te.reru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "快",
+      "meanings": [
+        "Cheerful",
+        "Pleasant",
+        "Agreeable",
+        "Comfortable"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "kokoroyo.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "版",
+      "meanings": [
+        "Printing Block",
+        "Printing Plate",
+        "Edition",
+        "Impression",
+        "Label"
+      ],
+      "onyomi": [
+        "han"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "預",
+      "meanings": [
+        "Deposit",
+        "Custody",
+        "Leave With",
+        "Entrust To"
+      ],
+      "onyomi": [
+        "yo"
+      ],
+      "kunyomi": [
+        "azu.keru",
+        "azu.karu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "延",
+      "meanings": [
+        "Prolong",
+        "Stretching"
+      ],
+      "onyomi": [
+        "en"
+      ],
+      "kunyomi": [
+        "no.biru",
+        "no.beru",
+        "no.be",
+        "no.basu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "翌",
+      "meanings": [
+        "The Following",
+        "Next"
+      ],
+      "onyomi": [
+        "yoku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "符",
+      "meanings": [
+        "Token",
+        "Sign",
+        "Mark",
+        "Tally",
+        "Charm"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "編",
+      "meanings": [
+        "Compilation",
+        "Knit",
+        "Plait",
+        "Braid",
+        "Twist",
+        "Editing",
+        "Completed Poem",
+        "Part Of A Book"
+      ],
+      "onyomi": [
+        "hen"
+      ],
+      "kunyomi": [
+        "a.mu",
+        "-a.mi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "普",
+      "meanings": [
+        "Universal",
+        "Wide(ly)",
+        "Generally",
+        "Prussia"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [
+        "amane.ku",
+        "amaneshi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "掃",
+      "meanings": [
+        "Sweep",
+        "Brush"
+      ],
+      "onyomi": [
+        "sou",
+        "shu"
+      ],
+      "kunyomi": [
+        "ha.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "泥",
+      "meanings": [
+        "Mud",
+        "Mire",
+        "Adhere To",
+        "Be Attached To"
+      ],
+      "onyomi": [
+        "dei",
+        "nai",
+        "de",
+        "ni"
+      ],
+      "kunyomi": [
+        "doro",
+        "nazu.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "棒",
+      "meanings": [
+        "Rod",
+        "Stick",
+        "Cane",
+        "Pole",
+        "Club",
+        "Line"
+      ],
+      "onyomi": [
+        "bou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "孫",
+      "meanings": [
+        "Grandchild",
+        "Descendants"
+      ],
+      "onyomi": [
+        "son"
+      ],
+      "kunyomi": [
+        "mago"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "帯",
+      "meanings": [
+        "Sash",
+        "Belt",
+        "Obi",
+        "Zone",
+        "Region"
+      ],
+      "onyomi": [
+        "tai"
+      ],
+      "kunyomi": [
+        "o.biru",
+        "obi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "粉",
+      "meanings": [
+        "Flour",
+        "Powder",
+        "Dust"
+      ],
+      "onyomi": [
+        "fun"
+      ],
+      "kunyomi": [
+        "deshimeetoru",
+        "ko",
+        "kona"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "菜",
+      "meanings": [
+        "Vegetable",
+        "Side Dish",
+        "Greens"
+      ],
+      "onyomi": [
+        "sai"
+      ],
+      "kunyomi": [
+        "na"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "貨",
+      "meanings": [
+        "Freight",
+        "Goods",
+        "Property"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [
+        "takara"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "陸",
+      "meanings": [
+        "Land",
+        "Six"
+      ],
+      "onyomi": [
+        "riku",
+        "roku"
+      ],
+      "kunyomi": [
+        "oka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "均",
+      "meanings": [
+        "Level",
+        "Average"
+      ],
+      "onyomi": [
+        "kin"
+      ],
+      "kunyomi": [
+        "nara.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "採",
+      "meanings": [
+        "Pick",
+        "Take",
+        "Fetch",
+        "Take Up"
+      ],
+      "onyomi": [
+        "sai"
+      ],
+      "kunyomi": [
+        "to.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "永",
+      "meanings": [
+        "Eternity",
+        "Long",
+        "Lengthy"
+      ],
+      "onyomi": [
+        "ei"
+      ],
+      "kunyomi": [
+        "naga.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "液",
+      "meanings": [
+        "Fluid",
+        "Liquid",
+        "Juice",
+        "Sap",
+        "Secretion"
+      ],
+      "onyomi": [
+        "eki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "績",
+      "meanings": [
+        "Exploits",
+        "Achievements",
+        "Unreeling Cocoons"
+      ],
+      "onyomi": [
+        "seki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "複",
+      "meanings": [
+        "Duplicate",
+        "Double",
+        "Compound",
+        "Multiple"
+      ],
+      "onyomi": [
+        "fuku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "党",
+      "meanings": [
+        "Party",
+        "Faction",
+        "Clique"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "nakama",
+        "mura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "卵",
+      "meanings": [
+        "Egg",
+        "Ovum",
+        "Spawn",
+        "Roe"
+      ],
+      "onyomi": [
+        "ran"
+      ],
+      "kunyomi": [
+        "tamago"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "捨",
+      "meanings": [
+        "Discard",
+        "Throw Away",
+        "Abandon",
+        "Resign",
+        "Reject",
+        "Sacrifice"
+      ],
+      "onyomi": [
+        "sha"
+      ],
+      "kunyomi": [
+        "su.teru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "汚",
+      "meanings": [
+        "Dirty",
+        "Pollute",
+        "Disgrace",
+        "Rape",
+        "Defile"
+      ],
+      "onyomi": [
+        "o"
+      ],
+      "kunyomi": [
+        "kega.su",
+        "kega.reru",
+        "kega.rawashii",
+        "yogo.su",
+        "yogo.reru",
+        "kitana.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "机",
+      "meanings": [
+        "Desk",
+        "Table"
+      ],
+      "onyomi": [
+        "ki"
+      ],
+      "kunyomi": [
+        "tsukue"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "簡",
+      "meanings": [
+        "Simplicity",
+        "Brevity"
+      ],
+      "onyomi": [
+        "kan",
+        "ken"
+      ],
+      "kunyomi": [
+        "era.bu",
+        "fuda"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "誌",
+      "meanings": [
+        "Document",
+        "Records"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "宝",
+      "meanings": [
+        "Treasure",
+        "Wealth",
+        "Valuables"
+      ],
+      "onyomi": [
+        "hou"
+      ],
+      "kunyomi": [
+        "takara"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "尊",
+      "meanings": [
+        "Revered",
+        "Valuable",
+        "Precious",
+        "Noble",
+        "Exalted"
+      ],
+      "onyomi": [
+        "son"
+      ],
+      "kunyomi": [
+        "tatto.i",
+        "touto.i",
+        "tatto.bu",
+        "touto.bu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "敬",
+      "meanings": [
+        "Awe",
+        "Respect",
+        "Honor",
+        "Revere"
+      ],
+      "onyomi": [
+        "kei",
+        "kyou"
+      ],
+      "kunyomi": [
+        "uyama.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "灰",
+      "meanings": [
+        "Ashes",
+        "Puckery Juice",
+        "Cremate"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [
+        "hai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "砂",
+      "meanings": [
+        "Sand"
+      ],
+      "onyomi": [
+        "sa",
+        "sha"
+      ],
+      "kunyomi": [
+        "suna"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "著",
+      "meanings": [
+        "Renowned",
+        "Publish",
+        "Write",
+        "Remarkable",
+        "Phenomenal",
+        "Put On",
+        "Don",
+        "Wear",
+        "Arrival",
+        "Finish (race)",
+        "Counter For Suits Of Clothing",
+        "Literary Work"
+      ],
+      "onyomi": [
+        "cho",
+        "chaku"
+      ],
+      "kunyomi": [
+        "arawa.su",
+        "ichijiru.shii"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "蒸",
+      "meanings": [
+        "Steam",
+        "Heat",
+        "Sultry",
+        "Foment",
+        "Get Musty"
+      ],
+      "onyomi": [
+        "jou",
+        "sei"
+      ],
+      "kunyomi": [
+        "mu.su",
+        "mu.reru",
+        "mu.rasu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "蔵",
+      "meanings": [
+        "Storehouse",
+        "Hide",
+        "Own",
+        "Have",
+        "Possess"
+      ],
+      "onyomi": [
+        "zou",
+        "sou"
+      ],
+      "kunyomi": [
+        "kura",
+        "osa.meru",
+        "kaku.reru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "装",
+      "meanings": [
+        "Attire",
+        "Dress",
+        "Pretend",
+        "Disguise",
+        "Profess"
+      ],
+      "onyomi": [
+        "sou",
+        "shou"
+      ],
+      "kunyomi": [
+        "yosoo.u",
+        "yosoo.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "裏",
+      "meanings": [
+        "Back",
+        "Amidst",
+        "In",
+        "Reverse",
+        "Inside",
+        "Palm",
+        "Sole",
+        "Rear",
+        "Lining",
+        "Wrong Side"
+      ],
+      "onyomi": [
+        "ri"
+      ],
+      "kunyomi": [
+        "ura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "諸",
+      "meanings": [
+        "Various",
+        "Many",
+        "Several",
+        "Together"
+      ],
+      "onyomi": [
+        "sho"
+      ],
+      "kunyomi": [
+        "moro"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "臓",
+      "meanings": [
+        "Entrails",
+        "Viscera",
+        "Bowels"
+      ],
+      "onyomi": [
+        "zou"
+      ],
+      "kunyomi": [
+        "harawata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "純",
+      "meanings": [
+        "Genuine",
+        "Purity",
+        "Innocence",
+        "Net (profit)"
+      ],
+      "onyomi": [
+        "jun"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "紅",
+      "meanings": [
+        "Crimson",
+        "Deep Red"
+      ],
+      "onyomi": [
+        "kou",
+        "ku"
+      ],
+      "kunyomi": [
+        "beni",
+        "kurenai",
+        "aka.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "拝",
+      "meanings": [
+        "Worship",
+        "Adore",
+        "Pray To"
+      ],
+      "onyomi": [
+        "hai"
+      ],
+      "kunyomi": [
+        "oga.mu",
+        "oroga.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "劇",
+      "meanings": [
+        "Drama",
+        "Play"
+      ],
+      "onyomi": [
+        "geki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "承",
+      "meanings": [
+        "Acquiesce",
+        "Hear",
+        "Listen To",
+        "Be Informed",
+        "Receive"
+      ],
+      "onyomi": [
+        "shou",
+        "jou"
+      ],
+      "kunyomi": [
+        "uketamawa.ru",
+        "u.keru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "損",
+      "meanings": [
+        "Damage",
+        "Loss",
+        "Disadvantage",
+        "Hurt",
+        "Injure"
+      ],
+      "onyomi": [
+        "son"
+      ],
+      "kunyomi": [
+        "soko.nau",
+        "sokona.u",
+        "-soko.nau",
+        "soko.neru",
+        "-soko.neru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "枝",
+      "meanings": [
+        "Bough",
+        "Branch",
+        "Twig",
+        "Limb",
+        "Counter For Branches"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "eda"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "測",
+      "meanings": [
+        "Fathom",
+        "Plan",
+        "Scheme",
+        "Measure"
+      ],
+      "onyomi": [
+        "soku"
+      ],
+      "kunyomi": [
+        "haka.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "講",
+      "meanings": [
+        "Lecture",
+        "Club",
+        "Association"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "紹",
+      "meanings": [
+        "Introduce",
+        "Inherit",
+        "Help"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "介",
+      "meanings": [
+        "Jammed In",
+        "Shellfish",
+        "Mediate",
+        "Concern Oneself With"
+      ],
+      "onyomi": [
+        "kai"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "湖",
+      "meanings": [
+        "Lake"
+      ],
+      "onyomi": [
+        "ko"
+      ],
+      "kunyomi": [
+        "mizuumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "銅",
+      "meanings": [
+        "Copper"
+      ],
+      "onyomi": [
+        "dou"
+      ],
+      "kunyomi": [
+        "akagane"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "油",
+      "meanings": [
+        "Oil",
+        "Fat"
+      ],
+      "onyomi": [
+        "yu",
+        "yuu"
+      ],
+      "kunyomi": [
+        "abura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "旧",
+      "meanings": [
+        "Old Times",
+        "Old Things",
+        "Old Friend",
+        "Former",
+        "Ex-"
+      ],
+      "onyomi": [
+        "kyuu"
+      ],
+      "kunyomi": [
+        "furu.i",
+        "moto"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "姓",
+      "meanings": [
+        "Surname"
+      ],
+      "onyomi": [
+        "sei",
+        "shou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "貿",
+      "meanings": [
+        "Trade",
+        "Exchange"
+      ],
+      "onyomi": [
+        "bou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "将",
+      "meanings": [
+        "Leader",
+        "Commander",
+        "General",
+        "Admiral",
+        "Or",
+        "And Again",
+        "Soon",
+        "From Now On",
+        "Just About"
+      ],
+      "onyomi": [
+        "shou",
+        "sou"
+      ],
+      "kunyomi": [
+        "masa.ni",
+        "hata",
+        "masa",
+        "hikii.ru",
+        "motte"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "伸",
+      "meanings": [
+        "Expand",
+        "Stretch",
+        "Extend",
+        "Lengthen",
+        "Increase"
+      ],
+      "onyomi": [
+        "shin"
+      ],
+      "kunyomi": [
+        "no.biru",
+        "no.basu",
+        "no.beru",
+        "no.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "幅",
+      "meanings": [
+        "Hanging Scroll",
+        "Width"
+      ],
+      "onyomi": [
+        "fuku"
+      ],
+      "kunyomi": [
+        "haba"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "甘",
+      "meanings": [
+        "Sweet",
+        "Coax",
+        "Pamper",
+        "Be Content",
+        "Sugary"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "ama.i",
+        "ama.eru",
+        "ama.yakasu",
+        "uma.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "換",
+      "meanings": [
+        "Interchange",
+        "Period",
+        "Change",
+        "Convert",
+        "Replace",
+        "Renew"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "ka.eru",
+        "-ka.eru",
+        "ka.waru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "療",
+      "meanings": [
+        "Heal",
+        "Cure"
+      ],
+      "onyomi": [
+        "ryou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "般",
+      "meanings": [
+        "Carrier",
+        "Carry",
+        "All",
+        "General",
+        "Sort",
+        "Kind"
+      ],
+      "onyomi": [
+        "han"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "依",
+      "meanings": [
+        "Reliant",
+        "Depend On",
+        "Consequently",
+        "Therefore",
+        "Due To"
+      ],
+      "onyomi": [
+        "i",
+        "e"
+      ],
+      "kunyomi": [
+        "yo.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "漁",
+      "meanings": [
+        "Fishing",
+        "Fishery"
+      ],
+      "onyomi": [
+        "gyo",
+        "ryou"
+      ],
+      "kunyomi": [
+        "asa.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "募",
+      "meanings": [
+        "Recruit",
+        "Campaign",
+        "Gather (contributions)",
+        "Enlist",
+        "Grow Violent"
+      ],
+      "onyomi": [
+        "bo"
+      ],
+      "kunyomi": [
+        "tsuno.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "患",
+      "meanings": [
+        "Afflicted",
+        "Disease",
+        "Suffer From",
+        "Be Ill"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "wazura.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "湾",
+      "meanings": [
+        "Gulf",
+        "Bay",
+        "Inlet"
+      ],
+      "onyomi": [
+        "wan"
+      ],
+      "kunyomi": [
+        "irie"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "爆",
+      "meanings": [
+        "Bomb",
+        "Burst Open",
+        "Pop",
+        "Split"
+      ],
+      "onyomi": [
+        "baku"
+      ],
+      "kunyomi": [
+        "ha.zeru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "跡",
+      "meanings": [
+        "Tracks",
+        "Mark",
+        "Print",
+        "Impression"
+      ],
+      "onyomi": [
+        "seki"
+      ],
+      "kunyomi": [
+        "ato"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "香",
+      "meanings": [
+        "Incense",
+        "Smell",
+        "Perfume"
+      ],
+      "onyomi": [
+        "kou",
+        "kyou"
+      ],
+      "kunyomi": [
+        "ka",
+        "kao.ri",
+        "kao.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "兆",
+      "meanings": [
+        "Portent",
+        "10**12",
+        "Trillion",
+        "Sign",
+        "Omen",
+        "Symptoms"
+      ],
+      "onyomi": [
+        "chou"
+      ],
+      "kunyomi": [
+        "kiza.su",
+        "kiza.shi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "齢",
+      "meanings": [
+        "Age"
+      ],
+      "onyomi": [
+        "rei"
+      ],
+      "kunyomi": [
+        "yowai",
+        "toshi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "刊",
+      "meanings": [
+        "Publish",
+        "Carve",
+        "Engrave"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "傾",
+      "meanings": [
+        "Lean",
+        "Incline",
+        "Tilt",
+        "Trend",
+        "Wane",
+        "Sink",
+        "Ruin",
+        "Bias"
+      ],
+      "onyomi": [
+        "kei"
+      ],
+      "kunyomi": [
+        "katamu.ku",
+        "katamu.keru",
+        "katabu.ku",
+        "kata.geru",
+        "kashi.geru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "奥",
+      "meanings": [
+        "Heart",
+        "Interior"
+      ],
+      "onyomi": [
+        "ou"
+      ],
+      "kunyomi": [
+        "oku",
+        "oku.maru",
+        "kuma"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "贈",
+      "meanings": [
+        "Presents",
+        "Send",
+        "Give To",
+        "Award To",
+        "Confer On",
+        "Presenting Something"
+      ],
+      "onyomi": [
+        "zou",
+        "sou"
+      ],
+      "kunyomi": [
+        "oku.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "超",
+      "meanings": [
+        "Transcend",
+        "Super-",
+        "Ultra-"
+      ],
+      "onyomi": [
+        "chou"
+      ],
+      "kunyomi": [
+        "ko.eru",
+        "ko.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "雇",
+      "meanings": [
+        "Employ",
+        "Hire"
+      ],
+      "onyomi": [
+        "ko"
+      ],
+      "kunyomi": [
+        "yato.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "片",
+      "meanings": [
+        "One-sided",
+        "Leaf",
+        "Sheet",
+        "Right-side Kata Radical (no. 91)"
+      ],
+      "onyomi": [
+        "hen"
+      ],
+      "kunyomi": [
+        "kata-",
+        "kata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "群",
+      "meanings": [
+        "Flock",
+        "Group",
+        "Crowd",
+        "Herd",
+        "Swarm",
+        "Cluster"
+      ],
+      "onyomi": [
+        "gun"
+      ],
+      "kunyomi": [
+        "mu.reru",
+        "mu.re",
+        "mura",
+        "mura.garu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "埋",
+      "meanings": [
+        "Bury",
+        "Be Filled Up",
+        "Embedded"
+      ],
+      "onyomi": [
+        "mai"
+      ],
+      "kunyomi": [
+        "u.meru",
+        "u.maru",
+        "u.moreru",
+        "uzu.meru",
+        "uzu.maru",
+        "i.keru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "駐",
+      "meanings": [
+        "Stop-over",
+        "Reside In",
+        "Resident"
+      ],
+      "onyomi": [
+        "chuu"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "柱",
+      "meanings": [
+        "Pillar",
+        "Post",
+        "Cylinder",
+        "Support"
+      ],
+      "onyomi": [
+        "chuu"
+      ],
+      "kunyomi": [
+        "hashira"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "鋭",
+      "meanings": [
+        "Pointed",
+        "Sharpness",
+        "Edge",
+        "Weapon",
+        "Sharp",
+        "Violent"
+      ],
+      "onyomi": [
+        "ei"
+      ],
+      "kunyomi": [
+        "surudo.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "殿",
+      "meanings": [
+        "Mr.",
+        "Hall",
+        "Mansion",
+        "Palace",
+        "Temple",
+        "Lord"
+      ],
+      "onyomi": [
+        "den",
+        "ten"
+      ],
+      "kunyomi": [
+        "tono",
+        "-dono"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "薄",
+      "meanings": [
+        "Dilute",
+        "Thin",
+        "Weak (tea)",
+        "Pampas Grass"
+      ],
+      "onyomi": [
+        "haku"
+      ],
+      "kunyomi": [
+        "usu.i",
+        "usu-",
+        "-usu",
+        "usu.meru",
+        "usu.maru",
+        "usu.ragu",
+        "usu.ra-",
+        "usu.reru",
+        "susuki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "伺",
+      "meanings": [
+        "Pay Respects",
+        "Visit",
+        "Ask",
+        "Inquire",
+        "Question",
+        "Implore"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "ukaga.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "炭",
+      "meanings": [
+        "Charcoal",
+        "Coal"
+      ],
+      "onyomi": [
+        "tan"
+      ],
+      "kunyomi": [
+        "sumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "包",
+      "meanings": [
+        "Wrap",
+        "Pack Up",
+        "Cover",
+        "Conceal"
+      ],
+      "onyomi": [
+        "hou"
+      ],
+      "kunyomi": [
+        "tsutsu.mu",
+        "kuru.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "衣",
+      "meanings": [
+        "Garment",
+        "Clothes",
+        "Dressing"
+      ],
+      "onyomi": [
+        "i",
+        "e"
+      ],
+      "kunyomi": [
+        "koromo",
+        "kinu",
+        "-gi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "鉱",
+      "meanings": [
+        "Mineral",
+        "Ore"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "aragane"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "双",
+      "meanings": [
+        "Pair",
+        "Set",
+        "Comparison",
+        "Counter For Pairs"
+      ],
+      "onyomi": [
+        "sou"
+      ],
+      "kunyomi": [
+        "futa",
+        "tagui",
+        "narabu",
+        "futatsu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "床",
+      "meanings": [
+        "Bed",
+        "Counter For Beds",
+        "Floor",
+        "Padding",
+        "Tatami"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "toko",
+        "yuka"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "掘",
+      "meanings": [
+        "Dig",
+        "Delve",
+        "Excavate"
+      ],
+      "onyomi": [
+        "kutsu"
+      ],
+      "kunyomi": [
+        "ho.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "泊",
+      "meanings": [
+        "Overnight Stay",
+        "Put Up At",
+        "Ride At Anchor"
+      ],
+      "onyomi": [
+        "haku"
+      ],
+      "kunyomi": [
+        "to.maru",
+        "to.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "荒",
+      "meanings": [
+        "Laid Waste",
+        "Rough",
+        "Rude",
+        "Wild"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "ara.i",
+        "ara-",
+        "a.reru",
+        "a.rasu",
+        "-a.rashi",
+        "susa.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "袋",
+      "meanings": [
+        "Sack",
+        "Bag",
+        "Pouch"
+      ],
+      "onyomi": [
+        "tai",
+        "dai"
+      ],
+      "kunyomi": [
+        "fukuro"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "珍",
+      "meanings": [
+        "Rare",
+        "Curious",
+        "Strange"
+      ],
+      "onyomi": [
+        "chin"
+      ],
+      "kunyomi": [
+        "mezura.shii",
+        "takara"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "籍",
+      "meanings": [
+        "Enroll",
+        "Domiciliary Register",
+        "Membership"
+      ],
+      "onyomi": [
+        "seki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "刷",
+      "meanings": [
+        "Printing",
+        "Print",
+        "Brush"
+      ],
+      "onyomi": [
+        "satsu"
+      ],
+      "kunyomi": [
+        "su.ru",
+        "-zu.ri",
+        "-zuri",
+        "ha.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "封",
+      "meanings": [
+        "Seal",
+        "Closing"
+      ],
+      "onyomi": [
+        "fuu",
+        "hou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "筒",
+      "meanings": [
+        "Cylinder",
+        "Pipe",
+        "Tube",
+        "Gun Barrel",
+        "Sleeve"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "tsutsu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "柔",
+      "meanings": [
+        "Tender",
+        "Weakness",
+        "Gentleness",
+        "Softness"
+      ],
+      "onyomi": [
+        "juu",
+        "nyuu"
+      ],
+      "kunyomi": [
+        "yawa.raka",
+        "yawa.rakai",
+        "yawa",
+        "yawa.ra"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "沈",
+      "meanings": [
+        "Sink",
+        "Be Submerged",
+        "Subside",
+        "Be Depressed",
+        "Aloes"
+      ],
+      "onyomi": [
+        "chin",
+        "jin"
+      ],
+      "kunyomi": [
+        "shizu.mu",
+        "shizu.meru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "辛",
+      "meanings": [
+        "Spicy",
+        "Bitter",
+        "Hot",
+        "Acrid"
+      ],
+      "onyomi": [
+        "shin"
+      ],
+      "kunyomi": [
+        "kara.i",
+        "tsura.i",
+        "-zura.i",
+        "kanoto"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "匹",
+      "meanings": [
+        "Equal",
+        "Head",
+        "Counter For Small Animals",
+        "Roll Of Cloth"
+      ],
+      "onyomi": [
+        "hitsu"
+      ],
+      "kunyomi": [
+        "hiki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "叫",
+      "meanings": [
+        "Shout",
+        "Exclaim",
+        "Yell"
+      ],
+      "onyomi": [
+        "kyou"
+      ],
+      "kunyomi": [
+        "sake.bu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "涙",
+      "meanings": [
+        "Tears",
+        "Sympathy"
+      ],
+      "onyomi": [
+        "rui",
+        "rei"
+      ],
+      "kunyomi": [
+        "namida"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "缶",
+      "meanings": [
+        "Tin Can",
+        "Container",
+        "Jar Radical (no. 121)"
+      ],
+      "onyomi": [
+        "kan"
+      ],
+      "kunyomi": [
+        "kama"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "粒",
+      "meanings": [
+        "Grains",
+        "Drop",
+        "Counter For Tiny Particles"
+      ],
+      "onyomi": [
+        "ryuu"
+      ],
+      "kunyomi": [
+        "tsubu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "塔",
+      "meanings": [
+        "Pagoda",
+        "Tower",
+        "Steeple"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "肌",
+      "meanings": [
+        "Texture",
+        "Skin",
+        "Body",
+        "Grain"
+      ],
+      "onyomi": [
+        "ki"
+      ],
+      "kunyomi": [
+        "hada"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "舟",
+      "meanings": [
+        "Boat",
+        "Ship"
+      ],
+      "onyomi": [
+        "shuu"
+      ],
+      "kunyomi": [
+        "fune",
+        "funa-",
+        "-bune"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "曇",
+      "meanings": [
+        "Cloudy Weather",
+        "Cloud Up"
+      ],
+      "onyomi": [
+        "don"
+      ],
+      "kunyomi": [
+        "kumo.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "磨",
+      "meanings": [
+        "Grind",
+        "Polish",
+        "Scour",
+        "Improve",
+        "Brush (teeth)"
+      ],
+      "onyomi": [
+        "ma"
+      ],
+      "kunyomi": [
+        "miga.ku",
+        "su.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "湿",
+      "meanings": [
+        "Damp",
+        "Wet",
+        "Moist"
+      ],
+      "onyomi": [
+        "shitsu",
+        "shuu"
+      ],
+      "kunyomi": [
+        "shime.ru",
+        "shime.su",
+        "uruo.u",
+        "uruo.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "硬",
+      "meanings": [
+        "Stiff",
+        "Hard"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "kata.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "鈍",
+      "meanings": [
+        "Dull",
+        "Slow",
+        "Foolish",
+        "Blunt"
+      ],
+      "onyomi": [
+        "don"
+      ],
+      "kunyomi": [
+        "nibu.i",
+        "nibu.ru",
+        "nibu-",
+        "nama.ru",
+        "namaku.ra"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "涼",
+      "meanings": [
+        "Refreshing",
+        "Nice And Cool"
+      ],
+      "onyomi": [
+        "ryou"
+      ],
+      "kunyomi": [
+        "suzu.shii",
+        "suzu.mu",
+        "suzu.yaka",
+        "usu.i",
+        "hiya.su",
+        "makotoni"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "零",
+      "meanings": [
+        "Zero",
+        "Spill",
+        "Overflow",
+        "Nothing",
+        "Cipher"
+      ],
+      "onyomi": [
+        "rei"
+      ],
+      "kunyomi": [
+        "zero",
+        "kobo.su",
+        "kobo.reru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "綿",
+      "meanings": [
+        "Cotton"
+      ],
+      "onyomi": [
+        "men"
+      ],
+      "kunyomi": [
+        "wata"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "帽",
+      "meanings": [
+        "Cap",
+        "Headgear"
+      ],
+      "onyomi": [
+        "bou",
+        "mou"
+      ],
+      "kunyomi": [
+        "zukin",
+        "oo.u"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "憎",
+      "meanings": [
+        "Hate",
+        "Detest"
+      ],
+      "onyomi": [
+        "zou"
+      ],
+      "kunyomi": [
+        "niku.mu",
+        "niku.i",
+        "niku.rashii",
+        "niku.shimi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "滴",
+      "meanings": [
+        "Drip",
+        "Drop"
+      ],
+      "onyomi": [
+        "teki"
+      ],
+      "kunyomi": [
+        "shizuku",
+        "shitata.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "畳",
+      "meanings": [
+        "Tatami Mat",
+        "Counter For Tatami Mats",
+        "Fold",
+        "Shut Up",
+        "Do Away With"
+      ],
+      "onyomi": [
+        "jou",
+        "chou"
+      ],
+      "kunyomi": [
+        "tata.mu",
+        "tatami",
+        "kasa.naru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "畜",
+      "meanings": [
+        "Livestock",
+        "Domestic Fowl And Animals"
+      ],
+      "onyomi": [
+        "chiku"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "溶",
+      "meanings": [
+        "Melt",
+        "Dissolve",
+        "Thaw"
+      ],
+      "onyomi": [
+        "you"
+      ],
+      "kunyomi": [
+        "to.keru",
+        "to.kasu",
+        "to.ku"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "踊",
+      "meanings": [
+        "Jump",
+        "Dance",
+        "Leap",
+        "Skip"
+      ],
+      "onyomi": [
+        "you"
+      ],
+      "kunyomi": [
+        "odo.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "賢",
+      "meanings": [
+        "Intelligent",
+        "Wise",
+        "Wisdom",
+        "Cleverness"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [
+        "kashiko.i"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "灯",
+      "meanings": [
+        "Lamp",
+        "A Light",
+        "Light",
+        "Counter For Lights"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "hi",
+        "ho-",
+        "tomoshibi",
+        "tomo.su",
+        "akari"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "咲",
+      "meanings": [
+        "Blossom",
+        "Bloom"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "sa.ku",
+        "-zaki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "塗",
+      "meanings": [
+        "Paint",
+        "Plaster",
+        "Daub",
+        "Smear",
+        "Coating"
+      ],
+      "onyomi": [
+        "to"
+      ],
+      "kunyomi": [
+        "nu.ru",
+        "nu.ri",
+        "mami.reru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "召",
+      "meanings": [
+        "Seduce",
+        "Call",
+        "Send For",
+        "Wear",
+        "Put On",
+        "Ride In",
+        "Buy",
+        "Eat",
+        "Drink",
+        "Catch (cold)"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "me.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "挟",
+      "meanings": [
+        "Pinch",
+        "Between"
+      ],
+      "onyomi": [
+        "kyou",
+        "shou"
+      ],
+      "kunyomi": [
+        "hasa.mu",
+        "hasa.maru",
+        "wakibasa.mu",
+        "sashihasa.mu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "枯",
+      "meanings": [
+        "Wither",
+        "Die",
+        "Dry Up",
+        "Be Seasoned"
+      ],
+      "onyomi": [
+        "ko"
+      ],
+      "kunyomi": [
+        "ka.reru",
+        "ka.rasu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "沸",
+      "meanings": [
+        "Seethe",
+        "Boil",
+        "Ferment",
+        "Uproar",
+        "Breed"
+      ],
+      "onyomi": [
+        "futsu"
+      ],
+      "kunyomi": [
+        "wa.ku",
+        "wa.kasu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "濯",
+      "meanings": [
+        "Laundry",
+        "Wash",
+        "Pour On",
+        "Rinse"
+      ],
+      "onyomi": [
+        "taku"
+      ],
+      "kunyomi": [
+        "susu.gu",
+        "yusu.gu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "燥",
+      "meanings": [
+        "Parch",
+        "Dry Up"
+      ],
+      "onyomi": [
+        "sou"
+      ],
+      "kunyomi": [
+        "hasha.gu"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "瓶",
+      "meanings": [
+        "Bottle",
+        "Vial",
+        "Jar",
+        "Jug",
+        "Vat",
+        "Urn"
+      ],
+      "onyomi": [
+        "bin"
+      ],
+      "kunyomi": [
+        "kame"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "耕",
+      "meanings": [
+        "Till",
+        "Plow",
+        "Cultivate"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "tagaya.su"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "肯",
+      "meanings": [
+        "Agreement",
+        "Consent",
+        "Comply With"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "gaenji.ru"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "脂",
+      "meanings": [
+        "Fat",
+        "Grease",
+        "Tallow",
+        "Lard",
+        "Rosin",
+        "Gum",
+        "Tar"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "abura"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "膚",
+      "meanings": [
+        "Skin",
+        "Body",
+        "Grain",
+        "Texture",
+        "Disposition"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [
+        "hada"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "軒",
+      "meanings": [
+        "Flats",
+        "Counter For Houses",
+        "Eaves"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [
+        "noki"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "軟",
+      "meanings": [
+        "Soft"
+      ],
+      "onyomi": [
+        "nan"
+      ],
+      "kunyomi": [
+        "yawa.raka",
+        "yawa.rakai"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "郊",
+      "meanings": [
+        "Outskirts",
+        "Suburbs",
+        "Rural Area"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "隅",
+      "meanings": [
+        "Corner",
+        "Nook"
+      ],
+      "onyomi": [
+        "guu"
+      ],
+      "kunyomi": [
+        "sumi"
+      ],
+      "jlptLevel": "N2"
+    },
+    {
+      "character": "隻",
+      "meanings": [
+        "Vessels",
+        "Counter For Ships",
+        "Fish",
+        "Birds",
+        "Arrows",
+        "One Of A Pair"
+      ],
+      "onyomi": [
+        "seki"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N2"
+    }
+  ]
+}

@@ -147,6 +147,11 @@
 		</select>
 	</label>
 
+	<label class="setting-row">
+		<span>Furigana per kanji avanzati<br /><small class="hint-text">Nel quiz "produci la parola", se la parola contiene un kanji di livello più alto del suo, mostra la lettura in aiuto.</small></span>
+		<input type="checkbox" bind:checked={appState.settings.furigana_kanji_avanzati} />
+	</label>
+
 	<button class="btn-primary" onclick={save} disabled={saving}>
 		{saving ? 'Salvataggio…' : saved ? '✅ Salvato!' : 'Salva impostazioni'}
 	</button>

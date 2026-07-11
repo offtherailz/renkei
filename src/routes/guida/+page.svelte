@@ -21,7 +21,7 @@
 
 	<section class="g-card">
 		<h2>🧠 Studia</h2>
-		<p><strong>Sessione quiz</strong> — domande a tempo sugli obiettivi «✓ In studio»; le risposte muovono l'SRS (intervalli 10 min → 1 h → 8 h → 1 g → 3 g → 7 g → 14 g → 30 g). Dopo ogni risposta puoi aprire «🔍 Approfondisci»: la frase spezzettata e cliccabile, con furigana e traduzione. Ovunque una frase sia cliccabile, il popup ha <strong>«➕ Non la conoscevo»</strong>: un tocco e la parola entra nei tuoi punti deboli.</p>
+		<p><strong>Sessione quiz</strong> — domande a tempo sugli obiettivi «✓ In studio»; le risposte muovono l'SRS (intervalli 10 min → 1 h → 8 h → 1 g → 3 g → 7 g → 14 g → 30 g). Dopo ogni risposta puoi aprire «🔍 Approfondisci»: la frase spezzettata e cliccabile, con furigana e traduzione. Ovunque una frase sia cliccabile, il popup ha <strong>«➕ Non la conoscevo»</strong>: un tocco e la parola entra nei tuoi punti deboli. Le domande sui kanji restano nel loro livello reale (una parola N4 può contenere un kanji più avanzato: non te lo chiede finché non studi quel livello) — in Impostazioni puoi attivare la <strong>furigana d'aiuto</strong> per quei casi nel «produci la parola».</p>
 			<p><strong>Obiettivi</strong> — il badge «✓ In studio / ⏸ Pausa» in home è un interruttore. La pausa non cancella nulla: i ripassi restano in attesa (li vedi come «+N in pausa»).</p>
 		<p><strong>Corsi</strong> — ogni lezione è un obiettivo. Le lezioni si attivano da /courses o dalla home.</p>
 		<p><strong>Ascolto dialoghi</strong> — dialoghi con domande, massimo 2 ascolti come all'esame.</p>

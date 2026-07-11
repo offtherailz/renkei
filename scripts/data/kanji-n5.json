@@ -1,0 +1,1169 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "type": "kanji",
+    "jlptLevel": "N5",
+    "lastUpdated": "2026-01-11",
+    "itemCount": 80,
+    "contributors": [
+      "gemini",
+      "claude",
+      "codex"
+    ],
+    "source": "JLPT official kanji lists"
+  },
+  "kanji": [
+    {
+      "character": "日",
+      "meanings": [
+        "day",
+        "sun",
+        "Japan"
+      ],
+      "onyomi": [
+        "nichi",
+        "jitsu"
+      ],
+      "kunyomi": [
+        "hi",
+        "bi",
+        "ka"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "一",
+      "meanings": [
+        "one"
+      ],
+      "onyomi": [
+        "ichi"
+      ],
+      "kunyomi": [
+        "hitotsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "国",
+      "meanings": [
+        "country"
+      ],
+      "onyomi": [
+        "koku"
+      ],
+      "kunyomi": [
+        "kuni"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "人",
+      "meanings": [
+        "person"
+      ],
+      "onyomi": [
+        "jin",
+        "nin"
+      ],
+      "kunyomi": [
+        "hito"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "年",
+      "meanings": [
+        "year"
+      ],
+      "onyomi": [
+        "nen"
+      ],
+      "kunyomi": [
+        "toshi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "大",
+      "meanings": [
+        "large",
+        "big"
+      ],
+      "onyomi": [
+        "dai",
+        "tai"
+      ],
+      "kunyomi": [
+        "ookii"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "十",
+      "meanings": [
+        "ten"
+      ],
+      "onyomi": [
+        "juu"
+      ],
+      "kunyomi": [
+        "tou",
+        "to"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "二",
+      "meanings": [
+        "two"
+      ],
+      "onyomi": [
+        "ni",
+        "ji"
+      ],
+      "kunyomi": [
+        "futatsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "本",
+      "meanings": [
+        "book",
+        "true"
+      ],
+      "onyomi": [
+        "hon"
+      ],
+      "kunyomi": [
+        "moto"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "中",
+      "meanings": [
+        "in",
+        "inside",
+        "middle"
+      ],
+      "onyomi": [
+        "chuu"
+      ],
+      "kunyomi": [
+        "naka",
+        "uchi",
+        "ataru"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "長",
+      "meanings": [
+        "long",
+        "leader"
+      ],
+      "onyomi": [
+        "chou"
+      ],
+      "kunyomi": [
+        "nagai",
+        "osa"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "出",
+      "meanings": [
+        "exit",
+        "leave"
+      ],
+      "onyomi": [
+        "shutsu",
+        "sui"
+      ],
+      "kunyomi": [
+        "deru",
+        "dasu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "三",
+      "meanings": [
+        "three"
+      ],
+      "onyomi": [
+        "san"
+      ],
+      "kunyomi": [
+        "mittsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "時",
+      "meanings": [
+        "time",
+        "hour"
+      ],
+      "onyomi": [
+        "ji"
+      ],
+      "kunyomi": [
+        "toki",
+        "doki"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "行",
+      "meanings": [
+        "going",
+        "journey"
+      ],
+      "onyomi": [
+        "kou",
+        "gyou",
+        "an"
+      ],
+      "kunyomi": [
+        "iku",
+        "yuku"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "見",
+      "meanings": [
+        "see",
+        "look at"
+      ],
+      "onyomi": [
+        "ken"
+      ],
+      "kunyomi": [
+        "miru",
+        "miseru"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "月",
+      "meanings": [
+        "month",
+        "moon"
+      ],
+      "onyomi": [
+        "getsu",
+        "gatsu"
+      ],
+      "kunyomi": [
+        "tsuki"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "分",
+      "meanings": [
+        "part",
+        "minute"
+      ],
+      "onyomi": [
+        "bun",
+        "fun",
+        "bu"
+      ],
+      "kunyomi": [
+        "wakeru"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "後",
+      "meanings": [
+        "behind",
+        "later"
+      ],
+      "onyomi": [
+        "go",
+        "kou"
+      ],
+      "kunyomi": [
+        "nochi",
+        "ushiro"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "前",
+      "meanings": [
+        "in front",
+        "before"
+      ],
+      "onyomi": [
+        "zen"
+      ],
+      "kunyomi": [
+        "mae"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "生",
+      "meanings": [
+        "life",
+        "birth"
+      ],
+      "onyomi": [
+        "sei",
+        "shou"
+      ],
+      "kunyomi": [
+        "ikiru",
+        "umu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "五",
+      "meanings": [
+        "five"
+      ],
+      "onyomi": [
+        "go"
+      ],
+      "kunyomi": [
+        "itsutsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "間",
+      "meanings": [
+        "interval",
+        "space"
+      ],
+      "onyomi": [
+        "kan",
+        "ken"
+      ],
+      "kunyomi": [
+        "aida",
+        "ma"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "上",
+      "meanings": [
+        "above",
+        "up"
+      ],
+      "onyomi": [
+        "jou",
+        "shou"
+      ],
+      "kunyomi": [
+        "ue",
+        "kami"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "東",
+      "meanings": [
+        "east"
+      ],
+      "onyomi": [
+        "tou"
+      ],
+      "kunyomi": [
+        "higashi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "四",
+      "meanings": [
+        "four"
+      ],
+      "onyomi": [
+        "shi"
+      ],
+      "kunyomi": [
+        "yotsu",
+        "yon"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "今",
+      "meanings": [
+        "now"
+      ],
+      "onyomi": [
+        "kon",
+        "kin"
+      ],
+      "kunyomi": [
+        "ima"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "金",
+      "meanings": [
+        "gold"
+      ],
+      "onyomi": [
+        "kin",
+        "kon",
+        "gon"
+      ],
+      "kunyomi": [
+        "kane",
+        "kana"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "九",
+      "meanings": [
+        "nine"
+      ],
+      "onyomi": [
+        "kyuu",
+        "ku"
+      ],
+      "kunyomi": [
+        "kokonotsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "入",
+      "meanings": [
+        "enter",
+        "insert"
+      ],
+      "onyomi": [
+        "nyuu"
+      ],
+      "kunyomi": [
+        "iru",
+        "hairu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "学",
+      "meanings": [
+        "study",
+        "learning"
+      ],
+      "onyomi": [
+        "gaku"
+      ],
+      "kunyomi": [
+        "manabu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "高",
+      "meanings": [
+        "tall",
+        "high"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [
+        "takai"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "円",
+      "meanings": [
+        "circle",
+        "yen"
+      ],
+      "onyomi": [
+        "en"
+      ],
+      "kunyomi": [
+        "marui"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "子",
+      "meanings": [
+        "child"
+      ],
+      "onyomi": [
+        "shi",
+        "su",
+        "tsu"
+      ],
+      "kunyomi": [
+        "ko",
+        "ne"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "外",
+      "meanings": [
+        "outside"
+      ],
+      "onyomi": [
+        "gai",
+        "ge"
+      ],
+      "kunyomi": [
+        "soto",
+        "hoka"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "八",
+      "meanings": [
+        "eight"
+      ],
+      "onyomi": [
+        "hachi"
+      ],
+      "kunyomi": [
+        "yatsu",
+        "you"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "六",
+      "meanings": [
+        "six"
+      ],
+      "onyomi": [
+        "roku"
+      ],
+      "kunyomi": [
+        "mutsu",
+        "mui"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "下",
+      "meanings": [
+        "below",
+        "down"
+      ],
+      "onyomi": [
+        "ka",
+        "ge"
+      ],
+      "kunyomi": [
+        "shita",
+        "shimo"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "来",
+      "meanings": [
+        "come"
+      ],
+      "onyomi": [
+        "rai",
+        "tai"
+      ],
+      "kunyomi": [
+        "kuru",
+        "kitaru"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "気",
+      "meanings": [
+        "spirit",
+        "mind",
+        "air"
+      ],
+      "onyomi": [
+        "ki",
+        "ke"
+      ],
+      "kunyomi": [
+        "iki"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "小",
+      "meanings": [
+        "little",
+        "small"
+      ],
+      "onyomi": [
+        "shou"
+      ],
+      "kunyomi": [
+        "chiisai",
+        "ko",
+        "o"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "七",
+      "meanings": [
+        "seven"
+      ],
+      "onyomi": [
+        "shichi"
+      ],
+      "kunyomi": [
+        "nanatsu",
+        "nano"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "山",
+      "meanings": [
+        "mountain"
+      ],
+      "onyomi": [
+        "san",
+        "sen"
+      ],
+      "kunyomi": [
+        "yama"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "話",
+      "meanings": [
+        "tale",
+        "talk"
+      ],
+      "onyomi": [
+        "wa"
+      ],
+      "kunyomi": [
+        "hanasu",
+        "hanashi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "女",
+      "meanings": [
+        "woman",
+        "female"
+      ],
+      "onyomi": [
+        "jo"
+      ],
+      "kunyomi": [
+        "onna",
+        "me"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "北",
+      "meanings": [
+        "north"
+      ],
+      "onyomi": [
+        "hoku"
+      ],
+      "kunyomi": [
+        "kita"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "午",
+      "meanings": [
+        "noon"
+      ],
+      "onyomi": [
+        "go"
+      ],
+      "kunyomi": [
+        "uma"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "百",
+      "meanings": [
+        "hundred"
+      ],
+      "onyomi": [
+        "hyaku",
+        "byaku"
+      ],
+      "kunyomi": [
+        "momo"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "書",
+      "meanings": [
+        "write"
+      ],
+      "onyomi": [
+        "sho"
+      ],
+      "kunyomi": [
+        "kaku"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "先",
+      "meanings": [
+        "before",
+        "ahead"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "saki",
+        "mazu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "名",
+      "meanings": [
+        "name"
+      ],
+      "onyomi": [
+        "mei",
+        "myou"
+      ],
+      "kunyomi": [
+        "na"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "川",
+      "meanings": [
+        "river",
+        "stream"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "kawa"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "千",
+      "meanings": [
+        "thousand"
+      ],
+      "onyomi": [
+        "sen"
+      ],
+      "kunyomi": [
+        "chi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "水",
+      "meanings": [
+        "water"
+      ],
+      "onyomi": [
+        "sui"
+      ],
+      "kunyomi": [
+        "mizu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "半",
+      "meanings": [
+        "half"
+      ],
+      "onyomi": [
+        "han"
+      ],
+      "kunyomi": [
+        "nakaba"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "男",
+      "meanings": [
+        "male",
+        "man"
+      ],
+      "onyomi": [
+        "dan",
+        "nan"
+      ],
+      "kunyomi": [
+        "otoko",
+        "o"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "西",
+      "meanings": [
+        "west"
+      ],
+      "onyomi": [
+        "sei",
+        "sai"
+      ],
+      "kunyomi": [
+        "nishi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "電",
+      "meanings": [
+        "electricity"
+      ],
+      "onyomi": [
+        "den"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "校",
+      "meanings": [
+        "school",
+        "exam"
+      ],
+      "onyomi": [
+        "kou"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "語",
+      "meanings": [
+        "word",
+        "language"
+      ],
+      "onyomi": [
+        "go"
+      ],
+      "kunyomi": [
+        "kataru"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "土",
+      "meanings": [
+        "soil",
+        "earth"
+      ],
+      "onyomi": [
+        "do",
+        "to"
+      ],
+      "kunyomi": [
+        "tsuchi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "木",
+      "meanings": [
+        "tree",
+        "wood"
+      ],
+      "onyomi": [
+        "boku",
+        "moku"
+      ],
+      "kunyomi": [
+        "ki",
+        "ko"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "聞",
+      "meanings": [
+        "to hear",
+        "listen"
+      ],
+      "onyomi": [
+        "bun",
+        "mon"
+      ],
+      "kunyomi": [
+        "kiku"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "食",
+      "meanings": [
+        "eat",
+        "food"
+      ],
+      "onyomi": [
+        "shoku",
+        "jiki"
+      ],
+      "kunyomi": [
+        "ku",
+        "taberu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "車",
+      "meanings": [
+        "car",
+        "wheel"
+      ],
+      "onyomi": [
+        "sha"
+      ],
+      "kunyomi": [
+        "kuruma"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "何",
+      "meanings": [
+        "what"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [
+        "nani",
+        "nan"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "南",
+      "meanings": [
+        "south"
+      ],
+      "onyomi": [
+        "nan",
+        "na"
+      ],
+      "kunyomi": [
+        "minami"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "万",
+      "meanings": [
+        "ten thousand"
+      ],
+      "onyomi": [
+        "man",
+        "ban"
+      ],
+      "kunyomi": [],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "毎",
+      "meanings": [
+        "every"
+      ],
+      "onyomi": [
+        "mai"
+      ],
+      "kunyomi": [
+        "gotoni"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "白",
+      "meanings": [
+        "white"
+      ],
+      "onyomi": [
+        "haku",
+        "byaku"
+      ],
+      "kunyomi": [
+        "shiroi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "天",
+      "meanings": [
+        "heavens",
+        "sky"
+      ],
+      "onyomi": [
+        "ten"
+      ],
+      "kunyomi": [
+        "amatsu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "母",
+      "meanings": [
+        "mother"
+      ],
+      "onyomi": [
+        "bo"
+      ],
+      "kunyomi": [
+        "haha",
+        "kaa"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "火",
+      "meanings": [
+        "fire"
+      ],
+      "onyomi": [
+        "ka"
+      ],
+      "kunyomi": [
+        "hi",
+        "bi",
+        "ho"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "右",
+      "meanings": [
+        "right"
+      ],
+      "onyomi": [
+        "u",
+        "yuu"
+      ],
+      "kunyomi": [
+        "migi"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "読",
+      "meanings": [
+        "to read"
+      ],
+      "onyomi": [
+        "doku",
+        "toku",
+        "tou"
+      ],
+      "kunyomi": [
+        "yomu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "友",
+      "meanings": [
+        "friend"
+      ],
+      "onyomi": [
+        "yuu"
+      ],
+      "kunyomi": [
+        "tomo"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "左",
+      "meanings": [
+        "left"
+      ],
+      "onyomi": [
+        "sa",
+        "sha"
+      ],
+      "kunyomi": [
+        "hidari"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "休",
+      "meanings": [
+        "rest",
+        "day off"
+      ],
+      "onyomi": [
+        "kyuu"
+      ],
+      "kunyomi": [
+        "yasumu"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "父",
+      "meanings": [
+        "father"
+      ],
+      "onyomi": [
+        "fu"
+      ],
+      "kunyomi": [
+        "chichi",
+        "tou"
+      ],
+      "jlptLevel": "N5"
+    },
+    {
+      "character": "雨",
+      "meanings": [
+        "rain"
+      ],
+      "onyomi": [
+        "u"
+      ],
+      "kunyomi": [
+        "ame",
+        "ama"
+      ],
+      "jlptLevel": "N5"
+    }
+  ]
+}
