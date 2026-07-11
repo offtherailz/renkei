@@ -125,6 +125,11 @@
 		showOnboarding = false;
 	}
 
+	// Nota che resta in home dopo l'onboarding, per spiegare cosa è cambiato
+	// (mettere in pausa un intero catalogo non è un'azione dell'utente: va
+	// spiegata subito, altrimenti sembra che "tutto si sia spento da solo").
+	let onboardingNotice = $state('');
+
 	function chooseConsolidamento(): void {
 		onboardingStep = 'level';
 	}
@@ -132,8 +137,13 @@
 	async function pickLevel(level: 'N5' | 'N4' | 'tutti'): Promise<void> {
 		onboardingBusy = true;
 		try {
-			if (level === 'N5') await setObjectiveTreeEnabled('obj-catalog-n4', false);
-			else if (level === 'N4') await setObjectiveTreeEnabled('obj-catalog-n5', false);
+			if (level === 'N5') {
+				await setObjectiveTreeEnabled('obj-catalog-n4', false);
+				onboardingNotice = 'Ho messo in pausa il catalogo N4 (i progressi restano salvati) — lo riattivi quando vuoi qui sotto, «Catalogo JLPT N4 → ✓ In studio».';
+			} else if (level === 'N4') {
+				await setObjectiveTreeEnabled('obj-catalog-n5', false);
+				onboardingNotice = 'Ho messo in pausa il catalogo N5 (i progressi restano salvati) — lo riattivi quando vuoi qui sotto, «Catalogo JLPT N5 → ✓ In studio».';
+			}
 			dismissOnboarding();
 			await loadData();
 		} finally {
@@ -152,6 +162,7 @@
 				await importCourseDataset(await resp.text());
 			}
 			await studyOnlyCourse('genki-1');
+			onboardingNotice = '🎯 Segui Genki I lezione per lezione: il catalogo libero N5/N4 è in pausa per non distrarti (i progressi restano salvati) — lo riattivi quando vuoi qui sotto.';
 			dismissOnboarding();
 			await loadData();
 		} catch (e) {
@@ -248,6 +259,14 @@
 
 {#if showConfetti}
 	<Confetti />
+{/if}
+
+{#if onboardingNotice}
+<div class="notice-banner" role="status">
+	<span class="notice-emoji">ℹ️</span>
+	<span>{onboardingNotice}</span>
+	<button class="party-close" onclick={() => (onboardingNotice = '')} aria-label="Chiudi">✕</button>
+</div>
 {/if}
 
 {#if packParty.length > 0}
@@ -540,6 +559,20 @@
 	.onboarding-status { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.onboarding-status.error { color: var(--danger); }
 	.onboarding-skip { background: none; border: none; color: var(--muted); font-size: 0.82rem; text-decoration: underline; cursor: pointer; justify-self: center; }
+
+	.notice-banner {
+		background: var(--info-bg);
+		border: 1px solid var(--info-border);
+		color: var(--ink);
+		border-radius: 12px;
+		padding: 10px 16px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.85rem;
+		line-height: 1.45;
+	}
+	.notice-emoji { font-size: 1.1rem; }
 
 	.party-banner {
 		background: var(--gold-bg);

@@ -45,6 +45,10 @@ test('onboarding: percorso guidato importa Genki I e attiva solo la lezione 1', 
 	expect(state.courseRootEnabled).toBe(true);
 	expect(state.lesson1Enabled).toBe(true);
 	expect(state.catalogRootsStillEnabled).toBe(false);
+
+	// spiega perché il catalogo libero è sparito in pausa, altrimenti sembra
+	// che "tutto si sia spento da solo" (confusione reale, segnalata a mano)
+	await expect(page.getByText(/catalogo libero N5\/N4 è in pausa/)).toBeVisible();
 });
 
 test('onboarding: "scelgo dopo" lascia tutto attivo come oggi', async ({ page }) => {
@@ -81,6 +85,9 @@ test('onboarding: "ho già basi" chiede il livello e mette in pausa l\'altro', a
 	expect(state.n5Enabled).toBe(true);
 	expect(state.n4Enabled).toBe(false);
 	expect(state.n4WordsEnabled).toBe(false); // discende ricorsivamente ai figli
+
+	// stessa spiegazione anche per il caso "solo un livello"
+	await expect(page.getByText(/Ho messo in pausa il catalogo N4/)).toBeVisible();
 });
 
 test('corso: completare una lezione sblocca da sola la successiva', async ({ page }) => {
