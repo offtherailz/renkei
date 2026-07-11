@@ -7,9 +7,8 @@
 		type JlptLevel,
 		type ReadingRun
 	} from '$lib/core/readingTexts';
+	import { pickRandom, gameSnapshot } from '$lib/core/gameKit';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
-
-	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
 
 	type Scene = 'level' | 'question' | 'scan' | 'over';
 	let scene = $state<Scene>('level');
@@ -52,10 +51,10 @@
 
 	function nextRound(): void {
 		const pool = READING_TEXTS.filter((t) => t.livello === level && t.id !== lastTextId);
-		const text = rnd(pool);
+		const text = pickRandom(pool);
 		lastTextId = text.id;
 		run = instantiate(text);
-		question = rnd(run.questions);
+		question = pickRandom(run.questions);
 		picked = null;
 		timedOut = false;
 		const shrink = Math.max(0.55, 1 - streak * 0.05);
@@ -100,6 +99,13 @@
 		clearTicker();
 		scene = 'over';
 	}
+
+	// Conserva la partita quando navighi via e torni indietro. Se eri in piena
+	// scansione a tempo, si riparte dalla schermata della domanda (timer fermo).
+	export const snapshot = gameSnapshot(
+		() => ({ scene: scene === 'scan' ? ('question' as Scene) : scene, level, run, question, streak, best, picked, timedOut, budget }),
+		(s) => ({ scene, level, run, question, streak, best, picked, timedOut, budget } = s)
+	);
 </script>
 
 <div class="skim">

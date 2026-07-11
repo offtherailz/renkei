@@ -9,6 +9,7 @@
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
+	import { shuffle } from '$lib/core/gameKit';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -19,14 +20,6 @@
 	// Gli annunci in stazione/treno in Giappone sono quasi sempre voce femminile.
 	const ANNO: Gender = 'femminile';
 	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
-	}
 
 	type Who = 'me' | 'friend' | 'anno';
 	type Line = { who: Who; text: string };

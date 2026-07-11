@@ -13,6 +13,7 @@
 	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
+	import { shuffle } from '$lib/core/gameKit';
 
 	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
 	const REPEAT_REQ = ['すみません、もう一度おねがいします。', 'もう一度いいですか？', 'すみません、もう一度よろしいですか？'];
@@ -115,14 +116,6 @@
 	const ALT_COUNTERS = ['個', '本', '枚', 'つ', '匹', '杯', '冊', '台'];
 	function kanjiNum(n: number): string {
 		return n <= 10 ? KNUM[n]! : n === 20 ? '二十' : String(n);
-	}
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
 	}
 	function itemReading(item: ShopItem, qty: number): string {
 		const c = counters.find((x) => x.id === item.counterId);

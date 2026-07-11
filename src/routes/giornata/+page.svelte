@@ -5,6 +5,7 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { appState } from '$lib/stores.svelte';
+	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	function userGender(): Gender {
@@ -12,15 +13,6 @@
 	}
 	function altro(): Gender {
 		return opposite(userGender());
-	}
-	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
 	}
 
 	// Un momento della giornata: contesto, eventuale battuta altrui, la frase
@@ -66,6 +58,12 @@
 	type Line = { who: 'me' | 'other'; text: string };
 	let dialog = $state<Line[]>([]);
 	let showScript = $state(false);
+
+	// Conserva la giornata quando navighi via (popup → scheda) e torni indietro.
+	export const snapshot = gameSnapshot(
+		() => ({ scene, day, idx, errors, picked, choices, dialog, showScript }),
+		(s) => ({ scene, day, idx, errors, picked, choices, dialog, showScript } = s)
+	);
 
 	onMount(() => {
 		primeVoices();

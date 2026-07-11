@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { db } from '$lib/db/schema';
+	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS } from '$lib/core/keigo';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
@@ -12,20 +12,11 @@
 
 	const ROUNDS_PER_GAME = 10;
 
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
-	}
-
 	function buildVerbRound(): Round {
 		const withBoth = KEIGO_VERBS.filter((v) => v.sonkeigo || v.kenjougo);
-		const v = withBoth[Math.floor(Math.random() * withBoth.length)]!;
+		const v = pickRandom(withBoth);
 		const tipi = (['尊敬語', '謙譲語'] as const).filter((t) => (t === '尊敬語' ? v.sonkeigo : v.kenjougo));
-		const tipo = tipi[Math.floor(Math.random() * tipi.length)]!;
+		const tipo = pickRandom(tipi);
 		const target = tipo === '尊敬語' ? v.sonkeigo! : v.kenjougo!;
 		// esche: la forma "gemella" sbagliata dello stesso verbo + forme di altri verbi
 		const esche = new Set<string>();
@@ -71,6 +62,12 @@
 	let picked = $state<string | null>(null);
 	let detailHref = $state<string | null>(null);
 
+	// Conserva la partita quando vai alla 📖 Scheda e torni con Indietro.
+	export const snapshot = gameSnapshot(
+		() => ({ scene, rounds, idx, score, picked, detailHref }),
+		(s) => ({ scene, rounds, idx, score, picked, detailHref } = s)
+	);
+
 	function start(): void {
 		rounds = buildRounds();
 		idx = 0;
@@ -89,12 +86,10 @@
 		const r = cur();
 		detailHref = null;
 		if (r.parola) {
-			const w =
-				(await db.words.where('scrittura').equals(r.parola).first()) ??
-				(await db.words.where('lettura').equals(r.parola).first());
-			if (w) {
-				detailHref = `${base}/detail/${encodeURIComponent(`word:${w.id}`)}`;
-				if (choice !== r.corretta) await recordPracticeMiss('word:' + w.id);
+			const hit = await findWord(r.parola);
+			if (hit) {
+				detailHref = hit.detailHref;
+				if (choice !== r.corretta) await recordPracticeMiss('word:' + hit.id);
 			}
 		}
 		if (choice === r.corretta) score += 1;

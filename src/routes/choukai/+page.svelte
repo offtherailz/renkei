@@ -8,11 +8,11 @@
 	} from '$lib/core/listeningDialogues';
 	import type { JlptLevel } from '$lib/core/readingTexts';
 	import { speakDialogue, stopSpeaking } from '$lib/core/tts';
+	import { pickRandom, gameSnapshot } from '$lib/core/gameKit';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	const QUESTION_SECONDS = 25;
 	const MAX_LISTENS = 2; // come all'esame: primo ascolto + un replay (anche lento)
-	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
 
 	type Scene = 'level' | 'brief' | 'listen' | 'quiz' | 'result';
 	let scene = $state<Scene>('level');
@@ -29,7 +29,7 @@
 	function next(): void {
 		stopSpeaking();
 		const pool = LISTENING_DIALOGUES.filter((d) => d.livello === level && d.id !== lastId);
-		const d = rnd(pool.length > 0 ? pool : LISTENING_DIALOGUES.filter((x) => x.livello === level));
+		const d = pickRandom(pool.length > 0 ? pool : LISTENING_DIALOGUES.filter((x) => x.livello === level));
 		lastId = d.id;
 		run = instantiateListening(d);
 		listens = 0;
@@ -100,6 +100,17 @@
 			scene = 'result';
 		}
 	}
+
+	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.
+	// Se eri su una domanda senza risposta, il timer riparte da capo.
+	export const snapshot = gameSnapshot(
+		() => ({ scene, level, run, listens, qIdx, qPicked, score, wrongLines }),
+		(s) => {
+			({ scene, level, run, listens, qIdx, qPicked, score, wrongLines } = s);
+			playing = false;
+			if (scene === 'quiz' && qPicked === null) armQuestion();
+		}
+	);
 </script>
 
 <div class="choukai">

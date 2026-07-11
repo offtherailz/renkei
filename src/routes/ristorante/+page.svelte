@@ -13,6 +13,7 @@
 	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
+	import { shuffle } from '$lib/core/gameKit';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -107,14 +108,6 @@
 	const ALT_COUNTERS = ['個', '本', '杯', 'つ', '枚'];
 	function kanjiNum(n: number): string {
 		return n <= 10 ? KNUM[n]! : n === 20 ? '二十' : String(n);
-	}
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
 	}
 	function counterReading(counterId: string, q: number): string {
 		const c = counters.find((x) => x.id === counterId);

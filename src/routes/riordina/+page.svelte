@@ -9,16 +9,9 @@
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import type { JLPTLevel } from '$lib/types/models';
 
+	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
+
 	const locale = detectUserLocale();
-	const rnd = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)]!;
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
-	}
 
 	type Candidate = { plain: string; hint: string; level: JLPTLevel; detail: string };
 	let pool = $state<Candidate[]>([]);
@@ -39,6 +32,12 @@
 	let checked = $state(false);
 	let ok = $state(false);
 	let lastPlain = '';
+
+	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.
+	export const snapshot = gameSnapshot(
+		() => ({ scene, level, streak, best, current, correctTokens, chips, picked, checked, ok }),
+		(s) => ({ scene, level, streak, best, current, correctTokens, chips, picked, checked, ok } = s)
+	);
 
 	function bestKey(): string {
 		return `renkei-riordina-best-${level}`;
@@ -90,7 +89,7 @@
 		if (!tok) return;
 		const candidates = pool.filter((c) => (level === 'tutti' || c.level === level) && c.plain !== lastPlain);
 		for (let i = 0; i < 40; i += 1) {
-			const c = rnd(candidates);
+			const c = pickRandom(candidates);
 			const tokens = tok.tokenize(c.plain).filter((t) => t.trim().length > 0);
 			if (tokens.length < 4 || tokens.length > 8) continue;
 			current = c;

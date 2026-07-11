@@ -22,6 +22,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
+	import { shuffle } from '$lib/core/gameKit';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -170,14 +171,6 @@
 		return 'listen-number';
 	}
 
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
-	}
 
 	function genFor(cat: ReadId): GeneratedReading | null {
 		if (cat === 'clock') return generateClockReading();

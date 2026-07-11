@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { db } from '$lib/db/schema';
+	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import raw from '../../../scripts/data/iikae-n5n4.json';
@@ -27,21 +27,12 @@
 
 	const ROUNDS_PER_GAME = 10;
 
-	function shuffle<T>(xs: T[]): T[] {
-		const a = [...xs];
-		for (let i = a.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j]!, a[i]!];
-		}
-		return a;
-	}
-
 	function buildWordRound(): Round {
 		const gs = shuffle(GRUPPI);
 		const g = gs[0]!;
 		const [prompt, corretta] = shuffle(g.parole);
 		// esche: una parola da ciascuno di 3 altri gruppi
-		const esche = gs.slice(1, 4).map((o) => o.parole[Math.floor(Math.random() * o.parole.length)]!);
+		const esche = gs.slice(1, 4).map((o) => pickRandom(o.parole));
 		return { kind: 'parola', parola: prompt!, senso: g.senso, opzioni: shuffle([corretta!, ...esche]), corretta: corretta! };
 	}
 
@@ -73,27 +64,26 @@
 		return rounds[idx]!;
 	}
 
-	// scheda della parola in gioco (per il link 📖 e per il consolidamento)
-	async function wordIdOf(scrittura: string): Promise<string | null> {
-		const w =
-			(await db.words.where('scrittura').equals(scrittura).first()) ??
-			(await db.words.where('lettura').equals(scrittura).first());
-		return w?.id ?? null;
-	}
-
 	let detailHref = $state<string | null>(null);
+
+	// Conserva la partita quando vai alla 📖 Scheda e torni con Indietro.
+	export const snapshot = gameSnapshot(
+		() => ({ scene, rounds, idx, score, picked, detailHref }),
+		(s) => ({ scene, rounds, idx, score, picked, detailHref } = s)
+	);
+
 	async function pick(choice: string): Promise<void> {
 		if (picked !== null) return;
 		picked = choice;
 		const r = cur();
 		const parola = r.kind === 'frase' ? r.item.parola : r.corretta;
-		const id = await wordIdOf(parola);
-		detailHref = id ? `${base}/detail/${encodeURIComponent(`word:${id}`)}` : null;
+		const hit = await findWord(parola);
+		detailHref = hit?.detailHref ?? null;
 		if (choice === r.corretta) {
 			score += 1;
-		} else if (id) {
+		} else if (hit) {
 			// l'errore alimenta i punti deboli, come nelle avventure
-			await recordPracticeMiss('word:' + id);
+			await recordPracticeMiss('word:' + hit.id);
 		}
 	}
 
