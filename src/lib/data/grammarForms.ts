@@ -871,3 +871,44 @@ export const COMPOSED_SLUGS = new Set(
 export function formPage(slug: string): 'forme' | 'forme-composte' {
 	return COMPOSED_SLUGS.has(slug) ? 'forme-composte' : 'forme';
 }
+
+// Mappa curata: struttura ESATTA della voce grammatica del seed → slug della
+// forma composta con le sue regole d'uso. Serve alla scheda grammatica per
+// mostrare "si attacca a" e le forme con la stessa regola (l'overlap tra il
+// catalogo /forme-composte e le voci del seed). Curata a mano: il match
+// automatico per sottostringa dà falsi positivi (たい → みたいだ).
+export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
+	'〜てあげる': 'juju',
+	'〜てくれる': 'juju',
+	'〜てもらう': 'juju',
+	'〜てくださる': 'juju',
+	'〜と思う': 'to-omou',
+	'〜（よ）うと思う': 'to-omou',
+	'〜てみる': 'te-miru',
+	'〜ておく': 'te-oku',
+	'〜てしまう': 'te-shimau',
+	'〜ている': 'te-iru',
+	'〜ている／〜でいる': 'te-iru',
+	'たい': 'tai',
+	'〜すぎる': 'sugiru',
+	'すぎる': 'sugiru',
+	'〜ながら': 'nagara',
+	'〜そう': 'sou-apparenza',
+	'意向形': 'you-volitiva',
+	'〜ば': 'ba',
+	'条件形': 'ba',
+	'〜たら': 'tara',
+	'〜と': 'to-cond',
+	'〜なら': 'nara',
+	'可能形': 'kanou',
+	'受身形': 'ukemi',
+	'使役形': 'shieki',
+	'〜せてください／〜させてください': 'shieki',
+	'ほうがいい': 'hou-ga-ii',
+	'つもり': 'tsumori',
+	'〜つもり': 'tsumori',
+	'たことがある': 'ta-koto-ga-aru',
+	'〜なければいけない': 'nakereba',
+	'なくてはいけない': 'nakereba',
+	'なくてはならない': 'nakereba'
+};

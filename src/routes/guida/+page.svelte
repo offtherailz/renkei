@@ -41,7 +41,7 @@
 
 	<section class="g-card">
 		<h2>📖 Cataloghi</h2>
-		<p><strong>Vocabolario</strong> — tutte le parole, ricerca + filtri per livello e categoria, scorrimento infinito. <strong>Forme grammaticali</strong>, <strong>forme composte</strong>, <strong>particelle</strong>, <strong>contatori</strong> — ogni voce ha la sua scheda con drill dedicato.</p>
+		<p><strong>Vocabolario</strong> — tutte le parole, ricerca + filtri per livello e categoria, scorrimento infinito. <strong>Forme grammaticali</strong>, <strong>forme composte</strong>, <strong>particelle</strong>, <strong>contatori</strong> — ogni voce ha la sua scheda con drill dedicato. Quando un punto grammaticale corrisponde a una forma composta, la sua scheda mostra anche le <strong>regole d'uso</strong> (a cosa si attacca, con quale forma, e le forme «con la stessa regola»).</p>
 		<p><strong>🆘 Frasi utili</strong> — il catalogo delle frasi di sopravvivenza per situazione, con il come/quando usarle e la pratica a voce.</p>
 		<p><strong>Kanji</strong> — il catalogo copre tutti i kanji usati dal vocabolario N5+N4 (771). Le letture sono in kana: ON in katakana, kun in hiragana; il punto separa l'okurigana (わる.い → 悪い).</p>
 		<p>Nelle schede trovi anche: <strong>Usi</strong> (parole con più ruoli), <strong>📝 note personali</strong>, e <strong>✏️ Correggi</strong> se un dato è sbagliato.</p>

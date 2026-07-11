@@ -17,7 +17,7 @@
 	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
-	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
+	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPage } from '$lib/data/grammarForms';
 
 	// Forme composte più utili da collegare alla scheda di un verbo.
 	const VERB_COMPOSED_SLUGS = ['te-miru', 'te-oku', 'te-shimau', 'te-iru', 'to-omou', 'you-volitiva', 'sou-apparenza'];
@@ -140,6 +140,20 @@
 	let srsStage = $state(0);
 	let nextReviewLabel = $state('');
 
+	// Regole d'uso: la forma composta corrispondente a questa voce grammatica
+	// (mappa curata struttura → slug), con le forme che seguono la stessa regola.
+	const grammarForm = $derived.by(() => {
+		if (!grammar) return null;
+		const slug = FORM_SLUG_BY_STRUTTURA[grammar.struttura];
+		return slug ? (GRAMMAR_FORMS.find((f) => f.slug === slug) ?? null) : null;
+	});
+	const sameRuleForms = $derived.by(() => {
+		if (!grammarForm?.schemaId) return [];
+		return GRAMMAR_FORMS.filter(
+			(f) => f.composed && f.slug !== grammarForm.slug && f.schemaId === grammarForm.schemaId
+		);
+	});
+
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null;
@@ -233,7 +247,9 @@
 		}
 	}
 
-	$effect(() => { void itemId; loadItem(); });
+	// ricarica anche quando l'app finisce l'inizializzazione: arrivando qui a
+	// freddo (refresh/link diretto) il DB potrebbe non essere ancora pronto
+	$effect(() => { void itemId; void appState.initialized; loadItem(); });
 
 	function progressColor(p: number): string {
 		if (p >= 75) return 'var(--progress-good)';
@@ -529,6 +545,31 @@
 			<p class="grammar-explanation">{pickLocalizedText(grammar.spiegazione, locale)}</p>
 		</article>
 
+		{#if grammarForm}
+		<article class="detail-card">
+			<p class="card-title">▸ Regole d'uso — si attacca a</p>
+			{#if grammarForm.attachment && grammarForm.attachment.length > 0}
+				<ul class="attach-list">
+					{#each grammarForm.attachment as a}
+						<li><span class="attach-base">{a.base}</span> <span class="attach-arrow">→</span> {a.connessione}</li>
+					{/each}
+				</ul>
+			{/if}
+			{#if grammarForm.schemaId && ATTACHMENT_SCHEMAS[grammarForm.schemaId]}
+				<div class="schema-line">
+					<span class="schema-badge">regola: {ATTACHMENT_SCHEMAS[grammarForm.schemaId].label}</span>
+					{#if sameRuleForms.length > 0}
+						<span class="detail-meta">stessa regola di:</span>
+						{#each sameRuleForms as o}
+							<a class="mini-chip" href="{base}/{formPage(o.slug)}#{o.slug}">{stripFuriganaNotation(o.label)}</a>
+						{/each}
+					{/if}
+				</div>
+			{/if}
+			<a class="form-link" href="{base}/{formPage(grammarForm.slug)}#{grammarForm.slug}">📖 Scheda completa in Forme composte →</a>
+		</article>
+		{/if}
+
 		{#if masteryPct > 0}
 		<article class="detail-card">
 			<p class="card-title">Memorizzazione</p>
@@ -723,6 +764,14 @@
 	}
 
 	.detail-meta { font-size: 0.75rem; color: var(--muted); margin: 0; }
+
+	/* Regole d'uso (forme composte) */
+	.attach-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 0.88rem; }
+	.attach-base { font-weight: 700; }
+	.attach-arrow { color: var(--muted); }
+	.schema-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+	.schema-badge { background: var(--info-bg); border: 1px solid var(--info-border); color: var(--ink); border-radius: 999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700; }
+	.form-link { font-size: 0.82rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 
 	.bar-wrap { height: 6px; background: var(--line); border-radius: 4px; overflow: hidden; }
 	.bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }

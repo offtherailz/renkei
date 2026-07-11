@@ -52,6 +52,14 @@ test('keigo: partita, risposta e snapshot su back', async ({ page }) => {
 	await expect(page.getByRole('button', { name: /Avanti|Risultato/ })).toBeVisible();
 });
 
+test('scheda grammatica 〜てみる: regole d\'uso della forma composta', async ({ page }) => {
+	await gotoHome(page);
+	await page.goto('/detail/grammar:grammar-api-N4-65');
+	await expect(page.getByText('Regole d\'uso — si attacca a')).toBeVisible({ timeout: 15_000 });
+	await expect(page.getByText(/regola: Forma て/)).toBeVisible();
+	await expect(page.getByRole('link', { name: /Scheda completa in Forme composte/ })).toBeVisible();
+});
+
 test('iikae: una serie di 10 round arriva al risultato', async ({ page }) => {
 	await gotoHome(page);
 	await page.goto('/iikae');

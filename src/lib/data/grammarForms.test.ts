@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import seedData from '../../../static/seed-n5n4.json';
-import { GRAMMAR_FORMS, FORM_SLUG_BY_LABEL, ATTACHMENT_SCHEMAS } from './grammarForms';
+import { GRAMMAR_FORMS, FORM_SLUG_BY_LABEL, ATTACHMENT_SCHEMAS, FORM_SLUG_BY_STRUTTURA } from './grammarForms';
 
 interface SeedGrammar {
 	id: string;
+	struttura?: string;
 	frasi_esempio?: { testo: string }[];
 }
 const seed = seedData as unknown as { grammar: SeedGrammar[] };
@@ -63,6 +64,16 @@ describe('grammarForms integrità', () => {
 		for (const form of GRAMMAR_FORMS) {
 			const plain = form.label.replace(/\[[^\]]+\]/g, '');
 			expect(FORM_SLUG_BY_LABEL[plain]).toBe(form.slug);
+		}
+	});
+
+	it('FORM_SLUG_BY_STRUTTURA: strutture presenti nel seed e slug composed esistenti', () => {
+		const strutture = new Set(seed.grammar.map((g) => g.struttura));
+		for (const [struttura, slug] of Object.entries(FORM_SLUG_BY_STRUTTURA)) {
+			expect(strutture.has(struttura), `struttura "${struttura}" assente dal seed`).toBe(true);
+			const form = GRAMMAR_FORMS.find((f) => f.slug === slug);
+			expect(form, `slug "${slug}" inesistente (da "${struttura}")`).toBeDefined();
+			expect(form?.composed, `slug "${slug}" non è una forma composta`).toBe(true);
 		}
 	});
 });
