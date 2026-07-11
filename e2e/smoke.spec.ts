@@ -52,6 +52,21 @@ test('keigo: partita, risposta e snapshot su back', async ({ page }) => {
 	await expect(page.getByRole('button', { name: /Avanti|Risultato/ })).toBeVisible();
 });
 
+test('popover parola: non sposta il testo circostante', async ({ page }) => {
+	await gotoHome(page);
+	await page.goto('/detail/word:悪い');
+	const tok = page.locator('.tok').first();
+	await expect(tok).toBeVisible({ timeout: 15_000 });
+	await tok.scrollIntoViewIfNeeded(); // isola l'effetto del popover dallo scroll-into-view del click
+	const before = await tok.boundingBox();
+	await tok.click();
+	await expect(page.locator('.tok-pop')).toBeVisible();
+	const after = await tok.boundingBox();
+	expect(after?.y).toBeCloseTo(before?.y ?? 0, 0);
+	// il popover è flottante (fixed), non un fratello che spinge il flusso
+	await expect(page.locator('.tok-pop')).toHaveCSS('position', 'fixed');
+});
+
 test('scheda kanji 悪: badge di livello JLPT visibile', async ({ page }) => {
 	await gotoHome(page);
 	await page.goto('/detail/kanji:悪');

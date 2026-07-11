@@ -17,6 +17,52 @@
 	let hits = $state<(WordHit | null)[]>([]);
 	let open = $state<number | null>(null);
 
+	// Popover flottante: non spinge il testo, si posiziona sotto il token
+	// cliccato (con clamp ai bordi dello schermo) e si chiude cliccando fuori,
+	// con Escape o scorrendo (la posizione fixed non lo seguirebbe).
+	const POP_WIDTH = 260;
+	let popPos = $state<{ top: number; left: number } | null>(null);
+	let anchorEl: HTMLElement | null = null;
+	let popEl = $state<HTMLElement | null>(null);
+
+	function closePopover(): void {
+		open = null;
+		popPos = null;
+		anchorEl = null;
+	}
+
+	// Scorrere la pagina non chiude il popover: lo riaggancia sotto il token
+	// (che si muove con lo scroll, essendo "fixed" solo lui).
+	function repositionPopover(): void {
+		if (!anchorEl) return;
+		const rect = anchorEl.getBoundingClientRect();
+		const left = Math.max(8, Math.min(rect.left + rect.width / 2 - POP_WIDTH / 2, window.innerWidth - POP_WIDTH - 8));
+		popPos = { top: rect.bottom + 6, left };
+	}
+
+	function onWindowClick(e: MouseEvent): void {
+		const target = e.target as Node;
+		if (anchorEl?.contains(target) || popEl?.contains(target)) return;
+		closePopover();
+	}
+	function onWindowKeydown(e: KeyboardEvent): void {
+		if (e.key === 'Escape') closePopover();
+	}
+
+	$effect(() => {
+		if (open === null) return;
+		window.addEventListener('click', onWindowClick, true);
+		window.addEventListener('keydown', onWindowKeydown);
+		window.addEventListener('scroll', repositionPopover, true);
+		window.addEventListener('resize', repositionPopover);
+		return () => {
+			window.removeEventListener('click', onWindowClick, true);
+			window.removeEventListener('keydown', onWindowKeydown);
+			window.removeEventListener('scroll', repositionPopover, true);
+			window.removeEventListener('resize', repositionPopover);
+		};
+	});
+
 	// intervalli [inizio, fine) delle sottostringhe da evidenziare
 	const ranges = $derived(
 		mark
@@ -53,8 +99,14 @@
 		hits = tokens.map((t) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t) : null));
 	});
 
-	function toggle(i: number): void {
-		open = open === i ? null : i;
+	function toggle(i: number, e: MouseEvent): void {
+		if (open === i) {
+			closePopover();
+			return;
+		}
+		anchorEl = e.currentTarget as HTMLElement;
+		open = i;
+		repositionPopover();
 	}
 
 	// «Non la conoscevo»: la parola entra nel consolidamento (punti deboli in
@@ -72,9 +124,9 @@
 	{:else}
 		{#each tokens as tok, i (i)}
 			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok)}
-				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={() => toggle(i)}>{tok}</button>
-				{#if open === i}
-					<span class="tok-pop">
+				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={(e) => toggle(i, e)}>{tok}</button>
+				{#if open === i && popPos}
+					<span class="tok-pop" style="top:{popPos.top}px; left:{popPos.left}px; width:{POP_WIDTH}px" bind:this={popEl}>
 						{#if hits[i]}
 							<span class="pop-reading">{hits[i]!.scrittura !== tok ? hits[i]!.scrittura + '・' : ''}{hits[i]!.lettura}</span>
 							<span class="pop-gloss">{hits[i]!.significato}</span>
@@ -123,18 +175,18 @@
 	.punct { color: var(--ink); }
 
 	.tok-pop {
-		position: relative;
-		display: inline-flex;
+		position: fixed;
+		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 8px;
-		margin: 0 4px;
-		padding: 4px 10px;
-		border-radius: 8px;
-		background: var(--surface-2);
+		padding: 6px 10px;
+		border-radius: 10px;
+		background: var(--surface);
 		border: 1px solid var(--line);
+		box-shadow: 0 6px 20px rgba(14, 29, 51, 0.18);
 		font-size: 0.8rem;
-		vertical-align: middle;
+		z-index: 200;
 	}
 	.pop-reading { color: var(--brand); font-weight: 700; }
 	.pop-form { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
