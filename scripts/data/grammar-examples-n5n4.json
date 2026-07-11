@@ -621,6 +621,559 @@
     "it": "La settimana prossima ho in programma di andare a Kyoto.",
     "en": "I plan to go to Kyoto next week."
    }
+  ],
+  "grammar-api-N5-16": [
+   {
+    "jp": "きょうは さむいですね。",
+    "it": "Oggi fa freddo, eh.",
+    "en": "It's cold today, isn't it?"
+   }
+  ],
+  "grammar-api-N5-19": [
+   {
+    "jp": "ちちは いつも 七じに おきます。",
+    "it": "Papà si alza sempre alle sette.",
+    "en": "My father always gets up at seven."
+   }
+  ],
+  "grammar-api-N5-21": [
+   {
+    "jp": "あなたは がくせいですか。",
+    "it": "Tu sei uno studente?",
+    "en": "Are you a student?"
+   }
+  ],
+  "grammar-api-N5-11": [
+   {
+    "jp": "あそこに バスが きます。",
+    "it": "Laggiù sta arrivando l'autobus.",
+    "en": "The bus is coming over there."
+   }
+  ],
+  "grammar-api-N5-22": [
+   {
+    "jp": "でんしゃか バスで いきます。",
+    "it": "Vado in treno o in autobus.",
+    "en": "I'll go by train or bus."
+   }
+  ],
+  "grammar-api-N5-12": [
+   {
+    "jp": "えきの まえに ぎんこうが あります。",
+    "it": "Davanti alla stazione c'è una banca.",
+    "en": "There is a bank in front of the station."
+   }
+  ],
+  "grammar-api-N5-14": [
+   {
+    "jp": "こうえんに こどもが おおぜい います。",
+    "it": "Al parco ci sono tanti bambini.",
+    "en": "There are many children in the park."
+   }
+  ],
+  "grammar-api-N5-13": [
+   {
+    "jp": "あたらしい パソコンが ほしいです。",
+    "it": "Voglio un computer nuovo.",
+    "en": "I want a new computer."
+   }
+  ],
+  "grammar-api-N5-23": [
+   {
+    "jp": "あついから、まどを あけます。",
+    "it": "Poiché fa caldo, apro la finestra.",
+    "en": "Because it's hot, I'll open the window."
+   }
+  ],
+  "grammar-api-N5-25": [
+   {
+    "jp": "たかいけど、おいしいです。",
+    "it": "È caro, però è buono.",
+    "en": "It's expensive, but delicious."
+   }
+  ],
+  "grammar-api-N5-26": [
+   {
+    "jp": "やすみたいけれども、しごとが あります。",
+    "it": "Vorrei riposare, tuttavia ho del lavoro.",
+    "en": "I'd like to rest, but I have work."
+   }
+  ],
+  "grammar-api-N5-60": [
+   {
+    "jp": "がんばりました。しかし、まけました。",
+    "it": "Ci ho provato con impegno. Tuttavia ho perso.",
+    "en": "I did my best. However, I lost."
+   }
+  ],
+  "grammar-api-N5-20": [
+   {
+    "jp": "これは わたしのじゃ ないです。",
+    "it": "Questo non è mio.",
+    "en": "This is not mine."
+   }
+  ],
+  "grammar-api-N5-61": [
+   {
+    "jp": "この かばんは おもすぎます。",
+    "it": "Questa borsa è troppo pesante.",
+    "en": "This bag is too heavy."
+   }
+  ],
+  "grammar-api-N5-2": [
+   {
+    "jp": "あねは かんごしです。",
+    "it": "Mia sorella maggiore è infermiera.",
+    "en": "My older sister is a nurse."
+   }
+  ],
+  "grammar-api-N5-63": [
+   {
+    "jp": "つめたい みずが のみたいです。",
+    "it": "Voglio bere acqua fredda.",
+    "en": "I want to drink cold water."
+   }
+  ],
+  "grammar-api-N5-3": [
+   {
+    "jp": "ひとつだけ しつもんが あります。",
+    "it": "Ho soltanto una domanda.",
+    "en": "I have just one question."
+   }
+  ],
+  "grammar-api-N5-62": [
+   {
+    "jp": "すしを たべた ことが ありますか。",
+    "it": "Ti è mai capitato di mangiare il sushi?",
+    "en": "Have you ever eaten sushi?"
+   }
+  ],
+  "grammar-api-N5-64": [
+   {
+    "jp": "にちようびは ほんを よんだり、ねたり します。",
+    "it": "La domenica leggo, dormo e cose così.",
+    "en": "On Sundays I read, sleep, and so on."
+   }
+  ],
+  "grammar-api-N5-4": [
+   {
+    "jp": "あしたは たぶん はれるだろう。",
+    "it": "Domani probabilmente sarà sereno.",
+    "en": "It will probably be sunny tomorrow."
+   }
+  ],
+  "grammar-api-N5-1": [
+   {
+    "jp": "うそを ついちゃ いけないよ。",
+    "it": "Non si devono dire bugie!",
+    "en": "You mustn't tell lies!"
+   }
+  ],
+  "grammar-api-N5-74": [
+   {
+    "jp": "なつやすみに うみへ いく つもりです。",
+    "it": "Per le vacanze estive ho intenzione di andare al mare.",
+    "en": "I intend to go to the sea for summer vacation."
+   }
+  ],
+  "grammar-api-N5-5": [
+   {
+    "jp": "はしで ごはんを たべます。",
+    "it": "Mangio il riso con le bacchette.",
+    "en": "I eat rice with chopsticks."
+   }
+  ],
+  "grammar-api-N5-65": [
+   {
+    "jp": "つくえの うえに メモが おいて あります。",
+    "it": "Sulla scrivania è stato lasciato un appunto.",
+    "en": "A note has been left on the desk."
+   }
+  ],
+  "grammar-api-N5-67": [
+   {
+    "jp": "シャワーを あびてから、ねます。",
+    "it": "Dopo aver fatto la doccia, vado a dormire.",
+    "en": "After taking a shower, I go to bed."
+   }
+  ],
+  "grammar-api-N5-68": [
+   {
+    "jp": "なまえを かいて ください。",
+    "it": "Scriva il nome, per favore.",
+    "en": "Please write your name."
+   }
+  ],
+  "grammar-api-N5-7": [
+   {
+    "jp": "この ほんは おもしろいでしょう。",
+    "it": "Questo libro è interessante, vero?",
+    "en": "This book is interesting, isn't it?"
+   }
+  ],
+  "grammar-api-N5-69": [
+   {
+    "jp": "びじゅつかんで しゃしんを とっては いけません。",
+    "it": "Al museo è vietato fare fotografie.",
+    "en": "You must not take photos in the museum."
+   }
+  ],
+  "grammar-api-N5-6": [
+   {
+    "jp": "つかれました。でも、たのしかったです。",
+    "it": "Mi sono stancato. Però è stato divertente.",
+    "en": "I got tired. But it was fun."
+   }
+  ],
+  "grammar-api-N5-70": [
+   {
+    "jp": "まどを あけても いいですか。",
+    "it": "Posso aprire la finestra?",
+    "en": "May I open the window?"
+   }
+  ],
+  "grammar-api-N5-71": [
+   {
+    "jp": "ともだちと えいがを みました。",
+    "it": "Ho visto un film con un amico.",
+    "en": "I watched a movie with a friend."
+   }
+  ],
+  "grammar-api-N5-9": [
+   {
+    "jp": "どうして にほんごを べんきょうして いますか。",
+    "it": "Perché studi giapponese?",
+    "en": "Why are you studying Japanese?"
+   }
+  ],
+  "grammar-api-N5-10": [
+   {
+    "jp": "この りょうりは どうやって つくりますか。",
+    "it": "Come si prepara questo piatto?",
+    "en": "How do you make this dish?"
+   }
+  ],
+  "grammar-api-N5-72": [
+   {
+    "jp": "ひまな とき、おんがくを ききます。",
+    "it": "Quando ho tempo libero, ascolto musica.",
+    "en": "When I have free time, I listen to music."
+   }
+  ],
+  "grammar-api-N5-73": [
+   {
+    "jp": "この こうえんは とても ひろいです。",
+    "it": "Questo parco è molto grande.",
+    "en": "This park is very big."
+   }
+  ],
+  "grammar-api-N5-8": [
+   {
+    "jp": "どんな スポーツを しますか。",
+    "it": "Che tipo di sport pratichi?",
+    "en": "What kind of sports do you play?"
+   }
+  ],
+  "grammar-api-N5-36": [
+   {
+    "jp": "かれは ゆうめいな かしゅです。",
+    "it": "Lui è un cantante famoso.",
+    "en": "He is a famous singer."
+   }
+  ],
+  "grammar-api-N5-37": [
+   {
+    "jp": "うみは ひろいなあ。",
+    "it": "Com'è vasto il mare…!",
+    "en": "How vast the sea is!"
+   }
+  ],
+  "grammar-api-N5-38": [
+   {
+    "jp": "かさを もたないで でかけました。",
+    "it": "Sono uscito senza portare l'ombrello.",
+    "en": "I went out without taking an umbrella."
+   }
+  ],
+  "grammar-api-N5-39": [
+   {
+    "jp": "しばふに はいらないで ください。",
+    "it": "Non calpestare il prato, per favore.",
+    "en": "Please don't walk on the grass."
+   }
+  ],
+  "grammar-api-N5-41": [
+   {
+    "jp": "もう かえらなくちゃ。",
+    "it": "Ormai devo proprio andare a casa.",
+    "en": "I've got to go home now."
+   }
+  ],
+  "grammar-api-N5-42": [
+   {
+    "jp": "くすりを のまなくては いけません。",
+    "it": "Devi prendere la medicina.",
+    "en": "You must take your medicine."
+   }
+  ],
+  "grammar-api-N5-43": [
+   {
+    "jp": "ごみは じぶんで すてなくては なりません。",
+    "it": "La spazzatura bisogna buttarla da sé.",
+    "en": "You must throw away your own garbage."
+   }
+  ],
+  "grammar-api-N5-40": [
+   {
+    "jp": "ぜんぶ たべなくても いいですよ。",
+    "it": "Va bene anche se non mangi tutto.",
+    "en": "You don't have to eat everything."
+   }
+  ],
+  "grammar-api-N5-44": [
+   {
+    "jp": "そらが くらく なりました。",
+    "it": "Il cielo si è fatto scuro.",
+    "en": "The sky became dark."
+   }
+  ],
+  "grammar-api-N5-47": [
+   {
+    "jp": "まいあさ 六じに おきます。",
+    "it": "Mi alzo ogni mattina alle sei.",
+    "en": "I get up at six every morning."
+   }
+  ],
+  "grammar-api-N5-50": [
+   {
+    "jp": "らいねん、イタリアへ かえります。",
+    "it": "L'anno prossimo torno in Italia.",
+    "en": "Next year I'm going back to Italy."
+   }
+  ],
+  "grammar-api-N5-48": [
+   {
+    "jp": "うみへ およぎに いきます。",
+    "it": "Vado al mare a nuotare.",
+    "en": "I'm going to the sea to swim."
+   }
+  ],
+  "grammar-api-N5-49": [
+   {
+    "jp": "デザートは アイスに します。",
+    "it": "Come dolce prendo il gelato.",
+    "en": "For dessert I'll have ice cream."
+   }
+  ],
+  "grammar-api-N5-46": [
+   {
+    "jp": "きょうは あついですね。",
+    "it": "Oggi fa caldo, vero?",
+    "en": "It's hot today, isn't it?"
+   }
+  ],
+  "grammar-api-N5-51": [
+   {
+    "jp": "これは にほんごの ほんです。",
+    "it": "Questo è un libro di giapponese.",
+    "en": "This is a Japanese language book."
+   }
+  ],
+  "grammar-api-N5-53": [
+   {
+    "jp": "わたしは えを かくのが へたです。",
+    "it": "Io sono negato a disegnare.",
+    "en": "I am bad at drawing."
+   }
+  ],
+  "grammar-api-N5-55": [
+   {
+    "jp": "りょうりを つくるのが すきです。",
+    "it": "Mi piace cucinare.",
+    "en": "I like cooking."
+   }
+  ],
+  "grammar-api-N5-54": [
+   {
+    "jp": "あねは うたうのが じょうずです。",
+    "it": "Mia sorella è brava a cantare.",
+    "en": "My sister is good at singing."
+   }
+  ],
+  "grammar-api-N5-57": [
+   {
+    "jp": "あしたは しけんなので、はやく ねます。",
+    "it": "Domani c'è l'esame, quindi vado a letto presto.",
+    "en": "I have an exam tomorrow, so I'll go to bed early."
+   }
+  ],
+  "grammar-api-N5-52": [
+   {
+    "jp": "あたまが いたいのです。",
+    "it": "È che ho mal di testa.",
+    "en": "The thing is, I have a headache."
+   }
+  ],
+  "grammar-api-N5-56": [
+   {
+    "jp": "くだものの なかで いちごが いちばん すきです。",
+    "it": "Tra la frutta, le fragole sono le mie preferite.",
+    "en": "Among fruits, I like strawberries best."
+   }
+  ],
+  "grammar-api-N5-75": [
+   {
+    "jp": "きょうは いい てんきです。",
+    "it": "Oggi (come tema) è una bella giornata.",
+    "en": "Today is a nice day."
+   }
+  ],
+  "grammar-api-N5-76": [
+   {
+    "jp": "しんかんせんは バスより はやいです。",
+    "it": "Lo shinkansen è più veloce dell'autobus.",
+    "en": "The bullet train is faster than the bus."
+   }
+  ],
+  "grammar-api-N5-77": [
+   {
+    "jp": "らいしゅうの どようびは どうですか。",
+    "it": "Che ne dici di sabato prossimo?",
+    "en": "How about next Saturday?"
+   }
+  ],
+  "grammar-api-N5-15": [
+   {
+    "jp": "やさいを たべた ほうが いいですよ。",
+    "it": "Faresti meglio a mangiare le verdure.",
+    "en": "You'd better eat vegetables."
+   }
+  ],
+  "grammar-api-N5-32": [
+   {
+    "jp": "いっしょに ひるごはんを たべましょう。",
+    "it": "Pranziamo insieme!",
+    "en": "Let's have lunch together!"
+   }
+  ],
+  "grammar-api-N5-33": [
+   {
+    "jp": "まどを あけましょうか。",
+    "it": "Apro io la finestra?",
+    "en": "Shall I open the window?"
+   }
+  ],
+  "grammar-api-N5-31": [
+   {
+    "jp": "こんど いっしょに テニスを しませんか。",
+    "it": "Ti va di giocare a tennis insieme la prossima volta?",
+    "en": "Would you like to play tennis together next time?"
+   }
+  ],
+  "grammar-api-N5-27": [
+   {
+    "jp": "そとは まだ あかるいです。",
+    "it": "Fuori è ancora chiaro.",
+    "en": "It is still light outside."
+   }
+  ],
+  "grammar-api-N5-28": [
+   {
+    "jp": "レポートは まだ かいて いません。",
+    "it": "La relazione non l'ho ancora scritta.",
+    "en": "I haven't written the report yet."
+   }
+  ],
+  "grammar-api-N5-29": [
+   {
+    "jp": "ぎんこうは 三じまで です。",
+    "it": "La banca è aperta fino alle tre.",
+    "en": "The bank is open until three."
+   }
+  ],
+  "grammar-api-N5-34": [
+   {
+    "jp": "かれも がくせいです。",
+    "it": "Anche lui è uno studente.",
+    "en": "He is also a student."
+   }
+  ],
+  "grammar-api-N5-35": [
+   {
+    "jp": "えいがは もう はじまりました。",
+    "it": "Il film è già cominciato.",
+    "en": "The movie has already started."
+   }
+  ],
+  "grammar-api-N5-78": [
+   {
+    "jp": "かばんに ほんや ノートを いれました。",
+    "it": "Nella borsa ho messo libri, quaderni e altro.",
+    "en": "I put books, notebooks, and such in my bag."
+   }
+  ],
+  "grammar-api-N5-79": [
+   {
+    "jp": "この みせ、やすいですよ。",
+    "it": "Questo negozio è economico, sai!",
+    "en": "This shop is cheap, you know!"
+   }
+  ],
+  "grammar-api-N5-80": [
+   {
+    "jp": "なつより ふゆの ほうが すきです。",
+    "it": "Preferisco l'inverno all'estate.",
+    "en": "I like winter better than summer."
+   }
+  ],
+  "grammar-api-N5-58": [
+   {
+    "jp": "まいばん おんがくを ききます。",
+    "it": "Ogni sera ascolto la musica.",
+    "en": "I listen to music every evening."
+   }
+  ],
+  "grammar-api-N5-59": [
+   {
+    "jp": "すみません、メニューを ください。",
+    "it": "Scusi, mi dia il menù per favore.",
+    "en": "Excuse me, the menu please."
+   }
+  ],
+  "grammar-api-N5-45": [
+   {
+    "jp": "バスが こなかったんです。",
+    "it": "È che l'autobus non è arrivato.",
+    "en": "The thing is, the bus didn't come."
+   }
+  ],
+  "grammar-api-N5-18": [
+   {
+    "jp": "かぞくと いっしょに ばんごはんを たべます。",
+    "it": "Ceno insieme alla famiglia.",
+    "en": "I have dinner together with my family."
+   }
+  ],
+  "grammar-api-N5-17": [
+   {
+    "jp": "クラスで かれが いちばん せが たかいです。",
+    "it": "In classe lui è il più alto.",
+    "en": "He is the tallest in the class."
+   }
+  ],
+  "grammar-api-N5-30": [
+   {
+    "jp": "ねる まえに はを みがきます。",
+    "it": "Prima di dormire mi lavo i denti.",
+    "en": "I brush my teeth before going to bed."
+   }
+  ],
+  "grammar-api-N5-24": [
+   {
+    "jp": "この ことばの つかいかたを おしえて ください。",
+    "it": "Insegnami come si usa questa parola.",
+    "en": "Please teach me how to use this word."
+   }
   ]
  }
 }
