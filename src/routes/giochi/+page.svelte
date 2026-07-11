@@ -547,6 +547,11 @@
 
 		<p class="group-title">Conversazione</p>
 			<div class="cat-grid">
+				<a class="cat-card" href="{base}/keigo">
+					<span class="cat-icon">🙇</span>
+					<span class="cat-label">敬語 — Linguaggio cortese</span>
+					<span class="cat-hint">尊敬語 o 謙譲語? La forma giusta per capo e clienti</span>
+				</a>
 				<a class="cat-card" href="{base}/giornata">
 					<span class="cat-icon">🌅</span>
 					<span class="cat-label">Una giornata</span>
