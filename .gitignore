@@ -7,3 +7,5 @@ build/
 scripts/.cache/
 scripts/validation-report.json
 src/lib/buildInfo.ts
+test-results/
+playwright-report/

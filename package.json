@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "sync:open-seed": "node scripts/sync-open-source-seed.mjs",
     "validate:seed": "node scripts/validate-seed.mjs",
     "build:pages": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; REPO_NAME=$(basename -s .git \"$REPO_URL\"); node scripts/gen-build-id.mjs && DEPLOY_BASE=/$REPO_NAME/ vite build && cp build/index.html build/404.html",
@@ -20,6 +21,7 @@
     "dexie": "^4.0.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.68.0",
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
