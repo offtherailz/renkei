@@ -1394,7 +1394,9 @@
 {:else if phase === 'summary' && summarySession}
 <div class="summary-shell">
 	<div class="summary-card">
-		<div class="summary-tier">{getTier(accuracy())}</div>
+		{#if summarySession.answers > 0}
+			<div class="summary-tier">{getTier(accuracy())}</div>
+		{/if}
 		<h2 class="summary-title">{finishedEverything ? '🎉 Tutto fatto per oggi!' : 'Sessione completata!'}</h2>
 		{#if finishedEverything}
 			<p class="summary-hint">Hai ripassato tutto il dovuto e raggiunto il limite di carte nuove di oggi — torna domani per il resto. 🌙</p>
@@ -1410,24 +1412,26 @@
 		{#if summaryBest}
 			<p class="summary-best">🏆 Nuovo record personale di accuratezza!</p>
 		{/if}
-		<div class="summary-stats">
-			<div class="summary-stat">
-				<span class="stat-num">{summarySession.answers}</span>
-				<span class="stat-label">Risposte</span>
+		{#if summarySession.answers > 0}
+			<div class="summary-stats">
+				<div class="summary-stat">
+					<span class="stat-num">{summarySession.answers}</span>
+					<span class="stat-label">Risposte</span>
+				</div>
+				<div class="summary-stat">
+					<span class="stat-num">{summarySession.correct}</span>
+					<span class="stat-label">Corrette</span>
+				</div>
+				<div class="summary-stat">
+					<span class="stat-num">{accuracy()}%</span>
+					<span class="stat-label">Accuracy</span>
+				</div>
+				<div class="summary-stat">
+					<span class="stat-num">{(summarySession.xp ?? 0) >= 0 ? '+' : ''}{summarySession.xp ?? 0}</span>
+					<span class="stat-label">XP</span>
+				</div>
 			</div>
-			<div class="summary-stat">
-				<span class="stat-num">{summarySession.correct}</span>
-				<span class="stat-label">Corrette</span>
-			</div>
-			<div class="summary-stat">
-				<span class="stat-num">{accuracy()}%</span>
-				<span class="stat-label">Accuracy</span>
-			</div>
-			<div class="summary-stat">
-				<span class="stat-num">{(summarySession.xp ?? 0) >= 0 ? '+' : ''}{summarySession.xp ?? 0}</span>
-				<span class="stat-label">XP</span>
-			</div>
-		</div>
+		{/if}
 		{#if summarySession.wrongAnswers.length > 0}
 			<div class="summary-errors">
 				<p class="errors-title">Errori da ripassare ({summarySession.wrongAnswers.length})</p>

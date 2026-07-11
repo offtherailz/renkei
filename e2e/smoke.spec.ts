@@ -182,6 +182,33 @@ test('quiz: rispondere a una domanda flashcard-recognition non lancia errori', a
 	throw new Error('flashcard-recognition non è mai uscita in 15 tentativi (improbabile ma non impossibile)');
 });
 
+test('sessione senza nulla da fare: niente badge bronze né statistiche a zero', async ({ page }) => {
+	// Tetto giornaliero già raggiunto e nessun ripasso dovuto: pickNextItem
+	// torna null subito, la sessione finisce senza aver risposto a nulla.
+	// Prima mostrava comunque "🥉 Bronze" e "0 Risposte/0 Corrette/0%/+0 XP",
+	// contraddicendo "Tutto fatto per oggi!" (segnalato testando a mano).
+	await gotoHome(page);
+	await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const now = new Date();
+		const dayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+		await db.user_profile.put({
+			id: 'default',
+			xp_totali: 0,
+			livello: 1,
+			streak_giorni: 0,
+			badge_sbloccati: [],
+			nuove_oggi: 20,
+			nuove_oggi_data: dayKey,
+			updated_at: Date.now()
+		});
+	});
+	await page.goto('/quiz');
+	await expect(page.getByText('🎉 Tutto fatto per oggi!')).toBeVisible({ timeout: 20_000 });
+	await expect(page.locator('.summary-tier')).toHaveCount(0);
+	await expect(page.locator('.summary-stats')).toHaveCount(0);
+});
+
 test('contatore dovuto (da un errore in avventura): il quiz lo ripassa davvero', async ({ page }) => {
 	// Un errore in un'avventura rende subito "dovuto" un contatore
 	// (recordPracticeMiss → createInitialSrs), ma niente lo riprogrammava mai
