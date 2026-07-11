@@ -72,6 +72,13 @@
      "it": "L'altro ieri ho visto un film con un amico.",
      "en": "The day before yesterday I watched a movie with a friend."
     }
+   },
+   {
+    "testo": "一昨日から あめが ふって います。",
+    "traduzione": {
+     "it": "Piove dall'altro ieri.",
+     "en": "It has been raining since the day before yesterday."
+    }
    }
   ],
   "significato": {
@@ -243,6 +250,13 @@
      "it": "Ci sono nove caramelle.",
      "en": "There are nine candies."
     }
+   },
+   {
+    "testo": "おとうとは 九つに なりました。",
+    "traduzione": {
+     "it": "Mio fratello minore ha compiuto nove anni.",
+     "en": "My little brother turned nine."
+    }
    }
   ],
   "significato": {
@@ -287,6 +301,13 @@
     "traduzione": {
      "it": "Ho imbucato la lettera nella cassetta.",
      "en": "I put the letter in the mailbox."
+    }
+   },
+   {
+    "testo": "えきの まえに あかい ポストが あります。",
+    "traduzione": {
+     "it": "Davanti alla stazione c'è una cassetta postale rossa.",
+     "en": "There is a red mailbox in front of the station."
     }
    }
   ],
@@ -366,6 +387,13 @@
     "traduzione": {
      "it": "Davanti al negozio c'è gente in fila.",
      "en": "People are lining up in front of the shop."
+    }
+   },
+   {
+    "testo": "きっぷを かう ひとが ながく 並んで います。",
+    "traduzione": {
+     "it": "C'è una lunga fila di persone che comprano i biglietti.",
+     "en": "People buying tickets are standing in a long line."
     }
    }
   ],
@@ -604,6 +632,13 @@
     "traduzione": {
      "it": "Vedo un film una volta al mese.",
      "en": "I watch a movie once a month."
+    }
+   },
+   {
+    "testo": "一月 にほんに いた ことが あります。",
+    "traduzione": {
+     "it": "Sono stato in Giappone per un mese.",
+     "en": "I have stayed in Japan for one month."
     }
    }
   ],
@@ -1498,6 +1533,13 @@
      "it": "Scrivi con la penna, per favore.",
      "en": "Please write with a ballpoint pen."
     }
+   },
+   {
+    "testo": "ボールペンの インクが なくなりました。",
+    "traduzione": {
+     "it": "L'inchiostro della penna a sfera è finito.",
+     "en": "The ballpoint pen has run out of ink."
+    }
    }
   ],
   "significato": {
@@ -1516,6 +1558,13 @@
     "traduzione": {
      "it": "Vai dritto per questa strada.",
      "en": "Go straight along this road."
+    }
+   },
+   {
+    "testo": "せんを まっすぐ ひいて ください。",
+    "traduzione": {
+     "it": "Traccia una linea dritta, per favore.",
+     "en": "Please draw a straight line."
     }
    }
   ],
@@ -1732,6 +1781,13 @@
     "traduzione": {
      "it": "Ci sono tre mele.",
      "en": "There are three apples."
+    }
+   },
+   {
+    "testo": "かぞくは 三にんです。",
+    "traduzione": {
+     "it": "La mia famiglia è di tre persone.",
+     "en": "My family has three people."
     }
    }
   ],
@@ -1956,6 +2012,13 @@
     "traduzione": {
      "it": "Questa borsa costa diecimila yen.",
      "en": "This bag costs ten thousand yen."
+    }
+   },
+   {
+    "testo": "この まちには 十万にんが すんで います。",
+    "traduzione": {
+     "it": "In questa città vivono centomila persone.",
+     "en": "One hundred thousand people live in this city."
     }
    }
   ],
@@ -2506,6 +2569,13 @@
      "it": "Ho messo il rullino nella macchina fotografica.",
      "en": "I put film in the camera."
     }
+   },
+   {
+    "testo": "この フィルムは 二十四まい とれます。",
+    "traduzione": {
+     "it": "Con questo rullino si fanno ventiquattro foto.",
+     "en": "This film takes twenty-four pictures."
+    }
    }
   ],
   "significato": {
@@ -2526,6 +2596,13 @@
      "it": "D'estate nuoto in piscina.",
      "en": "In summer I swim in the pool."
     }
+   },
+   {
+    "testo": "がっこうの プールは ふかいです。",
+    "traduzione": {
+     "it": "La piscina della scuola è profonda.",
+     "en": "The school pool is deep."
+    }
    }
   ],
   "significato": {
@@ -2544,6 +2621,13 @@
     "traduzione": {
      "it": "Scrivi il nome con la penna, per favore.",
      "en": "Please write your name with a pen."
+    }
+   },
+   {
+    "testo": "あかい ペンを かして ください。",
+    "traduzione": {
+     "it": "Prestami la penna rossa, per favore.",
+     "en": "Please lend me the red pen."
     }
    }
   ],
@@ -2564,6 +2648,13 @@
      "it": "Ho acceso il fuoco con un fiammifero.",
      "en": "I lit the fire with a match."
     }
+   },
+   {
+    "testo": "マッチは こどもの てが とどかない ところに おきます。",
+    "traduzione": {
+     "it": "I fiammiferi si tengono fuori dalla portata dei bambini.",
+     "en": "Matches are kept out of children's reach."
+    }
    }
   ],
   "significato": {
@@ -2582,6 +2673,13 @@
     "traduzione": {
      "it": "Abbiamo cantato tutti insieme.",
      "en": "We all sang together."
+    }
+   },
+   {
+    "testo": "クラスの みんなが きょうしつに います。",
+    "traduzione": {
+     "it": "Tutti quelli della classe sono in aula.",
+     "en": "Everyone in the class is in the classroom."
     }
    }
   ],
@@ -2604,6 +2702,13 @@
      "it": "Parla più lentamente, per favore.",
      "en": "Please speak more slowly."
     }
+   },
+   {
+    "testo": "もっと おおきい こえで いって ください。",
+    "traduzione": {
+     "it": "Parla a voce più alta, per favore.",
+     "en": "Please speak in a louder voice."
+    }
    }
   ],
   "significato": {
@@ -2622,6 +2727,13 @@
     "traduzione": {
      "it": "Vado spesso in biblioteca.",
      "en": "I often go to the library."
+    }
+   },
+   {
+    "testo": "ゆうべは よく ねられました。",
+    "traduzione": {
+     "it": "Stanotte ho dormito bene.",
+     "en": "I slept well last night."
     }
    }
   ],
@@ -2645,6 +2757,13 @@
     "traduzione": {
      "it": "Ho comprato una camicia bianca.",
      "en": "I bought a white dress shirt."
+    }
+   },
+   {
+    "testo": "ワイシャツに アイロンを かけました。",
+    "traduzione": {
+     "it": "Ho stirato la camicia.",
+     "en": "I ironed the dress shirt."
     }
    }
   ],
@@ -3063,6 +3182,13 @@
      "it": "Ho comprato sette caramelle.",
      "en": "I bought seven candies."
     }
+   },
+   {
+    "testo": "むすめは ことし 七つに なります。",
+    "traduzione": {
+     "it": "Mia figlia quest'anno compie sette anni.",
+     "en": "My daughter turns seven this year."
+    }
    }
   ],
   "significato": {
@@ -3373,6 +3499,13 @@
      "it": "Cosa c'è dentro la scatola?",
      "en": "What is inside the box?"
     }
+   },
+   {
+    "testo": "かばんの 中に さいふが あります。",
+    "traduzione": {
+     "it": "Dentro la borsa c'è il portafoglio.",
+     "en": "There is a wallet inside the bag."
+    }
    }
   ],
   "significato": {
@@ -3394,6 +3527,13 @@
     "traduzione": {
      "it": "Adesso è mezzogiorno in punto.",
      "en": "It is exactly twelve o'clock now."
+    }
+   },
+   {
+    "testo": "バスが 丁度 きた ところです。",
+    "traduzione": {
+     "it": "L'autobus è arrivato proprio adesso.",
+     "en": "The bus has just arrived."
     }
    }
   ],
@@ -3838,6 +3978,13 @@
     "traduzione": {
      "it": "I miei genitori vivono a Osaka.",
      "en": "My parents live in Osaka."
+    }
+   },
+   {
+    "testo": "しゅうまつに 両親に あいに いきます。",
+    "traduzione": {
+     "it": "Nel fine settimana vado a trovare i miei genitori.",
+     "en": "On the weekend I will go see my parents."
     }
    }
   ],
@@ -4806,6 +4953,13 @@
      "it": "Aprite a pagina trenta, per favore.",
      "en": "Please open to page thirty."
     }
+   },
+   {
+    "testo": "つぎの ページを よんで ください。",
+    "traduzione": {
+     "it": "Leggi la pagina successiva, per favore.",
+     "en": "Please read the next page."
+    }
    }
   ],
   "significato": {
@@ -4824,6 +4978,13 @@
     "traduzione": {
      "it": "Premi questo bottone, per favore.",
      "en": "Please press this button."
+    }
+   },
+   {
+    "testo": "シャツの ボタンが とれました。",
+    "traduzione": {
+     "it": "Si è staccato un bottone della camicia.",
+     "en": "A button came off my shirt."
     }
    }
   ],
@@ -4845,6 +5006,13 @@
      "it": "Ho alloggiato nell'hotel davanti alla stazione.",
      "en": "I stayed at the hotel in front of the station."
     }
+   },
+   {
+    "testo": "うみの ちかくの ホテルを よやくしました。",
+    "traduzione": {
+     "it": "Ho prenotato un hotel vicino al mare.",
+     "en": "I booked a hotel near the sea."
+    }
    }
   ],
   "significato": {
@@ -4863,6 +5031,13 @@
     "traduzione": {
      "it": "Non ho ancora finito i compiti.",
      "en": "I haven't finished my homework yet."
+    }
+   },
+   {
+    "testo": "ばんごはんは まだですか。",
+    "traduzione": {
+     "it": "La cena non è ancora pronta?",
+     "en": "Isn't dinner ready yet?"
     }
    }
   ],
@@ -4886,6 +5061,13 @@
      "it": "Da qui alla stazione sono cinquecento metri.",
      "en": "It is five hundred meters from here to the station."
     }
+   },
+   {
+    "testo": "この プールは ながさが 二十五メートルです。",
+    "traduzione": {
+     "it": "Questa piscina è lunga venticinque metri.",
+     "en": "This pool is twenty-five meters long."
+    }
    }
   ],
   "significato": {
@@ -4905,6 +5087,13 @@
      "it": "Pronto, parlo con il signor Tanaka?",
      "en": "Hello, is this Mr. Tanaka?"
     }
+   },
+   {
+    "testo": "もしもし、きこえますか。",
+    "traduzione": {
+     "it": "Pronto? Mi senti?",
+     "en": "Hello? Can you hear me?"
+    }
    }
   ],
   "significato": {
@@ -4923,6 +5112,13 @@
     "traduzione": {
      "it": "Che casa magnifica!",
      "en": "What a splendid house!"
+    }
+   },
+   {
+    "testo": "むすこは りっぱな いしゃに なりました。",
+    "traduzione": {
+     "it": "Mio figlio è diventato un medico rispettabile.",
+     "en": "My son became a fine doctor."
     }
    }
   ],
@@ -4945,6 +5141,13 @@
      "it": "Mio padre ascolta vecchi dischi.",
      "en": "My father listens to old records."
     }
+   },
+   {
+    "testo": "この レコードは とても ふるいです。",
+    "traduzione": {
+     "it": "Questo disco è molto vecchio.",
+     "en": "This record is very old."
+    }
    }
   ],
   "significato": {
@@ -4963,6 +5166,13 @@
     "traduzione": {
      "it": "Ieri ho mangiato al ristorante.",
      "en": "Yesterday I ate at a restaurant."
+    }
+   },
+   {
+    "testo": "えきの ちかくに あたらしい レストランが できました。",
+    "traduzione": {
+     "it": "Vicino alla stazione ha aperto un ristorante nuovo.",
+     "en": "A new restaurant opened near the station."
     }
    }
   ],
@@ -5026,6 +5236,13 @@
     "traduzione": {
      "it": "Una mela, per favore.",
      "en": "One apple, please."
+    }
+   },
+   {
+    "testo": "しつもんが 一つ あります。",
+    "traduzione": {
+     "it": "Ho una domanda.",
+     "en": "I have one question."
     }
    }
   ],
@@ -5184,6 +5401,13 @@
      "it": "Dell'acqua, per favore.",
      "en": "Water, please."
     }
+   },
+   {
+    "testo": "この りんごを みっつ 下さい。",
+    "traduzione": {
+     "it": "Mi dia tre di queste mele, per favore.",
+     "en": "Please give me three of these apples."
+    }
    }
   ],
   "significato": {
@@ -5202,6 +5426,13 @@
     "traduzione": {
      "it": "Sono stonato a cantare.",
      "en": "I am bad at singing."
+    }
+   },
+   {
+    "testo": "下手ですが、うたうのが すきです。",
+    "traduzione": {
+     "it": "Sono negato, ma mi piace cantare.",
+     "en": "I'm bad at it, but I like singing."
     }
    }
   ],
@@ -5541,6 +5772,13 @@
      "it": "Leggete pagina nove, per favore.",
      "en": "Please read page nine."
     }
+   },
+   {
+    "testo": "九かいだての ビルに すんで います。",
+    "traduzione": {
+     "it": "Vivo in un palazzo di nove piani.",
+     "en": "I live in a nine-story building."
+    }
    }
   ],
   "significato": {
@@ -5559,6 +5797,13 @@
     "traduzione": {
      "it": "La scuola comincia ogni mattina alle nove.",
      "en": "School starts at nine every morning."
+    }
+   },
+   {
+    "testo": "えいがは 九じに はじまります。",
+    "traduzione": {
+     "it": "Il film comincia alle nove.",
+     "en": "The movie starts at nine."
     }
    }
   ],
@@ -6179,6 +6424,13 @@
      "it": "Il giorno sette viene un amico.",
      "en": "A friend is coming on the seventh."
     }
+   },
+   {
+    "testo": "七日までに レポートを だします。",
+    "traduzione": {
+     "it": "Consegno la relazione entro il sette.",
+     "en": "I will submit the report by the seventh."
+    }
    }
   ],
   "significato": {
@@ -6422,6 +6674,13 @@
      "it": "Sulla scrivania c'è un libro.",
      "en": "There is a book on the desk."
     }
+   },
+   {
+    "testo": "やまの 上から うみが みえます。",
+    "traduzione": {
+     "it": "Dalla cima della montagna si vede il mare.",
+     "en": "From the top of the mountain you can see the sea."
+    }
    }
   ],
   "significato": {
@@ -6444,6 +6703,13 @@
      "it": "Fa freddo: mettiti la giacca.",
      "en": "It's cold, so put on your jacket."
     }
+   },
+   {
+    "testo": "あついので、上着を ぬぎました。",
+    "traduzione": {
+     "it": "Faceva caldo, così mi sono tolto la giacca.",
+     "en": "It was hot, so I took off my jacket."
+    }
    }
   ],
   "significato": {
@@ -6463,6 +6729,13 @@
     "traduzione": {
      "it": "Questa borsa è robusta.",
      "en": "This bag is sturdy."
+    }
+   },
+   {
+    "testo": "丈夫な くつを かいました。",
+    "traduzione": {
+     "it": "Ho comprato delle scarpe resistenti.",
+     "en": "I bought sturdy shoes."
     }
    }
   ],
@@ -6485,6 +6758,13 @@
     "traduzione": {
      "it": "Prendo l'autobus delle otto.",
      "en": "I take the eight o'clock bus."
+    }
+   },
+   {
+    "testo": "じてんしゃに 乗って、かいものに いきます。",
+    "traduzione": {
+     "it": "Vado a fare la spesa in bicicletta.",
+     "en": "I ride my bicycle to go shopping."
     }
    }
   ],
@@ -8080,7 +8360,23 @@
    "en": [
     "handkerchief"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このハンカチはいくらですか。",
+    "traduzione": {
+     "it": "How much is this handkerchief?",
+     "en": "How much is this handkerchief?"
+    }
+   },
+   {
+    "testo": "ハンカチで あせを ふきました。",
+    "traduzione": {
+     "it": "Mi sono asciugato il sudore con il fazzoletto.",
+     "en": "I wiped my sweat with a handkerchief."
+    }
+   }
+  ]
  },
  "フォーク": {
   "significato": {
@@ -8090,7 +8386,23 @@
    "en": [
     "fork"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その子はナイフとフォークをうまく使う。",
+    "traduzione": {
+     "it": "The child handles a knife and fork well.",
+     "en": "The child handles a knife and fork well."
+    }
+   },
+   {
+    "testo": "フォークで サラダを たべます。",
+    "traduzione": {
+     "it": "Mangio l'insalata con la forchetta.",
+     "en": "I eat salad with a fork."
+    }
+   }
+  ]
  },
  "ベッド": {
   "significato": {
@@ -8100,7 +8412,23 @@
    "en": [
     "bed"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どんなベッドでもないよりはよい。",
+    "traduzione": {
+     "it": "Any bed is better than no bed.",
+     "en": "Any bed is better than no bed."
+    }
+   },
+   {
+    "testo": "ねこが ベッドの うえで ねて います。",
+    "traduzione": {
+     "it": "Il gatto dorme sul letto.",
+     "en": "The cat is sleeping on the bed."
+    }
+   }
+  ]
  },
  "ペット": {
   "significato": {
@@ -8118,6 +8446,13 @@
      "it": "Hai animali domestici?",
      "en": "Do you have any pets?"
     }
+   },
+   {
+    "testo": "この アパートは ペットが だめです。",
+    "traduzione": {
+     "it": "In questo appartamento gli animali non sono ammessi.",
+     "en": "Pets are not allowed in this apartment."
+    }
    }
   ]
  },
@@ -8129,7 +8464,23 @@
    "en": [
     "pocket"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ポケットに何を持っていますか。",
+    "traduzione": {
+     "it": "What do you have in your pocket?",
+     "en": "What do you have in your pocket?"
+    }
+   },
+   {
+    "testo": "かぎを ポケットに いれました。",
+    "traduzione": {
+     "it": "Ho messo le chiavi in tasca.",
+     "en": "I put the keys in my pocket."
+    }
+   }
+  ]
  },
  "まずい": {
   "significato": {
@@ -8232,7 +8583,23 @@
    "en": [
     "radio"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのニュースはラジオで聞いたよ。",
+    "traduzione": {
+     "it": "I heard the news on the radio.",
+     "en": "I heard the news on the radio."
+    }
+   },
+   {
+    "testo": "まいあさ ラジオで にほんごを べんきょうします。",
+    "traduzione": {
+     "it": "Ogni mattina studio giapponese con la radio.",
+     "en": "Every morning I study Japanese with the radio."
+    }
+   }
+  ]
  },
  "ラジオカセ": {
   "significato": {
@@ -8324,7 +8691,23 @@
    "en": [
     "together"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "「ご一緒しても いいですか」と ていねいに ききました。",
+    "traduzione": {
+     "it": "Ho chiesto gentilmente «posso venire con lei?».",
+     "en": "I politely asked, \"May I come with you?\""
+    }
+   },
+   {
+    "testo": "ともだちと 一緒に かえりました。",
+    "traduzione": {
+     "it": "Sono tornato a casa insieme a un amico.",
+     "en": "I went home together with a friend."
+    }
+   }
+  ]
  },
  "一人": {
   "significato": {
@@ -8356,7 +8739,23 @@
     "one day",
     "first day of the month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "らいげつの 一日に ひっこしを します。",
+    "traduzione": {
+     "it": "Il primo del mese prossimo faccio il trasloco.",
+     "en": "I am moving on the first of next month."
+    }
+   },
+   {
+    "testo": "まいつき 一日は やすみです。",
+    "traduzione": {
+     "it": "Il primo di ogni mese è giorno di riposo.",
+     "en": "The first of every month is a day off."
+    }
+   }
+  ]
  },
  "一番": {
   "significato": {
@@ -8369,7 +8768,23 @@
     "first",
     "number one"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このネクタイにしましょう、一番よさそうだから。",
+    "traduzione": {
+     "it": "I will take this tie, as it seems to be the best.",
+     "en": "I will take this tie, as it seems to be the best."
+    }
+   },
+   {
+    "testo": "なつが 一番 すきです。",
+    "traduzione": {
+     "it": "L'estate è la mia stagione preferita.",
+     "en": "I like summer the best."
+    }
+   }
+  ]
  },
  "引く": {
   "significato": {
@@ -9310,7 +9725,23 @@
    "en": [
     "three things"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ボーイさん、コーヒー３つください。",
+    "traduzione": {
+     "it": "Waiter, three coffees, please.",
+     "en": "Waiter, three coffees, please."
+    }
+   },
+   {
+    "testo": "はこを 三つ かさねました。",
+    "traduzione": {
+     "it": "Ho impilato tre scatole.",
+     "en": "I stacked three boxes."
+    }
+   }
+  ]
  },
  "三日": {
   "significato": {
@@ -9506,7 +9937,23 @@
    "en": [
     "seven"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は今朝7時に起きた。",
+    "traduzione": {
+     "it": "I got up at seven this morning.",
+     "en": "I got up at seven this morning."
+    }
+   },
+   {
+    "testo": "一しゅうかんは 七にちです。",
+    "traduzione": {
+     "it": "Una settimana è di sette giorni.",
+     "en": "A week has seven days."
+    }
+   }
+  ]
  },
  "車": {
   "significato": {
@@ -9765,7 +10212,23 @@
     "be good at",
     "skillful"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは上手にバスケットボールができますか。",
+    "traduzione": {
+     "it": "Do you play basketball well?",
+     "en": "Do you play basketball well?"
+    }
+   },
+   {
+    "testo": "かのじょは じが 上手です。",
+    "traduzione": {
+     "it": "Lei ha una bella calligrafia.",
+     "en": "She has good handwriting."
+    }
+   }
+  ]
  },
  "新聞": {
   "significato": {
@@ -11396,7 +11859,23 @@
     "to line up"
    ]
   },
-  "id_verbo_corrispondente": "並ぶ"
+  "id_verbo_corrispondente": "並ぶ",
+  "frasi_esempio": [
+   {
+    "testo": "メイドはテーブルにナイフとフォークを並べた。",
+    "traduzione": {
+     "it": "The maid arranged the knives and forks on the table.",
+     "en": "The maid arranged the knives and forks on the table."
+    }
+   },
+   {
+    "testo": "ほんを たなに 並べました。",
+    "traduzione": {
+     "it": "Ho sistemato i libri sullo scaffale.",
+     "en": "I arranged the books on the shelf."
+    }
+   }
+  ]
  },
  "閉まる": {
   "significato": {
@@ -11685,7 +12164,23 @@
    "en": [
     "fountain pen"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "新しい万年筆をなくしてしまった。",
+    "traduzione": {
+     "it": "I have lost my new fountain pen.",
+     "en": "I have lost my new fountain pen."
+    }
+   },
+   {
+    "testo": "そふに 万年筆を もらいました。",
+    "traduzione": {
+     "it": "Ho ricevuto una stilografica dal nonno.",
+     "en": "I received a fountain pen from my grandfather."
+    }
+   }
+  ]
  },
  "無くす": {
   "significato": {
@@ -23976,6 +24471,24 @@
     "traduzione": {
      "it": "Mi hanno ringraziato e ho risposto «di niente».",
      "en": "They thanked me, and I replied \"you're welcome.\""
+    }
+   }
+  ]
+ },
+ "よろしくお願いします": {
+  "frasi_esempio": [
+   {
+    "testo": "田中です。よろしくお願いします。",
+    "traduzione": {
+     "it": "Sono Tanaka. Piacere.",
+     "en": "Sono Tanaka. Piacere."
+    }
+   },
+   {
+    "testo": "きょうから おせわに なります。よろしくお願いします。",
+    "traduzione": {
+     "it": "Da oggi sarò a vostro carico: conto su di voi.",
+     "en": "From today I'm in your care. I look forward to working with you."
     }
    }
   ]
