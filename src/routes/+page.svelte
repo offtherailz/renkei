@@ -292,7 +292,7 @@
 			<span class="plan-icon">{dueCount > 0 ? '📋' : '✨'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
-				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in obiettivi in pausa)` : ''}</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in obiettivi in pausa, non persi — li vedi sotto su quale carta)` : ''}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>
