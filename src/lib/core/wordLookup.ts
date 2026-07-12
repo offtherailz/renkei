@@ -185,6 +185,13 @@ export function lookupToken(map: Map<string, WordHit>, token: string): WordHit |
 	const forms = [t];
 	const bare = t.replace(/(かな|よね|[のねよかわ])$/, '');
 	if (bare.length >= 2 && bare !== t) forms.push(bare);
+	// BudouX quasi sempre incolla です/でした/でしょう alla parola precedente
+	// (静かでした。→ un solo token): senza staccarlo qui, aggettivi in たい,
+	// nomi e aggettivi-な come predicato non vengono mai riconosciuti.
+	for (const f of [...forms]) {
+		const stripped = f.replace(/(でしょう|でした|です)$/, '');
+		if (stripped.length >= 1 && stripped !== f) forms.push(stripped);
+	}
 	for (const f of [...forms]) {
 		const aux = f.match(
 			/^(.{2,}?[てで])(ください(?:ませんか)?|いただけますか|もらえますか|います|いました|いません|いる|いた|おきます|おく|しまいました|しまった|しまう|みます|みる|みたい|もいいですか|もいいです)$/

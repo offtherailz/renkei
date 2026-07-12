@@ -94,7 +94,9 @@ describe('lookupToken', () => {
 		hit('飲む', '飲む', 'のむ', '動詞[どうし]'),
 		hit('乾く', '乾く', 'かわく', '動詞[どうし]'),
 		hit('川', '川', 'かわ'),
-		hit('脱ぐ', '脱ぐ', 'ぬぐ', '動詞[どうし]')
+		hit('脱ぐ', '脱ぐ', 'ぬぐ', '動詞[どうし]'),
+		hit('住む', '住む', 'すむ', '動詞[どうし]'),
+		hit('元気', '元気', 'げんき')
 	]);
 
 	it('la punteggiatura attaccata non rompe il match (飲みませんか。)', () => {
@@ -110,5 +112,16 @@ describe('lookupToken', () => {
 	it('composti て+ausiliare: 脱いでください→脱ぐ, 飲んでいます→飲む', () => {
 		expect(lookupToken(map4, '脱いでください')?.id).toBe('脱ぐ');
 		expect(lookupToken(map4, '飲んでいます')?.id).toBe('飲む');
+	});
+
+	it('BudouX incolla です al token precedente: 住みたいです。 trova 住む', () => {
+		const r = lookupToken(map4, '住みたいです。');
+		expect(r?.id).toBe('住む');
+		expect(r?.forma).toContain('desiderativa');
+	});
+
+	it('です su nome/aggettivo-な: 元気です。 e 元気でしょうか trovano 元気', () => {
+		expect(lookupToken(map4, '元気です。')?.id).toBe('元気');
+		expect(lookupToken(map4, '元気でしょうか')?.id).toBe('元気');
 	});
 });
