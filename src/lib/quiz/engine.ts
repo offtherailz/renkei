@@ -68,7 +68,8 @@ export function createFlashcardRecognitionQuestion(
   context: QuizContext
 ): FlashcardQuestion {
   const correct = word.scrittura;
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
+  const preferSuru = correct.endsWith("する");
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6, { preferSuru })
     .map((d) => d.id)
     .map((id) => context.wordsById.get(id)?.scrittura)
     .filter((v): v is string => Boolean(v))
@@ -110,7 +111,9 @@ export function createFlashcardReadingRecognitionQuestion(
     .map((id) => context.wordsById.get(id)?.scrittura)
     .filter((v): v is string => Boolean(v));
   const okuriganaError = okuriganaErrorVariant(word);
-  const random = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 5)
+  const random = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 5, {
+    preferSuru: word.scrittura.endsWith("する")
+  })
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v));
 
@@ -136,7 +139,9 @@ export function createListeningQuestion(
   context: QuizContext
 ): ListeningQuestion {
   const correct = word.scrittura;
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
+  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6, {
+    preferSuru: correct.endsWith("する")
+  })
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v))
     .filter((value, index, values) => values.indexOf(value) === index)

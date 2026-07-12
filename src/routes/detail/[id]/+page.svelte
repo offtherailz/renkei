@@ -68,14 +68,23 @@
 				.join('\n');
 		}
 	}
-	function parseFrasi(): { testo: string; traduzione: { it: string; en: string }; parole_linkate: string[] }[] {
+	// Il form corregge solo la traduzione italiana (un tocco, un textarea):
+	// la traduzione inglese va preservata dall'originale, altrimenti ogni
+	// correzione la sovrascriverebbe con testo italiano (bug reale, trovato
+	// discutendone). Match per frase invariata, poi per posizione, altrimenti
+	// (frase nuova/riscritta senza originale) resta l'IT come ripiego.
+	function parseFrasi(
+		original: { testo: string; traduzione?: { it?: string; en?: string } }[]
+	): { testo: string; traduzione: { it: string; en: string }; parole_linkate: string[] }[] {
+		const byTesto = new Map(original.map((ex) => [ex.testo, ex.traduzione?.en ?? '']));
 		return fixFrasi
 			.split('\n')
 			.map((l) => l.trim())
 			.filter(Boolean)
-			.map((l) => {
+			.map((l, i) => {
 				const [testo, trad = ''] = l.split('::').map((s) => s.trim());
-				return { testo: testo!, traduzione: { it: trad, en: trad }, parole_linkate: [] };
+				const en = byTesto.get(testo!) || original[i]?.traduzione?.en || trad;
+				return { testo: testo!, traduzione: { it: trad, en }, parole_linkate: [] };
 			})
 			.filter((ex) => ex.testo);
 	}
@@ -87,7 +96,7 @@
 			if (glosse.length && glosse.join('|') !== (word.significato.it ?? []).join('|')) {
 				patch.significato = { it: glosse, en: word.significato.en };
 			}
-			const frasi = parseFrasi();
+			const frasi = parseFrasi(word.frasi_esempio ?? []);
 			if (fixFrasi.trim()) patch.frasi_esempio = frasi;
 			if (Object.keys(patch).length === 0) return;
 			await saveCorrection('word', word.id, patch, fixMotivo.trim() || undefined);
@@ -98,7 +107,7 @@
 				patch.spiegazione = { it: fixGlosse.trim(), en: grammar.spiegazione.en };
 			}
 			if (fixFrasi.trim()) {
-				const frasi = parseFrasi();
+				const frasi = parseFrasi(grammar.frasi_esempio ?? []);
 				patch.frasi_esempio = frasi;
 				patch.frasi_esempio_parole_linkate = [];
 			}

@@ -140,6 +140,7 @@ export type QuizQuestion =
 export interface DistractorEntry {
   id: string;
   meaning: string;
+  scrittura: string;
 }
 
 export type DistractorIndex = Record<JLPTLevel, DistractorEntry[]>;
