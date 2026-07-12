@@ -6,6 +6,11 @@ import { test, expect, type Page } from '@playwright/test';
 async function gotoHome(page: Page): Promise<void> {
 	await page.goto('/');
 	await expect(page.getByText('Il piano di oggi')).toBeVisible({ timeout: 45_000 });
+	// "Il piano di oggi" è un titolo statico, sempre nel DOM a prescindere
+	// dall'inizializzazione: aspetta anche una card obiettivo reale, altrimenti
+	// query dirette sul DB (via page.evaluate) nei test successivi possono
+	// correre più veloci di ensureDefaultObjectives() e trovare tabelle vuote.
+	await expect(page.locator('.objective-card').first()).toBeVisible({ timeout: 45_000 });
 }
 
 test('primo avvio: seed importato e home con il piano di oggi', async ({ page }) => {
@@ -246,6 +251,36 @@ test('sessione senza nulla da fare: niente badge bronze né statistiche a zero',
 	await continueBtn.click();
 	// col tetto sbloccato per la sessione, ora propone davvero una domanda
 	await expect(page.locator('.choice-btn').first()).toBeVisible({ timeout: 15_000 });
+});
+
+test('pool davvero esaurito: niente bottone "+5 carte" che promette a vuoto', async ({ page }) => {
+	// Segnalato testando a mano: "clicco su +5 e ritorna" — con TUTTI gli item
+	// attivi già visti almeno una volta (non solo il tetto raggiunto), alzare
+	// il tetto non serve a nulla: non c'è nessuna carta mai vista da introdurre.
+	// Il bottone deve sparire e spiegarlo, non promettere qualcosa che non dà.
+	await gotoHome(page);
+	const seededCount = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const { getActiveItemKeys } = await import('/src/lib/db/queries.ts');
+		const keys = await getActiveItemKeys(); // stessa funzione che usa il quiz per il pool
+		const now = Date.now();
+		const records = [...keys].map((key) => ({
+			id_item: key,
+			srs_stage: 2 as const,
+			next_review_date: now + 24 * 60 * 60 * 1000,
+			ease_factor: 2.3,
+			streak: 2,
+			mastery_points: 20,
+			updated_at: now
+		}));
+		await db.srs_progress.bulkPut(records);
+		return records.length;
+	});
+	expect(seededCount).toBeGreaterThan(100);
+	await page.goto('/quiz');
+	await expect(page.getByText('🎉 Tutto fatto per oggi!')).toBeVisible({ timeout: 30_000 });
+	await expect(page.getByText(/Hai visto già tutto quello che c'è nei tuoi obiettivi attivi/)).toBeVisible();
+	await expect(page.getByRole('button', { name: /Continua ancora un po'/ })).toHaveCount(0);
 });
 
 test('contatore dovuto (da un errore in avventura): il quiz lo ripassa davvero', async ({ page }) => {

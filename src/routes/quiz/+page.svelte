@@ -79,9 +79,17 @@
 	// true quando la sessione finisce perché non c'è più nulla di dovuto né
 	// carte nuove da introdurre (tetto giornaliero), non per scadenza del timer.
 	let finishedEverything = $state(false);
+	// true quando la sessione finisce E non c'è NESSUNA carta mai vista negli
+	// obiettivi attivi (a prescindere dal tetto): alzare il tetto non servirebbe
+	// a niente, va detto chiaro invece di far sembrare che il bottone non faccia nulla.
+	let poolFullyExhausted = $state(false);
 	// Sblocco manuale del tetto giornaliero (bottone "Continua ancora un po'"):
 	// vale solo finché resti su questa pagina, non tocca l'impostazione salvata.
 	let extraCardsUnlocked = $state(0);
+
+	function poolHasUnseen(pool: ItemRef[]): boolean {
+		return pool.some((item) => !getSrs(item.key));
+	}
 
 	function continueWithMoreCards(n: number): void {
 		extraCardsUnlocked += n;
@@ -354,6 +362,7 @@
 		const next = pickNextItem(pool);
 		if (!next) {
 			finishedEverything = true;
+			poolFullyExhausted = !poolHasUnseen(pool);
 			endSession();
 			return;
 		}
@@ -375,6 +384,7 @@
 				}
 			}
 			finishedEverything = true;
+			poolFullyExhausted = !poolHasUnseen(pool);
 			endSession();
 			return;
 		}
@@ -966,6 +976,7 @@
 		loadError = '';
 		appState.lastSummary = null;
 		finishedEverything = false;
+		poolFullyExhausted = false;
 		try {
 			[words, kanjiRows, grammarRows, counterRows, objectives] = await Promise.all([
 				db.words.toArray(),
@@ -1410,7 +1421,11 @@
 		{/if}
 		<h2 class="summary-title">{finishedEverything ? '🎉 Tutto fatto per oggi!' : 'Sessione completata!'}</h2>
 		{#if finishedEverything}
-			<p class="summary-hint">Hai ripassato tutto il dovuto e raggiunto il limite di carte nuove di oggi — torna domani per il resto. 🌙</p>
+			{#if poolFullyExhausted}
+				<p class="summary-hint">Hai visto già tutto quello che c'è nei tuoi obiettivi attivi — non c'è altro da sbloccare oggi. Attivane altri (kanji, N4, un corso…) da <a href="{base}/">Il piano di oggi</a> per continuare, o torna domani per i ripassi. 🌙</p>
+			{:else}
+				<p class="summary-hint">Hai ripassato tutto il dovuto e raggiunto il limite di carte nuove di oggi — torna domani per il resto. 🌙</p>
+			{/if}
 		{/if}
 		{#if summaryConfetti}
 			<Confetti />
@@ -1459,9 +1474,9 @@
 			</div>
 		{/if}
 		<div class="summary-actions">
-			{#if finishedEverything}
+			{#if finishedEverything && !poolFullyExhausted}
 				<button class="btn-primary" onclick={() => continueWithMoreCards(5)}>➕ Continua ancora un po' (5 carte)</button>
-			{:else}
+			{:else if !finishedEverything}
 				<button class="btn-primary" onclick={startSession}>🔁 Nuova sessione</button>
 			{/if}
 			<a href="{base}/" class="btn-ghost">← Home</a>
