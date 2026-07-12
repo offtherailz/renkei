@@ -204,6 +204,55 @@
     "訳"
    ],
    "senso": "motivo"
+  },
+  {
+   "parole": [
+    "なるべく",
+    "できるだけ"
+   ],
+   "senso": "il più possibile"
+  },
+  {
+   "parole": [
+    "それで",
+    "だから"
+   ],
+   "senso": "quindi / perciò"
+  },
+  {
+   "parole": [
+    "必ず",
+    "きっと"
+   ],
+   "senso": "sicuramente"
+  },
+  {
+   "parole": [
+    "しかし",
+    "でも"
+   ],
+   "senso": "ma / però"
+  },
+  {
+   "parole": [
+    "非常に",
+    "とても"
+   ],
+   "senso": "molto"
+  },
+  {
+   "parole": [
+    "驚く",
+    "びっくりする"
+   ],
+   "senso": "sorprendersi"
+  },
+  {
+   "parole": [
+    "伝える",
+    "知らせる"
+   ],
+   "senso": "informare / far sapere"
   }
  ],
  "items": [

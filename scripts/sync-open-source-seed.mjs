@@ -325,7 +325,41 @@ function enrichWordRelations(words) {
     ["増える", "減る"],
     ["買う", "売る"],
     ["借りる", "貸す"],
-    ["覚える", "忘れる"]
+    ["覚える", "忘れる"],
+    // Lotto aggiunto: le relazioni sono "il cuore dell'app" (aiutano la
+    // memorizzazione e il tipo di domande 言い換え/JLPT) — copertura
+    // ancora scarsa (65/1417 parole avevano un contrario). Ogni coppia
+    // verificata: entrambe le parole esistono nel catalogo E hanno la
+    // stessa transitività quando sono verbi (自動詞 con 自動詞, mai
+    // incrociati con un 他動詞).
+    ["叱る", "褒める"],
+    ["面白い", "つまらない"],
+    ["便利", "不便"],
+    ["上手", "下手"],
+    ["静か", "うるさい"],
+    ["忙しい", "暇"],
+    ["太い", "細い"],
+    ["厚い", "薄い"],
+    ["深い", "浅い"],
+    ["広い", "狭い"],
+    ["難しい", "簡単"],
+    ["汚い", "綺麗"],
+    ["立つ", "座る"],
+    ["起きる", "寝る"],
+    ["泣く", "笑う"],
+    ["生まれる", "死ぬ"],
+    ["太る", "痩せる"],
+    ["押す", "引く"],
+    ["濡れる", "乾く"],
+    ["優しい", "厳しい"],
+    ["安全", "危険"],
+    ["本当", "うそ"],
+    ["同じ", "違う"],
+    ["普通", "特別"],
+    ["出す", "入れる"],
+    ["乗る", "降りる"],
+    ["行く", "帰る"],
+    ["忘れる", "思い出す"]
   ];
 
   const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
