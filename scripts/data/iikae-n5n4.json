@@ -253,6 +253,27 @@
     "知らせる"
    ],
    "senso": "informare / far sapere"
+  },
+  {
+   "parole": [
+    "凄い",
+    "素晴らしい"
+   ],
+   "senso": "fantastico / meraviglioso"
+  },
+  {
+   "parole": [
+    "悲しい",
+    "寂しい"
+   ],
+   "senso": "triste / malinconico"
+  },
+  {
+   "parole": [
+    "たまに",
+    "時々"
+   ],
+   "senso": "ogni tanto / a volte"
   }
  ],
  "items": [
