@@ -17,4 +17,11 @@ describe('BudouxJapaneseTokenizer', () => {
 		const tok = await BudouxJapaneseTokenizer.create();
 		expect(tok.tokenize('学校に行きます。').join('|')).toContain('学校に');
 	});
+
+	it('non lascia isolato nessun kana a inizio frase, non solo le particelle (うそを → う+そを)', async () => {
+		const tok = await BudouxJapaneseTokenizer.create();
+		expect(tok.tokenize('うそをつかないでください。')[0]).toBe('うそを');
+		expect(tok.tokenize('くすりの おかげで よく なりました。')[0]).toBe('くすりの');
+		expect(tok.tokenize('あそこから人影が見えた。')[0]).toBe('あそこから');
+	});
 });

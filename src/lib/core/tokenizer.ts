@@ -4,10 +4,12 @@ export interface JapaneseTokenizer {
   tokenize(text: string): string[];
 }
 
-// BudouX a volte stacca una particella-kana a inizio frase da una parola che
-// inizia con lo stesso kana (のどが → の|どが): una frase non può iniziare con
-// una particella isolata, quindi la riattacchiamo al token seguente.
-const LONE_PARTICLE_KANA = new Set(["の", "が", "を", "に", "は", "で", "と", "へ", "も", "や"]);
+// BudouX a volte stacca un kana isolato a inizio frase da una parola che
+// inizia con quel kana (のどが → の|どが, うそを → う|そを, くすりの → く|すりの):
+// una frase non può iniziare con un singolo kana isolato (a parte rarissime
+// interiezioni, mai viste nel nostro corpus), quindi lo riattacchiamo sempre
+// al token seguente — non solo per le particelle come prima.
+const LONE_KANA = /^[ぁ-んァ-ヶ]$/;
 
 function fixLeadingParticleSplits(tokens: string[]): string[] {
   const out: string[] = [];
@@ -15,7 +17,7 @@ function fixLeadingParticleSplits(tokens: string[]): string[] {
     const t = tokens[i]!;
     const prev = out[out.length - 1];
     const atSentenceStart = prev === undefined || /[。！？]$/.test(prev);
-    if (atSentenceStart && LONE_PARTICLE_KANA.has(t) && i + 1 < tokens.length) {
+    if (atSentenceStart && LONE_KANA.test(t) && i + 1 < tokens.length) {
       out.push(t + tokens[i + 1]!);
       i += 1;
       continue;
