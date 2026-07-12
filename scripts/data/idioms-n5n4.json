@@ -1,5 +1,6 @@
 [
   { "scrittura": "よろしくお願いします", "lettura": "よろしくおねがいします", "it": ["piacere di conoscerti", "conto su di te"], "en": ["nice to meet you", "please treat me well"], "livello": "N5", "esempio": { "jp": "田中です。よろしくお願いします。", "it": "Sono Tanaka. Piacere." } },
+  { "scrittura": "〜さんによろしくお伝えください", "lettura": "〜さんによろしくおつたえください", "it": ["salutamelo/salutala da parte mia", "porti i miei saluti a... (una terza persona assente)"], "en": ["please give my regards to ...", "say hello to ... for me"], "livello": "N4", "esempio": { "jp": "田中さんによろしくお伝えください。", "it": "Porti tanti saluti a Tanaka da parte mia." } },
   { "scrittura": "お疲れさまです", "lettura": "おつかれさまです", "it": ["buon lavoro (saluto tra colleghi)", "grazie per il lavoro"], "en": ["thank you for your hard work"], "livello": "N5", "esempio": { "jp": "お先に失礼します。— お疲れさまです。", "it": "Vado via prima io. — Buon lavoro!" } },
   { "scrittura": "いただきます", "lettura": "いただきます", "it": ["buon appetito (detto da chi mangia)"], "en": ["thanks for the meal (before eating)"], "livello": "N5", "esempio": { "jp": "おいしそう！いただきます。", "it": "Che buono! Buon appetito." } },
   { "scrittura": "ごちそうさまでした", "lettura": "ごちそうさまでした", "it": ["grazie per il pasto (a fine pasto)"], "en": ["thank you for the meal"], "livello": "N5", "esempio": { "jp": "ごちそうさまでした。おいしかったです。", "it": "Grazie per il pasto, era buonissimo." } },
