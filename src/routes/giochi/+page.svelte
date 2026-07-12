@@ -556,6 +556,12 @@
 					<span class="cat-hint">rispondi con la formula giusta</span>
 					<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
 				</button>
+				<a class="cat-card" href="{base}/shadowing">
+					<span class="cat-icon">🗣️</span>
+					<span class="cat-label">Shadowing — Ripeti subito</span>
+					<span class="cat-hint">ascolta e ripeti ad alta voce, il microfono ti verifica</span>
+					<span class="cat-best">🏆 record: {getHighscore('shadowing')}</span>
+				</a>
 			</div>
 
 			<p class="group-title">Al konbini</p>

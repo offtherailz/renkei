@@ -398,6 +398,10 @@
 			<span class="quick-icon">⚡</span>
 			<span>Lettura veloce</span>
 		</a>
+		<a href="{base}/shadowing" class="quick-card">
+			<span class="quick-icon">🗣️</span>
+			<span>Shadowing</span>
+		</a>
 	</div>
 
 	<h2 class="section-title group">📖 Cataloghi</h2>
