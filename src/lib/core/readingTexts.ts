@@ -25,6 +25,11 @@ export interface FixedQuestion {
 	q: string;
 	choices: string[];
 	correct: number; // indice in choices
+	// Se la scelta giusta è una PARAFRASI del testo (verbo/particella diversi
+	// da come compaiono davvero, es. "階段を使う" per "階段をご利用ください"),
+	// findEvidence non la troverebbe come sottostringa letterale: qui si mette
+	// la frase/porzione ESATTA del testo da evidenziare al posto della scelta.
+	evidence?: string;
 }
 
 export interface SlotQuestion {
@@ -137,7 +142,7 @@ export function instantiate(text: ReadingText): ReadingRun {
 			q: q.q,
 			choices: order.map((i) => q.choices[i]!),
 			correct: order.indexOf(q.correct),
-			evidence: findEvidence(plain, q.choices[q.correct]!)
+			evidence: findEvidence(plain, q.evidence ?? q.choices[q.correct]!)
 		};
 	});
 	return { text, rendered, plain, picked, questions };
@@ -246,7 +251,8 @@ export const READING_TEXTS: ReadingText[] = [
 					'でんわを　します',
 					'あいません'
 				],
-				correct: 0
+				correct: 0,
+				evidence: 'えきのなかでまっていてください'
 			}
 		],
 		vocab: [
@@ -353,7 +359,8 @@ export const READING_TEXTS: ReadingText[] = [
 			{
 				q: '会議の前に何をしておかなければなりませんか。',
 				choices: ['資料を読んでおく', '資料を送っておく', '部屋を予約しておく', '連絡しておく'],
-				correct: 0
+				correct: 0,
+				evidence: '会議の前に読んでおいてください'
 			}
 		],
 		vocab: [
@@ -422,7 +429,8 @@ export const READING_TEXTS: ReadingText[] = [
 			{
 				q: 'エレベーターが使えないとき、どうしますか。',
 				choices: ['階段を使う', '外で待つ', '管理人に電話する', '別のマンションへ行く'],
-				correct: 0
+				correct: 0,
+				evidence: '階段をご利用ください'
 			}
 		],
 		vocab: [
@@ -622,7 +630,8 @@ export const READING_TEXTS: ReadingText[] = [
 			{
 				q: 'わからない　とき、どう　しますか。',
 				choices: ['でんわします', 'えきで　まちます', 'ちずを　かいます', 'タクシーに　のります'],
-				correct: 0
+				correct: 0,
+				evidence: 'でんわしてください'
 			}
 		],
 		vocab: [
@@ -918,7 +927,8 @@ export const READING_TEXTS: ReadingText[] = [
 			{
 				q: '場所はどうなりましたか。',
 				choices: ['変更はない', '別の会議室になった', 'まだ決まっていない', '五階のホールになった'],
-				correct: 0
+				correct: 0,
+				evidence: '変更はありません'
 			}
 		],
 		vocab: [

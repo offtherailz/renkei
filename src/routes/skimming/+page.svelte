@@ -64,6 +64,7 @@
 
 	function startScan(): void {
 		scene = 'scan';
+		picked = null; // difensivo: se torni qui da uno snapshot con una risposta residua
 		timeLeft = budget;
 		clearTicker();
 		ticker = setInterval(() => {
@@ -91,13 +92,22 @@
 				best = streak;
 				saveBest();
 			}
-		} else {
-			gameOver();
 		}
+		// niente game-over immediato: si resta sulla scena per mostrare la
+		// spiegazione (scelte colorate + frase evidenziata), sia se hai
+		// indovinato sia se hai sbagliato — prima si poteva approfondire
+		// solo sbagliando.
 	}
 	function gameOver(): void {
 		clearTicker();
 		scene = 'over';
+	}
+	function proceedAfterAnswer(): void {
+		if (picked !== null && question && picked === question.correct) {
+			nextRound();
+		} else {
+			gameOver();
+		}
 	}
 
 	// Conserva la partita quando navighi via e torni indietro. Se eri in piena
@@ -139,7 +149,9 @@
 		<article class="scene">
 			<div class="progress timer"><div class="bar" style="width:{(timeLeft / budget) * 100}%"></div></div>
 			<p class="q-recall">❓ {question.q}</p>
-			<p class="fulltext-body">{run.plain}</p>
+			{#if picked === null}
+				<p class="fulltext-body">{run.plain}</p>
+			{/if}
 			<div class="choices">
 				{#each question.choices as c, i (c)}
 					<button
@@ -151,8 +163,14 @@
 					>{c}</button>
 				{/each}
 			</div>
-			{#if picked !== null && picked === question.correct}
-				<button class="proceed" onclick={nextRound}>✅ Prossimo →</button>
+			{#if picked !== null}
+				<div class="fulltext">
+					<p class="script-title">📄 Il testo (la frase evidenziata aveva la risposta)</p>
+					<InteractiveSentence text={run.rendered} mark={question.evidence ? [question.evidence] : []} />
+				</div>
+				<button class="proceed" onclick={proceedAfterAnswer}>
+					{picked === question.correct ? '✅ Prossimo →' : '👉 Continua →'}
+				</button>
 			{/if}
 		</article>
 	{:else if scene === 'over' && run && question}
@@ -160,7 +178,17 @@
 			<p class="who">{timedOut ? '⏰ Tempo scaduto!' : '❌ Sbagliato!'}</p>
 			<p class="score-big">Serie: {streak}</p>
 			<p class="hint">🏆 Record {level}: {best}</p>
-			<p class="bubble sm">❓ {question.q} → <strong>{question.choices[question.correct]}</strong></p>
+			<p class="q-recall">❓ {question.q}</p>
+			<div class="choices">
+				{#each question.choices as c, i (c)}
+					<button
+						class="choice"
+						class:right={i === question.correct}
+						class:wrong={picked === i && i !== question.correct}
+						disabled
+					>{c}</button>
+				{/each}
+			</div>
 			<div class="fulltext">
 				<p class="script-title">📄 Il testo (la frase evidenziata aveva la risposta)</p>
 				<InteractiveSentence text={run.rendered} mark={question.evidence ? [question.evidence] : []} />
@@ -185,7 +213,6 @@
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.big { font-size: 1.25rem; }
-	.bubble.sm { font-size: 0.95rem; }
 	.q-recall { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--brand); }
 	.fulltext-body { margin: 0; font-size: 1.02rem; line-height: 1.9; }
 	.fulltext { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 6px; }

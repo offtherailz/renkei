@@ -52,6 +52,22 @@ describe('readingTexts', () => {
 		}
 	});
 
+	it('domande a scelta fissa: l\'evidenza è sempre trovata (anche se la scelta è una parafrasi)', () => {
+		// Regressione: una scelta giusta scritta come parafrasi del testo
+		// (verbo/particella diversi, es. "階段を使う" per "階段をご利用ください")
+		// non è una sottostringa letterale — senza un evidence esplicito nei
+		// dati, l'evidenza restava silenziosamente undefined e niente veniva
+		// evidenziato nel testo (segnalato testando a mano).
+		for (const t of READING_TEXTS) {
+			for (const q of t.questions) {
+				if ('slot' in q || 'truthOf' in q) continue;
+				const run = instantiate(t);
+				const tq = run.questions[t.questions.indexOf(q)]!;
+				expect(tq.evidence, `${t.id}: "${q.q}" senza evidenza`).toBeDefined();
+			}
+		}
+	});
+
 	it('correzione in corsa: la risposta è nel testo e coerente con la variante pescata', () => {
 		for (const t of READING_TEXTS) {
 			for (const q of t.questions) {
