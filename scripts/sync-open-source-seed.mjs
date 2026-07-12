@@ -18,6 +18,7 @@ const OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "word-overrides.json")
 const COUNTERS_PATH = path.join(ROOT, "scripts", "data", "counters-n5n4.json");
 const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
+const EXTRA_WORDS_PATH = path.join(ROOT, "scripts", "data", "extra-words-n5n4.json");
 const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
 const USI_IT_PATH = path.join(ROOT, "scripts", "data", "usi-it.json");
 const IIKAE_PATH = path.join(ROOT, "scripts", "data", "iikae-n5n4.json");
@@ -108,20 +109,23 @@ async function mergeGrammarExamples(grammar) {
   return grammar;
 }
 
-// Espressioni idiomatiche essenziali curate a mano: entrano nel catalogo come
-// 慣用表現 con significati italiani veri (le prime voci realmente localizzate).
-async function mergeIdioms(words) {
-  const curated = JSON.parse(await fs.readFile(IDIOMS_PATH, "utf8"));
+// Voci curate a mano che il dataset open-source non copre (idiomi, vocaboli
+// nuovi tipo "aeroporto"...): entrano nel catalogo con significati italiani
+// veri (non tradotti dall'inglese). Ogni file di origine ha un tipo_jp di
+// default (idiomi → 慣用表現) ma può indicarne uno diverso per voce.
+async function mergeCuratedWords(words, { filePath, label, tagPrefix, defaultTipo }) {
+  const curated = JSON.parse(await fs.readFile(filePath, "utf8"));
   const byWriting = new Map(words.map((w) => [w.scrittura, w]));
   const now = Date.now();
   let added = 0;
-  for (const idiom of curated) {
-    const existing = byWriting.get(idiom.scrittura);
+  for (const entry of curated) {
+    const tipoJp = entry.tipo_jp ?? defaultTipo;
+    const existing = byWriting.get(entry.scrittura);
     if (existing) {
-      existing.tipo_jp = "慣用表現[かんようひょうげん]";
-      existing.significato = { it: idiom.it, en: idiom.en };
+      existing.tipo_jp = tipoJp;
+      existing.significato = { it: entry.it, en: entry.en };
       existing.frasi_esempio = [
-        { testo: idiom.esempio.jp, traduzione: { it: idiom.esempio.it, en: idiom.esempio.it } }
+        { testo: entry.esempio.jp, traduzione: { it: entry.esempio.it, en: entry.esempio.it } }
       ];
       delete existing.classe_verbo_jp;
       delete existing.transitivita_jp;
@@ -129,16 +133,16 @@ async function mergeIdioms(words) {
       continue;
     }
     words.push({
-      id: idiom.scrittura,
-      scrittura: idiom.scrittura,
-      lettura: idiom.lettura,
-      significato: { it: idiom.it, en: idiom.en },
-      study_tags: ["idiom-core", idiom.livello.toLowerCase()],
-      livello_jlpt: idiom.livello,
-      tipo_jp: "慣用表現[かんようひょうげん]",
-      kanji_usati: [...new Set([...idiom.scrittura].filter((c) => /[一-龯]/.test(c)))],
+      id: entry.scrittura,
+      scrittura: entry.scrittura,
+      lettura: entry.lettura,
+      significato: { it: entry.it, en: entry.en },
+      study_tags: [tagPrefix, entry.livello.toLowerCase()],
+      livello_jlpt: entry.livello,
+      tipo_jp: tipoJp,
+      kanji_usati: [...new Set([...entry.scrittura].filter((c) => /[一-龯]/.test(c)))],
       frasi_esempio: [
-        { testo: idiom.esempio.jp, traduzione: { it: idiom.esempio.it, en: idiom.esempio.it } }
+        { testo: entry.esempio.jp, traduzione: { it: entry.esempio.it, en: entry.esempio.it } }
       ],
       sinonimi: [],
       contrari: [],
@@ -147,8 +151,26 @@ async function mergeIdioms(words) {
     });
     added += 1;
   }
-  console.log(`Espressioni idiomatiche curate: ${added} aggiunte, ${curated.length - added} aggiornate.`);
+  console.log(`${label}: ${added} aggiunte, ${curated.length - added} aggiornate.`);
   return words;
+}
+
+function mergeIdioms(words) {
+  return mergeCuratedWords(words, {
+    filePath: IDIOMS_PATH,
+    label: "Espressioni idiomatiche curate",
+    tagPrefix: "idiom-core",
+    defaultTipo: "慣用表現[かんようひょうげん]"
+  });
+}
+
+function mergeExtraWords(words) {
+  return mergeCuratedWords(words, {
+    filePath: EXTRA_WORDS_PATH,
+    label: "Vocaboli extra curati",
+    tagPrefix: "vocab-core",
+    defaultTipo: "名詞[めいし]"
+  });
 }
 const OPEN_SOURCE = {
   name: "allenlu2009/japanese-learning-datasets",
@@ -1298,7 +1320,9 @@ async function main() {
   const enrichedWords = await applyIikaeGroups(
     applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt())
   );
-  const withSuruVerbs = await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex));
+  const withSuruVerbs = await mergeExtraWords(
+    await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex))
+  );
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.
   const normalizedWords = enrichWordRelations(withSuruVerbs).sort(

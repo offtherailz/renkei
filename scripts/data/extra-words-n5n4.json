@@ -1,0 +1,13 @@
+[
+  { "scrittura": "フライト", "lettura": "ふらいと", "it": ["volo"], "en": ["flight"], "livello": "N5", "esempio": { "jp": "フライトは何時ですか。", "it": "A che ora è il volo?" } },
+  { "scrittura": "チケット", "lettura": "ちけっと", "it": ["biglietto"], "en": ["ticket"], "livello": "N5", "esempio": { "jp": "チケットを見せてください。", "it": "Mi mostri il biglietto, per favore." } },
+  { "scrittura": "航空券", "lettura": "こうくうけん", "it": ["biglietto aereo"], "en": ["airline ticket"], "livello": "N4", "esempio": { "jp": "航空券はもうありますか。", "it": "Ha già il biglietto aereo?" } },
+  { "scrittura": "搭乗券", "lettura": "とうじょうけん", "it": ["carta d'imbarco"], "en": ["boarding pass"], "livello": "N4", "esempio": { "jp": "搭乗券をお願いします。", "it": "Il suo biglietto d'imbarco, per favore." } },
+  { "scrittura": "搭乗口", "lettura": "とうじょうぐち", "it": ["gate d'imbarco"], "en": ["boarding gate"], "livello": "N4", "esempio": { "jp": "搭乗口は32番です。", "it": "Il gate d'imbarco è il numero 32." } },
+  { "scrittura": "パスポート", "lettura": "ぱすぽーと", "it": ["passaporto"], "en": ["passport"], "livello": "N5", "esempio": { "jp": "パスポートを見せてください。", "it": "Mi mostri il passaporto, per favore." } },
+  { "scrittura": "手荷物", "lettura": "てにもつ", "it": ["bagaglio a mano", "bagaglio"], "en": ["hand luggage", "baggage"], "livello": "N4", "esempio": { "jp": "手荷物はこちらに置いてください。", "it": "Metta qui il bagaglio, per favore." } },
+  { "scrittura": "手荷物受取所", "lettura": "てにもつうけとりじょ", "it": ["ritiro bagagli"], "en": ["baggage claim"], "livello": "N4", "esempio": { "jp": "手荷物受取所は一階です。", "it": "Il ritiro bagagli è al piano terra." } },
+  { "scrittura": "税関", "lettura": "ぜいかん", "it": ["dogana"], "en": ["customs"], "livello": "N4", "esempio": { "jp": "税関で荷物を調べられました。", "it": "Alla dogana mi hanno controllato i bagagli." } },
+  { "scrittura": "出国", "lettura": "しゅっこく", "it": ["uscita dal paese (immigrazione)", "partenza internazionale"], "en": ["departure (immigration)", "leaving the country"], "livello": "N4", "esempio": { "jp": "出国の手続きをしてください。", "it": "Faccia le pratiche per l'uscita dal paese." } },
+  { "scrittura": "入国", "lettura": "にゅうこく", "it": ["ingresso nel paese (immigrazione)", "arrivo internazionale"], "en": ["entry (immigration)", "entering the country"], "livello": "N4", "esempio": { "jp": "入国の審査はこちらです。", "it": "Il controllo immigrazione è qui." } }
+]
