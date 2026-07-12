@@ -87,6 +87,9 @@
 	// vale solo finché resti su questa pagina, non tocca l'impostazione salvata.
 	let extraCardsUnlocked = $state(0);
 
+	// Per decidere se offrire "➕ Continua ancora un po'": guarda solo lo scope
+	// ATTIVO (mai gli obiettivi in pausa) — il bottone non deve mai pescare
+	// contenuto che l'utente ha volutamente messo in pausa.
 	function poolHasUnseen(pool: ItemRef[]): boolean {
 		return pool.some((item) => !getSrs(item.key));
 	}

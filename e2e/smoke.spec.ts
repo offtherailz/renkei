@@ -253,16 +253,21 @@ test('sessione senza nulla da fare: niente badge bronze né statistiche a zero',
 	await expect(page.locator('.choice-btn').first()).toBeVisible({ timeout: 15_000 });
 });
 
-test('pool davvero esaurito: niente bottone "+5 carte" che promette a vuoto', async ({ page }) => {
-	// Segnalato testando a mano: "clicco su +5 e ritorna" — con TUTTI gli item
-	// attivi già visti almeno una volta (non solo il tetto raggiunto), alzare
-	// il tetto non serve a nulla: non c'è nessuna carta mai vista da introdurre.
-	// Il bottone deve sparire e spiegarlo, non promettere qualcosa che non dà.
+test('"+5 carte" non pesca mai da obiettivi in pausa', async ({ page }) => {
+	// Corretto dopo test a mano: "quelli in pausa no" — il bottone deve
+	// ignorare sempre il materiale N4 messo in pausa, anche se lo scope N5
+	// attivo è esaurito. Deve sparire con una spiegazione, non attingere altrove.
 	await gotoHome(page);
+	// Mette in pausa il catalogo N4 (resta pieno di materiale mai visto) e
+	// esaurisce solo il pool N5 attivo.
+	await page.getByRole('button', { name: /Ho già delle basi/ }).click();
+	await page.getByRole('button', { name: /Solo N5/ }).click();
+	await expect(page.getByText('Benvenuto su Renkei')).not.toBeVisible({ timeout: 10_000 });
+
 	const seededCount = await page.evaluate(async () => {
 		const { db } = await import('/src/lib/db/schema.ts');
 		const { getActiveItemKeys } = await import('/src/lib/db/queries.ts');
-		const keys = await getActiveItemKeys(); // stessa funzione che usa il quiz per il pool
+		const keys = await getActiveItemKeys(); // solo N5, ora che N4 è in pausa
 		const now = Date.now();
 		const records = [...keys].map((key) => ({
 			id_item: key,
@@ -277,6 +282,36 @@ test('pool davvero esaurito: niente bottone "+5 carte" che promette a vuoto', as
 		return records.length;
 	});
 	expect(seededCount).toBeGreaterThan(100);
+
+	await page.goto('/quiz');
+	await expect(page.getByText('🎉 Tutto fatto per oggi!')).toBeVisible({ timeout: 30_000 });
+	// niente bottone: c'è ancora N4, ma è in pausa e non va toccato
+	await expect(page.getByRole('button', { name: /Continua ancora un po'/ })).toHaveCount(0);
+	await expect(page.getByText(/obiettivi attivi/)).toBeVisible();
+});
+
+test('pool esaurito (scope attivo): niente bottone che promette a vuoto', async ({ page }) => {
+	// Quando tutto lo scope ATTIVO è già stato visto, il bottone deve sparire
+	// e spiegarlo — senza mai pescare dagli obiettivi in pausa.
+	await gotoHome(page);
+	const seededCount = await page.evaluate(async () => {
+		const { db } = await import('/src/lib/db/schema.ts');
+		const { getActiveItemKeys } = await import('/src/lib/db/queries.ts');
+		const keys = await getActiveItemKeys();
+		const now = Date.now();
+		const records = [...keys].map((key) => ({
+			id_item: key,
+			srs_stage: 2 as const,
+			next_review_date: now + 24 * 60 * 60 * 1000,
+			ease_factor: 2.3,
+			streak: 2,
+			mastery_points: 20,
+			updated_at: now
+		}));
+		await db.srs_progress.bulkPut(records);
+		return records.length;
+	});
+	expect(seededCount).toBeGreaterThan(1000);
 	await page.goto('/quiz');
 	await expect(page.getByText('🎉 Tutto fatto per oggi!')).toBeVisible({ timeout: 30_000 });
 	await expect(page.getByText(/Hai visto già tutto quello che c'è nei tuoi obiettivi attivi/)).toBeVisible();
