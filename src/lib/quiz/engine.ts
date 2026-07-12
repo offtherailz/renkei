@@ -351,6 +351,15 @@ export async function createClozeQuestion(
 }
 
 // ── Quiz particelle: cloze sulla frase d'esempio con distrattori confondibili ──
+// Radici kanji di verbi di direzione/movimento: con questi verbi に e へ sono
+// entrambi corretti (へ indica la direzione generale, に il punto preciso,
+// ma sono intercambiabili nell'uso comune insegnato a N5/N4).
+const MOTION_VERB_STEMS = ["行", "来", "帰", "戻", "向か", "出発", "到着", "進", "通", "出かけ", "渡"];
+
+function hasMotionVerb(sentence: string): boolean {
+  return MOTION_VERB_STEMS.some((stem) => sentence.includes(stem));
+}
+
 export async function createParticleClozeQuestion(
   word: Word,
   locale: LocaleCode
@@ -392,9 +401,14 @@ export async function createParticleClozeQuestion(
   if (hits.length === 0) return null;
 
   const hit = hits[Math.floor(Math.random() * hits.length)]!;
-  const distractors = (CONFUSABLE_PARTICLES[hit.particle] ?? [])
-    .filter((p) => p !== hit.particle)
-    .slice(0, 3);
+  let distractors = (CONFUSABLE_PARTICLES[hit.particle] ?? []).filter((p) => p !== hit.particle);
+  // に e へ sono intercambiabili con i verbi di direzione (向かう, 行く, 来る,
+  // 帰る...): non proporre l'una come distrattore "sbagliato" dell'altra in
+  // quel contesto, altrimenti il quiz boccia una risposta che va bene.
+  if ((hit.particle === "に" || hit.particle === "へ") && hasMotionVerb(sentence)) {
+    distractors = distractors.filter((p) => p !== "に" && p !== "へ");
+  }
+  distractors = distractors.slice(0, 3);
   if (distractors.length < 2) return null;
 
   return {
