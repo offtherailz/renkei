@@ -408,7 +408,16 @@ function enrichWordRelations(words) {
     ["遅れる", "間に合う"],
     ["珍しい", "普通"],
     ["逃げる", "捕まえる"],
-    ["喜ぶ", "怒る"]
+    ["喜ぶ", "怒る"],
+    // Quarto lotto: continua la scansione (i primi 3 giri hanno trovato le
+    // coppie più ovvie, questo giro rende meno ma copre ancora parole valide).
+    ["曇る", "晴れる"],
+    ["曇り", "晴れ"],
+    ["登る", "降りる"],
+    ["予習", "復習"],
+    ["予習する", "復習する"],
+    ["複雑", "簡単"],
+    ["会う", "別れる"]
   ];
 
   const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
