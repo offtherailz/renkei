@@ -4,6 +4,7 @@
 	import { SITUATIONS, type Situation, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	let current = $state<Situation | null>(null);
 	let canSpeak = $state(false);
@@ -88,9 +89,7 @@
 							</button>
 						{/if}
 					</div>
-					{#if heard[i]}
-						<p class="p-heard">Ho sentito: 「{heard[i]}」{okSet.has(i) ? ' ✓' : ''}</p>
-					{/if}
+					<HeardDiff heard={heard[i] ?? ''} candidates={[p.jp, p.yomi, ...(p.varianti ?? [])]} />
 				</article>
 			{/each}
 		</div>
@@ -121,7 +120,6 @@
 	.p-it { margin: 0; font-size: 0.9rem; }
 	.p-quando { margin: 4px 0 0; font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 	.p-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; align-items: center; }
-	.p-heard { margin: 4px 0 0; font-size: 0.8rem; color: var(--muted); }
 
 	.mini { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 0.82rem; cursor: pointer; }
 	.mini:hover { border-color: var(--brand); }

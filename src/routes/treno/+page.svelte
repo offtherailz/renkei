@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
 	import RepeatBar from '$lib/components/RepeatBar.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { STATIONS, type Station } from '$lib/core/stations';
@@ -426,9 +427,7 @@
 				<button class="mic" class:listening={micState === 'listening'} onclick={speakMission}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}
-					<p class="heard">Ho sentito: 「{heard}」</p>
-				{/if}
+				<HeardDiff {heard} candidates={missionChoices.flatMap((s) => [s.nome, s.lettura])} />
 			{/if}
 			<div class="choices">
 				{#each missionChoices as s (s.id)}
@@ -612,7 +611,6 @@
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
 	.train-display { margin: 0; text-align: center; font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; }
 	.train-display span { background: #0f172a; color: var(--warn-border); border-radius: 8px; padding: 6px 14px; font-size: 1.1rem; letter-spacing: 0.04em; }

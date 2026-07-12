@@ -7,6 +7,7 @@
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	// Un round: o "verbo → forma keigo giusta" o una frase situazionale.
 	type Round =
@@ -185,9 +186,7 @@
 				<button class="mic" class:listening={micBusy} disabled={micBusy} onclick={trySay}>
 					{micBusy ? '🎙️ Parla!' : '🎤 Prova a dirla'}
 				</button>
-				{#if heard}
-					<p class="heard-text">Ho sentito: 「{heard}」</p>
-				{/if}
+				<HeardDiff {heard} candidates={r.kind === 'verbo' ? phraseVariants(r.corretta) : [r.corretta]} />
 			{/if}
 			{#if picked !== null}
 				<div class="after">
@@ -230,7 +229,6 @@
 	.mic { justify-self: center; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
 	.mic.listening { background: var(--danger-bg); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }
-	.heard-text { margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
 	@keyframes micpulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }

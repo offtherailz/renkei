@@ -5,69 +5,10 @@
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapaneseAsync } from '$lib/core/tts';
-	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants, normalizeSpeech } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
-
-	interface DiffPart { text: string; kind: 'same' | 'miss' | 'extra' }
-
-	function levenshtein(a: string, b: string): number {
-		const m = a.length, n = b.length;
-		let prevRow = Array.from({ length: n + 1 }, (_, j) => j);
-		for (let i = 1; i <= m; i += 1) {
-			const row = [i];
-			for (let j = 1; j <= n; j += 1) {
-				row.push(a[i - 1] === b[j - 1] ? prevRow[j - 1]! : 1 + Math.min(prevRow[j - 1]!, prevRow[j]!, row[j - 1]!));
-			}
-			prevRow = row;
-		}
-		return prevRow[n]!;
-	}
-
-	// Diff a livello di carattere tra quello che hai detto e la frase attesa:
-	// 'miss' = dovevi dirlo e non l'hai detto (barrato rosso, da aggiungere in
-	// verde nella resa), 'extra' = hai detto qualcosa che non c'era (barrato
-	// rosso), 'same' = combacia.
-	function diffChars(said: string, expected: string): DiffPart[] {
-		const m = said.length, n = expected.length;
-		const dp: number[][] = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
-		for (let i = 1; i <= m; i += 1) {
-			for (let j = 1; j <= n; j += 1) {
-				dp[i]![j] = said[i - 1] === expected[j - 1] ? dp[i - 1]![j - 1]! + 1 : Math.max(dp[i - 1]![j]!, dp[i]![j - 1]!);
-			}
-		}
-		const rev: DiffPart[] = [];
-		let i = m, j = n;
-		while (i > 0 && j > 0) {
-			if (said[i - 1] === expected[j - 1]) { rev.push({ kind: 'same', text: said[i - 1]! }); i -= 1; j -= 1; }
-			else if (dp[i - 1]![j]! >= dp[i]![j - 1]!) { rev.push({ kind: 'extra', text: said[i - 1]! }); i -= 1; }
-			else { rev.push({ kind: 'miss', text: expected[j - 1]! }); j -= 1; }
-		}
-		while (i > 0) { rev.push({ kind: 'extra', text: said[i - 1]! }); i -= 1; }
-		while (j > 0) { rev.push({ kind: 'miss', text: expected[j - 1]! }); j -= 1; }
-		rev.reverse();
-		// unisce caratteri consecutivi dello stesso tipo in un unico span
-		const parts: DiffPart[] = [];
-		for (const part of rev) {
-			const last = parts[parts.length - 1];
-			if (last && last.kind === part.kind) last.text += part.text;
-			else parts.push({ ...part });
-		}
-		return parts;
-	}
-
-	// Sceglie a quale forma (jp coi kanji, yomi in kana, o una variante) è più
-	// vicino ciò che hai detto, così il confronto non mescola kanji e kana.
-	function bestDiffTarget(said: string, candidates: string[]): string {
-		const normSaid = normalizeSpeech(said);
-		let best = candidates[0] ?? '';
-		let bestDist = Infinity;
-		for (const c of candidates) {
-			const d = levenshtein(normSaid, normalizeSpeech(c));
-			if (d < bestDist) { bestDist = d; best = c; }
-		}
-		return best;
-	}
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	const GAME_ID = 'shadowing';
 	const ROUNDS_PER_GAME = 10;
@@ -93,21 +34,14 @@
 	let streak = $state(0);
 	let best = $state(0);
 	let isRecord = $state(false);
-	let gameOver = $state(false);
+	let firstTryOk = $state(0); // quante frasi indovinate al primo colpo
 
 	let step = $state<Step>('ready');
 	let canSpeak = $state(false);
 	let heard = $state('');
 	let lastOk = $state<boolean | null>(null);
-
-	// Confronto detto/atteso solo quando ha senso mostrarlo (mic usato, non
-	// riuscito capire qualcosa di significativo).
-	const diffParts = $derived.by((): DiffPart[] => {
-		if (!heard || step !== 'revealed' || rounds.length === 0) return [];
-		const r = cur();
-		const target = bestDiffTarget(heard, [r.phrase.jp, r.phrase.yomi, ...(r.phrase.varianti ?? [])]);
-		return diffChars(heard, target);
-	});
+	let roundAttempted = $state(false);
+	let roundMissed = $state(false); // già segnata come errore in questo round (non doppio conteggio ai retry)
 
 	onMount(() => {
 		canSpeak = speechAvailable();
@@ -117,8 +51,8 @@
 	// Conserva la partita quando vai alla 📖 Scheda (non serve qui, ma coerente
 	// col pattern degli altri giochi) e torni con Indietro.
 	export const snapshot = gameSnapshot(
-		() => ({ scene, rounds, idx, streak, best, isRecord, gameOver, step, heard, lastOk }),
-		(s) => ({ scene, rounds, idx, streak, best, isRecord, gameOver, step, heard, lastOk } = s)
+		() => ({ scene, rounds, idx, streak, best, isRecord, firstTryOk, step, heard, lastOk, roundAttempted, roundMissed }),
+		(s) => ({ scene, rounds, idx, streak, best, isRecord, firstTryOk, step, heard, lastOk, roundAttempted, roundMissed } = s)
 	);
 
 	function start(): void {
@@ -127,7 +61,7 @@
 		streak = 0;
 		best = getHighscore(GAME_ID);
 		isRecord = false;
-		gameOver = false;
+		firstTryOk = 0;
 		newRound();
 		scene = 'play';
 	}
@@ -137,6 +71,16 @@
 	}
 
 	function newRound(): void {
+		step = 'ready';
+		heard = '';
+		lastOk = null;
+		roundAttempted = false;
+		roundMissed = false;
+	}
+
+	// Riprova la stessa frase (dopo un errore): non è un nuovo round, resta
+	// sullo stesso idx — ma niente doppio miss se sbagli di nuovo.
+	function retry(): void {
 		step = 'ready';
 		heard = '';
 		lastOk = null;
@@ -188,23 +132,27 @@
 
 	async function registerResult(ok: boolean): Promise<void> {
 		const r = cur();
-		if (!ok) await recordPracticeMiss('phrase:' + r.phrase.jp);
+		const firstAttempt = !roundAttempted;
+		roundAttempted = true;
 		if (ok) {
 			streak += 1;
 			if (streak > best) { best = streak; isRecord = true; }
+			if (firstAttempt) firstTryOk += 1;
 		} else {
-			gameOver = true;
-			submitScore(GAME_ID, streak);
+			streak = 0;
+			if (!roundMissed) {
+				roundMissed = true;
+				await recordPracticeMiss('phrase:' + r.phrase.jp);
+			}
 		}
 	}
 
 	function next(): void {
-		if (gameOver) { start(); return; }
 		if (idx < rounds.length - 1) {
 			idx += 1;
 			newRound();
 		} else {
-			submitScore(GAME_ID, streak);
+			submitScore(GAME_ID, best);
 			scene = 'done';
 		}
 	}
@@ -247,21 +195,7 @@
 					<p class="p-yomi">{r.phrase.yomi}</p>
 					<p class="p-it">{r.phrase.it}</p>
 				</div>
-				{#if heard}
-					<p class="heard-label">Hai detto:</p>
-					{#if diffParts.length}
-						<p class="diff-line">
-							{#each diffParts as part, i (i)}
-								{#if part.kind === 'same'}<span>{part.text}</span>
-								{:else if part.kind === 'extra'}<span class="diff-extra">{part.text}</span>
-								{:else}<span class="diff-miss">{part.text}</span>{/if}
-							{/each}
-						</p>
-						<p class="diff-legend"><span class="diff-extra">rosso barrato</span> = detto per sbaglio o non richiesto · <span class="diff-miss">verde</span> = da aggiungere/correggere</p>
-					{:else}
-						<p class="heard-text">「{heard}」</p>
-					{/if}
-				{/if}
+				<HeardDiff {heard} candidates={[r.phrase.jp, r.phrase.yomi, ...(r.phrase.varianti ?? [])]} />
 
 				{#if step === 'said'}
 					<div class="listen-actions">
@@ -273,21 +207,27 @@
 						<button class="judge ok" onclick={() => revealSelf(true)}>✓ Bene</button>
 						<button class="judge ko" onclick={() => revealSelf(false)}>✗ Da rifare</button>
 					</div>
-				{:else}
-					<p class="verdict" class:ok={lastOk} class:ko={!lastOk}>
-						{lastOk ? (isRecord ? '🏆 Nuovo record!' : '✓ Bene detto!') : 'Non hai detto la frase giusta.'}
-					</p>
+				{:else if lastOk}
+					<p class="verdict ok">{isRecord ? '🏆 Nuovo record!' : '✓ Bene detto!'}</p>
 					<div class="listen-actions">
 						<button class="mini" onclick={() => replay()}>🔊 Risenti l'audio</button>
-						<button class="proceed" onclick={next}>{gameOver ? '🔁 Ricomincia da capo' : idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
+						<button class="proceed" onclick={next}>{idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
 					</div>
+				{:else}
+					<p class="verdict ko">✗ Non hai detto la frase giusta.</p>
+					<div class="listen-actions">
+						<button class="mini" onclick={() => replay()}>🔊 Risenti l'audio</button>
+						<button class="proceed" onclick={retry}>🔁 Riprova questa frase</button>
+					</div>
+					<button class="skip" onclick={next}>{idx < rounds.length - 1 ? 'Salta e vai avanti →' : 'Salta e vedi il risultato →'}</button>
 				{/if}
 			{/if}
 		</article>
 	{:else}
 		<article class="scene">
-			<p class="who">{streak === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
-			<p class="score-big">{streak} / {rounds.length}</p>
+			<p class="who">{firstTryOk === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
+			<p class="score-big">{firstTryOk} / {rounds.length}</p>
+			<p class="hint">indovinate al primo colpo</p>
 			<p class="best">🏆 Record serie: {best}</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
@@ -318,12 +258,6 @@
 	.p-jp { margin: 0; font-size: 1.3rem; font-weight: 700; }
 	.p-yomi { margin: 0; font-size: 0.85rem; color: var(--brand); }
 	.p-it { margin: 0; font-size: 0.92rem; color: var(--muted); }
-	.heard-text { margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
-	.heard-label { margin: 0; text-align: center; font-size: 0.75rem; color: var(--muted); font-weight: 600; }
-	.diff-line { margin: 0; text-align: center; font-size: 1.1rem; line-height: 1.6; }
-	.diff-extra { color: var(--danger); text-decoration: line-through; }
-	.diff-miss { color: var(--success); font-weight: 700; }
-	.diff-legend { margin: 0; text-align: center; font-size: 0.72rem; color: var(--muted); }
 
 	.self-judge { display: flex; gap: 12px; justify-content: center; }
 	.judge { padding: 10px 20px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
@@ -338,4 +272,5 @@
 
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
+	.skip { justify-self: center; padding: 4px 10px; border: none; background: none; color: var(--muted); font-size: 0.78rem; text-decoration: underline; cursor: pointer; }
 </style>

@@ -37,7 +37,7 @@
 		<p><strong>🌅 Una giornata</strong> — vivi una giornata giapponese (sveglia, casa, lavoro, imprevisti come compleanni o uscite anticipate): a ogni momento scegli — o di' a voce 🎤 — la frase fatta giusta. Ogni giornata è diversa.</p>
 		<p><strong>👂 聴解 Ascolto trappola</strong> — dialoghi stile JLPT solo audio: cambiano idea, tornano all'originale… tu non cascarci.</p>
 		<p><strong>🙇 敬語</strong> — 尊敬語 (le azioni degli altri) vs 謙譲語 (le tue): dal verbo piano alla forma giusta, e frasi situazionali con capo e clienti. Dopo ogni risposta senti la forma giusta a voce; con microfono 🎤 puoi anche provare a dirla invece di toccarla.</p>
-		<p><strong>🗣️ Shadowing</strong> — tecnica di pronuncia: senti una frase (dal catalogo Frasi utili) e la ripeti ad alta voce il più vicino possibile subito dopo — il microfono si attiva da solo appena finisce l'audio, senza bisogno di toccare nulla. La frase resta nascosta finché non hai provato: la vedi solo dopo, per il riscontro. Senza microfono ti autovaluti dopo l'ascolto.</p>
+		<p><strong>🗣️ Shadowing</strong> — tecnica di pronuncia: senti una frase (dal catalogo Frasi utili) e la ripeti ad alta voce il più vicino possibile subito dopo — il microfono si attiva da solo appena finisce l'audio, senza bisogno di toccare nulla. La frase resta nascosta finché non hai provato: la vedi solo dopo, per il riscontro, con il confronto tra quello che hai detto e la frase attesa. Se sbagli puoi riprovare subito la stessa frase, oppure saltarla. Senza microfono ti autovaluti dopo l'ascolto.</p>
 		<p><strong>🔁 言い換え</strong> — come la sezione 言い換え類義 dell'esame: scegli la frase o la parola con lo stesso significato (きれい＝美しい…). Le coppie sono anche collegate come sinonimi nelle schede.</p>
 		<p><strong>⚡ Lettura veloce</strong> — il testo scorre da solo (RSVP), poi domande a tempo con trabocchetti; la velocità si adatta a te. <strong>🔎 Skimming</strong> — domanda prima, trova l'informazione in fretta. <strong>🧩 Riordina la frase</strong> — sintassi a tocchi.</p>
 		<p><strong>🗺️ Avventure</strong> — Kaimono (spesa + telefonata), Ristorante, Treno: ascolti, agisci, parli davvero col microfono 🎤. Il copione 📜 è cliccabile; gli errori finiscono nel tuo consolidamento.</p>
@@ -53,7 +53,7 @@
 
 	<section class="g-card">
 		<h2>🎤 Voce e audio</h2>
-		<p>L'interlocutore parla con la voce del sesso opposto al tuo (Impostazioni → «La tua voce»). Ovunque ci sia audio hai <strong>もう一度</strong> (ripeti) e <strong>🐢 ゆっくり</strong> (lento). Il microfono richiede un browser compatibile (Chrome è il migliore) e il permesso al primo uso.</p>
+		<p>L'interlocutore parla con la voce del sesso opposto al tuo (Impostazioni → «La tua voce»). Ovunque ci sia audio hai <strong>もう一度</strong> (ripeti) e <strong>🐢 ゆっくり</strong> (lento). Il microfono richiede un browser compatibile (Chrome è il migliore) e il permesso al primo uso. Dove parli a voce, sotto «Ho sentito» vedi anche il confronto con quello che dovevi dire: barrato rosso ciò che non corrisponde, verde ciò che manca o va corretto.</p>
 	</section>
 
 	<section class="g-card">

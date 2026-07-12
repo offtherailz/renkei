@@ -7,6 +7,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -169,7 +170,7 @@
 				<button class="mic" class:listening={micState === 'listening'} onclick={speakIt}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+				<HeardDiff {heard} candidates={choices} />
 			{/if}
 			<div class="choices">
 				{#each choices as c (c)}
@@ -223,7 +224,6 @@
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 

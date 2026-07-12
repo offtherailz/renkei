@@ -67,13 +67,34 @@ export function listenJapanese(): Promise<string[]> {
 	});
 }
 
+const KANJI_DIGIT: Record<string, number> = { '〇': 0, '零': 0, '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9 };
+const KANJI_UNIT: Record<string, number> = { '十': 10, '百': 100, '千': 1000 };
+
+// 一時 / 1時: il riconoscitore (e chi scrive le frasi) oscilla tra numero
+// scritto in kanji e cifre arabe — converte ogni sequenza di kanji-numero in
+// cifre così il confronto non li tratta come diversi.
+function kanjiNumeralsToArabic(s: string): string {
+	return s.replace(/[〇零一二三四五六七八九十百千]+/g, (seq) => {
+		let total = 0;
+		let num = 0;
+		for (const ch of seq) {
+			if (ch in KANJI_DIGIT) num = KANJI_DIGIT[ch]!;
+			else { total += (num || 1) * KANJI_UNIT[ch]!; num = 0; }
+		}
+		return String(total + num);
+	});
+}
+
 // Normalizza per il confronto: via spazi/punteggiatura, cifre a mezza
-// larghezza, katakana → hiragana (il riconoscitore oscilla tra i due).
+// larghezza, katakana → hiragana (il riconoscitore oscilla tra i due),
+// numeri in kanji → cifre arabe.
 export function normalizeSpeech(s: string): string {
-	return s
-		.replace(/[\s　。、！？!?．.,]/g, '')
-		.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
-		.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+	return kanjiNumeralsToArabic(
+		s
+			.replace(/[\s　。、！？!?．.,]/g, '')
+			.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
+			.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60))
+	);
 }
 
 // La frase detta "vale" se contiene tutte le parti attese (ognuna con le sue

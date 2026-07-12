@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
 	import RepeatBar from '$lib/components/RepeatBar.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -9,7 +10,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
-	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -145,6 +146,23 @@
 		}
 	}
 
+	// Scelta a voce generica (posti, tipo di tavolo, fumatori, altro ordine…):
+	// se dici uno dei valori validi, equivale a toccarlo.
+	async function speakChoice(choices: string[], onMatch: (choice: string) => void): Promise<void> {
+		if (micState !== 'idle') return;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (alts.length === 0) {
+			heard = '（何も聞こえませんでした…riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const hit = choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
+		if (hit) onMatch(hit);
+	}
+
 	let showScript = $state(false);
 	function start(): void {
 		rest = null;
@@ -177,6 +195,7 @@
 		seatsPicked = null;
 		wantWait = Math.random() < 0.35;
 		wantSmoking = Math.random() < 0.5;
+		heard = '';
 		scene = 'seats';
 	}
 
@@ -202,6 +221,7 @@
 	function enterSeatType(): void {
 		scene = 'seat-type';
 		staffLine = rnd(SEATTYPE_Q);
+		heard = '';
 		staffSay(staffLine);
 	}
 	function pickSeatType(choice: string): void {
@@ -216,6 +236,7 @@
 	function enterSmoking(): void {
 		scene = 'smoking';
 		staffLine = rnd(SMOKE_Q);
+		heard = '';
 		staffSay(staffLine);
 	}
 	function pickSmoking(choice: string): void {
@@ -321,6 +342,7 @@
 	function enterMore(): void {
 		scene = 'more';
 		staffLine = rnd(MORE_Q);
+		heard = '';
 		staffSay(staffLine);
 	}
 	function pickMore(add: boolean): void {
@@ -414,6 +436,12 @@
 			{@render repeatBar(seatsQuestion)}
 			<div class="people">{'🧑'.repeat(seats)}</div>
 			<p class="hint">Siete in {seats}: come lo dici?</p>
+			{#if canSpeak && seatsPicked === null}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(seatsChoices, pickSeats)}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				<HeardDiff {heard} candidates={seatsChoices} />
+			{/if}
 			<div class="choices">
 				{#each seatsChoices as c (c)}
 					<button class="choice" class:right={seatsPicked !== null && c === seatsCorrect} class:wrong={seatsPicked === c && c !== seatsCorrect} disabled={seatsPicked !== null} onclick={() => pickSeats(c)}>{c}</button>
@@ -438,6 +466,12 @@
 			{@render repeatBar(staffLine)}
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Quale posto preferisci?</p>
+			{#if canSpeak && seatType === null}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(['カウンター席', 'テーブル席'], pickSeatType)}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				<HeardDiff {heard} candidates={['カウンター席', 'テーブル席']} />
+			{/if}
 			<div class="choices">
 				<button class="choice" class:right={seatType === 'カウンター席'} disabled={seatType !== null} onclick={() => pickSeatType('カウンター席')}>🍶 カウンター席</button>
 				<button class="choice" class:right={seatType === 'テーブル席'} disabled={seatType !== null} onclick={() => pickSeatType('テーブル席')}>🪑 テーブル席</button>
@@ -452,6 +486,12 @@
 			{@render repeatBar(staffLine)}
 			<p class="bubble">{staffLine}</p>
 			<p class="hint">Fumatori o no?</p>
+			{#if canSpeak && smokingPref === null}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(['禁煙席', '喫煙席'], pickSmoking)}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				<HeardDiff {heard} candidates={['禁煙席', '喫煙席']} />
+			{/if}
 			<div class="choices">
 				<button class="choice" class:right={smokingPref === '禁煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('禁煙席')}>🚭 禁煙席</button>
 				<button class="choice" class:right={smokingPref === '喫煙席'} disabled={smokingPref !== null} onclick={() => pickSmoking('喫煙席')}>🚬 喫煙席</button>
@@ -494,9 +534,10 @@
 				<button class="mic" class:listening={micState === 'listening'} disabled={picked !== null} onclick={speakOrder}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}
-					<p class="heard">Ho sentito: 「{heard}」</p>
-				{/if}
+				<HeardDiff {heard} candidates={[
+					`${queue[orderIdx].dish.nome}を${fmtQty(queue[orderIdx].dish.counterId, queue[orderIdx].qty, 'kanji')}ください`,
+					`${queue[orderIdx].dish.lettura}を${counterReading(queue[orderIdx].dish.counterId, queue[orderIdx].qty)}ください`
+				]} />
 			{/if}
 			<div class="choices">
 				{#each orderChoices as c (c)}
@@ -533,6 +574,12 @@
 			<p class="who">🧑‍🍳 Cameriere</p>
 			{@render repeatBar(staffLine)}
 			<p class="bubble">{staffLine}</p>
+			{#if canSpeak}
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(['追加します', 'これで大丈夫です'], (c) => pickMore(c === '追加します'))}>
+					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+				</button>
+				<HeardDiff {heard} candidates={['追加します', 'これで大丈夫です']} />
+			{/if}
 			<div class="choices">
 				<button class="choice" onclick={() => pickMore(true)}>➕ 追加します</button>
 				<button class="choice" onclick={() => pickMore(false)}>✅ これで大丈夫です</button>
@@ -603,7 +650,6 @@
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.people { text-align: center; font-size: 2rem; }
 	.eat-actions { display: flex; gap: 8px; justify-content: center; align-items: center; }
 

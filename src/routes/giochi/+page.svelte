@@ -23,6 +23,7 @@
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	function userGender(): Gender {
 		return appState.settings.voce_utente ?? 'femminile';
@@ -763,7 +764,7 @@
 					<button class="mic" class:listening={micState === 'listening'} onclick={speakGreetGame}>
 						{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 					</button>
-					{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+					<HeardDiff {heard} candidates={greet.choices} />
 				{/if}
 				<div class="choices">
 					{#each choices as choice (choice)}
@@ -882,7 +883,6 @@
 	.mic { justify-self: center; padding: 10px 20px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.num-input { justify-self: center; width: 60%; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--ink); }
 	.num-input:focus { border-color: var(--brand); outline: none; }
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ScriptLog from '$lib/components/ScriptLog.svelte';
 	import RepeatBar from '$lib/components/RepeatBar.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
@@ -526,7 +527,7 @@
 				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakGreet(DEPART_CHOICES, pickDepart)}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+				<HeardDiff {heard} candidates={DEPART_CHOICES} />
 			{/if}
 			<div class="choices">
 				{#each DEPART_CHOICES as c (c)}
@@ -591,9 +592,10 @@
 				<button class="mic" class:listening={micState === 'listening'} disabled={picked !== null} onclick={speakOrder}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}
-					<p class="heard">Ho sentito: 「{heard}」</p>
-				{/if}
+				<HeardDiff {heard} candidates={[
+					`${list[orderIdx].item.scrittura}を${fmtQty(list[orderIdx].item.counterId, list[orderIdx].qty, 'kanji')}ください`,
+					`${list[orderIdx].item.lettura}を${itemReading(list[orderIdx].item, list[orderIdx].qty)}ください`
+				]} />
 			{/if}
 			<div class="choices">
 				{#each orderChoices as c (c)}
@@ -642,7 +644,7 @@
 				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakGreet(RETURN_CHOICES, pickReturn)}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
-				{#if heard}<p class="heard">Ho sentito: 「{heard}」</p>{/if}
+				<HeardDiff {heard} candidates={RETURN_CHOICES} />
 			{/if}
 			<div class="choices">
 				{#each RETURN_CHOICES as c (c)}
@@ -681,7 +683,6 @@
 	.mic.listening { background: rgba(239,107,107,0.12); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
 	.mic:disabled { opacity: 0.5; cursor: default; }
 	@keyframes micpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-	.heard { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
 	.nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 	.script-toggle { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; color: var(--ink); }
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
