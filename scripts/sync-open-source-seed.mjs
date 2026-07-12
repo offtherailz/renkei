@@ -391,7 +391,24 @@ function enrichWordRelations(words) {
     ["うれしい", "悲しい"],
     ["生きる", "死ぬ"],
     ["動く", "止まる"],
-    ["心配", "安心"]
+    ["心配", "安心"],
+    // Terzo lotto: scansione completa delle parole ancora senza relazioni
+    // (richiesto dall'utente: "hai già messo tutti i collegamenti?").
+    ["入院", "退院"],
+    ["卒業", "入学"],
+    ["冷房する", "暖房する"],
+    ["堅; 硬; 固い", "柔らかい"],
+    ["最近", "昔"],
+    ["似る", "違う"],
+    ["拾う", "捨てる"],
+    ["進む", "戻る"],
+    ["受ける", "送る"],
+    ["足す", "引く"],
+    ["続ける", "止める"],
+    ["遅れる", "間に合う"],
+    ["珍しい", "普通"],
+    ["逃げる", "捕まえる"],
+    ["喜ぶ", "怒る"]
   ];
 
   const byWriting = new Map(words.map((word) => [word.scrittura, word.id]));
