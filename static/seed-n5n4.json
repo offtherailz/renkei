@@ -113017,6 +113017,70 @@
         "方"
       ],
       "updated_at": 1783871136966
+    },
+    {
+      "id": "g-n4-tara-dou-desu-ka",
+      "struttura": "〜たらどうですか",
+      "spiegazione": {
+        "it": "Suggerimento indiretto e morbido: forma-たら + どうですか, per proporre un'idea senza imporla (「薬を飲んだらどうですか」= e se prendessi una medicina?). Più indiretto di 〜ませんか o 〜はどうですか: non è un invito a fare qualcosa insieme, ma un consiglio su cosa l'altro potrebbe fare per il proprio bene. Con amici si accorcia spesso in 〜たら?, con superiori o clienti suona più naturale addolcito da un'introduzione (「もしよろしければ」).",
+        "en": "soft, indirect suggestion: -tara form + dou desu ka, proposing an idea without imposing it"
+      },
+      "livello_jlpt": "N4",
+      "categoria_jp": "文法[ぶんぽう]",
+      "frasi_esempio": [
+        {
+          "testo": "つかれて[疲れて]いるなら、はやく[早く]ねたら[寝たら]どうですか。",
+          "traduzione": {
+            "it": "Se sei stanco, perché non provi ad andare a letto presto?",
+            "en": "If you're tired, why don't you try going to bed early?"
+          },
+          "parole_linkate": [
+            "疲れる",
+            "早い",
+            "寝る"
+          ]
+        },
+        {
+          "testo": "頭[あたま]が痛い[いたい]なら、病院[びょういん]に行ったら[いったら]どうですか。",
+          "traduzione": {
+            "it": "Se ti fa male la testa, e se andassi in ospedale?",
+            "en": "If your head hurts, how about going to the hospital?"
+          },
+          "parole_linkate": [
+            "頭",
+            "痛い",
+            "病院",
+            "行く"
+          ]
+        },
+        {
+          "testo": "その かんじ[漢字]が わからない[分からない]なら、先生[せんせい]に 聞いたら[きいたら] どう?",
+          "traduzione": {
+            "it": "Se non capisci quel kanji, perché non lo chiedi all'insegnante?",
+            "en": "If you don't understand that kanji, why don't you ask the teacher?"
+          },
+          "parole_linkate": [
+            "漢字",
+            "分かる",
+            "先生",
+            "聞く"
+          ]
+        }
+      ],
+      "frasi_esempio_parole_linkate": [
+        "疲れる",
+        "早い",
+        "寝る",
+        "頭",
+        "痛い",
+        "病院",
+        "行く",
+        "漢字",
+        "分かる",
+        "先生",
+        "聞く"
+      ],
+      "updated_at": 1783871136966
     }
   ],
   "counters": [
