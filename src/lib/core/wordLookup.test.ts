@@ -96,7 +96,8 @@ describe('lookupToken', () => {
 		hit('川', '川', 'かわ'),
 		hit('脱ぐ', '脱ぐ', 'ぬぐ', '動詞[どうし]'),
 		hit('住む', '住む', 'すむ', '動詞[どうし]'),
-		hit('元気', '元気', 'げんき')
+		hit('元気', '元気', 'げんき'),
+		hit('点く', '点く', 'つく', '動詞[どうし]')
 	]);
 
 	it('la punteggiatura attaccata non rompe il match (飲みませんか。)', () => {
@@ -123,5 +124,16 @@ describe('lookupToken', () => {
 	it('です su nome/aggettivo-な: 元気です。 e 元気でしょうか trovano 元気', () => {
 		expect(lookupToken(map4, '元気です。')?.id).toBe('元気');
 		expect(lookupToken(map4, '元気でしょうか')?.id).toBe('元気');
+	});
+
+	it('idioma 嘘をつく: つかないでください non trova 点く (senso sbagliato)', () => {
+		// 点く è "accendersi/illuminarsi": qui つく è l'idioma "dire una bugia",
+		// non a catalogo — meglio nessun match che uno fuorviante.
+		expect(lookupToken(map4, 'つかないでください', 'うそを')).toBeNull();
+		expect(lookupToken(map4, 'ついちゃ', 'うそを')).toBeNull();
+	});
+
+	it('senza il contesto dell\'idioma つく trova comunque 点く (elettricità)', () => {
+		expect(lookupToken(map4, 'つきました', '電気が')?.id).toBe('点く');
 	});
 });

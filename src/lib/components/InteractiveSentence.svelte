@@ -96,7 +96,7 @@
 	onMount(async () => {
 		const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(detectUserLocale())]);
 		tokens = tok.tokenize(plain);
-		hits = tokens.map((t) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t) : null));
+		hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
 	});
 
 	function toggle(i: number, e: MouseEvent): void {

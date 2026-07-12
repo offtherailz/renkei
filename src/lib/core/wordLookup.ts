@@ -173,9 +173,26 @@ function deconjugate(t: string): { candidates: string[]; forma: string; adj?: bo
 	return out;
 }
 
+// Idiomi "nome+を+つく" dove つく non ha il senso del dizionario generico
+// (点く "accendersi/illuminarsi"): 嘘をつく "dire una bugia", 息をつく/ため息を
+// つく "tirare il fiato/sospirare" usano un'altra つく che non è a catalogo.
+// Senza analisi sintattica completa non sappiamo indovinare il senso giusto:
+// meglio non mostrare nulla che mostrare 点く, che sarebbe fuorviante.
+const TSUKU_IDIOM_NOUNS = ['嘘', 'うそ', 'ため息', 'ためいき', '息'];
+
+// Nota: la de-coniugazione ricostruisce sempre la forma kana (つく), mai il
+// kanji — il controllo va fatto sulla scrittura dell'hit trovato in dizionario,
+// non sulla stringa candidata (che qui sarebbe "つく", non "点く").
+function isBlockedIdiomHit(hit: WordHit, prevToken?: string): boolean {
+	if (hit.scrittura !== '点く' || !prevToken || !prevToken.includes('を')) return false;
+	return TSUKU_IDIOM_NOUNS.some((noun) => prevToken.startsWith(noun));
+}
+
 // Cerca il token: match esatto → de-coniugazione (しましょう→する) →
 // prefisso più lungo → qualunque sottostringa con kanji (また別の→別).
-export function lookupToken(map: Map<string, WordHit>, token: string): WordHit | null {
+// prevToken (facoltativo): il token immediatamente precedente nella stessa
+// frase, per riconoscere/escludere alcuni idiomi (vedi isBlockedIdiomHit).
+export function lookupToken(map: Map<string, WordHit>, token: string, prevToken?: string): WordHit | null {
 	// via la punteggiatura ai bordi: BudouX la lascia attaccata (飲みませんか。)
 	const t = token.trim().replace(/^[「『（(【…・]+|[」』）)】…・、。，．！？!?〜～]+$/g, '');
 	if (!t) return null;
@@ -199,7 +216,9 @@ export function lookupToken(map: Map<string, WordHit>, token: string): WordHit |
 		if (aux) forms.push(aux[1]!);
 	}
 	for (const f of forms) {
-		if (map.has(f)) return map.get(f)!;
+		const hit = map.get(f);
+		if (!hit || isBlockedIdiomHit(hit, prevToken)) continue;
+		return hit;
 	}
 	// forme coniugate: prova i candidati al dizionario prima dei prefissi,
 	// così しましょう trova する (non 島) e 踊らなかったの trova 踊る (non 中).
@@ -207,7 +226,7 @@ export function lookupToken(map: Map<string, WordHit>, token: string): WordHit |
 		for (const { candidates, forma, adj } of deconjugate(f)) {
 			for (const c of candidates) {
 				const hit = map.get(c);
-				if (!hit) continue;
+				if (!hit || isBlockedIdiomHit(hit, prevToken)) continue;
 				if (adj && hit.tipo_jp.startsWith('形容詞')) return { ...hit, forma };
 				if (hit.tipo_jp.startsWith('動詞')) return { ...hit, forma };
 				if (c.endsWith('する')) return { ...hit, forma };
