@@ -95,5 +95,13 @@ export const KEIGO_ITEMS: KeigoItem[] = [
 		situazione: 'Prometti al cliente che lo farai tu: «faccio io»',
 		parola: '致す',
 		opzioni: ['私が致します。', '私がなさいます。', '俺がやるよ。', '私がおやりになります。']
+	},
+	{
+		// 〜ませんか (invito cortese) non è di per sé una forma keigo — si può
+		// usare con QUALSIASI verbo, piano o keigo — ma nel parlato al cliente
+		// si combina spesso con un verbo in 尊敬語, come qui.
+		situazione: 'Inviti gentilmente il cliente a dare un\'occhiata al catalogo.',
+		parola: 'ごらんになる',
+		opzioni: ['カタログをご覧になりませんか。', 'カタログを拝見しませんか。', 'カタログ、見ない？', 'カタログをご覧しませんか。']
 	}
 ];

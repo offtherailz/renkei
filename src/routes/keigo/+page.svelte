@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS } from '$lib/core/keigo';
+	import { speakSentenceJapanese } from '$lib/core/tts';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	// Un round: o "verbo → forma keigo giusta" o una frase situazionale.
@@ -61,6 +64,13 @@
 	let score = $state(0);
 	let picked = $state<string | null>(null);
 	let detailHref = $state<string | null>(null);
+	let canSpeak = $state(false);
+	let micBusy = $state(false);
+	let heard = $state('');
+
+	onMount(() => {
+		canSpeak = speechAvailable();
+	});
 
 	// Conserva la partita quando vai alla 📖 Scheda e torni con Indietro.
 	export const snapshot = gameSnapshot(
@@ -73,11 +83,34 @@
 		idx = 0;
 		score = 0;
 		picked = null;
+		heard = '';
 		scene = 'play';
 	}
 
 	function cur(): Round {
 		return rounds[idx]!;
+	}
+
+	// Prova a dire la risposta giusta a voce: se combacia, equivale a
+	// toccarla. La forma di un verbo (召し上がる…) ha varianti kanji note
+	// (phraseVariants); una frase intera si spezza sulla virgola
+	// (sentenceMatchVariants), come nelle avventure.
+	async function trySay(): Promise<void> {
+		if (micBusy || picked !== null) return;
+		micBusy = true;
+		heard = '';
+		const alts = await listenJapanese();
+		micBusy = false;
+		if (alts.length === 0) {
+			heard = '（niente capito, riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const r = cur();
+		const variants = r.kind === 'verbo' ? [phraseVariants(r.corretta)] : [sentenceMatchVariants(r.corretta)];
+		if (speechMatches(alts, variants)) {
+			await pick(r.corretta);
+		}
 	}
 
 	async function pick(choice: string): Promise<void> {
@@ -93,11 +126,15 @@
 			}
 		}
 		if (choice === r.corretta) score += 1;
+		// legge la risposta giusta a voce, giusta o sbagliata che sia stata la
+		// scelta — serve a fissare la pronuncia, non solo il riconoscimento.
+		speakSentenceJapanese(r.corretta);
 	}
 
 	function next(): void {
 		picked = null;
 		detailHref = null;
+		heard = '';
 		if (idx < rounds.length - 1) idx += 1;
 		else scene = 'done';
 	}
@@ -144,6 +181,14 @@
 					</button>
 				{/each}
 			</div>
+			{#if picked === null && canSpeak}
+				<button class="mic" class:listening={micBusy} disabled={micBusy} onclick={trySay}>
+					{micBusy ? '🎙️ Parla!' : '🎤 Prova a dirla'}
+				</button>
+				{#if heard}
+					<p class="heard-text">Ho sentito: 「{heard}」</p>
+				{/if}
+			{/if}
 			{#if picked !== null}
 				<div class="after">
 					{#if detailHref}
@@ -182,6 +227,11 @@
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 	.after { display: flex; gap: 12px; justify-content: center; align-items: center; }
 	.detail-link { color: var(--brand); font-weight: 600; text-decoration: none; }
+	.mic { justify-self: center; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+	.mic.listening { background: var(--danger-bg); border-color: var(--danger); color: var(--danger); animation: micpulse 1s ease-in-out infinite; }
+	.mic:disabled { opacity: 0.5; cursor: default; }
+	.heard-text { margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
+	@keyframes micpulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
 </style>
