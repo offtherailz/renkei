@@ -5,9 +5,69 @@
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapaneseAsync } from '$lib/core/tts';
-	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants, normalizeSpeech } from '$lib/core/speech';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+
+	interface DiffPart { text: string; kind: 'same' | 'miss' | 'extra' }
+
+	function levenshtein(a: string, b: string): number {
+		const m = a.length, n = b.length;
+		let prevRow = Array.from({ length: n + 1 }, (_, j) => j);
+		for (let i = 1; i <= m; i += 1) {
+			const row = [i];
+			for (let j = 1; j <= n; j += 1) {
+				row.push(a[i - 1] === b[j - 1] ? prevRow[j - 1]! : 1 + Math.min(prevRow[j - 1]!, prevRow[j]!, row[j - 1]!));
+			}
+			prevRow = row;
+		}
+		return prevRow[n]!;
+	}
+
+	// Diff a livello di carattere tra quello che hai detto e la frase attesa:
+	// 'miss' = dovevi dirlo e non l'hai detto (barrato rosso, da aggiungere in
+	// verde nella resa), 'extra' = hai detto qualcosa che non c'era (barrato
+	// rosso), 'same' = combacia.
+	function diffChars(said: string, expected: string): DiffPart[] {
+		const m = said.length, n = expected.length;
+		const dp: number[][] = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
+		for (let i = 1; i <= m; i += 1) {
+			for (let j = 1; j <= n; j += 1) {
+				dp[i]![j] = said[i - 1] === expected[j - 1] ? dp[i - 1]![j - 1]! + 1 : Math.max(dp[i - 1]![j]!, dp[i]![j - 1]!);
+			}
+		}
+		const rev: DiffPart[] = [];
+		let i = m, j = n;
+		while (i > 0 && j > 0) {
+			if (said[i - 1] === expected[j - 1]) { rev.push({ kind: 'same', text: said[i - 1]! }); i -= 1; j -= 1; }
+			else if (dp[i - 1]![j]! >= dp[i]![j - 1]!) { rev.push({ kind: 'extra', text: said[i - 1]! }); i -= 1; }
+			else { rev.push({ kind: 'miss', text: expected[j - 1]! }); j -= 1; }
+		}
+		while (i > 0) { rev.push({ kind: 'extra', text: said[i - 1]! }); i -= 1; }
+		while (j > 0) { rev.push({ kind: 'miss', text: expected[j - 1]! }); j -= 1; }
+		rev.reverse();
+		// unisce caratteri consecutivi dello stesso tipo in un unico span
+		const parts: DiffPart[] = [];
+		for (const part of rev) {
+			const last = parts[parts.length - 1];
+			if (last && last.kind === part.kind) last.text += part.text;
+			else parts.push({ ...part });
+		}
+		return parts;
+	}
+
+	// Sceglie a quale forma (jp coi kanji, yomi in kana, o una variante) è più
+	// vicino ciò che hai detto, così il confronto non mescola kanji e kana.
+	function bestDiffTarget(said: string, candidates: string[]): string {
+		const normSaid = normalizeSpeech(said);
+		let best = candidates[0] ?? '';
+		let bestDist = Infinity;
+		for (const c of candidates) {
+			const d = levenshtein(normSaid, normalizeSpeech(c));
+			if (d < bestDist) { bestDist = d; best = c; }
+		}
+		return best;
+	}
 
 	const GAME_ID = 'shadowing';
 	const ROUNDS_PER_GAME = 10;
@@ -39,6 +99,15 @@
 	let canSpeak = $state(false);
 	let heard = $state('');
 	let lastOk = $state<boolean | null>(null);
+
+	// Confronto detto/atteso solo quando ha senso mostrarlo (mic usato, non
+	// riuscito capire qualcosa di significativo).
+	const diffParts = $derived.by((): DiffPart[] => {
+		if (!heard || step !== 'revealed' || rounds.length === 0) return [];
+		const r = cur();
+		const target = bestDiffTarget(heard, [r.phrase.jp, r.phrase.yomi, ...(r.phrase.varianti ?? [])]);
+		return diffChars(heard, target);
+	});
 
 	onMount(() => {
 		canSpeak = speechAvailable();
@@ -76,8 +145,15 @@
 	// Ascolta la frase (TTS) e poi, subito dopo, attiva il microfono per la
 	// ripetizione dell'utente — il cuore dello shadowing. Se il mic non è
 	// disponibile, si ferma dopo l'ascolto e l'utente si autovaluta.
+	// Riascolta l'audio senza rimettere in gioco il microfono: usato dopo il
+	// riscontro, per non rifare un secondo tentativo che sovrascrive quello
+	// già giudicato (era la causa del verdetto contraddittorio).
+	async function replay(rate = 1): Promise<void> {
+		await speakSentenceJapaneseAsync(cur().phrase.jp, { rate });
+	}
+
 	async function listenAndShadow(rate = 1): Promise<void> {
-		if (step === 'listening') return;
+		if (step === 'listening' || step === 'revealed') return;
 		const r = cur();
 		heard = '';
 		lastOk = null;
@@ -172,14 +248,26 @@
 					<p class="p-it">{r.phrase.it}</p>
 				</div>
 				{#if heard}
-					<p class="heard-text">Ho sentito: 「{heard}」</p>
+					<p class="heard-label">Hai detto:</p>
+					{#if diffParts.length}
+						<p class="diff-line">
+							{#each diffParts as part, i (i)}
+								{#if part.kind === 'same'}<span>{part.text}</span>
+								{:else if part.kind === 'extra'}<span class="diff-extra">{part.text}</span>
+								{:else}<span class="diff-miss">{part.text}</span>{/if}
+							{/each}
+						</p>
+						<p class="diff-legend"><span class="diff-extra">rosso barrato</span> = detto per sbaglio o non richiesto · <span class="diff-miss">verde</span> = da aggiungere/correggere</p>
+					{:else}
+						<p class="heard-text">「{heard}」</p>
+					{/if}
 				{/if}
-				<div class="listen-actions">
-					<button class="mini" onclick={() => listenAndShadow()}>もう一度</button>
-					<button class="mini" onclick={() => listenAndShadow(0.6)}>🐢 ゆっくり</button>
-				</div>
 
 				{#if step === 'said'}
+					<div class="listen-actions">
+						<button class="mini" onclick={() => listenAndShadow()}>🔊 もう一度</button>
+						<button class="mini" onclick={() => listenAndShadow(0.6)}>🐢 ゆっくり</button>
+					</div>
 					<p class="hint">Come è andata la tua ripetizione?</p>
 					<div class="self-judge">
 						<button class="judge ok" onclick={() => revealSelf(true)}>✓ Bene</button>
@@ -187,13 +275,12 @@
 					</div>
 				{:else}
 					<p class="verdict" class:ok={lastOk} class:ko={!lastOk}>
-						{#if gameOver}
-							Non hai detto la frase giusta. Serie: {streak}
-						{:else}
-							{isRecord ? '🏆 Nuovo record!' : lastOk ? '✓ Bene detto!' : ''}
-						{/if}
+						{lastOk ? (isRecord ? '🏆 Nuovo record!' : '✓ Bene detto!') : 'Non hai detto la frase giusta.'}
 					</p>
-					<button class="proceed" onclick={next}>{gameOver ? '🔁 Ricomincia' : idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
+					<div class="listen-actions">
+						<button class="mini" onclick={() => replay()}>🔊 Risenti l'audio</button>
+						<button class="proceed" onclick={next}>{gameOver ? '🔁 Ricomincia da capo' : idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
+					</div>
 				{/if}
 			{/if}
 		</article>
@@ -232,6 +319,11 @@
 	.p-yomi { margin: 0; font-size: 0.85rem; color: var(--brand); }
 	.p-it { margin: 0; font-size: 0.92rem; color: var(--muted); }
 	.heard-text { margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
+	.heard-label { margin: 0; text-align: center; font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+	.diff-line { margin: 0; text-align: center; font-size: 1.1rem; line-height: 1.6; }
+	.diff-extra { color: var(--danger); text-decoration: line-through; }
+	.diff-miss { color: var(--success); font-weight: 700; }
+	.diff-legend { margin: 0; text-align: center; font-size: 0.72rem; color: var(--muted); }
 
 	.self-judge { display: flex; gap: 12px; justify-content: center; }
 	.judge { padding: 10px 20px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); font-weight: 700; font-size: 0.95rem; cursor: pointer; }

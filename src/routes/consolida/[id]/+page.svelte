@@ -21,6 +21,7 @@
 	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import type { Word, Counter } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -31,6 +32,8 @@
 	let kanjiChar = $state<string | null>(null);
 	let grammarMode = $state(false);
 	let counterMode = $state(false);
+	let phrase = $state<UsefulPhrase | null>(null);
+	let phraseJudged = $state(false);
 	// item SRS che questa sessione consolida (pratica: muove solo il mastery)
 	let srsTarget = $state<string | null>(null);
 	let title = $state('');
@@ -46,7 +49,7 @@
 	async function build(): Promise<void> {
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
-		word = null; kanjiChar = null; grammarMode = false; counterMode = false; srsTarget = null;
+		word = null; kanjiChar = null; grammarMode = false; counterMode = false; phrase = null; phraseJudged = false; srsTarget = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -74,6 +77,19 @@
 					if (q.mode === 'cloze' || q.mode === 'reading-choice') qs.push(q);
 				}
 				queue = qs;
+			}
+			loading = false;
+			return;
+		}
+
+		// Frase utile (dallo shadowing): non è a scelta multipla, è pratica a
+		// voce — riascolto + autovalutazione, come nel gioco di provenienza.
+		if (kind === 'phrase') {
+			const found = SITUATIONS.flatMap((s) => s.frasi).find((p) => p.jp === rawId);
+			if (found) {
+				phrase = found;
+				srsTarget = `phrase:${found.jp}`;
+				title = found.jp;
 			}
 			loading = false;
 			return;
@@ -297,6 +313,13 @@
 		await db.srs_progress.put(updated);
 	}
 
+	async function judgePhrase(ok: boolean): Promise<void> {
+		if (phraseJudged) return;
+		phraseJudged = true;
+		score = { ok: score.ok + (ok ? 1 : 0), tot: score.tot + 1 };
+		await recordPractice(ok);
+	}
+
 	function next(): void {
 		if (idx + 1 >= queue.length) { build(); return; }
 		idx += 1; picked = null; revealed = false;
@@ -311,17 +334,34 @@
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
-	{:else if !word && !kanjiChar && !grammarMode && !counterMode}
+	{:else if !word && !kanjiChar && !grammarMode && !counterMode && !phrase}
 		<p class="muted">Elemento non trovato.</p>
 	{:else}
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : 'Allenamento libero'} — consolida (niente XP). {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : phrase ? 'Frase utile — pratica a voce' : 'Allenamento libero'} — consolida (niente XP). {score.ok}/{score.tot}
 			</p>
 		</header>
 
-		{#if current}
+		{#if phrase}
+			{@const p = phrase}
+			<article class="card">
+				<p class="qprompt">{p.jp}</p>
+				<p class="sub" style="text-align:center;">{p.yomi}</p>
+				<p class="sub" style="text-align:center;">{p.it}</p>
+				<button class="next" onclick={() => speakSentenceJapanese(p.jp)}>🔊 Ascolta</button>
+				{#if !phraseJudged}
+					<p class="muted" style="text-align:center;">Ripetila ad alta voce: come è andata?</p>
+					<div class="choices">
+						<button class="choice right" onclick={() => judgePhrase(true)}>✓ Bene</button>
+						<button class="choice wrong" onclick={() => judgePhrase(false)}>✗ Da rifare</button>
+					</div>
+				{:else}
+					<p class="muted" style="text-align:center;">✓ Consolidato.</p>
+				{/if}
+			</article>
+		{:else if current}
 			{#key idx}
 			<article class="card">
 				<p class="qmode">{current.mode}</p>
