@@ -9,7 +9,7 @@ function escapeHtml(raw: string): string {
     .replaceAll("'", "&#39;");
 }
 
-const FIRST_KANJI_REGEX = /[一-龯々〆]/;
+export const FIRST_KANJI_REGEX = /[一-龯々〆]/;
 
 export function renderFuriganaToHtml(input: string): string {
   const escaped = escapeHtml(input);

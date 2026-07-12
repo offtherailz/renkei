@@ -1,6 +1,6 @@
 import { pickLocalizedArray, pickLocalizedText } from "../core/i18n";
 import { createDefaultTokenizer } from "../core/tokenizer";
-import { renderFuriganaToHtml } from "../core/furigana";
+import { renderFuriganaToHtml, FIRST_KANJI_REGEX } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
 import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
 import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
@@ -273,9 +273,28 @@ function blankClozeTarget(sourceText: string, target: string): string {
   return sourceText.replace(target, "___");
 }
 
-function pickReadingTarget(sourceText: string): { base: string; reading: string; match: string } | null {
+// Il match greedy della notazione furigana può inglobare i kana che
+// precedono la parola (ドア[どあ]が開いて[あいて]いる。 → base "が開いて"),
+// esattamente come in renderFuriganaToHtml: qui va tolto anche dal match
+// completo, altrimenti la domanda evidenzia/testa がinsieme alla parola,
+// mostrando un box che parte dalla particella invece che dal kanji.
+function trimLeadingKana(segment: { match: string; base: string; reading: string }): {
+  match: string;
+  base: string;
+  reading: string;
+} {
+  const kanjiIndex = segment.base.search(FIRST_KANJI_REGEX);
+  if (kanjiIndex <= 0) return segment;
+  return {
+    match: segment.match.slice(kanjiIndex),
+    base: segment.base.slice(kanjiIndex),
+    reading: segment.reading
+  };
+}
+
+export function pickReadingTarget(sourceText: string): { base: string; reading: string; match: string } | null {
   const candidates = [...sourceText.matchAll(FURIGANA_SEGMENT_REGEX)]
-    .map((match) => ({ match: match[0], base: match[1] ?? "", reading: match[2] ?? "" }))
+    .map((match) => trimLeadingKana({ match: match[0], base: match[1] ?? "", reading: match[2] ?? "" }))
     .filter((segment) => /[一-龯々]/u.test(segment.base));
 
   if (candidates.length === 0) {
@@ -298,7 +317,13 @@ function buildReadingDistractors(context: QuizContext, jlptLevel: JLPTLevel, exc
     .map((word) => word.lettura)
     .filter((reading) => reading !== excludedReading)
     .filter((reading, index, values) => values.indexOf(reading) === index);
-  return shuffle(readings).slice(0, 3);
+  // Preferiamo distrattori con lo stesso numero di more della risposta
+  // giusta: letture di lunghezza qualunque (un composto lungo tra letture
+  // di 2 more) rendevano la risposta ovvia a colpo d'occhio, senza bisogno
+  // di leggere niente.
+  const sameLength = readings.filter((r) => r.length === excludedReading.length);
+  const pool = sameLength.length >= 3 ? sameLength : readings;
+  return shuffle(pool).slice(0, 3);
 }
 
 function createReadingChoiceQuestion(source: ClozeSource, jlptLevel: JLPTLevel, context: QuizContext): ReadingChoiceQuestion | null {
@@ -400,7 +425,7 @@ export async function createParticleClozeQuestion(
   }
 
   const tokenizer = await createDefaultTokenizer();
-  const hits = findParticles(tokenizer.tokenize(sentence)).filter((h) =>
+  const hits = findParticles(tokenizer.tokenize(sentence), sentence).filter((h) =>
     BLANKABLE_PARTICLES.has(h.particle)
   );
   if (hits.length === 0) return null;

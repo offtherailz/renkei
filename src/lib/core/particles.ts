@@ -34,10 +34,20 @@ export interface ParticleHit {
 // bunsetsu, quindi una particella "vera" chiude quasi sempre un segmento
 // (犬が / 学校に). Richiedere testo prima della particella evita i falsi
 // positivi tipo こんにちは.
-export function findParticles(segments: string[]): ParticleHit[] {
+//
+// `sentence` (facoltativo): il testo originale, per riallineare l'offset
+// quando BudouX scarta degli spazi tra un segmento e l'altro (es. "毎晩 二時間
+// 日本語を" → i segmenti non sommano alla lunghezza della frase: senza
+// riallineamento l'indice scivola e si oscura il carattere sbagliato, es. 語
+// invece di を). Stessa tecnica già usata in InteractiveSentence.svelte.
+export function findParticles(segments: string[], sentence?: string): ParticleHit[] {
 	const hits: ParticleHit[] = [];
 	let offset = 0;
 	for (const segment of segments) {
+		if (sentence) {
+			const found = sentence.indexOf(segment, offset);
+			if (found >= 0) offset = found;
+		}
 		for (const particle of PARTICLES) {
 			if (segment.length > particle.length && segment.endsWith(particle)) {
 				// の di この/その/あの/どの (rentaishi) NON è una particella.

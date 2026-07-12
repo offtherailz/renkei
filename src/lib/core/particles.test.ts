@@ -26,6 +26,18 @@ describe("findParticles", () => {
     expect(findParticles(["その", "コンサート"])).toEqual([]);
     expect(findParticles(["私の"]).map((h) => h.particle)).toEqual(["の"]);
   });
+
+  it("con la frase originale si riallinea quando BudouX scarta uno spazio tra i segmenti (bug reale: 語 oscurato invece di を)", () => {
+    const sentence = "毎晩 二時間 日本語を 勉強します。";
+    // segmentazione reale di BudouX per questa frase: il primo spazio (dopo
+    // 毎晩) viene scartato, quindi i segmenti non sommano più alla lunghezza
+    // della frase originale.
+    const segments = ["毎晩", "二時間 日本語を", "勉強します。"];
+    const hits = findParticles(segments, sentence);
+    const hit = hits.find((h) => h.particle === "を")!;
+    expect(hit).toBeDefined();
+    expect(blankParticleAt(sentence, hit)).toBe("毎晩 二時間 日本語＿＿ 勉強します。");
+  });
 });
 
 describe("blankParticleAt", () => {

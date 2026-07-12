@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { calculateQuizXp, createFlashcardRecognitionQuestion, createMultipleChoiceQuestion, shuffle } from "./engine";
+import {
+  calculateQuizXp,
+  createFlashcardRecognitionQuestion,
+  createMultipleChoiceQuestion,
+  pickReadingTarget,
+  shuffle
+} from "./engine";
 import type { DistractorIndex, QuizContext, XpInput } from "./types";
 import type { Word } from "../types/models";
 
@@ -234,5 +240,20 @@ describe("calculateQuizXp", () => {
   it("il totale è la somma delle componenti", () => {
     const xp = calculateQuizXp(makeInput({ jlptLevel: "N3", srsStage: 4, responseTimeMs: 3_000 }));
     expect(xp.total).toBe(xp.base + xp.difficultyBonus + xp.speedBonus + xp.groupCompletionBonus);
+  });
+});
+
+describe("pickReadingTarget", () => {
+  it("non ingloba il kana che precede la parola (bug reale: が dentro il box insieme a 開いて)", () => {
+    const target = pickReadingTarget("ドア[どあ]が開いて[あいて]いる。");
+    expect(target?.base).toBe("開いて");
+    expect(target?.reading).toBe("あいて");
+    expect(target?.match).toBe("開いて[あいて]");
+  });
+
+  it("nessun kana da togliere: il match resta invariato", () => {
+    const target = pickReadingTarget("いま、勉強[べんきょう]している。");
+    expect(target?.base).toBe("勉強");
+    expect(target?.match).toBe("勉強[べんきょう]");
   });
 });
