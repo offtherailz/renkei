@@ -674,6 +674,21 @@
 					kanji: true
 				});
 			}
+			// le risposte sbagliate, quando corrispondono a una parola vera del
+			// catalogo, sono utili da approfondire quanto quella giusta — non
+			// solo il testo del "perché era sbagliata" (vedi wrongChoiceNotes).
+			const choices = 'choices' in q && q.choices ? q.choices : [];
+			const correct = 'correctChoice' in q ? q.correctChoice : 'correctAnswer' in q ? q.correctAnswer : '';
+			const allWords = [...(context?.wordsById.values() ?? [])];
+			const firstMeaning = (w: Word) => pickLocalizedArray(w.significato, locale)[0] ?? '';
+			for (const choice of choices) {
+				if (choice === correct) continue;
+				const wrongWord =
+					q.mode === 'multiple-choice'
+						? allWords.find((w) => firstMeaning(w).toLowerCase() === choice.trim().toLowerCase())
+						: (context?.wordsById.get(choice) ?? allWords.find((w) => w.scrittura === choice));
+				if (wrongWord) dives.push(wordItem(wrongWord));
+			}
 		}
 
 		// dedupe per href, massimo 6 chip
