@@ -354,10 +354,19 @@ export function buildAdjectiveQuestions(word: Word, allowed?: Set<string>): Conj
 		.filter((form) => form.key !== 'dict')
 		.filter((form) => !allowed || adjectiveKeyAllowed(form.key, allowed))
 		.map((form) => {
+			// errori tipici incrociati い/な: per gli aggettivi-な che finiscono
+			// per davvero in い (きれい, 嫌い...) il classico errore da
+			// studente è trattarli come aggettivi-い e togliere quella い
+			// (きれくない). Per tutti gli altri (必要, 静か, 元気...) non c'è
+			// nessuna い da togliere: troncare comunque l'ultimo carattere
+			// produceva robaccia (必要→必くない). Lì il vero errore tipico è
+			// attaccare くない senza togliere nulla (必要くない).
+			const naMistakeNegative = word.scrittura.endsWith('い')
+				? `${word.scrittura.slice(0, -1)}くない`
+				: `${word.scrittura}くない`;
 			const wrong: (string | undefined)[] = [
 				otherTable.find((f) => f.key === form.key)?.value,
-				// errori tipici incrociati い/な
-				type === 'i' ? `${word.scrittura}じゃない` : `${word.scrittura.slice(0, -1)}くない`,
+				type === 'i' ? `${word.scrittura}じゃない` : naMistakeNegative,
 				type === 'i' ? `${word.scrittura}だった` : `${word.scrittura}かった`,
 				...table.filter((f) => f.key !== form.key && f.key !== 'dict').map((f) => f.value)
 			];

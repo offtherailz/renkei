@@ -4,6 +4,7 @@ import {
 	buildVerbTable,
 	buildComposedForms,
 	buildComposedFormQuestions,
+	buildAdjectiveQuestions,
 	conjugateAdjective,
 	conjugateVerb
 } from "./conjugation";
@@ -18,6 +19,23 @@ function makeVerb(scrittura: string, classe: string): Word {
 		livello_jlpt: "N5",
 		tipo_jp: "動詞[どうし]",
 		classe_verbo_jp: classe,
+		kanji_usati: [],
+		sinonimi: [],
+		contrari: [],
+		omofoni: [],
+		updated_at: 0
+	} as unknown as Word;
+}
+
+function makeAdjective(scrittura: string, tipo: "い形容詞" | "な形容詞"): Word {
+	return {
+		id: scrittura,
+		scrittura,
+		lettura: scrittura,
+		significato: { it: ["test"], en: ["test"] },
+		livello_jlpt: "N5",
+		tipo_jp: "形容詞[けいようし]",
+		tipo_aggettivo_jp: tipo,
 		kanji_usati: [],
 		sinonimi: [],
 		contrari: [],
@@ -194,5 +212,23 @@ describe("buildComposedFormQuestions", () => {
 	it("parola non verbo: nessuna domanda", () => {
 		const noun = { ...makeVerb("水", "一段動詞[いちだんどうし]"), tipo_jp: "名詞[めいし]", classe_verbo_jp: undefined };
 		expect(buildComposedFormQuestions(noun as unknown as Word)).toEqual([]);
+	});
+});
+
+describe("buildAdjectiveQuestions", () => {
+	it("aggettivo-な che non finisce in い (必要): niente distrattori con un kanji troncato a caso", () => {
+		// Bug reale segnalato: 必要 → distrattore "必くない" (tronca 要 e
+		// aggiunge くない come se fosse un aggettivo-い). 必要 non finisce in
+		// い: non c'è nessuna い da togliere, quel distrattore è insensato.
+		const qs = buildAdjectiveQuestions(makeAdjective("必要", "な形容詞"));
+		for (const q of qs) {
+			expect(q.choices, `scelta insensata per "${q.prompt}"`).not.toContain("必くない");
+		}
+	});
+
+	it("aggettivo-な che finisce davvero in い (きれい): resta il classico errore da studente", () => {
+		const qs = buildAdjectiveQuestions(makeAdjective("きれい", "な形容詞"));
+		const negQuestion = qs.find((q) => q.prompt.includes("negativo"));
+		expect(negQuestion?.choices).toContain("きれくない");
 	});
 });
