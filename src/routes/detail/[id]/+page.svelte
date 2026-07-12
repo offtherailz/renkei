@@ -361,12 +361,17 @@
 		{#if word.tipo_jp.startsWith('動詞')}
 		<article class="detail-card">
 			<p class="card-title">Forme composte utili</p>
-			<p class="composed-hint">Costruzioni che partono da questo verbo. Tocca per spiegazione ed esercizio.</p>
-			<div class="chip-row">
+			<p class="composed-hint">Costruzioni che partono da questo verbo: 📖 spiegazione, 💪 esercizio.</p>
+			<div class="composed-list">
 				{#each verbComposedForms as form}
-					<a href="{base}/forme#{form.slug}" class="composed-chip">
-						{stripFuriganaNotation(form.label)}
-					</a>
+					<div class="composed-row">
+						<a href="{base}/forme#{form.slug}" class="composed-chip">
+							{stripFuriganaNotation(form.label)}
+						</a>
+						{#if form.consolidaId}
+							<a href="{base}/consolida/{encodeURIComponent(`grammar:${form.consolidaId}`)}" class="composed-drill">💪 Esercitati</a>
+						{/if}
+					</div>
 				{/each}
 			</div>
 		</article>
@@ -827,6 +832,9 @@
 
 	.composed-hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 8px; }
 
+	.composed-list { display: flex; flex-direction: column; gap: 6px; }
+	.composed-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
 	.composed-chip {
 		padding: 6px 12px;
 		border-radius: 999px;
@@ -838,7 +846,19 @@
 		font-weight: 600;
 	}
 
-	.composed-chip:hover { background: #eef2ff; border-color: var(--brand); }
+	.composed-chip:hover { background: var(--info-bg); border-color: var(--brand); }
+
+	.composed-drill {
+		padding: 6px 12px;
+		border-radius: 999px;
+		background: var(--ok-bg);
+		border: 1px solid var(--success);
+		text-decoration: none;
+		color: var(--ok-ink);
+		font-size: 0.84rem;
+		font-weight: 600;
+	}
+	.composed-drill:hover { filter: brightness(0.96); }
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }
