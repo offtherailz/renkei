@@ -386,3 +386,67 @@ export function buildConjugationQuestions(word: Word, allowed?: Set<string>): Co
 	}
 	return questions;
 }
+
+// Le 7 forme composte più utili collegate alla scheda del verbo (stesse
+// mostrate come link a /forme): calcolate DAL VERBO stesso — l'esercizio
+// chiede davvero "食べる → 食べてみる", non un altro verbo a caso preso dal
+// catalogo grammaticale generico.
+export interface ComposedForm {
+	slug: string;
+	label: string;
+	value: string;
+	// errore tipico da usare come distrattore pedagogico (suffisso attaccato
+	// alla forma dizionario invece che alla forma て/volitiva)
+	commonMistake?: string;
+}
+
+export function buildComposedForms(dictionary: string, verbClass: VerbClass): ComposedForm[] | null {
+	const table = buildVerbTable(dictionary, verbClass);
+	if (!table) return null;
+	const byKey = Object.fromEntries(table.map((f) => [f.key, f.value]));
+	const te = byKey.te;
+	const volitional = byKey.volitional;
+	const teiru = byKey.teiru;
+	const masu = byKey.masu;
+	if (!te || !volitional || !teiru || !masu) return null;
+	const masuStem = masu.slice(0, -2);
+
+	const teForms: [string, string, string][] = [
+		['te-miru', '〜てみる (provare a)', 'みる'],
+		['te-oku', '〜ておく (fare in anticipo)', 'おく'],
+		['te-shimau', '〜てしまう (finire di / per sbaglio)', 'しまう']
+	];
+
+	return [
+		...teForms.map(([slug, label, suffix]) => ({
+			slug: slug!,
+			label: label!,
+			value: `${te}${suffix}`,
+			commonMistake: `${dictionary}${suffix}`
+		})),
+		{ slug: 'te-iru', label: '〜ている (azione in corso)', value: teiru, commonMistake: `${dictionary}いる` },
+		{ slug: 'to-omou', label: '〜(よ)うと思う (penso di)', value: `${volitional}と思う` },
+		{ slug: 'you-volitiva', label: '意向形 〜よう (facciamo/proviamo)', value: volitional },
+		{ slug: 'sou-apparenza', label: '〜そう (sembra che)', value: `${masuStem}そう`, commonMistake: `${dictionary}そう` }
+	];
+}
+
+export function buildComposedFormQuestions(word: Word): ConjugationQuestion[] {
+	const verbClass = detectVerbClass(word);
+	if (!verbClass) return [];
+	const forms = buildComposedForms(word.scrittura, verbClass);
+	if (!forms) return [];
+	return forms.map((form) => {
+		const wrong: (string | undefined)[] = [
+			form.commonMistake,
+			...forms.filter((f) => f.slug !== form.slug).map((f) => f.value)
+		];
+		const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
+		return {
+			prompt: form.label,
+			dictionary: word.scrittura,
+			correct: form.value,
+			choices: [form.value, ...distractors]
+		};
+	});
+}

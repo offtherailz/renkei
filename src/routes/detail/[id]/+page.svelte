@@ -15,6 +15,7 @@
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
 	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
+	import ComposedFormDrill from '$lib/components/ComposedFormDrill.svelte';
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
 	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPage } from '$lib/data/grammarForms';
@@ -361,20 +362,16 @@
 		{#if word.tipo_jp.startsWith('動詞')}
 		<article class="detail-card">
 			<p class="card-title">Forme composte utili</p>
-			<p class="composed-hint">Costruzioni che partono da questo verbo: 📖 spiegazione, 💪 esercizio.</p>
-			<div class="composed-list">
+			<p class="composed-hint">Costruzioni che partono da questo verbo. Tocca per la spiegazione.</p>
+			<div class="chip-row">
 				{#each verbComposedForms as form}
-					<div class="composed-row">
-						<a href="{base}/forme#{form.slug}" class="composed-chip">
-							{stripFuriganaNotation(form.label)}
-						</a>
-						{#if form.consolidaId}
-							<a href="{base}/consolida/{encodeURIComponent(`grammar:${form.consolidaId}`)}" class="composed-drill">💪 Esercitati</a>
-						{/if}
-					</div>
+					<a href="{base}/forme#{form.slug}" class="composed-chip">
+						{stripFuriganaNotation(form.label)}
+					</a>
 				{/each}
 			</div>
 		</article>
+		<ComposedFormDrill {word} />
 		{/if}
 
 		{#key word.id}
@@ -832,9 +829,6 @@
 
 	.composed-hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 8px; }
 
-	.composed-list { display: flex; flex-direction: column; gap: 6px; }
-	.composed-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
 	.composed-chip {
 		padding: 6px 12px;
 		border-radius: 999px;
@@ -847,18 +841,6 @@
 	}
 
 	.composed-chip:hover { background: var(--info-bg); border-color: var(--brand); }
-
-	.composed-drill {
-		padding: 6px 12px;
-		border-radius: 999px;
-		background: var(--ok-bg);
-		border: 1px solid var(--success);
-		text-decoration: none;
-		color: var(--ok-ink);
-		font-size: 0.84rem;
-		font-weight: 600;
-	}
-	.composed-drill:hover { filter: brightness(0.96); }
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }

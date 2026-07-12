@@ -1,5 +1,30 @@
 import { describe, expect, it } from "vitest";
-import { buildAdjectiveTable, buildVerbTable, conjugateAdjective, conjugateVerb } from "./conjugation";
+import {
+	buildAdjectiveTable,
+	buildVerbTable,
+	buildComposedForms,
+	buildComposedFormQuestions,
+	conjugateAdjective,
+	conjugateVerb
+} from "./conjugation";
+import type { Word } from "../types/models";
+
+function makeVerb(scrittura: string, classe: string): Word {
+	return {
+		id: scrittura,
+		scrittura,
+		lettura: scrittura,
+		significato: { it: ["test"], en: ["test"] },
+		livello_jlpt: "N5",
+		tipo_jp: "動詞[どうし]",
+		classe_verbo_jp: classe,
+		kanji_usati: [],
+		sinonimi: [],
+		contrari: [],
+		omofoni: [],
+		updated_at: 0
+	} as unknown as Word;
+}
 
 function formMap(forms: { key: string; value: string }[] | null): Record<string, string> {
   return Object.fromEntries((forms ?? []).map((f) => [f.key, f.value]));
@@ -123,4 +148,51 @@ describe("conjugateAdjective", () => {
     expect(f.past).toBe("静かだった");
     expect(f.attr).toBe("静かな");
   });
+});
+
+describe("buildComposedForms", () => {
+	it("食べる (ichidan): forme composte costruite sul VERBO stesso", () => {
+		const forms = buildComposedForms("食べる", "ichidan");
+		const f = Object.fromEntries((forms ?? []).map((x) => [x.slug, x.value]));
+		expect(f["te-miru"]).toBe("食べてみる");
+		expect(f["te-oku"]).toBe("食べておく");
+		expect(f["te-shimau"]).toBe("食べてしまう");
+		expect(f["te-iru"]).toBe("食べている");
+		expect(f["to-omou"]).toBe("食べようと思う");
+		expect(f["you-volitiva"]).toBe("食べよう");
+		expect(f["sou-apparenza"]).toBe("食べそう");
+	});
+
+	it("飲む (godan): forme composte con て irregolare (飲んで)", () => {
+		const forms = buildComposedForms("飲む", "godan");
+		const f = Object.fromEntries((forms ?? []).map((x) => [x.slug, x.value]));
+		expect(f["te-miru"]).toBe("飲んでみる");
+		expect(f["te-iru"]).toBe("飲んでいる");
+		expect(f["you-volitiva"]).toBe("飲もう");
+		expect(f["sou-apparenza"]).toBe("飲みそう");
+	});
+
+	it("する (irregolare)", () => {
+		const forms = buildComposedForms("勉強する", "irregular");
+		const f = Object.fromEntries((forms ?? []).map((x) => [x.slug, x.value]));
+		expect(f["te-miru"]).toBe("勉強してみる");
+		expect(f["you-volitiva"]).toBe("勉強しよう");
+	});
+});
+
+describe("buildComposedFormQuestions", () => {
+	it("7 domande, ognuna con la risposta giusta tra le scelte", () => {
+		const qs = buildComposedFormQuestions(makeVerb("食べる", "一段動詞[いちだんどうし]"));
+		expect(qs.length).toBe(7);
+		for (const q of qs) {
+			expect(q.choices).toContain(q.correct);
+			expect(new Set(q.choices).size).toBe(q.choices.length);
+			expect(q.choices.length).toBeGreaterThanOrEqual(2);
+		}
+	});
+
+	it("parola non verbo: nessuna domanda", () => {
+		const noun = { ...makeVerb("水", "一段動詞[いちだんどうし]"), tipo_jp: "名詞[めいし]", classe_verbo_jp: undefined };
+		expect(buildComposedFormQuestions(noun as unknown as Word)).toEqual([]);
+	});
 });
