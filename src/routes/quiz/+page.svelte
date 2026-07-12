@@ -203,12 +203,15 @@
 
 			// Modalità speciali con distrattori pedagogici: si raccolgono quelle
 			// applicabili alla parola e se ne tenta una a caso (~40% delle volte).
+			// Il cloze sulla particella (particleCloze) è tenuto FUORI da questo
+			// bucket: è disponibile per quasi ogni parola (basta una frase
+			// d'esempio), quindi nel bucket comune finiva per dominare — spesso
+			// era l'UNICA speciale disponibile per un nome, portando la sua quota
+			// reale al 40% dei turni invece di essere una variante occasionale.
+			// Ha un suo peso più basso e separato.
 			const specials: (() => QuizQuestion | null | Promise<QuizQuestion | null>)[] = [];
-			if (word.frasi_esempio?.length) {
-				specials.push(() => createParticleClozeQuestion(word, locale));
-				if (word.id_verbo_corrispondente) {
-					specials.push(() => createTransitivityPairQuestion(word, context!, locale));
-				}
+			if (word.frasi_esempio?.length && word.id_verbo_corrispondente) {
+				specials.push(() => createTransitivityPairQuestion(word, context!, locale));
 			}
 			if (word.id_contatore_suggerito) {
 				specials.push(() => createCounterQuestion(word, counterRows, locale));
@@ -228,6 +231,10 @@
 				const pick = specials[Math.floor(Math.random() * specials.length)]!;
 				const special = await pick();
 				if (special) return special;
+			}
+			if (word.frasi_esempio?.length && Math.random() < 0.15) {
+				const particleQuestion = await createParticleClozeQuestion(word, locale);
+				if (particleQuestion) return particleQuestion;
 			}
 
 			const mode = pickWordMode(srs.srs_stage, word);
