@@ -19,6 +19,7 @@
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
 	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPage } from '$lib/data/grammarForms';
+	import { KEIGO_VERBS, type KeigoVerb } from '$lib/core/keigo';
 
 	// Forme composte più utili da collegare alla scheda di un verbo.
 	const VERB_COMPOSED_SLUGS = ['te-miru', 'te-oku', 'te-shimau', 'te-iru', 'to-omou', 'you-volitiva', 'sou-apparenza'];
@@ -144,6 +145,21 @@
 	let suggestedCounter = $state<Counter | null>(null);
 	let suruVerb = $state<Word | null>(null);
 	let baseNoun = $state<Word | null>(null);
+	let keigoEntry = $state<KeigoVerb | null>(null);
+	let keigoRole = $state<'plain' | 'sonkeigo' | 'kenjougo' | null>(null);
+	let keigoPlainWord = $state<Word | null>(null);
+	let keigoSonkeigoWord = $state<Word | null>(null);
+	let keigoKenjougoWord = $state<Word | null>(null);
+
+	// La scheda di 食べる mostra 召し上がる/いただく come "collegati", quella di
+	// 召し上がる mostra 食べる (e いただく) — stesso principio bidirezionale di
+	// sinonimi/contrari, applicato al keigo.
+	function keigoMatchesWord(k: KeigoVerb, scrittura: string): 'plain' | 'sonkeigo' | 'kenjougo' | null {
+		if (k.plain === scrittura) return 'plain';
+		if (k.sonkeigo?.parola === scrittura) return 'sonkeigo';
+		if (k.kenjougo?.parola === scrittura) return 'kenjougo';
+		return null;
+	}
 
 	// SRS info
 	let masteryPct = $state(0);
@@ -169,6 +185,7 @@
 		word = null; kanji = null; grammar = null;
 		synonyms = []; antonyms = []; homophones = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
+		keigoEntry = null; keigoRole = null; keigoPlainWord = null; keigoSonkeigoWord = null; keigoKenjougoWord = null;
 
 		const currentKind = itemId.split(':')[0];
 		const currentRawId = itemId.split(':').slice(1).join(':');
@@ -215,6 +232,21 @@
 					}
 					if (word.id_nome_origine) {
 						baseNoun = (await db.words.get(word.id_nome_origine)) ?? null;
+					}
+					const kEntry = KEIGO_VERBS.find((k) => keigoMatchesWord(k, word!.scrittura));
+					if (kEntry) {
+						keigoEntry = kEntry;
+						const role = keigoMatchesWord(kEntry, word.scrittura);
+						keigoRole = role;
+						if (role !== 'plain') {
+							keigoPlainWord = (await db.words.get(kEntry.plain)) ?? null;
+						}
+						if (role !== 'sonkeigo' && kEntry.sonkeigo?.parola) {
+							keigoSonkeigoWord = (await db.words.get(kEntry.sonkeigo.parola)) ?? null;
+						}
+						if (role !== 'kenjougo' && kEntry.kenjougo?.parola) {
+							keigoKenjougoWord = (await db.words.get(kEntry.kenjougo.parola)) ?? null;
+						}
 					}
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
@@ -479,6 +511,54 @@
 					<span class="chip-meaning">{verbPair.lettura} — {pickLocalizedArray(verbPair.significato, locale)[0] ?? ''}</span>
 				</a>
 			</div>
+		</article>
+		{/if}
+
+		{#if keigoEntry}
+		<article class="detail-card">
+			<p class="card-title">Keigo</p>
+			<div class="keigo-rows">
+				{#if keigoRole !== 'plain'}
+					<div class="keigo-row">
+						<span class="keigo-tag">forma piana</span>
+						{#if keigoPlainWord}
+							<a href="{base}/detail/word:{keigoPlainWord.id}" class="word-chip">
+								<span class="chip-writing">{keigoPlainWord.scrittura}</span>
+								<span class="chip-meaning">{keigoPlainWord.lettura} — {pickLocalizedArray(keigoPlainWord.significato, locale)[0] ?? ''}</span>
+							</a>
+						{:else}
+							<span class="keigo-plain-text">{keigoEntry.plain}</span>
+						{/if}
+					</div>
+				{/if}
+				{#if keigoRole !== 'sonkeigo' && keigoEntry.sonkeigo}
+					<div class="keigo-row">
+						<span class="keigo-tag keigo-sonkeigo">尊敬語 (azioni altrui)</span>
+						{#if keigoSonkeigoWord}
+							<a href="{base}/detail/word:{keigoSonkeigoWord.id}" class="word-chip">
+								<span class="chip-writing">{keigoSonkeigoWord.scrittura}</span>
+								<span class="chip-meaning">{keigoSonkeigoWord.lettura}</span>
+							</a>
+						{:else}
+							<span class="keigo-plain-text">{keigoEntry.sonkeigo.forma}</span>
+						{/if}
+					</div>
+				{/if}
+				{#if keigoRole !== 'kenjougo' && keigoEntry.kenjougo}
+					<div class="keigo-row">
+						<span class="keigo-tag keigo-kenjougo">謙譲語 (le tue azioni)</span>
+						{#if keigoKenjougoWord}
+							<a href="{base}/detail/word:{keigoKenjougoWord.id}" class="word-chip">
+								<span class="chip-writing">{keigoKenjougoWord.scrittura}</span>
+								<span class="chip-meaning">{keigoKenjougoWord.lettura}</span>
+							</a>
+						{:else}
+							<span class="keigo-plain-text">{keigoEntry.kenjougo.forma}</span>
+						{/if}
+					</div>
+				{/if}
+			</div>
+			<a href="{base}/keigo" class="form-link">🙇 Esercitati con il keigo →</a>
 		</article>
 		{/if}
 
@@ -841,6 +921,21 @@
 	}
 
 	.composed-chip:hover { background: var(--info-bg); border-color: var(--brand); }
+
+	.keigo-rows { display: flex; flex-direction: column; gap: 8px; }
+	.keigo-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+	.keigo-tag {
+		font-size: 0.72rem;
+		font-weight: 700;
+		padding: 3px 8px;
+		border-radius: 999px;
+		background: var(--surface-2);
+		color: var(--muted);
+		white-space: nowrap;
+	}
+	.keigo-sonkeigo { background: var(--info-bg); color: var(--info-ink); }
+	.keigo-kenjougo { background: var(--gold-bg); color: var(--gold-ink); }
+	.keigo-plain-text { font-size: 0.95rem; font-weight: 600; }
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }

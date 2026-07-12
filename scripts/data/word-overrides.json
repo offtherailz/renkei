@@ -4553,6 +4553,7 @@
   }
  },
  "聞く": {
+  "id_verbo_corrispondente": "聞こえる",
   "frasi_esempio": [
    {
     "testo": "毎晩、音楽を聞きます。",
@@ -11370,6 +11371,7 @@
   }
  },
  "見る": {
+  "id_verbo_corrispondente": "見える",
   "significato": {
    "it": [
     "vedere",
@@ -16348,6 +16350,7 @@
   }
  },
  "立つ": {
+  "id_verbo_corrispondente": "立てる",
   "significato": {
    "it": [
     "alzarsi in piedi",
@@ -23050,6 +23053,7 @@
   ]
  },
  "見える": {
+  "id_verbo_corrispondente": "見る",
   "significato": {
    "it": [
     "vedersi",
@@ -30958,6 +30962,7 @@
   ]
  },
  "聞こえる": {
+  "id_verbo_corrispondente": "聞く",
   "significato": {
    "it": [
     "sentirsi",
@@ -32475,6 +32480,7 @@
   ]
  },
  "立てる": {
+  "id_verbo_corrispondente": "立つ",
   "significato": {
    "it": [
     "mettere in piedi",
