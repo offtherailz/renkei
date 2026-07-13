@@ -24,9 +24,14 @@ export const SITUATIONS: Situation[] = [
 		emoji: '🙋',
 		titolo: 'Presentarsi',
 		consigli:
-			'In giapponese sminuire i complimenti è la norma sociale: se ti dicono che parli bene (日本語、お上手ですね), non accettarlo — rispondi con umiltà. Avvisare subito che il tuo giapponese "non è ancora un granché" abbassa le aspettative e rende tutti più pazienti.',
+			'Lo script classico del primo incontro: nome, provenienza, occupazione, un accenno ai tuoi interessi, e la formula di chiusura どうぞよろしくお願いします (che non ha una vera traduzione: è un "conto su di te / trattami bene" che chiude ogni presentazione). In giapponese sminuire i complimenti è la norma sociale: se ti dicono che parli bene (日本語、お上手ですね), non accettarlo — rispondi con umiltà.',
 		frasi: [
 			{ jp: 'はじめまして、田中です。', yomi: 'はじめまして、たなかです。', it: 'Piacere, sono Tanaka.', quando: 'Per presentarti la prima volta a qualcuno: sostituisci 田中 col tuo nome.' },
+			{ jp: 'どうぞよろしくお願いします。', yomi: 'どうぞよろしくおねがいします。', it: 'Piacere di conoscerla / conto su di te.', quando: 'La chiusura classica di ogni presentazione, subito dopo il nome: praticamente obbligatoria, non ha un vero equivalente italiano.' },
+			{ jp: 'イタリアから来ました。', yomi: 'イタリアからきました。', it: 'Vengo dall\'Italia.', quando: 'Per dire la tua provenienza: sostituisci イタリア col tuo paese.' },
+			{ jp: '学生です。', yomi: 'がくせいです。', it: 'Sono uno studente.', quando: 'Per dire cosa fai: sostituisci con 会社員です (impiegato), 主婦です (casalinga)… a seconda della tua situazione.' },
+			{ jp: '趣味は音楽を聞くことです。', yomi: 'しゅみはおんがくをきくことです。', it: 'Il mio hobby è ascoltare musica.', quando: 'Per parlare dei tuoi interessi: sostituisci 音楽を聞く con qualsiasi altra attività + こと.' },
+			{ jp: '日本語を勉強しています。', yomi: 'にほんごをべんきょうしています。', it: 'Sto studiando giapponese.', quando: 'Fatto neutro, prima di eventualmente avvisare che non lo parli ancora bene.' },
 			{ jp: '日本語があまり話せません。', yomi: 'にほんごがあまりはなせません。', it: 'Non parlo bene il giapponese.', quando: 'Dopo esserti presentato: abbassa le aspettative e prepara il terreno per eventuali richieste di ripetere/rallentare più avanti.' },
 			{ jp: 'いえいえ、まだまだです。', yomi: 'いえいえ、まだまだです。', it: 'Ma no, ho ancora tanta strada da fare.', quando: 'Se ti dicono 日本語、お上手ですね (parli bene il giapponese!): rifiutare il complimento con umiltà è la risposta educata, non accettarlo con un semplice grazie.' }
 		]

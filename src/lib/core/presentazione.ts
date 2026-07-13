@@ -21,6 +21,51 @@ export const INTRO_ITEMS: IntroItem[] = [
 		]
 	},
 	{
+		situazione: 'Hai appena detto il tuo nome: chiudi la presentazione con la formula classica.',
+		opzioni: [
+			'どうぞよろしくお願いします。',
+			'さようなら。',
+			'ありがとうございました。',
+			'また明日。'
+		]
+	},
+	{
+		situazione: 'Ti chiedono da dove vieni (sei italiano): rispondi.',
+		opzioni: [
+			'イタリアから来ました。',
+			'イタリアに住んでいました。',
+			'日本に行きます。',
+			'イタリア人が好きです。'
+		]
+	},
+	{
+		situazione: 'Ti chiedono che lavoro fai: sei uno studente.',
+		opzioni: [
+			'学生です。',
+			'学生でした。',
+			'先生です。',
+			'学校です。'
+		]
+	},
+	{
+		situazione: 'Ti chiedono i tuoi hobby: di\' che ti piace ascoltare musica.',
+		opzioni: [
+			'趣味は音楽を聞くことです。',
+			'音楽が好きな人です。',
+			'趣味がありません。',
+			'音楽を聞いています。'
+		]
+	},
+	{
+		situazione: 'Vuoi dire che stai studiando giapponese, prima di avvisare che non lo parli ancora bene.',
+		opzioni: [
+			'日本語を勉強しています。',
+			'日本語が好きです。',
+			'日本語を教えています。',
+			'日本語を話します。'
+		]
+	},
+	{
 		situazione: 'Vuoi avvisare che il tuo giapponese non è ancora un granché, appena dopo esserti presentato.',
 		opzioni: [
 			'日本語があまり話せません。',
@@ -48,7 +93,7 @@ export const INTRO_ITEMS: IntroItem[] = [
 		]
 	},
 	{
-		situazione: 'Hanno parlato alla velocità giusta, ma non hai fatto in tempo a capire la domanda.',
+		situazione: 'Ti fanno una domanda ma non l\'hai capita al primo colpo: la cosa più naturale è chiedere che la ripetano.',
 		opzioni: [
 			'すみません、もう一度お願いします。',
 			'もう少しゆっくり話してください。',
@@ -75,7 +120,7 @@ export const INTRO_ITEMS: IntroItem[] = [
 		]
 	},
 	{
-		situazione: 'Non hai capito una singola parola della domanda, ma ti va bene ammetterlo semplicemente.',
+		situazione: 'Hai sentito bene ogni parola, ma il senso della frase proprio non ti torna: meglio ammetterlo subito.',
 		opzioni: [
 			'すみません、わかりません。',
 			'すみません、書いていただけますか。',
