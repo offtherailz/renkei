@@ -825,7 +825,7 @@
 	}
 
 	function confirmEndSession(): void {
-		if (session && session.answers > 0 && !window.confirm('Terminare la sessione di studio?')) {
+		if (!window.confirm('Terminare la sessione di studio?')) {
 			return;
 		}
 		endSession();
