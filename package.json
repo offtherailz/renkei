@@ -14,7 +14,9 @@
     "validate:seed": "node scripts/validate-seed.mjs",
     "build:pages": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; REPO_NAME=$(basename -s .git \"$REPO_URL\"); node scripts/gen-build-id.mjs && DEPLOY_BASE=/$REPO_NAME/ vite build && cp build/index.html build/404.html",
     "deploy": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; npm run build:pages && gh-pages -d build --dotfiles -b gh-pages -r \"$REPO_URL\"",
-    "release": "git push origin main && npm run deploy"
+    "release": "git push origin main && npm run deploy",
+    "build:staging": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; REPO_NAME=$(basename -s .git \"$REPO_URL\"); node scripts/gen-build-id.mjs && DEPLOY_BASE=/$REPO_NAME/staging/ VITE_APP_ENV=staging vite build && cp build/index.html build/404.html",
+    "deploy:staging": "REPO_URL=${PAGES_REPO_URL:-$(git config --get remote.origin.url || true)}; if [ -z \"$REPO_URL\" ]; then echo 'Errore: configura origin oppure passa PAGES_REPO_URL=https://github.com/<user>/<repo>.git'; exit 1; fi; npm run build:staging && gh-pages -d build --dotfiles -b gh-pages -r \"$REPO_URL\" --dest staging --add"
   },
   "dependencies": {
     "budoux": "^0.7.0",
