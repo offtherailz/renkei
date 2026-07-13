@@ -25,7 +25,9 @@
 		い形容詞: 'Aggettivo in -い: si coniuga direttamente.',
 		な形容詞: 'Aggettivo in -な: richiede な prima del nome.',
 		文法: 'Categoria grammaticale / struttura di grammatica.',
-		読み: 'Indicazioni di lettura del termine o kanji.'
+		読み: 'Indicazioni di lettura del termine o kanji.',
+		尊敬語: 'Sonkeigo: eleva le azioni di altri (capo, cliente, superiori).',
+		謙譲語: 'Kenjougo: abbassa te stesso per essere umile verso l\'interlocutore.'
 	};
 
 	const TOOLTIPS_EN: Record<string, string> = {
@@ -47,7 +49,9 @@
 		い形容詞: 'I-adjective: inflects directly.',
 		な形容詞: 'Na-adjective: requires な before nouns.',
 		文法: 'Grammar category / pattern.',
-		読み: 'Reading hints for the term or kanji.'
+		読み: 'Reading hints for the term or kanji.',
+		尊敬語: 'Sonkeigo: elevates the actions of others (boss, customer, superiors).',
+		謙譲語: 'Kenjougo: lowers yourself to be humble toward the listener.'
 	};
 
 	// Icone per riconoscere la categoria a colpo d'occhio.
@@ -71,7 +75,9 @@
 		一段動詞: '1️⃣',
 		不規則動詞: '*️⃣',
 		他動詞: '👉',
-		自動詞: '🤖'
+		自動詞: '🤖',
+		尊敬語: '👑',
+		謙譲語: '🙇'
 	};
 
 	// Aggettivi: l'icona È la desinenza — い/な stilizzati come emoticon.

@@ -533,7 +533,8 @@
 				{/if}
 				{#if keigoRole !== 'sonkeigo' && keigoEntry.sonkeigo}
 					<div class="keigo-row">
-						<span class="keigo-tag keigo-sonkeigo">尊敬語 (azioni altrui)</span>
+						<JpBadge label="尊敬語" variant="jp-badge-keigo keigo-sonkeigo" />
+						<span class="keigo-tag-note">(azioni altrui)</span>
 						{#if keigoSonkeigoWord}
 							<a href="{base}/detail/word:{keigoSonkeigoWord.id}" class="word-chip">
 								<span class="chip-writing">{keigoSonkeigoWord.scrittura}</span>
@@ -546,7 +547,8 @@
 				{/if}
 				{#if keigoRole !== 'kenjougo' && keigoEntry.kenjougo}
 					<div class="keigo-row">
-						<span class="keigo-tag keigo-kenjougo">謙譲語 (le tue azioni)</span>
+						<JpBadge label="謙譲語" variant="jp-badge-keigo keigo-kenjougo" />
+						<span class="keigo-tag-note">(le tue azioni)</span>
 						{#if keigoKenjougoWord}
 							<a href="{base}/detail/word:{keigoKenjougoWord.id}" class="word-chip">
 								<span class="chip-writing">{keigoKenjougoWord.scrittura}</span>
@@ -933,8 +935,16 @@
 		color: var(--muted);
 		white-space: nowrap;
 	}
-	.keigo-sonkeigo { background: var(--info-bg); color: var(--info-ink); }
-	.keigo-kenjougo { background: var(--gold-bg); color: var(--gold-ink); }
+	:global(.jp-badge-keigo) {
+		font-size: 0.72rem;
+		font-weight: 700;
+		padding: 3px 8px;
+		border-radius: 999px;
+		white-space: nowrap;
+	}
+	:global(.keigo-sonkeigo) { background: var(--info-bg); color: var(--info-ink); }
+	:global(.keigo-kenjougo) { background: var(--gold-bg); color: var(--gold-ink); }
+	.keigo-tag-note { font-size: 0.72rem; color: var(--muted); }
 	.keigo-plain-text { font-size: 0.95rem; font-weight: 600; }
 
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
