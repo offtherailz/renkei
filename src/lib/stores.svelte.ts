@@ -72,7 +72,11 @@ export const appState = $state({
 	lastSummary: null as StudySessionState | null,
 	activeQuiz: null as ActiveQuiz | null,
 	detailItemRef: null as ItemRef | null,
-	lastDeepDive: null as DeepDivePayload | null
+	lastDeepDive: null as DeepDivePayload | null,
+	// Modalità muta del quiz: volutamente qui (non in AppSettings/DB) così
+	// resta per la sessione corrente ma non sopravvive a un refresh — sopravvive
+	// però alla navigazione verso «🔍 Approfondisci» e ritorno (SPA, stesso store).
+	quizMuted: false
 });
 
 export interface DeepDiveItem {

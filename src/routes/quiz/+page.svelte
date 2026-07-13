@@ -47,9 +47,6 @@
 	// ── State ─────────────────────────────────────────────────────────────────────
 	let phase = $state<'init' | 'quiz' | 'summary'>('init');
 	let loadError = $state('');
-	// Modalità muta: niente domande di ascolto, niente audio automatico (TTS).
-	// Toggle locale alla pagina, non persistito su AppSettings/DB.
-	let muted = $state(false);
 
 	// In-session data (loaded once)
 	let words = $state<Word[]>([]);
@@ -70,7 +67,7 @@
 	let answerTokens = $state<string[]>([]);
 	let nowTick = $state(Date.now());
 	let answerRemainingS = $state(0);
-	let answerPaused = $state(false);
+	let sessionPaused = $state(false);
 	let autoNextProgress = $state(0);
 	let autoNextRemainingS = $state(0);
 	let sessionTimerId: ReturnType<typeof setInterval> | null = null;
@@ -142,7 +139,7 @@
 		// serve un kanji per avere senso (lettura → scrittura kanji).
 		const hasKanji = word.kanji_usati.length > 0 && word.scrittura !== word.lettura;
 		// Ascolto: skill separata, entra in rotazione dallo stage 1.
-		if (!muted && hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
+		if (!appState.quizMuted && hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
 		if (stage <= 1) {
 			const r = Math.random();
 			if (r < (hasKanji ? 0.45 : 0)) return 'flashcard-reading-recognition';
@@ -407,7 +404,7 @@
 		answerFeedback = null;
 		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
 		answerTokens = [];
-		if (question.mode === 'listening' && !muted) speakSentenceJapanese(question.readingToSpeak);
+		if (question.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
 	}
 
@@ -471,7 +468,7 @@
 	}
 	function startAnswerTimer(): void {
 		stopAnswerTimer();
-		answerPaused = false;
+		sessionPaused = false;
 		const maxMs = appState.settings.max_answer_time_ms * answerTimeMultiplier();
 		if (!maxMs || maxMs <= 0) { answerRemainingS = 0; return; }
 		const startedAt = Date.now();
@@ -504,16 +501,23 @@
 		}, 100);
 	}
 
-	// Pausa/riprendi il timer di risposta: l'utente può fermarlo se deve
-	// allontanarsi, senza che scada in automatico contando come errore.
-	function toggleAnswerPause(): void {
-		if (!quiz || quiz.answered || answerRemainingS <= 0) return;
-		if (answerPaused) {
-			answerPaused = false;
-			resumeAnswerTimer();
+	// Pausa/riprendi l'intera sessione: ferma il timer di risposta E il timer
+	// di sessione (stesso meccanismo di session.pausedAt usato per le revisioni
+	// dopo un errore), e nasconde la domanda finché non riprendi — utile se devi
+	// allontanarti, senza scadenze silenziose né una domanda lasciata in vista.
+	function toggleSessionPause(): void {
+		if (!quiz || quiz.answered) return;
+		if (sessionPaused) {
+			sessionPaused = false;
+			if (answerRemainingS > 0) resumeAnswerTimer();
+			if (session && session.pausedAt) {
+				session.deadlineAt += Date.now() - session.pausedAt;
+				session.pausedAt = null;
+			}
 		} else {
-			answerPaused = true;
+			sessionPaused = true;
 			stopAnswerTimer();
+			if (session && !session.pausedAt) session.pausedAt = Date.now();
 		}
 	}
 
@@ -966,7 +970,7 @@
 		await addXp(correct ? xpBreakdown.total : -6);
 
 		// TTS (silenziato in modalità muta: niente audio automatico)
-		if (!muted) {
+		if (!appState.quizMuted) {
 			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair') {
 				speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
 			} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
@@ -1213,15 +1217,27 @@
 			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
 		</div>
 		<div class="timer" title="Tempo sessione">{timeLeftLabel}</div>
-		<button
-			class="ghost-btn"
-			onclick={() => (muted = !muted)}
-			aria-pressed={muted}
-			title={muted ? 'Riattiva audio' : 'Silenzia audio (niente ascolto, niente audio risposte)'}
-		>
-			{muted ? '🔇' : '🔊'}
-		</button>
-		<button class="ghost-btn" onclick={confirmEndSession}>Termina</button>
+		<div class="topbar-actions">
+			<button
+				class="ghost-btn"
+				class:muted-on={appState.quizMuted}
+				onclick={() => (appState.quizMuted = !appState.quizMuted)}
+				aria-pressed={appState.quizMuted}
+				title={appState.quizMuted ? 'Riattiva audio' : 'Silenzia audio (niente ascolto, niente audio risposte)'}
+			>
+				{appState.quizMuted ? '🔇' : '🔊'}
+			</button>
+			{#if !quiz.answered}
+				<button
+					class="ghost-btn"
+					onclick={toggleSessionPause}
+					title={sessionPaused ? 'Riprendi la sessione' : 'Metti in pausa: nasconde la domanda e ferma i timer'}
+				>
+					{sessionPaused ? '▶' : '⏸'}
+				</button>
+			{/if}
+			<button class="ghost-btn" onclick={confirmEndSession} title="Termina sessione">⏹</button>
+		</div>
 	</div>
 
 	<div class="quiz-meta">
@@ -1233,20 +1249,16 @@
 
 	{#key quiz.startedAt}
 	<article class="quiz-card" class:correct={answerFeedback === 'correct'} class:wrong={answerFeedback === 'wrong'}>
+		{#if sessionPaused}
+			<div class="paused-overlay">
+				<p class="paused-msg">⏸ Sessione in pausa</p>
+				<p class="paused-hint">Timer fermi, domanda nascosta finché non riprendi.</p>
+				<button class="proceed-btn" onclick={toggleSessionPause}>▶ Riprendi</button>
+			</div>
+		{:else}
 		{#if !quiz.answered && answerRemainingS > 0}
 			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5} title="Tempo per rispondere">
-				{#if answerPaused}
-					⏸ in pausa
-				{:else}
-					⏱ {answerRemainingS.toFixed(1)}s
-				{/if}
-				<button
-					class="answer-pause-btn"
-					onclick={toggleAnswerPause}
-					title={answerPaused ? 'Riprendi il timer' : 'Metti in pausa il timer'}
-				>
-					{answerPaused ? '▶' : '⏸'}
-				</button>
+				⏱ {answerRemainingS.toFixed(1)}s
 			</div>
 		{/if}
 		<!-- flashcard-production -->
@@ -1516,6 +1528,7 @@
 				</button>
 			</div>
 		{/if}
+		{/if}
 	</article>
 	{/key}
 </div>
@@ -1645,6 +1658,16 @@
 	}
 
 	.ghost-btn:hover { background: var(--line); }
+
+	.topbar-actions { display: flex; align-items: center; gap: 4px; }
+
+	/* Muta attiva: sfondo rosso ben visibile, non solo l'icona che cambia. */
+	.ghost-btn.muted-on {
+		background: var(--danger-bg);
+		border-color: var(--danger);
+		color: var(--danger);
+	}
+	.ghost-btn.muted-on:hover { background: var(--danger-bg); }
 
 	.quiz-meta {
 		font-size: 0.7rem;
@@ -1944,18 +1967,24 @@
 
 	.answer-timer-low { color: var(--danger); border-color: var(--danger); }
 
-	.answer-pause-btn {
-		font-size: 0.78rem;
-		line-height: 1;
-		padding: 3px 7px;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: transparent;
-		color: var(--muted);
+	.paused-overlay {
+		display: grid;
+		gap: 10px;
+		justify-items: center;
+		padding: 30px 12px;
+		text-align: center;
+	}
+	.paused-msg { margin: 0; font-size: 1.2rem; font-weight: 800; color: var(--muted); }
+	.paused-hint { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.proceed-btn {
+		padding: 10px 22px;
+		border-radius: 8px;
+		border: 1px solid var(--brand);
+		background: var(--brand);
+		color: #fff;
+		font-weight: 600;
 		cursor: pointer;
 	}
-
-	.answer-pause-btn:hover { background: var(--line); }
 
 	/* Summary */
 	.summary-shell {
