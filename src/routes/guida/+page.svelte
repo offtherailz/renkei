@@ -41,7 +41,7 @@
 		<p><strong>🗣️ Shadowing</strong> — tecnica di pronuncia: senti una frase (dal catalogo Frasi utili) e la ripeti ad alta voce il più vicino possibile subito dopo — il microfono si attiva da solo appena finisce l'audio, senza bisogno di toccare nulla. La frase resta nascosta finché non hai provato: la vedi solo dopo, per il riscontro, con il confronto tra quello che hai detto e la frase attesa. Se sbagli puoi riprovare subito la stessa frase, oppure saltarla. Senza microfono ti autovaluti dopo l'ascolto.</p>
 		<p><strong>🔁 言い換え</strong> — come la sezione 言い換え類義 dell'esame: scegli la frase o la parola con lo stesso significato (きれい＝美しい…). Le coppie sono anche collegate come sinonimi nelle schede.</p>
 		<p><strong>⚡ Lettura veloce</strong> — il testo scorre da solo (RSVP), poi domande a tempo con trabocchetti; la velocità si adatta a te. <strong>🔎 Skimming</strong> — domanda prima, trova l'informazione in fretta. <strong>🧩 Riordina la frase</strong> — sintassi a tocchi.</p>
-		<p><strong>🗺️ Avventure</strong> — Kaimono (spesa + telefonata), Ristorante, Treno: ascolti, agisci, parli davvero col microfono 🎤. Il copione 📜 è cliccabile; gli errori finiscono nel tuo consolidamento.</p>
+		<p><strong>🗺️ Avventure</strong> — Kaimono (spesa + telefonata), Ristorante, Treno, 仕事場で (primo giorno in ufficio: presentazione, complimento da sminuire, istruzioni da capire, telefono): ascolti, agisci, parli davvero col microfono 🎤. Il copione 📜 è cliccabile; gli errori finiscono nel tuo consolidamento.</p>
 	</section>
 
 	<section class="g-card">

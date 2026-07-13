@@ -20,6 +20,21 @@ export interface Situation {
 
 export const SITUATIONS: Situation[] = [
 	{
+		id: 'lavoro',
+		emoji: '💼',
+		titolo: 'Al lavoro',
+		consigli:
+			'L\'ufficio giapponese ha i suoi rituali: おはようございます si dice a chiunque arrivi, anche a mezzogiorno (è il saluto d\'ingresso, non legato all\'orario). お疲れ様です è il saluto universale tra colleghi — letteralmente "sei stanco/a", in pratica un "bel lavoro / ci vediamo". Chi esce prima degli altri si scusa con お先に失礼します, anche senza aver fatto nulla di male.',
+		frasi: [
+			{ jp: 'おはようございます。', yomi: 'おはようございます。', it: 'Buongiorno.', quando: 'Il saluto d\'ingresso in ufficio: si usa per primo arrivo, anche di pomeriggio.' },
+			{ jp: 'かしこまりました。', yomi: 'かしこまりました。', it: 'Certamente, ho capito.', quando: 'Per accettare un\'istruzione con cortesia formale: più educato del semplice 分かりました.' },
+			{ jp: 'もしもし、〇〇会社でございます。', yomi: 'もしもし、〇〇がいしゃでございます。', it: 'Pronto, azienda 〇〇.', quando: 'Per rispondere al telefono in ufficio: sostituisci 〇〇会社 col nome della tua azienda.' },
+			{ jp: '少々お待ちください。', yomi: 'しょうしょうおまちください。', it: 'Un attimo, per favore.', quando: 'Per mettere qualcuno in attesa, al telefono o di persona, mentre vai a controllare o passi la chiamata.' },
+			{ jp: 'お先に失礼します。', yomi: 'おさきにしつれいします。', it: 'Vado via prima io, scusate.', quando: 'Per uscire dall\'ufficio prima dei colleghi rimasti: quasi obbligatoria, anche senza motivo particolare.' },
+			{ jp: 'お疲れ様でした。', yomi: 'おつかれさまでした。', it: 'Complimenti per l\'impegno di oggi.', quando: 'Il saluto universale tra colleghi: risposta standard a chi dice お先に失礼します, o per chiudere la giornata.' }
+		]
+	},
+	{
 		id: 'presentarsi',
 		emoji: '🙋',
 		titolo: 'Presentarsi',

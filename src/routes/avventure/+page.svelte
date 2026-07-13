@@ -27,6 +27,14 @@
 			yomi: 'でんしゃ',
 			desc: 'Compra il biglietto, trova il binario, sali sul treno giusto e scendi alla fermata giusta.',
 			ready: true
+		},
+		{
+			href: `${base}/shigoto`,
+			icon: '💼',
+			title: '仕事場で',
+			yomi: 'しごとばで',
+			desc: 'Primo giorno in ufficio: presentati, incassa un complimento con umiltà, capisci le istruzioni del capo e rispondi al telefono.',
+			ready: true
 		}
 	];
 </script>
