@@ -349,6 +349,11 @@
 				{#if word.tipo_jp === '形容詞[けいようし]' && word.tipo_aggettivo_jp}
 					<JpBadge label={word.tipo_aggettivo_jp} variant="jp-badge-adjective" />
 				{/if}
+				{#if keigoRole === 'sonkeigo'}
+					<JpBadge label="尊敬語" variant="jp-badge-keigo keigo-sonkeigo" />
+				{:else if keigoRole === 'kenjougo'}
+					<JpBadge label="謙譲語" variant="jp-badge-keigo keigo-kenjougo" />
+				{/if}
 			</div>
 			<div class="meanings">
 				{#each pickLocalizedArray(word.significato, locale) as meaning, i}

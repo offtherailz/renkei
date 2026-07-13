@@ -6,6 +6,7 @@
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
+	import { ICONS_BY_LABEL } from '$lib/data/posIcons';
 	import type { Word } from '$lib/types/models';
 
 	const locale = detectUserLocale();
@@ -96,7 +97,7 @@
 	<div class="filters">
 		{#each tipi as t (t)}
 			<button class="chip" class:on={tipo === t} onclick={() => (tipo = tipo === t ? null : t)}>
-				{t}<small>{TIPO_IT[t] ?? ''}</small>
+				{#if ICONS_BY_LABEL[t]}<span class="chip-icon">{ICONS_BY_LABEL[t]}</span>{/if}{t}<small>{TIPO_IT[t] ?? ''}</small>
 			</button>
 		{/each}
 	</div>

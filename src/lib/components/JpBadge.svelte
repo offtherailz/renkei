@@ -3,6 +3,7 @@
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { FORM_SLUG_BY_LABEL } from '$lib/data/grammarForms';
+	import { ICONS_BY_LABEL, KANA_ICONS } from '$lib/data/posIcons';
 
 	const { label, variant = '' }: { label: string; variant?: string } = $props();
 
@@ -52,38 +53,6 @@
 		読み: 'Reading hints for the term or kanji.',
 		尊敬語: 'Sonkeigo: elevates the actions of others (boss, customer, superiors).',
 		謙譲語: 'Kenjougo: lowers yourself to be humble toward the listener.'
-	};
-
-	// Icone per riconoscere la categoria a colpo d'occhio.
-	// Parti del discorso: 🏃 verbo (azione), 📦 sostantivo (oggetto statico),
-	// 🎨 aggettivo (descrive), 🔀 avverbio (modifica), 🪝 particella (lega).
-	// Classe verbale: 5️⃣ godan, 1️⃣ ichidan, *️⃣ irregolare.
-	// Transitività: 👉 他動詞 (azione verso un oggetto), 🤖 自動詞 (azione su di sé).
-	// Aggettivi: 🔴 in -い (forma pura), 🧩 in -な (serve il "pezzo" な).
-	const ICONS_BY_LABEL: Record<string, string> = {
-		動詞: '🏃',
-		名詞: '📦',
-		形容詞: '🎨',
-		副詞: '🔀',
-		連体詞: '📌',
-		接続詞: '➕',
-		助詞: '🪝',
-		数詞: '🔟',
-		助数詞: '🔢',
-		慣用表現: '💬',
-		五段動詞: '5️⃣',
-		一段動詞: '1️⃣',
-		不規則動詞: '*️⃣',
-		他動詞: '👉',
-		自動詞: '🤖',
-		尊敬語: '👑',
-		謙譲語: '🙇'
-	};
-
-	// Aggettivi: l'icona È la desinenza — い/な stilizzati come emoticon.
-	const KANA_ICONS: Record<string, string> = {
-		い形容詞: 'い',
-		な形容詞: 'な'
 	};
 
 	const ICONS_BY_VARIANT: Record<string, string> = {
