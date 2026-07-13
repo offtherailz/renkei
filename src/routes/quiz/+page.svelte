@@ -1130,15 +1130,32 @@
 		}
 	}
 
+	// Segna, prima di seguire il link, che stiamo per andare a rivedere un
+	// errore dal riepilogo: al ritorno vogliamo ritrovare lo stesso riepilogo,
+	// non ripartire da capo. Qualunque altro modo di arrivare su /quiz (Home,
+	// un altro link…) deve invece avviare subito una sessione nuova.
+	function markReviewReturn(): void {
+		try { sessionStorage.setItem('quizReviewReturn', '1'); } catch { /* storage non disponibile */ }
+	}
+
 	function boot(): void {
-		// Riepilogo ancora aperto (es. ritorno dal dettaglio di un errore) e
-		// nessuna sessione attiva: si torna al riepilogo, non a una nuova sessione.
-		if (!appState.sessionState && appState.lastSummary) {
+		let expectingReturn = false;
+		try {
+			if (sessionStorage.getItem('quizReviewReturn') === '1') {
+				sessionStorage.removeItem('quizReviewReturn');
+				expectingReturn = true;
+			}
+		} catch { /* storage non disponibile */ }
+		// Riepilogo ancora aperto SOLO se stavamo tornando dal dettaglio di un
+		// errore appena cliccato: altrimenti (Home, un'altra sessione…) si parte
+		// sempre da capo, senza mostrare il riepilogo di una sessione passata.
+		if (expectingReturn && !appState.sessionState && appState.lastSummary) {
 			summarySession = appState.lastSummary;
 			phase = 'summary';
 			void loadSummaryExtras(summarySession.answers, summarySession.correct, false);
 			return;
 		}
+		appState.lastSummary = null;
 		startSession();
 	}
 
@@ -1584,7 +1601,7 @@
 				<p class="errors-title">Errori da ripassare ({summarySession.wrongAnswers.length})</p>
 				{#each summarySession.wrongAnswers as wa}
 					{@const errorHref = wa.itemRef.kind === 'counter' ? `${base}/consolida/${encodeURIComponent(wa.itemRef.key)}` : `${base}/detail/${encodeURIComponent(wa.itemRef.key)}`}
-					<a class="error-row" href={errorHref}>
+					<a class="error-row" href={errorHref} onclick={markReviewReturn}>
 						<span class="error-prompt">{wa.prompt}</span>
 						<span class="error-detail">
 							<span class="error-selected">{wa.selectedAnswer || '—'}</span>
