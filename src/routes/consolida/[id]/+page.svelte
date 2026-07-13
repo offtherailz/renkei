@@ -5,7 +5,10 @@
 	import { db } from '$lib/db/schema';
 	import { createInitialSrs, applyPracticeReview } from '$lib/core/srs';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
+	import { speakWordReading, speakSentenceJapanese, speakSentenceJapaneseAsync } from '$lib/core/tts';
+	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import {
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
@@ -34,6 +37,10 @@
 	let counterMode = $state(false);
 	let phrase = $state<UsefulPhrase | null>(null);
 	let phraseJudged = $state(false);
+	let phraseStep = $state<'ready' | 'listening' | 'said' | 'revealed'>('ready');
+	let canSpeak = $state(false);
+	let heard = $state('');
+	let lastOk = $state<boolean | null>(null);
 	// item SRS che questa sessione consolida (pratica: muove solo il mastery)
 	let srsTarget = $state<string | null>(null);
 	let title = $state('');
@@ -50,6 +57,7 @@
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
 		word = null; kanjiChar = null; grammarMode = false; counterMode = false; phrase = null; phraseJudged = false; srsTarget = null;
+		phraseStep = 'ready'; heard = ''; lastOk = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
 		const context: QuizContext = {
@@ -320,12 +328,48 @@
 		await recordPractice(ok);
 	}
 
+	// Ascolta la frase e poi, subito dopo, attiva il microfono per la
+	// ripetizione — stesso cuore dello shadowing. Senza mic si ferma
+	// dopo l'ascolto e l'utente si autovaluta (come prima).
+	async function listenAndPractice(rate = 1): Promise<void> {
+		if (!phrase || phraseStep === 'listening' || phraseStep === 'revealed') return;
+		const p = phrase;
+		heard = '';
+		lastOk = null;
+		await speakSentenceJapaneseAsync(p.jp, { rate });
+		if (!canSpeak) {
+			phraseStep = 'said';
+			return;
+		}
+		phraseStep = 'listening';
+		const alts = await listenJapanese();
+		if (phraseStep !== 'listening') return;
+		if (alts.length === 0) {
+			heard = '（niente capito, riprova）';
+			phraseStep = 'said';
+			return;
+		}
+		heard = alts[0]!;
+		const ok = speechMatches(alts, [sentenceMatchVariants(p.jp, p.yomi, ...(p.varianti ?? []))]);
+		lastOk = ok;
+		phraseStep = 'revealed';
+		await judgePhrase(ok);
+	}
+
+	async function replayPhrase(rate = 1): Promise<void> {
+		if (!phrase) return;
+		await speakSentenceJapaneseAsync(phrase.jp, { rate });
+	}
+
 	function next(): void {
 		if (idx + 1 >= queue.length) { build(); return; }
 		idx += 1; picked = null; revealed = false;
 	}
 
-	onMount(build);
+	onMount(() => {
+		canSpeak = speechAvailable();
+		void build();
+	});
 	$effect(() => { void wordId; build(); });
 </script>
 
@@ -347,18 +391,41 @@
 		{#if phrase}
 			{@const p = phrase}
 			<article class="card">
-				<p class="qprompt">{p.jp}</p>
-				<p class="sub" style="text-align:center;">{p.yomi}</p>
-				<p class="sub" style="text-align:center;">{p.it}</p>
-				<button class="next" onclick={() => speakSentenceJapanese(p.jp)}>🔊 Ascolta</button>
-				{#if !phraseJudged}
-					<p class="muted" style="text-align:center;">Ripetila ad alta voce: come è andata?</p>
+				{#if phraseStep === 'ready'}
+					<p class="muted" style="text-align:center;">🔒 Ascolta e ripeti subito dopo</p>
 					<div class="choices">
-						<button class="choice right" onclick={() => judgePhrase(true)}>✓ Bene</button>
-						<button class="choice wrong" onclick={() => judgePhrase(false)}>✗ Da rifare</button>
+						<button class="next" onclick={() => listenAndPractice()}>▶ Ascolta</button>
+						<button class="choice" onclick={() => listenAndPractice(0.6)}>🐢 ゆっくり</button>
 					</div>
+				{:else if phraseStep === 'listening'}
+					<p class="muted" style="text-align:center;">🔒 …</p>
+					<button class="next" disabled>🎙️ Ripeti ora!</button>
 				{:else}
-					<p class="muted" style="text-align:center;">✓ Consolidato.</p>
+					<p class="qprompt"><InteractiveSentence text={p.jp} /></p>
+					<p class="sub" style="text-align:center;">{p.yomi}</p>
+					<p class="sub" style="text-align:center;">{p.it}</p>
+					<HeardDiff {heard} candidates={[p.jp, p.yomi, ...(p.varianti ?? [])]} />
+					{#if phraseStep === 'said'}
+						<div class="choices">
+							<button class="choice" onclick={() => listenAndPractice()}>🔊 もう一度</button>
+							<button class="choice" onclick={() => listenAndPractice(0.6)}>🐢 ゆっくり</button>
+						</div>
+						{#if !phraseJudged}
+							<p class="muted" style="text-align:center;">Come è andata la tua ripetizione?</p>
+							<div class="choices">
+								<button class="choice right" onclick={() => judgePhrase(true)}>✓ Bene</button>
+								<button class="choice wrong" onclick={() => judgePhrase(false)}>✗ Da rifare</button>
+							</div>
+						{/if}
+					{:else if lastOk}
+						<p class="muted" style="text-align:center;">✓ Bene detto!</p>
+					{:else}
+						<p class="muted" style="text-align:center;">✗ Non hai detto la frase giusta.</p>
+					{/if}
+					{#if phraseJudged}
+						<button class="next" onclick={() => replayPhrase()}>🔊 Risenti l'audio</button>
+						<p class="muted" style="text-align:center;">✓ Consolidato.</p>
+					{/if}
 				{/if}
 			</article>
 		{:else if current}
