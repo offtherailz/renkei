@@ -663,6 +663,33 @@
 							? q.sentenceWithBlank.replace(/<[^>]*>/g, '').replace(/___/g, '')
 							: '';
 			if (sentence) dives.push(...wordsInSentence(sentence));
+		} else if (quiz.itemRef.kind === 'kanji') {
+			dives.push({
+				label: rawId,
+				href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}`,
+				primary: true
+			});
+			const wordsWithKanji = [...(context?.wordsById.values() ?? [])].filter((w) =>
+				w.kanji_usati?.includes(rawId)
+			);
+			dives.push(...wordsWithKanji.slice(0, 5).map((w) => wordItem(w)));
+			if (q.mode === 'multiple-choice') {
+				const choices = 'choices' in q && q.choices ? q.choices : [];
+				const correct = 'correctChoice' in q ? q.correctChoice : '';
+				for (const choice of choices) {
+					if (choice === correct) continue;
+					const wrongKanji = kanjiRows.find(
+						(k) => (locale === 'it' ? k.significato.it : k.significato.en) === choice
+					);
+					if (wrongKanji) {
+						dives.push({
+							label: wrongKanji.id,
+							href: `${base}/detail/${encodeURIComponent(`kanji:${wrongKanji.id}`)}`,
+							kanji: true
+						});
+					}
+				}
+			}
 		} else {
 			// modalità parola classiche: la parola stessa + i suoi kanji
 			if (wordLink) dives.push({ ...wordLink, primary: true });
