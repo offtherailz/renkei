@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -87,6 +87,24 @@ describe("normalizeMastery", () => {
     expect(normalizeMastery(7, 0)).toBe(85);
     // stage 0, punti massimi → 0 + 30 = 30
     expect(normalizeMastery(0, 100)).toBe(30);
+  });
+});
+
+describe("touchReviewDate", () => {
+  it("sposta avanti next_review_date senza toccare stage/mastery/ease/streak", () => {
+    const srs = { ...createInitialSrs("word:abc", NOW), srs_stage: 3 as const, mastery_points: 42, ease_factor: 2.1, streak: 5 };
+    const touched = touchReviewDate(srs, NOW);
+    expect(touched.srs_stage).toBe(3);
+    expect(touched.mastery_points).toBe(42);
+    expect(touched.ease_factor).toBe(2.1);
+    expect(touched.streak).toBe(5);
+    expect(touched.next_review_date).toBeGreaterThan(NOW);
+  });
+
+  it("usa l'intervallo dello stage attuale, non lo fa avanzare", () => {
+    const stage0 = touchReviewDate(createInitialSrs("word:abc", NOW), NOW);
+    const stage5 = touchReviewDate({ ...createInitialSrs("word:abc", NOW), srs_stage: 5 as const }, NOW);
+    expect(stage5.next_review_date - NOW).toBeGreaterThan(stage0.next_review_date - NOW);
   });
 });
 

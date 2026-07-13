@@ -74,3 +74,19 @@ export function normalizeMastery(stage: number, masteryPoints: number): number {
 export function normalizePracticeOnlyMastery(masteryPoints: number): number {
   return clamp(Math.round(((masteryPoints + 100) / 200) * 100), 0, 100);
 }
+
+// La domanda testava una skill CONDIVISA (classe di coniugazione, particella,
+// contatore) e non la parola in sé: la parola non deve guadagnare/perdere
+// stage o mastery_points, ma la sua next_review_date va comunque spostata
+// avanti — altrimenti ricompare identica alla prossima estrazione (stesso
+// stage, "dovuta" di nuovo subito). Riusa la stessa formula di scaling di
+// applySrsReview, ma sullo stage ATTUALE (non lo muove).
+export function touchReviewDate(progress: SrsProgress, nowTs = Date.now()): SrsProgress {
+  const mins = REVIEW_INTERVAL_MINUTES[progress.srs_stage] ?? REVIEW_INTERVAL_MINUTES[REVIEW_INTERVAL_MINUTES.length - 1];
+  const scaled = Math.round(mins * Math.max(1, progress.ease_factor * 0.9));
+  return {
+    ...progress,
+    next_review_date: nowTs + scaled * 60_000,
+    updated_at: nowTs
+  };
+}
