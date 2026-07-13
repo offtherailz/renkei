@@ -20,6 +20,18 @@ export interface Situation {
 
 export const SITUATIONS: Situation[] = [
 	{
+		id: 'presentarsi',
+		emoji: '🙋',
+		titolo: 'Presentarsi',
+		consigli:
+			'In giapponese sminuire i complimenti è la norma sociale: se ti dicono che parli bene (日本語、お上手ですね), non accettarlo — rispondi con umiltà. Avvisare subito che il tuo giapponese "non è ancora un granché" abbassa le aspettative e rende tutti più pazienti.',
+		frasi: [
+			{ jp: 'はじめまして、田中です。', yomi: 'はじめまして、たなかです。', it: 'Piacere, sono Tanaka.', quando: 'Per presentarti la prima volta a qualcuno: sostituisci 田中 col tuo nome.' },
+			{ jp: '日本語があまり話せません。', yomi: 'にほんごがあまりはなせません。', it: 'Non parlo bene il giapponese.', quando: 'Dopo esserti presentato: abbassa le aspettative e prepara il terreno per eventuali richieste di ripetere/rallentare più avanti.' },
+			{ jp: 'いえいえ、まだまだです。', yomi: 'いえいえ、まだまだです。', it: 'Ma no, ho ancora tanta strada da fare.', quando: 'Se ti dicono 日本語、お上手ですね (parli bene il giapponese!): rifiutare il complimento con umiltà è la risposta educata, non accettarlo con un semplice grazie.' }
+		]
+	},
+	{
 		id: 'non-capisco',
 		emoji: '🤔',
 		titolo: 'Non ho capito',

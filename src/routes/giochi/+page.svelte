@@ -546,6 +546,11 @@
 					<span class="cat-label">敬語 — Linguaggio cortese</span>
 					<span class="cat-hint">尊敬語 o 謙譲語? La forma giusta per capo e clienti</span>
 				</a>
+				<a class="cat-card" href="{base}/presentati">
+					<span class="cat-icon">🙋</span>
+					<span class="cat-label">Presentati — Primo incontro</span>
+					<span class="cat-hint">ti presenti, sminuisci il complimento, e se non capisci?</span>
+				</a>
 				<a class="cat-card" href="{base}/giornata">
 					<span class="cat-icon">🌅</span>
 					<span class="cat-label">Una giornata</span>
