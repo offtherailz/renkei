@@ -68,24 +68,47 @@
 	const kanaIcon = $derived(KANA_ICONS[plain] ?? '');
 	const icon = $derived(kanaIcon ? '' : (ICONS_BY_LABEL[plain] ?? ICONS_BY_VARIANT[variant] ?? ''));
 	const formSlug = $derived(FORM_SLUG_BY_LABEL[plain]);
+
+	// Il tooltip è centrato sul badge: se il badge è vicino al bordo dello
+	// schermo (es. ultimo di una riga di badge), il tooltip sforerebbe fuori
+	// viewport. Alla comparsa lo ricentro e, se serve, lo sposto quel tanto che
+	// basta per restare visibile.
+	let tooltipEl = $state<HTMLElement | null>(null);
+	function clampTooltip(): void {
+		const el = tooltipEl;
+		if (!el) return;
+		el.style.transform = 'translateX(-50%)';
+		const margin = 8;
+		const rect = el.getBoundingClientRect();
+		let shift = 0;
+		if (rect.left < margin) shift = margin - rect.left;
+		else if (rect.right > window.innerWidth - margin) shift = window.innerWidth - margin - rect.right;
+		if (shift !== 0) el.style.transform = `translateX(calc(-50% + ${shift}px))`;
+	}
 </script>
 
 {#if formSlug}
-	<a class="jp-badge jp-badge-link {variant}" href="{base}/forme#{formSlug}">
+	<a
+		class="jp-badge jp-badge-link {variant}"
+		href="{base}/forme#{formSlug}"
+		onmouseenter={clampTooltip}
+		onfocus={clampTooltip}
+	>
 		{#if kanaIcon}<span class="kana-icon kana-icon-{kanaIcon === 'い' ? 'i' : 'na'}">{kanaIcon}</span>{/if}
 		{#if icon}<span class="badge-icon">{icon}</span>{/if}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html renderFuriganaToHtml(label)}
-		<span class="badge-tooltip" role="tooltip">{tooltip} Tocca per la spiegazione.</span>
+		<span class="badge-tooltip" role="tooltip" bind:this={tooltipEl}>{tooltip} Tocca per la spiegazione.</span>
 	</a>
 {:else}
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-	<span class="jp-badge {variant}" tabindex="0">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<span class="jp-badge {variant}" tabindex="0" onmouseenter={clampTooltip} onfocus={clampTooltip}>
 		{#if kanaIcon}<span class="kana-icon kana-icon-{kanaIcon === 'い' ? 'i' : 'na'}">{kanaIcon}</span>{/if}
 		{#if icon}<span class="badge-icon">{icon}</span>{/if}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html renderFuriganaToHtml(label)}
-		<span class="badge-tooltip" role="tooltip">{tooltip}</span>
+		<span class="badge-tooltip" role="tooltip" bind:this={tooltipEl}>{tooltip}</span>
 	</span>
 {/if}
 
