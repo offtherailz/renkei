@@ -182,6 +182,45 @@ function isPlanKey(key: string): boolean {
 	return key.startsWith('word:') || key.startsWith('kanji:') || key.startsWith('grammar:');
 }
 
+// Item deboli (mastery < 60%): usato dal teaser in home e dalla pagina
+// /punti-deboli (elenco completo). `limit` assente → nessun taglio.
+export interface WeakItem {
+	kind: string; // 'word' | 'grammar' | 'counter' | 'kanji' | 'phrase' | altro prefisso usato da recordPracticeMiss
+	label: string;
+	consolida: string; // id per /consolida/{consolida}
+	pct: number;
+}
+
+export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
+	const rows = await db.srs_progress.toArray();
+	const active = await getActiveItemKeys();
+	const scored = rows
+		.filter((r) => !isPlanKey(r.id_item) || active.has(r.id_item))
+		.map((r) => ({ r, pct: normalizeMastery(r.srs_stage, r.mastery_points) }))
+		.filter((x) => x.pct < 60)
+		.sort((a, b) => a.pct - b.pct);
+	const sliced = typeof limit === 'number' ? scored.slice(0, limit) : scored;
+	const out: WeakItem[] = [];
+	for (const { r, pct } of sliced) {
+		const [kind, ...rest] = r.id_item.includes(':') ? r.id_item.split(':') : ['word', r.id_item];
+		const raw = rest.join(':') || r.id_item;
+		let label = raw;
+		let consolida = r.id_item;
+		if (kind === 'word') {
+			label = (await db.words.get(raw))?.scrittura ?? raw;
+			consolida = raw;
+		} else if (kind === 'grammar') {
+			label = (await db.grammar.get(raw))?.struttura ?? raw;
+		} else if (kind === 'counter') {
+			label = (await db.counters.get(raw))?.simbolo ?? raw;
+		} else if (kind === 'kanji') {
+			consolida = raw;
+		}
+		out.push({ kind, label, consolida, pct });
+	}
+	return out;
+}
+
 export async function countDueCards(): Promise<{ attivi: number; inPausa: number }> {
 	const now = Date.now();
 	// Due = next_review_date <= adesso (a qualunque stage). Vedi nota in

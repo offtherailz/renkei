@@ -3,9 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
-	import { loadObjectiveSummaries, countDueCards, getActiveItemKeys, loadCompletedObjectives, type ObjectiveSummary } from '$lib/db/queries';
+	import { loadObjectiveSummaries, countDueCards, loadCompletedObjectives, loadWeakItems, type ObjectiveSummary, type WeakItem } from '$lib/db/queries';
 	import { db } from '$lib/db/schema';
-	import { normalizeMastery } from '$lib/core/srs';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
@@ -21,7 +20,6 @@
 	let packParty = $state<string[]>([]); // nomi dei pack/lezioni appena completati
 
 	// ── Piano di oggi ──
-	type WeakItem = { label: string; consolida: string; pct: number };
 	let weakest = $state<WeakItem[]>([]);
 	// attività a rotazione giornaliera (varietà senza dover scegliere)
 	const ACTIVITIES = [
@@ -35,34 +33,7 @@
 	const activity = ACTIVITIES[dayOfYear % ACTIVITIES.length]!;
 
 	async function loadWeakest(): Promise<void> {
-		const rows = await db.srs_progress.toArray();
-		const active = await getActiveItemKeys();
-		const isPlan = (k: string) => k.startsWith('word:') || k.startsWith('kanji:') || k.startsWith('grammar:');
-		const scored = rows
-			.filter((r) => !isPlan(r.id_item) || active.has(r.id_item))
-			.map((r) => ({ r, pct: normalizeMastery(r.srs_stage, r.mastery_points) }))
-			.filter((x) => x.pct < 60)
-			.sort((a, b) => a.pct - b.pct)
-			.slice(0, 3);
-		const out: WeakItem[] = [];
-		for (const { r, pct } of scored) {
-			const [kind, ...rest] = r.id_item.includes(':') ? r.id_item.split(':') : ['word', r.id_item];
-			const raw = rest.join(':') || r.id_item;
-			let label = raw;
-			let consolida = r.id_item;
-			if (kind === 'word') {
-				label = (await db.words.get(raw))?.scrittura ?? raw;
-				consolida = raw;
-			} else if (kind === 'grammar') {
-				label = (await db.grammar.get(raw))?.struttura ?? raw;
-			} else if (kind === 'counter') {
-				label = (await db.counters.get(raw))?.simbolo ?? raw;
-			} else if (kind === 'kanji') {
-				consolida = raw;
-			}
-			out.push({ label, consolida, pct });
-		}
-		weakest = out;
+		weakest = await loadWeakItems(3);
 	}
 
 	async function loadData() {
@@ -297,10 +268,10 @@
 			<span class="plan-go">→</span>
 		</a>
 		{#if weakest.length > 0}
-			<div class="plan-row static">
+			<div class="plan-row static weak-teaser">
 				<span class="plan-icon">💪</span>
 				<span class="plan-body">
-					<span class="plan-label">I tuoi punti deboli</span>
+					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
 					<span class="plan-chips">
 						{#each weakest as w (w.consolida)}
 							<a class="weak-chip" href="{base}/consolida/{encodeURIComponent(w.consolida)}">{w.label} <small>{w.pct}%</small></a>
@@ -724,6 +695,12 @@
 	.weak-chip { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); text-decoration: none; color: var(--ink); font-size: 0.85rem; }
 	.weak-chip small { color: var(--muted); font-size: 0.7rem; }
 	.weak-chip:hover { border-color: var(--brand); }
+	.weak-teaser { padding: 8px 12px; }
+	.weak-teaser .plan-icon { font-size: 1.1rem; }
+	.weak-teaser .plan-label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+	.weak-teaser .weak-chip { font-size: 0.78rem; padding: 2px 8px; }
+	.weak-all { font-size: 0.75rem; font-weight: 600; color: var(--brand); text-decoration: none; white-space: nowrap; }
+	.weak-all:hover { text-decoration: underline; }
 
 	.quick-links .section-title { margin-bottom: 12px; }
 	.quick-links .section-title.group { margin-top: 18px; }
