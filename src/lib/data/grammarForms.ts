@@ -854,6 +854,33 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 		attachment: [{ base: 'Verbo', connessione: 'forma ない → なければ' }],
 		schemaId: 'nai',
 		consolidaId: 'grammar-api-N4-60'
+	},
+	{
+		slug: 'hazu',
+		label: '〜はず',
+		icon: '🧠',
+		title: 'Forma composta: 〜はず',
+		summary: 'Aspettativa basata sulla logica o su ciò che si sa: "dovrebbe essere così".',
+		explanation: [
+			'Forma piana + はず: 行くはず, 高いはず = "dovrebbe andarci / essere caro". Non è un\'opinione soggettiva ma una deduzione da fatti noti.',
+			'Con un な-aggettivo serve な: 元気なはず = "dovrebbe stare bene".',
+			'Con un sostantivo serve の: 学生のはず = "dovrebbe essere uno studente".',
+			'Diverso da 〜と思う (opinione personale) e da 〜そう (apparenza a occhio): はず parla di ciò che ci si aspetta per logica/informazione.'
+		],
+		examples: [
+			{ jp: 'その店[みせ]は、開[あ]いているはずです。', it: 'Quel negozio dovrebbe essere aperto.' },
+			{ jp: '彼[かれ]はもう家[いえ]に着[つ]いたはずです。', it: 'Dovrebbe essere già arrivato a casa.' }
+		],
+		related: ['doushi', 'to-omou', 'sou-apparenza'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: '+ な' },
+			{ base: 'Nome', connessione: '+ の' }
+		],
+		schemaId: 'plain',
+		consolidaId: 'grammar-api-N4-58'
 	}
 ];
 
@@ -910,5 +937,6 @@ export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
 	'たことがある': 'ta-koto-ga-aru',
 	'〜なければいけない': 'nakereba',
 	'なくてはいけない': 'nakereba',
-	'なくてはならない': 'nakereba'
+	'なくてはならない': 'nakereba',
+	'〜はず': 'hazu'
 };
