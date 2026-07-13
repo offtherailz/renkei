@@ -1,0 +1,1 @@
+const o=20;function e(n){const t=new Date(n);return`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,"0")}-${String(t.getDate()).padStart(2,"0")}`}function r(n,t=Date.now()){return n.nuove_oggi_data!==e(t)?0:n.nuove_oggi??0}function u(n,t,a=Date.now()){return r(n,a)<t}function d(n,t=Date.now()){return{nuove_oggi:r(n,t)+1,nuove_oggi_data:e(t)}}export{o as D,u as c,d as r};
