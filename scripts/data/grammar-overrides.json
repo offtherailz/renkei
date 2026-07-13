@@ -165,8 +165,8 @@
   "grammar-api-N4-58": {
     "struttura": "〜はず",
     "spiegazione": {
-      "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa.",
-      "en": "Should be the case: expectation based on logic or knowledge."
+      "it": "Dovrebbe essere così: aspettativa basata sulla logica o su ciò che si sa. Si collega alla forma piana: verbo/i-agg piano + はず (行くはず), な-agg + な + はず (元気なはず), sostantivo + の + はず (学生のはず).",
+      "en": "Should be the case: expectation based on logic or knowledge. Attaches to the plain form: verb/i-adj plain + はず (行くはず), na-adj + な + はず (元気なはず), noun + の + はず (学生のはず)."
     },
     "frasi_esempio": [
       {
