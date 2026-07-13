@@ -147,16 +147,14 @@ export const SITUATIONS: Situation[] = [
 		consigli:
 			'Inizia sempre con すみません per attirare l\'attenzione con educazione. Al controllo passaporti ti chiedono il motivo del viaggio (観光です basta) e ai bagagli ti offrono lo spedizioniere (宅急便) per mandare le valigie direttamente in hotel: comodissimo se arrivi stanco.',
 		frasi: [
-			{ jp: 'すみません、搭乗口はどこですか。', yomi: 'すみません、とうじょうぐちはどこですか。', it: 'Scusi, dov\'è il gate d\'imbarco?', quando: 'Mostra il biglietto (搭乗券) col numero se non ricordi il gate: te lo confermano subito.' },
+			{ jp: 'すみません、ゲートはどこですか。', yomi: 'すみません、ゲートはどこですか。', it: 'Scusi, dov\'è il gate?', quando: 'Mostra il biglietto (搭乗券) col numero se non ricordi il gate: te lo confermano subito.' },
 			{ jp: 'チェックインカウンターはどこですか。', yomi: 'チェックインカウンターはどこですか。', it: 'Dov\'è il banco del check-in?', quando: 'All\'arrivo in aeroporto, prima di imbarcare i bagagli.' },
-			{ jp: 'これはどこで受け取りますか。', yomi: 'これはどこでうけとりますか。', it: 'Questo dove lo ritiro?', quando: 'Indicando una ricevuta o il tag del bagaglio: utile per orientarsi verso il ritiro (手荷物受取所).' },
+			{ jp: 'これはどこでもらえますか。', yomi: 'これはどこでもらえますか。', it: 'Dove posso ritirarlo?', quando: 'Indicando una ricevuta o il tag del bagaglio: utile per orientarsi verso il ritiro (手荷物受取所).' },
 			{ jp: '観光です。', yomi: 'かんこうです。', it: 'Turismo.', quando: 'Risposta standard a 旅行の目的は何ですか (qual è lo scopo del viaggio) al controllo passaporti.' },
 			{ jp: 'これは私のパスポートです。', yomi: 'これはわたしのパスポートです。', it: 'Questo è il mio passaporto.', quando: 'Consegnandolo all\'ufficiale: di solito basta porgerlo, la frase serve se te lo chiedono a voce.' },
-			{ jp: '申告するものはありません。', yomi: 'しんこくするものはありません。', it: 'Non ho nulla da dichiarare.', quando: 'Risposta a 申告するものはありますか alla dogana (税関). Se ne hai, di\' cosa: 〜があります.' },
 			{ jp: 'これを預けたいです。', yomi: 'これをあずけたいです。', it: 'Vorrei imbarcare questo.', quando: 'Al check-in, indicando la valigia (スーツケース) da mettere in stiva.' },
-			{ jp: 'これは機内持ち込みできますか。', yomi: 'これはきないもちこみできますか。', it: 'Posso portarlo come bagaglio a mano?', quando: 'Se hai dubbi su dimensioni o contenuto: meglio chiedere prima di arrivare al gate.' },
 			{ jp: 'Wi-Fiルーターのレンタルはどこですか。', yomi: 'ワイファイルーターのレンタルはどこですか。', it: 'Dov\'è il noleggio del router Wi-Fi?', quando: 'Spesso vicino all\'uscita arrivi: si ritira all\'andata e si riconsegna alla partenza.' },
-			{ jp: '宅急便はどこですか。', yomi: 'たっきゅうびんはどこですか。', it: 'Dov\'è il servizio di spedizione bagagli?', quando: 'Utile per mandare le valigie pesanti direttamente in hotel e viaggiare leggeri.' }
+			{ jp: '荷物を送りたいです。', yomi: 'にもつをおくりたいです。', it: 'Vorrei spedire i bagagli.', quando: 'Per mandare le valigie pesanti direttamente in hotel e viaggiare leggeri (servizio tipo 宅急便).' }
 		]
 	}
 ];
