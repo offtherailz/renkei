@@ -105,3 +105,59 @@ export const KEIGO_ITEMS: KeigoItem[] = [
 		opzioni: ['カタログをご覧になりませんか。', 'カタログを拝見しませんか。', 'カタログ、見ない？', 'カタログをご覧しませんか。']
 	}
 ];
+
+// Richieste cortesi: 〜てください è la forma neutra, ma con clienti/superiori
+// si preferisce お + radice ます + ください (verbi giapponesi, 訓読み) oppure
+// ご + nome-azione + ください (verbi in 〜する di origine cinese, 漢語).
+// La prima opzione è sempre la corretta (mescolata a runtime).
+export interface KeigoRequestItem {
+	situazione: string;
+	parola?: string; // scrittura seed del verbo base, per il consolidamento
+	opzioni: string[];
+	nota: string;
+}
+
+export const KEIGO_REQUEST_ITEMS: KeigoRequestItem[] = [
+	{
+		situazione: 'Chiedi gentilmente al cliente di aspettare un momento.',
+		parola: '待つ',
+		opzioni: ['少々お待ちください。', '少々待ってください。', 'ちょっと待って。'],
+		nota: 'お + radice ます + ください (お待ちください) è più cortese di 〜てください: verbo giapponese (訓読み), tipico verso clienti e superiori.'
+	},
+	{
+		situazione: 'Invita il cliente ad accomodarsi.',
+		parola: '座る',
+		opzioni: ['どうぞお座りください。', 'どうぞ座ってください。', 'どうぞ座って。'],
+		nota: 'お + radice ます + ください: stessa regola di お待ちください, per un verbo giapponese in -る.'
+	},
+	{
+		situazione: 'Invita il cliente a entrare.',
+		parola: '入る',
+		opzioni: ['どうぞお入りください。', 'どうぞ入ってください。', 'どうぞ入って。'],
+		nota: 'お + radice ます + ください: forma rispettosa, usata negli inviti in negozi e uffici.'
+	},
+	{
+		situazione: 'Inviti il cliente a usare l\'ascensore.',
+		parola: '利用する',
+		opzioni: ['エレベーターをご利用ください。', 'エレベーターを利用してください。', 'エレベーターを使って。'],
+		nota: 'ご + nome-azione + ください (ご利用ください): per i verbi in 〜する di origine cinese (漢語), non お.'
+	},
+	{
+		situazione: 'Chiedi al cliente di controllare i propri dati.',
+		parola: '確認する',
+		opzioni: ['こちらをご確認ください。', 'こちらを確認してください。', 'こちらを確認して。'],
+		nota: 'ご + nome-azione + ください: stessa regola di ご利用ください, verbo in 〜する.'
+	},
+	{
+		situazione: 'Di\' al cliente di contattarti in caso di problemi.',
+		parola: '連絡する',
+		opzioni: ['何かあれば、ご連絡ください。', '何かあれば、連絡してください。', '何かあれば、連絡して。'],
+		nota: 'ご + nome-azione + ください: verbo in 〜する, non お連絡ください.'
+	},
+	{
+		situazione: 'Di\' a un collega stanco di riposarsi pure, con rispetto.',
+		parola: '休む',
+		opzioni: ['どうぞお休みください。', 'どうぞ休んでください。', 'どうぞ休んで。'],
+		nota: 'お + radice ます + ください: verbo giapponese, forma rispettosa verso chi ascolta.'
+	}
+];

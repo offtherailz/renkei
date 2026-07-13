@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
-	import { KEIGO_VERBS, KEIGO_ITEMS } from '$lib/core/keigo';
+	import { KEIGO_VERBS, KEIGO_ITEMS, KEIGO_REQUEST_ITEMS } from '$lib/core/keigo';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
@@ -12,7 +12,8 @@
 	// Un round: o "verbo → forma keigo giusta" o una frase situazionale.
 	type Round =
 		| { kind: 'verbo'; prompt: string; glossa: string; tipo: '尊敬語' | '謙譲語'; opzioni: string[]; corretta: string; parola?: string }
-		| { kind: 'frase'; situazione: string; opzioni: string[]; corretta: string; parola?: string };
+		| { kind: 'frase'; situazione: string; opzioni: string[]; corretta: string; parola?: string }
+		| { kind: 'irai'; situazione: string; opzioni: string[]; corretta: string; nota: string; parola?: string };
 
 	const ROUNDS_PER_GAME = 10;
 
@@ -44,18 +45,21 @@
 
 	function buildRounds(): Round[] {
 		const frasi: Round[] = shuffle(KEIGO_ITEMS)
-			.slice(0, 5)
+			.slice(0, 4)
 			.map((it) => ({ kind: 'frase', situazione: it.situazione, opzioni: shuffle(it.opzioni), corretta: it.opzioni[0]!, parola: it.parola }));
+		const irai: Round[] = shuffle(KEIGO_REQUEST_ITEMS)
+			.slice(0, 3)
+			.map((it) => ({ kind: 'irai', situazione: it.situazione, opzioni: shuffle(it.opzioni), corretta: it.opzioni[0]!, nota: it.nota, parola: it.parola }));
 		const verbi: Round[] = [];
 		const seen = new Set<string>();
-		while (verbi.length < ROUNDS_PER_GAME - frasi.length) {
+		while (verbi.length < ROUNDS_PER_GAME - frasi.length - irai.length) {
 			const r = buildVerbRound();
 			const key = r.kind === 'verbo' ? r.prompt + r.tipo : '';
 			if (seen.has(key)) continue;
 			seen.add(key);
 			verbi.push(r);
 		}
-		return shuffle([...frasi, ...verbi]);
+		return shuffle([...frasi, ...irai, ...verbi]);
 	}
 
 	type Scene = 'intro' | 'play' | 'done';
@@ -152,6 +156,10 @@
 				le <strong>tue</strong>. Scegli la forma o la frase giusta per la situazione: gli
 				errori finiscono nei tuoi punti deboli.
 			</p>
+			<p class="hint">
+				Ci sono anche le richieste cortesi: お/ご + ください è più cortese di 〜てください
+				(お per i verbi giapponesi, ご per i verbi in 〜する di origine cinese).
+			</p>
 			<button class="proceed" onclick={start}>はじめる</button>
 		</article>
 	{:else if scene === 'play'}
@@ -161,6 +169,9 @@
 			{#if r.kind === 'verbo'}
 				<p class="hint">Qual è il <strong>{r.tipo}</strong> di…</p>
 				<p class="prompt big">「{r.prompt}」 <span class="glossa">({r.glossa})</span></p>
+			{:else if r.kind === 'irai'}
+				<p class="hint">{r.situazione}</p>
+				<p class="prompt small">Qual è la richiesta più cortese?</p>
 			{:else}
 				<p class="hint">{r.situazione}</p>
 				<p class="prompt small">Quale frase è quella giusta?</p>
@@ -174,7 +185,7 @@
 						disabled={picked !== null}
 						onclick={() => pick(c)}
 					>
-						{#if picked !== null && r.kind === 'frase'}
+						{#if picked !== null && (r.kind === 'frase' || r.kind === 'irai')}
 							<InteractiveSentence text={c} />
 						{:else}
 							{c}
@@ -189,6 +200,9 @@
 				<HeardDiff {heard} candidates={r.kind === 'verbo' ? phraseVariants(r.corretta) : [r.corretta]} />
 			{/if}
 			{#if picked !== null}
+				{#if r.kind === 'irai'}
+					<p class="nota">💡 {r.nota}</p>
+				{/if}
 				<div class="after">
 					{#if detailHref}
 						<a class="detail-link" href={detailHref}>📖 Scheda</a>
@@ -224,6 +238,7 @@
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
+	.nota { margin: 0; text-align: center; font-size: 0.8rem; color: var(--info-ink); background: var(--info-bg); border-radius: 10px; padding: 8px 12px; }
 	.after { display: flex; gap: 12px; justify-content: center; align-items: center; }
 	.detail-link { color: var(--brand); font-weight: 600; text-decoration: none; }
 	.mic { justify-self: center; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
