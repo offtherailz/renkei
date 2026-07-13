@@ -47,6 +47,9 @@
 	// ── State ─────────────────────────────────────────────────────────────────────
 	let phase = $state<'init' | 'quiz' | 'summary'>('init');
 	let loadError = $state('');
+	// Modalità muta: niente domande di ascolto, niente audio automatico (TTS).
+	// Toggle locale alla pagina, non persistito su AppSettings/DB.
+	let muted = $state(false);
 
 	// In-session data (loaded once)
 	let words = $state<Word[]>([]);
@@ -67,6 +70,7 @@
 	let answerTokens = $state<string[]>([]);
 	let nowTick = $state(Date.now());
 	let answerRemainingS = $state(0);
+	let answerPaused = $state(false);
 	let autoNextProgress = $state(0);
 	let autoNextRemainingS = $state(0);
 	let sessionTimerId: ReturnType<typeof setInterval> | null = null;
@@ -138,7 +142,7 @@
 		// serve un kanji per avere senso (lettura → scrittura kanji).
 		const hasKanji = word.kanji_usati.length > 0 && word.scrittura !== word.lettura;
 		// Ascolto: skill separata, entra in rotazione dallo stage 1.
-		if (hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
+		if (!muted && hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
 		if (stage <= 1) {
 			const r = Math.random();
 			if (r < (hasKanji ? 0.45 : 0)) return 'flashcard-reading-recognition';
@@ -403,7 +407,7 @@
 		answerFeedback = null;
 		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
 		answerTokens = [];
-		if (question.mode === 'listening') speakSentenceJapanese(question.readingToSpeak);
+		if (question.mode === 'listening' && !muted) speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
 	}
 
@@ -467,6 +471,7 @@
 	}
 	function startAnswerTimer(): void {
 		stopAnswerTimer();
+		answerPaused = false;
 		const maxMs = appState.settings.max_answer_time_ms * answerTimeMultiplier();
 		if (!maxMs || maxMs <= 0) { answerRemainingS = 0; return; }
 		const startedAt = Date.now();
@@ -480,6 +485,36 @@
 				handleAnswer(false, '', true);
 			}
 		}, 100);
+	}
+
+	// Riprende il countdown dal valore corrente di answerRemainingS (non da maxMs):
+	// usato dopo una pausa manuale, per non "regalare" tempo extra.
+	function resumeAnswerTimer(): void {
+		stopAnswerTimer();
+		const remainingMs = answerRemainingS * 1000;
+		const startedAt = Date.now();
+		answerTimerId = setInterval(() => {
+			if (!quiz || quiz.answered) { stopAnswerTimer(); return; }
+			const remaining = Math.max(0, remainingMs - (Date.now() - startedAt));
+			answerRemainingS = remaining / 1000;
+			if (remaining <= 0) {
+				stopAnswerTimer();
+				handleAnswer(false, '', true);
+			}
+		}, 100);
+	}
+
+	// Pausa/riprendi il timer di risposta: l'utente può fermarlo se deve
+	// allontanarsi, senza che scada in automatico contando come errore.
+	function toggleAnswerPause(): void {
+		if (!quiz || quiz.answered || answerRemainingS <= 0) return;
+		if (answerPaused) {
+			answerPaused = false;
+			resumeAnswerTimer();
+		} else {
+			answerPaused = true;
+			stopAnswerTimer();
+		}
 	}
 
 	// Countdown auto-avanzamento dopo risposta corretta, con progresso sul pulsante.
@@ -930,16 +965,18 @@
 		session.xp += correct ? xpBreakdown.total : -6;
 		await addXp(correct ? xpBreakdown.total : -6);
 
-		// TTS
-		if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair') {
-			speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
-		} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
-			speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
-		} else if (quiz.itemRef.kind === 'word') {
-			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
-			if (word) speakWordReading(word);
-		} else if (quiz.question.mode === 'sentence-ordering') {
-			speakSentenceJapanese((quiz.question as SentenceOrderingQuestion).correctOrder.join(''));
+		// TTS (silenziato in modalità muta: niente audio automatico)
+		if (!muted) {
+			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair') {
+				speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
+			} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
+				speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
+			} else if (quiz.itemRef.kind === 'word') {
+				const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
+				if (word) speakWordReading(word);
+			} else if (quiz.question.mode === 'sentence-ordering') {
+				speakSentenceJapanese((quiz.question as SentenceOrderingQuestion).correctOrder.join(''));
+			}
 		}
 
 		if (correct) startAutoNext();
@@ -1176,6 +1213,14 @@
 			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
 		</div>
 		<div class="timer" title="Tempo sessione">{timeLeftLabel}</div>
+		<button
+			class="ghost-btn"
+			onclick={() => (muted = !muted)}
+			aria-pressed={muted}
+			title={muted ? 'Riattiva audio' : 'Silenzia audio (niente ascolto, niente audio risposte)'}
+		>
+			{muted ? '🔇' : '🔊'}
+		</button>
 		<button class="ghost-btn" onclick={confirmEndSession}>Termina</button>
 	</div>
 
@@ -1190,7 +1235,18 @@
 	<article class="quiz-card" class:correct={answerFeedback === 'correct'} class:wrong={answerFeedback === 'wrong'}>
 		{#if !quiz.answered && answerRemainingS > 0}
 			<div class="answer-timer" class:answer-timer-low={answerRemainingS <= 5} title="Tempo per rispondere">
-				⏱ {answerRemainingS.toFixed(1)}s
+				{#if answerPaused}
+					⏸ in pausa
+				{:else}
+					⏱ {answerRemainingS.toFixed(1)}s
+				{/if}
+				<button
+					class="answer-pause-btn"
+					onclick={toggleAnswerPause}
+					title={answerPaused ? 'Riprendi il timer' : 'Metti in pausa il timer'}
+				>
+					{answerPaused ? '▶' : '⏸'}
+				</button>
 			</div>
 		{/if}
 		<!-- flashcard-production -->
@@ -1873,17 +1929,33 @@
 
 	.answer-timer {
 		justify-self: end;
+		display: flex;
+		align-items: center;
+		gap: 6px;
 		font-size: 0.82rem;
 		font-weight: 700;
 		color: var(--muted);
 		font-variant-numeric: tabular-nums;
-		padding: 2px 10px;
+		padding: 2px 6px 2px 10px;
 		border: 1px solid var(--line);
 		border-radius: 999px;
 		background: var(--surface-2);
 	}
 
 	.answer-timer-low { color: var(--danger); border-color: var(--danger); }
+
+	.answer-pause-btn {
+		font-size: 0.78rem;
+		line-height: 1;
+		padding: 3px 7px;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+	}
+
+	.answer-pause-btn:hover { background: var(--line); }
 
 	/* Summary */
 	.summary-shell {
