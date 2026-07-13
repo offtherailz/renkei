@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -87,5 +87,16 @@ describe("normalizeMastery", () => {
     expect(normalizeMastery(7, 0)).toBe(85);
     // stage 0, punti massimi → 0 + 30 = 30
     expect(normalizeMastery(0, 100)).toBe(30);
+  });
+});
+
+describe("normalizePracticeOnlyMastery", () => {
+  it("scala 0-100 senza il tetto del 30% (per 'phrase:...', che non ha mai stage)", () => {
+    expect(normalizePracticeOnlyMastery(-100)).toBe(0);
+    expect(normalizePracticeOnlyMastery(0)).toBe(50);
+    expect(normalizePracticeOnlyMastery(100)).toBe(100);
+    // a differenza di normalizeMastery(0, 100) === 30, qui può superare il 60%
+    // che definisce "punto debole" — senza dover mai passare dal quiz.
+    expect(normalizePracticeOnlyMastery(20)).toBe(60);
   });
 });

@@ -64,3 +64,13 @@ export function normalizeMastery(stage: number, masteryPoints: number): number {
   const masteryWeight = ((masteryPoints + 100) / 200) * 30;
   return clamp(Math.round(stageWeight + masteryWeight), 0, 100);
 }
+
+// Per gli item che non entrano MAI nel quiz a tempo (oggi solo 'phrase:...',
+// dalle avventure/giochi a voce: shadowing, keigo, presentati, shigoto…):
+// srs_stage resta 0 per sempre, quindi normalizeMastery li tiene bloccati
+// sotto il 30% a vita, permanentemente "punto debole" anche esercitandosi
+// perfettamente in Consolida. Per questi, la mastery è tutta e sola nei
+// mastery_points, scalata su 0-100.
+export function normalizePracticeOnlyMastery(masteryPoints: number): number {
+  return clamp(Math.round(((masteryPoints + 100) / 200) * 100), 0, 100);
+}

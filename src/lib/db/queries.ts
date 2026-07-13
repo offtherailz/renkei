@@ -1,5 +1,5 @@
 import { db } from './schema';
-import { normalizeMastery } from '$lib/core/srs';
+import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
 export interface ObjectiveSummary {
@@ -191,12 +191,19 @@ export interface WeakItem {
 	pct: number;
 }
 
+// 'phrase:...' non entra mai nel quiz a tempo (arriva solo da avventure/giochi
+// a voce): niente srs_stage possibile, quindi niente peso 70/30 con lo stage.
+function pctFor(r: SrsProgress): number {
+	const kind = r.id_item.includes(':') ? r.id_item.split(':')[0] : 'word';
+	return kind === 'phrase' ? normalizePracticeOnlyMastery(r.mastery_points) : normalizeMastery(r.srs_stage, r.mastery_points);
+}
+
 export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 	const rows = await db.srs_progress.toArray();
 	const active = await getActiveItemKeys();
 	const scored = rows
 		.filter((r) => !isPlanKey(r.id_item) || active.has(r.id_item))
-		.map((r) => ({ r, pct: normalizeMastery(r.srs_stage, r.mastery_points) }))
+		.map((r) => ({ r, pct: pctFor(r) }))
 		.filter((x) => x.pct < 60)
 		.sort((a, b) => a.pct - b.pct);
 	const sliced = typeof limit === 'number' ? scored.slice(0, limit) : scored;
