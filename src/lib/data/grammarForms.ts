@@ -375,7 +375,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'この本[ほん]は面白[おもしろ]いと思[おも]います。', it: 'Penso che questo libro sia interessante.' },
 			{ jp: '明日[あした]は晴[は]れると思[おも]う。', it: 'Penso che domani sarà sereno.' }
 		],
-		related: ['doushi', 'you-volitiva', 'tsumori'],
+		related: ['doushi', 'you-volitiva', 'tsumori', 'hazu', 'deshou', 'kamoshirenai', 'kana', 'kotoninaru'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'forma piana' },
@@ -402,7 +402,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '新[あたら]しいレストランに行[い]ってみます。', it: 'Provo ad andare al ristorante nuovo.' },
 			{ jp: 'この服[ふく]を着[き]てみてもいいですか。', it: 'Posso provare a indossare questo vestito?' }
 		],
-		related: ['doushi', 'te-oku', 'te-shimau', 'te-iru'],
+		related: ['doushi', 'te-oku', 'te-shimau', 'te-iru', 'te-irai'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'forma て' }],
 		schemaId: 'te',
@@ -444,7 +444,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '財布[さいふ]を忘[わす]れてしまった。', it: 'Ho dimenticato il portafoglio (purtroppo).' },
 			{ jp: '宿題[しゅくだい]をやってしまいました。', it: 'Ho finito (completamente) i compiti.' }
 		],
-		related: ['doushi', 'contrazioni', 'te-miru', 'te-iru'],
+		related: ['doushi', 'contrazioni', 'te-miru', 'te-iru', 'te-irai'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'forma て' }],
 		schemaId: 'te',
@@ -466,7 +466,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '今[いま]、音楽[おんがく]を聞[き]いています。', it: 'Adesso sto ascoltando musica.' },
 			{ jp: '兄[あに]は東京[とうきょう]に住[す]んでいます。', it: 'Mio fratello vive a Tokyo.' }
 		],
-		related: ['doushi', 'contrazioni', 'te-miru', 'te-oku'],
+		related: ['doushi', 'contrazioni', 'te-miru', 'te-oku', 'te-irai'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'forma て' }],
 		schemaId: 'te',
@@ -487,7 +487,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '水[みず]が飲[の]みたいです。', it: 'Voglio bere acqua.' },
 			{ jp: '日本[にほん]へ行[い]きたい。', it: 'Voglio andare in Giappone.' }
 		],
-		related: ['doushi', 'sugiru'],
+		related: ['doushi', 'sugiru', 'ni-iku', 'nasai'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'radice ます' }],
 		schemaId: 'stem',
@@ -512,7 +512,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '食[た]べすぎました。', it: 'Ho mangiato troppo.' },
 			{ jp: 'この本[ほん]は高[たか]すぎる。', it: 'Questo libro è troppo caro.' }
 		],
-		related: ['doushi', 'keiyoushi', 'tai'],
+		related: ['doushi', 'keiyoushi', 'tai', 'naru'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'radice ます' },
@@ -537,7 +537,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'この本[ほん]は読[よ]みやすいです。', it: 'Questo libro è facile da leggere.' },
 			{ jp: 'この肉[にく]は硬[かた]くて食[た]べにくい。', it: 'Questa carne è dura e difficile da mangiare.' }
 		],
-		related: ['doushi', 'i-keiyoushi'],
+		related: ['doushi', 'i-keiyoushi', 'naru'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'radice ます' }],
 		schemaId: 'stem'
@@ -556,7 +556,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '音楽[おんがく]を聞[き]きながら走[はし]る。', it: 'Corro ascoltando musica.' },
 			{ jp: '歩[ある]きながら話[はな]さないで。', it: 'Non parlare mentre cammini.' }
 		],
-		related: ['doushi'],
+		related: ['doushi', 'ni-iku'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'radice ます' }],
 		schemaId: 'stem',
@@ -807,7 +807,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '来年[らいねん]日本[にほん]へ行[い]くつもりです。', it: 'L\'anno prossimo ho intenzione di andare in Giappone.' },
 			{ jp: '今日[きょう]は何[なに]もしないつもりだ。', it: 'Oggi non ho intenzione di fare niente.' }
 		],
-		related: ['doushi', 'you-volitiva', 'to-omou'],
+		related: ['doushi', 'you-volitiva', 'to-omou', 'kotoninaru'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'forma dizionario / ない' }],
 		schemaId: 'plain',
@@ -871,7 +871,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'その店[みせ]は、開[あ]いているはずです。', it: 'Quel negozio dovrebbe essere aperto.' },
 			{ jp: '彼[かれ]はもう家[いえ]に着[つ]いたはずです。', it: 'Dovrebbe essere già arrivato a casa.' }
 		],
-		related: ['doushi', 'to-omou', 'sou-apparenza'],
+		related: ['doushi', 'to-omou', 'sou-apparenza', 'deshou', 'kamoshirenai', 'kana'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'forma piana' },
@@ -881,6 +881,203 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 		],
 		schemaId: 'plain',
 		consolidaId: 'grammar-api-N4-58'
+	},
+	{
+		slug: 'deshou',
+		label: '〜でしょう',
+		icon: '🔮',
+		title: 'Forma composta: 〜でしょう',
+		summary: 'Previsione o supposizione cortese: "probabilmente…", oppure conferma "vero?".',
+		explanation: [
+			'Forma piana + でしょう: 明日は雨でしょう = "probabilmente domani pioverà". Con nome/な-aggettivo NON serve だ: 学生でしょう (non 学生だでしょう), 静かでしょう.',
+			'Con intonazione crescente diventa una richiesta di conferma: 寒いでしょう？ = "fa freddo, vero?".',
+			'È la versione cortese di 〜だろう; molto usata in meteo e annunci.'
+		],
+		examples: [
+			{ jp: '明日[あした]は晴[は]れるでしょう。', it: 'Domani probabilmente sarà sereno.' },
+			{ jp: '寒[さむ]いでしょう？', it: 'Fa freddo, vero?' }
+		],
+		related: ['doushi', 'hazu', 'kamoshirenai', 'to-omou', 'kana'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'senza な, senza だ' },
+			{ base: 'Nome', connessione: 'senza だ' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Diverso da はず (aspettativa da fatti noti) e da と思う (opinione, richiede だ prima di と).'],
+		consolidaId: 'grammar-api-N4-55'
+	},
+	{
+		slug: 'kamoshirenai',
+		label: '〜かもしれない',
+		icon: '🎲',
+		title: 'Forma composta: 〜かもしれない',
+		summary: 'Possibilità debole, non certa: "forse, può darsi che…".',
+		explanation: [
+			'Forma piana + かもしれない: 雨が降るかもしれない = "forse pioverà". Con nome/な-aggettivo NON serve だ: 学生かもしれない, 元気かもしれない.',
+			'È più debole/incerto di でしょう e di はず: でしょう suppone con una certa fiducia, はず si basa su fatti noti, かもしれない ammette solo una possibilità.',
+			'Cortese: 〜かもしれません.'
+		],
+		examples: [
+			{ jp: '明日[あした]は雨[あめ]が降[ふ]るかもしれません。', it: 'Forse domani pioverà.' },
+			{ jp: '彼[かれ]は忙[いそが]しいかもしれない。', it: 'Forse è occupato.' }
+		],
+		related: ['doushi', 'hazu', 'deshou', 'to-omou', 'kana'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'senza な, senza だ' },
+			{ base: 'Nome', connessione: 'senza だ' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Più debole di でしょう/はず: ammette solo una possibilità, non una previsione sicura.'],
+		consolidaId: 'grammar-api-N4-57'
+	},
+	{
+		slug: 'kana',
+		label: '〜かな',
+		icon: '🤔',
+		title: 'Forma composta: 〜かな',
+		summary: 'Domanda rivolta a se stessi, colloquiale: "mi chiedo se…, chissà…".',
+		explanation: [
+			'Forma piana + かな: 明日は晴れるかな = "chissà se domani sarà sereno". Si usa pensando ad alta voce, mai per fare una domanda diretta a qualcuno.',
+			'Con nome/な-aggettivo si usa diretto o con の: 学生かな, 大丈夫かな.',
+			'Versione più delicata/femminile: 〜かしら (letterario, raro nel parlato moderno).'
+		],
+		examples: [
+			{ jp: '明日[あした]は晴[は]れるかな。', it: 'Chissà se domani sarà sereno.' },
+			{ jp: 'これで大丈夫[だいじょうぶ]かな。', it: 'Chissà se va bene così.' }
+		],
+		related: ['doushi', 'hazu', 'deshou', 'kamoshirenai', 'to-omou'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'diretto o + の' },
+			{ base: 'Nome', connessione: 'diretto o + の' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Solo per pensieri rivolti a se stessi, non domande dirette all\'interlocutore.']
+	},
+	{
+		slug: 'kotoninaru',
+		label: '〜ことになる',
+		icon: '📋',
+		title: 'Forma composta: 〜ことになる',
+		summary: 'Una decisione presa da altri o dalle circostanze: "è stato deciso che…".',
+		explanation: [
+			'Forma piana (spesso dizionario) + ことになる: 引っ越すことになった = "è stato deciso che trasloco" (la decisione non è (esplicitamente) mia).',
+			'Diverso da 〜ことにする, dove sono io a decidere attivamente.',
+			'Alla forma ている, 〜ことになっている descrive una regola o un accordo stabile: 集合は9時ということになっている = "è stabilito che il ritrovo è alle 9".'
+		],
+		examples: [
+			{ jp: '来月[らいげつ]、大阪[おおさか]に転勤[てんきん]することになりました。', it: 'È stato deciso che il mese prossimo verrò trasferito a Osaka.' },
+			{ jp: '会議[かいぎ]は中止[ちゅうし]ということになった。', it: 'È stato deciso che la riunione è annullata.' }
+		],
+		related: ['doushi', 'tsumori', 'to-omou'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma piana (dizionario/ない)' }],
+		schemaId: 'plain',
+		exceptions: ['〜ことになっている: regola/accordo stabile, non un singolo evento.', 'Diverso da 〜ことにする, decisione esplicitamente propria.'],
+		consolidaId: 'grammar-api-N4-71'
+	},
+	{
+		slug: 'naru',
+		label: '〜くなる／〜になる',
+		icon: '🌱',
+		title: 'Forma composta: 〜くなる・〜になる',
+		summary: 'Diventare, cambiare stato: "si fa più…, diventa…".',
+		explanation: [
+			'Aggettivo in -い: tolgo -い e metto -くなる: 寒い → 寒くなる = "si fa freddo (cambiamento)".',
+			'Aggettivo in -な e sostantivo: + になる: 静かになる, 医者になる = "diventare medico".',
+			'なる si coniuga come un normale verbo godan: なりました, ならない, なった.'
+		],
+		examples: [
+			{ jp: '最近[さいきん]、寒[さむ]くなりました。', it: 'Ultimamente si è fatto freddo.' },
+			{ jp: '彼女[かのじょ]は医者[いしゃ]になりました。', it: 'Lei è diventata medico.' }
+		],
+		related: ['keiyoushi', 'i-keiyoushi', 'na-keiyoushi', 'sugiru', 'yasui-nikui'],
+		composed: true,
+		attachment: [
+			{ base: 'Aggettivo in -い', connessione: 'senza -い, + くなる' },
+			{ base: 'Aggettivo in -な', connessione: 'senza -な, + になる' },
+			{ base: 'Nome', connessione: '+ になる' }
+		],
+		schemaId: 'stem',
+		exceptions: ['いい → よくなる (radice irregolare よ-).'],
+		consolidaId: 'grammar-api-N5-44'
+	},
+	{
+		slug: 'ni-iku',
+		label: '〜に行く',
+		icon: '🚶',
+		title: 'Forma composta: 〜に行く',
+		summary: 'Andare a fare qualcosa: "vado a…".',
+		explanation: [
+			'Radice ます del verbo + に行く: 買い物に行く = "vado a fare shopping", 泳ぎに行く = "vado a nuotare".',
+			'Anche con un sostantivo di azione + に行く: 旅行に行く = "vado in viaggio".',
+			'行く si scambia con 来る/帰る a seconda della direzione: 買い物に来る, 買い物に帰る.'
+		],
+		examples: [
+			{ jp: '週末[しゅうまつ]、買[か]い物[もの]に行[い]きます。', it: 'Nel weekend vado a fare shopping.' },
+			{ jp: '毎朝[まいあさ]、公園[こうえん]に走[はし]りに行[い]く。', it: 'Ogni mattina vado a correre al parco.' }
+		],
+		related: ['doushi', 'tai', 'nagara'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'radice ます' },
+			{ base: 'Nome di azione', connessione: '+ に行く' }
+		],
+		schemaId: 'stem',
+		exceptions: ['行く si scambia con 来る/帰る a seconda della direzione del movimento.'],
+		consolidaId: 'grammar-api-N5-48'
+	},
+	{
+		slug: 'nasai',
+		label: '〜なさい',
+		icon: '☝️',
+		title: 'Forma composta: 〜なさい',
+		summary: 'Ordine gentile ma fermo: "fai…!", tipico di genitori e insegnanti.',
+		explanation: [
+			'Radice ます + なさい: 食べる → 食べなさい = "mangia!" (ordine gentile ma deciso).',
+			'Più morbido dell\'imperativo puro (食べろ) ma più diretto di 〜てください; rivolto a bambini o studenti.',
+			'Da un superiore verso un inferiore (genitore→figlio, insegnante→studente): raro con sconosciuti o superiori.'
+		],
+		examples: [
+			{ jp: '早[はや]く寝[ね]なさい。', it: 'Vai a dormire presto!' },
+			{ jp: 'ちゃんと勉強[べんきょう]しなさい。', it: 'Studia per bene!' }
+		],
+		related: ['doushi', 'tai', 'te-irai'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'radice ます' }],
+		schemaId: 'stem',
+		exceptions: ['Da un superiore/genitore verso un inferiore/figlio: non si usa con sconosciuti o superiori.'],
+		consolidaId: 'grammar-api-N4-59'
+	},
+	{
+		slug: 'te-irai',
+		label: '〜て（依頼）',
+		icon: '🙏',
+		title: 'Forma composta: 〜て（依頼）',
+		summary: 'Richiesta o comando informale con la sola forma て, senza ください.',
+		explanation: [
+			'Forma て del verbo usata da sola: ちょっと待って！ = "aspetta un attimo!".',
+			'È la versione colloquiale/abbreviata di 〜てください: tra amici e familiari si lascia cadere ください.',
+			'Il tono dipende dall\'intonazione: può essere una richiesta gentile o un comando secco secondo il contesto.'
+		],
+		examples: [
+			{ jp: 'ちょっと待[ま]って！', it: 'Aspetta un attimo!' },
+			{ jp: '時間[じかん]がありません。急[いそ]いで！', it: 'Non c\'è tempo. Sbrigati!' }
+		],
+		related: ['doushi', 'te-miru', 'te-oku', 'te-shimau', 'te-iru', 'nasai'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma て (da sola)' }],
+		schemaId: 'te',
+		exceptions: ['Colloquiale: negli scritti/formale si usa 〜てください.'],
+		consolidaId: 'grammar-api-N4-61'
 	}
 ];
 
@@ -938,5 +1135,13 @@ export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
 	'〜なければいけない': 'nakereba',
 	'なくてはいけない': 'nakereba',
 	'なくてはならない': 'nakereba',
-	'〜はず': 'hazu'
+	'〜はず': 'hazu',
+	'〜でしょう': 'deshou',
+	'でしょう': 'deshou',
+	'〜かもしれない': 'kamoshirenai',
+	'〜ことになる': 'kotoninaru',
+	'〜くなる／〜になる': 'naru',
+	'〜に行く': 'ni-iku',
+	'〜なさい': 'nasai',
+	'〜て（依頼）': 'te-irai'
 };
