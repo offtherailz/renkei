@@ -5,7 +5,7 @@
 	import { db } from '$lib/db/schema';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { createInitialSrs, applySrsReview, normalizeMastery } from '$lib/core/srs';
+	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
@@ -26,7 +26,7 @@
 		calculateQuizXp,
 		shuffle
 	} from '$lib/quiz/engine';
-	import { DEFAULT_KNOWN_FORMS, buildConjugationTable } from '$lib/core/conjugation';
+	import { DEFAULT_KNOWN_FORMS, buildConjugationTable, conjClassKey } from '$lib/core/conjugation';
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
@@ -323,6 +323,25 @@
 		srsMap.set(key, updated);
 		if (wasNew) await recordNewCardToday();
 		return updated;
+	}
+
+	// Contatore "solo pratica" (conj:*, particella:*…): muove mastery_points senza
+	// mai promuovere/retrocedere lo stage — la coniugazione è di classe, non di parola.
+	async function upsertPracticeOnly(key: string, correct: boolean): Promise<SrsProgress> {
+		const current = getSrs(key) ?? createInitialSrs(key);
+		const updated = applyPracticeReview(current, correct);
+		await db.srs_progress.put(updated);
+		srsMap.set(key, updated);
+		return updated;
+	}
+
+	// La domanda di classe non giudica la parola: le sposta solo la data di ripasso.
+	async function touchWordReviewDate(key: string): Promise<void> {
+		const current = getSrs(key);
+		if (!current) return;
+		const updated = touchReviewDate(current);
+		await db.srs_progress.put(updated);
+		srsMap.set(key, updated);
 	}
 
 	function localDayKey(ts: number): string {
@@ -954,7 +973,16 @@
 		}
 
 		const before = getSrs(quiz.itemRef.key) ?? createInitialSrs(quiz.itemRef.key);
-		await upsertSrs(quiz.itemRef.key, correct);
+		// La coniugazione è una proprietà della CLASSE (conj:*), non della parola:
+		// muove il contatore di classe e sposta solo la data di ripasso della parola.
+		if (quiz.question.mode === 'conjugation' && quiz.itemRef.kind === 'word') {
+			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
+			const classKey = word ? conjClassKey(word) : null;
+			if (classKey) await upsertPracticeOnly(classKey, correct);
+			await touchWordReviewDate(quiz.itemRef.key);
+		} else {
+			await upsertSrs(quiz.itemRef.key, correct);
+		}
 
 		const xpBreakdown = calculateQuizXp({
 			quizMode: quiz.question.mode,

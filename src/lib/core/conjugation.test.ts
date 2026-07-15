@@ -6,7 +6,8 @@ import {
 	buildComposedFormQuestions,
 	buildAdjectiveQuestions,
 	conjugateAdjective,
-	conjugateVerb
+	conjugateVerb,
+	conjClassKey
 } from "./conjugation";
 import type { Word } from "../types/models";
 
@@ -230,5 +231,35 @@ describe("buildAdjectiveQuestions", () => {
 		const qs = buildAdjectiveQuestions(makeAdjective("きれい", "な形容詞"));
 		const negQuestion = qs.find((q) => q.prompt.includes("negativo"));
 		expect(negQuestion?.choices).toContain("きれくない");
+	});
+});
+
+describe("conjClassKey", () => {
+	it("verbi: mappa la classe (godan/ichidan/irregular)", () => {
+		expect(conjClassKey(makeVerb("書く", "五段動詞[ごだんどうし]"))).toBe("conj:godan");
+		expect(conjClassKey(makeVerb("食べる", "一段動詞[いちだんどうし]"))).toBe("conj:ichidan");
+		expect(conjClassKey(makeVerb("する", "不規則動詞[ふきそくどうし]"))).toBe("conj:irregular");
+	});
+
+	it("aggettivi: い→i-keiyoushi, な→na-keiyoushi", () => {
+		expect(conjClassKey(makeAdjective("高い", "い形容詞"))).toBe("conj:i-keiyoushi");
+		expect(conjClassKey(makeAdjective("静か", "な形容詞"))).toBe("conj:na-keiyoushi");
+	});
+
+	it("parola non verbo/aggettivo (nome): null", () => {
+		const noun = {
+			id: "本",
+			scrittura: "本",
+			lettura: "ほん",
+			significato: { it: ["libro"], en: ["book"] },
+			livello_jlpt: "N5",
+			tipo_jp: "名詞[めいし]",
+			kanji_usati: [],
+			sinonimi: [],
+			contrari: [],
+			omofoni: [],
+			updated_at: 0
+		} as unknown as Word;
+		expect(conjClassKey(noun)).toBeNull();
 	});
 });

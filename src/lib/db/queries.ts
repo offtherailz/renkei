@@ -1,5 +1,6 @@
 import { db } from './schema';
 import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
+import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
 export interface ObjectiveSummary {
@@ -191,11 +192,16 @@ export interface WeakItem {
 	pct: number;
 }
 
-// 'phrase:...' non entra mai nel quiz a tempo (arriva solo da avventure/giochi
-// a voce): niente srs_stage possibile, quindi niente peso 70/30 con lo stage.
+// Kind "solo pratica": non hanno mai uno srs_stage vero (resta 0), quindi il
+// peso 70/30 con lo stage li terrebbe bloccati sotto soglia a vita. Per questi
+// la padronanza è tutta nei mastery_points. 'phrase' (avventure/giochi a voce)
+// e 'conj' (coniugazione per classe, contatore di sola pratica).
+const practiceOnlyKinds = new Set(['phrase', 'conj']);
 function pctFor(r: SrsProgress): number {
 	const kind = r.id_item.includes(':') ? r.id_item.split(':')[0] : 'word';
-	return kind === 'phrase' ? normalizePracticeOnlyMastery(r.mastery_points) : normalizeMastery(r.srs_stage, r.mastery_points);
+	return practiceOnlyKinds.has(kind)
+		? normalizePracticeOnlyMastery(r.mastery_points)
+		: normalizeMastery(r.srs_stage, r.mastery_points);
 }
 
 export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
@@ -220,6 +226,8 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 			label = (await db.grammar.get(raw))?.struttura ?? raw;
 		} else if (kind === 'counter') {
 			label = (await db.counters.get(raw))?.simbolo ?? raw;
+		} else if (kind === 'conj') {
+			label = CONJ_CLASS_LABELS[raw] ?? raw;
 		} else if (kind === 'kanji') {
 			consolida = raw;
 		}

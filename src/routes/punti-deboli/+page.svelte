@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { loadWeakItems, type WeakItem } from '$lib/db/queries';
+	import { CONJ_CLASS_ICONS } from '$lib/core/conjugation';
 
 	let items = $state<WeakItem[]>([]);
 	let loading = $state(true);
@@ -11,11 +12,18 @@
 		word: { icon: '📦', label: 'Parole' },
 		grammar: { icon: '📖', label: 'Grammatica' },
 		counter: { icon: '🔢', label: 'Contatori' },
-		kanji: { icon: '字', label: 'Kanji' },
-		phrase: { icon: '🗣️', label: 'Frasi' }
+		kanji: { icon: '漢', label: 'Kanji' },
+		phrase: { icon: '🗣️', label: 'Frasi' },
+		conj: { icon: '🔄', label: 'Coniugazione' }
 	};
 	function kindMeta(k: string): { icon: string; label: string } {
 		return KIND_META[k] ?? { icon: '❓', label: 'Altro' };
+	}
+	// Le righe di coniugazione usano l'icona canonica della classe (5️⃣/1️⃣/い/な…),
+	// coerente col resto dell'app; il chip di gruppo resta 🔄.
+	function rowIcon(w: WeakItem): string {
+		if (w.kind === 'conj') return CONJ_CLASS_ICONS[w.consolida.split(':')[1] ?? ''] ?? kindMeta('conj').icon;
+		return kindMeta(w.kind).icon;
 	}
 
 	onMount(async () => {
@@ -56,7 +64,7 @@
 		<div class="weak-list">
 			{#each filtered as w (w.consolida)}
 				<a class="weak-row" href="{base}/consolida/{encodeURIComponent(w.consolida)}">
-					<span class="w-icon">{kindMeta(w.kind).icon}</span>
+					<span class="w-icon">{rowIcon(w)}</span>
 					<span class="w-label">{w.label}</span>
 					<span class="w-pct" class:low={w.pct < 30}>{w.pct}%</span>
 				</a>

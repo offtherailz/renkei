@@ -229,6 +229,37 @@ export function detectAdjectiveType(word: Word): AdjectiveType | null {
 	return null;
 }
 
+// Chiave del contatore di coniugazione "per classe" (conj:*): la coniugazione è
+// una proprietà della classe verbale/aggettivale, non della singola parola.
+// Fonte unica della chiave, riusata dal quiz e (in seguito) da Consolida/punti-deboli.
+export function conjClassKey(word: Word): string | null {
+	const verbClass = detectVerbClass(word);
+	if (verbClass) return `conj:${verbClass}`;
+	const adjType = detectAdjectiveType(word);
+	if (adjType) return `conj:${adjType === 'na' ? 'na-keiyoushi' : 'i-keiyoushi'}`;
+	return null;
+}
+
+// Etichette italiane delle classi di coniugazione (suffisso di conj:*), fonte
+// unica riusata da punti-deboli e (in seguito) Consolida.
+export const CONJ_CLASS_LABELS: Record<string, string> = {
+	godan: 'Verbi godan',
+	ichidan: 'Verbi ichidan',
+	irregular: 'Verbi irregolari',
+	'i-keiyoushi': 'Aggettivi in -い',
+	'na-keiyoushi': 'Aggettivi in -な'
+};
+
+// Icone canoniche delle classi (stesse dei badge in GRAMMAR_FORMS/forme), così
+// le righe di coniugazione nei punti deboli usano gli stessi simboli dell'app.
+export const CONJ_CLASS_ICONS: Record<string, string> = {
+	godan: '5️⃣',
+	ichidan: '1️⃣',
+	irregular: '*️⃣',
+	'i-keiyoushi': 'い',
+	'na-keiyoushi': 'な'
+};
+
 export function conjugateAdjective(dictionary: string, type: AdjectiveType): ConjugationForm[] | null {
 	if (type === 'i') {
 		if (!dictionary.endsWith('い')) return null;
