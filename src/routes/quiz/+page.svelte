@@ -986,6 +986,21 @@
 			const choice = (quiz.question as ParticleClozeQuestion).correctChoice;
 			if (choice) await upsertPracticeOnly(`particella:${choice}`, correct);
 			await touchWordReviewDate(quiz.itemRef.key);
+		} else if (
+			(quiz.question.mode === 'counter-quiz' || quiz.question.mode === 'counter-reading') &&
+			quiz.itemRef.kind === 'word'
+		) {
+			// Contatore chiesto SU UNA PAROLA (id_contatore_suggerito): il punteggio va
+			// al contatore (solo pratica), la parola muove solo la data di ripasso.
+			// I contatori "due" dal pool (kind==='counter') NON entrano qui: restano SRS
+			// vero (else → upsertSrs), altrimenti perderebbero l'avanzamento di stage.
+			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
+			const counterKey = word?.id_contatore_suggerito ? `counter:${word.id_contatore_suggerito}` : null;
+			if (counterKey) await upsertPracticeOnly(counterKey, correct);
+			await touchWordReviewDate(quiz.itemRef.key);
+		} else if (quiz.question.mode === 'time-reading') {
+			// L'orario non ha un'entità propria: tocca solo la data di ripasso della parola.
+			await touchWordReviewDate(quiz.itemRef.key);
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
 		}
