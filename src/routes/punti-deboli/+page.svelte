@@ -14,7 +14,8 @@
 		counter: { icon: '🔢', label: 'Contatori' },
 		kanji: { icon: '漢', label: 'Kanji' },
 		phrase: { icon: '🗣️', label: 'Frasi' },
-		conj: { icon: '🔄', label: 'Coniugazione' }
+		conj: { icon: '🔄', label: 'Coniugazione' },
+		particella: { icon: '🪝', label: 'Particelle' }
 	};
 	function kindMeta(k: string): { icon: string; label: string } {
 		return KIND_META[k] ?? { icon: '❓', label: 'Altro' };

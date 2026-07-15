@@ -980,6 +980,12 @@
 			const classKey = word ? conjClassKey(word) : null;
 			if (classKey) await upsertPracticeOnly(classKey, correct);
 			await touchWordReviewDate(quiz.itemRef.key);
+		} else if (quiz.question.mode === 'particle-cloze') {
+			// La particella è una proprietà DELLA PARTICELLA, non della parola:
+			// il contatore particella:X, la parola muove solo la data di ripasso.
+			const choice = (quiz.question as ParticleClozeQuestion).correctChoice;
+			if (choice) await upsertPracticeOnly(`particella:${choice}`, correct);
+			await touchWordReviewDate(quiz.itemRef.key);
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
 		}

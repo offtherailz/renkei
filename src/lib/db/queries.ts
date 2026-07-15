@@ -195,8 +195,8 @@ export interface WeakItem {
 // Kind "solo pratica": non hanno mai uno srs_stage vero (resta 0), quindi il
 // peso 70/30 con lo stage li terrebbe bloccati sotto soglia a vita. Per questi
 // la padronanza è tutta nei mastery_points. 'phrase' (avventure/giochi a voce)
-// e 'conj' (coniugazione per classe, contatore di sola pratica).
-const practiceOnlyKinds = new Set(['phrase', 'conj']);
+// e 'conj' (coniugazione per classe) e 'particella' (contatori di sola pratica).
+const practiceOnlyKinds = new Set(['phrase', 'conj', 'particella']);
 function pctFor(r: SrsProgress): number {
 	const kind = r.id_item.includes(':') ? r.id_item.split(':')[0] : 'word';
 	return practiceOnlyKinds.has(kind)
@@ -228,6 +228,8 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 			label = (await db.counters.get(raw))?.simbolo ?? raw;
 		} else if (kind === 'conj') {
 			label = CONJ_CLASS_LABELS[raw] ?? raw;
+		} else if (kind === 'particella') {
+			label = `Particella ${raw}`;
 		} else if (kind === 'kanji') {
 			consolida = raw;
 		}
