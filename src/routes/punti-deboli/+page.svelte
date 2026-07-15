@@ -26,6 +26,14 @@
 		if (w.kind === 'conj') return CONJ_CLASS_ICONS[w.consolida.split(':')[1] ?? ''] ?? kindMeta('conj').icon;
 		return kindMeta(w.kind).icon;
 	}
+	// I glifi giapponesi (漢, い, な) riusano i badge globali condivisi (app.css);
+	// le emoji restano nude.
+	function glyphClass(icon: string): string {
+		if (icon === '漢') return 'jp-kanji-badge';
+		if (icon === 'い') return 'jp-kana-badge jp-kana-badge-i';
+		if (icon === 'な') return 'jp-kana-badge jp-kana-badge-na';
+		return '';
+	}
 
 	onMount(async () => {
 		items = await loadWeakItems();
@@ -55,8 +63,9 @@
 			<div class="filters">
 				<button class="chip" class:on={kind === null} onclick={() => (kind = null)}>Tutti <small>{items.length}</small></button>
 				{#each kinds as k (k)}
+					{@const meta = kindMeta(k)}
 					<button class="chip" class:on={kind === k} onclick={() => (kind = kind === k ? null : k)}>
-						{kindMeta(k).icon} {kindMeta(k).label} <small>{items.filter((i) => i.kind === k).length}</small>
+						<span class={glyphClass(meta.icon)}>{meta.icon}</span> {meta.label} <small>{items.filter((i) => i.kind === k).length}</small>
 					</button>
 				{/each}
 			</div>
@@ -64,8 +73,9 @@
 		<p class="count">{filtered.length} {filtered.length === 1 ? 'voce' : 'voci'}</p>
 		<div class="weak-list">
 			{#each filtered as w (w.consolida)}
+				{@const ic = rowIcon(w)}
 				<a class="weak-row" href="{base}/consolida/{encodeURIComponent(w.consolida)}">
-					<span class="w-icon">{rowIcon(w)}</span>
+					<span class="w-icon {glyphClass(ic)}">{ic}</span>
 					<span class="w-label">{w.label}</span>
 					<span class="w-pct" class:low={w.pct < 30}>{w.pct}%</span>
 				</a>

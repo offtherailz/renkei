@@ -1285,3 +1285,23 @@ ruby rt {
     height: 82px;
   }
 }
+
+/* Badge-glifo giapponesi condivisi (kanji 漢, kana い/な). Fonte unica riusata da
+   /approfondisci, /punti-deboli, ecc.: NON duplicare lo stile nei componenti. */
+.jp-kanji-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5em; height: 1.5em; border-radius: 8px;
+  background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed);
+  color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.18), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+}
+.jp-kana-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.4em; height: 1.4em; border-radius: 50%;
+  color: #fff; font-weight: 800; font-size: 0.9em; line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.18), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+}
+.jp-kana-badge-i { background: radial-gradient(circle at 30% 30%, #fb7185, var(--danger)); }
+.jp-kana-badge-na { background: radial-gradient(circle at 30% 30%, #5eead4, #0d9488); }
