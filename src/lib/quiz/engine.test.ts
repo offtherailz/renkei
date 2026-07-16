@@ -292,3 +292,29 @@ describe("createVerbFormClozeQuestion", () => {
     expect(createVerbFormClozeQuestion(noun, "it")).toBeNull();
   });
 });
+
+describe("blankClozeTarget (scelta dell'occorrenza giusta)", () => {
+  it("か dentro かれ non viene oscurato: vince il か grammaticale dopo il verbo (bug reale)", async () => {
+    const { createGrammarQuestion } = await import("./engine");
+    const grammar = {
+      id: "g-ka",
+      struttura: "〜か",
+      spiegazione: { it: "domanda incorporata", en: "embedded question" },
+      livello_jlpt: "N4",
+      frasi_esempio: [],
+      frasi_esempio_parole_linkate: [],
+      updated_at: 0
+    } as never;
+    const example = {
+      testo: "かれが どこに いるか 知って いますか。",
+      traduzione: { it: "Sai dove si trova lui?", en: "Do you know where he is?" }
+    } as never;
+    const context = { locale: "it", wordsById: new Map(), grammarById: new Map() } as never;
+    const emptyIndex = { N5: [], N4: [], N3: [], N2: [], N1: [] } as never;
+    const q = await createGrammarQuestion({ grammar, example }, emptyIndex, "N4", context, "it");
+    if (q.mode === "cloze") {
+      expect(q.sentenceWithBlank).toContain("かれが");
+      expect(q.sentenceWithBlank).not.toMatch(/^___れが|^＿＿れが/);
+    }
+  });
+});

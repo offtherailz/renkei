@@ -351,6 +351,30 @@ function pickGrammarStructureTarget(source: ClozeSource, plainSentence: string):
   return null;
 }
 
+// Sceglie QUALE occorrenza della struttura oscurare: non la prima cieca.
+// Bug reale: in 「かれが どこに いるか 知って いますか。」 il cloze su 〜か
+// oscurava il か dentro かれ (彼). Le strutture si ATTACCANO a ciò che precede
+// (〜か, 〜たら…): un'occorrenza preceduta da inizio frase/spazio/punteggiatura
+// è quasi certamente dentro un'altra parola; una seguita da un confine
+// (spazio, 、。？ o fine frase) è quasi certamente quella grammaticale.
+function pickBlankIndex(sentence: string, target: string): number {
+  const BOUNDARY = /[\s、。！？「」]/;
+  let best = -1;
+  let bestScore = -Infinity;
+  for (let i = sentence.indexOf(target); i !== -1; i = sentence.indexOf(target, i + 1)) {
+    const prev = i === 0 ? '' : sentence[i - 1]!;
+    const next = sentence[i + target.length] ?? '';
+    let score = 0;
+    if (next === '' || BOUNDARY.test(next)) score += 2;
+    if (prev === '' || BOUNDARY.test(prev)) score -= 2;
+    if (score > bestScore) {
+      bestScore = score;
+      best = i;
+    }
+  }
+  return best;
+}
+
 function blankClozeTarget(sourceText: string, target: string): string {
   let notationReplaced = false;
 
@@ -366,7 +390,9 @@ function blankClozeTarget(sourceText: string, target: string): string {
     return withBlankedNotation;
   }
 
-  return sourceText.replace(target, "___");
+  const at = pickBlankIndex(sourceText, target);
+  if (at === -1) return sourceText.replace(target, "___");
+  return `${sourceText.slice(0, at)}___${sourceText.slice(at + target.length)}`;
 }
 
 // Il match greedy della notazione furigana può inglobare i kana che
