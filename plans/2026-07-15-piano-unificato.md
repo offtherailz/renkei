@@ -149,10 +149,11 @@ Da `2026-07-15-note-utente-quiz-e-dati.md`:
 - **D1** — auto-link kanji (`extractKanji` all'import).
 - **D2** — navigazione arricchita tra concetti in `detail`.
 - **D3** — condivisione senza backend: export bundle + import da URL.
-- **D4** — **catalogo Kanji mancante** (16/07): il gruppo «Cataloghi» in home non ha una pagina Kanji
-  (Particelle/Contatori sì); nessuna route `/kanji`, i kanji si raggiungono solo dai link nel detail
-  di una parola, senza badge `漢` coerente. Aggiungere `/kanji` (sul modello `/contatori`,`/particelle`)
-  + badge `漢` sulle card. Nota: `字` in punti-deboli già corretto in `漢` (era l'unico outlier).
+- **D4** — **kanji nel vocabolario** (16/07, deciso: NON pagina a parte): i kanji ora sono nel
+  vocabolario `/consolida` con chip filtro `漢 Kanji` (riga → scheda `kanji:` + drill), riusando
+  ricerca/livello/scroll. Fatto. Badge `漢` unificato (era `字` in punti-deboli). ✅
+  - Correzione dati collegata: 5 interiezioni (ああ/いいえ/ええ/さあ/じゃあ) da `その他` catch-all a
+    `感動詞`/`接続詞` (badge e filtro vocabolario); icone+tooltip per `感動詞`/`助動詞`. ✅
 
 ### Blocco E — Caricamento lezioni insegnante (feature grande)
 Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecnici

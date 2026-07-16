@@ -2,17 +2,18 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
+	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import { ICONS_BY_LABEL } from '$lib/data/posIcons';
-	import type { Word } from '$lib/types/models';
+	import type { Word, Kanji } from '$lib/types/models';
 
 	const locale = detectUserLocale();
 	const PAGE = 60;
 
 	let words = $state<Word[]>([]);
+	let kanji = $state<Kanji[]>([]);
 	let query = $state('');
 	let lvl = $state<string | null>(null);
 	let tipo = $state<string | null>(null);
@@ -34,7 +35,7 @@
 	};
 
 	onMount(async () => {
-		words = await db.words.toArray();
+		[words, kanji] = await Promise.all([db.words.toArray(), db.kanji.toArray()]);
 		loading = false;
 	});
 
@@ -62,6 +63,24 @@
 	});
 	const results = $derived(filtered.slice(0, limit));
 
+	// Vista Kanji: filtro speciale (tipo === 'kanji') che mostra il catalogo kanji
+	// dentro lo stesso vocabolario, con ricerca e livello condivisi.
+	const isKanji = $derived(tipo === 'kanji');
+	const filteredKanji = $derived.by(() => {
+		const q = query.trim().toLowerCase();
+		return kanji.filter((k) => {
+			if (lvl && k.livello_jlpt !== lvl) return false;
+			if (!q) return true;
+			return (
+				k.id.includes(q) ||
+				[...k.letture_on, ...k.letture_kun].some((r) => r.toLowerCase().includes(q)) ||
+				pickLocalizedText(k.significato, locale).toLowerCase().includes(q)
+			);
+		});
+	});
+	const kanjiResults = $derived(filteredKanji.slice(0, limit));
+	const total = $derived(isKanji ? filteredKanji.length : filtered.length);
+
 	// nuovo filtro/ricerca → si riparte dalla prima pagina
 	$effect(() => {
 		void query;
@@ -74,7 +93,7 @@
 	$effect(() => {
 		if (!sentinel) return;
 		const io = new IntersectionObserver((entries) => {
-			if (entries.some((e) => e.isIntersecting) && limit < filtered.length) {
+			if (entries.some((e) => e.isIntersecting) && limit < total) {
 				limit += PAGE;
 			}
 		});
@@ -95,6 +114,9 @@
 		<button class="chip" class:on={lvl === 'N4'} onclick={() => (lvl = lvl === 'N4' ? null : 'N4')}>N4</button>
 	</div>
 	<div class="filters">
+		<button class="chip" class:on={isKanji} onclick={() => (tipo = isKanji ? null : 'kanji')}>
+			<span class="chip-icon jp-kanji-badge">漢</span>Kanji<small>{kanji.length}</small>
+		</button>
 		{#each tipi as t (t)}
 			<button class="chip" class:on={tipo === t} onclick={() => (tipo = tipo === t ? null : t)}>
 				{#if ICONS_BY_LABEL[t]}<span class="chip-icon">{ICONS_BY_LABEL[t]}</span>{/if}{t}<small>{TIPO_IT[t] ?? ''}</small>
@@ -105,20 +127,38 @@
 	{#if loading}
 		<p class="muted">Caricamento…</p>
 	{:else}
-		<p class="count">{filtered.length} parole{results.length < filtered.length ? ` · ne mostro ${results.length}, scorri per altre` : ''}</p>
+		<p class="count">
+			{#if isKanji}{filteredKanji.length} kanji{kanjiResults.length < filteredKanji.length ? ` · ne mostro ${kanjiResults.length}, scorri per altre` : ''}
+			{:else}{filtered.length} parole{results.length < filtered.length ? ` · ne mostro ${results.length}, scorri per altre` : ''}{/if}
+		</p>
 		<div class="word-list">
-			{#each results as w (w.id)}
-				<div class="word-row">
-					<a class="w-main" href="{base}/detail/{encodeURIComponent(`word:${w.id}`)}">
-						<span class="w-jp">{w.scrittura}</span>
-						{#if w.lettura !== w.scrittura}<span class="w-read">{w.lettura}</span>{/if}
-						<span class="w-badges"><JlptBadge level={w.livello_jlpt} /><JpBadge label={w.tipo_jp} variant="jp-badge-pos" /></span>
-						<span class="w-gloss">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
-					</a>
-					<a class="w-drill" href="{base}/consolida/{encodeURIComponent(w.id)}" title="Consolida">💪</a>
-				</div>
-			{/each}
-			{#if results.length === 0}<p class="muted">Nessun risultato.</p>{/if}
+			{#if isKanji}
+				{#each kanjiResults as k (k.id)}
+					<div class="word-row">
+						<a class="w-main" href="{base}/detail/{encodeURIComponent(`kanji:${k.id}`)}">
+							<span class="w-jp">{k.id}</span>
+							<span class="w-read">{[...k.letture_on, ...k.letture_kun].slice(0, 4).join('・')}</span>
+							<span class="w-badges"><JlptBadge level={k.livello_jlpt} /><span class="jp-kanji-badge">漢</span></span>
+							<span class="w-gloss">{pickLocalizedText(k.significato, locale)}</span>
+						</a>
+						<a class="w-drill" href="{base}/consolida/{encodeURIComponent(`kanji:${k.id}`)}" title="Consolida">💪</a>
+					</div>
+				{/each}
+				{#if kanjiResults.length === 0}<p class="muted">Nessun risultato.</p>{/if}
+			{:else}
+				{#each results as w (w.id)}
+					<div class="word-row">
+						<a class="w-main" href="{base}/detail/{encodeURIComponent(`word:${w.id}`)}">
+							<span class="w-jp">{w.scrittura}</span>
+							{#if w.lettura !== w.scrittura}<span class="w-read">{w.lettura}</span>{/if}
+							<span class="w-badges"><JlptBadge level={w.livello_jlpt} /><JpBadge label={w.tipo_jp} variant="jp-badge-pos" /></span>
+							<span class="w-gloss">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
+						</a>
+						<a class="w-drill" href="{base}/consolida/{encodeURIComponent(w.id)}" title="Consolida">💪</a>
+					</div>
+				{/each}
+				{#if results.length === 0}<p class="muted">Nessun risultato.</p>{/if}
+			{/if}
 		</div>
 		<div bind:this={sentinel} class="sentinel"></div>
 	{/if}
