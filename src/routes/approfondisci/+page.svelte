@@ -101,7 +101,7 @@
 		</section>
 
 		{#if appState.sessionState}
-			<a class="resume" href="{base}/quiz">⏸️ Torna al quiz</a>
+			<a class="resume" href="{base}/quiz{appState.sessionState?.weak ? '?deboli=1' : ''}">⏸️ Torna al quiz</a>
 		{/if}
 	{/if}
 </div>

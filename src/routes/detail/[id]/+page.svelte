@@ -306,9 +306,24 @@
 		const mins = Math.max(0, Math.round((updated.next_review_date - Date.now()) / 60_000));
 		nextReviewLabel = mins <= 0 ? 'adesso' : mins >= 1440 ? `tra ~${Math.round(mins / 1440)} g` : `tra ~${mins} min`;
 	}
+	// snapshot per l'annulla di «La so già» (finché resti sulla scheda)
+	let knownUndo = $state<SrsProgress | null>(null);
 	async function markWordKnown(): Promise<void> {
 		if (!word) return;
+		if (!confirm('Segnare questa parola come già nota? Salta i ripassi iniziali (ripasso tra ~1 settimana).')) return;
+		knownUndo = wordSrs ? { ...wordSrs } : null;
 		await saveWordSrs(markKnown(wordSrs ?? createInitialSrs(`word:${word.id}`)));
+	}
+	async function undoKnown(): Promise<void> {
+		if (!word) return;
+		if (knownUndo) {
+			await saveWordSrs(knownUndo);
+		} else {
+			// non c'era nessuna riga: si torna a "mai studiata"
+			await db.srs_progress.delete(`word:${word.id}`);
+			wordSrs = null; masteryPct = 0; srsStage = 0; nextReviewLabel = '';
+		}
+		knownUndo = null;
 	}
 	async function snoozeWord(): Promise<void> {
 		if (!wordSrs) return;
@@ -418,8 +433,10 @@
 				<p class="detail-meta">Mai studiata: entrerà nel quiz come carta nuova.</p>
 			{/if}
 			<div class="srs-actions">
-				{#if !wordSrs || wordSrs.srs_stage < 5}
-					<button class="srs-btn known" onclick={markWordKnown} title="Salta i ripassi iniziali: la carta parte già consolidata (ripasso tra ~1 settimana). Se poi la sbagli, scende normalmente.">✓ La so già</button>
+				{#if knownUndo !== null}
+					<button class="srs-btn" onclick={undoKnown} title="Ripristina lo stato precedente">↩ Annulla «La so già»</button>
+				{:else if !wordSrs || wordSrs.srs_stage < 5}
+					<button class="srs-btn known-cta" onclick={markWordKnown} title="Salta i ripassi iniziali: la carta parte già consolidata (ripasso tra ~1 settimana). Se poi la sbagli, scende normalmente.">La so già</button>
 				{/if}
 				{#if wordSrs && !wordSrs.buried}
 					<button class="srs-btn" onclick={snoozeWord} title="Sposta il prossimo ripasso di 3 giorni">💤 Rimanda</button>
@@ -878,7 +895,9 @@
 		background: var(--surface); color: var(--ink); font-size: 0.8rem; cursor: pointer;
 	}
 	.srs-btn:hover { border-color: var(--brand); }
-	.srs-btn.known { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); font-weight: 700; }
+	/* CTA neutra: il verde pieno sembrava uno stato "già selezionato" */
+	.srs-btn.known-cta { border-color: var(--brand); color: var(--brand); font-weight: 700; }
+	.srs-btn.known-cta:hover { background: rgba(107, 160, 242, 0.14); }
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
 

@@ -48,3 +48,20 @@ describe("blankParticleAt", () => {
     expect(blankParticleAt(sentence, hits[1]!)).toBe("犬が水＿＿飲む。");
   });
 });
+
+describe('falsi positivi dentro le parole (bug reali)', () => {
+	it('il と di ちょっと non è una particella', () => {
+		const hits = findParticles(['ちょっと', '待って', 'くれ。'], 'ちょっと待ってくれ。');
+		expect(hits.find((h) => h.particle === 'と')).toBeUndefined();
+	});
+
+	it('こと/なに non diventano こ+と / な+に', () => {
+		expect(findParticles(['こと']).length).toBe(0);
+		expect(findParticles(['なに']).length).toBe(0);
+	});
+
+	it('犬と e 学校に restano particelle vere', () => {
+		expect(findParticles(['犬と'])[0]?.particle).toBe('と');
+		expect(findParticles(['学校に'])[0]?.particle).toBe('に');
+	});
+});

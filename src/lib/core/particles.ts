@@ -54,6 +54,18 @@ export function findParticles(segments: string[], sentence?: string): ParticleHi
 				if (particle === 'の' && 'こそあど'.includes(segment[segment.length - 2] ?? '')) {
 					break;
 				}
+				// と dopo っ è parte della parola (ちょっと, もっと, ずっと, きっと,
+				// やっと…), non la particella — bug reale: il cloze oscurava il
+				// と di ちょっと.
+				if (particle === 'と' && segment[segment.length - 2] === 'っ') {
+					break;
+				}
+				// resto tutto-hiragana di 1 solo carattere (こと→こ, なに→な):
+				// quasi sempre una parola intera, non nome+particella.
+				const rest = segment.slice(0, segment.length - particle.length);
+				if (rest.length <= 1 && /^[ぁ-ん]$/.test(rest)) {
+					break;
+				}
 				hits.push({ particle, index: offset + segment.length - particle.length });
 				break;
 			}

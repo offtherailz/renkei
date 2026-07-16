@@ -165,6 +165,18 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 (l'insegnante non scrive JSON a mano). Richiede discussione sull'approccio.
 
 ### Migliorie segnate (16/07, da fare poi)
+- **Feedback test utente (17/07)**:
+  - Particelle: domande **propedeutiche mirate agli usi** (frasi apposta per esercitare la
+    sostituzione, non solo cloze da frasi generiche); casi ambigui (は/が/も…) da far vagliare
+    all'insegnante-agente — il generatore audit c'è, gli agenti erano bloccati da 529/limite.
+  - **Avverbi (副詞)**: anche loro vorrebbero una "conoscenza" allenabile (oggi nessun drill di
+    classe per gli avverbi).
+  - **Choukai/trappole: copione finale ricco** — ascoltare le singole frasi, vedere le risposte
+    giuste e il perché.
+  - **Frasi d'aeroporto nel vocabolario** (Wi-Fiルーターのレンタルは…, すみません、搭乗口は…,
+    これは機内持ち込みできますか): sono intere frasi classificate 慣用表現 tra le parole (vengono
+    da idioms-n5n4/extra curati). Decidere: spostarle in frasi utili / tipo dedicato / tenerle.
+    Da discutere.
 - **Piano di oggi: sistema di completamento** — le voci del piano (ripassi, punti deboli, attività
   del giorno) dovrebbero segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
 - **Microfono: permessi e degradazione (16/07)** — su http non-localhost (dev via IP LAN) l'API

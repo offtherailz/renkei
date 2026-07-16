@@ -96,9 +96,7 @@
 	// obiettivi attivi (a prescindere dal tetto): alzare il tetto non servirebbe
 	// a niente, va detto chiaro invece di far sembrare che il bottone non faccia nulla.
 	let poolFullyExhausted = $state(false);
-	// Sblocco manuale del tetto giornaliero (bottone "Continua ancora un po'"):
-	// vale solo finché resti su questa pagina, non tocca l'impostazione salvata.
-	let extraCardsUnlocked = $state(0);
+
 
 	// Per decidere se offrire "➕ Continua ancora un po'": guarda solo lo scope
 	// ATTIVO (mai gli obiettivi in pausa) — il bottone non deve mai pescare
@@ -108,9 +106,13 @@
 	}
 
 	function continueWithMoreCards(n: number): void {
-		extraCardsUnlocked += n;
+		// il credito passa alla PROSSIMA sessione (vive in session.extraCards,
+		// così sopravvive ad Approfondisci: prima era stato del componente e
+		// tornando indietro spariva → finto "tutto fatto")
+		pendingExtraCards = (summarySession?.extraCards ?? 0) + n;
 		startSession();
 	}
+	let pendingExtraCards = 0;
 	// celebrazione a fine sessione: streak, record personale, coriandoli
 	let summaryStreak = $state<Streak | null>(null);
 	let summaryBest = $state(false);
@@ -337,7 +339,7 @@
 		// Sblocco esplicito e temporaneo (bottone "Continua ancora un po'" nel
 		// riepilogo, quando non c'è più nulla di dovuto): alza il tetto solo per
 		// questa sessione, senza toccare l'impostazione salvata.
-		const cap = (appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY) + extraCardsUnlocked;
+		const cap = (appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY) + (session?.extraCards ?? 0);
 		if (!canIntroduceNewCard(appState.userProfile ?? {}, cap, now)) return null;
 		const unseen = pool.filter((item) => !getSrs(item.key));
 		return unseen.length > 0 ? sample(unseen) : null;
@@ -1371,7 +1373,8 @@
 				wrongAnswers: [],
 				answersByType: emptySkillCounts(),
 				weak: wantWeak || undefined,
-				weakQueue
+				weakQueue,
+				extraCards: pendingExtraCards || undefined
 			};
 			appState.sessionState = session;
 			phase = 'quiz';

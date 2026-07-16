@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { FACET_META, applicableFacets } from '$lib/core/facets';
-	import { normalizePracticeOnlyMastery, type FacetField } from '$lib/core/srs';
+	import type { FacetField } from '$lib/core/srs';
 	import type { SrsProgress, Word } from '$lib/types/models';
 
 	// Diagramma di Kiviat delle sfaccettature (modello Nation) di una parola.
@@ -21,9 +21,11 @@
 		return FACET_META.filter((m) => applicable.has(m.field));
 	});
 
+	// Scala 0-based: una cella mai allenata o in negativo mostra 0, non 50
+	// (con la scala practice-only un solo errore mostrava "47%": fuorviante).
 	function pct(field: FacetField): number {
-		const v = srs?.[field];
-		return v === undefined ? 0 : normalizePracticeOnlyMastery(v);
+		const v = srs?.[field] ?? 0;
+		return Math.max(0, Math.min(100, v));
 	}
 
 	function angle(i: number): number {

@@ -232,21 +232,30 @@ export function createFlashcardReadingRecognitionQuestion(
   context: QuizContext
 ): FlashcardQuestion {
   const correct = word.scrittura;
-  // Priorità pedagogica: omofoni veri (送る/贈る) e l'errore di okurigana,
-  // poi si riempie con distrattori casuali dello stesso livello.
-  const homophones = (word.omofoni ?? [])
-    .map((id) => context.wordsById.get(id)?.scrittura)
-    .filter((v): v is string => Boolean(v));
+  // ATTENZIONE: per "quale scrittura si legge X?" un OMOFONO è una risposta
+  // GIUSTA, non un distrattore (春 e 貼る si leggono entrambi はる — bug reale).
+  // Si escludono quindi tutte le parole con la stessa lettura; resta l'errore
+  // di okurigana (stessa parola scritta male), che è un distrattore legittimo.
+  const sameReading = new Set(
+    [...context.wordsById.values()].filter((w) => w.lettura === word.lettura).map((w) => w.scrittura)
+  );
   const okuriganaError = okuriganaErrorVariant(word);
-  const random = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 5, {
+  const targetHasKanji = word.scrittura !== word.lettura;
+  const random = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 12, {
     preferSuru: word.scrittura.endsWith("する")
   })
-    .map((d) => context.wordsById.get(d.id)?.scrittura)
-    .filter((v): v is string => Boolean(v));
+    .map((d) => context.wordsById.get(d.id))
+    .filter((w): w is Word => Boolean(w))
+    .filter((w) => !sameReading.has(w.scrittura))
+    // stessa "forma" del bersaglio (kanji con kanji) e lunghezza simile: una
+    // scrittura in soli kana o lunga il doppio si scarta a colpo d'occhio
+    .filter((w) => (w.scrittura !== w.lettura) === targetHasKanji)
+    .sort((a, b) => Math.abs(a.scrittura.length - correct.length) - Math.abs(b.scrittura.length - correct.length))
+    .map((w) => w.scrittura);
 
-  const distractors = [...homophones, ...(okuriganaError ? [okuriganaError] : []), ...random]
+  const distractors = [...(okuriganaError ? [okuriganaError] : []), ...random]
     .filter((value, index, values) => values.indexOf(value) === index)
-    .filter((value) => value !== correct)
+    .filter((value) => value !== correct && !sameReading.has(value))
     .slice(0, 3);
 
   return {

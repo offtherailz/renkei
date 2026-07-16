@@ -46,6 +46,9 @@ export interface StudySessionState {
 	// La coda vive nella sessione così sopravvive ad Approfondisci.
 	weak?: boolean;
 	weakQueue?: { kind: string; raw: string }[];
+	// Carte extra sbloccate con "Continua ancora un po'": vivono NELLA sessione
+	// così sopravvivono ad Approfondisci (il componente si smonta e rimonta).
+	extraCards?: number;
 }
 
 export interface ActiveQuiz {
