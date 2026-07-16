@@ -197,6 +197,8 @@ Nasce da: «consolida singolo non fa quasi nulla» + «serve un modo per rimanda
   - **Twist facet**: seppellire la **singola sfaccettatura** leech (non sai *produrre* ma *riconosci*),
     non l'intera parola — abilitato dal tracciamento per-cella. Verificare i meccanismi pausa/suspend
     già esistenti (`isPlanKey`/attivi) prima di aggiungerne.
+- **Sede UI decisa (16/07)**: i pulsanti «La so già» (F3), «Seppellisci» e «Rimanda» (F2) vanno
+  nella card **Memorizzazione** della scheda parola (dove ora stanno barra SRS + radar).
 - **F3 — «La so già»** (idea 16/07): l'altra faccia del leech — l'utente ha basi pregresse, oggi ogni
   carta parte da stage 0 (8 stage di ripassi anche per parole note da anni; post-reset 1400 carte
   "nuove"). Bottone «✓ La so già»: 1) nel quiz all'introduzione di una carta mai vista, 2) nella

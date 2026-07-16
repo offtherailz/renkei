@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { FACET_META } from '$lib/core/facets';
 	import { normalizePracticeOnlyMastery, type FacetField } from '$lib/core/srs';
 	import type { SrsProgress, Word } from '$lib/types/models';
@@ -73,10 +74,17 @@
 	</svg>
 	<figcaption class="legend">
 		{#each FACET_META as m (m.field)}
-			<span class="legend-item" class:na={!applicable.has(m.field)} title={applicable.has(m.field) ? `${m.label}: ${pct(m.field)}%` : `${m.label}: non applicabile`}>
+			<span
+				class="legend-item"
+				class:na={!applicable.has(m.field)}
+				title={applicable.has(m.field)
+					? `${m.label} (${pct(m.field)}%) — ${m.desc} Si rafforza con: ${m.train}`
+					: `${m.label} — ${m.desc} Non applicabile a questa parola.`}
+			>
 				{m.icon} {m.label}
 			</span>
 		{/each}
+		<a class="legend-help" href="{base}/sfaccettature" title="Cosa sono le sfaccettature e come si allenano">?</a>
 	</figcaption>
 </figure>
 
@@ -92,4 +100,10 @@
 	.label.na { opacity: 0.45; }
 	.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; justify-content: center; font-size: 0.72rem; color: var(--muted); }
 	.legend-item.na { opacity: 0.5; text-decoration: line-through; }
+	.legend-help {
+		display: inline-grid; place-items: center; width: 18px; height: 18px;
+		border-radius: 50%; border: 1px solid var(--line); color: var(--muted);
+		font-size: 0.7rem; font-weight: 700; text-decoration: none;
+	}
+	.legend-help:hover { border-color: var(--brand); color: var(--brand); }
 </style>

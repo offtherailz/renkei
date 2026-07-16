@@ -12,16 +12,60 @@ export interface FacetMeta {
 	field: FacetField;
 	icon: string;
 	label: string;
+	desc: string; // cos'è questa abilità
+	train: string; // come si rafforza nell'app
 }
 
 export const FACET_META: FacetMeta[] = [
-	{ field: 'facet_meaning_r', icon: '💡', label: 'Capire' },
-	{ field: 'facet_meaning_p', icon: '🎯', label: 'Recuperare' },
-	{ field: 'facet_form_read', icon: '📖', label: 'Leggere' },
-	{ field: 'facet_form_write', icon: '✍️', label: 'Scrivere' },
-	{ field: 'facet_form_listen', icon: '👂', label: 'Ascoltare' },
-	{ field: 'facet_form_speak', icon: '🎤', label: 'Dire' },
-	{ field: 'facet_use', icon: '🧩', label: 'Usare' }
+	{
+		field: 'facet_meaning_r',
+		icon: '💡',
+		label: 'Capire',
+		desc: 'Vedi la parola giapponese e ne riconosci il significato.',
+		train: 'Domande «cosa significa?» a scelta multipla e flashcard nel quiz.'
+	},
+	{
+		field: 'facet_meaning_p',
+		icon: '🎯',
+		label: 'Recuperare',
+		desc: 'Dal significato italiano ti viene in mente la parola giapponese.',
+		train: 'Flashcard inverse (IT → JP) nel quiz, dallo stage 2.'
+	},
+	{
+		field: 'facet_form_read',
+		icon: '📖',
+		label: 'Leggere',
+		desc: 'Sai leggere la parola scritta in kanji (la sua pronuncia).',
+		train: 'Domande «come si legge?» nel quiz e i giochi di lettura.'
+	},
+	{
+		field: 'facet_form_write',
+		icon: '✍️',
+		label: 'Scrivere',
+		desc: 'Sai comporre la parola coi suoi kanji/kana, non solo riconoscerla.',
+		train: 'Composizione carattere per carattere (arriva a parola consolidata, stage 4+).'
+	},
+	{
+		field: 'facet_form_listen',
+		icon: '👂',
+		label: 'Ascoltare',
+		desc: 'Riconosci la parola quando la senti, senza vederla scritta.',
+		train: 'Domande di solo ascolto nel quiz (dallo stage 1) e i giochi di ascolto.'
+	},
+	{
+		field: 'facet_form_speak',
+		icon: '🎤',
+		label: 'Dire',
+		desc: 'Sai pronunciarla a voce, recuperandola da solo.',
+		train: 'Produzione al microfono (stage 3+) e le avventure parlate.'
+	},
+	{
+		field: 'facet_use',
+		icon: '🧩',
+		label: 'Usare',
+		desc: 'Sai metterla in una frase: particella giusta, forma giusta, contesto giusto.',
+		train: 'Cloze di particelle, coniugazione e frasi nel quiz, dallo stage 2.'
+	}
 ];
 
 // Modo di domanda → sfaccettatura che allena. null = la domanda non riguarda

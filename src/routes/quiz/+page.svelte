@@ -6,8 +6,8 @@
 	import { loadWeakItems } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet } from '$lib/core/srs';
-	import { facetOfMode } from '$lib/core/facets';
+	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
+	import { facetOfMode, facetsToTrain } from '$lib/core/facets';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
@@ -136,27 +136,40 @@
 
 	const hasTts = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
+	// Selezione del modo guidata dalle sfaccettature (modello Nation): tra le
+	// celle applicabili alla parola e sbloccate allo stage attuale, si insiste
+	// su quella meno sviluppata (con un po' di casualità per non essere monotoni:
+	// si pesca tra le 2 più deboli, mai la stessa cella due volte di fila).
+	// Le celle senza un modo in questa rosa (Usare → speciali conjugation/
+	// particle-cloze; Dire/Scrivere → modalità future) restano fuori qui.
+	let lastFacetPicked: FacetField | null = null;
+	const MODE_BY_FACET: Partial<Record<FacetField, (FlashcardQuestion['mode'] | 'multiple-choice' | 'listening')[]>> = {
+		facet_meaning_r: ['flashcard-recognition', 'multiple-choice'],
+		facet_meaning_p: ['flashcard-production'],
+		facet_form_read: ['flashcard-reading-recognition'],
+		facet_form_listen: ['listening']
+	};
+
 	function pickWordMode(stage: number, word: Word): FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' {
-		// reading-recognition è tautologica per parole in sola kana (それほど→それほど):
-		// serve un kanji per avere senso (lettura → scrittura kanji).
-		const hasKanji = word.kanji_usati.length > 0 && word.scrittura !== word.lettura;
-		// Ascolto: skill separata, entra in rotazione dallo stage 1.
-		if (!appState.quizMuted && hasTts && stage >= 1 && Math.random() < 0.15) return 'listening';
-		if (stage <= 1) {
-			const r = Math.random();
-			if (r < (hasKanji ? 0.45 : 0)) return 'flashcard-reading-recognition';
-			return r < 0.6 ? 'flashcard-recognition' : 'multiple-choice';
+		const row = getSrs(`word:${word.id}`);
+		let candidates = facetsToTrain(word, stage, row ?? {}).filter((f) => {
+			const modes = MODE_BY_FACET[f];
+			if (!modes) return false;
+			if (f === 'facet_form_listen' && (appState.quizMuted || !hasTts)) return false;
+			// reading-recognition tautologica senza kanji (それほど→それほど) — già
+			// esclusa da applicableFacets (full-kana), doppia guardia qui.
+			if (f === 'facet_form_read' && word.kanji_usati.length === 0) return false;
+			return true;
+		});
+		if (candidates.length > 1 && lastFacetPicked) {
+			const filtered = candidates.filter((f) => f !== lastFacetPicked);
+			if (filtered.length > 0) candidates = filtered;
 		}
-		if (stage <= 3) {
-			const r = Math.random();
-			if (hasKanji && r < 0.3) return 'flashcard-reading-recognition';
-			// produzione inversa (IT→JP) entra da stage 2
-			if (r < 0.45) return 'flashcard-production';
-			return r < 0.75 ? 'multiple-choice' : 'flashcard-recognition';
-		}
-		if (hasKanji && Math.random() < 0.25) return 'flashcard-reading-recognition';
-		if (Math.random() < 0.25) return 'flashcard-recognition';
-		return Math.random() < 0.6 ? 'flashcard-production' : 'multiple-choice';
+		if (candidates.length === 0) return 'multiple-choice';
+		const pick = candidates.length === 1 || Math.random() < 0.7 ? candidates[0]! : candidates[1]!;
+		lastFacetPicked = pick;
+		const modes = MODE_BY_FACET[pick]!;
+		return modes[Math.floor(Math.random() * modes.length)]!;
 	}
 
 	function getActivePool(): ItemRef[] {
