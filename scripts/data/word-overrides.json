@@ -4957,7 +4957,8 @@
     "no",
     "not at all"
    ]
-  }
+  },
+  "tipo_jp": "感動詞[かんどうし]"
  },
  "うち": {
   "frasi_esempio": [
@@ -5011,7 +5012,8 @@
    "en": [
     "yes"
    ]
-  }
+  },
+  "tipo_jp": "感動詞[かんどうし]"
  },
  "おじいさん": {
   "frasi_esempio": [
@@ -8741,7 +8743,8 @@
     "Ah!",
     "Oh!"
    ]
-  }
+  },
+  "tipo_jp": "感動詞[かんどうし]"
  },
  "あそこ": {
   "significato": {
@@ -9334,7 +9337,8 @@
      "en": "Come on, let's begin!"
     }
    }
-  ]
+  ],
+  "tipo_jp": "感動詞[かんどうし]"
  },
  "じゃ; じゃあ": {
   "significato": {
@@ -9362,7 +9366,8 @@
      "en": "Well, let's begin."
     }
    }
-  ]
+  ],
+  "tipo_jp": "接続詞[せつぞくし]"
  },
  "ズボン": {
   "significato": {
