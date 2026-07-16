@@ -568,3 +568,36 @@ Pannello "Consolidamento per skill" in /stats:
 - `scripts/data/kanji-it.json` — significati kanji en→it (766 voci).
 - `scripts/data/usi-it.json` — glosse (1099) ed esempi (536) della sezione "Usi" in italiano, chiavati sul testo inglese JMdict (robusti ai riordini dei sensi); applicati da `translateUsi` nel sync. Gli esempi sono tradotti dal testo giapponese, l'EN è solo chiave.
 - `scripts/data/iikae-n5n4.json` — gruppi 言い換え (29, sinonimi curati collegati bidirezionalmente nel seed via `applyIikaeGroups`) + item quiz stile JLPT usati dal gioco `/iikae` (import diretto del JSON a build time).
+
+## Punteggio per entità e sfaccettature Nation (2026-07-16)
+
+Il quiz non scarica più tutto sul punteggio della parola: ogni domanda accredita **l'entità che
+testa davvero**. Entità in `srs_progress` (prefisso `kind:`):
+
+- `word:` — SRS vero (stage+mastery), selezionato dal pool.
+- `conj:<classe>` (godan/ichidan/irregular/i-keiyoushi/na-keiyoushi), `particella:<X>`,
+  `gram:<slug di GRAMMAR_FORMS>` (costruzioni: potenziale, passiva, causativa, condizionali,
+  composte…), `phrase:` — **solo pratica** (`applyPracticeReview`, mai stage): fuori dal pool e
+  dai conteggi "dovuti", visibili in punti deboli (normalizzazione practice-only) e allenabili
+  con drill dedicati (`/consolida/conj:*|particella:*|gram:*`, 💪 sulle card di /forme,
+  /particelle, /forme-composte). Le domande di coniugazione/cloze di forma accreditano classe
+  **e** costruzione (via `formKey` → `CONSTRUCTION_BY_FORM_KEY`), e alla parola spostano solo
+  `next_review_date` (`touchReviewDate`).
+
+**Sfaccettature (Paul Nation)** — campi opzionali `facet_*` su `SrsProgress` della parola
+(`src/lib/core/facets.ts`): 💡 Capire, 🎯 Recuperare, 📖 Leggere, ✍️ Scrivere, 👂 Ascoltare,
+🎤 Dire, 🧩 Usare. Ogni modo di domanda ha un tag (`facetOfMode`); `applicableFacets(word)`
+esclude le celle senza senso (full-kana → niente 📖; idiomi → niente ✍️); `FACET_UNLOCK_STAGE`
+scagliona le difficili (🎤 st.3, ✍️ st.4). La selezione del modo (`pickWordMode`) insiste sulla
+cella applicabile+sbloccata più debole — mai per lo scheduling della parola. Vista: radar di
+Kiviat (`FacetRadar.svelte`) nella scheda, solo assi applicabili; pagina spiegazione
+`/sfaccettature`. I controlli utente F2/F3 (La so già `markKnown`, Rimanda `snoozeReview`,
+Seppellisci `setBuried` + flag `buried` escluso da pool/conteggi/deboli) vivono nella card
+Memorizzazione.
+
+**Giochi/avventure**: `recordPractice(entità, correct, facet?)` (`practiceMiss.ts`) — Q&A
+discreta a delta pieno (keigo → 🧩, iikae → 🎯), orale fuzzy con `recordSpokenPractice`
+(+2 solo positivo, 🎤; shadowing). `recordPracticeMiss` resta come wrapper compat per le
+avventure non ancora agganciate. Punti deboli: solo item con `lapses>0` (le carte nuove non
+sono "deboli"). Audit linguistico delle domande generate:
+`AUDIT=1 npx vitest run src/lib/quiz/questionAudit.test.ts` → `plans/question-audit-sample.md`.

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import raw from '../../../scripts/data/iikae-n5n4.json';
 
@@ -79,12 +79,10 @@
 		const parola = r.kind === 'frase' ? r.item.parola : r.corretta;
 		const hit = await findWord(parola);
 		detailHref = hit?.detailHref ?? null;
-		if (choice === r.corretta) {
-			score += 1;
-		} else if (hit) {
-			// l'errore alimenta i punti deboli, come nelle avventure
-			await recordPracticeMiss('word:' + hit.id);
-		}
+		if (choice === r.corretta) score += 1;
+		// scelta discreta: delta pieno, successi E errori; il 言い換え è
+		// recupero del significato → alimenta la cella 🎯 della parola
+		if (hit) await recordPractice('word:' + hit.id, choice === r.corretta, 'facet_meaning_p');
 	}
 
 	function next(): void {

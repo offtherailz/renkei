@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPracticeMiss, recordSpokenPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapaneseAsync } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
@@ -138,6 +138,8 @@
 			streak += 1;
 			if (streak > best) { best = streak; isRecord = true; }
 			if (firstAttempt) firstTryOk += 1;
+			// orale fuzzy: credito piccolo e solo positivo (cella 🎤)
+			await recordSpokenPractice('phrase:' + r.phrase.jp, true);
 		} else {
 			streak = 0;
 			if (!roundMissed) {

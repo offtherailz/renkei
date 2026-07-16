@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS, KEIGO_REQUEST_ITEMS } from '$lib/core/keigo';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, sentenceMatchVariants } from '$lib/core/speech';
@@ -127,7 +127,9 @@
 			const hit = await findWord(r.parola);
 			if (hit) {
 				detailHref = hit.detailHref;
-				if (choice !== r.corretta) await recordPracticeMiss('word:' + hit.id);
+				// scelta discreta: delta pieno, successi E errori; il keigo è
+				// Uso·registro → alimenta la cella 🧩 della parola
+				await recordPractice('word:' + hit.id, choice === r.corretta, 'facet_use');
 			}
 		}
 		if (choice === r.corretta) score += 1;
