@@ -164,6 +164,14 @@ Da `2026-07-15-note-utente-quiz-e-dati.md`:
 Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecnici
 (l'insegnante non scrive JSON a mano). Richiede discussione sull'approccio.
 
+### Migliorie segnate (16/07, da fare poi)
+- **Piano di oggi: sistema di completamento** — le voci del piano (ripassi, punti deboli, attività
+  del giorno) dovrebbero segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
+- **Furigana attivabili (toggle globale)** — fase 1 (facile): setting in Impostazioni, `FuriganaText`
+  rende ruby/testo piano dove la notazione 漢字[よみ] già esiste (dialoghi, forme, schede). Fase 2
+  (dati): annotare le frasi d'esempio delle parole riusando il matcher frase→parole del pipeline
+  (tokenizer + verifica coniugazione); mai furigana indovinata da letture ON/kun ambigue.
+
 ### Blocco F — Ripasso attivo dei punti deboli + leech (deciso 16/07, da progettare)
 Nasce da: «consolida singolo non fa quasi nulla» + «serve un modo per rimandare ciò che non entra».
 - **F1 — "Ripasso punti deboli"** ✅ (16/07): modalità del quiz vero, `/quiz?deboli=1` — stessa UI
@@ -182,3 +190,10 @@ Nasce da: «consolida singolo non fa quasi nulla» + «serve un modo per rimanda
   - **Twist facet**: seppellire la **singola sfaccettatura** leech (non sai *produrre* ma *riconosci*),
     non l'intera parola — abilitato dal tracciamento per-cella. Verificare i meccanismi pausa/suspend
     già esistenti (`isPlanKey`/attivi) prima di aggiungerne.
+- **F3 — «La so già»** (idea 16/07): l'altra faccia del leech — l'utente ha basi pregresse, oggi ogni
+  carta parte da stage 0 (8 stage di ripassi anche per parole note da anni; post-reset 1400 carte
+  "nuove"). Bottone «✓ La so già»: 1) nel quiz all'introduzione di una carta mai vista, 2) nella
+  scheda dettaglio, 3) eventualmente riga vocabolario (triage di massa). Effetto: stage → 5 (~7g),
+  mastery +60, niente XP, NON consuma il budget carte-nuove. Non stage 7: un ripasso ogni tanto
+  verifica la pretesa; se poi sbagli scende normalmente (autocorrezione). Con A4: alza la base, le
+  sfaccettature (parlato, scrittura…) restano da dimostrare.
