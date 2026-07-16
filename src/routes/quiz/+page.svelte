@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { goto } from '$app/navigation';
+	import { goto, beforeNavigate } from '$app/navigation';
 	import { db } from '$lib/db/schema';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
@@ -849,6 +849,19 @@
 		}
 		endSession();
 	}
+
+	// Guardia uscita: con una sessione attiva, il tasto Indietro del browser (o un
+	// link) faceva uscire in silenzio. Ora chiediamo conferma — TRANNE quando si va
+	// in Approfondisci (navigazione voluta durante il quiz): da lì si torna libero,
+	// e da Approfondisci/detail al quiz non c'è guardia. 'leave' (chiudi tab) resta
+	// al browser.
+	beforeNavigate((nav) => {
+		if (!session || nav.type === 'leave') return;
+		if (nav.to?.url.pathname.endsWith('/approfondisci')) return;
+		if (!window.confirm('Uscire dalla sessione di studio? I progressi restano salvati.')) {
+			nav.cancel();
+		}
+	});
 
 	// Apre la pagina Approfondisci: mette in pausa la sessione e ci porta tutti
 	// gli elementi della domanda (argomento, distrattori con glosse, frase).
