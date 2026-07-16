@@ -1295,14 +1295,14 @@
 			</button>
 			{#if !quiz.answered}
 				<button
-					class="ghost-btn"
+					class="ghost-btn {sessionPaused ? 'ctrl-resume' : 'ctrl-pause'}"
 					onclick={toggleSessionPause}
 					title={sessionPaused ? 'Riprendi la sessione' : 'Metti in pausa: nasconde la domanda e ferma i timer'}
 				>
 					{sessionPaused ? '▶️' : '⏸️'}
 				</button>
 			{/if}
-			<button class="ghost-btn" onclick={confirmEndSession} title="Termina sessione">⏹️</button>
+			<button class="ghost-btn ctrl-stop" onclick={confirmEndSession} title="Termina sessione">⏹️</button>
 		</div>
 	</div>
 
@@ -1734,6 +1734,14 @@
 		color: var(--danger);
 	}
 	.ghost-btn.muted-on:hover { background: var(--danger-bg); }
+
+	/* Controlli sessione: colore semantico a colpo d'occhio. */
+	.ghost-btn.ctrl-pause { background: var(--warn-bg); border-color: var(--warn-border); }
+	.ghost-btn.ctrl-pause:hover { background: var(--warn-bg); }
+	.ghost-btn.ctrl-resume { background: var(--ok-bg); border-color: var(--success); }
+	.ghost-btn.ctrl-resume:hover { background: var(--ok-bg); }
+	.ghost-btn.ctrl-stop { background: var(--danger-bg); border-color: var(--danger); }
+	.ghost-btn.ctrl-stop:hover { background: var(--danger-bg); }
 
 	.quiz-meta {
 		font-size: 0.7rem;
