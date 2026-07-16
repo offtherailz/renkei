@@ -23,7 +23,8 @@
 	} from '$lib/quiz/engine';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import { choicesOf, correctOf, promptOf } from '$lib/quiz/questionView';
-	import { DEFAULT_KNOWN_FORMS, conjClassKey, CONJ_CLASS_LABELS } from '$lib/core/conjugation';
+	import { DEFAULT_KNOWN_FORMS, conjClassKey, CONJ_CLASS_LABELS, CONSTRUCTION_BY_FORM_KEY } from '$lib/core/conjugation';
+	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
@@ -117,6 +118,38 @@
 				}
 			}
 			queue = qs;
+			loading = false;
+			return;
+		}
+
+		// Costruzione (gram:kanou…): coniugazioni di QUELLA forma su più parole.
+		if (kind === 'gram') {
+			const formKeys = new Set(
+				Object.entries(CONSTRUCTION_BY_FORM_KEY)
+					.filter(([, slug]) => slug === rawId)
+					.map(([key]) => key)
+			);
+			if (formKeys.size > 0) {
+				classDrillSub = 'Uso della costruzione';
+				srsTarget = `gram:${rawId}`;
+				title = GRAMMAR_FORMS.find((f) => f.slug === rawId)?.title ?? rawId;
+				const row = await db.srs_progress.get(srsTarget);
+				if (row) classDrillPct = normalizePracticeOnlyMastery(row.mastery_points);
+				const pool = shuffle(words.filter((w) => w.tipo_jp.startsWith('動詞') || w.tipo_jp.startsWith('形容詞')));
+				const qs: QuizQuestion[] = [];
+				const seen = new Set<string>();
+				for (const w of pool.slice(0, 40)) {
+					if (qs.length >= 6) break;
+					const q = createConjugationQuizQuestion(w, formKeys);
+					// il builder può ricadere sulle forme base se la parola non ha
+					// questa forma: si accettano solo domande della forma richiesta
+					if (q && formKeys.has(q.formKey) && !seen.has(q.dictionary)) {
+						seen.add(q.dictionary);
+						qs.push(q);
+					}
+				}
+				queue = qs;
+			}
 			loading = false;
 			return;
 		}

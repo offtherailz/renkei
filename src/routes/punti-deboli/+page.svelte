@@ -15,7 +15,8 @@
 		kanji: { icon: '漢', label: 'Kanji' },
 		phrase: { icon: '🗣️', label: 'Frasi' },
 		conj: { icon: '🔄', label: 'Coniugazione' },
-		particella: { icon: '🪝', label: 'Particelle' }
+		particella: { icon: '🪝', label: 'Particelle' },
+		gram: { icon: '🧩', label: 'Costruzioni' }
 	};
 	function kindMeta(k: string): { icon: string; label: string } {
 		return KIND_META[k] ?? { icon: '❓', label: 'Altro' };

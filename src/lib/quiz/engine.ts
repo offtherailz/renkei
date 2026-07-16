@@ -727,6 +727,7 @@ export function createConjugationQuizQuestion(
     wordId: word.id,
     dictionary: q.dictionary,
     formLabel: q.prompt,
+    formKey: q.key,
     choices: shuffle(q.choices),
     correctChoice: q.correct
   };

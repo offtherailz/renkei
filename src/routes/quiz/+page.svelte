@@ -29,7 +29,7 @@
 		calculateQuizXp,
 		shuffle
 	} from '$lib/quiz/engine';
-	import { DEFAULT_KNOWN_FORMS, buildConjugationTable, conjClassKey } from '$lib/core/conjugation';
+	import { DEFAULT_KNOWN_FORMS, buildConjugationTable, conjClassKey, CONSTRUCTION_BY_FORM_KEY } from '$lib/core/conjugation';
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
@@ -1077,6 +1077,11 @@
 			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
 			const classKey = word ? conjClassKey(word) : null;
 			if (classKey) await upsertPracticeOnly(classKey, correct);
+			// Se la forma è una COSTRUZIONE con significato proprio (potenziale,
+			// passiva, causativa, condizionali…), accredita anche gram:<slug>:
+			// così "come vado col potenziale" ha un punteggio suo.
+			const gramSlug = CONSTRUCTION_BY_FORM_KEY[(quiz.question as ConjugationQuizQuestion).formKey];
+			if (gramSlug) await upsertPracticeOnly(`gram:${gramSlug}`, correct);
 			await touchWordReviewDate(quiz.itemRef.key);
 		} else if (quiz.question.mode === 'particle-cloze') {
 			// La particella è una proprietà DELLA PARTICELLA, non della parola:

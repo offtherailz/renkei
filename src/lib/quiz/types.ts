@@ -132,6 +132,7 @@ export interface ConjugationQuizQuestion {
   wordId: string;
   dictionary: string;
   formLabel: string;
+  formKey: string; // chiave della forma (potential, te, ba…) per il credito gram:*
   choices: string[];
   correctChoice: string;
 }

@@ -283,10 +283,28 @@ export function conjugateAdjective(dictionary: string, type: AdjectiveType): Con
 
 export interface ConjugationQuestion {
 	prompt: string; // es. "forma て"
+	key: string; // chiave della forma (potential, te, ba…), vedi DRILL_FORMS
 	dictionary: string;
 	correct: string;
 	choices: string[]; // 4, mescolate a cura del chiamante
 }
+
+// Forme che sono COSTRUZIONI con significato proprio (schede di /forme-composte):
+// la domanda di coniugazione su queste accredita anche l'entità gram:<slug>,
+// così il progresso sulla forma potenziale/passiva/causativa… è visibile a sé.
+// Chiave forma → slug GRAMMAR_FORMS.
+export const CONSTRUCTION_BY_FORM_KEY: Record<string, string> = {
+	potential: 'kanou',
+	passive: 'ukemi',
+	causative: 'shieki',
+	ba: 'ba',
+	'adj-ba': 'ba',
+	tara: 'tara',
+	volitional: 'you-volitiva',
+	tai: 'tai',
+	teiru: 'te-iru',
+	naru: 'naru'
+};
 
 function uniqueNonEmpty(values: (string | null | undefined)[], correct: string): string[] {
 	return [...new Set(values)].filter((v): v is string => Boolean(v) && v !== correct);
@@ -364,6 +382,7 @@ export function buildVerbQuestions(word: Word, allowed?: Set<string>): Conjugati
 			];
 			const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
 			return {
+				key: form.key,
 				prompt: form.label,
 				dictionary: word.scrittura,
 				correct: form.value,
@@ -403,6 +422,7 @@ export function buildAdjectiveQuestions(word: Word, allowed?: Set<string>): Conj
 			];
 			const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
 			return {
+				key: form.key,
 				prompt: form.label,
 				dictionary: word.scrittura,
 				correct: form.value,
@@ -483,6 +503,8 @@ export function buildComposedFormQuestions(word: Word): ConjugationQuestion[] {
 		];
 		const distractors = uniqueNonEmpty(wrong, form.value).slice(0, 3);
 		return {
+			// per le forme composte la chiave È lo slug della costruzione (te-miru…)
+			key: form.slug,
 			prompt: form.label,
 			dictionary: word.scrittura,
 			correct: form.value,

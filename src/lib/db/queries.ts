@@ -1,6 +1,7 @@
 import { db } from './schema';
 import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
+import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
 export interface ObjectiveSummary {
@@ -207,8 +208,9 @@ const CONJ_FORME_SLUG: Record<string, string> = {
 // Kind "solo pratica": non hanno mai uno srs_stage vero (resta 0), quindi il
 // peso 70/30 con lo stage li terrebbe bloccati sotto soglia a vita. Per questi
 // la padronanza è tutta nei mastery_points. 'phrase' (avventure/giochi a voce)
-// e 'conj' (coniugazione per classe) e 'particella' (contatori di sola pratica).
-const practiceOnlyKinds = new Set(['phrase', 'conj', 'particella']);
+// e 'conj' (coniugazione per classe), 'particella' e 'gram' (costruzioni:
+// potenziale, passiva, condizionali…) — contatori di sola pratica.
+const practiceOnlyKinds = new Set(['phrase', 'conj', 'particella', 'gram']);
 function pctFor(r: SrsProgress): number {
 	const kind = r.id_item.includes(':') ? r.id_item.split(':')[0] : 'word';
 	return practiceOnlyKinds.has(kind)
@@ -255,6 +257,9 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 		} else if (kind === 'particella') {
 			label = `Particella ${raw}`;
 			href = `particelle#${encodeURIComponent(raw)}`;
+		} else if (kind === 'gram') {
+			label = GRAMMAR_FORMS.find((f) => f.slug === raw)?.title ?? raw;
+			href = `forme-composte#${raw}`;
 		}
 		out.push({ kind, raw, label, href, pct });
 	}

@@ -1,11 +1,29 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { GRAMMAR_FORMS, ATTACHMENT_SCHEMAS, formPage, type GrammarForm } from '$lib/data/grammarForms';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { scrollToAnchor } from '$lib/core/scroll';
+	import { db } from '$lib/db/schema';
+	import { CONSTRUCTION_BY_FORM_KEY } from '$lib/core/conjugation';
+	import { normalizePracticeOnlyMastery } from '$lib/core/srs';
+
+	// Costruzioni con un drill di coniugazione (gram:*): quelle raggiungibili
+	// dalle forme flesse del coniugatore (potenziale, passiva, condizionali…).
+	const DRILLABLE = new Set(Object.values(CONSTRUCTION_BY_FORM_KEY));
+	let drillPct = $state<Record<string, number>>({});
+	onMount(async () => {
+		const pct: Record<string, number> = {};
+		for (const slug of DRILLABLE) {
+			const row = await db.srs_progress.get(`gram:${slug}`);
+			if (row) pct[slug] = normalizePracticeOnlyMastery(row.mastery_points);
+		}
+		drillPct = pct;
+	});
 
 	const composedForms = GRAMMAR_FORMS.filter((f) => f.composed);
 
@@ -35,10 +53,9 @@
 
 	function scrollToHash(): void {
 		const slug = $page.url.hash.replace('#', '');
-		if (!slug) return;
-		document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (slug) scrollToAnchor(slug);
 	}
-	onMount(scrollToHash);
+	afterNavigate(scrollToHash);
 	$effect(() => { void $page.url.hash; scrollToHash(); });
 </script>
 
@@ -79,6 +96,11 @@
 					<h2 class="form-title">{form.title}</h2>
 					<p class="form-label"><FuriganaText text={form.label} /></p>
 				</div>
+				{#if DRILLABLE.has(form.slug)}
+					<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`gram:${form.slug}`)}" title="Drill di questa costruzione{drillPct[form.slug] !== undefined ? ` — padronanza ${drillPct[form.slug]}%` : ''}">
+						💪{#if drillPct[form.slug] !== undefined}<small class="drill-pct">{drillPct[form.slug]}%</small>{/if}
+					</a>
+				{/if}
 			</div>
 			<p class="form-summary">{form.summary}</p>
 
@@ -191,6 +213,13 @@
 		scroll-margin-top: 12px;
 	}
 	.form-head { display: flex; align-items: center; gap: 12px; }
+	.drill-link {
+		margin-left: auto; display: inline-flex; align-items: center; justify-content: center; gap: 3px;
+		min-width: 36px; height: 36px; padding: 0 8px; border-radius: 10px;
+		border: 1px solid var(--line); text-decoration: none; font-size: 1.1rem;
+	}
+	.drill-link:hover { border-color: var(--brand); background: rgba(107, 160, 242, 0.14); }
+	.drill-pct { font-size: 0.68rem; font-weight: 700; color: var(--muted); }
 	.form-icon { font-size: 1.8rem; }
 	.form-title { margin: 0; font-size: 1.05rem; font-weight: 700; }
 	.form-label { margin: 2px 0 0; font-size: 0.9rem; color: var(--muted); }
