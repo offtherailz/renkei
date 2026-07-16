@@ -501,9 +501,22 @@ export async function createClozeQuestion(
     tokens.find((token) => /[ぁ-んァ-ヶ一-龯]/.test(token) && token.length > 0 && token.length < plainSentence.length) ||
     (plainSentence.length > 1 ? plainSentence.slice(-1) : plainSentence);
 
-  const distractorChoices = buildDistractors(jlptLevel, distractorIndex, "", 3)
+  // Distrattori della STESSA categoria: pezzi di altre strutture grammaticali,
+  // simili per lunghezza — pescare parole dal vocabolario faceva risolvere
+  // quasi ogni cloze per esclusione di categoria (audit dell'insegnante).
+  // Fallback alle parole solo se le strutture non bastano.
+  const grammarChunks = [...context.grammarById.values()]
+    .filter((g) => g.id !== source.grammar.id)
+    .map((g) => stripFuriganaNotation(g.struttura ?? "").replace(/[〜~]/g, "").trim())
+    .flatMap((st) => st.split(GRAMMAR_STRUCTURE_SPLIT_REGEX))
+    .map((part) => part.trim())
+    .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part) && part !== fallbackTarget)
+    .filter((part) => Math.abs(part.length - fallbackTarget.length) <= 2);
+  const fromGrammar = shuffle([...new Set(grammarChunks)]).slice(0, 3);
+  const fromWords = buildDistractors(jlptLevel, distractorIndex, "", 3)
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v));
+  const distractorChoices = [...fromGrammar, ...fromWords].filter((v) => v !== fallbackTarget).slice(0, 3);
 
   let blanked = blankClozeTarget(source.example.testo, fallbackTarget);
   if (stripFuriganaNotation(blanked).trim() === "___") {
@@ -527,6 +540,14 @@ const MOTION_VERB_STEMS = ["行", "来", "帰", "戻", "向か", "出発", "到�
 
 function hasMotionVerb(sentence: string): boolean {
   return MOTION_VERB_STEMS.some((stem) => sentence.includes(stem));
+}
+
+// Verbi di attraversamento/percorso: を e で sono spesso ENTRAMBI grammaticali
+// (公園を散歩する／公園で散歩する) — mai proporli l'uno come distrattore
+// dell'altro in quel contesto (audit dell'insegnante).
+const PATH_VERB_STEMS = ['散歩', '歩', '走', '通', '渡', '飛', '曲が', '泳'];
+function hasPathVerb(sentence: string): boolean {
+  return PATH_VERB_STEMS.some((stem) => sentence.includes(stem));
 }
 
 export async function createParticleClozeQuestion(
@@ -576,6 +597,18 @@ export async function createParticleClozeQuestion(
   // quel contesto, altrimenti il quiz boccia una risposta che va bene.
   if ((hit.particle === "に" || hit.particle === "へ") && hasMotionVerb(sentence)) {
     distractors = distractors.filter((p) => p !== "に" && p !== "へ");
+  }
+  // まで è spesso accettabile dove va へ/に coi verbi di moto (図書館へ/まで行く).
+  if ((hit.particle === "へ" || hit.particle === "に" || hit.particle === "まで") && hasMotionVerb(sentence)) {
+    distractors = distractors.filter((p) => p !== "まで" && p !== "へ" && p !== "に");
+  }
+  // を/で con i verbi di percorso: entrambe grammaticali (公園を/で散歩).
+  if ((hit.particle === "を" || hit.particle === "で") && hasPathVerb(sentence)) {
+    distractors = distractors.filter((p) => p !== "を" && p !== "で");
+  }
+  // から/より: nel senso di punto di partenza より è variante formale di から.
+  if (hit.particle === "から") {
+    distractors = distractors.filter((p) => p !== "より");
   }
   distractors = distractors.slice(0, 3);
   if (distractors.length < 2) return null;
@@ -745,12 +778,14 @@ export function createTransitivityPairQuestion(
   const pairSameForm = pairForms.find((f) => f.key === hit.key)?.value;
   if (!pairSameForm || pairSameForm === hit.value) return null;
 
-  // Domanda mirata: "パソコンが＿＿" — si estrae nome+particella (が/を)
-  // subito prima del verbo nella frase reale, e le opzioni sono i due
-  // gemelli della coppia nella stessa forma (più un filler).
-  const prefix = sentence.slice(0, sentence.indexOf(hit.value));
-  const nounMatch = prefix.match(/([一-龯ぁ-んァ-ヶーA-Za-z0-9]{1,8})([がを])\s*$/);
-  if (!nounMatch) return null;
+  // La particella subito prima del verbo (が/を) è l'indizio pedagogico: serve
+  // che ci sia, ma la frase va mostrata INTERA col buco — l'estratto
+  // nome+particella troncava la testa a metà parola (りの部屋から…) e amputava
+  // la coda (…てもいいですか), creando frammenti sospesi e vere ambiguità
+  // (audit dell'insegnante).
+  const at = sentence.indexOf(hit.value);
+  const prefix = sentence.slice(0, at);
+  if (!/([一-龯ぁ-んァ-ヶーA-Za-z0-9]{1,8})([がを])\s*$/.test(prefix)) return null;
 
   const filler = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
     .map((f) => f.value)
@@ -760,7 +795,7 @@ export function createTransitivityPairQuestion(
   return {
     mode: "transitivity-pair",
     wordId: word.id,
-    sentenceWithBlank: `${nounMatch[1]}${nounMatch[2]}${USAGE_BLANK}`,
+    sentenceWithBlank: `${prefix}${USAGE_BLANK}${sentence.slice(at + hit.value.length)}`,
     fullSentence: sentence,
     translation: pickLocalizedText(example.traduzione, locale),
     choices: shuffle([hit.value, pairSameForm, ...filler]),
@@ -826,7 +861,9 @@ export function createConjugationQuizQuestion(
     mode: "conjugation",
     wordId: word.id,
     dictionary: q.dictionary,
-    formLabel: q.prompt,
+    // via le desinenze esplicite dal prompt («Passato negativo (〜くなかった)»
+    // rivelava la risposta — audit): restano i nomi di forma (た形, ば形…)
+    formLabel: q.prompt.replace(/\s*[（(]〜[^)）]*[)）]/g, "").trim(),
     formKey: q.key,
     choices: shuffle(q.choices),
     correctChoice: q.correct

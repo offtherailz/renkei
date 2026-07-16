@@ -5,1502 +5,1428 @@ Generato con AUDIT=1 da questionAudit.test.ts — 40 domande per modalità, paro
 ## multiple-choice (significato) (40)
 
 - **multiple-choice**
-  - prompt: 夏
-  - scelte: sei giorni ・ estate ・ chitarra ・ là
-  - ✅ corretta: estate
+  - prompt: 深い
+  - scelte: moglie (mia) ・ salutare ・ speciale ・ profondo
+  - ✅ corretta: profondo
 - **multiple-choice**
-  - prompt: 事
-  - scelte: conversazione ・ consegnare ・ fare: presenza ・ cosa
-  - ✅ corretta: cosa
+  - prompt: 下げる
+  - scelte: abbassare ・ importante ・ futon ・ aria
+  - ✅ corretta: abbassare
 - **multiple-choice**
-  - prompt: どれ
-  - scelte: sapere ・ quale (fra tre o più) ・ matita ・ va bene
-  - ✅ corretta: quale (fra tre o più)
+  - prompt: なるべく
+  - scelte: esserci/venire (onorifico) ・ da tanto tempo ・ diploma ・ possibilmente
+  - ✅ corretta: possibilmente
 - **multiple-choice**
-  - prompt: 肉
-  - scelte: matita ・ carne ・ alzare ・ bagaglio
-  - ✅ corretta: carne
+  - prompt: 会う
+  - scelte: nonno ・ incontrare ・ arrivare ・ zero
+  - ✅ corretta: incontrare
 - **multiple-choice**
-  - prompt: だめ
-  - scelte: nonno (mio) ・ tutti ・ a … piani ・ inutile
-  - ✅ corretta: inutile
+  - prompt: 次
+  - scelte: fare ・ fare: lavoro ・ prossimo ・ stanza
+  - ✅ corretta: prossimo
+- **multiple-choice**
+  - prompt: パン
+  - scelte: notte ・ ciotola (per il riso) ・ pane ・ mare
+  - ✅ corretta: pane
+- **multiple-choice**
+  - prompt: 練習する
+  - scelte: nuotare ・ fare: allenamento ・ bagno ・ come
+  - ✅ corretta: fare: allenamento
+- **multiple-choice**
+  - prompt: 海岸
+  - scelte: costa ・ amaro ・ linea ・ dito
+  - ✅ corretta: costa
+- **multiple-choice**
+  - prompt: ボールペン
+  - scelte: rimettiti presto ・ carne di maiale ・ penna a sfera ・ alzarsi in piedi
+  - ✅ corretta: penna a sfera
 - **multiple-choice**
   - prompt: 置く
-  - scelte: carne di manzo ・ burro ・ dieci (cose) ・ mettere
+  - scelte: nome ・ grazie per il pasto (a fine pasto) ・ mettere ・ vicino
   - ✅ corretta: mettere
 - **multiple-choice**
-  - prompt: それほど
-  - scelte: bagnarsi ・ preparazione ・ fare: presentazione (di persone) ・ così tanto
-  - ✅ corretta: così tanto
+  - prompt: 再来週
+  - scelte: continuare (qualcosa) ・ filo ・ fra due settimane ・ tempi antichi
+  - ✅ corretta: fra due settimane
 - **multiple-choice**
-  - prompt: 質問
-  - scelte: io (formale) ・ dieci (cose) ・ domanda ・ metropolitana
-  - ✅ corretta: domanda
+  - prompt: かしこまりました
+  - scelte: biglietto aereo ・ certamente (formale, verso un cliente) ・ radunarsi ・ da tanto tempo
+  - ✅ corretta: certamente (formale, verso un cliente)
 - **multiple-choice**
-  - prompt: 浴びる
-  - scelte: dov'è il banco del check-in? ・ tirare fuori ・ farsi (la doccia) ・ salire (su un mezzo)
-  - ✅ corretta: farsi (la doccia)
+  - prompt: 春
+  - scelte: primavera ・ pancia ・ fratello maggiore (altrui) ・ dopo
+  - ✅ corretta: primavera
 - **multiple-choice**
-  - prompt: 美味しい
-  - scelte: buono (di sapore) ・ lentamente ・ uno ・ dov'è il banco del check-in?
-  - ✅ corretta: buono (di sapore)
+  - prompt: 料理
+  - scelte: capire ・ bicchiere ・ ho sete ・ cucina (attività)
+  - ✅ corretta: cucina (attività)
 - **multiple-choice**
-  - prompt: いつも
-  - scelte: grosso ・ famiglia ・ sempre ・ libro
-  - ✅ corretta: sempre
+  - prompt: 旅館
+  - scelte: ryokan ・ museo d'arte ・ cambiare (treno/bus) ・ di colpo
+  - ✅ corretta: ryokan
 - **multiple-choice**
-  - prompt: 一人
-  - scelte: una persona ・ ponte ・ soffiare (vento) ・ chitarra
-  - ✅ corretta: una persona
+  - prompt: なぜ
+  - scelte: perché (formale) ・ hiragana ・ calzini ・ che tipo di
+  - ✅ corretta: perché (formale)
 - **multiple-choice**
-  - prompt: 弱い
-  - scelte: giardino ・ discorso ・ debole ・ orecchio
-  - ✅ corretta: debole
+  - prompt: 二十日
+  - scelte: parola ・ venti giorni ・ sera ・ sempre
+  - ✅ corretta: venti giorni
 - **multiple-choice**
-  - prompt: ポスト
-  - scelte: sport ・ cassetta della posta ・ sette (cose) ・ passaporto
-  - ✅ corretta: cassetta della posta
-- **multiple-choice**
-  - prompt: 運動
-  - scelte: festa (tradizionale) ・ esercizio fisico ・ ritorno ・ fare: riunione
-  - ✅ corretta: esercizio fisico
-- **multiple-choice**
-  - prompt: 水道
-  - scelte: acquedotto ・ salutamelo/salutala da parte mia ・ scegliere ・ cuocere (al forno/griglia)
-  - ✅ corretta: acquedotto
-- **multiple-choice**
-  - prompt: 出国する
-  - scelte: ritegno ・ e allora ・ posto (a sedere) ・ fare: uscita dal paese (immigrazione)
-  - ✅ corretta: fare: uscita dal paese (immigrazione)
-- **multiple-choice**
-  - prompt: 名前
-  - scelte: appendere ・ nome ・ testo ・ sedersi
-  - ✅ corretta: nome
-- **multiple-choice**
-  - prompt: 注射する
-  - scelte: fare: scortesia ・ fare: iniezione ・ dizionario (enciclopedico) ・ uccellino
-  - ✅ corretta: fare: iniezione
-- **multiple-choice**
-  - prompt: 思い出す
-  - scelte: scala mobile ・ neonato ・ ricordarsi ・ corretto
-  - ✅ corretta: ricordarsi
-- **multiple-choice**
-  - prompt: 鶏肉
-  - scelte: mercoledì ・ accendere ・ tanto ・ carne di pollo
-  - ✅ corretta: carne di pollo
-- **multiple-choice**
-  - prompt: 遊び
-  - scelte: invito ・ imbarazzante ・ fare: pieno ・ gioco
-  - ✅ corretta: gioco
-- **multiple-choice**
-  - prompt: 点く
-  - scelte: indirizzo ・ fare: preparativi ・ esserci/venire (onorifico) ・ accendersi
-  - ✅ corretta: accendersi
-- **multiple-choice**
-  - prompt: 形
-  - scelte: parcheggio ・ forma ・ visita turistica ・ percentuale
-  - ✅ corretta: forma
-- **multiple-choice**
-  - prompt: どうぞ
-  - scelte: prego ・ lì ・ sedersi ・ scatola
-  - ✅ corretta: prego
-- **multiple-choice**
-  - prompt: 珍しい
-  - scelte: ramo ・ raro ・ bambino ・ severo
-  - ✅ corretta: raro
-- **multiple-choice**
-  - prompt: 二十歳
-  - scelte: uscire ・ uccello ・ libro ・ vent'anni
-  - ✅ corretta: vent'anni
+  - prompt: 複雑
+  - scelte: complicato ・ e allora ・ mettere in ammollo ・ moglie (mia)
+  - ✅ corretta: complicato
 - **multiple-choice**
   - prompt: うそ
-  - scelte: bugia ・ tifone ・ aria condizionata ・ presentazione (di persone)
+  - scelte: fare: relazione ・ riferire ・ bugia ・ infermiera
   - ✅ corretta: bugia
 - **multiple-choice**
+  - prompt: 寒い
+  - scelte: a volte ・ matita ・ strada ・ freddo (clima)
+  - ✅ corretta: freddo (clima)
+- **multiple-choice**
+  - prompt: この間
+  - scelte: l'altro giorno ・ traffico ・ parecchio ・ fare: istruzione
+  - ✅ corretta: l'altro giorno
+- **multiple-choice**
+  - prompt: 用
+  - scelte: faccenda ・ radunarsi ・ guasto ・ fare: traduzione
+  - ✅ corretta: faccenda
+- **multiple-choice**
   - prompt: けがする
-  - scelte: ferirsi ・ regalo ・ papà ・ vincere
+  - scelte: ferirsi ・ raffreddarsi ・ capo reparto ・ libro di testo
   - ✅ corretta: ferirsi
 - **multiple-choice**
-  - prompt: 会議する
-  - scelte: fare: riunione ・ avvisare ・ computer (pc) ・ gentilezza
-  - ✅ corretta: fare: riunione
+  - prompt: 有る
+  - scelte: lentamente ・ un po' ・ esserci (cose) ・ buon lavoro (saluto tra colleghi)
+  - ✅ corretta: esserci (cose)
 - **multiple-choice**
-  - prompt: 覚える
-  - scelte: matrimonio ・ zio ・ imparare ・ un giorno (durata)
-  - ✅ corretta: imparare
+  - prompt: ステーキ
+  - scelte: fantastico ・ bistecca ・ cuocere (al forno/griglia) ・ sensazione
+  - ✅ corretta: bistecca
 - **multiple-choice**
-  - prompt: おっしゃる
-  - scelte: far bollire ・ fare: aspetto ・ essere deciso ・ dire (onorifico)
-  - ✅ corretta: dire (onorifico)
+  - prompt: 面白い
+  - scelte: subito ・ interessante ・ magnifico ・ tiepido
+  - ✅ corretta: interessante
 - **multiple-choice**
-  - prompt: 拝見
-  - scelte: fare: studio ・ sostituto ・ oppure ・ guardare (umile)
-  - ✅ corretta: guardare (umile)
+  - prompt: 手伝う
+  - scelte: gioco ・ guida ・ aiutare ・ benzina
+  - ✅ corretta: aiutare
 - **multiple-choice**
-  - prompt: 涼しい
-  - scelte: fresco (clima) ・ salire (su un mezzo) ・ ingresso (di casa) ・ fare
-  - ✅ corretta: fresco (clima)
+  - prompt: 分かる
+  - scelte: capire ・ no ・ cappello ・ sei (cose)
+  - ✅ corretta: capire
 - **multiple-choice**
-  - prompt: お久しぶりです
-  - scelte: difficile ・ facile ・ montagna ・ quanto tempo!
-  - ✅ corretta: quanto tempo!
+  - prompt: 目
+  - scelte: occhio ・ bianco ・ persona (cortese) ・ nascere
+  - ✅ corretta: occhio
 - **multiple-choice**
-  - prompt: 重い
-  - scelte: dormire ・ tutti ・ pesante ・ porta (scorrevole giapponese)
-  - ✅ corretta: pesante
+  - prompt: 勤める
+  - scelte: lavorare (presso) ・ laggiù (colloquiale) ・ incapace ・ testo
+  - ✅ corretta: lavorare (presso)
 - **multiple-choice**
-  - prompt: いただきます
-  - scelte: buon appetito (detto da chi mangia) ・ tè (verde) ・ primavera ・ forchetta
-  - ✅ corretta: buon appetito (detto da chi mangia)
+  - prompt: 六
+  - scelte: ho fame ・ piacere moltissimo ・ sei ・ diecimila
+  - ✅ corretta: sei
 - **multiple-choice**
-  - prompt: 後ろ
-  - scelte: fare: pulizie ・ freddo (al tatto) ・ pane ・ dietro
-  - ✅ corretta: dietro
+  - prompt: 法律
+  - scelte: legge ・ raro ・ poco profondo ・ filo
+  - ✅ corretta: legge
 - **multiple-choice**
-  - prompt: 危険
-  - scelte: pausa pranzo ・ traslocare ・ pericolo ・ consegnare
-  - ✅ corretta: pericolo
+  - prompt: 壊す
+  - scelte: incendio ・ rompere ・ per niente (con negazione) ・ reparto (vendite)
+  - ✅ corretta: rompere
 - **multiple-choice**
-  - prompt: 踊り
-  - scelte: fare: guasto ・ oggetto dimenticato ・ schermo ・ danza
-  - ✅ corretta: danza
+  - prompt: 登る
+  - scelte: dieci giorni ・ scalare ・ rumoroso ・ piccolo
+  - ✅ corretta: scalare
+- **multiple-choice**
+  - prompt: 辞典
+  - scelte: strano ・ dizionario (enciclopedico) ・ ricevere (umile) ・ girare
+  - ✅ corretta: dizionario (enciclopedico)
+- **multiple-choice**
+  - prompt: 技術
+  - scelte: tecnica ・ scomodo ・ manga ・ fine
+  - ✅ corretta: tecnica
+- **multiple-choice**
+  - prompt: 最も
+  - scelte: intervallo ・ figlia (altrui, cortese) ・ fare: disturbo ・ il più (in assoluto)
+  - ✅ corretta: il più (in assoluto)
+- **multiple-choice**
+  - prompt: 紹介する
+  - scelte: fare: presentazione (di persone) ・ dormire ・ restare ・ scendere
+  - ✅ corretta: fare: presentazione (di persone)
+- **multiple-choice**
+  - prompt: 動物園
+  - scelte: fare: gara ・ gentile ・ necessario ・ zoo
+  - ✅ corretta: zoo
+- **multiple-choice**
+  - prompt: お風呂
+  - scelte: donna ・ acqua ・ bagno (vasca) ・ macchina fotografica
+  - ✅ corretta: bagno (vasca)
 
 ## flashcard-recognition (IT→JP) (40)
 
 - **flashcard-recognition**
-  - prompt: pagare
-  - scelte: 火 ・ 払う ・ 済む ・ 税関
-  - ✅ corretta: 払う
+  - prompt: fare: passeggiata
+  - scelte: 仕事する ・ 練習する ・ 掃除する ・ 散歩する
+  - ✅ corretta: 散歩する
 - **flashcard-recognition**
-  - prompt: luminoso
-  - scelte: 生まれる ・ する ・ いくら ・ 明るい
-  - ✅ corretta: 明るい
-- **flashcard-recognition**
-  - prompt: posto (a sedere)
-  - scelte: 席 ・ 赤ん坊 ・ 今度 ・ 笑う
-  - ✅ corretta: 席
-- **flashcard-recognition**
-  - prompt: disco (musicale)
-  - scelte: コーヒー ・ 走る ・ レコード ・ お姉さん
-  - ✅ corretta: レコード
-- **flashcard-recognition**
-  - prompt: fare (umile)
-  - scelte: 注射する ・ 入学する ・ 逃げる ・ 致す
-  - ✅ corretta: 致す
-- **flashcard-recognition**
-  - prompt: bottone
-  - scelte: ボタン ・ 大きい ・ テストする ・ スポーツ
-  - ✅ corretta: ボタン
-- **flashcard-recognition**
-  - prompt: attraversare
-  - scelte: 十 ・ 言う ・ 八つ ・ 渡る
-  - ✅ corretta: 渡る
-- **flashcard-recognition**
-  - prompt: arrabbiarsi
-  - scelte: 文学 ・ 大学生 ・ 怒る ・ 踊る
-  - ✅ corretta: 怒る
-- **flashcard-recognition**
-  - prompt: uccello
-  - scelte: 欲しい ・ 椅子 ・ 鳥 ・ でも
-  - ✅ corretta: 鳥
-- **flashcard-recognition**
-  - prompt: ristorante
-  - scelte: 男 ・ たばこ ・ 風邪 ・ レストラン
-  - ✅ corretta: レストラン
-- **flashcard-recognition**
-  - prompt: fare: ripasso
-  - scelte: 連絡する ・ 寝坊する ・ 復習する ・ 輸出する
-  - ✅ corretta: 復習する
-- **flashcard-recognition**
-  - prompt: stamattina
-  - scelte: 頼む ・ おめでとうございます ・ 今朝 ・ 太い
-  - ✅ corretta: 今朝
-- **flashcard-recognition**
-  - prompt: guardare (onorifico)
-  - scelte: ガス ・ 暮れる ・ ごらんになる ・ 申告するものはありません
-  - ✅ corretta: ごらんになる
-- **flashcard-recognition**
-  - prompt: tranquillità
-  - scelte: 安心 ・ 塗る ・ 焼ける ・ 下宿する
-  - ✅ corretta: 安心
-- **flashcard-recognition**
-  - prompt: piccolo
-  - scelte: 木 ・ 飲む ・ 小さい ・ やる
-  - ✅ corretta: 小さい
-- **flashcard-recognition**
-  - prompt: acquedotto
-  - scelte: 久しぶり ・ 準備 ・ 水道 ・ 急行する
-  - ✅ corretta: 水道
-- **flashcard-recognition**
-  - prompt: riso (cotto)
-  - scelte: 背広 ・ 危ない ・ どんな ・ 御飯
-  - ✅ corretta: 御飯
-- **flashcard-recognition**
-  - prompt: filo
-  - scelte: アジア ・ 糸 ・ 運動 ・ 値段
-  - ✅ corretta: 糸
-- **flashcard-recognition**
-  - prompt: strada
-  - scelte: 道 ・ 厚い ・ 入れる ・ 花
-  - ✅ corretta: 道
-- **flashcard-recognition**
-  - prompt: economico
-  - scelte: 太い ・ 在る ・ 細い ・ 安い
-  - ✅ corretta: 安い
-- **flashcard-recognition**
-  - prompt: serio
-  - scelte: 気分 ・ 恥ずかしい ・ 真面目 ・ 草
-  - ✅ corretta: 真面目
+  - prompt: previsioni del tempo
+  - scelte: 原因 ・ お土産 ・ いただく ・ 天気予報
+  - ✅ corretta: 天気予報
 - **flashcard-recognition**
   - prompt: dire (umilissimo)
-  - scelte: オーバー ・ 汽車 ・ 申し上げる ・ 回る
+  - scelte: 申し上げる ・ きっと ・ はず ・ 都合
   - ✅ corretta: 申し上げる
 - **flashcard-recognition**
-  - prompt: volo
-  - scelte: 遅い ・ 近く ・ フライト ・ そっち
-  - ✅ corretta: フライト
+  - prompt: contatto
+  - scelte: 予定 ・ ひげ ・ 連絡 ・ 連れる
+  - ✅ corretta: 連絡
 - **flashcard-recognition**
-  - prompt: farsi (la doccia)
-  - scelte: 花瓶 ・ お皿 ・ 目 ・ 浴びる
-  - ✅ corretta: 浴びる
+  - prompt: aria
+  - scelte: お祭り ・ パソコン ・ 空気 ・ 比べる
+  - ✅ corretta: 空気
 - **flashcard-recognition**
-  - prompt: carta
-  - scelte: 勉強 ・ 毎月 ・ 紙 ・ 毎週
-  - ✅ corretta: 紙
+  - prompt: raffreddore
+  - scelte: 乗る ・ お久しぶりです ・ 風邪 ・ 西
+  - ✅ corretta: 風邪
 - **flashcard-recognition**
-  - prompt: corretto
-  - scelte: 正しい ・ 急行 ・ 細かい ・ 建て
-  - ✅ corretta: 正しい
+  - prompt: fare: produzione
+  - scelte: けんかする ・ 運動する ・ 水泳する ・ 生産する
+  - ✅ corretta: 生産する
 - **flashcard-recognition**
-  - prompt: corridoio
-  - scelte: お酒 ・ 廊下 ・ そこ ・ 道
-  - ✅ corretta: 廊下
+  - prompt: zero
+  - scelte: 向こう ・ 黄色い ・ 零 ・ 毎朝
+  - ✅ corretta: 零
 - **flashcard-recognition**
-  - prompt: bistecca
-  - scelte: 専門 ・ ステーキ ・ 生活 ・ 輸出
-  - ✅ corretta: ステーキ
+  - prompt: leggero
+  - scelte: 返す ・ 軽い ・ 初め; 始め ・ カップ
+  - ✅ corretta: 軽い
 - **flashcard-recognition**
-  - prompt: d'ora in poi
-  - scelte: これから ・ 安全 ・ 滑る ・ サラダ
-  - ✅ corretta: これから
+  - prompt: cassetta della posta
+  - scelte: 曇る ・ 小さな ・ 元気 ・ ポスト
+  - ✅ corretta: ポスト
 - **flashcard-recognition**
-  - prompt: cappotto
-  - scelte: 大きな ・ コート ・ たばこ ・ お腹が空いた
-  - ✅ corretta: コート
+  - prompt: ogni mese
+  - scelte: 毎月 ・ 遠い ・ 浴びる ・ 玄関
+  - ✅ corretta: 毎月
 - **flashcard-recognition**
-  - prompt: e allora
-  - scelte: 高校; 高等学校 ・ すると ・ 遊び ・ 恥ずかしい
-  - ✅ corretta: すると
+  - prompt: cena
+  - scelte: 十 ・ 歩く ・ 晩御飯 ・ かばん
+  - ✅ corretta: 晩御飯
 - **flashcard-recognition**
-  - prompt: lei
-  - scelte: 彼女 ・ 復習 ・ 下りる ・ 移る
-  - ✅ corretta: 彼女
+  - prompt: alla fine
+  - scelte: とうとう ・ 水道 ・ 火事 ・ 真面目
+  - ✅ corretta: とうとう
 - **flashcard-recognition**
-  - prompt: guida (di veicoli)
-  - scelte: 拝見する ・ 運転 ・ 出発する ・ 医学
-  - ✅ corretta: 運転
+  - prompt: fare: conversazione
+  - scelte: 相談する ・ 支度する ・ 会話する ・ 戦争する
+  - ✅ corretta: 会話する
 - **flashcard-recognition**
-  - prompt: verdura
-  - scelte: 明るい ・ 箸 ・ 野菜 ・ 庭
-  - ✅ corretta: 野菜
+  - prompt: acquedotto
+  - scelte: 台風 ・ 水道 ・ そろそろ ・ 大学生
+  - ✅ corretta: 水道
 - **flashcard-recognition**
-  - prompt: e poi
-  - scelte: そうして; そして ・ 茶色 ・ ナイフ ・ 速い
-  - ✅ corretta: そうして; そして
+  - prompt: duro
+  - scelte: 育てる ・ 字 ・ 夢 ・ 堅; 硬; 固い
+  - ✅ corretta: 堅; 硬; 固い
 - **flashcard-recognition**
-  - prompt: dov'è il noleggio del router Wi-Fi?
-  - scelte: 靴下 ・ 色 ・ Wi-Fiルーターのレンタルはどこですか ・ 砂糖
-  - ✅ corretta: Wi-Fiルーターのレンタルはどこですか
+  - prompt: azienda
+  - scelte: 会社 ・ 暑い ・ 家族 ・ 先月
+  - ✅ corretta: 会社
 - **flashcard-recognition**
-  - prompt: cuocersi
-  - scelte: 客 ・ 不便 ・ 反対する ・ 焼ける
-  - ✅ corretta: 焼ける
+  - prompt: ritegno
+  - scelte: 捕まえる ・ 遠慮 ・ 打つ ・ ステーキ
+  - ✅ corretta: 遠慮
 - **flashcard-recognition**
-  - prompt: fare: ritegno
-  - scelte: 競争する ・ 遠慮する ・ 連絡する ・ 出発する
-  - ✅ corretta: 遠慮する
+  - prompt: caffè (locale)
+  - scelte: 魚 ・ 風邪 ・ 喫茶店 ・ 七
+  - ✅ corretta: 喫茶店
 - **flashcard-recognition**
-  - prompt: vicino
-  - scelte: 夏休み ・ 平仮名 ・ 時々 ・ 近い
-  - ✅ corretta: 近い
+  - prompt: far girare
+  - scelte: 世話 ・ 時代 ・ 回す ・ 空く
+  - ✅ corretta: 回す
 - **flashcard-recognition**
-  - prompt: acqua
-  - scelte: 来週 ・ 晩御飯 ・ 水 ・ 金曜日
-  - ✅ corretta: 水
+  - prompt: la settimana prossima
+  - scelte: 初めて ・ 本当 ・ 十 ・ 来週
+  - ✅ corretta: 来週
+- **flashcard-recognition**
+  - prompt: posacenere
+  - scelte: 勤める ・ 質問する ・ 若い ・ 灰皿
+  - ✅ corretta: 灰皿
+- **flashcard-recognition**
+  - prompt: spezzarsi
+  - scelte: 折れる ・ 柔道 ・ 見える ・ 落ちる
+  - ✅ corretta: 折れる
+- **flashcard-recognition**
+  - prompt: una persona
+  - scelte: 自動車 ・ 待つ ・ 知る ・ 一人
+  - ✅ corretta: 一人
+- **flashcard-recognition**
+  - prompt: libro
+  - scelte: 本 ・ ペン ・ 二日 ・ ハンカチ
+  - ✅ corretta: 本
+- **flashcard-recognition**
+  - prompt: porta (occidentale)
+  - scelte: 飲む ・ 十日 ・ ドア ・ おかえりなさい
+  - ✅ corretta: ドア
+- **flashcard-recognition**
+  - prompt: campagna
+  - scelte: 田舎 ・ 歯医者 ・ 知らせる ・ アルバイトする
+  - ✅ corretta: 田舎
+- **flashcard-recognition**
+  - prompt: magnifico
+  - scelte: 体 ・ 買う ・ りっぱ ・ コーヒー
+  - ✅ corretta: りっぱ
+- **flashcard-recognition**
+  - prompt: prendere in prestito
+  - scelte: 覚える ・ 歩く ・ 押す ・ 借りる
+  - ✅ corretta: 借りる
+- **flashcard-recognition**
+  - prompt: pericoloso
+  - scelte: テーブル ・ 安い ・ 危ない ・ 悪い
+  - ✅ corretta: 危ない
+- **flashcard-recognition**
+  - prompt: arrivare
+  - scelte: 着く ・ 兄 ・ 橋 ・ あなた
+  - ✅ corretta: 着く
+- **flashcard-recognition**
+  - prompt: decorare
+  - scelte: これを預けたいです ・ 夢 ・ 飾る ・ 厳しい
+  - ✅ corretta: 飾る
+- **flashcard-recognition**
+  - prompt: scuola media
+  - scelte: 美しい ・ 中学校 ・ 習慣 ・ 指輪
+  - ✅ corretta: 中学校
+- **flashcard-recognition**
+  - prompt: posto di polizia (koban)
+  - scelte: プール ・ お手洗い ・ 余り ・ 交番
+  - ✅ corretta: 交番
+- **flashcard-recognition**
+  - prompt: mercoledì
+  - scelte: 電気 ・ 水曜日 ・ 来月 ・ 所
+  - ✅ corretta: 水曜日
+- **flashcard-recognition**
+  - prompt: sakè
+  - scelte: 上げる ・ お酒 ・ 見る ・ 戸
+  - ✅ corretta: お酒
+- **flashcard-recognition**
+  - prompt: cominciare (intransitivo)
+  - scelte: 乗る ・ 始まる ・ 封筒 ・ 暑い
+  - ✅ corretta: 始まる
+- **flashcard-recognition**
+  - prompt: casa (propria)
+  - scelte: まだ ・ 妹 ・ 毎月 ・ うち
+  - ✅ corretta: うち
+- **flashcard-recognition**
+  - prompt: tranquillità
+  - scelte: 安心 ・ どんどん ・ 食料品 ・ 競争
+  - ✅ corretta: 安心
+- **flashcard-recognition**
+  - prompt: figlia (altrui, cortese)
+  - scelte: これを預けたいです ・ お嬢さん ・ 優しい ・ 暖房する
+  - ✅ corretta: お嬢さん
 
 ## reading-recognition (lettura→scrittura) (40)
 
 - **flashcard-reading-recognition**
-  - prompt: おと
-  - scelte: 音 ・ 故障 ・ 港 ・ 普通
-  - ✅ corretta: 音
+  - prompt: ふうとう
+  - scelte: 封筒 ・ 行く ・ 聞く ・ 去年
+  - ✅ corretta: 封筒
 - **flashcard-reading-recognition**
-  - prompt: くさ
-  - scelte: 逃げる ・ 草 ・ 光る ・ 珍しい
-  - ✅ corretta: 草
+  - prompt: もめん
+  - scelte: 大抵 ・ 遠く ・ 木綿 ・ 返事
+  - ✅ corretta: 木綿
 - **flashcard-reading-recognition**
-  - prompt: かのじょ
-  - scelte: おっしゃる ・ 将来 ・ 彼女 ・ 祖母
-  - ✅ corretta: 彼女
+  - prompt: しかる
+  - scelte: 退院 ・ 踊る ・ 叱る ・ 叱かる
+  - ✅ corretta: 叱る
 - **flashcard-reading-recognition**
-  - prompt: さき
-  - scelte: 浴びる ・ どちら ・ 先 ・ 誰か
-  - ✅ corretta: 先
+  - prompt: よういする
+  - scelte: 案内する ・ 用意する ・ 用意いする ・ 入学する
+  - ✅ corretta: 用意する
 - **flashcard-reading-recognition**
-  - prompt: おりる
-  - scelte: 下りる ・ 邪魔 ・ 降りる ・ 下おりる
-  - ✅ corretta: 下りる
+  - prompt: むし
+  - scelte: 答 ・ 隅 ・ 用 ・ 虫
+  - ✅ corretta: 虫
 - **flashcard-reading-recognition**
-  - prompt: まける
-  - scelte: ファックスする ・ テニス ・ 負ける ・ 負まける
-  - ✅ corretta: 負ける
+  - prompt: はいけんする
+  - scelte: 拝見んする ・ 予習する ・ 承知する ・ 拝見する
+  - ✅ corretta: 拝見する
 - **flashcard-reading-recognition**
-  - prompt: したく
-  - scelte: 拾う ・ なるべく ・ おかげ ・ 支度
-  - ✅ corretta: 支度
+  - prompt: たてる
+  - scelte: 昼休み ・ 逃げる ・ 建たてる ・ 建てる
+  - ✅ corretta: 建てる
+- **flashcard-reading-recognition**
+  - prompt: こうじょう
+  - scelte: 複雑 ・ 確か ・ 残る ・ 工場
+  - ✅ corretta: 工場
+- **flashcard-reading-recognition**
+  - prompt: れきし
+  - scelte: 歴史 ・ 喜ぶ ・ 故障 ・ 技術
+  - ✅ corretta: 歴史
+- **flashcard-reading-recognition**
+  - prompt: こうむいん
+  - scelte: 苦い ・ 新聞社 ・ 最後 ・ 公務員
+  - ✅ corretta: 公務員
+- **flashcard-reading-recognition**
+  - prompt: みなと
+  - scelte: 笑う ・ 指 ・ 港 ・ 済む
+  - ✅ corretta: 港
+- **flashcard-reading-recognition**
+  - prompt: いし
+  - scelte: 林 ・ 石 ・ 急 ・ 虫
+  - ✅ corretta: 石
+- **flashcard-reading-recognition**
+  - prompt: かびん
+  - scelte: 教室 ・ 大変 ・ 午前 ・ 花瓶
+  - ✅ corretta: 花瓶
+- **flashcard-reading-recognition**
+  - prompt: ねる
+  - scelte: 寝る ・ 英語 ・ 寝ねる ・ 見る
+  - ✅ corretta: 寝る
+- **flashcard-reading-recognition**
+  - prompt: かつ
+  - scelte: 一度 ・ 勝かつ ・ 勝つ ・ 研究
+  - ✅ corretta: 勝つ
+- **flashcard-reading-recognition**
+  - prompt: ひっこす
+  - scelte: 引っ越す ・ 注意する ・ 止める ・ 引っ越こす
+  - ✅ corretta: 引っ越す
+- **flashcard-reading-recognition**
+  - prompt: おどる
+  - scelte: 踊る ・ 踊どる ・ 校長 ・ 食事
+  - ✅ corretta: 踊る
+- **flashcard-reading-recognition**
+  - prompt: ほん
+  - scelte: 声 ・ 有る ・ 犬 ・ 本
+  - ✅ corretta: 本
+- **flashcard-reading-recognition**
+  - prompt: ふたつ
+  - scelte: 二つ ・ 二たつ ・ 廊下 ・ 生徒
+  - ✅ corretta: 二つ
+- **flashcard-reading-recognition**
+  - prompt: しる
+  - scelte: 知しる ・ 丈夫 ・ 知る ・ 高い
+  - ✅ corretta: 知る
+- **flashcard-reading-recognition**
+  - prompt: ゆ
+  - scelte: 葉 ・ 故障 ・ 湯 ・ 湖
+  - ✅ corretta: 湯
+- **flashcard-reading-recognition**
+  - prompt: たのしみ
+  - scelte: 楽しみ ・ 起こす ・ 大学生 ・ 楽のしみ
+  - ✅ corretta: 楽しみ
+- **flashcard-reading-recognition**
+  - prompt: さす
+  - scelte: 散歩 ・ 狭い ・ 差さす ・ 差す
+  - ✅ corretta: 差す
+- **flashcard-reading-recognition**
+  - prompt: とくに
+  - scelte: 特くに ・ 小説 ・ 特に ・ 太る
+  - ✅ corretta: 特に
+- **flashcard-reading-recognition**
+  - prompt: どうぶつえん
+  - scelte: 漬ける ・ 動物園 ・ 確か ・ 戻る
+  - ✅ corretta: 動物園
+- **flashcard-reading-recognition**
+  - prompt: かたづける
+  - scelte: 久しぶり ・ 片付ける ・ 片付づける ・ 連絡する
+  - ✅ corretta: 片付ける
+- **flashcard-reading-recognition**
+  - prompt: てんいん
+  - scelte: 複雑 ・ 店員 ・ 踊る ・ 失礼
+  - ✅ corretta: 店員
+- **flashcard-reading-recognition**
+  - prompt: にわ
+  - scelte: 顔 ・ 庭 ・ 左 ・ 前
+  - ✅ corretta: 庭
+- **flashcard-reading-recognition**
+  - prompt: へんじする
+  - scelte: 返事する ・ 返事じする ・ 生産する ・ 案内する
+  - ✅ corretta: 返事する
+- **flashcard-reading-recognition**
+  - prompt: でんしゃ
+  - scelte: 今晩 ・ 茶碗 ・ 電車 ・ 子供
+  - ✅ corretta: 電車
+- **flashcard-reading-recognition**
+  - prompt: くだもの
+  - scelte: 果物 ・ 丈夫 ・ 電車 ・ 大人
+  - ✅ corretta: 果物
+- **flashcard-reading-recognition**
+  - prompt: つとめる
+  - scelte: 切符 ・ 先週 ・ 勤める ・ 勤とめる
+  - ✅ corretta: 勤める
+- **flashcard-reading-recognition**
+  - prompt: うんてんする
+  - scelte: 運転んする ・ 出席する ・ 運転する ・ 水泳する
+  - ✅ corretta: 運転する
+- **flashcard-reading-recognition**
+  - prompt: ぶんがく
+  - scelte: 輸入 ・ 花見 ・ 産業 ・ 文学
+  - ✅ corretta: 文学
+- **flashcard-reading-recognition**
+  - prompt: すむ
+  - scelte: 住む ・ 住すむ ・ 建物 ・ 脱ぐ
+  - ✅ corretta: 住む
+- **flashcard-reading-recognition**
+  - prompt: こまかい
+  - scelte: 会話する ・ 細まかい ・ 細かい ・ 搭乗口
+  - ✅ corretta: 細かい
+- **flashcard-reading-recognition**
+  - prompt: つかまえる
+  - scelte: 捕まえる ・ 亡くなる ・ 花見する ・ 捕かまえる
+  - ✅ corretta: 捕まえる
 - **flashcard-reading-recognition**
   - prompt: まいねん; まいとし
-  - scelte: 美味しい ・ 気をつけて ・ 毎年 ・ おととし
+  - scelte: 毎年 ・ 休み ・ 薄い ・ 強い
   - ✅ corretta: 毎年
 - **flashcard-reading-recognition**
-  - prompt: あかい
-  - scelte: 赤い ・ 灰皿 ・ 赤かい ・ 低い
-  - ✅ corretta: 赤い
+  - prompt: こうこうせい
+  - scelte: 迎える ・ 試合する ・ 高校生 ・ 是非
+  - ✅ corretta: 高校生
 - **flashcard-reading-recognition**
-  - prompt: おこなう
-  - scelte: 行う ・ 行なう ・ 慣れる ・ 下りる
-  - ✅ corretta: 行う
-- **flashcard-reading-recognition**
-  - prompt: かいわする
-  - scelte: 会話する ・ 花見する ・ 会話わする ・ 運動する
-  - ✅ corretta: 会話する
-- **flashcard-reading-recognition**
-  - prompt: しんこくするものはありません
-  - scelte: 通り ・ 申告するものはありません ・ 申告くするものはありません ・ いじめる
-  - ✅ corretta: 申告するものはありません
-- **flashcard-reading-recognition**
-  - prompt: そだてる
-  - scelte: 会話 ・ 席 ・ 育てる ・ 育だてる
-  - ✅ corretta: 育てる
-- **flashcard-reading-recognition**
-  - prompt: こうさてん
-  - scelte: お久しぶりです ・ 本当 ・ 交差点 ・ 家族
-  - ✅ corretta: 交差点
-- **flashcard-reading-recognition**
-  - prompt: あかちゃん
-  - scelte: 赤かちゃん ・ 入院する ・ ステレオ ・ 赤ちゃん
-  - ✅ corretta: 赤ちゃん
-- **flashcard-reading-recognition**
-  - prompt: いや
-  - scelte: デパート ・ 口 ・ 嫌 ・ 便利
-  - ✅ corretta: 嫌
-- **flashcard-reading-recognition**
-  - prompt: はやし
-  - scelte: 世話 ・ 林 ・ 小説 ・ 試験
-  - ✅ corretta: 林
-- **flashcard-reading-recognition**
-  - prompt: ぜいかん
-  - scelte: 見つける ・ アルバイト ・ 税関 ・ 選ぶ
-  - ✅ corretta: 税関
-- **flashcard-reading-recognition**
-  - prompt: あるく
-  - scelte: 歩く ・ 石鹸 ・ 歩るく ・ 多い
-  - ✅ corretta: 歩く
-- **flashcard-reading-recognition**
-  - prompt: あらう
-  - scelte: 授業する ・ 洗らう ・ 洗う ・ 時間
-  - ✅ corretta: 洗う
-- **flashcard-reading-recognition**
-  - prompt: だいどころ
-  - scelte: その ・ 台所 ・ 午後 ・ 一日
-  - ✅ corretta: 台所
-- **flashcard-reading-recognition**
-  - prompt: はな
-  - scelte: 旅行 ・ 花 ・ 多分 ・ 鼻
-  - ✅ corretta: 鼻
-- **flashcard-reading-recognition**
-  - prompt: いえ
-  - scelte: 来る ・ 家 ・ 車 ・ よく
-  - ✅ corretta: 家
-- **flashcard-reading-recognition**
-  - prompt: かがく
-  - scelte: 似る ・ 見つける ・ 以外 ・ 科学
-  - ✅ corretta: 科学
-- **flashcard-reading-recognition**
-  - prompt: おや
-  - scelte: 親 ・ 男性 ・ 正月 ・ そろそろ
-  - ✅ corretta: 親
-- **flashcard-reading-recognition**
-  - prompt: むっつ
-  - scelte: 返す ・ お皿 ・ 六っつ ・ 六つ
-  - ✅ corretta: 六つ
-- **flashcard-reading-recognition**
-  - prompt: うで
-  - scelte: 教会 ・ ごちそうする ・ 悲しい ・ 腕
-  - ✅ corretta: 腕
-- **flashcard-reading-recognition**
-  - prompt: はたらく
-  - scelte: 全部 ・ 下 ・ 働らく ・ 働く
-  - ✅ corretta: 働く
-- **flashcard-reading-recognition**
-  - prompt: こんげつ
-  - scelte: お皿 ・ さあ ・ タクシー ・ 今月
-  - ✅ corretta: 今月
-- **flashcard-reading-recognition**
-  - prompt: でかける
-  - scelte: 出かける ・ 上 ・ 買い物する ・ 出でかける
-  - ✅ corretta: 出かける
-- **flashcard-reading-recognition**
-  - prompt: きる
-  - scelte: 切る ・ 着る ・ 着きる ・ 大丈夫
-  - ✅ corretta: 着る
-- **flashcard-reading-recognition**
-  - prompt: おばさん
-  - scelte: 上手 ・ 今 ・ 伯母さん; 叔母さん ・ 伯母さん; 叔母ばさん
-  - ✅ corretta: 伯母さん; 叔母さん
-- **flashcard-reading-recognition**
-  - prompt: おくじょう
-  - scelte: 屋上 ・ 盗む ・ 通る ・ 会議する
-  - ✅ corretta: 屋上
-- **flashcard-reading-recognition**
-  - prompt: しゅっぱつする
-  - scelte: 出発つする ・ 案内する ・ 遠慮する ・ 出発する
-  - ✅ corretta: 出発する
-- **flashcard-reading-recognition**
-  - prompt: ふるい
-  - scelte: 古るい ・ 文章 ・ 生まれる ・ 古い
-  - ✅ corretta: 古い
-- **flashcard-reading-recognition**
-  - prompt: ことし
-  - scelte: 近い ・ 今年 ・ 片仮名 ・ 一
-  - ✅ corretta: 今年
-- **flashcard-reading-recognition**
-  - prompt: だいすき
-  - scelte: 大好すき ・ 五日 ・ 火曜日 ・ 大好き
-  - ✅ corretta: 大好き
-- **flashcard-reading-recognition**
-  - prompt: いちにち
-  - scelte: 仕事する ・ 辞書 ・ パスポート ・ 一日
-  - ✅ corretta: 一日
-- **flashcard-reading-recognition**
-  - prompt: あか
-  - scelte: 左 ・ 食べる ・ 見る ・ 赤
-  - ✅ corretta: 赤
-- **flashcard-reading-recognition**
-  - prompt: とおり
-  - scelte: 注射 ・ 凄い ・ 通り ・ 通おり
-  - ✅ corretta: 通り
+  - prompt: いる
+  - scelte: 居る ・ 六日 ・ 便利 ・ 居いる
+  - ✅ corretta: 居る
 
 ## conjugation (40)
 
 - **conjugation**
-  - formLabel: Passato negativo (〜くなかった)
-  - scelte: 早いじゃなかった ・ 早くなかった ・ 早いじゃない ・ 早いだった
-  - ✅ corretta: 早くなかった
+  - formLabel: Forma て (て形)
+  - scelte: 止めて ・ 止めない ・ 止めって ・ 止めます
+  - ✅ corretta: 止めて
 - **conjugation**
-  - formLabel: Passato negativo (〜くなかった)
-  - scelte: 大きくなかった ・ 大きいだった ・ 大きいじゃなかった ・ 大きいじゃない
-  - ✅ corretta: 大きくなかった
+  - formLabel: Negativa
+  - scelte: 暑いだった ・ 暑いじゃない ・ 暑かった ・ 暑くない
+  - ✅ corretta: 暑くない
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 運動します ・ 運動すます ・ 運動するます ・ 運動すります
+  - ✅ corretta: 運動します
 - **conjugation**
   - formLabel: Forma て (て形)
-  - scelte: 使わない ・ 使います ・ 使って ・ 使った
-  - ✅ corretta: 使って
+  - scelte: 原因して ・ 原因すって ・ 原因します ・ 原因すて
+  - ✅ corretta: 原因して
+- **conjugation**
+  - formLabel: Forma て (て形)
+  - scelte: 驚きます ・ 驚いた ・ 驚かない ・ 驚いて
+  - ✅ corretta: 驚いて
+- **conjugation**
+  - formLabel: Forma て (て形)
+  - scelte: 住まない ・ 住みます ・ 住んで ・ 住んだ
+  - ✅ corretta: 住んで
+- **conjugation**
+  - formLabel: Forma て (て形)
+  - scelte: 花見すって ・ 花見すて ・ 花見して ・ 花見します
+  - ✅ corretta: 花見して
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 予約した ・ 予約すった ・ 予約すた ・ 予約します
+  - ✅ corretta: 予約した
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 写します ・ 写さない ・ 写した ・ 写さなかった
+  - ✅ corretta: 写した
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 植えない ・ 植えります ・ 植えます ・ 植えるます
+  - ✅ corretta: 植えます
+- **conjugation**
+  - formLabel: Passato negativo
+  - scelte: 細いだった ・ 細いじゃなかった ・ 細いじゃない ・ 細くなかった
+  - ✅ corretta: 細くなかった
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 続けない ・ 続けります ・ 続けます ・ 続けるます
+  - ✅ corretta: 続けます
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 忘れった ・ 忘れます ・ 忘れた ・ 忘れない
+  - ✅ corretta: 忘れた
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 足さない ・ 足した ・ 足さなかった ・ 足します
+  - ✅ corretta: 足した
+- **conjugation**
+  - formLabel: Passato
+  - scelte: 変だった ・ 変な ・ 変くない ・ 変かった
+  - ✅ corretta: 変だった
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 光らない ・ 光ります ・ 光ます ・ 光るます
+  - ✅ corretta: 光ります
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 吹きます ・ 吹いた ・ 吹かない ・ 吹くます
+  - ✅ corretta: 吹きます
+- **conjugation**
+  - formLabel: Negativa (ない形)
+  - scelte: 説明すらない ・ 説明しない ・ 説明するない ・ 説明すない
+  - ✅ corretta: 説明しない
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 乗った ・ 乗らない ・ 乗ります ・ 乗た
+  - ✅ corretta: 乗った
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 練習すた ・ 練習します ・ 練習した ・ 練習すった
+  - ✅ corretta: 練習した
+- **conjugation**
+  - formLabel: Negativa (ない形)
+  - scelte: 焼けるない ・ 焼けない ・ 焼けます ・ 焼けらない
+  - ✅ corretta: 焼けない
+- **conjugation**
+  - formLabel: Negativa (ない形)
+  - scelte: 冷房するない ・ 冷房すない ・ 冷房すらない ・ 冷房しない
+  - ✅ corretta: 冷房しない
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 晴れるます ・ 晴れない ・ 晴れます ・ 晴れります
+  - ✅ corretta: 晴れます
+- **conjugation**
+  - formLabel: Forma て (て形)
+  - scelte: 登て ・ 登らない ・ 登って ・ 登ります
+  - ✅ corretta: 登って
+- **conjugation**
+  - formLabel: Avverbiale
+  - scelte: 黒いだった ・ 黒いに ・ 黒いじゃない ・ 黒く
+  - ✅ corretta: 黒く
+- **conjugation**
+  - formLabel: Forma て (て形)
+  - scelte: 案内して ・ 案内すって ・ 案内すて ・ 案内します
+  - ✅ corretta: 案内して
+- **conjugation**
+  - formLabel: Cortese (ます形)
+  - scelte: 寝坊すます ・ 寝坊すります ・ 寝坊するます ・ 寝坊します
+  - ✅ corretta: 寝坊します
+- **conjugation**
+  - formLabel: Passato (た形)
+  - scelte: 来った ・ 来ます ・ 来ない ・ 来た
+  - ✅ corretta: 来た
 - **conjugation**
   - formLabel: Cortese (ます形)
   - scelte: かまうます ・ かまわない ・ かまいます ・ かまった
   - ✅ corretta: かまいます
 - **conjugation**
-  - formLabel: Passato (た形)
-  - scelte: 迎えった ・ 迎えた ・ 迎えない ・ 迎えます
-  - ✅ corretta: 迎えた
-- **conjugation**
-  - formLabel: Avverbiale (〜く)
-  - scelte: 古いだった ・ 古いじゃない ・ 古いに ・ 古く
-  - ✅ corretta: 古く
+  - formLabel: Negativa (ない形)
+  - scelte: 違うない ・ 違います ・ 違わない ・ 違った
+  - ✅ corretta: 違わない
 - **conjugation**
   - formLabel: Negativa (ない形)
-  - scelte: 済まない ・ 済むない ・ 済みます ・ 済んだ
-  - ✅ corretta: 済まない
+  - scelte: 会った ・ 会うない ・ 会わない ・ 会います
+  - ✅ corretta: 会わない
 - **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 汚れて ・ 汚れます ・ 汚れって ・ 汚れない
-  - ✅ corretta: 汚れて
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 失礼すらない ・ 失礼するない ・ 失礼しない ・ 失礼すない
-  - ✅ corretta: 失礼しない
-- **conjugation**
-  - formLabel: Negativa (〜くない)
-  - scelte: 堅; 硬; 固かった ・ 堅; 硬; 固いだった ・ 堅; 硬; 固くない ・ 堅; 硬; 固いじゃない
-  - ✅ corretta: 堅; 硬; 固くない
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 運ぶない ・ 運んだ ・ 運ばない ・ 運びます
-  - ✅ corretta: 運ばない
+  - formLabel: Negativa
+  - scelte: 怖いだった ・ 怖くない ・ 怖かった ・ 怖いじゃない
+  - ✅ corretta: 怖くない
 - **conjugation**
   - formLabel: Passato (た形)
-  - scelte: 焼かない ・ 焼いた ・ 焼かなかった ・ 焼きます
-  - ✅ corretta: 焼いた
+  - scelte: 作た ・ 作ります ・ 作らない ・ 作った
+  - ✅ corretta: 作った
+- **conjugation**
+  - formLabel: Passato
+  - scelte: 暗かった ・ 暗いだった ・ 暗いじゃない ・ 暗くない
+  - ✅ corretta: 暗かった
 - **conjugation**
   - formLabel: Negativa (ない形)
-  - scelte: びっくりすらない ・ びっくりしない ・ びっくりすない ・ びっくりするない
-  - ✅ corretta: びっくりしない
+  - scelte: 掃除するない ・ 掃除すない ・ 掃除すらない ・ 掃除しない
+  - ✅ corretta: 掃除しない
+- **conjugation**
+  - formLabel: Negativa (ない形)
+  - scelte: 旅行しない ・ 旅行するない ・ 旅行すない ・ 旅行すらない
+  - ✅ corretta: 旅行しない
+- **conjugation**
+  - formLabel: Avverbiale
+  - scelte: うるさいじゃない ・ うるさく ・ うるさいだった ・ うるさいに
+  - ✅ corretta: うるさく
 - **conjugation**
   - formLabel: Passato (た形)
-  - scelte: 太ります ・ 太らない ・ 太た ・ 太った
-  - ✅ corretta: 太った
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 入れます ・ 入れない ・ 入れて ・ 入れって
-  - ✅ corretta: 入れて
+  - scelte: 直ります ・ 直った ・ 直らない ・ 直た
+  - ✅ corretta: 直った
 - **conjugation**
   - formLabel: Passato (た形)
-  - scelte: 売ります ・ 売った ・ 売らない ・ 売た
-  - ✅ corretta: 売った
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 押さない ・ 押します ・ 押して ・ 押した
-  - ✅ corretta: 押して
-- **conjugation**
-  - formLabel: Negativa (〜くない)
-  - scelte: 白かった ・ 白いだった ・ 白いじゃない ・ 白くない
-  - ✅ corretta: 白くない
+  - scelte: けんかした ・ けんかします ・ けんかすた ・ けんかすった
+  - ✅ corretta: けんかした
 - **conjugation**
   - formLabel: Cortese (ます形)
-  - scelte: 質問すます ・ 質問するます ・ 質問します ・ 質問すります
-  - ✅ corretta: 質問します
-- **conjugation**
-  - formLabel: Cortese (ます形)
-  - scelte: 渡した ・ 渡します ・ 渡すます ・ 渡さない
-  - ✅ corretta: 渡します
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 卒業すて ・ 卒業します ・ 卒業すって ・ 卒業して
-  - ✅ corretta: 卒業して
-- **conjugation**
-  - formLabel: Cortese (ます形)
-  - scelte: 壊れない ・ 壊れります ・ 壊れるます ・ 壊れます
-  - ✅ corretta: 壊れます
-- **conjugation**
-  - formLabel: Passato (た形)
-  - scelte: 致さなかった ・ 致さない ・ 致した ・ 致します
-  - ✅ corretta: 致した
-- **conjugation**
-  - formLabel: Negativa (〜くない)
-  - scelte: 美味しかった ・ 美味しくない ・ 美味しいじゃない ・ 美味しいだった
-  - ✅ corretta: 美味しくない
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 相談します ・ 相談すて ・ 相談して ・ 相談すって
-  - ✅ corretta: 相談して
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 返します ・ 返さない ・ 返して ・ 返した
-  - ✅ corretta: 返して
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 来るない ・ 来ない ・ 来ます ・ 来らない
-  - ✅ corretta: 来ない
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: あげます ・ あげない ・ あげらない ・ あげるない
-  - ✅ corretta: あげない
-- **conjugation**
-  - formLabel: Forma て (て形)
-  - scelte: 着いた ・ 着いて ・ 着きます ・ 着かない
-  - ✅ corretta: 着いて
-- **conjugation**
-  - formLabel: Negativa (〜くない)
-  - scelte: 重いだった ・ 重いじゃない ・ 重かった ・ 重くない
-  - ✅ corretta: 重くない
-- **conjugation**
-  - formLabel: Passato negativo (〜くなかった)
-  - scelte: 正しいじゃなかった ・ 正しくなかった ・ 正しいじゃない ・ 正しいだった
-  - ✅ corretta: 正しくなかった
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 買い物しない ・ 買い物するない ・ 買い物すない ・ 買い物すらない
-  - ✅ corretta: 買い物しない
-- **conjugation**
-  - formLabel: Davanti a un nome (〜な)
-  - scelte: 静かくない ・ 静かかった ・ 静かな ・ 静かじゃない
-  - ✅ corretta: 静かな
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 浴びるない ・ 浴びない ・ 浴びらない ・ 浴びます
-  - ✅ corretta: 浴びない
-- **conjugation**
-  - formLabel: Negativa (〜くない)
-  - scelte: 安いじゃない ・ 安かった ・ 安くない ・ 安いだった
-  - ✅ corretta: 安くない
-- **conjugation**
-  - formLabel: Negativa (ない形)
-  - scelte: 出発しない ・ 出発するない ・ 出発すない ・ 出発すらない
-  - ✅ corretta: 出発しない
-- **conjugation**
-  - formLabel: Avverbiale (〜く)
-  - scelte: 寒いに ・ 寒く ・ 寒いだった ・ 寒いじゃない
-  - ✅ corretta: 寒く
-- **conjugation**
-  - formLabel: Cortese (ます形)
-  - scelte: 飛ばない ・ 飛ぶます ・ 飛びます ・ 飛んだ
-  - ✅ corretta: 飛びます
-- **conjugation**
-  - formLabel: Passato (た形)
-  - scelte: 居ます ・ 居た ・ 居ない ・ 居った
-  - ✅ corretta: 居た
-- **conjugation**
-  - formLabel: Passato (た形)
-  - scelte: 放送すった ・ 放送すた ・ 放送した ・ 放送します
-  - ✅ corretta: 放送した
+  - scelte: 呼ぶます ・ 呼びます ・ 呼んだ ・ 呼ばない
+  - ✅ corretta: 呼びます
 
-## verb-form-cloze (forma nel contesto) (28)
+## verb-form-cloze (forma nel contesto) (19)
 
 - **verb-form-cloze**
-  - sentenceWithBlank: この漢字はよく＿＿。
-  - fullSentence: この漢字はよく使います。
-  - scelte: 使われる ・ 使おう ・ 使います ・ 使え
-  - ✅ corretta: 使います
+  - sentenceWithBlank: どこに＿＿いますか。
+  - fullSentence: どこに住んでいますか。
+  - scelte: 住ませる ・ 住める ・ 住んだ ・ 住んで
+  - ✅ corretta: 住んで
 - **verb-form-cloze**
-  - sentenceWithBlank: 私の ことは ＿＿で ください。
-  - fullSentence: 私の ことは かまわないで ください。
-  - scelte: かまいたい ・ かまっている ・ かまったら ・ かまわない
-  - ✅ corretta: かまわない
+  - sentenceWithBlank: このページをノートに＿＿おきなさい。
+  - fullSentence: このページをノートに写しておきなさい。
+  - scelte: 写して ・ 写したい ・ 写します ・ 写される
+  - ✅ corretta: 写して
 - **verb-form-cloze**
-  - sentenceWithBlank: ６時にホテルに車で＿＿下さい。
-  - fullSentence: ６時にホテルに車で迎えて下さい。
-  - scelte: 迎えて ・ 迎える ・ 迎えたい ・ 迎えれば
-  - ✅ corretta: 迎えて
+  - sentenceWithBlank: 春に 花の たねを ＿＿。
+  - fullSentence: 春に 花の たねを 植えます。
+  - scelte: 植えます ・ 植えたい ・ 植えて ・ 植えさせる
+  - ✅ corretta: 植えます
 - **verb-form-cloze**
-  - sentenceWithBlank: 用事が ＿＿、帰ります。
-  - fullSentence: 用事が 済んだら、帰ります。
-  - scelte: 済んだら ・ 済もう ・ 済める ・ 済みたい
-  - ✅ corretta: 済んだら
+  - sentenceWithBlank: 日本語の 勉強を ＿＿ ください。
+  - fullSentence: 日本語の 勉強を 続けて ください。
+  - scelte: 続けられる ・ 続けて ・ 続けた ・ 続けたい
+  - ✅ corretta: 続けて
 - **verb-form-cloze**
-  - sentenceWithBlank: 白いシャツがすぐ＿＿。
-  - fullSentence: 白いシャツがすぐ汚れます。
-  - scelte: 汚れます ・ 汚れている ・ 汚れた ・ 汚れたい
-  - ✅ corretta: 汚れます
+  - sentenceWithBlank: ６０にするためには１７に何を＿＿よいの。
+  - fullSentence: ６０にするためには１７に何を足せばよいの。
+  - scelte: 足される ・ 足せば ・ 足した ・ 足している
+  - ✅ corretta: 足せば
 - **verb-form-cloze**
-  - sentenceWithBlank: それではそろそろ＿＿。
-  - fullSentence: それではそろそろ失礼します。
-  - scelte: 失礼できる ・ 失礼しなかった ・ 失礼します ・ 失礼した
-  - ✅ corretta: 失礼します
+  - sentenceWithBlank: へやから ＿＿ 音が します。
+  - fullSentence: へやから 変な 音が します。
+  - scelte: 変な ・ 変で ・ 変だった ・ 変じゃない
+  - ✅ corretta: 変な
 - **verb-form-cloze**
-  - sentenceWithBlank: 仕事はすらすらと＿＿。
-  - fullSentence: 仕事はすらすらと運んだ。
-  - scelte: 運ばれる ・ 運んだ ・ 運びます ・ 運ばない
-  - ✅ corretta: 運んだ
+  - sentenceWithBlank: 夜空に星が＿＿います。
+  - fullSentence: 夜空に星が光っています。
+  - scelte: 光らない ・ 光って ・ 光ります ・ 光りたい
+  - ✅ corretta: 光って
 - **verb-form-cloze**
-  - sentenceWithBlank: このお肉をもうすこし＿＿くださいませんか。
-  - fullSentence: このお肉をもうすこし焼いてくださいませんか。
-  - scelte: 焼かせる ・ 焼いて ・ 焼かれる ・ 焼いた
-  - ✅ corretta: 焼いて
+  - sentenceWithBlank: ローズはしゃぼん玉を＿＿いた。
+  - fullSentence: ローズはしゃぼん玉を吹いていた。
+  - scelte: 吹きます ・ 吹いて ・ 吹いたら ・ 吹け
+  - ✅ corretta: 吹いて
 - **verb-form-cloze**
-  - sentenceWithBlank: 甘い ものを 食べすぎると、＿＿よ。
-  - fullSentence: 甘い ものを 食べすぎると、太りますよ。
-  - scelte: 太れば ・ 太っている ・ 太られる ・ 太ります
-  - ✅ corretta: 太ります
+  - sentenceWithBlank: じてんしゃに ＿＿、かいものに いきます。
+  - fullSentence: じてんしゃに 乗って、かいものに いきます。
+  - scelte: 乗って ・ 乗る ・ 乗れば ・ 乗れ
+  - ✅ corretta: 乗って
 - **verb-form-cloze**
-  - sentenceWithBlank: それは引き出しに＿＿おきました。
-  - fullSentence: それは引き出しに入れておきました。
-  - scelte: 入れよう ・ 入れない ・ 入れられる ・ 入れて
-  - ✅ corretta: 入れて
+  - sentenceWithBlank: このトーストはよく＿＿いません。
+  - fullSentence: このトーストはよく焼けていません。
+  - scelte: 焼けて ・ 焼ける ・ 焼けろ ・ 焼けられる
+  - ✅ corretta: 焼けて
 - **verb-form-cloze**
-  - sentenceWithBlank: この店はパンを＿＿います。
-  - fullSentence: この店はパンを売っています。
-  - scelte: 売る ・ 売って ・ 売った ・ 売らせる
-  - ✅ corretta: 売って
+  - sentenceWithBlank: ごごから ＿＿ きました。
+  - fullSentence: ごごから 晴れて きました。
+  - scelte: 晴れます ・ 晴れない ・ 晴れたら ・ 晴れて
+  - ✅ corretta: 晴れて
 - **verb-form-cloze**
-  - sentenceWithBlank: シャッターを＿＿くれますか。
-  - fullSentence: シャッターを押してくれますか。
-  - scelte: 押したら ・ 押そう ・ 押して ・ 押せる
-  - ✅ corretta: 押して
-- **verb-form-cloze**
-  - sentenceWithBlank: それじゃあこのメモを＿＿ください。緊急です。
-  - fullSentence: それじゃあこのメモを渡してください。緊急です。
-  - scelte: 渡している ・ 渡せる ・ 渡して ・ 渡さない
-  - ✅ corretta: 渡して
-- **verb-form-cloze**
-  - sentenceWithBlank: 三月に大学を＿＿。
-  - fullSentence: 三月に大学を卒業します。
-  - scelte: 卒業しろ ・ 卒業して ・ 卒業します ・ 卒業した
-  - ✅ corretta: 卒業します
-- **verb-form-cloze**
-  - sentenceWithBlank: このイヤホンは＿＿います。
-  - fullSentence: このイヤホンは壊れています。
-  - scelte: 壊れたい ・ 壊れなかった ・ 壊れて ・ 壊れない
-  - ✅ corretta: 壊れて
-- **verb-form-cloze**
-  - sentenceWithBlank: のちほど お電話＿＿。
-  - fullSentence: のちほど お電話致します。
-  - scelte: 致したい ・ 致さない ・ 致します ・ 致した
-  - ✅ corretta: 致します
-- **verb-form-cloze**
-  - sentenceWithBlank: お前は恩を仇で＿＿な。
-  - fullSentence: お前は恩を仇で返したな。
-  - scelte: 返せば ・ 返される ・ 返した ・ 返している
-  - ✅ corretta: 返した
+  - sentenceWithBlank: ＿＿、電車に乗り遅れました。
+  - fullSentence: 寝坊して、電車に乗り遅れました。
+  - scelte: 寝坊して ・ 寝坊したい ・ 寝坊した ・ 寝坊したら
+  - ✅ corretta: 寝坊して
 - **verb-form-cloze**
   - sentenceWithBlank: １０時までに＿＿。
   - fullSentence: １０時までに来ます。
-  - scelte: 来た ・ 来て ・ 来ます ・ 来なかった
+  - scelte: 来たい ・ 来られる ・ 来なかった ・ 来ます
   - ✅ corretta: 来ます
 - **verb-form-cloze**
-  - sentenceWithBlank: あなたは時には妹さんにおこづかいを＿＿か。
-  - fullSentence: あなたは時には妹さんにおこづかいをあげますか。
-  - scelte: あげよう ・ あげた ・ あげます ・ あげたい
-  - ✅ corretta: あげます
+  - sentenceWithBlank: 私の ことは ＿＿で ください。
+  - fullSentence: 私の ことは かまわないで ください。
+  - scelte: かまわれる ・ かまえ ・ かまわない ・ かまわせる
+  - ✅ corretta: かまわない
 - **verb-form-cloze**
-  - sentenceWithBlank: てがみは 三かで ＿＿。
-  - fullSentence: てがみは 三かで 着きます。
-  - scelte: 着きます ・ 着いている ・ 着け ・ 着いた
-  - ✅ corretta: 着きます
+  - sentenceWithBlank: わたしの かんがえは すこし ＿＿。
+  - fullSentence: わたしの かんがえは すこし 違います。
+  - scelte: 違います ・ 違われる ・ 違って ・ 違わなかった
+  - ✅ corretta: 違います
 - **verb-form-cloze**
-  - sentenceWithBlank: この はこは ＿＿ もてません。
-  - fullSentence: この はこは 重くて もてません。
-  - scelte: 重ければ ・ 重くない ・ 重くて ・ 重かった
-  - ✅ corretta: 重くて
+  - sentenceWithBlank: にわで やさいを ＿＿ います。
+  - fullSentence: にわで やさいを 作って います。
+  - scelte: 作る ・ 作ろう ・ 作らなかった ・ 作って
+  - ✅ corretta: 作って
 - **verb-form-cloze**
-  - sentenceWithBlank: 図書館では＿＿してください。
+  - sentenceWithBlank: ＿＿ なる まえに かえりましょう。
+  - fullSentence: 暗く なる まえに かえりましょう。
+  - scelte: 暗くて ・ 暗い ・ 暗く ・ 暗くない
+  - ✅ corretta: 暗く
+- **verb-form-cloze**
+  - sentenceWithBlank: 弟と ＿＿、母に 叱られました。
+  - fullSentence: 弟と けんかして、母に 叱られました。
+  - scelte: けんかします ・ けんかさせる ・ けんかしない ・ けんかして
+  - ✅ corretta: けんかして
+- **verb-form-cloze**
+  - sentenceWithBlank: あなたが＿＿、彼は来るでしょう。
+  - fullSentence: あなたが呼べば、彼は来るでしょう。
+  - scelte: 呼びたい ・ 呼びます ・ 呼べば ・ 呼んだ
+  - ✅ corretta: 呼べば
+
+## usage-cloze (parola nel contesto) (29)
+
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿ かばんが あなたのですか。
+  - fullSentence: どの かばんが あなたのですか。
+  - scelte: 弟 ・ 約束 ・ 別 ・ どの
+  - ✅ corretta: どの
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿に 報告書を 出しました。
+  - fullSentence: 部長に 報告書を 出しました。
+  - scelte: 靴下 ・ 部長 ・ トイレ ・ 食料品
+  - ✅ corretta: 部長
+- **usage-cloze**
+  - sentenceWithBlank: 図書館では＿＿にしてください。
   - fullSentence: 図書館では静かにしてください。
-  - scelte: 静かに ・ 静かだった ・ 静かな ・ 静かになる
-  - ✅ corretta: 静かに
-- **verb-form-cloze**
-  - sentenceWithBlank: あせを かいたので、シャワーを ＿＿です。
-  - fullSentence: あせを かいたので、シャワーを 浴びたいです。
-  - scelte: 浴びたい ・ 浴びなかった ・ 浴びろ ・ 浴びて
-  - ✅ corretta: 浴びたい
-- **verb-form-cloze**
-  - sentenceWithBlank: この店は＿＿おいしいです。
-  - fullSentence: この店は安くておいしいです。
-  - scelte: 安くなかった ・ 安くて ・ 安くない ・ 安ければ
-  - ✅ corretta: 安くて
-- **verb-form-cloze**
-  - sentenceWithBlank: すぐに＿＿方がいいですよ。
-  - fullSentence: すぐに出発した方がいいですよ。
-  - scelte: 出発しよう ・ 出発した ・ 出発します ・ 出発する
-  - ✅ corretta: 出発した
-- **verb-form-cloze**
-  - sentenceWithBlank: けさは ＿＿、いけに こおりが はりました。
-  - fullSentence: けさは 寒くて、いけに こおりが はりました。
-  - scelte: 寒くなる ・ 寒い ・ 寒ければ ・ 寒くて
-  - ✅ corretta: 寒くて
-- **verb-form-cloze**
-  - sentenceWithBlank: ヒューズが＿＿。
-  - fullSentence: ヒューズが飛んだ。
-  - scelte: 飛べる ・ 飛んだ ・ 飛ばない ・ 飛ばれる
-  - ✅ corretta: 飛んだ
-- **verb-form-cloze**
-  - sentenceWithBlank: ニュースは毎時＿＿います。
-  - fullSentence: ニュースは毎時放送しています。
-  - scelte: 放送させる ・ 放送しない ・ 放送して ・ 放送する
-  - ✅ corretta: 放送して
+  - scelte: 有名 ・ 深い ・ 静か ・ 辛い
+  - ✅ corretta: 静か
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿は だいがくせいですか。
+  - fullSentence: お姉さんは だいがくせいですか。
+  - scelte: 連絡 ・ お姉さん ・ 前 ・ ガソリン
+  - ✅ corretta: お姉さん
+- **usage-cloze**
+  - sentenceWithBlank: 急げば、九時のでんしゃに＿＿。
+  - fullSentence: 急げば、九時のでんしゃに間に合う。
+  - scelte: 間に合う ・ 気に入る ・ 仕方がない ・ チェックインカウンターはどこですか
+  - ✅ corretta: 間に合う
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿、七時に起きました。
+  - fullSentence: 今朝、七時に起きました。
+  - scelte: 程 ・ 今朝 ・ 以内 ・ 娘
+  - ✅ corretta: 今朝
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿人で食事をしました。
+  - fullSentence: 四人で食事をしました。
+  - scelte: 八 ・ 十 ・ 四 ・ 三
+  - ✅ corretta: 四
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿と 二人で 旅行しました。
+  - fullSentence: 家内と 二人で 旅行しました。
+  - scelte: 森 ・ 字引 ・ 病気 ・ 家内
+  - ✅ corretta: 家内
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿。— あちらのカウンターです。
+  - fullSentence: 宅急便はどこですか。— あちらのカウンターです。
+  - scelte: 女の子 ・ 申告するものはありません ・ これは機内持ち込みできますか ・ 宅急便はどこですか
+  - ✅ corretta: 宅急便はどこですか
+- **usage-cloze**
+  - sentenceWithBlank: 三日から＿＿で。
+  - fullSentence: 三日から五日で。
+  - scelte: 二日 ・ 五日 ・ 四日 ・ 二十日
+  - ✅ corretta: 五日
+- **usage-cloze**
+  - sentenceWithBlank: この歌を聞くと私の＿＿時代を思い出します。
+  - fullSentence: この歌を聞くと私の中学校時代を思い出します。
+  - scelte: 出席 ・ 宿題 ・ あちら ・ 中学校
+  - ✅ corretta: 中学校
+- **usage-cloze**
+  - sentenceWithBlank: それは＿＿な注文だ。
+  - fullSentence: それは無理な注文だ。
+  - scelte: 無理 ・ 必要 ・ 同じ ・ 黄色い
+  - ✅ corretta: 無理
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿の あとは 水を たくさん 飲みます。
+  - fullSentence: 運動の あとは 水を たくさん 飲みます。
+  - scelte: スクリーン ・ 運動 ・ どれ ・ 食事
+  - ✅ corretta: 運動
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿の とき、日本へ 行きました。
+  - fullSentence: 大学生の とき、日本へ 行きました。
+  - scelte: 大学生 ・ 石鹸 ・ 米 ・ 電気
+  - ✅ corretta: 大学生
+- **usage-cloze**
+  - sentenceWithBlank: 足元に ご＿＿ください。
+  - fullSentence: 足元に ご注意ください。
+  - scelte: 別 ・ メートル ・ 弟 ・ 注意
+  - ✅ corretta: 注意
+- **usage-cloze**
+  - sentenceWithBlank: ３時は＿＿にしよう。
+  - fullSentence: ３時はお茶にしよう。
+  - scelte: 出席 ・ おまわりさん ・ 用 ・ お茶
+  - ✅ corretta: お茶
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿も 日本語の 勉強を 続けます。
+  - fullSentence: これからも 日本語の 勉強を 続けます。
+  - scelte: これは私のパスポートです ・ これから ・ お大事に ・ もうすぐ
+  - ✅ corretta: これから
+- **usage-cloze**
+  - sentenceWithBlank: こちらには大きなハスの＿＿があります。
+  - fullSentence: こちらには大きなハスの葉があります。
+  - scelte: 夕飯 ・ 背 ・ 葉 ・ 講義
+  - ✅ corretta: 葉
+- **usage-cloze**
+  - sentenceWithBlank: これは＿＿鳥ですね。
+  - fullSentence: これは珍しい鳥ですね。
+  - scelte: 眠い ・ 寂しい ・ 珍しい ・ ソフト
+  - ✅ corretta: 珍しい
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿で おみくじを 引きました。
+  - fullSentence: 神社で おみくじを 引きました。
+  - scelte: 今晩 ・ 言葉 ・ 神社 ・ 帰り
+  - ✅ corretta: 神社
+- **usage-cloze**
+  - sentenceWithBlank: ふるい ほんを ＿＿に いれました。
+  - fullSentence: ふるい ほんを 箱に いれました。
+  - scelte: 夜 ・ 試験 ・ 洋服 ・ 箱
+  - ✅ corretta: 箱
+- **usage-cloze**
+  - sentenceWithBlank: まいあさ 六じ＿＿に おきます。
+  - fullSentence: まいあさ 六じ半に おきます。
+  - scelte: 半 ・ お嬢さん ・ 絹 ・ 暇
+  - ✅ corretta: 半
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿の水が止まりません。
+  - fullSentence: トイレの水が止まりません。
+  - scelte: トイレ ・ 小鳥 ・ 理由 ・ 塩
+  - ✅ corretta: トイレ
+- **usage-cloze**
+  - sentenceWithBlank: へやの ＿＿を わすれました。
+  - fullSentence: へやの 番号を わすれました。
+  - scelte: 来月 ・ 番号 ・ 黒 ・ 東
+  - ✅ corretta: 番号
+- **usage-cloze**
+  - sentenceWithBlank: ＿＿、さくらを みに いきます。
+  - fullSentence: 毎年、さくらを みに いきます。
+  - scelte: 半分 ・ 一生懸命 ・ 毎年 ・ すっかり
+  - ✅ corretta: 毎年
+- **usage-cloze**
+  - sentenceWithBlank: 兄は＿＿で働いています。
+  - fullSentence: 兄は新聞社で働いています。
+  - scelte: 新聞社 ・ 北 ・ 今日 ・ 研究
+  - ✅ corretta: 新聞社
+- **usage-cloze**
+  - sentenceWithBlank: 明日、しけんです。— ＿＿！
+  - fullSentence: 明日、しけんです。— 頑張って！
+  - scelte: 頑張って ・ おかえりなさい ・ お大事に ・ よろしくお願いします
+  - ✅ corretta: 頑張って
+- **usage-cloze**
+  - sentenceWithBlank: お金は明日＿＿よ。
+  - fullSentence: お金は明日返すよ。
+  - scelte: 太る ・ 決める ・ 起きる ・ 返す
+  - ✅ corretta: 返す
+- **usage-cloze**
+  - sentenceWithBlank: このチーズはピリッとした＿＿がする。
+  - fullSentence: このチーズはピリッとした味がする。
+  - scelte: ボールペン ・ 機会 ・ 急行 ・ 味
+  - ✅ corretta: 味
 
-## usage-cloze (parola nel contesto) (30)
-
-- **usage-cloze**
-  - sentenceWithBlank: 夏休みも もう ＿＿ですね。
-  - fullSentence: 夏休みも もう 終わりですね。
-  - scelte: 写真 ・ 終わり ・ 冬 ・ 数学
-  - ✅ corretta: 終わり
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿帰りましょう。
-  - fullSentence: そろそろ帰りましょう。
-  - scelte: きっと ・ もし ・ そろそろ ・ 是非
-  - ✅ corretta: そろそろ
-- **usage-cloze**
-  - sentenceWithBlank: えきの まえに ＿＿が います。
-  - fullSentence: えきの まえに おまわりさんが います。
-  - scelte: 光 ・ 場所 ・ おまわりさん ・ 妹
-  - ✅ corretta: おまわりさん
-- **usage-cloze**
-  - sentenceWithBlank: えきの となりに あたらしい ＿＿が できました。
-  - fullSentence: えきの となりに あたらしい 映画館が できました。
-  - scelte: 音 ・ 意味 ・ 映画館 ・ 青
-  - ✅ corretta: 映画館
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿の思う壷だぞ。
-  - fullSentence: 向こうの思う壷だぞ。
-  - scelte: 動物 ・ 向こう ・ 掃除 ・ 会議
-  - ✅ corretta: 向こう
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿の手続きをしてください。
-  - fullSentence: 出国の手続きをしてください。
-  - scelte: 産業 ・ 本当 ・ 夕方 ・ 出国
-  - ✅ corretta: 出国
-- **usage-cloze**
-  - sentenceWithBlank: あなたはどこで＿＿を見ますか。
-  - fullSentence: あなたはどこでテレビを見ますか。
-  - scelte: 鏡 ・ テレビ ・ 景色 ・ 新聞社
-  - ✅ corretta: テレビ
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿は料理が上手です。
-  - fullSentence: 祖母は料理が上手です。
-  - scelte: 祖母 ・ お手洗い ・ 帽子 ・ 春
-  - ✅ corretta: 祖母
-- **usage-cloze**
-  - sentenceWithBlank: この本は＿＿円です。
-  - fullSentence: この本は千円です。
-  - scelte: 千 ・ 十 ・ 九つ ・ 三
-  - ✅ corretta: 千
-- **usage-cloze**
-  - sentenceWithBlank: ここから海の＿＿が聞こえる。
-  - fullSentence: ここから海の音が聞こえる。
-  - scelte: アクセサリー ・ 鼻 ・ 音 ・ 手紙
-  - ✅ corretta: 音
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿は 十二時からです。
-  - fullSentence: 昼休みは 十二時からです。
-  - scelte: 昼休み ・ あなた ・ 水 ・ 卒業
-  - ✅ corretta: 昼休み
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿ よく 眠れません。
-  - fullSentence: この頃 よく 眠れません。
-  - scelte: もっと ・ 半分 ・ この頃 ・ 必ず
-  - ✅ corretta: この頃
-- **usage-cloze**
-  - sentenceWithBlank: 祖父は昨日、＿＿しました。
-  - fullSentence: 祖父は昨日、退院しました。
-  - scelte: 政治 ・ 午前 ・ 退院 ・ 雲
-  - ✅ corretta: 退院
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿が すんだら、すぐ 帰ります。
-  - fullSentence: 用が すんだら、すぐ 帰ります。
-  - scelte: 熱 ・ 明後日 ・ 用 ・ いつ
-  - ✅ corretta: 用
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿の 友だちに 会いました。
-  - fullSentence: 小学校の 友だちに 会いました。
-  - scelte: 小学校 ・ 手 ・ 明日 ・ 柔道
-  - ✅ corretta: 小学校
-- **usage-cloze**
-  - sentenceWithBlank: ケイトは中国語を＿＿話せない。
-  - fullSentence: ケイトは中国語をほとんど話せない。
-  - scelte: ほとんど ・ この頃 ・ すっと ・ それほど
-  - ✅ corretta: ほとんど
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿で ともだちと まちあわせました。
-  - fullSentence: 駅で ともだちと まちあわせました。
-  - scelte: どちら ・ 台所 ・ 駅 ・ 紅茶
-  - ✅ corretta: 駅
-- **usage-cloze**
-  - sentenceWithBlank: 火事の ＿＿は 119番に 電話して ください。
-  - fullSentence: 火事の 場合は 119番に 電話して ください。
-  - scelte: 場合 ・ 伯父; 叔父さん ・ 毎晩 ・ 乗り物
-  - ✅ corretta: 場合
-- **usage-cloze**
-  - sentenceWithBlank: あ！＿＿！ガソリンが切れてきた。
-  - fullSentence: あ！まずい！ガソリンが切れてきた。
-  - scelte: 高い ・ 黒い ・ 簡単 ・ まずい
-  - ✅ corretta: まずい
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿で川を渡りました。
-  - fullSentence: 舟で川を渡りました。
-  - scelte: 舟 ・ 昨日 ・ 表 ・ あそこ
-  - ✅ corretta: 舟
-- **usage-cloze**
-  - sentenceWithBlank: 新しい ＿＿を 学んで います。
-  - fullSentence: 新しい 技術を 学んで います。
-  - scelte: 技術 ・ お弁当 ・ 飲み物 ・ アパート
-  - ✅ corretta: 技術
-- **usage-cloze**
-  - sentenceWithBlank: 図書館で ＿＿のが 好きです。
-  - fullSentence: 図書館で 勉強するのが 好きです。
-  - scelte: 増える ・ 勉強する ・ 世話する ・ 答える
-  - ✅ corretta: 勉強する
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿が いっぱいに なりました。
-  - fullSentence: 本棚が いっぱいに なりました。
-  - scelte: 本棚 ・ 両親 ・ ニュース ・ 自由
-  - ✅ corretta: 本棚
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿から 新しい コースが 始まります。
-  - fullSentence: 再来週から 新しい コースが 始まります。
-  - scelte: 再来週 ・ ワープロ ・ 道具 ・ 郊外
-  - ✅ corretta: 再来週
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿にいろいろ教えてもらいました。
-  - fullSentence: 先輩にいろいろ教えてもらいました。
-  - scelte: 先輩 ・ 不便 ・ 足; 脚 ・ 朝御飯
-  - ✅ corretta: 先輩
-- **usage-cloze**
-  - sentenceWithBlank: 雨か。＿＿ね。
-  - fullSentence: 雨か。仕方がないね。
-  - scelte: ごらんになる ・ お先に失礼します ・ 仕方がない ・ チェックインカウンターはどこですか
-  - ✅ corretta: 仕方がない
-- **usage-cloze**
-  - sentenceWithBlank: むすこは ＿＿な いしゃに なりました。
-  - fullSentence: むすこは りっぱな いしゃに なりました。
-  - scelte: 珍しい ・ りっぱ ・ 低い ・ 太い
-  - ✅ corretta: りっぱ
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿図書館へ行きます。
-  - fullSentence: よく図書館へ行きます。
-  - scelte: 映画 ・ 虫 ・ エスカレーター ・ よく
-  - ✅ corretta: よく
-- **usage-cloze**
-  - sentenceWithBlank: かぜで ＿＿が あきました。
-  - fullSentence: かぜで 戸が あきました。
-  - scelte: 会話 ・ スポーツ ・ 卒業 ・ 戸
-  - ✅ corretta: 戸
-- **usage-cloze**
-  - sentenceWithBlank: ＿＿ 話は 聞いた ことが ありません。
-  - fullSentence: そんな 話は 聞いた ことが ありません。
-  - scelte: 小さな ・ どんな ・ こんな ・ そんな
-  - ✅ corretta: そんな
-
-## particle-cloze (29)
+## particle-cloze (27)
 
 - **particle-cloze**
-  - sentenceWithBlank: 今日はこれ＿＿終わりです。
-  - fullSentence: 今日はこれで終わりです。
-  - scelte: を ・ に ・ と ・ で
-  - ✅ corretta: で
-- **particle-cloze**
-  - sentenceWithBlank: おまわりさんに道＿＿聞きました。
-  - fullSentence: おまわりさんに道を聞きました。
-  - scelte: に ・ を ・ で ・ が
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: 週末に映画館＿＿行きます。
-  - fullSentence: 週末に映画館へ行きます。
-  - scelte: で ・ へ ・ まで
-  - ✅ corretta: へ
-- **particle-cloze**
-  - sentenceWithBlank: 先生＿＿質問があります。
-  - fullSentence: 先生に質問があります。
-  - scelte: で ・ へ ・ に ・ を
+  - sentenceWithBlank: 図書館では静か＿＿してください。
+  - fullSentence: 図書館では静かにしてください。
+  - scelte: に ・ で ・ を ・ へ
   - ✅ corretta: に
 - **particle-cloze**
-  - sentenceWithBlank: その男＿＿子は向こうにいます。
-  - fullSentence: その男の子は向こうにいます。
-  - scelte: が ・ の ・ な ・ に
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 出国＿＿手続きをしてください。
-  - fullSentence: 出国の手続きをしてください。
-  - scelte: が ・ の ・ な ・ に
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: あなたはどこでテレビ＿＿見ますか。
-  - fullSentence: あなたはどこでテレビを見ますか。
-  - scelte: に ・ で ・ を ・ が
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: ここ＿＿海の音が聞こえる。
-  - fullSentence: ここから海の音が聞こえる。
-  - scelte: から ・ より ・ まで ・ ので
-  - ✅ corretta: から
-- **particle-cloze**
-  - sentenceWithBlank: ジョンがドアにペンキ＿＿塗っていた。
-  - fullSentence: ジョンがドアにペンキを塗っていた。
-  - scelte: に ・ を ・ が ・ で
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: この病気＿＿勝てる人は少ない。
-  - fullSentence: この病気に勝てる人は少ない。
-  - scelte: で ・ へ ・ を ・ に
+  - sentenceWithBlank: 急げば、九時のでんしゃ＿＿間に合う。
+  - fullSentence: 急げば、九時のでんしゃに間に合う。
+  - scelte: に ・ で ・ を ・ へ
   - ✅ corretta: に
 - **particle-cloze**
-  - sentenceWithBlank: 昼休みに 公園＿＿ 散歩します。
-  - fullSentence: 昼休みに 公園を 散歩します。
-  - scelte: で ・ を ・ が ・ に
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: 何＿＿用でここに来たのですか。
-  - fullSentence: 何の用でここに来たのですか。
-  - scelte: に ・ な ・ が ・ の
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: あなたは小学校＿＿通っているの？
-  - fullSentence: あなたは小学校に通っているの？
-  - scelte: で ・ を ・ に
-  - ✅ corretta: に
-- **particle-cloze**
-  - sentenceWithBlank: ケイトは中国語＿＿ほとんど話せない。
-  - fullSentence: ケイトは中国語をほとんど話せない。
-  - scelte: を ・ に ・ で ・ が
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: 図書館＿＿利用は無料です。
-  - fullSentence: 図書館の利用は無料です。
-  - scelte: に ・ な ・ の ・ が
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 雨＿＿日が続いています。
-  - fullSentence: 雨の日が続いています。
-  - scelte: に ・ の ・ な ・ が
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 昨日の試合は二対一＿＿負けました。
-  - fullSentence: 昨日の試合は二対一で負けました。
-  - scelte: を ・ で ・ と ・ に
-  - ✅ corretta: で
-- **particle-cloze**
-  - sentenceWithBlank: グランド・セントラル駅＿＿やってください。
-  - fullSentence: グランド・セントラル駅までやってください。
-  - scelte: へ ・ まで ・ に ・ から
-  - ✅ corretta: まで
-- **particle-cloze**
-  - sentenceWithBlank: 雨＿＿場合は中止です。
-  - fullSentence: 雨の場合は中止です。
-  - scelte: に ・ が ・ の ・ な
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 舟＿＿川を渡りました。
-  - fullSentence: 舟で川を渡りました。
-  - scelte: で ・ を ・ に ・ と
-  - ✅ corretta: で
-- **particle-cloze**
-  - sentenceWithBlank: 日本＿＿技術は有名です。
-  - fullSentence: 日本の技術は有名です。
-  - scelte: が ・ の ・ な ・ に
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 毎晩 二時間 日本語＿＿ 勉強します。
-  - fullSentence: 毎晩 二時間 日本語を 勉強します。
-  - scelte: が ・ に ・ を ・ で
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: 本棚に本＿＿ならべました。
-  - fullSentence: 本棚に本をならべました。
-  - scelte: を ・ に ・ で ・ が
-  - ✅ corretta: を
-- **particle-cloze**
-  - sentenceWithBlank: 再来週＿＿木曜日はどう？
-  - fullSentence: 再来週の木曜日はどう？
-  - scelte: の ・ に ・ が ・ な
-  - ✅ corretta: の
-- **particle-cloze**
-  - sentenceWithBlank: 先輩＿＿いろいろ教えてもらいました。
-  - fullSentence: 先輩にいろいろ教えてもらいました。
-  - scelte: を ・ へ ・ で ・ に
-  - ✅ corretta: に
-- **particle-cloze**
-  - sentenceWithBlank: よく図書館＿＿行きます。
-  - fullSentence: よく図書館へ行きます。
-  - scelte: へ ・ まで ・ で
-  - ✅ corretta: へ
-- **particle-cloze**
-  - sentenceWithBlank: 紙を半分＿＿折ってください。
-  - fullSentence: 紙を半分に折ってください。
+  - sentenceWithBlank: 今朝、七時＿＿起きました。
+  - fullSentence: 今朝、七時に起きました。
   - scelte: を ・ で ・ へ ・ に
   - ✅ corretta: に
 - **particle-cloze**
-  - sentenceWithBlank: 戸＿＿閉めてください。
-  - fullSentence: 戸を閉めてください。
+  - sentenceWithBlank: 四人で食事＿＿しました。
+  - fullSentence: 四人で食事をしました。
+  - scelte: を ・ が ・ に ・ で
+  - ✅ corretta: を
+- **particle-cloze**
+  - sentenceWithBlank: 家内は海外旅行中で、よく電話＿＿かけてくる。
+  - fullSentence: 家内は海外旅行中で、よく電話をかけてくる。
+  - scelte: が ・ に ・ を ・ で
+  - ✅ corretta: を
+- **particle-cloze**
+  - sentenceWithBlank: 宅急便はどこですか。— あちら＿＿カウンターです。
+  - fullSentence: 宅急便はどこですか。— あちらのカウンターです。
+  - scelte: の ・ な ・ が ・ に
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: １月５日＿＿１月１５日までおねがいします。
+  - fullSentence: １月５日から１月１５日までおねがいします。
+  - scelte: から ・ ので ・ まで
+  - ✅ corretta: から
+- **particle-cloze**
+  - sentenceWithBlank: この歌を聞くと私＿＿中学校時代を思い出します。
+  - fullSentence: この歌を聞くと私の中学校時代を思い出します。
+  - scelte: な ・ が ・ に ・ の
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: 毎朝、軽い運動＿＿します。
+  - fullSentence: 毎朝、軽い運動をします。
+  - scelte: に ・ が ・ を ・ で
+  - ✅ corretta: を
+- **particle-cloze**
+  - sentenceWithBlank: 私＿＿兄は大学生です。
+  - fullSentence: 私の兄は大学生です。
+  - scelte: な ・ に ・ の ・ が
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: お茶＿＿いただきます。
+  - fullSentence: お茶をいただきます。
+  - scelte: を ・ に ・ が ・ で
+  - ✅ corretta: を
+- **particle-cloze**
+  - sentenceWithBlank: 車＿＿注意してください。
+  - fullSentence: 車に注意してください。
+  - scelte: で ・ へ ・ を ・ に
+  - ✅ corretta: に
+- **particle-cloze**
+  - sentenceWithBlank: ３時はお茶＿＿しよう。
+  - fullSentence: ３時はお茶にしよう。
+  - scelte: を ・ で ・ に ・ へ
+  - ✅ corretta: に
+- **particle-cloze**
+  - sentenceWithBlank: これ＿＿出かけるところです。
+  - fullSentence: これから出かけるところです。
+  - scelte: まで ・ から ・ ので
+  - ✅ corretta: から
+- **particle-cloze**
+  - sentenceWithBlank: こちらには大きなハス＿＿葉があります。
+  - fullSentence: こちらには大きなハスの葉があります。
+  - scelte: に ・ な ・ の ・ が
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: 兄＿＿駅まで競争しました。
+  - fullSentence: 兄と駅まで競争しました。
+  - scelte: に ・ と ・ や ・ も
+  - ✅ corretta: と
+- **particle-cloze**
+  - sentenceWithBlank: お正月＿＿神社へ行きました。
+  - fullSentence: お正月に神社へ行きました。
+  - scelte: を ・ に ・ で
+  - ✅ corretta: に
+- **particle-cloze**
+  - sentenceWithBlank: この手紙＿＿日本に送ってくれませんか。
+  - fullSentence: この手紙を日本に送ってくれませんか。
+  - scelte: に ・ で ・ を ・ が
+  - ✅ corretta: を
+- **particle-cloze**
+  - sentenceWithBlank: テストの前＿＿復習をします。
+  - fullSentence: テストの前に復習をします。
+  - scelte: で ・ へ ・ に ・ を
+  - ✅ corretta: に
+- **particle-cloze**
+  - sentenceWithBlank: 箱＿＿中に何がありますか。
+  - fullSentence: 箱の中に何がありますか。
+  - scelte: な ・ が ・ に ・ の
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: 戦争＿＿ない世界がいいです。
+  - fullSentence: 戦争のない世界がいいです。
+  - scelte: に ・ の ・ な ・ が
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: トイレ＿＿水が止まりません。
+  - fullSentence: トイレの水が止まりません。
+  - scelte: が ・ な ・ の ・ に
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: ええ、じゃあ私＿＿電話番号教えるね。
+  - fullSentence: ええ、じゃあ私の電話番号教えるね。
+  - scelte: の ・ な ・ に ・ が
+  - ✅ corretta: の
+- **particle-cloze**
+  - sentenceWithBlank: 毎年、家族＿＿旅行します。
+  - fullSentence: 毎年、家族と旅行します。
+  - scelte: も ・ や ・ と ・ に
+  - ✅ corretta: と
+- **particle-cloze**
+  - sentenceWithBlank: 兄は新聞社＿＿働いています。
+  - fullSentence: 兄は新聞社で働いています。
+  - scelte: に ・ で ・ と ・ を
+  - ✅ corretta: で
+- **particle-cloze**
+  - sentenceWithBlank: 三月に大学＿＿卒業します。
+  - fullSentence: 三月に大学を卒業します。
   - scelte: に ・ で ・ が ・ を
   - ✅ corretta: を
 - **particle-cloze**
-  - sentenceWithBlank: そんなこと＿＿言わないでください。
-  - fullSentence: そんなことを言わないでください。
-  - scelte: を ・ で ・ に ・ が
-  - ✅ corretta: を
+  - sentenceWithBlank: この言葉＿＿意味が分かりますか。
+  - fullSentence: この言葉の意味が分かりますか。
+  - scelte: の ・ に ・ が ・ な
+  - ✅ corretta: の
 
-## transitivity-pair (16)
+## transitivity-pair (13)
 
 - **transitivity-pair**
-  - sentenceWithBlank: お茶のためにお湯を＿＿
-  - fullSentence: お茶のためにお湯を沸かします。
-  - scelte: 沸かします ・ 沸いた ・ 沸きます
-  - ✅ corretta: 沸かします
-- **transitivity-pair**
-  - sentenceWithBlank: ここから海が＿＿
-  - fullSentence: ここから海が見えます。
-  - scelte: 見ます ・ 見えます ・ 見たい
-  - ✅ corretta: 見えます
-- **transitivity-pair**
-  - sentenceWithBlank: 運悪く仕事が＿＿
+  - sentenceWithBlank: 運悪く仕事が＿＿。
   - fullSentence: 運悪く仕事が見つからなかった。
-  - scelte: 見つけます ・ 見つからなかった ・ 見つけなかった
+  - scelte: 見つけなかった ・ 見つからなかった ・ 見つけろ
   - ✅ corretta: 見つからなかった
 - **transitivity-pair**
-  - sentenceWithBlank: いつゴルフを＿＿
-  - fullSentence: いつゴルフを始めたのですか。
-  - scelte: 始まります ・ 始めた ・ 始まった
-  - ✅ corretta: 始めた
+  - sentenceWithBlank: どうかドアを＿＿くれませんか。
+  - fullSentence: どうかドアを閉めてくれませんか。
+  - scelte: 閉めて ・ 閉まって ・ 閉まります
+  - ✅ corretta: 閉めて
 - **transitivity-pair**
-  - sentenceWithBlank: まどを＿＿
-  - fullSentence: まどを開けてください。
-  - scelte: 開けて ・ 開いて ・ 開かなかった
-  - ✅ corretta: 開けて
+  - sentenceWithBlank: 雨の日が＿＿います。
+  - fullSentence: 雨の日が続いています。
+  - scelte: 続いて ・ 続けて ・ 続けなかった
+  - ✅ corretta: 続いて
 - **transitivity-pair**
-  - sentenceWithBlank: ついにバス会社が＿＿
+  - sentenceWithBlank: ついにバス会社が＿＿。
   - fullSentence: ついにバス会社が折れた。
-  - scelte: 折れた ・ 折った ・ 折らない
+  - scelte: 折れた ・ 折ったら ・ 折った
   - ✅ corretta: 折れた
 - **transitivity-pair**
-  - sentenceWithBlank: はしを＿＿
-  - fullSentence: はしを渡ると、公園です。
-  - scelte: 渡さない ・ 渡る ・ 渡す
-  - ✅ corretta: 渡る
+  - sentenceWithBlank: 地球は 太陽の まわりを ＿＿ います。
+  - fullSentence: 地球は 太陽の まわりを 回って います。
+  - scelte: 回します ・ 回って ・ 回して
+  - ✅ corretta: 回って
 - **transitivity-pair**
-  - sentenceWithBlank: 店の前に人が＿＿
-  - fullSentence: 店の前に人が並んでいます。
-  - scelte: 並べられる ・ 並べて ・ 並んで
-  - ✅ corretta: 並んで
-- **transitivity-pair**
-  - sentenceWithBlank: りの部屋から音楽が＿＿
-  - fullSentence: となりの部屋から音楽が聞こえます。
-  - scelte: 聞こえます ・ 聞きます ・ 聞こう
-  - ✅ corretta: 聞こえます
-- **transitivity-pair**
-  - sentenceWithBlank: 古い切手を＿＿
-  - fullSentence: 古い切手を集めています。
-  - scelte: 集めて ・ 集まって ・ 集まられる
-  - ✅ corretta: 集めて
-- **transitivity-pair**
-  - sentenceWithBlank: ケーキにろうそくを＿＿
-  - fullSentence: バースデーケーキにろうそくを立ててください。
-  - scelte: 立って ・ 立ったら ・ 立てて
-  - ✅ corretta: 立てて
-- **transitivity-pair**
-  - sentenceWithBlank: ナイフとフォークを＿＿
-  - fullSentence: メイドはテーブルにナイフとフォークを並べた。
-  - scelte: 並ばせる ・ 並べた ・ 並んだ
-  - ✅ corretta: 並べた
-- **transitivity-pair**
-  - sentenceWithBlank: 音楽を＿＿
+  - sentenceWithBlank: 毎晩、音楽を＿＿。
   - fullSentence: 毎晩、音楽を聞きます。
-  - scelte: 聞こえます ・ 聞こえさせる ・ 聞きます
+  - scelte: 聞こえます ・ 聞きます ・ 聞こえたら
   - ✅ corretta: 聞きます
 - **transitivity-pair**
-  - sentenceWithBlank: ラジオの音を＿＿
-  - fullSentence: ラジオの音を下げてくれませんか。
-  - scelte: 下げて ・ 下がって ・ 下がられる
-  - ✅ corretta: 下げて
+  - sentenceWithBlank: メイドはテーブルにナイフとフォークを＿＿。
+  - fullSentence: メイドはテーブルにナイフとフォークを並べた。
+  - scelte: 並べた ・ 並んだ ・ 並んだら
+  - ✅ corretta: 並べた
 - **transitivity-pair**
-  - sentenceWithBlank: ここに車を＿＿
-  - fullSentence: ここに車を止めてもいいですか。
-  - scelte: 止まって ・ 止めて ・ 止まります
-  - ✅ corretta: 止めて
+  - sentenceWithBlank: お茶のためにお湯を＿＿。
+  - fullSentence: お茶のためにお湯を沸かします。
+  - scelte: 沸きます ・ 沸ける ・ 沸かします
+  - ✅ corretta: 沸かします
 - **transitivity-pair**
-  - sentenceWithBlank: へやの電気を＿＿
+  - sentenceWithBlank: へやの電気を＿＿ください。
   - fullSentence: へやの電気をつけてください。
-  - scelte: 点かなかった ・ 点いて ・ つけて
+  - scelte: 点かれる ・ 点いて ・ つけて
   - ✅ corretta: つけて
+- **transitivity-pair**
+  - sentenceWithBlank: バースデーケーキにろうそくを＿＿ください。
+  - fullSentence: バースデーケーキにろうそくを立ててください。
+  - scelte: 立って ・ 立て ・ 立てて
+  - ✅ corretta: 立てて
+- **transitivity-pair**
+  - sentenceWithBlank: ここから海が＿＿。
+  - fullSentence: ここから海が見えます。
+  - scelte: 見えます ・ 見た ・ 見ます
+  - ✅ corretta: 見えます
+- **transitivity-pair**
+  - sentenceWithBlank: はしを＿＿と、公園です。
+  - fullSentence: はしを渡ると、公園です。
+  - scelte: 渡す ・ 渡せ ・ 渡る
+  - ✅ corretta: 渡る
+- **transitivity-pair**
+  - sentenceWithBlank: となりの部屋から音楽が＿＿。
+  - fullSentence: となりの部屋から音楽が聞こえます。
+  - scelte: 聞かなかった ・ 聞きます ・ 聞こえます
+  - ✅ corretta: 聞こえます
 
-## composition (33)
+## composition (32)
 
 - **composition**
-  - prompt: posacenere
-  - reading: はいざら
-  - banco: 術 ・ 灰 ・ 舞 ・ 皿
-  - ✅ corretta: 灰皿
+  - prompt: spazioso / ampio
+  - reading: ひろい
+  - banco: 険 ・ 祝 ・ 広 ・ い
+  - ✅ corretta: 広い
 - **composition**
-  - prompt: quale (dei due) / dove (cortese)
-  - banco: た ・ ら ・ ち ・ ど ・ り
-  - ✅ corretta: どちら
+  - prompt: lungo
+  - reading: ながい
+  - banco: い ・ 長 ・ 確 ・ 心
+  - ✅ corretta: 長い
 - **composition**
-  - prompt: togliersi (vestiti)
-  - reading: ぬぐ
-  - banco: 節 ・ 脱 ・ 動 ・ ぐ
-  - ✅ corretta: 脱ぐ
+  - prompt: pagare
+  - reading: はらう
+  - banco: 開 ・ 汽 ・ う ・ 払
+  - ✅ corretta: 払う
 - **composition**
-  - prompt: ciotola (per il riso)
-  - reading: ちゃわん
-  - banco: 金 ・ 分 ・ 碗 ・ 茶
-  - ✅ corretta: 茶碗
+  - prompt: camminare
+  - reading: あるく
+  - banco: 車 ・ 簡 ・ 歩 ・ く
+  - ✅ corretta: 歩く
 - **composition**
-  - prompt: futon
-  - reading: ふとん
-  - banco: 運 ・ 団 ・ 布 ・ 上
-  - ✅ corretta: 布団
+  - prompt: fare: ripasso
+  - reading: ふくしゅうする
+  - banco: 医 ・ る ・ 習 ・ す ・ 下 ・ 運 ・ 復
+  - ✅ corretta: 復習する
 - **composition**
-  - prompt: per niente (con negazione)
-  - banco: ク ・ エ ・ ン ・ も ・ っ ・ と ・ ち
-  - ✅ corretta: ちっとも
+  - prompt: cittadino
+  - reading: しみん
+  - banco: 民 ・ 意 ・ 術 ・ 市
+  - ✅ corretta: 市民
 - **composition**
-  - prompt: fare: piano / progetto
-  - reading: けいかくする
-  - banco: 噛 ・ 画 ・ す ・ る ・ 計 ・ 以 ・ 簡
-  - ✅ corretta: 計画する
+  - prompt: cinque (cose)
+  - reading: いつつ
+  - banco: 険 ・ つ ・ 存 ・ 五
+  - ✅ corretta: 五つ
 - **composition**
-  - prompt: francobollo
-  - reading: きって
-  - banco: 切 ・ 宿 ・ 手 ・ 動
-  - ✅ corretta: 切手
+  - prompt: letteratura
+  - reading: ぶんがく
+  - banco: 学 ・ 文 ・ 預 ・ 海
+  - ✅ corretta: 文学
 - **composition**
-  - prompt: danza / ballo
-  - reading: おどり
-  - banco: 祝 ・ り ・ 踊 ・ 光
-  - ✅ corretta: 踊り
+  - prompt: capire
+  - reading: わかる
+  - banco: 嬢 ・ 分 ・ る ・ か ・ 長
+  - ✅ corretta: 分かる
 - **composition**
-  - prompt: anello
-  - reading: ゆびわ
-  - banco: 客 ・ 噛 ・ 輪 ・ 指
-  - ✅ corretta: 指輪
+  - prompt: scaffale dei libri
+  - reading: ほんだな
+  - banco: 競 ・ 棚 ・ 主 ・ 本
+  - ✅ corretta: 本棚
 - **composition**
-  - prompt: vicino
-  - reading: ちかい
-  - banco: 合 ・ 近 ・ い ・ 学
-  - ✅ corretta: 近い
+  - prompt: con tutte le forze / impegnandosi al massimo
+  - reading: いっしょうけんめい
+  - banco: 懸 ・ 一 ・ 為 ・ 係 ・ 家 ・ 命 ・ 生
+  - ✅ corretta: 一生懸命
 - **composition**
-  - prompt: rosso
-  - reading: あかい
-  - banco: 引 ・ 赤 ・ い ・ 規
-  - ✅ corretta: 赤い
+  - prompt: chitarra
+  - banco: ソ ・ ー ・ な ・ ギ ・ タ
+  - ✅ corretta: ギター
 - **composition**
-  - prompt: ogni settimana
-  - reading: まいしゅう
-  - banco: 祭 ・ 週 ・ 看 ・ 毎
-  - ✅ corretta: 毎週
+  - prompt: telefono
+  - reading: でんわ
+  - banco: 話 ・ 節 ・ 宅 ・ 電
+  - ✅ corretta: 電話
 - **composition**
-  - prompt: preparazione
-  - reading: じゅんび
-  - banco: 引 ・ 準 ・ 間 ・ 備
-  - ✅ corretta: 準備
+  - prompt: cappello
+  - reading: ぼうし
+  - banco: 持 ・ 噛 ・ 帽 ・ 子
+  - ✅ corretta: 帽子
 - **composition**
-  - prompt: fare: programma / piani
-  - reading: よていする
-  - banco: す ・ 慣 ・ 乗 ・ 定 ・ 行 ・ 予 ・ る
-  - ✅ corretta: 予定する
+  - prompt: busta (da lettere)
+  - reading: ふうとう
+  - banco: 頃 ・ 筒 ・ 慮 ・ 封
+  - ✅ corretta: 封筒
 - **composition**
-  - prompt: sapere / conoscere
-  - reading: しる
-  - banco: 学 ・ 雲 ・ 知 ・ る
-  - ✅ corretta: 知る
+  - prompt: confrontare / paragonare
+  - reading: くらべる
+  - banco: る ・ 噛 ・ 観 ・ べ ・ 比
+  - ✅ corretta: 比べる
 - **composition**
-  - prompt: legge
-  - reading: ほうりつ
-  - banco: 客 ・ 律 ・ 合 ・ 法
-  - ✅ corretta: 法律
+  - prompt: scendere
+  - reading: おりる
+  - banco: る ・ り ・ 係 ・ 下 ・ 押
+  - ✅ corretta: 下りる
 - **composition**
-  - prompt: sabato
-  - reading: どようび
-  - banco: 込 ・ 皆 ・ 日 ・ 曜 ・ 土
-  - ✅ corretta: 土曜日
+  - prompt: cattivo / brutto
+  - reading: わるい
+  - banco: 悪 ・ 滑 ・ 先 ・ い
+  - ✅ corretta: 悪い
+- **composition**
+  - prompt: fare: dormire troppo / alzarsi tardi
+  - reading: ねぼうする
+  - banco: す ・ 車 ・ 押 ・ 寝 ・ 下 ・ る ・ 坊
+  - ✅ corretta: 寝坊する
+- **composition**
+  - prompt: separarsi / lasciarsi
+  - reading: わかれる
+  - banco: れ ・ る ・ 礼 ・ 別 ・ 客
+  - ✅ corretta: 別れる
+- **composition**
+  - prompt: festa (tradizionale) / matsuri
+  - reading: おまつり
+  - banco: 祭 ・ 汽 ・ り ・ お ・ 長
+  - ✅ corretta: お祭り
+- **composition**
+  - prompt: buttare via
+  - reading: すてる
+  - banco: 捨 ・ る ・ 持 ・ て ・ 主
+  - ✅ corretta: 捨てる
+- **composition**
+  - prompt: un giorno (durata)
+  - reading: いちにち
+  - banco: 日 ・ 口 ・ 子 ・ 一
+  - ✅ corretta: 一日
+- **composition**
+  - prompt: qui
+  - banco: こ ・ こ ・ ル ・ ソ
+  - ✅ corretta: ここ
+- **composition**
+  - prompt: continuare (qualcosa)
+  - reading: つづける
+  - banco: る ・ け ・ 取 ・ 続 ・ 土
+  - ✅ corretta: 続ける
+- **composition**
+  - prompt: passare da / fare un salto
+  - reading: よる
+  - banco: る ・ 度 ・ 心 ・ 寄
+  - ✅ corretta: 寄る
+- **composition**
+  - prompt: una volta
+  - reading: いちど
+  - banco: 一 ・ 度 ・ 礼 ・ 火
+  - ✅ corretta: 一度
 - **composition**
   - prompt: lavoro
   - reading: しごと
-  - banco: 事 ・ 着 ・ 仕 ・ 意
+  - banco: 学 ・ 事 ・ 楽 ・ 仕
   - ✅ corretta: 仕事
 - **composition**
-  - prompt: crescere (figli) / coltivare
-  - reading: そだてる
-  - banco: る ・ 婦 ・ 育 ・ て ・ 以
-  - ✅ corretta: 育てる
+  - prompt: rullino / pellicola
+  - banco: も ・ く ・ ル ・ し ・ ム ・ ィ ・ フ
+  - ✅ corretta: フィルム
 - **composition**
-  - prompt: festa
-  - banco: パ ・ ー ・ し ・ ー ・ タ ・ ィ ・ リ ・ テ
-  - ✅ corretta: パーティー
+  - prompt: alto / caro (prezzo)
+  - reading: たかい
+  - banco: い ・ 高 ・ 雲 ・ 壊
+  - ✅ corretta: 高い
 - **composition**
-  - prompt: camicia (da ufficio)
-  - banco: ツ ・ ワ ・ シ ・ リ ・ ト ・ ソ ・ イ ・ ャ
-  - ✅ corretta: ワイシャツ
+  - prompt: l'anno prossimo
+  - reading: らいねん
+  - banco: 先 ・ 来 ・ 年 ・ 内
+  - ✅ corretta: 来年
 - **composition**
-  - prompt: carta d'imbarco
-  - reading: とうじょうけん
-  - banco: 搭 ・ 乗 ・ 頃 ・ 券 ・ 課
-  - ✅ corretta: 搭乗券
-- **composition**
-  - prompt: fare: guerra
-  - reading: せんそうする
-  - banco: 争 ・ 遠 ・ る ・ 戦 ・ す ・ 会 ・ 懸
-  - ✅ corretta: 戦争する
-- **composition**
-  - prompt: appartamento
-  - banco: ー ・ ト ・ ア ・ あ ・ パ ・ ン ・ っ
-  - ✅ corretta: アパート
-- **composition**
-  - prompt: martedì
-  - reading: かようび
-  - banco: 曜 ・ 存 ・ 内 ・ 日 ・ 火
-  - ✅ corretta: 火曜日
-- **composition**
-  - prompt: distributore di benzina
-  - banco: ン ・ セ ・ じ ・ ス ・ タ ・ ソ ・ リ ・ ド ・ ち ・ ン ・ ガ
-  - ✅ corretta: ガソリンスタンド
-- **composition**
-  - prompt: il mese prossimo
-  - reading: らいげつ
-  - banco: 分 ・ 宅 ・ 来 ・ 月
-  - ✅ corretta: 来月
-- **composition**
-  - prompt: romanzo
-  - reading: しょうせつ
-  - banco: 説 ・ 議 ・ 事 ・ 小
-  - ✅ corretta: 小説
-- **composition**
-  - prompt: prendere / togliere
-  - reading: とる
-  - banco: る ・ 主 ・ 取 ・ 科
-  - ✅ corretta: 取る
-- **composition**
-  - prompt: cucchiaio
-  - banco: か ・ ー ・ プ ・ し ・ ス ・ リ ・ ン
-  - ✅ corretta: スプーン
-- **composition**
-  - prompt: prima di tutto / innanzitutto
-  - banco: だ ・ ま ・ オ ・ ず
-  - ✅ corretta: まず
-- **composition**
-  - prompt: chiesa
-  - reading: きょうかい
-  - banco: 着 ・ 寄 ・ 会 ・ 教
-  - ✅ corretta: 教会
+  - prompt: nuotare
+  - reading: およぐ
+  - banco: ぐ ・ 季 ・ 学 ・ 泳
+  - ✅ corretta: 泳ぐ
 
 ## grammatica (cloze/reading/ordering) (40)
 
 - **cloze**
-  - sentenceWithBlank: 水___ください。
-  - scelte: だけ ・ 毎朝 ・ テストする ・ 暗い
-  - ✅ corretta: だけ
+  - sentenceWithBlank: 日本___行きます。
+  - scelte: です ・ たら ・ 可能形 ・ に
+  - ✅ corretta: に
 - **sentence-ordering**
-  - prompt: Forse, può darsi: possibilità non certa, più debole di でしょう.
-  - banco: 明日は ・ 雨が ・ 降るかもしれません。
-  - ✅ corretta: 明日は雨が降るかもしれません。
-- **sentence-ordering**
-  - prompt: Provare a fare: 〜てみる = fare per vedere com'è (「食べてみます」 = assaggio).
-  - banco: この ・ 着てみたいです。 ・ 服、
-  - ✅ corretta: この服、着てみたいです。
+  - prompt: Senza fare: 〜ないで (「朝ごはんを食べないで出かけた」).
+  - banco: 寝ました。 ・ 歯を ・ 磨かないで
+  - ✅ corretta: 歯を磨かないで寝ました。
 - **cloze**
-  - sentenceWithBlank: 窓が___
-  - scelte: 台所 ・ 大好き ・ 開けてあります。 ・ 塩
-  - ✅ corretta: 開けてあります。
+  - sentenceWithBlank: 速く走れる___、毎日練習しています。
+  - scelte: はより ・ ために ・ その ・ ませんか
+  - ✅ corretta: ために
 - **cloze**
-  - sentenceWithBlank: ___話せるようになりましたか。
-  - scelte: 深い ・ 適当 ・ 英語が ・ 赤ちゃん
-  - ✅ corretta: 英語が
-- **cloze**
-  - sentenceWithBlank: 今、し___よ。明日でいいよ。
-  - scelte: 致す ・ すると ・ なくてもいい ・ 柔らかい
-  - ✅ corretta: なくてもいい
-- **cloze**
-  - sentenceWithBlank: 勉強した___、テストで0点だった。
-  - scelte: 払う ・ 試験する ・ のに ・ コンピュータ; コンピューター
-  - ✅ corretta: のに
-- **sentence-ordering**
-  - prompt: La forma in -te come causa o motivo (più leggera di から/ので).
-  - banco: 学校を ・ 休みました。 ・ 頭が ・ 痛くて、
-  - ✅ corretta: 頭が痛くて、学校を休みました。
-- **sentence-ordering**
-  - prompt: Prima di / davanti a: 〜前に di tempo (「寝る前に」) e luogo (「駅の前に」).
-  - banco: 寝る ・ 前に ・ 読みます。 ・ 本を
-  - ✅ corretta: 寝る前に本を読みます。
-- **cloze**
-  - sentenceWithBlank: 行きたい___、お金がない。
-  - scelte: けど ・ 困る ・ 古い ・ はい
-  - ✅ corretta: けど
-- **cloze**
-  - sentenceWithBlank: おいしい___、わからないから、食べない。
-  - scelte: かどうか ・ 浅い ・ ファックスする ・ 大分
-  - ✅ corretta: かどうか
-- **cloze**
-  - sentenceWithBlank: 部長、ご飯を召し___
-  - scelte: いじめる ・ 終わり ・ 上がりましたか。 ・ 約束する
-  - ✅ corretta: 上がりましたか。
-- **sentence-ordering**
-  - prompt: Ancora in corso: l'azione o lo stato continua.
-  - banco: 雨が ・ 降っている。 ・ まだ
-  - ✅ corretta: まだ雨が降っている。
-- **sentence-ordering**
-  - prompt: Verso di me / cambiamento in arrivo: 行ってくる (vado e torno), 寒くなってくる (inizia a far freddo).
-  - banco: コンビニへ ・ 行ってくるね。 ・ ちょっと
-  - ✅ corretta: ちょっとコンビニへ行ってくるね。
+  - sentenceWithBlank: 泳ぎ___です。
+  - scelte: ている ・ のが上手 ・ たい ・ あの
+  - ✅ corretta: たい
 - **cloze**
   - sentenceWithBlank: 本を読む___です。
-  - scelte: のが好き ・ 分かる ・ おめでとうございます ・ まずい
+  - scelte: まだ ・ でしょう ・ けれども ・ のが好き
   - ✅ corretta: のが好き
 - **cloze**
-  - sentenceWithBlank: 彼は来ない___。
-  - scelte: テープ ・ 下手 ・ 風 ・ だろう
-  - ✅ corretta: だろう
+  - sentenceWithBlank: 飲もう、___しよう、来よう。
+  - scelte: みたいだ ・ ところ ・ てある ・ 食べよう、
+  - ✅ corretta: 食べよう、
+- **cloze**
+  - sentenceWithBlank: 早く寝___。
+  - scelte: なさい ・ けれども ・ なくちゃ ・ でしょう
+  - ✅ corretta: なさい
 - **sentence-ordering**
-  - prompt: …o qualcosa: でも/も esemplificativo (「お茶でも飲みませんか」).
-  - banco: のどが ・ かわきました。 ・ 飲みませんか。 ・ お茶でも
-  - ✅ corretta: のどがかわきました。お茶でも飲みませんか。
+  - prompt: がいます: esistenza di esseri animati (「犬がいます」).
+  - banco: 庭に ・ 犬が ・ います。
+  - ✅ corretta: 庭に犬がいます。
 - **cloze**
-  - sentenceWithBlank: 荷物を持ち___？
-  - scelte: 雑誌 ・ ましょうか ・ 水曜日 ・ 作文する
-  - ✅ corretta: ましょうか
-- **cloze**
-  - sentenceWithBlank: 時間がない___は、連絡してくださいよ。
-  - scelte: 予約 ・ そう ・ 場合 ・ 妻
-  - ✅ corretta: 場合
-- **cloze**
-  - sentenceWithBlank: この漢字の書き___を教えて。
-  - scelte: 切手 ・ 散歩する ・ 方 ・ できる
-  - ✅ corretta: 方
-- **cloze**
-  - sentenceWithBlank: ___こわれた。 / パソコンをこわしてしまった。
-  - scelte: すると ・ パソコンが ・ 表 ・ おかげ
-  - ✅ corretta: パソコンが
-- **cloze**
-  - sentenceWithBlank: ルームメートに、料理を___
-  - scelte: 競争する ・ 卒業する ・ 作ってあげました。 ・ 放送
-  - ✅ corretta: 作ってあげました。
-- **cloze**
-  - sentenceWithBlank: ここでタバコを吸っ___よ。
-  - scelte: ちゃいけない ・ 段々 ・ 二十歳 ・ 時々
-  - ✅ corretta: ちゃいけない
-- **cloze**
-  - sentenceWithBlank: 忙しい___、会いたい。
-  - scelte: あなた ・ キロ; キロメートル ・ 七 ・ けれども
-  - ✅ corretta: けれども
+  - sentenceWithBlank: このズボンは長___。
+  - scelte: なあ ・ 一番 ・ なさい ・ すぎる
+  - ✅ corretta: すぎる
 - **sentence-ordering**
-  - prompt: Ancora / non ancora: まだ (「まだ雨が降っている」; con negazione = non ancora).
-  - banco: 終わっていない。 ・ まだ ・ 宿題が
-  - ✅ corretta: まだ宿題が終わっていない。
+  - prompt: Sonkeigo: rispetto per le azioni di superiori e clienti (召し上がる, おっしゃる).
+  - banco: ご飯を ・ 上がりましたか。 ・ 召し ・ 部長、
+  - ✅ corretta: 部長、ご飯を召し上がりましたか。
 - **cloze**
-  - sentenceWithBlank: 毎日勉強し___。
-  - scelte: 十 ・ なくてはいけない ・ 可愛い ・ 九
-  - ✅ corretta: なくてはいけない
-- **sentence-ordering**
-  - prompt: È stato deciso che… (decisione presa da altri o dalle circostanze).
-  - banco: 入院する ・ ことになりました。 ・ 父が
-  - ✅ corretta: 父が入院することになりました。
+  - sentenceWithBlank: 机の上に本___。
+  - scelte: があります ・ うと思う ・ はどうですか ・ ほうがいい
+  - ✅ corretta: があります
 - **cloze**
-  - sentenceWithBlank: 今年は、国___帰らないことにしました。
-  - scelte: 内 ・ 喜ぶ ・ 焼ける ・ に
-  - ✅ corretta: に
+  - sentenceWithBlank: ラーメンはかんたんにできる___、安いし、おいしい。
+  - scelte: し ・ 条件形 ・ だけ ・ ような
+  - ✅ corretta: し
 - **cloze**
-  - sentenceWithBlank: ___疲れました。
-  - scelte: とても ・ 会う ・ いくつ ・ 上
-  - ✅ corretta: とても
+  - sentenceWithBlank: 飲まされる、食べ___させられる、来させられる。
+  - scelte: 聞こえる ・ なくてはいけない ・ させられる、 ・ をください
+  - ✅ corretta: させられる、
 - **cloze**
-  - sentenceWithBlank: 行きたい___。
-  - scelte: 母 ・ 学生 ・ のです ・ 要る
-  - ✅ corretta: のです
+  - sentenceWithBlank: 飲み物はお茶___。
+  - scelte: がする ・ をください ・ にする ・ てくれる
+  - ✅ corretta: にする
 - **cloze**
-  - sentenceWithBlank: 私___行きます。
-  - scelte: りっぱ ・ 花 ・ も ・ おばあさん
-  - ✅ corretta: も
+  - sentenceWithBlank: この漢字は、くつをぬぐ___です。
+  - scelte: という意味 ・ とても ・ ほうがいい ・ 受身形
+  - ✅ corretta: という意味
 - **cloze**
-  - sentenceWithBlank: ちょっと待っ___！
-  - scelte: て ・ プレゼント ・ 眠る ・ 卒業する
-  - ✅ corretta: て
-- **cloze**
-  - sentenceWithBlank: ___食べました。
-  - scelte: 自分 ・ 開ける ・ どうして ・ もう
-  - ✅ corretta: もう
-- **sentence-ordering**
-  - prompt: Qualcuno fa qualcosa per me: 〜てくれる (altri → io/la mia famiglia), con gratitudine.
-  - banco: 持ってくれました。 ・ わかい ・ 人が、にもつを
-  - ✅ corretta: わかい人が、にもつを持ってくれました。
+  - sentenceWithBlank: かわいい___！
+  - scelte: ね ・ から ・ へ ・ ように
+  - ✅ corretta: ね
 - **sentence-ordering**
   - prompt: Dovere: 〜なければいけない = obbligo (forma colloquiale: 〜なきゃ).
-  - banco: 起きなければいけない。 ・ 明日は ・ 早く
+  - banco: 明日は ・ 早く ・ 起きなければいけない。
   - ✅ corretta: 明日は早く起きなければいけない。
+- **sentence-ordering**
+  - prompt: Forse, può darsi: possibilità non certa, più debole di でしょう.
+  - banco: 降るかもしれません。 ・ 雨が ・ 明日は
+  - ✅ corretta: 明日は雨が降るかもしれません。
+- **sentence-ordering**
+  - prompt: Si può: 〜てもいいです = permesso (「入ってもいいですか」 = posso entrare?).
+  - banco: ここに ・ 座っても ・ いいですか？
+  - ✅ corretta: ここに座ってもいいですか？
 - **cloze**
-  - sentenceWithBlank: もっとゆっくり話してくれませんか。もっとゆっくり話し___。
-  - scelte: 一生懸命 ・ 説明 ・ 税関 ・ ていただけませんか
-  - ✅ corretta: ていただけませんか
+  - sentenceWithBlank: ちょっとコンビニへ行っ___ね。
+  - scelte: よ ・ もう ・ うと思う ・ てくる
+  - ✅ corretta: てくる
+- **cloze**
+  - sentenceWithBlank: エベレストは、世界で___高い山です。
+  - scelte: 禁止形 ・ までに ・ 一番 ・ はより
+  - ✅ corretta: 一番
+- **cloze**
+  - sentenceWithBlank: 行きたい___、お金がない。
+  - scelte: けど ・ ましょう ・ でも ・ くなる
+  - ✅ corretta: けど
+- **cloze**
+  - sentenceWithBlank: 私___学生です。
+  - scelte: する ・ だろう ・ は ・ ような
+  - ✅ corretta: は
+- **cloze**
+  - sentenceWithBlank: テレビを見___、夕ご飯を食べる。
+  - scelte: ながら ・ 依頼 ・ そこで ・ まだ
+  - ✅ corretta: ながら
+- **cloze**
+  - sentenceWithBlank: ___話せるようになりましたか。
+  - scelte: 英語が ・ 意向形 ・ ね ・ 敬語
+  - ✅ corretta: 英語が
+- **cloze**
+  - sentenceWithBlank: パン___よ。おかずがないよ。
+  - scelte: しかない ・ ばかり ・ はより ・ まで
+  - ✅ corretta: しかない
+- **cloze**
+  - sentenceWithBlank: 飲ませる、食べさせる、させる、___
+  - scelte: 来させる。 ・ 謙譲語 ・ ている ・ がする
+  - ✅ corretta: 来させる。
+- **cloze**
+  - sentenceWithBlank: 先生が漢字を___
+  - scelte: 教えてくださいました。 ・ テキスト ・ 十分 ・ ていただけませんか
+  - ✅ corretta: 教えてくださいました。
+- **cloze**
+  - sentenceWithBlank: 毎日勉強し___。
+  - scelte: たことがある ・ ちゃいけない ・ なくてもいい ・ なくてはいけない
+  - ✅ corretta: なくてはいけない
+- **reading-choice**
+  - targetText: 勉強
+  - plainSentence: いま、勉強している。
+  - scelte: べんきょう ・ にゅうこく ・ しゅっこく ・ こうちょう
+  - ✅ corretta: べんきょう
+- **cloze**
+  - sentenceWithBlank: 遅れた___。
+  - scelte: なんか ・ 使役受身形 ・ ようになる ・ んです
+  - ✅ corretta: んです
+- **cloze**
+  - sentenceWithBlank: ___行きます。
+  - scelte: 買い物に ・ ている ・ つもり ・ てから
+  - ✅ corretta: 買い物に
+- **cloze**
+  - sentenceWithBlank: まだ___降っている。
+  - scelte: がする ・ くなる ・ のです ・ 雨が
+  - ✅ corretta: 雨が
+- **cloze**
+  - sentenceWithBlank: 明日は、午後から雨が降る___。
+  - scelte: 小さい ・ みたいだ ・ でしょう ・ 敬語
+  - ✅ corretta: でしょう
+- **cloze**
+  - sentenceWithBlank: ちょっと待っ___！
+  - scelte: つもり ・ か ・ て ・ なあ
+  - ✅ corretta: て
+- **cloze**
+  - sentenceWithBlank: 明日、雨___。
+  - scelte: しかし ・ でしょう ・ しかない ・ たりたり
+  - ✅ corretta: でしょう
+- **cloze**
+  - sentenceWithBlank: 私___行きます。
+  - scelte: 他動詞 ・ も ・ しかし ・ よ
+  - ✅ corretta: も
+- **cloze**
+  - sentenceWithBlank: ここで___
+  - scelte: ていただけませんか ・ 走ってはいけません。 ・ なければいけない ・ なくてはならない
+  - ✅ corretta: 走ってはいけません。
 - **sentence-ordering**
-  - prompt: Kenjōgo: umiltà per le proprie azioni verso gli altri (いただく, 伺う, 申す).
-  - banco: いただいた ・ ものです。 ・ 大統領から ・ この本は
-  - ✅ corretta: この本は大統領からいただいたものです。
+  - prompt: がほしい: volere una cosa (「新しいくつがほしい」); per le azioni si usa 〜たい.
+  - banco: 新しい ・ 車が ・ ほしい。
+  - ✅ corretta: 新しい車がほしい。
 - **sentence-ordering**
-  - prompt: Insieme: 一緒に (「一緒に行きましょう」).
-  - banco: 映画を ・ 一緒に ・ 見ました。 ・ 友達と
-  - ✅ corretta: 友達と一緒に映画を見ました。
-- **sentence-ordering**
-  - prompt: 〜やすい/〜にくい sullo stem: facile/difficile da fare (「読みやすい」).
-  - banco: 読みにくいです。 ・ 手紙は、 ・ 小さくて ・ その
-  - ✅ corretta: その手紙は、小さくて読みにくいです。
-- **sentence-ordering**
-  - prompt: Penso di fare…: forma volitiva + と思う per un'intenzione.
-  - banco: 夏休みは、 ・ 思っています。 ・ 行こうと ・ 海に
-  - ✅ corretta: 夏休みは、海に行こうと思っています。
+  - prompt: Essere negato in: 〜のが下手 (「歌うのが下手です」).
+  - banco: 下手です。 ・ 歌うのが ・ 私は
+  - ✅ corretta: 私は歌うのが下手です。
 

@@ -159,7 +159,7 @@ describe("transitivity-pair e nuove letture", () => {
     expect(q).not.toBeNull();
     expect(q!.correctChoice).toBe("開けます");
     expect(q!.choices).toContain("開きます"); // il gemello intransitivo, stessa forma
-    expect(q!.sentenceWithBlank).toBe("ドアを＿＿"); // domanda mirata nome+particella
+    expect(q!.sentenceWithBlank).toBe("ドアを＿＿。"); // domanda mirata nome+particella
   });
 
   it("counter-reading: distrattori di rendaku", async () => {

@@ -432,11 +432,15 @@ export function buildAdjectiveQuestions(word: Word, allowed?: Set<string>): Conj
 }
 
 export function buildConjugationQuestions(word: Word, allowed?: Set<string>): ConjugationQuestion[] {
+	// Voci con grafie multiple ("堅; 硬; 固い"): si coniuga SOLO la prima —
+	// coniugare la stringa intera produceva mostri (audit dell'insegnante).
+	const primary = word.scrittura.split(/[;；]/)[0]!.trim();
+	const w = primary === word.scrittura ? word : { ...word, scrittura: primary };
 	const build = (filter?: Set<string>) =>
-		word.tipo_jp.startsWith('動詞')
-			? buildVerbQuestions(word, filter)
-			: word.tipo_jp.startsWith('形容詞')
-				? buildAdjectiveQuestions(word, filter)
+		w.tipo_jp.startsWith('動詞')
+			? buildVerbQuestions(w, filter)
+			: w.tipo_jp.startsWith('形容詞')
+				? buildAdjectiveQuestions(w, filter)
 				: [];
 
 	const questions = build(allowed);
