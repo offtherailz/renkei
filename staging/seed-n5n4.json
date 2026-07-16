@@ -193,7 +193,8 @@
       "kanji_usati": [],
       "sinonimi": [
         "申し上げる",
-        "くれる"
+        "くれる",
+        "差し上げる"
       ],
       "contrari": [
         "下げる"
@@ -928,11 +929,7 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "申す",
-        "おる",
-        "致す",
-        "差し上げる",
-        "参る"
+        "もらう"
       ],
       "contrari": [],
       "omofoni": [],
@@ -1134,8 +1131,10 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "おっしゃる",
-        "なさる"
+        "おいでになる",
+        "行く",
+        "来る",
+        "居る"
       ],
       "contrari": [],
       "omofoni": [],
@@ -1190,54 +1189,6 @@
           "traduzione": {
             "it": "Which of your parents do you take after?",
             "en": "Which of your parents do you take after?"
-          }
-        }
-      ]
-    },
-    {
-      "id": "うかがう",
-      "scrittura": "うかがう",
-      "lettura": "うかがう",
-      "significato": {
-        "it": [
-          "chiedere (umile)",
-          "fare visita (umile)"
-        ],
-        "en": [
-          "to ask"
-        ]
-      },
-      "study_tags": [
-        "n4",
-        "kana-only"
-      ],
-      "source_name": "allenlu2009/japanese-learning-datasets",
-      "source_license": "MIT",
-      "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
-      "livello_jlpt": "N4",
-      "tipo_jp": "動詞[どうし]",
-      "kanji_usati": [],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [
-        "伺う"
-      ],
-      "updated_at": 1783961245174,
-      "classe_verbo_jp": "五段動詞[ごだんどうし]",
-      "transitivita_jp": "他動詞[たどうし]",
-      "frasi_esempio": [
-        {
-          "testo": "体重をおうかがいしてもよろしいですか。",
-          "traduzione": {
-            "it": "May I ask you what your weight is?",
-            "en": "May I ask you what your weight is?"
-          }
-        },
-        {
-          "testo": "病気のため本日はうかがうことができませんでした。",
-          "traduzione": {
-            "it": "On account of illness, I couldn't call on you today.",
-            "en": "On account of illness, I couldn't call on you today."
           }
         }
       ]
@@ -1459,7 +1410,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N4",
-      "tipo_jp": "形容詞[けいようし]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [
         "よろしい",
@@ -1551,7 +1502,9 @@
       "livello_jlpt": "N4",
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "いらっしゃる"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245178,
@@ -1902,8 +1855,7 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "いらっしゃる",
-        "なさる"
+        "言う"
       ],
       "contrari": [],
       "omofoni": [],
@@ -2037,9 +1989,7 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "いただく",
-        "申す",
-        "致す"
+        "居る"
       ],
       "contrari": [],
       "omofoni": [
@@ -2047,7 +1997,7 @@
       ],
       "updated_at": 1783961245177,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
-      "transitivita_jp": "他動詞[たどうし]",
+      "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
         {
           "testo": "父は今、家におりません。",
@@ -3009,7 +2959,9 @@
       "livello_jlpt": "N4",
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "くれる"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245178,
@@ -3057,7 +3009,8 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "あげる"
+        "あげる",
+        "くださる"
       ],
       "contrari": [],
       "omofoni": [
@@ -3248,7 +3201,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N4",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "接続詞[せつぞくし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -6031,8 +5984,7 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "いらっしゃる",
-        "おっしゃる"
+        "する"
       ],
       "contrari": [],
       "omofoni": [],
@@ -7301,7 +7253,9 @@
       "livello_jlpt": "N4",
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "いただく"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245176,
@@ -7446,7 +7400,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N4",
-      "tipo_jp": "形容詞[けいようし]",
+      "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -9662,7 +9616,8 @@
             "en": "Please lower the air conditioner temperature."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "下がる"
     },
     {
       "id": "下りる",
@@ -9716,8 +9671,8 @@
       ]
     },
     {
-      "id": "下る",
-      "scrittura": "下る",
+      "id": "下がる",
+      "scrittura": "下がる",
       "lettura": "さがる",
       "significato": {
         "it": [
@@ -9742,9 +9697,7 @@
       "kanji_usati": [
         "下"
       ],
-      "sinonimi": [
-        "落る"
-      ],
+      "sinonimi": [],
       "contrari": [
         "上がる"
       ],
@@ -9754,20 +9707,21 @@
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
         {
-          "testo": "この道を下ると、海に出ます。",
-          "traduzione": {
-            "it": "Scendendo per questa strada si arriva al mare.",
-            "en": "Go down this road and you'll reach the sea."
-          }
-        },
-        {
-          "testo": "熱が やっと 下りました。",
+          "testo": "熱が やっと 下がりました。",
           "traduzione": {
             "it": "La febbre è finalmente scesa.",
             "en": "The fever finally went down."
           }
+        },
+        {
+          "testo": "冬に なって、気温が 下がりました。",
+          "traduzione": {
+            "it": "È arrivato l'inverno e la temperatura è scesa.",
+            "en": "Winter came and the temperature dropped."
+          }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "下げる"
     },
     {
       "id": "下宿",
@@ -11162,8 +11116,8 @@
       ]
     },
     {
-      "id": "楽む",
-      "scrittura": "楽む",
+      "id": "楽しむ",
+      "scrittura": "楽しむ",
       "lettura": "たのしむ",
       "significato": {
         "it": [
@@ -11201,7 +11155,7 @@
           }
         },
         {
-          "testo": "祭りを みんなで 楽みました。",
+          "testo": "祭りを みんなで 楽しみました。",
           "traduzione": {
             "it": "Ci siamo goduti la festa tutti insieme.",
             "en": "We all enjoyed the festival together."
@@ -17440,9 +17394,7 @@
         "上"
       ],
       "sinonimi": [
-        "いただく",
-        "参る",
-        "申す"
+        "あげる"
       ],
       "contrari": [],
       "omofoni": [],
@@ -18215,9 +18167,8 @@
         "参"
       ],
       "sinonimi": [
-        "いただく",
-        "差し上げる",
-        "申す"
+        "行く",
+        "来る"
       ],
       "contrari": [],
       "omofoni": [],
@@ -18599,11 +18550,12 @@
       "kanji_usati": [
         "伺"
       ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [
-        "うかがう"
+      "sinonimi": [
+        "聞く",
+        "行く"
       ],
+      "contrari": [],
+      "omofoni": [],
       "updated_at": 1783961245177,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
@@ -18749,10 +18701,10 @@
       "kanji_usati": [
         "子"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "親"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245177,
       "usi": [
@@ -19587,7 +19539,9 @@
         "試",
         "験"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "テスト"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245177,
@@ -19687,9 +19641,7 @@
         "試",
         "合"
       ],
-      "sinonimi": [
-        "マッチ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245176,
@@ -20127,9 +20079,7 @@
       "kanji_usati": [
         "字"
       ],
-      "sinonimi": [
-        "手紙"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245178,
@@ -20530,7 +20480,7 @@
       "livello_jlpt": "N4",
       "tipo_jp": "動詞[どうし]",
       "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
-      "transitivita_jp": "他動詞[たどうし]",
+      "transitivita_jp": "自動詞[じどうし]",
       "id_nome_origine": "失敗",
       "kanji_usati": [
         "失",
@@ -22172,9 +22122,7 @@
           }
         }
       ],
-      "sinonimi": [
-        "入国"
-      ],
+      "sinonimi": [],
       "contrari": [
         "入国"
       ],
@@ -22219,10 +22167,10 @@
           }
         }
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "入国する"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245324
     },
@@ -22447,7 +22395,9 @@
         "準",
         "備"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "用意"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245176,
@@ -22514,7 +22464,9 @@
           }
         }
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "用意する"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245324
@@ -22547,7 +22499,9 @@
       "sinonimi": [
         "女"
       ],
-      "contrari": [],
+      "contrari": [
+        "男性"
+      ],
       "omofoni": [],
       "updated_at": 1783961245177,
       "usi": [
@@ -22670,7 +22624,10 @@
         "召",
         "上"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "食べる",
+        "飲む"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245178,
@@ -24810,7 +24767,9 @@
         "申",
         "上"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "言う"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245175,
@@ -24887,11 +24846,7 @@
         "申"
       ],
       "sinonimi": [
-        "いただく",
-        "おる",
-        "致す",
-        "差し上げる",
-        "参る"
+        "言う"
       ],
       "contrari": [],
       "omofoni": [],
@@ -25148,10 +25103,10 @@
       "kanji_usati": [
         "親"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "子"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245175,
       "usi": [
@@ -25261,7 +25216,9 @@
         "親",
         "切"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "優しい"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245176,
@@ -29701,7 +29658,9 @@
         "男",
         "人"
       ],
-      "contrari": [],
+      "contrari": [
+        "女性"
+      ],
       "omofoni": [],
       "updated_at": 1783961245177,
       "usi": [
@@ -30004,9 +29963,7 @@
         "致"
       ],
       "sinonimi": [
-        "いただく",
-        "おる",
-        "申す"
+        "する"
       ],
       "contrari": [],
       "omofoni": [],
@@ -30106,9 +30063,7 @@
         "着",
         "物"
       ],
-      "sinonimi": [
-        "そば"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245177,
@@ -31959,7 +31914,9 @@
         "点"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "消える"
+      ],
       "omofoni": [
         "着く"
       ],
@@ -33935,9 +33892,7 @@
           }
         }
       ],
-      "sinonimi": [
-        "出国"
-      ],
+      "sinonimi": [],
       "contrari": [
         "出国"
       ],
@@ -33982,10 +33937,10 @@
           }
         }
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "出国する"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245325
     },
@@ -37948,9 +37903,7 @@
         "味",
         "噌"
       ],
-      "sinonimi": [
-        "見る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245177,
@@ -38404,7 +38357,7 @@
         "日"
       ],
       "sinonimi": [
-        "明日"
+        "明日::あした"
       ],
       "contrari": [],
       "omofoni": [],
@@ -39102,7 +39055,9 @@
       "kanji_usati": [
         "優"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "親切"
+      ],
       "contrari": [
         "厳しい"
       ],
@@ -39759,7 +39714,8 @@
         "意"
       ],
       "sinonimi": [
-        "支度"
+        "支度",
+        "準備"
       ],
       "contrari": [],
       "omofoni": [],
@@ -39828,7 +39784,8 @@
         }
       ],
       "sinonimi": [
-        "支度する"
+        "支度する",
+        "準備する"
       ],
       "contrari": [],
       "omofoni": [],
@@ -40026,8 +39983,8 @@
       ]
     },
     {
-      "id": "落す",
-      "scrittura": "落す",
+      "id": "落とす",
+      "scrittura": "落とす",
       "lettura": "おとす",
       "significato": {
         "it": [
@@ -40059,25 +40016,25 @@
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
         {
-          "testo": "駅で財布を落しました。",
+          "testo": "駅で財布を落としました。",
           "traduzione": {
             "it": "Ho fatto cadere il portafoglio in stazione.",
             "en": "I dropped my wallet at the station."
           }
         },
         {
-          "testo": "スープを 落して、服が 汚れました。",
+          "testo": "スープを 落として、服が 汚れました。",
           "traduzione": {
             "it": "Ho rovesciato la zuppa e mi sono sporcato i vestiti.",
             "en": "I spilled the soup and stained my clothes."
           }
         }
       ],
-      "id_verbo_corrispondente": "落る"
+      "id_verbo_corrispondente": "落ちる"
     },
     {
-      "id": "落る",
-      "scrittura": "落る",
+      "id": "落ちる",
+      "scrittura": "落ちる",
       "lettura": "おちる",
       "significato": {
         "it": [
@@ -40100,9 +40057,7 @@
       "kanji_usati": [
         "落"
       ],
-      "sinonimi": [
-        "下る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245175,
@@ -40124,7 +40079,7 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "落す"
+      "id_verbo_corrispondente": "落とす"
     },
     {
       "id": "利用",
@@ -45382,13 +45337,15 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "やる"
+        "やる",
+        "致す",
+        "なさる"
       ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
       "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
-      "transitivita_jp": "自動詞[じどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
       "usi": [
         {
           "tipi_jp": [
@@ -45715,7 +45672,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "動詞[どうし]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -45762,7 +45719,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "名詞[めいし]",
+      "tipo_jp": "接続詞[せつぞくし]",
       "kanji_usati": [],
       "sinonimi": [
         "また"
@@ -46052,9 +46009,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "着物"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -46772,7 +46727,9 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "消す"
+      ],
       "omofoni": [
         "漬ける"
       ],
@@ -47043,7 +47000,9 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "試験"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -47458,8 +47417,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "戸",
-        "洋服"
+        "戸"
       ],
       "contrari": [],
       "omofoni": [],
@@ -48947,7 +48905,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "形容詞[けいようし]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -50119,9 +50077,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "試合"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -52744,7 +52700,9 @@
       "kanji_usati": [
         "飲"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "召し上がる"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -52791,10 +52749,10 @@
       "kanji_usati": [
         "右"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "左"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
       "usi": [
@@ -55358,7 +55316,9 @@
         "開く-ひらく",
         "空く::あく"
       ],
-      "contrari": [],
+      "contrari": [
+        "閉まる"
+      ],
       "omofoni": [
         "空く::あく"
       ],
@@ -57098,7 +57058,9 @@
         "居"
       ],
       "sinonimi": [
-        "在る"
+        "在る",
+        "いらっしゃる",
+        "おる"
       ],
       "contrari": [],
       "omofoni": [
@@ -59616,7 +59578,10 @@
         "言"
       ],
       "sinonimi": [
-        "話す"
+        "話す",
+        "申す",
+        "申し上げる",
+        "おっしゃる"
       ],
       "contrari": [],
       "omofoni": [],
@@ -61145,7 +61110,11 @@
       "kanji_usati": [
         "行"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "参る",
+        "いらっしゃる",
+        "伺う"
+      ],
       "contrari": [
         "来る",
         "帰る"
@@ -62204,10 +62173,10 @@
       "kanji_usati": [
         "左"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "右"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
       "usi": [
@@ -65802,9 +65771,7 @@
         "手",
         "紙"
       ],
-      "sinonimi": [
-        "字"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -67209,10 +67176,11 @@
         "女"
       ],
       "sinonimi": [
-        "男",
         "女性"
       ],
-      "contrari": [],
+      "contrari": [
+        "男"
+      ],
       "omofoni": [],
       "updated_at": 1783961245161,
       "usi": [
@@ -67562,7 +67530,9 @@
         "消"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "点く"
+      ],
       "omofoni": [],
       "updated_at": 1783961245162,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
@@ -67613,7 +67583,9 @@
         "消"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "つける"
+      ],
       "omofoni": [],
       "updated_at": 1783961245163,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
@@ -68618,7 +68590,9 @@
       "kanji_usati": [
         "食"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "召し上がる"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -72989,11 +72963,12 @@
         "男"
       ],
       "sinonimi": [
-        "女",
         "男性",
         "人"
       ],
-      "contrari": [],
+      "contrari": [
+        "女"
+      ],
       "omofoni": [],
       "updated_at": 1783961245161,
       "usi": [
@@ -78361,9 +78336,7 @@
       "kanji_usati": [
         "父"
       ],
-      "sinonimi": [
-        "母"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -79020,7 +78993,9 @@
       "kanji_usati": [
         "聞"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "伺う"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -79219,7 +79194,9 @@
       "sinonimi": [
         "閉める"
       ],
-      "contrari": [],
+      "contrari": [
+        "開く-あく"
+      ],
       "omofoni": [],
       "updated_at": 1783961245163,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
@@ -79685,9 +79662,7 @@
       "kanji_usati": [
         "母"
       ],
-      "sinonimi": [
-        "父"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -81177,7 +81152,7 @@
         "日"
       ],
       "sinonimi": [
-        "明日"
+        "明日::あす"
       ],
       "contrari": [],
       "omofoni": [],
@@ -82392,9 +82367,7 @@
         "洋",
         "服"
       ],
-      "sinonimi": [
-        "ドア"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245173,
@@ -82666,7 +82639,10 @@
       "kanji_usati": [
         "来"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "参る",
+        "いらっしゃる"
+      ],
       "contrari": [
         "行く"
       ],
@@ -85582,7 +85558,7 @@
         "以下",
         "下げる",
         "下りる",
-        "下る",
+        "下がる",
         "下宿",
         "下宿する",
         "下着",
@@ -86611,7 +86587,7 @@
       "link_koohii": "https://kanji.koohii.com/study/kanji/%E6%A5%BD",
       "parole_correlate": [
         "楽しみ",
-        "楽む",
+        "楽しむ",
         "音楽",
         "楽しい"
       ],
@@ -105597,8 +105573,8 @@
       "link_jisho": "https://jisho.org/search/%23kanji%20%E8%90%BD",
       "link_koohii": "https://kanji.koohii.com/study/kanji/%E8%90%BD",
       "parole_correlate": [
-        "落す",
-        "落る"
+        "落とす",
+        "落ちる"
       ],
       "updated_at": 1783777475757,
       "livello_jlpt": "N3"
