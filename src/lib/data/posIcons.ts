@@ -9,6 +9,8 @@ export const ICONS_BY_LABEL: Record<string, string> = {
 	連体詞: '📌',
 	接続詞: '➕',
 	助詞: '🪝',
+	感動詞: '😮',
+	助動詞: '🔧',
 	数詞: '🔟',
 	助数詞: '🔢',
 	慣用表現: '💬',
