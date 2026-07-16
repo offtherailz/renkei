@@ -4,7 +4,7 @@ import { renderFuriganaToHtml, FIRST_KANJI_REGEX } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
 import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
 import { buildConjugationQuestions, buildVerbTable, buildAdjectiveTable, detectVerbClass, detectAdjectiveType } from "../core/conjugation";
-import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
+import { findConjugatedForm, USAGE_BLANK, blankSentence, pickOccurrenceIndex } from "../core/usage";
 import { naiveReading, parseIrregularReadings, readCounterN, voicingVariants } from "../core/counterReadings";
 import { GENERATED_COUNTERS, generateReading, type GeneratedReading } from "../core/counterGen";
 import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
@@ -17,6 +17,7 @@ import type {
   ConjugationQuizQuestion,
   SpokenProductionQuestion,
   VerbFormClozeQuestion,
+  UsageClozeQuestion,
   CounterQuestion,
   CounterReadingQuestion,
   DistractorIndex,
@@ -62,6 +63,36 @@ export function createFlashcardProductionQuestion(word: Word, locale: "it" | "en
     correctAnswer: `${meanings.join(" / ")} | ${word.lettura}`,
     warningMultipleDefinitions: meanings.length > 1
   };
+}
+
+// 🧩 Usare: la parola oscurata nella sua frase d'esempio, distrattori dello
+// stesso tipo grammaticale — le "prove d'uso" della scheda, nel quiz vero.
+export function createUsageClozeQuestion(
+  word: Word,
+  locale: LocaleCode,
+  context: QuizContext
+): UsageClozeQuestion | null {
+  const examples = word.frasi_esempio ?? [];
+  for (const example of shuffle([...examples])) {
+    const sentence = stripFuriganaNotation(example.testo);
+    const blanked = blankSentence(sentence, word.scrittura);
+    if (!blanked) continue;
+    const pool = [...context.wordsById.values()].filter(
+      (x) => x.id !== word.id && x.tipo_jp === word.tipo_jp && x.scrittura !== word.scrittura
+    );
+    const distractors = [...new Set(shuffle(pool).map((x) => x.scrittura))].slice(0, 3);
+    if (distractors.length < 2) continue;
+    return {
+      mode: "usage-cloze",
+      wordId: word.id,
+      sentenceWithBlank: blanked,
+      fullSentence: sentence,
+      translation: pickLocalizedText(example.traduzione, locale),
+      choices: shuffle([word.scrittura, ...distractors]),
+      correctChoice: word.scrittura
+    };
+  }
+  return null;
 }
 
 // 🧩 Usare: cloze sulla FORMA del verbo/aggettivo nella sua frase reale — le
@@ -351,30 +382,6 @@ function pickGrammarStructureTarget(source: ClozeSource, plainSentence: string):
   return null;
 }
 
-// Sceglie QUALE occorrenza della struttura oscurare: non la prima cieca.
-// Bug reale: in 「かれが どこに いるか 知って いますか。」 il cloze su 〜か
-// oscurava il か dentro かれ (彼). Le strutture si ATTACCANO a ciò che precede
-// (〜か, 〜たら…): un'occorrenza preceduta da inizio frase/spazio/punteggiatura
-// è quasi certamente dentro un'altra parola; una seguita da un confine
-// (spazio, 、。？ o fine frase) è quasi certamente quella grammaticale.
-function pickBlankIndex(sentence: string, target: string): number {
-  const BOUNDARY = /[\s、。！？「」]/;
-  let best = -1;
-  let bestScore = -Infinity;
-  for (let i = sentence.indexOf(target); i !== -1; i = sentence.indexOf(target, i + 1)) {
-    const prev = i === 0 ? '' : sentence[i - 1]!;
-    const next = sentence[i + target.length] ?? '';
-    let score = 0;
-    if (next === '' || BOUNDARY.test(next)) score += 2;
-    if (prev === '' || BOUNDARY.test(prev)) score -= 2;
-    if (score > bestScore) {
-      bestScore = score;
-      best = i;
-    }
-  }
-  return best;
-}
-
 function blankClozeTarget(sourceText: string, target: string): string {
   let notationReplaced = false;
 
@@ -390,7 +397,8 @@ function blankClozeTarget(sourceText: string, target: string): string {
     return withBlankedNotation;
   }
 
-  const at = pickBlankIndex(sourceText, target);
+  // Non la prima occorrenza cieca: il cloze su 〜か oscurava il か di かれ.
+  const at = pickOccurrenceIndex(sourceText, target);
   if (at === -1) return sourceText.replace(target, "___");
   return `${sourceText.slice(0, at)}___${sourceText.slice(at + target.length)}`;
 }
@@ -841,7 +849,8 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "time-reading": 12,
   composition: 14,
   "spoken-production": 14,
-  "verb-form-cloze": 14
+  "verb-form-cloze": 14,
+  "usage-cloze": 13
 };
 
 export async function createGrammarQuestion(

@@ -18,6 +18,7 @@
 		createCompositionQuestion,
 		createSpokenProductionQuestion,
 		createVerbFormClozeQuestion,
+		createUsageClozeQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -42,7 +43,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, VerbFormClozeQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
+		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, VerbFormClozeQuestion, UsageClozeQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
 		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
@@ -269,6 +270,12 @@
 			if (word.frasi_esempio?.length && Math.random() < 0.15) {
 				const particleQuestion = await createParticleClozeQuestion(word, locale);
 				if (particleQuestion) return particleQuestion;
+			}
+			// prova d'uso: la parola oscurata nella sua frase (peso basso separato,
+			// come il particle-cloze: disponibile per quasi ogni parola con frasi)
+			if (word.frasi_esempio?.length && srs.srs_stage >= 2 && Math.random() < 0.12) {
+				const usage = createUsageClozeQuestion(word, locale, context);
+				if (usage) return usage;
 			}
 
 			const mode = pickWordMode(srs.srs_stage, word);
@@ -585,7 +592,7 @@
 		if (mode === 'sentence-ordering') return 3;
 		if (mode === 'composition') return 2;
 		if (mode === 'spoken-production') return 1.5;
-		if (mode === 'cloze' || mode === 'reading-choice' || mode === 'verb-form-cloze') return 1.5;
+		if (mode === 'cloze' || mode === 'reading-choice' || mode === 'verb-form-cloze' || mode === 'usage-cloze') return 1.5;
 		return 1;
 	}
 	function startAnswerTimer(): void {
@@ -688,6 +695,8 @@
 			case 'spoken-production':
 				return { prompt: `Di' a voce: ${q.prompt}`, correct: `${q.expectedWriting}（${q.expectedReading}）` };
 			case 'verb-form-cloze':
+				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
+			case 'usage-cloze':
 				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
 			case 'reading-choice':
 				return { prompt: q.plainSentence, correct: q.correctChoice };
@@ -1170,7 +1179,7 @@
 
 		// TTS (silenziato in modalità muta: niente audio automatico)
 		if (!appState.quizMuted) {
-			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair' || quiz.question.mode === 'verb-form-cloze') {
+			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair' || quiz.question.mode === 'verb-form-cloze' || quiz.question.mode === 'usage-cloze') {
 				speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
 			} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
 				speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
@@ -1197,6 +1206,7 @@
 		else if (q.mode === 'listening') correct = choice === (q as ListeningQuestion).correctChoice;
 		else if (q.mode === 'particle-cloze') correct = choice === (q as ParticleClozeQuestion).correctChoice;
 		else if (q.mode === 'verb-form-cloze') correct = choice === (q as VerbFormClozeQuestion).correctChoice;
+		else if (q.mode === 'usage-cloze') correct = choice === (q as UsageClozeQuestion).correctChoice;
 		else if (q.mode === 'counter-quiz') correct = choice === (q as CounterQuestion).correctChoice;
 		else if (q.mode === 'conjugation') correct = choice === (q as ConjugationQuizQuestion).correctChoice;
 		else if (q.mode === 'transitivity-pair') correct = choice === (q as TransitivityPairQuestion).correctChoice;
@@ -1744,6 +1754,24 @@
 			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
 			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
 			<div class="choices ja-choices particle-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- usage-cloze: quale PAROLA completa la frase -->
+		{:else if quiz.question.mode === 'usage-cloze'}
+			{@const q = quiz.question as UsageClozeQuestion}
+			<p class="question-hint">Quale parola completa la frase?</p>
+			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
+			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
+			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"

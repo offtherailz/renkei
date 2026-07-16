@@ -318,3 +318,24 @@ describe("blankClozeTarget (scelta dell'occorrenza giusta)", () => {
     }
   });
 });
+
+describe("createUsageClozeQuestion", () => {
+  it("oscura la parola nella sua frase; distrattori dello stesso tipo", async () => {
+    const { createUsageClozeQuestion } = await import("./engine");
+    const mk = (id: string, sig: string): Word =>
+      ({ id, scrittura: id, lettura: id, significato: { it: [sig], en: [sig] }, livello_jlpt: "N5",
+         tipo_jp: "名詞[めいし]", kanji_usati: [], sinonimi: [], contrari: [], omofoni: [], updated_at: 0 }) as never;
+    const pane = { ...mk("パン", "pane"), frasi_esempio: [{ testo: "毎朝 パンを 食べます。", traduzione: { it: "Ogni mattina mangio il pane.", en: "I eat bread every morning." } }] } as never;
+    const context = {
+      locale: "it",
+      wordsById: new Map([["パン", pane], ["水", mk("水", "acqua")], ["本", mk("本", "libro")], ["犬", mk("犬", "cane")]]),
+      grammarById: new Map()
+    } as never;
+    const q = createUsageClozeQuestion(pane as never, "it", context);
+    expect(q).not.toBeNull();
+    expect(q!.sentenceWithBlank).toContain("＿＿");
+    expect(q!.sentenceWithBlank).not.toContain("パン");
+    expect(q!.correctChoice).toBe("パン");
+    expect(q!.choices.length).toBeGreaterThanOrEqual(3);
+  });
+});

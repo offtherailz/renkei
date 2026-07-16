@@ -14,6 +14,7 @@ import {
   createFlashcardReadingRecognitionQuestion,
   createConjugationQuizQuestion,
   createVerbFormClozeQuestion,
+  createUsageClozeQuestion,
   createParticleClozeQuestion,
   createTransitivityPairQuestion,
   createGrammarQuestion,
@@ -79,6 +80,7 @@ describe("audit domande (solo con AUDIT=1)", () => {
     push("reading-recognition (lettura→scrittura)", someWords().filter((w) => w.kanji_usati.length).slice(0, PER_MODE).map((w) => createFlashcardReadingRecognitionQuestion(w, "it", index, context)));
     push("conjugation", verbsAdj.slice(0, PER_MODE).map((w) => createConjugationQuizQuestion(w, allowed)));
     push("verb-form-cloze (forma nel contesto)", verbsAdj.filter((w) => w.frasi_esempio?.length).slice(0, PER_MODE).map((w) => createVerbFormClozeQuestion(w, "it")));
+    push("usage-cloze (parola nel contesto)", withSentences.slice(0, PER_MODE).map((w) => createUsageClozeQuestion(w, "it", context)));
     push("particle-cloze", await Promise.all(withSentences.slice(0, PER_MODE).map((w) => createParticleClozeQuestion(w, "it"))));
     push("transitivity-pair", pairs.slice(0, PER_MODE).map((w) => createTransitivityPairQuestion(w, context, "it")));
     push("composition", someWords().slice(0, PER_MODE).map((w) => createCompositionQuestion(w, "it", context)));

@@ -17,7 +17,8 @@ export type QuizMode =
   | "time-reading"
   | "composition"
   | "spoken-production"
-  | "verb-form-cloze";
+  | "verb-form-cloze"
+  | "usage-cloze";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -55,6 +56,18 @@ export interface VerbFormClozeQuestion {
   fullSentence: string;
   translation: string;
   formKey: string; // chiave della forma corretta (per il credito conj:/gram:)
+  choices: string[];
+  correctChoice: string;
+}
+
+// 🧩 Usare: la PAROLA della carta oscurata nella sua frase d'esempio — quale
+// parola completa la frase? (le "prove d'uso" della scheda, dentro il quiz).
+export interface UsageClozeQuestion {
+  mode: "usage-cloze";
+  wordId: string;
+  sentenceWithBlank: string;
+  fullSentence: string;
+  translation: string;
   choices: string[];
   correctChoice: string;
 }
@@ -180,7 +193,8 @@ export type QuizQuestion =
   | TimeReadingQuestion
   | CompositionQuestion
   | SpokenProductionQuestion
-  | VerbFormClozeQuestion;
+  | VerbFormClozeQuestion
+  | UsageClozeQuestion;
 
 export interface DistractorEntry {
   id: string;
