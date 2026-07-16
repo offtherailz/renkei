@@ -10591,17 +10591,19 @@
       "updated_at": 1783961245324
     },
     {
-      "id": "回る、回す",
-      "scrittura": "回る、回す",
-      "lettura": "まわる、まわす",
+      "id": "回る",
+      "scrittura": "回る",
+      "lettura": "まわる",
       "significato": {
         "it": [
           "girare",
-          "ruotare"
+          "ruotare",
+          "fare il giro"
         ],
         "en": [
           "to go around",
-          "to revolve"
+          "to revolve",
+          "to turn (intransitive)"
         ]
       },
       "study_tags": [
@@ -10631,13 +10633,65 @@
           }
         },
         {
+          "testo": "タイヤが ゆっくり 回って います。",
+          "traduzione": {
+            "it": "La ruota sta girando lentamente.",
+            "en": "The tire is turning slowly."
+          }
+        }
+      ],
+      "id_verbo_corrispondente": "回す"
+    },
+    {
+      "id": "回す",
+      "scrittura": "回す",
+      "lettura": "まわす",
+      "significato": {
+        "it": [
+          "far girare",
+          "girare (qualcosa)"
+        ],
+        "en": [
+          "to turn (something)",
+          "to rotate (something)",
+          "to pass around"
+        ]
+      },
+      "study_tags": [
+        "n4",
+        "contains-kanji"
+      ],
+      "source_name": "allenlu2009/japanese-learning-datasets",
+      "source_license": "MIT",
+      "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "回"
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1783961245179,
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "frasi_esempio": [
+        {
           "testo": "ハンドルを 右に 回して ください。",
           "traduzione": {
             "it": "Gira la manopola verso destra.",
             "en": "Please turn the handle to the right."
           }
+        },
+        {
+          "testo": "かぎを 回して、ドアを 開けました。",
+          "traduzione": {
+            "it": "Ho girato la chiave e ho aperto la porta.",
+            "en": "I turned the key and opened the door."
+          }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "回る"
     },
     {
       "id": "壊す",
@@ -41161,7 +41215,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "その他[そのた]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -41596,7 +41650,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "その他[そのた]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -42183,7 +42237,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "その他[そのた]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -44771,7 +44825,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "その他[そのた]",
+      "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -44933,7 +44987,7 @@
       "source_license": "MIT",
       "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
       "livello_jlpt": "N5",
-      "tipo_jp": "その他[そのた]",
+      "tipo_jp": "接続詞[せつぞくし]",
       "kanji_usati": [],
       "sinonimi": [],
       "contrari": [],
@@ -86147,7 +86201,8 @@
       "link_jisho": "https://jisho.org/search/%23kanji%20%E5%9B%9E",
       "link_koohii": "https://kanji.koohii.com/study/kanji/%E5%9B%9E",
       "parole_correlate": [
-        "回る、回す"
+        "回る",
+        "回す"
       ],
       "updated_at": 1783777475756,
       "livello_jlpt": "N3"
