@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate, markKnown, snoozeReview, setBuried } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -135,5 +135,36 @@ describe("lapses (conteggio errori per i punti deboli)", () => {
 		const ko = applyPracticeReview(initial, false);
 		expect(ko.lapses).toBe(1);
 		expect(applyPracticeReview(ko, true).lapses).toBe(1);
+	});
+});
+
+describe("controlli utente sullo scheduling (La so già / Rimanda / Seppellisci)", () => {
+	it("markKnown: salta a stage 5 con ripasso lontano, mastery almeno 60", () => {
+		const now = Date.now();
+		const known = markKnown(createInitialSrs("word:x"), now);
+		expect(known.srs_stage).toBe(5);
+		expect(known.mastery_points).toBe(60);
+		expect(known.next_review_date).toBeGreaterThan(now + 6 * 24 * 60 * 60_000);
+		expect(known.buried).toBe(false);
+		// non abbassa una mastery già alta
+		const high = markKnown({ ...createInitialSrs("word:y"), mastery_points: 80 }, now);
+		expect(high.mastery_points).toBe(80);
+	});
+
+	it("snoozeReview: spinge il ripasso di N giorni senza toccare stage/mastery", () => {
+		const now = Date.now();
+		const base = createInitialSrs("word:x");
+		const snoozed = snoozeReview(base, 3, now);
+		expect(snoozed.next_review_date).toBe(now + 3 * 24 * 60 * 60_000);
+		expect(snoozed.srs_stage).toBe(base.srs_stage);
+		expect(snoozed.mastery_points).toBe(base.mastery_points);
+	});
+
+	it("setBuried: segna e toglie, senza toccare il resto", () => {
+		const base = createInitialSrs("word:x");
+		const buried = setBuried(base, true);
+		expect(buried.buried).toBe(true);
+		expect(setBuried(buried, false).buried).toBe(false);
+		expect(buried.next_review_date).toBe(base.next_review_date);
 	});
 });

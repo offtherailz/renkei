@@ -228,6 +228,7 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 		// mastery bassa per definizione) inonderebbe la lista il giorno dopo.
 		// Fallback per le righe storiche senza `lapses`: mastery negativa = ha
 		// sbagliato più che indovinato (es. i miss delle avventure).
+		.filter((r) => !r.buried)
 		.filter((r) => (r.lapses ?? 0) > 0 || r.mastery_points < 0)
 		.map((r) => ({ r, pct: pctFor(r) }))
 		.filter((x) => x.pct < 60)
@@ -275,6 +276,7 @@ export async function countDueCards(): Promise<{ attivi: number; inPausa: number
 	let attivi = 0;
 	let inPausa = 0;
 	for (const r of due) {
+		if (r.buried) continue; // seppellite dall'utente: fuori dai conteggi
 		// Le righe solo-pratica (conj:/particella:/phrase:) non hanno un vero
 		// calendario: la loro next_review_date resta ferma alla creazione, quindi
 		// risulterebbero "dovute" per sempre — ma il quiz non le serve mai (si

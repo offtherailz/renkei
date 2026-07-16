@@ -174,6 +174,9 @@ export interface SrsProgress extends BaseEntity {
   facet_form_listen?: number; // 👂 Ascoltare
   facet_form_speak?: number; // 🎤 Dire (microfono)
   facet_use?: number; // 🧩 Usare (particelle/coniugazione/cloze in frase)
+  // Seppellita dall'utente ("non assillarmi"): fuori da rotazione quiz, conteggi
+  // e punti deboli finché non viene riesumata dalla scheda.
+  buried?: boolean;
 }
 
 export interface UserPersonalization extends BaseEntity {

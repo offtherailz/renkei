@@ -323,7 +323,7 @@
 		const now = Date.now();
 		const due = pool.filter((item) => {
 			const srs = getSrs(item.key);
-			return srs ? srs.next_review_date <= now : false;
+			return srs ? !srs.buried && srs.next_review_date <= now : false;
 		}).sort((a, b) => (getSrs(a.key)?.next_review_date ?? 0) - (getSrs(b.key)?.next_review_date ?? 0));
 
 		if (due.length > 0) return due[0]!;

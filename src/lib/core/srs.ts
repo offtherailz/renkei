@@ -93,6 +93,38 @@ export function touchReviewDate(progress: SrsProgress, nowTs = Date.now()): SrsP
   };
 }
 
+// ── Controlli utente sullo scheduling (F2/F3) ────────────────────────────────
+
+// «La so già»: la carta salta a stage 5 (~7 giorni) senza passare dai ripassi
+// iniziali — per chi ha basi pregresse. Non stage 7: un ripasso ogni tanto
+// verifica la pretesa; se poi sbagli, scende come qualunque carta.
+export function markKnown(progress: SrsProgress, nowTs = Date.now()): SrsProgress {
+  const stage = 5 as SrsProgress["srs_stage"];
+  const mins = REVIEW_INTERVAL_MINUTES[stage]!;
+  return {
+    ...progress,
+    srs_stage: stage,
+    mastery_points: clamp(Math.max(progress.mastery_points, 60), -100, 100),
+    next_review_date: nowTs + mins * 60_000,
+    buried: false,
+    updated_at: nowTs
+  };
+}
+
+// «Rimanda»: spinge il prossimo ripasso di N giorni, senza toccare altro.
+export function snoozeReview(progress: SrsProgress, days = 3, nowTs = Date.now()): SrsProgress {
+  return {
+    ...progress,
+    next_review_date: Math.max(progress.next_review_date, nowTs) + days * 24 * 60 * 60_000,
+    updated_at: nowTs
+  };
+}
+
+// «Seppellisci» / «Riesuma»: fuori (o di nuovo dentro) la rotazione attiva.
+export function setBuried(progress: SrsProgress, buried: boolean, nowTs = Date.now()): SrsProgress {
+  return { ...progress, buried, updated_at: nowTs };
+}
+
 // ── Sfaccettature (modello Nation) ───────────────────────────────────────────
 export const FACET_FIELDS = [
   'facet_meaning_r',

@@ -6,7 +6,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
-	import { normalizeMastery } from '$lib/core/srs';
+	import { normalizeMastery, createInitialSrs, markKnown, snoozeReview, setBuried } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { saveCorrection } from '$lib/db/corrections';
@@ -296,6 +296,29 @@
 	// freddo (refresh/link diretto) il DB potrebbe non essere ancora pronto
 	$effect(() => { void itemId; void appState.initialized; loadItem(); });
 
+	// F2/F3: controlli utente sullo scheduling della parola, dalla card
+	// Memorizzazione. Aggiornano riga DB e stato locale (barra/label/radar).
+	async function saveWordSrs(updated: SrsProgress): Promise<void> {
+		await db.srs_progress.put(updated);
+		wordSrs = updated;
+		masteryPct = normalizeMastery(updated.srs_stage, updated.mastery_points);
+		srsStage = updated.srs_stage;
+		const mins = Math.max(0, Math.round((updated.next_review_date - Date.now()) / 60_000));
+		nextReviewLabel = mins <= 0 ? 'adesso' : mins >= 1440 ? `tra ~${Math.round(mins / 1440)} g` : `tra ~${mins} min`;
+	}
+	async function markWordKnown(): Promise<void> {
+		if (!word) return;
+		await saveWordSrs(markKnown(wordSrs ?? createInitialSrs(`word:${word.id}`)));
+	}
+	async function snoozeWord(): Promise<void> {
+		if (!wordSrs) return;
+		await saveWordSrs(snoozeReview(wordSrs));
+	}
+	async function buryWord(buried: boolean): Promise<void> {
+		if (!wordSrs) return;
+		await saveWordSrs(setBuried(wordSrs, buried));
+	}
+
 	function progressColor(p: number): string {
 		if (p >= 75) return 'var(--progress-good)';
 		if (p >= 40) return 'var(--progress-mid)';
@@ -384,18 +407,31 @@
 			{/if}
 		</article>
 
-		{#if masteryPct > 0 || srsStage > 0}
 		<article class="detail-card">
 			<p class="card-title">Memorizzazione</p>
-			<div class="bar-wrap">
-				<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
+			{#if wordSrs || masteryPct > 0 || srsStage > 0}
+				<div class="bar-wrap">
+					<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
+				</div>
+				<p class="detail-meta">SRS {srsStage}/7 • Consolidamento {masteryPct}%{nextReviewLabel ? ` • Prossimo ripasso ${nextReviewLabel}` : ''}{wordSrs?.buried ? ' • ⚰️ seppellita' : ''}</p>
+			{:else}
+				<p class="detail-meta">Mai studiata: entrerà nel quiz come carta nuova.</p>
+			{/if}
+			<div class="srs-actions">
+				{#if !wordSrs || wordSrs.srs_stage < 5}
+					<button class="srs-btn known" onclick={markWordKnown} title="Salta i ripassi iniziali: la carta parte già consolidata (ripasso tra ~1 settimana). Se poi la sbagli, scende normalmente.">✓ La so già</button>
+				{/if}
+				{#if wordSrs && !wordSrs.buried}
+					<button class="srs-btn" onclick={snoozeWord} title="Sposta il prossimo ripasso di 3 giorni">💤 Rimanda</button>
+					<button class="srs-btn" onclick={() => buryWord(true)} title="Fuori dalla rotazione (quiz, conteggi, punti deboli) finché non la riesumi">⚰️ Seppellisci</button>
+				{:else if wordSrs?.buried}
+					<button class="srs-btn" onclick={() => buryWord(false)} title="Rimettila in rotazione">⛏️ Riesuma</button>
+				{/if}
 			</div>
-			<p class="detail-meta">SRS {srsStage}/7 • Consolidamento {masteryPct}%{nextReviewLabel ? ` • Prossimo ripasso ${nextReviewLabel}` : ''}</p>
 			{#if wordSrs}
 				<FacetRadar {word} srs={wordSrs} />
 			{/if}
 		</article>
-		{/if}
 
 		{#if word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞')}
 			<ConjugationTable {word} />
@@ -834,6 +870,15 @@
 		text-decoration: none;
 	}
 	.consolida-btn:hover { background: rgba(107, 160, 242, 0.14); }
+
+	/* F2/F3: controlli scheduling nella card Memorizzazione */
+	.srs-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+	.srs-btn {
+		padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
+		background: var(--surface); color: var(--ink); font-size: 0.8rem; cursor: pointer;
+	}
+	.srs-btn:hover { border-color: var(--brand); }
+	.srs-btn.known { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); font-weight: 700; }
 
 	.badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
