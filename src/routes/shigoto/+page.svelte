@@ -4,7 +4,7 @@
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSequence } from '$lib/core/tts';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -74,10 +74,8 @@
 	function choose(choice: string, reply?: Line): void {
 		if (picked !== null) return;
 		picked = choice;
-		if (choice !== correct) {
-			errors += 1;
-			void recordPracticeMiss('phrase:' + correct);
-		}
+		if (choice !== correct) errors += 1;
+		void recordPractice('phrase:' + correct, choice === correct);
 		if (reply) sequence([{ who: 'me', text: choice }, reply]);
 		else mySay(choice);
 	}

@@ -6,7 +6,7 @@
 	import { base } from '$app/paths';
 	import { STATIONS, type Station } from '$lib/core/stations';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -194,7 +194,7 @@
 		} else {
 			ticketAttempts += 1;
 			errors += 1;
-			void recordPracticeMiss('counter:円');
+			void recordPractice('counter:円', false);
 			say('anno', `${readNumber(target.prezzo)}えんです。`);
 			resetTender();
 		}
@@ -237,10 +237,8 @@
 	function pickPlatform(n: number): void {
 		if (platPicked === platformN) return;
 		platPicked = n;
-		if (n !== platformN) {
-			errors += 1;
-			void recordPracticeMiss('counter:番');
-		}
+		if (n !== platformN) errors += 1;
+		void recordPractice('counter:番', n === platformN);
 	}
 
 	// ── Salire sul treno giusto ──

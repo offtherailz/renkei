@@ -9,7 +9,7 @@
 	import { RESTAURANTS, type Restaurant, type Dish } from '$lib/core/restaurants';
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playClink } from '$lib/core/sfx';
@@ -202,10 +202,8 @@
 	function pickSeats(choice: string): void {
 		if (seatsPicked !== null) return;
 		seatsPicked = choice;
-		if (choice !== seatsCorrect) {
-			errors += 1;
-			void recordPracticeMiss('counter:人');
-		}
+		if (choice !== seatsCorrect) errors += 1;
+		void recordPractice('counter:人', choice === seatsCorrect);
 		staffLine = `${seatsCorrect}様ですね、` + rnd(OK);
 		sequence([{ who: 'me', text: choice + 'です' }, { who: 'staff', text: staffLine }]);
 	}
@@ -305,7 +303,7 @@
 			else mySay(frase);
 		} else {
 			errors += 1;
-			void recordPracticeMiss('counter:' + e.dish.counterId);
+			void recordPractice('counter:' + e.dish.counterId, false);
 			staffLine = rnd(NOT_UNDERSTOOD);
 			staffSay(staffLine);
 		}
@@ -388,7 +386,7 @@
 			payAttempts += 1;
 			staffSay(`すみません、${readNumber(orderedTotal())}えんです。`);
 			errors += 1;
-			void recordPracticeMiss('counter:円');
+			void recordPractice('counter:円', false);
 			resetTender();
 		}
 	}

@@ -9,7 +9,7 @@
 	import { SHOP_ITEMS, generateShoppingList, type ShopItem, type ShoppingRequest } from '$lib/core/shopItems';
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playRing } from '$lib/core/sfx';
@@ -347,7 +347,7 @@
 		} else {
 			errors += 1;
 			missed.push(r.item.scrittura);
-			void recordPracticeMiss('counter:' + r.item.counterId);
+			void recordPractice('counter:' + r.item.counterId, false);
 			orderStaffLine = rnd(NOT_UNDERSTOOD_K);
 			line(clerk(), orderStaffLine, 'other');
 		}
@@ -444,7 +444,7 @@
 			// non blocca: fai riprovare
 			line(clerk(), `すみません、${readNumber(total())}えんちょうどおねがいします。`, 'other');
 			errors += 1;
-			void recordPracticeMiss('counter:円');
+			void recordPractice('counter:円', false);
 			resetTender();
 		}
 	}

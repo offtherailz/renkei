@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { INTRO_ITEMS } from '$lib/core/presentazione';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
@@ -79,9 +79,8 @@
 		const r = cur();
 		if (choice === r.corretta) {
 			score += 1;
-		} else {
-			await recordPracticeMiss('phrase:' + r.corretta);
 		}
+		await recordPractice('phrase:' + r.corretta, choice === r.corretta);
 		speakSentenceJapanese(r.corretta);
 	}
 
