@@ -1217,11 +1217,14 @@
 			};
 
 			const now = Date.now();
+			const wantWeak = new URLSearchParams(window.location.search).has('deboli');
 
 			// Riprende una sessione ancora in corso (es. ritorno da "Approfondisci"),
 			// recuperando il tempo di pausa se il timer era fermo nel dettaglio.
+			// SOLO se dello stesso tipo: una sessione ripasso-deboli avanzata non
+			// deve "catturare" un /quiz normale (coda vuota → finto "tutto fatto").
 			const existing = appState.sessionState;
-			if (existing) {
+			if (existing && Boolean(existing.weak) === wantWeak) {
 				if (existing.pausedAt) {
 					existing.deadlineAt += now - existing.pausedAt;
 					existing.pausedAt = null;
@@ -1234,12 +1237,13 @@
 					return;
 				}
 				appState.sessionState = null;
+			} else if (existing) {
+				appState.sessionState = null;
 			}
 
 			const durationMs = (appState.settings.session_duration_minutes || 5) * 60_000;
 			// /quiz?deboli=1 → sessione di ripasso dei punti deboli: stessa
 			// esperienza quiz, ma coda dai punti deboli e punteggio solo-pratica.
-			const wantWeak = new URLSearchParams(window.location.search).has('deboli');
 			const weakQueue = wantWeak
 				? (await loadWeakItems()).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
 				: undefined;
@@ -1694,8 +1698,10 @@
 		{#if summarySession.answers > 0}
 			<div class="summary-tier">{getTier(accuracy())}</div>
 		{/if}
-		<h2 class="summary-title">{finishedEverything ? '🎉 Tutto fatto per oggi!' : 'Sessione completata!'}</h2>
-		{#if finishedEverything}
+		<h2 class="summary-title">{summarySession.weak ? '🔁 Giro di ripasso completato!' : finishedEverything ? '🎉 Tutto fatto per oggi!' : 'Sessione completata!'}</h2>
+		{#if summarySession.weak}
+			<p class="summary-hint">Hai passato in rassegna i tuoi punti deboli — la lista si è già riordinata. Un altro giro da <a href="{base}/punti-deboli">Punti deboli</a> quando vuoi.</p>
+		{:else if finishedEverything}
 			{#if poolFullyExhausted}
 				<p class="summary-hint">Hai visto già tutto quello che c'è nei tuoi obiettivi attivi — non c'è altro da sbloccare oggi. Attivane altri (kanji, N4, un corso…) da <a href="{base}/">Il piano di oggi</a> per continuare, o torna domani per i ripassi. 🌙</p>
 			{:else}
