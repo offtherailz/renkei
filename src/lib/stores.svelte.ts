@@ -41,6 +41,11 @@ export interface StudySessionState {
 	pausedAt: number | null;
 	wrongAnswers: SessionWrongAnswer[];
 	answersByType: SkillCounts;
+	// Sessione "ripasso punti deboli" (/quiz?deboli=1): pesca dalla coda dei
+	// deboli invece che dal pool SRS, punteggia solo-pratica, niente XP.
+	// La coda vive nella sessione così sopravvive ad Approfondisci.
+	weak?: boolean;
+	weakQueue?: { kind: string; raw: string }[];
 }
 
 export interface ActiveQuiz {

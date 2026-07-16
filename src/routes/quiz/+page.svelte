@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto, beforeNavigate } from '$app/navigation';
 	import { db } from '$lib/db/schema';
+	import { loadWeakItems } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery } from '$lib/core/srs';
@@ -40,7 +41,7 @@
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
 	import type { Word, Kanji, Grammar, SrsProgress, StudyObjective, Counter } from '$lib/types/models';
-	import type { ItemRef, StudySessionState, ActiveQuiz, DeepDiveItem } from '$lib/stores.svelte';
+	import type { ItemRef, ItemKind, StudySessionState, ActiveQuiz, DeepDiveItem } from '$lib/stores.svelte';
 
 	const locale = detectUserLocale();
 
@@ -298,6 +299,49 @@
 		return unseen.length > 0 ? sample(unseen) : null;
 	}
 
+	// ── Modalità ripasso punti deboli (/quiz?deboli=1) ─────────────────────────
+	// Stesso quiz (UI, audio, Approfondisci), ma pesca dalla coda dei deboli.
+	// conj:/particella: non sono generabili da sole: serve una parola "portatrice"
+	// (una parola della classe / una frase col buco su quella particella) — il
+	// crediting poi torna da solo alla classe via il dispatch di handleAnswer.
+	async function weakQuestionFor(item: { kind: string; raw: string }): Promise<{ ref: ItemRef; q: QuizQuestion } | null> {
+		if (!context) return null;
+		if (item.kind === 'conj') {
+			const pool = shuffle([...context.wordsById.values()].filter((w) => conjClassKey(w) === `conj:${item.raw}`));
+			const allowed = new Set(appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS);
+			for (const w of pool.slice(0, 8)) {
+				const q = createConjugationQuizQuestion(w, allowed);
+				if (q) return { ref: { key: `word:${w.id}`, kind: 'word' }, q };
+			}
+			return null;
+		}
+		if (item.kind === 'particella') {
+			const pool = shuffle([...context.wordsById.values()].filter((w) => w.frasi_esempio?.length));
+			for (const w of pool.slice(0, 40)) {
+				const q = await createParticleClozeQuestion(w, locale);
+				if (q?.correctChoice === item.raw) return { ref: { key: `word:${w.id}`, kind: 'word' }, q };
+			}
+			return null;
+		}
+		const kinds: Record<string, ItemKind> = { word: 'word', kanji: 'kanji', grammar: 'grammar', counter: 'counter' };
+		const kind = kinds[item.kind];
+		if (!kind) return null;
+		const ref: ItemRef = { key: `${item.kind}:${item.raw}`, kind };
+		const q = await generateQuestion(ref);
+		return q ? { ref, q } : null;
+	}
+
+	async function nextWeakQuestion(): Promise<{ ref: ItemRef; q: QuizQuestion } | null> {
+		const queue = session?.weakQueue;
+		if (!queue) return null;
+		while (queue.length > 0) {
+			const item = queue.shift()!;
+			const resolved = await weakQuestionFor(item);
+			if (resolved) return resolved;
+		}
+		return null;
+	}
+
 	// Traccia una carta mai vista appena introdotta nel conteggio giornaliero
 	// (stesso profilo che tiene XP/streak: addXp, chiamato subito dopo per
 	// ogni risposta, legge questo aggiornamento a sua volta e lo preserva).
@@ -386,6 +430,23 @@
 		}
 		if (isSessionExpired()) {
 			endSession();
+			return;
+		}
+		if (session.weak) {
+			const nw = await nextWeakQuestion();
+			if (!nw) {
+				finishedEverything = true;
+				poolFullyExhausted = true;
+				endSession();
+				return;
+			}
+			quiz = { itemRef: nw.ref, question: nw.q, startedAt: Date.now(), answered: false };
+			revealedProduction = false;
+			answerFeedback = null;
+			bankTokens = nw.q.mode === 'sentence-ordering' ? shuffle(nw.q.tokens) : [];
+			answerTokens = [];
+			if (nw.q.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(nw.q.readingToSpeak);
+			startAnswerTimer();
 			return;
 		}
 		const pool = getActivePool();
@@ -1014,22 +1075,28 @@
 		} else if (quiz.question.mode === 'time-reading') {
 			// L'orario non ha un'entità propria: tocca solo la data di ripasso della parola.
 			await touchWordReviewDate(quiz.itemRef.key);
+		} else if (session.weak) {
+			// Ripasso punti deboli: consolida davvero (mastery) ma senza stage/XP,
+			// come Consolida — il calendario SRS resta governato dal quiz normale.
+			await upsertPracticeOnly(quiz.itemRef.key, correct);
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
 		}
 
-		const xpBreakdown = calculateQuizXp({
-			quizMode: quiz.question.mode,
-			isCorrect: correct,
-			responseTimeMs: Date.now() - quiz.startedAt,
-			jlptLevel: (quiz.question as MultipleChoiceQuestion).wordId
-				? (words.find((w) => w.id === (quiz!.question as MultipleChoiceQuestion).wordId)?.livello_jlpt ?? 'N5')
-				: 'N5',
-			srsStage: before.srs_stage,
-			completedCustomGroup: false
-		});
-		session.xp += correct ? xpBreakdown.total : -6;
-		await addXp(correct ? xpBreakdown.total : -6);
+		if (!session.weak) {
+			const xpBreakdown = calculateQuizXp({
+				quizMode: quiz.question.mode,
+				isCorrect: correct,
+				responseTimeMs: Date.now() - quiz.startedAt,
+				jlptLevel: (quiz.question as MultipleChoiceQuestion).wordId
+					? (words.find((w) => w.id === (quiz!.question as MultipleChoiceQuestion).wordId)?.livello_jlpt ?? 'N5')
+					: 'N5',
+				srsStage: before.srs_stage,
+				completedCustomGroup: false
+			});
+			session.xp += correct ? xpBreakdown.total : -6;
+			await addXp(correct ? xpBreakdown.total : -6);
+		}
 
 		// TTS (silenziato in modalità muta: niente audio automatico)
 		if (!appState.quizMuted) {
@@ -1170,6 +1237,12 @@
 			}
 
 			const durationMs = (appState.settings.session_duration_minutes || 5) * 60_000;
+			// /quiz?deboli=1 → sessione di ripasso dei punti deboli: stessa
+			// esperienza quiz, ma coda dai punti deboli e punteggio solo-pratica.
+			const wantWeak = new URLSearchParams(window.location.search).has('deboli');
+			const weakQueue = wantWeak
+				? (await loadWeakItems()).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
+				: undefined;
 			session = {
 				startedAt: now,
 				deadlineAt: now + durationMs,
@@ -1180,7 +1253,9 @@
 				xp: 0,
 				pausedAt: null,
 				wrongAnswers: [],
-				answersByType: emptySkillCounts()
+				answersByType: emptySkillCounts(),
+				weak: wantWeak || undefined,
+				weakQueue
 			};
 			appState.sessionState = session;
 			phase = 'quiz';
@@ -1320,7 +1395,7 @@
 	</div>
 
 	<div class="quiz-meta">
-		{quiz.itemRef.kind.toUpperCase()}
+		{#if session?.weak}🔁 PUNTI DEBOLI • {/if}{quiz.itemRef.kind.toUpperCase()}
 		{#if quiz.question.mode !== 'sentence-ordering' && quiz.question.mode !== 'cloze'}
 			• {quiz.question.mode.replace(/-/g, ' ')}
 		{/if}

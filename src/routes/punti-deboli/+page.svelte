@@ -55,7 +55,7 @@
 	<p class="page-sub">Tutto ciò che è sotto il 60% di padronanza, dal peggiore. Tocca una voce per aprire la sua scheda o pagina di riferimento.</p>
 
 	{#if !loading && items.length > 0}
-		<a class="ripasso-cta" href="{base}/ripasso">🔁 Ripassa i punti deboli <small>un giro di domande sui più deboli</small></a>
+		<a class="ripasso-cta" href="{base}/quiz?deboli=1">🔁 Ripassa i punti deboli <small>una sessione quiz sui più deboli — solo pratica, niente XP</small></a>
 	{/if}
 
 	{#if loading}
