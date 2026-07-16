@@ -65,6 +65,15 @@
 	async function resetProgress(): Promise<void> {
 		if (!confirm('Eliminare TUTTI i progressi SRS? Questa azione è irreversibile.')) return;
 		await db.srs_progress.clear();
+		// Azzera anche il budget giornaliero di carte nuove: dopo il wipe TUTTO è
+		// "mai visto" e passa dal razionamento — col contatore di oggi già speso
+		// il quiz direbbe subito "tutto fatto per oggi".
+		const profile = appState.userProfile ? $state.snapshot(appState.userProfile) : null;
+		if (profile) {
+			const updated = { ...profile, nuove_oggi: 0, updated_at: Date.now() };
+			await db.user_profile.put(updated);
+			appState.userProfile = updated;
+		}
 		alert('Progressi SRS eliminati.');
 	}
 
