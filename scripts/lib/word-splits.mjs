@@ -80,3 +80,76 @@ export function fixKanjiRelatedWords(kanjiRows) {
   }
   return kanjiRows;
 }
+
+// ── Rinomine (grafie sbagliate nella fonte) e fusioni di duplicati ───────────
+// Rinomina: vecchio id → patch con nuovo id/scrittura (+ campi corretti).
+// La curatela del 2026-07-16 ha trovato okurigana mancanti (下る=さがる→下がる,
+// 落る→落ちる, 落す→落とす, 楽む→楽しむ) e il duplicato うかがう/伺う.
+export const WORD_RENAMES = {
+  "下る": {
+    id: "下がる",
+    scrittura: "下がる",
+    lettura: "さがる",
+    id_verbo_corrispondente: "下げる",
+    sinonimi: [],
+    frasi_esempio: [
+      {
+        testo: "熱が やっと 下がりました。",
+        traduzione: { it: "La febbre è finalmente scesa.", en: "The fever finally went down." }
+      },
+      {
+        testo: "冬に なって、気温が 下がりました。",
+        traduzione: { it: "È arrivato l'inverno e la temperatura è scesa.", en: "Winter came and the temperature dropped." }
+      }
+    ]
+  },
+  "落る": { id: "落ちる", scrittura: "落ちる", lettura: "おちる", sinonimi: [] },
+  "落す": { id: "落とす", scrittura: "落とす", lettura: "おとす" },
+  "楽む": { id: "楽しむ", scrittura: "楽しむ", lettura: "たのしむ" }
+};
+
+// Fusione: id da eliminare → id che resta (duplicato kana/kanji della stessa parola).
+export const WORD_MERGES = {
+  "うかがう": "伺う"
+};
+
+function renameRef(id) {
+  if (WORD_RENAMES[id]) return WORD_RENAMES[id].id;
+  if (WORD_MERGES[id]) return WORD_MERGES[id];
+  return id;
+}
+
+// Applica rinomine+fusioni alle parole E a tutti i riferimenti incrociati
+// (sinonimi, contrari, omofoni, id_verbo_corrispondente). Da usare DOPO
+// applyWordSplits, sia nel sync sia sul seed committato.
+export function applyWordRenames(words) {
+  const out = [];
+  for (const w of words) {
+    if (WORD_MERGES[w.id]) continue; // il duplicato sparisce, resta l'altro
+    const patch = WORD_RENAMES[w.id];
+    const next = patch ? { ...w, ...patch } : { ...w };
+    for (const field of ["sinonimi", "contrari", "omofoni"]) {
+      if (Array.isArray(next[field])) {
+        next[field] = [...new Set(next[field].map(renameRef).filter((id) => id !== next.id))];
+      }
+    }
+    if (next.id_verbo_corrispondente) next.id_verbo_corrispondente = renameRef(next.id_verbo_corrispondente);
+    out.push(next);
+  }
+  // cross-link reciproco delle coppie 自/他 introdotte dalle rinomine
+  const byId = new Map(out.map((w) => [w.id, w]));
+  for (const w of out) {
+    const pair = w.id_verbo_corrispondente ? byId.get(w.id_verbo_corrispondente) : null;
+    if (pair && !pair.id_verbo_corrispondente) pair.id_verbo_corrispondente = w.id;
+  }
+  return out;
+}
+
+// Kanji: parole_correlate riscritte con gli id nuovi (dedup).
+export function fixKanjiRenamedWords(kanjiRows) {
+  for (const k of kanjiRows) {
+    if (!Array.isArray(k.parole_correlate)) continue;
+    k.parole_correlate = [...new Set(k.parole_correlate.map(renameRef))];
+  }
+  return kanjiRows;
+}

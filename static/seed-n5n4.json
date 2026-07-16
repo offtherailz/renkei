@@ -1194,54 +1194,6 @@
       ]
     },
     {
-      "id": "うかがう",
-      "scrittura": "うかがう",
-      "lettura": "うかがう",
-      "significato": {
-        "it": [
-          "chiedere (umile)",
-          "fare visita (umile)"
-        ],
-        "en": [
-          "to ask"
-        ]
-      },
-      "study_tags": [
-        "n4",
-        "kana-only"
-      ],
-      "source_name": "allenlu2009/japanese-learning-datasets",
-      "source_license": "MIT",
-      "source_url": "https://github.com/allenlu2009/japanese-learning-datasets",
-      "livello_jlpt": "N4",
-      "tipo_jp": "動詞[どうし]",
-      "kanji_usati": [],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [
-        "伺う"
-      ],
-      "updated_at": 1783961245174,
-      "classe_verbo_jp": "五段動詞[ごだんどうし]",
-      "transitivita_jp": "他動詞[たどうし]",
-      "frasi_esempio": [
-        {
-          "testo": "体重をおうかがいしてもよろしいですか。",
-          "traduzione": {
-            "it": "May I ask you what your weight is?",
-            "en": "May I ask you what your weight is?"
-          }
-        },
-        {
-          "testo": "病気のため本日はうかがうことができませんでした。",
-          "traduzione": {
-            "it": "On account of illness, I couldn't call on you today.",
-            "en": "On account of illness, I couldn't call on you today."
-          }
-        }
-      ]
-    },
-    {
       "id": "うそ",
       "scrittura": "うそ",
       "lettura": "うそ",
@@ -9664,7 +9616,8 @@
             "en": "Please lower the air conditioner temperature."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "下がる"
     },
     {
       "id": "下りる",
@@ -9718,8 +9671,8 @@
       ]
     },
     {
-      "id": "下る",
-      "scrittura": "下る",
+      "id": "下がる",
+      "scrittura": "下がる",
       "lettura": "さがる",
       "significato": {
         "it": [
@@ -9744,9 +9697,7 @@
       "kanji_usati": [
         "下"
       ],
-      "sinonimi": [
-        "落る"
-      ],
+      "sinonimi": [],
       "contrari": [
         "上がる"
       ],
@@ -9756,20 +9707,21 @@
       "transitivita_jp": "自動詞[じどうし]",
       "frasi_esempio": [
         {
-          "testo": "この道を下ると、海に出ます。",
-          "traduzione": {
-            "it": "Scendendo per questa strada si arriva al mare.",
-            "en": "Go down this road and you'll reach the sea."
-          }
-        },
-        {
-          "testo": "熱が やっと 下りました。",
+          "testo": "熱が やっと 下がりました。",
           "traduzione": {
             "it": "La febbre è finalmente scesa.",
             "en": "The fever finally went down."
           }
+        },
+        {
+          "testo": "冬に なって、気温が 下がりました。",
+          "traduzione": {
+            "it": "È arrivato l'inverno e la temperatura è scesa.",
+            "en": "Winter came and the temperature dropped."
+          }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "下げる"
     },
     {
       "id": "下宿",
@@ -11164,8 +11116,8 @@
       ]
     },
     {
-      "id": "楽む",
-      "scrittura": "楽む",
+      "id": "楽しむ",
+      "scrittura": "楽しむ",
       "lettura": "たのしむ",
       "significato": {
         "it": [
@@ -11203,7 +11155,7 @@
           }
         },
         {
-          "testo": "祭りを みんなで 楽みました。",
+          "testo": "祭りを みんなで 楽しみました。",
           "traduzione": {
             "it": "Ci siamo goduti la festa tutti insieme.",
             "en": "We all enjoyed the festival together."
@@ -18598,11 +18550,12 @@
       "kanji_usati": [
         "伺"
       ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [
-        "うかがう"
+      "sinonimi": [
+        "聞く",
+        "行く"
       ],
+      "contrari": [],
+      "omofoni": [],
       "updated_at": 1783961245177,
       "classe_verbo_jp": "五段動詞[ごだんどうし]",
       "transitivita_jp": "他動詞[たどうし]",
@@ -40030,8 +39983,8 @@
       ]
     },
     {
-      "id": "落す",
-      "scrittura": "落す",
+      "id": "落とす",
+      "scrittura": "落とす",
       "lettura": "おとす",
       "significato": {
         "it": [
@@ -40063,25 +40016,25 @@
       "transitivita_jp": "他動詞[たどうし]",
       "frasi_esempio": [
         {
-          "testo": "駅で財布を落しました。",
+          "testo": "駅で財布を落としました。",
           "traduzione": {
             "it": "Ho fatto cadere il portafoglio in stazione.",
             "en": "I dropped my wallet at the station."
           }
         },
         {
-          "testo": "スープを 落して、服が 汚れました。",
+          "testo": "スープを 落として、服が 汚れました。",
           "traduzione": {
             "it": "Ho rovesciato la zuppa e mi sono sporcato i vestiti.",
             "en": "I spilled the soup and stained my clothes."
           }
         }
       ],
-      "id_verbo_corrispondente": "落る"
+      "id_verbo_corrispondente": "落ちる"
     },
     {
-      "id": "落る",
-      "scrittura": "落る",
+      "id": "落ちる",
+      "scrittura": "落ちる",
       "lettura": "おちる",
       "significato": {
         "it": [
@@ -40104,9 +40057,7 @@
       "kanji_usati": [
         "落"
       ],
-      "sinonimi": [
-        "下る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245175,
@@ -40128,7 +40079,7 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "落す"
+      "id_verbo_corrispondente": "落とす"
     },
     {
       "id": "利用",
@@ -61161,7 +61112,8 @@
       ],
       "sinonimi": [
         "参る",
-        "いらっしゃる"
+        "いらっしゃる",
+        "伺う"
       ],
       "contrari": [
         "来る",
@@ -79041,7 +78993,9 @@
       "kanji_usati": [
         "聞"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "伺う"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -85604,7 +85558,7 @@
         "以下",
         "下げる",
         "下りる",
-        "下る",
+        "下がる",
         "下宿",
         "下宿する",
         "下着",
@@ -86633,7 +86587,7 @@
       "link_koohii": "https://kanji.koohii.com/study/kanji/%E6%A5%BD",
       "parole_correlate": [
         "楽しみ",
-        "楽む",
+        "楽しむ",
         "音楽",
         "楽しい"
       ],
@@ -105619,8 +105573,8 @@
       "link_jisho": "https://jisho.org/search/%23kanji%20%E8%90%BD",
       "link_koohii": "https://kanji.koohii.com/study/kanji/%E8%90%BD",
       "parole_correlate": [
-        "落す",
-        "落る"
+        "落とす",
+        "落ちる"
       ],
       "updated_at": 1783777475757,
       "livello_jlpt": "N3"

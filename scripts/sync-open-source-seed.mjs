@@ -10,7 +10,7 @@ import {
   lookupJmdict
 } from "./lib/jmdict.mjs";
 import { classifyNumbersAndCounters } from "./lib/numbers-counters.mjs";
-import { applyWordSplits } from "./lib/word-splits.mjs";
+import { applyWordSplits, applyWordRenames } from "./lib/word-splits.mjs";
 
 const ROOT = process.cwd();
 const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
@@ -1172,7 +1172,8 @@ function normalizeWords(importedRows, existingSeedWords) {
 
   // Voci sorgente che fondono due parole diverse (回る、回す): spezzate PRIMA
   // dell'arricchimento, così metadati/overrides si applicano alle carte separate.
-  const merged = applyWordSplits([...byId.values()]).sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
+  // Poi rinomine (grafie errate della fonte) e fusioni di duplicati.
+  const merged = applyWordRenames(applyWordSplits([...byId.values()])).sort((a, b) => a.livello_jlpt.localeCompare(b.livello_jlpt) || a.scrittura.localeCompare(b.scrittura, "ja"));
   const withVerbMetadata = enrichVerbMetadata(merged);
   return enrichAdjectiveMetadata(withVerbMetadata);
 }

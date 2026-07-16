@@ -1,20 +1,28 @@
-// Riapplica al seed committato lo split delle voci combinate (word-splits.mjs),
+// Riapplica al seed committato split, rinomine e fusioni (word-splits.mjs),
 // senza fetch di rete — stesso ruolo di fix-numbers-counters.mjs. Aggiorna anche
-// le parole correlate dei kanji e ri-chiava gli overrides sull'id spezzato.
+// le parole correlate dei kanji e ri-chiava gli overrides sugli id nuovi.
 import fs from "node:fs";
-import { WORD_SPLITS, applyWordSplits, fixKanjiRelatedWords } from "./lib/word-splits.mjs";
+import {
+  WORD_SPLITS,
+  WORD_RENAMES,
+  WORD_MERGES,
+  applyWordSplits,
+  applyWordRenames,
+  fixKanjiRelatedWords,
+  fixKanjiRenamedWords
+} from "./lib/word-splits.mjs";
 
 const SEED = "static/seed-n5n4.json";
 const OVERRIDES = "scripts/data/word-overrides.json";
 
 const seed = JSON.parse(fs.readFileSync(SEED, "utf8"));
 const before = seed.words.length;
-seed.words = applyWordSplits(seed.words);
-fixKanjiRelatedWords(seed.kanji ?? []);
+seed.words = applyWordRenames(applyWordSplits(seed.words));
+fixKanjiRenamedWords(fixKanjiRelatedWords(seed.kanji ?? []));
 
-// Overrides: l'entry con l'id combinato non matcherebbe più nulla — la si
-// sostituisce con le entry per-id (significato + frasi della carta spezzata),
-// così restano la fonte curata durevole anche per i sync futuri.
+// Overrides: le entry con gli id vecchi non matcherebbero più nulla — si
+// ri-chiavano sugli id nuovi (fusioni: i campi del duplicato si scartano,
+// restano quelli della voce che sopravvive).
 const overrides = JSON.parse(fs.readFileSync(OVERRIDES, "utf8"));
 for (const [combinedId, parts] of Object.entries(WORD_SPLITS)) {
   if (overrides[combinedId]) delete overrides[combinedId];
@@ -29,6 +37,15 @@ for (const [combinedId, parts] of Object.entries(WORD_SPLITS)) {
       id_verbo_corrispondente: part.id_verbo_corrispondente
     };
   }
+}
+for (const [oldId, patch] of Object.entries(WORD_RENAMES)) {
+  const prev = overrides[oldId] ?? {};
+  delete overrides[oldId];
+  const { id, ...fields } = patch;
+  overrides[id] = { ...prev, ...(overrides[id] ?? {}), ...fields };
+}
+for (const oldId of Object.keys(WORD_MERGES)) {
+  delete overrides[oldId];
 }
 
 fs.writeFileSync(SEED, JSON.stringify(seed, null, 2) + "\n");

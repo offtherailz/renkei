@@ -4603,7 +4603,10 @@
     "to listen",
     "to ask"
    ]
-  }
+  },
+  "sinonimi": [
+   "伺う"
+  ]
  },
  "北": {
   "frasi_esempio": [
@@ -11807,7 +11810,8 @@
   "transitivita_jp": "自動詞[じどうし]",
   "sinonimi": [
    "参る",
-   "いらっしゃる"
+   "いらっしゃる",
+   "伺う"
   ],
   "contrari": [
    "来る",
@@ -17249,17 +17253,6 @@
   ],
   "contrari": []
  },
- "うかがう": {
-  "significato": {
-   "it": [
-    "chiedere (umile)",
-    "fare visita (umile)"
-   ],
-   "en": [
-    "to ask"
-   ]
-  }
- },
  "うそ": {
   "significato": {
    "it": [
@@ -21041,35 +21034,6 @@
    }
   ]
  },
- "下る": {
-  "significato": {
-   "it": [
-    "scendere",
-    "calare"
-   ],
-   "en": [
-    "to descend",
-    "to drop",
-    "to fall"
-   ]
-  },
-  "frasi_esempio": [
-   {
-    "testo": "この道を下ると、海に出ます。",
-    "traduzione": {
-     "it": "Scendendo per questa strada si arriva al mare.",
-     "en": "Go down this road and you'll reach the sea."
-    }
-   },
-   {
-    "testo": "熱が やっと 下りました。",
-    "traduzione": {
-     "it": "La febbre è finalmente scesa.",
-     "en": "The fever finally went down."
-    }
-   }
-  ]
- },
  "下宿": {
   "significato": {
    "it": [
@@ -21560,33 +21524,6 @@
     "traduzione": {
      "it": "Il piacere del fine settimana è il cinema.",
      "en": "My weekend pleasure is watching movies."
-    }
-   }
-  ]
- },
- "楽む": {
-  "significato": {
-   "it": [
-    "godersi",
-    "divertirsi"
-   ],
-   "en": [
-    "to enjoy"
-   ]
-  },
-  "frasi_esempio": [
-   {
-    "testo": "グレイ先生は仕事を楽しんでいませんでした。",
-    "traduzione": {
-     "it": "Mr Grey did not enjoy his job.",
-     "en": "Mr Grey did not enjoy his job."
-    }
-   },
-   {
-    "testo": "祭りを みんなで 楽みました。",
-    "traduzione": {
-     "it": "Ci siamo goduti la festa tutti insieme.",
-     "en": "We all enjoyed the festival together."
     }
    }
   ]
@@ -24500,7 +24437,11 @@
     "humble form of 行く (いく)",
     "聞く (きく) and 来る (くる)"
    ]
-  }
+  },
+  "sinonimi": [
+   "聞く",
+   "行く"
+  ]
  },
  "始める": {
   "significato": {
@@ -32692,47 +32633,6 @@
    }
   ]
  },
- "落す": {
-  "significato": {
-   "it": [
-    "far cadere",
-    "perdere"
-   ],
-   "en": [
-    "to drop",
-    "to lose"
-   ]
-  },
-  "id_verbo_corrispondente": "落る",
-  "frasi_esempio": [
-   {
-    "testo": "駅で財布を落しました。",
-    "traduzione": {
-     "it": "Ho fatto cadere il portafoglio in stazione.",
-     "en": "I dropped my wallet at the station."
-    }
-   },
-   {
-    "testo": "スープを 落して、服が 汚れました。",
-    "traduzione": {
-     "it": "Ho rovesciato la zuppa e mi sono sporcato i vestiti.",
-     "en": "I spilled the soup and stained my clothes."
-    }
-   }
-  ]
- },
- "落る": {
-  "significato": {
-   "it": [
-    "cadere"
-   ],
-   "en": [
-    "to fall",
-    "to drop"
-   ]
-  },
-  "id_verbo_corrispondente": "落す"
- },
  "利用": {
   "significato": {
    "it": [
@@ -34925,5 +34825,113 @@
   "contrari": [
    "出国する"
   ]
+ },
+ "下がる": {
+  "significato": {
+   "it": [
+    "scendere",
+    "calare"
+   ],
+   "en": [
+    "to descend",
+    "to drop",
+    "to fall"
+   ]
+  },
+  "frasi_esempio": [
+   {
+    "testo": "熱が やっと 下がりました。",
+    "traduzione": {
+     "it": "La febbre è finalmente scesa.",
+     "en": "The fever finally went down."
+    }
+   },
+   {
+    "testo": "冬に なって、気温が 下がりました。",
+    "traduzione": {
+     "it": "È arrivato l'inverno e la temperatura è scesa.",
+     "en": "Winter came and the temperature dropped."
+    }
+   }
+  ],
+  "scrittura": "下がる",
+  "lettura": "さがる",
+  "id_verbo_corrispondente": "下げる",
+  "sinonimi": []
+ },
+ "落ちる": {
+  "significato": {
+   "it": [
+    "cadere"
+   ],
+   "en": [
+    "to fall",
+    "to drop"
+   ]
+  },
+  "id_verbo_corrispondente": "落す",
+  "scrittura": "落ちる",
+  "lettura": "おちる",
+  "sinonimi": []
+ },
+ "落とす": {
+  "significato": {
+   "it": [
+    "far cadere",
+    "perdere"
+   ],
+   "en": [
+    "to drop",
+    "to lose"
+   ]
+  },
+  "id_verbo_corrispondente": "落る",
+  "frasi_esempio": [
+   {
+    "testo": "駅で財布を落としました。",
+    "traduzione": {
+     "it": "Ho fatto cadere il portafoglio in stazione.",
+     "en": "I dropped my wallet at the station."
+    }
+   },
+   {
+    "testo": "スープを 落として、服が 汚れました。",
+    "traduzione": {
+     "it": "Ho rovesciato la zuppa e mi sono sporcato i vestiti.",
+     "en": "I spilled the soup and stained my clothes."
+    }
+   }
+  ],
+  "scrittura": "落とす",
+  "lettura": "おとす"
+ },
+ "楽しむ": {
+  "significato": {
+   "it": [
+    "godersi",
+    "divertirsi"
+   ],
+   "en": [
+    "to enjoy"
+   ]
+  },
+  "frasi_esempio": [
+   {
+    "testo": "グレイ先生は仕事を楽しんでいませんでした。",
+    "traduzione": {
+     "it": "Mr Grey did not enjoy his job.",
+     "en": "Mr Grey did not enjoy his job."
+    }
+   },
+   {
+    "testo": "祭りを みんなで 楽しみました。",
+    "traduzione": {
+     "it": "Ci siamo goduti la festa tutti insieme.",
+     "en": "We all enjoyed the festival together."
+    }
+   }
+  ],
+  "scrittura": "楽しむ",
+  "lettura": "たのしむ"
  }
 }
