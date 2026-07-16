@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { scrollToAnchor } from '$lib/core/scroll';
 	import { GRAMMAR_FORMS, formPage } from '$lib/data/grammarForms';
 
 	// In /forme stanno le parti del discorso + le contrazioni; le forme
@@ -15,11 +17,10 @@
 
 	function scrollToHash(): void {
 		const slug = $page.url.hash.replace('#', '');
-		if (!slug) return;
-		document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (slug) scrollToAnchor(slug);
 	}
 
-	onMount(scrollToHash);
+	afterNavigate(scrollToHash);
 	$effect(() => { void $page.url.hash; scrollToHash(); });
 
 	function formTitle(slug: string): string {

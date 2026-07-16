@@ -1,18 +1,20 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
 	import { PARTICLE_GUIDE } from '$lib/data/particleGuide';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { scrollToAnchor } from '$lib/core/scroll';
 
 	function scrollToHash(): void {
 		const target = decodeURIComponent($page.url.hash.replace('#', ''));
-		if (!target) return;
-		document.getElementById(`p-${target}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (target) scrollToAnchor(`p-${target}`);
 	}
 
-	onMount(scrollToHash);
+	// afterNavigate copre l'arrivo da un'altra pagina (es. dai punti deboli) e il
+	// mount iniziale; $effect copre i click sui chip dell'indice (cambio hash).
+	afterNavigate(scrollToHash);
 	$effect(() => { void $page.url.hash; scrollToHash(); });
 </script>
 

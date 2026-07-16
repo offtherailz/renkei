@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
+	import { scrollToAnchor } from '$lib/core/scroll';
 	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
@@ -21,13 +23,17 @@
 		);
 		wordsById = new Map(words.map((w) => [w.id, w]));
 		loading = false;
-		const slug = $page.url.hash.replace('#', '');
-		if (slug) {
-			requestAnimationFrame(() => {
-				document.getElementById(decodeURIComponent(slug))?.scrollIntoView({ behavior: 'smooth' });
-			});
-		}
+		scrollToHash();
 	});
+
+	function scrollToHash(): void {
+		const slug = $page.url.hash.replace('#', '');
+		if (slug) scrollToAnchor(decodeURIComponent(slug));
+	}
+
+	// Arrivo da un'altra pagina (es. punti deboli) o cambio hash: se i dati sono
+	// già caricati, scrolla; altrimenti ci pensa l'onMount a fine caricamento.
+	afterNavigate(scrollToHash);
 </script>
 
 <div class="counters-page">
