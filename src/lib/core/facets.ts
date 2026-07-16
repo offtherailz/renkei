@@ -88,6 +88,7 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 			return 'facet_form_speak';
 		case 'particle-cloze':
 		case 'conjugation':
+		case 'verb-form-cloze':
 		case 'transitivity-pair':
 		case 'cloze':
 		case 'sentence-ordering':

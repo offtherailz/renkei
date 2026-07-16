@@ -16,7 +16,8 @@ export type QuizMode =
   | "counter-reading"
   | "time-reading"
   | "composition"
-  | "spoken-production";
+  | "spoken-production"
+  | "verb-form-cloze";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -42,6 +43,20 @@ export interface SentenceOrderingQuestion {
   prompt: string;
   tokens: string[];
   correctOrder: string[];
+}
+
+// 🧩 Usare: nella frase reale della carta il verbo/aggettivo è oscurato —
+// scegli la FORMA giusta per il contesto (le opzioni sono forme diverse
+// della stessa parola: て per la richiesta, た per il passato…).
+export interface VerbFormClozeQuestion {
+  mode: "verb-form-cloze";
+  wordId: string;
+  sentenceWithBlank: string;
+  fullSentence: string;
+  translation: string;
+  formKey: string; // chiave della forma corretta (per il credito conj:/gram:)
+  choices: string[];
+  correctChoice: string;
 }
 
 // 🎤 Dire: pronuncia la parola al microfono, dal solo significato. Vale dire
@@ -164,7 +179,8 @@ export type QuizQuestion =
   | CounterReadingQuestion
   | TimeReadingQuestion
   | CompositionQuestion
-  | SpokenProductionQuestion;
+  | SpokenProductionQuestion
+  | VerbFormClozeQuestion;
 
 export interface DistractorEntry {
   id: string;

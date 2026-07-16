@@ -17,6 +17,7 @@
 		createFlashcardProductionQuestion,
 		createCompositionQuestion,
 		createSpokenProductionQuestion,
+		createVerbFormClozeQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -41,7 +42,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
+		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, VerbFormClozeQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
 		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
@@ -252,6 +253,10 @@
 			) {
 				const allowed = new Set(appState.settings.forme_note ?? DEFAULT_KNOWN_FORMS);
 				specials.push(() => createConjugationQuizQuestion(word, allowed));
+				// cloze sulla forma in contesto (て per la richiesta, た per il passato…)
+				if (word.frasi_esempio?.length && srs.srs_stage >= 2) {
+					specials.push(() => createVerbFormClozeQuestion(word, locale));
+				}
 			}
 			if (isTimeTriggerWord(word.scrittura)) {
 				specials.push(() => createTimeReadingQuestion(word));
@@ -580,7 +585,7 @@
 		if (mode === 'sentence-ordering') return 3;
 		if (mode === 'composition') return 2;
 		if (mode === 'spoken-production') return 1.5;
-		if (mode === 'cloze' || mode === 'reading-choice') return 1.5;
+		if (mode === 'cloze' || mode === 'reading-choice' || mode === 'verb-form-cloze') return 1.5;
 		return 1;
 	}
 	function startAnswerTimer(): void {
@@ -682,6 +687,8 @@
 				return { prompt: `Componi: ${q.prompt}`, correct: q.correctAnswer };
 			case 'spoken-production':
 				return { prompt: `Di' a voce: ${q.prompt}`, correct: `${q.expectedWriting}（${q.expectedReading}）` };
+			case 'verb-form-cloze':
+				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
 			case 'reading-choice':
 				return { prompt: q.plainSentence, correct: q.correctChoice };
 			case 'listening':
@@ -1090,14 +1097,17 @@
 		const before = getSrs(quiz.itemRef.key) ?? createInitialSrs(quiz.itemRef.key);
 		// La coniugazione è una proprietà della CLASSE (conj:*), non della parola:
 		// muove il contatore di classe e sposta solo la data di ripasso della parola.
-		if (quiz.question.mode === 'conjugation' && quiz.itemRef.kind === 'word') {
+		if (
+			(quiz.question.mode === 'conjugation' || quiz.question.mode === 'verb-form-cloze') &&
+			quiz.itemRef.kind === 'word'
+		) {
 			const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
 			const classKey = word ? conjClassKey(word) : null;
 			if (classKey) await upsertPracticeOnly(classKey, correct);
 			// Se la forma è una COSTRUZIONE con significato proprio (potenziale,
 			// passiva, causativa, condizionali…), accredita anche gram:<slug>:
 			// così "come vado col potenziale" ha un punteggio suo.
-			const gramSlug = CONSTRUCTION_BY_FORM_KEY[(quiz.question as ConjugationQuizQuestion).formKey];
+			const gramSlug = CONSTRUCTION_BY_FORM_KEY[(quiz.question as ConjugationQuizQuestion | VerbFormClozeQuestion).formKey];
 			if (gramSlug) await upsertPracticeOnly(`gram:${gramSlug}`, correct);
 			await touchWordReviewDate(quiz.itemRef.key);
 		} else if (quiz.question.mode === 'particle-cloze') {
@@ -1160,7 +1170,7 @@
 
 		// TTS (silenziato in modalità muta: niente audio automatico)
 		if (!appState.quizMuted) {
-			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair') {
+			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair' || quiz.question.mode === 'verb-form-cloze') {
 				speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
 			} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
 				speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
@@ -1186,6 +1196,7 @@
 		else if (q.mode === 'reading-choice') correct = choice === (q as ReadingChoiceQuestion).correctChoice;
 		else if (q.mode === 'listening') correct = choice === (q as ListeningQuestion).correctChoice;
 		else if (q.mode === 'particle-cloze') correct = choice === (q as ParticleClozeQuestion).correctChoice;
+		else if (q.mode === 'verb-form-cloze') correct = choice === (q as VerbFormClozeQuestion).correctChoice;
 		else if (q.mode === 'counter-quiz') correct = choice === (q as CounterQuestion).correctChoice;
 		else if (q.mode === 'conjugation') correct = choice === (q as ConjugationQuizQuestion).correctChoice;
 		else if (q.mode === 'transitivity-pair') correct = choice === (q as TransitivityPairQuestion).correctChoice;
@@ -1733,6 +1744,24 @@
 			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
 			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
 			<div class="choices ja-choices particle-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- verb-form-cloze: quale FORMA del verbo completa la frase -->
+		{:else if quiz.question.mode === 'verb-form-cloze'}
+			{@const q = quiz.question as VerbFormClozeQuestion}
+			<p class="question-hint">Quale forma completa la frase?</p>
+			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
+			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
+			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button
 						class="choice-btn"

@@ -3,7 +3,7 @@ import { createDefaultTokenizer } from "../core/tokenizer";
 import { renderFuriganaToHtml, FIRST_KANJI_REGEX } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
 import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
-import { buildConjugationQuestions, buildVerbTable, detectVerbClass } from "../core/conjugation";
+import { buildConjugationQuestions, buildVerbTable, buildAdjectiveTable, detectVerbClass, detectAdjectiveType } from "../core/conjugation";
 import { findConjugatedForm, USAGE_BLANK } from "../core/usage";
 import { naiveReading, parseIrregularReadings, readCounterN, voicingVariants } from "../core/counterReadings";
 import { GENERATED_COUNTERS, generateReading, type GeneratedReading } from "../core/counterGen";
@@ -16,6 +16,7 @@ import type {
   CompositionQuestion,
   ConjugationQuizQuestion,
   SpokenProductionQuestion,
+  VerbFormClozeQuestion,
   CounterQuestion,
   CounterReadingQuestion,
   DistractorIndex,
@@ -61,6 +62,46 @@ export function createFlashcardProductionQuestion(word: Word, locale: "it" | "en
     correctAnswer: `${meanings.join(" / ")} | ${word.lettura}`,
     warningMultipleDefinitions: meanings.length > 1
   };
+}
+
+// 🧩 Usare: cloze sulla FORMA del verbo/aggettivo nella sua frase reale — le
+// opzioni sono forme diverse della stessa parola: scegli quella giusta per il
+// contesto (て per la richiesta, た per il racconto…). Complementa il cloze
+// sulle particelle: anche la coniugazione va saputa USARE, non solo produrre.
+export function createVerbFormClozeQuestion(
+  word: Word,
+  locale: LocaleCode
+): VerbFormClozeQuestion | null {
+  const verbClass = detectVerbClass(word);
+  const adjType = detectAdjectiveType(word);
+  const forms = verbClass
+    ? buildVerbTable(word.scrittura, verbClass)
+    : adjType
+      ? buildAdjectiveTable(word.scrittura, adjType)
+      : null;
+  if (!forms) return null;
+  const examples = word.frasi_esempio ?? [];
+  for (const example of shuffle([...examples])) {
+    const sentence = stripFuriganaNotation(example.testo);
+    const hit = findConjugatedForm(sentence, forms.filter((f) => f.key !== "dict"));
+    if (!hit) continue;
+    const distractors = shuffle(forms.filter((f) => f.key !== hit.key))
+      .map((f) => f.value)
+      .filter((v) => v !== hit.value && !sentence.includes(v))
+      .slice(0, 3);
+    if (distractors.length < 2) continue;
+    return {
+      mode: "verb-form-cloze",
+      wordId: word.id,
+      sentenceWithBlank: sentence.replace(hit.value, USAGE_BLANK),
+      fullSentence: sentence,
+      translation: pickLocalizedText(example.traduzione, locale),
+      formKey: hit.key,
+      choices: shuffle([hit.value, ...distractors]),
+      correctChoice: hit.value
+    };
+  }
+  return null;
 }
 
 // 🎤 Dire: dal significato pronunci la parola al microfono. Punteggio pieno
@@ -773,7 +814,8 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "counter-reading": 12,
   "time-reading": 12,
   composition: 14,
-  "spoken-production": 14
+  "spoken-production": 14,
+  "verb-form-cloze": 14
 };
 
 export async function createGrammarQuestion(

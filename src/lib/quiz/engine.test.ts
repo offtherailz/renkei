@@ -257,3 +257,38 @@ describe("pickReadingTarget", () => {
     expect(target?.match).toBe("勉強[べんきょう]");
   });
 });
+
+describe("createVerbFormClozeQuestion", () => {
+  const verb = {
+    id: "食べる",
+    scrittura: "食べる",
+    lettura: "たべる",
+    significato: { it: ["mangiare"], en: ["to eat"] },
+    livello_jlpt: "N5",
+    tipo_jp: "動詞[どうし]",
+    classe_verbo_jp: "一段動詞[いちだんどうし]",
+    kanji_usati: ["食"],
+    sinonimi: [], contrari: [], omofoni: [], updated_at: 0,
+    frasi_esempio: [
+      { testo: "パンを 食べて ください。", traduzione: { it: "Mangia il pane, per favore.", en: "Please eat the bread." } }
+    ]
+  } as never;
+
+  it("oscura la forma coniugata trovata nella frase; le opzioni sono forme dello stesso verbo", async () => {
+    const { createVerbFormClozeQuestion } = await import("./engine");
+    const q = createVerbFormClozeQuestion(verb, "it");
+    expect(q).not.toBeNull();
+    expect(q!.correctChoice).toBe("食べて");
+    expect(q!.sentenceWithBlank).toContain("＿＿");
+    expect(q!.sentenceWithBlank).not.toContain("食べて");
+    expect(q!.choices).toContain("食べて");
+    expect(new Set(q!.choices).size).toBe(q!.choices.length);
+    expect(q!.formKey).toBe("te");
+  });
+
+  it("parola senza frasi o non coniugabile: null", async () => {
+    const { createVerbFormClozeQuestion } = await import("./engine");
+    const noun = { ...(verb as object), tipo_jp: "名詞[めいし]", classe_verbo_jp: undefined } as never;
+    expect(createVerbFormClozeQuestion(noun, "it")).toBeNull();
+  });
+});
