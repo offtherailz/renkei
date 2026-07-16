@@ -92,3 +92,24 @@ export function touchReviewDate(progress: SrsProgress, nowTs = Date.now()): SrsP
     updated_at: nowTs
   };
 }
+
+// ── Sfaccettature (modello Nation) ───────────────────────────────────────────
+export const FACET_FIELDS = [
+  'facet_meaning_r',
+  'facet_meaning_p',
+  'facet_form_read',
+  'facet_form_write',
+  'facet_form_listen',
+  'facet_form_speak',
+  'facet_use'
+] as const;
+export type FacetField = (typeof FACET_FIELDS)[number];
+
+// Muove UNA sfaccettatura con lo stesso delta della pratica (+4/-6): le
+// sfaccettature sono contatori leggeri sulla stessa riga dell'item, mai usati
+// per lo scheduling. Per mostrarle riusa normalizePracticeOnlyMastery.
+export function bumpFacet(progress: SrsProgress, field: FacetField, isCorrect: boolean, nowTs = Date.now()): SrsProgress {
+  const delta = isCorrect ? 4 : -6;
+  const current = progress[field] ?? 0;
+  return { ...progress, [field]: clamp(current + delta, -100, 100), updated_at: nowTs };
+}

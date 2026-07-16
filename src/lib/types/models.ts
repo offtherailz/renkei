@@ -163,6 +163,17 @@ export interface SrsProgress extends BaseEntity {
   // Errori totali (quiz + pratica). Opzionale (righe storiche senza campo):
   // serve ai punti deboli — "debole" = ha sbagliato, non "è ancora giovane".
   lapses?: number;
+  // Sfaccettature della conoscenza (modello Nation: Forma/Significato/Uso ×
+  // ricettivo/produttivo), scala -100..100 come mastery_points. Solo
+  // informative e per la scelta del MODO di domanda — mai per lo scheduling.
+  // Opzionali: niente bump di versione Dexie, non indicizzate.
+  facet_meaning_r?: number; // 💡 Capire (JP→IT)
+  facet_meaning_p?: number; // 🎯 Recuperare (IT→JP)
+  facet_form_read?: number; // 📖 Leggere (kanji→よみ)
+  facet_form_write?: number; // ✍️ Scrivere (comporre)
+  facet_form_listen?: number; // 👂 Ascoltare
+  facet_form_speak?: number; // 🎤 Dire (microfono)
+  facet_use?: number; // 🧩 Usare (particelle/coniugazione/cloze in frase)
 }
 
 export interface UserPersonalization extends BaseEntity {
