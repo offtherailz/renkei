@@ -186,11 +186,23 @@ function isPlanKey(key: string): boolean {
 // Item deboli (mastery < 60%): usato dal teaser in home e dalla pagina
 // /punti-deboli (elenco completo). `limit` assente → nessun taglio.
 export interface WeakItem {
-	kind: string; // 'word' | 'grammar' | 'counter' | 'kanji' | 'phrase' | altro prefisso usato da recordPracticeMiss
+	kind: string; // 'word' | 'grammar' | 'counter' | 'kanji' | 'phrase' | 'conj' | 'particella'
+	raw: string; // suffisso dopo 'kind:' (es. 'godan', 'に', id parola)
 	label: string;
-	consolida: string; // id per /consolida/{consolida}
+	href: string; // path relativo (senza base) alla pagina/riferimento dell'elemento
 	pct: number;
 }
+
+// La riga dei punti deboli linka alla PAGINA dell'elemento (scheda/riferimento),
+// non al drill: conj → /forme, particella → /particelle, contatore → /contatori,
+// parola/kanji/grammatica → /detail. Il drill vero è il ripasso iterato (Blocco F).
+const CONJ_FORME_SLUG: Record<string, string> = {
+	godan: 'godan',
+	ichidan: 'ichidan',
+	irregular: 'fukisoku',
+	'i-keiyoushi': 'i-keiyoushi',
+	'na-keiyoushi': 'na-keiyoushi'
+};
 
 // Kind "solo pratica": non hanno mai uno srs_stage vero (resta 0), quindi il
 // peso 70/30 con lo stage li terrebbe bloccati sotto soglia a vita. Per questi
@@ -218,22 +230,27 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 		const [kind, ...rest] = r.id_item.includes(':') ? r.id_item.split(':') : ['word', r.id_item];
 		const raw = rest.join(':') || r.id_item;
 		let label = raw;
-		let consolida = r.id_item;
+		// default: item senza pagina propria (phrase dalle avventure) → drill vocale
+		let href = `consolida/${encodeURIComponent(r.id_item)}`;
 		if (kind === 'word') {
 			label = (await db.words.get(raw))?.scrittura ?? raw;
-			consolida = raw;
+			href = `detail/${encodeURIComponent(`word:${raw}`)}`;
+		} else if (kind === 'kanji') {
+			href = `detail/${encodeURIComponent(`kanji:${raw}`)}`;
 		} else if (kind === 'grammar') {
 			label = (await db.grammar.get(raw))?.struttura ?? raw;
+			href = `detail/${encodeURIComponent(`grammar:${raw}`)}`;
 		} else if (kind === 'counter') {
 			label = (await db.counters.get(raw))?.simbolo ?? raw;
+			href = `contatori#${encodeURIComponent(raw)}`;
 		} else if (kind === 'conj') {
 			label = CONJ_CLASS_LABELS[raw] ?? raw;
+			href = `forme#${CONJ_FORME_SLUG[raw] ?? raw}`;
 		} else if (kind === 'particella') {
 			label = `Particella ${raw}`;
-		} else if (kind === 'kanji') {
-			consolida = raw;
+			href = `particelle#${encodeURIComponent(raw)}`;
 		}
-		out.push({ kind, label, consolida, pct });
+		out.push({ kind, raw, label, href, pct });
 	}
 	return out;
 }

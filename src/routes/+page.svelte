@@ -273,8 +273,8 @@
 				<span class="plan-body">
 					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
 					<span class="plan-chips">
-						{#each weakest as w (w.consolida)}
-							<a class="weak-chip" href="{base}/consolida/{encodeURIComponent(w.consolida)}">{w.label} <small>{w.pct}%</small></a>
+						{#each weakest as w (w.href)}
+							<a class="weak-chip" href="{base}/{w.href}">{w.label} <small>{w.pct}%</small></a>
 						{/each}
 					</span>
 				</span>

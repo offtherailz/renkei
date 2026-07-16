@@ -23,7 +23,7 @@
 	// Le righe di coniugazione usano l'icona canonica della classe (5️⃣/1️⃣/い/な…),
 	// coerente col resto dell'app; il chip di gruppo resta 🔄.
 	function rowIcon(w: WeakItem): string {
-		if (w.kind === 'conj') return CONJ_CLASS_ICONS[w.consolida.split(':')[1] ?? ''] ?? kindMeta('conj').icon;
+		if (w.kind === 'conj') return CONJ_CLASS_ICONS[w.raw] ?? kindMeta('conj').icon;
 		return kindMeta(w.kind).icon;
 	}
 	// I glifi giapponesi (漢, い, な) riusano i badge globali condivisi (app.css);
@@ -52,7 +52,7 @@
 <div class="weak-index">
 	<a class="back" href="{base}/">← Home</a>
 	<h1 class="page-title">💪 Punti deboli</h1>
-	<p class="page-sub">Tutto ciò che è sotto il 60% di padronanza, dal peggiore. Tocca per allenarti (consolida davvero, ma niente XP).</p>
+	<p class="page-sub">Tutto ciò che è sotto il 60% di padronanza, dal peggiore. Tocca una voce per aprire la sua scheda o pagina di riferimento.</p>
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
@@ -72,9 +72,9 @@
 		{/if}
 		<p class="count">{filtered.length} {filtered.length === 1 ? 'voce' : 'voci'}</p>
 		<div class="weak-list">
-			{#each filtered as w (w.consolida)}
+			{#each filtered as w (w.href)}
 				{@const ic = rowIcon(w)}
-				<a class="weak-row" href="{base}/consolida/{encodeURIComponent(w.consolida)}">
+				<a class="weak-row" href="{base}/{w.href}">
 					<span class="w-icon {glyphClass(ic)}">{ic}</span>
 					<span class="w-label">{w.label}</span>
 					<span class="w-pct" class:low={w.pct < 30}>{w.pct}%</span>
