@@ -47,11 +47,11 @@ describe("applicableFacets", () => {
 		for (const f of FACET_FIELDS) expect(set.has(f), f).toBe(true);
 	});
 
-	it("parola full-kana (くれる): niente Leggere/Scrivere", () => {
+	it("parola full-kana (くれる): niente Leggere (tautologico), ma Scrivere sì (si compone in kana)", () => {
 		const w = makeWord({ scrittura: "くれる", lettura: "くれる", kanji_usati: [] });
 		const set = applicableFacets(w);
 		expect(set.has("facet_form_read")).toBe(false);
-		expect(set.has("facet_form_write")).toBe(false);
+		expect(set.has("facet_form_write")).toBe(true);
 		expect(set.has("facet_meaning_r")).toBe(true);
 	});
 
@@ -85,9 +85,11 @@ describe("facetsToTrain", () => {
 		expect(got).toContain("facet_form_write"); // sbloccata a stage 4
 	});
 
-	it("full-kana a stage alto: Scrivere resta esclusa (non applicabile)", () => {
+	it("full-kana a stage alto: Scrivere inclusa (kana), Leggere no", () => {
 		const kana = makeWord({ scrittura: "くれる", lettura: "くれる" });
-		expect(facetsToTrain(kana, 7, {})).not.toContain("facet_form_write");
+		const got = facetsToTrain(kana, 7, {});
+		expect(got).toContain("facet_form_write");
+		expect(got).not.toContain("facet_form_read");
 	});
 });
 

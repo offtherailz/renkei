@@ -94,10 +94,10 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 }
 
 // Celle applicabili alla parola, in base alla classe (tipo_jp) e ai dati:
-// - 📖/✍️ solo se c'è una forma scritta in kanji da leggere/comporre
-//   (full-kana: scrittura === lettura → N.A., è il bug くれる);
-// - ✍️ mai per le espressioni idiomatiche (unità multi-parola, comporla
-//   carattere per carattere non ha senso);
+// - 📖 Leggere solo se c'è kanji da decifrare (full-kana: la "lettura" È la
+//   parola, domanda tautologica — è il bug くれる);
+// - ✍️ Scrivere quasi sempre: comporre vale anche in kana (く・れ・る), escluse
+//   solo le espressioni idiomatiche (comporre una frase intera non ha senso);
 // - 🧩 solo se c'è materia d'uso: frasi d'esempio, o coniugazione
 //   (verbo/aggettivo), o un contatore suggerito;
 // - 💡🎯👂🎤 sempre (ogni parola ha significato e forma orale).
@@ -105,10 +105,8 @@ export function applicableFacets(word: Word): Set<FacetField> {
 	const out = new Set<FacetField>(['facet_meaning_r', 'facet_meaning_p', 'facet_form_listen', 'facet_form_speak']);
 	const hasKanjiForm = word.scrittura !== word.lettura;
 	const isIdiom = word.tipo_jp.startsWith('慣用表現');
-	if (hasKanjiForm) {
-		out.add('facet_form_read');
-		if (!isIdiom) out.add('facet_form_write');
-	}
+	if (hasKanjiForm) out.add('facet_form_read');
+	if (!isIdiom) out.add('facet_form_write');
 	const conjugates = word.tipo_jp.startsWith('動詞') || word.tipo_jp.startsWith('形容詞');
 	if ((word.frasi_esempio?.length ?? 0) > 0 || conjugates || word.id_contatore_suggerito) {
 		out.add('facet_use');

@@ -40,7 +40,7 @@
 		<ul>
 			<li>Ogni asse va da 0 al 100%: si riempie rispondendo bene a domande di quel tipo (e cala sugli errori) — in qualunque parte dell'app, non solo nel quiz.</li>
 			<li>Le abilità <strong>facili sbloccano prima</strong>: Capire e Leggere da subito, Dire e Scrivere solo quando la parola è già consolidata — il radar si riempie «a ondate», ed è normale che le punte difficili restino indietro.</li>
-			<li>Un asse <strong>tratteggiato con «—»</strong> non è un buco: quella abilità non ha senso per quella parola (es. «Scrivere» per una parola tutta in kana, che non ha kanji da comporre).</li>
+			<li>Il radar mostra <strong>solo gli assi che hanno senso</strong> per quella parola: una parola tutta in kana non ha «Leggere» (la lettura È la parola), un'espressione idiomatica non ha «Scrivere». Meno assi non è un difetto.</li>
 			<li>Il quiz usa il radar per <strong>scegliere le domande</strong>: insiste sull'abilità più debole tra quelle sbloccate, così le punte si pareggiano da sole.</li>
 		</ul>
 	</article>
