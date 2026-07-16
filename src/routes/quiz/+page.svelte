@@ -9,11 +9,14 @@
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
 	import { facetOfMode, facetsToTrain } from '$lib/core/facets';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
+	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
 		createFlashcardProductionQuestion,
 		createCompositionQuestion,
+		createSpokenProductionQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -38,7 +41,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, CompositionQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
+		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
 		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
@@ -68,6 +71,10 @@
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
 	let bankTokens = $state<string[]>([]);
 	let answerTokens = $state<string[]>([]);
+	// 🎤 spoken-production: stato del microfono e trascrizione sentita
+	let canSpeak = $state(false);
+	let micState = $state<'idle' | 'listening'>('idle');
+	let heard = $state('');
 	let nowTick = $state(Date.now());
 	let answerRemainingS = $state(0);
 	let sessionPaused = $state(false);
@@ -144,13 +151,14 @@
 	// Le celle senza un modo in questa rosa (Usare → speciali conjugation/
 	// particle-cloze; Dire/Scrivere → modalità future) restano fuori qui.
 	let lastFacetPicked: FacetField | null = null;
-	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'composition';
+	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'composition' | 'spoken-production';
 	const MODE_BY_FACET: Partial<Record<FacetField, WordMode[]>> = {
 		facet_meaning_r: ['flashcard-recognition', 'multiple-choice'],
 		facet_meaning_p: ['flashcard-production'],
 		facet_form_read: ['flashcard-reading-recognition'],
 		facet_form_listen: ['listening'],
-		facet_form_write: ['composition']
+		facet_form_write: ['composition'],
+		facet_form_speak: ['spoken-production']
 	};
 
 	function pickWordMode(stage: number, word: Word): WordMode {
@@ -159,6 +167,8 @@
 			const modes = MODE_BY_FACET[f];
 			if (!modes) return false;
 			if (f === 'facet_form_listen' && (appState.quizMuted || !hasTts)) return false;
+			// il Parlato esce solo se il mic c'è davvero (e non in modalità muta)
+			if (f === 'facet_form_speak' && (!canSpeak || appState.quizMuted)) return false;
 			// reading-recognition tautologica senza kanji (それほど→それほど) — già
 			// esclusa da applicableFacets (full-kana), doppia guardia qui.
 			if (f === 'facet_form_read' && word.kanji_usati.length === 0) return false;
@@ -265,6 +275,7 @@
 				const comp = createCompositionQuestion(word, locale, context);
 				if (comp) return comp;
 			}
+			if (mode === 'spoken-production') return createSpokenProductionQuestion(word, locale);
 			return createMultipleChoiceQuestion(word, context, distractorIndex);
 		}
 
@@ -466,6 +477,7 @@
 			answerFeedback = null;
 			bankTokens = nw.q.mode === 'sentence-ordering' || nw.q.mode === 'composition' ? shuffle(nw.q.tokens) : [];
 			answerTokens = [];
+			heard = ''; micState = 'idle';
 			if (nw.q.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(nw.q.readingToSpeak);
 			startAnswerTimer();
 			return;
@@ -491,6 +503,7 @@
 					answerFeedback = null;
 					bankTokens = q2.mode === 'sentence-ordering' || q2.mode === 'composition' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
+					heard = ''; micState = 'idle';
 					startAnswerTimer();
 					return;
 				}
@@ -505,6 +518,7 @@
 		answerFeedback = null;
 		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
 		answerTokens = [];
+		heard = ''; micState = 'idle';
 		if (question.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
 	}
@@ -565,6 +579,7 @@
 		const mode = quiz?.question.mode;
 		if (mode === 'sentence-ordering') return 3;
 		if (mode === 'composition') return 2;
+		if (mode === 'spoken-production') return 1.5;
 		if (mode === 'cloze' || mode === 'reading-choice') return 1.5;
 		return 1;
 	}
@@ -665,6 +680,8 @@
 				return { prompt: q.prompt, correct: q.correctOrder.join('') };
 			case 'composition':
 				return { prompt: `Componi: ${q.prompt}`, correct: q.correctAnswer };
+			case 'spoken-production':
+				return { prompt: `Di' a voce: ${q.prompt}`, correct: `${q.expectedWriting}（${q.expectedReading}）` };
 			case 'reading-choice':
 				return { prompt: q.plainSentence, correct: q.correctChoice };
 			case 'listening':
@@ -1192,6 +1209,26 @@
 		handleAnswer(answerTokens.join('') === q.correctAnswer, answerTokens.join(''));
 	}
 
+	// 🎤 spoken-production: ascolta e confronta. UN SOLO gruppo che unisce
+	// scrittura e lettura (dire l'una O l'altra basta — due gruppi separati
+	// richiederebbero erroneamente entrambe nella stessa frase).
+	async function recordSpokenAnswer(): Promise<void> {
+		if (!quiz || quiz.answered || micState !== 'idle') return;
+		const q = quiz.question as SpokenProductionQuestion;
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (!quiz || quiz.answered) return;
+		if (alts.length === 0) {
+			heard = '（niente capito, riprova）';
+			return;
+		}
+		heard = alts[0]!;
+		const ok = speechMatches(alts, [[...phraseVariants(q.expectedWriting), ...phraseVariants(q.expectedReading)]]);
+		handleAnswer(ok, heard);
+	}
+
 	function pickFromBank(index: number): void {
 		const token = bankTokens[index];
 		if (token === undefined) return;
@@ -1242,7 +1279,7 @@
 			else if (num === 2) handleAnswer(false, 'Non ricordata');
 			return;
 		}
-		if (q.mode === 'sentence-ordering' || q.mode === 'composition') return;
+		if (q.mode === 'sentence-ordering' || q.mode === 'composition' || q.mode === 'spoken-production') return;
 		const choice = (q.choices ?? [])[num - 1];
 		if (choice) handleChoiceClick(choice);
 	}
@@ -1355,6 +1392,7 @@
 	}
 
 	onMount(() => {
+		canSpeak = speechAvailable();
 		if (appState.initialized) boot();
 		else {
 			const stop = $effect.root(() => {
@@ -1592,6 +1630,26 @@
 				</div>
 			{:else}
 				<div class="solution">{q.correctAnswer}{q.reading ? `（${q.reading}）` : ''}</div>
+			{/if}
+
+		<!-- spoken-production: pronuncia la parola al microfono -->
+		{:else if quiz.question.mode === 'spoken-production'}
+			{@const q = quiz.question as SpokenProductionQuestion}
+			<p class="question-prompt">{q.prompt}</p>
+			{#if q.warningMultipleDefinitions}<p class="question-hint">Più parole possibili: vale quella di questa carta.</p>{/if}
+			<p class="question-hint">🎤 Di' la parola in giapponese ad alta voce.</p>
+			{#if !quiz.answered}
+				<button class="choice-btn mic-btn" class:listening={micState === 'listening'} onclick={recordSpokenAnswer} disabled={micState !== 'idle'}>
+					{micState === 'listening' ? '🎙️ Ti ascolto…' : '🎤 Parla ora'}
+				</button>
+				{#if heard}
+					<HeardDiff {heard} candidates={[q.expectedWriting, q.expectedReading]} />
+				{/if}
+			{:else}
+				<div class="solution">{q.expectedWriting}（{q.expectedReading}）</div>
+				{#if heard}
+					<HeardDiff {heard} candidates={[q.expectedWriting, q.expectedReading]} />
+				{/if}
 			{/if}
 
 		<!-- reading-choice -->
@@ -2099,6 +2157,14 @@
 	}
 
 	.confirm-order:disabled { opacity: 0.45; }
+
+	/* 🎤 spoken-production: bottone microfono, pulsa mentre ascolta */
+	.mic-btn { text-align: center; font-weight: 700; }
+	.mic-btn.listening { animation: mic-pulse 1s ease-in-out infinite; border-color: var(--brand); }
+	@keyframes mic-pulse {
+		0%, 100% { background: var(--surface); }
+		50% { background: rgba(107, 160, 242, 0.2); }
+	}
 
 	.listen-btn {
 		justify-self: center;

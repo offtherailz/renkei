@@ -15,7 +15,8 @@ export type QuizMode =
   | "transitivity-pair"
   | "counter-reading"
   | "time-reading"
-  | "composition";
+  | "composition"
+  | "spoken-production";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -41,6 +42,18 @@ export interface SentenceOrderingQuestion {
   prompt: string;
   tokens: string[];
   correctOrder: string[];
+}
+
+// 🎤 Dire: pronuncia la parola al microfono, dal solo significato. Vale dire
+// la scrittura O la lettura (un gruppo unico di varianti accettate).
+export interface SpokenProductionQuestion {
+  mode: "spoken-production";
+  wordId: string;
+  prompt: string; // significato IT/EN
+  promptLanguage: LocaleCode;
+  expectedReading: string; // word.lettura
+  expectedWriting: string; // word.scrittura
+  warningMultipleDefinitions: boolean;
 }
 
 // ✍️ Scrivere: componi la parola carattere per carattere (kanji o kana) dal
@@ -150,7 +163,8 @@ export type QuizQuestion =
   | TransitivityPairQuestion
   | CounterReadingQuestion
   | TimeReadingQuestion
-  | CompositionQuestion;
+  | CompositionQuestion
+  | SpokenProductionQuestion;
 
 export interface DistractorEntry {
   id: string;

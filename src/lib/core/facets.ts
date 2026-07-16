@@ -84,6 +84,8 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 			return 'facet_form_write';
 		case 'listening':
 			return 'facet_form_listen';
+		case 'spoken-production':
+			return 'facet_form_speak';
 		case 'particle-cloze':
 		case 'conjugation':
 		case 'transitivity-pair':

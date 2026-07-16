@@ -15,6 +15,7 @@ import type {
   ClozeSource,
   CompositionQuestion,
   ConjugationQuizQuestion,
+  SpokenProductionQuestion,
   CounterQuestion,
   CounterReadingQuestion,
   DistractorIndex,
@@ -58,6 +59,21 @@ export function createFlashcardProductionQuestion(word: Word, locale: "it" | "en
     prompt: word.scrittura,
     promptLanguage: "ja",
     correctAnswer: `${meanings.join(" / ")} | ${word.lettura}`,
+    warningMultipleDefinitions: meanings.length > 1
+  };
+}
+
+// 🎤 Dire: dal significato pronunci la parola al microfono. Punteggio pieno
+// come le altre modalità "proprie" della parola (produzione orale).
+export function createSpokenProductionQuestion(word: Word, locale: "it" | "en"): SpokenProductionQuestion {
+  const meanings = pickLocalizedArray(word.significato, locale);
+  return {
+    mode: "spoken-production",
+    wordId: word.id,
+    prompt: meanings.join(" / "),
+    promptLanguage: locale,
+    expectedReading: word.lettura,
+    expectedWriting: word.scrittura,
     warningMultipleDefinitions: meanings.length > 1
   };
 }
@@ -756,7 +772,8 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "transitivity-pair": 15,
   "counter-reading": 12,
   "time-reading": 12,
-  composition: 14
+  composition: 14,
+  "spoken-production": 14
 };
 
 export async function createGrammarQuestion(

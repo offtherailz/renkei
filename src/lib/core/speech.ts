@@ -27,6 +27,9 @@ function recognitionCtor(): (new () => Recognition) | null {
 }
 
 export function speechAvailable(): boolean {
+	// Il riconoscimento vocale funziona solo in secure context (https/localhost):
+	// via http su IP l'API può esistere ma fallire — meglio i fallback a bottoni.
+	if (typeof window !== 'undefined' && !window.isSecureContext) return false;
 	return recognitionCtor() !== null;
 }
 
