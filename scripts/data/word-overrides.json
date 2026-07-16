@@ -1365,7 +1365,12 @@
    "en": [
     "test"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "試験"
+  ],
+  "contrari": []
  },
  "テストする": {
   "frasi_esempio": [
@@ -2500,7 +2505,10 @@
     "beside",
     "Japanese traditional buckwheat noodle"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "おばあさん": {
   "frasi_esempio": [
@@ -3105,7 +3113,10 @@
    "en": [
     "match"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "みんな": {
   "frasi_esempio": [
@@ -3269,7 +3280,12 @@
    "en": [
     "right hand side"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "左"
+  ]
  },
  "夏": {
   "frasi_esempio": [
@@ -3933,7 +3949,14 @@
     "woman",
     "female"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "女性"
+  ],
+  "contrari": [
+   "男"
+  ]
  },
  "女の子": {
   "frasi_esempio": [
@@ -5280,7 +5303,15 @@
     "to try",
     "to wear small items (e.g., necktie, watch, etc.)"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "やる",
+   "致す",
+   "なさる"
+  ],
+  "contrari": []
  },
  "そこ": {
   "frasi_esempio": [
@@ -5419,7 +5450,13 @@
     "to take"
    ]
   },
-  "id_verbo_corrispondente": "点く"
+  "id_verbo_corrispondente": "点く",
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "消す"
+  ]
  },
  "テープ": {
   "frasi_esempio": [
@@ -5526,7 +5563,12 @@
    "en": [
     "door (Western style)"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "戸"
+  ],
+  "contrari": []
  },
  "どう": {
   "frasi_esempio": [
@@ -6143,7 +6185,13 @@
    "en": [
     "to drink"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "召し上がる"
+  ],
+  "contrari": []
  },
  "雨": {
   "frasi_esempio": [
@@ -6414,7 +6462,16 @@
     "to become open"
    ]
   },
-  "id_verbo_corrispondente": "開ける"
+  "id_verbo_corrispondente": "開ける",
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "開く-ひらく",
+   "空く::あく"
+  ],
+  "contrari": [
+   "閉まる"
+  ]
  },
  "開ける": {
   "frasi_esempio": [
@@ -7300,7 +7357,12 @@
    "en": [
     "left hand side"
    ]
-  }
+  },
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "右"
+  ]
  },
  "座る": {
   "frasi_esempio": [
@@ -7983,7 +8045,13 @@
     "to turn off power"
    ]
   },
-  "id_verbo_corrispondente": "消える"
+  "id_verbo_corrispondente": "消える",
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "つける"
+  ]
  },
  "上": {
   "frasi_esempio": [
@@ -8149,7 +8217,13 @@
    "en": [
     "to eat"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "召し上がる"
+  ],
+  "contrari": []
  },
  "寝る": {
   "frasi_esempio": [
@@ -9421,7 +9495,11 @@
      "en": "Is that so? I didn't know."
     }
    }
-  ]
+  ],
+  "tipo_jp": "感動詞[かんどうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "そうして; そして": {
   "significato": {
@@ -9449,7 +9527,12 @@
      "en": "He opened the door. And then he entered the room."
     }
    }
-  ]
+  ],
+  "tipo_jp": "接続詞[せつぞくし]",
+  "sinonimi": [
+   "また"
+  ],
+  "contrari": []
  },
  "そちら": {
   "significato": {
@@ -9814,7 +9897,10 @@
      "en": "When your name is called, please answer \"yes.\""
     }
    }
-  ]
+  ],
+  "tipo_jp": "感動詞[かんどうし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "パン": {
   "significato": {
@@ -11210,7 +11296,15 @@
     "(humble) to be (animate)",
     "to exist"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "在る",
+   "いらっしゃる",
+   "おる"
+  ],
+  "contrari": []
  },
  "魚": {
   "significato": {
@@ -11386,7 +11480,13 @@
     "to see",
     "to look"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "拝見する"
+  ],
+  "contrari": []
  },
  "元気": {
   "significato": {
@@ -11450,7 +11550,16 @@
    "en": [
     "to say"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "話す",
+   "申す",
+   "申し上げる",
+   "おっしゃる"
+  ],
+  "contrari": []
  },
  "言葉": {
   "significato": {
@@ -11693,7 +11802,17 @@
    "en": [
     "to go"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "参る",
+   "いらっしゃる"
+  ],
+  "contrari": [
+   "来る",
+   "帰る"
+  ]
  },
  "降りる": {
   "significato": {
@@ -12451,7 +12570,10 @@
      "en": "I wrote a letter to my grandmother."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "授業": {
   "significato": {
@@ -12739,7 +12861,13 @@
     "to disappear"
    ]
   },
-  "id_verbo_corrispondente": "消す"
+  "id_verbo_corrispondente": "消す",
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "点く"
+  ]
  },
  "上げる": {
   "significato": {
@@ -13445,6 +13573,14 @@
      "en": "A man is standing in the garden."
     }
    }
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "男性",
+   "人"
+  ],
+  "contrari": [
+   "女"
   ]
  },
  "男の子": {
@@ -15119,7 +15255,10 @@
      "en": "My father's hobby is fishing."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "部屋": {
   "significato": {
@@ -15315,7 +15454,15 @@
     "to be closed"
    ]
   },
-  "id_verbo_corrispondente": "閉める"
+  "id_verbo_corrispondente": "閉める",
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "閉める"
+  ],
+  "contrari": [
+   "開く-あく"
+  ]
  },
  "閉める": {
   "significato": {
@@ -15513,7 +15660,10 @@
      "en": "I got a sweater from my mother."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "方": {
   "significato": {
@@ -15904,7 +16054,12 @@
      "en": "Are you ready for tomorrow?"
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "明日::あす"
+  ],
+  "contrari": []
  },
  "鳴く": {
   "significato": {
@@ -16267,7 +16422,10 @@
      "en": "I looked at clothes at the department store."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "要る": {
   "significato": {
@@ -16304,7 +16462,16 @@
    "en": [
     "to come"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "参る",
+   "いらっしゃる"
+  ],
+  "contrari": [
+   "行く"
+  ]
  },
  "来週": {
   "significato": {
@@ -16773,7 +16940,17 @@
    "en": [
     "to give"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "申し上げる",
+   "くれる",
+   "差し上げる"
+  ],
+  "contrari": [
+   "下げる"
+  ]
  },
  "アジア": {
   "significato": {
@@ -17015,7 +17192,13 @@
      "en": "I received a dictionary from my teacher."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "もらう"
+  ],
+  "contrari": []
  },
  "いっぱい": {
   "significato": {
@@ -17055,7 +17238,16 @@
     "くる",
     "and いる --"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "おいでになる",
+   "行く",
+   "来る",
+   "居る"
+  ],
+  "contrari": []
  },
  "うかがう": {
   "significato": {
@@ -17160,7 +17352,13 @@
      "en": "Asked \"will you eat it?\", I answered \"yeah.\""
     }
    }
-  ]
+  ],
+  "tipo_jp": "感動詞[かんどうし]",
+  "sinonimi": [
+   "よろしい",
+   "大丈夫"
+  ],
+  "contrari": []
  },
  "エスカレーター": {
   "significato": {
@@ -17196,7 +17394,12 @@
    "en": [
     "(hon.) to be"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "sinonimi": [
+   "いらっしゃる"
+  ],
+  "contrari": []
  },
  "オートバイ": {
   "significato": {
@@ -17318,7 +17521,13 @@
      "en": "May I ask your name?"
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "言う"
+  ],
+  "contrari": []
  },
  "おつり": {
   "significato": {
@@ -17397,7 +17606,13 @@
      "en": "I will be at the office until three p.m."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "居る"
+  ],
+  "contrari": []
  },
  "お金持ち": {
   "significato": {
@@ -17891,7 +18106,13 @@
      "en": "The teacher kindly gave me a book."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "くれる"
+  ],
+  "contrari": []
  },
  "くれる": {
   "significato": {
@@ -17919,7 +18140,14 @@
      "en": "My sister gave me some sweets."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "あげる",
+   "くださる"
+  ],
+  "contrari": []
  },
  "ケーキ": {
   "significato": {
@@ -18000,7 +18228,10 @@
      "en": "I called many times. However, there was no answer."
     }
    }
-  ]
+  ],
+  "tipo_jp": "接続詞[せつぞくし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "けんかする": {
   "significato": {
@@ -19283,7 +19514,13 @@
      "en": "What will you do on the weekend?"
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "する"
+  ],
+  "contrari": []
  },
  "なるべく": {
   "significato": {
@@ -19890,7 +20127,13 @@
      "en": "I had the teacher read the letter for me."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "いただく"
+  ],
+  "contrari": []
  },
  "やっと": {
   "significato": {
@@ -19946,7 +20189,10 @@
      "en": "I hesitated, but in the end I decided to go after all."
     }
    }
-  ]
+  ],
+  "tipo_jp": "副詞[ふくし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "よろしい": {
   "significato": {
@@ -23810,7 +24056,13 @@
    "en": [
     "-- humble expression for あげる --"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "あげる"
+  ],
+  "contrari": []
  },
  "砂": {
   "significato": {
@@ -24122,7 +24374,14 @@
    "en": [
     "humble expression for 行く and 来る"
    ]
-  }
+  },
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [
+   "行く",
+   "来る"
+  ],
+  "contrari": []
  },
  "産業": {
   "significato": {
@@ -24280,6 +24539,11 @@
      "en": "That child is very lively!"
     }
    }
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "親"
   ]
  },
  "市": {
@@ -24627,7 +24891,12 @@
      "en": "The exam results will be known next week."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "テスト"
+  ],
+  "contrari": []
  },
  "試合": {
   "significato": {
@@ -24656,7 +24925,10 @@
      "en": "Tomorrow's match will be held even in the rain."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "歯医者": {
   "significato": {
@@ -24802,7 +25074,10 @@
      "en": "Please write in bigger letters."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "寺": {
   "significato": {
@@ -25668,7 +25943,12 @@
      "en": "I am busy with party preparations."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "用意"
+  ],
+  "contrari": []
  },
  "女性": {
   "significato": {
@@ -25694,6 +25974,13 @@
      "en": "There are two women at the reception."
     }
    }
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "女"
+  ],
+  "contrari": [
+   "男性"
   ]
  },
  "勝つ": {
@@ -25746,7 +26033,14 @@
      "en": "Please eat it while it's warm."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "食べる",
+   "飲む"
+  ],
+  "contrari": []
  },
  "将来": {
   "significato": {
@@ -26476,7 +26770,13 @@
      "en": "I offer my heartfelt congratulations."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "言う"
+  ],
+  "contrari": []
  },
  "申す": {
   "significato": {
@@ -26503,7 +26803,13 @@
      "en": "My mother sends her regards."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "言う"
+  ],
+  "contrari": []
  },
  "真中": {
   "significato": {
@@ -26611,6 +26917,11 @@
      "en": "I don't want to worry my parents."
     }
    }
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "子"
   ]
  },
  "親切": {
@@ -26638,7 +26949,12 @@
      "en": "The station attendant kindly helped me."
     }
    }
-  ]
+  ],
+  "tipo_jp": "形容詞[けいようし]",
+  "sinonimi": [
+   "優しい"
+  ],
+  "contrari": []
  },
  "進む": {
   "significato": {
@@ -28314,6 +28630,14 @@
      "en": "Both men and women can do this job."
     }
    }
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "男",
+   "人"
+  ],
+  "contrari": [
+   "女性"
   ]
  },
  "値段": {
@@ -28473,7 +28797,13 @@
      "en": "I will call you later."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "する"
+  ],
+  "contrari": []
  },
  "遅れる": {
   "significato": {
@@ -28527,7 +28857,10 @@
      "en": "I want to learn how to put on a kimono."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "中々": {
   "significato": {
@@ -29184,6 +29517,12 @@
      "en": "When you press the button, the light comes on."
     }
    }
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "消える"
   ]
  },
  "伝える": {
@@ -31556,7 +31895,10 @@
      "en": "Miso is made from soybeans."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "眠い": {
   "significato": {
@@ -31728,7 +32070,12 @@
      "en": "Tomorrow's meeting starts at ten."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "明日::あした"
+  ],
+  "contrari": []
  },
  "鳴る": {
   "significato": {
@@ -32002,6 +32349,13 @@
      "en": "She spoke to me in a gentle voice."
     }
    }
+  ],
+  "tipo_jp": "形容詞[けいようし]",
+  "sinonimi": [
+   "親切"
+  ],
+  "contrari": [
+   "厳しい"
   ]
  },
  "遊び": {
@@ -32222,7 +32576,13 @@
      "en": "I prepared tea for the guests."
     }
    }
-  ]
+  ],
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "支度",
+   "準備"
+  ],
+  "contrari": []
  },
  "用事": {
   "significato": {
@@ -33514,7 +33874,14 @@
      "en": "I prepare tomorrow's clothes before going to bed."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "支度する",
+   "準備する"
+  ],
+  "contrari": []
  },
  "利用する": {
   "frasi_esempio": [
@@ -34162,7 +34529,11 @@
      "en": "I failed at making the cake."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": []
  },
  "招待する": {
   "frasi_esempio": [
@@ -34288,7 +34659,13 @@
      "en": "I am preparing tomorrow's class."
     }
    }
-  ]
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "sinonimi": [
+   "用意する"
+  ],
+  "contrari": []
  },
  "生産する": {
   "frasi_esempio": [
@@ -34518,5 +34895,35 @@
   "classe_verbo_jp": "五段動詞[ごだんどうし]",
   "transitivita_jp": "他動詞[たどうし]",
   "id_verbo_corrispondente": "回る"
+ },
+ "出国": {
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "入国"
+  ]
+ },
+ "入国": {
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [],
+  "contrari": [
+   "出国"
+  ]
+ },
+ "出国する": {
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "入国する"
+  ]
+ },
+ "入国する": {
+  "tipo_jp": "動詞[どうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "sinonimi": [],
+  "contrari": [
+   "出国する"
+  ]
  }
 }
