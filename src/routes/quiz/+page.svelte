@@ -6,7 +6,8 @@
 	import { loadWeakItems } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery } from '$lib/core/srs';
+	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet } from '$lib/core/srs';
+	import { facetOfMode } from '$lib/core/facets';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
@@ -1081,6 +1082,20 @@
 			await upsertPracticeOnly(quiz.itemRef.key, correct);
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
+		}
+		// Sfaccettatura della parola (modello Nation): ogni domanda su una parola
+		// muove anche la cella che allena (per coniugazione/particella è il
+		// secondo incremento: la classe sopra, l'Uso della parola qui).
+		if (quiz.itemRef.kind === 'word') {
+			const facetField = facetOfMode(quiz.question.mode);
+			if (facetField) {
+				const row = getSrs(quiz.itemRef.key);
+				if (row) {
+					const withFacet = bumpFacet(row, facetField, correct);
+					await db.srs_progress.put(withFacet);
+					srsMap.set(quiz.itemRef.key, withFacet);
+				}
+			}
 		}
 
 		if (!session.weak) {
