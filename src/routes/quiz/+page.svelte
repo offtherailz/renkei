@@ -13,6 +13,7 @@
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
 		createFlashcardProductionQuestion,
+		createCompositionQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -37,7 +38,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
+		SentenceOrderingQuestion, CompositionQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion,
 		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
@@ -143,14 +144,16 @@
 	// Le celle senza un modo in questa rosa (Usare → speciali conjugation/
 	// particle-cloze; Dire/Scrivere → modalità future) restano fuori qui.
 	let lastFacetPicked: FacetField | null = null;
-	const MODE_BY_FACET: Partial<Record<FacetField, (FlashcardQuestion['mode'] | 'multiple-choice' | 'listening')[]>> = {
+	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'composition';
+	const MODE_BY_FACET: Partial<Record<FacetField, WordMode[]>> = {
 		facet_meaning_r: ['flashcard-recognition', 'multiple-choice'],
 		facet_meaning_p: ['flashcard-production'],
 		facet_form_read: ['flashcard-reading-recognition'],
-		facet_form_listen: ['listening']
+		facet_form_listen: ['listening'],
+		facet_form_write: ['composition']
 	};
 
-	function pickWordMode(stage: number, word: Word): FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' {
+	function pickWordMode(stage: number, word: Word): WordMode {
 		const row = getSrs(`word:${word.id}`);
 		let candidates = facetsToTrain(word, stage, row ?? {}).filter((f) => {
 			const modes = MODE_BY_FACET[f];
@@ -258,6 +261,10 @@
 			if (mode === 'flashcard-recognition') return createFlashcardRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'flashcard-reading-recognition') return createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'listening') return createListeningQuestion(word, distractorIndex, context);
+			if (mode === 'composition') {
+				const comp = createCompositionQuestion(word, locale, context);
+				if (comp) return comp;
+			}
 			return createMultipleChoiceQuestion(word, context, distractorIndex);
 		}
 
@@ -457,7 +464,7 @@
 			quiz = { itemRef: nw.ref, question: nw.q, startedAt: Date.now(), answered: false };
 			revealedProduction = false;
 			answerFeedback = null;
-			bankTokens = nw.q.mode === 'sentence-ordering' ? shuffle(nw.q.tokens) : [];
+			bankTokens = nw.q.mode === 'sentence-ordering' || nw.q.mode === 'composition' ? shuffle(nw.q.tokens) : [];
 			answerTokens = [];
 			if (nw.q.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(nw.q.readingToSpeak);
 			startAnswerTimer();
@@ -482,7 +489,7 @@
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
 					answerFeedback = null;
-					bankTokens = q2.mode === 'sentence-ordering' ? shuffle(q2.tokens) : [];
+					bankTokens = q2.mode === 'sentence-ordering' || q2.mode === 'composition' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
 					startAnswerTimer();
 					return;
@@ -496,7 +503,7 @@
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
 		answerFeedback = null;
-		bankTokens = question.mode === 'sentence-ordering' ? shuffle(question.tokens) : [];
+		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
 		answerTokens = [];
 		if (question.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(question.readingToSpeak);
 		startAnswerTimer();
@@ -557,6 +564,7 @@
 	function answerTimeMultiplier(): number {
 		const mode = quiz?.question.mode;
 		if (mode === 'sentence-ordering') return 3;
+		if (mode === 'composition') return 2;
 		if (mode === 'cloze' || mode === 'reading-choice') return 1.5;
 		return 1;
 	}
@@ -655,6 +663,8 @@
 				return { prompt: q.prompt, correct: q.correctChoice };
 			case 'sentence-ordering':
 				return { prompt: q.prompt, correct: q.correctOrder.join('') };
+			case 'composition':
+				return { prompt: `Componi: ${q.prompt}`, correct: q.correctAnswer };
 			case 'reading-choice':
 				return { prompt: q.plainSentence, correct: q.correctChoice };
 			case 'listening':
@@ -1169,6 +1179,14 @@
 		handleAnswer(correct, answerTokens.join(''));
 	}
 
+	// Composizione: il banco contiene intrusi, quindi non si aspetta che sia
+	// vuoto — si conferma quando i caratteri scelti sono almeno quelli attesi.
+	function handleCompositionSubmit(): void {
+		if (!quiz || quiz.answered || answerTokens.length === 0) return;
+		const q = quiz.question as CompositionQuestion;
+		handleAnswer(answerTokens.join('') === q.correctAnswer, answerTokens.join(''));
+	}
+
 	function pickFromBank(index: number): void {
 		const token = bankTokens[index];
 		if (token === undefined) return;
@@ -1204,6 +1222,9 @@
 			if (quiz.question.mode === 'sentence-ordering' && bankTokens.length === 0) {
 				handleSentenceOrderSubmit();
 			}
+			if (quiz.question.mode === 'composition') {
+				handleCompositionSubmit();
+			}
 			return;
 		}
 
@@ -1216,7 +1237,7 @@
 			else if (num === 2) handleAnswer(false, 'Non ricordata');
 			return;
 		}
-		if (q.mode === 'sentence-ordering') return;
+		if (q.mode === 'sentence-ordering' || q.mode === 'composition') return;
 		const choice = (q.choices ?? [])[num - 1];
 		if (choice) handleChoiceClick(choice);
 	}
@@ -1536,6 +1557,36 @@
 				</div>
 			{:else}
 				<div class="solution">{q.correctOrder.join('')}</div>
+			{/if}
+
+		<!-- composizione: componi la parola coi caratteri (con intrusi) -->
+		{:else if quiz.question.mode === 'composition'}
+			{@const q = quiz.question as CompositionQuestion}
+			<p class="question-prompt">{q.prompt}</p>
+			{#if q.reading}<p class="question-hint">Lettura: {q.reading}</p>{/if}
+			<p class="question-hint">✍️ Componi la parola toccando i caratteri nell'ordine giusto — attento agli intrusi. Tocca un carattere scelto per rimetterlo giù.</p>
+			<div class="answer-area" class:answer-filled={answerTokens.length > 0}>
+				{#if answerTokens.length === 0}
+					<span class="answer-placeholder">La parola apparirà qui…</span>
+				{/if}
+				{#each answerTokens as tok, i}
+					<button class="token token-picked" disabled={quiz.answered} onclick={() => returnToBank(i)}>{tok}</button>
+				{/each}
+			</div>
+			<div class="token-area">
+				{#each bankTokens as tok, i}
+					<button class="token" disabled={quiz.answered} onclick={() => pickFromBank(i)}>{tok}</button>
+				{/each}
+			</div>
+			{#if !quiz.answered}
+				<div class="ordering-actions">
+					<button class="ghost-btn" onclick={resetOrdering} disabled={answerTokens.length === 0}>↺ Ricomincia</button>
+					<button class="choice-btn confirm-order" onclick={handleCompositionSubmit} disabled={answerTokens.length === 0}>
+						Conferma parola
+					</button>
+				</div>
+			{:else}
+				<div class="solution">{q.correctAnswer}{q.reading ? `（${q.reading}）` : ''}</div>
 			{/if}
 
 		<!-- reading-choice -->

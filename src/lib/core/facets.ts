@@ -80,6 +80,8 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 		case 'flashcard-reading-recognition':
 		case 'reading-choice':
 			return 'facet_form_read';
+		case 'composition':
+			return 'facet_form_write';
 		case 'listening':
 			return 'facet_form_listen';
 		case 'particle-cloze':

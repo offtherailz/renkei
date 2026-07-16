@@ -13,6 +13,7 @@ import { buildDistractors } from "./distractorIndex";
 import type {
   ClozeQuestion,
   ClozeSource,
+  CompositionQuestion,
   ConjugationQuizQuestion,
   CounterQuestion,
   CounterReadingQuestion,
@@ -58,6 +59,44 @@ export function createFlashcardProductionQuestion(word: Word, locale: "it" | "en
     promptLanguage: "ja",
     correctAnswer: `${meanings.join(" / ")} | ${word.lettura}`,
     warningMultipleDefinitions: meanings.length > 1
+  };
+}
+
+// ✍️ Scrivere: componi la parola carattere per carattere. Banco = caratteri
+// della parola + intrusi pescati da altre parole del catalogo (stesso
+// "alfabeto": kanji se la parola ha kanji, kana altrimenti), mai già presenti
+// nella parola. Con kanji si mostra la lettura come aiuto (produci la FORMA,
+// non la pronuncia); full-kana niente aiuto (sarebbe la soluzione).
+export function createCompositionQuestion(
+  word: Word,
+  locale: "it" | "en",
+  context: QuizContext
+): CompositionQuestion | null {
+  const chars = [...word.scrittura];
+  if (chars.length < 2 || chars.length > 8) return null;
+  const hasKanji = word.scrittura !== word.lettura;
+  const inWord = new Set(chars);
+  const isKanjiChar = (c: string) => /[一-龯々]/u.test(c);
+  const wanted = hasKanji ? isKanjiChar : (c: string) => /[ぁ-んァ-ンー]/u.test(c) && !isKanjiChar(c);
+  const pool: string[] = [];
+  for (const other of context.wordsById.values()) {
+    if (other.id === word.id) continue;
+    for (const c of other.scrittura) {
+      if (!inWord.has(c) && wanted(c)) pool.push(c);
+    }
+    if (pool.length > 200) break;
+  }
+  const intruders = shuffle([...new Set(pool)]).slice(0, Math.min(3, Math.max(2, chars.length - 1)));
+  if (intruders.length < 2) return null;
+  const meanings = pickLocalizedArray(word.significato, locale);
+  return {
+    mode: "composition",
+    wordId: word.id,
+    prompt: meanings.join(" / "),
+    promptLanguage: locale,
+    reading: hasKanji ? word.lettura : undefined,
+    tokens: shuffle([...chars, ...intruders]),
+    correctAnswer: word.scrittura
   };
 }
 
@@ -715,7 +754,8 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   conjugation: 13,
   "transitivity-pair": 15,
   "counter-reading": 12,
-  "time-reading": 12
+  "time-reading": 12,
+  composition: 14
 };
 
 export async function createGrammarQuestion(

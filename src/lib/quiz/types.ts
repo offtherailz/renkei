@@ -14,7 +14,8 @@ export type QuizMode =
   | "conjugation"
   | "transitivity-pair"
   | "counter-reading"
-  | "time-reading";
+  | "time-reading"
+  | "composition";
 
 export interface FlashcardQuestion {
   mode: "flashcard-production" | "flashcard-recognition" | "flashcard-reading-recognition";
@@ -40,6 +41,18 @@ export interface SentenceOrderingQuestion {
   prompt: string;
   tokens: string[];
   correctOrder: string[];
+}
+
+// ✍️ Scrivere: componi la parola carattere per carattere (kanji o kana) dal
+// significato+lettura. Il banco contiene anche caratteri intrusi.
+export interface CompositionQuestion {
+  mode: "composition";
+  wordId: string;
+  prompt: string; // significato (IT/EN)
+  promptLanguage: LocaleCode;
+  reading?: string; // lettura mostrata come aiuto se la parola ha kanji
+  tokens: string[]; // caratteri della parola + intrusi, da mescolare
+  correctAnswer: string; // word.scrittura
 }
 
 export interface ClozeQuestion {
@@ -135,7 +148,8 @@ export type QuizQuestion =
   | ConjugationQuizQuestion
   | TransitivityPairQuestion
   | CounterReadingQuestion
-  | TimeReadingQuestion;
+  | TimeReadingQuestion
+  | CompositionQuestion;
 
 export interface DistractorEntry {
   id: string;
