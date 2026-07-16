@@ -12,12 +12,13 @@
 	import { saveCorrection } from '$lib/db/corrections';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
+	import FacetRadar from '$lib/components/FacetRadar.svelte';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import ConjugationDrill from '$lib/components/ConjugationDrill.svelte';
 	import ConjugationTable from '$lib/components/ConjugationTable.svelte';
 	import ComposedFormDrill from '$lib/components/ComposedFormDrill.svelte';
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
-	import type { Word, Kanji, Grammar, Counter } from '$lib/types/models';
+	import type { Word, Kanji, Grammar, Counter, SrsProgress } from '$lib/types/models';
 	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPage } from '$lib/data/grammarForms';
 	import { KEIGO_VERBS, type KeigoVerb } from '$lib/core/keigo';
 
@@ -163,6 +164,7 @@
 
 	// SRS info
 	let masteryPct = $state(0);
+	let wordSrs = $state<SrsProgress | null>(null);
 	let srsStage = $state(0);
 	let nextReviewLabel = $state('');
 
@@ -182,7 +184,7 @@
 
 	async function loadItem(): Promise<void> {
 		loading = true;
-		word = null; kanji = null; grammar = null;
+		word = null; kanji = null; grammar = null; wordSrs = null;
 		synonyms = []; antonyms = []; homophones = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 		keigoEntry = null; keigoRole = null; keigoPlainWord = null; keigoSonkeigoWord = null; keigoKenjougoWord = null;
@@ -249,6 +251,7 @@
 						}
 					}
 					if (srs) {
+						wordSrs = srs;
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
 						srsStage = srs.srs_stage;
 						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
@@ -388,6 +391,9 @@
 				<div class="bar-fill" style="width:{masteryPct}%; background:{progressColor(masteryPct)}"></div>
 			</div>
 			<p class="detail-meta">SRS {srsStage}/7 • Consolidamento {masteryPct}%{nextReviewLabel ? ` • Prossimo ripasso ${nextReviewLabel}` : ''}</p>
+			{#if wordSrs}
+				<FacetRadar {word} srs={wordSrs} />
+			{/if}
 		</article>
 		{/if}
 

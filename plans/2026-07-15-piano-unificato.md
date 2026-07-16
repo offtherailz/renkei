@@ -167,6 +167,13 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 ### Migliorie segnate (16/07, da fare poi)
 - **Piano di oggi: sistema di completamento** — le voci del piano (ripassi, punti deboli, attività
   del giorno) dovrebbero segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
+- **Microfono: permessi e degradazione (16/07)** — su http non-localhost (dev via IP LAN) l'API
+  non esiste (serve secure context) e il tap sul mic in frasi utili «si chiude e dà errore».
+  Da fare: 1) `navigator.permissions.query({name:'microphone'})` per distinguere prompt/negato/
+  non-disponibile; 2) messaggio chiaro per caso (negato → come riabilitare nel browser; contesto
+  non sicuro → usa https/localhost); 3) mai crash: try/catch attorno a `listenJapanese` con
+  fallback ai bottoni (convenzione già prevista); 4) `speechAvailable()` deve controllare anche
+  `window.isSecureContext`.
 - **Furigana attivabili (toggle globale)** — fase 1 (facile): setting in Impostazioni, `FuriganaText`
   rende ruby/testo piano dove la notazione 漢字[よみ] già esiste (dialoghi, forme, schede). Fase 2
   (dati): annotare le frasi d'esempio delle parole riusando il matcher frase→parole del pipeline
