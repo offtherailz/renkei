@@ -160,6 +160,9 @@ export interface SrsProgress extends BaseEntity {
   ease_factor: number;
   streak: number;
   mastery_points: number;
+  // Errori totali (quiz + pratica). Opzionale (righe storiche senza campo):
+  // serve ai punti deboli — "debole" = ha sbagliato, non "è ancora giovane".
+  lapses?: number;
 }
 
 export interface UserPersonalization extends BaseEntity {

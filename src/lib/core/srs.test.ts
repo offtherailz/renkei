@@ -118,3 +118,22 @@ describe("normalizePracticeOnlyMastery", () => {
     expect(normalizePracticeOnlyMastery(20)).toBe(60);
   });
 });
+
+describe("lapses (conteggio errori per i punti deboli)", () => {
+	it("applySrsReview: incrementa solo sull'errore, parte da undefined", () => {
+		const initial = createInitialSrs("word:test");
+		expect(initial.lapses).toBeUndefined();
+		const ok = applySrsReview(initial, true);
+		expect(ok.lapses).toBe(0);
+		const ko = applySrsReview(ok, false);
+		expect(ko.lapses).toBe(1);
+		expect(applySrsReview(ko, false).lapses).toBe(2);
+	});
+
+	it("applyPracticeReview: stesso conteggio anche in pratica", () => {
+		const initial = createInitialSrs("particella:に");
+		const ko = applyPracticeReview(initial, false);
+		expect(ko.lapses).toBe(1);
+		expect(applyPracticeReview(ko, true).lapses).toBe(1);
+	});
+});

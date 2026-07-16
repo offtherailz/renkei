@@ -221,6 +221,12 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 	const active = await getActiveItemKeys();
 	const scored = rows
 		.filter((r) => !isPlanKey(r.id_item) || active.has(r.id_item))
+		// "Debole" = ha dato prova di debolezza (almeno un errore), non "è ancora
+		// giovane": senza questo filtro ogni carta appena introdotta (stage 0-1,
+		// mastery bassa per definizione) inonderebbe la lista il giorno dopo.
+		// Fallback per le righe storiche senza `lapses`: mastery negativa = ha
+		// sbagliato più che indovinato (es. i miss delle avventure).
+		.filter((r) => (r.lapses ?? 0) > 0 || r.mastery_points < 0)
 		.map((r) => ({ r, pct: pctFor(r) }))
 		.filter((x) => x.pct < 60)
 		.sort((a, b) => a.pct - b.pct);

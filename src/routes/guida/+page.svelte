@@ -14,7 +14,7 @@
 	<section class="g-card">
 		<h2>🧭 Il giro consigliato</h2>
 		<ol>
-			<li><strong>Il piano di oggi</strong> (in home): prima i ripassi SRS, poi i tuoi punti deboli (3 in anteprima, «vedi tutti →» per l'elenco completo filtrabile in <strong>/punti-deboli</strong> — ogni voce apre la sua scheda o pagina di riferimento, e «🔁 Ripassa i punti deboli» avvia un giro di domande sui più deboli, solo pratica), poi l'attività del giorno.</li>
+			<li><strong>Il piano di oggi</strong> (in home): prima i ripassi SRS, poi i tuoi punti deboli (ciò che hai <em>sbagliato almeno una volta</em> ed è sotto il 60% — le carte nuove non contano; 3 in anteprima, «vedi tutti →» per l'elenco completo filtrabile in <strong>/punti-deboli</strong> — ogni voce apre la sua scheda o pagina di riferimento, e «🔁 Ripassa i punti deboli» avvia una sessione quiz sui più deboli, solo pratica), poi l'attività del giorno.</li>
 			<li><strong>Corsi</strong>: importa Genki I (un tocco), premi «🎯 Studia solo questo corso» e avanza lezione per lezione — si sblocca da sola.</li>
 			<li>Quando qualcosa non torna, aprine la <strong>scheda</strong>: esempi, usi, coniugazioni, note tue — e 💪 Consolida per il drill senza penalità.</li>
 		</ol>

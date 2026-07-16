@@ -41,6 +41,7 @@ export function applySrsReview(progress: SrsProgress, isCorrect: boolean, nowTs 
     streak: nextStreak,
     next_review_date: nextReviewDate,
     mastery_points: clamp(progress.mastery_points + masteryDelta, -100, 100),
+    lapses: (progress.lapses ?? 0) + (isCorrect ? 0 : 1),
     updated_at: nowTs
   };
 }
@@ -55,6 +56,7 @@ export function applyPracticeReview(progress: SrsProgress, isCorrect: boolean, n
   return {
     ...progress,
     mastery_points: clamp(progress.mastery_points + delta, -100, 100),
+    lapses: (progress.lapses ?? 0) + (isCorrect ? 0 : 1),
     updated_at: nowTs
   };
 }
