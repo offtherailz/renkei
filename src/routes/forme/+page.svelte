@@ -15,6 +15,16 @@
 	import { db } from '$lib/db/schema';
 	import type { Word } from '$lib/types/models';
 
+	// Classi con un drill di coniugazione dedicato (/consolida/conj:*): slug
+	// scheda → chiave classe (fukisoku → irregular).
+	const CONJ_DRILL_BY_SLUG: Record<string, string> = {
+		godan: 'godan',
+		ichidan: 'ichidan',
+		fukisoku: 'irregular',
+		'i-keiyoushi': 'i-keiyoushi',
+		'na-keiyoushi': 'na-keiyoushi'
+	};
+
 	function scrollToHash(): void {
 		const slug = $page.url.hash.replace('#', '');
 		if (slug) scrollToAnchor(slug);
@@ -107,6 +117,9 @@
 					<h2 class="form-title">{form.title}</h2>
 					<p class="form-label"><FuriganaText text={form.label} /></p>
 				</div>
+				{#if CONJ_DRILL_BY_SLUG[form.slug]}
+					<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`conj:${CONJ_DRILL_BY_SLUG[form.slug]}`)}" title="Drill di coniugazione della classe">💪</a>
+				{/if}
 			</div>
 			<p class="form-summary">{form.summary}</p>
 			{#each form.explanation as paragraph}
@@ -225,6 +238,13 @@
 	}
 
 	.form-icon { font-size: 1.8rem; }
+
+	.drill-link {
+		margin-left: auto; display: grid; place-items: center;
+		width: 36px; height: 36px; border-radius: 10px;
+		border: 1px solid var(--line); text-decoration: none; font-size: 1.1rem;
+	}
+	.drill-link:hover { border-color: var(--brand); background: rgba(107, 160, 242, 0.14); }
 
 	.kana-emoji {
 		display: inline-flex;

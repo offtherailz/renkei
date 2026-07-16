@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { afterNavigate } from '$app/navigation';
 	import { PARTICLE_GUIDE } from '$lib/data/particleGuide';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
@@ -33,6 +34,7 @@
 			<div class="particle-head">
 				<span class="particle-symbol">{p.particella}</span>
 				<strong class="particle-name">{p.nome}</strong>
+				<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`particella:${p.particella}`)}" title="Drill: frasi col buco su questa particella">💪</a>
 			</div>
 			{#each p.usi as uso}
 				<div class="use-block">
@@ -88,6 +90,12 @@
 	}
 
 	.particle-head { display: flex; align-items: center; gap: 12px; }
+	.drill-link {
+		margin-left: auto; display: grid; place-items: center;
+		width: 36px; height: 36px; border-radius: 10px;
+		border: 1px solid var(--line); text-decoration: none; font-size: 1.1rem;
+	}
+	.drill-link:hover { border-color: var(--brand); background: rgba(107, 160, 242, 0.14); }
 	.particle-symbol {
 		min-width: 52px;
 		height: 52px;

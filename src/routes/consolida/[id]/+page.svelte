@@ -14,6 +14,7 @@
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
 		createConjugationQuizQuestion,
+		createParticleClozeQuestion,
 		createCounterQuestion,
 		createCounterDrillQuestion,
 		createTransitivityPairQuestion,
@@ -22,7 +23,7 @@
 	} from '$lib/quiz/engine';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import { choicesOf, correctOf, promptOf } from '$lib/quiz/questionView';
-	import { DEFAULT_KNOWN_FORMS } from '$lib/core/conjugation';
+	import { DEFAULT_KNOWN_FORMS, conjClassKey, CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
@@ -44,6 +45,8 @@
 	let lastOk = $state<boolean | null>(null);
 	// item SRS che questa sessione consolida (pratica: muove solo il mastery)
 	let srsTarget = $state<string | null>(null);
+	// drill "di classe" (conj:*/particella:*): sottotitolo dedicato nell'header
+	let classDrillSub = $state<string | null>(null);
 	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
@@ -58,6 +61,7 @@
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
 		word = null; kanjiChar = null; grammarMode = false; counterMode = false; phrase = null; phraseJudged = false; srsTarget = null;
+		classDrillSub = null;
 		phraseStep = 'ready'; heard = ''; lastOk = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
@@ -87,6 +91,51 @@
 				}
 				queue = qs;
 			}
+			loading = false;
+			return;
+		}
+
+		// Classe di coniugazione (conj:godan…): coda di coniugazioni su PIÙ parole
+		// della stessa classe — la debolezza è della classe, non di una parola.
+		if (kind === 'conj') {
+			classDrillSub = 'Coniugazione della classe';
+			srsTarget = `conj:${rawId}`;
+			title = CONJ_CLASS_LABELS[rawId] ?? rawId;
+			const pool = shuffle(words.filter((w) => conjClassKey(w) === `conj:${rawId}`));
+			const allowed = new Set(DEFAULT_KNOWN_FORMS);
+			const qs: QuizQuestion[] = [];
+			const seen = new Set<string>();
+			for (const w of pool.slice(0, 20)) {
+				if (qs.length >= 6) break;
+				const q = createConjugationQuizQuestion(w, allowed);
+				if (q && !seen.has(`${q.dictionary}|${q.formLabel}`)) {
+					seen.add(`${q.dictionary}|${q.formLabel}`);
+					qs.push(q);
+				}
+			}
+			queue = qs;
+			loading = false;
+			return;
+		}
+
+		// Particella (particella:に…): frasi col buco proprio su quella particella,
+		// ritentando su parole diverse (stesso pattern "coda anche parziale").
+		if (kind === 'particella') {
+			classDrillSub = 'Uso della particella';
+			srsTarget = `particella:${rawId}`;
+			title = `Particella ${rawId}`;
+			const pool = shuffle(words.filter((w) => w.frasi_esempio?.length));
+			const qs: QuizQuestion[] = [];
+			const seenSentences = new Set<string>();
+			for (const w of pool.slice(0, 80)) {
+				if (qs.length >= 6) break;
+				const q = await createParticleClozeQuestion(w, locale);
+				if (q && q.correctChoice === rawId && !seenSentences.has(q.fullSentence)) {
+					seenSentences.add(q.fullSentence);
+					qs.push(q);
+				}
+			}
+			queue = qs;
 			loading = false;
 			return;
 		}
@@ -286,7 +335,10 @@
 		void recordPractice(correct);
 		// per coniugazione/transitività leggi la forma corretta, non la parola base
 		const m = current.mode;
-		if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
+		if (m === 'particle-cloze') {
+			// come nel quiz: si legge la frase completa con la particella giusta
+			speakSentenceJapanese((current as { fullSentence: string }).fullSentence);
+		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
 			speakSentenceJapanese(correctOf(current));
 		} else if (m === 'flashcard-recognition' && !counterMode) {
 			// in modalità contatore la flashcard chiede il significato (italiano): niente TTS
@@ -361,13 +413,13 @@
 
 	{#if loading}
 		<p class="muted">Caricamento…</p>
-	{:else if !word && !kanjiChar && !grammarMode && !counterMode && !phrase}
+	{:else if !word && !kanjiChar && !grammarMode && !counterMode && !phrase && !classDrillSub}
 		<p class="muted">Elemento non trovato.</p>
 	{:else}
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : phrase ? 'Frase utile — pratica a voce' : 'Allenamento libero'} — consolida (niente XP). {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : phrase ? 'Frase utile — pratica a voce' : (classDrillSub ?? 'Allenamento libero')} — consolida (niente XP). {score.ok}/{score.tot}
 			</p>
 		</header>
 
