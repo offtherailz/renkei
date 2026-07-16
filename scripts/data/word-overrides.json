@@ -21139,34 +21139,6 @@
    }
   ]
  },
- "回る、回す": {
-  "significato": {
-   "it": [
-    "girare",
-    "ruotare"
-   ],
-   "en": [
-    "to go around",
-    "to revolve"
-   ]
-  },
-  "frasi_esempio": [
-   {
-    "testo": "地球は 太陽の まわりを 回って います。",
-    "traduzione": {
-     "it": "La Terra gira intorno al Sole.",
-     "en": "The earth goes around the sun."
-    }
-   },
-   {
-    "testo": "ハンドルを 右に 回して ください。",
-    "traduzione": {
-     "it": "Gira la manopola verso destra.",
-     "en": "Please turn the handle to the right."
-    }
-   }
-  ]
- },
  "壊す": {
   "significato": {
    "it": [
@@ -34479,5 +34451,72 @@
     }
    }
   ]
+ },
+ "回る": {
+  "significato": {
+   "it": [
+    "girare",
+    "ruotare",
+    "fare il giro"
+   ],
+   "en": [
+    "to go around",
+    "to revolve",
+    "to turn (intransitive)"
+   ]
+  },
+  "frasi_esempio": [
+   {
+    "testo": "地球は 太陽の まわりを 回って います。",
+    "traduzione": {
+     "it": "La Terra gira intorno al Sole.",
+     "en": "The earth goes around the sun."
+    }
+   },
+   {
+    "testo": "タイヤが ゆっくり 回って います。",
+    "traduzione": {
+     "it": "La ruota sta girando lentamente.",
+     "en": "The tire is turning slowly."
+    }
+   }
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "五段動詞[ごだんどうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "id_verbo_corrispondente": "回す"
+ },
+ "回す": {
+  "significato": {
+   "it": [
+    "far girare",
+    "girare (qualcosa)"
+   ],
+   "en": [
+    "to turn (something)",
+    "to rotate (something)",
+    "to pass around"
+   ]
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ハンドルを 右に 回して ください。",
+    "traduzione": {
+     "it": "Gira la manopola verso destra.",
+     "en": "Please turn the handle to the right."
+    }
+   },
+   {
+    "testo": "かぎを 回して、ドアを 開けました。",
+    "traduzione": {
+     "it": "Ho girato la chiave e ho aperto la porta.",
+     "en": "I turned the key and opened the door."
+    }
+   }
+  ],
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "五段動詞[ごだんどうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "id_verbo_corrispondente": "回る"
  }
 }
