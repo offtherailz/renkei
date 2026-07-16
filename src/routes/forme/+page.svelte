@@ -4,6 +4,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { scrollToAnchor } from '$lib/core/scroll';
+	import { normalizePracticeOnlyMastery } from '$lib/core/srs';
 	import { GRAMMAR_FORMS, formPage } from '$lib/data/grammarForms';
 
 	// In /forme stanno le parti del discorso + le contrazioni; le forme
@@ -61,6 +62,9 @@
 	let shownCount = $state<Record<string, number>>({});
 	let allWords: Word[] = [];
 
+	// Padronanza del drill di classe (conj:*), 0-100, solo se mai praticata → assente.
+	let drillPct = $state<Record<string, number>>({});
+
 	onMount(async () => {
 		allWords = await db.words.toArray();
 		const next: Record<string, number> = {};
@@ -68,6 +72,12 @@
 			next[slug] = allWords.filter(filter).length;
 		}
 		counts = next;
+		const pct: Record<string, number> = {};
+		for (const [slug, cls] of Object.entries(CONJ_DRILL_BY_SLUG)) {
+			const row = await db.srs_progress.get(`conj:${cls}`);
+			if (row) pct[slug] = normalizePracticeOnlyMastery(row.mastery_points);
+		}
+		drillPct = pct;
 	});
 
 	function toggleWords(slug: string): void {
@@ -118,7 +128,9 @@
 					<p class="form-label"><FuriganaText text={form.label} /></p>
 				</div>
 				{#if CONJ_DRILL_BY_SLUG[form.slug]}
-					<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`conj:${CONJ_DRILL_BY_SLUG[form.slug]}`)}" title="Drill di coniugazione della classe">💪</a>
+					<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`conj:${CONJ_DRILL_BY_SLUG[form.slug]}`)}" title="Drill di coniugazione della classe{drillPct[form.slug] !== undefined ? ` — padronanza ${drillPct[form.slug]}%` : ''}">
+						💪{#if drillPct[form.slug] !== undefined}<small class="drill-pct">{drillPct[form.slug]}%</small>{/if}
+					</a>
 				{/if}
 			</div>
 			<p class="form-summary">{form.summary}</p>
@@ -240,10 +252,11 @@
 	.form-icon { font-size: 1.8rem; }
 
 	.drill-link {
-		margin-left: auto; display: grid; place-items: center;
-		width: 36px; height: 36px; border-radius: 10px;
+		margin-left: auto; display: inline-flex; align-items: center; justify-content: center; gap: 3px;
+		min-width: 36px; height: 36px; padding: 0 8px; border-radius: 10px;
 		border: 1px solid var(--line); text-decoration: none; font-size: 1.1rem;
 	}
+	.drill-pct { font-size: 0.68rem; font-weight: 700; color: var(--muted); }
 	.drill-link:hover { border-color: var(--brand); background: rgba(107, 160, 242, 0.14); }
 
 	.kana-emoji {

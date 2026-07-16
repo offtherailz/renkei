@@ -7,6 +7,20 @@
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { scrollToAnchor } from '$lib/core/scroll';
+	import { onMount } from 'svelte';
+	import { db } from '$lib/db/schema';
+	import { normalizePracticeOnlyMastery } from '$lib/core/srs';
+
+	// Padronanza del drill (particella:*), 0-100, assente se mai praticata.
+	let drillPct = $state<Record<string, number>>({});
+	onMount(async () => {
+		const pct: Record<string, number> = {};
+		for (const p of PARTICLE_GUIDE) {
+			const row = await db.srs_progress.get(`particella:${p.particella}`);
+			if (row) pct[p.particella] = normalizePracticeOnlyMastery(row.mastery_points);
+		}
+		drillPct = pct;
+	});
 
 	function scrollToHash(): void {
 		const target = decodeURIComponent($page.url.hash.replace('#', ''));
@@ -34,7 +48,9 @@
 			<div class="particle-head">
 				<span class="particle-symbol">{p.particella}</span>
 				<strong class="particle-name">{p.nome}</strong>
-				<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`particella:${p.particella}`)}" title="Drill: frasi col buco su questa particella">💪</a>
+				<a class="drill-link" href="{base}/consolida/{encodeURIComponent(`particella:${p.particella}`)}" title="Drill: frasi col buco su questa particella{drillPct[p.particella] !== undefined ? ` — padronanza ${drillPct[p.particella]}%` : ''}">
+					💪{#if drillPct[p.particella] !== undefined}<small class="drill-pct">{drillPct[p.particella]}%</small>{/if}
+				</a>
 			</div>
 			{#each p.usi as uso}
 				<div class="use-block">
@@ -91,10 +107,11 @@
 
 	.particle-head { display: flex; align-items: center; gap: 12px; }
 	.drill-link {
-		margin-left: auto; display: grid; place-items: center;
-		width: 36px; height: 36px; border-radius: 10px;
+		margin-left: auto; display: inline-flex; align-items: center; justify-content: center; gap: 3px;
+		min-width: 36px; height: 36px; padding: 0 8px; border-radius: 10px;
 		border: 1px solid var(--line); text-decoration: none; font-size: 1.1rem;
 	}
+	.drill-pct { font-size: 0.68rem; font-weight: 700; color: var(--muted); }
 	.drill-link:hover { border-color: var(--brand); background: rgba(107, 160, 242, 0.14); }
 	.particle-symbol {
 		min-width: 52px;

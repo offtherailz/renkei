@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { createInitialSrs, applyPracticeReview } from '$lib/core/srs';
+	import { createInitialSrs, applyPracticeReview, normalizePracticeOnlyMastery } from '$lib/core/srs';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { speakWordReading, speakSentenceJapanese, speakSentenceJapaneseAsync } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
@@ -47,6 +47,7 @@
 	let srsTarget = $state<string | null>(null);
 	// drill "di classe" (conj:*/particella:*): sottotitolo dedicato nell'header
 	let classDrillSub = $state<string | null>(null);
+	let classDrillPct = $state<number | null>(null);
 	let title = $state('');
 	let queue = $state<QuizQuestion[]>([]);
 	let idx = $state(0);
@@ -61,7 +62,7 @@
 		loading = true;
 		picked = null; revealed = false; idx = 0; score = { ok: 0, tot: 0 };
 		word = null; kanjiChar = null; grammarMode = false; counterMode = false; phrase = null; phraseJudged = false; srsTarget = null;
-		classDrillSub = null;
+		classDrillSub = null; classDrillPct = null;
 		phraseStep = 'ready'; heard = ''; lastOk = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
@@ -101,6 +102,8 @@
 			classDrillSub = 'Coniugazione della classe';
 			srsTarget = `conj:${rawId}`;
 			title = CONJ_CLASS_LABELS[rawId] ?? rawId;
+			const row = await db.srs_progress.get(srsTarget);
+			if (row) classDrillPct = normalizePracticeOnlyMastery(row.mastery_points);
 			const pool = shuffle(words.filter((w) => conjClassKey(w) === `conj:${rawId}`));
 			const allowed = new Set(DEFAULT_KNOWN_FORMS);
 			const qs: QuizQuestion[] = [];
@@ -124,6 +127,8 @@
 			classDrillSub = 'Uso della particella';
 			srsTarget = `particella:${rawId}`;
 			title = `Particella ${rawId}`;
+			const row = await db.srs_progress.get(srsTarget);
+			if (row) classDrillPct = normalizePracticeOnlyMastery(row.mastery_points);
 			const pool = shuffle(words.filter((w) => w.frasi_esempio?.length));
 			const qs: QuizQuestion[] = [];
 			const seenSentences = new Set<string>();
@@ -419,7 +424,7 @@
 		<header class="head">
 			<h1>💪 Consolida: {title}</h1>
 			<p class="sub">
-				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : phrase ? 'Frase utile — pratica a voce' : (classDrillSub ?? 'Allenamento libero')} — consolida (niente XP). {score.ok}/{score.tot}
+				{kanjiChar ? 'Parole con questo kanji in studio' : grammarMode ? 'Uso della forma grammaticale' : counterMode ? 'Letture numero + contatore' : phrase ? 'Frase utile — pratica a voce' : (classDrillSub ?? 'Allenamento libero')}{classDrillPct !== null ? ` — padronanza ${classDrillPct}%` : ''} — consolida (niente XP). {score.ok}/{score.tot}
 			</p>
 		</header>
 
