@@ -275,3 +275,14 @@ export async function countDueCards(): Promise<{ attivi: number; inPausa: number
 	}
 	return { attivi, inPausa };
 }
+
+// Carte MAI viste negli obiettivi attivi: con 0 ripassi dovuti la home deve
+// distinguere "davvero tutto fatto" da "ci sono ancora carte nuove da iniziare"
+// (es. subito dopo un reset dei progressi tutto è nuovo, niente è dovuto).
+export async function countUnseenActive(): Promise<number> {
+	const active = await getActiveItemKeys();
+	const seen = new Set((await db.srs_progress.toArray()).map((r) => r.id_item));
+	let n = 0;
+	for (const k of active) if (!seen.has(k)) n += 1;
+	return n;
+}

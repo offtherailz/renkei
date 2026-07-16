@@ -3,7 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
-	import { loadObjectiveSummaries, countDueCards, loadCompletedObjectives, loadWeakItems, type ObjectiveSummary, type WeakItem } from '$lib/db/queries';
+	import { loadObjectiveSummaries, countDueCards, countUnseenActive, loadCompletedObjectives, loadWeakItems, type ObjectiveSummary, type WeakItem } from '$lib/db/queries';
+	import { canIntroduceNewCard, newCardsUsedToday, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { db } from '$lib/db/schema';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import Confetti from '$lib/components/Confetti.svelte';
@@ -14,6 +15,7 @@
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
 	let duePaused = $state(0);
+	let unseenCount = $state(0);
 	let loading = $state(true);
 	let sessionStreak = $state<Streak | null>(null);
 	let showConfetti = $state(false);
@@ -36,12 +38,27 @@
 		weakest = await loadWeakItems(3);
 	}
 
+	// 0 ripassi dovuti ≠ "tutto fatto": se negli obiettivi attivi ci sono carte
+	// mai viste e il budget giornaliero non è esaurito, il quiz ha ancora roba.
+	const newCardsAvailable = $derived(
+		unseenCount > 0 &&
+			canIntroduceNewCard(appState.userProfile ?? {}, appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY)
+	);
+	// Quante carte nuove entrerebbero ancora oggi: budget residuo, limitato da
+	// quante mai-viste esistono davvero negli obiettivi attivi.
+	const newCardsToday = $derived.by(() => {
+		const cap = appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY;
+		const left = Math.max(0, cap - newCardsUsedToday(appState.userProfile ?? {}));
+		return Math.min(unseenCount, left);
+	});
+
 	async function loadData() {
 		loading = true;
-		const [s, due] = await Promise.all([loadObjectiveSummaries(), countDueCards()]);
+		const [s, due, unseen] = await Promise.all([loadObjectiveSummaries(), countDueCards(), countUnseenActive()]);
 		summaries = s;
 		dueCount = due.attivi;
 		duePaused = due.inPausa;
+		unseenCount = unseen;
 		void loadWeakest();
 		void loadStreak(due.attivi);
 		void loadPackParty();
@@ -263,7 +280,7 @@
 			<span class="plan-icon">{dueCount > 0 ? '📋' : '✨'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
-				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''}</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : newCardsAvailable ? 'nessun ripasso in attesa — carte nuove pronte da iniziare ✨' : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>
@@ -271,7 +288,7 @@
 			<div class="plan-row static weak-teaser">
 				<span class="plan-icon">💪</span>
 				<span class="plan-body">
-					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
+					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/quiz?deboli=1">🔁 ripassali</a> <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
 					<span class="plan-chips">
 						{#each weakest as w (w.href)}
 							<a class="weak-chip" href="{base}/{w.href}">{w.label} <small>{w.pct}%</small></a>
@@ -288,6 +305,9 @@
 			</span>
 			<span class="plan-go">→</span>
 		</a>
+		<p class="plan-totals">
+			Oggi ti aspettano: <strong>{dueCount}</strong> ripass{dueCount === 1 ? 'o' : 'i'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''} · <strong>{newCardsToday}</strong> {newCardsToday === 1 ? 'carta nuova' : 'carte nuove'}
+		</p>
 	</div>
 </section>
 
@@ -684,6 +704,7 @@
 	}
 
 	.plan-list { display: grid; gap: 8px; }
+	.plan-totals { margin: 0; font-size: 0.78rem; color: var(--muted); text-align: right; }
 	.plan-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); text-decoration: none; color: var(--ink); }
 	.plan-row:not(.static):hover { border-color: var(--brand); }
 	.plan-icon { font-size: 1.4rem; }
