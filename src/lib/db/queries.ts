@@ -270,6 +270,13 @@ export async function countDueCards(): Promise<{ attivi: number; inPausa: number
 	let attivi = 0;
 	let inPausa = 0;
 	for (const r of due) {
+		// Le righe solo-pratica (conj:/particella:/phrase:) non hanno un vero
+		// calendario: la loro next_review_date resta ferma alla creazione, quindi
+		// risulterebbero "dovute" per sempre — ma il quiz non le serve mai (si
+		// allenano da punti deboli/ripasso). Contarle gonfiava il numero in home
+		// ("N in attesa") con un quiz che poi diceva subito "tutto fatto".
+		const kind = r.id_item.includes(':') ? r.id_item.split(':')[0]! : 'word';
+		if (practiceOnlyKinds.has(kind)) continue;
 		if (!isPlanKey(r.id_item) || active.has(r.id_item)) attivi += 1;
 		else inPausa += 1;
 	}
