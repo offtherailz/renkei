@@ -54,6 +54,10 @@
 	<h1 class="page-title">💪 Punti deboli</h1>
 	<p class="page-sub">Tutto ciò che è sotto il 60% di padronanza, dal peggiore. Tocca una voce per aprire la sua scheda o pagina di riferimento.</p>
 
+	{#if !loading && items.length > 0}
+		<a class="ripasso-cta" href="{base}/ripasso">🔁 Ripassa i punti deboli <small>un giro di domande sui più deboli</small></a>
+	{/if}
+
 	{#if loading}
 		<p class="muted">Caricamento…</p>
 	{:else if items.length === 0}
@@ -89,6 +93,12 @@
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 	.page-sub { margin: 0; font-size: 0.82rem; color: var(--muted); }
+	.ripasso-cta {
+		display: flex; flex-direction: column; gap: 2px; padding: 12px 14px;
+		border-radius: 12px; background: var(--brand); color: #fff;
+		font-weight: 700; text-decoration: none;
+	}
+	.ripasso-cta small { font-weight: 400; opacity: 0.85; font-size: 0.75rem; }
 	.filters { display: flex; flex-wrap: wrap; gap: 6px; }
 	.chip { display: inline-flex; align-items: baseline; gap: 5px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.85rem; cursor: pointer; }
 	.chip small { font-size: 0.68rem; color: var(--muted); }
