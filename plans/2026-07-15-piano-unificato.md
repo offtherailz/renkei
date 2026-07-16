@@ -137,6 +137,11 @@ Da `2026-07-15-note-utente-quiz-e-dati.md`:
 - **B1** — bug くれる: lettura già svelata quando `scrittura==lettura` (full-kana).
 - **B2** — bug `formLabel` che suggerisce la risposta (causativo/passivo, «fare:» ambiguo).
 - **B3** — correzioni dati negli **overrides**: 都合↔便利 sinonimi, 申し上げる come keigo.
+- **B4** — **spezzare 回る、回す** (16/07): voce unica dalla fonte (allenlu2009), in realtà due verbi
+  (coppia 自/他!) con lettura doppia e transitività errata. Serve un passo di pipeline (split a prova
+  di sync, gli overrides non aggiungono/rimuovono voci) + fix del seed committato + cross-link
+  `id_verbo_corrispondente`. Unico caso rotto: le altre 19 voci combinate (con `;`) sono varianti
+  legittime della stessa parola. Attenzione alla riga SRS orfana `word:回る、回す`.
 - ❓ In sospeso (da chiarire con l'utente): 出発 sinonimo N4, 親切, sinonimo di 例, 壁 con kanji N1.
 
 ### Blocco C — Nuove modalità quiz (dopo A5/A6, riusano coniugazione/consolida)
@@ -161,11 +166,14 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 
 ### Blocco F — Ripasso attivo dei punti deboli + leech (deciso 16/07, da progettare)
 Nasce da: «consolida singolo non fa quasi nulla» + «serve un modo per rimandare ciò che non entra».
-- **F1 — "Ripasso punti deboli" (quiz che itera i deboli).** Sessione-quiz che pesca gli item più
-  deboli (word/`conj:`/`particella:`/`gram:`/counter), li **interleava** e per ognuno fa la domanda
-  **della sfaccettatura debole** (usa il sistema facet). Practice-only (niente XP/stage), ri-ordina la
-  lista live. Scienza: retrieval practice + interleaving + spacing → batte il consolida singolo (massed,
-  blocked, spesso non retrieval). Sostituisce l'uso attuale di `/consolida` come drill principale.
+- **F1 — "Ripasso punti deboli"** ✅ (16/07): modalità del quiz vero, `/quiz?deboli=1` — stessa UI
+  (risposte inline, audio, Approfondisci, timer), coda dai punti deboli (vive nella sessione),
+  punteggio solo-pratica (mastery, no stage/XP). `conj:`/`particella:` via parole portatrici, il
+  crediting torna alla classe dal dispatch A1/A2. CTA in `/punti-deboli`. Quando arriverà A4, la
+  scelta del modo userà la **sfaccettatura debole** dell'item (già previsto dal design).
+  In più (16/07): voci punti-deboli → pagina/scheda dell'elemento (non più drill); scroll robusto
+  alle àncore di particelle/forme/contatori; guardia beforeNavigate sul quiz (Indietro chiede
+  conferma, Approfondisci resta libero); controlli sessione con colori semantici + emoji VS16.
 - **F2 — leech (seppellisci / rimanda).** Concetto SRS consolidato (Anki: suspend dopo N lapse;
   SuperMemo: leech = item mal formulato o interferenza → riformulare/aggiungere contesto).
   - **Rimanda** (snooze): spinge `next_review_date`, resta in rotazione più rado.
