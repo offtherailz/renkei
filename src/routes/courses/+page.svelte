@@ -196,7 +196,7 @@
      come un corso per coerenza visiva, ma dati e concetto restano separati. -->
 <section class="section-card">
 	<p class="card-title">📖 Catalogo aperto (N5/N4)</p>
-	<p class="hint-text">Non è un corso — è tutto il materiale del catalogo organizzato per tipo. Qui puoi accendere o mettere in pausa un pezzo alla volta (solo la grammatica, un pack di kanji…). «✓» include quel pezzo nei ripassi del quiz, «⏸» lo lascia da parte senza perdere i progressi.</p>
+	<p class="hint-text">Non è un corso — è tutto il materiale del catalogo organizzato per tipo. Qui puoi accendere o mettere in pausa un pezzo alla volta (solo la grammatica, un pack di kanji…). «✓» include quel pezzo nei ripassi del quiz, «⏸️» lo lascia da parte senza perdere i progressi.</p>
 	{#each catalogRoots as root (root.objective.id)}
 		<article class="objective-node" class:disabled={!root.objective.study_enabled}>
 			<div class="obj-top">
@@ -208,7 +208,7 @@
 					class:enabled={root.objective.study_enabled}
 					onclick={() => toggleCatalogObjective(root.objective.id, !root.objective.study_enabled)}
 				>
-					{root.objective.study_enabled ? '✓ In studio' : '⏸ Pausa'}
+					{root.objective.study_enabled ? '✓ In studio' : '⏸️ Pausa'}
 				</button>
 			</div>
 			<p class="obj-meta">{root.totalItems} item • {root.progress}% consolidamento{root.dueCount > 0 ? ` • ${root.dueCount} pronti` : ''}</p>
@@ -225,7 +225,7 @@
 									class:enabled={skill.objective.study_enabled}
 									onclick={() => toggleCatalogObjective(skill.objective.id, !skill.objective.study_enabled)}
 								>
-									{skill.objective.study_enabled ? '✓' : '⏸'}
+									{skill.objective.study_enabled ? '✓' : '⏸️'}
 								</button>
 							</div>
 							<p class="obj-meta">{skill.totalItems} item • {skill.progress}%</p>
@@ -239,7 +239,7 @@
 												class:enabled={pack.objective.study_enabled}
 												onclick={() => toggleCatalogObjective(pack.objective.id, !pack.objective.study_enabled)}
 											>
-												{pack.objective.study_enabled ? '✓' : '⏸'}
+												{pack.objective.study_enabled ? '✓' : '⏸️'}
 											</button>
 										</div>
 									{/each}
@@ -359,7 +359,7 @@
 						class:enabled={lessonEnabled[lesson.objective_id]}
 						onclick={() => toggleLesson(lesson.objective_id)}
 					>
-						{lessonEnabled[lesson.objective_id] ? '✓ In studio' : '⏸ Pausa'}
+						{lessonEnabled[lesson.objective_id] ? '✓ In studio' : '⏸️ Pausa'}
 					</button>
 				</div>
 				{#if lesson.descrizione}<p class="course-meta">{lesson.descrizione}</p>{/if}

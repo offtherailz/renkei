@@ -106,7 +106,7 @@
 				<span class="brand-name">Renkei</span>
 			</a>
 			{#if appState.sessionState}
-				<a class="back-to-quiz" href="{base}/quiz">⏸ Torna al quiz</a>
+				<a class="back-to-quiz" href="{base}/quiz">⏸️ Torna al quiz</a>
 			{/if}
 		</header>
 	{/if}

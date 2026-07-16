@@ -1246,7 +1246,7 @@
 		const ms = Math.max(0, session.deadlineAt - ref);
 		const mins = Math.floor(ms / 60_000);
 		const secs = Math.floor((ms % 60_000) / 1000);
-		return `${session.pausedAt ? '⏸ ' : ''}${mins}:${secs.toString().padStart(2, '0')}`;
+		return `${session.pausedAt ? '⏸️ ' : ''}${mins}:${secs.toString().padStart(2, '0')}`;
 	});
 
 	const accuracy = $derived(() => {
@@ -1299,10 +1299,10 @@
 					onclick={toggleSessionPause}
 					title={sessionPaused ? 'Riprendi la sessione' : 'Metti in pausa: nasconde la domanda e ferma i timer'}
 				>
-					{sessionPaused ? '▶' : '⏸'}
+					{sessionPaused ? '▶️' : '⏸️'}
 				</button>
 			{/if}
-			<button class="ghost-btn" onclick={confirmEndSession} title="Termina sessione">⏹</button>
+			<button class="ghost-btn" onclick={confirmEndSession} title="Termina sessione">⏹️</button>
 		</div>
 	</div>
 
@@ -1317,9 +1317,9 @@
 	<article class="quiz-card" class:correct={answerFeedback === 'correct'} class:wrong={answerFeedback === 'wrong'}>
 		{#if sessionPaused}
 			<div class="paused-overlay">
-				<p class="paused-msg">⏸ Sessione in pausa</p>
+				<p class="paused-msg">⏸️ Sessione in pausa</p>
 				<p class="paused-hint">Timer fermi, domanda nascosta finché non riprendi.</p>
-				<button class="proceed-btn" onclick={toggleSessionPause}>▶ Riprendi</button>
+				<button class="proceed-btn" onclick={toggleSessionPause}>▶️ Riprendi</button>
 			</div>
 		{:else}
 		{#if !quiz.answered && answerRemainingS > 0}

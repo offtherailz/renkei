@@ -296,7 +296,7 @@
 		<h2 class="section-title">Obiettivi di studio</h2>
 		<a href="{base}/quiz" class="btn btn-primary">▶ Avvia sessione{dueCount > 0 ? ` · ${dueCount}` : ''}</a>
 	</div>
-	<p class="obj-explainer">«✓ In studio» include tutto il suo contenuto nei ripassi del quiz; «⏸ Pausa» lo lascia da parte — i progressi non si perdono, restano in attesa finché non riattivi.</p>
+	<p class="obj-explainer">«✓ In studio» include tutto il suo contenuto nei ripassi del quiz; «⏸️ Pausa» lo lascia da parte — i progressi non si perdono, restano in attesa finché non riattivi.</p>
 
 	{#if loading}
 		<p class="muted-text">Caricamento…</p>
@@ -319,7 +319,7 @@
 							title={s.objective.study_enabled ? 'Tocca per mettere in pausa' : 'Tocca per mettere in studio'}
 							onclick={() => toggleObjective(s.objective.id, !s.objective.study_enabled)}
 						>
-							{s.objective.study_enabled ? '✓ In studio' : '⏸ Pausa'}
+							{s.objective.study_enabled ? '✓ In studio' : '⏸️ Pausa'}
 						</button>
 					</div>
 					<div class="obj-meta">
