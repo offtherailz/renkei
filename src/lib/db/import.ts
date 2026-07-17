@@ -70,7 +70,10 @@ function assertGrammarSentenceWordLevels(seed: DatabaseSeed): void {
 export async function importDatabaseFromJson(jsonData: string): Promise<void> {
   const parsed = JSON.parse(jsonData) as DatabaseSeed;
 
-  assertSeedLevels(parsed, ["N5", "N4"]);
+  // EXTRA = lessico utile fuori dalle liste JLPT (v64): livello legittimo.
+  // Senza, l'import del seed fresco lanciava e i dispositivi NUOVI restavano
+  // senza init (niente onboarding) — bug trovato dall'utente 18/07.
+  assertSeedLevels(parsed, ["N5", "N4", "EXTRA"]);
   assertGrammarSentenceWordLevels(parsed);
 
   const now = Date.now();
