@@ -117,7 +117,14 @@
 			<p class="who">{idx + 1} / {rounds.length} — punti: {score}</p>
 			{#if r.kind === 'frase'}
 				<p class="hint">Quale frase ha lo stesso significato?</p>
-				<p class="prompt"><InteractiveSentence text={r.item.frase} mark={[r.item.marcata]} /></p>
+				{#if picked !== null}
+					<p class="prompt"><InteractiveSentence text={r.item.frase} mark={[r.item.marcata]} /></p>
+				{:else}
+					<!-- prima della risposta niente sottolineature/popup: le glosse
+					     svelerebbero il significato — solo la parola in esame evidenziata -->
+					{@const parts = r.item.frase.split(r.item.marcata)}
+					<p class="prompt">{parts[0]}<span class="marked-static">{r.item.marcata}</span>{parts.slice(1).join(r.item.marcata)}</p>
+				{/if}
 			{:else}
 				<p class="hint">Quale parola ha (quasi) lo stesso significato di…</p>
 				<p class="prompt big">「{r.parola}」</p>
@@ -175,6 +182,8 @@
 	.who { margin: 0; font-size: 0.85rem; font-weight: 700; color: var(--muted); }
 	.hint { margin: 0; text-align: center; font-size: 0.86rem; color: var(--muted); }
 	.prompt { margin: 0; text-align: center; background: var(--surface-2); border-radius: 12px; padding: 12px; }
+	/* stessa evidenza della marcata di InteractiveSentence, ma senza interattività */
+	.marked-static { background: rgba(245, 158, 11, 0.22); border-radius: 4px; }
 	.prompt.big { font-size: 1.5rem; font-weight: 700; }
 	.levels { display: flex; gap: 10px; justify-content: center; }
 	.choices { display: grid; gap: 8px; }
