@@ -56,7 +56,10 @@ Per OGNI item, prima del rilascio:
    (9 slug: ta-koto-ga-aru tsumori tai nagara nakereba te-iru hou-ga-ii kanou sugiru; il
    drill gram ora vive anche senza formKey). Fix collegati: frase-lista ば sostituita
    (seed v58), keigo suppletivi esclusi dalla coniugazione a secco.
-2. Relazione «correlati» ≠ sinonimi (campo Word.correlati + scheda + curatela; 妻↔奥さん).
+2. ✅ (17/07) Relazione «correlati» ≠ sinonimi: campo `Word.correlati?`, card nella scheda,
+   curatela famiglia umile/onorifico negli overrides (19 voci: 妻↔奥さん, 夫↔ご主人,
+   父母/お父さん・お母さん, fratelli 兄弟, 娘↔お嬢さん, お宅↔家/うち) — le false sinonimie
+   spostate in correlati, seed v59. I generatori NON usano i correlati come sinonimi.
 3. 20 parole nuove proposte (report frasi-propedeutiche sez.1: 信号, 屋根, 咳, スリッパ, partner
    自/他 届く/減る/増やす/…, vita moderna スマホ/電子レンジ/…).
 4. Pagine annidate /forme/[slug] e /particelle/[slug] (contenuto esaustivo, indice snello).

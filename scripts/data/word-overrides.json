@@ -622,7 +622,10 @@
    "en": [
     "father (formal)"
    ]
-  }
+  },
+  "correlati": [
+   "父"
+  ]
  },
  "お腹": {
   "frasi_esempio": [
@@ -1497,7 +1500,12 @@
    "en": [
     "older sister (formal)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "姉",
+   "お兄さん"
+  ]
  },
  "お酒": {
   "frasi_esempio": [
@@ -1873,7 +1881,11 @@
    "en": [
     "(someone else's) wife (hon.)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "妻"
+  ]
  },
  "果物": {
   "frasi_esempio": [
@@ -2325,7 +2337,12 @@
    "en": [
     "younger brother"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "兄",
+   "兄弟"
+  ]
  },
  "電話": {
   "frasi_esempio": [
@@ -2661,7 +2678,12 @@
    "en": [
     "(someone else's) older brother (formal)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "兄",
+   "お姉さん"
+  ]
  },
  "かぶる": {
   "frasi_esempio": [
@@ -3418,7 +3440,14 @@
    "en": [
     "(my) older brother (humble)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "お兄さん",
+   "弟",
+   "姉",
+   "兄弟"
+  ]
  },
  "月曜日": {
   "frasi_esempio": [
@@ -9185,6 +9214,9 @@
      "en": "Mom is good at cooking."
     }
    }
+  ],
+  "correlati": [
+   "母"
   ]
  },
  "かかる": {
@@ -11495,6 +11527,13 @@
      "en": "I am the middle of three siblings."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "兄",
+   "姉",
+   "弟",
+   "妹"
   ]
  },
  "鶏肉": {
@@ -12187,6 +12226,13 @@
      "en": "My older sister works at a hospital."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "お姉さん",
+   "妹",
+   "兄",
+   "兄弟"
   ]
  },
  "子供": {
@@ -15395,7 +15441,10 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "お父さん"
+  ]
  },
  "部屋": {
   "significato": {
@@ -15800,7 +15849,10 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "お母さん"
+  ]
  },
  "方": {
   "significato": {
@@ -15944,6 +15996,11 @@
      "en": "My little sister starts elementary school next year."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "姉",
+   "兄弟"
   ]
  },
  "毎週": {
@@ -17844,6 +17901,10 @@
      "en": "What is your child's name?"
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "お嬢さん"
   ]
  },
  "お祝い": {
@@ -17899,6 +17960,11 @@
      "en": "Your daughter is good at the piano."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "娘",
+   "お子さん"
   ]
  },
  "お宅": {
@@ -17926,6 +17992,11 @@
      "en": "Your garden is beautiful."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "家",
+   "うち"
   ]
  },
  "お土産": {
@@ -18654,6 +18725,9 @@
      "en": "Please give my regards to your husband."
     }
    }
+  ],
+  "correlati": [
+   "夫"
   ]
  },
  "ご存じ": {
@@ -24349,6 +24423,9 @@
      "en": "My wife likes flowers."
     }
    }
+  ],
+  "correlati": [
+   "奥さん"
   ]
  },
  "済む": {
@@ -31056,6 +31133,9 @@
      "en": "My husband is good at cooking."
     }
    }
+  ],
+  "correlati": [
+   "ご主人"
   ]
  },
  "布団": {
@@ -32143,6 +32223,9 @@
      "en": "I wrote a letter to my daughter."
     }
    }
+  ],
+  "correlati": [
+   "お嬢さん"
   ]
  },
  "明日::あす": {

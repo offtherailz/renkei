@@ -64,6 +64,9 @@ export interface Word extends BaseEntity {
   sinonimi: string[];
   contrari: string[];
   omofoni: string[];
+  // Parole legate ma NON interscambiabili (妻↔奥さん, 兄↔弟): navigazione e
+  // studio del contrasto, mai usate come sinonimi nelle domande.
+  correlati?: string[];
 }
 
 // Correzione utente a una voce del catalogo: patch parziale che si applica

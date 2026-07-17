@@ -151,6 +151,11 @@ Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:
 > **Non modificare `seed-n5n4.json` a mano**: viene sovrascritto ad ogni sync.
 > Eccezione: `node scripts/fix-numbers-counters.mjs` riapplica al seed committato solo la ricategorizzazione numeri/contatori (stessa logica del pipeline, senza fetch di rete) — utile dopo aver toccato `counters-n5n4.json`.
 
+**Relazione `Word.correlati?`** (17/07): parole legate ma **non interscambiabili** (妻↔奥さん,
+兄↔弟, お宅↔家) — distinta dai sinonimi. Curata negli overrides (le "false sinonimie" della
+famiglia umile/onorifico sono state spostate qui); mostrata nella scheda come card «Correlati»,
+**mai** usata dai generatori di domande come fossero sinonimi.
+
 ---
 
 ## Numeri e contatori
