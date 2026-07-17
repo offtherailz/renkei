@@ -2,7 +2,7 @@
 	import { base } from '$app/paths';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { detectUserLocale } from '$lib/core/i18n';
-	import { FORM_SLUG_BY_LABEL } from '$lib/data/grammarForms';
+	import { FORM_SLUG_BY_LABEL, formPath } from '$lib/data/grammarForms';
 	import { ICONS_BY_LABEL, KANA_ICONS } from '$lib/data/posIcons';
 
 	const { label, variant = '' }: { label: string; variant?: string } = $props();
@@ -94,7 +94,7 @@
 {#if formSlug}
 	<a
 		class="jp-badge jp-badge-link {variant}"
-		href="{base}/forme#{formSlug}"
+		href="{base}/{formPath(formSlug)}"
 		onmouseenter={clampTooltip}
 		onfocus={clampTooltip}
 	>

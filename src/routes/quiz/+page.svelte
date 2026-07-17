@@ -794,13 +794,13 @@
 		if (q.mode === 'particle-cloze') {
 			dives.push(
 				q.correctChoice === 'な'
-					? { label: 'Aggettivi in -な', href: `${base}/forme#na-keiyoushi`, primary: true }
+					? { label: 'Aggettivi in -な', href: `${base}/forme/na-keiyoushi`, primary: true }
 					: { label: `Particella ${q.correctChoice}`, href: `${base}/particelle#${encodeURIComponent(q.correctChoice)}`, primary: true }
 			);
 			if (wordLink) dives.push(wordLink);
 			dives.push(...wordsInSentence(q.fullSentence, word?.id));
 		} else if (q.mode === 'transitivity-pair') {
-			dives.push({ label: 'Transitivo vs intransitivo', href: `${base}/forme#tadoushi`, primary: true });
+			dives.push({ label: 'Transitivo vs intransitivo', href: `${base}/forme/tadoushi`, primary: true });
 			if (wordLink) dives.push(wordLink);
 			if (word?.id_verbo_corrispondente) {
 				const pair = context?.wordsById.get(word.id_verbo_corrispondente);
@@ -817,7 +817,7 @@
 						: word?.tipo_aggettivo_jp?.startsWith('な')
 							? 'na-keiyoushi'
 							: 'i-keiyoushi';
-			dives.push({ label: q.formLabel, href: `${base}/forme#${classSlug}`, primary: true });
+			dives.push({ label: q.formLabel, href: `${base}/forme/${classSlug}`, primary: true });
 			if (wordLink) dives.push(wordLink);
 		} else if (q.mode === 'counter-quiz' || q.mode === 'counter-reading') {
 			const counterId = word?.id_contatore_suggerito;

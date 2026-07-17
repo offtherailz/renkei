@@ -64,8 +64,10 @@ Per OGNI item, prima del rilascio:
    mergeCuratedWords esteso (esempi multipli + campi verbo/relazioni). Poi (v61): frasi-aeroporto
    慣用表現 tolte dal mazzo SRS e ricollocate in Frasi utili; `applySeedMigrations` rimuove dai
    dispositivi le voci rinominate/fuse/rimosse (bulkPut non elimina) e migra il progresso SRS.
-4. Pagine annidate /forme/[slug] e /particelle/[slug] (contenuto esaustivo, indice snello).
-   ← PROSSIMO CANDIDATO se si vuole, ma valore marginale (l'indice ancorato attuale funziona).
+4. Pagine annidate: ✅ /forme/[slug] (17/07) — indice snello (righe cliccabili) + scheda
+   esaustiva per forma (componente FormCard, lista parole intera, drill, related via nuovo
+   helper `formPath`); link aggiornati (JpBadge, detail, quiz, forme-composte). ⏳ /particelle/[slug]
+   ancora da fare (stesso schema).
 5. Migliorie parcheggiate: completamento piano di oggi, ✅ furigana toggle fase 1, avverbi,
    copione choukai ricco, ✅ frasi-aeroporto ricollocate, sotto-celle riconoscere/usare,
    ✅ RSVP pesato per kanji, ✅ rename «Attività». NUOVE ATTIVITÀ da progettare (osservazioni

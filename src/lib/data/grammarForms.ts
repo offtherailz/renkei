@@ -1096,6 +1096,13 @@ export function formPage(slug: string): 'forme' | 'forme-composte' {
 	return COMPOSED_SLUGS.has(slug) ? 'forme-composte' : 'forme';
 }
 
+// Percorso (senza base) della scheda di uno slug: le parti del discorso hanno
+// una pagina propria annidata (/forme/<slug>), le forme composte vivono ancora
+// come àncore nella panoramica /forme-composte.
+export function formPath(slug: string): string {
+	return COMPOSED_SLUGS.has(slug) ? `forme-composte#${slug}` : `forme/${slug}`;
+}
+
 // Mappa curata: struttura ESATTA della voce grammatica del seed → slug della
 // forma composta con le sue regole d'uso. Serve alla scheda grammatica per
 // mostrare "si attacca a" e le forme con la stessa regola (l'overlap tra il

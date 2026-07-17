@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
-	import { GRAMMAR_FORMS, ATTACHMENT_SCHEMAS, formPage, type GrammarForm } from '$lib/data/grammarForms';
+	import { GRAMMAR_FORMS, ATTACHMENT_SCHEMAS, formPath, type GrammarForm } from '$lib/data/grammarForms';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
@@ -48,7 +48,7 @@
 		return f ? stripFuriganaNotation(f.label) : slug;
 	}
 	function formHref(slug: string): string {
-		return `${base}/${formPage(slug)}#${slug}`;
+		return `${base}/${formPath(slug)}`;
 	}
 
 	function scrollToHash(): void {

@@ -19,7 +19,7 @@
 	import ComposedFormDrill from '$lib/components/ComposedFormDrill.svelte';
 	import UsageDrill from '$lib/components/UsageDrill.svelte';
 	import type { Word, Kanji, Grammar, Counter, SrsProgress } from '$lib/types/models';
-	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPage } from '$lib/data/grammarForms';
+	import { GRAMMAR_FORMS, FORM_SLUG_BY_STRUTTURA, ATTACHMENT_SCHEMAS, formPath } from '$lib/data/grammarForms';
 	import { KEIGO_VERBS, type KeigoVerb } from '$lib/core/keigo';
 
 	// Forme composte più utili da collegare alla scheda di un verbo.
@@ -464,7 +464,7 @@
 			<p class="composed-hint">Costruzioni che partono da questo verbo. Tocca per la spiegazione.</p>
 			<div class="chip-row">
 				{#each verbComposedForms as form}
-					<a href="{base}/forme#{form.slug}" class="composed-chip">
+					<a href="{base}/{formPath(form.slug)}" class="composed-chip">
 						{stripFuriganaNotation(form.label)}
 					</a>
 				{/each}
@@ -725,12 +725,12 @@
 					{#if sameRuleForms.length > 0}
 						<span class="detail-meta">stessa regola di:</span>
 						{#each sameRuleForms as o}
-							<a class="mini-chip" href="{base}/{formPage(o.slug)}#{o.slug}">{stripFuriganaNotation(o.label)}</a>
+							<a class="mini-chip" href="{base}/{formPath(o.slug)}">{stripFuriganaNotation(o.label)}</a>
 						{/each}
 					{/if}
 				</div>
 			{/if}
-			<a class="form-link" href="{base}/{formPage(grammarForm.slug)}#{grammarForm.slug}">📖 Scheda completa in Forme composte →</a>
+			<a class="form-link" href="{base}/{formPath(grammarForm.slug)}">📖 Scheda completa in Forme composte →</a>
 		</article>
 		{/if}
 
