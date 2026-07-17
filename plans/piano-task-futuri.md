@@ -55,8 +55,18 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
    checkbox per riga (disabilitata se già a stage≥5), barra flottante di conferma, `bulkPut`
    su `srs_progress`. Fix collegato: `markKnown` non retrocede più una carta già oltre
    stage 5 (bug latente anche sul bottone singolo in scheda).
-2. **Completamento piano di oggi** — le voci (ripassi, punti deboli, attività) dovrebbero
-   segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
+2. ✅ (17/07) **Completamento piano di oggi** — spunte giornaliere (ripassi auto quando
+   «tutto fatto», punti deboli a sessione deboli completata, attività all'apertura),
+   contatore X/N nel titolo. Flag in localStorage (`dailyPlan.ts`), reset a mezzanotte.
+2b. **Riordina drag&drop** (plus richiesto): oltre a tocca-aggiungi/tocca-togli, trascinare
+   i pezzi. E valutare l'estrazione di un componente TokenCompose condiviso
+   (quiz composition + dettato + riordina usano lo stesso pattern, oggi triplicato).
+2c. **Lista «in studio»** (richiesta utente): elenco gestibile della roba messa in studio
+   (da «📚 Metti in studio»/triage) per aggiungere/togliere in massa. Da progettare:
+   oggi le voci finiscono nei punti deboli (lapses>0); serve distinguere «scelte
+   dall'utente» vs «sbagliate», forse un flag dedicato sulla riga SRS.
+2d. **iikae mismatch** (segnalato, non riprodotto): frase di un item con opzioni di un
+   altro. Aggiunto {#key idx} difensivo; se ricapita servono i passi esatti.
 3. **Domanda sui correlati** (ok utente, dopo): «qual è la differenza tra 妻 e 奥さん?» —
    accredita ENTRAMBE le parole della coppia (doppio incremento). Distrattori = descrizioni
    della differenza. Da progettare.

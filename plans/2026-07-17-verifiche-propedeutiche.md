@@ -117,6 +117,26 @@ macchina (niente browser automatizzabile) + questioni aperte.
     già oltre stage 5 — prima una carta a stage 7 tornava a 5 se ri-cliccata).
     Domanda: velocità/UX ok su tante selezioni (es. 100+)? Bulk write con `bulkPut`.
 
+## Fix dal test utente 17/07 (secondo giro, da riverificare)
+
+24. **Consolida composizione** — i pezzi ora si compongono (era l'$effect che resettava);
+    «Conferma parola» funziona. Da riprovare su una parola con composizione.
+25. **Consolida usage/verb-form-cloze** — dopo la risposta si sente la frase INTERA.
+26. **Approfondisci** — per cloze di forma/uso mostra la frase DELLA DOMANDA (non
+    un'altra frase d'esempio) + note sulle risposte sbagliate.
+27. **iikae/keigo popup** — dopo la risposta, toccare le parole delle opzioni apre il
+    popup (prima il disabled lo bloccava). iikae: traduzione «significato di entrambe»
+    dopo la risposta (100 item tradotti). Il mismatch frase/opzioni segnalato: aggiunto
+    {#key} difensivo — se ricapita, annotare la sequenza esatta.
+28. **Riordina** — niente più auto-verifica all'ultimo pezzo: «Conferma» esplicita,
+    e i pezzi già messi si tolgono toccandoli (non solo l'ultimo con ↩︎).
+29. **Leggi a voce** — diff «Ho sentito» anche dopo l'esito + «🔁 Riprova» (punto del
+    primo tentativo); niente più frasi con frecce/simboli.
+30. **«📚 Metti in studio»** (ex «Non la conoscevo») nei popup delle frasi.
+31. **Livello EXTRA** — 搭乗券/税関/手荷物受取所… ora badge «EX» (fuori JLPT), nuovo
+    obiettivo «Lessico extra (fuori JLPT)» in home (pausabile), chip EX nel vocabolario.
+    Seed v64. Domanda: altre parole da riclassificare EXTRA? Segnalale.
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):

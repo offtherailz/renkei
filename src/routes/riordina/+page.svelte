@@ -116,15 +116,22 @@
 		chip.used = true;
 		chips = [...chips];
 		picked = [...picked, id];
-		if (picked.length === correctTokens.length) check();
+		// niente auto-verifica all'ultimo pezzo (feedback 17/07): l'utente deve
+		// poter rivedere e correggere — si conferma col bottone, come nel quiz.
+	}
+	// rimuove UN pezzo qualunque dalla composizione (non solo l'ultimo)
+	function removeAt(i: number): void {
+		if (checked) return;
+		const id = picked[i];
+		if (id === undefined) return;
+		picked = picked.filter((_, j) => j !== i);
+		const chip = chips.find((c) => c.id === id)!;
+		chip.used = false;
+		chips = [...chips];
 	}
 	function undo(): void {
 		if (checked || picked.length === 0) return;
-		const last = picked[picked.length - 1]!;
-		picked = picked.slice(0, -1);
-		const chip = chips.find((c) => c.id === last)!;
-		chip.used = false;
-		chips = [...chips];
+		removeAt(picked.length - 1);
 	}
 	function composed(): string {
 		return picked.map((id) => chips.find((c) => c.id === id)!.text).join('');
@@ -179,7 +186,11 @@
 				{#if picked.length === 0}
 					<span class="placeholder">Tocca i pezzi qui sotto…</span>
 				{:else}
-					{composed()}
+					{#each picked as id, i (i)}
+						<button class="picked-chip" disabled={checked} onclick={() => removeAt(i)} title="Togli questo pezzo">
+							{chips.find((c) => c.id === id)?.text}
+						</button>
+					{/each}
 				{/if}
 			</div>
 			<div class="chips">
@@ -189,7 +200,9 @@
 			</div>
 			<div class="play-actions">
 				<button class="mini" onclick={undo} disabled={checked || picked.length === 0}>↩︎ Indietro</button>
-				{#if checked && ok}
+				{#if !checked}
+					<button class="proceed" onclick={check} disabled={picked.length !== correctTokens.length}>Conferma</button>
+				{:else if ok}
 					<button class="proceed" onclick={nextRound}>✅ Prossima →</button>
 				{/if}
 			</div>
@@ -201,7 +214,7 @@
 			<p class="hint">🏆 Record {level}: {best}</p>
 			<p class="bubble sm">La tua: {composed()}</p>
 			<div class="bubble solution-line"><span>✅</span> <InteractiveSentence text={correctTokens.join('')} /></div>
-			<p class="hint">Tocca le parole che non conoscevi: «➕ Non la conoscevo» le mette nei tuoi ripassi.</p>
+			<p class="hint">Tocca le parole che non conoscevi: «📚 Metti in studio» le mette nei tuoi ripassi.</p>
 			{#if current.hint}<p class="hint">💬 {current.hint}</p>{/if}
 			<div class="play-actions">
 				<a class="mini" href="{base}/detail/{encodeURIComponent(current.detail)}">📖 Scheda</a>
@@ -224,7 +237,10 @@
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.sm { font-size: 0.95rem; }
 
-	.answer { min-height: 3em; display: grid; place-items: center; text-align: center; font-size: 1.3rem; font-weight: 700; background: var(--surface-2); border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; line-height: 1.8; overflow-wrap: anywhere; }
+	.answer { min-height: 3em; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; text-align: center; font-size: 1.3rem; font-weight: 700; background: var(--surface-2); border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; line-height: 1.8; overflow-wrap: anywhere; }
+	.picked-chip { padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.15rem; font-weight: 700; cursor: pointer; }
+	.picked-chip:hover:not(:disabled) { border-color: var(--danger); }
+	.picked-chip:disabled { cursor: default; border-color: transparent; background: none; }
 	.answer.right { border-color: var(--success); border-style: solid; background: rgba(52,201,138,0.16); }
 	.placeholder { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
 

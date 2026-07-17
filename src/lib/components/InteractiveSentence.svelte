@@ -109,8 +109,9 @@
 		repositionPopover();
 	}
 
-	// «Non la conoscevo»: la parola entra nel consolidamento (punti deboli in
-	// home) senza lasciare il flusso — stessa via degli errori nelle avventure.
+	// «Metti in studio» (ex «Non la conoscevo», rinominato 17/07): la parola
+	// entra nel consolidamento (punti deboli in home) senza lasciare il flusso —
+	// stessa via degli errori nelle avventure.
 	let flagged = $state<Set<string>>(new Set());
 	async function flagUnknown(hit: WordHit): Promise<void> {
 		await recordPracticeMiss('word:' + hit.id);
@@ -139,7 +140,7 @@
 								{#if flagged.has(hits[i]!.id)}
 									<span class="pop-flagged">✓ nei ripassi</span>
 								{:else}
-									<button class="pop-flag" onclick={() => flagUnknown(hits[i]!)}>➕ Non la conoscevo</button>
+									<button class="pop-flag" onclick={() => flagUnknown(hits[i]!)}>📚 Metti in studio</button>
 								{/if}
 							</span>
 						{:else}

@@ -15,6 +15,7 @@
 		marcata: string;
 		parola: string;
 		opzioni: string[]; // la prima è quella corretta, si mescola a runtime
+		traduzione?: string; // it — vale per frase E parafrasi corretta (stesso senso)
 	}
 	const GRUPPI = raw.gruppi as Gruppo[];
 	const ITEMS = raw.items as Item[];
@@ -144,6 +145,8 @@
 			{#if picked !== null}
 				{#if r.kind === 'parola'}
 					<p class="sense">💡 senso comune: <strong>{r.senso}</strong></p>
+				{:else if r.item.traduzione}
+					<p class="sense">💬 significato (di entrambe): <strong>{r.item.traduzione}</strong></p>
 				{/if}
 				<div class="after">
 					{#if detailHref}

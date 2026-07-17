@@ -295,7 +295,8 @@
     "この 花は とても 高いです。",
     "この 花は とても 小さいです。",
     "この 花は とても 新しいです。"
-   ]
+   ],
+   "traduzione": "Questo fiore è molto bello."
   },
   {
    "livello": "N5",
@@ -307,7 +308,8 @@
     "この りょうりは やすいです。",
     "この りょうりは あたたかいです。",
     "この りょうりは ゆうめいです。"
-   ]
+   ],
+   "traduzione": "Questo piatto è buono."
   },
   {
    "livello": "N5",
@@ -319,7 +321,8 @@
     "こうえんに 人が すこし いました。",
     "こうえんに 人が ときどき いました。",
     "こうえんに 人が ひとり いました。"
-   ]
+   ],
+   "traduzione": "Al parco c'era tanta gente."
   },
   {
    "livello": "N5",
@@ -331,7 +334,8 @@
     "きのうは とても いそがしかったです。",
     "きのうは ずっと いそがしかったです。",
     "きのうは ぜんぜん いそがしくなかったです。"
-   ]
+   ],
+   "traduzione": "Ieri ero un po' impegnato."
   },
   {
    "livello": "N5",
@@ -343,7 +347,8 @@
     "しゅくだいは はんぶん おわりました。",
     "しゅくだいは すこし おわりました。",
     "しゅくだいは まだ おわって いません。"
-   ]
+   ],
+   "traduzione": "I compiti sono tutti finiti."
   },
   {
    "livello": "N5",
@@ -355,7 +360,8 @@
     "この もんだいは むずかしいです。",
     "この もんだいは ながいです。",
     "この もんだいは つまらないです。"
-   ]
+   ],
+   "traduzione": "Questo problema è semplice."
   },
   {
    "livello": "N5",
@@ -367,7 +373,8 @@
     "あには いま やすんで います。",
     "あには いま べんきょうして います。",
     "あには いま あそんで います。"
-   ]
+   ],
+   "traduzione": "Mio fratello maggiore adesso sta lavorando."
   },
   {
    "livello": "N5",
@@ -379,7 +386,8 @@
     "まいばん 十時に がっこうへ いきます。",
     "まいばん 十時に みせへ いきます。",
     "まいばん 十時に えきへ いきます。"
-   ]
+   ],
+   "traduzione": "Ogni sera torno a casa alle dieci."
   },
   {
    "livello": "N5",
@@ -391,7 +399,8 @@
     "だいどころは どこですか。",
     "げんかんは どこですか。",
     "おふろは どこですか。"
-   ]
+   ],
+   "traduzione": "Dov'è il bagno?"
   },
   {
    "livello": "N5",
@@ -403,7 +412,8 @@
     "あさごはんを たべましたか。",
     "ばんごはんを たべましたか。",
     "おかしを たべましたか。"
-   ]
+   ],
+   "traduzione": "Hai pranzato?"
   },
   {
    "livello": "N5",
@@ -415,7 +425,8 @@
     "らいねん 日本へ いきます。",
     "ことし 日本へ いきました。",
     "せんしゅう 日本へ いきました。"
-   ]
+   ],
+   "traduzione": "L'anno scorso sono andato in Giappone."
   },
   {
    "livello": "N5",
@@ -427,7 +438,8 @@
     "ここで たばこを すっても いいです。",
     "ここで たばこを すいたいです。",
     "ここで たばこを すいましょう。"
-   ]
+   ],
+   "traduzione": "Qui non si può fumare."
   },
   {
    "livello": "N5",
@@ -439,7 +451,8 @@
     "この みちは あんぜんです。",
     "この みちは ひろいです。",
     "この みちは くらいです。"
-   ]
+   ],
+   "traduzione": "Questa strada è pericolosa."
   },
   {
    "livello": "N5",
@@ -451,7 +464,8 @@
     "せんせいの はなしは ながかったです。",
     "せんせいの はなしは つまらなかったです。",
     "せんせいの はなしは みじかかったです。"
-   ]
+   ],
+   "traduzione": "Il discorso dell'insegnante è stato interessante."
   },
   {
    "livello": "N5",
@@ -463,7 +477,8 @@
     "この かばんは かるいです。",
     "この かばんは やすいです。",
     "この かばんは あたらしいです。"
-   ]
+   ],
+   "traduzione": "Questa borsa è robusta."
   },
   {
    "livello": "N5",
@@ -475,7 +490,8 @@
     "たなかさんは がっこうで おしえて います。",
     "たなかさんは りょうりを つくる しごとを して います。",
     "たなかさんは くるまを うんてんする しごとを して います。"
-   ]
+   ],
+   "traduzione": "Il signor Tanaka è medico."
   },
   {
    "livello": "N5",
@@ -487,7 +503,8 @@
     "へやを くらく しました。",
     "へやを ひろく しました。",
     "へやを あたらしく しました。"
-   ]
+   ],
+   "traduzione": "Ho messo in ordine (pulito) la stanza."
   },
   {
    "livello": "N5",
@@ -499,7 +516,8 @@
     "この へやは あかるいです。",
     "この へやは さむいです。",
     "この へやは せまいです。"
-   ]
+   ],
+   "traduzione": "Questa stanza è silenziosa."
   },
   {
    "livello": "N4",
@@ -511,7 +529,8 @@
     "先生に 質問を して いません。",
     "先生が 質問を しました。",
     "先生に 手紙を 書きました。"
-   ]
+   ],
+   "traduzione": "L'insegnante ha risposto alla mia domanda."
   },
   {
    "livello": "N4",
@@ -523,7 +542,8 @@
     "少しずつ 雨が 降って きました。",
     "昨日から 雨が 降って います。",
     "もうすぐ 雨が 降ります。"
-   ]
+   ],
+   "traduzione": "All'improvviso si è messo a piovere."
   },
   {
    "livello": "N4",
@@ -535,7 +555,8 @@
     "仕事は まだ 残って います。",
     "仕事は いま 始まりました。",
     "仕事は 明日 します。"
-   ]
+   ],
+   "traduzione": "Il lavoro è già concluso."
   },
   {
    "livello": "N4",
@@ -547,7 +568,8 @@
     "父は 昨日から 家に います。",
     "父は 昨日 帰って きました。",
     "父は 昨日から 寝て います。"
-   ]
+   ],
+   "traduzione": "Mio padre è fuori (casa) da ieri."
   },
   {
    "livello": "N4",
@@ -559,7 +581,8 @@
     "この 店は いつも 客が 少ないです。",
     "この 店は いつも 閉まって います。",
     "この 店は いつも 静かです。"
-   ]
+   ],
+   "traduzione": "Questo negozio è sempre pieno di clienti."
   },
   {
    "livello": "N4",
@@ -571,7 +594,8 @@
     "彼女は その 知らせを 聞いて 悲しく なりました。",
     "彼女は その 知らせを 聞いて 怒りました。",
     "彼女は その 知らせを 聞いて 驚きました。"
-   ]
+   ],
+   "traduzione": "Sentita la notizia, si è rallegrata."
   },
   {
    "livello": "N4",
@@ -583,7 +607,8 @@
     "弟は 母に 叱られて 泣きました。",
     "弟は 母に 叱られて 笑いました。",
     "弟は 母に 叱られて 謝りました。"
-   ]
+   ],
+   "traduzione": "Mio fratello minore, sgridato dalla mamma, si è arrabbiato."
   },
   {
    "livello": "N4",
@@ -595,7 +620,8 @@
     "一日 歩いて、元気に なりました。",
     "一日 歩いて、痩せました。",
     "一日 歩いて、迷いました。"
-   ]
+   ],
+   "traduzione": "Ho camminato tutto il giorno e sono stanco morto."
   },
   {
    "livello": "N4",
@@ -607,7 +633,8 @@
     "今日は 暇なので、先に 帰ります。",
     "今日は 病気なので、休みます。",
     "今日は 約束が ないので、残ります。"
-   ]
+   ],
+   "traduzione": "Oggi ho un impegno, quindi vado via prima."
   },
   {
    "livello": "N4",
@@ -619,7 +646,8 @@
     "たまに 七時に 起きます。",
     "今日だけ 七時に 起きました。",
     "決して 七時に 起きません。"
-   ]
+   ],
+   "traduzione": "Di solito mi alzo alle sette."
   },
   {
    "livello": "N4",
@@ -631,7 +659,8 @@
     "日本語が 急に 上手に なりました。",
     "日本語が まだ 下手です。",
     "日本語を 勉強した ことが ありません。"
-   ]
+   ],
+   "traduzione": "Il mio giapponese sta migliorando a poco a poco."
   },
   {
    "livello": "N4",
@@ -643,7 +672,8 @@
     "いつ 遅れたか 教えて ください。",
     "だれが 遅れたか 教えて ください。",
     "どこで 遅れたか 教えて ください。"
-   ]
+   ],
+   "traduzione": "Dimmi il motivo del ritardo."
   },
   {
    "livello": "N4",
@@ -655,7 +685,8 @@
     "この 町は 祭りが ありません。",
     "この 町の 祭りは 秘密です。",
     "この 町は 静かな ことで 有名です。"
-   ]
+   ],
+   "traduzione": "Questa città è famosa per la sua festa."
   },
   {
    "livello": "N4",
@@ -667,7 +698,8 @@
     "海で 泳ぎながら 話しました。",
     "海の 音を 聞きながら 話しました。",
     "海の 絵を 描きながら 話しました。"
-   ]
+   ],
+   "traduzione": "Abbiamo parlato guardando il mare."
   },
   {
    "livello": "N4",
@@ -679,7 +711,8 @@
     "ゆっくり して ください。時間が あります。",
     "待って ください。電車が 来ません。",
     "座って ください。席が あります。"
-   ]
+   ],
+   "traduzione": "Sbrigati! Il treno parte."
   },
   {
    "livello": "N4",
@@ -691,7 +724,8 @@
     "妹は うるさい 子です。",
     "妹は 背が 高い 子です。",
     "妹は 元気すぎる 子です。"
-   ]
+   ],
+   "traduzione": "Mia sorella minore è una bambina tranquilla."
   },
   {
    "livello": "N5",
@@ -703,7 +737,8 @@
     "ちちは びょういんで はたらいて います。",
     "ちちは りょうりを つくって います。",
     "ちちは くるまを うって います。"
-   ]
+   ],
+   "traduzione": "Mio padre è insegnante."
   },
   {
    "livello": "N5",
@@ -715,7 +750,8 @@
     "この へやは あかるくないです。",
     "この へやは あたらしくないです。",
     "この へやは たかくないです。"
-   ]
+   ],
+   "traduzione": "Questa stanza è spaziosa."
   },
   {
    "livello": "N5",
@@ -727,7 +763,8 @@
     "スーパーは あいて います。",
     "スーパーは こんで います。",
     "スーパーは あたらしいです。"
-   ]
+   ],
+   "traduzione": "Il supermercato è chiuso (per riposo)."
   },
   {
    "livello": "N5",
@@ -739,7 +776,8 @@
     "ばんごはんは まだです。",
     "ばんごはんは いりません。",
     "ばんごはんを つくって います。"
-   ]
+   ],
+   "traduzione": "Ho già cenato."
   },
   {
    "livello": "N5",
@@ -751,7 +789,8 @@
     "えきまで とおいです。",
     "えきまで バスで いきます。",
     "えきが みえません。"
-   ]
+   ],
+   "traduzione": "La stazione è vicina."
   },
   {
    "livello": "N5",
@@ -763,7 +802,8 @@
     "かのじょは うたが へたです。",
     "かのじょは うたが きらいです。",
     "かのじょは うたを しりません。"
-   ]
+   ],
+   "traduzione": "Lei è brava a cantare."
   },
   {
    "livello": "N5",
@@ -775,7 +815,8 @@
     "この もんだいは むずかしいです。",
     "この もんだいは ながいです。",
     "この もんだいは あたらしいです。"
-   ]
+   ],
+   "traduzione": "Questo problema è facile."
   },
   {
    "livello": "N5",
@@ -787,7 +828,8 @@
     "あした ともだちが がっこうに きます。",
     "あした ともだちが みせに きます。",
     "あした ともだちと でかけます。"
-   ]
+   ],
+   "traduzione": "Domani viene un amico a casa mia."
   },
   {
    "livello": "N5",
@@ -799,7 +841,8 @@
     "ときどき ニュースを みます。",
     "たまに ニュースを みます。",
     "ぜんぜん ニュースを みません。"
-   ]
+   ],
+   "traduzione": "Guardo il notiziario tutti i giorni."
   },
   {
    "livello": "N5",
@@ -811,7 +854,8 @@
     "しごとが はじまりました。",
     "しごとが ふえました。",
     "しごとが むずかしいです。"
-   ]
+   ],
+   "traduzione": "Il lavoro è finito."
   },
   {
    "livello": "N5",
@@ -823,7 +867,8 @@
     "きょうの あさ、ともだちに でんわを かけました。",
     "あしたの よる、ともだちに でんわを かけます。",
     "せんしゅう ともだちに あいました。"
-   ]
+   ],
+   "traduzione": "Ieri sera ho telefonato a un amico."
   },
   {
    "livello": "N5",
@@ -835,7 +880,8 @@
     "あにと あねは げんきです。",
     "そふと そぼは げんきです。",
     "むすこと むすめは げんきです。"
-   ]
+   ],
+   "traduzione": "I miei genitori stanno bene."
   },
   {
    "livello": "N5",
@@ -847,7 +893,8 @@
     "この みちは くるまが すくないです。",
     "この みちは くるまが とおれません。",
     "この みちは あるく ひとだけです。"
-   ]
+   ],
+   "traduzione": "Su questa strada passano molte macchine."
   },
   {
    "livello": "N5",
@@ -859,7 +906,8 @@
     "へやが ひろくないです。",
     "へやが きれいじゃ ないです。",
     "へやが あたたかくないです。"
-   ]
+   ],
+   "traduzione": "La stanza è buia."
   },
   {
    "livello": "N5",
@@ -871,7 +919,8 @@
     "きのうから あめです。",
     "せんしゅうから あめです。",
     "きょうから あめです。"
-   ]
+   ],
+   "traduzione": "Piove dall'altro ieri."
   },
   {
    "livello": "N5",
@@ -883,7 +932,8 @@
     "じしょを かって ください。",
     "じしょを みせないで ください。",
     "じしょを かえして ください。"
-   ]
+   ],
+   "traduzione": "Prestami il dizionario, per favore."
   },
   {
    "livello": "N4",
@@ -895,7 +945,8 @@
     "バスは さっき でました。",
     "バスは なかなか きません。",
     "バスは とっくに つきました。"
-   ]
+   ],
+   "traduzione": "L'autobus arriva a momenti."
   },
   {
    "livello": "N4",
@@ -907,7 +958,8 @@
     "あの ふたりは まったく ちがいます。",
     "あの ふたりは きょうだいでは ありません。",
     "あの ふたりは よく けんかします。"
-   ]
+   ],
+   "traduzione": "Quei due si assomigliano molto."
   },
   {
    "livello": "N4",
@@ -919,7 +971,8 @@
     "しあいは よていどおり あります。",
     "しあいは もう おわりました。",
     "しあいは かちました。"
-   ]
+   ],
+   "traduzione": "La partita è stata annullata."
   },
   {
    "livello": "N4",
@@ -931,7 +984,8 @@
     "この 服は あたらしいです。",
     "この 服は たかかったです。",
     "この 服は かわいて います。"
-   ]
+   ],
+   "traduzione": "Questo vestito è sporco."
   },
   {
    "livello": "N4",
@@ -943,7 +997,8 @@
     "電車が 着きました。",
     "電車が 止まりました。",
     "電車が 遅れて います。"
-   ]
+   ],
+   "traduzione": "Il treno è partito."
   },
   {
    "livello": "N4",
@@ -955,7 +1010,8 @@
     "かれは 病気で 来られません。",
     "かれは みちに まよって います。",
     "かれは 来たくないと 言いました。"
-   ]
+   ],
+   "traduzione": "Lui non può venire per un impegno."
   },
   {
    "livello": "N4",
@@ -967,7 +1023,8 @@
     "この 店は だれも 知りません。",
     "この 店は 新しいです。",
     "この 店は 高いです。"
-   ]
+   ],
+   "traduzione": "Questo negozio è famoso."
   },
   {
    "livello": "N4",
@@ -979,7 +1036,8 @@
     "漢字を 覚えるのは すぐ できます。",
     "漢字を 覚えるのは 楽しくないです。",
     "漢字は 覚えなくても いいです。"
-   ]
+   ],
+   "traduzione": "Imparare i kanji è dura."
   },
   {
    "livello": "N4",
@@ -991,7 +1049,8 @@
     "駅まで 手紙を 出しましょうか。",
     "駅で 待ちましょうか。",
     "駅から 帰りましょうか。"
-   ]
+   ],
+   "traduzione": "Ti accompagno alla stazione?"
   },
   {
    "livello": "N4",
@@ -1003,7 +1062,8 @@
     "この ビルは ずっと 昔に 建てられました。",
     "この ビルは 来年 建てられます。",
     "この ビルは まだ ありません。"
-   ]
+   ],
+   "traduzione": "Questo palazzo è stato costruito di recente."
   },
   {
    "livello": "N4",
@@ -1015,7 +1075,8 @@
     "パーティーの 掃除を して います。",
     "パーティーに 行けなく なりました。",
     "パーティーが 終わりました。"
-   ]
+   ],
+   "traduzione": "Sto facendo i preparativi per la festa."
   },
   {
    "livello": "N4",
@@ -1027,7 +1088,8 @@
     "タクシーの ほうが 安いです。",
     "タクシーの ほうが おそいです。",
     "タクシーの ほうが 危ないです。"
-   ]
+   ],
+   "traduzione": "Il taxi è più veloce."
   },
   {
    "livello": "N4",
@@ -1039,7 +1101,8 @@
     "わたしは 運転が 大好きです。",
     "わたしは 運転が できません。",
     "わたしは 車を 持って いません。"
-   ]
+   ],
+   "traduzione": "Guido male (non sono bravo a guidare)."
   },
   {
    "livello": "N4",
@@ -1051,7 +1114,8 @@
     "荷物を 開けて ください。",
     "荷物を 捨てて ください。",
     "荷物を 作って ください。"
-   ]
+   ],
+   "traduzione": "Consegna il pacco, per favore."
   },
   {
    "livello": "N4",
@@ -1063,7 +1127,8 @@
     "かれは 会社に 入りました。",
     "かれは 会社を 休んで います。",
     "かれは 会社を つくりました。"
-   ]
+   ],
+   "traduzione": "Lui ha lasciato l'azienda."
   },
   {
    "livello": "N4",
@@ -1075,7 +1140,8 @@
     "みんなの まえで 発表するのは 楽しいです。",
     "みんなの まえで 発表するのは かんたんです。",
     "発表は もう 終わりました。"
-   ]
+   ],
+   "traduzione": "Presentare davanti a tutti mi imbarazza."
   },
   {
    "livello": "N4",
@@ -1087,7 +1153,8 @@
     "その 話は 本当でした。",
     "その 話は おもしろかったです。",
     "その 話は 聞いて いません。"
-   ]
+   ],
+   "traduzione": "Quella storia era una bugia."
   },
   {
    "livello": "N5",
@@ -1099,7 +1166,8 @@
     "すみません、だいどころを みても いいですか。",
     "すみません、でんわを かりても いいですか。",
     "すみません、まどを あけても いいですか。"
-   ]
+   ],
+   "traduzione": "Scusi, posso usare il bagno?"
   },
   {
    "livello": "N5",
@@ -1111,7 +1179,8 @@
     "きのうは なにも しませんでした。",
     "きのうは たのしかったです。",
     "きのうは やすみでした。"
-   ]
+   ],
+   "traduzione": "Ieri ero impegnato."
   },
   {
    "livello": "N5",
@@ -1123,7 +1192,8 @@
     "この カレーは あまいです。",
     "この カレーは つめたいです。",
     "この カレーは やすいです。"
-   ]
+   ],
+   "traduzione": "Questo curry è piccante."
   },
   {
    "livello": "N5",
@@ -1135,7 +1205,8 @@
     "でんきを つけて ください。",
     "でんきを なおして ください。",
     "でんきを かえて ください。"
-   ]
+   ],
+   "traduzione": "Spegni la luce, per favore."
   },
   {
    "livello": "N5",
@@ -1147,7 +1218,8 @@
     "まどを あけて ください。",
     "まどを あらって ください。",
     "まどを みて ください。"
-   ]
+   ],
+   "traduzione": "Chiudi la finestra, per favore."
   },
   {
    "livello": "N5",
@@ -1159,7 +1231,8 @@
     "これは ちちの じてんしゃです。",
     "これは ちちの かばんです。",
     "これは ちちの へやです。"
-   ]
+   ],
+   "traduzione": "Questa è la macchina di mio padre."
   },
   {
    "livello": "N5",
@@ -1171,7 +1244,8 @@
     "あには ちいさいです。",
     "あには つよいです。",
     "あには わかいです。"
-   ]
+   ],
+   "traduzione": "Mio fratello maggiore è alto."
   },
   {
    "livello": "N5",
@@ -1183,7 +1257,8 @@
     "この みせの パンは うまいです。",
     "この みせの パンは やすいです。",
     "この みせの パンは ゆうめいです。"
-   ]
+   ],
+   "traduzione": "Il pane di questo negozio non è buono."
   },
   {
    "livello": "N5",
@@ -1195,7 +1270,8 @@
     "がっこうまで バスで いきます。",
     "がっこうまで はしって いきます。",
     "がっこうまで じてんしゃで いきます。"
-   ]
+   ],
+   "traduzione": "Vado a scuola a piedi."
   },
   {
    "livello": "N5",
@@ -1207,7 +1283,8 @@
     "にちようびは いそがしいです。",
     "にちようびは しごとです。",
     "にちようびは でかけます。"
-   ]
+   ],
+   "traduzione": "La domenica sono libero."
   },
   {
    "livello": "N5",
@@ -1219,7 +1296,8 @@
     "ずっと まって ください。",
     "あとで きて ください。",
     "はやく して ください。"
-   ]
+   ],
+   "traduzione": "Aspetta un momento, per favore."
   },
   {
    "livello": "N5",
@@ -1231,7 +1309,8 @@
     "ことし けっこんします。",
     "きょねん けっこんしました。",
     "らいげつ けっこんします。"
-   ]
+   ],
+   "traduzione": "L'anno prossimo mi sposo."
   },
   {
    "livello": "N4",
@@ -1243,7 +1322,8 @@
     "それを 聞いて 心配に なりました。",
     "それを 聞いて 驚きました。",
     "それを 聞いて 悲しく なりました。"
-   ]
+   ],
+   "traduzione": "Sentendo ciò mi sono tranquillizzato."
   },
   {
    "livello": "N4",
@@ -1255,7 +1335,8 @@
     "あの 人は きびしいです。",
     "あの 人は つめたいです。",
     "あの 人は 有名です。"
-   ]
+   ],
+   "traduzione": "Quella persona è gentile."
   },
   {
    "livello": "N4",
@@ -1267,7 +1348,8 @@
     "この 問題は すぐ わかります。",
     "この 問題は 昔から あります。",
     "この 問題は もう 終わりました。"
-   ]
+   ],
+   "traduzione": "Questo problema è complicato."
   },
   {
    "livello": "N4",
@@ -1279,7 +1361,8 @@
     "いつ 事故が 起きたか 調べて います。",
     "だれが 事故を 見たか 調べて います。",
     "どこで 事故が 起きたか 調べて います。"
-   ]
+   ],
+   "traduzione": "Stanno indagando sulla causa dell'incidente."
   },
   {
    "livello": "N4",
@@ -1291,7 +1374,8 @@
     "早く 着くかもしれません。",
     "行かないかもしれません。",
     "忘れるかもしれません。"
-   ]
+   ],
+   "traduzione": "Forse non faccio in tempo."
   },
   {
    "livello": "N4",
@@ -1303,7 +1387,8 @@
     "かれは 最近 変わりました。",
     "かれは これから 変わります。",
     "かれは よく 変わります。"
-   ]
+   ],
+   "traduzione": "Lui non è cambiato da tanto tempo."
   },
   {
    "livello": "N4",
@@ -1315,7 +1400,8 @@
     "わたしも そう 思います。",
     "わたしは 意見が ありません。",
     "わたしは まだ 考えて います。"
-   ]
+   ],
+   "traduzione": "Io sono contrario (non la penso così)."
   },
   {
    "livello": "N4",
@@ -1327,7 +1413,8 @@
     "祖父は 病気に なりました。",
     "祖父は 入院しました。",
     "祖父は 疲れて います。"
-   ]
+   ],
+   "traduzione": "Mio nonno si è ristabilito."
   },
   {
    "livello": "N4",
@@ -1339,7 +1426,8 @@
     "この 道は 広くて 便利です。",
     "この 道は 車が 多いです。",
     "この 道は 近いです。"
-   ]
+   ],
+   "traduzione": "Questa strada non è percorribile."
   },
   {
    "livello": "N4",
@@ -1351,7 +1439,8 @@
     "あしたまでに 来て ください。",
     "あしたまでに 読んで ください。",
     "あしたまでに 帰って ください。"
-   ]
+   ],
+   "traduzione": "Dammi una risposta entro domani."
   },
   {
    "livello": "N4",
@@ -1363,7 +1452,8 @@
     "この 荷物は 軽いです。",
     "この 荷物は 大事です。",
     "この 荷物は だれのですか。"
-   ]
+   ],
+   "traduzione": "Questo bagaglio è d'intralcio."
   },
   {
    "livello": "N4",
@@ -1375,7 +1465,8 @@
     "きのう した ことが 変わりました。",
     "気持ちが 変わりました。",
     "天気が 変わりました。"
-   ]
+   ],
+   "traduzione": "Il programma è cambiato."
   },
   {
    "livello": "N4",
@@ -1387,7 +1478,8 @@
     "電車に 人が あまり いません。",
     "電車が 止まって います。",
     "電車が 遅れて います。"
-   ]
+   ],
+   "traduzione": "Il treno è affollato."
   },
   {
    "livello": "N4",
@@ -1399,7 +1491,8 @@
     "その 服は すてきです。",
     "その 服は 高いです。",
     "その 服は 小さいです。"
-   ]
+   ],
+   "traduzione": "Quel vestito è strano."
   },
   {
    "livello": "N4",
@@ -1411,7 +1504,8 @@
     "この 川は 浅いです。",
     "この 川は きれいです。",
     "この 川は 冷たいです。"
-   ]
+   ],
+   "traduzione": "Questo fiume è pericoloso."
   },
   {
    "livello": "N4",
@@ -1423,7 +1517,8 @@
     "パンを どこで 買うか 習いました。",
     "パンを いつ 食べるか 習いました。",
     "パンの 名前を 習いました。"
-   ]
+   ],
+   "traduzione": "Ho imparato come si fa il pane."
   },
   {
    "livello": "N4",
@@ -1435,7 +1530,8 @@
     "できれば 来て ください。",
     "たまに 来て ください。",
     "来なくても いいです。"
-   ]
+   ],
+   "traduzione": "Vieni senza fallo (mi raccomando)."
   },
   {
    "livello": "N4",
@@ -1447,7 +1543,8 @@
     "かれは あまり 働きません。",
     "かれは 楽しく 働きます。",
     "かれは 夜だけ 働きます。"
-   ]
+   ],
+   "traduzione": "Lui lavora con impegno."
   },
   {
    "livello": "N4",
@@ -1459,7 +1556,8 @@
     "きゃくが 少し 来ました。",
     "きゃくが ひとりも 来ませんでした。",
     "きゃくが 遅く 来ました。"
-   ]
+   ],
+   "traduzione": "Sono venuti tanti clienti."
   },
   {
    "livello": "N4",
@@ -1471,7 +1569,8 @@
     "この 話は みんなに 教えて ください。",
     "この 話は 忘れて ください。",
     "この 話を もう一度 して ください。"
-   ]
+   ],
+   "traduzione": "Non dire questa cosa a nessuno (resti un segreto)."
   },
   {
    "livello": "N4",
@@ -1483,7 +1582,8 @@
     "むかしの 夢は 何ですか。",
     "ゆうべの 夢は 何ですか。",
     "今の 仕事は 何ですか。"
-   ]
+   ],
+   "traduzione": "Qual è il tuo sogno per il futuro?"
   }
  ]
 }
