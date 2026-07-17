@@ -247,8 +247,8 @@
 			if (word.frasi_esempio?.length && word.id_verbo_corrispondente) {
 				specials.push(() => createTransitivityPairQuestion(word, context!, locale));
 			}
-			// frasi propedeutiche curate dall'insegnante per la coppia 自/他: il
-			// contesto forza il transitivo o l'intransitivo giusto (col «perché»).
+			// frasi propedeutiche curate dall'insegnante (coppie 自/他 e keigo): il
+			// contesto forza il verbo giusto — transitività o registro (col «perché»).
 			const curated = curatedByWord(word.id);
 			if (curated.length > 0) {
 				specials.push(() => curatedToQuestion(curated[Math.floor(Math.random() * curated.length)]!));

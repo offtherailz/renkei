@@ -4,16 +4,19 @@
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS, KEIGO_REQUEST_ITEMS } from '$lib/core/keigo';
+	import { curatedKeigoItems } from '$lib/data/propedeutiche';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
-	// Un round: o "verbo → forma keigo giusta" o una frase situazionale.
+	// Un round: "verbo → forma keigo giusta", una frase situazionale, oppure
+	// un completamento curato (la frase forza il registro: chi parla a chi).
 	type Round =
 		| { kind: 'verbo'; prompt: string; glossa: string; tipo: '尊敬語' | '謙譲語'; opzioni: string[]; corretta: string; parola?: string }
 		| { kind: 'frase'; situazione: string; opzioni: string[]; corretta: string; parola?: string }
-		| { kind: 'irai'; situazione: string; opzioni: string[]; corretta: string; nota: string; parola?: string };
+		| { kind: 'irai'; situazione: string; opzioni: string[]; corretta: string; nota: string; parola?: string }
+		| { kind: 'cloze'; frase: string; intera: string; traduzione: string; opzioni: string[]; corretta: string; perche: string; parola?: string };
 
 	const ROUNDS_PER_GAME = 10;
 
@@ -45,21 +48,35 @@
 
 	function buildRounds(): Round[] {
 		const frasi: Round[] = shuffle(KEIGO_ITEMS)
-			.slice(0, 4)
+			.slice(0, 3)
 			.map((it) => ({ kind: 'frase', situazione: it.situazione, opzioni: shuffle(it.opzioni), corretta: it.opzioni[0]!, parola: it.parola }));
 		const irai: Round[] = shuffle(KEIGO_REQUEST_ITEMS)
-			.slice(0, 3)
+			.slice(0, 2)
 			.map((it) => ({ kind: 'irai', situazione: it.situazione, opzioni: shuffle(it.opzioni), corretta: it.opzioni[0]!, nota: it.nota, parola: it.parola }));
+		// completamenti curati dall'insegnante: dal contesto (社長は…, わたしは…)
+		// si capisce se serve il 尊敬語 o il 謙譲語; il «perché» esce dopo la risposta
+		const cloze: Round[] = shuffle(curatedKeigoItems())
+			.slice(0, 3)
+			.map((it) => ({
+				kind: 'cloze',
+				frase: it.frase_con_buco,
+				intera: it.frase_con_buco.replace(/[＿_]+/, it.corretta),
+				traduzione: it.traduzione_it,
+				opzioni: shuffle([it.corretta, ...it.distrattori]),
+				corretta: it.corretta,
+				perche: it.perche,
+				parola: it.parola
+			}));
 		const verbi: Round[] = [];
 		const seen = new Set<string>();
-		while (verbi.length < ROUNDS_PER_GAME - frasi.length - irai.length) {
+		while (verbi.length < ROUNDS_PER_GAME - frasi.length - irai.length - cloze.length) {
 			const r = buildVerbRound();
 			const key = r.kind === 'verbo' ? r.prompt + r.tipo : '';
 			if (seen.has(key)) continue;
 			seen.add(key);
 			verbi.push(r);
 		}
-		return shuffle([...frasi, ...irai, ...verbi]);
+		return shuffle([...frasi, ...irai, ...cloze, ...verbi]);
 	}
 
 	type Scene = 'intro' | 'play' | 'done';
@@ -112,7 +129,11 @@
 		}
 		heard = alts[0]!;
 		const r = cur();
-		const variants = r.kind === 'verbo' ? [phraseVariants(r.corretta)] : [sentenceMatchVariants(r.corretta)];
+		// nel cloze si prova a dire la frase INTERA (col verbo giusto dentro)
+		const variants =
+			r.kind === 'verbo' ? [phraseVariants(r.corretta)]
+			: r.kind === 'cloze' ? [sentenceMatchVariants(r.intera)]
+			: [sentenceMatchVariants(r.corretta)];
 		if (speechMatches(alts, variants)) {
 			await pick(r.corretta);
 		}
@@ -135,7 +156,7 @@
 		if (choice === r.corretta) score += 1;
 		// legge la risposta giusta a voce, giusta o sbagliata che sia stata la
 		// scelta — serve a fissare la pronuncia, non solo il riconoscimento.
-		speakSentenceJapanese(r.corretta);
+		speakSentenceJapanese(r.kind === 'cloze' ? r.intera : r.corretta);
 	}
 
 	function next(): void {
@@ -171,6 +192,9 @@
 			{#if r.kind === 'verbo'}
 				<p class="hint">Qual è il <strong>{r.tipo}</strong> di…</p>
 				<p class="prompt big">「{r.prompt}」 <span class="glossa">({r.glossa})</span></p>
+			{:else if r.kind === 'cloze'}
+				<p class="hint">Completa: dal contesto capisci <strong>chi parla a chi</strong>.</p>
+				<p class="prompt">{r.frase}</p>
 			{:else if r.kind === 'irai'}
 				<p class="hint">{r.situazione}</p>
 				<p class="prompt small">Qual è la richiesta più cortese?</p>
@@ -199,11 +223,15 @@
 				<button class="mic" class:listening={micBusy} disabled={micBusy} onclick={trySay}>
 					{micBusy ? '🎙️ Parla!' : '🎤 Prova a dirla'}
 				</button>
-				<HeardDiff {heard} candidates={r.kind === 'verbo' ? phraseVariants(r.corretta) : [r.corretta]} />
+				<HeardDiff {heard} candidates={r.kind === 'verbo' ? phraseVariants(r.corretta) : r.kind === 'cloze' ? [r.intera] : [r.corretta]} />
 			{/if}
 			{#if picked !== null}
 				{#if r.kind === 'irai'}
 					<p class="nota">💡 {r.nota}</p>
+				{:else if r.kind === 'cloze'}
+					<p class="prompt"><InteractiveSentence text={r.intera} /></p>
+					<p class="hint">{r.traduzione}</p>
+					<p class="nota">💡 {r.perche}</p>
 				{/if}
 				<div class="after">
 					{#if detailHref}

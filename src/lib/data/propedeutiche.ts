@@ -4,6 +4,7 @@
 // registro per il keigo, uso specifico per le particelle, contesto per la
 // forma). Ogni item porta il «perché» mostrato dopo la risposta.
 import raw from './propedeutiche-n5n4.json';
+import { KEIGO_SUPPLETIVE_WORDS } from '$lib/core/keigo';
 import type { UsageClozeQuestion } from '$lib/quiz/types';
 
 export interface CuratedItem {
@@ -24,10 +25,18 @@ export function curatedByParticle(particle: string): CuratedItem[] {
 	return CURATED_ITEMS.filter((i) => i.tipo === 'particella-uso' && i.corretta === particle);
 }
 
-// verbo-contesto agganciati a una parola-carta (coppia 自/他): frasi in cui il
-// contesto forza il transitivo o l'intransitivo giusto.
+// verbo-contesto agganciati a una parola-carta (coppia 自/他 o keigo): frasi in
+// cui il contesto forza il verbo giusto (transitività o registro onorifico).
 export function curatedByWord(wordId: string): CuratedItem[] {
 	return CURATED_ITEMS.filter((i) => i.tipo === 'verbo-contesto' && i.parola === wordId);
+}
+
+// Sotto-insieme keigo dei verbo-contesto (la parola-carta è un suppletivo
+// onorifico/umile): li pesca anche il gioco /keigo come round di completamento.
+export function curatedKeigoItems(): CuratedItem[] {
+	return CURATED_ITEMS.filter(
+		(i) => i.tipo === 'verbo-contesto' && i.parola !== undefined && KEIGO_SUPPLETIVE_WORDS.has(i.parola)
+	);
 }
 
 function shuffle<T>(items: T[]): T[] {
