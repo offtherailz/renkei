@@ -612,6 +612,11 @@
 					<span class="cat-label">Dettato <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">ascolta e ricomponi la frase, pezzo per pezzo</span>
 				</a>
+				<a class="cat-card" href="{base}/catena">
+					<span class="cat-icon">🧬</span>
+					<span class="cat-label">Catena di forme <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">食べる→食べられる→食べられない: le forme, un passo alla volta</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>

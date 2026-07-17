@@ -137,6 +137,17 @@ macchina (niente browser automatizzabile) + questioni aperte.
     obiettivo «Lessico extra (fuori JLPT)» in home (pausabile), chip EX nel vocabolario.
     Seed v64. Domanda: altre parole da riclassificare EXTRA? Segnalale.
 
+## Beta hardening + nuova attività (18/07)
+
+32. **Pagina errore** — navigare a un URL rotto (es. /forme/xxx esiste già come notfound;
+    per l'errore vero serve un crash) mostra la pagina di cortesia, non schermo bianco.
+33. **🐛 Segnala un problema** (Impostazioni) — scrivi, salva, esporta il JSON: contiene
+    build/seed/pagina/userAgent. Elimina funziona. Niente email/GitHub.
+34. **🧬 Catena di forme** (/catena, beta, da Giochi) — 6 round a 2 passi
+    (potenziale→negativa, たい→passato, て→ている…): catena visuale, senso italiano alla
+    fine, TTS, credito a conj:* e gram:*. Da giudicare: distrattori del passo 2 giusti?
+    Catene da aggiungere (usare 使役/受身)?
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):

@@ -73,7 +73,9 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
 4. **Pagine annidate /particelle/[slug]** — stesso schema di `/forme/[slug]`, non ancora fatto.
 5. **Avverbi (副詞) allenabili** — oggi nessun drill di classe dedicato.
 6. **Choukai: copione finale ricco** — ascoltare le singole frasi, vedere risposte e perché.
-7. **Gioco forme derivate/composte in catena** (idea utente): 食べる→食べられる→食べられたくない.
+7. ✅ (18/07) **🧬 Catena di forme** (/catena, beta): 5 catene a 2 passi (可能→ない/た,
+   たい→くない/かった, て→ている), catena visuale, senso it, credito conj:*+gram:*.
+   Estensioni possibili: 使役/受身 al passo 1, catene a 3 passi (られたくない).
 8. **Toggle kanji on/off** (idea utente) — grosso, tocca il rendering ovunque. Valutare
    se/quando; segnato, non urgente. I kanji N1 in parole N5 restano com'è per ora.
 9. **Microfono: permessi e degradazione** — su http non-localhost l'API non c'è (serve
