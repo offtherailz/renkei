@@ -242,7 +242,7 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 - **Osservazioni 17/07 (utente, da analizzare/applicare):**
   - ✅ (17/07) **RSVP: peso dei kanji** — tempo di esposizione pesato per carattere
     (kanji 2.2x, punteggiatura 0.4x), cpm nominale invariato; guida aggiornata.
-  - **Rinominare «Gioca e vivi» → «Attività»** (home e ovunque appaia il nome del gruppo).
+  - ✅ (17/07) **Rinominato «Gioca e vivi» → «Attività»** (home + guida + CLAUDE.md).
   - **Nuova attività: lettura ad alta voce assistita** — testo con furigana attivabili, poi
     tolti; progressione con furigana → senza → mic. Si aggancia al toggle furigana pianificato.
   - **Nuova attività: dettato da ascolto** — ascolti un testo (tutto o una parte selezionata)

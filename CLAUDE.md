@@ -11,7 +11,7 @@ App di studio giapponese N5/N4 (SvelteKit 2 + Svelte 5 runes, Dexie, adapter-sta
 
 ## Non dimenticare quando aggiungi una FEATURE
 
-- [ ] **Link di ingresso**: home (gruppo giusto: Studia / Gioca e vivi / Cataloghi / Altro) e/o `/giochi` (gruppo giusto) e/o `/avventure`.
+- [ ] **Link di ingresso**: home (gruppo giusto: Studia / Attività / Cataloghi / Altro) e/o `/giochi` (gruppo giusto) e/o `/avventure`.
 - [ ] **Aggiorna `/guida`** (src/routes/guida): è la guida utente ufficiale, va tenuta allineata.
 - [ ] Se tocca l'architettura o i dati: nota in ARCHITECTURE.md.
 - [ ] Aggiorna task list e memoria di sessione.

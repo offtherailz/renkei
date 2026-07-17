@@ -36,7 +36,7 @@
 	</section>
 
 	<section class="g-card">
-		<h2>🎮 Gioca e vivi</h2>
+		<h2>🎮 Attività</h2>
 		<p><strong>Giochi</strong> — numeri e contatori (giorni, ore, prezzi…), dettato, cassa, appuntamenti, lista della spesa, saluti (anche a voce 🎤), ordini al konbini. A serie: un errore e riparti.</p>
 		<p><strong>🌅 Una giornata</strong> — vivi una giornata giapponese (sveglia, casa, lavoro, imprevisti come compleanni o uscite anticipate): a ogni momento scegli — o di' a voce 🎤 — la frase fatta giusta. Ogni giornata è diversa.</p>
 		<p><strong>👂 聴解 Ascolto trappola</strong> — dialoghi stile JLPT solo audio: cambiano idea, tornano all'originale… tu non cascarci.</p>

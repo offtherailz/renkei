@@ -375,7 +375,7 @@
 		</a>
 	</div>
 
-	<h2 class="section-title group">🎮 Gioca e vivi</h2>
+	<h2 class="section-title group">🎮 Attività</h2>
 	<div class="quick-grid">
 		<a href="{base}/giochi" class="quick-card">
 			<span class="quick-icon">🎮</span>
