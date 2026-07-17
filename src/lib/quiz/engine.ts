@@ -555,7 +555,8 @@ function hasMotionVerb(sentence: string): boolean {
 // Verbi di attraversamento/percorso: を e で sono spesso ENTRAMBI grammaticali
 // (公園を散歩する／公園で散歩する) — mai proporli l'uno come distrattore
 // dell'altro in quel contesto (audit dell'insegnante).
-const PATH_VERB_STEMS = ['散歩', '歩', '走', '通', '渡', '飛', '曲が', '泳'];
+// 外出/出かける/中を: «雨の中を外出する» vs «雨の中で» — audit 2 (18/07)
+const PATH_VERB_STEMS = ['散歩', '歩', '走', '通', '渡', '飛', '曲が', '泳', '外出', '出かけ', '中を', '中で'];
 function hasPathVerb(sentence: string): boolean {
   return PATH_VERB_STEMS.some((stem) => sentence.includes(stem));
 }

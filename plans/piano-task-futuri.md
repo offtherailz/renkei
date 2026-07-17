@@ -85,9 +85,12 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
     都合がいい = circostanze, 便利 = comodo-strumento); 申し上げる già cor 言う/申す;
     出発(する) cor 出る; 親切 sin 優しい confermato; 例 non in catalogo (niente da fare);
     壁 kanji N1 coperto dalla policy kanji avanzati.
-12. **Collaudo insegnante virtuale** — l'agente vaglia domande/contenuti/relazioni con lo
-    strumento `teacher-digest.mjs` già pronto (shortlist compatte, token-frugale). Prossimi
-    giri: `unlinked-pairs`, `no-relations`, item già iniziato per N5/N4 relazioni.
+12. **Collaudo insegnante** — ✅ ciclo 17-18/07 completo INLINE (niente agente): relazioni
+    N5+N4 vagliate (238 curate + 238 arricchite), unlinked-pairs sano, B3 chiuso, audit
+    domande 2° giro (report `2026-07-18-audit-domande-2.md`: qualità ok, fix percorso
+    applicato). Restano da fare quando capita: fix verb-form senza vincolo temporale
+    (punto 2 del report), distrattori stessa-POS nel multiple-choice (punto 4),
+    distrattori transitivity più puliti (punto 3).
 13. **Doppio binario 自/他** — sulla stessa parola escono sia la domanda generata sia la
     curata. Deciso: tenere entrambe le fonti; se in futuro c'è doppione visibile in sessione,
     vince la curata.
