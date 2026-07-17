@@ -14,15 +14,53 @@ Per OGNI item, prima del rilascio:
 
 ---
 
-## Stato attuale (verificato nel codice il 15/07/2026)
+## Stato attuale (17/07/2026 — handoff di sessione)
 
-- **Migrazione SvelteKit**: FATTA (piano 28 giu, Fase 1).
-- **Dialoghi**: FATTI in gran parte — modello `Dialogue`/`DialogueLine`, tabella Dexie `dialogues`,
-  `DialogueViewer.svelte`, campo corso `dialoghi_nuovi`, `detail/[id]` esistono già.
-- **Punteggio quiz** (piano 14 lug): fatta solo **Fase 0** (`touchReviewDate` in `srs.ts`).
-  Fasi 1–6 tutte da fare.
-- **Note utente** (15 lug): backlog non triagato.
-- **Staging**: `npm run deploy:staging` già configurato.
+**FATTO (commit locali su main, staging deployato con tutto, PROD MAI deployata):**
+- Blocco A completo: A1-A3 (punteggio per classe `conj:*`/`particella:*`/`counter:*`),
+  A4 (sfaccettature Nation: campi facet, radar Kiviat in scheda, selezione guidata, pagina
+  /sfaccettature con tooltip), A5 (drill consolida classe/particella + 💪 con % su
+  /forme /particelle /forme-composte), A6 (spoken-production 🎤).
+- `gram:*` per costruzioni (potenziale/passiva/causativa/…): credito da conjugation e
+  verb-form-cloze via `formKey`+`CONSTRUCTION_BY_FORM_KEY`, drill `/consolida/gram:<slug>`.
+- C1 (verb-form-cloze), C3 (usage-cloze), C4 (composition — anche in Consolida col banco token).
+- F1 (ripasso deboli = `/quiz?deboli=1` dentro il quiz vero), F2/F3 (La so già/Rimanda/
+  Seppellisci nella card Memorizzazione; `buried` esclude da tutto; conferma+annulla).
+- Giochi/avventure → `recordPractice(entità, esito, cella)`: keigo 🧩, iikae 🎯, shadowing 🎤
+  (+2 solo positivo), avventure (successi oltre ai miss). `recordPracticeMiss` = wrapper compat.
+- Punti deboli: solo `lapses>0`, link alle pagine/schede, `pctFor` practice-only per
+  conj/particella/gram/phrase; countDueCards esclude solo-pratica e buried.
+- Dati: seed **v57** — curatela 1 (70 parole: keigo↔piano, tipi, sin/contrari), curatela 2
+  (rinomine 下がる/落ちる/落とす/楽しむ + merge うかがう→伺う via WORD_RENAMES/WORD_MERGES in
+  scripts/lib/word-splits.mjs), split 回る/回す (B4), interiezioni 感動詞, 53 frasi propedeutiche,
+  coppie かかる↔掛ける e 止む↔止める collegate.
+- **63 domande curate** in `src/lib/data/propedeutiche-n5n4.json` (+ modulo `propedeutiche.ts`):
+  già consumate dal drill particelle (curate prima, poi generate), campo `explanation` su
+  usage-cloze mostrato dopo la risposta (consolida+quiz).
+- Fix generatori da audit insegnante (plans/2026-07-17-audit-domande-report.md): transitivity a
+  frase intera, distrattori grammatica da strutture, particelle ambigue escluse (を/で percorso,
+  へ/に/まで moto, から/より), label senza desinenze, varianti "A;B" prima grafia, omofoni MAI
+  distrattori nella reading-recognition, occorrenza del buco pesata (pickOccurrenceIndex — bug
+  かれ/か e ちょっと), glosse «fare:» a distrattori omogenei.
+- UI/UX: pagina 🧮 /punteggi (referenza calcolo punteggi, MANTENERLA), guida aggiornata ovunque,
+  contatore ripassi/carte-nuove nel piano di oggi + «🔁 ripassali», badge 漢 condiviso, emoji VS16,
+  controlli sessione colorati, guardia Indietro nel quiz, scroll robusto alle àncore, kanji nel
+  vocabolario (chip 漢), spiegazioni post-risposta in Consolida.
+- Strumenti: **audit domande** `AUDIT=1 npx vitest run src/lib/quiz/questionAudit.test.ts` →
+  plans/question-audit-sample.md; `scripts/fix-split-words.mjs` riapplica split/rinomine al seed.
+
+**PROSSIMI (in ordine ragionevole):**
+1. Consumare i 44 item curati restanti: verbo-contesto (29) → quiz specials sulle parole-carta
+   della coppia/keigo e gioco /keigo; forma-contesto (15, verbi-carta: 開ける 泳ぐ 食べる 働く
+   飲む 聞く 読む 来る 勉強する 降る 寝る 弾く) → drill /consolida/gram:* e quiz. Formato e note
+   d'integrazione in coda a plans/2026-07-17-domande-propedeutiche-report.md.
+2. Relazione «correlati» ≠ sinonimi (campo Word.correlati + scheda + curatela; 妻↔奥さん).
+3. 20 parole nuove proposte (report frasi-propedeutiche sez.1: 信号, 屋根, 咳, スリッパ, partner
+   自/他 届く/減る/増やす/…, vita moderna スマホ/電子レンジ/…).
+4. Pagine annidate /forme/[slug] e /particelle/[slug] (contenuto esaustivo, indice snello).
+5. Migliorie parcheggiate: completamento piano di oggi, furigana toggle, avverbi, copione
+   choukai ricco, frasi-aeroporto 慣用表現 da ricollocare, sotto-celle riconoscere/usare.
+6. Blocchi B (くれる full-kana pende? verificare, label formLabel già mitigata), D1-D3, E.
 
 ---
 
