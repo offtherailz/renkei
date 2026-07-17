@@ -165,6 +165,18 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 (l'insegnante non scrive JSON a mano). Richiede discussione sull'approccio.
 
 ### Migliorie segnate (16/07, da fare poi)
+- **Domande propedeutiche curate (17/07, mandato per l'insegnante-agente)**: vagliare quiz e
+  parole per proporre FRASI e DOMANDE propedeutiche da inserire per forme, coppie 自/他,
+  particelle, coniugazioni. Esempio tipico: completare una frase con un verbo dove DAL CONTESTO
+  si capisce se ci va il transitivo, l'intransitivo, il keigo e di che tipo (礼儀: chi parla a
+  chi). Output atteso: set curato di frasi/domande in formato pronto da fondere (overrides o
+  dataset dedicato tipo iikae-n5n4.json), che i generatori possano pescare invece delle frasi
+  generiche.
+- **Correlati ≠ sinonimi (17/07)**: serve una relazione «correlati» distinta dai sinonimi, per le
+  parole legate ma non interscambiabili — es. la coppia 妻 (mia moglie) ↔ 奥さん (moglie altrui),
+  oggi NON collegate perché non sono sinonimi; idem 息子/息子さん ecc. Le correlazioni "sbagliate
+  come sinonimi" della famiglia vanno preservate come correlati, non perse. Richiede: campo
+  `correlati` su Word (opzionale), sezione nella scheda, curatela dell'insegnante per popolare.
 - **Feedback test utente (17/07)**:
   - Particelle: domande **propedeutiche mirate agli usi** (frasi apposta per esercitare la
     sostituzione, non solo cloze da frasi generiche); casi ambigui (は/が/も…) da far vagliare

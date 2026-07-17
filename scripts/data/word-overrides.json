@@ -4346,17 +4346,17 @@
  "お疲れさまです": {
   "frasi_esempio": [
    {
-    "testo": "お先に失礼します。—お疲れさまです。",
+    "testo": "お先に失礼します。— お疲れさまです。",
     "traduzione": {
-     "it": "Io vado, scusate. — Buon lavoro!",
-     "en": "I'm heading out, excuse me. — Good work today!"
+     "it": "Vado via prima io. — Buon lavoro!",
+     "en": "Vado via prima io. — Buon lavoro!"
     }
    },
    {
-    "testo": "かいぎの あとで 「お疲れさまです」と いいます。",
+    "testo": "あ、ぶちょう。お疲れさまです。",
     "traduzione": {
-     "it": "Dopo la riunione si dice «otsukaresama desu».",
-     "en": "After the meeting we say \"otsukaresama desu.\""
+     "it": "Ah, direttore! Buon lavoro.",
+     "en": "Ah, boss! Thank you for your hard work."
     }
    }
   ]
@@ -9195,7 +9195,31 @@
    "en": [
     "it takes (amount of time, money) (v.i.)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それはほとんど終わりかかっています。",
+    "traduzione": {
+     "it": "It's almost over.",
+     "en": "It's almost over."
+    }
+   },
+   {
+    "testo": "どうしたらエンジンがかかりますか。",
+    "traduzione": {
+     "it": "How can I start the engine?",
+     "en": "How can I start the engine?"
+    }
+   },
+   {
+    "testo": "かべに えが かかって います。",
+    "traduzione": {
+     "it": "Alla parete è appeso un quadro.",
+     "en": "A picture is hanging on the wall."
+    }
+   }
+  ],
+  "id_verbo_corrispondente": "掛ける"
  },
  "かける": {
   "significato": {
@@ -11076,7 +11100,31 @@
     "to put on (e.g., glasses)",
     "to hang (e.g., on a wall)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "コートをハンガーに掛けておきなさい。",
+    "traduzione": {
+     "it": "Put your coat on a hanger.",
+     "en": "Put your coat on a hanger."
+    }
+   },
+   {
+    "testo": "コックさんは少しもかけていない。",
+    "traduzione": {
+     "it": "The cook hasn't put any on it.",
+     "en": "The cook hasn't put any on it."
+    }
+   },
+   {
+    "testo": "かべに えを 掛けました。",
+    "traduzione": {
+     "it": "Ho appeso un quadro alla parete.",
+     "en": "I hung a picture on the wall."
+    }
+   }
+  ],
+  "id_verbo_corrispondente": "かかる"
  },
  "甘い": {
   "significato": {
@@ -12722,7 +12770,30 @@
     "to hand in (something)"
    ]
   },
-  "id_verbo_corrispondente": "出る"
+  "id_verbo_corrispondente": "出る",
+  "frasi_esempio": [
+   {
+    "testo": "ここではおいしい食べ物が出されます。",
+    "traduzione": {
+     "it": "They serve excellent food here.",
+     "en": "They serve excellent food here."
+    }
+   },
+   {
+    "testo": "この件では名前を出したくない。",
+    "traduzione": {
+     "it": "I want to remain anonymous in this.",
+     "en": "I want to remain anonymous in this."
+    }
+   },
+   {
+    "testo": "ゆうびんきょくで てがみを 出しました。",
+    "traduzione": {
+     "it": "Ho spedito una lettera all'ufficio postale.",
+     "en": "I mailed a letter at the post office."
+    }
+   }
+  ]
  },
  "出る": {
   "significato": {
@@ -12735,7 +12806,30 @@
     "to leave"
    ]
   },
-  "id_verbo_corrispondente": "出す"
+  "id_verbo_corrispondente": "出す",
+  "frasi_esempio": [
+   {
+    "testo": "電話には出なかったからメールしておきました。",
+    "traduzione": {
+     "it": "He didn't answer the phone, so I left him an email.",
+     "en": "He didn't answer the phone, so I left him an email."
+    }
+   },
+   {
+    "testo": "私の家におばけが出たのは本当だ。",
+    "traduzione": {
+     "it": "It's true that a ghost appeared at my house.",
+     "en": "It's true that a ghost appeared at my house."
+    }
+   },
+   {
+    "testo": "よるに なって、月が 出ました。",
+    "traduzione": {
+     "it": "Si è fatta notte ed è spuntata la luna.",
+     "en": "Night fell and the moon came out."
+    }
+   }
+  ]
  },
  "出口": {
   "significato": {
@@ -12871,6 +12965,29 @@
   "sinonimi": [],
   "contrari": [
    "点く"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "その音楽の音はしだいに消えていった。",
+    "traduzione": {
+     "it": "The music faded away.",
+     "en": "The music faded away."
+    }
+   },
+   {
+    "testo": "流行は古くなって消えていく。",
+    "traduzione": {
+     "it": "Fashions grow old and die.",
+     "en": "Fashions grow old and die."
+    }
+   },
+   {
+    "testo": "きゅうに へやの でんきが 消えました。",
+    "traduzione": {
+     "it": "All'improvviso la luce della stanza si è spenta.",
+     "en": "Suddenly the light in the room went out."
+    }
+   }
   ]
  },
  "上げる": {
@@ -12884,7 +13001,23 @@
     "to lift"
    ]
   },
-  "id_verbo_corrispondente": "上がる"
+  "id_verbo_corrispondente": "上がる",
+  "frasi_esempio": [
+   {
+    "testo": "あなたは時には妹さんにおこづかいをあげますか。",
+    "traduzione": {
+     "it": "Do you sometimes give your sister money?",
+     "en": "Do you sometimes give your sister money?"
+    }
+   },
+   {
+    "testo": "エアコンの おんどを 上げて ください。",
+    "traduzione": {
+     "it": "Alza la temperatura del condizionatore, per favore.",
+     "en": "Please turn up the air conditioner temperature."
+    }
+   }
+  ]
  },
  "上手": {
   "significato": {
@@ -24725,7 +24858,8 @@
      "en": "The wind stopped and it became quiet."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "止める::やめる"
  },
  "止める::やめる": {
   "significato": {
@@ -24753,7 +24887,8 @@
      "en": "I stopped eating late at night."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "止む"
  },
  "止める::とめる": {
   "significato": {
@@ -27612,7 +27747,30 @@
     "to turn (a corner)"
    ]
   },
-  "id_verbo_corrispondente": "折る"
+  "id_verbo_corrispondente": "折る",
+  "frasi_esempio": [
+   {
+    "testo": "ついにバス会社が折れた。",
+    "traduzione": {
+     "it": "At last, the bus company gave in.",
+     "en": "At last, the bus company gave in."
+    }
+   },
+   {
+    "testo": "医者は彼の折れた足をついだ。",
+    "traduzione": {
+     "it": "The doctor set his broken leg.",
+     "en": "The doctor set his broken leg."
+    }
+   },
+   {
+    "testo": "台風で、木の えだが 折れました。",
+    "traduzione": {
+     "it": "Per il tifone si è spezzato un ramo dell'albero.",
+     "en": "A tree branch broke because of the typhoon."
+    }
+   }
+  ]
  },
  "説明": {
   "significato": {
@@ -33937,10 +34095,10 @@
     }
    },
    {
-    "testo": "てを あらってから、「いただきます」を いいます。",
+    "testo": "いい におい！いただきます。",
     "traduzione": {
-     "it": "Dopo essersi lavati le mani si dice «itadakimasu».",
-     "en": "After washing hands, we say \"itadakimasu.\""
+     "it": "Che buon profumo! Buon appetito.",
+     "en": "It smells so good! Let's eat."
     }
    }
   ]
@@ -33955,10 +34113,10 @@
     }
    },
    {
-    "testo": "げんかんで 「おかえりなさい」と いいました。",
+    "testo": "おかえりなさい。きょうは はやかったですね。",
     "traduzione": {
-     "it": "All'ingresso ho detto «bentornato».",
-     "en": "At the entrance I said \"welcome home.\""
+     "it": "Bentornato! Oggi sei tornato presto, eh.",
+     "en": "Welcome back! You are home early today."
     }
    }
   ]
@@ -33973,10 +34131,10 @@
     }
    },
    {
-    "testo": "ともだちの いえで 「おじゃまします」と いいます。",
+    "testo": "おじゃまします。わあ、きれいな へやですね。",
     "traduzione": {
-     "it": "A casa di un amico si dice «ojama shimasu».",
-     "en": "At a friend's house we say \"ojama shimasu.\""
+     "it": "Permesso... Wow, che bella stanza!",
+     "en": "Excuse me for coming in... Wow, what a nice room!"
     }
    }
   ]
@@ -33991,10 +34149,10 @@
     }
    },
    {
-    "testo": "ごうかく、おめでとうございます！",
+    "testo": "ごけっこん、おめでとうございます。",
     "traduzione": {
-     "it": "Congratulazioni per la promozione!",
-     "en": "Congratulations on passing!"
+     "it": "Congratulazioni per il matrimonio!",
+     "en": "Congratulations on your wedding!"
     }
    }
   ]
@@ -34009,10 +34167,10 @@
     }
    },
    {
-    "testo": "お久しぶりです。十ねんぶりですね。",
+    "testo": "田中さん、お久しぶりです。",
     "traduzione": {
-     "it": "Quanto tempo! Sono passati dieci anni, eh.",
-     "en": "Long time no see. It's been ten years."
+     "it": "Signor Tanaka, quanto tempo!",
+     "en": "Mr. Tanaka, it has been a long time!"
     }
    }
   ]
@@ -34027,10 +34185,10 @@
     }
    },
    {
-    "testo": "びょういんの かえりに 「お大事に」と いわれました。",
+    "testo": "くすりを のんで、ゆっくり やすんで ください。お大事に。",
     "traduzione": {
-     "it": "Uscendo dall'ospedale mi hanno detto «riguardati».",
-     "en": "Leaving the hospital, they told me \"take care.\""
+     "it": "Prenda la medicina e riposi bene. Si rimetta presto!",
+     "en": "Take your medicine and get plenty of rest. Get well soon!"
     }
    }
   ]
@@ -34045,10 +34203,10 @@
     }
    },
    {
-    "testo": "あさから なにも たべて いないので、お腹が空いた。",
+    "testo": "たくさん あるいたから、お腹が空いた。",
     "traduzione": {
-     "it": "Non mangio niente da stamattina, quindi ho fame.",
-     "en": "I haven't eaten since morning, so I'm hungry."
+     "it": "Ho camminato tanto e mi è venuta fame.",
+     "en": "I walked a lot, so I am hungry."
     }
    }
   ]
@@ -34063,10 +34221,10 @@
     }
    },
    {
-    "testo": "たべおわったら 「ごちそうさまでした」と いいましょう。",
+    "testo": "ごちそうさまでした。また きます。",
     "traduzione": {
-     "it": "Quando si finisce di mangiare, diciamo «gochisōsama deshita».",
-     "en": "When we finish eating, let's say \"gochisousama deshita.\""
+     "it": "Grazie per il pasto! Tornerò.",
+     "en": "Thank you for the meal. I will come again."
     }
    }
   ]
@@ -34081,10 +34239,10 @@
     }
    },
    {
-    "testo": "げんきな こえで 「ただいま」と いいました。",
+    "testo": "ただいま。きょうは つかれたよ。",
     "traduzione": {
-     "it": "Ho detto «sono a casa!» con voce allegra.",
-     "en": "I said \"I'm home!\" in a cheerful voice."
+     "it": "Sono a casa! Oggi sono proprio stanco.",
+     "en": "I'm home! I'm really tired today."
     }
    }
   ]
@@ -34099,10 +34257,10 @@
     }
    },
    {
-    "testo": "おれいを いわれて、「どういたしまして」と こたえました。",
+    "testo": "てつだって くれて、ありがとう。— どういたしまして。",
     "traduzione": {
-     "it": "Mi hanno ringraziato e ho risposto «di niente».",
-     "en": "They thanked me, and I replied \"you're welcome.\""
+     "it": "Grazie per l'aiuto. — Di niente.",
+     "en": "Thanks for helping me. — You're welcome."
     }
    }
   ]
@@ -34117,10 +34275,10 @@
     }
    },
    {
-    "testo": "きょうから おせわに なります。よろしくお願いします。",
+    "testo": "きょうから ここで はたらきます。よろしくお願いします。",
     "traduzione": {
-     "it": "Da oggi sarò a vostro carico: conto su di voi.",
-     "en": "From today I'm in your care. I look forward to working with you."
+     "it": "Da oggi lavoro qui. Conto sul vostro aiuto!",
+     "en": "I start working here today. I look forward to working with you."
     }
    }
   ]
@@ -34135,10 +34293,10 @@
     }
    },
    {
-    "testo": "はしった あとで、喉が渇いた。",
+    "testo": "ああ、あつい。喉が渇いたなあ。",
     "traduzione": {
-     "it": "Dopo la corsa mi è venuta sete.",
-     "en": "After running, I got thirsty."
+     "it": "Ah, che caldo... ho proprio sete.",
+     "en": "Ah, it's hot... I'm so thirsty."
     }
    }
   ]
@@ -34225,10 +34383,10 @@
     }
    },
    {
-    "testo": "くらいですから、気をつけて かえって ください。",
+    "testo": "くるまが おおいから、気をつけて ね。",
     "traduzione": {
-     "it": "È buio: torna a casa con prudenza.",
-     "en": "It's dark, so please be careful on your way home."
+     "it": "Ci sono tante macchine: stai attento!",
+     "en": "There are a lot of cars, so be careful."
     }
    }
   ]
@@ -34279,10 +34437,10 @@
     }
    },
    {
-    "testo": "みんなが 「頑張って」と おうえんして くれました。",
+    "testo": "あしたは しあいですね。頑張って！",
     "traduzione": {
-     "it": "Tutti mi hanno incoraggiato dicendo «forza!».",
-     "en": "Everyone cheered me on, saying \"Go for it!\""
+     "it": "Domani hai la partita, no? Forza!",
+     "en": "You have a match tomorrow, right? Good luck!"
     }
    }
   ]
@@ -34315,10 +34473,10 @@
     }
    },
    {
-    "testo": "きょうは ようじが あるので、お先に失礼します。",
+    "testo": "今日は 用事が あるので、お先に失礼します。",
     "traduzione": {
      "it": "Oggi ho un impegno, quindi vado via prima io.",
-     "en": "I have an errand today, so I'll leave before you."
+     "en": "I have something to do today, so I am leaving before you."
     }
    }
   ]
@@ -34333,10 +34491,10 @@
     }
    },
    {
-    "testo": "ちゅうもんを きいて、「かしこまりました」と いいました。",
+    "testo": "チェックアウトを お願いします。— かしこまりました。",
     "traduzione": {
-     "it": "Presa l'ordinazione, ho detto «certamente».",
-     "en": "Taking the order, I said \"certainly.\""
+     "it": "Il check-out, per favore. — Certamente.",
+     "en": "Check-out, please. — Certainly, sir."
     }
    }
   ]
@@ -34387,10 +34545,10 @@
     }
    },
    {
-    "testo": "終わった ことは 仕方がないです。",
+    "testo": "電車が 止まって いるから、仕方がないですね。歩きましょう。",
     "traduzione": {
-     "it": "Per quel che è fatto ormai non c'è niente da fare.",
-     "en": "What's done is done—it can't be helped."
+     "it": "I treni sono fermi, non c'è niente da fare: andiamo a piedi.",
+     "en": "The trains have stopped, so it cannot be helped — let us walk."
     }
    }
   ]
@@ -34517,10 +34675,10 @@
     }
    },
    {
-    "testo": "この 町が とても 気に入りました。",
+    "testo": "この ホテルが とても 気に入りました。",
     "traduzione": {
-     "it": "Questa città mi è piaciuta molto.",
-     "en": "I really took a liking to this town."
+     "it": "Questo hotel mi è piaciuto moltissimo.",
+     "en": "I really liked this hotel."
     }
    }
   ]
@@ -34703,10 +34861,10 @@
     }
    },
    {
-    "testo": "タクシーで 行けば、間に合いますよ。",
+    "testo": "タクシーで 行けば、飛行機に 間に合いますよ。",
     "traduzione": {
-     "it": "Andando in taxi ce la fai in tempo.",
-     "en": "If you go by taxi, you'll make it in time."
+     "it": "Se andiamo in taxi facciamo in tempo per l'aereo.",
+     "en": "If we go by taxi, we will make the plane in time."
     }
    }
   ]
@@ -34801,6 +34959,22 @@
   "sinonimi": [],
   "contrari": [
    "入国"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "出国の手続きをしてください。",
+    "traduzione": {
+     "it": "Faccia le pratiche per l'uscita dal paese.",
+     "en": "Faccia le pratiche per l'uscita dal paese."
+    }
+   },
+   {
+    "testo": "出国の 前に、おみやげを 買いました。",
+    "traduzione": {
+     "it": "Prima di lasciare il paese ho comprato dei souvenir.",
+     "en": "I bought souvenirs before leaving the country."
+    }
+   }
   ]
  },
  "入国": {
@@ -34808,6 +34982,22 @@
   "sinonimi": [],
   "contrari": [
    "出国"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "入国の審査はこちらです。",
+    "traduzione": {
+     "it": "Il controllo immigrazione è qui.",
+     "en": "Il controllo immigrazione è qui."
+    }
+   },
+   {
+    "testo": "入国の カードを 書いて ください。",
+    "traduzione": {
+     "it": "Compili la carta d'ingresso, per favore.",
+     "en": "Please fill in the immigration card."
+    }
+   }
   ]
  },
  "出国する": {
@@ -34816,6 +35006,22 @@
   "sinonimi": [],
   "contrari": [
    "入国する"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あなたが出国するまでお預かりします。",
+    "traduzione": {
+     "it": "We will keep it for you until you leave.",
+     "en": "We will keep it for you until you leave."
+    }
+   },
+   {
+    "testo": "来週の 月曜日に 日本を 出国します。",
+    "traduzione": {
+     "it": "Lunedì prossimo lascio il Giappone.",
+     "en": "I will leave Japan next Monday."
+    }
+   }
   ]
  },
  "入国する": {
@@ -34824,6 +35030,22 @@
   "sinonimi": [],
   "contrari": [
    "出国する"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "入国の目的は何ですか。",
+    "traduzione": {
+     "it": "What's the purpose of your visit?",
+     "en": "What's the purpose of your visit?"
+    }
+   },
+   {
+    "testo": "初めて 日本に 入国しました。",
+    "traduzione": {
+     "it": "Sono entrato in Giappone per la prima volta.",
+     "en": "I entered Japan for the first time."
+    }
+   }
   ]
  },
  "下がる": {
@@ -34872,7 +35094,30 @@
   "id_verbo_corrispondente": "落す",
   "scrittura": "落ちる",
   "lettura": "おちる",
-  "sinonimi": []
+  "sinonimi": [],
+  "frasi_esempio": [
+   {
+    "testo": "勉強しないと試験に落ちるよ。",
+    "traduzione": {
+     "it": "If you don't study, you will fail the exam.",
+     "en": "If you don't study, you will fail the exam."
+    }
+   },
+   {
+    "testo": "サーバーが落ちていた。",
+    "traduzione": {
+     "it": "The server was down.",
+     "en": "The server was down."
+    }
+   },
+   {
+    "testo": "かばんから 財布が 落ちました。",
+    "traduzione": {
+     "it": "Il portafoglio mi è caduto dalla borsa.",
+     "en": "My wallet fell out of my bag."
+    }
+   }
+  ]
  },
  "落とす": {
   "significato": {
@@ -34933,5 +35178,383 @@
   ],
   "scrittura": "楽しむ",
   "lettura": "たのしむ"
+ },
+ "チケット": {
+  "frasi_esempio": [
+   {
+    "testo": "チケットを見せてください。",
+    "traduzione": {
+     "it": "Mi mostri il biglietto, per favore.",
+     "en": "Mi mostri il biglietto, per favore."
+    }
+   },
+   {
+    "testo": "コンサートの チケットを ２まい かいました。",
+    "traduzione": {
+     "it": "Ho comprato due biglietti per il concerto.",
+     "en": "I bought two concert tickets."
+    }
+   }
+  ]
+ },
+ "パスポート": {
+  "frasi_esempio": [
+   {
+    "testo": "パスポートを見せてください。",
+    "traduzione": {
+     "it": "Mi mostri il passaporto, per favore.",
+     "en": "Mi mostri il passaporto, per favore."
+    }
+   },
+   {
+    "testo": "パスポートを かばんに いれました。",
+    "traduzione": {
+     "it": "Ho messo il passaporto nella borsa.",
+     "en": "I put my passport in my bag."
+    }
+   }
+  ]
+ },
+ "フライト": {
+  "frasi_esempio": [
+   {
+    "testo": "フライトは何時ですか。",
+    "traduzione": {
+     "it": "A che ora è il volo?",
+     "en": "A che ora è il volo?"
+    }
+   },
+   {
+    "testo": "フライトは ３じかんぐらいです。",
+    "traduzione": {
+     "it": "Il volo dura circa tre ore.",
+     "en": "The flight is about three hours."
+    }
+   }
+  ]
+ },
+ "航空券": {
+  "frasi_esempio": [
+   {
+    "testo": "航空券はもうありますか。",
+    "traduzione": {
+     "it": "Ha già il biglietto aereo?",
+     "en": "Ha già il biglietto aereo?"
+    }
+   },
+   {
+    "testo": "インターネットで 航空券を 買いました。",
+    "traduzione": {
+     "it": "Ho comprato il biglietto aereo su internet.",
+     "en": "I bought my plane ticket on the internet."
+    }
+   }
+  ]
+ },
+ "手荷物": {
+  "frasi_esempio": [
+   {
+    "testo": "手荷物はこちらに置いてください。",
+    "traduzione": {
+     "it": "Metta qui il bagaglio, per favore.",
+     "en": "Metta qui il bagaglio, per favore."
+    }
+   },
+   {
+    "testo": "手荷物は 一つだけです。",
+    "traduzione": {
+     "it": "Ho solo un bagaglio a mano.",
+     "en": "I have only one piece of hand luggage."
+    }
+   }
+  ]
+ },
+ "手荷物受取所": {
+  "frasi_esempio": [
+   {
+    "testo": "手荷物受取所は一階です。",
+    "traduzione": {
+     "it": "Il ritiro bagagli è al piano terra.",
+     "en": "Il ritiro bagagli è al piano terra."
+    }
+   },
+   {
+    "testo": "手荷物受取所で スーツケースを 待って います。",
+    "traduzione": {
+     "it": "Sto aspettando la valigia al ritiro bagagli.",
+     "en": "I am waiting for my suitcase at the baggage claim."
+    }
+   }
+  ]
+ },
+ "税関": {
+  "frasi_esempio": [
+   {
+    "testo": "税関で荷物を調べられました。",
+    "traduzione": {
+     "it": "Alla dogana mi hanno controllato i bagagli.",
+     "en": "Alla dogana mi hanno controllato i bagagli."
+    }
+   },
+   {
+    "testo": "税関で かばんを 開けました。",
+    "traduzione": {
+     "it": "Alla dogana ho aperto la borsa.",
+     "en": "I opened my bag at customs."
+    }
+   }
+  ]
+ },
+ "搭乗券": {
+  "frasi_esempio": [
+   {
+    "testo": "搭乗券をお願いします。",
+    "traduzione": {
+     "it": "Il suo biglietto d'imbarco, per favore.",
+     "en": "Il suo biglietto d'imbarco, per favore."
+    }
+   },
+   {
+    "testo": "搭乗券を なくさないで ください。",
+    "traduzione": {
+     "it": "Non perda la carta d'imbarco.",
+     "en": "Please do not lose your boarding pass."
+    }
+   }
+  ]
+ },
+ "搭乗口": {
+  "frasi_esempio": [
+   {
+    "testo": "搭乗口は32番です。",
+    "traduzione": {
+     "it": "Il gate d'imbarco è il numero 32.",
+     "en": "Il gate d'imbarco è il numero 32."
+    }
+   },
+   {
+    "testo": "搭乗口の 前で 待って いて ください。",
+    "traduzione": {
+     "it": "Aspetti davanti al gate d'imbarco.",
+     "en": "Please wait in front of the boarding gate."
+    }
+   }
+  ]
+ },
+ "〜さんによろしくお伝えください": {
+  "frasi_esempio": [
+   {
+    "testo": "田中さんによろしくお伝えください。",
+    "traduzione": {
+     "it": "Porti tanti saluti a Tanaka da parte mia.",
+     "en": "Porti tanti saluti a Tanaka da parte mia."
+    }
+   },
+   {
+    "testo": "奥さんによろしくお伝えください。",
+    "traduzione": {
+     "it": "Porti i miei saluti a sua moglie.",
+     "en": "Please give my regards to your wife."
+    }
+   }
+  ]
+ },
+ "これはどこで受け取りますか": {
+  "frasi_esempio": [
+   {
+    "testo": "これはどこで受け取りますか。— 一番のところです。",
+    "traduzione": {
+     "it": "Dove ritiro questo? — Al nastro numero uno.",
+     "en": "Dove ritiro questo? — Al nastro numero uno."
+    }
+   },
+   {
+    "testo": "すみません、これはどこで受け取りますか。— あちらの 窓口です。",
+    "traduzione": {
+     "it": "Scusi, dove lo ritiro questo? — A quello sportello.",
+     "en": "Excuse me, where do I pick this up? — At that counter over there."
+    }
+   }
+  ]
+ },
+ "これは機内持ち込みできますか": {
+  "frasi_esempio": [
+   {
+    "testo": "これは機内持ち込みできますか。— はい、大丈夫です。",
+    "traduzione": {
+     "it": "Posso portare questo come bagaglio a mano? — Sì, va bene.",
+     "en": "Posso portare questo come bagaglio a mano? — Sì, va bene."
+    }
+   },
+   {
+    "testo": "かばんが 少し 大きいですが、これは機内持ち込みできますか。",
+    "traduzione": {
+     "it": "La borsa è un po' grande: posso portarla in cabina?",
+     "en": "My bag is a bit big — can I take it on board?"
+    }
+   }
+  ]
+ },
+ "これを預けたいです": {
+  "frasi_esempio": [
+   {
+    "testo": "スーツケースを二つ、これを預けたいです。",
+    "traduzione": {
+     "it": "Vorrei imbarcare queste due valigie.",
+     "en": "Vorrei imbarcare queste due valigie."
+    }
+   },
+   {
+    "testo": "すみません、これを預けたいです。— はい、こちらに どうぞ。",
+    "traduzione": {
+     "it": "Scusi, vorrei imbarcare questo. — Sì, lo metta qui.",
+     "en": "Excuse me, I would like to check this in. — Sure, put it here, please."
+    }
+   }
+  ]
+ },
+ "すみません、搭乗口はどこですか": {
+  "frasi_esempio": [
+   {
+    "testo": "すみません、搭乗口はどこですか。— 32番です。",
+    "traduzione": {
+     "it": "Scusi, dov'è il gate d'imbarco? — È il numero 32.",
+     "en": "Scusi, dov'è il gate d'imbarco? — È il numero 32."
+    }
+   },
+   {
+    "testo": "すみません、搭乗口はどこですか。— まっすぐ 行って、右です。",
+    "traduzione": {
+     "it": "Scusi, dov'è il gate d'imbarco? — Dritto e poi a destra.",
+     "en": "Excuse me, where is the boarding gate? — Go straight, then turn right."
+    }
+   }
+  ]
+ },
+ "観光です": {
+  "frasi_esempio": [
+   {
+    "testo": "旅行の目的は何ですか。— 観光です。",
+    "traduzione": {
+     "it": "Qual è lo scopo del viaggio? — Turismo.",
+     "en": "Qual è lo scopo del viaggio? — Turismo."
+    }
+   },
+   {
+    "testo": "お仕事ですか。— いいえ、観光です。",
+    "traduzione": {
+     "it": "È qui per lavoro? — No, per turismo.",
+     "en": "Are you here on business? — No, for sightseeing."
+    }
+   }
+  ]
+ },
+ "申告するものはありません": {
+  "frasi_esempio": [
+   {
+    "testo": "申告するものはありますか。— いいえ、申告するものはありません。",
+    "traduzione": {
+     "it": "Ha qualcosa da dichiarare? — No, non ho nulla da dichiarare.",
+     "en": "Ha qualcosa da dichiarare? — No, non ho nulla da dichiarare."
+    }
+   },
+   {
+    "testo": "税関で「申告するものはありません」と 言いました。",
+    "traduzione": {
+     "it": "Alla dogana ho detto: «Non ho nulla da dichiarare».",
+     "en": "At customs I said, \"I have nothing to declare.\""
+    }
+   }
+  ]
+ },
+ "宅急便はどこですか": {
+  "frasi_esempio": [
+   {
+    "testo": "宅急便はどこですか。— あちらのカウンターです。",
+    "traduzione": {
+     "it": "Dov'è il servizio spedizione bagagli? — È al banco laggiù.",
+     "en": "Dov'è il servizio spedizione bagagli? — È al banco laggiù."
+    }
+   },
+   {
+    "testo": "荷物が 重いですね。すみません、宅急便はどこですか。",
+    "traduzione": {
+     "it": "Che bagagli pesanti... Scusi, dov'è il servizio di spedizione?",
+     "en": "This luggage is heavy... Excuse me, where is the luggage delivery service?"
+    }
+   }
+  ]
+ },
+ "Wi-Fiルーターのレンタルはどこですか": {
+  "frasi_esempio": [
+   {
+    "testo": "すみません、Wi-Fiルーターのレンタルはどこですか。",
+    "traduzione": {
+     "it": "Scusi, dov'è il noleggio del router Wi-Fi?",
+     "en": "Scusi, dov'è il noleggio del router Wi-Fi?"
+    }
+   },
+   {
+    "testo": "Wi-Fiルーターのレンタルはどこですか。— ２かいに ありますよ。",
+    "traduzione": {
+     "it": "Dov'è il noleggio del router Wi-Fi? — È al primo piano.",
+     "en": "Where is the Wi-Fi router rental? — It is on the second floor."
+    }
+   }
+  ]
+ },
+ "これは私のパスポートです": {
+  "frasi_esempio": [
+   {
+    "testo": "パスポートを見せてください。— これは私のパスポートです。",
+    "traduzione": {
+     "it": "Mi mostri il passaporto. — Questo è il mio passaporto.",
+     "en": "Mi mostri il passaporto. — Questo è il mio passaporto."
+    }
+   },
+   {
+    "testo": "これは私のパスポートです。どうぞ。",
+    "traduzione": {
+     "it": "Questo è il mio passaporto. Prego.",
+     "en": "This is my passport. Here you are."
+    }
+   }
+  ]
+ },
+ "チェックインカウンターはどこですか": {
+  "frasi_esempio": [
+   {
+    "testo": "チェックインカウンターはどこですか。— あちらです。",
+    "traduzione": {
+     "it": "Dov'è il banco del check-in? — È di là.",
+     "en": "Dov'è il banco del check-in? — È di là."
+    }
+   },
+   {
+    "testo": "チェックインカウンターはどこですか。— ２ばんの カウンターです。",
+    "traduzione": {
+     "it": "Dov'è il banco del check-in? — È il banco numero 2.",
+     "en": "Where is the check-in counter? — It is counter number 2."
+    }
+   }
+  ]
+ },
+ "トイレはどこですか": {
+  "frasi_esempio": [
+   {
+    "testo": "すみません、トイレはどこですか。",
+    "traduzione": {
+     "it": "Scusi, dov'è il bagno?",
+     "en": "Scusi, dov'è il bagno?"
+    }
+   },
+   {
+    "testo": "トイレはどこですか。— あの エレベーターの よこです。",
+    "traduzione": {
+     "it": "Dov'è il bagno? — Accanto a quell'ascensore.",
+     "en": "Where is the restroom? — Next to that elevator."
+    }
+   }
+  ]
  }
 }

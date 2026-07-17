@@ -23,7 +23,9 @@ function stemVariants(scrittura: string, lettura: string): string[] {
 	const bases = [scrittura, lettura]
 		.filter(Boolean)
 		.flatMap((s) => s.split(/[;、]/))
-		.map((s) => s.trim())
+		// 〜 è un segnaposto (〜さんによろしく…): nelle frasi è sostituito da un
+		// nome vero, quindi si confronta la parte dopo il 〜
+		.map((s) => s.trim().replace(/^〜/, ''))
 		.filter(Boolean);
 	const out = new Set(bases);
 	for (const base of bases) {
@@ -42,7 +44,10 @@ describe('word-overrides: frasi d\'esempio', () => {
 				expect(ex.testo, id).toMatch(/[。！？!?]$/);
 				expect(ex.testo.length, `${id}: ${ex.testo}`).toBeGreaterThanOrEqual(5);
 				expect(ex.testo.length, `${id}: ${ex.testo}`).toBeLessThanOrEqual(34);
-				expect(ex.testo, `${id}: caratteri latini`).not.toMatch(/[A-Za-z]/);
+				// il latino è vietato SALVO quando è la parola stessa a contenerlo (Wi-Fiルーター)
+				if (!/[A-Za-z]/.test(id)) {
+					expect(ex.testo, `${id}: caratteri latini`).not.toMatch(/[A-Za-z]/);
+				}
 				expect(ex.testo, `${id}: particella doppia`).not.toMatch(/をを|がが|はは|にに|でで/);
 			}
 		}
