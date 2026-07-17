@@ -10,6 +10,7 @@
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import {
+		createCompositionQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -58,6 +59,37 @@
 	let loading = $state(true);
 
 	const current = $derived(queue[idx] ?? null);
+
+	// ✍️ composizione: banco/risposta a token (come nel quiz)
+	let compBank = $state<string[]>([]);
+	let compAnswer = $state<string[]>([]);
+	$effect(() => {
+		if (current?.mode === 'composition') {
+			compBank = [...current.tokens];
+			compAnswer = [];
+		}
+	});
+	function compPickToken(i: number): void {
+		const t = compBank[i];
+		if (t === undefined || revealed) return;
+		compAnswer = [...compAnswer, t];
+		compBank = compBank.filter((_, j) => j !== i);
+	}
+	function compReturnToken(i: number): void {
+		const t = compAnswer[i];
+		if (t === undefined || revealed) return;
+		compBank = [...compBank, t];
+		compAnswer = compAnswer.filter((_, j) => j !== i);
+	}
+	function compSubmit(): void {
+		if (!current || current.mode !== 'composition' || revealed || compAnswer.length === 0) return;
+		const correct = compAnswer.join('') === current.correctAnswer;
+		picked = compAnswer.join('');
+		revealed = true;
+		score = { ok: score.ok + (correct ? 1 : 0), tot: score.tot + 1 };
+		void recordPractice(correct);
+		speakSentenceJapanese(current.correctAnswer);
+	}
 
 	async function build(): Promise<void> {
 		loading = true;
@@ -280,6 +312,10 @@
 		const qs: QuizQuestion[] = [];
 		qs.push(createMultipleChoiceQuestion(w, context, distractors)); // diretto JP→IT
 		qs.push(createFlashcardRecognitionQuestion(w, locale, distractors, context)); // inverso IT→JP
+		// ✍️ composizione: qui in Consolida si prova SUBITO (nel quiz si sblocca
+		// a parola consolidata, stage 4)
+		const comp = createCompositionQuestion(w, locale, context);
+		if (comp) qs.push(comp);
 		const usage = usageQuestion(w, context); // prova d'uso: parola oscurata nella sua frase
 		if (usage) qs.push(usage);
 		if (w.kanji_usati.length > 0 && w.scrittura !== w.lettura) {
@@ -506,6 +542,25 @@
 			<article class="card">
 				<p class="qmode">{current.mode}</p>
 				<p class="qprompt">{promptOf(current)}</p>
+				{#if current.mode === 'composition'}
+					{#if current.reading}<p class="muted" style="text-align:center;">Lettura: {current.reading}</p>{/if}
+					<div class="choices comp-answer">
+						{#if compAnswer.length === 0}<span class="muted">Componi qui la parola…</span>{/if}
+						{#each compAnswer as tok, i (i)}
+							<button class="choice comp-token" disabled={revealed} onclick={() => compReturnToken(i)}>{tok}</button>
+						{/each}
+					</div>
+					<div class="choices">
+						{#each compBank as tok, i (i)}
+							<button class="choice comp-token" disabled={revealed} onclick={() => compPickToken(i)}>{tok}</button>
+						{/each}
+					</div>
+					{#if !revealed}
+						<button class="next" onclick={compSubmit} disabled={compAnswer.length === 0}>Conferma parola</button>
+					{:else}
+						<p class="muted" style="text-align:center;">{picked === current.correctAnswer ? '✓' : '✗'} {current.correctAnswer}{current.reading ? `（${current.reading}）` : ''}</p>
+					{/if}
+				{:else}
 				<div class="choices">
 					{#each choicesOf(current) as choice (choice)}
 						<button
@@ -517,7 +572,18 @@
 						>{choice}</button>
 					{/each}
 				</div>
+				{/if}
 				{#if revealed}
+					<!-- spiegazione come nel quiz: frase completa, traduzione, forma -->
+					{#if 'fullSentence' in current && current.fullSentence}
+						<p class="explain-jp">{current.fullSentence}</p>
+					{/if}
+					{#if 'translation' in current && current.translation}
+						<p class="explain-it">💬 {current.translation}</p>
+					{/if}
+					{#if current.mode === 'conjugation'}
+						<p class="explain-it">✅ {current.dictionary} → {current.formLabel}: <strong>{current.correctChoice}</strong></p>
+					{/if}
 					<button class="next" onclick={next}>{idx + 1 >= queue.length ? '🔁 Altro giro' : 'Avanti →'}</button>
 				{/if}
 			</article>
@@ -545,6 +611,8 @@
 	.card { background: var(--surface); border-radius: 16px; padding: 20px; box-shadow: 0 2px 10px rgba(14,29,51,0.07); display: grid; gap: 12px; }
 	.qmode { margin: 0; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
 	.qprompt { margin: 0; font-size: 1.5rem; font-weight: 700; text-align: center; }
+	.explain-jp { margin: 0; font-size: 1.05rem; text-align: center; }
+	.explain-it { margin: 0; font-size: 0.85rem; color: var(--muted); text-align: center; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.1rem; text-align: left; cursor: pointer; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }

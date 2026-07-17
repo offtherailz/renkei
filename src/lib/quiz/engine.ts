@@ -301,13 +301,22 @@ export function createMultipleChoiceQuestion(
   const locale = context.locale;
   const correct = pickFirstMeaning(word, locale);
 
-  const distractors = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 6)
+  // «fare: contatto» tra tre glosse "normali" si riconosce dal formato, non
+  // dal significato (e viceversa: un suru-verbo nella domanda ha spesso l'unica
+  // opzione «fare:…»). Se la glossa giusta è un «fare:…», anche i distrattori
+  // devono esserlo — e se non lo è, niente «fare:…» tra i distrattori.
+  const isFare = (v: string) => /^fare\s*:/.test(v);
+  const correctIsFare = isFare(correct);
+  const pool = buildDistractors(word.livello_jlpt, distractorIndex, word.id, 14, {
+    preferSuru: correctIsFare
+  })
     .map((d) => context.wordsById.get(d.id))
     .filter((w): w is Word => Boolean(w))
     .map((w) => pickFirstMeaning(w, locale))
     .filter((value, index, values) => values.indexOf(value) === index)
-    .filter((value) => value !== correct && value.length > 0)
-    .slice(0, 3);
+    .filter((value) => value !== correct && value.length > 0);
+  const sameShape = pool.filter((v) => isFare(v) === correctIsFare);
+  const distractors = (sameShape.length >= 3 ? sameShape : pool).slice(0, 3);
 
   return {
     mode: "multiple-choice",
