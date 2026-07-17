@@ -148,6 +148,14 @@ macchina (niente browser automatizzabile) + questioni aperte.
     fine, TTS, credito a conj:* e gram:*. Da giudicare: distrattori del passo 2 giusti?
     Catene da aggiungere (usare 使役/受身)?
 
+35. **🔀 Coppie difficili** (/coppie, beta, da Giochi) — 8 round a 2 scelte su coppie
+    curate (30 item: famiglia, registro, omofoni あつい/はやい, 切符/切手, 水/湯…); dopo
+    la risposta il perché; il credito va a ENTRAMBE le parole (facet Uso).
+    Da giudicare: item ambigui? altre coppie da aggiungere?
+36. **Choukai copione ricco** (beta) — a fine partita: recap domande con risposta giusta,
+    la tua se sbagliata, battuta-prova con 🔊; ogni battuta del copione riascoltabile
+    con la voce del personaggio.
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):

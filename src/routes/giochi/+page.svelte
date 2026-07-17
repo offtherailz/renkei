@@ -617,6 +617,11 @@
 					<span class="cat-label">Catena di forme <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">食べる→食べられる→食べられない: le forme, un passo alla volta</span>
 				</a>
+				<a class="cat-card" href="{base}/coppie">
+					<span class="cat-icon">🔀</span>
+					<span class="cat-label">Coppie difficili <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>

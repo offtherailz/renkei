@@ -54,6 +54,7 @@
 	let qPicked = $state<number | null>(null);
 	let score = $state(0);
 	let wrongLines = $state<number[]>([]);
+	let answers = $state<number[]>([]); // scelta data per ogni domanda (-1 = tempo)
 	let timeLeft = $state(QUESTION_SECONDS);
 	let ticker: ReturnType<typeof setInterval> | null = null;
 
@@ -63,6 +64,7 @@
 		qIdx = 0;
 		score = 0;
 		wrongLines = [];
+		answers = [];
 		armQuestion();
 	}
 	function armQuestion(): void {
@@ -87,9 +89,18 @@
 		if (qPicked !== null || !run) return;
 		clearTicker();
 		qPicked = i;
+		answers = [...answers, i];
 		const q = run.questions[qIdx]!;
 		if (i === q.correct) score += 1;
 		else if (q.evidenceLine !== undefined) wrongLines = [...wrongLines, q.evidenceLine];
+	}
+
+	// riascolta UNA battuta con la voce del suo personaggio
+	function playLine(i: number): void {
+		if (!run) return;
+		stopSpeaking();
+		const l = run.lines[i]!;
+		void speakDialogue([{ personaggio: l.who, testo: l.text }], 0.95);
 	}
 	function nextQuestion(): void {
 		if (!run) return;
@@ -104,9 +115,10 @@
 	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.
 	// Se eri su una domanda senza risposta, il timer riparte da capo.
 	export const snapshot = gameSnapshot(
-		() => ({ scene, level, run, listens, qIdx, qPicked, score, wrongLines }),
+		() => ({ scene, level, run, listens, qIdx, qPicked, score, wrongLines, answers }),
 		(s) => {
-			({ scene, level, run, listens, qIdx, qPicked, score, wrongLines } = s);
+			({ scene, level, run, listens, qIdx, qPicked, score, wrongLines, answers } = s);
+			if (!answers) answers = []; // snapshot di versioni precedenti
 			playing = false;
 			if (scene === 'quiz' && qPicked === null) armQuestion();
 		}
@@ -186,11 +198,29 @@
 			<p class="score-big">{score} / {run.questions.length}</p>
 			<p class="hint">Ascolti usati: {listens} di {MAX_LISTENS}</p>
 			<div class="transcript">
-				<p class="script-title">📜 Il dialogo (ora puoi leggerlo — tocca le parole)</p>
+				<p class="script-title">❓ Le domande, con le risposte giuste <span class="beta-chip">beta</span></p>
+				{#each run.questions as q, i}
+					{@const mine = answers[i]}
+					<div class="recap" class:ok={mine === q.correct}>
+						<p class="recap-q">{q.q}</p>
+						<p class="recap-a">✅ {q.choices[q.correct]}</p>
+						{#if mine !== undefined && mine !== q.correct}
+							<p class="recap-a wrong-a">✗ la tua: {mine === -1 ? '(tempo scaduto)' : q.choices[mine]}</p>
+						{/if}
+						{#if q.evidenceLine !== undefined && run.lines[q.evidenceLine]}
+							<p class="recap-ev">
+								<button class="tts-mini" onclick={() => playLine(q.evidenceLine!)} title="Riascolta la battuta">🔊</button>
+								la prova: «{run.lines[q.evidenceLine]!.text}»
+							</p>
+						{/if}
+					</div>
+				{/each}
+				<p class="script-title">📜 Il dialogo (riascolta ogni battuta — tocca le parole)</p>
 				{#each run.lines as l, i}
 					<div class="line {l.who}" class:missed={wrongLines.includes(i)}>
 						<span class="line-who">{l.who === 'M' ? '👨' : '👩'}</span>
 						<InteractiveSentence text={l.text} />
+						<button class="tts-mini line-tts" onclick={() => playLine(i)} title="Riascolta">🔊</button>
 					</div>
 				{/each}
 				{#if wrongLines.length > 0}
@@ -243,6 +273,19 @@
 	.line.M { border-left-color: var(--brand); }
 	.line.missed { background: rgba(245, 158, 11, 0.18); }
 	.line-who { font-size: 1rem; }
+	.line-tts { margin-left: auto; }
+	.tts-mini { border: none; background: none; cursor: pointer; font-size: 0.95rem; padding: 0 4px; }
+	.beta-chip {
+		font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+		color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border);
+		border-radius: 999px; padding: 1px 7px; vertical-align: middle;
+	}
+	.recap { display: grid; gap: 4px; padding: 8px 12px; border-radius: 10px; background: var(--surface-2); border-left: 3px solid var(--danger); }
+	.recap.ok { border-left-color: var(--success); }
+	.recap-q { margin: 0; font-size: 0.88rem; font-weight: 700; }
+	.recap-a { margin: 0; font-size: 0.85rem; color: var(--success); }
+	.recap-a.wrong-a { color: var(--danger); }
+	.recap-ev { margin: 0; font-size: 0.82rem; color: var(--muted); display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
 	.result-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; align-items: center; }
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
