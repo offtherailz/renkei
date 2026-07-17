@@ -60,12 +60,24 @@ Per OGNI item, prima del rilascio:
    curatela famiglia umile/onorifico negli overrides (19 voci: 妻↔奥さん, 夫↔ご主人,
    父母/お父さん・お母さん, fratelli 兄弟, 娘↔お嬢さん, お宅↔家/うち) — le false sinonimie
    spostate in correlati, seed v59. I generatori NON usano i correlati come sinonimi.
-3. 20 parole nuove proposte (report frasi-propedeutiche sez.1: 信号, 屋根, 咳, スリッパ, partner
-   自/他 届く/減る/増やす/…, vita moderna スマホ/電子レンジ/…).
+3. ✅ (17/07) 20 parole nuove aggiunte (seed v60) + partner 自/他 collegati bidirezionali;
+   mergeCuratedWords esteso (esempi multipli + campi verbo/relazioni). Poi (v61): frasi-aeroporto
+   慣用表現 tolte dal mazzo SRS e ricollocate in Frasi utili; `applySeedMigrations` rimuove dai
+   dispositivi le voci rinominate/fuse/rimosse (bulkPut non elimina) e migra il progresso SRS.
 4. Pagine annidate /forme/[slug] e /particelle/[slug] (contenuto esaustivo, indice snello).
-5. Migliorie parcheggiate: completamento piano di oggi, furigana toggle, avverbi, copione
-   choukai ricco, frasi-aeroporto 慣用表現 da ricollocare, sotto-celle riconoscere/usare.
-6. Blocchi B (くれる full-kana pende? verificare, label formLabel già mitigata), D1-D3, E.
+   ← PROSSIMO CANDIDATO se si vuole, ma valore marginale (l'indice ancorato attuale funziona).
+5. Migliorie parcheggiate: completamento piano di oggi, ✅ furigana toggle fase 1, avverbi,
+   copione choukai ricco, ✅ frasi-aeroporto ricollocate, sotto-celle riconoscere/usare,
+   ✅ RSVP pesato per kanji, ✅ rename «Attività». NUOVE ATTIVITÀ da progettare (osservazioni
+   17/07 in coda a questo file): lettura ad alta voce assistita (furigana→senza→mic; il toggle
+   fase 1 c'è già), dettato da ascolto.
+6. Blocchi B: ✅ B1 verificato chiuso, ✅ B2 mitigato, ✅ B4 fatto; B3 → collaudo insegnante.
+   D1-D3, E ancora aperti.
+
+**Stato deploy (17/07):** tutto su STAGING (gh-pages, ultimo `58a2c52`); **PROD MAI toccata**
+in questa sessione — aspetta l'OK dopo le verifiche in plans/2026-07-17-verifiche-propedeutiche.md.
+Seed a v61. Commit su main: 12 di questa sessione (propedeutiche 自他/keigo/forma, correlati,
+20 parole, pulizia aeroporto+migrazioni, RSVP, rename, furigana toggle).
 
 ---
 
@@ -177,9 +189,13 @@ Dettaglio soglie/peso/`gram:*` in `2026-07-16-catalogo-costruzioni-e-facetof.md`
 
 ### Blocco B — Bug e correzioni dati (intercalabili tra le fasi di A)
 Da `2026-07-15-note-utente-quiz-e-dati.md`:
-- **B1** — bug くれる: lettura già svelata quando `scrittura==lettura` (full-kana).
-- **B2** — bug `formLabel` che suggerisce la risposta (causativo/passivo, «fare:» ambiguo).
+- **B1** — ✅ VERIFICATO CHIUSO (17/07): `applicableFacets` dà `facet_form_read` solo se
+  `scrittura !== lettura`, doppia guardia in `pickWordMode` e in `buildWordQuestions` (consolida).
+  I full-kana (くれる, それほど) non ricevono mai reading-recognition. Nessun call site scoperto.
+- **B2** — ✅ mitigato: `createConjugationQuizQuestion` toglie le desinenze esplicite dal
+  `formLabel` (`.replace` di 〜… tra parentesi). Le glosse «fare:» ambigue sono già gestite.
 - **B3** — correzioni dati negli **overrides**: 都合↔便利 sinonimi, 申し上げる come keigo.
+  ⚠️ Territorio insegnante (都合≠便利 come sinonimi è dubbio): lasciato al collaudo insegnante virtuale.
 - **B4** — **spezzare 回る、回す** (16/07): voce unica dalla fonte (allenlu2009), in realtà due verbi
   (coppia 自/他!) con lettura doppia e transitività errata. Serve un passo di pipeline (split a prova
   di sync, gli overrides non aggiungono/rimuovono voci) + fix del seed committato + cross-link
