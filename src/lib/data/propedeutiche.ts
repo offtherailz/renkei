@@ -68,6 +68,7 @@ export function curatedToQuestion(item: CuratedItem): UsageClozeQuestion {
 		fullSentence: item.frase_con_buco.replace(/[＿_]+/, item.corretta),
 		translation: item.traduzione_it,
 		explanation: item.perche,
+		gram: item.gram,
 		choices: shuffle([item.corretta, ...item.distrattori]),
 		correctChoice: item.corretta
 	};

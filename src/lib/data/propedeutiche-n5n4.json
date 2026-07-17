@@ -748,6 +748,240 @@
    ],
    "perche": "すぎる si attacca alla radice ます (食べ+すぎる).",
    "traduzione_it": "Ieri sera ho mangiato troppo e mi fa male la pancia."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "富士山に ＿＿ことが ありますか。",
+   "corretta": "登った",
+   "parola": "登る",
+   "gram": "ta-koto-ga-aru",
+   "distrattori": [
+    "登って",
+    "登ります"
+   ],
+   "perche": "Esperienza di vita → たことがある: serve la forma た (登った).",
+   "traduzione_it": "Sei mai salito sul monte Fuji?"
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "子どもの とき、この 公園で ＿＿ことが あります。",
+   "corretta": "遊んだ",
+   "parola": "遊ぶ",
+   "gram": "ta-koto-ga-aru",
+   "distrattori": [
+    "遊んで",
+    "遊びます"
+   ],
+   "perche": "子どものとき (passato) + esperienza → 遊んだことがある.",
+   "traduzione_it": "Da bambino ho giocato in questo parco."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "夏休みに 国へ ＿＿つもりです。",
+   "corretta": "帰る",
+   "parola": "帰る",
+   "gram": "tsumori",
+   "distrattori": [
+    "帰って",
+    "帰ります"
+   ],
+   "perche": "つもり vuole la forma dizionario (帰る).",
+   "traduzione_it": "Per le vacanze estive ho intenzione di tornare al mio paese."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "あしたの ばん、映画を ＿＿つもりです。",
+   "corretta": "見る",
+   "parola": "見る",
+   "gram": "tsumori",
+   "distrattori": [
+    "見て",
+    "見ます"
+   ],
+   "perche": "つもり si aggancia solo alla forma dizionario (見る).",
+   "traduzione_it": "Domani sera ho intenzione di vedere un film."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "つかれたので、早く ＿＿たいです。",
+   "corretta": "休み",
+   "parola": "休む",
+   "gram": "tai",
+   "distrattori": [
+    "休む",
+    "休んで"
+   ],
+   "perche": "たい si attacca alla radice ます (休み).",
+   "traduzione_it": "Sono stanco, quindi vorrei riposarmi presto."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "母の たんじょうびに ケーキを ＿＿たいです。",
+   "corretta": "作り",
+   "parola": "作る",
+   "gram": "tai",
+   "distrattori": [
+    "作る",
+    "作って"
+   ],
+   "perche": "たい vuole la radice ます (作り), mai 作る/作って.",
+   "traduzione_it": "Per il compleanno di mia madre vorrei fare una torta."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "コーヒーを ＿＿ながら、新聞を 読みます。",
+   "corretta": "飲み",
+   "parola": "飲む",
+   "gram": "nagara",
+   "distrattori": [
+    "飲む",
+    "飲んで"
+   ],
+   "perche": "ながら si attacca alla radice ます (飲み).",
+   "traduzione_it": "Leggo il giornale bevendo il caffè."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "歌を ＿＿ながら、そうじを します。",
+   "corretta": "歌い",
+   "parola": "歌う",
+   "gram": "nagara",
+   "distrattori": [
+    "歌う",
+    "歌って"
+   ],
+   "perche": "ながら vuole la radice ます (歌い).",
+   "traduzione_it": "Faccio le pulizie cantando."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "あしたは 六時に ＿＿なければ なりません。",
+   "corretta": "起き",
+   "parola": "起きる",
+   "gram": "nakereba",
+   "distrattori": [
+    "起きる",
+    "起きて"
+   ],
+   "perche": "なければ si forma dalla negativa: 起き+なければ; 起きる/起きて impossibili.",
+   "traduzione_it": "Domani devo alzarmi alle sei."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "金曜日までに レポートを ＿＿なければ なりません。",
+   "corretta": "出さ",
+   "parola": "出す",
+   "gram": "nakereba",
+   "distrattori": [
+    "出す",
+    "出して"
+   ],
+   "perche": "なければ dalla negativa dei godan: 出さ+なければ.",
+   "traduzione_it": "Devo consegnare la relazione entro venerdì."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "兄は 今、電話で ＿＿います。",
+   "corretta": "話して",
+   "parola": "話す",
+   "gram": "te-iru",
+   "distrattori": [
+    "話す",
+    "話し"
+   ],
+   "perche": "Azione in corso (今) → ている: solo la forma て (話して).",
+   "traduzione_it": "Mio fratello ora sta parlando al telefono."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "子どもたちは 公園で ＿＿います。",
+   "corretta": "遊んで",
+   "parola": "遊ぶ",
+   "gram": "te-iru",
+   "distrattori": [
+    "遊ぶ",
+    "遊び"
+   ],
+   "perche": "ている vuole la forma て (遊んで).",
+   "traduzione_it": "I bambini stanno giocando al parco."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "かぜですか。薬を ＿＿ほうが いいですよ。",
+   "corretta": "飲んだ",
+   "parola": "飲む",
+   "gram": "hou-ga-ii",
+   "distrattori": [
+    "飲んで",
+    "飲みます"
+   ],
+   "perche": "Consiglio → たほうがいい: serve la forma た (飲んだ).",
+   "traduzione_it": "Hai il raffreddore? È meglio che prenda una medicina."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "あぶないですから、夜 ひとりで ＿＿ないほうが いいです。",
+   "corretta": "出かけ",
+   "parola": "出かける",
+   "gram": "hou-ga-ii",
+   "distrattori": [
+    "出かける",
+    "出かけて"
+   ],
+   "perche": "〜ないほうがいい: la negativa si forma dalla base 出かけ+ない.",
+   "traduzione_it": "È pericoloso, quindi è meglio non uscire da soli la sera."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "漢字を 少し ＿＿ことが できます。",
+   "corretta": "書く",
+   "parola": "書く",
+   "gram": "kanou",
+   "distrattori": [
+    "書いて",
+    "書いた"
+   ],
+   "perche": "ことができる vuole la forma dizionario (書く).",
+   "traduzione_it": "So scrivere un po di kanji."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "ここでは 車を ＿＿ことが できません。",
+   "corretta": "止める",
+   "parola": "止める::とめる",
+   "gram": "kanou",
+   "distrattori": [
+    "止めて",
+    "止めた"
+   ],
+   "perche": "ことができる/できません vuole la forma dizionario (止める).",
+   "traduzione_it": "Qui non si può parcheggiare."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "きのうの ばん、おさけを ＿＿すぎました。",
+   "corretta": "飲み",
+   "parola": "飲む",
+   "gram": "sugiru",
+   "distrattori": [
+    "飲む",
+    "飲んで"
+   ],
+   "perche": "すぎる si attacca alla radice ます (飲み+すぎる).",
+   "traduzione_it": "Ieri sera ho bevuto troppo."
+  },
+  {
+   "tipo": "forma-contesto",
+   "frase_con_buco": "テレビを ＿＿すぎないで ください。",
+   "corretta": "見",
+   "parola": "見る",
+   "gram": "sugiru",
+   "distrattori": [
+    "見る",
+    "見て"
+   ],
+   "perche": "すぎる vuole la radice ます: 見+すぎる.",
+   "traduzione_it": "Non guardare troppo la TV."
   }
  ]
 }

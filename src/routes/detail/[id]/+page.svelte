@@ -43,6 +43,7 @@
 	let antonyms = $state<Word[]>([]);
 	let homophones = $state<Word[]>([]);
 	let related = $state<Word[]>([]);
+	let paraphrases = $state<Word[]>([]);
 	let kanjiUsed = $state<Kanji[]>([]);
 	let kanjiMissing = $state<string[]>([]);
 
@@ -186,7 +187,7 @@
 	async function loadItem(): Promise<void> {
 		loading = true;
 		word = null; kanji = null; grammar = null; wordSrs = null;
-		synonyms = []; antonyms = []; homophones = []; related = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
+		synonyms = []; antonyms = []; homophones = []; related = []; paraphrases = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 		keigoEntry = null; keigoRole = null; keigoPlainWord = null; keigoSonkeigoWord = null; keigoKenjougoWord = null;
 
@@ -208,12 +209,13 @@
 				if (word) {
 					const resolve = (ids: string[]) =>
 						Promise.all(ids.slice(0, 8).map((id) => db.words.get(id))).then((r) => r.filter((w): w is Word => !!w));
-					const [srs, syn, ant, homo, rel, kanjiItems, grammarItems] = await Promise.all([
+					const [srs, syn, ant, homo, rel, para, kanjiItems, grammarItems] = await Promise.all([
 						db.srs_progress.get(`word:${currentRawId}`),
 						resolve(word.sinonimi ?? []),
 						resolve(word.contrari ?? []),
 						resolve(word.omofoni ?? []),
 						resolve(word.correlati ?? []),
+						resolve(word.parafrasi ?? []),
 						Promise.all(word.kanji_usati.map((k) => db.kanji.get(k))),
 						db.grammar.where('frasi_esempio_parole_linkate').equals(currentRawId).toArray()
 					]);
@@ -221,6 +223,7 @@
 					antonyms = ant;
 					homophones = homo;
 					related = rel;
+					paraphrases = para;
 					kanjiUsed = kanjiItems.filter((k): k is Kanji => !!k);
 					// kanji citati dalla parola ma fuori dal catalogo N5/N4 (es. 交差点):
 					// si mostrano lo stesso, con link esterno.
@@ -554,6 +557,7 @@
 		{/snippet}
 
 		{@render relCard('Sinonimi', synonyms)}
+		{@render relCard('Significato simile (言い換え)', paraphrases)}
 		{@render relCard('Contrari', antonyms)}
 		{@render relCard('Correlati (legati, non interscambiabili)', related)}
 		{@render relCard('Omofoni (stessa lettura)', homophones)}

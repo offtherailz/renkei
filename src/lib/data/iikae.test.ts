@@ -27,9 +27,11 @@ describe('dataset 言い換え', () => {
 		}
 	});
 
-	it('i sinonimi dei gruppi sono collegati bidirezionalmente nel seed', () => {
+	// I gruppi vivono nel campo dedicato `parafrasi` (17/07): equivalenti a
+	// livello di frase, distinti dai sinonimi lessicali interscambiabili.
+	it('le parole dei gruppi sono collegate come parafrasi bidirezionali nel seed', () => {
 		const byForm = new Map(
-			seed.words.flatMap((w: { scrittura: string; lettura?: string; sinonimi?: string[] }) => {
+			seed.words.flatMap((w: { scrittura: string; lettura?: string; parafrasi?: string[] }) => {
 				const entries: [string, typeof w][] = [[w.scrittura, w]];
 				if (w.lettura) entries.push([w.lettura, w]);
 				return entries;
@@ -41,7 +43,7 @@ describe('dataset 言い換え', () => {
 				for (const other of words) {
 					if (other === w) continue;
 					expect(
-						(w!.sinonimi ?? []).includes(other!.scrittura),
+						(w!.parafrasi ?? []).includes(other!.scrittura),
 						`${w!.scrittura} non collega ${other!.scrittura}`
 					).toBe(true);
 				}

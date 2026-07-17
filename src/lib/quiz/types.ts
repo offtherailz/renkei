@@ -70,6 +70,9 @@ export interface UsageClozeQuestion {
   translation: string;
   // «perché è giusta» (solo per le domande curate dall'insegnante)
   explanation?: string;
+  // slug della costruzione (item curati forma-contesto): la risposta accredita
+  // anche gram:<slug> come pratica, oltre alla parola (doppio incremento).
+  gram?: string;
   choices: string[];
   correctChoice: string;
 }

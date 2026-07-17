@@ -152,8 +152,10 @@ describe("controlli utente sullo scheduling (La so già / Rimanda / Seppellisci)
 	});
 
 	it("snoozeReview: spinge il ripasso di N giorni senza toccare stage/mastery", () => {
+		// tempo fisso: con Date.now() la createInitialSrs interna cadeva sul
+		// millisecondo successivo e il confronto falliva a caso (flaky)
 		const now = Date.now();
-		const base = createInitialSrs("word:x");
+		const base = createInitialSrs("word:x", now);
 		const snoozed = snoozeReview(base, 3, now);
 		expect(snoozed.next_review_date).toBe(now + 3 * 24 * 60 * 60_000);
 		expect(snoozed.srs_stage).toBe(base.srs_stage);

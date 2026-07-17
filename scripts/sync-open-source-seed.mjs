@@ -41,8 +41,9 @@ const KANJI_LEVEL_SOURCE_URLS = {
   N1: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/kanji/n1.json"
 };
 
-// Gruppi 言い換え curati: parole equivalenti collegate come sinonimi in modo
-// bidirezionale (JMdict ha xref sparsi: 美しい↔綺麗 ad es. manca).
+// Gruppi 言い換え curati: parole equivalenti a livello di FRASE, collegate
+// bidirezionalmente nel campo dedicato `parafrasi` (deciso 17/07: non sono
+// sinonimi lessicali — 大変≈難しい vale nella frase, non parola-per-parola).
 async function applyIikaeGroups(words) {
   let curated;
   try {
@@ -54,9 +55,9 @@ async function applyIikaeGroups(words) {
   for (const gruppo of curated.gruppi ?? []) {
     const linked = gruppo.parole.map(find).filter(Boolean);
     for (const word of linked) {
-      word.sinonimi = word.sinonimi ?? [];
+      word.parafrasi = word.parafrasi ?? [];
       for (const other of linked) {
-        if (other !== word && !word.sinonimi.includes(other.scrittura)) word.sinonimi.push(other.scrittura);
+        if (other !== word && !word.parafrasi.includes(other.scrittura)) word.parafrasi.push(other.scrittura);
       }
     }
   }

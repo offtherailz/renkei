@@ -67,6 +67,10 @@ export interface Word extends BaseEntity {
   // Parole legate ma NON interscambiabili (妻↔奥さん, 兄↔弟): navigazione e
   // studio del contrasto, mai usate come sinonimi nelle domande.
   correlati?: string[];
+  // Gruppi 言い換え (parafrasi stile JLPT: 大変≈難しい, 全部≈みんな): equivalenti
+  // a livello di FRASE, non sinonimi lessicali. Alimentano il gioco /iikae e la
+  // scheda; distinti dai sinonimi (che restano interscambiabili parola-per-parola).
+  parafrasi?: string[];
 }
 
 // Correzione utente a una voce del catalogo: patch parziale che si applica

@@ -1084,10 +1084,7 @@
     "whole"
    ]
   },
-  "sinonimi": [
-   "みんな",
-   "皆"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "沢山": {
@@ -1117,10 +1114,7 @@
     "much"
    ]
   },
-  "sinonimi": [
-   "いっぱい",
-   "大勢"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "締める": {
@@ -2280,9 +2274,7 @@
     "dining hall"
    ]
   },
-  "sinonimi": [
-   "レストラン"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "水": {
@@ -2674,9 +2666,7 @@
     "employment"
    ]
   },
-  "sinonimi": [
-   "働く"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "仕事する": {
@@ -3246,10 +3236,7 @@
     "everybody"
    ]
   },
-  "sinonimi": [
-   "皆",
-   "全部"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "もっと": {
@@ -3499,9 +3486,7 @@
     "to return"
    ]
   },
-  "sinonimi": [
-   "戻る"
-  ],
+  "sinonimi": [],
   "contrari": [
    "行く",
    "出かける"
@@ -4017,9 +4002,7 @@
     "to close"
    ]
   },
-  "sinonimi": [
-   "済む"
-  ],
+  "sinonimi": [],
   "contrari": [
    "始まる"
   ],
@@ -4283,9 +4266,7 @@
     "hard"
    ]
   },
-  "sinonimi": [
-   "難しい"
-  ]
+  "sinonimi": []
  },
  "茶碗": {
   "frasi_esempio": [
@@ -6288,9 +6269,7 @@
     "restaurant"
    ]
   },
-  "sinonimi": [
-   "食堂"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "易しい": {
@@ -6859,9 +6838,7 @@
     "student"
    ]
   },
-  "sinonimi": [
-   "生徒"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "楽しい": {
@@ -6891,9 +6868,7 @@
     "fun"
    ]
   },
-  "sinonimi": [
-   "面白い"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "寒い": {
@@ -7005,9 +6980,7 @@
     "powerful"
    ]
   },
-  "sinonimi": [
-   "丈夫"
-  ],
+  "sinonimi": [],
   "contrari": [
    "弱い"
   ],
@@ -8404,9 +8377,7 @@
     "durable"
    ]
   },
-  "sinonimi": [
-   "強い"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "乗る": {
@@ -8692,9 +8663,7 @@
     "pupil"
    ]
   },
-  "sinonimi": [
-   "学生"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "西": {
@@ -12025,9 +11994,7 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "話す"
-  ],
+  "sinonimi": [],
   "contrari": [],
   "correlati": [
    "申す",
@@ -12848,9 +12815,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "たまに"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "時間": {
@@ -13888,9 +13853,7 @@
     "Everything is under control"
    ]
   },
-  "sinonimi": [
-   "安全"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "大人": {
@@ -13945,10 +13908,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "沢山",
-   "いっぱい"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "大切": {
@@ -14894,9 +14854,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "返事"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "頭": {
@@ -14918,9 +14876,7 @@
     "to work"
    ]
   },
-  "sinonimi": [
-   "仕事"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "動物": {
@@ -15092,9 +15048,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "大変"
-  ],
+  "sinonimi": [],
   "contrari": [
    "易しい",
    "簡単"
@@ -15405,9 +15359,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "買う"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "買う": {
@@ -15435,9 +15387,7 @@
     }
    }
   ],
-  "sinonimi": [
-   "買い物"
-  ],
+  "sinonimi": [],
   "contrari": [
    "売る"
   ],
@@ -16780,9 +16730,7 @@
     "amusing"
    ]
   },
-  "sinonimi": [
-   "楽しい"
-  ],
+  "sinonimi": [],
   "contrari": [
    "つまらない"
   ],
@@ -17540,9 +17488,7 @@
     "to speak"
    ]
   },
-  "sinonimi": [
-   "言う"
-  ],
+  "sinonimi": [],
   "correlati": []
  },
  "綺麗": {
@@ -17664,13 +17610,12 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "申し上げる",
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "くれる",
+   "もらう",
    "差し上げる"
-  ],
-  "contrari": [
-   "下げる"
   ]
  },
  "アジア": {
@@ -17922,10 +17867,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "もらう"
-  ],
-  "contrari": []
+  ]
  },
  "いっぱい": {
   "significato": {
@@ -17969,12 +17915,14 @@
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
   "sinonimi": [
-   "おいでになる",
+   "おいでになる"
+  ],
+  "contrari": [],
+  "correlati": [
    "行く",
    "来る",
    "居る"
-  ],
-  "contrari": []
+  ]
  },
  "うそ": {
   "significato": {
@@ -18070,10 +18018,7 @@
    }
   ],
   "tipo_jp": "感動詞[かんどうし]",
-  "sinonimi": [
-   "よろしい",
-   "大丈夫"
-  ],
+  "sinonimi": [],
   "contrari": []
  },
  "エスカレーター": {
@@ -18240,10 +18185,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "言う"
-  ],
-  "contrari": []
+  ]
  },
  "おつり": {
   "significato": {
@@ -18325,10 +18271,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "居る"
-  ],
-  "contrari": []
+  ]
  },
  "お金持ち": {
   "significato": {
@@ -18839,10 +18786,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "くれる"
-  ],
-  "contrari": []
+  ]
  },
  "くれる": {
   "significato": {
@@ -18873,11 +18821,12 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "あげる",
    "くださる"
-  ],
-  "contrari": []
+  ]
  },
  "ケーキ": {
   "significato": {
@@ -19871,6 +19820,10 @@
      "en": "It's almost lunchtime."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "段々"
   ]
  },
  "そんな": {
@@ -20064,6 +20017,9 @@
      "en": "This book is not interesting at all."
     }
    }
+  ],
+  "sinonimi": [
+   "全然"
   ]
  },
  "つもり": {
@@ -20199,6 +20155,10 @@
      "en": "At last it started to snow."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "やっと"
   ]
  },
  "どんどん": {
@@ -20256,10 +20216,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "する"
-  ],
-  "contrari": []
+  ]
  },
  "なるべく": {
   "significato": {
@@ -20840,7 +20801,8 @@
      "en": "Of course you can come too."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "もらう": {
   "significato": {
@@ -20869,10 +20831,12 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
+   "あげる",
    "いただく"
-  ],
-  "contrari": []
+  ]
  },
  "やっと": {
   "significato": {
@@ -20900,6 +20864,10 @@
      "en": "I finally became able to read kanji."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "とうとう"
   ]
  },
  "やはり; やっぱり": {
@@ -20959,6 +20927,9 @@
      "en": "Is this seat all right for you?"
     }
    }
+  ],
+  "sinonimi": [
+   "いい; よい"
   ]
  },
  "レジ": {
@@ -21077,7 +21048,12 @@
      "en": "Please flee to a safe place."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "危険"
+  ],
+  "correlati": []
  },
  "案内": {
   "significato": {
@@ -21133,6 +21109,13 @@
      "en": "Children five and under cannot enter this pool."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "以上"
+  ],
+  "correlati": [
+   "以内"
   ]
  },
  "以外": {
@@ -21174,7 +21157,11 @@
     "more than",
     "this is all"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "以下"
+  ]
  },
  "以内": {
   "significato": {
@@ -21202,6 +21189,10 @@
      "en": "I will arrive within thirty minutes."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "以下"
   ]
  },
  "意見": {
@@ -21370,7 +21361,8 @@
      "en": "I practiced my hardest and won the match."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "一度": {
   "significato": {
@@ -21397,7 +21389,8 @@
      "en": "Please say it once more."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "引き出し": {
   "significato": {
@@ -21911,6 +21904,10 @@
      "en": "We made a fire at the campsite."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "火事"
   ]
  },
  "火事": {
@@ -21937,6 +21934,10 @@
      "en": "In case of fire, do not use the elevator."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "火"
   ]
  },
  "花見": {
@@ -22122,6 +22123,11 @@
      "en": "They will tear down the old house and build a new one."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "割れる",
+   "折れる"
   ]
  },
  "壊れる": {
@@ -22216,6 +22222,12 @@
      "en": "I opened a new shop in front of the station."
     }
    }
+  ],
+  "sinonimi": [
+   "開く-あく"
+  ],
+  "correlati": [
+   "空く::あく"
   ]
  },
  "確か": {
@@ -22301,7 +22313,11 @@
     }
    }
   ],
-  "id_verbo_corrispondente": "割る"
+  "id_verbo_corrispondente": "割る",
+  "sinonimi": [],
+  "correlati": [
+   "折れる"
+  ]
  },
  "割合": {
   "significato": {
@@ -22768,6 +22784,10 @@
      "en": "I understand his feelings well."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "気分"
   ]
  },
  "気分": {
@@ -22796,6 +22816,10 @@
      "en": "Taking a walk improves my mood."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "気持ち"
   ]
  },
  "汽車": {
@@ -23068,6 +23092,10 @@
      "en": "If you take the express, you'll arrive in thirty minutes."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "特急"
   ]
  },
  "泣く": {
@@ -23365,6 +23393,11 @@
      "en": "The box has become empty."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "開く-あく",
+   "開く-ひらく"
   ]
  },
  "空く::すく": {
@@ -23636,6 +23669,10 @@
      "en": "It is going according to plan."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "予定"
   ]
  },
  "警察": {
@@ -23905,6 +23942,10 @@
      "en": "I presented the results of the research."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "勉強"
   ]
  },
  "研究室": {
@@ -24599,6 +24640,11 @@
      "en": "This high school is famous for baseball."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "中学校",
+   "高校生"
   ]
  },
  "高校生": {
@@ -24625,6 +24671,11 @@
      "en": "In high school I was in the tennis club."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "高校; 高等学校",
+   "大学生"
   ]
  },
  "合う": {
@@ -24704,7 +24755,8 @@
     "one of these days",
     "next time"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "今夜": {
   "significato": {
@@ -24745,10 +24797,11 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "あげる"
-  ],
-  "contrari": []
+  ]
  },
  "砂": {
   "significato": {
@@ -24800,6 +24853,10 @@
      "en": "I'm going back to Japan the month after next."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "来月"
   ]
  },
  "再来週": {
@@ -24826,6 +24883,10 @@
      "en": "The new course starts the week after next."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "来週"
   ]
  },
  "最も": {
@@ -25025,6 +25086,10 @@
      "en": "The explanation was thorough down to the details."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "小さい"
   ]
  },
  "坂": {
@@ -25066,11 +25131,12 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "行く",
    "来る"
-  ],
-  "contrari": []
+  ]
  },
  "産業": {
   "significato": {
@@ -25190,7 +25256,8 @@
     "聞く (きく) and 来る (くる)"
    ]
   },
-  "sinonimi": [
+  "sinonimi": [],
+  "correlati": [
    "聞く",
    "行く"
   ]
@@ -26133,7 +26200,9 @@
      "en": "My friend left and I felt lonely."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "取り替える": {
   "significato": {
@@ -26280,7 +26349,8 @@
      "en": "Next week I will take the Japanese exam."
     }
    }
-  ]
+  ],
+  "contrari": []
  },
  "受付": {
   "significato": {
@@ -26437,7 +26507,8 @@
      "en": "Many people gathered at the festival."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "集める": {
   "significato": {
@@ -26467,7 +26538,8 @@
      "en": "I collect coins from around the world."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "住所": {
   "significato": {
@@ -26731,11 +26803,12 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "食べる",
    "飲む"
-  ],
-  "contrari": []
+  ]
  },
  "将来": {
   "significato": {
@@ -27050,7 +27123,8 @@
      "en": "Let's transfer to the express at the next station."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "乗り物": {
   "significato": {
@@ -27468,10 +27542,12 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "言う"
-  ],
-  "contrari": []
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
+   "言う",
+   "申す"
+  ]
  },
  "申す": {
   "significato": {
@@ -27501,10 +27577,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "言う"
-  ],
-  "contrari": []
+  ]
  },
  "真中": {
   "significato": {
@@ -27931,7 +28008,8 @@
      "en": "If you come to Japan, please be sure to contact me."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "凄い": {
   "significato": {
@@ -28392,6 +28470,10 @@
      "en": "A tree branch broke because of the typhoon."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "割れる"
   ]
  },
  "説明": {
@@ -28621,6 +28703,10 @@
      "en": "My grandfather grows vegetables in the field."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "おじいさん"
   ]
  },
  "祖母": {
@@ -28647,6 +28733,10 @@
      "en": "I heard stories of the old days from my grandmother."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "おばあさん"
   ]
  },
  "素晴らしい": {
@@ -28766,7 +28856,8 @@
     "to send",
     "to dispatch"
    ]
-  }
+  },
+  "contrari": []
  },
  "騒ぐ": {
   "significato": {
@@ -29144,6 +29235,10 @@
      "en": "When I was a university student, I went to Japan."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "大学"
   ]
  },
  "大事": {
@@ -29215,7 +29310,9 @@
      "en": "I usually eat dinner at home."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "大分": {
   "significato": {
@@ -29301,6 +29398,10 @@
      "en": "I am looking for a part-time job."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "調べる"
   ]
  },
  "暖房": {
@@ -29358,8 +29459,7 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [
-   "男",
-   "人"
+   "男"
   ],
   "contrari": [
    "女性"
@@ -29525,10 +29625,11 @@
   ],
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "する"
-  ],
-  "contrari": []
+  ]
  },
  "遅れる": {
   "significato": {
@@ -29614,7 +29715,8 @@
      "en": "The bus just won't come."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "中学校": {
   "significato": {
@@ -29640,6 +29742,10 @@
      "en": "My son attends junior high school."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "高校; 高等学校"
   ]
  },
  "昼間": {
@@ -29667,7 +29773,8 @@
      "en": "During the day I'm at work and not at home."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "昼休み": {
   "significato": {
@@ -29860,6 +29967,10 @@
      "en": "I'll check the train times in advance."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "探す"
   ]
  },
  "直す": {
@@ -30316,6 +30427,10 @@
      "en": "The light burned out, so I replaced it."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "電気"
   ]
  },
  "電報": {
@@ -30493,7 +30608,8 @@
     }
    }
   ],
-  "id_verbo_corrispondente": "倒す"
+  "id_verbo_corrispondente": "倒す",
+  "sinonimi": []
  },
  "島": {
   "significato": {
@@ -30600,6 +30716,10 @@
      "en": "I washed myself slowly with hot water."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "水"
   ]
  },
  "答": {
@@ -30801,6 +30921,10 @@
      "en": "By limited express, you arrive in an hour."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "急行"
   ]
  },
  "特別": {
@@ -30867,7 +30991,14 @@
     "within",
     "inside"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "外::そと"
+  ],
+  "correlati": [
+   "以内"
+  ]
  },
  "匂い": {
   "significato": {
@@ -31238,6 +31369,10 @@
      "en": "The wind messed up my hair."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "毛"
   ]
  },
  "反対": {
@@ -31321,6 +31456,10 @@
      "en": "He is a person who keeps his promises."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "彼女"
   ]
  },
  "彼ら": {
@@ -31375,6 +31514,10 @@
      "en": "She can speak three languages."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "彼"
   ]
  },
  "悲しい": {
@@ -31402,7 +31545,12 @@
      "en": "I heard sad news."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "うれしい"
+  ],
+  "correlati": []
  },
  "比べる": {
   "significato": {
@@ -31755,7 +31903,13 @@
     "common",
     "usual"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "特別",
+   "珍しい"
+  ],
+  "correlati": []
  },
  "負ける": {
   "significato": {
@@ -31901,7 +32055,8 @@
      "en": "I heated up the bath in advance."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "沸く": {
   "significato": {
@@ -31929,7 +32084,8 @@
      "en": "When the water boils, I'll make tea."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "文化": {
   "significato": {
@@ -32186,7 +32342,8 @@
      "en": "I rearranged the furniture in the room."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "変わる": {
   "significato": {
@@ -32200,7 +32357,8 @@
     "to vary"
    ]
   },
-  "id_verbo_corrispondente": "変える"
+  "id_verbo_corrispondente": "変える",
+  "sinonimi": []
  },
  "片付ける": {
   "significato": {
@@ -32239,7 +32397,12 @@
      "en": "I wrote a reply to the letter."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "質問"
+  ],
+  "correlati": []
  },
  "捕まえる": {
   "significato": {
@@ -32683,6 +32846,10 @@
      "en": "I slept eight hours last night."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "寝る"
   ]
  },
  "夢": {
@@ -32866,6 +33033,10 @@
      "en": "There is cat hair on the sweater."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "髪"
   ]
  },
  "木綿": {
@@ -32919,7 +33090,12 @@
      "en": "I went back home to get what I had forgotten."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "進む"
+  ],
+  "correlati": []
  },
  "役に立つ": {
   "significato": {
@@ -33174,6 +33350,10 @@
      "en": "I have no plans for the weekend yet."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "計画"
   ]
  },
  "予約": {
@@ -34084,6 +34264,10 @@
      "en": "I am planning a family trip."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "予定する"
   ]
  },
  "出席する": {
@@ -34246,6 +34430,10 @@
      "en": "Departure is scheduled for ten."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "計画する"
   ]
  },
  "留守する": {
@@ -34336,7 +34524,8 @@
      "en": "The fire engine rushed to the scene of the fire."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "研究する": {
   "frasi_esempio": [
@@ -34721,6 +34910,10 @@
      "en": "I like studying at the library."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "研究する"
   ]
  },
  "いただきます": {
@@ -35299,6 +35492,10 @@
      "en": "I viewed the teacher's work."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "見る"
   ]
  },
  "支度する": {
@@ -35353,7 +35550,8 @@
      "en": "I really liked this hotel."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "水泳する": {
   "frasi_esempio": [
@@ -35939,6 +36137,10 @@
      "en": "I have only one piece of hand luggage."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "荷物"
   ]
  },
  "手荷物受取所": {

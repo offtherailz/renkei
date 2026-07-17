@@ -1156,6 +1156,13 @@
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
 		}
+		// Frasi curate forma-contesto: portano lo slug della costruzione →
+		// secondo incremento a gram:<slug> (pratica), come conj:* — la parola
+		// sopra ha già preso il suo SRS pieno (crediting pesato, deciso 17/07).
+		if (quiz.question.mode === 'usage-cloze') {
+			const gram = (quiz.question as UsageClozeQuestion).gram;
+			if (gram) await upsertPracticeOnly(`gram:${gram}`, correct);
+		}
 		// Sfaccettatura della parola (modello Nation): ogni domanda su una parola
 		// muove anche la cella che allena (per coniugazione/particella è il
 		// secondo incremento: la classe sopra, l'Uso della parola qui).
