@@ -229,6 +229,9 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
     Da discutere.
 - **Piano di oggi: sistema di completamento** — le voci del piano (ripassi, punti deboli, attività
   del giorno) dovrebbero segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
+- **Gioco forme derivate/composte (17/07, idea utente)**: coniugare passivo, potenziale, たい,
+  ている e forme composte in catena per capire come si costruiscono frasi complesse (es.
+  食べる→食べられる→食べられたくない). Un gioco dedicato, non domande a secco nel quiz.
 - **Microfono: permessi e degradazione (16/07)** — su http non-localhost (dev via IP LAN) l'API
   non esiste (serve secure context) e il tap sul mic in frasi utili «si chiude e dà errore».
   Da fare: 1) `navigator.permissions.query({name:'microphone'})` per distinguere prompt/negato/

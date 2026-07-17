@@ -773,10 +773,24 @@
     }
   },
   "grammar-api-N4-13": {
-    "spiegazione": {
-      "it": "Forma condizionale: 飲めば, 食べれば, すれば, 来れば.",
-      "en": "Verb Conditional form"
-    }
+    "frasi_esempio": [
+      {
+        "testo": "この ボタンを 押せば、ドアが 開きます。",
+        "traduzione": {
+          "it": "Se premi questo bottone, la porta si apre.",
+          "en": "If you press this button, the door opens."
+        },
+        "parole_linkate": []
+      },
+      {
+        "testo": "安ければ、二つ 買います。",
+        "traduzione": {
+          "it": "Se costa poco, ne compro due.",
+          "en": "If it is cheap, I will buy two."
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N4-11": {
     "spiegazione": {

@@ -8,6 +8,7 @@ import { findConjugatedForm, USAGE_BLANK, blankSentence, pickOccurrenceIndex } f
 import { naiveReading, parseIrregularReadings, readCounterN, voicingVariants } from "../core/counterReadings";
 import { GENERATED_COUNTERS, generateReading, type GeneratedReading } from "../core/counterGen";
 import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
+import { KEIGO_SUPPLETIVE_WORDS } from "../core/keigo";
 import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
 import type {
@@ -862,6 +863,10 @@ export function createConjugationQuizQuestion(
   word: Word,
   allowedForms: Set<string>
 ): ConjugationQuizQuestion | null {
+  // keigo suppletivi (いただく, 参る…): il punto è il registro, non la
+  // morfologia — «passato di いただく?» è una domanda innaturale (feedback
+  // utente). Niente coniugazione a secco: restano gioco /keigo e frasi curate.
+  if (KEIGO_SUPPLETIVE_WORDS.has(word.scrittura) || KEIGO_SUPPLETIVE_WORDS.has(word.id)) return null;
   const questions = buildConjugationQuestions(word, allowedForms);
   if (questions.length === 0) return null;
   const q = questions[Math.floor(Math.random() * questions.length)]!;

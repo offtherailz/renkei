@@ -110830,10 +110830,10 @@
       "categoria_jp": "文法[ぶんぽう]",
       "frasi_esempio": [
         {
-          "testo": "飲めば、食べれば、すれば、来れば。",
+          "testo": "この ボタンを 押せば、ドアが 開きます。",
           "traduzione": {
-            "it": "[Conditional form] of 'drink, eat, do, come'.",
-            "en": "[Conditional form] of 'drink, eat, do, come'."
+            "it": "Se premi questo bottone, la porta si apre.",
+            "en": "If you press this button, the door opens."
           },
           "parole_linkate": []
         },
@@ -110841,7 +110841,7 @@
           "testo": "安ければ、二つ 買います。",
           "traduzione": {
             "it": "Se costa poco, ne compro due.",
-            "en": "If it's cheap, I'll buy two."
+            "en": "If it is cheap, I will buy two."
           },
           "parole_linkate": []
         }

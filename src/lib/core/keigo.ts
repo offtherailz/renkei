@@ -27,6 +27,16 @@ export const KEIGO_VERBS: KeigoVerb[] = [
 	{ plain: '会う', glossa: 'incontrare', kenjougo: { forma: 'お目にかかる' } }
 ];
 
+// Verbi keigo suppletivi (召し上がる, いただく, 参る…): il loro valore didattico
+// è il REGISTRO (chi parla a chi), non la morfologia — coniugarli a secco
+// («passato di いただく?») è una domanda che nessuno farebbe. Esclusi dalle
+// domande di coniugazione; restano nel gioco /keigo e nelle frasi curate.
+export const KEIGO_SUPPLETIVE_WORDS: Set<string> = new Set(
+	KEIGO_VERBS.flatMap((v) =>
+		[v.sonkeigo, v.kenjougo].flatMap((k) => (k ? [k.forma, ...(k.parola ? [k.parola] : [])] : []))
+	)
+);
+
 // Frasi situazionali: scegli la frase giusta per la situazione. La prima
 // opzione è la corretta (mescolata a runtime).
 export interface KeigoItem {
