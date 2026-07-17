@@ -562,6 +562,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "すみません、まどを ＿＿ ください。",
    "corretta": "開けて",
+   "parola": "開ける",
    "distrattori": [
     "開ける",
     "開けた",
@@ -574,6 +575,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "あぶないですから、ここで ＿＿ ください。",
    "corretta": "泳がないで",
+   "parola": "泳ぐ",
    "distrattori": [
     "泳いで",
     "泳がなくて",
@@ -586,6 +588,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "まどを ＿＿も いいですか。",
    "corretta": "開けて",
+   "parola": "開ける",
    "distrattori": [
     "開ける",
     "開けない"
@@ -597,6 +600,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "一度だけ、すしを ＿＿ことが あります。",
    "corretta": "食べた",
+   "parola": "食べる",
+   "gram": "ta-koto-ga-aru",
    "distrattori": [
     "食べて",
     "食べます"
@@ -608,6 +613,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "来年、日本で ＿＿つもりです。",
    "corretta": "はたらく",
+   "parola": "働く",
+   "gram": "tsumori",
    "distrattori": [
     "はたらいて",
     "はたらきます"
@@ -619,6 +626,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "のどが かわきましたね。何か ＿＿たいです。",
    "corretta": "飲み",
+   "parola": "飲む",
+   "gram": "tai",
    "distrattori": [
     "飲む",
     "飲んで"
@@ -630,6 +639,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "音楽を ＿＿ながら、勉強します。",
    "corretta": "聞き",
+   "parola": "聞く",
+   "gram": "nagara",
    "distrattori": [
     "聞く",
     "聞いて"
@@ -641,6 +652,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "休みの 日は、本を ＿＿り、映画を 見たり します。",
    "corretta": "読んだ",
+   "parola": "読む",
    "distrattori": [
     "読んで",
     "読む"
@@ -652,6 +664,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "ばんごはんを ＿＿あとで、テレビを 見ます。",
    "corretta": "食べた",
+   "parola": "食べる",
    "distrattori": [
     "食べる",
     "食べて"
@@ -663,6 +676,7 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "日本に ＿＿まえに、日本語を 勉強しました。",
    "corretta": "来る",
+   "parola": "来る",
    "distrattori": [
     "来た",
     "来て"
@@ -674,6 +688,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "あした テストが あるので、今晩 ＿＿なければ なりません。",
    "corretta": "勉強し",
+   "parola": "勉強する",
+   "gram": "nakereba",
    "distrattori": [
     "勉強する",
     "勉強して"
@@ -685,6 +701,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "今、雨が ＿＿います。",
    "corretta": "降って",
+   "parola": "降る",
+   "gram": "te-iru",
    "distrattori": [
     "降り",
     "降る"
@@ -696,6 +714,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "熱が ありますから、早く ＿＿ほうが いいですよ。",
    "corretta": "寝た",
+   "parola": "寝る",
+   "gram": "hou-ga-ii",
    "distrattori": [
     "寝て",
     "寝ます"
@@ -707,6 +727,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "妹は ピアノを ＿＿ことが できます。",
    "corretta": "ひく",
+   "parola": "弾く",
+   "gram": "kanou",
    "distrattori": [
     "ひいて",
     "ひいた"
@@ -718,6 +740,8 @@
    "tipo": "forma-contesto",
    "frase_con_buco": "ゆうべ ＿＿すぎて、おなかが いたいです。",
    "corretta": "食べ",
+   "parola": "食べる",
+   "gram": "sugiru",
    "distrattori": [
     "食べる",
     "食べて"

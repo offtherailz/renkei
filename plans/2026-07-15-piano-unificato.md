@@ -50,10 +50,12 @@ Per OGNI item, prima del rilascio:
   plans/question-audit-sample.md; `scripts/fix-split-words.mjs` riapplica split/rinomine al seed.
 
 **PROSSIMI (in ordine ragionevole):**
-1. Consumare i 44 item curati restanti: verbo-contesto (29) → quiz specials sulle parole-carta
-   della coppia/keigo e gioco /keigo; forma-contesto (15, verbi-carta: 開ける 泳ぐ 食べる 働く
-   飲む 聞く 読む 来る 勉強する 降る 寝る 弾く) → drill /consolida/gram:* e quiz. Formato e note
-   d'integrazione in coda a plans/2026-07-17-domande-propedeutiche-report.md.
+1. ✅ (17/07) 44 item curati consumati: tutti i 63 hanno `parola` (id carta) — 自/他 e keigo
+   → specials del quiz + coda consolida della parola (`curatedByWord`); keigo → anche round
+   'cloze' nel gioco /keigo; forma-contesto → drill `/consolida/gram:*` via campo `gram`
+   (9 slug: ta-koto-ga-aru tsumori tai nagara nakereba te-iru hou-ga-ii kanou sugiru; il
+   drill gram ora vive anche senza formKey). Fix collegati: frase-lista ば sostituita
+   (seed v58), keigo suppletivi esclusi dalla coniugazione a secco.
 2. Relazione «correlati» ≠ sinonimi (campo Word.correlati + scheda + curatela; 妻↔奥さん).
 3. 20 parole nuove proposte (report frasi-propedeutiche sez.1: 信号, 屋根, 咳, スリッパ, partner
    自/他 届く/減る/増やす/…, vita moderna スマホ/電子レンジ/…).

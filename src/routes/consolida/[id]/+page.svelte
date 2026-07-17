@@ -29,7 +29,7 @@
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
-	import { curatedByParticle, curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
+	import { curatedByParticle, curatedByWord, curatedByGram, curatedToQuestion } from '$lib/data/propedeutiche';
 	import type { Word, Counter } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -155,30 +155,36 @@
 			return;
 		}
 
-		// Costruzione (gram:kanou…): coniugazioni di QUELLA forma su più parole.
+		// Costruzione (gram:kanou…): prima le frasi CURATE dall'insegnante (il
+		// contesto forza la forma, col «perché»), poi coniugazioni di QUELLA
+		// forma su più parole. Le curate coprono anche costruzioni senza formKey
+		// (つもり, たほうがいい…), che prima non avevano drill.
 		if (kind === 'gram') {
 			const formKeys = new Set(
 				Object.entries(CONSTRUCTION_BY_FORM_KEY)
 					.filter(([, slug]) => slug === rawId)
 					.map(([key]) => key)
 			);
-			if (formKeys.size > 0) {
+			const curated: QuizQuestion[] = shuffle(curatedByGram(rawId)).map(curatedToQuestion);
+			if (formKeys.size > 0 || curated.length > 0) {
 				classDrillSub = 'Uso della costruzione';
 				srsTarget = `gram:${rawId}`;
 				title = GRAMMAR_FORMS.find((f) => f.slug === rawId)?.title ?? rawId;
 				const row = await db.srs_progress.get(srsTarget);
 				if (row) classDrillPct = normalizePracticeOnlyMastery(row.mastery_points);
-				const pool = shuffle(words.filter((w) => w.tipo_jp.startsWith('動詞') || w.tipo_jp.startsWith('形容詞')));
-				const qs: QuizQuestion[] = [];
-				const seen = new Set<string>();
-				for (const w of pool.slice(0, 40)) {
-					if (qs.length >= 6) break;
-					const q = createConjugationQuizQuestion(w, formKeys);
-					// il builder può ricadere sulle forme base se la parola non ha
-					// questa forma: si accettano solo domande della forma richiesta
-					if (q && formKeys.has(q.formKey) && !seen.has(q.dictionary)) {
-						seen.add(q.dictionary);
-						qs.push(q);
+				const qs: QuizQuestion[] = [...curated];
+				if (formKeys.size > 0) {
+					const pool = shuffle(words.filter((w) => w.tipo_jp.startsWith('動詞') || w.tipo_jp.startsWith('形容詞')));
+					const seen = new Set<string>();
+					for (const w of pool.slice(0, 40)) {
+						if (qs.length >= 6) break;
+						const q = createConjugationQuizQuestion(w, formKeys);
+						// il builder può ricadere sulle forme base se la parola non ha
+						// questa forma: si accettano solo domande della forma richiesta
+						if (q && formKeys.has(q.formKey) && !seen.has(q.dictionary)) {
+							seen.add(q.dictionary);
+							qs.push(q);
+						}
 					}
 				}
 				queue = qs;
@@ -333,8 +339,8 @@
 				if (cq && !seen.has(cq.formLabel)) { seen.add(cq.formLabel); qs.push(cq); }
 			}
 		}
-		// frasi propedeutiche curate per la coppia 自/他: il contesto forza il
-		// transitivo o l'intransitivo giusto (col «perché» dopo la risposta).
+		// frasi propedeutiche curate della parola (自/他, keigo, forma nel
+		// contesto): la frase forza la risposta, col «perché» dopo.
 		for (const item of curatedByWord(w.id)) qs.push(curatedToQuestion(item));
 		if (w.id_verbo_corrispondente) {
 			// transitività in contesto (se c'è una frase) o riconoscimento del gemello

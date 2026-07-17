@@ -14,9 +14,12 @@ export interface CuratedItem {
 	distrattori: string[];
 	perche: string;
 	traduzione_it: string;
-	// verbo-contesto: id della parola-carta (forma dizionario) a cui l'item è
-	// agganciato — così il quiz/consolida di QUELLA parola può pescarlo.
+	// verbo/forma-contesto: id della parola-carta (forma dizionario) a cui
+	// l'item è agganciato — così il quiz/consolida di QUELLA parola può pescarlo.
 	parola?: string;
+	// forma-contesto: slug della costruzione in GRAMMAR_FORMS (tai, te-iru,
+	// tsumori…) — lo pesca il drill /consolida/gram:<slug>.
+	gram?: string;
 }
 
 export const CURATED_ITEMS: CuratedItem[] = (raw as { items: CuratedItem[] }).items;
@@ -25,10 +28,17 @@ export function curatedByParticle(particle: string): CuratedItem[] {
 	return CURATED_ITEMS.filter((i) => i.tipo === 'particella-uso' && i.corretta === particle);
 }
 
-// verbo-contesto agganciati a una parola-carta (coppia 自/他 o keigo): frasi in
-// cui il contesto forza il verbo giusto (transitività o registro onorifico).
+// Item agganciati a una parola-carta: verbo-contesto (coppia 自/他 o keigo,
+// il contesto forza il verbo giusto) e forma-contesto (il contesto forza la
+// forma di coniugazione giusta di quel verbo).
 export function curatedByWord(wordId: string): CuratedItem[] {
-	return CURATED_ITEMS.filter((i) => i.tipo === 'verbo-contesto' && i.parola === wordId);
+	return CURATED_ITEMS.filter((i) => i.parola === wordId);
+}
+
+// forma-contesto per costruzione (gram:tai, gram:te-iru…): li antepone il
+// drill della costruzione, come le curate delle particelle.
+export function curatedByGram(slug: string): CuratedItem[] {
+	return CURATED_ITEMS.filter((i) => i.tipo === 'forma-contesto' && i.gram === slug);
 }
 
 // Sotto-insieme keigo dei verbo-contesto (la parola-carta è un suppletivo
