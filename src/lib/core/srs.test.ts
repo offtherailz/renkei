@@ -151,6 +151,12 @@ describe("controlli utente sullo scheduling (La so già / Rimanda / Seppellisci)
 		expect(high.mastery_points).toBe(80);
 	});
 
+	it("markKnown: non retrocede una carta già oltre stage 5 (triage di massa su carte consolidate)", () => {
+		const advanced = { ...createInitialSrs("word:z"), srs_stage: 7 as const, mastery_points: 90 };
+		const known = markKnown(advanced, Date.now());
+		expect(known.srs_stage).toBe(7);
+	});
+
 	it("snoozeReview: spinge il ripasso di N giorni senza toccare stage/mastery", () => {
 		// tempo fisso: con Date.now() la createInitialSrs interna cadeva sul
 		// millisecondo successivo e il confronto falliva a caso (flaky)

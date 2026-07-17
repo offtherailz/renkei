@@ -97,9 +97,11 @@ export function touchReviewDate(progress: SrsProgress, nowTs = Date.now()): SrsP
 
 // «La so già»: la carta salta a stage 5 (~7 giorni) senza passare dai ripassi
 // iniziali — per chi ha basi pregresse. Non stage 7: un ripasso ogni tanto
-// verifica la pretesa; se poi sbagli, scende come qualunque carta.
+// verifica la pretesa; se poi sbagli, scende come qualunque carta. Non
+// retrocede una carta già più avanti (triage di massa può ricapitare su
+// carte già consolidate: mai un passo indietro).
 export function markKnown(progress: SrsProgress, nowTs = Date.now()): SrsProgress {
-  const stage = 5 as SrsProgress["srs_stage"];
+  const stage = Math.max(progress.srs_stage, 5) as SrsProgress["srs_stage"];
   const mins = REVIEW_INTERVAL_MINUTES[stage]!;
   return {
     ...progress,

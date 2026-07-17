@@ -108,6 +108,15 @@ macchina (niente browser automatizzabile) + questioni aperte.
     soluzione mai visibile prima; esito → cella 👂 della parola della frase.
     Da giudicare: dimensione dei pezzi (budoux), difficoltà giusta?
 
+## Triage di massa «La so già» (17/07)
+
+23. **`/consolida`** (vocabolario) → «✓ Segna più parole come già note»: entra in modalità
+    selezione (checkbox per riga, disabilitato ✓ sulle già a stage≥5), barra flottante in
+    fondo con conteggio e conferma. Dopo l'applicazione: le carte selezionate passano a
+    stage 5 (~7g), le già-note restano invariate (fix: `markKnown` non retrocede più chi è
+    già oltre stage 5 — prima una carta a stage 7 tornava a 5 se ri-cliccata).
+    Domanda: velocità/UX ok su tante selezioni (es. 100+)? Bulk write con `bulkPut`.
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):

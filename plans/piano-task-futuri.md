@@ -51,8 +51,10 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
 
 ## Task futuri (ordine ragionevole)
 
-1. **Triage di massa «La so già»** — priorità dichiarata (sblocca il cold-start da 1400
-   carte). Bottone sulla riga vocabolario/consolida, non solo su singola carta. Vedi F3 sotto.
+1. ✅ (17/07) **Triage di massa «La so già»** — `/consolida`: modalità selezione multipla,
+   checkbox per riga (disabilitata se già a stage≥5), barra flottante di conferma, `bulkPut`
+   su `srs_progress`. Fix collegato: `markKnown` non retrocede più una carta già oltre
+   stage 5 (bug latente anche sul bottone singolo in scheda).
 2. **Completamento piano di oggi** — le voci (ripassi, punti deboli, attività) dovrebbero
    segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
 3. **Domanda sui correlati** (ok utente, dopo): «qual è la differenza tra 妻 e 奥さん?» —
