@@ -5,6 +5,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "かぜで ドアが ＿＿。",
    "corretta": "開きました",
+   "parola": "開く-あく",
    "distrattori": [
     "開けました",
     "閉めました"
@@ -16,6 +17,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "さむいので、まどを ＿＿ ください。",
    "corretta": "閉めて",
+   "parola": "閉める",
    "distrattori": [
     "閉まって",
     "開いて"
@@ -27,6 +29,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "きゅうに へやの でんきが ＿＿。",
    "corretta": "消えました",
+   "parola": "消える",
    "distrattori": [
     "消しました",
     "つけました"
@@ -38,6 +41,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "くらいですね。でんきを ＿＿ましょう。",
    "corretta": "つけ",
+   "parola": "つける",
    "distrattori": [
     "つき",
     "消え"
@@ -49,6 +53,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "お湯が ＿＿ら、お茶を いれます。",
    "corretta": "沸いた",
+   "parola": "沸く",
    "distrattori": [
     "沸かした",
     "入れた"
@@ -60,6 +65,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "じゅぎょうは 九時に ＿＿。",
    "corretta": "始まります",
+   "parola": "始まる",
    "distrattori": [
     "始めます",
     "開けます"
@@ -71,6 +77,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "会議を 三時に ＿＿ましょう。",
    "corretta": "始め",
+   "parola": "始める",
    "distrattori": [
     "始まり",
     "決まり"
@@ -82,6 +89,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "ポケットから さいふが ＿＿。",
    "corretta": "落ちました",
+   "parola": "落ちる",
    "distrattori": [
     "落としました",
     "無くしました"
@@ -93,6 +101,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "たいせつな かぎを ＿＿ しまいました。",
    "corretta": "落として",
+   "parola": "落とす",
    "distrattori": [
     "落ちて",
     "見つかって"
@@ -104,6 +113,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "熱が ＿＿ら、学校に 行っても いいですよ。",
    "corretta": "下がった",
+   "parola": "下がる",
    "distrattori": [
     "下げた",
     "上げた"
@@ -115,6 +125,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "テレビの おとを ＿＿ ください。",
    "corretta": "下げて",
+   "parola": "下げる",
    "distrattori": [
     "下がって",
     "上がって"
@@ -126,6 +137,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "なくした かさが ＿＿。",
    "corretta": "見つかりました",
+   "parola": "見つかる",
    "distrattori": [
     "見つけました",
     "探しました"
@@ -137,6 +149,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "駅前で 安くて いい 店を ＿＿。",
    "corretta": "見つけました",
+   "parola": "見つける",
    "distrattori": [
     "見つかりました",
     "できました"
@@ -148,6 +161,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "バスが ＿＿ います。はやく のって ください。",
    "corretta": "止まって",
+   "parola": "止まる",
    "distrattori": [
     "止めて",
     "開けて"
@@ -159,6 +173,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "ここに 車を ＿＿も いいですか。",
    "corretta": "止めて",
+   "parola": "止める::とめる",
    "distrattori": [
     "止まって",
     "並んで"
@@ -170,6 +185,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "かべに 絵が ＿＿ います。",
    "corretta": "かかって",
+   "parola": "かかる",
    "distrattori": [
     "掛けて",
     "貼って"
@@ -181,6 +197,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "エレベーターが ＿＿ いるので、階段で 行きます。",
    "corretta": "壊れて",
+   "parola": "壊れる",
    "distrattori": [
     "壊して",
     "直して"
@@ -192,6 +209,7 @@
    "tipo": "verbo-contesto",
    "frase_con_buco": "弟が たいせつな コップを ＿＿ しまいました。",
    "corretta": "壊して",
+   "parola": "壊す",
    "distrattori": [
     "壊れて",
     "割れて"

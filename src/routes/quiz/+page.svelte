@@ -38,6 +38,7 @@
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
+	import { curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
 	import type {
@@ -245,6 +246,12 @@
 			const specials: (() => QuizQuestion | null | Promise<QuizQuestion | null>)[] = [];
 			if (word.frasi_esempio?.length && word.id_verbo_corrispondente) {
 				specials.push(() => createTransitivityPairQuestion(word, context!, locale));
+			}
+			// frasi propedeutiche curate dall'insegnante per la coppia 自/他: il
+			// contesto forza il transitivo o l'intransitivo giusto (col «perché»).
+			const curated = curatedByWord(word.id);
+			if (curated.length > 0) {
+				specials.push(() => curatedToQuestion(curated[Math.floor(Math.random() * curated.length)]!));
 			}
 			if (word.id_contatore_suggerito) {
 				specials.push(() => createCounterQuestion(word, counterRows, locale));

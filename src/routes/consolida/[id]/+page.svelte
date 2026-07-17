@@ -29,7 +29,7 @@
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
-	import { curatedByParticle, curatedToQuestion } from '$lib/data/propedeutiche';
+	import { curatedByParticle, curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
 	import type { Word, Counter } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -333,6 +333,9 @@
 				if (cq && !seen.has(cq.formLabel)) { seen.add(cq.formLabel); qs.push(cq); }
 			}
 		}
+		// frasi propedeutiche curate per la coppia 自/他: il contesto forza il
+		// transitivo o l'intransitivo giusto (col «perché» dopo la risposta).
+		for (const item of curatedByWord(w.id)) qs.push(curatedToQuestion(item));
 		if (w.id_verbo_corrispondente) {
 			// transitività in contesto (se c'è una frase) o riconoscimento del gemello
 			const tq = w.frasi_esempio?.length ? createTransitivityPairQuestion(w, context, locale) : null;

@@ -13,12 +13,21 @@ export interface CuratedItem {
 	distrattori: string[];
 	perche: string;
 	traduzione_it: string;
+	// verbo-contesto: id della parola-carta (forma dizionario) a cui l'item è
+	// agganciato — così il quiz/consolida di QUELLA parola può pescarlo.
+	parola?: string;
 }
 
 export const CURATED_ITEMS: CuratedItem[] = (raw as { items: CuratedItem[] }).items;
 
 export function curatedByParticle(particle: string): CuratedItem[] {
 	return CURATED_ITEMS.filter((i) => i.tipo === 'particella-uso' && i.corretta === particle);
+}
+
+// verbo-contesto agganciati a una parola-carta (coppia 自/他): frasi in cui il
+// contesto forza il transitivo o l'intransitivo giusto.
+export function curatedByWord(wordId: string): CuratedItem[] {
+	return CURATED_ITEMS.filter((i) => i.tipo === 'verbo-contesto' && i.parola === wordId);
 }
 
 function shuffle<T>(items: T[]): T[] {
