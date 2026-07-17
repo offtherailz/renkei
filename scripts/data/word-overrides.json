@@ -974,7 +974,10 @@
    "en": [
     "soy sauce"
    ]
-  }
+  },
+  "correlati": [
+   "味噌"
+  ]
  },
  "色": {
   "frasi_esempio": [
@@ -2842,7 +2845,10 @@
    "en": [
     "guitar"
    ]
-  }
+  },
+  "correlati": [
+   "ピアノ"
+  ]
  },
  "クラス": {
   "frasi_esempio": [
@@ -3943,7 +3949,11 @@
    "en": [
     "dictionary"
    ]
-  }
+  },
+  "sinonimi": [
+   "字引",
+   "辞典"
+  ]
  },
  "七つ": {
   "frasi_esempio": [
@@ -6214,7 +6224,10 @@
    "en": [
     "hotel"
    ]
-  }
+  },
+  "correlati": [
+   "旅館"
+  ]
  },
  "まだ": {
   "frasi_esempio": [
@@ -9312,6 +9325,9 @@
      "en": "What is your name?"
     }
    }
+  ],
+  "correlati": [
+   "君"
   ]
  },
  "あの": {
@@ -9807,7 +9823,9 @@
     }
    }
   ],
-  "sinonimi": [],
+  "sinonimi": [
+   "オーバー"
+  ],
   "correlati": [
    "上着"
   ]
@@ -12029,6 +12047,9 @@
   "sinonimi": [],
   "correlati": [
    "近い"
+  ],
+  "contrari": [
+   "遠く"
   ]
  },
  "九日": {
@@ -12351,7 +12372,10 @@
     "rice (cooked)",
     "meal"
    ]
-  }
+  },
+  "correlati": [
+   "米"
+  ]
  },
  "交差点": {
   "significato": {
@@ -12886,6 +12910,9 @@
      "en": "The goldfish I kept died."
     }
    }
+  ],
+  "correlati": [
+   "亡くなる"
   ]
  },
  "私::わたくし": {
@@ -13772,7 +13799,10 @@
    "en": [
     "voice"
    ]
-  }
+  },
+  "correlati": [
+   "音"
+  ]
  },
  "青い": {
   "significato": {
@@ -15575,6 +15605,9 @@
      "en": "My father goes out in a business suit every day."
     }
    }
+  ],
+  "sinonimi": [
+   "スーツ"
   ]
  },
  "買い物": {
@@ -17238,6 +17271,9 @@
      "en": "During summer vacation I played with my cousins."
     }
    }
+  ],
+  "correlati": [
+   "遊び"
   ]
  },
  "郵便局": {
@@ -17393,6 +17429,9 @@
      "en": "You need a photo for the passport."
     }
    }
+  ],
+  "correlati": [
+   "必要"
   ]
  },
  "来る": {
@@ -17887,6 +17926,9 @@
      "en": "I rarely wear accessories."
     }
    }
+  ],
+  "correlati": [
+   "指輪"
   ]
  },
  "あげる": {
@@ -18310,7 +18352,10 @@
   ],
   "tipo_jp": "感動詞[かんどうし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "はい"
+  ]
  },
  "エスカレーター": {
   "significato": {
@@ -18377,6 +18422,9 @@
      "en": "Motorcycles are convenient but dangerous."
     }
    }
+  ],
+  "correlati": [
+   "自転車"
   ]
  },
  "オーバー": {
@@ -18391,7 +18439,10 @@
     "exceeding",
     "exaggeration"
    ]
-  }
+  },
+  "sinonimi": [
+   "コート"
+  ]
  },
  "おかげ": {
   "significato": {
@@ -18507,6 +18558,10 @@
      "en": "I forgot to take my change."
     }
    }
+  ],
+  "correlati": [
+   "お金",
+   "レジ"
   ]
  },
  "おもちゃ": {
@@ -18533,6 +18588,9 @@
      "en": "The child is playing with the new toy."
     }
    }
+  ],
+  "correlati": [
+   "人形"
   ]
  },
  "おる": {
@@ -18619,6 +18677,9 @@
      "en": "I brought fruit when visiting the patient."
     }
    }
+  ],
+  "correlati": [
+   "お大事に"
   ]
  },
  "お祭り": {
@@ -18704,6 +18765,10 @@
      "en": "We will celebrate my friend's birthday."
     }
    }
+  ],
+  "correlati": [
+   "おめでとうございます",
+   "お祭り"
   ]
  },
  "お嬢さん": {
@@ -18795,6 +18860,10 @@
      "en": "I bought souvenirs in Kyoto."
     }
    }
+  ],
+  "correlati": [
+   "プレゼント",
+   "贈り物"
   ]
  },
  "お礼": {
@@ -19200,7 +19269,9 @@
    }
   ],
   "tipo_jp": "接続詞[せつぞくし]",
-  "sinonimi": [],
+  "sinonimi": [
+   "でも"
+  ],
   "contrari": []
  },
  "けんかする": {
@@ -19392,6 +19463,9 @@
      "en": "You can see Mt. Fuji from the window."
     }
    }
+  ],
+  "correlati": [
+   "見る"
   ]
  },
  "これから": {
@@ -19446,6 +19520,9 @@
      "en": "I have two tickets for the concert."
     }
    }
+  ],
+  "correlati": [
+   "音楽"
   ]
  },
  "コンピュータ; コンピューター": {
@@ -19529,6 +19606,9 @@
      "en": "Do you know about that news?"
     }
    }
+  ],
+  "correlati": [
+   "知る"
   ]
  },
  "さっき": {
@@ -19741,6 +19821,9 @@
      "en": "I went to the office in my new suit."
     }
    }
+  ],
+  "sinonimi": [
+   "背広"
   ]
  },
  "スーツケース": {
@@ -19927,6 +20010,9 @@
      "en": "A pickpocket stole my wallet."
     }
    }
+  ],
+  "correlati": [
+   "泥棒"
   ]
  },
  "すると": {
@@ -20083,6 +20169,9 @@
      "en": "This problem is not that difficult."
     }
    }
+  ],
+  "sinonimi": [
+   "そんなに"
   ]
  },
  "そろそろ": {
@@ -20177,6 +20266,9 @@
      "en": "If you eat that much, you'll get a stomachache."
     }
    }
+  ],
+  "sinonimi": [
+   "それほど"
   ]
  },
  "タイプ": {
@@ -20256,7 +20348,10 @@
     "no good",
     "hopeless"
    ]
-  }
+  },
+  "correlati": [
+   "無理"
+  ]
  },
  "チェックする": {
   "significato": {
@@ -20418,6 +20513,9 @@
      "en": "On weekends I play tennis with friends."
     }
    }
+  ],
+  "correlati": [
+   "スポーツ"
   ]
  },
  "とうとう": {
@@ -20725,6 +20823,9 @@
      "en": "There is a piano recital."
     }
    }
+  ],
+  "correlati": [
+   "ギター"
   ]
  },
  "ひげ": {
@@ -20953,7 +21054,10 @@
     "mostly",
     "almost"
    ]
-  }
+  },
+  "correlati": [
+   "大体"
+  ]
  },
  "まず": {
   "significato": {
@@ -21231,7 +21335,10 @@
    "en": [
     "register"
    ]
-  }
+  },
+  "correlati": [
+   "おつり"
+  ]
  },
  "レポート; リポート": {
   "significato": {
@@ -21258,6 +21365,9 @@
      "en": "I was writing the report until late at night."
     }
    }
+  ],
+  "correlati": [
+   "宿題"
   ]
  },
  "ワープロ": {
@@ -21570,6 +21680,9 @@
      "en": "Please move to the next room."
     }
    }
+  ],
+  "correlati": [
+   "引っ越す"
   ]
  },
  "医学": {
@@ -21707,6 +21820,9 @@
      "en": "The scissors are in the top drawer."
     }
    }
+  ],
+  "correlati": [
+   "机"
   ]
  },
  "引っ越す": {
@@ -21733,6 +21849,9 @@
      "en": "Next month I'm moving near the station."
     }
    }
+  ],
+  "correlati": [
+   "移る"
   ]
  },
  "運ぶ": {
@@ -21745,7 +21864,10 @@
     "to transport",
     "to carry"
    ]
-  }
+  },
+  "correlati": [
+   "持つ"
+  ]
  },
  "運転": {
   "significato": {
@@ -21834,6 +21956,9 @@
      "en": "There isn't a single cloud in the sky."
     }
    }
+  ],
+  "correlati": [
+   "空"
   ]
  },
  "遠く": {
@@ -21861,6 +21986,9 @@
      "en": "You can hear the festival sounds from afar."
     }
    }
+  ],
+  "contrari": [
+   "近く"
   ]
  },
  "遠慮": {
@@ -21943,6 +22071,9 @@
      "en": "I took the winter clothes out of the closet."
     }
    }
+  ],
+  "correlati": [
+   "布団"
   ]
  },
  "億": {
@@ -22007,7 +22138,10 @@
     "sound",
     "note"
    ]
-  }
+  },
+  "correlati": [
+   "声"
+  ]
  },
  "下げる": {
   "significato": {
@@ -22117,6 +22251,9 @@
      "en": "I'm taking three sets of underwear on the trip."
     }
    }
+  ],
+  "correlati": [
+   "服"
   ]
  },
  "家内": {
@@ -22143,6 +22280,10 @@
      "en": "I traveled together with my wife."
     }
    }
+  ],
+  "correlati": [
+   "妻",
+   "奥さん"
   ]
  },
  "科学": {
@@ -22267,6 +22408,10 @@
      "en": "The section chief is in a meeting and away from his desk."
     }
    }
+  ],
+  "correlati": [
+   "社長",
+   "部長"
   ]
  },
  "過ぎる": {
@@ -22459,6 +22604,9 @@
      "en": "I picked up shells while walking along the coast."
     }
    }
+  ],
+  "correlati": [
+   "海"
   ]
  },
  "皆": {
@@ -22576,6 +22724,9 @@
      "en": "My weekend pleasure is watching movies."
     }
    }
+  ],
+  "correlati": [
+   "楽しむ"
   ]
  },
  "割れる": {
@@ -22746,6 +22897,9 @@
      "en": "Have you gotten used to your new life yet?"
     }
    }
+  ],
+  "correlati": [
+   "習慣"
   ]
  },
  "看護婦": {
@@ -22895,6 +23049,9 @@
      "en": "One week until the exam—I'll do my best."
     }
    }
+  ],
+  "correlati": [
+   "一生懸命"
   ]
  },
  "危険": {
@@ -23018,6 +23175,9 @@
      "en": "The train home was crowded."
     }
    }
+  ],
+  "correlati": [
+   "帰る"
   ]
  },
  "気": {
@@ -23121,7 +23281,10 @@
    "en": [
     "train (steam)"
    ]
-  }
+  },
+  "correlati": [
+   "電車"
+  ]
  },
  "祈る": {
   "significato": {
@@ -23300,6 +23463,9 @@
      "en": "I went back to my parents' home after a long time."
     }
    }
+  ],
+  "correlati": [
+   "お久しぶりです"
   ]
  },
  "急": {
@@ -23823,6 +23989,9 @@
      "en": "I want to go together with you."
     }
    }
+  ],
+  "correlati": [
+   "あなた"
   ]
  },
  "形": {
@@ -23991,6 +24160,10 @@
      "en": "Seeing the accident, I immediately called the police."
     }
    }
+  ],
+  "correlati": [
+   "警官",
+   "交番"
   ]
  },
  "迎える": {
@@ -24004,7 +24177,10 @@
     "to meet",
     "to greet"
    ]
-  }
+  },
+  "correlati": [
+   "送る"
+  ]
  },
  "決して": {
   "significato": {
@@ -24030,6 +24206,9 @@
      "en": "I will never forget this."
     }
    }
+  ],
+  "correlati": [
+   "全然"
   ]
  },
  "決まる": {
@@ -24122,6 +24301,9 @@
      "en": "The moon hid behind the clouds."
     }
    }
+  ],
+  "correlati": [
+   "星"
   ]
  },
  "堅; 硬; 固い": {
@@ -24291,6 +24473,9 @@
      "en": "Silk kimonos are expensive."
     }
    }
+  ],
+  "correlati": [
+   "木綿"
   ]
  },
  "見える": {
@@ -24514,6 +24699,9 @@
      "en": "In winter the lake freezes."
     }
    }
+  ],
+  "correlati": [
+   "池"
   ]
  },
  "交通": {
@@ -24677,6 +24865,9 @@
      "en": "My throat hurts and I can't speak."
     }
    }
+  ],
+  "correlati": [
+   "首"
   ]
  },
  "工業": {
@@ -24756,6 +24947,9 @@
      "en": "The principal's speech was long."
     }
    }
+  ],
+  "correlati": [
+   "先生"
   ]
  },
  "港": {
@@ -24783,6 +24977,9 @@
      "en": "A big ship arrived at the port."
     }
    }
+  ],
+  "correlati": [
+   "舟"
   ]
  },
  "考える": {
@@ -24795,7 +24992,10 @@
     "to think (about)",
     "to consider"
    ]
-  }
+  },
+  "correlati": [
+   "思う"
+  ]
  },
  "行う": {
   "significato": {
@@ -24903,6 +25103,9 @@
      "en": "The suburbs are quiet and the air is clean."
     }
    }
+  ],
+  "correlati": [
+   "田舎"
   ]
  },
  "高校; 高等学校": {
@@ -25263,6 +25466,9 @@
      "en": "Don't give up until the end."
     }
    }
+  ],
+  "contrari": [
+   "最初"
   ]
  },
  "最初": {
@@ -25291,6 +25497,9 @@
      "en": "First, please introduce yourself."
     }
    }
+  ],
+  "contrari": [
+   "最後"
   ]
  },
  "妻": {
@@ -25319,7 +25528,8 @@
    }
   ],
   "correlati": [
-   "奥さん"
+   "奥さん",
+   "家内"
   ]
  },
  "済む": {
@@ -25703,6 +25913,9 @@
      "en": "I think this plan is good."
     }
    }
+  ],
+  "correlati": [
+   "考える"
   ]
  },
  "指": {
@@ -25729,6 +25942,10 @@
      "en": "My fingers hurt when I play the piano."
     }
    }
+  ],
+  "correlati": [
+   "手",
+   "指輪"
   ]
  },
  "指輪": {
@@ -25755,6 +25972,10 @@
      "en": "This ring belonged to my mother."
     }
    }
+  ],
+  "correlati": [
+   "指",
+   "アクセサリー"
   ]
  },
  "支度": {
@@ -25808,6 +26029,10 @@
      "en": "A bird is perched on the branch."
     }
    }
+  ],
+  "correlati": [
+   "木",
+   "葉"
   ]
  },
  "止む": {
@@ -26007,6 +26232,10 @@
      "en": "My tooth hurts, so I made a dentist appointment."
     }
    }
+  ],
+  "correlati": [
+   "医者",
+   "歯"
   ]
  },
  "事": {
@@ -26088,6 +26317,9 @@
      "en": "There is no one in the office."
     }
    }
+  ],
+  "correlati": [
+   "会社"
   ]
  },
  "似る": {
@@ -26156,6 +26388,9 @@
      "en": "This temple is famous for its cherry blossoms."
     }
    }
+  ],
+  "correlati": [
+   "神社"
   ]
  },
  "時代": {
@@ -26213,6 +26448,9 @@
      "en": "The injury will take three weeks to heal."
     }
    }
+  ],
+  "correlati": [
+   "病気"
   ]
  },
  "自由": {
@@ -26266,6 +26504,9 @@
      "en": "I keep a big dictionary on my desk."
     }
    }
+  ],
+  "sinonimi": [
+   "辞書"
   ]
  },
  "叱る": {
@@ -26329,7 +26570,10 @@
     "to copy (v.t.)",
     "to photograph"
    ]
-  }
+  },
+  "correlati": [
+   "撮る"
+  ]
  },
  "捨てる": {
   "significato": {
@@ -26409,6 +26653,10 @@
      "en": "I spoke directly with the company president."
     }
    }
+  ],
+  "correlati": [
+   "部長",
+   "課長"
   ]
  },
  "謝る": {
@@ -26612,7 +26860,10 @@
    "en": [
     "neck"
    ]
-  }
+  },
+  "correlati": [
+   "喉"
+  ]
  },
  "受ける": {
   "significato": {
@@ -26732,6 +26983,12 @@
      "en": "Summer vacation is almost over."
     }
    }
+  ],
+  "contrari": [
+   "初め; 始め"
+  ],
+  "correlati": [
+   "最後"
   ]
  },
  "習慣": {
@@ -26770,6 +27027,9 @@
      "en": "A small boat is floating on the lake."
     }
    }
+  ],
+  "correlati": [
+   "港"
   ]
  },
  "集まる": {
@@ -26868,7 +27128,10 @@
    "en": [
     "enough"
    ]
-  }
+  },
+  "correlati": [
+   "足りる"
+  ]
  },
  "柔らかい": {
   "significato": {
@@ -26922,6 +27185,9 @@
      "en": "I went to watch a judo match."
     }
    }
+  ],
+  "correlati": [
+   "スポーツ"
   ]
  },
  "出席": {
@@ -27126,6 +27392,9 @@
      "en": "Let's think carefully about the future."
     }
    }
+  ],
+  "contrari": [
+   "昔"
   ]
  },
  "小学校": {
@@ -27152,6 +27421,9 @@
      "en": "I met a friend from elementary school."
     }
    }
+  ],
+  "correlati": [
+   "中学校"
   ]
  },
  "小説": {
@@ -27162,7 +27434,11 @@
    "en": [
     "novel"
    ]
-  }
+  },
+  "correlati": [
+   "本",
+   "文学"
+  ]
  },
  "小鳥": {
   "significato": {
@@ -27214,6 +27490,9 @@
      "en": "I go to the barber once a month."
     }
    }
+  ],
+  "correlati": [
+   "髪"
   ]
  },
  "承知": {
@@ -27278,6 +27557,9 @@
      "en": "I erased the mistake with an eraser."
     }
    }
+  ],
+  "correlati": [
+   "鉛筆"
   ]
  },
  "焼く": {
@@ -27441,6 +27723,10 @@
      "en": "Children love vehicles."
     }
    }
+  ],
+  "correlati": [
+   "車",
+   "電車"
   ]
  },
  "場合": {
@@ -27657,6 +27943,9 @@
      "en": "Food prices are rising."
     }
    }
+  ],
+  "correlati": [
+   "食べ物"
   ]
  },
  "寝坊": {
@@ -27749,6 +28038,9 @@
      "en": "I sent a letter to the newspaper company."
     }
    }
+  ],
+  "correlati": [
+   "新聞"
   ]
  },
  "森": {
@@ -27776,6 +28068,10 @@
      "en": "Various animals live in the forest."
     }
    }
+  ],
+  "correlati": [
+   "林",
+   "木"
   ]
  },
  "深い": {
@@ -27954,6 +28250,9 @@
      "en": "I drew a fortune slip at the shrine."
     }
    }
+  ],
+  "correlati": [
+   "寺"
   ]
  },
  "親": {
@@ -28072,6 +28371,9 @@
      "en": "My daughter sleeps with her doll."
     }
    }
+  ],
+  "correlati": [
+   "おもちゃ"
   ]
  },
  "人口": {
@@ -28125,6 +28427,9 @@
      "en": "I ask the teacher about things I don't understand."
     }
    }
+  ],
+  "correlati": [
+   "聞く"
   ]
  },
  "水泳": {
@@ -28364,7 +28669,10 @@
    "en": [
     "star"
    ]
-  }
+  },
+  "correlati": [
+   "月"
+  ]
  },
  "正しい": {
   "significato": {
@@ -28612,6 +28920,10 @@
      "en": "Looking at old photos made me nostalgic."
     }
    }
+  ],
+  "contrari": [
+   "最近",
+   "将来"
   ]
  },
  "石": {
@@ -29299,6 +29611,9 @@
      "en": "There wasn't enough time, so I couldn't finish."
     }
    }
+  ],
+  "correlati": [
+   "十分"
   ]
  },
  "続く": {
@@ -29499,6 +29814,9 @@
      "en": "A typhoon is approaching."
     }
    }
+  ],
+  "correlati": [
+   "風"
   ]
  },
  "大学生": {
@@ -29633,6 +29951,9 @@
      "en": "My cold has gotten much better."
     }
    }
+  ],
+  "correlati": [
+   "随分"
   ]
  },
  "棚": {
@@ -29661,6 +29982,9 @@
      "en": "Please get the luggage on the rack."
     }
    }
+  ],
+  "correlati": [
+   "本棚"
   ]
  },
  "探す": {
@@ -29780,6 +30104,9 @@
      "en": "The price was too high and I couldn't buy it."
     }
    }
+  ],
+  "correlati": [
+   "お金"
   ]
  },
  "知らせる": {
@@ -29977,7 +30304,10 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "服"
+  ]
  },
  "中々": {
   "significato": {
@@ -30036,7 +30366,8 @@
   ],
   "sinonimi": [],
   "correlati": [
-   "高校; 高等学校"
+   "高校; 高等学校",
+   "小学校"
   ]
  },
  "昼間": {
@@ -30092,6 +30423,9 @@
      "en": "Lunch break starts at twelve."
     }
    }
+  ],
+  "correlati": [
+   "昼"
   ]
  },
  "注意": {
@@ -30199,6 +30533,9 @@
      "en": "The parking lot was full."
     }
    }
+  ],
+  "correlati": [
+   "車"
   ]
  },
  "丁寧": {
@@ -30494,6 +30831,10 @@
      "en": "A thief broke in and I called the police."
     }
    }
+  ],
+  "correlati": [
+   "盗む",
+   "すり"
   ]
  },
  "適当": {
@@ -30548,6 +30889,9 @@
      "en": "I check the weather forecast before going out."
     }
    }
+  ],
+  "correlati": [
+   "天気"
   ]
  },
  "展覧会": {
@@ -30575,6 +30919,9 @@
      "en": "I went to an art exhibition."
     }
    }
+  ],
+  "correlati": [
+   "美術館"
   ]
  },
  "店員": {
@@ -30602,6 +30949,9 @@
      "en": "The clerk kindly explained it to me."
     }
    }
+  ],
+  "correlati": [
+   "店"
   ]
  },
  "点": {
@@ -30692,7 +31042,10 @@
     "rural",
     "countryside"
    ]
-  }
+  },
+  "correlati": [
+   "郊外"
+  ]
  },
  "電灯": {
   "significato": {
@@ -30981,6 +31334,9 @@
      "en": "My bicycle was stolen."
     }
    }
+  ],
+  "correlati": [
+   "泥棒"
   ]
  },
  "湯": {
@@ -31038,6 +31394,9 @@
      "en": "Think about it without looking at the answer."
     }
    }
+  ],
+  "correlati": [
+   "答える"
   ]
  },
  "踏む": {
@@ -31132,6 +31491,9 @@
      "en": "I saw pandas at the zoo."
     }
    }
+  ],
+  "correlati": [
+   "動物"
   ]
  },
  "道具": {
@@ -31317,6 +31679,9 @@
      "en": "There is a nice smell of curry."
     }
    }
+  ],
+  "correlati": [
+   "味"
   ]
  },
  "日": {
@@ -31543,6 +31908,9 @@
      "en": "I carried the child on my back."
     }
    }
+  ],
+  "correlati": [
+   "背"
   ]
  },
  "倍": {
@@ -31581,6 +31949,9 @@
      "en": "The toy department is on the fifth floor."
     }
    }
+  ],
+  "correlati": [
+   "店"
   ]
  },
  "泊まる": {
@@ -31608,6 +31979,9 @@
      "en": "I stayed overnight at a friend's house."
     }
    }
+  ],
+  "correlati": [
+   "旅館"
   ]
  },
  "発音": {
@@ -31719,6 +32093,9 @@
      "en": "I let them watch children's programs."
     }
    }
+  ],
+  "correlati": [
+   "テレビ"
   ]
  },
  "彼": {
@@ -31777,6 +32154,10 @@
      "en": "They run together every morning."
     }
    }
+  ],
+  "correlati": [
+   "彼",
+   "彼女"
   ]
  },
  "彼女": {
@@ -31978,6 +32359,9 @@
      "en": "I saw a famous painting at the art museum."
     }
    }
+  ],
+  "correlati": [
+   "展覧会"
   ]
  },
  "必ず": {
@@ -32033,6 +32417,9 @@
      "en": "You need money to live abroad."
     }
    }
+  ],
+  "correlati": [
+   "要る"
   ]
  },
  "表": {
@@ -32073,6 +32460,9 @@
      "en": "The goods will arrive tomorrow."
     }
    }
+  ],
+  "correlati": [
+   "物"
   ]
  },
  "不便": {
@@ -32257,6 +32647,10 @@
      "en": "I submitted the report to the manager."
     }
    }
+  ],
+  "correlati": [
+   "社長",
+   "課長"
   ]
  },
  "復習": {
@@ -32431,6 +32825,9 @@
      "en": "I like reading literature."
     }
    }
+  ],
+  "correlati": [
+   "小説"
   ]
  },
  "文法": {
@@ -32512,6 +32909,9 @@
      "en": "I bought two kilograms of rice."
     }
    }
+  ],
+  "correlati": [
+   "御飯"
   ]
  },
  "壁": {
@@ -32870,6 +33270,9 @@
      "en": "On the weekend I will visit my grandparents."
     }
    }
+  ],
+  "correlati": [
+   "伺う"
   ]
  },
  "亡くなる": {
@@ -32896,6 +33299,9 @@
      "en": "A famous singer passed away."
     }
    }
+  ],
+  "correlati": [
+   "死ぬ"
   ]
  },
  "忘れ物": {
@@ -32923,6 +33329,9 @@
      "en": "For items left on the train, ask at the station."
     }
    }
+  ],
+  "correlati": [
+   "忘れる"
   ]
  },
  "貿易": {
@@ -32975,6 +33384,9 @@
      "en": "My dream is to become a pilot."
     }
    }
+  ],
+  "correlati": [
+   "私::わたし"
   ]
  },
  "翻訳": {
@@ -33029,6 +33441,9 @@
      "en": "Japanese manga are popular around the world."
     }
    }
+  ],
+  "correlati": [
+   "本"
   ]
  },
  "味": {
@@ -33057,6 +33472,9 @@
      "en": "This soup tastes like my mother's."
     }
    }
+  ],
+  "correlati": [
+   "匂い"
   ]
  },
  "味噌": {
@@ -33087,7 +33505,10 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "醤油"
+  ]
  },
  "眠い": {
   "significato": {
@@ -33114,6 +33535,10 @@
      "en": "I get sleepy after lunch."
     }
    }
+  ],
+  "correlati": [
+   "寝る",
+   "眠る"
   ]
  },
  "眠る": {
@@ -33211,6 +33636,9 @@
      "en": "Memorizing everything in one day is impossible."
     }
    }
+  ],
+  "correlati": [
+   "だめ"
   ]
  },
  "娘": {
@@ -33357,6 +33785,9 @@
      "en": "I use cotton towels."
     }
    }
+  ],
+  "correlati": [
+   "絹"
   ]
  },
  "戻る": {
@@ -33417,6 +33848,9 @@
      "en": "This dictionary is very useful."
     }
    }
+  ],
+  "correlati": [
+   "便利"
   ]
  },
  "約束": {
@@ -33589,6 +34023,9 @@
      "en": "Children learn a lot from play."
     }
    }
+  ],
+  "correlati": [
+   "遊ぶ"
   ]
  },
  "予習": {
@@ -33847,6 +34284,10 @@
      "en": "Autumn came and the leaves began to fall."
     }
    }
+  ],
+  "correlati": [
+   "木",
+   "枝"
   ]
  },
  "踊り": {
@@ -33874,6 +34315,9 @@
      "en": "At the festival I saw a traditional dance."
     }
    }
+  ],
+  "correlati": [
+   "踊る"
   ]
  },
  "踊る": {
@@ -33900,6 +34344,9 @@
      "en": "Let's dance to the music."
     }
    }
+  ],
+  "correlati": [
+   "踊り"
   ]
  },
  "利用": {
@@ -34050,6 +34497,9 @@
      "en": "I wore a yukata at the inn."
     }
    }
+  ],
+  "correlati": [
+   "ホテル"
   ]
  },
  "両方": {
@@ -34133,6 +34583,10 @@
      "en": "It was cool in the woods."
     }
    }
+  ],
+  "correlati": [
+   "森",
+   "木"
   ]
  },
  "例えば": {
@@ -34324,6 +34778,9 @@
      "en": "He has good cooking skills."
     }
    }
+  ],
+  "correlati": [
+   "手"
   ]
  },
  "約束する": {
@@ -35310,7 +35767,9 @@
    }
   ],
   "sinonimi": [],
-  "correlati": []
+  "correlati": [
+   "久しぶり"
+  ]
  },
  "お大事に": {
   "frasi_esempio": [
@@ -35656,6 +36115,9 @@
      "en": "Check-out, please. — Certainly, sir."
     }
    }
+  ],
+  "correlati": [
+   "承知する"
   ]
  },
  "ファックスする": {
@@ -36341,7 +36803,10 @@
    }
   ],
   "scrittura": "楽しむ",
-  "lettura": "たのしむ"
+  "lettura": "たのしむ",
+  "correlati": [
+   "楽しみ"
+  ]
  },
  "チケット": {
   "frasi_esempio": [
