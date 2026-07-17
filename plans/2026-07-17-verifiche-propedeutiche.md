@@ -42,6 +42,36 @@ macchina (niente browser automatizzabile) + questioni aperte.
 - **止める::とめる**: l'id con `::` funziona nei link `/consolida/止める::とめる`? Testare
   la scheda e il drill dalla riga del vocabolario (encoding URL).
 
+## Test correlati (aggiunti dopo, stessa sessione)
+
+8. **Scheda 妻** — card «Correlati» con 奥さん (e viceversa); 兄 mostra correlati
+   お兄さん/弟/姉/兄弟 e NESSUN sinonimo. お宅 → correlati 家/うち, niente più
+   "sinonimi" お子さん/お嬢さん.
+9. **Quiz sinonimi famiglia** — dopo seed v59 su dispositivo aggiornato: mai più domande
+   «sinonimo di 兄» con risposta 弟/姉. (Le relationQuestion pescano da sinonimi ripuliti.)
+   Domanda aperta: i correlati meritano una domanda propria «parola correlata ma diversa —
+   qual è la differenza?» o restano solo navigazione?
+
+## Test 20 parole nuove (seed v60)
+
+10. **Vocabolario** — cercare 信号, スマホ, 電池, 届く: presenti col livello giusto
+    (N5: スリッパ/スマホ/タオル; resto N4), 2 frasi d'esempio ciascuna.
+11. **Coppie 自/他 nuove** — scheda 割れる: «Verbo correlato (transitivo)» → 割る e
+    viceversa; idem 乾く↔乾かす, 動く↔動かす, 鳴る↔鳴らす, 倒れる↔倒す, 通る↔通す,
+    冷える↔冷やす, 増える↔増やす, 届ける↔届く. 増える↔減る come CONTRARI. 咳 omofono 席.
+12. **Quiz transitivity-pair** — con le nuove coppie attive devono uscire anche domande
+    di transitività sulle nuove parole (hanno frasi + id_verbo_corrispondente).
+
+## Test pulizia frasi aeroporto (seed v61)
+
+13. **Vocabolario** — 宅急便はどこですか, 観光です, トイレはどこですか ecc. NON più tra
+    le parole (né nei quiz SRS). In Frasi utili → «In aeroporto» ci sono anche le 3 nuove
+    (申告するものはありません, これは機内持ち込みできますか, 宅急便はどこですか).
+14. **Migrazione dispositivi** — su un dispositivo GIÀ usato (non fresh): dopo il refresh
+    a v61 le 11 frasi spariscono dal vocabolario e dai ripassi dovuti; se avevi progresso
+    su 下がる (ex 下る) o 伺う (ex うかがう) non devono esserci doppioni.
+    Questione: il conteggio ripassi di oggi deve calare di conseguenza — verificare.
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):
