@@ -9,9 +9,13 @@
 	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
 	import { BUILD_ID } from '$lib/buildInfo';
 	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
+	import { advanceDays, devToolsEnabled } from '$lib/db/devTools';
 
 	let saving = $state(false);
 	let saved = $state(false);
+	let devTools = $state(false);
+	let advancing = $state(false);
+	let advancedMsg = $state('');
 	const loadedSeed = typeof localStorage !== 'undefined' ? localStorage.getItem(SEED_LOADED_KEY) : null;
 
 	const verbForms = DRILL_FORMS.filter((f) => f.category === 'verb');
@@ -77,6 +81,19 @@
 		alert('Progressi SRS eliminati.');
 	}
 
+	async function advance(days: number): Promise<void> {
+		advancing = true;
+		advancedMsg = '';
+		try {
+			const { shifted } = await advanceDays(days);
+			advancedMsg = `Avanzato di ${days} giorn${days === 1 ? 'o' : 'i'} (${shifted} carte). Ricarico…`;
+			setTimeout(() => location.reload(), 700);
+		} catch (e) {
+			advancedMsg = 'Errore: ' + e;
+			advancing = false;
+		}
+	}
+
 	async function exportBundle(): Promise<void> {
 		const [words, kanji, grammar, srsProgress, courses, lessons] = await Promise.all([
 			db.words.toArray(),
@@ -101,6 +118,7 @@
 	let correctionsCount = $state(0);
 	onMount(async () => {
 		correctionsCount = (await listCorrections()).length;
+		devTools = devToolsEnabled();
 	});
 </script>
 
@@ -249,6 +267,18 @@
 		<p class="hint-text">Elimina tutto il progresso di memorizzazione. Il vocabolario rimane.</p>
 	</div>
 </section>
+
+{#if devTools}
+<section class="section-card">
+	<p class="card-title">🧪 Strumenti di test</p>
+	<p class="hint-text">Avanza il tempo percepito dall'app per collaudare le statistiche e la tenuta dell'SRS senza aspettare davvero: i ripassi dovuti nei prossimi giorni diventano dovuti ora e il budget di carte nuove si libera. Non tocca stage, mastery o errori. Attivo perché hai aperto con <code>?dev=1</code>.</p>
+	<div class="data-actions">
+		<button class="btn-outline" onclick={() => advance(1)} disabled={advancing}>⏩ Avanza di 1 giorno</button>
+		<button class="btn-outline" onclick={() => advance(7)} disabled={advancing}>⏩⏩ Avanza di 7 giorni</button>
+		{#if advancedMsg}<p class="hint-text">{advancedMsg}</p>{/if}
+	</div>
+</section>
+{/if}
 
 <section class="section-card">
 	<p class="card-title">Informazioni</p>

@@ -9,6 +9,7 @@
 	import { importDatabaseFromJson } from '$lib/db/import';
 	import { applyAllCorrections } from '$lib/db/corrections';
 	import { applySeedMigrations } from '$lib/db/seedMigrations';
+	import { maybeEnableDevToolsFromUrl } from '$lib/db/devTools';
 	import {
 		ensureDefaultObjectives,
 		ensureDefaultSettings,
@@ -77,6 +78,7 @@
 
 	onMount(async () => {
 		setupServiceWorker().catch((e) => console.error('Errore service worker:', e));
+		maybeEnableDevToolsFromUrl();
 		if (appState.initialized) return;
 		try {
 			await ensureSeedLoaded();

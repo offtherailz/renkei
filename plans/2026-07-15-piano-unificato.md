@@ -269,6 +269,20 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
   - **Insegnante virtuale di collaudo (per dopo)**: far testare l'app a un agente-insegnante
     madrelingua, SOLO su domande/contenuti/relazioni (niente UI, per risparmiare token);
     output = note e correzioni da applicare, come i report di curatela già fatti.
+    ✅ (17/07) Pronto lo strumento: `scripts/teacher-digest.mjs` (stats / relations N5|N4 /
+    no-relations / unlinked-pairs / sample) — genera shortlist compatte così l'agente non
+    legge mai il seed (~400k token) ma pochi KB. L'output dell'agente va "piallato" (fuso
+    negli overrides) come da [ciclo insegnante], a delta piccoli.
+- **Strumenti test SRS (17/07)** ✅:
+  - `src/lib/core/srsSimulation.test.ts` — simulatore multi-giorno deterministico sulle
+    funzioni pure (nowTs esplicito): budget carte nuove (reset a mezzanotte locale, gli
+    extra di ieri non riducono oggi ma aumentano il carico), cold-start 1400 carte (backlog
+    limitato dal cap), convergenza (carico cala per chi studia bene), leech (torna sempre,
+    mai auto-sepolta), estremi tutto-giusto (stage 7, mastery 100, intervallo ~2 mesi) e
+    tutto-sbagliato (stage 0, mastery -100, ogni 8 min, ease a pavimento, si risale).
+  - **Avanza-giorno in-app**: Impostazioni → «🧪 Strumenti di test» (gate `?dev=1`,
+    localStorage `renkei_dev_tools`): ⏩ 1/7 giorni — sposta le next_review_date indietro e
+    libera il budget carte nuove, per collaudare statistiche e piano di oggi su staging.
 - **Microfono: permessi e degradazione (16/07)** — su http non-localhost (dev via IP LAN) l'API
   non esiste (serve secure context) e il tap sul mic in frasi utili «si chiude e dà errore».
   Da fare: 1) `navigator.permissions.query({name:'microphone'})` per distinguere prompt/negato/
