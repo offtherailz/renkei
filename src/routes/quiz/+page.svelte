@@ -39,6 +39,7 @@
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import { curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
+	import { markWeakDoneToday } from '$lib/core/dailyPlan';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
 	import type {
@@ -65,7 +66,7 @@
 	let objectives = $state<StudyObjective[]>([]);
 	let srsMap = $state(new Map<string, SrsProgress>());
 	let context = $state<QuizContext | null>(null);
-	let distractorIndex = $state<DistractorIndex>({ N5: [], N4: [], N3: [], N2: [], N1: [] });
+	let distractorIndex = $state<DistractorIndex>({ N5: [], N4: [], N3: [], N2: [], N1: [], EXTRA: [] });
 
 	// Session
 	let session = $state<StudySessionState | null>(null);
@@ -552,6 +553,8 @@
 
 	function endSession(): void {
 		if (!session) return;
+		// una sessione «ripasso deboli» completata spunta la voce nel piano di oggi
+		if (session.weak && session.answers > 0) markWeakDoneToday();
 		summarySession = { ...session };
 		appState.sessionState = null;
 		appState.lastSummary = summarySession;
@@ -944,7 +947,9 @@
 			'counter-quiz': "contatore di un'altra categoria",
 			'counter-reading': 'lettura errata (rendaku/concatenazione)',
 			'time-reading': 'lettura regolare errata',
-			'transitivity-pair': 'verbo gemello (transitività opposta)'
+			'transitivity-pair': 'verbo gemello (transitività opposta)',
+			'verb-form-cloze': 'forma che non si aggancia a questa struttura',
+			'usage-cloze': 'non adatta a questa frase'
 		};
 
 		return choices
@@ -1036,7 +1041,14 @@
 			const ex = (exs ?? []).find((e) => strip(e.testo) === plain);
 			return ex ? { testo: plain, annotated: ex.testo !== plain ? ex.testo : undefined, traduzione: pickTrans(ex.traduzione) } : { testo: plain };
 		};
-		if (q.mode === 'particle-cloze' || q.mode === 'transitivity-pair') {
+		if (
+			q.mode === 'particle-cloze' ||
+			q.mode === 'transitivity-pair' ||
+			q.mode === 'verb-form-cloze' ||
+			q.mode === 'usage-cloze'
+		) {
+			// la frase è QUELLA della domanda (bug 17/07: verb-form/usage-cloze
+			// cadevano nel fallback e mostravano un'altra frase d'esempio)
 			const w = await db.words.get(q.wordId);
 			const found = fromExamples(w?.frasi_esempio, q.fullSentence);
 			return { ...found, traduzione: found.traduzione ?? q.translation };

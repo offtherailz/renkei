@@ -11,6 +11,7 @@
 	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
 	import { autoAdvanceCompletedLessons, listCourses, importCourseDataset, studyOnlyCourse } from '$lib/db/course-import';
 	import { setObjectiveTreeEnabled } from '$lib/db/objectives';
+	import { weakDoneToday, activityStartedToday, markActivityStartedToday } from '$lib/core/dailyPlan';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -23,6 +24,9 @@
 
 	// ── Piano di oggi ──
 	let weakest = $state<WeakItem[]>([]);
+	// completamento delle voci del piano (spunte giornaliere, localStorage)
+	let weakDone = $state(false);
+	let activityDone = $state(false);
 	// attività a rotazione giornaliera (varietà senza dover scegliere)
 	const ACTIVITIES = [
 		{ href: 'avventure', icon: '🗺️', label: "Un'avventura", hint: 'kaimono, ristorante o treno' },
@@ -59,10 +63,29 @@
 		dueCount = due.attivi;
 		duePaused = due.inPausa;
 		unseenCount = unseen;
+		weakDone = weakDoneToday();
+		activityDone = activityStartedToday();
 		void loadWeakest();
 		void loadStreak(due.attivi);
 		void loadPackParty();
 		loading = false;
+	}
+
+	// ── Completamento del piano (spunte) ─────────────────────────────────────
+	// Ripassi: fatto = niente dovuto E niente carte nuove che entrerebbero E hai
+	// studiato oggi (stessa condizione del messaggio «tutto fatto per oggi»).
+	const reviewsDone = $derived(
+		dueCount === 0 && !newCardsAvailable && (sessionStreak?.attivoOggi ?? false)
+	);
+	const planTotal = $derived(2 + (weakest.length > 0 ? 1 : 0));
+	const planDone = $derived(
+		(reviewsDone ? 1 : 0) + (weakest.length > 0 && weakDone ? 1 : 0) + (activityDone ? 1 : 0)
+	);
+
+	function startActivity(): void {
+		// la navigazione del link procede da sola: qui solo la spunta
+		markActivityStartedToday();
+		activityDone = true;
 	}
 
 	// Festa (una volta sola) quando un pack/lezione arriva a "tutte le carte
@@ -269,6 +292,7 @@
 {/if}
 <section class="section-card">
 	<h2 class="section-title">☀️ Il piano di oggi
+		<span class="plan-progress" class:complete={planDone >= planTotal}>{planDone}/{planTotal}</span>
 		{#if sessionStreak && sessionStreak.giorni > 0}
 			<span class="streak" class:risk={sessionStreak.aRischio} title={sessionStreak.aRischio ? 'Streak a rischio: una sessione oggi la salva!' : 'Giorni di studio di fila'}>🔥 {sessionStreak.giorni}{sessionStreak.aRischio ? ' !' : ''}</span>
 		{:else if sessionStreak?.aRischio}
@@ -276,8 +300,8 @@
 		{/if}
 	</h2>
 	<div class="plan-list">
-		<a class="plan-row" href="{base}/quiz">
-			<span class="plan-icon">{dueCount > 0 ? '📋' : '✨'}</span>
+		<a class="plan-row" class:done={reviewsDone} href="{base}/quiz">
+			<span class="plan-icon">{reviewsDone ? '✅' : dueCount > 0 ? '📋' : '✨'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
 				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : newCardsAvailable ? 'nessun ripasso in attesa — carte nuove pronte da iniziare ✨' : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''}</span>
@@ -285,10 +309,10 @@
 			<span class="plan-go">→</span>
 		</a>
 		{#if weakest.length > 0}
-			<div class="plan-row static weak-teaser">
-				<span class="plan-icon">💪</span>
+			<div class="plan-row static weak-teaser" class:done={weakDone}>
+				<span class="plan-icon">{weakDone ? '✅' : '💪'}</span>
 				<span class="plan-body">
-					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/quiz?deboli=1">🔁 ripassali</a> <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
+					<span class="plan-label">Punti deboli {#if weakDone}<span class="done-note">ripassati oggi ✓</span>{/if} <a class="weak-all" href="{base}/quiz?deboli=1">🔁 ripassali</a> <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
 					<span class="plan-chips">
 						{#each weakest as w (w.href)}
 							<a class="weak-chip" href="{base}/{w.href}">{w.label} <small>{w.pct}%</small></a>
@@ -297,11 +321,11 @@
 				</span>
 			</div>
 		{/if}
-		<a class="plan-row" href="{base}/{activity.href}">
-			<span class="plan-icon">{activity.icon}</span>
+		<a class="plan-row" class:done={activityDone} href="{base}/{activity.href}" onclick={startActivity}>
+			<span class="plan-icon">{activityDone ? '✅' : activity.icon}</span>
 			<span class="plan-body">
 				<span class="plan-label">Attività del giorno: {activity.label}</span>
-				<span class="plan-hint">{activity.hint} — domani cambia</span>
+				<span class="plan-hint">{activityDone ? 'iniziata oggi ✓ — rigiocala quando vuoi' : `${activity.hint} — domani cambia`}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>
@@ -707,6 +731,13 @@
 	.plan-totals { margin: 0; font-size: 0.78rem; color: var(--muted); text-align: right; }
 	.plan-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); text-decoration: none; color: var(--ink); }
 	.plan-row:not(.static):hover { border-color: var(--brand); }
+	.plan-row.done { opacity: 0.65; border-style: dashed; }
+	.done-note { font-size: 0.72rem; font-weight: 600; color: var(--success); }
+	.plan-progress {
+		font-size: 0.72rem; font-weight: 800; color: var(--muted);
+		border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; vertical-align: middle;
+	}
+	.plan-progress.complete { color: var(--success); border-color: var(--success); }
 	.plan-icon { font-size: 1.4rem; }
 	.plan-body { flex: 1; min-width: 0; display: grid; gap: 2px; }
 	.plan-label { font-size: 0.88rem; font-weight: 700; }

@@ -23,7 +23,8 @@ export async function preloadDistractorIndex(): Promise<DistractorIndex> {
     N4: [],
     N3: [],
     N2: [],
-    N1: []
+    N1: [],
+    EXTRA: []
   };
 
   for (const row of rows) {

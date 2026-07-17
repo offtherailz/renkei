@@ -10,7 +10,9 @@ export interface LocalizedStringArray {
   en: string[];
 }
 
-export type JLPTLevel = "N5" | "N4" | "N3" | "N2" | "N1";
+// EXTRA = parola utile ma fuori dalle liste JLPT (lessico tecnico tipo 搭乗券):
+// studiabile come le altre, ma catalogata onestamente (feedback utente 17/07).
+export type JLPTLevel = "N5" | "N4" | "N3" | "N2" | "N1" | "EXTRA";
 
 export type WordTypeJP =
   | "名詞[めいし]"

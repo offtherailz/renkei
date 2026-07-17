@@ -887,6 +887,7 @@ export function createConjugationQuizQuestion(
 const JLPT_DIFFICULTY_MULTIPLIER: Record<JLPTLevel, number> = {
   N5: 1,
   N4: 1.15,
+  EXTRA: 1.15, // fuori liste JLPT: difficoltà da N4
   N3: 1.35,
   N2: 1.6,
   N1: 2

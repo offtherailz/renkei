@@ -32,6 +32,7 @@
 	let score = $state(0);
 	let furiganaOn = $state(true);
 	let answered = $state<null | boolean>(null);
+	let scored = $state(false); // il punto conta solo il PRIMO tentativo del round
 	let micBusy = $state(false);
 	let heard = $state('');
 	let canSpeak = $state(false);
@@ -48,11 +49,14 @@
 		// fonti con la notazione furigana vera: righe dei dialoghi + esempi
 		// delle forme grammaticali (mai furigana indovinata)
 		const dialogues = (await db.dialogues.toArray()) as Dialogue[];
+		// via le frasi non leggibili ad alta voce: frecce/simboli/lettere latine
+		// (righe di scena tipo «A → B» non si possono pronunciare)
+		const unreadable = /[→←↔⇒·・~〜*＊a-zA-Z0-9]/;
 		for (const d of dialogues) {
 			for (const r of d.righe ?? []) {
 				if (!/\[[^\]]+\]/.test(r.testo)) continue; // serve i furigana
 				const plain = stripFuriganaNotation(r.testo);
-				if (plain.length < 8 || plain.length > 40) continue;
+				if (plain.length < 8 || plain.length > 40 || unreadable.test(plain)) continue;
 				const translation = pickLocalizedText(r.traduzione, locale);
 				if (!translation) continue;
 				pool.push({ testo: r.testo, plain, translation });
@@ -62,7 +66,7 @@
 			for (const ex of f.examples) {
 				if (!/\[[^\]]+\]/.test(ex.jp)) continue;
 				const plain = stripFuriganaNotation(ex.jp);
-				if (plain.length < 8 || plain.length > 40) continue;
+				if (plain.length < 8 || plain.length > 40 || unreadable.test(plain)) continue;
 				pool.push({ testo: ex.jp, plain, translation: ex.it });
 			}
 		}
@@ -83,8 +87,16 @@
 
 	function setupRound(): void {
 		answered = null;
+		scored = false;
 		heard = '';
 		furiganaOn = idx < ASSISTED_ROUNDS; // assistita → autonoma
+	}
+
+	// 🔁 riprova la stessa frase (dopo l'esito): il punteggio resta quello del
+	// primo tentativo, ma puoi rileggerla finché non ti suona giusta.
+	function retry(): void {
+		answered = null;
+		heard = '';
 	}
 
 	async function tryRead(): Promise<void> {
@@ -103,7 +115,10 @@
 
 	function finish(ok: boolean): void {
 		answered = ok;
-		if (ok) score += 1;
+		if (!scored) {
+			if (ok) score += 1;
+			scored = true;
+		}
 		// dopo il tentativo senti il modello (prima no: è lettura, non eco)
 		speakSentenceJapanese(cur().plain);
 	}
@@ -163,11 +178,15 @@
 					</div>
 				{/if}
 			{:else}
-				<p class="who">{answered ? '✅ Bene!' : '❌ Riascolta e riprova la prossima'}</p>
+				<p class="who">{answered ? '✅ Bene!' : '❌ Confronta e riprova, se vuoi'}</p>
+				{#if heard}
+					<HeardDiff {heard} candidates={[r.plain]} />
+				{/if}
 				<p class="hint">{r.translation}</p>
 				<div class="listen-row">
 					<button class="listen" onclick={() => speakSentenceJapanese(r.plain)}>🔊 もう一度</button>
 					<button class="listen" onclick={() => speakSentenceJapanese(r.plain, { rate: 0.6 })}>🐢 ゆっくり</button>
+					<button class="listen" onclick={retry}>🔁 Riprova a leggerla</button>
 				</div>
 				<button class="proceed" onclick={next}>{idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
 			{/if}

@@ -110,6 +110,7 @@
 			</div>
 		</article>
 	{:else if scene === 'play'}
+		{#key idx}
 		{@const r = cur()}
 		<article class="scene">
 			<p class="who">{idx + 1} / {rounds.length} — punti: {score}</p>
@@ -121,12 +122,15 @@
 				<p class="prompt big">「{r.parola}」</p>
 			{/if}
 			<div class="choices">
-				{#each r.opzioni as c (c)}
+				{#each r.opzioni as c, i (i)}
+					<!-- niente `disabled` dopo la risposta: bloccava anche i tocchi
+					     sulle parole di InteractiveSentence (popup morto — bug 17/07);
+					     pick() ha già la guardia per i click ripetuti -->
 					<button
 						class="choice"
 						class:right={picked !== null && c === r.corretta}
 						class:wrong={picked === c && c !== r.corretta}
-						disabled={picked !== null}
+						class:answered={picked !== null}
 						onclick={() => pick(c)}
 					>
 						{#if picked !== null}
@@ -149,6 +153,7 @@
 				</div>
 			{/if}
 		</article>
+		{/key}
 	{:else}
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
@@ -171,8 +176,9 @@
 	.levels { display: flex; gap: 10px; justify-content: center; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.02rem; text-align: left; cursor: pointer; }
-	.choice:hover:not(:disabled) { border-color: var(--brand); }
+	.choice:hover:not(:disabled):not(.answered) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
+	.choice.answered { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 	.sense { margin: 0; text-align: center; font-size: 0.86rem; color: var(--ink); }

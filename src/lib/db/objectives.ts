@@ -138,6 +138,18 @@ export async function ensureDefaultObjectives(): Promise<void> {
 			study_enabled: true,
 			created_at: now,
 			updated_at: now
+		},
+		{
+			// Parole utili fuori dalle liste JLPT (lessico viaggio/tecnico, badge EX):
+			// studiabili e pausabili come il resto, ma catalogate onestamente.
+			id: "obj-catalog-extra",
+			name: "Lessico extra (fuori JLPT)",
+			objective_type: "custom",
+			target_jlpt: "EXTRA",
+			catalog_item_keys: levelWordKeys("EXTRA"),
+			study_enabled: true,
+			created_at: now,
+			updated_at: now
 		}
 	];
 

@@ -38,7 +38,7 @@
     "en": [
       "airline ticket"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "航空券はもうありますか。",
       "it": "Ha già il biglietto aereo?"
@@ -53,7 +53,7 @@
     "en": [
       "boarding pass"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "搭乗券をお願いします。",
       "it": "Il suo biglietto d'imbarco, per favore."
@@ -68,7 +68,7 @@
     "en": [
       "boarding gate"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "搭乗口は32番です。",
       "it": "Il gate d'imbarco è il numero 32."
@@ -100,7 +100,7 @@
       "hand luggage",
       "baggage"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "手荷物はこちらに置いてください。",
       "it": "Metta qui il bagaglio, per favore."
@@ -115,7 +115,7 @@
     "en": [
       "baggage claim"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "手荷物受取所は一階です。",
       "it": "Il ritiro bagagli è al piano terra."
@@ -130,7 +130,7 @@
     "en": [
       "customs"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "税関で荷物を調べられました。",
       "it": "Alla dogana mi hanno controllato i bagagli."
@@ -147,7 +147,7 @@
       "departure (immigration)",
       "leaving the country"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "出国の手続きをしてください。",
       "it": "Faccia le pratiche per l'uscita dal paese."
@@ -164,7 +164,7 @@
       "entry (immigration)",
       "entering the country"
     ],
-    "livello": "N4",
+    "livello": "EXTRA",
     "esempio": {
       "jp": "入国の審査はこちらです。",
       "it": "Il controllo immigrazione è qui."

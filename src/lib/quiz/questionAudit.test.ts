@@ -53,7 +53,7 @@ describe("audit domande (solo con AUDIT=1)", () => {
       wordsById: new Map(words.map((w) => [w.id, w])),
       grammarById: new Map(grammar.map((g) => [g.id, g]))
     };
-    const index: DistractorIndex = { N5: [], N4: [], N3: [], N2: [], N1: [] };
+    const index: DistractorIndex = { N5: [], N4: [], N3: [], N2: [], N1: [], EXTRA: [] };
     for (const w of words) {
       index[w.livello_jlpt].push({ id: w.id, meaning: pickLocalizedArray(w.significato, "it")[0] ?? "", scrittura: w.scrittura });
     }

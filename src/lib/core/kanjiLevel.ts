@@ -1,6 +1,7 @@
 import type { JLPTLevel, Kanji, Word } from '$lib/types/models';
 
-const RANK: Record<JLPTLevel, number> = { N5: 1, N4: 2, N3: 3, N2: 4, N1: 5 };
+// EXTRA (fuori liste JLPT) trattata come N4 ai fini del confronto kanji.
+const RANK: Record<JLPTLevel, number> = { N5: 1, N4: 2, EXTRA: 2, N3: 3, N2: 4, N1: 5 };
 
 // Un kanji dentro la parola è "più avanzato" del livello della parola stessa
 // (es. parola N4 che contiene un kanji classificato N3 nel catalogo storico).

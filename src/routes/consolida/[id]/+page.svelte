@@ -61,15 +61,19 @@
 
 	const current = $derived(queue[idx] ?? null);
 
-	// ✍️ composizione: banco/risposta a token (come nel quiz)
+	// ✍️ composizione: banco/risposta a token (come nel quiz). Setup IMPERATIVO
+	// al cambio di domanda (setupComp da next/build), non con $effect: l'effect
+	// rigirava a ogni interazione (le sue dipendenze si invalidavano coi proxy)
+	// e resettava il banco — i token cliccati "non si componevano" (bug 17/07).
 	let compBank = $state<string[]>([]);
 	let compAnswer = $state<string[]>([]);
-	$effect(() => {
-		if (current?.mode === 'composition') {
-			compBank = [...current.tokens];
+	function setupComp(): void {
+		const q = queue[idx];
+		if (q?.mode === 'composition') {
+			compBank = [...q.tokens];
 			compAnswer = [];
 		}
-	});
+	}
 	function compPickToken(i: number): void {
 		const t = compBank[i];
 		if (t === undefined || revealed) return;
@@ -422,8 +426,9 @@
 		void recordPractice(correct);
 		// per coniugazione/transitività leggi la forma corretta, non la parola base
 		const m = current.mode;
-		if (m === 'particle-cloze') {
-			// come nel quiz: si legge la frase completa con la particella giusta
+		if (m === 'particle-cloze' || m === 'usage-cloze' || m === 'verb-form-cloze') {
+			// come nel quiz: quando metti una parola/forma nella frase, si legge
+			// la frase COMPLETA (feedback utente 17/07: mancava per usage-cloze)
 			speakSentenceJapanese((current as { fullSentence: string }).fullSentence);
 		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
 			speakSentenceJapanese(correctOf(current));
@@ -484,15 +489,21 @@
 	}
 
 	function next(): void {
-		if (idx + 1 >= queue.length) { build(); return; }
+		if (idx + 1 >= queue.length) { void rebuild(); return; }
 		idx += 1; picked = null; revealed = false;
+		setupComp();
+	}
+
+	async function rebuild(): Promise<void> {
+		await build();
+		setupComp();
 	}
 
 	onMount(() => {
 		canSpeak = speechAvailable();
-		void build();
+		void rebuild();
 	});
-	$effect(() => { void wordId; build(); });
+	$effect(() => { void wordId; void rebuild(); });
 </script>
 
 <div class="consolida">

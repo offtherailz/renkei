@@ -10,12 +10,14 @@
 	};
 
 	const color = $derived(COLORS[level] ?? { bg: 'var(--surface-2)', fg: 'var(--muted)' });
+	// EXTRA = parola utile ma fuori dalle liste JLPT (lessico tecnico/moderno)
+	const isExtra = $derived(level === 'EXTRA');
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <span class="jlpt-badge" style="background:{color.bg}; color:{color.fg}" tabindex="0">
-	<ruby>{level}<rt>JLPT</rt></ruby>
-	<span class="badge-tooltip" role="tooltip">Livello JLPT (Japanese Language Proficiency Test)</span>
+	<ruby>{isExtra ? 'EX' : level}<rt>{isExtra ? 'extra' : 'JLPT'}</rt></ruby>
+	<span class="badge-tooltip" role="tooltip">{isExtra ? 'Fuori dalle liste JLPT: lessico utile di riferimento (viaggio, vita moderna), studiabile come il resto.' : 'Livello JLPT (Japanese Language Proficiency Test)'}</span>
 </span>
 
 <style>

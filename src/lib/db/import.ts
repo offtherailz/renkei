@@ -4,6 +4,7 @@ import type { DatabaseSeed, Grammar, JLPTLevel, UserProfile } from "../types/mod
 const JLPT_ORDER: Record<JLPTLevel, number> = {
   N5: 1,
   N4: 2,
+  EXTRA: 2, // fuori liste JLPT: ordinata col lessico N4
   N3: 3,
   N2: 4,
   N1: 5

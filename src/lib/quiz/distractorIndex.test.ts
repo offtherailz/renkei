@@ -15,7 +15,8 @@ function makeIndex(): DistractorIndex {
 		N4: [],
 		N3: [],
 		N2: [],
-		N1: []
+		N1: [],
+		EXTRA: []
 	};
 }
 

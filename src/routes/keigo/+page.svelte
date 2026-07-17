@@ -203,12 +203,14 @@
 				<p class="prompt small">Quale frase è quella giusta?</p>
 			{/if}
 			<div class="choices">
-				{#each r.opzioni as c (c)}
+				{#each r.opzioni as c, i (i)}
+					<!-- niente `disabled` dopo la risposta: bloccava i tocchi sulle
+					     parole di InteractiveSentence (popup morto); pick() ha la guardia -->
 					<button
 						class="choice"
 						class:right={picked !== null && c === r.corretta}
 						class:wrong={picked === c && c !== r.corretta}
-						disabled={picked !== null}
+						class:answered={picked !== null}
 						onclick={() => pick(c)}
 					>
 						{#if picked !== null && (r.kind === 'frase' || r.kind === 'irai')}
@@ -264,8 +266,9 @@
 	.glossa { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.02rem; text-align: left; cursor: pointer; }
-	.choice:hover:not(:disabled) { border-color: var(--brand); }
+	.choice:hover:not(:disabled):not(.answered) { border-color: var(--brand); }
 	.choice:disabled { cursor: default; }
+	.choice.answered { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 	.nota { margin: 0; text-align: center; font-size: 0.8rem; color: var(--info-ink); background: var(--info-bg); border-radius: 10px; padding: 8px 12px; }
