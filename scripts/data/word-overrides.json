@@ -21093,7 +21093,8 @@
      "en": "My shoes got dirty in the rain."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "汚す"
  },
  "押し入れ": {
   "significato": {
@@ -21760,7 +21761,8 @@
      "en": "The window glass broke in the earthquake."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "割る"
  },
  "割合": {
   "significato": {
@@ -21871,7 +21873,8 @@
      "en": "The laundry has already dried."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "乾かす"
  },
  "慣れる": {
   "significato": {
@@ -27670,6 +27673,9 @@
      "en": "A window seat, please."
     }
    }
+  ],
+  "omofoni": [
+   "咳"
   ]
  },
  "昔": {
@@ -28276,6 +28282,10 @@
      "en": "Recently my weight has increased."
     }
    }
+  ],
+  "id_verbo_corrispondente": "増やす",
+  "contrari": [
+   "減る"
   ]
  },
  "贈り物": {
@@ -29448,7 +29458,8 @@
     "to pass (by)",
     "to go through"
    ]
-  }
+  },
+  "id_verbo_corrispondente": "通す"
  },
  "漬ける": {
   "significato": {
@@ -29942,7 +29953,8 @@
      "en": "The bookshelf fell over in the earthquake."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "倒す"
  },
  "島": {
   "significato": {
@@ -30143,7 +30155,8 @@
    "en": [
     "to move"
    ]
-  }
+  },
+  "id_verbo_corrispondente": "動かす"
  },
  "動物園": {
   "significato": {
@@ -30302,7 +30315,8 @@
      "en": "Please deliver these documents to the office."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "届く"
  },
  "内": {
   "significato": {
@@ -32284,7 +32298,8 @@
      "en": "Thunder is rumbling."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "鳴らす"
  },
  "毛": {
   "significato": {
@@ -33159,7 +33174,8 @@
      "en": "It gets chilly at night, so let's bring a jacket."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "冷やす"
  },
  "冷房": {
   "significato": {

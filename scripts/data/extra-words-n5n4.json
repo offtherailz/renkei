@@ -1,13 +1,703 @@
 [
-  { "scrittura": "フライト", "lettura": "ふらいと", "it": ["volo"], "en": ["flight"], "livello": "N5", "esempio": { "jp": "フライトは何時ですか。", "it": "A che ora è il volo?" } },
-  { "scrittura": "チケット", "lettura": "ちけっと", "it": ["biglietto"], "en": ["ticket"], "livello": "N5", "esempio": { "jp": "チケットを見せてください。", "it": "Mi mostri il biglietto, per favore." } },
-  { "scrittura": "航空券", "lettura": "こうくうけん", "it": ["biglietto aereo"], "en": ["airline ticket"], "livello": "N4", "esempio": { "jp": "航空券はもうありますか。", "it": "Ha già il biglietto aereo?" } },
-  { "scrittura": "搭乗券", "lettura": "とうじょうけん", "it": ["carta d'imbarco"], "en": ["boarding pass"], "livello": "N4", "esempio": { "jp": "搭乗券をお願いします。", "it": "Il suo biglietto d'imbarco, per favore." } },
-  { "scrittura": "搭乗口", "lettura": "とうじょうぐち", "it": ["gate d'imbarco"], "en": ["boarding gate"], "livello": "N4", "esempio": { "jp": "搭乗口は32番です。", "it": "Il gate d'imbarco è il numero 32." } },
-  { "scrittura": "パスポート", "lettura": "ぱすぽーと", "it": ["passaporto"], "en": ["passport"], "livello": "N5", "esempio": { "jp": "パスポートを見せてください。", "it": "Mi mostri il passaporto, per favore." } },
-  { "scrittura": "手荷物", "lettura": "てにもつ", "it": ["bagaglio a mano", "bagaglio"], "en": ["hand luggage", "baggage"], "livello": "N4", "esempio": { "jp": "手荷物はこちらに置いてください。", "it": "Metta qui il bagaglio, per favore." } },
-  { "scrittura": "手荷物受取所", "lettura": "てにもつうけとりじょ", "it": ["ritiro bagagli"], "en": ["baggage claim"], "livello": "N4", "esempio": { "jp": "手荷物受取所は一階です。", "it": "Il ritiro bagagli è al piano terra." } },
-  { "scrittura": "税関", "lettura": "ぜいかん", "it": ["dogana"], "en": ["customs"], "livello": "N4", "esempio": { "jp": "税関で荷物を調べられました。", "it": "Alla dogana mi hanno controllato i bagagli." } },
-  { "scrittura": "出国", "lettura": "しゅっこく", "it": ["uscita dal paese (immigrazione)", "partenza internazionale"], "en": ["departure (immigration)", "leaving the country"], "livello": "N4", "esempio": { "jp": "出国の手続きをしてください。", "it": "Faccia le pratiche per l'uscita dal paese." } },
-  { "scrittura": "入国", "lettura": "にゅうこく", "it": ["ingresso nel paese (immigrazione)", "arrivo internazionale"], "en": ["entry (immigration)", "entering the country"], "livello": "N4", "esempio": { "jp": "入国の審査はこちらです。", "it": "Il controllo immigrazione è qui." } }
+  {
+    "scrittura": "フライト",
+    "lettura": "ふらいと",
+    "it": [
+      "volo"
+    ],
+    "en": [
+      "flight"
+    ],
+    "livello": "N5",
+    "esempio": {
+      "jp": "フライトは何時ですか。",
+      "it": "A che ora è il volo?"
+    }
+  },
+  {
+    "scrittura": "チケット",
+    "lettura": "ちけっと",
+    "it": [
+      "biglietto"
+    ],
+    "en": [
+      "ticket"
+    ],
+    "livello": "N5",
+    "esempio": {
+      "jp": "チケットを見せてください。",
+      "it": "Mi mostri il biglietto, per favore."
+    }
+  },
+  {
+    "scrittura": "航空券",
+    "lettura": "こうくうけん",
+    "it": [
+      "biglietto aereo"
+    ],
+    "en": [
+      "airline ticket"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "航空券はもうありますか。",
+      "it": "Ha già il biglietto aereo?"
+    }
+  },
+  {
+    "scrittura": "搭乗券",
+    "lettura": "とうじょうけん",
+    "it": [
+      "carta d'imbarco"
+    ],
+    "en": [
+      "boarding pass"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "搭乗券をお願いします。",
+      "it": "Il suo biglietto d'imbarco, per favore."
+    }
+  },
+  {
+    "scrittura": "搭乗口",
+    "lettura": "とうじょうぐち",
+    "it": [
+      "gate d'imbarco"
+    ],
+    "en": [
+      "boarding gate"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "搭乗口は32番です。",
+      "it": "Il gate d'imbarco è il numero 32."
+    }
+  },
+  {
+    "scrittura": "パスポート",
+    "lettura": "ぱすぽーと",
+    "it": [
+      "passaporto"
+    ],
+    "en": [
+      "passport"
+    ],
+    "livello": "N5",
+    "esempio": {
+      "jp": "パスポートを見せてください。",
+      "it": "Mi mostri il passaporto, per favore."
+    }
+  },
+  {
+    "scrittura": "手荷物",
+    "lettura": "てにもつ",
+    "it": [
+      "bagaglio a mano",
+      "bagaglio"
+    ],
+    "en": [
+      "hand luggage",
+      "baggage"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "手荷物はこちらに置いてください。",
+      "it": "Metta qui il bagaglio, per favore."
+    }
+  },
+  {
+    "scrittura": "手荷物受取所",
+    "lettura": "てにもつうけとりじょ",
+    "it": [
+      "ritiro bagagli"
+    ],
+    "en": [
+      "baggage claim"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "手荷物受取所は一階です。",
+      "it": "Il ritiro bagagli è al piano terra."
+    }
+  },
+  {
+    "scrittura": "税関",
+    "lettura": "ぜいかん",
+    "it": [
+      "dogana"
+    ],
+    "en": [
+      "customs"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "税関で荷物を調べられました。",
+      "it": "Alla dogana mi hanno controllato i bagagli."
+    }
+  },
+  {
+    "scrittura": "出国",
+    "lettura": "しゅっこく",
+    "it": [
+      "uscita dal paese (immigrazione)",
+      "partenza internazionale"
+    ],
+    "en": [
+      "departure (immigration)",
+      "leaving the country"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "出国の手続きをしてください。",
+      "it": "Faccia le pratiche per l'uscita dal paese."
+    }
+  },
+  {
+    "scrittura": "入国",
+    "lettura": "にゅうこく",
+    "it": [
+      "ingresso nel paese (immigrazione)",
+      "arrivo internazionale"
+    ],
+    "en": [
+      "entry (immigration)",
+      "entering the country"
+    ],
+    "livello": "N4",
+    "esempio": {
+      "jp": "入国の審査はこちらです。",
+      "it": "Il controllo immigrazione è qui."
+    }
+  },
+  {
+    "scrittura": "信号",
+    "lettura": "しんごう",
+    "it": [
+      "semaforo",
+      "segnale"
+    ],
+    "en": [
+      "traffic light",
+      "signal"
+    ],
+    "livello": "N4",
+    "esempi": [
+      {
+        "jp": "信号が 青に なったら、渡りましょう。",
+        "it": "Quando il semaforo diventa verde, attraversiamo.",
+        "en": "When the light turns green, let's cross."
+      },
+      {
+        "jp": "次の 信号を 右に 曲がって ください。",
+        "it": "Giri a destra al prossimo semaforo.",
+        "en": "Turn right at the next traffic light."
+      }
+    ]
+  },
+  {
+    "scrittura": "屋根",
+    "lettura": "やね",
+    "it": [
+      "tetto"
+    ],
+    "en": [
+      "roof"
+    ],
+    "livello": "N4",
+    "esempi": [
+      {
+        "jp": "屋根の 上に 猫が います。",
+        "it": "Sul tetto c'è un gatto.",
+        "en": "There is a cat on the roof."
+      },
+      {
+        "jp": "雪で 屋根が 白く なりました。",
+        "it": "Il tetto è diventato bianco per la neve.",
+        "en": "The roof turned white with snow."
+      }
+    ]
+  },
+  {
+    "scrittura": "咳",
+    "lettura": "せき",
+    "it": [
+      "tosse"
+    ],
+    "en": [
+      "cough"
+    ],
+    "livello": "N4",
+    "omofoni": [
+      "席"
+    ],
+    "esempi": [
+      {
+        "jp": "かぜを ひいて、咳が 出ます。",
+        "it": "Ho il raffreddore e mi viene la tosse.",
+        "en": "I have a cold and I'm coughing."
+      },
+      {
+        "jp": "咳が 止まらないので、病院へ 行きました。",
+        "it": "La tosse non si fermava, così sono andato in ospedale.",
+        "en": "My cough wouldn't stop, so I went to the hospital."
+      }
+    ]
+  },
+  {
+    "scrittura": "スリッパ",
+    "lettura": "すりっぱ",
+    "it": [
+      "pantofole",
+      "ciabatte"
+    ],
+    "en": [
+      "slippers"
+    ],
+    "livello": "N5",
+    "esempi": [
+      {
+        "jp": "げんかんで スリッパに はきかえます。",
+        "it": "All'ingresso mi metto le pantofole.",
+        "en": "I change into slippers at the entrance."
+      },
+      {
+        "jp": "この スリッパを つかって ください。",
+        "it": "Usi pure queste pantofole.",
+        "en": "Please use these slippers."
+      }
+    ]
+  },
+  {
+    "scrittura": "届く",
+    "lettura": "とどく",
+    "it": [
+      "arrivare (posta, pacco)",
+      "essere consegnato"
+    ],
+    "en": [
+      "to arrive",
+      "to be delivered"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "自動詞[じどうし]",
+    "id_verbo_corrispondente": "届ける",
+    "esempi": [
+      {
+        "jp": "けさ、母から 荷物が 届きました。",
+        "it": "Stamattina è arrivato un pacco da mia madre.",
+        "en": "A package from my mother arrived this morning."
+      },
+      {
+        "jp": "手紙は あした 届くでしょう。",
+        "it": "La lettera arriverà probabilmente domani.",
+        "en": "The letter will probably arrive tomorrow."
+      }
+    ]
+  },
+  {
+    "scrittura": "減る",
+    "lettura": "へる",
+    "it": [
+      "diminuire",
+      "calare"
+    ],
+    "en": [
+      "to decrease"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "自動詞[じどうし]",
+    "contrari": [
+      "増える"
+    ],
+    "esempi": [
+      {
+        "jp": "この 町は 子どもが 減って います。",
+        "it": "In questa città i bambini stanno diminuendo.",
+        "en": "The number of children in this town is decreasing."
+      },
+      {
+        "jp": "おなかが 減りました。",
+        "it": "Mi è venuta fame.",
+        "en": "I'm hungry."
+      }
+    ]
+  },
+  {
+    "scrittura": "増やす",
+    "lettura": "ふやす",
+    "it": [
+      "aumentare (qualcosa)",
+      "accrescere"
+    ],
+    "en": [
+      "to increase (something)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "増える",
+    "esempi": [
+      {
+        "jp": "日本語の 勉強の 時間を 増やしました。",
+        "it": "Ho aumentato le ore di studio del giapponese.",
+        "en": "I increased my Japanese study time."
+      },
+      {
+        "jp": "店は アルバイトの 人を 増やしました。",
+        "it": "Il negozio ha aumentato i lavoratori part-time.",
+        "en": "The shop increased its part-time workers."
+      }
+    ]
+  },
+  {
+    "scrittura": "冷やす",
+    "lettura": "ひやす",
+    "it": [
+      "raffreddare",
+      "mettere in fresco"
+    ],
+    "en": [
+      "to cool",
+      "to chill"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "冷える",
+    "esempi": [
+      {
+        "jp": "冷蔵庫で ジュースを 冷やして ください。",
+        "it": "Metti in fresco il succo in frigorifero.",
+        "en": "Please chill the juice in the fridge."
+      },
+      {
+        "jp": "熱が あるので、頭を 冷やしました。",
+        "it": "Avevo la febbre, così mi sono rinfrescato la testa.",
+        "en": "I had a fever, so I cooled my head."
+      }
+    ]
+  },
+  {
+    "scrittura": "割る",
+    "lettura": "わる",
+    "it": [
+      "rompere",
+      "spaccare"
+    ],
+    "en": [
+      "to break",
+      "to crack"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "割れる",
+    "esempi": [
+      {
+        "jp": "コップを 割って しまいました。",
+        "it": "Ho rotto un bicchiere.",
+        "en": "I broke a glass."
+      },
+      {
+        "jp": "たまごを 二つ 割って ください。",
+        "it": "Rompi due uova, per favore.",
+        "en": "Please crack two eggs."
+      }
+    ]
+  },
+  {
+    "scrittura": "汚す",
+    "lettura": "よごす",
+    "it": [
+      "sporcare"
+    ],
+    "en": [
+      "to make dirty"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "汚れる",
+    "esempi": [
+      {
+        "jp": "新しい 服を 汚さないで ください。",
+        "it": "Non sporcare i vestiti nuovi.",
+        "en": "Please don't dirty your new clothes."
+      },
+      {
+        "jp": "子どもが 手を 汚して 帰って きました。",
+        "it": "Il bambino è tornato a casa con le mani sporche.",
+        "en": "The child came home with dirty hands."
+      }
+    ]
+  },
+  {
+    "scrittura": "乾かす",
+    "lettura": "かわかす",
+    "it": [
+      "asciugare (qualcosa)",
+      "far asciugare"
+    ],
+    "en": [
+      "to dry (something)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "乾く",
+    "esempi": [
+      {
+        "jp": "ぬれた かさを 乾かします。",
+        "it": "Faccio asciugare l'ombrello bagnato.",
+        "en": "I dry the wet umbrella."
+      },
+      {
+        "jp": "ドライヤーで かみを 乾かします。",
+        "it": "Mi asciugo i capelli con il phon.",
+        "en": "I dry my hair with a hair dryer."
+      }
+    ]
+  },
+  {
+    "scrittura": "動かす",
+    "lettura": "うごかす",
+    "it": [
+      "muovere (qualcosa)",
+      "spostare"
+    ],
+    "en": [
+      "to move (something)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "動く",
+    "esempi": [
+      {
+        "jp": "机を 少し 動かして ください。",
+        "it": "Sposta un po' la scrivania, per favore.",
+        "en": "Please move the desk a little."
+      },
+      {
+        "jp": "体を 動かすのは 気持ちが いいです。",
+        "it": "Muovere il corpo fa stare bene.",
+        "en": "Moving your body feels good."
+      }
+    ]
+  },
+  {
+    "scrittura": "鳴らす",
+    "lettura": "ならす",
+    "it": [
+      "suonare (campanello, allarme)",
+      "far suonare"
+    ],
+    "en": [
+      "to ring",
+      "to sound"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "鳴る",
+    "esempi": [
+      {
+        "jp": "げんかんの ベルを 鳴らしました。",
+        "it": "Ho suonato il campanello dell'ingresso.",
+        "en": "I rang the doorbell."
+      },
+      {
+        "jp": "じゅぎょうの まえに、先生が かねを 鳴らします。",
+        "it": "Prima della lezione, l'insegnante suona la campana.",
+        "en": "Before class, the teacher rings the bell."
+      }
+    ]
+  },
+  {
+    "scrittura": "倒す",
+    "lettura": "たおす",
+    "it": [
+      "far cadere",
+      "abbattere"
+    ],
+    "en": [
+      "to knock down",
+      "to topple"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "倒れる",
+    "esempi": [
+      {
+        "jp": "自転車を 倒して しまいました。",
+        "it": "Ho fatto cadere la bicicletta.",
+        "en": "I knocked over the bicycle."
+      },
+      {
+        "jp": "強い 風が 木を 倒しました。",
+        "it": "Un vento forte ha abbattuto un albero.",
+        "en": "A strong wind knocked down a tree."
+      }
+    ]
+  },
+  {
+    "scrittura": "通す",
+    "lettura": "とおす",
+    "it": [
+      "far passare",
+      "far accomodare"
+    ],
+    "en": [
+      "to let through",
+      "to show in"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "id_verbo_corrispondente": "通る",
+    "esempi": [
+      {
+        "jp": "お客様を 部屋に 通して ください。",
+        "it": "Faccia accomodare l'ospite nella stanza.",
+        "en": "Please show the guest into the room."
+      },
+      {
+        "jp": "まどを 開けて、風を 通しました。",
+        "it": "Ho aperto la finestra e fatto passare l'aria.",
+        "en": "I opened the window to let the air through."
+      }
+    ]
+  },
+  {
+    "scrittura": "スマホ",
+    "lettura": "すまほ",
+    "it": [
+      "smartphone",
+      "cellulare"
+    ],
+    "en": [
+      "smartphone"
+    ],
+    "livello": "N5",
+    "esempi": [
+      {
+        "jp": "スマホで 写真を とります。",
+        "it": "Faccio le foto con lo smartphone.",
+        "en": "I take photos with my smartphone."
+      },
+      {
+        "jp": "電車の 中で スマホを 見ます。",
+        "it": "In treno guardo lo smartphone.",
+        "en": "I look at my smartphone on the train."
+      }
+    ]
+  },
+  {
+    "scrittura": "電子レンジ",
+    "lettura": "でんしれんじ",
+    "it": [
+      "forno a microonde"
+    ],
+    "en": [
+      "microwave oven"
+    ],
+    "livello": "N4",
+    "esempi": [
+      {
+        "jp": "電子レンジで ご飯を あたためます。",
+        "it": "Scaldo il riso al microonde.",
+        "en": "I heat the rice in the microwave."
+      },
+      {
+        "jp": "電子レンジで 三分 あたためて ください。",
+        "it": "Scaldi al microonde per tre minuti.",
+        "en": "Please microwave it for three minutes."
+      }
+    ]
+  },
+  {
+    "scrittura": "洗濯機",
+    "lettura": "せんたくき",
+    "it": [
+      "lavatrice"
+    ],
+    "en": [
+      "washing machine"
+    ],
+    "livello": "N4",
+    "esempi": [
+      {
+        "jp": "洗濯機で シャツを 洗います。",
+        "it": "Lavo le camicie in lavatrice.",
+        "en": "I wash shirts in the washing machine."
+      },
+      {
+        "jp": "新しい 洗濯機を 買いました。",
+        "it": "Ho comprato una lavatrice nuova.",
+        "en": "I bought a new washing machine."
+      }
+    ]
+  },
+  {
+    "scrittura": "タオル",
+    "lettura": "たおる",
+    "it": [
+      "asciugamano"
+    ],
+    "en": [
+      "towel"
+    ],
+    "livello": "N5",
+    "esempi": [
+      {
+        "jp": "タオルで 手を ふきます。",
+        "it": "Mi asciugo le mani con l'asciugamano.",
+        "en": "I wipe my hands with a towel."
+      },
+      {
+        "jp": "プールに タオルを 持って いきます。",
+        "it": "Porto un asciugamano in piscina.",
+        "en": "I bring a towel to the pool."
+      }
+    ]
+  },
+  {
+    "scrittura": "電池",
+    "lettura": "でんち",
+    "it": [
+      "pila",
+      "batteria"
+    ],
+    "en": [
+      "battery"
+    ],
+    "livello": "N4",
+    "esempi": [
+      {
+        "jp": "時計の 電池を かえました。",
+        "it": "Ho cambiato la pila dell'orologio.",
+        "en": "I changed the battery in the clock."
+      },
+      {
+        "jp": "電池が なくなりました。",
+        "it": "La pila si è scaricata.",
+        "en": "The battery is dead."
+      }
+    ]
+  }
 ]

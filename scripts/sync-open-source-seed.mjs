@@ -121,16 +121,26 @@ async function mergeCuratedWords(words, { filePath, label, tagPrefix, defaultTip
   let added = 0;
   for (const entry of curated) {
     const tipoJp = entry.tipo_jp ?? defaultTipo;
+    // più frasi curate per voce (entry.esempi); entry.esempio resta per compat
+    const frasi = (entry.esempi ?? [entry.esempio]).map((ex) => ({
+      testo: ex.jp,
+      traduzione: { it: ex.it, en: ex.en ?? ex.it }
+    }));
+    // il merge gira DOPO l'arricchimento JMdict: i metadati verbo e le
+    // relazioni delle voci curate vanno dichiarati nel file, non inferiti
+    const curatedFields = {};
+    for (const f of ["classe_verbo_jp", "transitivita_jp", "id_verbo_corrispondente", "sinonimi", "contrari", "omofoni", "correlati"]) {
+      if (entry[f] !== undefined) curatedFields[f] = entry[f];
+    }
     const existing = byWriting.get(entry.scrittura);
     if (existing) {
       existing.tipo_jp = tipoJp;
       existing.significato = { it: entry.it, en: entry.en };
-      existing.frasi_esempio = [
-        { testo: entry.esempio.jp, traduzione: { it: entry.esempio.it, en: entry.esempio.it } }
-      ];
+      existing.frasi_esempio = frasi;
       delete existing.classe_verbo_jp;
       delete existing.transitivita_jp;
       delete existing.tipo_aggettivo_jp;
+      Object.assign(existing, curatedFields);
       continue;
     }
     words.push({
@@ -142,12 +152,11 @@ async function mergeCuratedWords(words, { filePath, label, tagPrefix, defaultTip
       livello_jlpt: entry.livello,
       tipo_jp: tipoJp,
       kanji_usati: [...new Set([...entry.scrittura].filter((c) => /[一-龯]/.test(c)))],
-      frasi_esempio: [
-        { testo: entry.esempio.jp, traduzione: { it: entry.esempio.it, en: entry.esempio.it } }
-      ],
+      frasi_esempio: frasi,
       sinonimi: [],
       contrari: [],
       omofoni: [],
+      ...curatedFields,
       updated_at: now
     });
     added += 1;

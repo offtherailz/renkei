@@ -9427,7 +9427,8 @@
             "en": "My shoes got dirty in the rain."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "汚す"
     },
     {
       "id": "押し入れ",
@@ -11260,7 +11261,8 @@
             "en": "The window glass broke in the earthquake."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "割る"
     },
     {
       "id": "割合",
@@ -11492,7 +11494,8 @@
             "en": "The laundry has already dried."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "乾かす"
     },
     {
       "id": "慣れる",
@@ -26838,7 +26841,9 @@
       ],
       "sinonimi": [],
       "contrari": [],
-      "omofoni": [],
+      "omofoni": [
+        "咳"
+      ],
       "updated_at": 1783961245178,
       "frasi_esempio": [
         {
@@ -28299,7 +28304,9 @@
         "増"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "減る"
+      ],
       "omofoni": [],
       "updated_at": 1783961245176,
       "classe_verbo_jp": "一段動詞[いちだんどうし]",
@@ -28319,7 +28326,8 @@
             "en": "Recently my weight has increased."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "増やす"
     },
     {
       "id": "贈り物",
@@ -31338,7 +31346,8 @@
             "en": "She went by the name of Bess."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "通す"
     },
     {
       "id": "漬ける",
@@ -32688,7 +32697,8 @@
             "en": "The bookshelf fell over in the earthquake."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "倒す"
     },
     {
       "id": "島",
@@ -33161,7 +33171,8 @@
             "en": "I felt something move in the house."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "動かす"
     },
     {
       "id": "動物園",
@@ -33467,7 +33478,8 @@
             "en": "Please deliver these documents to the office."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "届く"
     },
     {
       "id": "内",
@@ -38634,7 +38646,8 @@
             "en": "Thunder is rumbling."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "鳴らす"
     },
     {
       "id": "毛",
@@ -40952,7 +40965,8 @@
             "en": "It gets chilly at night, so let's bring a jacket."
           }
         }
-      ]
+      ],
+      "id_verbo_corrispondente": "冷やす"
     },
     {
       "id": "冷房",
@@ -84651,6 +84665,903 @@
           }
         }
       ]
+    },
+    {
+      "id": "信号",
+      "scrittura": "信号",
+      "lettura": "しんごう",
+      "significato": {
+        "it": [
+          "semaforo",
+          "segnale"
+        ],
+        "en": [
+          "traffic light",
+          "signal"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "信",
+        "号"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "信号が 青に なったら、渡りましょう。",
+          "traduzione": {
+            "it": "Quando il semaforo diventa verde, attraversiamo.",
+            "en": "When the light turns green, let's cross."
+          }
+        },
+        {
+          "testo": "次の 信号を 右に 曲がって ください。",
+          "traduzione": {
+            "it": "Giri a destra al prossimo semaforo.",
+            "en": "Turn right at the next traffic light."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "屋根",
+      "scrittura": "屋根",
+      "lettura": "やね",
+      "significato": {
+        "it": [
+          "tetto"
+        ],
+        "en": [
+          "roof"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "屋",
+        "根"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "屋根の 上に 猫が います。",
+          "traduzione": {
+            "it": "Sul tetto c'è un gatto.",
+            "en": "There is a cat on the roof."
+          }
+        },
+        {
+          "testo": "雪で 屋根が 白く なりました。",
+          "traduzione": {
+            "it": "Il tetto è diventato bianco per la neve.",
+            "en": "The roof turned white with snow."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "咳",
+      "scrittura": "咳",
+      "lettura": "せき",
+      "significato": {
+        "it": [
+          "tosse"
+        ],
+        "en": [
+          "cough"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "咳"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "かぜを ひいて、咳が 出ます。",
+          "traduzione": {
+            "it": "Ho il raffreddore e mi viene la tosse.",
+            "en": "I have a cold and I'm coughing."
+          }
+        },
+        {
+          "testo": "咳が 止まらないので、病院へ 行きました。",
+          "traduzione": {
+            "it": "La tosse non si fermava, così sono andato in ospedale.",
+            "en": "My cough wouldn't stop, so I went to the hospital."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [
+        "席"
+      ],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "スリッパ",
+      "scrittura": "スリッパ",
+      "lettura": "すりっぱ",
+      "significato": {
+        "it": [
+          "pantofole",
+          "ciabatte"
+        ],
+        "en": [
+          "slippers"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n5"
+      ],
+      "livello_jlpt": "N5",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [],
+      "frasi_esempio": [
+        {
+          "testo": "げんかんで スリッパに はきかえます。",
+          "traduzione": {
+            "it": "All'ingresso mi metto le pantofole.",
+            "en": "I change into slippers at the entrance."
+          }
+        },
+        {
+          "testo": "この スリッパを つかって ください。",
+          "traduzione": {
+            "it": "Usi pure queste pantofole.",
+            "en": "Please use these slippers."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "届く",
+      "scrittura": "届く",
+      "lettura": "とどく",
+      "significato": {
+        "it": [
+          "arrivare (posta, pacco)",
+          "essere consegnato"
+        ],
+        "en": [
+          "to arrive",
+          "to be delivered"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "届"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "けさ、母から 荷物が 届きました。",
+          "traduzione": {
+            "it": "Stamattina è arrivato un pacco da mia madre.",
+            "en": "A package from my mother arrived this morning."
+          }
+        },
+        {
+          "testo": "手紙は あした 届くでしょう。",
+          "traduzione": {
+            "it": "La lettera arriverà probabilmente domani.",
+            "en": "The letter will probably arrive tomorrow."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]",
+      "id_verbo_corrispondente": "届ける",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "減る",
+      "scrittura": "減る",
+      "lettura": "へる",
+      "significato": {
+        "it": [
+          "diminuire",
+          "calare"
+        ],
+        "en": [
+          "to decrease"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "減"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "この 町は 子どもが 減って います。",
+          "traduzione": {
+            "it": "In questa città i bambini stanno diminuendo.",
+            "en": "The number of children in this town is decreasing."
+          }
+        },
+        {
+          "testo": "おなかが 減りました。",
+          "traduzione": {
+            "it": "Mi è venuta fame.",
+            "en": "I'm hungry."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [
+        "増える"
+      ],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "自動詞[じどうし]",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "増やす",
+      "scrittura": "増やす",
+      "lettura": "ふやす",
+      "significato": {
+        "it": [
+          "aumentare (qualcosa)",
+          "accrescere"
+        ],
+        "en": [
+          "to increase (something)"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "増"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "日本語の 勉強の 時間を 増やしました。",
+          "traduzione": {
+            "it": "Ho aumentato le ore di studio del giapponese.",
+            "en": "I increased my Japanese study time."
+          }
+        },
+        {
+          "testo": "店は アルバイトの 人を 増やしました。",
+          "traduzione": {
+            "it": "Il negozio ha aumentato i lavoratori part-time.",
+            "en": "The shop increased its part-time workers."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "増える",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "冷やす",
+      "scrittura": "冷やす",
+      "lettura": "ひやす",
+      "significato": {
+        "it": [
+          "raffreddare",
+          "mettere in fresco"
+        ],
+        "en": [
+          "to cool",
+          "to chill"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "冷"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "冷蔵庫で ジュースを 冷やして ください。",
+          "traduzione": {
+            "it": "Metti in fresco il succo in frigorifero.",
+            "en": "Please chill the juice in the fridge."
+          }
+        },
+        {
+          "testo": "熱が あるので、頭を 冷やしました。",
+          "traduzione": {
+            "it": "Avevo la febbre, così mi sono rinfrescato la testa.",
+            "en": "I had a fever, so I cooled my head."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "冷える",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "割る",
+      "scrittura": "割る",
+      "lettura": "わる",
+      "significato": {
+        "it": [
+          "rompere",
+          "spaccare"
+        ],
+        "en": [
+          "to break",
+          "to crack"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "割"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "コップを 割って しまいました。",
+          "traduzione": {
+            "it": "Ho rotto un bicchiere.",
+            "en": "I broke a glass."
+          }
+        },
+        {
+          "testo": "たまごを 二つ 割って ください。",
+          "traduzione": {
+            "it": "Rompi due uova, per favore.",
+            "en": "Please crack two eggs."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "割れる",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "汚す",
+      "scrittura": "汚す",
+      "lettura": "よごす",
+      "significato": {
+        "it": [
+          "sporcare"
+        ],
+        "en": [
+          "to make dirty"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "汚"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "新しい 服を 汚さないで ください。",
+          "traduzione": {
+            "it": "Non sporcare i vestiti nuovi.",
+            "en": "Please don't dirty your new clothes."
+          }
+        },
+        {
+          "testo": "子どもが 手を 汚して 帰って きました。",
+          "traduzione": {
+            "it": "Il bambino è tornato a casa con le mani sporche.",
+            "en": "The child came home with dirty hands."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "汚れる",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "乾かす",
+      "scrittura": "乾かす",
+      "lettura": "かわかす",
+      "significato": {
+        "it": [
+          "asciugare (qualcosa)",
+          "far asciugare"
+        ],
+        "en": [
+          "to dry (something)"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "乾"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "ぬれた かさを 乾かします。",
+          "traduzione": {
+            "it": "Faccio asciugare l'ombrello bagnato.",
+            "en": "I dry the wet umbrella."
+          }
+        },
+        {
+          "testo": "ドライヤーで かみを 乾かします。",
+          "traduzione": {
+            "it": "Mi asciugo i capelli con il phon.",
+            "en": "I dry my hair with a hair dryer."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "乾く",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "動かす",
+      "scrittura": "動かす",
+      "lettura": "うごかす",
+      "significato": {
+        "it": [
+          "muovere (qualcosa)",
+          "spostare"
+        ],
+        "en": [
+          "to move (something)"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "動"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "机を 少し 動かして ください。",
+          "traduzione": {
+            "it": "Sposta un po' la scrivania, per favore.",
+            "en": "Please move the desk a little."
+          }
+        },
+        {
+          "testo": "体を 動かすのは 気持ちが いいです。",
+          "traduzione": {
+            "it": "Muovere il corpo fa stare bene.",
+            "en": "Moving your body feels good."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "動く",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "鳴らす",
+      "scrittura": "鳴らす",
+      "lettura": "ならす",
+      "significato": {
+        "it": [
+          "suonare (campanello, allarme)",
+          "far suonare"
+        ],
+        "en": [
+          "to ring",
+          "to sound"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "鳴"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "げんかんの ベルを 鳴らしました。",
+          "traduzione": {
+            "it": "Ho suonato il campanello dell'ingresso.",
+            "en": "I rang the doorbell."
+          }
+        },
+        {
+          "testo": "じゅぎょうの まえに、先生が かねを 鳴らします。",
+          "traduzione": {
+            "it": "Prima della lezione, l'insegnante suona la campana.",
+            "en": "Before class, the teacher rings the bell."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "鳴る",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "倒す",
+      "scrittura": "倒す",
+      "lettura": "たおす",
+      "significato": {
+        "it": [
+          "far cadere",
+          "abbattere"
+        ],
+        "en": [
+          "to knock down",
+          "to topple"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "倒"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "自転車を 倒して しまいました。",
+          "traduzione": {
+            "it": "Ho fatto cadere la bicicletta.",
+            "en": "I knocked over the bicycle."
+          }
+        },
+        {
+          "testo": "強い 風が 木を 倒しました。",
+          "traduzione": {
+            "it": "Un vento forte ha abbattuto un albero.",
+            "en": "A strong wind knocked down a tree."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "倒れる",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "通す",
+      "scrittura": "通す",
+      "lettura": "とおす",
+      "significato": {
+        "it": [
+          "far passare",
+          "far accomodare"
+        ],
+        "en": [
+          "to let through",
+          "to show in"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "動詞[どうし]",
+      "kanji_usati": [
+        "通"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "お客様を 部屋に 通して ください。",
+          "traduzione": {
+            "it": "Faccia accomodare l'ospite nella stanza.",
+            "en": "Please show the guest into the room."
+          }
+        },
+        {
+          "testo": "まどを 開けて、風を 通しました。",
+          "traduzione": {
+            "it": "Ho aperto la finestra e fatto passare l'aria.",
+            "en": "I opened the window to let the air through."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "classe_verbo_jp": "五段動詞[ごだんどうし]",
+      "transitivita_jp": "他動詞[たどうし]",
+      "id_verbo_corrispondente": "通る",
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "スマホ",
+      "scrittura": "スマホ",
+      "lettura": "すまほ",
+      "significato": {
+        "it": [
+          "smartphone",
+          "cellulare"
+        ],
+        "en": [
+          "smartphone"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n5"
+      ],
+      "livello_jlpt": "N5",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [],
+      "frasi_esempio": [
+        {
+          "testo": "スマホで 写真を とります。",
+          "traduzione": {
+            "it": "Faccio le foto con lo smartphone.",
+            "en": "I take photos with my smartphone."
+          }
+        },
+        {
+          "testo": "電車の 中で スマホを 見ます。",
+          "traduzione": {
+            "it": "In treno guardo lo smartphone.",
+            "en": "I look at my smartphone on the train."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "電子レンジ",
+      "scrittura": "電子レンジ",
+      "lettura": "でんしれんじ",
+      "significato": {
+        "it": [
+          "forno a microonde"
+        ],
+        "en": [
+          "microwave oven"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "電",
+        "子"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "電子レンジで ご飯を あたためます。",
+          "traduzione": {
+            "it": "Scaldo il riso al microonde.",
+            "en": "I heat the rice in the microwave."
+          }
+        },
+        {
+          "testo": "電子レンジで 三分 あたためて ください。",
+          "traduzione": {
+            "it": "Scaldi al microonde per tre minuti.",
+            "en": "Please microwave it for three minutes."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "洗濯機",
+      "scrittura": "洗濯機",
+      "lettura": "せんたくき",
+      "significato": {
+        "it": [
+          "lavatrice"
+        ],
+        "en": [
+          "washing machine"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "洗",
+        "濯",
+        "機"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "洗濯機で シャツを 洗います。",
+          "traduzione": {
+            "it": "Lavo le camicie in lavatrice.",
+            "en": "I wash shirts in the washing machine."
+          }
+        },
+        {
+          "testo": "新しい 洗濯機を 買いました。",
+          "traduzione": {
+            "it": "Ho comprato una lavatrice nuova.",
+            "en": "I bought a new washing machine."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "タオル",
+      "scrittura": "タオル",
+      "lettura": "たおる",
+      "significato": {
+        "it": [
+          "asciugamano"
+        ],
+        "en": [
+          "towel"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n5"
+      ],
+      "livello_jlpt": "N5",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [],
+      "frasi_esempio": [
+        {
+          "testo": "タオルで 手を ふきます。",
+          "traduzione": {
+            "it": "Mi asciugo le mani con l'asciugamano.",
+            "en": "I wipe my hands with a towel."
+          }
+        },
+        {
+          "testo": "プールに タオルを 持って いきます。",
+          "traduzione": {
+            "it": "Porto un asciugamano in piscina.",
+            "en": "I bring a towel to the pool."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
+    },
+    {
+      "id": "電池",
+      "scrittura": "電池",
+      "lettura": "でんち",
+      "significato": {
+        "it": [
+          "pila",
+          "batteria"
+        ],
+        "en": [
+          "battery"
+        ]
+      },
+      "study_tags": [
+        "vocab-core",
+        "n4"
+      ],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": [
+        "電",
+        "池"
+      ],
+      "frasi_esempio": [
+        {
+          "testo": "時計の 電池を かえました。",
+          "traduzione": {
+            "it": "Ho cambiato la pila dell'orologio.",
+            "en": "I changed the battery in the clock."
+          }
+        },
+        {
+          "testo": "電池が なくなりました。",
+          "traduzione": {
+            "it": "La pila si è scaricata.",
+            "en": "The battery is dead."
+          }
+        }
+      ],
+      "sinonimi": [],
+      "contrari": [],
+      "omofoni": [],
+      "updated_at": 1784281296279
     }
   ],
   "kanji": [
