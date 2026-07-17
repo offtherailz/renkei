@@ -62,7 +62,11 @@ if (cmd === "stats") {
       !(w.sinonimi ?? []).length &&
       !(w.contrari ?? []).length &&
       !(w.correlati ?? []).length &&
-      !w.id_verbo_corrispondente
+      !(w.parafrasi ?? []).length &&
+      !w.id_verbo_corrispondente &&
+      // nome↔verbo-する sono già una relazione (id_verbo_suru/id_nome_origine)
+      !w.id_verbo_suru &&
+      !w.id_nome_origine
   );
   console.log(`# Parole SENZA alcuna relazione${arg ? ` (${arg})` : ""} — ${rows.length}`);
   console.log(`# candidate a ricevere sin/con/cor: proponi solo dove sensato`);

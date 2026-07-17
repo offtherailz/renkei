@@ -35506,6 +35506,9 @@
             "en": "The weather was nice, so I aired the futon."
           }
         }
+      ],
+      "correlati": [
+        "ベッド"
       ]
     },
     {
@@ -41508,7 +41511,9 @@
       "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "はい"
+      ],
       "omofoni": [],
       "updated_at": 1783961245160,
       "frasi_esempio": [
@@ -41645,6 +41650,9 @@
             "en": "No, not how many toys, how many keys?"
           }
         }
+      ],
+      "correlati": [
+        "いくら"
       ]
     },
     {
@@ -41733,6 +41741,9 @@
             "en": "How much is this handkerchief?"
           }
         }
+      ],
+      "correlati": [
+        "いくつ"
       ]
     },
     {
@@ -42098,7 +42109,9 @@
       "livello_jlpt": "N5",
       "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "はい"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42430,7 +42443,9 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "警官"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42963,7 +42978,10 @@
           }
         }
       ],
-      "id_contatore_suggerito": "杯"
+      "id_contatore_suggerito": "杯",
+      "correlati": [
+        "紅茶"
+      ]
     },
     {
       "id": "お疲れさまです",
@@ -43104,6 +43122,9 @@
             "en": "I take a bath before going to bed."
           }
         }
+      ],
+      "correlati": [
+        "シャワー"
       ]
     },
     {
@@ -44954,7 +44975,10 @@
           }
         }
       ],
-      "id_contatore_suggerito": "枚"
+      "id_contatore_suggerito": "枚",
+      "correlati": [
+        "ワイシャツ"
+      ]
     },
     {
       "id": "シャワー",
@@ -44997,6 +45021,9 @@
             "en": "In the morning I take a shower and then go to school."
           }
         }
+      ],
+      "correlati": [
+        "お風呂"
       ]
     },
     {
@@ -45171,6 +45198,11 @@
             "en": "The baby eats with a spoon."
           }
         }
+      ],
+      "correlati": [
+        "フォーク",
+        "ナイフ",
+        "箸"
       ]
     },
     {
@@ -45971,6 +46003,9 @@
             "en": "There is a desk by the window."
           }
         }
+      ],
+      "correlati": [
+        "隣"
       ]
     },
     {
@@ -46494,7 +46529,10 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783891220234
+      "updated_at": 1783891220234,
+      "correlati": [
+        "切符"
+      ]
     },
     {
       "id": "ちょっと",
@@ -46813,6 +46851,9 @@
             "en": "Please wipe the table."
           }
         }
+      ],
+      "correlati": [
+        "机"
       ]
     },
     {
@@ -47532,7 +47573,9 @@
       "livello_jlpt": "N5",
       "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "なぜ"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -48352,6 +48395,11 @@
             "en": "I eat with a knife and fork."
           }
         }
+      ],
+      "correlati": [
+        "スプーン",
+        "フォーク",
+        "箸"
       ]
     },
     {
@@ -48376,7 +48424,9 @@
       "livello_jlpt": "N5",
       "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
-      "sinonimi": [],
+      "sinonimi": [
+        "どうして"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -48812,8 +48862,12 @@
       "livello_jlpt": "N5",
       "tipo_jp": "感動詞[かんどうし]",
       "kanji_usati": [],
-      "sinonimi": [],
-      "contrari": [],
+      "sinonimi": [
+        "ええ"
+      ],
+      "contrari": [
+        "いいえ"
+      ],
       "omofoni": [],
       "updated_at": 1783961245165,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
@@ -49224,6 +49278,11 @@
             "en": "I eat salad with a fork."
           }
         }
+      ],
+      "correlati": [
+        "スプーン",
+        "ナイフ",
+        "箸"
       ]
     },
     {
@@ -49385,6 +49444,9 @@
             "en": "The cat is sleeping on the bed."
           }
         }
+      ],
+      "correlati": [
+        "布団"
       ]
     },
     {
@@ -49471,6 +49533,11 @@
             "en": "Please lend me the red pen."
           }
         }
+      ],
+      "correlati": [
+        "ボールペン",
+        "鉛筆",
+        "万年筆"
       ]
     },
     {
@@ -49514,6 +49581,9 @@
             "en": "The ballpoint pen has run out of ink."
           }
         }
+      ],
+      "correlati": [
+        "ペン"
       ]
     },
     {
@@ -50298,6 +50368,9 @@
             "en": "Hello? Can you hear me?"
           }
         }
+      ],
+      "correlati": [
+        "電話"
       ]
     },
     {
@@ -51003,6 +51076,9 @@
             "en": "I ironed the dress shirt."
           }
         }
+      ],
+      "correlati": [
+        "シャツ"
       ]
     },
     {
@@ -51679,6 +51755,9 @@
             "en": "I have a fever, so I'm going to the doctor."
           }
         }
+      ],
+      "correlati": [
+        "病院"
       ]
     },
     {
@@ -52009,7 +52088,9 @@
         "日"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "明後日"
+      ],
       "omofoni": [],
       "updated_at": 1783961245161,
       "usi": [
@@ -52844,6 +52925,9 @@
             "en": "What kind of movies do you like?"
           }
         }
+      ],
+      "correlati": [
+        "映画館"
       ]
     },
     {
@@ -52892,6 +52976,9 @@
             "en": "A new movie theater opened next to the station."
           }
         }
+      ],
+      "correlati": [
+        "映画"
       ]
     },
     {
@@ -53162,7 +53249,10 @@
           }
         }
       ],
-      "id_contatore_suggerito": "本"
+      "id_contatore_suggerito": "本",
+      "correlati": [
+        "ペン"
+      ]
     },
     {
       "id": "塩",
@@ -53450,6 +53540,9 @@
             "en": "There is a parking lot next to the bank."
           }
         }
+      ],
+      "correlati": [
+        "隣"
       ]
     },
     {
@@ -53609,6 +53702,10 @@
             "en": "The bath was lukewarm and I felt cold."
           }
         }
+      ],
+      "correlati": [
+        "熱い",
+        "冷たい"
       ]
     },
     {
@@ -54317,6 +54414,9 @@
             "en": "I spend weekends with my family."
           }
         }
+      ],
+      "correlati": [
+        "両親"
       ]
     },
     {
@@ -55654,6 +55754,9 @@
             "en": "There is a Japanese class for foreigners."
           }
         }
+      ],
+      "correlati": [
+        "外国"
       ]
     },
     {
@@ -56296,6 +56399,12 @@
             "en": "I washed my face with cold water."
           }
         }
+      ],
+      "correlati": [
+        "目",
+        "耳",
+        "鼻",
+        "口"
       ]
     },
     {
@@ -56475,6 +56584,9 @@
             "en": "There are pens in the desk drawer."
           }
         }
+      ],
+      "correlati": [
+        "テーブル"
       ]
     },
     {
@@ -56870,6 +56982,11 @@
             "en": "Beef is used for this dish."
           }
         }
+      ],
+      "correlati": [
+        "肉",
+        "豚肉",
+        "鶏肉"
       ]
     },
     {
@@ -58328,7 +58445,9 @@
         "警",
         "官"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "おまわりさん"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -58443,6 +58562,11 @@
             "en": "This chicken is fried well."
           }
         }
+      ],
+      "correlati": [
+        "肉",
+        "牛肉",
+        "豚肉"
       ]
     },
     {
@@ -59968,7 +60092,9 @@
         "後"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "午前"
+      ],
       "omofoni": [],
       "updated_at": 1783961245163,
       "usi": [
@@ -60035,7 +60161,9 @@
         "前"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "午後"
+      ],
       "omofoni": [],
       "updated_at": 1783961245163,
       "usi": [
@@ -60444,6 +60572,9 @@
             "en": "I found a wallet and took it to the police box."
           }
         }
+      ],
+      "correlati": [
+        "警官"
       ]
     },
     {
@@ -60746,6 +60877,9 @@
             "en": "Fill the bottle to the top so as to exclude all air."
           }
         }
+      ],
+      "correlati": [
+        "顔"
       ]
     },
     {
@@ -61054,6 +61188,9 @@
             "en": "In the morning I drink black tea rather than coffee."
           }
         }
+      ],
+      "correlati": [
+        "お茶"
       ]
     },
     {
@@ -62814,7 +62951,9 @@
         "日"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "明日::あした"
+      ],
       "omofoni": [],
       "updated_at": 1783961245162,
       "usi": [
@@ -64146,7 +64285,9 @@
       "kanji_usati": [
         "私"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "私::わたくし"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -64193,7 +64334,9 @@
       "kanji_usati": [
         "私"
       ],
-      "sinonimi": [],
+      "sinonimi": [
+        "私::わたし"
+      ],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -64739,6 +64882,9 @@
             "en": "My ears started hurting from the cold."
           }
         }
+      ],
+      "correlati": [
+        "顔"
       ]
     },
     {
@@ -65769,6 +65915,10 @@
             "en": "I wrote a letter to my grandmother."
           }
         }
+      ],
+      "correlati": [
+        "葉書",
+        "封筒"
       ]
     },
     {
@@ -65893,7 +66043,9 @@
         "秋"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "春"
+      ],
       "omofoni": [],
       "updated_at": 1783961245159,
       "usi": [
@@ -66640,7 +66792,9 @@
         "春"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "秋"
+      ],
       "omofoni": [
         "貼る"
       ],
@@ -69007,6 +69161,9 @@
             "en": "Let's be quiet in the library."
           }
         }
+      ],
+      "correlati": [
+        "本"
       ]
     },
     {
@@ -70030,6 +70187,10 @@
             "en": "I collect beautiful stamps."
           }
         }
+      ],
+      "correlati": [
+        "切符",
+        "手紙"
       ]
     },
     {
@@ -70077,7 +70238,11 @@
           }
         }
       ],
-      "id_contatore_suggerito": "枚"
+      "id_contatore_suggerito": "枚",
+      "correlati": [
+        "切手",
+        "チケット"
+      ]
     },
     {
       "id": "雪",
@@ -70319,7 +70484,9 @@
         "月"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "来月"
+      ],
       "omofoni": [],
       "updated_at": 1783961245164,
       "usi": [
@@ -70384,7 +70551,9 @@
         "週"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "来週"
+      ],
       "omofoni": [],
       "updated_at": 1783961245164,
       "usi": [
@@ -71346,7 +71515,9 @@
         "速"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "遅い"
+      ],
       "omofoni": [
         "早い"
       ],
@@ -72853,7 +73024,9 @@
         "暖"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "涼しい"
+      ],
       "omofoni": [],
       "updated_at": 1783961245159,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
@@ -73229,6 +73402,9 @@
             "en": "The subway is faster than the bus."
           }
         }
+      ],
+      "correlati": [
+        "電車"
       ]
     },
     {
@@ -73526,7 +73702,8 @@
       ],
       "sinonimi": [],
       "contrari": [
-        "早い"
+        "早い",
+        "速い"
       ],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -73657,6 +73834,9 @@
             "en": "I dropped the rice bowl and broke it."
           }
         }
+      ],
+      "correlati": [
+        "御飯"
       ]
     },
     {
@@ -73947,7 +74127,9 @@
         "昼"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "夜"
+      ],
       "omofoni": [],
       "updated_at": 1783961245166,
       "usi": [
@@ -74064,6 +74246,10 @@
             "en": "For lunch I eat a boxed lunch."
           }
         }
+      ],
+      "correlati": [
+        "朝御飯",
+        "晩御飯"
       ]
     },
     {
@@ -74236,6 +74422,10 @@
             "en": "I went to school without eating breakfast."
           }
         }
+      ],
+      "correlati": [
+        "昼御飯",
+        "晩御飯"
       ]
     },
     {
@@ -75710,6 +75900,11 @@
             "en": "This dish is made with pork."
           }
         }
+      ],
+      "correlati": [
+        "肉",
+        "牛肉",
+        "鶏肉"
       ]
     },
     {
@@ -76236,6 +76431,11 @@
             "en": "Let's eat both vegetables and meat in balance."
           }
         }
+      ],
+      "correlati": [
+        "牛肉",
+        "豚肉",
+        "鶏肉"
       ]
     },
     {
@@ -76945,6 +77145,9 @@
             "en": "I met my uncle yesterday."
           }
         }
+      ],
+      "correlati": [
+        "伯母さん; 叔母さん"
       ]
     },
     {
@@ -76992,6 +77195,9 @@
             "en": "On Sunday I'm going to my aunt's house."
           }
         }
+      ],
+      "correlati": [
+        "伯父; 叔父さん"
       ]
     },
     {
@@ -77361,6 +77567,11 @@
             "en": "You're good at using chopsticks!"
           }
         }
+      ],
+      "correlati": [
+        "スプーン",
+        "フォーク",
+        "ナイフ"
       ]
     },
     {
@@ -77583,6 +77794,9 @@
             "en": "The greengrocer's tomatoes are cheap and tasty."
           }
         }
+      ],
+      "correlati": [
+        "野菜"
       ]
     },
     {
@@ -77875,6 +78089,10 @@
       ],
       "parafrasi": [
         "夕飯"
+      ],
+      "correlati": [
+        "朝御飯",
+        "昼御飯"
       ]
     },
     {
@@ -78066,6 +78284,9 @@
             "en": "The plane takes off at ten."
           }
         }
+      ],
+      "correlati": [
+        "空港"
       ]
     },
     {
@@ -78167,6 +78388,9 @@
             "en": "My nose is stuffed up from a cold."
           }
         }
+      ],
+      "correlati": [
+        "顔"
       ]
     },
     {
@@ -78258,6 +78482,9 @@
             "en": "Tomorrow morning I'm going to the hospital."
           }
         }
+      ],
+      "correlati": [
+        "医者"
       ]
     },
     {
@@ -78484,6 +78711,9 @@
             "en": "I put a stamp on the envelope."
           }
         }
+      ],
+      "correlati": [
+        "手紙"
       ]
     },
     {
@@ -78694,6 +78924,9 @@
             "en": "I change my clothes and then go out."
           }
         }
+      ],
+      "correlati": [
+        "洋服"
       ]
     },
     {
@@ -80220,6 +80453,9 @@
             "en": "The bookshelf is full."
           }
         }
+      ],
+      "correlati": [
+        "本"
       ]
     },
     {
@@ -80941,6 +81177,9 @@
             "en": "I received a fountain pen from my grandfather."
           }
         }
+      ],
+      "correlati": [
+        "ペン"
       ]
     },
     {
@@ -81114,7 +81353,9 @@
         "日"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "一昨日"
+      ],
       "omofoni": [],
       "updated_at": 1783961245159,
       "usi": [
@@ -81190,7 +81431,9 @@
       "sinonimi": [
         "明日::あす"
       ],
-      "contrari": [],
+      "contrari": [
+        "昨日"
+      ],
       "omofoni": [],
       "updated_at": 1783961245159,
       "usi": [
@@ -81505,6 +81748,9 @@
             "en": "Dust got into my eye."
           }
         }
+      ],
+      "correlati": [
+        "顔"
       ]
     },
     {
@@ -81676,7 +81922,9 @@
       "sinonimi": [
         "晩"
       ],
-      "contrari": [],
+      "contrari": [
+        "昼"
+      ],
       "omofoni": [
         "寄る"
       ],
@@ -82425,6 +82673,9 @@
             "en": "I looked at clothes at the department store."
           }
         }
+      ],
+      "correlati": [
+        "服"
       ]
     },
     {
@@ -82471,6 +82722,9 @@
             "en": "I'll send you a postcard from my trip."
           }
         }
+      ],
+      "correlati": [
+        "手紙"
       ]
     },
     {
@@ -82796,7 +83050,9 @@
         "月"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "先月"
+      ],
       "omofoni": [],
       "updated_at": 1783961245174,
       "usi": [
@@ -82864,7 +83120,9 @@
         "週"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "先週"
+      ],
       "omofoni": [],
       "updated_at": 1783961245174,
       "usi": [
@@ -83233,6 +83491,9 @@
             "en": "Many international students live in the dormitory."
           }
         }
+      ],
+      "correlati": [
+        "学生"
       ]
     },
     {
@@ -83378,6 +83639,9 @@
             "en": "On the weekend I will go see my parents."
           }
         }
+      ],
+      "correlati": [
+        "家族"
       ]
     },
     {
@@ -83507,7 +83771,9 @@
         "涼"
       ],
       "sinonimi": [],
-      "contrari": [],
+      "contrari": [
+        "暖かい"
+      ],
       "omofoni": [],
       "updated_at": 1783961245164,
       "tipo_aggettivo_jp": "い形容詞[いけいようし]",
@@ -83682,6 +83948,10 @@
             "en": "I greeted my next-door neighbor."
           }
         }
+      ],
+      "correlati": [
+        "そば",
+        "横"
       ]
     },
     {
