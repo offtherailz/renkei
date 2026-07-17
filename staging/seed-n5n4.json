@@ -2185,12 +2185,7 @@
       "kanji_usati": [
         "子"
       ],
-      "sinonimi": [
-        "お宅",
-        "お嬢さん",
-        "お兄さん",
-        "奥さん"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245178,
@@ -2209,6 +2204,9 @@
             "en": "What is your child's name?"
           }
         }
+      ],
+      "correlati": [
+        "お嬢さん"
       ]
     },
     {
@@ -2283,10 +2281,7 @@
       "kanji_usati": [
         "嬢"
       ],
-      "sinonimi": [
-        "お子さん",
-        "お宅"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245176,
@@ -2305,6 +2300,10 @@
             "en": "Your daughter is good at the piano."
           }
         }
+      ],
+      "correlati": [
+        "娘",
+        "お子さん"
       ]
     },
     {
@@ -2378,14 +2377,7 @@
       "kanji_usati": [
         "宅"
       ],
-      "sinonimi": [
-        "お子さん",
-        "お嬢さん",
-        "うち",
-        "お兄さん",
-        "奥さん",
-        "家"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -2404,6 +2396,10 @@
             "en": "Your garden is beautiful."
           }
         }
+      ],
+      "correlati": [
+        "家",
+        "うち"
       ]
     },
     {
@@ -4004,6 +4000,9 @@
             "en": "Please give my regards to your husband."
           }
         }
+      ],
+      "correlati": [
+        "夫"
       ]
     },
     {
@@ -18066,6 +18065,9 @@
             "en": "My wife likes flowers."
           }
         }
+      ],
+      "correlati": [
+        "奥さん"
       ]
     },
     {
@@ -35715,6 +35717,9 @@
             "en": "My husband is good at cooking."
           }
         }
+      ],
+      "correlati": [
+        "ご主人"
       ]
     },
     {
@@ -38499,6 +38504,9 @@
             "en": "I wrote a letter to my daughter."
           }
         }
+      ],
+      "correlati": [
+        "お嬢さん"
       ]
     },
     {
@@ -42941,13 +42949,7 @@
       "kanji_usati": [
         "兄"
       ],
-      "sinonimi": [
-        "お子さん",
-        "お宅",
-        "お姉さん",
-        "奥さん",
-        "兄"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42966,6 +42968,10 @@
             "en": "Your older brother is good at soccer."
           }
         }
+      ],
+      "correlati": [
+        "兄",
+        "お姉さん"
       ]
     },
     {
@@ -43038,10 +43044,7 @@
       "kanji_usati": [
         "姉"
       ],
-      "sinonimi": [
-        "お兄さん",
-        "姉"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -43060,6 +43063,10 @@
             "en": "Is your older sister a university student?"
           }
         }
+      ],
+      "correlati": [
+        "姉",
+        "お兄さん"
       ]
     },
     {
@@ -43347,6 +43354,9 @@
             "en": "I went fishing with my dad."
           }
         }
+      ],
+      "correlati": [
+        "父"
       ]
     },
     {
@@ -43574,6 +43584,9 @@
             "en": "Mom is good at cooking."
           }
         }
+      ],
+      "correlati": [
+        "母"
       ]
     },
     {
@@ -53722,11 +53735,7 @@
       "kanji_usati": [
         "奥"
       ],
-      "sinonimi": [
-        "お子さん",
-        "お宅",
-        "お兄さん"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -53745,6 +53754,9 @@
             "en": "Please give my regards to your wife."
           }
         }
+      ],
+      "correlati": [
+        "妻"
       ]
     },
     {
@@ -58605,12 +58617,7 @@
       "kanji_usati": [
         "兄"
       ],
-      "sinonimi": [
-        "弟",
-        "お兄さん",
-        "兄弟",
-        "姉"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -58629,6 +58636,12 @@
             "en": "My older brother is three years older than me."
           }
         }
+      ],
+      "correlati": [
+        "お兄さん",
+        "弟",
+        "姉",
+        "兄弟"
       ]
     },
     {
@@ -58657,11 +58670,7 @@
         "兄",
         "弟"
       ],
-      "sinonimi": [
-        "兄",
-        "姉",
-        "妹"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -58680,6 +58689,12 @@
             "en": "I am the middle of three siblings."
           }
         }
+      ],
+      "correlati": [
+        "兄",
+        "姉",
+        "弟",
+        "妹"
       ]
     },
     {
@@ -64315,12 +64330,7 @@
       "kanji_usati": [
         "姉"
       ],
-      "sinonimi": [
-        "お姉さん",
-        "兄",
-        "兄弟",
-        "妹"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -64339,6 +64349,12 @@
             "en": "My older sister works at a hospital."
           }
         }
+      ],
+      "correlati": [
+        "お姉さん",
+        "妹",
+        "兄",
+        "兄弟"
       ]
     },
     {
@@ -74899,9 +74915,7 @@
       "kanji_usati": [
         "弟"
       ],
-      "sinonimi": [
-        "兄"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -74920,6 +74934,10 @@
             "en": "I played video games with my little brother."
           }
         }
+      ],
+      "correlati": [
+        "兄",
+        "兄弟"
       ]
     },
     {
@@ -78723,6 +78741,9 @@
             "en": "My father's hobby is fishing."
           }
         }
+      ],
+      "correlati": [
+        "お父さん"
       ]
     },
     {
@@ -80049,6 +80070,9 @@
             "en": "I got a sweater from my mother."
           }
         }
+      ],
+      "correlati": [
+        "お母さん"
       ]
     },
     {
@@ -80714,10 +80738,7 @@
       "kanji_usati": [
         "妹"
       ],
-      "sinonimi": [
-        "兄弟",
-        "姉"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -80736,6 +80757,10 @@
             "en": "My little sister starts elementary school next year."
           }
         }
+      ],
+      "correlati": [
+        "姉",
+        "兄弟"
       ]
     },
     {
