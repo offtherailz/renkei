@@ -838,12 +838,7 @@
       "livello_jlpt": "N4",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "こんな",
-        "そんな",
-        "どんな",
-        "あの"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245177,
@@ -862,6 +857,11 @@
             "en": "I can't go to such an expensive place."
           }
         }
+      ],
+      "correlati": [
+        "こんな",
+        "そんな",
+        "どんな"
       ]
     },
     {
@@ -2345,12 +2345,13 @@
           }
         }
       ],
-      "sinonimi": [
-        "おじゃまします"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": [
+        "お疲れさまです"
+      ]
     },
     {
       "id": "お宅",
@@ -5076,12 +5077,7 @@
       "livello_jlpt": "N4",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "あんな",
-        "こんな",
-        "どんな",
-        "あの"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245175,
@@ -5127,6 +5123,11 @@
             "en": "I've never heard such a story."
           }
         }
+      ],
+      "correlati": [
+        "こんな",
+        "あんな",
+        "どんな"
       ]
     },
     {
@@ -41080,16 +41081,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "どこ",
-        "ここ",
-        "そこ",
-        "あれ",
-        "あっち",
-        "そちら",
-        "そっち",
-        "向こう"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245159,
@@ -41108,6 +41100,14 @@
             "en": "A form appeared from over there."
           }
         }
+      ],
+      "correlati": [
+        "ここ",
+        "そこ",
+        "どこ",
+        "あちら",
+        "あっち",
+        "向こう"
       ]
     },
     {
@@ -41133,9 +41133,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こちら",
-        "そちら",
-        "どちら"
+        "あっち"
       ],
       "contrari": [],
       "omofoni": [],
@@ -41155,6 +41153,12 @@
             "en": "That's the person I've been waiting for."
           }
         }
+      ],
+      "correlati": [
+        "こちら",
+        "そちら",
+        "どちら",
+        "あそこ"
       ]
     },
     {
@@ -41180,13 +41184,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こちら",
-        "そちら",
-        "どちら",
-        "そっち",
-        "あそこ",
-        "あれ",
-        "向こう"
+        "あちら"
       ],
       "contrari": [],
       "omofoni": [],
@@ -41206,6 +41204,12 @@
             "en": "That's the person I've been waiting for."
           }
         }
+      ],
+      "correlati": [
+        "こっち",
+        "そっち",
+        "あそこ",
+        "向こう"
       ]
     },
     {
@@ -41277,13 +41281,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "どの",
-        "この",
-        "その",
-        "あんな",
-        "そんな"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -41302,6 +41300,11 @@
             "en": "That building over there is a bank."
           }
         }
+      ],
+      "correlati": [
+        "この",
+        "その",
+        "どの"
       ]
     },
     {
@@ -41369,16 +41372,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "これ",
-        "それ",
-        "どれ",
-        "あそこ",
-        "あっち",
-        "そこ",
-        "そちら",
-        "そっち"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -41397,6 +41391,11 @@
             "en": "Now that you mention it, it's been more than 30 years since then."
           }
         }
+      ],
+      "correlati": [
+        "これ",
+        "それ",
+        "どれ"
       ]
     },
     {
@@ -41632,9 +41631,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "沢山"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -41734,13 +41731,13 @@
           }
         }
       ],
-      "sinonimi": [
-        "ごちそうさまでした",
-        "お疲れさまです"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": [
+        "ごちそうさまでした"
+      ]
     },
     {
       "id": "いつ",
@@ -41811,9 +41808,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "ちっとも"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -42162,13 +42157,13 @@
           }
         }
       ],
-      "sinonimi": [
-        "どういたしまして",
-        "ただいま"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": [
+        "ただいま"
+      ]
     },
     {
       "id": "おじいさん",
@@ -42194,10 +42189,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "祖父",
-        "おばあさん"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42216,6 +42208,10 @@
             "en": "Grandfather likes tea."
           }
         }
+      ],
+      "correlati": [
+        "祖父",
+        "おばあさん"
       ]
     },
     {
@@ -42253,12 +42249,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "お先に失礼します"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "おととし",
@@ -42282,9 +42277,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "去年"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42322,6 +42315,9 @@
             "en": "The summer two years ago was hot."
           }
         }
+      ],
+      "correlati": [
+        "去年"
       ]
     },
     {
@@ -42347,10 +42343,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "祖母",
-        "おじいさん"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
@@ -42369,6 +42362,10 @@
             "en": "I wrote a letter to my grandmother."
           }
         }
+      ],
+      "correlati": [
+        "祖母",
+        "おじいさん"
       ]
     },
     {
@@ -42542,12 +42539,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "間に合う"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "お金",
@@ -42876,14 +42872,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "それでは",
-        "では",
-        "よろしくお願いします"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "お茶",
@@ -42969,16 +42962,13 @@
           }
         }
       ],
-      "sinonimi": [
-        "ごちそうさまでした",
-        "よろしくお願いします",
-        "いただきます",
-        "どういたしまして",
-        "頑張って"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783718815331
+      "updated_at": 1783718815331,
+      "correlati": [
+        "お先に失礼します"
+      ]
     },
     {
       "id": "お父さん",
@@ -43607,9 +43597,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "コップ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -43628,6 +43616,9 @@
             "en": "This cup is a present."
           }
         }
+      ],
+      "correlati": [
+        "コップ"
       ]
     },
     {
@@ -43914,9 +43905,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "キロ; キロメートル"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -43935,6 +43924,9 @@
             "en": "This luggage weighs ten kilograms."
           }
         }
+      ],
+      "correlati": [
+        "キロ; キロメートル"
       ]
     },
     {
@@ -43959,9 +43951,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "キロ; キログラム"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -43980,6 +43970,9 @@
             "en": "I run five kilometers every morning."
           }
         }
+      ],
+      "correlati": [
+        "キロ; キログラム"
       ]
     },
     {
@@ -44092,9 +44085,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "上着"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44113,6 +44104,9 @@
             "en": "I took off my coat and hung it on the chair."
           }
         }
+      ],
+      "correlati": [
+        "上着"
       ]
     },
     {
@@ -44182,11 +44176,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "そこ",
-        "あそこ",
-        "どこ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44205,6 +44195,11 @@
             "en": "Here is a pan without handles."
           }
         }
+      ],
+      "correlati": [
+        "そこ",
+        "あそこ",
+        "どこ"
       ]
     },
     {
@@ -44242,15 +44237,13 @@
           }
         }
       ],
-      "sinonimi": [
-        "お疲れさまです",
-        "いただきます",
-        "よろしくお願いします",
-        "どういたしまして"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": [
+        "いただきます"
+      ]
     },
     {
       "id": "こちら",
@@ -44277,9 +44270,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "そちら",
-        "あちら",
-        "どちら"
+        "こっち"
       ],
       "contrari": [],
       "omofoni": [],
@@ -44299,6 +44290,11 @@
             "en": "This costs more than that."
           }
         }
+      ],
+      "correlati": [
+        "そちら",
+        "あちら",
+        "どちら"
       ]
     },
     {
@@ -44326,9 +44322,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "そちら",
-        "あちら",
-        "どちら"
+        "こちら"
       ],
       "contrari": [],
       "omofoni": [],
@@ -44348,6 +44342,10 @@
             "en": "This costs more than that."
           }
         }
+      ],
+      "correlati": [
+        "そっち",
+        "あっち"
       ]
     },
     {
@@ -44392,6 +44390,9 @@
             "en": "The glass broke."
           }
         }
+      ],
+      "correlati": [
+        "カップ"
       ]
     },
     {
@@ -44416,11 +44417,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "その",
-        "あの",
-        "どの"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44439,6 +44436,11 @@
             "en": "Go straight along this road."
           }
         }
+      ],
+      "correlati": [
+        "その",
+        "あの",
+        "どの"
       ]
     },
     {
@@ -44509,12 +44511,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "それ",
-        "あれ",
-        "どれ",
-        "今度"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44610,6 +44607,11 @@
             "en": "This is an interesting book."
           }
         }
+      ],
+      "correlati": [
+        "それ",
+        "あれ",
+        "どれ"
       ]
     },
     {
@@ -44636,11 +44638,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "あんな",
-        "そんな",
-        "どんな"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44659,6 +44657,11 @@
             "en": "On a rainy day like this, I want to stay home."
           }
         }
+      ],
+      "correlati": [
+        "そんな",
+        "あんな",
+        "どんな"
       ]
     },
     {
@@ -44732,11 +44735,7 @@
         "来",
         "年"
       ],
-      "sinonimi": [
-        "再来月",
-        "再来週",
-        "来年"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -44774,6 +44773,9 @@
             "en": "The year after next, my son will start elementary school."
           }
         }
+      ],
+      "correlati": [
+        "来年"
       ]
     },
     {
@@ -45240,9 +45242,7 @@
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
       "sinonimi": [
-        "やる",
-        "致す",
-        "なさる"
+        "やる"
       ],
       "contrari": [],
       "omofoni": [],
@@ -45463,6 +45463,10 @@
             "en": "I do my homework, and then I play."
           }
         }
+      ],
+      "correlati": [
+        "致す",
+        "なさる"
       ]
     },
     {
@@ -45624,9 +45628,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "接続詞[せつぞくし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "また"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -45673,12 +45675,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "どこ",
-        "ここ",
-        "あそこ",
-        "あれ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -45697,6 +45694,11 @@
             "en": "Please wait there."
           }
         }
+      ],
+      "correlati": [
+        "ここ",
+        "あそこ",
+        "どこ"
       ]
     },
     {
@@ -45722,14 +45724,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こちら",
-        "あちら",
-        "どちら",
-        "あっち",
-        "そっち",
-        "あそこ",
-        "あれ",
-        "向こう"
+        "そっち"
       ],
       "contrari": [],
       "omofoni": [],
@@ -45749,6 +45744,11 @@
             "en": "What is the difference between this and that?"
           }
         }
+      ],
+      "correlati": [
+        "こちら",
+        "あちら",
+        "どちら"
       ]
     },
     {
@@ -45774,14 +45774,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こちら",
-        "あちら",
-        "どちら",
-        "あっち",
-        "そちら",
-        "あそこ",
-        "あれ",
-        "向こう"
+        "そちら"
       ],
       "contrari": [],
       "omofoni": [],
@@ -45801,6 +45794,10 @@
             "en": "What is the difference between this and that?"
           }
         }
+      ],
+      "correlati": [
+        "こっち",
+        "あっち"
       ]
     },
     {
@@ -45825,11 +45822,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "この",
-        "あの",
-        "どの"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -45884,6 +45877,11 @@
             "en": "Whose umbrella is that?"
           }
         }
+      ],
+      "correlati": [
+        "この",
+        "あの",
+        "どの"
       ]
     },
     {
@@ -45955,11 +45953,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "これ",
-        "あれ",
-        "どれ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -45978,6 +45972,11 @@
             "en": "Please show me that."
           }
         }
+      ],
+      "correlati": [
+        "これ",
+        "あれ",
+        "どれ"
       ]
     },
     {
@@ -46195,9 +46194,7 @@
           }
         }
       ],
-      "sinonimi": [
-        "おかえりなさい"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783680432949,
@@ -46267,6 +46264,9 @@
             }
           }
         }
+      ],
+      "correlati": [
+        "おかえりなさい"
       ]
     },
     {
@@ -47300,9 +47300,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "戸"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -47321,6 +47319,9 @@
             "en": "The door is closed, so please knock."
           }
         }
+      ],
+      "correlati": [
+        "戸"
       ]
     },
     {
@@ -47394,9 +47395,6 @@
       "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こう",
-        "そう",
-        "ああ",
         "いかが"
       ],
       "contrari": [],
@@ -47417,6 +47415,11 @@
             "en": "How do you read this word?"
           }
         }
+      ],
+      "correlati": [
+        "こう",
+        "そう",
+        "ああ"
       ]
     },
     {
@@ -47455,15 +47458,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "よろしくお願いします",
-        "お疲れさまです",
-        "ごちそうさまでした",
-        "おかえりなさい"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "どうして",
@@ -47585,9 +47584,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "副詞[ふくし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "是非"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -47761,11 +47758,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "ここ",
-        "そこ",
-        "あそこ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -47784,6 +47777,11 @@
             "en": "Excuse me, where is the station?"
           }
         }
+      ],
+      "correlati": [
+        "ここ",
+        "そこ",
+        "あそこ"
       ]
     },
     {
@@ -47811,11 +47809,7 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "こちら",
-        "そちら",
-        "あちら",
-        "どっち",
-        "どれ"
+        "どっち"
       ],
       "contrari": [],
       "omofoni": [],
@@ -47835,6 +47829,12 @@
             "en": "Where are you from?"
           }
         }
+      ],
+      "correlati": [
+        "こちら",
+        "そちら",
+        "あちら",
+        "どれ"
       ]
     },
     {
@@ -48044,13 +48044,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "これ",
-        "それ",
-        "あれ",
-        "どっち",
-        "どちら"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -48096,6 +48090,12 @@
             "en": "Which one is the cheapest?"
           }
         }
+      ],
+      "correlati": [
+        "これ",
+        "それ",
+        "あれ",
+        "どっち"
       ]
     },
     {
@@ -48121,11 +48121,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "連体詞[れんたいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "こんな",
-        "そんな",
-        "あんな"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -48144,6 +48140,11 @@
             "en": "What kind of person do you want to become?"
           }
         }
+      ],
+      "correlati": [
+        "こんな",
+        "そんな",
+        "あんな"
       ]
     },
     {
@@ -48809,9 +48810,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "動詞[どうし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "着る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -48832,6 +48831,9 @@
             "en": "I went out wearing my new shoes."
           }
         }
+      ],
+      "correlati": [
+        "着る"
       ]
     },
     {
@@ -49715,9 +49717,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "そうして; そして"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -49995,8 +49995,8 @@
       "tipo_jp": "名詞[めいし]",
       "kanji_usati": [],
       "sinonimi": [
-        "全部",
-        "皆"
+        "皆",
+        "全部"
       ],
       "contrari": [],
       "omofoni": [],
@@ -50052,7 +50052,8 @@
             "en": "Everyone in the class is in the classroom."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "メートル",
@@ -50685,18 +50686,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "それでは",
-        "では",
-        "下さい",
-        "お疲れさまです",
-        "ごちそうさまでした",
-        "お大事に",
-        "どういたしまして"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "ラジオ",
@@ -50808,9 +50802,7 @@
       "livello_jlpt": "N5",
       "tipo_jp": "形容詞[けいようし]",
       "kanji_usati": [],
-      "sinonimi": [
-        "結構"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -50918,7 +50910,8 @@
             "en": "A new restaurant opened near the station."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "ワイシャツ",
@@ -52579,9 +52572,7 @@
       "kanji_usati": [
         "飲"
       ],
-      "sinonimi": [
-        "召し上がる"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -52602,6 +52593,10 @@
             "en": "Don't forget to take your medicine."
           }
         }
+      ],
+      "correlati": [
+        "召し上がる",
+        "いただく"
       ]
     },
     {
@@ -53772,9 +53767,7 @@
       "kanji_usati": [
         "下"
       ],
-      "sinonimi": [
-        "くださる"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -53793,6 +53786,9 @@
             "en": "Please give me three of these apples."
           }
         }
+      ],
+      "correlati": [
+        "くださる"
       ]
     },
     {
@@ -54299,9 +54295,7 @@
         "家",
         "庭"
       ],
-      "sinonimi": [
-        "うち"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -54320,6 +54314,9 @@
             "en": "I want to build a warm home."
           }
         }
+      ],
+      "correlati": [
+        "家族"
       ]
     },
     {
@@ -54853,9 +54850,7 @@
         "荷",
         "物"
       ],
-      "sinonimi": [
-        "手荷物"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -54874,6 +54869,9 @@
             "en": "The luggage is too heavy to carry."
           }
         }
+      ],
+      "correlati": [
+        "手荷物"
       ]
     },
     {
@@ -55191,8 +55189,7 @@
         "開"
       ],
       "sinonimi": [
-        "開く-ひらく",
-        "空く::あく"
+        "開く-ひらく"
       ],
       "contrari": [
         "閉まる"
@@ -55219,7 +55216,10 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "開ける"
+      "id_verbo_corrispondente": "開ける",
+      "correlati": [
+        "空く::あく"
+      ]
     },
     {
       "id": "開ける",
@@ -55633,9 +55633,7 @@
       "kanji_usati": [
         "覚"
       ],
-      "sinonimi": [
-        "習う"
-      ],
+      "sinonimi": [],
       "contrari": [
         "忘れる"
       ],
@@ -55658,6 +55656,9 @@
             "en": "That music really gets me."
           }
         }
+      ],
+      "correlati": [
+        "習う"
       ]
     },
     {
@@ -55798,7 +55799,8 @@
           }
         }
       ],
-      "id_contatore_suggerito": "人"
+      "id_contatore_suggerito": "人",
+      "correlati": []
     },
     {
       "id": "楽しい",
@@ -55848,7 +55850,8 @@
             "en": "Talking with everyone is fun."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "掛ける",
@@ -55933,10 +55936,7 @@
       "kanji_usati": [
         "寒"
       ],
-      "sinonimi": [
-        "明るい",
-        "涼しい"
-      ],
+      "sinonimi": [],
       "contrari": [
         "暑い"
       ],
@@ -56193,12 +56193,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "お疲れさまです"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "顔",
@@ -56478,7 +56477,8 @@
             "en": "May I go home early today?"
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "気をつけて",
@@ -56519,12 +56519,11 @@
           }
         }
       ],
-      "sinonimi": [
-        "気に入る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783253247850
+      "updated_at": 1783253247850,
+      "correlati": []
     },
     {
       "id": "起きる",
@@ -56889,9 +56888,7 @@
         "去",
         "年"
       ],
-      "sinonimi": [
-        "おととし"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -56929,6 +56926,9 @@
             "en": "Last winter was cold."
           }
         }
+      ],
+      "correlati": [
+        "おととし"
       ]
     },
     {
@@ -56957,11 +56957,7 @@
       "kanji_usati": [
         "居"
       ],
-      "sinonimi": [
-        "在る",
-        "いらっしゃる",
-        "おる"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [
         "要る"
@@ -57045,6 +57041,12 @@
             "en": "I haven't quite finished eating."
           }
         }
+      ],
+      "correlati": [
+        "在る",
+        "有る",
+        "いらっしゃる",
+        "おる"
       ]
     },
     {
@@ -57142,7 +57144,8 @@
             "en": "That team is very strong."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "教える",
@@ -57363,9 +57366,7 @@
       "kanji_usati": [
         "曲"
       ],
-      "sinonimi": [
-        "折れる"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -57512,9 +57513,7 @@
       "kanji_usati": [
         "近"
       ],
-      "sinonimi": [
-        "近い"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -57585,6 +57584,9 @@
             "en": "The Diet will soon be dissolved."
           }
         }
+      ],
+      "correlati": [
+        "近い"
       ]
     },
     {
@@ -58415,9 +58417,7 @@
         "結",
         "構"
       ],
-      "sinonimi": [
-        "りっぱ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -59164,9 +59164,7 @@
       "kanji_usati": [
         "見"
       ],
-      "sinonimi": [
-        "拝見する"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -59281,7 +59279,11 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "見える"
+      "id_verbo_corrispondente": "見える",
+      "correlati": [
+        "拝見する",
+        "ごらんになる"
+      ]
     },
     {
       "id": "鍵",
@@ -59481,10 +59483,7 @@
         "言"
       ],
       "sinonimi": [
-        "話す",
-        "申す",
-        "申し上げる",
-        "おっしゃる"
+        "話す"
       ],
       "contrari": [],
       "omofoni": [],
@@ -59506,6 +59505,10 @@
             "en": "John said, \"Hey guys, let's take a break.\""
           }
         }
+      ],
+      "correlati": [
+        "申す",
+        "おっしゃる"
       ]
     },
     {
@@ -59680,9 +59683,7 @@
       "kanji_usati": [
         "戸"
       ],
-      "sinonimi": [
-        "ドア"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [
         "都"
@@ -59703,6 +59704,9 @@
             "en": "The wind opened the sliding door."
           }
         }
+      ],
+      "correlati": [
+        "ドア"
       ]
     },
     {
@@ -59973,9 +59977,7 @@
         "午",
         "前"
       ],
-      "sinonimi": [
-        "朝"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -60013,6 +60015,9 @@
             "en": "I will be at home during the morning."
           }
         }
+      ],
+      "correlati": [
+        "朝"
       ]
     },
     {
@@ -60712,13 +60717,7 @@
       "kanji_usati": [
         "向"
       ],
-      "sinonimi": [
-        "あそこ",
-        "あっち",
-        "あれ",
-        "そちら",
-        "そっち"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -60737,6 +60736,10 @@
             "en": "You will play into their hands."
           }
         }
+      ],
+      "correlati": [
+        "あそこ",
+        "あっち"
       ]
     },
     {
@@ -61020,11 +61023,7 @@
       "kanji_usati": [
         "行"
       ],
-      "sinonimi": [
-        "参る",
-        "いらっしゃる",
-        "伺う"
-      ],
+      "sinonimi": [],
       "contrari": [
         "来る",
         "帰る"
@@ -61187,6 +61186,11 @@
             "en": "Thanks to you, the job went well."
           }
         }
+      ],
+      "correlati": [
+        "参る",
+        "いらっしゃる",
+        "伺う"
       ]
     },
     {
@@ -62185,9 +62189,7 @@
       "kanji_usati": [
         "差"
       ],
-      "sinonimi": [
-        "出す"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245163,
@@ -62332,9 +62334,7 @@
       "kanji_usati": [
         "細"
       ],
-      "sinonimi": [
-        "薄い"
-      ],
+      "sinonimi": [],
       "contrari": [
         "太い"
       ],
@@ -62356,6 +62356,9 @@
             "en": "I sewed it with thin thread."
           }
         }
+      ],
+      "correlati": [
+        "薄い"
       ]
     },
     {
@@ -62385,7 +62388,6 @@
         "在"
       ],
       "sinonimi": [
-        "居る",
         "有る"
       ],
       "contrari": [],
@@ -62481,6 +62483,9 @@
             "en": "There is a letter on the desk."
           }
         }
+      ],
+      "correlati": [
+        "居る"
       ]
     },
     {
@@ -63507,7 +63512,8 @@
           }
         }
       ],
-      "id_verbo_suru": "仕事する"
+      "id_verbo_suru": "仕事する",
+      "correlati": []
     },
     {
       "id": "仕事する",
@@ -64458,7 +64464,8 @@
             "en": "Sometimes I go fishing at the sea."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "時間",
@@ -65915,7 +65922,8 @@
             "en": "I'll call you when work is over."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "習う",
@@ -65941,9 +65949,7 @@
       "kanji_usati": [
         "習"
       ],
-      "sinonimi": [
-        "覚える"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -65964,6 +65970,9 @@
             "en": "I took piano lessons as a child."
           }
         }
+      ],
+      "correlati": [
+        "覚える"
       ]
     },
     {
@@ -66401,10 +66410,7 @@
       "kanji_usati": [
         "出"
       ],
-      "sinonimi": [
-        "差す",
-        "渡す"
-      ],
+      "sinonimi": [],
       "contrari": [
         "入れる"
       ],
@@ -66435,7 +66441,10 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "出る"
+      "id_verbo_corrispondente": "出る",
+      "correlati": [
+        "渡す"
+      ]
     },
     {
       "id": "出る",
@@ -66719,9 +66728,7 @@
       "kanji_usati": [
         "初"
       ],
-      "sinonimi": [
-        "始める"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -66998,10 +67005,7 @@
       "kanji_usati": [
         "暑"
       ],
-      "sinonimi": [
-        "明るい",
-        "涼しい"
-      ],
+      "sinonimi": [],
       "contrari": [
         "寒い"
       ],
@@ -67179,10 +67183,10 @@
         "女",
         "子"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "男の子"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
       "usi": [
@@ -67256,9 +67260,7 @@
       "kanji_usati": [
         "小"
       ],
-      "sinonimi": [
-        "細かい"
-      ],
+      "sinonimi": [],
       "contrari": [
         "大きい"
       ],
@@ -67280,6 +67282,9 @@
             "en": "The letters are too small to read."
           }
         }
+      ],
+      "correlati": [
+        "細かい"
       ]
     },
     {
@@ -67307,10 +67312,10 @@
       "kanji_usati": [
         "小"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "大きな"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
       "frasi_esempio": [
@@ -67823,9 +67828,7 @@
       "kanji_usati": [
         "上"
       ],
-      "sinonimi": [
-        "申し上げる"
-      ],
+      "sinonimi": [],
       "contrari": [
         "下げる"
       ],
@@ -68235,9 +68238,7 @@
         "上",
         "着"
       ],
-      "sinonimi": [
-        "コート"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245160,
@@ -68256,6 +68257,9 @@
             "en": "It was hot, so I took off my jacket."
           }
         }
+      ],
+      "correlati": [
+        "コート"
       ]
     },
     {
@@ -68308,7 +68312,8 @@
             "en": "I bought sturdy shoes."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "乗る",
@@ -68522,9 +68527,7 @@
       "kanji_usati": [
         "食"
       ],
-      "sinonimi": [
-        "召し上がる"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -68545,6 +68548,10 @@
             "en": "Have you ever eaten sushi?"
           }
         }
+      ],
+      "correlati": [
+        "召し上がる",
+        "いただく"
       ]
     },
     {
@@ -68641,7 +68648,8 @@
             "en": "The university cafeteria is cheap."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "寝る",
@@ -68670,9 +68678,7 @@
       "kanji_usati": [
         "寝"
       ],
-      "sinonimi": [
-        "眠る"
-      ],
+      "sinonimi": [],
       "contrari": [
         "起きる"
       ],
@@ -68695,6 +68701,9 @@
             "en": "Last night I went to bed at midnight."
           }
         }
+      ],
+      "correlati": [
+        "眠る"
       ]
     },
     {
@@ -68866,10 +68875,7 @@
       "kanji_usati": [
         "人"
       ],
-      "sinonimi": [
-        "男性",
-        "男"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -69011,9 +69017,7 @@
       "kanji_usati": [
         "水"
       ],
-      "sinonimi": [
-        "湯"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -69033,7 +69037,10 @@
           }
         }
       ],
-      "id_contatore_suggerito": "杯"
+      "id_contatore_suggerito": "杯",
+      "correlati": [
+        "湯"
+      ]
     },
     {
       "id": "水曜日",
@@ -69332,7 +69339,8 @@
             "en": "There are thirty students in this class."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "声",
@@ -70952,7 +70960,8 @@
             "en": "These books are five in total."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "掃除",
@@ -71776,10 +71785,10 @@
       "kanji_usati": [
         "大"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "小さな"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
       "frasi_esempio": [
@@ -71825,9 +71834,7 @@
         "大",
         "学"
       ],
-      "sinonimi": [
-        "大学生"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -71846,6 +71853,9 @@
             "en": "I study economics at university."
           }
         }
+      ],
+      "correlati": [
+        "大学生"
       ]
     },
     {
@@ -72050,7 +72060,8 @@
             "en": "She is all right at the moment."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "大人",
@@ -72196,7 +72207,8 @@
             "en": "Many people came to the festival."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "大切",
@@ -72391,8 +72403,8 @@
         "山"
       ],
       "sinonimi": [
-        "大勢",
-        "いっぱい"
+        "いっぱい",
+        "大勢"
       ],
       "contrari": [],
       "omofoni": [],
@@ -72454,7 +72466,8 @@
             "en": "I have a lot of homework and can't play."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "脱ぐ",
@@ -72717,9 +72730,7 @@
       "kanji_usati": [
         "弾"
       ],
-      "sinonimi": [
-        "引く"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [
         "引く"
@@ -72818,9 +72829,7 @@
         "段",
         "々"
       ],
-      "sinonimi": [
-        "そろそろ"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -72866,6 +72875,9 @@
             "en": "The days gradually get shorter."
           }
         }
+      ],
+      "correlati": [
+        "そろそろ"
       ]
     },
     {
@@ -72895,8 +72907,7 @@
         "男"
       ],
       "sinonimi": [
-        "男性",
-        "人"
+        "男性"
       ],
       "contrari": [
         "女"
@@ -72999,10 +73010,10 @@
         "男",
         "子"
       ],
-      "sinonimi": [
+      "sinonimi": [],
+      "contrari": [
         "女の子"
       ],
-      "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245161,
       "usi": [
@@ -73651,9 +73662,7 @@
       "kanji_usati": [
         "着"
       ],
-      "sinonimi": [
-        "はく"
-      ],
+      "sinonimi": [],
       "contrari": [
         "脱ぐ"
       ],
@@ -73678,6 +73687,9 @@
             "en": "Today I will wear a warm sweater."
           }
         }
+      ],
+      "correlati": [
+        "はく"
       ]
     },
     {
@@ -74055,9 +74067,7 @@
       "kanji_usati": [
         "朝"
       ],
-      "sinonimi": [
-        "午前"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245159,
@@ -74104,6 +74114,9 @@
             "en": "In the morning I eat bread and eggs."
           }
         }
+      ],
+      "correlati": [
+        "午前"
       ]
     },
     {
@@ -74713,9 +74726,7 @@
         "電",
         "気"
       ],
-      "sinonimi": [
-        "電灯"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245165,
@@ -74734,6 +74745,9 @@
             "en": "I turn off the lights before going out."
           }
         }
+      ],
+      "correlati": [
+        "電灯"
       ]
     },
     {
@@ -74905,10 +74919,7 @@
       "kanji_usati": [
         "渡"
       ],
-      "sinonimi": [
-        "出す",
-        "渡る"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -74930,7 +74941,10 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "渡る"
+      "id_verbo_corrispondente": "渡る",
+      "correlati": [
+        "渡る"
+      ]
     },
     {
       "id": "渡る",
@@ -74957,9 +74971,7 @@
       "kanji_usati": [
         "渡"
       ],
-      "sinonimi": [
-        "渡す"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -74981,7 +74993,10 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "渡す"
+      "id_verbo_corrispondente": "渡す",
+      "correlati": [
+        "渡す"
+      ]
     },
     {
       "id": "登る",
@@ -75260,7 +75275,8 @@
             "en": "Please answer the question in Japanese."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "頭",
@@ -75354,7 +75370,8 @@
             "en": "He worked more than five hours on end."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "動物",
@@ -76650,7 +76667,8 @@
           }
         }
       ],
-      "id_verbo_suru": "買い物する"
+      "id_verbo_suru": "買い物する",
+      "correlati": []
     },
     {
       "id": "買い物する",
@@ -76752,7 +76770,8 @@
             "en": "I want to buy new shoes."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "売る",
@@ -77076,9 +77095,7 @@
       "kanji_usati": [
         "薄"
       ],
-      "sinonimi": [
-        "細い"
-      ],
+      "sinonimi": [],
       "contrari": [
         "厚い"
       ],
@@ -77100,6 +77117,9 @@
             "en": "He wore a light blue tie."
           }
         }
+      ],
+      "correlati": [
+        "細い"
       ]
     },
     {
@@ -78412,9 +78432,7 @@
       "kanji_usati": [
         "風"
       ],
-      "sinonimi": [
-        "風邪"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [
         "風邪"
@@ -78930,9 +78948,7 @@
       "kanji_usati": [
         "聞"
       ],
-      "sinonimi": [
-        "伺う"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -78954,7 +78970,10 @@
           }
         }
       ],
-      "id_verbo_corrispondente": "聞こえる"
+      "id_verbo_corrispondente": "聞こえる",
+      "correlati": [
+        "伺う"
+      ]
     },
     {
       "id": "平仮名",
@@ -79001,6 +79020,9 @@
             "en": "My son can read hiragana."
           }
         }
+      ],
+      "correlati": [
+        "片仮名"
       ]
     },
     {
@@ -79128,9 +79150,7 @@
       "kanji_usati": [
         "閉"
       ],
-      "sinonimi": [
-        "閉める"
-      ],
+      "sinonimi": [],
       "contrari": [
         "開く-あく"
       ],
@@ -79181,9 +79201,7 @@
       "kanji_usati": [
         "閉"
       ],
-      "sinonimi": [
-        "閉まる"
-      ],
+      "sinonimi": [],
       "contrari": [
         "開ける"
       ],
@@ -79237,9 +79255,7 @@
         "仮",
         "名"
       ],
-      "sinonimi": [
-        "平仮名"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245162,
@@ -79258,6 +79274,9 @@
             "en": "The katakana \"so\" and \"n\" look similar."
           }
         }
+      ],
+      "correlati": [
+        "平仮名"
       ]
     },
     {
@@ -79504,9 +79523,7 @@
         "勉",
         "強"
       ],
-      "sinonimi": [
-        "研究"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245166,
@@ -79526,7 +79543,10 @@
           }
         }
       ],
-      "id_verbo_suru": "勉強する"
+      "id_verbo_suru": "勉強する",
+      "correlati": [
+        "研究"
+      ]
     },
     {
       "id": "歩く",
@@ -80964,11 +80984,7 @@
       "kanji_usati": [
         "明"
       ],
-      "sinonimi": [
-        "寒い",
-        "暑い",
-        "涼しい"
-      ],
+      "sinonimi": [],
       "contrari": [
         "暗い"
       ],
@@ -81245,7 +81261,8 @@
             "en": "There is nothing interesting in the newspaper."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "木",
@@ -81794,7 +81811,6 @@
         "有"
       ],
       "sinonimi": [
-        "居る",
         "在る"
       ],
       "contrari": [],
@@ -81890,6 +81906,9 @@
             "en": "There is a big library in this town."
           }
         }
+      ],
+      "correlati": [
+        "居る"
       ]
     },
     {
@@ -82113,10 +82132,7 @@
         "夕",
         "方"
       ],
-      "sinonimi": [
-        "晩御飯",
-        "夕飯"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245173,
@@ -82580,10 +82596,7 @@
       "kanji_usati": [
         "来"
       ],
-      "sinonimi": [
-        "参る",
-        "いらっしゃる"
-      ],
+      "sinonimi": [],
       "contrari": [
         "行く"
       ],
@@ -82669,6 +82682,10 @@
             "en": "I'll come by 10."
           }
         }
+      ],
+      "correlati": [
+        "参る",
+        "いらっしゃる"
       ]
     },
     {
@@ -82696,9 +82713,7 @@
         "来",
         "月"
       ],
-      "sinonimi": [
-        "再来月"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -82736,6 +82751,9 @@
             "en": "My new job starts next month."
           }
         }
+      ],
+      "correlati": [
+        "再来月"
       ]
     },
     {
@@ -82763,9 +82781,7 @@
         "来",
         "週"
       ],
-      "sinonimi": [
-        "再来週"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -82803,6 +82819,9 @@
             "en": "Please tell me your plans for next week."
           }
         }
+      ],
+      "correlati": [
+        "再来週"
       ]
     },
     {
@@ -82830,9 +82849,7 @@
         "来",
         "年"
       ],
-      "sinonimi": [
-        "さ来年"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245174,
@@ -82870,6 +82887,9 @@
             "en": "I will graduate next spring."
           }
         }
+      ],
+      "correlati": [
+        "さ来年"
       ]
     },
     {
@@ -83404,11 +83424,7 @@
       "kanji_usati": [
         "涼"
       ],
-      "sinonimi": [
-        "寒い",
-        "暑い",
-        "明るい"
-      ],
+      "sinonimi": [],
       "contrari": [],
       "omofoni": [],
       "updated_at": 1783961245164,
@@ -84144,7 +84160,8 @@
             "en": "Please tell me about your hobbies."
           }
         }
-      ]
+      ],
+      "correlati": []
     },
     {
       "id": "綺麗",

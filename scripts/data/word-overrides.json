@@ -129,7 +129,11 @@
    "en": [
     "year after next"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "来年"
+  ]
  },
  "結婚": {
   "frasi_esempio": [
@@ -569,7 +573,11 @@
    "en": [
     "year before last"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "去年"
+  ]
  },
  "おまわりさん": {
   "frasi_esempio": [
@@ -916,7 +924,14 @@
     "slender",
     "fine"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "太い"
+  ],
+  "correlati": [
+   "薄い"
+  ]
  },
  "醤油": {
   "frasi_esempio": [
@@ -1068,7 +1083,12 @@
     "entire",
     "whole"
    ]
-  }
+  },
+  "sinonimi": [
+   "みんな",
+   "皆"
+  ],
+  "correlati": []
  },
  "沢山": {
   "frasi_esempio": [
@@ -1096,7 +1116,12 @@
     "many",
     "much"
    ]
-  }
+  },
+  "sinonimi": [
+   "いっぱい",
+   "大勢"
+  ],
+  "correlati": []
  },
  "締める": {
   "frasi_esempio": [
@@ -1286,7 +1311,11 @@
    "en": [
     "next month"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "再来月"
+  ]
  },
  "コップ": {
   "frasi_esempio": [
@@ -1313,7 +1342,11 @@
     "a tumbler",
     "a glass"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "カップ"
+  ]
  },
  "安い": {
   "frasi_esempio": [
@@ -1637,7 +1670,13 @@
    "en": [
     "that"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "この",
+   "あの",
+   "どの"
+  ]
  },
  "それから": {
   "frasi_esempio": [
@@ -1721,7 +1760,16 @@
     "which (one) (way)",
     "where (polite)"
    ]
-  }
+  },
+  "sinonimi": [
+   "どっち"
+  ],
+  "correlati": [
+   "こちら",
+   "そちら",
+   "あちら",
+   "どれ"
+  ]
  },
  "どっち": {
   "frasi_esempio": [
@@ -2231,7 +2279,11 @@
     "cafeteria",
     "dining hall"
    ]
-  }
+  },
+  "sinonimi": [
+   "レストラン"
+  ],
+  "correlati": []
  },
  "水": {
   "frasi_esempio": [
@@ -2257,7 +2309,11 @@
    "en": [
     "water"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "湯"
+  ]
  },
  "青": {
   "frasi_esempio": [
@@ -2311,7 +2367,11 @@
     "college",
     "university"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "大学生"
+  ]
  },
  "弟": {
   "frasi_esempio": [
@@ -2552,7 +2612,12 @@
     "grandmother",
     "female senior-citizen"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "祖母",
+   "おじいさん"
+  ]
  },
  "漢字": {
   "frasi_esempio": [
@@ -2608,7 +2673,11 @@
     "occupation",
     "employment"
    ]
-  }
+  },
+  "sinonimi": [
+   "働く"
+  ],
+  "correlati": []
  },
  "仕事する": {
   "frasi_esempio": [
@@ -2816,7 +2885,13 @@
     "such",
     "like this"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "そんな",
+   "あんな",
+   "どんな"
+  ]
  },
  "しかし": {
   "frasi_esempio": [
@@ -3030,7 +3105,11 @@
    "en": [
     "to put on (items below your waist)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "着る"
+  ]
  },
  "フィルム": {
   "frasi_esempio": [
@@ -3166,7 +3245,12 @@
     "everyone",
     "everybody"
    ]
-  }
+  },
+  "sinonimi": [
+   "皆",
+   "全部"
+  ],
+  "correlati": []
  },
  "もっと": {
   "frasi_esempio": [
@@ -3414,7 +3498,15 @@
     "to go home",
     "to return"
    ]
-  }
+  },
+  "sinonimi": [
+   "戻る"
+  ],
+  "contrari": [
+   "行く",
+   "出かける"
+  ],
+  "correlati": []
  },
  "兄": {
   "frasi_esempio": [
@@ -3693,7 +3785,8 @@
     "to raise (stretch out) hands",
     "to raise (e.g., umbrella)"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "昨日": {
   "frasi_esempio": [
@@ -3923,7 +4016,14 @@
     "to finish",
     "to close"
    ]
-  }
+  },
+  "sinonimi": [
+   "済む"
+  ],
+  "contrari": [
+   "始まる"
+  ],
+  "correlati": []
  },
  "住む": {
   "frasi_esempio": [
@@ -4012,7 +4112,11 @@
    "en": [
     "girl"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "男の子"
+  ]
  },
  "小さな": {
   "frasi_esempio": [
@@ -4039,7 +4143,11 @@
     "small",
     "little"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "大きな"
+  ]
  },
  "水曜日": {
   "frasi_esempio": [
@@ -4174,7 +4282,10 @@
     "difficult",
     "hard"
    ]
-  }
+  },
+  "sinonimi": [
+   "難しい"
+  ]
  },
  "茶碗": {
   "frasi_esempio": [
@@ -4342,7 +4453,11 @@
     "electricity",
     "(electric) light"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "電灯"
+  ]
  },
  "渡る": {
   "frasi_esempio": [
@@ -4370,7 +4485,11 @@
     "to go across"
    ]
   },
-  "id_verbo_corrispondente": "渡す"
+  "id_verbo_corrispondente": "渡す",
+  "sinonimi": [],
+  "correlati": [
+   "渡す"
+  ]
  },
  "お疲れさまです": {
   "frasi_esempio": [
@@ -4388,6 +4507,10 @@
      "en": "Ah, boss! Thank you for your hard work."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "お先に失礼します"
   ]
  },
  "道": {
@@ -4633,7 +4756,8 @@
     "to ask"
    ]
   },
-  "sinonimi": [
+  "sinonimi": [],
+  "correlati": [
    "伺う"
   ]
  },
@@ -4851,7 +4975,11 @@
    "en": [
     "next year"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "さ来年"
+  ]
  },
  "両親": {
   "frasi_esempio": [
@@ -5096,7 +5224,12 @@
     "grandfather",
     "male senior citizen"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "祖父",
+   "おばあさん"
+  ]
  },
  "お皿": {
   "frasi_esempio": [
@@ -5149,7 +5282,11 @@
    "en": [
     "cup"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "コップ"
+  ]
  },
  "グラム": {
   "frasi_esempio": [
@@ -5201,7 +5338,13 @@
    "en": [
     "this"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "その",
+   "あの",
+   "どの"
+  ]
  },
  "スカート": {
   "frasi_esempio": [
@@ -5339,11 +5482,13 @@
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
   "sinonimi": [
-   "やる",
+   "やる"
+  ],
+  "contrari": [],
+  "correlati": [
    "致す",
    "なさる"
-  ],
-  "contrari": []
+  ]
  },
  "そこ": {
   "frasi_esempio": [
@@ -5373,7 +5518,13 @@
     "bottom",
     "sole"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "ここ",
+   "あそこ",
+   "どこ"
+  ]
  },
  "それ": {
   "frasi_esempio": [
@@ -5399,7 +5550,13 @@
    "en": [
     "that one"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "これ",
+   "あれ",
+   "どれ"
+  ]
  },
  "それでは": {
   "frasi_esempio": [
@@ -5597,10 +5754,11 @@
    ]
   },
   "tipo_jp": "名詞[めいし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "戸"
-  ],
-  "contrari": []
+  ]
  },
  "どう": {
   "frasi_esempio": [
@@ -5627,7 +5785,15 @@
     "how",
     "in what way"
    ]
-  }
+  },
+  "sinonimi": [
+   "いかが"
+  ],
+  "correlati": [
+   "こう",
+   "そう",
+   "ああ"
+  ]
  },
  "どうして": {
   "frasi_esempio": [
@@ -5680,7 +5846,14 @@
    "en": [
     "which one"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "これ",
+   "それ",
+   "あれ",
+   "どっち"
+  ]
  },
  "どんな": {
   "frasi_esempio": [
@@ -5707,7 +5880,13 @@
     "what",
     "what kind of"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "こんな",
+   "そんな",
+   "あんな"
+  ]
  },
  "ない": {
   "frasi_esempio": [
@@ -6055,7 +6234,8 @@
     "splendid",
     "fine"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "レコード": {
   "frasi_esempio": [
@@ -6107,7 +6287,11 @@
    "en": [
     "restaurant"
    ]
-  }
+  },
+  "sinonimi": [
+   "食堂"
+  ],
+  "correlati": []
  },
  "易しい": {
   "frasi_esempio": [
@@ -6220,10 +6404,12 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "召し上がる"
-  ],
-  "contrari": []
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
+   "召し上がる",
+   "いただく"
+  ]
  },
  "雨": {
   "frasi_esempio": [
@@ -6410,7 +6596,11 @@
    "en": [
     "(with te-form verb) please do for me"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "くださる"
+  ]
  },
  "下手": {
   "frasi_esempio": [
@@ -6466,7 +6656,11 @@
     "luggage",
     "baggage"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "手荷物"
+  ]
  },
  "開く-あく": {
   "frasi_esempio": [
@@ -6498,11 +6692,13 @@
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
   "sinonimi": [
-   "開く-ひらく",
-   "空く::あく"
+   "開く-ひらく"
   ],
   "contrari": [
    "閉まる"
+  ],
+  "correlati": [
+   "空く::あく"
   ]
  },
  "開ける": {
@@ -6662,7 +6858,11 @@
    "en": [
     "student"
    ]
-  }
+  },
+  "sinonimi": [
+   "生徒"
+  ],
+  "correlati": []
  },
  "楽しい": {
   "frasi_esempio": [
@@ -6690,7 +6890,11 @@
     "enjoyable",
     "fun"
    ]
-  }
+  },
+  "sinonimi": [
+   "面白い"
+  ],
+  "correlati": []
  },
  "寒い": {
   "frasi_esempio": [
@@ -6716,7 +6920,11 @@
    "en": [
     "cold (in reference to weather)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "暑い"
+  ]
  },
  "危ない": {
   "frasi_esempio": [
@@ -6796,7 +7004,14 @@
     "strong",
     "powerful"
    ]
-  }
+  },
+  "sinonimi": [
+   "丈夫"
+  ],
+  "contrari": [
+   "弱い"
+  ],
+  "correlati": []
  },
  "狭い": {
   "frasi_esempio": [
@@ -7172,7 +7387,11 @@
    "en": [
     "door (Japanese style)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "ドア"
+  ]
  },
  "五つ": {
   "frasi_esempio": [
@@ -7965,7 +8184,8 @@
    "en": [
     "for the first time"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "暑い": {
   "frasi_esempio": [
@@ -7992,7 +8212,11 @@
     "hot (in reference to weather)",
     "warm"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "寒い"
+  ]
  },
  "小さい": {
   "frasi_esempio": [
@@ -8019,7 +8243,14 @@
     "small",
     "little"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "大きい"
+  ],
+  "correlati": [
+   "細かい"
+  ]
  },
  "少ない": {
   "frasi_esempio": [
@@ -8139,7 +8370,11 @@
     "coat",
     "jacket"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "コート"
+  ]
  },
  "丈夫": {
   "frasi_esempio": [
@@ -8168,7 +8403,11 @@
     "solid",
     "durable"
    ]
-  }
+  },
+  "sinonimi": [
+   "強い"
+  ],
+  "correlati": []
  },
  "乗る": {
   "frasi_esempio": [
@@ -8252,10 +8491,12 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "召し上がる"
-  ],
-  "contrari": []
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
+   "召し上がる",
+   "いただく"
+  ]
  },
  "寝る": {
   "frasi_esempio": [
@@ -8284,7 +8525,14 @@
     "to go to sleep",
     "to go to bed"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "起きる"
+  ],
+  "correlati": [
+   "眠る"
+  ]
  },
  "新しい": {
   "frasi_esempio": [
@@ -8443,7 +8691,11 @@
     "student",
     "pupil"
    ]
-  }
+  },
+  "sinonimi": [
+   "学生"
+  ],
+  "correlati": []
  },
  "西": {
   "frasi_esempio": [
@@ -8837,7 +9089,11 @@
    "en": [
     "big"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "小さな"
+  ]
  },
  "ああ": {
   "significato": {
@@ -8863,7 +9119,16 @@
     "over there",
     "that place"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "ここ",
+   "そこ",
+   "どこ",
+   "あちら",
+   "あっち",
+   "向こう"
+  ]
  },
  "あちら": {
   "significato": {
@@ -8873,7 +9138,16 @@
    "en": [
     "this way (polite)"
    ]
-  }
+  },
+  "sinonimi": [
+   "あっち"
+  ],
+  "correlati": [
+   "こちら",
+   "そちら",
+   "どちら",
+   "あそこ"
+  ]
  },
  "あっち": {
   "significato": {
@@ -8883,7 +9157,16 @@
    "en": [
     "over there"
    ]
-  }
+  },
+  "sinonimi": [
+   "あちら"
+  ],
+  "correlati": [
+   "こっち",
+   "そっち",
+   "あそこ",
+   "向こう"
+  ]
  },
  "あなた": {
   "significato": {
@@ -8939,6 +9222,12 @@
      "en": "That building over there is a bank."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "この",
+   "その",
+   "どの"
   ]
  },
  "あれ": {
@@ -8949,7 +9238,13 @@
    "en": [
     "that one (over there)"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "これ",
+   "それ",
+   "どれ"
+  ]
  },
  "いい; よい": {
   "significato": {
@@ -9027,7 +9322,8 @@
     "how much",
     "how many"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "いつ": {
   "significato": {
@@ -9067,7 +9363,8 @@
     "every time",
     "never (with neg. verb)"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "うるさい": {
   "significato": {
@@ -9316,6 +9613,10 @@
      "en": "This luggage weighs ten kilograms."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "キロ; キロメートル"
   ]
  },
  "キロ; キロメートル": {
@@ -9342,6 +9643,10 @@
      "en": "I run five kilometers every morning."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "キロ; キログラム"
   ]
  },
  "コート": {
@@ -9370,6 +9675,10 @@
      "en": "I took off my coat and hung it on the chair."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "上着"
   ]
  },
  "ここ": {
@@ -9381,7 +9690,13 @@
     "here",
     "this place"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "そこ",
+   "あそこ",
+   "どこ"
+  ]
  },
  "こちら": {
   "significato": {
@@ -9393,7 +9708,15 @@
     "this person (polite)",
     "this way (polite)"
    ]
-  }
+  },
+  "sinonimi": [
+   "こっち"
+  ],
+  "correlati": [
+   "そちら",
+   "あちら",
+   "どちら"
+  ]
  },
  "こっち": {
   "significato": {
@@ -9405,7 +9728,14 @@
     "this direction",
     "this side"
    ]
-  }
+  },
+  "sinonimi": [
+   "こちら"
+  ],
+  "correlati": [
+   "そっち",
+   "あっち"
+  ]
  },
  "コピーする": {
   "significato": {
@@ -9442,7 +9772,13 @@
    "en": [
     "this one"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "それ",
+   "あれ",
+   "どれ"
+  ]
  },
  "さあ": {
   "significato": {
@@ -9588,9 +9924,7 @@
    }
   ],
   "tipo_jp": "接続詞[せつぞくし]",
-  "sinonimi": [
-   "また"
-  ],
+  "sinonimi": [],
   "contrari": []
  },
  "そちら": {
@@ -9601,7 +9935,15 @@
    "en": [
     "over there"
    ]
-  }
+  },
+  "sinonimi": [
+   "そっち"
+  ],
+  "correlati": [
+   "こちら",
+   "あちら",
+   "どちら"
+  ]
  },
  "そっち": {
   "significato": {
@@ -9611,7 +9953,14 @@
    "en": [
     "over there"
    ]
-  }
+  },
+  "sinonimi": [
+   "そちら"
+  ],
+  "correlati": [
+   "こっち",
+   "あっち"
+  ]
  },
  "たばこ": {
   "significato": {
@@ -9810,7 +10159,8 @@
     "kindly",
     "by all means"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "どうも": {
   "significato": {
@@ -9866,6 +10216,12 @@
      "en": "Excuse me, where is the station?"
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "ここ",
+   "そこ",
+   "あそこ"
   ]
  },
  "とても": {
@@ -10155,7 +10511,8 @@
      "en": "He is a doctor, and also a teacher."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "もう": {
   "significato": {
@@ -10895,6 +11252,10 @@
      "en": "I want to build a warm home."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "家族"
   ]
  },
  "暇": {
@@ -11120,7 +11481,14 @@
     "to remember",
     "to memorize"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "忘れる"
+  ],
+  "correlati": [
+   "習う"
+  ]
  },
  "掛ける": {
   "significato": {
@@ -11367,6 +11735,10 @@
      "en": "Last winter was cold."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "おととし"
   ]
  },
  "居る": {
@@ -11382,12 +11754,14 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
    "在る",
+   "有る",
    "いらっしゃる",
    "おる"
-  ],
-  "contrari": []
+  ]
  },
  "魚": {
   "significato": {
@@ -11448,7 +11822,8 @@
     "to turn",
     "to bend"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "近い": {
   "significato": {
@@ -11488,7 +11863,11 @@
     "nearby",
     "in the neighborhood"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "近い"
+  ]
  },
  "九日": {
   "significato": {
@@ -11557,7 +11936,8 @@
     "enough",
     "tolerably"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "見る": {
   "id_verbo_corrispondente": "見える",
@@ -11573,10 +11953,12 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
-  "sinonimi": [
-   "拝見する"
-  ],
-  "contrari": []
+  "sinonimi": [],
+  "contrari": [],
+  "correlati": [
+   "拝見する",
+   "ごらんになる"
+  ]
  },
  "元気": {
   "significato": {
@@ -11644,12 +12026,13 @@
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "他動詞[たどうし]",
   "sinonimi": [
-   "話す",
-   "申す",
-   "申し上げる",
-   "おっしゃる"
+   "話す"
   ],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "申す",
+   "おっしゃる"
+  ]
  },
  "言葉": {
   "significato": {
@@ -11767,6 +12150,10 @@
      "en": "I will be at home during the morning."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "朝"
   ]
  },
  "後": {
@@ -11869,7 +12256,12 @@
     "beyond",
     "over there"
    ]
-  }
+  },
+  "sinonimi": [],
+  "correlati": [
+   "あそこ",
+   "あっち"
+  ]
  },
  "好き": {
   "significato": {
@@ -11895,14 +12287,15 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
-   "参る",
-   "いらっしゃる",
-   "伺う"
-  ],
+  "sinonimi": [],
   "contrari": [
    "来る",
    "帰る"
+  ],
+  "correlati": [
+   "参る",
+   "いらっしゃる",
+   "伺う"
   ]
  },
  "降りる": {
@@ -12069,6 +12462,12 @@
      "en": "There is a letter on the desk."
     }
    }
+  ],
+  "sinonimi": [
+   "有る"
+  ],
+  "correlati": [
+   "居る"
   ]
  },
  "咲く": {
@@ -12448,7 +12847,11 @@
      "en": "Sometimes I go fishing at the sea."
     }
    }
-  ]
+  ],
+  "sinonimi": [
+   "たまに"
+  ],
+  "correlati": []
  },
  "時間": {
   "significato": {
@@ -12723,6 +13126,10 @@
      "en": "I took piano lessons as a child."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "覚える"
   ]
  },
  "十::じゅう": {
@@ -12839,6 +13246,13 @@
      "en": "I mailed a letter at the post office."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "入れる"
+  ],
+  "correlati": [
+   "渡す"
   ]
  },
  "出る": {
@@ -13063,6 +13477,10 @@
      "en": "Please turn up the air conditioner temperature."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "下げる"
   ]
  },
  "上手": {
@@ -13128,7 +13546,8 @@
     "man",
     "person"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "吹く": {
   "significato": {
@@ -13468,7 +13887,11 @@
     "No need to worry",
     "Everything is under control"
    ]
-  }
+  },
+  "sinonimi": [
+   "安全"
+  ],
+  "correlati": []
  },
  "大人": {
   "significato": {
@@ -13521,7 +13944,12 @@
      "en": "Many people came to the festival."
     }
    }
-  ]
+  ],
+  "sinonimi": [
+   "沢山",
+   "いっぱい"
+  ],
+  "correlati": []
  },
  "大切": {
   "significato": {
@@ -13689,7 +14117,8 @@
      "en": "I sing while playing the guitar."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "暖かい": {
   "significato": {
@@ -13728,6 +14157,10 @@
      "en": "The days gradually get shorter."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "そろそろ"
   ]
  },
  "男": {
@@ -13759,8 +14192,7 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [
-   "男性",
-   "人"
+   "男性"
   ],
   "contrari": [
    "女"
@@ -13791,6 +14223,10 @@
      "en": "A boy is kicking a ball in the park."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "女の子"
   ]
  },
  "知る": {
@@ -13994,6 +14430,13 @@
      "en": "Today I will wear a warm sweater."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "脱ぐ"
+  ],
+  "correlati": [
+   "はく"
   ]
  },
  "昼": {
@@ -14059,6 +14502,10 @@
      "en": "In the morning I eat bread and eggs."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "午前"
   ]
  },
  "朝御飯": {
@@ -14326,7 +14773,11 @@
     "to get across"
    ]
   },
-  "id_verbo_corrispondente": "渡る"
+  "id_verbo_corrispondente": "渡る",
+  "sinonimi": [],
+  "correlati": [
+   "渡る"
+  ]
  },
  "登る": {
   "significato": {
@@ -14442,7 +14893,11 @@
      "en": "Please answer the question in Japanese."
     }
    }
-  ]
+  ],
+  "sinonimi": [
+   "返事"
+  ],
+  "correlati": []
  },
  "頭": {
   "significato": {
@@ -14462,7 +14917,11 @@
    "en": [
     "to work"
    ]
-  }
+  },
+  "sinonimi": [
+   "仕事"
+  ],
+  "correlati": []
  },
  "動物": {
   "significato": {
@@ -14632,6 +15091,13 @@
      "en": "Memorizing kanji is difficult."
     }
    }
+  ],
+  "sinonimi": [
+   "大変"
+  ],
+  "contrari": [
+   "易しい",
+   "簡単"
   ]
  },
  "二つ": {
@@ -14938,7 +15404,11 @@
      "en": "I do my shopping at the supermarket by the station."
     }
    }
-  ]
+  ],
+  "sinonimi": [
+   "買う"
+  ],
+  "correlati": []
  },
  "買う": {
   "significato": {
@@ -14964,7 +15434,14 @@
      "en": "I want to buy new shoes."
     }
    }
-  ]
+  ],
+  "sinonimi": [
+   "買い物"
+  ],
+  "contrari": [
+   "売る"
+  ],
+  "correlati": []
  },
  "伯父; 叔父さん": {
   "significato": {
@@ -15081,7 +15558,14 @@
     "thin",
     "weak"
    ]
-  }
+  },
+  "sinonimi": [],
+  "contrari": [
+   "厚い"
+  ],
+  "correlati": [
+   "細い"
+  ]
  },
  "箱": {
   "significato": {
@@ -15508,7 +15992,8 @@
      "en": "The wind is strong today."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "風邪": {
   "significato": {
@@ -15599,6 +16084,10 @@
      "en": "My son can read hiragana."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "片仮名"
   ]
  },
  "並べる": {
@@ -15643,9 +16132,7 @@
   "id_verbo_corrispondente": "閉める",
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
-   "閉める"
-  ],
+  "sinonimi": [],
   "contrari": [
    "開く-あく"
   ]
@@ -15676,6 +16163,10 @@
      "en": "It was cold, so I closed the window."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "開ける"
   ]
  },
  "片仮名": {
@@ -15702,6 +16193,10 @@
      "en": "The katakana \"so\" and \"n\" look similar."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "平仮名"
   ]
  },
  "辺": {
@@ -15794,6 +16289,10 @@
      "en": "Before exams I am busy with studying."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "研究"
   ]
  },
  "歩く": {
@@ -16196,6 +16695,10 @@
      "en": "She is a cheerful person."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "暗い"
   ]
  },
  "明後日": {
@@ -16276,7 +16779,14 @@
     "interesting",
     "amusing"
    ]
-  }
+  },
+  "sinonimi": [
+   "楽しい"
+  ],
+  "contrari": [
+   "つまらない"
+  ],
+  "correlati": []
  },
  "木": {
   "significato": {
@@ -16466,6 +16976,12 @@
      "en": "There is a big library in this town."
     }
    }
+  ],
+  "sinonimi": [
+   "在る"
+  ],
+  "correlati": [
+   "居る"
   ]
  },
  "遊ぶ": {
@@ -16577,7 +17093,8 @@
      "en": "In the evening the sky turned red."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "余り": {
   "significato": {
@@ -16659,12 +17176,13 @@
   },
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
-  "sinonimi": [
-   "参る",
-   "いらっしゃる"
-  ],
+  "sinonimi": [],
   "contrari": [
    "行く"
+  ],
+  "correlati": [
+   "参る",
+   "いらっしゃる"
   ]
  },
  "来週": {
@@ -16691,6 +17209,10 @@
      "en": "Please tell me your plans for next week."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "再来週"
   ]
  },
  "頼む": {
@@ -16849,7 +17371,8 @@
      "en": "It has become cool in the mornings and evenings."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "緑": {
   "significato": {
@@ -17016,7 +17539,11 @@
    "en": [
     "to speak"
    ]
-  }
+  },
+  "sinonimi": [
+   "言う"
+  ],
+  "correlati": []
  },
  "綺麗": {
   "significato": {
@@ -17330,6 +17857,12 @@
      "en": "I can't go to such an expensive place."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "こんな",
+   "そんな",
+   "どんな"
   ]
  },
  "いじめる": {
@@ -19367,6 +19900,12 @@
      "en": "I've never heard such a story."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "こんな",
+   "あんな",
+   "どんな"
   ]
  },
  "そんなに": {
@@ -34200,6 +34739,10 @@
      "en": "It smells so good! Let's eat."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "ごちそうさまでした"
   ]
  },
  "おかえりなさい": {
@@ -34218,6 +34761,10 @@
      "en": "Welcome back! You are home early today."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "ただいま"
   ]
  },
  "おじゃまします": {
@@ -34236,7 +34783,9 @@
      "en": "Excuse me for coming in... Wow, what a nice room!"
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "おめでとうございます": {
   "frasi_esempio": [
@@ -34272,7 +34821,9 @@
      "en": "Mr. Tanaka, it has been a long time!"
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "お大事に": {
   "frasi_esempio": [
@@ -34290,7 +34841,9 @@
      "en": "Take your medicine and get plenty of rest. Get well soon!"
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "お腹が空いた": {
   "frasi_esempio": [
@@ -34326,6 +34879,10 @@
      "en": "Thank you for the meal. I will come again."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "いただきます"
   ]
  },
  "ただいま": {
@@ -34344,6 +34901,10 @@
      "en": "I'm home! I'm really tired today."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "おかえりなさい"
   ]
  },
  "どういたしまして": {
@@ -34362,7 +34923,9 @@
      "en": "Thanks for helping me. — You're welcome."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "よろしくお願いします": {
   "frasi_esempio": [
@@ -34380,7 +34943,9 @@
      "en": "I start working here today. I look forward to working with you."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "喉が渇いた": {
   "frasi_esempio": [
@@ -34488,7 +35053,9 @@
      "en": "There are a lot of cars, so be careful."
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "練習する": {
   "frasi_esempio": [
@@ -34542,7 +35109,9 @@
      "en": "You have a match tomorrow, right? Good luck!"
     }
    }
-  ]
+  ],
+  "sinonimi": [],
+  "correlati": []
  },
  "アルバイトする": {
   "frasi_esempio": [
@@ -34578,6 +35147,10 @@
      "en": "I have something to do today, so I am leaving before you."
     }
    }
+  ],
+  "sinonimi": [],
+  "correlati": [
+   "お疲れさまです"
   ]
  },
  "かしこまりました": {

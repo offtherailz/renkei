@@ -72,6 +72,20 @@ macchina (niente browser automatizzabile) + questioni aperte.
     su 下がる (ex 下る) o 伺う (ex うかがう) non devono esserci doppioni.
     Questione: il conteggio ripassi di oggi deve calare di conseguenza — verificare.
 
+## Curatela relazioni N5 (seed v62) — questione aperta
+
+15. **Scheda deittici** — ここ/そこ/あそこ/どこ ora CORRELATI (serie), non più «sinonimi»;
+    sinonimi solo registro (あちら↔あっち). Keigo suppletivi → correlati del verbo piano
+    (食べる cor 召し上がる/いただく). Contrasti classici → correlati (着る↔はく, 水↔湯,
+    学生↔生徒, カップ↔コップ, ドア↔戸…). Nonsense rimossi (いくら sin 沢山, 弾く sin 引く,
+    風 sin 風邪, お久しぶり sin 間に合う…). 女の子↔男の子 e 大きな↔小さな ora CONTRARI.
+16. **⚠️ Da decidere (conflitto iikae)**: i gruppi 言い換え curati (大変≈難しい, 仕事≈働く,
+    帰る≈戻る, 言う≈話す, 全部≈みんな…) vivono nel campo `sinonimi` (il gioco/test li
+    richiede bidirezionali lì). Da insegnante molti sono parafrasi di FRASE più che sinonimi
+    lessicali interscambiabili. Ho lasciato vincere il dataset curato (restano sinonimi).
+    Se vuoi la distinzione fine: servirebbe collegare iikae ai `correlati` (cambio di
+    contratto del gioco + test + guida). Decidere con calma.
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):
