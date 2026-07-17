@@ -86,6 +86,28 @@ macchina (niente browser automatizzabile) + questioni aperte.
     Se vuoi la distinzione fine: servirebbe collegare iikae ai `correlati` (cambio di
     contratto del gioco + test + guida). Decidere con calma.
 
+## Curatela N4 + significato simile + drill (seed v63)
+
+17. **Scheda 召し上がる/参る/おっしゃる** — il verbo piano è nei CORRELATI, non più
+    «sinonimo». あげる/くれる/もらう: correlati fra loro (mai sinonimi). 彼↔彼女 contrari.
+    集まる↔集める / 沸く↔沸かす / 変わる↔変える: niente più sinonimi (resta il link 自/他).
+18. **Card «Significato simile (言い換え)»** — su 大変, 難しい, 帰る, 戻る, 全部…: i gruppi
+    iikae stanno lì, non più tra i sinonimi. Il gioco 言い換え funziona come prima.
+19. **Drill costruzioni a 3 domande** — /consolida/gram:tsumori (e hou-ga-ii, kanou,
+    sugiru…): ora 3 frasi curate ciascuno.
+20. **Crediting pesato** — rispondendo a una frase curata forma-contesto nel quiz:
+    la parola muove il suo SRS E la costruzione gram:* guadagna pratica (visibile
+    in /forme-composte col 💪%).
+
+## Nuove attività beta (da provare)
+
+21. **📢 Leggi a voce** (/leggi-a-voce, da Giochi → Lettura e frasi): primi 3 round con
+    furigana, poi senza; 👁 li riaccende; modello TTS solo DOPO il tentativo; mic con
+    confronto, senza mic autovalutazione. Da giudicare: lunghezza frasi, severità del match.
+22. **✍️ Dettato** (/dettato, stesso gruppo): ascolti (もう一度/🐢) e ricomponi coi pezzi;
+    soluzione mai visibile prima; esito → cella 👂 della parola della frase.
+    Da giudicare: dimensione dei pezzi (budoux), difficoltà giusta?
+
 ## Collaudo insegnante virtuale (segnato per dopo)
 
 Agente-insegnante madrelingua che vaglia SOLO domande/contenuti/relazioni (niente UI):

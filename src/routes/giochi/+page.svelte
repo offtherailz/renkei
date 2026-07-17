@@ -602,6 +602,16 @@
 					<span class="cat-label">Skimming</span>
 					<span class="cat-hint">prima la domanda, poi trova l'informazione nel testo</span>
 				</a>
+				<a class="cat-card" href="{base}/leggi-a-voce">
+					<span class="cat-icon">📢</span>
+					<span class="cat-label">Leggi a voce <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">leggi tu la frase: prima coi furigana, poi senza</span>
+				</a>
+				<a class="cat-card" href="{base}/dettato">
+					<span class="cat-icon">✍️</span>
+					<span class="cat-label">Dettato <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">ascolta e ricomponi la frase, pezzo per pezzo</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
@@ -854,6 +864,11 @@
 	.cat-icon { grid-row: 1 / 3; font-size: 1.9rem; }
 	.cat-label { font-weight: 700; font-size: 1rem; }
 	.cat-hint { font-size: 0.78rem; color: var(--muted); }
+	.cat-beta {
+		font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+		color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border);
+		border-radius: 999px; padding: 1px 7px; vertical-align: middle;
+	}
 	.cat-best { grid-column: 2; font-size: 0.75rem; color: var(--brand); font-weight: 600; margin-top: 2px; }
 
 	.timer-toggle { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--ink); cursor: pointer; }
