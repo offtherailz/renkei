@@ -3741,136 +3741,6 @@
       ]
     },
     {
-      "id": "これはどこで受け取りますか",
-      "scrittura": "これはどこで受け取りますか",
-      "lettura": "これはどこでうけとりますか",
-      "significato": {
-        "it": [
-          "dove lo ritiro, questo?"
-        ],
-        "en": [
-          "where do I pick this up?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "受",
-        "取"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "これはどこで受け取りますか。— 一番のところです。",
-          "traduzione": {
-            "it": "Dove ritiro questo? — Al nastro numero uno.",
-            "en": "Dove ritiro questo? — Al nastro numero uno."
-          }
-        },
-        {
-          "testo": "すみません、これはどこで受け取りますか。— あちらの 窓口です。",
-          "traduzione": {
-            "it": "Scusi, dove lo ritiro questo? — A quello sportello.",
-            "en": "Excuse me, where do I pick this up? — At that counter over there."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
-      "id": "これは機内持ち込みできますか",
-      "scrittura": "これは機内持ち込みできますか",
-      "lettura": "これはきないもちこみできますか",
-      "significato": {
-        "it": [
-          "posso portarlo come bagaglio a mano?"
-        ],
-        "en": [
-          "can I carry this on board?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "機",
-        "内",
-        "持",
-        "込"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "これは機内持ち込みできますか。— はい、大丈夫です。",
-          "traduzione": {
-            "it": "Posso portare questo come bagaglio a mano? — Sì, va bene.",
-            "en": "Posso portare questo come bagaglio a mano? — Sì, va bene."
-          }
-        },
-        {
-          "testo": "かばんが 少し 大きいですが、これは機内持ち込みできますか。",
-          "traduzione": {
-            "it": "La borsa è un po' grande: posso portarla in cabina?",
-            "en": "My bag is a bit big — can I take it on board?"
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
-      "id": "これを預けたいです",
-      "scrittura": "これを預けたいです",
-      "lettura": "これをあずけたいです",
-      "significato": {
-        "it": [
-          "vorrei imbarcare questo (bagaglio)"
-        ],
-        "en": [
-          "I'd like to check this (baggage)"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "預"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "スーツケースを二つ、これを預けたいです。",
-          "traduzione": {
-            "it": "Vorrei imbarcare queste due valigie.",
-            "en": "Vorrei imbarcare queste due valigie."
-          }
-        },
-        {
-          "testo": "すみません、これを預けたいです。— はい、こちらに どうぞ。",
-          "traduzione": {
-            "it": "Scusi, vorrei imbarcare questo. — Sì, lo metta qui.",
-            "en": "Excuse me, I would like to check this in. — Sure, put it here, please."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
       "id": "コンサート",
       "scrittura": "コンサート",
       "lettura": "コンサート",
@@ -4732,50 +4602,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "すみません、搭乗口はどこですか",
-      "scrittura": "すみません、搭乗口はどこですか",
-      "lettura": "すみません、とうじょうぐちはどこですか",
-      "significato": {
-        "it": [
-          "scusi, dov'è il gate d'imbarco?"
-        ],
-        "en": [
-          "excuse me, where is the boarding gate?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "搭",
-        "乗",
-        "口"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "すみません、搭乗口はどこですか。— 32番です。",
-          "traduzione": {
-            "it": "Scusi, dov'è il gate d'imbarco? — È il numero 32.",
-            "en": "Scusi, dov'è il gate d'imbarco? — È il numero 32."
-          }
-        },
-        {
-          "testo": "すみません、搭乗口はどこですか。— まっすぐ 行って、右です。",
-          "traduzione": {
-            "it": "Scusi, dov'è il gate d'imbarco? — Dritto e poi a destra.",
-            "en": "Excuse me, where is the boarding gate? — Go straight, then turn right."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
     },
     {
       "id": "すり",
@@ -11725,49 +11551,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "観光です",
-      "scrittura": "観光です",
-      "lettura": "かんこうです",
-      "significato": {
-        "it": [
-          "turismo (motivo del viaggio)"
-        ],
-        "en": [
-          "sightseeing (purpose of visit)"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "観",
-        "光"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "旅行の目的は何ですか。— 観光です。",
-          "traduzione": {
-            "it": "Qual è lo scopo del viaggio? — Turismo.",
-            "en": "Qual è lo scopo del viaggio? — Turismo."
-          }
-        },
-        {
-          "testo": "お仕事ですか。— いいえ、観光です。",
-          "traduzione": {
-            "it": "È qui per lavoro? — No, per turismo.",
-            "en": "Are you here on business? — No, for sightseeing."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
     },
     {
       "id": "間",
@@ -24990,49 +24773,6 @@
       ]
     },
     {
-      "id": "申告するものはありません",
-      "scrittura": "申告するものはありません",
-      "lettura": "しんこくするものはありません",
-      "significato": {
-        "it": [
-          "non ho nulla da dichiarare"
-        ],
-        "en": [
-          "I have nothing to declare"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "申",
-        "告"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "申告するものはありますか。— いいえ、申告するものはありません。",
-          "traduzione": {
-            "it": "Ha qualcosa da dichiarare? — No, non ho nulla da dichiarare.",
-            "en": "Ha qualcosa da dichiarare? — No, non ho nulla da dichiarare."
-          }
-        },
-        {
-          "testo": "税関で「申告するものはありません」と 言いました。",
-          "traduzione": {
-            "it": "Alla dogana ho detto: «Non ho nulla da dichiarare».",
-            "en": "At customs I said, \"I have nothing to declare.\""
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
       "id": "真中",
       "scrittura": "真中",
       "lettura": "まんなか",
@@ -29535,50 +29275,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "宅急便はどこですか",
-      "scrittura": "宅急便はどこですか",
-      "lettura": "たっきゅうびんはどこですか",
-      "significato": {
-        "it": [
-          "dov'è il servizio di spedizione bagagli?"
-        ],
-        "en": [
-          "where is the baggage delivery service?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n4"
-      ],
-      "livello_jlpt": "N4",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "宅",
-        "急",
-        "便"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "宅急便はどこですか。— あちらのカウンターです。",
-          "traduzione": {
-            "it": "Dov'è il servizio spedizione bagagli? — È al banco laggiù.",
-            "en": "Dov'è il servizio spedizione bagagli? — È al banco laggiù."
-          }
-        },
-        {
-          "testo": "荷物が 重いですね。すみません、宅急便はどこですか。",
-          "traduzione": {
-            "it": "Che bagagli pesanti... Scusi, dov'è il servizio di spedizione?",
-            "en": "This luggage is heavy... Excuse me, where is the luggage delivery service?"
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
     },
     {
       "id": "棚",
@@ -41315,46 +41011,6 @@
       ]
     },
     {
-      "id": "Wi-Fiルーターのレンタルはどこですか",
-      "scrittura": "Wi-Fiルーターのレンタルはどこですか",
-      "lettura": "わいふぁいるーたーのれんたるはどこですか",
-      "significato": {
-        "it": [
-          "dov'è il noleggio del router Wi-Fi?"
-        ],
-        "en": [
-          "where is the Wi-Fi router rental?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n5"
-      ],
-      "livello_jlpt": "N5",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [],
-      "frasi_esempio": [
-        {
-          "testo": "すみません、Wi-Fiルーターのレンタルはどこですか。",
-          "traduzione": {
-            "it": "Scusi, dov'è il noleggio del router Wi-Fi?",
-            "en": "Scusi, dov'è il noleggio del router Wi-Fi?"
-          }
-        },
-        {
-          "testo": "Wi-Fiルーターのレンタルはどこですか。— ２かいに ありますよ。",
-          "traduzione": {
-            "it": "Dov'è il noleggio del router Wi-Fi? — È al primo piano.",
-            "en": "Where is the Wi-Fi router rental? — It is on the second floor."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
       "id": "ああ",
       "scrittura": "ああ",
       "lettura": "ああ",
@@ -44957,48 +44613,6 @@
       ]
     },
     {
-      "id": "これは私のパスポートです",
-      "scrittura": "これは私のパスポートです",
-      "lettura": "これはわたしのパスポートです",
-      "significato": {
-        "it": [
-          "questo è il mio passaporto"
-        ],
-        "en": [
-          "this is my passport"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n5"
-      ],
-      "livello_jlpt": "N5",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [
-        "私"
-      ],
-      "frasi_esempio": [
-        {
-          "testo": "パスポートを見せてください。— これは私のパスポートです。",
-          "traduzione": {
-            "it": "Mi mostri il passaporto. — Questo è il mio passaporto.",
-            "en": "Mi mostri il passaporto. — Questo è il mio passaporto."
-          }
-        },
-        {
-          "testo": "これは私のパスポートです。どうぞ。",
-          "traduzione": {
-            "it": "Questo è il mio passaporto. Prego.",
-            "en": "This is my passport. Here you are."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
       "id": "こんな",
       "scrittura": "こんな",
       "lettura": "こんな",
@@ -46801,46 +46415,6 @@
       ]
     },
     {
-      "id": "チェックインカウンターはどこですか",
-      "scrittura": "チェックインカウンターはどこですか",
-      "lettura": "ちぇっくいんかうんたーはどこですか",
-      "significato": {
-        "it": [
-          "dov'è il banco del check-in?"
-        ],
-        "en": [
-          "where is the check-in counter?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n5"
-      ],
-      "livello_jlpt": "N5",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [],
-      "frasi_esempio": [
-        {
-          "testo": "チェックインカウンターはどこですか。— あちらです。",
-          "traduzione": {
-            "it": "Dov'è il banco del check-in? — È di là.",
-            "en": "Dov'è il banco del check-in? — È di là."
-          }
-        },
-        {
-          "testo": "チェックインカウンターはどこですか。— ２ばんの カウンターです。",
-          "traduzione": {
-            "it": "Dov'è il banco del check-in? — È il banco numero 2.",
-            "en": "Where is the check-in counter? — It is counter number 2."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
-    },
-    {
       "id": "チケット",
       "scrittura": "チケット",
       "lettura": "ちけっと",
@@ -47795,46 +47369,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "トイレはどこですか",
-      "scrittura": "トイレはどこですか",
-      "lettura": "といれはどこですか",
-      "significato": {
-        "it": [
-          "dov'è il bagno?"
-        ],
-        "en": [
-          "where is the restroom?"
-        ]
-      },
-      "study_tags": [
-        "idiom-core",
-        "n5"
-      ],
-      "livello_jlpt": "N5",
-      "tipo_jp": "慣用表現[かんようひょうげん]",
-      "kanji_usati": [],
-      "frasi_esempio": [
-        {
-          "testo": "すみません、トイレはどこですか。",
-          "traduzione": {
-            "it": "Scusi, dov'è il bagno?",
-            "en": "Scusi, dov'è il bagno?"
-          }
-        },
-        {
-          "testo": "トイレはどこですか。— あの エレベーターの よこです。",
-          "traduzione": {
-            "it": "Dov'è il bagno? — Accanto a quell'ascensore.",
-            "en": "Where is the restroom? — Next to that elevator."
-          }
-        }
-      ],
-      "sinonimi": [],
-      "contrari": [],
-      "omofoni": [],
-      "updated_at": 1783891220233
     },
     {
       "id": "どう",

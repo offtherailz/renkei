@@ -186,7 +186,10 @@ export const SITUATIONS: Situation[] = [
 			{ jp: 'これは私のパスポートです。', yomi: 'これはわたしのパスポートです。', it: 'Questo è il mio passaporto.', quando: 'Consegnandolo all\'ufficiale: di solito basta porgerlo, la frase serve se te lo chiedono a voce.' },
 			{ jp: 'これを預けたいです。', yomi: 'これをあずけたいです。', it: 'Vorrei imbarcare questo.', quando: 'Al check-in, indicando la valigia (スーツケース) da mettere in stiva.' },
 			{ jp: 'Wi-Fiルーターのレンタルはどこですか。', yomi: 'ワイファイルーターのレンタルはどこですか。', it: 'Dov\'è il noleggio del router Wi-Fi?', quando: 'Spesso vicino all\'uscita arrivi: si ritira all\'andata e si riconsegna alla partenza.' },
-			{ jp: '荷物を送りたいです。', yomi: 'にもつをおくりたいです。', it: 'Vorrei spedire i bagagli.', quando: 'Per mandare le valigie pesanti direttamente in hotel e viaggiare leggeri (servizio tipo 宅急便).' }
+			{ jp: '荷物を送りたいです。', yomi: 'にもつをおくりたいです。', it: 'Vorrei spedire i bagagli.', quando: 'Per mandare le valigie pesanti direttamente in hotel e viaggiare leggeri (servizio tipo 宅急便).' },
+			{ jp: '申告するものはありません。', yomi: 'しんこくするものはありません。', it: 'Non ho niente da dichiarare.', quando: 'Alla dogana (税関), se hai compilato il modulo: di solito basta consegnarlo, la frase serve se ti chiedono a voce.' },
+			{ jp: 'これは機内持ち込みできますか。', yomi: 'これはきないもちこみできますか。', it: 'Questo si può portare in cabina?', quando: 'Al check-in, indicando la borsa: se supera le misure te la fanno imbarcare.' },
+			{ jp: '宅急便はどこですか。', yomi: 'たっきゅうびんはどこですか。', it: 'Dov\'è il servizio di spedizione bagagli?', quando: 'Il banco 宅急便 è di solito nella hall arrivi: spedisci le valigie in hotel e giri leggero.' }
 		]
 	}
 ];

@@ -8,6 +8,7 @@
 	import { db } from '$lib/db/schema';
 	import { importDatabaseFromJson } from '$lib/db/import';
 	import { applyAllCorrections } from '$lib/db/corrections';
+	import { applySeedMigrations } from '$lib/db/seedMigrations';
 	import {
 		ensureDefaultObjectives,
 		ensureDefaultSettings,
@@ -53,6 +54,8 @@
 		} else {
 			await importDatabaseFromJson(payload);
 		}
+		// pulizia voci rinominate/rimosse (bulkPut non elimina mai da solo)
+		await applySeedMigrations();
 		localStorage.setItem(SEED_LOADED_KEY, SEED_DATA_REVISION);
 		// le correzioni utente vincono sul seed appena importato
 		await applyAllCorrections();

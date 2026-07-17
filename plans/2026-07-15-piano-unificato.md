@@ -228,10 +228,12 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
     classe per gli avverbi).
   - **Choukai/trappole: copione finale ricco** — ascoltare le singole frasi, vedere le risposte
     giuste e il perché.
-  - **Frasi d'aeroporto nel vocabolario** (Wi-Fiルーターのレンタルは…, すみません、搭乗口は…,
-    これは機内持ち込みできますか): sono intere frasi classificate 慣用表現 tra le parole (vengono
-    da idioms-n5n4/extra curati). Decidere: spostarle in frasi utili / tipo dedicato / tenerle.
-    Da discutere.
+  - ✅ (17/07) **Frasi d'aeroporto fuori dal vocabolario**: le 11 frasi-domanda 慣用表現
+    rimosse da idioms/seed (v61), coperte dalla situazione «In aeroporto» di Frasi utili
+    (aggiunte le 3 mancanti: 申告するものはありません, 機内持ち込み, 宅急便はどこですか).
+    Nuovo `applySeedMigrations` al refresh del seed: elimina dai dispositivi le voci
+    rinominate/fuse/rimosse (bulkPut non rimuove) e migra il progresso SRS al successore —
+    copre anche gli orfani storici 下る/落る/落す/楽む/うかがう/回る、回す.
 - **Piano di oggi: sistema di completamento** — le voci del piano (ripassi, punti deboli, attività
   del giorno) dovrebbero segnarsi come fatte/spuntabili durante la giornata, non restare link statici.
 - **Gioco forme derivate/composte (17/07, idea utente)**: coniugare passivo, potenziale, たい,
