@@ -261,6 +261,15 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
   - ✅ (17/07) **RSVP: peso dei kanji** — tempo di esposizione pesato per carattere
     (kanji 2.2x, punteggiatura 0.4x), cpm nominale invariato; guida aggiornata.
   - ✅ (17/07) **Rinominato «Gioca e vivi» → «Attività»** (home + guida + CLAUDE.md).
+  - **Domanda sui correlati (17/07, ok utente ma dopo)**: «qual è la differenza tra 妻 e
+    奥さん?» — modo di domanda che accredita ENTRAMBE le parole della coppia (doppio
+    incremento). Da progettare: distrattori = descrizioni della differenza.
+  - **Toggle kanji on/off (17/07, idea utente)**: attivare/disattivare l'uso dei kanji
+    nell'app (tutto in kana quando off). Grosso: tocca il rendering ovunque — valutare
+    se/quando. I kanji avanzati (N1 in parole N5) restano come sono, col furigana d'aiuto.
+  - **Risposte utente alle questioni aperte (17/07)**: 1 parafrasi→fatto; 2 drill 3
+    domande→fatto; 3 doppio binario 自/他: tenere entrambe le fonti, se doppione in uso
+    vince la curata; 4 crediting pesato→fatto (parola SRS + gram pratica).
   - **Nuova attività: lettura ad alta voce assistita** — testo con furigana attivabili, poi
     tolti; progressione con furigana → senza → mic. Si aggancia al toggle furigana pianificato.
   - **Nuova attività: dettato da ascolto** — ascolti un testo (tutto o una parte selezionata)
