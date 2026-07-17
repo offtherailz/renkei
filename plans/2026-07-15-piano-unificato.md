@@ -240,10 +240,8 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
   ている e forme composte in catena per capire come si costruiscono frasi complesse (es.
   食べる→食べられる→食べられたくない). Un gioco dedicato, non domande a secco nel quiz.
 - **Osservazioni 17/07 (utente, da analizzare/applicare):**
-  - **RSVP: peso dei kanji** — il cpm uniforme fa scorrere via i kanji (serve più tempo per
-    ricordarli). Letteratura: la lettura giapponese si misura in caratteri/min ma l'informazione
-    per carattere non è uniforme (kanji ≈ 2x kana). Proposta: tempo di esposizione pesato per
-    tipo di carattere (kanji ~2-2.5x, pausa su punteggiatura), cpm nominale invariato.
+  - ✅ (17/07) **RSVP: peso dei kanji** — tempo di esposizione pesato per carattere
+    (kanji 2.2x, punteggiatura 0.4x), cpm nominale invariato; guida aggiornata.
   - **Rinominare «Gioca e vivi» → «Attività»** (home e ovunque appaia il nome del gruppo).
   - **Nuova attività: lettura ad alta voce assistita** — testo con furigana attivabili, poi
     tolti; progressione con furigana → senza → mic. Si aggancia al toggle furigana pianificato.

@@ -170,8 +170,17 @@
 	function effCpm(): number {
 		return boostCpm ?? cpm;
 	}
+	// Peso per carattere: il cpm resta nominale ma un kanji porta ~il doppio
+	// dell'informazione di un kana e va richiamato alla memoria (feedback
+	// utente: "il kanji scorre via") — pesa di più; la punteggiatura quasi zero.
+	function charWeight(ch: string): number {
+		if (/[一-龯々]/.test(ch)) return 2.2;
+		if (/[。、！？・「」（）\s　]/.test(ch)) return 0.4;
+		return 1;
+	}
 	function chunkMs(c: string): number {
-		const ms = (c.length * 60000) / effCpm();
+		const weighted = [...c].reduce((sum, ch) => sum + charWeight(ch), 0);
+		const ms = (weighted * 60000) / effCpm();
 		return Math.max(380, ms) + (/[。！？]$/.test(c) ? 350 : 0);
 	}
 	const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
