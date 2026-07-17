@@ -234,6 +234,20 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
 - **Gioco forme derivate/composte (17/07, idea utente)**: coniugare passivo, potenziale, たい,
   ている e forme composte in catena per capire come si costruiscono frasi complesse (es.
   食べる→食べられる→食べられたくない). Un gioco dedicato, non domande a secco nel quiz.
+- **Osservazioni 17/07 (utente, da analizzare/applicare):**
+  - **RSVP: peso dei kanji** — il cpm uniforme fa scorrere via i kanji (serve più tempo per
+    ricordarli). Letteratura: la lettura giapponese si misura in caratteri/min ma l'informazione
+    per carattere non è uniforme (kanji ≈ 2x kana). Proposta: tempo di esposizione pesato per
+    tipo di carattere (kanji ~2-2.5x, pausa su punteggiatura), cpm nominale invariato.
+  - **Rinominare «Gioca e vivi» → «Attività»** (home e ovunque appaia il nome del gruppo).
+  - **Nuova attività: lettura ad alta voce assistita** — testo con furigana attivabili, poi
+    tolti; progressione con furigana → senza → mic. Si aggancia al toggle furigana pianificato.
+  - **Nuova attività: dettato da ascolto** — ascolti un testo (tutto o una parte selezionata)
+    e lo ricomponi/scrivi; allena Forma scritta·P + ascolto insieme (cella oggi scoperta),
+    riusando il banco token della composizione.
+  - **Insegnante virtuale di collaudo (per dopo)**: far testare l'app a un agente-insegnante
+    madrelingua, SOLO su domande/contenuti/relazioni (niente UI, per risparmiare token);
+    output = note e correzioni da applicare, come i report di curatela già fatti.
 - **Microfono: permessi e degradazione (16/07)** — su http non-localhost (dev via IP LAN) l'API
   non esiste (serve secure context) e il tap sul mic in frasi utili «si chiude e dà errore».
   Da fare: 1) `navigator.permissions.query({name:'microphone'})` per distinguere prompt/negato/
