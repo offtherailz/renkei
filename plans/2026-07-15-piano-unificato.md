@@ -258,8 +258,10 @@ Si appoggia su corsi + D3. **Da progettare prima**: flusso semplice per non-tecn
   non sicuro → usa https/localhost); 3) mai crash: try/catch attorno a `listenJapanese` con
   fallback ai bottoni (convenzione già prevista); 4) `speechAvailable()` deve controllare anche
   `window.isSecureContext`.
-- **Furigana attivabili (toggle globale)** — fase 1 (facile): setting in Impostazioni, `FuriganaText`
-  rende ruby/testo piano dove la notazione 漢字[よみ] già esiste (dialoghi, forme, schede). Fase 2
+- **Furigana attivabili (toggle globale)** — ✅ fase 1 (17/07): setting «Mostra i furigana» in
+  Impostazioni (default ON), `FuriganaText` rende ruby o testo piano (con escape `force` per i
+  contesti dove la lettura è il contenuto). Copre dove la notazione 漢字[よみ] già esiste
+  (dialoghi, /forme, /forme-composte, /particelle). Fase 2
   (dati): annotare le frasi d'esempio delle parole riusando il matcher frase→parole del pipeline
   (tokenizer + verifica coniugazione); mai furigana indovinata da letture ON/kun ambigue.
 

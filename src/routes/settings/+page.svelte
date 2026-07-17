@@ -163,6 +163,11 @@
 	</label>
 
 	<label class="setting-row">
+		<span>Mostra i furigana<br /><small class="hint-text">La lettura sopra i kanji nei dialoghi e negli esempi di grammatica. Spegnili per allenare la lettura senza aiuto (i testi restano, sparisce solo la lettura sopra).</small></span>
+		<input type="checkbox" checked={appState.settings.furigana_visibile ?? true} onchange={(e) => (appState.settings.furigana_visibile = (e.target as HTMLInputElement).checked)} />
+	</label>
+
+	<label class="setting-row">
 		<span>Carte nuove al giorno<br /><small class="hint-text">Quante parole/kanji/grammatica MAI viste entrano in circolo ogni giorno. I ripassi già dovuti restano sempre illimitati — questo limite serve solo a far scendere il contatore invece di farlo crescere sempre.</small></span>
 		<input
 			type="number"

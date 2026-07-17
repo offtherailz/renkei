@@ -240,6 +240,9 @@ export interface AppSettings extends BaseEntity {
   lingua_contenuti?: "auto" | "it" | "en";
   voce_utente?: "maschile" | "femminile";
   furigana_kanji_avanzati?: boolean;
+  // Furigana visibili nei testi che portano la notazione 漢字[よみ] (dialoghi,
+  // esempi grammatica). Default true; spegnerli per allenare la lettura.
+  furigana_visibile?: boolean;
   nuove_carte_al_giorno?: number;
 }
 
