@@ -22463,7 +22463,10 @@
           }
         }
       ],
-      "id_verbo_suru": "出発する"
+      "id_verbo_suru": "出発する",
+      "correlati": [
+        "出る"
+      ]
     },
     {
       "id": "出発する",
@@ -22513,7 +22516,10 @@
       "sinonimi": [],
       "contrari": [],
       "omofoni": [],
-      "updated_at": 1783961245324
+      "updated_at": 1783961245324,
+      "correlati": [
+        "出る"
+      ]
     },
     {
       "id": "準備",

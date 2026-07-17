@@ -81,8 +81,10 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
    a `listenJapanese`, `speechAvailable()` deve controllare `window.isSecureContext`.
 10. **Furigana fase 2** (dati) — annotare le frasi d'esempio delle parole riusando il
     matcher frase→parole del pipeline; mai furigana indovinata da letture ON/kun ambigue.
-11. **B3** — correzioni dati dubbie (都合↔便利 sinonimi?, 申し上げる keigo, 出発, 親切, 例,
-    壁 con kanji N1) → territorio del collaudo insegnante virtuale.
+11. ✅ (17/07) **B3 chiuso** (giudizio insegnante inline): 都合≠便利 (nessuna relazione:
+    都合がいい = circostanze, 便利 = comodo-strumento); 申し上げる già cor 言う/申す;
+    出発(する) cor 出る; 親切 sin 優しい confermato; 例 non in catalogo (niente da fare);
+    壁 kanji N1 coperto dalla policy kanji avanzati.
 12. **Collaudo insegnante virtuale** — l'agente vaglia domande/contenuti/relazioni con lo
     strumento `teacher-digest.mjs` già pronto (shortlist compatte, token-frugale). Prossimi
     giri: `unlinked-pairs`, `no-relations`, item già iniziato per N5/N4 relazioni.
