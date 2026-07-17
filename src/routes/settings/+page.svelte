@@ -10,12 +10,29 @@
 	import { BUILD_ID } from '$lib/buildInfo';
 	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { advanceDays, devToolsEnabled } from '$lib/db/devTools';
+	import { listBugReports, addBugReport, removeBugReport, exportBugReports, type BugReport } from '$lib/core/bugReports';
 
 	let saving = $state(false);
 	let saved = $state(false);
 	let devTools = $state(false);
 	let advancing = $state(false);
 	let advancedMsg = $state('');
+	let bugText = $state('');
+	let bugSaved = $state(false);
+	let bugReports = $state<BugReport[]>([]);
+
+	function saveBug(): void {
+		if (!bugText.trim()) return;
+		addBugReport(bugText, 'impostazioni');
+		bugText = '';
+		bugReports = listBugReports();
+		bugSaved = true;
+		setTimeout(() => (bugSaved = false), 2500);
+	}
+	function deleteBug(id: string): void {
+		removeBugReport(id);
+		bugReports = listBugReports();
+	}
 	const loadedSeed = typeof localStorage !== 'undefined' ? localStorage.getItem(SEED_LOADED_KEY) : null;
 
 	const verbForms = DRILL_FORMS.filter((f) => f.category === 'verb');
@@ -119,6 +136,7 @@
 	onMount(async () => {
 		correctionsCount = (await listCorrections()).length;
 		devTools = devToolsEnabled();
+		bugReports = listBugReports();
 	});
 </script>
 
@@ -295,6 +313,29 @@
 	<p class="hint-text">Dati archiviati localmente nel browser (IndexedDB). Nessun account richiesto.</p>
 </section>
 
+<section class="section-card">
+	<p class="card-title">🐛 Segnala un problema</p>
+	<p class="hint-text">Errore dell'app? Scrivilo qui (per gli errori nei dati usa ✏️ Correggi nelle schede). Le segnalazioni restano sul dispositivo: quando vuoi le esporti in un file e lo mandi come fai con le correzioni.</p>
+	<textarea class="bug-input" rows="3" placeholder="Cosa è successo? Dove? Cosa ti aspettavi?" bind:value={bugText}></textarea>
+	<div class="data-actions">
+		<button class="btn-primary" onclick={saveBug} disabled={!bugText.trim()}>Salva segnalazione</button>
+		{#if bugReports.length > 0}
+			<button class="btn-outline" onclick={exportBugReports}>📤 Esporta ({bugReports.length})</button>
+		{/if}
+	</div>
+	{#if bugSaved}<p class="hint-text">✓ Salvata. Esportala quando vuoi mandarla.</p>{/if}
+	{#if bugReports.length > 0}
+		<div class="bug-list">
+			{#each bugReports as r (r.id)}
+				<div class="bug-row">
+					<span class="bug-text">{r.testo.slice(0, 80)}{r.testo.length > 80 ? '…' : ''}</span>
+					<button class="bug-del" title="Elimina" onclick={() => deleteBug(r.id)}>🗑</button>
+				</div>
+			{/each}
+		</div>
+	{/if}
+</section>
+
 <style>
 	.page-title { margin: 0 0 4px; font-size: 1.2rem; font-weight: 700; }
 
@@ -348,6 +389,20 @@
 		font-size: 0.88rem;
 		gap: 12px;
 	}
+
+	.bug-input {
+		width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 10px;
+		border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
+		font-size: 0.9rem; font-family: inherit; resize: vertical;
+	}
+	.bug-input:focus { outline: none; border-color: var(--brand); }
+	.bug-list { display: grid; gap: 6px; }
+	.bug-row {
+		display: flex; align-items: center; gap: 8px; font-size: 0.82rem;
+		background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px;
+	}
+	.bug-text { flex: 1; overflow-wrap: anywhere; }
+	.bug-del { border: none; background: none; cursor: pointer; font-size: 0.9rem; }
 
 	.num-input {
 		width: 80px;
