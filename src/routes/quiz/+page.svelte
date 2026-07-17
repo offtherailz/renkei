@@ -1774,6 +1774,7 @@
 			<p class="question-hint">Quale parola completa la frase?</p>
 			<p class="question-prompt ja-sentence">{quiz.answered ? q.fullSentence : q.sentenceWithBlank}</p>
 			{#if quiz.answered}<p class="question-hint">{q.translation}</p>{/if}
+			{#if quiz.answered && q.explanation}<p class="question-hint">✅ {q.explanation}</p>{/if}
 			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button

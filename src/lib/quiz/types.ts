@@ -68,6 +68,8 @@ export interface UsageClozeQuestion {
   sentenceWithBlank: string;
   fullSentence: string;
   translation: string;
+  // «perché è giusta» (solo per le domande curate dall'insegnante)
+  explanation?: string;
   choices: string[];
   correctChoice: string;
 }

@@ -29,6 +29,7 @@
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
+	import { curatedByParticle, curatedToQuestion } from '$lib/data/propedeutiche';
 	import type { Word, Counter } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -194,9 +195,12 @@
 			title = `Particella ${rawId}`;
 			const row = await db.srs_progress.get(srsTarget);
 			if (row) classDrillPct = normalizePracticeOnlyMastery(row.mastery_points);
+			// prima le domande CURATE dall'insegnante (frasi costruite apposta
+			// perché questa particella sia l'unica giusta, con il «perché»)…
+			const qs: QuizQuestion[] = shuffle(curatedByParticle(rawId)).slice(0, 4).map(curatedToQuestion);
+			// …poi si riempie con i cloze generati dalle frasi del catalogo
 			const pool = shuffle(words.filter((w) => w.frasi_esempio?.length));
-			const qs: QuizQuestion[] = [];
-			const seenSentences = new Set<string>();
+			const seenSentences = new Set<string>(qs.map((q) => (q as { fullSentence: string }).fullSentence));
 			for (const w of pool.slice(0, 80)) {
 				if (qs.length >= 6) break;
 				const q = await createParticleClozeQuestion(w, locale);
@@ -580,6 +584,9 @@
 					{/if}
 					{#if 'translation' in current && current.translation}
 						<p class="explain-it">💬 {current.translation}</p>
+					{/if}
+					{#if 'explanation' in current && current.explanation}
+						<p class="explain-it">✅ {current.explanation}</p>
 					{/if}
 					{#if current.mode === 'conjugation'}
 						<p class="explain-it">✅ {current.dictionary} → {current.formLabel}: <strong>{current.correctChoice}</strong></p>
