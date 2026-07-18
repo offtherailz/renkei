@@ -68,6 +68,23 @@
 	// e resettava il banco — i token cliccati "non si componevano" (bug 17/07).
 	let compBank = $state<string[]>([]);
 	let compAnswer = $state<string[]>([]);
+	// mappa parole per recuperare la frase d'esempio alla rivelazione (anche nei
+	// drill di kanji, dove la domanda può essere su una parola diversa da `word`)
+	let wordsById = $state<Map<string, Word>>(new Map());
+
+	// frase da mostrare/ascoltare alla fine: la frase della domanda se c'è,
+	// altrimenti (composizione) la prima frase d'esempio della parola.
+	function revealSentence(q: QuizQuestion | null): { jp: string; it: string } | null {
+		if (!q) return null;
+		if ('fullSentence' in q && q.fullSentence) {
+			return { jp: q.fullSentence, it: 'translation' in q && q.translation ? q.translation : '' };
+		}
+		if ('wordId' in q && q.wordId) {
+			const ex = wordsById.get(q.wordId)?.frasi_esempio?.[0];
+			if (ex) return { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) };
+		}
+		return null;
+	}
 	function setupComp(): void {
 		const q = queue[idx];
 		if (q?.mode === 'composition') {
@@ -98,6 +115,7 @@
 			wordsById: new Map(words.map((x) => [x.id, x])),
 			grammarById: new Map()
 		};
+		wordsById = context.wordsById;
 		const distractors: DistractorIndex = await preloadDistractorIndex();
 
 		// id può essere bare (parola/kanji) o prefissato (grammar:...)
@@ -582,12 +600,12 @@
 				</div>
 				{/if}
 				{#if revealed}
-					<!-- spiegazione come nel quiz: frase completa, traduzione, forma -->
-					{#if 'fullSentence' in current && current.fullSentence}
-						<p class="explain-jp">{current.fullSentence}</p>
-					{/if}
-					{#if 'translation' in current && current.translation}
-						<p class="explain-it">💬 {current.translation}</p>
+					<!-- alla fine: la frase (cliccabile + ascoltabile) e il suo significato -->
+					{@const rs = revealSentence(current)}
+					{#if rs}
+						<p class="explain-jp"><InteractiveSentence text={rs.jp} /></p>
+						<button class="listen-sentence" onclick={() => speakSentenceJapanese(rs.jp)}>🔊 Ascolta la frase</button>
+						{#if rs.it}<p class="explain-it">💬 {rs.it}</p>{/if}
 					{/if}
 					{#if 'explanation' in current && current.explanation}
 						<p class="explain-it">✅ {current.explanation}</p>
@@ -624,6 +642,7 @@
 	.qprompt { margin: 0; font-size: 1.5rem; font-weight: 700; text-align: center; }
 	.explain-jp { margin: 0; font-size: 1.05rem; text-align: center; }
 	.explain-it { margin: 0; font-size: 0.85rem; color: var(--muted); text-align: center; }
+	.listen-sentence { justify-self: center; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.82rem; cursor: pointer; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.1rem; text-align: left; cursor: pointer; }
 	.choice:hover:not(:disabled) { border-color: var(--brand); }
