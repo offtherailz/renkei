@@ -10,7 +10,9 @@ import {
   touchReviewDate,
   markKnown
 } from "./srs";
-import { facetsToTrain, applicableFacets, FACET_UNLOCK_STAGE } from "./facets";
+import { facetsToTrain, applicableFacets, facetOfMode, FACET_UNLOCK_STAGE } from "./facets";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { calculateQuizXp } from "../quiz/engine";
 import type { SrsProgress, Word, JLPTLevel } from "../types/models";
 import type { XpInput } from "../quiz/types";
@@ -224,6 +226,65 @@ describe("facetsToTrain: gli sblocchi sono monotoni con lo stage", () => {
     for (const f of FACET_FIELDS) {
       expect(FACET_UNLOCK_STAGE[f]).toBeGreaterThanOrEqual(0);
       expect(FACET_UNLOCK_STAGE[f]).toBeLessThanOrEqual(7);
+    }
+  });
+});
+
+describe("sfaccettature: copertura totale di modi e catalogo", () => {
+  // OGNI modo di domanda che riguarda una parola deve accreditare una cella;
+  // i soli esclusi ammessi sono i contatori e l'orario (entità counter:*).
+  const NO_FACET_ALLOWED = new Set(["counter-quiz", "counter-reading", "time-reading"]);
+  const ALL_QUESTION_MODES = [
+    "flashcard-production", "flashcard-recognition", "flashcard-reading-recognition",
+    "multiple-choice", "sentence-ordering", "cloze", "reading-choice", "listening",
+    "particle-cloze", "counter-quiz", "conjugation", "transitivity-pair",
+    "counter-reading", "time-reading", "composition", "spoken-production",
+    "verb-form-cloze", "usage-cloze"
+  ] as const;
+
+  it("facetOfMode: ogni modo mappa a una cella valida, o è nell'elenco esplicito dei senza-cella", () => {
+    for (const mode of ALL_QUESTION_MODES) {
+      const f = facetOfMode(mode as Parameters<typeof facetOfMode>[0]);
+      if (NO_FACET_ALLOWED.has(mode)) {
+        expect(f).toBeNull();
+      } else {
+        expect(f).not.toBeNull();
+        expect(FACET_FIELDS).toContain(f!);
+      }
+    }
+  });
+
+  it("applicableFacets regge su TUTTO il catalogo reale (1457 parole): mai vuoto, mai celle impossibili", () => {
+    const seed = JSON.parse(
+      readFileSync(resolve(__dirname, "../../../static/seed-n5n4.json"), "utf8")
+    ) as { words: Word[] };
+    expect(seed.words.length).toBeGreaterThan(1000);
+    for (const w of seed.words) {
+      const cells = applicableFacets(w);
+      // ogni parola è almeno comprensibile e ascoltabile
+      expect(cells.has("facet_meaning_r")).toBe(true);
+      expect(cells.has("facet_form_listen")).toBe(true);
+      // full-kana: mai 📖 Leggere (domanda tautologica — il bug くれる)
+      if (w.scrittura === w.lettura) expect(cells.has("facet_form_read")).toBe(false);
+      // espressioni idiomatiche: mai ✍️ Scrivere (unità multi-morfema)
+      if (w.tipo_jp.startsWith("慣用表現")) expect(cells.has("facet_form_write")).toBe(false);
+      // solo celle del vocabolario delle sfaccettature
+      for (const c of cells) expect(FACET_FIELDS).toContain(c);
+    }
+  });
+
+  it("ogni cella applicabile a QUALCHE parola del catalogo è anche allenabile a stage 7", () => {
+    const seed = JSON.parse(
+      readFileSync(resolve(__dirname, "../../../static/seed-n5n4.json"), "utf8")
+    ) as { words: Word[] };
+    const everApplicable = new Set<string>();
+    const everTrainable = new Set<string>();
+    for (const w of seed.words.slice(0, 400)) {
+      for (const c of applicableFacets(w)) everApplicable.add(c);
+      for (const c of facetsToTrain(w, 7, {})) everTrainable.add(c);
+    }
+    for (const c of everApplicable) {
+      expect(everTrainable.has(c), `cella ${c} applicabile ma mai allenabile (asse orfano)`).toBe(true);
     }
   });
 });
