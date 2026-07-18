@@ -95,6 +95,20 @@
 		else if (q.evidenceLine !== undefined) wrongLines = [...wrongLines, q.evidenceLine];
 	}
 
+	// riascolta l'INTERO dialogo nel copione finale (non conta come ascolto
+	// d'esame, non cambia scena)
+	let replaying = $state(false);
+	async function replayAll(): Promise<void> {
+		if (!run || replaying) return;
+		stopSpeaking();
+		replaying = true;
+		await speakDialogue(
+			run.lines.map((l) => ({ personaggio: l.who, testo: l.text })),
+			0.95
+		);
+		replaying = false;
+	}
+
 	// riascolta UNA battuta con la voce del suo personaggio
 	function playLine(i: number): void {
 		if (!run) return;
@@ -120,6 +134,7 @@
 			({ scene, level, run, listens, qIdx, qPicked, score, wrongLines, answers } = s);
 			if (!answers) answers = []; // snapshot di versioni precedenti
 			playing = false;
+			replaying = false;
 			if (scene === 'quiz' && qPicked === null) armQuestion();
 		}
 	);
@@ -213,9 +228,13 @@
 								la prova: «{run.lines[q.evidenceLine]!.text}»
 							</p>
 						{/if}
+						<p class="recap-why">💡 {q.spiega}</p>
 					</div>
 				{/each}
-				<p class="script-title">📜 Il dialogo (riascolta ogni battuta — tocca le parole)</p>
+				<div class="script-head">
+					<p class="script-title">📜 Il dialogo (riascolta ogni battuta — tocca le parole)</p>
+					<button class="mini" onclick={replayAll} disabled={replaying}>{replaying ? '🔊 …' : '▶️ Tutto il dialogo'}</button>
+				</div>
 				{#each run.lines as l, i}
 					<div class="line {l.who}" class:missed={wrongLines.includes(i)}>
 						<span class="line-who">{l.who === 'M' ? '👨' : '👩'}</span>
@@ -286,6 +305,9 @@
 	.recap-a { margin: 0; font-size: 0.85rem; color: var(--success); }
 	.recap-a.wrong-a { color: var(--danger); }
 	.recap-ev { margin: 0; font-size: 0.82rem; color: var(--muted); display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+	.recap-why { margin: 2px 0 0; font-size: 0.82rem; line-height: 1.5; color: var(--ink); }
+	.script-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+	.script-head .script-title { margin: 0; }
 	.result-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; align-items: center; }
 
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }

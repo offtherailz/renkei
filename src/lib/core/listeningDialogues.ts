@@ -24,7 +24,9 @@ export interface ListeningDialogue {
 export interface ListeningRun {
 	dialogue: ListeningDialogue;
 	lines: { who: 'M' | 'F'; text: string }[];
-	questions: { q: string; choices: string[]; correct: number; evidenceLine?: number }[];
+	// spiega = «il perché» della risposta, ricavato dalla struttura del dialogo
+	// (ripensamento vs esca vs diretta): mostrato nel copione finale.
+	questions: { q: string; choices: string[]; correct: number; evidenceLine?: number; spiega: string }[];
 }
 
 function shuffle<T>(xs: T[]): T[] {
@@ -59,18 +61,26 @@ export function instantiateListening(d: ListeningDialogue): ListeningRun {
 		const i = lines.findIndex((l) => norm(l.text).includes(norm(correct)));
 		return i >= 0 ? i : undefined;
 	};
+	const quote = (xs: string[]) => xs.map((v) => `「${v}」`).join('、');
 	const questions = d.questions.map((q) => {
 		if ('truthOf' in q) {
 			const slot = d.slots.find((s) => s.id === q.truthOf)!;
 			const correct = picked[slot.answerSlot![pickedIdx[slot.id]!]!]!;
 			const candidateSlots = [...new Set(slot.answerSlot!)];
+			// valori DETTI in corsa come decisioni (le esche del ripensamento)
+			const spokenTraps = [...new Set(candidateSlots.map((id) => picked[id]!))].filter(
+				(v) => v !== correct && !v.includes('{')
+			);
 			const pool = [
 				...candidateSlots.map((id) => picked[id]!),
 				...candidateSlots.flatMap((id) => d.slots.find((s) => s.id === id)!.options)
 			].filter((v) => v !== correct && !v.includes('{'));
 			const others = [...new Set(pool)].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
-			return { q: q.q, choices, correct: choices.indexOf(correct), evidenceLine: evidenceLine(correct) };
+			const spiega = spokenTraps.length
+				? `🎭 Cambiano idea in corsa (spesso «やっぱり／でも／すみません…»): conta l'ULTIMA decisione, 「${correct}」. Quello che avevano detto prima (${quote(spokenTraps)}) è la trappola.`
+				: `La decisione è detta una volta sola: 「${correct}」.`;
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidenceLine: evidenceLine(correct), spiega };
 		}
 		if ('slot' in q) {
 			const slot = d.slots.find((s) => s.id === q.slot)!;
@@ -82,14 +92,24 @@ export function instantiateListening(d: ListeningDialogue): ListeningRun {
 			const sameSlot = shuffle(slot.options.filter((o) => o !== correct && !crossTraps.includes(o)));
 			const others = [...new Set([...crossTraps, ...sameSlot])].slice(0, 3);
 			const choices = shuffle([correct, ...others]);
-			return { q: q.q, choices, correct: choices.indexOf(correct), evidenceLine: evidenceLine(correct) };
+			const spiega = crossTraps.length
+				? `Nel dialogo si sente anche ${quote([...new Set(crossTraps)])} (stesso tipo): è un'esca. La risposta 「${correct}」 è nella battuta evidenziata.`
+				: `La risposta 「${correct}」 è detta nella battuta evidenziata.`;
+			return { q: q.q, choices, correct: choices.indexOf(correct), evidenceLine: evidenceLine(correct), spiega };
 		}
 		const order = shuffle(q.choices.map((_, i) => i));
+		const correctText = q.choices[q.correct]!;
+		const ev = evidenceLine(correctText);
+		const spiega =
+			ev !== undefined
+				? `La risposta 「${correctText}」 è nella battuta evidenziata.`
+				: `Ripensa a quello che è stato detto: la risposta è 「${correctText}」.`;
 		return {
 			q: q.q,
 			choices: order.map((i) => q.choices[i]!),
 			correct: order.indexOf(q.correct),
-			evidenceLine: evidenceLine(q.choices[q.correct]!)
+			evidenceLine: ev,
+			spiega
 		};
 	});
 	return { dialogue: d, lines, questions };

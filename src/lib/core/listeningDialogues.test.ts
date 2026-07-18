@@ -44,4 +44,17 @@ describe('listeningDialogues', () => {
 			}
 		}
 	});
+
+	it('ogni domanda ha un «perché» (spiega) con la risposta giusta citata', () => {
+		for (const d of LISTENING_DIALOGUES) {
+			for (let i = 0; i < 10; i += 1) {
+				const run = instantiateListening(d);
+				run.questions.forEach((q) => {
+					expect(q.spiega, `${d.id}: spiega`).toBeTruthy();
+					// il perché cita SEMPRE la risposta corretta fra 「」
+					expect(q.spiega, `${d.id}: spiega cita la risposta`).toContain(`「${q.choices[q.correct]}」`);
+				});
+			}
+		}
+	});
 });
