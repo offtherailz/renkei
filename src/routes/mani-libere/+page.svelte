@@ -26,6 +26,25 @@
 	let running = false;
 	let rounds = $state<HFRound[]>([]);
 
+	// Wake Lock: tiene lo SCHERMO acceso durante la partita (per correre col telefono
+	// in tasca/fascia senza che si spenga). Non è "schermo bloccato": mic e TTS del
+	// browser non girano in background: lo schermo deve restare acceso.
+	let wakeLock: { release: () => Promise<void> } | null = null;
+	async function acquireWakeLock(): Promise<void> {
+		try {
+			const nav = navigator as unknown as { wakeLock?: { request: (t: string) => Promise<{ release: () => Promise<void> }> } };
+			if (nav.wakeLock) wakeLock = await nav.wakeLock.request('screen');
+		} catch { /* non supportato / negato: pazienza */ }
+	}
+	function releaseWakeLock(): void {
+		void wakeLock?.release?.().catch(() => {});
+		wakeLock = null;
+	}
+	// il wake lock si perde se la scheda va in background: lo riprende al ritorno
+	function onVisibility(): void {
+		if (document.visibilityState === 'visible' && running && !wakeLock) void acquireWakeLock();
+	}
+
 	const speakIt = (t: string) => speakSentenceJapaneseAsync(t, { lang: 'it-IT' });
 	const speakJp = (t: string, slow = false) => speakSentenceJapaneseAsync(t, slow ? { rate: 0.6 } : {});
 
@@ -105,6 +124,7 @@
 		}
 		if (running) {
 			running = false;
+			releaseWakeLock();
 			scene = 'done';
 			await speakIt(`Finito. ${score} su ${rounds.length}.`);
 		}
@@ -118,6 +138,8 @@
 		score = 0;
 		scene = 'play';
 		running = true;
+		await acquireWakeLock();
+		if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisibility);
 		await speakIt('Parla quando senti il microfono. Di\' «もう一度» per risentire, «次» per saltare.');
 		await mainLoop();
 	}
@@ -125,9 +147,15 @@
 	function stop(): void {
 		running = false;
 		stopSpeaking();
+		releaseWakeLock();
 		scene = 'done';
 	}
-	onDestroy(() => { running = false; stopSpeaking(); });
+	onDestroy(() => {
+		running = false;
+		stopSpeaking();
+		releaseWakeLock();
+		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
+	});
 
 	const STATUS_ICON: Record<Status, string> = { speaking: '🔊', listening: '🎙️', ok: '✅', ko: '↩️', paused: '⏸️' };
 </script>
@@ -146,7 +174,7 @@
 			</p>
 			{#if canSpeak}
 				<button class="proceed" onclick={start}>▶️ はじめる</button>
-				<p class="hint small">Al primo avvio concedi il permesso al microfono.</p>
+				<p class="hint small">Al primo avvio concedi il permesso al microfono. Lo schermo resta acceso durante la partita (utile mentre corri, col telefono in tasca). Nota: non funziona a schermo spento — mic e voce del browser non girano in background.</p>
 			{:else}
 				<p class="hint warn">Serve un browser con riconoscimento vocale (Chrome) e connessione sicura (https). Su questo dispositivo non è disponibile.</p>
 			{/if}
