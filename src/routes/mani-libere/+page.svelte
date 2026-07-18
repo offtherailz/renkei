@@ -4,10 +4,10 @@
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, speakDialogue, stopSpeaking } from '$lib/core/tts';
 	import { listenJapanese, speechAvailable, phraseVariants } from '$lib/core/speech';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
-	import { buildRounds, classifyUtterance, judgeAnswer, type HFRound } from '$lib/core/handsFree';
+	import { buildRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound } from '$lib/core/handsFree';
 
 	// 🚗 Mani libere (beta): ripasso SOLO VOCALE, l'utente non legge nulla. Un tap per
 	// partire, poi parla-ascolta-avanza in automatico. Mix: recall di frasi utili
@@ -18,7 +18,7 @@
 	const canSpeak = speechAvailable();
 
 	type Scene = 'intro' | 'play' | 'done';
-	type Status = 'speaking' | 'listening' | 'ok' | 'ko';
+	type Status = 'speaking' | 'listening' | 'ok' | 'ko' | 'paused';
 	let scene = $state<Scene>('intro');
 	let status = $state<Status>('speaking');
 	let idx = $state(0);
@@ -39,6 +39,7 @@
 		const d = LISTENING_DIALOGUES.find((x) => x.id === r.dialogueId)!;
 		const run = instantiateListening(d);
 		await speakIt(run.dialogue.scena);
+		await speakIt('Fai attenzione al dialogo e rispondi alla domanda.');
 		await speakDialogue(run.lines.map((l) => ({ personaggio: l.who, testo: l.text })), slow ? 0.65 : 0.95);
 		const q = run.questions[r.questionIdx]!;
 		await speakJp(q.q, slow);
@@ -46,10 +47,23 @@
 		return { corretta, varianti: [...new Set([...phraseVariants(corretta), corretta])] };
 	}
 
+	// Attende in pausa finché l'utente non riparla (qualsiasi cosa riprende; «やめて» esce).
+	async function pauseUntilResume(): Promise<void> {
+		status = 'paused';
+		await speakIt('In pausa. Riparla quando sei pronto.');
+		while (running) {
+			const a = await listenJapanese();
+			if (!running) return;
+			if (a.length === 0) continue;
+			if (classifyUtterance(a) === 'quit') { stop(); return; }
+			return;
+		}
+	}
+
 	async function runRound(r: HFRound): Promise<void> {
 		status = 'speaking';
 		let { corretta, varianti } = await playPrompt(r, false);
-		for (let attempt = 0; attempt < 6 && running; attempt += 1) {
+		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
 			const alts = await listenJapanese();
 			if (!running) return;
@@ -57,22 +71,28 @@
 				await speakIt('Non ho sentito. Ripeti pure.');
 				continue;
 			}
+			// PRIMA la risposta: così una risposta che contiene un comando non viene rubata.
+			if (judgeAnswer(alts, varianti)) {
+				status = 'ok';
+				score += 1;
+				// solo credito POSITIVO sulle risposte giuste (come ogni uso audio: gli
+				// errori NON vanno nei punti deboli, per non penalizzare l'ascolto/mic).
+				if (r.kind === 'frase') void recordPractice('phrase:' + r.jp, true, 'facet_form_speak');
+				await speakJp('そう！');
+				await speakJp(corretta);
+				return;
+			}
 			const cls = classifyUtterance(alts);
 			if (cls === 'slow') { ({ corretta, varianti } = await playPrompt(r, true)); continue; }
 			if (cls === 'repeat') { ({ corretta, varianti } = await playPrompt(r, false)); continue; }
+			if (cls === 'pause') { await pauseUntilResume(); if (!running) return; ({ corretta, varianti } = await playPrompt(r, false)); continue; }
+			if (cls === 'quit') { stop(); return; }
 			if (cls === 'skip') return;
-			// risposta
-			const ok = judgeAnswer(alts, varianti);
-			status = ok ? 'ok' : 'ko';
-			if (ok) {
-				score += 1;
-				await speakJp('そう！');
-				await speakJp(corretta);
-			} else {
-				await speakIt('Quasi. Si dice:');
-				await speakJp(corretta, true);
-				if (r.kind === 'frase') void recordPracticeMiss('phrase:' + r.jp);
-			}
+			// non è comando né risposta giusta → si dice la versione giusta, ma NIENTE
+			// penalità (nessun punto debole): l'audio non deve penalizzare.
+			status = 'ko';
+			await speakIt('Quasi. Si dice:');
+			await speakJp(corretta, true);
 			return;
 		}
 	}
@@ -109,7 +129,7 @@
 	}
 	onDestroy(() => { running = false; stopSpeaking(); });
 
-	const STATUS_ICON: Record<Status, string> = { speaking: '🔊', listening: '🎙️', ok: '✅', ko: '↩️' };
+	const STATUS_ICON: Record<Status, string> = { speaking: '🔊', listening: '🎙️', ok: '✅', ko: '↩️', paused: '⏸️' };
 </script>
 
 <div class="hf">
@@ -135,7 +155,13 @@
 		<article class="scene play">
 			<p class="who">{idx + 1} / {rounds.length}</p>
 			<div class="big-status" class:pulse={status === 'listening'}>{STATUS_ICON[status]}</div>
-			<p class="hint">{status === 'listening' ? 'Parla ora…' : status === 'speaking' ? 'Ascolta…' : status === 'ok' ? 'Bravo!' : 'Riascolta la versione giusta'}</p>
+			<p class="hint">{status === 'listening' ? 'Parla ora…' : status === 'paused' ? 'In pausa — riparla per riprendere' : status === 'speaking' ? 'Ascolta…' : status === 'ok' ? 'Bravo!' : 'Riascolta la versione giusta'}</p>
+			<div class="cmd-legend">
+				<p class="cmd-title">Puoi dire a voce:</p>
+				{#each HF_COMMANDS as c (c.label)}
+					<div class="cmd-row"><span class="cmd-ic">{c.icon}</span> <span class="cmd-lab">{c.label}</span> <span class="cmd-say">{c.say.map((s) => `「${s}」`).join(' / ')}</span></div>
+				{/each}
+			</div>
 			<button class="stop" onclick={stop}>⏹ Ferma</button>
 		</article>
 	{:else}
@@ -165,6 +191,12 @@
 	.big-status { font-size: 5rem; line-height: 1; }
 	.big-status.pulse { animation: pulse 1s ease-in-out infinite; }
 	@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+	.cmd-legend { width: 100%; display: grid; gap: 4px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 4px; }
+	.cmd-title { margin: 0 0 2px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+	.cmd-row { display: flex; align-items: baseline; gap: 8px; font-size: 0.9rem; }
+	.cmd-ic { width: 1.4em; text-align: center; }
+	.cmd-lab { flex: 0 0 6.5em; color: var(--muted); }
+	.cmd-say { font-weight: 700; }
 	.score-big { margin: 0; text-align: center; font-size: 2.6rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }

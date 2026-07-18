@@ -10,6 +10,10 @@ describe('handsFree.classifyUtterance', () => {
 		expect(classifyUtterance(['ゆっくり'])).toBe('slow');
 		expect(classifyUtterance(['次'])).toBe('skip');
 		expect(classifyUtterance(['つぎ'])).toBe('skip');
+		expect(classifyUtterance(['ちょっと待って'])).toBe('pause');
+		expect(classifyUtterance(['待って'])).toBe('pause');
+		expect(classifyUtterance(['やめて'])).toBe('quit');
+		expect(classifyUtterance(['ストップ'])).toBe('quit');
 	});
 	it('tutto il resto è una risposta', () => {
 		expect(classifyUtterance(['おはようございます'])).toBe('answer');

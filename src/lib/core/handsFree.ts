@@ -5,13 +5,26 @@ import { normalizeSpeech, phraseVariants, speechMatches } from './speech';
 import type { Situation } from './usefulPhrases';
 import type { ListeningDialogue } from './listeningDialogues';
 
-export type Utterance = 'repeat' | 'slow' | 'skip' | 'answer';
+export type Utterance = 'repeat' | 'slow' | 'skip' | 'pause' | 'quit' | 'answer';
 
 // Comandi vocali. Il riconoscitore è ja-JP: contano soprattutto le forme
-// giapponesi; le parole italiane sono best-effort (spesso non riconosciute).
+// giapponesi; le parole italiane sono best-effort. NB: la pagina valuta PRIMA se
+// l'utterance è la risposta giusta e solo dopo la classifica come comando, così
+// una risposta che contiene un comando (es. お待ちください) non viene rubata.
 const SLOW = ['ゆっくり', 'piano', 'lento', 'slow'];
 const REPEAT = ['もう一度', 'もういちど', 'もっかい', 'ripeti', 'ancora', 'again'];
+const PAUSE = ['ちょっと待って', 'ちょっとまって', '待って', 'まって'];
+const QUIT = ['やめて', 'やめる', '終わり', 'おわり', 'おしまい', 'ストップ', '止めて', 'basta'];
 const SKIP = ['次', 'つぎ', 'パス', 'avanti', 'salta', 'skip', 'pass'];
+
+// Elenco comandi per la legenda a schermo (etichetta italiana + frasi da dire).
+export const HF_COMMANDS: { label: string; icon: string; say: string[] }[] = [
+	{ label: "Un'altra volta", icon: '↩️', say: ['もう一度'] },
+	{ label: 'Più piano', icon: '🐢', say: ['ゆっくり'] },
+	{ label: 'Pausa', icon: '⏸️', say: ['ちょっと待って', '待って'] },
+	{ label: 'Avanti', icon: '⏭️', say: ['次'] },
+	{ label: 'Basta', icon: '⏹️', say: ['やめて', 'ストップ'] }
+];
 
 function anyMatch(alts: string[], keys: string[]): boolean {
 	return alts.some((a) => {
@@ -20,12 +33,13 @@ function anyMatch(alts: string[], keys: string[]): boolean {
 	});
 }
 
-// Classifica un'utterance. Presuppone alts NON vuoto (la pagina gestisce il "niente
-// sentito" a parte). L'ordine conta: ゆっくり prima di もう一度 (contiene 一度? no, ma
-// per sicurezza), skip per ultimo.
+// Classifica un'utterance come comando (o 'answer' se non è un comando).
+// Presuppone alts NON vuoto (la pagina gestisce il "niente sentito" a parte).
 export function classifyUtterance(alts: string[]): Utterance {
 	if (anyMatch(alts, SLOW)) return 'slow';
 	if (anyMatch(alts, REPEAT)) return 'repeat';
+	if (anyMatch(alts, PAUSE)) return 'pause';
+	if (anyMatch(alts, QUIT)) return 'quit';
 	if (anyMatch(alts, SKIP)) return 'skip';
 	return 'answer';
 }
