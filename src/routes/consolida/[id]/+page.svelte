@@ -68,22 +68,11 @@
 	// e resettava il banco — i token cliccati "non si componevano" (bug 17/07).
 	let compBank = $state<string[]>([]);
 	let compAnswer = $state<string[]>([]);
-	// mappa parole per recuperare la frase d'esempio alla rivelazione (anche nei
-	// drill di kanji, dove la domanda può essere su una parola diversa da `word`)
-	let wordsById = $state<Map<string, Word>>(new Map());
-
-	// frase da mostrare/ascoltare alla fine: la frase della domanda se c'è,
-	// altrimenti (composizione) la prima frase d'esempio della parola.
+	// frase da mostrare/ascoltare alla fine: SOLO se la domanda era su una frase
+	// (ha fullSentence). Le domande su una parola/kanji non mostrano frasi.
 	function revealSentence(q: QuizQuestion | null): { jp: string; it: string } | null {
-		if (!q) return null;
-		if ('fullSentence' in q && q.fullSentence) {
-			return { jp: q.fullSentence, it: 'translation' in q && q.translation ? q.translation : '' };
-		}
-		if ('wordId' in q && q.wordId) {
-			const ex = wordsById.get(q.wordId)?.frasi_esempio?.[0];
-			if (ex) return { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) };
-		}
-		return null;
+		if (!q || !('fullSentence' in q) || !q.fullSentence) return null;
+		return { jp: q.fullSentence, it: 'translation' in q && q.translation ? q.translation : '' };
 	}
 	function setupComp(): void {
 		const q = queue[idx];
@@ -115,7 +104,6 @@
 			wordsById: new Map(words.map((x) => [x.id, x])),
 			grammarById: new Map()
 		};
-		wordsById = context.wordsById;
 		const distractors: DistractorIndex = await preloadDistractorIndex();
 
 		// id può essere bare (parola/kanji) o prefissato (grammar:...)
