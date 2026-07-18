@@ -419,18 +419,10 @@
 			<span class="quick-icon">📚</span>
 			<span>Corsi</span>
 		</a>
-		<a href="{base}/ascolto" class="quick-card">
-			<span class="quick-icon">🎧</span>
-			<span>Ascolto dialoghi</span>
-		</a>
 	</div>
 
 	<h2 class="section-title group">🎮 Attività</h2>
 	<div class="quick-grid">
-		<a href="{base}/mani-libere" class="quick-card">
-			<span class="quick-icon">🚗</span>
-			<span>Mani libere</span>
-		</a>
 		<a href="{base}/giochi" class="quick-card">
 			<span class="quick-icon">🎮</span>
 			<span>Giochi</span>
@@ -439,6 +431,10 @@
 			<span class="quick-icon">🗺️</span>
 			<span>Avventure</span>
 		</a>
+		<a href="{base}/ascolto" class="quick-card">
+			<span class="quick-icon">🎧</span>
+			<span>Ascolto dialoghi</span>
+		</a>
 		<a href="{base}/lettura" class="quick-card">
 			<span class="quick-icon">⚡</span>
 			<span>Lettura veloce</span>
@@ -446,6 +442,10 @@
 		<a href="{base}/shadowing" class="quick-card">
 			<span class="quick-icon">🗣️</span>
 			<span>Shadowing</span>
+		</a>
+		<a href="{base}/mani-libere" class="quick-card">
+			<span class="quick-icon">🚗</span>
+			<span>Mani libere <span class="quick-beta">beta</span></span>
 		</a>
 	</div>
 
@@ -792,6 +792,11 @@
 		gap: 10px;
 	}
 
+	.quick-beta {
+		font-size: 0.55rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+		color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border);
+		border-radius: 999px; padding: 1px 5px; vertical-align: middle;
+	}
 	.quick-card {
 		display: flex;
 		flex-direction: column;

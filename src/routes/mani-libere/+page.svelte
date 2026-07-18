@@ -25,6 +25,8 @@
 	let score = $state(0);
 	let running = false;
 	let rounds = $state<HFRound[]>([]);
+	const SILENCE_MS = 30_000; // niente sentito per 30s → ferma la sessione
+	let lastActivity = 0;
 
 	// Wake Lock: tiene lo SCHERMO acceso durante la partita (per correre col telefono
 	// in tasca/fascia senza che si spenga). Non è "schermo bloccato": mic e TTS del
@@ -73,7 +75,11 @@
 		while (running) {
 			const a = await listenJapanese();
 			if (!running) return;
-			if (a.length === 0) continue;
+			if (a.length === 0) {
+				if (Date.now() - lastActivity > SILENCE_MS) { await speakIt('Nessuna attività. Mi fermo.'); stop(); return; }
+				continue;
+			}
+			lastActivity = Date.now();
 			if (classifyUtterance(a) === 'quit') { stop(); return; }
 			return;
 		}
@@ -87,9 +93,15 @@
 			const alts = await listenJapanese();
 			if (!running) return;
 			if (alts.length === 0) {
+				if (Date.now() - lastActivity > SILENCE_MS) {
+					await speakIt('Non sento risposte da un po\'. Mi fermo. A presto!');
+					stop();
+					return;
+				}
 				await speakIt('Non ho sentito. Ripeti pure.');
 				continue;
 			}
+			lastActivity = Date.now();
 			// PRIMA la risposta: così una risposta che contiene un comando non viene rubata.
 			if (judgeAnswer(alts, varianti)) {
 				status = 'ok';
@@ -138,6 +150,7 @@
 		score = 0;
 		scene = 'play';
 		running = true;
+		lastActivity = Date.now();
 		await acquireWakeLock();
 		if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisibility);
 		await speakIt('Parla quando senti il microfono. Di\' «もう一度» per risentire, «次» per saltare.');
