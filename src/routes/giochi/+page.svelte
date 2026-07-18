@@ -77,6 +77,29 @@
 		if (hit) pickGreet(hit, true);
 	}
 
+	// Rispondi a voce nei giochi «leggi come si pronuncia»: premendo il pulsante il
+	// timer si ferma per lasciarti pronunciare; se la lettura combacia, conta come
+	// risposta giusta (una pronuncia sbagliata non penalizza: puoi ritentare o toccare).
+	async function speakReadGame(): Promise<void> {
+		if (micState !== 'idle' || picked !== null || !question) return;
+		stopCountdown();
+		micState = 'listening';
+		heard = '';
+		const alts = await listenJapanese();
+		micState = 'idle';
+		if (!question || picked !== null) return;
+		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
+		heard = alts[0]!;
+		if (speechMatches(alts, [phraseVariants(question.correct)])) pick(question.correct);
+	}
+
+	// Mette a fuoco l'input a ogni nuova domanda (il parametro cambia → update),
+	// così in «scrivi il numero» digiti subito senza doverci cliccare.
+	function focusOnChange(node: HTMLInputElement, _key: unknown) {
+		node.focus();
+		return { update() { node.focus(); } };
+	}
+
 	let game = $state<Game>(null);
 	let streak = $state(0);
 	let best = $state(0);
@@ -234,6 +257,9 @@
 	}
 
 	function start(g: NonNullable<Game>): void {
+		// entry di history per intercettare il tasto «indietro» → chiude il gioco,
+		// non esce da /giochi (una sola volta, i restart non impilano).
+		if (!gamePushed && typeof history !== 'undefined') { history.pushState({ renkeiGame: true }, ''); gamePushed = true; }
 		game = g;
 		streak = 0;
 		best = getHighscore(gameId(g));
@@ -464,7 +490,11 @@
 		else newDictation();
 	}
 
-	function quit(): void {
+	// Chiude il gioco tornando al MENU dei giochi (non alla home). Il tasto
+	// «indietro» del browser è gestito con un entry di history: back → chiude il
+	// gioco invece di uscire da /giochi.
+	let gamePushed = false;
+	function quitInternal(): void {
 		stopCountdown();
 		qGen += 1;
 		if (game && !gameOver) submitScore(gameId(game), streak);
@@ -477,9 +507,25 @@
 		cart = {};
 		greet = null;
 		order = null;
+		micState = 'idle';
+		heard = '';
+	}
+	function quit(): void {
+		const pushed = gamePushed;
+		quitInternal();
+		if (pushed && typeof history !== 'undefined') { gamePushed = false; history.back(); }
 	}
 
-	onDestroy(stopCountdown);
+	function onPopState(): void {
+		if (game) { gamePushed = false; quitInternal(); }
+	}
+	onMount(() => {
+		if (typeof window !== 'undefined') window.addEventListener('popstate', onPopState);
+	});
+	onDestroy(() => {
+		stopCountdown();
+		if (typeof window !== 'undefined') window.removeEventListener('popstate', onPopState);
+	});
 </script>
 
 <div class="games-page">
@@ -667,6 +713,13 @@
 					{/each}
 				</div>
 
+				{#if canSpeak && picked === null}
+					<button class="mic" class:listening={micState === 'listening'} onclick={speakReadGame}>
+						{micState === 'listening' ? '🎙️ Ti ascolto…' : '🎤 Pronuncia'}
+					</button>
+					<HeardDiff {heard} candidates={[question.correct]} />
+				{/if}
+
 				{#if picked !== null}
 					{#if gameOver}
 						<p class="verdict ko">Ahi! Era <strong>{question.correct}</strong>. Serie: {streak}</p>
@@ -688,6 +741,7 @@
 					placeholder="cifre…"
 					bind:value={answer}
 					disabled={checked}
+					use:focusOnChange={dictation}
 					onkeydown={(e) => { if (e.key === 'Enter') checkDictation(); }}
 				/>
 				{#if !checked}
