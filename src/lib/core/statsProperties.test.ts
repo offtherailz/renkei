@@ -207,7 +207,7 @@ describe("facetsToTrain: gli sblocchi sono monotoni con lo stage", () => {
   } as unknown as Word;
 
   it("salendo di stage il set di celle allenabili non perde mai pezzi", () => {
-    let prev = new Set<string>();
+    let prev: Set<(typeof FACET_FIELDS)[number]> = new Set();
     for (const stage of STAGES) {
       const cells = new Set(facetsToTrain(verb, stage, {}));
       for (const c of prev) expect(cells.has(c)).toBe(true);
