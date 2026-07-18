@@ -1216,18 +1216,24 @@
 			await addXp(correct ? xpBreakdown.total : -6);
 		}
 
-		// TTS (silenziato in modalità muta: niente audio automatico)
+		// TTS (silenziato in modalità muta: niente audio automatico). Defer 150ms:
+		// lo speak sincrono a ridosso del re-render veniva scartato da Chrome (la
+		// frase non si sentiva, tipico nel ripasso deboli). Riferimenti catturati
+		// prima del timeout (la carta non avanza entro 150ms).
 		if (!appState.quizMuted) {
-			if (quiz.question.mode === 'particle-cloze' || quiz.question.mode === 'transitivity-pair' || quiz.question.mode === 'verb-form-cloze' || quiz.question.mode === 'usage-cloze') {
-				speakSentenceJapanese((quiz.question as ParticleClozeQuestion).fullSentence);
-			} else if (quiz.question.mode === 'conjugation' || quiz.question.mode === 'counter-reading' || quiz.question.mode === 'time-reading') {
-				speakSentenceJapanese((quiz.question as ConjugationQuizQuestion).correctChoice);
-			} else if (quiz.itemRef.kind === 'word') {
-				const word = context?.wordsById.get(quiz.itemRef.key.replace('word:', ''));
-				if (word) speakWordReading(word);
-			} else if (quiz.question.mode === 'sentence-ordering') {
-				speakSentenceJapanese((quiz.question as SentenceOrderingQuestion).correctOrder.join(''));
-			}
+			const q = quiz.question;
+			const wordForTts = quiz.itemRef.kind === 'word' ? context?.wordsById.get(quiz.itemRef.key.replace('word:', '')) : null;
+			setTimeout(() => {
+				if (q.mode === 'particle-cloze' || q.mode === 'transitivity-pair' || q.mode === 'verb-form-cloze' || q.mode === 'usage-cloze') {
+					speakSentenceJapanese((q as ParticleClozeQuestion).fullSentence);
+				} else if (q.mode === 'conjugation' || q.mode === 'counter-reading' || q.mode === 'time-reading') {
+					speakSentenceJapanese((q as ConjugationQuizQuestion).correctChoice);
+				} else if (wordForTts) {
+					speakWordReading(wordForTts);
+				} else if (q.mode === 'sentence-ordering') {
+					speakSentenceJapanese((q as SentenceOrderingQuestion).correctOrder.join(''));
+				}
+			}, 150);
 		}
 
 		if (correct) startAutoNext();
