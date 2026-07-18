@@ -1173,9 +1173,12 @@
 			// L'orario non ha un'entità propria: tocca solo la data di ripasso della parola.
 			await touchWordReviewDate(quiz.itemRef.key);
 		} else if (session.weak) {
-			// Ripasso punti deboli: consolida davvero (mastery) ma senza stage/XP,
-			// come Consolida — il calendario SRS resta governato dal quiz normale.
-			await upsertPracticeOnly(quiz.itemRef.key, correct);
+			// Ripasso punti deboli: avanza l'SRS VERO (stage + data, con la policy
+			// «una volta al giorno»), non solo la mastery. Così una carta debole a
+			// stage basso gradua davvero ed esce dai deboli, invece di ricomparire
+			// subito (prima la mastery da sola non bastava a superare il 60%). Niente
+			// XP (vedi sotto): è pratica, ma sul calendario reale.
+			await upsertSrs(quiz.itemRef.key, correct);
 		} else {
 			await upsertSrs(quiz.itemRef.key, correct);
 		}
