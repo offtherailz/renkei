@@ -373,7 +373,7 @@
 		<p class="muted-text">Nessun obiettivo trovato. Il database si sta inizializzando…</p>
 	{:else}
 		<div class="objective-list">
-			{#each summaries as s}
+			{#each summaries.filter((s) => s.objective.id !== 'obj-catalog-extra' || s.objective.study_enabled) as s}
 				<article class="objective-card" class:disabled={!s.objective.study_enabled}>
 					<div class="obj-top">
 						<div>
