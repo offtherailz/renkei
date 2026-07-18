@@ -421,10 +421,11 @@
 		void recordPractice(correct);
 		// per coniugazione/transitività leggi la forma corretta, non la parola base
 		const m = current.mode;
-		if (m === 'particle-cloze' || m === 'usage-cloze' || m === 'verb-form-cloze') {
-			// come nel quiz: quando metti una parola/forma nella frase, si legge
-			// la frase COMPLETA (feedback utente 17/07: mancava per usage-cloze)
-			speakSentenceJapanese((current as { fullSentence: string }).fullSentence);
+		const rs = revealSentence(current);
+		if (rs) {
+			// ogni domanda su una FRASE legge in automatico la frase completa dopo la
+			// risposta (come il quiz), non solo particle/usage/verb-form
+			speakSentenceJapanese(rs.jp);
 		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
 			speakSentenceJapanese(correctOf(current));
 		} else if (m === 'flashcard-recognition' && !counterMode) {
