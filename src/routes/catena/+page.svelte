@@ -5,7 +5,7 @@
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
-	import { buildConjugationTable, conjClassKey } from '$lib/core/conjugation';
+	import { buildConjugationTable, conjClassKey, detectVerbClass } from '$lib/core/conjugation';
 	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
 	import type { Word } from '$lib/types/models';
 
@@ -25,6 +25,12 @@
 		step2Ask: string;
 		derive: (step1: string) => { corretta: string; distrattori: string[] };
 		senso: (glossa: string) => string;
+		// solo per certe classi (es. il passivo godan, così られる non si confonde
+		// col potenziale degli ichidan che è identico)
+		onlyClass?: 'godan' | 'ichidan';
+		// frase d'esempio curata (verbo rappresentativo, giapponese vero) che
+		// mostra la forma finale «come nella frase». Non legata al verbo pescato.
+		esempio: { jp: string; it: string };
 	}
 
 	const CHAINS: ChainDef[] = [
@@ -35,7 +41,8 @@
 			step1Ask: 'il potenziale (可能形)',
 			step2Ask: 'la sua negativa',
 			derive: (p) => ({ corretta: p.slice(0, -1) + 'ない', distrattori: [p + 'ない', p.slice(0, -1) + 'なかった'] }),
-			senso: (g) => `non riuscire a ${g}`
+			senso: (g) => `non riuscire a ${g}`,
+			esempio: { jp: '今日は忙しくて、昼ご飯が食べられない。', it: 'Oggi sono occupato e non riesco a mangiare a pranzo.' }
 		},
 		{
 			id: 'pot-ta',
@@ -44,7 +51,8 @@
 			step1Ask: 'il potenziale (可能形)',
 			step2Ask: 'il suo passato',
 			derive: (p) => ({ corretta: p.slice(0, -1) + 'た', distrattori: [p + 'た', p.slice(0, -1) + 'ない'] }),
-			senso: (g) => `essere riuscito a ${g}`
+			senso: (g) => `essere riuscito a ${g}`,
+			esempio: { jp: 'やっと国に電話ができた。', it: 'Finalmente sono riuscito a telefonare al mio Paese.' }
 		},
 		{
 			id: 'tai-neg',
@@ -53,7 +61,8 @@
 			step1Ask: 'la desiderativa (たい形)',
 			step2Ask: 'la sua negativa',
 			derive: (t) => ({ corretta: t.slice(0, -1) + 'くない', distrattori: [t + 'ない', t.slice(0, -1) + 'じゃない'] }),
-			senso: (g) => `non aver voglia di ${g}`
+			senso: (g) => `non aver voglia di ${g}`,
+			esempio: { jp: '雨だから、今日はどこにも行きたくない。', it: 'Piove, quindi oggi non ho voglia di andare da nessuna parte.' }
 		},
 		{
 			id: 'tai-past',
@@ -62,7 +71,8 @@
 			step1Ask: 'la desiderativa (たい形)',
 			step2Ask: 'il suo passato',
 			derive: (t) => ({ corretta: t.slice(0, -1) + 'かった', distrattori: [t + 'だった', t.slice(0, -1) + 'くなかった'] }),
-			senso: (g) => `volevo ${g}`
+			senso: (g) => `volevo ${g}`,
+			esempio: { jp: 'あの映画がずっと見たかった。', it: 'Volevo vedere quel film da tanto tempo.' }
 		},
 		{
 			id: 'te-iru',
@@ -71,7 +81,29 @@
 			step1Ask: 'la forma て',
 			step2Ask: 'l\'azione in corso (〜ている)',
 			derive: (te) => ({ corretta: te + 'いる', distrattori: [te + 'ある', te.slice(0, -1) + 'いる'] }),
-			senso: (g) => `stare ${g} (azione in corso)`
+			senso: (g) => `stare ${g} (azione in corso)`,
+			esempio: { jp: '今、部屋で音楽を聞いている。', it: 'Adesso sto ascoltando musica in camera.' }
+		},
+		{
+			id: 'saseru-nai',
+			gram: null,
+			step1Key: 'causative',
+			step1Ask: 'la causativa (使役形)',
+			step2Ask: 'la sua negativa',
+			derive: (c) => ({ corretta: c.slice(0, -1) + 'ない', distrattori: [c + 'ない', c.slice(0, -1) + 'なかった'] }),
+			senso: (g) => `non far/lasciar ${g}`,
+			esempio: { jp: '子供を夜遅くまで遊ばせない。', it: 'Non lascio giocare i bambini fino a tardi.' }
+		},
+		{
+			id: 'ukemi-ta',
+			gram: null,
+			step1Key: 'passive',
+			step1Ask: 'la passiva (受身形)',
+			step2Ask: 'il suo passato',
+			onlyClass: 'godan',
+			derive: (p) => ({ corretta: p.slice(0, -1) + 'た', distrattori: [p + 'た', p.slice(0, -1) + 'ない'] }),
+			senso: (g) => `${g}: subìto (mi è stato fatto)`,
+			esempio: { jp: '会議で先生に名前を呼ばれた。', it: 'Alla riunione sono stato chiamato per nome dall\'insegnante.' }
 		}
 	];
 
@@ -109,6 +141,7 @@
 	});
 
 	function buildRound(w: Word, chain: ChainDef): Round | null {
+		if (chain.onlyClass && detectVerbClass(w) !== chain.onlyClass) return null;
 		const table = buildConjugationTable(w);
 		const byKey = new Map(table.map((f) => [f.key, f.value]));
 		const step1 = byKey.get(chain.step1Key);
@@ -269,6 +302,12 @@
 					<p class="chain-final">{r.dict} → {r.step1Corretta} → <strong>{r.step2Corretta}</strong></p>
 					<p class="hint">💬 {r.chain.senso(r.glossa)}</p>
 					<button class="listen" onclick={() => speakSentenceJapanese(r.step2Corretta)}>🔊 もう一度</button>
+					<div class="esempio">
+						<p class="es-label">Come nella frase</p>
+						<p class="es-jp">{r.chain.esempio.jp}</p>
+						<p class="es-it">{r.chain.esempio.it}</p>
+						<button class="listen" onclick={() => speakSentenceJapanese(r.chain.esempio.jp)}>🔊 la frase</button>
+					</div>
 				</div>
 				<button class="proceed" onclick={next}>{idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>
 			{/if}
@@ -315,6 +354,10 @@
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); background: var(--danger-bg); }
 	.result { display: grid; gap: 8px; justify-items: center; }
+	.esempio { display: grid; gap: 4px; justify-items: center; text-align: center; margin-top: 6px; padding: 10px 14px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); width: 100%; }
+	.es-label { margin: 0; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+	.es-jp { margin: 0; font-size: 1.05rem; font-weight: 600; }
+	.es-it { margin: 0; font-size: 0.85rem; color: var(--muted); }
 	.chain-final { margin: 0; font-size: 1.1rem; text-align: center; }
 	.listen { padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
