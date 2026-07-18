@@ -281,7 +281,7 @@
 </div>
 
 <style>
-	.hf { display: grid; gap: 14px; }
+	.hf { display: grid; gap: 14px; max-width: 100%; overflow-x: hidden; }
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.25rem; text-align: center; }
 	.beta-chip {
@@ -299,15 +299,18 @@
 	.big-status.pulse { animation: pulse 1s ease-in-out infinite; }
 	@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 	.cmd-title { margin: 6px 0 0; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-	.cmd-grid { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+	.cmd-grid { width: 100%; max-width: 100%; display: grid; grid-template-columns: 1fr; gap: 10px; }
+	@media (min-width: 480px) { .cmd-grid { grid-template-columns: repeat(2, 1fr); } }
 	.cmd-btn {
 		display: grid; gap: 4px; justify-items: center; text-align: center;
-		padding: 14px 8px; border-radius: 14px; border: 1.5px solid var(--line);
+		padding: 12px 6px; border-radius: 14px; border: 1.5px solid var(--line);
 		background: var(--surface-2); color: var(--ink); cursor: pointer;
+		min-width: 0; overflow: hidden;
 	}
 	.cmd-btn.live { border-color: var(--brand); background: var(--surface); }
 	.cmd-btn:active { transform: scale(0.97); }
-	.cmd-btn .cmd-say { font-size: 1.5rem; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+	/* la frase non va a capo MA si adatta: font fluido + riduzione se serve */
+	.cmd-btn .cmd-say { font-size: clamp(1.05rem, 6vw, 1.5rem); font-weight: 800; line-height: 1.1; white-space: nowrap; max-width: 100%; }
 	.cmd-btn .cmd-lab { font-size: 0.85rem; color: var(--muted); }
 	.pause-actions { width: 100%; display: grid; gap: 12px; }
 	.big-btn { padding: 20px; border-radius: 16px; font-size: 1.3rem; font-weight: 800; cursor: pointer; border: 2px solid var(--line); }
