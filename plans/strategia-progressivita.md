@@ -1,5 +1,9 @@
 # Strategia — Renkei progressivo per chi comincia, pieno per chi è esperto
 
+> ⚠️ **PARCHEGGIATO (bozza, non approvata).** Direzione giusta ma migliorabile —
+> si può fare di meglio. **Non è lavoro attivo**: da riprendere per una **versione
+> pubblica** dell'app, fuori dal contesto del corso. Lasciato qui come traccia.
+
 Documento di strategia (non piano operativo di un singolo item): come far crescere
 la superficie dell'app col learner, senza biforcare l'app né toccare il motore di
 studio. Il rollout è a strati adottabili in sequenza.
