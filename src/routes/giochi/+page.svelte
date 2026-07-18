@@ -622,6 +622,11 @@
 					<span class="cat-label">Coppie difficili <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
 				</a>
+				<a class="cat-card" href="{base}/avverbi">
+					<span class="cat-icon">🎚️</span>
+					<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
