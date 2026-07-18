@@ -3,11 +3,13 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, speakDialogue, stopSpeaking } from '$lib/core/tts';
-	import { listenJapanese, speechAvailable, phraseVariants } from '$lib/core/speech';
+	import { abortableListen, speechAvailable, phraseVariants } from '$lib/core/speech';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
-	import { buildRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound } from '$lib/core/handsFree';
+	import { buildRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
+
+	type Heard = { tap: Command } | { alts: string[] };
 
 	// 🚗 Mani libere (beta): ripasso SOLO VOCALE, l'utente non legge nulla. Un tap per
 	// partire, poi parla-ascolta-avanza in automatico. Mix: recall di frasi utili
@@ -78,11 +80,28 @@
 		} catch { /* pazienza */ }
 	}
 	const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-	// bip → breve pausa → ascolto (così il mic non prende il bip)
-	async function listenAfterBeep(): Promise<string[]> {
+
+	// I comandi sono anche BOTTONI: un tap durante l'ascolto interrompe il mic e vale
+	// come il comando (repeat/slow/pause/skip/quit).
+	let tapResolve: ((c: Command) => void) | null = null;
+	let listening = $state(false);
+	function tapCommand(c: Command): void {
+		tapResolve?.(c);
+	}
+
+	// bip → breve pausa → ascolto (voce o tap), col mic interrompibile.
+	async function listenAfterBeep(): Promise<Heard> {
 		beep();
 		await sleep(160);
-		return listenJapanese();
+		if (!running) return { alts: [] };
+		const { promise, abort } = abortableListen();
+		listening = true;
+		const tapP = new Promise<Command>((res) => { tapResolve = res; });
+		const result = await Promise.race([promise.then((alts) => ({ alts }) as Heard), tapP.then((tap) => ({ tap }) as Heard)]);
+		listening = false;
+		tapResolve = null;
+		if ('tap' in result) abort();
+		return result;
 	}
 
 	// Prepara e pronuncia il prompt del round. Ritorna, per il choukai, la frase
@@ -103,19 +122,25 @@
 		return { corretta, varianti: [...new Set([...phraseVariants(corretta), corretta])] };
 	}
 
-	// Attende in pausa finché l'utente non riparla (qualsiasi cosa riprende; «やめて» esce).
+	// Attende in pausa finché l'utente non riparla o tocca (qualsiasi cosa riprende;
+	// «やめて»/Basta esce).
 	async function pauseUntilResume(): Promise<void> {
 		status = 'paused';
-		await speakIt('In pausa. Riparla quando sei pronto.');
+		await speakIt('In pausa. Riparla o tocca quando sei pronto.');
 		while (running) {
-			const a = await listenAfterBeep();
+			const h = await listenAfterBeep();
 			if (!running) return;
-			if (a.length === 0) {
+			if ('tap' in h) {
+				if (h.tap === 'quit') { stop(); return; }
+				lastActivity = Date.now();
+				return;
+			}
+			if (h.alts.length === 0) {
 				if (Date.now() - lastActivity > SILENCE_MS) { await speakIt('Nessuna attività. Mi fermo.'); stop(); return; }
 				continue;
 			}
 			lastActivity = Date.now();
-			if (classifyUtterance(a) === 'quit') { stop(); return; }
+			if (classifyUtterance(h.alts) === 'quit') { stop(); return; }
 			return;
 		}
 	}
@@ -125,37 +150,42 @@
 		let { corretta, varianti } = await playPrompt(r, false);
 		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
-			const alts = await listenAfterBeep();
+			const h = await listenAfterBeep();
 			if (!running) return;
-			if (alts.length === 0) {
-				if (Date.now() - lastActivity > SILENCE_MS) {
-					await speakIt('Non sento risposte da un po\'. Mi fermo. A presto!');
-					stop();
+
+			let cls: string;
+			if ('tap' in h) {
+				cls = h.tap; // comando toccato
+			} else {
+				const alts = h.alts;
+				if (alts.length === 0) {
+					if (Date.now() - lastActivity > SILENCE_MS) {
+						await speakIt('Non sento risposte da un po\'. Mi fermo. A presto!');
+						stop();
+						return;
+					}
+					continue; // niente sentito, riascolta (col bip)
+				}
+				lastActivity = Date.now();
+				// PRIMA la risposta: una risposta che contiene un comando non viene rubata.
+				if (judgeAnswer(alts, varianti)) {
+					status = 'ok';
+					score += 1;
+					// solo credito POSITIVO sulle giuste (l'audio non penalizza).
+					if (r.kind === 'frase') void recordPractice('phrase:' + r.jp, true, 'facet_form_speak');
+					await speakJp('そう！');
+					await speakJp(corretta);
 					return;
 				}
-				await speakIt('Non ho sentito. Ripeti pure.');
-				continue;
+				cls = classifyUtterance(alts);
 			}
-			lastActivity = Date.now();
-			// PRIMA la risposta: così una risposta che contiene un comando non viene rubata.
-			if (judgeAnswer(alts, varianti)) {
-				status = 'ok';
-				score += 1;
-				// solo credito POSITIVO sulle risposte giuste (come ogni uso audio: gli
-				// errori NON vanno nei punti deboli, per non penalizzare l'ascolto/mic).
-				if (r.kind === 'frase') void recordPractice('phrase:' + r.jp, true, 'facet_form_speak');
-				await speakJp('そう！');
-				await speakJp(corretta);
-				return;
-			}
-			const cls = classifyUtterance(alts);
+
 			if (cls === 'slow') { ({ corretta, varianti } = await playPrompt(r, true)); continue; }
 			if (cls === 'repeat') { ({ corretta, varianti } = await playPrompt(r, false)); continue; }
 			if (cls === 'pause') { await pauseUntilResume(); if (!running) return; ({ corretta, varianti } = await playPrompt(r, false)); continue; }
 			if (cls === 'quit') { stop(); return; }
 			if (cls === 'skip') return;
-			// non è comando né risposta giusta → si dice la versione giusta, ma NIENTE
-			// penalità (nessun punto debole): l'audio non deve penalizzare.
+			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.
 			status = 'ko';
 			await speakIt('Quasi. Si dice:');
 			await speakJp(corretta, true);
@@ -232,10 +262,13 @@
 			<p class="who">{idx + 1} / {rounds.length}</p>
 			<div class="big-status" class:pulse={status === 'listening'}>{STATUS_ICON[status]}</div>
 			<p class="hint">{status === 'listening' ? 'Parla ora…' : status === 'paused' ? 'In pausa — riparla per riprendere' : status === 'speaking' ? 'Ascolta…' : status === 'ok' ? 'Bravo!' : 'Riascolta la versione giusta'}</p>
-			<div class="cmd-legend">
-				<p class="cmd-title">Puoi dire a voce:</p>
+			<p class="cmd-title">Comandi — dilli a voce o toccali</p>
+			<div class="cmd-grid">
 				{#each HF_COMMANDS as c (c.label)}
-					<div class="cmd-row"><span class="cmd-ic">{c.icon}</span> <span class="cmd-lab">{c.label}</span> <span class="cmd-say">{c.say.map((s) => `「${s}」`).join(' / ')}</span></div>
+					<button class="cmd-btn" class:live={listening} onclick={() => tapCommand(c.cmd)}>
+						<span class="cmd-say">{c.say[0]}</span>
+						<span class="cmd-lab">{c.icon} {c.label}</span>
+					</button>
 				{/each}
 			</div>
 			<button class="stop" onclick={stop}>⏹ Ferma</button>
@@ -267,12 +300,17 @@
 	.big-status { font-size: 3.4rem; line-height: 1; }
 	.big-status.pulse { animation: pulse 1s ease-in-out infinite; }
 	@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-	.cmd-legend { width: 100%; display: grid; gap: 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 6px; }
-	.cmd-title { margin: 0; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
-	.cmd-row { display: flex; align-items: center; gap: 12px; }
-	.cmd-ic { font-size: 1.7rem; width: 1.5em; text-align: center; }
-	.cmd-lab { flex: 0 0 6.5em; font-size: 1rem; color: var(--muted); }
-	.cmd-say { font-size: 1.5rem; font-weight: 800; }
+	.cmd-title { margin: 6px 0 0; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+	.cmd-grid { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+	.cmd-btn {
+		display: grid; gap: 4px; justify-items: center; text-align: center;
+		padding: 14px 8px; border-radius: 14px; border: 1.5px solid var(--line);
+		background: var(--surface-2); color: var(--ink); cursor: pointer;
+	}
+	.cmd-btn.live { border-color: var(--brand); background: var(--surface); }
+	.cmd-btn:active { transform: scale(0.97); }
+	.cmd-btn .cmd-say { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
+	.cmd-btn .cmd-lab { font-size: 0.85rem; color: var(--muted); }
 	.score-big { margin: 0; text-align: center; font-size: 2.6rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }

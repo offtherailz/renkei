@@ -70,6 +70,43 @@ export function listenJapanese(): Promise<string[]> {
 	});
 }
 
+// Come listenJapanese, ma ritorna anche un `abort()` per interrompere subito
+// l'ascolto (es. quando l'utente tocca un comando invece di parlare).
+export function abortableListen(): { promise: Promise<string[]>; abort: () => void } {
+	const Ctor = recognitionCtor();
+	if (!Ctor) return { promise: Promise.resolve([]), abort: () => {} };
+	let rec: Recognition | null = null;
+	const promise = new Promise<string[]>((resolve) => {
+		rec = new Ctor();
+		rec.lang = 'ja-JP';
+		rec.interimResults = false;
+		rec.maxAlternatives = 5;
+		let done = false;
+		const finish = (out: string[]) => {
+			if (done) return;
+			done = true;
+			resolve(out);
+		};
+		rec.onresult = (e) => {
+			const first = e.results[0];
+			const out: string[] = [];
+			if (first) for (let i = 0; i < first.length; i += 1) {
+				const t = first[i]?.transcript?.trim();
+				if (t) out.push(t);
+			}
+			finish(out);
+		};
+		rec.onerror = () => finish([]);
+		rec.onend = () => finish([]);
+		try {
+			rec.start();
+		} catch {
+			finish([]);
+		}
+	});
+	return { promise, abort: () => { try { rec?.abort(); } catch { /* pazienza */ } } };
+}
+
 const KANJI_DIGIT: Record<string, number> = { '〇': 0, '零': 0, '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9 };
 const KANJI_UNIT: Record<string, number> = { '十': 10, '百': 100, '千': 1000 };
 
