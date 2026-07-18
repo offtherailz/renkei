@@ -1,0 +1,4 @@
+# Transitori (rigenerati a ogni ciclo): non versionare
+lotto-*.md
+INDICE.md
+report.md
