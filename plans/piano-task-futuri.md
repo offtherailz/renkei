@@ -45,8 +45,42 @@ Per OGNI item, prima del rilascio:
 - Bug: B1 (くれる full-kana) verificato chiuso, B2 (formLabel rivelante) mitigato, B4
   (回る/回す split) fatto.
 
-Seed a **v63**. Ultimo deploy staging: `82eec87` (18/07: task 5 Avverbi, task 6
-Choukai «perché», task 7 catene 使役/受身 + frasi d'esempio — tutti su staging, PROD MAI).
+Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809`.
+**PROD MAI deployata.**
+
+---
+
+## Sessione 18/07 — 2° blocco (tutto su staging, PROD MAI)
+
+**FATTO (commit su main):**
+- 🎚️ **Avverbi** (`/avverbi`), 👂 **Choukai «perché»** + «▶️ Tutto il dialogo»,
+  🧬 **Catena** frasi d'esempio + catene 使役/受身.
+- ⚖️ **Comparazioni** (`/comparazioni`, beta): 4 round (どっち/一番/componi/ほど〜ない),
+  dati curati `src/lib/data/comparazioni.json`, credito facet_use aggettivo, **mini-guida**
+  linkata `/comparazioni/guida`.
+- **`TokenCompose`** (`src/lib/components/TokenCompose.svelte`): banco↔risposta con tap +
+  **drag&drop pointer-based** (touch ok). Usato da Comparazioni e dalla composizione di
+  `/consolida`. **NON** ancora migrati `/dettato`, `/riordina`, quiz (era il task 2b).
+- `/consolida`: composizione col riquadro TokenCompose; a fine domanda-**frase** mostra la
+  frase (cliccabile) + 🔊 + significato e la **legge in automatico**; frase col buco visibile
+  **prima** della risposta anche per usage/verb-form-cloze (fix `promptOf`); forma richiesta
+  della coniugazione in **chip evidenziato**.
+- **SRS «Studia una volta al giorno»** (default ON): dopo una risposta giusta il ripasso che
+  cadrebbe oggi slitta a domani (`applySrsReview` clamp); sbagliate a +8 min. Toggle in
+  Impostazioni + step onboarding «Come vuoi studiare?»; home coerente.
+- Fix: audio delle **domande di ascolto parte subito** (defer 150ms, tutti i rami);
+  conteggio ripassi home conta solo carte **generabili**; **Lessico extra** in pausa di default.
+
+**RESTA APERTO da questa sessione:**
+- 🔲 **Bug conteggio ripassi**: l'utente vede ancora «1 in attesa + 1 in pausa» poi «tutto
+  fatto». Il fix generabilità non basta. **Serve il bundle esportato** per diagnosi con
+  `scratchpad/diag-due.mjs` (il bundle NON include obiettivi/contatori/settings).
+- 🔲 **Task 2b**: migrare `/dettato`, `/riordina` e il quiz (sentence-ordering + composition)
+  a `TokenCompose` (dedup + drag&drop ovunque). Componente già pronto.
+- 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
+  Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
+- 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
+- 🔲 **Home**: offrire il **+5 carte nuove** già dalla card «Piano di oggi».
 
 ---
 
