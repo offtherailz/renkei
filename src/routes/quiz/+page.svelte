@@ -500,7 +500,7 @@
 			bankTokens = nw.q.mode === 'sentence-ordering' || nw.q.mode === 'composition' ? shuffle(nw.q.tokens) : [];
 			answerTokens = [];
 			heard = ''; micState = 'idle';
-			if (nw.q.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(nw.q.readingToSpeak);
+			autoplayListening(nw.q);
 			startAnswerTimer();
 			return;
 		}
@@ -526,6 +526,7 @@
 					bankTokens = q2.mode === 'sentence-ordering' || q2.mode === 'composition' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
 					heard = ''; micState = 'idle';
+					autoplayListening(q2);
 					startAnswerTimer();
 					return;
 				}
@@ -541,8 +542,18 @@
 		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
 		answerTokens = [];
 		heard = ''; micState = 'idle';
-		if (question.mode === 'listening' && !appState.quizMuted) speakSentenceJapanese(question.readingToSpeak);
+		autoplayListening(question);
 		startAnswerTimer();
+	}
+
+	// Fa partire SUBITO l'audio di una domanda di ascolto. Piccolo defer: se la
+	// domanda arriva a ridosso dell'audio della risposta precedente, un speak()
+	// troppo vicino al cancel() interno viene scartato da Chrome — 150ms bastano
+	// a farlo settlare senza ritardo percepibile.
+	function autoplayListening(q: QuizQuestion): void {
+		if (q.mode !== 'listening' || appState.quizMuted) return;
+		const toSay = (q as ListeningQuestion).readingToSpeak;
+		setTimeout(() => speakSentenceJapanese(toSay), 150);
 	}
 
 	function isSessionExpired(): boolean {
