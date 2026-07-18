@@ -45,7 +45,8 @@ Per OGNI item, prima del rilascio:
 - Bug: B1 (くれる full-kana) verificato chiuso, B2 (formLabel rivelante) mitigato, B4
   (回る/回す split) fatto.
 
-Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
+Seed a **v63**. Ultimo deploy staging: `82eec87` (18/07: task 5 Avverbi, task 6
+Choukai «perché», task 7 catene 使役/受身 + frasi d'esempio — tutti su staging, PROD MAI).
 
 ---
 
@@ -71,11 +72,21 @@ Seed a **v63**. Ultimo deploy staging: `0eeb2c5`.
    accredita ENTRAMBE le parole della coppia (doppio incremento). Distrattori = descrizioni
    della differenza. Da progettare.
 4. **Pagine annidate /particelle/[slug]** — stesso schema di `/forme/[slug]`, non ancora fatto.
-5. **Avverbi (副詞) allenabili** — oggi nessun drill di classe dedicato.
-6. **Choukai: copione finale ricco** — ascoltare le singole frasi, vedere risposte e perché.
+5. ✅ (18/07) **🎚️ Avverbi (副詞) allenabili** (/avverbi, beta) — cloze in frase:
+   l'avverbio è cancellato dalla sua frase d'esempio, si sceglie fra 4 avverbi;
+   dopo la risposta frase intera cliccabile (InteractiveSentence), traduzione, TTS.
+   Credito su `word:<id>` facet_use (🧩). Link in /giochi + /guida.
+6. ✅ (18/07) **Choukai: copione finale ricco** — ogni domanda nel recap spiega
+   il «perché» (💡): ripensamento «やっぱり» (conta l'ultima decisione), esca stesso
+   tipo, o diretta — calcolato in `instantiateListening` dalla struttura, cita
+   sempre la risposta giusta. Aggiunto «▶️ Tutto il dialogo». Le singole frasi già
+   riascoltabili (🔊) e cliccabili. Test esteso.
 7. ✅ (18/07) **🧬 Catena di forme** (/catena, beta): 5 catene a 2 passi (可能→ない/た,
    たい→くない/かった, て→ている), catena visuale, senso it, credito conj:*+gram:*.
-   Estensioni possibili: 使役/受身 al passo 1, catene a 3 passi (られたくない).
+   ✅ (18/07) Estensioni: **frasi d'esempio curate** per ogni catena (giapponese vero
+   + it + TTS, «come nella frase»); catene **使役形→negativa** e **受身形→passato**
+   (passivo ristretto ai godan, così られる ≠ potenziale ichidan).
+   Ancora possibile: catene a 3 passi (られたくない) — richiede uno step3 nel Round.
 8. **Toggle kanji on/off** (idea utente) — grosso, tocca il rendering ovunque. Valutare
    se/quando; segnato, non urgente. I kanji N1 in parole N5 restano com'è per ora.
 9. **Microfono: permessi e degradazione** — su http non-localhost l'API non c'è (serve
