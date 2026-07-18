@@ -9,6 +9,7 @@
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
+	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import {
 		createCompositionQuestion,
 		createFlashcardRecognitionQuestion,
@@ -73,18 +74,6 @@
 			compBank = [...q.tokens];
 			compAnswer = [];
 		}
-	}
-	function compPickToken(i: number): void {
-		const t = compBank[i];
-		if (t === undefined || revealed) return;
-		compAnswer = [...compAnswer, t];
-		compBank = compBank.filter((_, j) => j !== i);
-	}
-	function compReturnToken(i: number): void {
-		const t = compAnswer[i];
-		if (t === undefined || revealed) return;
-		compBank = [...compBank, t];
-		compAnswer = compAnswer.filter((_, j) => j !== i);
 	}
 	function compSubmit(): void {
 		if (!current || current.mode !== 'composition' || revealed || compAnswer.length === 0) return;
@@ -568,17 +557,12 @@
 				<p class="qprompt">{promptOf(current)}</p>
 				{#if current.mode === 'composition'}
 					{#if current.reading}<p class="muted" style="text-align:center;">Lettura: {current.reading}</p>{/if}
-					<div class="choices comp-answer">
-						{#if compAnswer.length === 0}<span class="muted">Componi qui la parola…</span>{/if}
-						{#each compAnswer as tok, i (i)}
-							<button class="choice comp-token" disabled={revealed} onclick={() => compReturnToken(i)}>{tok}</button>
-						{/each}
-					</div>
-					<div class="choices">
-						{#each compBank as tok, i (i)}
-							<button class="choice comp-token" disabled={revealed} onclick={() => compPickToken(i)}>{tok}</button>
-						{/each}
-					</div>
+					<TokenCompose
+						bind:bank={compBank}
+						bind:answer={compAnswer}
+						disabled={revealed}
+						placeholder="Componi qui la parola…"
+						status={revealed ? (picked === current.correctAnswer ? 'right' : 'wrong') : null} />
 					{#if !revealed}
 						<button class="next" onclick={compSubmit} disabled={compAnswer.length === 0}>Conferma parola</button>
 					{:else}
