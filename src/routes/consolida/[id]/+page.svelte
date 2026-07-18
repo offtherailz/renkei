@@ -424,8 +424,10 @@
 		const rs = revealSentence(current);
 		if (rs) {
 			// ogni domanda su una FRASE legge in automatico la frase completa dopo la
-			// risposta (come il quiz), non solo particle/usage/verb-form
-			speakSentenceJapanese(rs.jp);
+			// risposta. Defer 150ms: lo speak a ridosso del re-render (con l'audio
+			// precedente in coda) veniva scartato da Chrome — come nel quiz.
+			const say = rs.jp;
+			setTimeout(() => speakSentenceJapanese(say), 150);
 		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
 			speakSentenceJapanese(correctOf(current));
 		} else if (m === 'flashcard-recognition' && !counterMode) {
@@ -593,6 +595,9 @@
 					{/each}
 				</div>
 				{/if}
+				{#if !revealed}
+					<button class="skip" onclick={next}>Salta questa →</button>
+				{/if}
 				{#if revealed}
 					<!-- alla fine: la frase (cliccabile + ascoltabile) e il suo significato -->
 					{@const rs = revealSentence(current)}
@@ -646,6 +651,8 @@
 	.choice.right { border-color: var(--success); background: rgba(52,201,138,0.16); }
 	.choice.wrong { border-color: var(--danger); background: rgba(239,107,107,0.16); }
 	.next { justify-self: end; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--brand); background: transparent; color: var(--brand); font-weight: 600; cursor: pointer; }
+	.skip { justify-self: end; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 0.82rem; cursor: pointer; }
+	.skip:hover { border-color: var(--brand); color: var(--brand); }
 	.next:hover { background: var(--brand); color: #fff; }
 	.meanings { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; color: var(--muted); }
 	.muted { color: var(--muted); }
