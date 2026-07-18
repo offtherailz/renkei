@@ -1,0 +1,1 @@
+const n="renkei_game_highscores";function o(){if(typeof localStorage>"u")return{};try{return JSON.parse(localStorage.getItem(n)??"{}")}catch{return{}}}function a(e){return o()[e]??0}function i(e,r){const t=o();return r<=(t[e]??0)?!1:(t[e]=r,typeof localStorage<"u"&&localStorage.setItem(n,JSON.stringify(t)),!0)}export{a as g,i as s};
