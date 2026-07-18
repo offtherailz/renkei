@@ -11,7 +11,7 @@
 	import { computeStreak, celebrateOncePerDay, detectNewCompletions, type Streak } from '$lib/core/celebration';
 	import { autoAdvanceCompletedLessons, listCourses, importCourseDataset, studyOnlyCourse } from '$lib/db/course-import';
 	import { setObjectiveTreeEnabled } from '$lib/db/objectives';
-	import { weakDoneToday, activityStartedToday, markActivityStartedToday } from '$lib/core/dailyPlan';
+	import { activityStartedToday, markActivityStartedToday } from '$lib/core/dailyPlan';
 
 	let summaries = $state<ObjectiveSummary[]>([]);
 	let dueCount = $state(0);
@@ -25,7 +25,6 @@
 	// ── Piano di oggi ──
 	let weakest = $state<WeakItem[]>([]);
 	// completamento delle voci del piano (spunte giornaliere, localStorage)
-	let weakDone = $state(false);
 	let activityDone = $state(false);
 	// attività a rotazione giornaliera (varietà senza dover scegliere)
 	const ACTIVITIES = [
@@ -66,7 +65,6 @@
 		dueCount = due.attivi;
 		duePaused = due.inPausa;
 		unseenCount = unseen;
-		weakDone = weakDoneToday();
 		activityDone = activityStartedToday();
 		void loadWeakest();
 		void loadStreak(due.attivi);
@@ -80,10 +78,9 @@
 	const reviewsDone = $derived(
 		dueCount === 0 && !newCardsAvailable && (sessionStreak?.attivoOggi ?? false)
 	);
-	const planTotal = $derived(2 + (weakest.length > 0 ? 1 : 0));
-	const planDone = $derived(
-		(reviewsDone ? 1 : 0) + (weakest.length > 0 && weakDone ? 1 : 0) + (activityDone ? 1 : 0)
-	);
+	// Punti deboli è un teaser (non un check giornaliero affidabile): fuori dal conteggio.
+	const planTotal = $derived(2);
+	const planDone = $derived((reviewsDone ? 1 : 0) + (activityDone ? 1 : 0));
 
 	function startActivity(): void {
 		// la navigazione del link procede da sola: qui solo la spunta
@@ -334,10 +331,10 @@
 			<span class="plan-go">→</span>
 		</a>
 		{#if weakest.length > 0}
-			<div class="plan-row static weak-teaser" class:done={weakDone}>
-				<span class="plan-icon">{weakDone ? '✅' : '💪'}</span>
+			<div class="plan-row static weak-teaser">
+				<span class="plan-icon">💪</span>
 				<span class="plan-body">
-					<span class="plan-label">Punti deboli {#if weakDone}<span class="done-note">ripassati oggi ✓</span>{/if} <a class="weak-all" href="{base}/quiz?deboli=1">🔁 ripassali</a> <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
+					<span class="plan-label">Punti deboli <a class="weak-all" href="{base}/quiz?deboli=1">🔁 ripassali</a> <a class="weak-all" href="{base}/punti-deboli">vedi tutti →</a></span>
 					<span class="plan-chips">
 						{#each weakest as w (w.href)}
 							<a class="weak-chip" href="{base}/{w.href}">{w.label} <small>{w.pct}%</small></a>
@@ -757,7 +754,6 @@
 	.plan-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); text-decoration: none; color: var(--ink); }
 	.plan-row:not(.static):hover { border-color: var(--brand); }
 	.plan-row.done { opacity: 0.65; border-style: dashed; }
-	.done-note { font-size: 0.72rem; font-weight: 600; color: var(--success); }
 	.plan-progress {
 		font-size: 0.72rem; font-weight: 800; color: var(--muted);
 		border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; vertical-align: middle;
