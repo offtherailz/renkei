@@ -1,0 +1,24 @@
+{
+  "_nota": "Dati curati per il gioco ⚖️ Comparazioni. Fatti veri e non opinabili. jp in kana (livello N5) o kanji (N4). adj.dict = forma del dizionario (い-aggettivo), adj.neg = negativa 〜くない fornita esplicita (niente derivazione automatica). La traduzione italiana delle frasi è costruita a runtime dalle glosse .it.",
+  "coppie": [
+    { "a": { "jp": "ねこ", "it": "il gatto" }, "b": { "jp": "ぞう", "it": "l'elefante" }, "adj": { "dict": "おおきい", "neg": "おおきくない", "it": "grande" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "じてんしゃ", "it": "la bicicletta" }, "b": { "jp": "しんかんせん", "it": "lo shinkansen" }, "adj": { "dict": "はやい", "neg": "はやくない", "it": "veloce" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "でんしゃ", "it": "il treno" }, "b": { "jp": "ひこうき", "it": "l'aereo" }, "adj": { "dict": "はやい", "neg": "はやくない", "it": "veloce" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "スカイツリー", "it": "la Skytree" }, "b": { "jp": "ふじさん", "it": "il monte Fuji" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "alto" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "おか", "it": "la collina" }, "b": { "jp": "やま", "it": "la montagna" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "alto" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "ふゆ", "it": "l'inverno" }, "b": { "jp": "なつ", "it": "l'estate" }, "adj": { "dict": "あつい", "neg": "あつくない", "it": "caldo" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "つき", "it": "la luna" }, "b": { "jp": "たいよう", "it": "il sole" }, "adj": { "dict": "あかるい", "neg": "あかるくない", "it": "luminoso" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "さかな", "it": "il pesce" }, "b": { "jp": "くじら", "it": "la balena" }, "adj": { "dict": "おおきい", "neg": "おおきくない", "it": "grande" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "ぎん", "it": "l'argento" }, "b": { "jp": "きん", "it": "l'oro" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "costoso" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "みず", "it": "l'acqua" }, "b": { "jp": "こおり", "it": "il ghiaccio" }, "adj": { "dict": "つめたい", "neg": "つめたくない", "it": "freddo" }, "winner": "b", "level": "N5" },
+    { "a": { "jp": "大阪", "it": "Osaka" }, "b": { "jp": "東京", "it": "Tokyo" }, "adj": { "dict": "おおい", "neg": "おおくない", "it": "numeroso (di abitanti)" }, "winner": "b", "level": "N4" },
+    { "a": { "jp": "秋", "it": "l'autunno" }, "b": { "jp": "冬", "it": "l'inverno" }, "adj": { "dict": "さむい", "neg": "さむくない", "it": "freddo" }, "winner": "b", "level": "N4" },
+    { "a": { "jp": "川", "it": "il fiume" }, "b": { "jp": "海", "it": "il mare" }, "adj": { "dict": "ひろい", "neg": "ひろくない", "it": "vasto" }, "winner": "b", "level": "N4" }
+  ],
+  "superlativi": [
+    { "gruppo": { "it": "le montagne del mondo" }, "items": [{ "jp": "エベレスト", "it": "l'Everest" }, { "jp": "ふじさん", "it": "il monte Fuji" }, { "jp": "スカイツリー", "it": "la Skytree" }], "adj": { "dict": "たかい", "it": "alto" }, "winner": 0, "level": "N5" },
+    { "gruppo": { "it": "gli animali" }, "items": [{ "jp": "ぞう", "it": "l'elefante" }, { "jp": "ねこ", "it": "il gatto" }, { "jp": "ねずみ", "it": "il topo" }], "adj": { "dict": "おおきい", "it": "grande" }, "winner": 0, "level": "N5" },
+    { "gruppo": { "it": "i mezzi di trasporto" }, "items": [{ "jp": "ひこうき", "it": "l'aereo" }, { "jp": "しんかんせん", "it": "lo shinkansen" }, { "jp": "じてんしゃ", "it": "la bicicletta" }], "adj": { "dict": "はやい", "it": "veloce" }, "winner": 0, "level": "N5" },
+    { "gruppo": { "it": "le stagioni" }, "items": [{ "jp": "なつ", "it": "l'estate" }, { "jp": "はる", "it": "la primavera" }, { "jp": "ふゆ", "it": "l'inverno" }], "adj": { "dict": "あつい", "it": "caldo" }, "winner": 0, "level": "N5" }
+  ]
+}

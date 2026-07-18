@@ -627,6 +627,11 @@
 					<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
 				</a>
+				<a class="cat-card" href="{base}/comparazioni">
+					<span class="cat-icon">⚖️</span>
+					<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">より・のほうが・いちばん・ほど〜ない: chi è più… ? componi il confronto</span>
+				</a>
 			</div>
 
 			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
