@@ -1,1 +1,0 @@
-import{Y as t,a8 as i,aB as c,a4 as f}from"./sX5Z_P4f.js";import{B as y}from"./sk-OT_FQ.js";const l=Symbol("NaN");function h(r,e,n){t&&i();var o=new y(r),s=!c();f(()=>{var a=e();a!==a&&(a=l),s&&a!==null&&typeof a=="object"&&(a={}),o.ensure(a,n)})}export{h as k};

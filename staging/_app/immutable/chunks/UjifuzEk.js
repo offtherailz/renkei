@@ -1,1 +1,0 @@
-import{t as r}from"./DVItI6fZ.js";async function n(t){t&&(await r(),requestAnimationFrame(()=>{var o;(o=document.getElementById(t))==null||o.scrollIntoView({behavior:"smooth",block:"start"})}))}export{n as s};
