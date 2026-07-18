@@ -50,6 +50,41 @@
 	const speakIt = (t: string) => speakSentenceJapaneseAsync(t, { lang: 'it-IT' });
 	const speakJp = (t: string, slow = false) => speakSentenceJapaneseAsync(t, slow ? { rate: 0.6 } : {});
 
+	// Bip lievissimo prima di ascoltare (segnala «parla ora»). Web Audio, ~110ms,
+	// volume basso. primeBeep() lo prepara sul gesto d'avvio (sblocca l'AudioContext).
+	let audioCtx: AudioContext | null = null;
+	function primeBeep(): void {
+		try {
+			const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+			if (Ctor && !audioCtx) audioCtx = new Ctor();
+			void audioCtx?.resume?.();
+		} catch { /* niente audio: pazienza */ }
+	}
+	function beep(): void {
+		if (!audioCtx) return;
+		try {
+			const t = audioCtx.currentTime;
+			const o = audioCtx.createOscillator();
+			const g = audioCtx.createGain();
+			o.type = 'sine';
+			o.frequency.value = 880;
+			g.gain.setValueAtTime(0.0001, t);
+			g.gain.exponentialRampToValueAtTime(0.05, t + 0.012);
+			g.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+			o.connect(g);
+			g.connect(audioCtx.destination);
+			o.start(t);
+			o.stop(t + 0.12);
+		} catch { /* pazienza */ }
+	}
+	const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+	// bip → breve pausa → ascolto (così il mic non prende il bip)
+	async function listenAfterBeep(): Promise<string[]> {
+		beep();
+		await sleep(160);
+		return listenJapanese();
+	}
+
 	// Prepara e pronuncia il prompt del round. Ritorna, per il choukai, la frase
 	// corretta + le sue varianti (per il match); per le frasi, quelle del round.
 	async function playPrompt(r: HFRound, slow: boolean): Promise<{ corretta: string; varianti: string[] }> {
@@ -73,7 +108,7 @@
 		status = 'paused';
 		await speakIt('In pausa. Riparla quando sei pronto.');
 		while (running) {
-			const a = await listenJapanese();
+			const a = await listenAfterBeep();
 			if (!running) return;
 			if (a.length === 0) {
 				if (Date.now() - lastActivity > SILENCE_MS) { await speakIt('Nessuna attività. Mi fermo.'); stop(); return; }
@@ -90,7 +125,7 @@
 		let { corretta, varianti } = await playPrompt(r, false);
 		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
-			const alts = await listenJapanese();
+			const alts = await listenAfterBeep();
 			if (!running) return;
 			if (alts.length === 0) {
 				if (Date.now() - lastActivity > SILENCE_MS) {
@@ -151,9 +186,9 @@
 		scene = 'play';
 		running = true;
 		lastActivity = Date.now();
+		primeBeep();
 		await acquireWakeLock();
 		if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisibility);
-		await speakIt('Parla quando senti il microfono. Di\' «もう一度» per risentire, «次» per saltare.');
 		await mainLoop();
 	}
 
@@ -229,15 +264,15 @@
 	.hint { margin: 0; text-align: center; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 	.hint.small { font-size: 0.8rem; }
 	.hint.warn { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 10px; padding: 10px; }
-	.big-status { font-size: 5rem; line-height: 1; }
+	.big-status { font-size: 3.4rem; line-height: 1; }
 	.big-status.pulse { animation: pulse 1s ease-in-out infinite; }
 	@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-	.cmd-legend { width: 100%; display: grid; gap: 4px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 4px; }
-	.cmd-title { margin: 0 0 2px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
-	.cmd-row { display: flex; align-items: baseline; gap: 8px; font-size: 0.9rem; }
-	.cmd-ic { width: 1.4em; text-align: center; }
-	.cmd-lab { flex: 0 0 6.5em; color: var(--muted); }
-	.cmd-say { font-weight: 700; }
+	.cmd-legend { width: 100%; display: grid; gap: 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 6px; }
+	.cmd-title { margin: 0; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+	.cmd-row { display: flex; align-items: center; gap: 12px; }
+	.cmd-ic { font-size: 1.7rem; width: 1.5em; text-align: center; }
+	.cmd-lab { flex: 0 0 6.5em; font-size: 1rem; color: var(--muted); }
+	.cmd-say { font-size: 1.5rem; font-weight: 800; }
 	.score-big { margin: 0; text-align: center; font-size: 2.6rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }
