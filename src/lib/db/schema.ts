@@ -38,11 +38,17 @@ export class JapaneseStudyDB extends Dexie {
   user_corrections!: Table<UserCorrection, string>;
 
   constructor() {
-    // Ambiente di test (npm run deploy:staging) sullo stesso dominio GitHub
-    // Pages, sottocartella /staging/: IndexedDB è isolato per ORIGINE, non per
-    // percorso, quindi senza un nome diverso stabile e test condividerebbero
-    // (e si corromperebbero a vicenda) lo stesso database locale.
-    const dbName = import.meta.env.VITE_APP_ENV === "staging" ? "japanese_study_pwa_staging" : "japanese_study_pwa";
+    // Ambienti di test (deploy:dev /dev, deploy:staging /staging) sullo stesso
+    // dominio GitHub Pages: IndexedDB è isolato per ORIGINE, non per percorso,
+    // quindi senza un nome diverso stabile, dev/staging/prod condividerebbero (e
+    // si corromperebbero a vicenda) lo stesso database locale.
+    const env = import.meta.env.VITE_APP_ENV;
+    const dbName =
+      env === "staging"
+        ? "japanese_study_pwa_staging"
+        : env === "dev"
+          ? "japanese_study_pwa_dev"
+          : "japanese_study_pwa";
     super(dbName);
 
     this.version(1).stores({

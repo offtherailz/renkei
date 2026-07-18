@@ -7,7 +7,11 @@ App di studio giapponese N5/N4 (SvelteKit 2 + Svelte 5 runes, Dexie, adapter-sta
 1. **Una cosa alla volta**: feature/fix → check → build → commit → deploy, poi la prossima.
 2. `npm run check` e `npm run build` devono essere puliti (0 errori/warning). Engine nuovi o logica dati → test vitest (`npx vitest run`).
 3. **Commit SOLO a nome utente**: `--author="Lorenzo Natali <offtherailz@gmail.com>"`, MAI Co-Authored-By o attribuzioni a Claude.
-4. Deploy: `npm run release`, poi verificare `gh run list` → conclusion `success`. Se Pages fallisce in modo transitorio: `npm run deploy` di nuovo.
+4. **Deploy — pipeline a 3 ambienti** (mai deploy senza ordine; da questa macchina `PAGES_REPO_URL` ssh):
+   - **Nuove feature**: `deploy:dev` (`…/renkei/dev/`) → `deploy:staging` (`…/renkei/staging/`) → prod (`npm run release`, root `…/renkei/`).
+   - **Bugfix**: `deploy:staging` → prod. **Hotfix** (prod rotta): prod diretto, poi riporta indietro.
+   - Ogni ambiente ha DB IndexedDB isolato (`_dev`/`_staging`/prod) e base-path proprio: dev/staging non toccano lo studio reale.
+   - Dopo prod: verificare `gh run list` → conclusion `success` (se Pages fallisce in modo transitorio: `npm run deploy` di nuovo).
 
 ## Non dimenticare quando aggiungi una FEATURE
 
