@@ -250,6 +250,10 @@ export interface AppSettings extends BaseEntity {
   // esempi grammatica). Default true; spegnerli per allenare la lettura.
   furigana_visibile?: boolean;
   nuove_carte_al_giorno?: number;
+  // Cadenza di ripasso. Default true: ogni carta torna al massimo una volta al
+  // giorno (dopo una risposta giusta il prossimo ripasso viene spostato a domani
+  // se cadrebbe ancora oggi). Falso = "learning steps" ravvicinati (10/60 min).
+  ripasso_una_volta_al_giorno?: boolean;
 }
 
 export interface DatabaseSeed {

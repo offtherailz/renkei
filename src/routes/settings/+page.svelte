@@ -204,6 +204,11 @@
 	</label>
 
 	<label class="setting-row">
+		<span>📅 Studia una volta al giorno<br /><small class="hint-text">Ogni carta torna al massimo una volta al giorno: dopo una risposta giusta il prossimo ripasso è a domani. Spegnilo per i ripassi ravvicinati (10/60 min) e poter tornare più volte in giornata.</small></span>
+		<input type="checkbox" checked={appState.settings.ripasso_una_volta_al_giorno ?? true} onchange={(e) => (appState.settings.ripasso_una_volta_al_giorno = (e.target as HTMLInputElement).checked)} />
+	</label>
+
+	<label class="setting-row">
 		<span>Carte nuove al giorno<br /><small class="hint-text">Quante parole/kanji/grammatica MAI viste entrano in circolo ogni giorno. I ripassi già dovuti restano sempre illimitati — questo limite serve solo a far scendere il contatore invece di farlo crescere sempre.</small></span>
 		<input
 			type="number"

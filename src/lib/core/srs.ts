@@ -6,6 +6,15 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
+// Mezzanotte LOCALE del giorno successivo a nowTs. Usata per il clamp «una volta
+// al giorno»: un ripasso che cadrebbe ancora oggi viene spostato a domani.
+export function startOfNextLocalDay(nowTs: number): number {
+  const d = new Date(nowTs);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 1);
+  return d.getTime();
+}
+
 export function createInitialSrs(itemId: string, nowTs = Date.now()): SrsProgress {
   return {
     id_item: itemId,
@@ -18,7 +27,15 @@ export function createInitialSrs(itemId: string, nowTs = Date.now()): SrsProgres
   };
 }
 
-export function applySrsReview(progress: SrsProgress, isCorrect: boolean, nowTs = Date.now()): SrsProgress {
+// oncePerDay: se true, un ripasso corretto che cadrebbe ancora oggi viene spostato
+// a domani (niente "learning steps" ravvicinati). Le risposte sbagliate restano a
+// +8 min (rirevisione nella sessione) anche con oncePerDay.
+export function applySrsReview(
+  progress: SrsProgress,
+  isCorrect: boolean,
+  nowTs = Date.now(),
+  oncePerDay = false
+): SrsProgress {
   const nextStage = isCorrect ? clamp(progress.srs_stage + 1, 0, 7) : clamp(progress.srs_stage - 1, 0, 7);
   const nextEase = isCorrect ? clamp(progress.ease_factor + 0.05, 1.3, 2.8) : clamp(progress.ease_factor - 0.2, 1.3, 2.8);
   const nextStreak = isCorrect ? progress.streak + 1 : 0;
@@ -28,6 +45,7 @@ export function applySrsReview(progress: SrsProgress, isCorrect: boolean, nowTs 
     const mins = REVIEW_INTERVAL_MINUTES[nextStage] ?? REVIEW_INTERVAL_MINUTES[REVIEW_INTERVAL_MINUTES.length - 1];
     const scaled = Math.round(mins * Math.max(1, nextEase * 0.9));
     nextReviewDate = nowTs + scaled * 60_000;
+    if (oncePerDay) nextReviewDate = Math.max(nextReviewDate, startOfNextLocalDay(nowTs));
   } else {
     nextReviewDate = nowTs + 8 * 60_000;
   }

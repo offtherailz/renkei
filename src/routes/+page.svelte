@@ -48,6 +48,9 @@
 		unseenCount > 0 &&
 			canIntroduceNewCard(appState.userProfile ?? {}, appState.settings.nuove_carte_al_giorno ?? DEFAULT_NEW_CARDS_PER_DAY)
 	);
+	// In modalità "più volte al giorno" (toggle spento) le carte tornano dovute in
+	// giornata: la home non deve dire «tutto fatto per oggi».
+	const studyOncePerDay = $derived(appState.settings.ripasso_una_volta_al_giorno ?? true);
 	// Quante carte nuove entrerebbero ancora oggi: budget residuo, limitato da
 	// quante mai-viste esistono davvero negli obiettivi attivi.
 	const newCardsToday = $derived.by(() => {
@@ -125,7 +128,7 @@
 	// studia solo la lezione 1 — le prossime si sbloccano da sole.
 	const ONBOARDING_KEY = 'renkei_onboarding_seen';
 	let showOnboarding = $state(false);
-	let onboardingStep = $state<'choice' | 'level'>('choice');
+	let onboardingStep = $state<'choice' | 'level' | 'mode'>('choice');
 	let onboardingBusy = $state(false);
 	let onboardingError = $state('');
 
@@ -155,11 +158,22 @@
 				await setObjectiveTreeEnabled('obj-catalog-n5', false);
 				onboardingNotice = 'Ho messo in pausa il catalogo N5 (i progressi restano salvati) — lo riattivi quando vuoi qui sotto, «Catalogo JLPT N5 → ✓ In studio».';
 			}
-			dismissOnboarding();
+			onboardingStep = 'mode';
 			await loadData();
 		} finally {
 			onboardingBusy = false;
 		}
+	}
+
+	// Cadenza di studio scelta nell'intro: imposta e persiste ripasso_una_volta_al_giorno.
+	async function chooseMode(oncePerDay: boolean): Promise<void> {
+		appState.settings.ripasso_una_volta_al_giorno = oncePerDay;
+		try {
+			const updated = { ...$state.snapshot(appState.settings), updated_at: Date.now() };
+			await db.app_settings.put(updated);
+			appState.settings = updated;
+		} catch { /* niente storage: pazienza, resta il default in memoria */ }
+		dismissOnboarding();
 	}
 
 	async function chooseGuidato(): Promise<void> {
@@ -174,7 +188,7 @@
 			}
 			await studyOnlyCourse('genki-1');
 			onboardingNotice = '🎯 Segui Genki I lezione per lezione: il catalogo libero N5/N4 è in pausa per non distrarti (i progressi restano salvati) — lo riattivi quando vuoi qui sotto.';
-			dismissOnboarding();
+			onboardingStep = 'mode';
 			await loadData();
 		} catch (e) {
 			onboardingError = `Non sono riuscito a impostare il percorso guidato (${String(e)}). Puoi farlo comunque da Corsi quando vuoi.`;
@@ -238,7 +252,7 @@
 				<span class="onboarding-choice-title">🌱 Sono all'inizio</span>
 				<span class="onboarding-choice-hint">Voglio un percorso guidato — importo Genki I e parto dalla lezione 1, il resto resta in pausa.</span>
 			</button>
-		{:else}
+		{:else if onboardingStep === 'level'}
 			<h2 class="onboarding-title">Quale livello attivi?</h2>
 			<p class="onboarding-sub">Il resto resta in pausa — lo riattivi quando vuoi da «Il piano di oggi».</p>
 			<button class="onboarding-choice" onclick={() => pickLevel('N5')} disabled={onboardingBusy}>
@@ -252,6 +266,17 @@
 			<button class="onboarding-choice" onclick={() => pickLevel('tutti')} disabled={onboardingBusy}>
 				<span class="onboarding-choice-title">📚 Entrambi</span>
 				<span class="onboarding-choice-hint">N5 e N4 attivi insieme, come oggi.</span>
+			</button>
+		{:else}
+			<h2 class="onboarding-title">Come vuoi studiare?</h2>
+			<p class="onboarding-sub">Puoi cambiare quando vuoi in Impostazioni.</p>
+			<button class="onboarding-choice" onclick={() => chooseMode(true)} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">📅 Una volta al giorno (consigliato)</span>
+				<span class="onboarding-choice-hint">Ogni carta torna al massimo una volta al giorno: finito il ripasso, sei a posto fino a domani.</span>
+			</button>
+			<button class="onboarding-choice" onclick={() => chooseMode(false)} disabled={onboardingBusy}>
+				<span class="onboarding-choice-title">🔁 Più volte al giorno</span>
+				<span class="onboarding-choice-hint">Ripassi ravvicinati (10/60 min) sulle carte nuove: puoi tornare più volte in giornata.</span>
 			</button>
 		{/if}
 		{#if onboardingBusy}<p class="onboarding-status">Preparo il percorso…</p>{/if}
@@ -304,7 +329,7 @@
 			<span class="plan-icon">{reviewsDone ? '✅' : dueCount > 0 ? '📋' : '✨'}</span>
 			<span class="plan-body">
 				<span class="plan-label">Ripassi SRS</span>
-				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : newCardsAvailable ? 'nessun ripasso in attesa — carte nuove pronte da iniziare ✨' : sessionStreak?.attivoOggi ? 'tutto fatto per oggi — おつかれさま！🎉' : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''}</span>
+				<span class="plan-hint">{dueCount > 0 ? `${dueCount} in attesa: prima questi!` : newCardsAvailable ? 'nessun ripasso in attesa — carte nuove pronte da iniziare ✨' : sessionStreak?.attivoOggi ? (studyOncePerDay ? 'tutto fatto per oggi — おつかれさま！🎉' : 'ripassi di adesso fatti — altri possono tornare più tardi oggi ⏳') : 'tutto fatto — torna più tardi'}{duePaused > 0 ? ` (+${duePaused} in pausa)` : ''}</span>
 			</span>
 			<span class="plan-go">→</span>
 		</a>

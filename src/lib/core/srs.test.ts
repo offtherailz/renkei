@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate, markKnown, snoozeReview, setBuried } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate, markKnown, snoozeReview, setBuried, startOfNextLocalDay } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -174,5 +174,37 @@ describe("controlli utente sullo scheduling (La so già / Rimanda / Seppellisci)
 		expect(buried.buried).toBe(true);
 		expect(setBuried(buried, false).buried).toBe(false);
 		expect(buried.next_review_date).toBe(base.next_review_date);
+	});
+});
+
+describe('cadenza "una volta al giorno" (oncePerDay)', () => {
+	const now = new Date('2026-07-18T09:00:00').getTime(); // mattina
+
+	it("corretto + oncePerDay=false: intervallo ravvicinato (< 24h) a stage 0→1", () => {
+		const r = applySrsReview(createInitialSrs("word:x", now), true, now, false);
+		expect(r.next_review_date - now).toBeLessThan(24 * 60 * 60_000);
+	});
+
+	it("corretto + oncePerDay=true: ripasso spostato a domani (>= mezzanotte successiva)", () => {
+		const r = applySrsReview(createInitialSrs("word:x", now), true, now, true);
+		expect(r.next_review_date).toBeGreaterThanOrEqual(startOfNextLocalDay(now));
+	});
+
+	it("sbagliato + oncePerDay=true: resta a ~8 min (rirevisione in sessione)", () => {
+		const base = { ...createInitialSrs("word:x", now), srs_stage: 3 as const };
+		expect(applySrsReview(base, false, now, true).next_review_date).toBe(now + 8 * 60_000);
+	});
+
+	it("corretto + oncePerDay=true con intervallo già oltre domani: invariato", () => {
+		const base = { ...createInitialSrs("word:x", now), srs_stage: 6 as const };
+		const noClamp = applySrsReview(base, true, now, false);
+		const clamp = applySrsReview(base, true, now, true);
+		expect(clamp.next_review_date).toBe(noClamp.next_review_date);
+	});
+
+	it("default (param assente) = non clampato (storico)", () => {
+		const withParam = applySrsReview(createInitialSrs("word:x", now), true, now, false);
+		const noParam = applySrsReview(createInitialSrs("word:x", now), true, now);
+		expect(noParam.next_review_date).toBe(withParam.next_review_date);
 	});
 });

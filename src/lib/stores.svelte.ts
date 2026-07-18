@@ -67,6 +67,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
 	forme_note: DEFAULT_KNOWN_FORMS,
 	voce_utente: "femminile",
 	nuove_carte_al_giorno: DEFAULT_NEW_CARDS_PER_DAY,
+	ripasso_una_volta_al_giorno: true,
 	updated_at: 0
 };
 

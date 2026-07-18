@@ -416,7 +416,7 @@
 	async function upsertSrs(key: string, correct: boolean): Promise<SrsProgress> {
 		const wasNew = !getSrs(key);
 		const current = getSrs(key) ?? createInitialSrs(key);
-		const updated = applySrsReview(current, correct);
+		const updated = applySrsReview(current, correct, Date.now(), appState.settings.ripasso_una_volta_al_giorno ?? true);
 		await db.srs_progress.put(updated);
 		srsMap.set(key, updated);
 		if (wasNew) await recordNewCardToday();
