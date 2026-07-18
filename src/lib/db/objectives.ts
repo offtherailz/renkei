@@ -147,7 +147,10 @@ export async function ensureDefaultObjectives(): Promise<void> {
 			objective_type: "custom",
 			target_jlpt: "EXTRA",
 			catalog_item_keys: levelWordKeys("EXTRA"),
-			study_enabled: true,
+			// In pausa di default: parole molto specifiche (viaggio/tecnico), niente
+			// ripassi automatici né piano di oggi. Sfogliabili nel vocabolario (chip
+			// EX) e riattivabili a mano quando servono.
+			study_enabled: false,
 			created_at: now,
 			updated_at: now
 		}
