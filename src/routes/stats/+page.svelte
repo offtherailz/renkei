@@ -2,9 +2,11 @@
 	import { onMount } from 'svelte';
 	import { appState } from '$lib/stores.svelte';
 	import { db } from '$lib/db/schema';
-	import { loadSkillMastery, type SkillMastery } from '$lib/db/queries';
-	import { computeStreak, weeklyRecap, type Streak, type WeekRecap } from '$lib/core/celebration';
-	import type { StudySessionRecord } from '$lib/types/models';
+	import { loadSkillMastery, loadCompletedObjectives, type SkillMastery } from '$lib/db/queries';
+	import { computeStreak, weeklyRecap, STREAK_MILESTONES, type Streak, type WeekRecap } from '$lib/core/celebration';
+	import { FACET_META } from '$lib/core/facets';
+	import { allHighscores, gameLabel } from '$lib/core/gameScores';
+	import type { StudySessionRecord, SrsProgress, UserProfile } from '$lib/types/models';
 
 	interface DailyAggregate {
 		day: string;
@@ -64,9 +66,83 @@
 
 	const activeSession = $derived(appState.sessionState);
 
+	// ── Nuove sezioni: totali, sfaccettature, record giochi, successi, voce ──
+	let profile = $state<UserProfile | null>(null);
+	let gameRecords = $state<{ id: string; label: string; score: number }[]>([]);
+	let completed = $state<{ id: string; name: string }[]>([]);
+	let facetAgg = $state<{ icon: string; label: string; avg: number; best: number; count: number }[]>([]);
+	let totali = $state({ risposte: 0, corrette: 0, sessioni: 0, giorni: 0, streakRecord: 0 });
+	let voce = $state({ frasi: 0, parole: 0 });
+
 	function toDayKey(ts: number): string {
 		return new Date(ts).toISOString().slice(0, 10);
 	}
+
+	function longestStreak(days: string[]): number {
+		const set = [...new Set(days)].sort();
+		let best = 0;
+		let run = 0;
+		let prev: number | null = null;
+		for (const d of set) {
+			const t = new Date(d + 'T00:00:00').getTime();
+			run = prev !== null && t - prev === 86_400_000 ? run + 1 : 1;
+			prev = t;
+			if (run > best) best = run;
+		}
+		return best;
+	}
+
+	async function loadExtra(): Promise<void> {
+		const [srsRows, prof, comp] = await Promise.all([
+			db.srs_progress.toArray() as Promise<SrsProgress[]>,
+			db.user_profile.get('default'),
+			loadCompletedObjectives()
+		]);
+		profile = prof ?? null;
+		completed = comp;
+
+		// totali dalle sessioni
+		let risposte = 0;
+		let corrette = 0;
+		for (const r of history) { risposte += r.answers; corrette += r.correct; }
+		const giorniSet = history.map((r) => toDayKey(r.startedAt));
+		totali = {
+			risposte,
+			corrette,
+			sessioni: history.length,
+			giorni: new Set(giorniSet).size,
+			streakRecord: longestStreak(giorniSet)
+		};
+
+		// sfaccettature: media e migliore per asse (valori clampati 0-100, solo celle allenate)
+		facetAgg = FACET_META.map((m) => {
+			const vals: number[] = [];
+			for (const r of srsRows) {
+				const v = r[m.field];
+				if (typeof v === 'number' && v !== 0) vals.push(Math.max(0, Math.min(100, v)));
+			}
+			const avg = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : 0;
+			const best = vals.length ? Math.max(...vals) : 0;
+			return { icon: m.icon, label: m.label, avg, best, count: vals.length };
+		});
+
+		// uso voce: celle Dire allenate (frasi/avventure) + parole con Ascoltare
+		voce = {
+			frasi: srsRows.filter((r) => r.id_item.startsWith('phrase:') && (r.facet_form_speak ?? 0) > 0).length
+				|| srsRows.filter((r) => r.id_item.startsWith('phrase:')).length,
+			parole: srsRows.filter((r) => (r.facet_form_speak ?? 0) > 0).length
+		};
+
+		// record giochi
+		const hs = allHighscores();
+		gameRecords = Object.entries(hs)
+			.filter(([, s]) => s > 0)
+			.map(([id, s]) => ({ id, label: gameLabel(id), score: s }))
+			.sort((a, b) => b.score - a.score);
+	}
+
+	const accuracyTot = $derived(totali.risposte > 0 ? Math.round((totali.corrette / totali.risposte) * 100) : 0);
+	const milestonesRaggiunti = $derived(STREAK_MILESTONES.filter((m) => totali.streakRecord >= m));
 
 	async function loadStats(): Promise<void> {
 		history = await db.study_sessions.orderBy('startedAt').toArray();
@@ -120,7 +196,7 @@
 		(['words', 'kanji', 'grammar'] as const).some((k) => weekSkillAcc[k].answers > 0)
 	);
 
-	onMount(loadStats);
+	onMount(async () => { await loadStats(); await loadExtra(); });
 
 	function formatDuration(ms: number): string {
 		const mins = Math.floor(ms / 60_000);
@@ -301,8 +377,90 @@
 	{/if}
 </section>
 
+<section class="section-card">
+	<p class="card-title">📈 Totali</p>
+	<div class="totali-grid">
+		<div class="tot"><span class="tot-n">{profile?.livello ?? 1}</span><span class="tot-l">livello</span></div>
+		<div class="tot"><span class="tot-n">{profile?.xp_totali ?? 0}</span><span class="tot-l">XP</span></div>
+		<div class="tot"><span class="tot-n">🔥 {totali.streakRecord}</span><span class="tot-l">record giorni</span></div>
+		<div class="tot"><span class="tot-n">{totali.risposte}</span><span class="tot-l">risposte</span></div>
+		<div class="tot"><span class="tot-n">{accuracyTot}%</span><span class="tot-l">accuratezza</span></div>
+		<div class="tot"><span class="tot-n">{totali.giorni}</span><span class="tot-l">giorni studiati</span></div>
+		<div class="tot"><span class="tot-n">{totali.sessioni}</span><span class="tot-l">sessioni</span></div>
+		<div class="tot"><span class="tot-n">🎤 {voce.parole}</span><span class="tot-l">allenate a voce</span></div>
+	</div>
+</section>
+
+<section class="section-card">
+	<p class="card-title">🧩 Sfaccettature — media e migliore</p>
+	<div class="facet-list">
+		{#each facetAgg as f (f.label)}
+			<div class="facet-row">
+				<span class="facet-lab">{f.icon} {f.label}</span>
+				<div class="facet-bar">
+					<div class="facet-fill" style="width:{f.avg}%"></div>
+					{#if f.best > 0}<div class="facet-best" style="left:{f.best}%" title="migliore"></div>{/if}
+				</div>
+				<span class="facet-num">{f.avg}<small> / {f.best}</small></span>
+			</div>
+		{/each}
+	</div>
+	<p class="muted-text skill-note">Barra = media delle celle allenate; il segno ▏ = la migliore. Solo le parole su cui hai lavorato quella sfaccettatura contano.</p>
+</section>
+
+<section class="section-card">
+	<p class="card-title">🏆 Record giochi</p>
+	{#if gameRecords.length === 0}
+		<p class="muted-text">Ancora nessun record — gioca ai mini-giochi in Giochi!</p>
+	{:else}
+		<div class="rec-list">
+			{#each gameRecords as g (g.id)}
+				<div class="rec-row"><span class="rec-lab">{g.label}</span><span class="rec-score">🏆 {g.score}</span></div>
+			{/each}
+		</div>
+	{/if}
+</section>
+
+<section class="section-card">
+	<p class="card-title">🎖️ Successi</p>
+	<div class="succ-list">
+		{#each milestonesRaggiunti as m (m)}
+			<span class="succ-chip">🔥 {m} giorni di fila</span>
+		{/each}
+		{#each completed as o (o.id)}
+			<span class="succ-chip done">✓ {o.name}</span>
+		{/each}
+		{#if gameRecords.length > 0}
+			<span class="succ-chip">🏆 {gameRecords.length} giochi con record</span>
+		{/if}
+		{#if milestonesRaggiunti.length === 0 && completed.length === 0 && gameRecords.length === 0}
+			<p class="muted-text">I traguardi (serie di giorni, obiettivi completati, record) appariranno qui.</p>
+		{/if}
+	</div>
+</section>
+
 <style>
 	.page-title { margin: 0 0 4px; font-size: 1.2rem; font-weight: 700; }
+
+	.totali-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)); gap: 10px; }
+	.tot { display: grid; gap: 2px; justify-items: center; text-align: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 6px; }
+	.tot-n { font-size: 1.15rem; font-weight: 800; }
+	.tot-l { font-size: 0.68rem; color: var(--muted); }
+
+	.facet-list { display: grid; gap: 8px; }
+	.facet-row { display: grid; grid-template-columns: 6.5em 1fr 3.2em; align-items: center; gap: 8px; }
+	.facet-lab { font-size: 0.82rem; }
+	.facet-bar { position: relative; height: 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: visible; }
+	.facet-fill { height: 100%; border-radius: 999px; background: var(--brand); }
+	.facet-best { position: absolute; top: -2px; width: 2px; height: 14px; background: var(--warn-ink); border-radius: 2px; transform: translateX(-1px); }
+	.facet-num { font-size: 0.82rem; font-weight: 700; text-align: right; }
+	.facet-num small { color: var(--muted); font-weight: 400; }
+
+	.rec-list, .succ-list { display: flex; flex-wrap: wrap; gap: 8px; }
+	.rec-row { display: flex; align-items: baseline; gap: 8px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; }
+	.rec-score { font-weight: 800; }
+	.succ-chip { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; }
+	.succ-chip.done { color: var(--success); border-color: var(--success); }
 
 	.section-card {
 		background: var(--surface);
