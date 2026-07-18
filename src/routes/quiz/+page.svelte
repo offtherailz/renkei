@@ -1871,7 +1871,7 @@
 			{@const q = quiz.question as ConjugationQuizQuestion}
 			<p class="question-hint">Coniuga il verbo/aggettivo</p>
 			<p class="question-prompt ja-text">{q.dictionary}</p>
-			<p class="question-hint">→ {q.formLabel}</p>
+			<p class="ask-form">→ <span class="ask-chip">{q.formLabel}</span></p>
 			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button
@@ -2128,6 +2128,8 @@
 		color: var(--muted);
 		margin: 0;
 	}
+	.ask-form { margin: 0; text-align: center; font-size: 1.02rem; color: var(--muted); }
+	.ask-chip { display: inline-block; font-weight: 800; color: var(--brand); background: var(--surface-2); border: 1.5px solid var(--brand); border-radius: 999px; padding: 3px 14px; margin-left: 2px; }
 
 	.choices {
 		display: grid;
