@@ -222,6 +222,7 @@
 				<button class="choice" onclick={() => pickLevel('N4')}>🌿 N4</button>
 				<button class="choice wide" onclick={() => pickLevel('tutti')}>🎲 Tutti</button>
 			</div>
+			<a class="explain-link" href="{base}/comparazioni/guida">📖 Come funzionano le comparazioni</a>
 		</article>
 	{:else if scene === 'play'}
 		{#key idx}
@@ -296,6 +297,7 @@
 	.choices.plat { grid-template-columns: repeat(2, 1fr); }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.05rem; text-align: center; cursor: pointer; }
 	.choice.wide { grid-column: 1 / -1; }
+	.explain-link { justify-self: center; font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.choice:hover:not(.answered) { border-color: var(--brand); }
 	.choice.answered { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
