@@ -122,27 +122,18 @@
 		return { corretta, varianti: [...new Set([...phraseVariants(corretta), corretta])] };
 	}
 
-	// Attende in pausa finché l'utente non riparla o tocca (qualsiasi cosa riprende;
-	// «やめて»/Basta esce).
-	async function pauseUntilResume(): Promise<void> {
+	// In pausa NON si ascolta e NON si parla: si aspetta un tap sui bottoni grandi
+	// «Riprendi» / «Ferma». Ritorna true se si riprende, false se si esce.
+	let pauseResolve: ((action: 'resume' | 'stop') => void) | null = null;
+	function resumePause(): void { pauseResolve?.('resume'); }
+	function stopPause(): void { pauseResolve?.('stop'); }
+	async function pauseUntilResume(): Promise<boolean> {
 		status = 'paused';
-		await speakIt('In pausa. Riparla o tocca quando sei pronto.');
-		while (running) {
-			const h = await listenAfterBeep();
-			if (!running) return;
-			if ('tap' in h) {
-				if (h.tap === 'quit') { stop(); return; }
-				lastActivity = Date.now();
-				return;
-			}
-			if (h.alts.length === 0) {
-				if (Date.now() - lastActivity > SILENCE_MS) { await speakIt('Nessuna attività. Mi fermo.'); stop(); return; }
-				continue;
-			}
-			lastActivity = Date.now();
-			if (classifyUtterance(h.alts) === 'quit') { stop(); return; }
-			return;
-		}
+		const action = await new Promise<'resume' | 'stop'>((res) => { pauseResolve = res; });
+		pauseResolve = null;
+		if (action === 'stop') { stop(); return false; }
+		lastActivity = Date.now();
+		return true;
 	}
 
 	async function runRound(r: HFRound): Promise<void> {
@@ -182,7 +173,7 @@
 
 			if (cls === 'slow') { ({ corretta, varianti } = await playPrompt(r, true)); continue; }
 			if (cls === 'repeat') { ({ corretta, varianti } = await playPrompt(r, false)); continue; }
-			if (cls === 'pause') { await pauseUntilResume(); if (!running) return; ({ corretta, varianti } = await playPrompt(r, false)); continue; }
+			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti } = await playPrompt(r, false)); continue; }
 			if (cls === 'quit') { stop(); return; }
 			if (cls === 'skip') return;
 			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.
@@ -262,16 +253,23 @@
 			<p class="who">{idx + 1} / {rounds.length}</p>
 			<div class="big-status" class:pulse={status === 'listening'}>{STATUS_ICON[status]}</div>
 			<p class="hint">{status === 'listening' ? 'Parla ora…' : status === 'paused' ? 'In pausa — riparla per riprendere' : status === 'speaking' ? 'Ascolta…' : status === 'ok' ? 'Bravo!' : 'Riascolta la versione giusta'}</p>
-			<p class="cmd-title">Comandi — dilli a voce o toccali</p>
-			<div class="cmd-grid">
-				{#each HF_COMMANDS as c (c.label)}
-					<button class="cmd-btn" class:live={listening} onclick={() => tapCommand(c.cmd)}>
-						<span class="cmd-say">{c.say[0]}</span>
-						<span class="cmd-lab">{c.icon} {c.label}</span>
-					</button>
-				{/each}
-			</div>
-			<button class="stop" onclick={stop}>⏹ Ferma</button>
+			{#if status === 'paused'}
+				<div class="pause-actions">
+					<button class="big-btn resume" onclick={resumePause}>▶️ Riprendi</button>
+					<button class="big-btn ferma" onclick={stopPause}>⏹️ Ferma</button>
+				</div>
+			{:else}
+				<p class="cmd-title">Comandi — dilli a voce o toccali</p>
+				<div class="cmd-grid">
+					{#each HF_COMMANDS as c (c.label)}
+						<button class="cmd-btn" class:live={listening} onclick={() => tapCommand(c.cmd)}>
+							<span class="cmd-say">🎤 {c.say[0]}</span>
+							<span class="cmd-lab">{c.icon} {c.label}</span>
+						</button>
+					{/each}
+				</div>
+				<button class="stop" onclick={stop}>⏹ Ferma</button>
+			{/if}
 		</article>
 	{:else}
 		<article class="scene">
@@ -309,8 +307,13 @@
 	}
 	.cmd-btn.live { border-color: var(--brand); background: var(--surface); }
 	.cmd-btn:active { transform: scale(0.97); }
-	.cmd-btn .cmd-say { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
+	.cmd-btn .cmd-say { font-size: 1.5rem; font-weight: 800; line-height: 1.1; white-space: nowrap; }
 	.cmd-btn .cmd-lab { font-size: 0.85rem; color: var(--muted); }
+	.pause-actions { width: 100%; display: grid; gap: 12px; }
+	.big-btn { padding: 20px; border-radius: 16px; font-size: 1.3rem; font-weight: 800; cursor: pointer; border: 2px solid var(--line); }
+	.big-btn.resume { background: var(--brand); color: #fff; border-color: var(--brand); }
+	.big-btn.ferma { background: var(--surface); color: var(--danger); border-color: var(--danger); }
+	.big-btn:active { transform: scale(0.98); }
 	.score-big { margin: 0; text-align: center; font-size: 2.6rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }
