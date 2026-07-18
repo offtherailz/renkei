@@ -561,7 +561,12 @@
 			{#key idx}
 			<article class="card">
 				<p class="qmode">{current.mode}</p>
-				<p class="qprompt">{promptOf(current)}</p>
+				{#if current.mode === 'conjugation'}
+					<p class="qprompt">{current.dictionary}</p>
+					<p class="ask-form">→ <span class="ask-chip">{current.formLabel}</span></p>
+				{:else}
+					<p class="qprompt">{promptOf(current)}</p>
+				{/if}
 				{#if current.mode === 'composition'}
 					{#if current.reading}<p class="muted" style="text-align:center;">Lettura: {current.reading}</p>{/if}
 					<TokenCompose
@@ -629,6 +634,8 @@
 	.card { background: var(--surface); border-radius: 16px; padding: 20px; box-shadow: 0 2px 10px rgba(14,29,51,0.07); display: grid; gap: 12px; }
 	.qmode { margin: 0; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
 	.qprompt { margin: 0; font-size: 1.5rem; font-weight: 700; text-align: center; }
+	.ask-form { margin: 0; text-align: center; font-size: 1.05rem; color: var(--muted); }
+	.ask-chip { display: inline-block; font-weight: 800; color: var(--brand); background: var(--surface-2); border: 1.5px solid var(--brand); border-radius: 999px; padding: 3px 14px; margin-left: 2px; }
 	.explain-jp { margin: 0; font-size: 1.05rem; text-align: center; }
 	.explain-it { margin: 0; font-size: 0.85rem; color: var(--muted); text-align: center; }
 	.listen-sentence { justify-self: center; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.82rem; cursor: pointer; }
