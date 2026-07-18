@@ -273,6 +273,28 @@ export async function countDueCards(): Promise<{ attivi: number; inPausa: number
 	// getDueSrsCards: l'indice composto sovrastimerebbe includendo date future.
 	const due = await db.srs_progress.where('next_review_date').belowOrEqual(now).toArray();
 	const active = await getActiveItemKeys();
+	// Generabilità: il quiz sa costruire una domanda solo se l'elemento esiste in
+	// catalogo, e per la grammatica solo se ha almeno una frase d'esempio. Una
+	// carta dovuta ma NON generabile (grammatica senza frasi, kanji/contatore
+	// rimosso) veniva contata «in attesa» mentre il quiz diceva subito «tutto
+	// completato»: la escludiamo per far combaciare home e sessione.
+	const [grammar, kanji, counters, words] = await Promise.all([
+		db.grammar.toArray(),
+		db.kanji.toArray(),
+		db.counters.toArray(),
+		db.words.toArray()
+	]);
+	const grammarOk = new Set(grammar.filter((g) => (g.frasi_esempio?.length ?? 0) > 0).map((g) => `grammar:${g.id}`));
+	const kanjiOk = new Set(kanji.map((k) => `kanji:${k.id}`));
+	const counterOk = new Set(counters.map((c) => `counter:${c.id}`));
+	const wordOk = new Set(words.map((w) => `word:${w.id}`));
+	const isServable = (key: string): boolean => {
+		if (key.startsWith('grammar:')) return grammarOk.has(key);
+		if (key.startsWith('kanji:')) return kanjiOk.has(key);
+		if (key.startsWith('counter:')) return counterOk.has(key);
+		if (key.startsWith('word:')) return wordOk.has(key);
+		return true; // id "nudo" = parola vecchia; il quiz la genera comunque
+	};
 	let attivi = 0;
 	let inPausa = 0;
 	for (const r of due) {
@@ -284,6 +306,7 @@ export async function countDueCards(): Promise<{ attivi: number; inPausa: number
 		// ("N in attesa") con un quiz che poi diceva subito "tutto fatto".
 		const kind = r.id_item.includes(':') ? r.id_item.split(':')[0]! : 'word';
 		if (practiceOnlyKinds.has(kind)) continue;
+		if (!isServable(r.id_item)) continue;
 		if (!isPlanKey(r.id_item) || active.has(r.id_item)) attivi += 1;
 		else inPausa += 1;
 	}
