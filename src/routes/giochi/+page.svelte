@@ -587,6 +587,11 @@
 
 		<p class="group-title">Conversazione</p>
 			<div class="cat-grid">
+				<a class="cat-card" href="{base}/mani-libere">
+					<span class="cat-icon">🚗</span>
+					<span class="cat-label">Mani libere <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">solo voce: l'app dice cosa dire, tu rispondi. In auto o senza mani</span>
+				</a>
 				<a class="cat-card" href="{base}/keigo">
 					<span class="cat-icon">🙇</span>
 					<span class="cat-label">敬語 — Linguaggio cortese</span>
