@@ -411,6 +411,10 @@
 			<span class="quick-icon">📋</span>
 			<span>Sessione quiz</span>
 		</a>
+		<a href="{base}/punti-deboli" class="quick-card">
+			<span class="quick-icon">💪</span>
+			<span>Punti deboli — ripassa sempre</span>
+		</a>
 		<a href="{base}/courses" class="quick-card">
 			<span class="quick-icon">📚</span>
 			<span>Corsi</span>
