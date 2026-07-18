@@ -12,123 +12,17 @@ import {
   newCardsUsedToday,
   type NewCardBudget
 } from "./dailyNewCards";
-import type { SrsProgress } from "../types/models";
+import { simulate } from "./studySim";
 
-// Simulatore SRS multi-giorno: guida le funzioni pure dell'engine attraverso
-// tempo SIMULATO (nowTs esplicito, nessun mock di orologio) per verificare che
-// l'algoritmo "regga" in vari scenari — il capo del cold-start da 1400 carte,
-// la convergenza di chi studia bene, le carte-leech che non spariscono.
+// Il motore `simulate` vive in ./studySim (riusato anche dal report). Qui restano
+// le asserzioni che verificano che l'algoritmo "regga" in vari scenari — il
+// cold-start da 1400 carte, la convergenza di chi studia bene, le carte-leech.
+// (default oncePerDay=false = comportamento storico dei learning steps.)
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-// Mezzanotte LOCALE: il budget carte-nuove si azzera al cambio di data locale
-// (dayKey usa getFullYear/Month/Date), quindi la "giornata" del simulatore deve
-// allinearsi lì, altrimenti una finestra rolling scavalca il reset e introduce
-// il doppio delle carte (comportamento reale, ma non ciò che vogliamo misurare).
 const START = new Date(2026, 0, 1, 0, 0, 0).getTime();
 
-// RNG deterministico (LCG) così i test sono stabili.
-function makeRng(seed: number): () => number {
-  let s = seed >>> 0;
-  return () => {
-    s = (s * 1664525 + 1013904223) >>> 0;
-    return s / 0xffffffff;
-  };
-}
-
-interface SimCard {
-  id: string;
-  srs: SrsProgress | null;
-  pCorrect: number; // probabilità che l'utente la azzecchi
-}
-
-interface DayStat {
-  day: number;
-  reviews: number;
-  introduced: number;
-  dueBacklogAtDayEnd: number;
-}
-
-interface SimResult {
-  cards: SimCard[];
-  days: DayStat[];
-  maxIntroducedInADay: number;
-  totalReviews: number;
-}
-
-interface SimConfig {
-  cardCount: number;
-  pCorrect: number | ((i: number) => number);
-  cap: number;
-  days: number;
-  seed?: number;
-}
-
-function simulate(cfg: SimConfig): SimResult {
-  const rng = makeRng(cfg.seed ?? 12345);
-  const cards: SimCard[] = Array.from({ length: cfg.cardCount }, (_, i) => ({
-    id: `w${i}`,
-    srs: null,
-    pCorrect: typeof cfg.pCorrect === "function" ? cfg.pCorrect(i) : cfg.pCorrect
-  }));
-  const unseen = [...cards];
-  let budget: NewCardBudget = {};
-  const days: DayStat[] = [];
-  let maxIntroducedInADay = 0;
-  let totalReviews = 0;
-
-  let now = START;
-  for (let day = 0; day < cfg.days; day += 1) {
-    const dayEnd = START + (day + 1) * DAY_MS;
-    let reviewsToday = 0;
-    let introducedToday = 0;
-
-    // Sessioni intra-giornata: gli intervalli iniziali (10-60 min) fanno
-    // ricomparire le carte più volte nello stesso giorno.
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      // introduci carte nuove finché c'è budget nel giorno di calendario
-      while (canIntroduceNewCard(budget, cfg.cap, now) && unseen.length > 0) {
-        const c = unseen.shift()!;
-        c.srs = createInitialSrs(c.id, now);
-        budget = recordNewCardIntroduced(budget, now);
-        introducedToday += 1;
-      }
-      const due = cards.filter(
-        (c) => c.srs && !c.srs.buried && c.srs.next_review_date <= now
-      );
-      if (due.length > 0) {
-        for (const c of due) {
-          const correct = rng() < c.pCorrect;
-          c.srs = applySrsReview(c.srs!, correct, now);
-          reviewsToday += 1;
-          totalReviews += 1;
-        }
-        continue; // rivaluta allo stesso istante (carte nuove / ancora dovute)
-      }
-      // niente di dovuto adesso: salta al prossimo ripasso entro il giorno
-      let nextDue = Infinity;
-      for (const c of cards) {
-        if (c.srs && !c.srs.buried && c.srs.next_review_date < nextDue) {
-          nextDue = c.srs.next_review_date;
-        }
-      }
-      if (nextDue < dayEnd) {
-        now = nextDue;
-        continue;
-      }
-      break; // giornata finita
-    }
-
-    now = dayEnd;
-    const dueBacklogAtDayEnd = cards.filter(
-      (c) => c.srs && !c.srs.buried && c.srs.next_review_date <= now
-    ).length;
-    days.push({ day, reviews: reviewsToday, introduced: introducedToday, dueBacklogAtDayEnd });
-    maxIntroducedInADay = Math.max(maxIntroducedInADay, introducedToday);
-  }
-
-  return { cards, days, maxIntroducedInADay, totalReviews };
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 describe("SRS simulazione multi-giorno", () => {
   it("non introduce mai più carte nuove del limite giornaliero", () => {
