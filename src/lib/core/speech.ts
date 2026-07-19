@@ -144,10 +144,10 @@ const KANA_DIGIT: [string, number][] = [
 ];
 const KANA_UNIT: [string, string][] = [
 	['じかん', '時間'], ['ふん', '分'], ['ぷん', '分'], ['にち', '日'],
-	['えん', '円'], ['ばん', '番'], ['じ', '時']
+	['えん', '円'], ['ばん', '番'], ['がつ', '月'], ['じ', '時']
 ];
 const KANA_NUM_ATOM = 'じゅう|ひゃく|びゃく|ぴゃく|せん|ぜん|まん|いち|きゅう|しち|なな|ろく|よん|はち|さん|ご|く|よ|し|に';
-const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(じかん|ふん|ぷん|にち|えん|ばん|じ)(はん)?`, 'g');
+const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(じかん|ふん|ぷん|にち|えん|ばん|がつ|じ)(はん)?`, 'g');
 
 function kanaNumberValue(seq: string): number | null {
 	let total = 0;

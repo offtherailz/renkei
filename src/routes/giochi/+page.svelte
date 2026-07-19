@@ -117,8 +117,11 @@
 	// Mette a fuoco l'input a ogni nuova domanda (il parametro cambia → update),
 	// così in «scrivi il numero» digiti subito senza doverci cliccare.
 	function focusOnChange(node: HTMLInputElement, _key: unknown) {
-		node.focus();
-		return { update() { node.focus(); } };
+		// setTimeout: al cambio domanda il focus va dato DOPO che il DOM ha tolto
+		// disabled dall'input (stesso batch di update), altrimenti non attacca.
+		const grab = () => setTimeout(() => { if (!node.disabled) node.focus(); }, 0);
+		grab();
+		return { update: grab };
 	}
 
 	let game = $state<Game>(null);
@@ -571,6 +574,11 @@
 					<span class="cat-best">🏆 record: {getHighscore(`read-${g.id}`)}</span>
 				</button>
 			{/each}
+			<a class="cat-card" href="{base}/di-la-data">
+				<span class="cat-icon">🗣️</span>
+				<span class="cat-label">Dì la data <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">la data è scritta: leggila TU a voce (9日 = ここのか!)</span>
+			</a>
 		</div>
 
 		<p class="group-title">Ascolta e agisci</p>
@@ -699,6 +707,11 @@
 					<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
 				</a>
+				<a class="cat-card" href="{base}/contrazioni">
+					<span class="cat-icon">✂️</span>
+					<span class="cat-label">Contrazioni <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">食べちゃった ↔ 食べてしまった: parlato ed esteso, anche a voce</span>
+				</a>
 				<a class="cat-card" href="{base}/comparazioni">
 					<span class="cat-icon">⚖️</span>
 					<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
@@ -821,7 +834,7 @@
 				<p class="game-hint">📅 Quando è l'appuntamento?</p>
 				<button class="replay" onclick={() => speakSentenceJapanese(appt!.reading)}>🔊 Riascolta</button>
 				<div class="appt-grid">
-					<label class="appt-field"><span>Mese</span><input type="text" inputmode="numeric" bind:value={apptIn.month} disabled={checked} /></label>
+					<label class="appt-field"><span>Mese</span><input type="text" inputmode="numeric" bind:value={apptIn.month} disabled={checked} use:focusOnChange={appt} /></label>
 					<label class="appt-field"><span>Giorno</span><input type="text" inputmode="numeric" bind:value={apptIn.day} disabled={checked} /></label>
 					<label class="appt-field"><span>Ora</span><input type="text" inputmode="numeric" bind:value={apptIn.hour} disabled={checked} /></label>
 					<label class="appt-field"><span>Minuti</span><input type="text" inputmode="numeric" bind:value={apptIn.minute} disabled={checked} onkeydown={(e) => { if (e.key === 'Enter') checkAppt(); }} /></label>
