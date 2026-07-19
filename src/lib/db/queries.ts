@@ -229,6 +229,11 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 		// Fallback per le righe storiche senza `lapses`: mastery negativa = ha
 		// sbagliato più che indovinato (es. i miss delle avventure).
 		.filter((r) => !r.buried)
+		// Le frasi (phrase: avventure/giochi a voce) NON entrano nei punti deboli:
+		// si consolidano rigiocando l'attività, non con un drill — e la voce non
+		// penalizza. Molte inoltre non hanno una pagina propria (le frasi delle
+		// avventure vivono nei copioni) → il link «consolida» sarebbe rotto.
+		.filter((r) => !r.id_item.startsWith('phrase:'))
 		.filter((r) => (r.lapses ?? 0) > 0 || r.mastery_points < 0)
 		.map((r) => ({ r, pct: pctFor(r) }))
 		.filter((x) => x.pct < 60)
