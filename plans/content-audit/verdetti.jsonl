@@ -1,0 +1,699 @@
+{"id":"0lgpoth","source":"comparazioni","verdetto":"errore","problema":"template it del gioco: «di il gatto» → «del gatto» (preposizioni articolate, vale per tutte le coppie)","ciclo":"2026-07-19"}
+{"id":"1erjjmu","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02z59f7","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1pjgo0y","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jouvwf","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"098ojjt","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1tljvgn","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"18xq3xj","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1jmzthj","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1p830rr","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08z9qnv","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"054iol0","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1hfsaau","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07quzyh","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13nf07g","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"10jxmiu","source":"comparazioni","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03bpgh1","source":"comparazioni","verdetto":"errore","problema":"template it superlativi: «l'estate è il più caldo» → concordanza di genere («la più calda»)","ciclo":"2026-07-19"}
+{"id":"1niyu4h","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0pd7us3","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1e97bzy","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1srqiyl","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0b387nr","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0mztjoj","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0o2p4rr","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16a2h24","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1c44eyy","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1h29qrt","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1n6t8xx","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1xig0d3","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tcd9vv","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0o9gb27","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13f705y","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0vki3do","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1o0eeoy","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"15c4maq","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1fkne5b","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0rdhftg","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0g1cpi2","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0au4pts","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1og14dn","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0f0rph1","source":"coppie","verdetto":"dubbio","problema":"l'id grezzo «私::わたし» non deve comparire così nella UI del gioco: verificare la resa","ciclo":"2026-07-19"}
+{"id":"0lvhpgg","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1s9c5q5","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"164tmaw","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0keob7l","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0c48bsv","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b2e40i","source":"coppie","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0yx4rwp","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0mrzcsr","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0icj905","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0blrxq7","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1s5p0lf","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w6ga1k","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0caqbx9","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02xtoxb","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1bzjrr4","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lic5wo","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1wak36c","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0x774ey","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0p5pabu","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0vpxb28","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"12i2b4d","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1hj37zt","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04cgbpf","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07jxlo6","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"095i94x","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vjkns3","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0kny6mz","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"084ffze","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dn14yf","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0zx8scn","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1pa9c8s","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tfrc0d","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1x1hrag","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"053y7wb","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1dq3gn1","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"145fxl9","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0yf1zmy","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"17yjizx","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"19t7g1b","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1piy7j4","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ic49ng","source":"choukai","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w9lwoo","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1qdiynx","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lfltwx","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1thp3x6","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0pfgoec","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0wexr7t","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03fqn71","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"18hc1mw","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0kp38nc","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1e055ld","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0o5tz5n","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1qq3s9x","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1rvrmh5","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1hegf35","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1kfqtrn","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"113jmms","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07hav5t","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0qmq3fu","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"00iinhf","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"19o0uz9","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1w1wa8f","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b74wcy","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16gqf82","source":"frasi-utili","verdetto":"errore","problema":"refuso nel testo d'aiuto it: «Con い form più formale» — da riscrivere (es. «Più formale: 手伝っていただけますか»)","ciclo":"2026-07-19"}
+{"id":"177ap1q","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0fpkfxe","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0q1w0xm","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1yl5jlz","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cnpvjt","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0bdhmu1","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02t0r8o","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dfozni","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1qa2tet","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ple6qb","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1duk21p","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1d630v6","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1h9jzwd","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0impwhw","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1enztyq","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0himnvc","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ubxr1r","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1d4yu18","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0j81t9a","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0iedcou","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1o2zvf7","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ugpu41","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1aj1f6r","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11d42a1","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14vvmfw","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1m81kf5","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1oiwbdy","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03bn9km","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0sxh49z","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0e8b3fj","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1v56ypc","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0826os5","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13fxyef","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ki5mk1","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0oi57jk","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0xfia1j","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0zbh6mb","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jkvnc7","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02l9ul3","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"17h1pnh","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03ftolu","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1jxt2gi","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1rxj03s","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ai2d9w","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tng6w1","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0u71kaf","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ht2gh8","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b8g8uc","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0af50oh","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"051giyz","source":"frasi-utili","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1pez5n1","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0wx9z1c","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1a4q6ew","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1whe2w0","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b3lxda","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1w0mmr9","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0uei7uk","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"149fdgb","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"041ts6w","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b8r4ki","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0d93zpx","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11dd7uj","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ubr7sw","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1szcp11","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iazz9g","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03akcwp","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08rl26v","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1tg649t","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1frfu3x","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1y1iq5a","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11wozj8","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0zhpuj3","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dpvd2h","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ffop2d","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1nps4p9","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dwc2p8","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0nq7t0s","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"01ea4q3","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1rxso17","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0p62s5w","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0a6kng5","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1exbm9x","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"06yios8","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"05j8gmq","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0rltaz2","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1en2qe9","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tg09dm","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0s7ncbb","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14rkuoh","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0pryoxe","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w4af2n","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1mmub0o","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1c772am","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1yln3lk","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w3rorr","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1miq9bx","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"139pry1","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1mnt7o9","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dqipui","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1g15ymg","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0c1tflu","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1p79z5u","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"09y32ji","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04pmf1e","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b3dud2","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1s20tuj","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vo99is","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04q6ga2","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0c86ivq","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0pikm8m","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0re50wi","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0kbmfoi","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0g9a4f9","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1m9bkfm","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vao5qx","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1i2fe51","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1b7gdkz","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ovr2qj","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"105wni3","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1irmjt0","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1e29f61","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"10fukts","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0thelba","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02p88qg","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16bq6ki","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"05m4o7d","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ftfvxd","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dlswxv","source":"propedeutiche","verdetto":"dubbio","problema":"refuso it: «un po di kanji» → «un po' di kanji» (apostrofo)","ciclo":"2026-07-19"}
+{"id":"16h0w8b","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1r98go2","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cklo2p","source":"propedeutiche","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1shk7qr","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"146ytus","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"176xkop","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"19eonkn","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jox66c","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16d4tj8","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ll8ysv","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1drez4d","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03csu4t","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vvaba4","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1fn97nv","source":"iikae","verdetto":"dubbio","problema":"安全≈大丈夫 lontani lessicalmente: regge solo in frasi tipo 飲んでも大丈夫≈安全 — verificare le frasi del gioco","ciclo":"2026-07-19"}
+{"id":"0w7yncd","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1rjs81z","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1fsdrbe","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03zikws","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0q51vrg","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1pg5n91","source":"iikae","verdetto":"dubbio","problema":"scrittura 終る senza okurigana: standard moderno è 終わる","ciclo":"2026-07-19"}
+{"id":"0dhgwy2","source":"iikae","verdetto":"dubbio","problema":"寂しい≈悲しい discutibile (solo/malinconico vs triste): iikae rischioso, meglio contesto che li distingue","ciclo":"2026-07-19"}
+{"id":"0dmn2gw","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1sppfb4","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w7q0g0","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0za8t7o","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0eg6zc4","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"06f202s","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ivwb7u","source":"iikae","verdetto":"dubbio","problema":"specchio di 寂しい≈悲しい: stessa riserva","ciclo":"2026-07-19"}
+{"id":"1km1o1d","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"101kx96","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0iu3ntj","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11tmdt0","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jje595","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"103an6u","source":"iikae","verdetto":"dubbio","problema":"POS mismatch: 返事 (nome) ≈ 答える (verbo) — meglio 返事(を)する≈答える o coppia nome-nome","ciclo":"2026-07-19"}
+{"id":"0277hxd","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1llndwq","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iee0mz","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iqrj0b","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iqz7ey","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"184gh8d","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1jhj1jc","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1fe50ki","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11uv7sr","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1jrlhhe","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0nc7aq0","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0hyjecx","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1g9qjvx","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vz2hmy","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04zzhtz","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1h5znkc","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1einxvh","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1dd5rme","source":"iikae","verdetto":"errore","problema":"incoerenza interna: 学生≈生徒 come interscambiabili, ma il gioco /coppie insegna la DIFFERENZA (universitario vs alunno) — togliere dagli iikae","ciclo":"2026-07-19"}
+{"id":"099u6vv","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"17g72ui","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1gxk8kh","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1m1n5la","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ns70eo","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ffcy70","source":"iikae","verdetto":"dubbio","problema":"POS mismatch nome-verbo (仕事≈働く): difendibile in frase ma sporco, valutare 仕事(を)する","ciclo":"2026-07-19"}
+{"id":"0qr1mi7","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0p2v7o3","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0646gcz","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1uvg8np","source":"iikae","verdetto":"dubbio","problema":"scrittura 終る senza okurigana (standard: 終わる)","ciclo":"2026-07-19"}
+{"id":"1bckt23","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1d0vvny","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08idn6y","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0x67t06","source":"iikae","verdetto":"errore","problema":"specchio di 学生≈生徒: conflitto col gioco /coppie","ciclo":"2026-07-19"}
+{"id":"1sgwai5","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"084r7pn","source":"iikae","verdetto":"dubbio","problema":"specchio di 安全≈大丈夫","ciclo":"2026-07-19"}
+{"id":"0qhpvar","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0wqt268","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ekqglq","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1curjw3","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"19sw8ee","source":"iikae","verdetto":"dubbio","problema":"POS mismatch nome-verbo (答える≈返事)","ciclo":"2026-07-19"}
+{"id":"1kplv30","source":"iikae","verdetto":"dubbio","problema":"POS mismatch verbo-nome (働く≈仕事)","ciclo":"2026-07-19"}
+{"id":"1u9ewr2","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0oaeva9","source":"iikae","verdetto":"dubbio","problema":"POS mismatch nome-verbo (買い物≈買う)","ciclo":"2026-07-19"}
+{"id":"07mmrtt","source":"iikae","verdetto":"dubbio","problema":"POS mismatch verbo-nome (買う≈買い物)","ciclo":"2026-07-19"}
+{"id":"0tw4w8t","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0yjy3vo","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16z8i57","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04dtd25","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1q0dufk","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1uwquwq","source":"iikae","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tdfjyd","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante: il campo it è in inglese","ciclo":"2026-07-19"}
+{"id":"07wsaop","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1k1672f","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1g9vxn3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"059mun9","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"15r3ik2","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese); e la trad EN non corrisponde (won't know until we eat ≠ non lo mangio perché non so)","ciclo":"2026-07-19"}
+{"id":"17z8zu3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"020x135","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0gtp5x7","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1mqcnw4","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1mqn76n","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0xutt01","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16pnjdl","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e sgrammaticata anche in EN («This pants are»)","ciclo":"2026-07-19"}
+{"id":"1tppjzg","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iascci","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0h7xnjc","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jqzrcg","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0l6u2yx","source":"frase-grammatica","verdetto":"errore","problema":"giapponese innaturale: potenziale+ために (速く走れるために) → con il potenziale si usa ように (速く走れるように練習しています); inoltre trad in inglese","ciclo":"2026-07-19"}
+{"id":"1jb4dqu","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0yw7zsp","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1fd39z9","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"055m2y4","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0fc5k1y","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0fnq4hd","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1c0r1a0","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"05k6zm1","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0hdpv4u","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13v8cgd","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0j4x0vu","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1k7t6xy","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1nw285u","source":"frase-grammatica","verdetto":"dubbio","problema":"refuso it: «La porta e aperta» → «è aperta»","ciclo":"2026-07-19"}
+{"id":"0yvt7ik","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese) e imprecisa (The schedule is written ≠ scrivo in anticipo)","ciclo":"2026-07-19"}
+{"id":"1hvih8j","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ka7vew","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13ay5wy","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1o2tlmk","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0psia6w","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"00sud5p","source":"frase-grammatica","verdetto":"errore","problema":"frase rotta/placeholder: «ご飯を食べたあとで、食べる。食べる。» non ha senso — da sostituire","ciclo":"2026-07-19"}
+{"id":"1m1jrsd","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0nluhb6","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0389ohc","source":"frase-grammatica","verdetto":"errore","problema":"doppia frase nel testo + traduzione che non corrisponde (parla di teach, la frase di parlare lentamente)","ciclo":"2026-07-19"}
+{"id":"19pdm88","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lyxhzs","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0xvdxnw","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"10118kr","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1q87oih","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"07botab","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"146j2mm","source":"frase-grammatica","verdetto":"dubbio","problema":"trad EN non corrisponde: 着てみたい = «vorrei provarlo», non «May I try?»; inoltre in inglese","ciclo":"2026-07-19"}
+{"id":"124g881","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1o0ogr6","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04cbzb3","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ssaaze","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1yschce","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"02rzxua","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0xfic6z","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1pda5uk","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0hu2cvq","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0xvnr5y","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03d05nl","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"09leiab","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08mhnco","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"02rhymg","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"09d9jtj","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese, e aggiunge «extremely» che non c'è)","ciclo":"2026-07-19"}
+{"id":"0tpq9ep","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1wwjg74","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0cev4cv","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0nxebv3","source":"frase-grammatica","verdetto":"errore","problema":"traduzione SBAGLIATA: 勉強しないで寝てしまった = «sono andato a dormire senza studiare», la EN dice l'opposto","ciclo":"2026-07-19"}
+{"id":"1ip6hxn","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11t6dpi","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1w2mp19","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1mmq2s6","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese, e aggiunge «clean» non presente)","ciclo":"2026-07-19"}
+{"id":"0xf564k","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1mntg33","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"053aja5","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"106htq1","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ka5wfo","source":"frase-grammatica","verdetto":"errore","problema":"giapponese rotto: «カラオケなんかゲームをします» → es. «カラオケや ゲームなんかを します»","ciclo":"2026-07-19"}
+{"id":"0mdg55w","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1jzmseq","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tmqges","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14rosio","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"15wb6pq","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0jv6w3u","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"05vdlrc","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1g28uec","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1g7752e","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cmf0dz","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese, e aggiunge «last month» non presente)","ciclo":"2026-07-19"}
+{"id":"1ls65vr","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0d71oxi","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0vkc19u","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"18alnoj","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1v2yb8o","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"057l2y5","source":"frase-grammatica","verdetto":"errore","problema":"giapponese rotto: «大きくてください» non esiste → «大きい声で言ってください»; trad in inglese","ciclo":"2026-07-19"}
+{"id":"10g5d0m","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1x5foe2","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0jayig0","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"12htyt1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"07z6gza","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1a9k8ee","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0tp4g9m","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lipj4h","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e sgrammaticata anche in EN («write with a bigger.»)","ciclo":"2026-07-19"}
+{"id":"1foajt0","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0co2mr1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1qrunqr","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1v723p9","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"10ez5vg","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0egouyn","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"00zoe83","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1yb1kyj","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e imprecisa: しまっている = «è chiusa», non «locked»","ciclo":"2026-07-19"}
+{"id":"1b2ckzi","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1i7mons","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e imprecisa: 明日までに = «entro domani», non «day after tomorrow»","ciclo":"2026-07-19"}
+{"id":"0ncn0c1","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"05v94nw","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e mismatch: この山 ≠ «Mt.Fuji»","ciclo":"2026-07-19"}
+{"id":"14zplh1","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11y6705","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e tempo sbagliato (結婚した = si è sposato, non «is getting married»)","ciclo":"2026-07-19"}
+{"id":"14ewy31","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ba0q2u","source":"frase-grammatica","verdetto":"errore","problema":"traduzione non corrisponde («I only have one.») e in inglese","ciclo":"2026-07-19"}
+{"id":"07wcbzr","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"034bhgs","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1xn79ay","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0b9eyia","source":"frase-grammatica","verdetto":"errore","problema":"traduzione OPPOSTA: «You shouldn't have a bath» per 入ったほうがいい (dovresti farlo); e in inglese","ciclo":"2026-07-19"}
+{"id":"0vq8zbq","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ame832","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0g0ag94","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1ensu34","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0a3cuc2","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista («飲もう、食べよう…») con trad metalinguistica: sostituire con frase vera (stessa questione della lista ば, seed v58)","ciclo":"2026-07-19"}
+{"id":"0x35v9z","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ycec5z","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07us0gn","source":"frase-grammatica","verdetto":"errore","problema":"giapponese innaturale: «10万円以下のような車» → «10万円以下の車»; trad in inglese","ciclo":"2026-07-19"}
+{"id":"188w159","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1k1psfp","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0yo0d6p","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0glp2c4","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista potenziale: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"0wk1x5l","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0f9e1d7","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista proibitiva: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"0no1eim","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1o8dg0c","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0e4qclq","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0jbk2bw","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0g9ylal","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1vgt0xb","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1iqhyy5","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ztmcb7","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0an0as7","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0zouvpd","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1su7kgu","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista causativa: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"1527yyd","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1uzhk03","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista causativo-passiva: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"032eymm","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dknuqe","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1q4jbfi","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"15d4zkh","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0jhubyv","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0e0ngdm","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista passiva: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"0bj2zta","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1se7pjt","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ybbn22","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14ua8rn","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante e mismatch (時間がない場合 = se non hai tempo)","ciclo":"2026-07-19"}
+{"id":"1b2u3ey","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tekd7q","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lg2t5c","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0m8m3fj","source":"frase-grammatica","verdetto":"errore","problema":"frase-lista imperativa: sostituire con frase vera","ciclo":"2026-07-19"}
+{"id":"0hfxbrd","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"04ru768","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0k07r4c","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1pl4u41","source":"frase-grammatica","verdetto":"dubbio","problema":"refuso it: «Questo e un libro» → «è»","ciclo":"2026-07-19"}
+{"id":"1c5rrkt","source":"frase-grammatica","verdetto":"dubbio","problema":"refuso it: «La stanza e tranquilla» → «è»","ciclo":"2026-07-19"}
+{"id":"1nic7fu","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1qkinnq","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"17s4z91","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"03xx50m","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0577fwu","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0l452t2","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11tgpzs","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1a86t9p","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1wf895j","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"17oftym","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0bdy233","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0f8vigk","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0evqysi","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0keebv3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ovylu6","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1o9xipe","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1av5vm7","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"08acj09","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"111g9r7","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0vroj1l","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0mz48et","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"077nnb5","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0opwqfb","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0jhb45f","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dnd8yh","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"19hdqxt","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"15m8zf8","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0hvja67","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tv5kym","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1usnva3","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"168zg7o","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03l6h1g","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0psnfk5","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lq0ojv","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"027pfhh","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0wg9fpn","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"111cyzh","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1woh354","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"01y128v","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1eeoate","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"04c5exv","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1aliyus","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0p1h73g","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1i45q43","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"03mn1jv","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0a3jo63","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0g0bh0f","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1c0pzb6","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0xqztuv","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13k01sm","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14j51kp","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1nzptoi","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1bxv8sv","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0zpvc52","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07avl6m","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"15g9sgk","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0u1926l","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0keeovb","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0pi27n5","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0a8v6x6","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0s89k7y","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cn9bod","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0e4kzd3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0tho24e","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0kine8b","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0sgtuk5","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ndao2r","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0mpwku2","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0tpir36","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0le12m1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0lliyvi","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1728qff","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"16ftchq","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0vum5p0","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0x8cup7","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1gn39ne","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1fp6eup","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"13baid2","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1h4grvm","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ovqa47","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0iqrdq6","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1sc1b3s","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0w80pki","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1hpu33q","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"13ocdlv","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1scz9ta","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0mrncs9","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1d3cmrp","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0n6kkjo","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1byncoo","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0cy7f1f","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1dfk5ny","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0dqixpi","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"16khw1s","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0djkvcm","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"01aovl3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ny30fj","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0bjbghx","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1stk7kn","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"18q3k7m","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0pksdu6","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lb8xvt","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ynnm28","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ajkz46","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1gt3dwo","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03g06ok","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0iv3lp5","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0txejcs","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1y3gfgf","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lmx5cx","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0yhf95j","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1g0o9j1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"01gfor7","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"07an54c","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0uzhbam","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"152krpt","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"05e2nta","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0im33qf","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1lp1mo7","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ltrrzc","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0vza1y2","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vpfd3l","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1nie8h2","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1vfqn1x","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"03ehw40","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0eqlkbl","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1b6po74","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1405a60","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0pugrvp","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0cnkgoz","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0wlktp2","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1nkvqge","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0b3ww6e","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lglmmi","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1ttjy16","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cyl3m3","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1m8d4ll","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lir9w1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1oopu16","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"09fgxaf","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0it7hx8","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"01dpz9i","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"17l2wwj","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"16kp1m1","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0p06dx3","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08rhwyt","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0g9fwtf","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0qmu21m","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0suy7u1","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0lbes13","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1ow1u69","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"035hrmd","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0ptqamn","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"19xkzzs","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1mhu7xs","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0gjknjq","source":"frase-grammatica","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0duecpj","source":"frase-grammatica","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1j3preq","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0j30h1m","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14jrczx","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"085ofht","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1caqyka","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0ki51fl","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1m0akol","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0av2x0h","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"02w7j97","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"13i4l1k","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1g4izd0","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1xce1ho","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1qm9a1z","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese); e «早口が出来る» poco idiomatico → 早口で話せる","ciclo":"2026-07-19"}
+{"id":"1d87vjq","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"01miq5l","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1mb2bi8","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1ecue5q","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1vukvuv","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0u7orel","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"08m0aoy","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"10ucvrj","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1nikr9a","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0sj40kx","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"14t493k","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0i1n75v","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1n51guw","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0daa32x","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0uzfh7o","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1un034e","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1svnn0f","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1o59dj2","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"02zuqmv","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1arex8h","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1cpc0lg","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1k9g60m","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"18shh61","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1qz0mtq","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0by50fx","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"03eaxor","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"15404dy","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1astbd0","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1bsajlg","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1lifhl2","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"103frdm","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0xsvdhu","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1bcibtm","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"11yb58f","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese); e オーバー = «cappotto» è uso datato","ciclo":"2026-07-19"}
+{"id":"0fmyewt","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1r3krki","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"0micqlp","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"08seijk","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1929xkz","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1eegrc9","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"0x7m5ff","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"063whxa","source":"frase-parola","verdetto":"errore","problema":"traduzione it mancante (inglese)","ciclo":"2026-07-19"}
+{"id":"1ytf9b7","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1qmih13","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"10gjpy5","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1031bch","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}
+{"id":"1xifg6l","source":"frase-parola","verdetto":"ok","ciclo":"2026-07-19"}

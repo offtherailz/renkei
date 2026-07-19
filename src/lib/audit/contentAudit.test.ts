@@ -58,6 +58,19 @@ describe('audit contenuti (runner, solo con CAUDIT=…)', () => {
 		expect(n).toBeGreaterThan(0);
 	});
 
+	(cmd === 'dump' ? it : it.skip)('dump: pendenti in forma compatta (per vaglio inline)', () => {
+		fs.mkdirSync(DIR, { recursive: true });
+		const { words, grammar } = loadSeed();
+		const all = collectAll(words, grammar);
+		const pending = pendingItems(all, reviewedIds(loadVerdicts()));
+		const lines = pending.map((i) =>
+			[i.id, i.source, i.domanda ?? '', i.jp.replace(/\n/g, '⏎'), i.corretta ?? '', i.it ?? '', i.perche ?? ''].join('\t')
+		);
+		fs.writeFileSync(path.join(DIR, 'pending.tsv'), lines.join('\n') + '\n', 'utf8');
+		console.log(`dump: ${pending.length} pendenti in pending.tsv`);
+		expect(pending.length).toBeGreaterThanOrEqual(0);
+	});
+
 	(cmd === 'ingest' ? it : it.skip)('ingest: tabelle compilate → verdetti.jsonl', () => {
 		const { words, grammar } = loadSeed();
 		const bySource = new Map(collectAll(words, grammar).map((x) => [x.id, x.source]));
