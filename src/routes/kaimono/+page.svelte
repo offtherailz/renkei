@@ -312,6 +312,7 @@
 	function startOrder(): void {
 		orderIdx = 0;
 		scene = 'order';
+		heard = '';
 		clerkGreet = rnd(CLERK_GREET);
 		setOrderItem();
 		// il commesso ti dà il benvenuto, poi cominci tu a ordinare
@@ -366,10 +367,12 @@
 	// Saluti a voce: di' la frase giusta (いってきます／ただいま…)
 	async function speakGreet(choices: string[], pick: (c: string, viaVoce?: boolean) => void): Promise<void> {
 		if (micState !== 'idle' || greetPicked !== null) return;
+		const sceneAtStart = scene;
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
+		if (scene !== sceneAtStart) return; // risultato tardivo di un'altra scena: scarta
 		if (alts.length === 0) {
 			heard = '（何も聞こえませんでした…riprova）';
 			return;
@@ -380,10 +383,12 @@
 	}
 	async function speakOrder(): Promise<void> {
 		if (micState !== 'idle' || picked !== null) return;
+		const sceneAtStart = scene;
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
+		if (scene !== sceneAtStart) return; // risultato tardivo: scarta
 		const r = list[orderIdx]!;
 		if (alts.length === 0) {
 			heard = '（何も聞こえませんでした…riprova）';
@@ -398,7 +403,10 @@
 		if (speechMatches(alts, [[r.item.scrittura, r.item.lettura], qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
-			pickOrder('🎤', true);
+			// la voce non penalizza e non «sceglie» per te: se non ho capito
+			// l'ordine (o è arrivato un residuo della scena prima), riprova o
+			// usa i bottoni — nessun turno consumato, nessun errore segnato.
+			heard = alts[0] + '（non ho riconosciuto l\'ordine…riprova）';
 		}
 	}
 	function nextOrder(): void {

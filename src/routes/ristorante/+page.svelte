@@ -142,7 +142,8 @@
 		if (speechMatches(alts, [[e.dish.nome, e.dish.lettura], qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
-			pickOrder('🎤', true);
+			// la voce non penalizza e non «sceglie» per te: riprova o usa i bottoni
+			heard = alts[0] + '（non ho riconosciuto l\'ordine…riprova）';
 		}
 	}
 
