@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, speakDialogue, stopSpeaking } from '$lib/core/tts';
-	import { abortableListen, speechAvailable, phraseVariants } from '$lib/core/speech';
+	import { abortableListen, speechAvailable, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
@@ -119,7 +119,11 @@
 		const q = run.questions[r.questionIdx]!;
 		await speakJp(q.q, slow);
 		const corretta = q.choices[q.correct]!;
-		return { corretta, varianti: [...new Set([...phraseVariants(corretta), corretta])] };
+		// il riconoscitore trascrive in forma scritta: aggiungi la variante kanji
+		// della risposta kana (えきのまえ → 駅の前); i numerali kana convergono già
+		// in normalizeSpeech (さんじ ↔ 3時)
+		const kanji = kanaToKanjiWritten(corretta);
+		return { corretta, varianti: [...new Set([...phraseVariants(corretta), corretta, ...(kanji ? [kanji] : [])])] };
 	}
 
 	// In pausa NON si ascolta e NON si parla: si aspetta un tap sui bottoni grandi

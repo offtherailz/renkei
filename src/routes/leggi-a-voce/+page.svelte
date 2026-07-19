@@ -5,7 +5,7 @@
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
-	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants, kanaToKanjiWritten } from '$lib/core/speech';
 	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
 	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
@@ -110,7 +110,11 @@
 			return;
 		}
 		heard = alts[0]!;
-		finish(speechMatches(alts, [sentenceMatchVariants(cur().plain)]));
+		// frasi N5 in kana: il riconoscitore trascrive in kanji — aggiungi la
+		// variante scritta (わたしは がくせいです → 私は 学生です)
+		const plain = cur().plain;
+		const kanji = kanaToKanjiWritten(plain);
+		finish(speechMatches(alts, [sentenceMatchVariants(plain, kanji ?? undefined)]));
 	}
 
 	function finish(ok: boolean): void {
