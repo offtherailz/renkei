@@ -142,7 +142,7 @@
 		if (speechMatches(alts, [[e.dish.nome, e.dish.lettura], qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
-			pickOrder('🎤');
+			pickOrder('🎤', true);
 		}
 	}
 
@@ -199,11 +199,12 @@
 		scene = 'seats';
 	}
 
-	function pickSeats(choice: string): void {
+	function pickSeats(choice: string, viaVoce = false): void {
 		if (seatsPicked !== null) return;
 		seatsPicked = choice;
 		if (choice !== seatsCorrect) errors += 1;
-		void recordPractice('counter:人', choice === seatsCorrect);
+		// la voce non penalizza: il miss conta solo dai bottoni
+		if (!viaVoce || choice === seatsCorrect) void recordPractice('counter:人', choice === seatsCorrect);
 		staffLine = `${seatsCorrect}様ですね、` + rnd(OK);
 		sequence([{ who: 'me', text: choice + 'です' }, { who: 'staff', text: staffLine }]);
 	}
@@ -303,7 +304,8 @@
 			else mySay(frase);
 		} else {
 			errors += 1;
-			void recordPractice('counter:' + e.dish.counterId, false);
+			// la voce non penalizza: il miss conta solo dai bottoni
+			if (!viaVoce) void recordPractice('counter:' + e.dish.counterId, false);
 			staffLine = rnd(NOT_UNDERSTOOD);
 			staffSay(staffLine);
 		}
@@ -435,7 +437,7 @@
 			<div class="people">{'🧑'.repeat(seats)}</div>
 			<p class="hint">Siete in {seats}: come lo dici?</p>
 			{#if canSpeak && seatsPicked === null}
-				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(seatsChoices, pickSeats)}>
+				<button class="mic" class:listening={micState === 'listening'} onclick={() => speakChoice(seatsChoices, (c) => pickSeats(c, true))}>
 					{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 				</button>
 				<HeardDiff {heard} candidates={seatsChoices} />

@@ -71,11 +71,15 @@
 	let correct = $state('');
 	let picked = $state<string | null>(null);
 
+	let nextViaVoce = false; // set da speakChoice: la scelta in arrivo è vocale
 	function choose(choice: string, reply?: Line): void {
 		if (picked !== null) return;
+		const viaVoce = nextViaVoce;
+		nextViaVoce = false;
 		picked = choice;
 		if (choice !== correct) errors += 1;
-		void recordPractice('phrase:' + correct, choice === correct);
+		// la voce non penalizza: il miss conta solo dai bottoni
+		if (!viaVoce || choice === correct) void recordPractice('phrase:' + correct, choice === correct);
 		if (reply) sequence([{ who: 'me', text: choice }, reply]);
 		else mySay(choice);
 	}
@@ -96,7 +100,7 @@
 		}
 		heard = alts[0]!;
 		const hit = choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
-		if (hit) onMatch(hit);
+		if (hit) { nextViaVoce = true; onMatch(hit); }
 	}
 
 	onMount(() => {

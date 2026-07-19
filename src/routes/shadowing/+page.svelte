@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
-	import { recordPracticeMiss, recordSpokenPractice } from '$lib/core/practiceMiss';
+	import { recordSpokenPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapaneseAsync } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
@@ -141,11 +141,10 @@
 			// orale fuzzy: credito piccolo e solo positivo (cella 🎤)
 			await recordSpokenPractice('phrase:' + r.phrase.jp, true);
 		} else {
+			// errore di pronuncia/riconoscimento: la voce non penalizza mai
+			// (niente punti deboli) — si azzera solo la serie
 			streak = 0;
-			if (!roundMissed) {
-				roundMissed = true;
-				await recordPracticeMiss('phrase:' + r.phrase.jp);
-			}
+			roundMissed = true;
 		}
 	}
 

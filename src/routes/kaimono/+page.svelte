@@ -347,7 +347,8 @@
 		} else {
 			errors += 1;
 			missed.push(r.item.scrittura);
-			void recordPractice('counter:' + r.item.counterId, false);
+			// la voce non penalizza: il miss conta solo dai bottoni
+			if (!viaVoce) void recordPractice('counter:' + r.item.counterId, false);
 			orderStaffLine = rnd(NOT_UNDERSTOOD_K);
 			line(clerk(), orderStaffLine, 'other');
 		}
@@ -397,7 +398,7 @@
 		if (speechMatches(alts, [[r.item.scrittura, r.item.lettura], qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
-			pickOrder('🎤');
+			pickOrder('🎤', true);
 		}
 	}
 	function nextOrder(): void {
