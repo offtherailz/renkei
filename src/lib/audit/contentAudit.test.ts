@@ -55,7 +55,8 @@ describe('audit contenuti (runner, solo con CAUDIT=…)', () => {
 			`# Audit contenuti\n\nItem totali: ${all.length} · da vagliare: ${pending.length} · lotti generati: ${n} (di ${BATCH_SIZE}).\nCompila le tabelle nei \`lotto-*.md\`, poi \`CAUDIT=ingest\`.\n`,
 			'utf8'
 		);
-		expect(n).toBeGreaterThan(0);
+		// n=0 è legittimo quando tutto è già vagliato (copertura completa)
+		expect(n).toBeGreaterThanOrEqual(pending.length > 0 ? 1 : 0);
 	});
 
 	(cmd === 'dump' ? it : it.skip)('dump: pendenti in forma compatta (per vaglio inline)', () => {
