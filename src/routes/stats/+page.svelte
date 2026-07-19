@@ -6,6 +6,10 @@
 	import { computeStreak, weeklyRecap, STREAK_MILESTONES, type Streak, type WeekRecap } from '$lib/core/celebration';
 	import { FACET_META } from '$lib/core/facets';
 	import { allHighscores, gameLabel } from '$lib/core/gameScores';
+	import { base } from '$app/paths';
+	import { CONJ_CLASS_LABELS, CONJ_CLASS_ICONS } from '$lib/core/conjugation';
+	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
+	import { normalizePracticeOnlyMastery } from '$lib/core/srs';
 	import type { StudySessionRecord, SrsProgress, UserProfile } from '$lib/types/models';
 
 	interface DailyAggregate {
@@ -71,6 +75,8 @@
 	let gameRecords = $state<{ id: string; label: string; score: number }[]>([]);
 	let completed = $state<{ id: string; name: string }[]>([]);
 	let facetAgg = $state<{ icon: string; label: string; avg: number; best: number; count: number }[]>([]);
+	// padronanza per classe di coniugazione (conj:*) e per costruzione (gram:*)
+	let formeAgg = $state<{ icon: string; label: string; pct: number; href: string }[]>([]);
 	let totali = $state({ risposte: 0, corrette: 0, sessioni: 0, giorni: 0, streakRecord: 0 });
 	let voce = $state({ frasi: 0, parole: 0 });
 
@@ -132,6 +138,31 @@
 				|| srsRows.filter((r) => r.id_item.startsWith('phrase:')).length,
 			parole: srsRows.filter((r) => (r.facet_form_speak ?? 0) > 0).length
 		};
+
+		// coniugazioni: classi (conj:*) e costruzioni (gram:*), le più deboli in
+		// testa → «cosa dovrei consolidare». Solo quelle con pratica registrata.
+		const forme: typeof formeAgg = [];
+		for (const r of srsRows) {
+			if (r.id_item.startsWith('conj:')) {
+				const cls = r.id_item.slice(5);
+				forme.push({
+					icon: CONJ_CLASS_ICONS[cls] ?? '✍️',
+					label: CONJ_CLASS_LABELS[cls] ?? cls,
+					pct: normalizePracticeOnlyMastery(r.mastery_points),
+					href: `${base}/consolida/${encodeURIComponent(r.id_item)}`
+				});
+			} else if (r.id_item.startsWith('gram:')) {
+				const slug = r.id_item.slice(5);
+				const form = GRAMMAR_FORMS.find((f) => f.slug === slug);
+				forme.push({
+					icon: '🧬',
+					label: form?.title ?? slug,
+					pct: normalizePracticeOnlyMastery(r.mastery_points),
+					href: `${base}/consolida/${encodeURIComponent(r.id_item)}`
+				});
+			}
+		}
+		formeAgg = forme.sort((a, b) => a.pct - b.pct);
 
 		// record giochi
 		const hs = allHighscores();
@@ -409,6 +440,26 @@
 </section>
 
 <section class="section-card">
+	<p class="card-title">✍️ Coniugazioni e costruzioni</p>
+	{#if formeAgg.length === 0}
+		<p class="muted-text">Ancora niente: le coniugazioni nel quiz e i drill delle forme riempiranno questa lista.</p>
+	{:else}
+		<div class="facet-list">
+			{#each formeAgg as f (f.href)}
+				<a class="facet-row forme-row" href={f.href} title="Apri il drill">
+					<span class="facet-lab">{f.icon} {f.label}</span>
+					<div class="facet-bar">
+						<div class="facet-fill" class:weak-fill={f.pct < 60} style="width:{f.pct}%"></div>
+					</div>
+					<span class="facet-num" class:weak-num={f.pct < 60}>{f.pct}%</span>
+				</a>
+			{/each}
+		</div>
+		<p class="muted-text skill-note">Le più deboli in alto: sotto il 60% conviene consolidare (tocca la riga per il drill). Il punteggio è per classe/costruzione, non per singolo verbo.</p>
+	{/if}
+</section>
+
+<section class="section-card">
 	<p class="card-title">🏆 Record giochi</p>
 	{#if gameRecords.length === 0}
 		<p class="muted-text">Ancora nessun record — gioca ai mini-giochi in Giochi!</p>
@@ -455,6 +506,10 @@
 	.facet-best { position: absolute; top: -2px; width: 2px; height: 14px; background: var(--warn-ink); border-radius: 2px; transform: translateX(-1px); }
 	.facet-num { font-size: 0.82rem; font-weight: 700; text-align: right; }
 	.facet-num small { color: var(--muted); font-weight: 400; }
+	.forme-row { text-decoration: none; color: inherit; border-radius: 8px; padding: 2px 4px; }
+	.forme-row:hover { background: var(--surface-2); }
+	.weak-fill { background: var(--danger); }
+	.weak-num { color: var(--danger); }
 
 	.rec-list, .succ-list { display: flex; flex-wrap: wrap; gap: 8px; }
 	.rec-row { display: flex; align-items: baseline; gap: 8px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; }
