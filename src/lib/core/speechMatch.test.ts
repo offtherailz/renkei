@@ -14,6 +14,11 @@ describe('normalizeSpeech — numerali kana → forma scritta', () => {
 		expect(normalizeSpeech('さんぜんえん')).toBe(normalizeSpeech('3000円'));
 		expect(normalizeSpeech('ななばん')).toBe(normalizeSpeech('7番'));
 		expect(normalizeSpeech('いちばん')).toBe(normalizeSpeech('一番'));
+		expect(normalizeSpeech('ひとりです')).toBe(normalizeSpeech('1人です'));
+		expect(normalizeSpeech('ふたり')).toBe(normalizeSpeech('二人'));
+		expect(normalizeSpeech('さんにん')).toBe(normalizeSpeech('3人'));
+		// にんじん NON è «2人じん»: serve un numero prima di にん
+		expect(normalizeSpeech('にんじん')).toBe('にんじん');
 	});
 
 	it('simmetria: non tocca parole normali in modo asimmetrico', () => {
