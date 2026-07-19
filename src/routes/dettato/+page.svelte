@@ -102,7 +102,7 @@
 		answered = ok;
 		if (ok) score += 1;
 		// dettato = ascolto controllato: cella 👂 della parola della frase
-		await recordPractice(`word:${r.wordId}`, ok, 'facet_form_listen');
+		if (ok) await recordPractice(`word:${r.wordId}`, true, 'facet_form_listen');
 		speakSentenceJapanese(r.sentence);
 	}
 
@@ -169,7 +169,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
-			<p class="hint">Gli errori alimentano i tuoi punti deboli (cella Ascoltare 👂).</p>
+			<p class="hint">Le risposte giuste rafforzano l'ascolto (👂) — nei giochi gli errori non penalizzano.</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

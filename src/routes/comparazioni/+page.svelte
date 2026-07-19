@@ -172,7 +172,7 @@
 
 	async function credit(ok: boolean): Promise<void> {
 		const id = adjIdByForm.get(cur().adjLettura);
-		if (id) await recordPractice('word:' + id, ok, 'facet_use');
+		if (id && ok) await recordPractice('word:' + id, true, 'facet_use');
 	}
 
 	async function pickChoice(c: string): Promise<void> {
@@ -270,7 +270,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
-			<p class="hint">Gli errori alimentano l'uso (🧩) degli aggettivi nei punti deboli.</p>
+			<p class="hint">Le risposte giuste rafforzano l'uso (🧩) degli aggettivi — nei giochi gli errori non penalizzano.</p>
 			<button class="proceed" onclick={() => pickLevel(level)}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

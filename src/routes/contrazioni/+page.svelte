@@ -108,9 +108,6 @@
 			score += 1;
 			const wid = r.pair.parola ? wordIdByForm.get(r.pair.parola) : undefined;
 			if (wid) void recordPractice('word:' + wid, true, 'facet_use');
-		} else if (!viaVoce) {
-			const wid = r.pair.parola ? wordIdByForm.get(r.pair.parola) : undefined;
-			if (wid) void recordPractice('word:' + wid, false, 'facet_use');
 		}
 		speakSentenceJapanese(r.corretta);
 	}

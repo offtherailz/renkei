@@ -200,8 +200,8 @@
 		const ok = choice === r.step1Corretta;
 		// il passo di morfologia accredita la CLASSE (✍️) e la costruzione
 		const classKey1 = conjClassKey(r.word);
-		if (classKey1) await recordPractice(classKey1, ok);
-		if (r.chain.gram) await recordPractice(`gram:${r.chain.gram}`, ok);
+		if (ok && classKey1) await recordPractice(classKey1, true);
+		if (ok && r.chain.gram) await recordPractice(`gram:${r.chain.gram}`, true);
 		speakSentenceJapanese(r.step1Corretta);
 		setTimeout(() => {
 			if (ok) step = 2;
@@ -215,8 +215,8 @@
 		const ok = choice === r.step2Corretta;
 		if (ok && picked1 === r.step1Corretta) score += 1;
 		const classKey2 = conjClassKey(r.word);
-		if (classKey2) await recordPractice(classKey2, ok);
-		if (r.chain.gram) await recordPractice(`gram:${r.chain.gram}`, ok);
+		if (ok && classKey2) await recordPractice(classKey2, true);
+		if (ok && r.chain.gram) await recordPractice(`gram:${r.chain.gram}`, true);
 		speakSentenceJapanese(r.step2Corretta);
 	}
 
@@ -317,7 +317,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
-			<p class="hint">Gli errori alimentano la classe verbale e la costruzione nei punti deboli.</p>
+			<p class="hint">Le risposte giuste rafforzano la classe verbale e la costruzione — nei giochi gli errori non penalizzano.</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

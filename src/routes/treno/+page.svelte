@@ -194,7 +194,7 @@
 		} else {
 			ticketAttempts += 1;
 			errors += 1;
-			void recordPractice('counter:円', false);
+			/* giochi: niente penalità */
 			say('anno', `${readNumber(target.prezzo)}えんです。`);
 			resetTender();
 		}
@@ -238,7 +238,7 @@
 		if (platPicked === platformN) return;
 		platPicked = n;
 		if (n !== platformN) errors += 1;
-		void recordPractice('counter:番', n === platformN);
+		if (n === platformN) void recordPractice('counter:番', true);
 	}
 
 	// ── Salire sul treno giusto ──

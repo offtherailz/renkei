@@ -150,7 +150,7 @@
 				detailHref = hit.detailHref;
 				// scelta discreta: delta pieno, successi E errori; il keigo è
 				// Uso·registro → alimenta la cella 🧩 della parola
-				await recordPractice('word:' + hit.id, choice === r.corretta, 'facet_use');
+				if (choice === r.corretta) await recordPractice('word:' + hit.id, true, 'facet_use');
 			}
 		}
 		if (choice === r.corretta) score += 1;

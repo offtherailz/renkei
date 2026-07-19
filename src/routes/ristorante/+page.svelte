@@ -204,7 +204,7 @@
 		seatsPicked = choice;
 		if (choice !== seatsCorrect) errors += 1;
 		// la voce non penalizza: il miss conta solo dai bottoni
-		if (!viaVoce || choice === seatsCorrect) void recordPractice('counter:人', choice === seatsCorrect);
+		if (choice === seatsCorrect) void recordPractice('counter:人', true);
 		staffLine = `${seatsCorrect}様ですね、` + rnd(OK);
 		sequence([{ who: 'me', text: choice + 'です' }, { who: 'staff', text: staffLine }]);
 	}
@@ -305,7 +305,7 @@
 		} else {
 			errors += 1;
 			// la voce non penalizza: il miss conta solo dai bottoni
-			if (!viaVoce) void recordPractice('counter:' + e.dish.counterId, false);
+			/* giochi: niente penalità */
 			staffLine = rnd(NOT_UNDERSTOOD);
 			staffSay(staffLine);
 		}
@@ -388,7 +388,7 @@
 			payAttempts += 1;
 			staffSay(`すみません、${readNumber(orderedTotal())}えんです。`);
 			errors += 1;
-			void recordPractice('counter:円', false);
+			/* giochi: niente penalità */
 			resetTender();
 		}
 	}

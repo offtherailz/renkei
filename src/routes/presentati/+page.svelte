@@ -80,7 +80,7 @@
 		if (choice === r.corretta) {
 			score += 1;
 		}
-		await recordPractice('phrase:' + r.corretta, choice === r.corretta);
+		if (choice === r.corretta) await recordPractice('phrase:' + r.corretta, true);
 		speakSentenceJapanese(r.corretta);
 	}
 

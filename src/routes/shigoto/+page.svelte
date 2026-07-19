@@ -79,7 +79,7 @@
 		picked = choice;
 		if (choice !== correct) errors += 1;
 		// la voce non penalizza: il miss conta solo dai bottoni
-		if (!viaVoce || choice === correct) void recordPractice('phrase:' + correct, choice === correct);
+		if (choice === correct) void recordPractice('phrase:' + correct, true);
 		if (reply) sequence([{ who: 'me', text: choice }, reply]);
 		else mySay(choice);
 	}

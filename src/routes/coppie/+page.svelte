@@ -64,8 +64,10 @@
 		const ok = choice === r.item.corretta;
 		if (ok) score += 1;
 		// doppio incremento: distinguere la coppia allena ENTRAMBE le parole
-		await recordPractice(`word:${r.item.a}`, ok, 'facet_use');
-		await recordPractice(`word:${r.item.b}`, ok, 'facet_use');
+		if (ok) {
+			await recordPractice(`word:${r.item.a}`, true, 'facet_use');
+			await recordPractice(`word:${r.item.b}`, true, 'facet_use');
+		}
 		const [ha, hb] = await Promise.all([findWord(label(r.item.a)), findWord(label(r.item.b))]);
 		detailA = ha?.detailHref ?? null;
 		detailB = hb?.detailHref ?? null;
@@ -124,7 +126,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
-			<p class="hint">Le coppie sbagliate alimentano ENTRAMBE le parole nei punti deboli.</p>
+			<p class="hint">Rispondere bene rafforza ENTRAMBE le parole della coppia — nei giochi gli errori non penalizzano.</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

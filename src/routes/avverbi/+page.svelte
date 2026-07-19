@@ -104,7 +104,7 @@
 		const r = cur();
 		const ok = choice === r.corretta;
 		if (ok) score += 1;
-		await recordPractice('word:' + r.word.id, ok, 'facet_use');
+		if (ok) await recordPractice('word:' + r.word.id, true, 'facet_use');
 		speakSentenceJapanese(r.pieno);
 	}
 
@@ -176,7 +176,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
-			<p class="hint">Gli errori alimentano l'uso (🧩) degli avverbi nei punti deboli.</p>
+			<p class="hint">Le risposte giuste rafforzano l'uso (🧩) degli avverbi — nei giochi gli errori non penalizzano.</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

@@ -83,7 +83,7 @@
 		if (choice === r.corretta) score += 1;
 		// scelta discreta: delta pieno, successi E errori; il 言い換え è
 		// recupero del significato → alimenta la cella 🎯 della parola
-		if (hit) await recordPractice('word:' + hit.id, choice === r.corretta, 'facet_meaning_p');
+		if (hit && choice === r.corretta) await recordPractice('word:' + hit.id, true, 'facet_meaning_p');
 	}
 
 	function next(): void {

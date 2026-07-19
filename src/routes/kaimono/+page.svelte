@@ -348,7 +348,7 @@
 			errors += 1;
 			missed.push(r.item.scrittura);
 			// la voce non penalizza: il miss conta solo dai bottoni
-			if (!viaVoce) void recordPractice('counter:' + r.item.counterId, false);
+			/* giochi: niente penalità */
 			orderStaffLine = rnd(NOT_UNDERSTOOD_K);
 			line(clerk(), orderStaffLine, 'other');
 		}
@@ -445,7 +445,7 @@
 			// non blocca: fai riprovare
 			line(clerk(), `すみません、${readNumber(total())}えんちょうどおねがいします。`, 'other');
 			errors += 1;
-			void recordPractice('counter:円', false);
+			/* giochi: niente penalità */
 			resetTender();
 		}
 	}
