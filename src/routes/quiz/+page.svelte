@@ -1404,8 +1404,11 @@
 			const durationMs = (appState.settings.session_duration_minutes || 5) * 60_000;
 			// /quiz?deboli=1 → sessione di ripasso dei punti deboli: stessa
 			// esperienza quiz, ma coda dai punti deboli e punteggio solo-pratica.
+			// Dose del giorno: solo i 12 più deboli (la lista intera resterebbe
+			// scoraggiante); il resto aspetta in /punti-deboli e la lista si svuota
+			// da sola man mano che i ripassi graduano l'SRS.
 			const weakQueue = wantWeak
-				? (await loadWeakItems()).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
+				? (await loadWeakItems(12)).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
 				: undefined;
 			session = {
 				startedAt: now,

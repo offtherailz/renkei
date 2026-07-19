@@ -342,8 +342,10 @@ export const DRILL_FORMS: DrillFormMeta[] = [
 	{ key: 'naru', label: 'Diventare (〜くなる/になる)', category: 'adjective' }
 ];
 
-// Default: le forme base N5.
-export const DEFAULT_KNOWN_FORMS = ['masu', 'nai', 'ta', 'te', 'neg', 'past', 'pastneg', 'adv', 'attr'];
+// Default: TUTTE le forme spuntate (deciso 19/07: partire con tutto attivo,
+// sennò ci si dimentica di accenderle; si toglie ciò che non si vuole).
+// In futuro l'onboarding potrà proporre la scelta.
+export const DEFAULT_KNOWN_FORMS = DRILL_FORMS.map((f) => f.key);
 
 // Le chiavi degli aggettivi te/ba/nara nella tabella si chiamano te/ba/nara:
 // nella checklist sono raggruppate come adj-te / adj-ba.

@@ -11,7 +11,7 @@
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
-	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
+	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence, stopSpeaking } from '$lib/core/tts';
 	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
@@ -123,10 +123,13 @@
 	let heard = $state('');
 	async function speakOrder(): Promise<void> {
 		if (micState !== 'idle' || picked !== null) return;
+		const idxAtStart = orderIdx;
+		stopSpeaking(); // niente TTS nel mic
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
+		if (orderIdx !== idxAtStart) return; // risultato tardivo: scarta
 		const e = queue[orderIdx]!;
 		if (alts.length === 0) {
 			heard = '（何も聞こえませんでした…riprova）';
@@ -152,6 +155,7 @@
 	// se dici uno dei valori validi, equivale a toccarlo.
 	async function speakChoice(choices: string[], onMatch: (choice: string) => void): Promise<void> {
 		if (micState !== 'idle') return;
+		stopSpeaking(); // il mic non deve sentire il TTS in corso
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();

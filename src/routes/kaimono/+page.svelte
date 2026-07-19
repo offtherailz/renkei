@@ -11,7 +11,7 @@
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
-	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
+	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence, stopSpeaking } from '$lib/core/tts';
 	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
@@ -368,6 +368,7 @@
 	async function speakGreet(choices: string[], pick: (c: string, viaVoce?: boolean) => void): Promise<void> {
 		if (micState !== 'idle' || greetPicked !== null) return;
 		const sceneAtStart = scene;
+		stopSpeaking(); // il mic non deve sentire il TTS in corso
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
@@ -384,11 +385,13 @@
 	async function speakOrder(): Promise<void> {
 		if (micState !== 'idle' || picked !== null) return;
 		const sceneAtStart = scene;
+		const idxAtStart = orderIdx;
+		stopSpeaking(); // il mic non deve sentire il TTS del commesso
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
-		if (scene !== sceneAtStart) return; // risultato tardivo: scarta
+		if (scene !== sceneAtStart || orderIdx !== idxAtStart) return; // tardivo: scarta
 		const r = list[orderIdx]!;
 		if (alts.length === 0) {
 			heard = '（何も聞こえませんでした…riprova）';
