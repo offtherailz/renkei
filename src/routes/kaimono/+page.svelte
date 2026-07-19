@@ -10,7 +10,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPractice } from '$lib/core/practiceMiss';
-	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playRing } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -400,7 +400,17 @@
 			itemReading(r.item, r.qty),
 			String(r.qty) + r.item.counterId
 		];
-		if (speechMatches(alts, [[r.item.scrittura, r.item.lettura], qtyVariants])) {
+		// forme kanji che il riconoscitore usa per item scritti in kana nei dati
+		// (quelle ambigue, es. あめ=飴 qui ma 雨 nelle frasi, vivono solo qui)
+		const EXTRA_ITEM_KANJI: Record<string, string> = { あめ: '飴', にんじん: '人参', おにぎり: 'おむすび' };
+		const itemForms = [
+			r.item.scrittura,
+			r.item.lettura,
+			kanaToKanjiWritten(r.item.scrittura),
+			kanaToKanjiWritten(r.item.lettura),
+			EXTRA_ITEM_KANJI[r.item.scrittura]
+		].filter((v): v is string => Boolean(v));
+		if (speechMatches(alts, [itemForms, qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
 			// la voce non penalizza e non «sceglie» per te: se non ho capito

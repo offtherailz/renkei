@@ -10,7 +10,7 @@
 	import { readCounterN } from '$lib/core/counterReadings';
 	import { readNumber, YEN_DENOMINATIONS } from '$lib/core/counterGen';
 	import { recordPractice } from '$lib/core/practiceMiss';
-	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
+	import { speechAvailable, listenJapanese, speechMatches, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
 	import { speakSentenceJapanese, speakSentenceJapaneseAsync, speakSequence } from '$lib/core/tts';
 	import { playClink } from '$lib/core/sfx';
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
@@ -139,7 +139,8 @@
 			counterReading(e.dish.counterId, e.qty),
 			String(e.qty) + e.dish.counterId
 		];
-		if (speechMatches(alts, [[e.dish.nome, e.dish.lettura], qtyVariants])) {
+		const itemForms = [e.dish.nome, e.dish.lettura, kanaToKanjiWritten(e.dish.nome), kanaToKanjiWritten(e.dish.lettura)].filter((v): v is string => Boolean(v));
+		if (speechMatches(alts, [itemForms, qtyVariants])) {
 			pickOrder(orderCorrect, true);
 		} else {
 			// la voce non penalizza e non «sceglie» per te: riprova o usa i bottoni
