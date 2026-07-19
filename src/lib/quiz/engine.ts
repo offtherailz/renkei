@@ -740,7 +740,7 @@ const COUNT_OBJECTS: { emoji: string; counter: string; confus: string[] }[] = [
   { emoji: "🍺", counter: "杯", confus: ["本", "個"] }
 ];
 
-export function generateCountObjects(counters: Counter[]): (GeneratedReading & { emoji: string; count: number }) | null {
+export function generateCountObjects(counters: Counter[]): (GeneratedReading & { emoji: string; count: number; counterId: string }) | null {
   const byId = new Map(counters.map((c) => [c.id, c]));
   const pool = COUNT_OBJECTS.filter((o) => byId.has(o.counter));
   if (pool.length === 0) return null;
@@ -759,7 +759,7 @@ export function generateCountObjects(counters: Counter[]): (GeneratedReading & {
     )
   ].filter((r) => r !== correct).slice(0, 3);
   if (distractors.length < 2) return null;
-  return { prompt: obj.emoji.repeat(n), correct, distractors, emoji: obj.emoji, count: n };
+  return { prompt: obj.emoji.repeat(n), correct, distractors, emoji: obj.emoji, count: n, counterId: obj.counter };
 }
 
 // ── Quiz coppie transitivo/intransitivo: quale verbo serve nella frase? ──

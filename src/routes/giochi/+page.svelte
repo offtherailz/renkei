@@ -77,6 +77,26 @@
 		if (hit) pickGreet(hit, true);
 	}
 
+	// Il riconoscitore trascrive le letture come FORMA SCRITTA (ここのか → «9日»,
+	// よじはん → «4時30分», さんぼん → «3本»): oltre alle varianti kana della lettura
+	// attesa, accettiamo anche la forma scritta, derivata dal prompt (così vale
+	// anche nel Misto). Senza questo, pronunce giuste risultavano sbagliate.
+	function writtenVariants(q: GeneratedReading): string[] {
+		const out: string[] = [];
+		const p = q.prompt;
+		if (/^[\d,]+(日|時|分|円)$/.test(p)) out.push(p);
+		const clock = p.match(/^(\d+):(\d\d)$/);
+		if (clock) {
+			const h = Number(clock[1]);
+			const m = Number(clock[2]);
+			out.push(m === 0 ? `${h}時` : `${h}時${m}分`);
+			if (m === 30) out.push(`${h}時半`);
+		}
+		const qc = q as GeneratedReading & { count?: number; counterId?: string };
+		if (qc.count && qc.counterId) out.push(`${qc.count}${qc.counterId}`);
+		return out;
+	}
+
 	// Rispondi a voce nei giochi «leggi come si pronuncia»: premendo il pulsante il
 	// timer si ferma per lasciarti pronunciare; se la lettura combacia, conta come
 	// risposta giusta (una pronuncia sbagliata non penalizza: puoi ritentare o toccare).
@@ -90,7 +110,8 @@
 		if (!question || picked !== null) return;
 		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
 		heard = alts[0]!;
-		if (speechMatches(alts, [phraseVariants(question.correct)])) pick(question.correct);
+		const varianti = [...phraseVariants(question.correct), question.correct, ...writtenVariants(question)];
+		if (speechMatches(alts, [varianti])) pick(question.correct);
 	}
 
 	// Mette a fuoco l'input a ogni nuova domanda (il parametro cambia → update),
