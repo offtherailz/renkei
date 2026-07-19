@@ -1,0 +1,386 @@
+{
+  "versione": "1.0",
+  "corso": {
+    "id": "genki-1",
+    "nome": "Genki I (ordine del libro)",
+    "descrizione": "Le 12 lezioni di Genki I come percorso: la grammatica N5 del catalogo nell'ordine del libro, più una lezione Extra coi pattern rimanenti.",
+    "autore": "Renkei (mappatura sul catalogo aperto)",
+    "livello_jlpt": "N5"
+  },
+  "lezioni": [
+    {
+      "id": "L01",
+      "numero": 1,
+      "titolo": "L1 — あたらしいともだち",
+      "descrizione": "Presentarsi: XはYです, の del possesso, domande con か.",
+      "parole": [
+        "これ",
+        "本",
+        "私::わたし",
+        "私::わたくし",
+        "学生"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "g-n5-desu",
+        "grammar-api-N5-21",
+        "grammar-api-N5-2",
+        "grammar-api-N5-51",
+        "grammar-api-N5-75"
+      ]
+    },
+    {
+      "id": "L02",
+      "numero": 2,
+      "titolo": "L2 — かいもの",
+      "descrizione": "Indicare le cose: じゃないです, も, ね/よ, 〜をください.",
+      "parole": [
+        "これ",
+        "ない",
+        "猫",
+        "作る",
+        "来る",
+        "私::わたし",
+        "私::わたくし",
+        "水"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-20",
+        "grammar-api-N5-46",
+        "grammar-api-N5-34",
+        "grammar-api-N5-79",
+        "grammar-api-N5-59"
+      ]
+    },
+    {
+      "id": "L03",
+      "numero": 3,
+      "titolo": "L3 — デートのやくそく",
+      "descrizione": "I verbi in ます e le particelle を・で・に・へ; inviti con ませんか.",
+      "parole": [
+        "する",
+        "学校",
+        "勉強",
+        "作る",
+        "来る",
+        "本",
+        "買い物",
+        "物",
+        "一緒",
+        "一"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-5",
+        "grammar-api-N5-47",
+        "grammar-api-N5-50",
+        "grammar-api-N5-48",
+        "grammar-api-N5-31",
+        "grammar-api-N5-58"
+      ]
+    },
+    {
+      "id": "L04",
+      "numero": 4,
+      "titolo": "L4 — はじめてのデート",
+      "descrizione": "Esserci: あります/います; が; と; posizioni (前に).",
+      "parole": [
+        "好き",
+        "猫",
+        "在る",
+        "有る",
+        "机",
+        "上",
+        "本",
+        "居る",
+        "犬",
+        "庭",
+        "寝る",
+        "前"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-11",
+        "grammar-api-N5-12",
+        "grammar-api-N5-14",
+        "grammar-api-N5-71",
+        "grammar-api-N5-30"
+      ]
+    },
+    {
+      "id": "L05",
+      "numero": 5,
+      "titolo": "L5 — おきなわりょこう",
+      "descrizione": "Aggettivi い e な; proposte con ましょう; どんな.",
+      "parole": [
+        "この",
+        "どんな",
+        "映画",
+        "好き",
+        "レストラン",
+        "どう",
+        "荷物",
+        "物"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-16",
+        "grammar-api-N5-8",
+        "grammar-api-N5-36",
+        "grammar-api-N5-77",
+        "grammar-api-N5-32",
+        "grammar-api-N5-33"
+      ]
+    },
+    {
+      "id": "L06",
+      "numero": 6,
+      "titolo": "L6 — ロバートさんのいちにち",
+      "descrizione": "La forma in て: richieste, permessi e divieti.",
+      "parole": [
+        "ここ",
+        "ない",
+        "する",
+        "宿題",
+        "はい"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-1",
+        "grammar-api-N5-67",
+        "grammar-api-N5-68",
+        "grammar-api-N5-69",
+        "grammar-api-N5-70",
+        "grammar-api-N5-40"
+      ]
+    },
+    {
+      "id": "L07",
+      "numero": 7,
+      "titolo": "L7 — かぞくのしゃしん",
+      "descrizione": "〜ている: azioni in corso e stati.",
+      "parole": [
+        "居る",
+        "今",
+        "本"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-66"
+      ]
+    },
+    {
+      "id": "L08",
+      "numero": 8,
+      "titolo": "L8 — バーベキュー",
+      "descrizione": "〜ないでください e の nominalizzatore (のが好き/上手).",
+      "parole": [
+        "する",
+        "ない",
+        "歯",
+        "ここ",
+        "写真",
+        "下手",
+        "歌う",
+        "下",
+        "歌",
+        "私::わたし",
+        "私::わたくし",
+        "手",
+        "好き",
+        "読む",
+        "本",
+        "料理する",
+        "上手",
+        "料理",
+        "上"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-38",
+        "grammar-api-N5-39",
+        "grammar-api-N5-53",
+        "grammar-api-N5-55",
+        "grammar-api-N5-54"
+      ]
+    },
+    {
+      "id": "L09",
+      "numero": 9,
+      "titolo": "L9 — かぶき",
+      "descrizione": "Motivi con から; まだ〜ていません; le congiunzioni «ma».",
+      "parole": [
+        "休み",
+        "お金",
+        "ない",
+        "作る",
+        "来る",
+        "忙しい",
+        "居る",
+        "しかし",
+        "時間",
+        "まだ",
+        "宿題"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-23",
+        "grammar-api-N5-25",
+        "grammar-api-N5-26",
+        "grammar-api-N5-60",
+        "grammar-api-N5-6",
+        "grammar-api-N5-27",
+        "grammar-api-N5-28"
+      ]
+    },
+    {
+      "id": "L10",
+      "numero": 10,
+      "titolo": "L10 — ふゆやすみのよてい",
+      "descrizione": "Confronti (より・一番); 〜つもり; 〜くなる/〜になる.",
+      "parole": [
+        "図書館",
+        "行く",
+        "明日::あした",
+        "どう",
+        "駅",
+        "する",
+        "なる",
+        "天気",
+        "この",
+        "一番",
+        "好き",
+        "一",
+        "中",
+        "犬",
+        "猫",
+        "コーヒー",
+        "紅茶",
+        "これ"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-74",
+        "grammar-api-N5-10",
+        "grammar-api-N5-44",
+        "grammar-api-N5-56",
+        "grammar-api-N5-76",
+        "grammar-api-N5-80",
+        "grammar-api-N5-17"
+      ]
+    },
+    {
+      "id": "L11",
+      "numero": 11,
+      "titolo": "L11 — やすみのあと",
+      "descrizione": "Desideri (〜たい/〜がほしい); 〜たり〜たり; 〜たことがある.",
+      "parole": [
+        "新しい",
+        "車",
+        "在る",
+        "有る",
+        "本",
+        "買い物",
+        "する",
+        "映画",
+        "物",
+        "居る"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-13",
+        "grammar-api-N5-63",
+        "grammar-api-N5-62",
+        "grammar-api-N5-64",
+        "grammar-api-N5-78"
+      ]
+    },
+    {
+      "id": "L12",
+      "numero": 12,
+      "titolo": "L12 — びょうき",
+      "descrizione": "Spiegazioni (〜んです); consigli (〜ほうがいい); obblighi.",
+      "parole": [
+        "ない",
+        "明日::あした",
+        "雨",
+        "どうして",
+        "する",
+        "どう",
+        "宿題",
+        "はい",
+        "勉強",
+        "毎日",
+        "この",
+        "仕事",
+        "降る",
+        "作る",
+        "来る",
+        "傘"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-61",
+        "grammar-api-N5-4",
+        "grammar-api-N5-7",
+        "grammar-api-N5-9",
+        "grammar-api-N5-41",
+        "grammar-api-N5-42",
+        "grammar-api-N5-43",
+        "grammar-api-N5-57",
+        "grammar-api-N5-52",
+        "grammar-api-N5-15",
+        "grammar-api-N5-45"
+      ]
+    },
+    {
+      "id": "L13",
+      "numero": 13,
+      "titolo": "Extra — altri pattern N5",
+      "descrizione": "Pattern N5 utili fuori dal percorso Genki I.",
+      "parole": [
+        "いつも",
+        "いつ",
+        "朝",
+        "コーヒー",
+        "紅茶",
+        "水",
+        "在る",
+        "有る",
+        "窓",
+        "よく",
+        "子供",
+        "とても",
+        "する",
+        "天気",
+        "作る",
+        "来る",
+        "駅",
+        "もう",
+        "一緒",
+        "映画",
+        "友達",
+        "一",
+        "この",
+        "漢字",
+        "方"
+      ],
+      "kanji": [],
+      "grammatica": [
+        "grammar-api-N5-19",
+        "grammar-api-N5-22",
+        "grammar-api-N5-3",
+        "grammar-api-N5-65",
+        "grammar-api-N5-72",
+        "grammar-api-N5-73",
+        "grammar-api-N5-37",
+        "grammar-api-N5-49",
+        "grammar-api-N5-29",
+        "grammar-api-N5-35",
+        "grammar-api-N5-18",
+        "grammar-api-N5-24"
+      ]
+    }
+  ]
+}
