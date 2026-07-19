@@ -11,6 +11,7 @@
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
@@ -94,6 +95,11 @@
 	// true quando la sessione finisce perché non c'è più nulla di dovuto né
 	// carte nuove da introdurre (tetto giornaliero), non per scadenza del timer.
 	let finishedEverything = $state(false);
+	// ✨ Presentazione carta nuova: prima del primo test, una scheda senza timer
+	// (presentazione → pratica → test). Solo una volta per carta per sessione.
+	interface IntroCard { ref: ItemRef; kindLabel: string; title: string; reading?: string; meaning: string; example?: { jp: string; it?: string } }
+	let introCard = $state<IntroCard | null>(null);
+	const introduced = new Set<string>();
 	// true quando la sessione finisce E non c'è NESSUNA carta mai vista negli
 	// obiettivi attivi (a prescindere dal tetto): alzare il tetto non servirebbe
 	// a niente, va detto chiaro invece di far sembrare che il bottone non faccia nulla.
@@ -413,6 +419,65 @@
 		appState.userProfile = updated;
 	}
 
+	// Dati della scheda di presentazione per una carta mai vista.
+	function buildIntroCard(ref: ItemRef): IntroCard | null {
+		if (!context) return null;
+		if (ref.kind === 'word') {
+			const w = context.wordsById.get(ref.key.replace('word:', ''));
+			if (!w) return null;
+			const ex = w.frasi_esempio?.[0];
+			return {
+				ref,
+				kindLabel: '✨ Parola nuova',
+				title: w.scrittura,
+				reading: w.lettura !== w.scrittura ? w.lettura : undefined,
+				meaning: pickLocalizedArray(w.significato, locale).join(' / '),
+				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined
+			};
+		}
+		if (ref.kind === 'kanji') {
+			const k = kanjiRows.find((x) => x.id === ref.key.replace('kanji:', ''));
+			if (!k) return null;
+			return {
+				ref,
+				kindLabel: '✨ Kanji nuovo',
+				title: k.id,
+				reading: [...k.letture_kun, ...k.letture_on].slice(0, 4).join('、') || undefined,
+				meaning: locale === 'it' ? k.significato.it : k.significato.en
+			};
+		}
+		if (ref.kind === 'grammar') {
+			const g = context.grammarById.get(ref.key.replace('grammar:', ''));
+			if (!g) return null;
+			const ex = g.frasi_esempio[0];
+			return {
+				ref,
+				kindLabel: '✨ Grammatica nuova',
+				title: g.struttura,
+				meaning: pickLocalizedText(g.spiegazione, locale),
+				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined
+			};
+		}
+		return null; // counter: niente scheda, entra diretto
+	}
+
+	// «Provala →»: chiude la scheda e genera la domanda per la STESSA carta.
+	async function proceedFromIntro(): Promise<void> {
+		const card = introCard;
+		if (!card) return;
+		introCard = null;
+		const question = await generateQuestion(card.ref);
+		if (!question) { void advanceToNext(); return; }
+		quiz = { itemRef: card.ref, question, startedAt: Date.now(), answered: false };
+		revealedProduction = false;
+		answerFeedback = null;
+		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
+		answerTokens = [];
+		heard = ''; micState = 'idle';
+		autoplayListening(question);
+		startAnswerTimer();
+	}
+
 	async function upsertSrs(key: string, correct: boolean): Promise<SrsProgress> {
 		const wasNew = !getSrs(key);
 		const current = getSrs(key) ?? createInitialSrs(key);
@@ -511,6 +576,20 @@
 			poolFullyExhausted = !poolHasUnseen(pool);
 			endSession();
 			return;
+		}
+		// carta MAI vista → prima la scheda di presentazione (senza timer)
+		if (!getSrs(next.key) && !introduced.has(next.key)) {
+			const card = buildIntroCard(next);
+			if (card) {
+				introduced.add(next.key);
+				introCard = card;
+				stopAnswerTimer();
+				quiz = null;
+				if (!appState.quizMuted) {
+					if (card.reading || card.ref.kind === 'word') speakSentenceJapanese(card.reading ?? card.title);
+				}
+				return;
+			}
 		}
 		const question = await generateQuestion(next);
 		if (!question) {
@@ -1531,6 +1610,33 @@
 	{/if}
 </div>
 
+<!-- ✨ PRESENTAZIONE CARTA NUOVA (senza timer, non valutata) -->
+{:else if phase === 'quiz' && introCard}
+<div class="quiz-shell">
+	<div class="intro-card">
+		<p class="intro-kind">{introCard.kindLabel}</p>
+		<p class="intro-title ja-text">{introCard.title}</p>
+		{#if introCard.reading}<p class="intro-reading">{introCard.reading}</p>{/if}
+		<p class="intro-meaning">{introCard.meaning}</p>
+		{#if introCard.example}
+			<div class="intro-example">
+				<InteractiveSentence text={introCard.example.jp} />
+				{#if introCard.example.it}<p class="intro-example-it">💬 {introCard.example.it}</p>{/if}
+				<button class="ghost-btn" onclick={() => speakSentenceJapanese(introCard!.example!.jp)}>🔊 la frase</button>
+			</div>
+		{/if}
+		<div class="intro-actions">
+			{#if introCard.ref.kind === 'word'}
+				<a class="intro-consolida" href="{base}/consolida/{encodeURIComponent(introCard.ref.key.replace('word:', ''))}">💪 Consolida prima</a>
+			{:else if introCard.ref.kind === 'grammar'}
+				<a class="intro-consolida" href="{base}/consolida/{encodeURIComponent(introCard.ref.key)}">💪 Consolida prima</a>
+			{/if}
+			<button class="choice-btn intro-go" onclick={proceedFromIntro}>✍️ Provala →</button>
+		</div>
+		<p class="muted-text intro-note">Prenditi il tempo che serve: il timer parte solo con la domanda.</p>
+	</div>
+</div>
+
 <!-- QUIZ PHASE -->
 {:else if phase === 'quiz' && quiz}
 <div class="quiz-shell">
@@ -2128,6 +2234,18 @@
 		font-size: 2rem;
 		text-align: center;
 	}
+
+	.intro-card { background: var(--surface); border-radius: 16px; padding: 26px 20px; box-shadow: 0 2px 10px rgba(14,29,51,0.07); display: grid; gap: 10px; justify-items: center; text-align: center; }
+	.intro-kind { margin: 0; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); }
+	.intro-title { margin: 0; font-size: 2.6rem; font-weight: 800; line-height: 1.2; }
+	.intro-reading { margin: 0; font-size: 1.2rem; color: var(--muted); }
+	.intro-meaning { margin: 0; font-size: 1.05rem; font-weight: 600; }
+	.intro-example { display: grid; gap: 6px; justify-items: center; background: var(--surface-2); border-radius: 12px; padding: 12px; max-width: 100%; }
+	.intro-example-it { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.intro-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+	.intro-consolida { padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--brand); color: var(--brand); text-decoration: none; font-weight: 700; }
+	.intro-go { font-size: 1.05rem; }
+	.intro-note { margin: 0; font-size: 0.78rem; }
 
 	.question-hint {
 		font-size: 0.78rem;
