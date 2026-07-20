@@ -97,7 +97,7 @@
 	let finishedEverything = $state(false);
 	// ✨ Presentazione carta nuova: prima del primo test, una scheda senza timer
 	// (presentazione → pratica → test). Solo una volta per carta per sessione.
-	interface IntroCard { ref: ItemRef; kindLabel: string; title: string; reading?: string; meaning: string; example?: { jp: string; it?: string } }
+	interface IntroCard { ref: ItemRef; kindLabel: string; title: string; reading?: string; meaning: string; example?: { jp: string; it?: string }; href?: string }
 	let introCard = $state<IntroCard | null>(null);
 	const introduced = new Set<string>();
 	// true quando la sessione finisce E non c'è NESSUNA carta mai vista negli
@@ -428,11 +428,12 @@
 			const ex = w.frasi_esempio?.[0];
 			return {
 				ref,
-				kindLabel: '✨ Parola nuova',
+				kindLabel: 'Nuova parola',
 				title: w.scrittura,
 				reading: w.lettura !== w.scrittura ? w.lettura : undefined,
 				meaning: pickLocalizedArray(w.significato, locale).join(' / '),
-				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined
+				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined,
+				href: `${base}/detail/${encodeURIComponent(`word:${w.id}`)}`
 			};
 		}
 		if (ref.kind === 'kanji') {
@@ -440,10 +441,11 @@
 			if (!k) return null;
 			return {
 				ref,
-				kindLabel: '✨ Kanji nuovo',
+				kindLabel: 'Nuovo kanji',
 				title: k.id,
 				reading: [...k.letture_kun, ...k.letture_on].slice(0, 4).join('、') || undefined,
-				meaning: locale === 'it' ? k.significato.it : k.significato.en
+				meaning: locale === 'it' ? k.significato.it : k.significato.en,
+				href: `${base}/detail/${encodeURIComponent(`kanji:${k.id}`)}`
 			};
 		}
 		if (ref.kind === 'grammar') {
@@ -452,10 +454,11 @@
 			const ex = g.frasi_esempio[0];
 			return {
 				ref,
-				kindLabel: '✨ Grammatica nuova',
+				kindLabel: 'Nuova grammatica',
 				title: g.struttura,
 				meaning: pickLocalizedText(g.spiegazione, locale),
-				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined
+				example: ex ? { jp: stripFuriganaNotation(ex.testo), it: pickLocalizedText(ex.traduzione, locale) } : undefined,
+				href: `${base}/detail/${encodeURIComponent(`grammar:${g.id}`)}`
 			};
 		}
 		return null; // counter: niente scheda, entra diretto
@@ -1620,18 +1623,14 @@
 		<p class="intro-meaning">{introCard.meaning}</p>
 		{#if introCard.example}
 			<div class="intro-example">
-				<InteractiveSentence text={introCard.example.jp} />
+				<p class="intro-example-jp">{introCard.example.jp}</p>
 				{#if introCard.example.it}<p class="intro-example-it">💬 {introCard.example.it}</p>{/if}
 				<button class="ghost-btn" onclick={() => speakSentenceJapanese(introCard!.example!.jp)}>🔊 la frase</button>
 			</div>
 		{/if}
 		<div class="intro-actions">
-			{#if introCard.ref.kind === 'word'}
-				<a class="intro-consolida" href="{base}/consolida/{encodeURIComponent(introCard.ref.key.replace('word:', ''))}">💪 Consolida prima</a>
-			{:else if introCard.ref.kind === 'grammar'}
-				<a class="intro-consolida" href="{base}/consolida/{encodeURIComponent(introCard.ref.key)}">💪 Consolida prima</a>
-			{/if}
-			<button class="choice-btn intro-go" onclick={proceedFromIntro}>✍️ Provala →</button>
+			{#if introCard.href}<a class="intro-scheda" href={introCard.href}>📄 Apri la scheda</a>{/if}
+			<button class="choice-btn intro-go" onclick={proceedFromIntro}>Ok, fai la domanda →</button>
 		</div>
 		<p class="muted-text intro-note">Prenditi il tempo che serve: il timer parte solo con la domanda.</p>
 	</div>
@@ -2241,9 +2240,10 @@
 	.intro-reading { margin: 0; font-size: 1.2rem; color: var(--muted); }
 	.intro-meaning { margin: 0; font-size: 1.05rem; font-weight: 600; }
 	.intro-example { display: grid; gap: 6px; justify-items: center; background: var(--surface-2); border-radius: 12px; padding: 12px; max-width: 100%; }
+	.intro-example-jp { margin: 0; font-size: 1.1rem; }
 	.intro-example-it { margin: 0; font-size: 0.85rem; color: var(--muted); }
 	.intro-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
-	.intro-consolida { padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--brand); color: var(--brand); text-decoration: none; font-weight: 700; }
+	.intro-scheda { padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--line); color: var(--muted); text-decoration: none; font-weight: 700; }
 	.intro-go { font-size: 1.05rem; }
 	.intro-note { margin: 0; font-size: 0.78rem; }
 
