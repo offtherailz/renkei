@@ -1082,10 +1082,7 @@
 	// al browser.
 	beforeNavigate((nav) => {
 		if (!session || nav.type === 'leave') return;
-		// riferimenti di studio interni (scheda, consolida, approfondisci): niente
-		// popup — hanno tutti «torna al quiz» e la sessione resta salvata
-		const p = nav.to?.url.pathname ?? '';
-		if (p.endsWith('/approfondisci') || p.includes('/detail/') || p.includes('/consolida/')) return;
+		if (nav.to?.url.pathname.endsWith('/approfondisci')) return;
 		if (!window.confirm('Uscire dalla sessione di studio? I progressi restano salvati.')) {
 			nav.cancel();
 		}
