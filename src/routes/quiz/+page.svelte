@@ -12,6 +12,7 @@
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
@@ -1380,20 +1381,6 @@
 		handleAnswer(ok, heard);
 	}
 
-	function pickFromBank(index: number): void {
-		const token = bankTokens[index];
-		if (token === undefined) return;
-		answerTokens = [...answerTokens, token];
-		bankTokens = bankTokens.filter((_, i) => i !== index);
-	}
-
-	function returnToBank(index: number): void {
-		const token = answerTokens[index];
-		if (token === undefined) return;
-		bankTokens = [...bankTokens, token];
-		answerTokens = answerTokens.filter((_, i) => i !== index);
-	}
-
 	function resetOrdering(): void {
 		bankTokens = [...bankTokens, ...answerTokens];
 		answerTokens = [];
@@ -1752,23 +1739,14 @@
 		{:else if quiz.question.mode === 'sentence-ordering'}
 			{@const q = quiz.question as SentenceOrderingQuestion}
 			<p class="question-prompt">{q.prompt}</p>
-			<p class="question-hint">Componi la frase toccando le parole nell'ordine giusto. Tocca una parola nella frase per rimetterla giù.</p>
-			<div class="answer-area" class:answer-filled={answerTokens.length > 0}>
-				{#if answerTokens.length === 0}
-					<span class="answer-placeholder">La frase apparirà qui…</span>
-				{/if}
-				{#each answerTokens as tok, i}
-					<button class="token token-picked" disabled={quiz.answered} onclick={() => returnToBank(i)}>{tok}</button>
-				{/each}
-			</div>
-			<div class="token-area">
-				{#each bankTokens as tok, i}
-					<button class="token" disabled={quiz.answered} onclick={() => pickFromBank(i)}>{tok}</button>
-				{/each}
-				{#if bankTokens.length === 0 && !quiz.answered}
-					<span class="bank-done">Tutte le parole usate ✓</span>
-				{/if}
-			</div>
+			<p class="question-hint">Componi la frase con le parole: toccale nell'ordine giusto, o trascinale per riordinare.</p>
+			<TokenCompose
+				bind:bank={bankTokens}
+				bind:answer={answerTokens}
+				disabled={quiz.answered}
+				placeholder="La frase apparirà qui…"
+				status={quiz.answered ? (answerTokens.join('') === q.correctOrder.join('') ? 'right' : 'wrong') : null}
+				bankDoneHint />
 			{#if !quiz.answered}
 				<div class="ordering-actions">
 					<button class="ghost-btn" onclick={resetOrdering} disabled={answerTokens.length === 0}>↺ Ricomincia</button>
@@ -1785,20 +1763,13 @@
 			{@const q = quiz.question as CompositionQuestion}
 			<p class="question-prompt">{q.prompt}</p>
 			{#if q.reading}<p class="question-hint">Lettura: {q.reading}</p>{/if}
-			<p class="question-hint">✍️ Componi la parola toccando i caratteri nell'ordine giusto — attento agli intrusi. Tocca un carattere scelto per rimetterlo giù.</p>
-			<div class="answer-area" class:answer-filled={answerTokens.length > 0}>
-				{#if answerTokens.length === 0}
-					<span class="answer-placeholder">La parola apparirà qui…</span>
-				{/if}
-				{#each answerTokens as tok, i}
-					<button class="token token-picked" disabled={quiz.answered} onclick={() => returnToBank(i)}>{tok}</button>
-				{/each}
-			</div>
-			<div class="token-area">
-				{#each bankTokens as tok, i}
-					<button class="token" disabled={quiz.answered} onclick={() => pickFromBank(i)}>{tok}</button>
-				{/each}
-			</div>
+			<p class="question-hint">✍️ Componi la parola coi caratteri, nell'ordine giusto — attento agli intrusi.</p>
+			<TokenCompose
+				bind:bank={bankTokens}
+				bind:answer={answerTokens}
+				disabled={quiz.answered}
+				placeholder="La parola apparirà qui…"
+				status={quiz.answered ? (answerTokens.join('') === q.correctAnswer ? 'right' : 'wrong') : null} />
 			{#if !quiz.answered}
 				<div class="ordering-actions">
 					<button class="ghost-btn" onclick={resetOrdering} disabled={answerTokens.length === 0}>↺ Ricomincia</button>
@@ -2322,55 +2293,6 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 8px;
 	}
-
-	.answer-area {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 6px;
-		padding: 12px;
-		border: 2px dashed var(--line);
-		border-radius: 10px;
-		min-height: 56px;
-	}
-
-	.answer-area.answer-filled { border-style: solid; border-color: var(--brand); }
-
-	.answer-placeholder { font-size: 0.82rem; color: var(--muted); }
-
-	.token-area {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 6px;
-		padding: 12px;
-		background: var(--surface-2);
-		border: 1px solid var(--line);
-		border-radius: 10px;
-		min-height: 56px;
-	}
-
-	.bank-done { font-size: 0.82rem; color: var(--success); font-weight: 600; }
-
-	.token {
-		padding: 8px 14px;
-		border-radius: 8px;
-		border: 1.5px solid var(--brand);
-		background: #eef2ff;
-		color: var(--brand);
-		font-size: 1.15rem;
-		min-height: 44px;
-		cursor: pointer;
-	}
-
-	.token:hover:not(:disabled) { background: #dde6ff; }
-
-	.token-picked {
-		background: var(--brand);
-		color: #fff;
-	}
-
-	.token-picked:hover:not(:disabled) { opacity: 0.85; background: var(--brand); }
 
 	.ordering-actions {
 		display: flex;

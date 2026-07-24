@@ -7,6 +7,7 @@
 	import { createDefaultTokenizer, type JapaneseTokenizer } from '$lib/core/tokenizer';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import type { JLPTLevel } from '$lib/types/models';
 
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
@@ -27,16 +28,16 @@
 	// round corrente
 	let current = $state<Candidate | null>(null);
 	let correctTokens = $state<string[]>([]);
-	let chips = $state<{ id: number; text: string; used: boolean }[]>([]);
-	let picked = $state<number[]>([]); // id dei chip in ordine
+	let bank = $state<string[]>([]);
+	let answer = $state<string[]>([]);
 	let checked = $state(false);
 	let ok = $state(false);
 	let lastPlain = '';
 
 	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.
 	export const snapshot = gameSnapshot(
-		() => ({ scene, level, streak, best, current, correctTokens, chips, picked, checked, ok }),
-		(s) => ({ scene, level, streak, best, current, correctTokens, chips, picked, checked, ok } = s)
+		() => ({ scene, level, streak, best, current, correctTokens, bank, answer, checked, ok }),
+		(s) => ({ scene, level, streak, best, current, correctTokens, bank, answer, checked, ok } = s)
 	);
 
 	function bestKey(): string {
@@ -98,8 +99,8 @@
 			// mescola finché l'ordine è diverso dall'originale
 			let mixed = shuffle(tokens);
 			for (let k = 0; k < 5 && mixed.join('') === tokens.join(''); k += 1) mixed = shuffle(tokens);
-			chips = mixed.map((text, id) => ({ id, text, used: false }));
-			picked = [];
+			bank = mixed;
+			answer = [];
 			checked = false;
 			ok = false;
 			scene = 'play';
@@ -109,32 +110,13 @@
 		scene = 'level';
 	}
 
-	function tap(id: number): void {
-		if (checked) return;
-		const chip = chips.find((c) => c.id === id)!;
-		if (chip.used) return;
-		chip.used = true;
-		chips = [...chips];
-		picked = [...picked, id];
-		// niente auto-verifica all'ultimo pezzo (feedback 17/07): l'utente deve
-		// poter rivedere e correggere — si conferma col bottone, come nel quiz.
-	}
-	// rimuove UN pezzo qualunque dalla composizione (non solo l'ultimo)
-	function removeAt(i: number): void {
-		if (checked) return;
-		const id = picked[i];
-		if (id === undefined) return;
-		picked = picked.filter((_, j) => j !== i);
-		const chip = chips.find((c) => c.id === id)!;
-		chip.used = false;
-		chips = [...chips];
-	}
 	function undo(): void {
-		if (checked || picked.length === 0) return;
-		removeAt(picked.length - 1);
+		if (checked || answer.length === 0) return;
+		bank = [...bank, answer[answer.length - 1]!];
+		answer = answer.slice(0, -1);
 	}
 	function composed(): string {
-		return picked.map((id) => chips.find((c) => c.id === id)!.text).join('');
+		return answer.join('');
 	}
 	function check(): void {
 		checked = true;
@@ -182,26 +164,17 @@
 			{#if current.hint}
 				<p class="hint">💬 {current.hint}</p>
 			{/if}
-			<div class="answer" class:right={checked && ok}>
-				{#if picked.length === 0}
-					<span class="placeholder">Tocca i pezzi qui sotto…</span>
-				{:else}
-					{#each picked as id, i (i)}
-						<button class="picked-chip" disabled={checked} onclick={() => removeAt(i)} title="Togli questo pezzo">
-							{chips.find((c) => c.id === id)?.text}
-						</button>
-					{/each}
-				{/if}
-			</div>
-			<div class="chips">
-				{#each chips as c (c.id)}
-					<button class="chip" class:used={c.used} disabled={c.used || checked} onclick={() => tap(c.id)}>{c.text}</button>
-				{/each}
-			</div>
+			<TokenCompose
+				bind:bank
+				bind:answer
+				disabled={checked}
+				placeholder="Tocca i pezzi qui sotto…"
+				status={checked ? (ok ? 'right' : 'wrong') : null}
+				bankDoneHint />
 			<div class="play-actions">
-				<button class="mini" onclick={undo} disabled={checked || picked.length === 0}>↩︎ Indietro</button>
+				<button class="mini" onclick={undo} disabled={checked || answer.length === 0}>↩︎ Indietro</button>
 				{#if !checked}
-					<button class="proceed" onclick={check} disabled={picked.length !== correctTokens.length}>Conferma</button>
+					<button class="proceed" onclick={check} disabled={answer.length !== correctTokens.length}>Conferma</button>
 				{:else if ok}
 					<button class="proceed" onclick={nextRound}>✅ Prossima →</button>
 				{/if}
@@ -236,18 +209,6 @@
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.sm { font-size: 0.95rem; }
-
-	.answer { min-height: 3em; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; text-align: center; font-size: 1.3rem; font-weight: 700; background: var(--surface-2); border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px; line-height: 1.8; overflow-wrap: anywhere; }
-	.picked-chip { padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.15rem; font-weight: 700; cursor: pointer; }
-	.picked-chip:hover:not(:disabled) { border-color: var(--danger); }
-	.picked-chip:disabled { cursor: default; border-color: transparent; background: none; }
-	.answer.right { border-color: var(--success); border-style: solid; background: rgba(52,201,138,0.16); }
-	.placeholder { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
-
-	.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-	.chip { padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.15rem; cursor: pointer; }
-	.chip:hover:not(:disabled) { border-color: var(--brand); }
-	.chip.used { opacity: 0.25; cursor: default; }
 
 	.choices { display: grid; gap: 8px; }
 	.choices.plat { grid-template-columns: repeat(2, 1fr); }

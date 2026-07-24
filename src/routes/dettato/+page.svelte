@@ -9,6 +9,7 @@
 	import { createDefaultTokenizer } from '$lib/core/tokenizer';
 	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import type { Word } from '$lib/types/models';
 
 	// ✍️ Dettato (beta): ascolti una frase e la ricomponi col banco di pezzi.
@@ -83,18 +84,6 @@
 		speakSentenceJapanese(cur().sentence, slow ? { rate: 0.6 } : undefined);
 	}
 
-	function pick(i: number): void {
-		if (answered !== null) return;
-		composed = [...composed, bank[i]!];
-		bank = bank.filter((_, j) => j !== i);
-	}
-
-	function unpick(i: number): void {
-		if (answered !== null) return;
-		bank = [...bank, composed[i]!];
-		composed = composed.filter((_, j) => j !== i);
-	}
-
 	async function confirm(): Promise<void> {
 		if (answered !== null || bank.length > 0) return;
 		const r = cur();
@@ -142,21 +131,14 @@
 				<button class="listen" onclick={() => speak(true)}>🐢 ゆっくり</button>
 			</div>
 
-			<div class="compose" class:right={answered === true} class:wrong={answered === false}>
-				{#if composed.length === 0}
-					<span class="placeholder">tocca i pezzi nell'ordine che senti…</span>
-				{/if}
-				{#each composed as c, i (i)}
-					<button class="token picked" disabled={answered !== null} onclick={() => unpick(i)}>{c}</button>
-				{/each}
-			</div>
+			<TokenCompose
+				bind:bank
+				bind:answer={composed}
+				disabled={answered !== null}
+				placeholder="tocca i pezzi nell'ordine che senti…"
+				status={answered === null ? null : answered ? 'right' : 'wrong'} />
 
 			{#if answered === null}
-				<div class="bank">
-					{#each bank as c, i (i)}
-						<button class="token" onclick={() => pick(i)}>{c}</button>
-					{/each}
-				</div>
 				<button class="proceed" disabled={bank.length > 0} onclick={confirm}>Conferma</button>
 			{:else}
 				<p class="who">{answered ? '✅ Giusto!' : '❌ Non era così'}</p>
@@ -189,20 +171,6 @@
 	.hint { margin: 0; text-align: center; font-size: 0.88rem; color: var(--muted); }
 	.listen-row { display: flex; gap: 10px; justify-content: center; }
 	.listen { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; cursor: pointer; }
-	.compose {
-		min-height: 52px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
-		background: var(--surface-2); border: 1.5px dashed var(--line); border-radius: 12px; padding: 10px;
-	}
-	.compose.right { border-color: var(--success); background: var(--ok-bg); }
-	.compose.wrong { border-color: var(--danger); background: var(--danger-bg); }
-	.placeholder { font-size: 0.8rem; color: var(--muted); }
-	.bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-	.token {
-		padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--line);
-		background: var(--surface); color: var(--ink); font-size: 1.05rem; cursor: pointer;
-	}
-	.token:hover:not(:disabled) { border-color: var(--brand); }
-	.token.picked { background: var(--surface-2); }
 	.solution { margin: 0; text-align: center; font-size: 1.15rem; }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 600; cursor: pointer; }
