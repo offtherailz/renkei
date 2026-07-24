@@ -81,6 +81,7 @@ export interface Scenario {
 	npcIcon: string;
 	// Frasi curate (phrase-bank della spec): {G}/{G2}/{H}/{LUOGO}/{MOTIVO} sostituiti a runtime.
 	proposeTpl: string;
+	npcProposeTpl: string; // quando è l'NPC a prendere l'iniziativa
 	acceptTpl: string;
 	counterTpl: string; // proposta alternativa dell'utente
 	npcAcceptTpl: string;
@@ -100,6 +101,7 @@ export const SCENARIOS: Scenario[] = [
 		npc: 'amico',
 		npcIcon: '🧑',
 		proposeTpl: '{G}の{H}、飲みに行かない？',
+		npcProposeTpl: '{G}の{H}、飲みに行かない？',
 		acceptTpl: 'うん、いいよ。',
 		counterTpl: '{G}はちょっと…{G2}はどう？',
 		npcAcceptTpl: 'いいね、行こう！',
@@ -117,6 +119,7 @@ export const SCENARIOS: Scenario[] = [
 		npc: 'conoscente',
 		npcIcon: '🙂',
 		proposeTpl: '{G}の{H}、映画に行きませんか？',
+		npcProposeTpl: '{G}の{H}、映画に行きませんか？',
 		acceptTpl: 'はい、大丈夫です。',
 		counterTpl: '{G}はちょっと都合が悪くて…{G2}はどうですか？',
 		npcAcceptTpl: 'いいですね、行きましょう。',
@@ -134,6 +137,7 @@ export const SCENARIOS: Scenario[] = [
 		npc: 'collega',
 		npcIcon: '🧑‍💼',
 		proposeTpl: '{G}の{H}、お茶でもしませんか？',
+		npcProposeTpl: '{G}の{H}、お茶でもしませんか？',
 		acceptTpl: 'はい、大丈夫です。',
 		counterTpl: '{G}はちょっと都合が悪くて…{G2}はどうですか？',
 		npcAcceptTpl: 'いいですね、行きましょう。',
@@ -151,6 +155,7 @@ export const SCENARIOS: Scenario[] = [
 		npc: 'cliente',
 		npcIcon: '👔',
 		proposeTpl: '{G}の{H}に、お打ち合わせのお時間をいただけますでしょうか。',
+		npcProposeTpl: '{G}の{H}に、打ち合わせをお願いできますか。',
 		acceptTpl: 'はい、承知いたしました。',
 		counterTpl: '申し訳ございません、{G}は都合がつかず…{G2}はいかがでしょうか。',
 		npcAcceptTpl: 'かしこまりました。{G}で結構です。',
@@ -267,6 +272,21 @@ export function buildProposeLine(
 	};
 }
 
+// NPC prende l'iniziativa e propone lui un giorno+ora.
+export function buildNpcProposeLine(
+	scenario: Scenario,
+	p: Proposal,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const d = dayForms(week, p.weekdayIndex, phrasing);
+	const h = hourLabel(p.hour);
+	return {
+		display: fillTemplate(scenario.npcProposeTpl, { G: d.display, H: h }),
+		spoken: fillTemplate(scenario.npcProposeTpl, { G: d.spoken, H: h })
+	};
+}
+
 // Utente accetta la controproposta dell'NPC (nessun giorno nella frase).
 export function buildUserAcceptLine(scenario: Scenario): LineForms {
 	return { display: scenario.acceptTpl, spoken: scenario.acceptTpl };
@@ -359,6 +379,15 @@ export function pickNpcCounterProposal(
 	const free = candidates.filter((p) => isFree(calendar, p.weekdayIndex, p.hour));
 	const pool = free.length > 0 ? free : candidates;
 	return pool[Math.floor(Math.random() * pool.length)]!;
+}
+
+// Slot casuale per l'apertura dell'NPC (quando prende l'iniziativa): non
+// filtrato sul calendario dell'utente — è lui che dovrà capire se è libero.
+export function pickRandomProposal(): Proposal {
+	return {
+		weekdayIndex: Math.floor(Math.random() * 7),
+		hour: HOURS[Math.floor(Math.random() * HOURS.length)]!
+	};
 }
 
 export function randomMotivo(scenario: Scenario): string {

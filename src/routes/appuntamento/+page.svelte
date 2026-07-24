@@ -34,6 +34,8 @@
 		slotAt,
 		hourLabel,
 		buildProposeLine,
+		buildNpcProposeLine,
+		pickRandomProposal,
 		buildUserAcceptLine,
 		buildUserCounterLine,
 		buildNpcAcceptLine,
@@ -170,6 +172,8 @@
 		showScript = false;
 		heard = '';
 		scene = 'play';
+		// ~metà delle volte è l'interlocutore a prendere l'iniziativa.
+		if (Math.random() < 0.5) npcOpen();
 	}
 
 	function quit(): void {
@@ -182,6 +186,10 @@
 	function npcAcceptTranslation(p: Proposal): string {
 		const g = WEEKDAYS[p.weekdayIndex]!.it;
 		return `Va bene, ${g} alle ${hourLabel(p.hour)}.`;
+	}
+	function npcProposeTranslation(p: Proposal): string {
+		const g = WEEKDAYS[p.weekdayIndex]!.it;
+		return `Ti propone ${g} alle ${hourLabel(p.hour)}.`;
 	}
 	function npcRejectTranslation(rejected: Proposal, next: Proposal, motivo: string): string {
 		const g = WEEKDAYS[rejected.weekdayIndex]!.it;
@@ -240,6 +248,24 @@
 		pendingProposal = next;
 		hintLevel = 0;
 		heard = '';
+	}
+
+	// A volte è l'NPC a prendere l'iniziativa: apre lui proponendo un giorno+ora
+	// (slot casuale, non filtrato sul tuo calendario). Tu ascolti, controlli il
+	// calendario e accetti o controproponi — come per una contro-proposta.
+	function npcOpen(): void {
+		if (!scenario) return;
+		const p = pickRandomProposal();
+		const ph = randomPhrasing();
+		const forms = buildNpcProposeLine(scenario, p, week, ph);
+		npcLine = forms.display;
+		npcLineSpoken = forms.spoken;
+		npcLineIt = npcProposeTranslation(p);
+		pushLine('npc', forms.display);
+		speakSequence([{ text: forms.spoken, options: voiceParams(npcGender()) }]);
+		pendingProposal = p;
+		tried = [p];
+		hintLevel = 0;
 	}
 
 	// L'utente, dopo aver "capito" la contro-proposta (eventualmente con

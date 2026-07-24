@@ -11,6 +11,8 @@ import {
 	hourLabel,
 	hourSpokenReading,
 	buildProposeLine,
+	buildNpcProposeLine,
+	pickRandomProposal,
 	buildUserAcceptLine,
 	buildUserCounterLine,
 	buildNpcAcceptLine,
@@ -149,6 +151,21 @@ describe('phrasing monthday', () => {
 		expect(line.spoken).not.toContain('15日');
 		expect(line.spoken).toContain('の19時');
 		expect(line.spoken).not.toBe(line.display);
+	});
+});
+
+describe('iniziativa NPC', () => {
+	it('buildNpcProposeLine usa npcProposeTpl per registro', () => {
+		expect(buildNpcProposeLine(findScenario('nomi'), P1, WEEK, 'weekday').display).toBe('土曜日の19時、飲みに行かない？');
+		expect(buildNpcProposeLine(findScenario('shigoto'), P1, WEEK, 'weekday').display).toBe('土曜日の19時に、打ち合わせをお願いできますか。');
+	});
+	it('pickRandomProposal resta nel range settimana/HOURS', () => {
+		for (let i = 0; i < 30; i += 1) {
+			const p = pickRandomProposal();
+			expect(p.weekdayIndex).toBeGreaterThanOrEqual(0);
+			expect(p.weekdayIndex).toBeLessThan(7);
+			expect(HOURS).toContain(p.hour);
+		}
 	});
 });
 
