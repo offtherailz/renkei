@@ -11,7 +11,7 @@
 	import { speakSequence } from '$lib/core/tts';
 	import { voiceParams, opposite, type Gender } from '$lib/core/voices';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice, recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
@@ -144,6 +144,8 @@
 				if (hit) await recordPracticeMiss('word:' + hit.id);
 			}
 		}
+		// tema con costruzione (permesso/obbligo): credito o penalità su gram:<slug>
+		if (t.gram) await recordPractice('gram:' + t.gram, opt.correct);
 	}
 
 	async function speakMyChoice(): Promise<void> {

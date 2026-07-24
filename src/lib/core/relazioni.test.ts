@@ -7,6 +7,7 @@ import {
 	THEME_KEYWORD,
 	type Scenario
 } from './relazioni';
+import { COMPOSED_SLUGS } from '../data/grammarForms';
 
 describe('SCENARIOS', () => {
 	it('copre i 3 scenari con il registro giusto', () => {
@@ -25,6 +26,15 @@ describe('SCENARIOS', () => {
 		for (const s of SCENARIOS) {
 			expect(s.themes.some((t) => t.theme === 'greeting')).toBe(true);
 			expect(s.themes.some((t) => t.theme === 'closing')).toBe(true);
+		}
+	});
+
+	it('ogni scenario include il tema permission con gram che punta a una costruzione del catalogo', () => {
+		for (const s of SCENARIOS) {
+			const perm = s.themes.find((t) => t.theme === 'permission');
+			expect(perm, `${s.id} senza tema permission`).toBeDefined();
+			expect(perm!.gram, `${s.id} permission senza gram`).toBeTruthy();
+			expect(COMPOSED_SLUGS.has(perm!.gram!), `${s.id} → gram "${perm!.gram}" non è nel catalogo`).toBe(true);
 		}
 	});
 
@@ -52,7 +62,7 @@ describe('SCENARIOS', () => {
 // scenario, i distrattori devono usare forme di un ALTRO registro. ──
 const PLAIN_MARKERS = ['だよ', 'だね', 'かな', 'んだ', 'いいね', 'うん'];
 const TEINEI_MARKERS = ['です', 'ます', 'ですか', 'ました'];
-const KEIGO_MARKERS = ['ございます', 'おります', 'いただき', 'なさる', 'いたします'];
+const KEIGO_MARKERS = ['ございます', 'おります', 'いただき', 'なさる', 'いたします', 'よろしいでしょうか'];
 
 function hasAny(text: string, markers: string[]): boolean {
 	return markers.some((m) => text.includes(m));

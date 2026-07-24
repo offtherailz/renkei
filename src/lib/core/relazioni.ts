@@ -14,7 +14,7 @@ export type Register = 'teinei' | 'plain' | 'keigo';
 export type ScenarioId = 'shotaimen' | 'tomodachi' | 'joushi';
 
 // Temi mescolabili nella conversazione (挨拶 apre sempre, chiusura chiude sempre).
-export type Theme = 'greeting' | 'origin' | 'work' | 'hobby' | 'family' | 'closing';
+export type Theme = 'greeting' | 'origin' | 'work' | 'hobby' | 'family' | 'permission' | 'closing';
 
 export interface Line {
 	jp: string;
@@ -34,6 +34,9 @@ export interface ThemeBank {
 	theme: Theme;
 	npc: Line; // battuta dell'NPC per questo tema in questo scenario
 	options: Option[]; // 1+ corrette + distrattori, stesso tema
+	// slug GRAMMAR_FORMS della costruzione allenata dal tema (es. 'te-mo-ii'):
+	// la UI accredita/penalizza l'entità gram:<slug> sull'esito della risposta.
+	gram?: string;
 }
 
 export interface Scenario {
@@ -110,6 +113,16 @@ const SHOTAIMEN_THEMES: ThemeBank[] = [
 		]
 	},
 	{
+		theme: 'permission',
+		gram: 'te-mo-ii',
+		npc: npcLine('今日は暑いですね。', 'きょうは あついですね。', 'Oggi fa caldo, vero?', 'It\'s hot today, isn\'t it?'),
+		options: [
+			ok('そうですね。窓を開けてもいいですか。', 'そうですね。まどを あけても いいですか。', 'Già. Posso aprire la finestra?', 'It is. May I open the window?'),
+			bad('窓、開けてもいい？', 'まど、あけてもいい？', 'Posso aprire la finestra? (troppo casual)', 'Can I open the window? (too casual)', 'forma giusta (〜てもいい) ma registro troppo casual per un conoscente: serve 〜てもいいですか'),
+			bad('窓を開けてはいけない。', 'まどを あけては いけない。', 'Non si può aprire la finestra. (divieto fuori luogo)', 'You must not open the window. (misplaced prohibition)', '〜てはいけない è un divieto: qui vuoi CHIEDERE il permesso, serve 〜てもいいですか')
+		]
+	},
+	{
 		theme: 'closing',
 		npc: npcLine('これからどうぞよろしくお願いします。', 'これから どうぞ よろしく おねがいします。', 'Piacere di conoscerla, d\'ora in poi.', 'Pleased to work/get along with you from now on.'),
 		options: [
@@ -172,6 +185,16 @@ const TOMODACHI_THEMES: ThemeBank[] = [
 		]
 	},
 	{
+		theme: 'permission',
+		gram: 'nakereba',
+		npc: npcLine('ねえ、この漫画、借りてもいい？', 'ねえ、このまんが、かりてもいい？', 'Ehi, posso prendere in prestito questo manga?', 'Hey, can I borrow this manga?'),
+		options: [
+			ok('うん、いいよ。でも来週返さなきゃだめだよ。', 'うん、いいよ。でも らいしゅう かえさなきゃ だめだよ。', 'Sì, ok. Però la settimana prossima me lo devi ridare!', 'Sure. But you have to give it back next week!'),
+			bad('はい、借りてもいいですよ。', 'はい、かりても いいですよ。', 'Sì, può prenderlo in prestito. (troppo formale)', 'Yes, you may borrow it. (too formal)', 'forma giusta ma です・ます con un amico stretto suona freddo: fra amici basta うん、いいよ'),
+			bad('いいえ、借りてはいけないです。', 'いいえ、かりては いけないです。', 'No, non puoi prenderlo. (divieto e registro fuori luogo)', 'No, you must not borrow it. (misplaced prohibition and register)', 'l\'amico chiede un permesso e tu lo vieti secco, per giunta con です: fra amici serve il piano (いいよ／だめだよ)')
+		]
+	},
+	{
 		theme: 'closing',
 		npc: npcLine('また今度遊ぼうね。', 'また こんど あそぼうね。', 'Usciamo di nuovo un\'altra volta, eh.', 'Let\'s hang out again sometime.'),
 		options: [
@@ -221,6 +244,16 @@ const JOUSHI_THEMES: ThemeBank[] = [
 			ok('部長もゴルフをなさるんですか。', 'ぶちょうも ゴルフを なさるんですか。', 'Anche lei, direttore, gioca a golf? (onorifico)', 'Do you play golf too, director? (honorific)'),
 			bad('うん、まあまあだよ。', 'うん、まあまあだよ。', 'Sì, così così. (fuori tema e piano)', 'Yeah, so-so. (off-topic and plain)', 'non è una reazione pertinente ed è in piano: maleducato col capo'),
 			bad('ゴルフするの？', 'ゴルフするの？', 'Giochi a golf? (piano: maleducato col capo)', 'Do you play golf? (plain: rude to your boss)', 'piano = maleducato col capo: verso il capo serve なさる (onorifico)')
+		]
+	},
+	{
+		theme: 'permission',
+		gram: 'te-mo-ii',
+		npc: npcLine('もう遅いですね。そろそろお開きにしましょうか。', 'もう おそいですね。そろそろ おひらきに しましょうか。', 'Si è fatto tardi, eh. Direi di concludere.', 'It\'s getting late. Shall we wrap up?'),
+		options: [
+			ok('はい。お先に失礼してもよろしいでしょうか。', 'はい。おさきに しつれいしても よろしいでしょうか。', 'Sì. Posso permettermi di andare via per primo? (keigo)', 'Yes. May I be excused first? (keigo)'),
+			bad('うん、もう帰ってもいい？', 'うん、もう かえってもいい？', 'Sì, posso già andare a casa? (piano: maleducato col capo)', 'Yeah, can I go home now? (plain: rude to your boss)', 'piano = maleducato col capo: il permesso si chiede con 〜てもよろしいでしょうか'),
+			bad('帰らなければならない。', 'かえらなければ ならない。', 'Devo tornare a casa. (piano e brusco: manca la richiesta di permesso)', 'I must go home. (plain and blunt: no request for permission)', 'dichiari un obbligo in piano invece di CHIEDERE il permesso: col capo serve 〜てもよろしいでしょうか')
 		]
 	},
 	{
@@ -280,6 +313,7 @@ export interface Turn {
 	npcLine: Line;
 	options: Option[]; // mescolate
 	correctIndex: number;
+	gram?: string; // costruzione allenata (slug GRAMMAR_FORMS) → credito gram:<slug>
 }
 
 function shuffleArr<T>(xs: readonly T[]): T[] {
@@ -305,7 +339,7 @@ export function buildTurns(scenario: Scenario): Turn[] {
 	return order.map((bank) => {
 		const options = shuffleArr(bank.options);
 		const correctIndex = options.findIndex((o) => o.correct);
-		return { theme: bank.theme, npcLine: bank.npc, options, correctIndex };
+		return { theme: bank.theme, npcLine: bank.npc, options, correctIndex, gram: bank.gram };
 	});
 }
 
