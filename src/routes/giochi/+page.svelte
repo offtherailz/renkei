@@ -637,6 +637,12 @@
 					<span class="cat-label">Una giornata</span>
 					<span class="cat-hint">dalla sveglia alla buonanotte: la frase giusta al momento giusto</span>
 				</a>
+				<a class="cat-card" href="{base}/appuntamento">
+					<span class="cat-icon">📅</span>
+					<span class="cat-label">Prendi appuntamento <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
+					<span class="cat-best">🏆 record: {getHighscore('appuntamento')}</span>
+				</a>
 				<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
 					<span class="cat-icon">🗣️</span>
 					<span class="cat-label">Saluti e convenevoli</span>
