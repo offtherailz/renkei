@@ -331,6 +331,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ short: '〜ちゃう / 〜じゃう', full: '〜てしまう / 〜でしまう', fullSlug: 'te-shimau', note: 'completamento o rammarico' },
 			{ short: '〜なきゃ', full: '〜なければ(ならない)', fullSlug: 'nakereba', note: 'dovere / obbligo' },
 			{ short: '〜なくちゃ', full: '〜なくては(いけない)', fullSlug: 'nakereba', note: 'dovere / obbligo' },
+			{ short: '〜ちゃだめ / 〜じゃだめ', full: '〜てはだめ(＝てはいけない)', fullSlug: 'te-wa-ikenai', note: 'divieto colloquiale' },
 			{ short: '〜とく', full: '〜ておく', fullSlug: 'te-oku', note: 'fare in anticipo' },
 			{ short: '〜てる', full: '〜ている', fullSlug: 'te-iru', note: 'azione in corso / stato' },
 			{ short: '〜てく', full: '〜ていく', note: 'andare a fare / continuare' },
@@ -849,11 +850,74 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '薬[くすり]を飲[の]まなければならない。', it: 'Devo prendere la medicina.' },
 			{ jp: '明日[あした]は早[はや]く起[お]きなければなりません。', it: 'Domani devo alzarmi presto.' }
 		],
-		related: ['doushi', 'contrazioni'],
+		related: ['doushi', 'contrazioni', 'te-mo-ii', 'te-wa-ikenai', 'nakute-mo-ii'],
 		composed: true,
 		attachment: [{ base: 'Verbo', connessione: 'forma ない → なければ' }],
 		schemaId: 'nai',
 		consolidaId: 'grammar-api-N4-60'
+	},
+	{
+		slug: 'te-mo-ii',
+		label: '〜てもいい',
+		icon: '🆗',
+		title: 'Permesso: 〜てもいい',
+		summary: 'Chiedere e dare il permesso: "posso…?", "va bene se…".',
+		explanation: [
+			'Forma て + もいい(です): 入る → 入ってもいいですか = "posso entrare?".',
+			'Per rispondere: はい、いいですよ ("sì, certo"); per negare non si ripete いい ma si usa il divieto: すみません、〜てはいけません.',
+			'Registro: con un superiore 〜てもいいですか o, più cortese, 〜てもよろしいですか; fra amici basta 〜てもいい？ con intonazione di domanda.'
+		],
+		examples: [
+			{ jp: '窓[まど]を開[あ]けてもいいですか。', it: 'Posso aprire la finestra?' },
+			{ jp: 'ここに座[すわ]ってもいい？', it: 'Posso sedermi qui?' }
+		],
+		related: ['doushi', 'te-wa-ikenai', 'nakute-mo-ii', 'nakereba'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma て + もいい' }],
+		schemaId: 'te',
+		consolidaId: 'grammar-api-N5-70'
+	},
+	{
+		slug: 'te-wa-ikenai',
+		label: '〜てはいけない',
+		icon: '🚫',
+		title: 'Divieto: 〜てはいけない',
+		summary: 'Non si può fare: divieti e regole ("è vietato…", "non devi…").',
+		explanation: [
+			'Forma て + はいけない/はいけません: ここでタバコを吸ってはいけません = "qui è vietato fumare".',
+			'È la risposta negativa a 〜てもいいですか; nelle regole scritte si trova anche 〜てはならない.',
+			'Nel parlato si contrae in 〜ちゃだめ / 〜じゃだめ: 食べちゃだめ！ = "non mangiarlo!" (vedi 縮約形).'
+		],
+		examples: [
+			{ jp: 'ここで写真[しゃしん]を撮[と]ってはいけません。', it: 'Qui non si possono fare foto.' },
+			{ jp: 'まだ食[た]べちゃだめだよ。', it: 'Non mangiare ancora!' }
+		],
+		related: ['doushi', 'te-mo-ii', 'nakute-mo-ii', 'nakereba', 'contrazioni'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma て + はいけない' }],
+		schemaId: 'te',
+		consolidaId: 'grammar-api-N5-69'
+	},
+	{
+		slug: 'nakute-mo-ii',
+		label: '〜なくてもいい',
+		icon: '😌',
+		title: 'Esenzione: 〜なくてもいい',
+		summary: 'Non serve farlo: assenza di obbligo ("puoi anche non…").',
+		explanation: [
+			'Forma ない → togli -い + くてもいい(です): 来る → 来ない → 来なくてもいいです = "non serve che tu venga".',
+			'È il contrario dell\'obbligo 〜なければならない; non confonderlo col divieto 〜てはいけない ("non si può").',
+			'Con nomi e aggettivi in -な: じゃなくてもいい (静かじゃなくてもいい = "va bene anche se non è silenzioso").'
+		],
+		examples: [
+			{ jp: '明日[あした]は来[こ]なくてもいいですよ。', it: 'Domani non serve che tu venga.' },
+			{ jp: '全部[ぜんぶ]食[た]べなくてもいい。', it: 'Non devi mangiare tutto per forza.' }
+		],
+		related: ['doushi', 'nakereba', 'te-mo-ii', 'te-wa-ikenai'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma ない → なくて' }],
+		schemaId: 'nai',
+		consolidaId: 'grammar-api-N5-40'
 	},
 	{
 		slug: 'hazu',
@@ -1142,6 +1206,10 @@ export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
 	'〜なければいけない': 'nakereba',
 	'なくてはいけない': 'nakereba',
 	'なくてはならない': 'nakereba',
+	'てもいいです': 'te-mo-ii',
+	'てはいけない': 'te-wa-ikenai',
+	'なくてもいい': 'nakute-mo-ii',
+	'〜なくてもいい': 'nakute-mo-ii',
 	'〜はず': 'hazu',
 	'〜でしょう': 'deshou',
 	'でしょう': 'deshou',
