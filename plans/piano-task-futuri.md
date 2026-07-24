@@ -80,6 +80,14 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
 - ✅ (24/07) **Fix**: barra comandi quiz (🔊/⏹️) anche sulla scheda di presentazione
   carta nuova; timer di sessione congelato mentre la scheda è aperta (proceedFromIntro
   recupera la pausa).
+- ✅ (24/07) **Modalità permesso/obbligo — strati 1+3**: catalogo `GRAMMAR_FORMS` +
+  3 costruzioni (te-mo-ii 🆗, te-wa-ikenai 🚫, nakute-mo-ii 😌; schede, drill gram:*,
+  correlati incrociati con nakereba, contrazione ちゃだめ) e **Relazioni**: tema
+  `permission` in ogni scenario (registro × modalità: てもいいですか conoscente,
+  返さなきゃだめだよ amico, てもよろしいでしょうか capo), campo `gram` su
+  ThemeBank/Turn, credito `recordPractice('gram:'+slug, esito)`.
+- 🔲 **Strato 2 (quando capita)**: catene /catena per modalità — て→てもいい,
+  て→てはいけない, ない→なければならない→なきゃ (contrazione come passo).
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
