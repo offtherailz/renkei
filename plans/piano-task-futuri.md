@@ -75,8 +75,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
 - 🔲 **Bug conteggio ripassi**: l'utente vede ancora «1 in attesa + 1 in pausa» poi «tutto
   fatto». Il fix generabilità non basta. **Serve il bundle esportato** per diagnosi con
   `scratchpad/diag-due.mjs` (il bundle NON include obiettivi/contatori/settings).
-- 🔲 **Task 2b**: migrare `/dettato`, `/riordina` e il quiz (sentence-ordering + composition)
-  a `TokenCompose` (dedup + drag&drop ovunque). Componente già pronto.
+- ✅ (24/07) **Task 2b**: `/dettato`, `/riordina` e il quiz (sentence-ordering + composition)
+  migrati a `TokenCompose` (dedup + drag&drop ovunque, stili locali rimossi).
+- ✅ (24/07) **Fix**: barra comandi quiz (🔊/⏹️) anche sulla scheda di presentazione
+  carta nuova; timer di sessione congelato mentre la scheda è aperta (proceedFromIntro
+  recupera la pausa).
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
@@ -93,9 +96,8 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
 2. ✅ (17/07) **Completamento piano di oggi** — spunte giornaliere (ripassi auto quando
    «tutto fatto», punti deboli a sessione deboli completata, attività all'apertura),
    contatore X/N nel titolo. Flag in localStorage (`dailyPlan.ts`), reset a mezzanotte.
-2b. **Riordina drag&drop** (plus richiesto): oltre a tocca-aggiungi/tocca-togli, trascinare
-   i pezzi. E valutare l'estrazione di un componente TokenCompose condiviso
-   (quiz composition + dettato + riordina usano lo stesso pattern, oggi triplicato).
+2b. ✅ (24/07) **Riordina drag&drop**: TokenCompose condiviso ovunque (quiz
+   sentence-ordering + composition, /dettato, /riordina) — tap e trascinamento.
 2c. **Lista «in studio»** (richiesta utente): elenco gestibile della roba messa in studio
    (da «📚 Metti in studio»/triage) per aggiungere/togliere in massa. Da progettare:
    oggi le voci finiscono nei punti deboli (lapses>0); serve distinguere «scelte
