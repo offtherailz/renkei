@@ -150,6 +150,7 @@
 	// appuntamento (data + ora)
 	let appt = $state<Appointment | null>(null);
 	let apptIn = $state({ month: '', day: '', hour: '', minute: '' });
+	const APPT_MINUTES = [0, 15, 30, 45];
 
 	// lista della spesa (お使い)
 	let shopList = $state<ShoppingRequest[]>([]);
@@ -833,11 +834,46 @@
 			<article class="game-card">
 				<p class="game-hint">📅 Quando è l'appuntamento?</p>
 				<button class="replay" onclick={() => speakSentenceJapanese(appt!.reading)}>🔊 Riascolta</button>
-				<div class="appt-grid">
-					<label class="appt-field"><span>Mese</span><input type="text" inputmode="numeric" bind:value={apptIn.month} disabled={checked} use:focusOnChange={appt} /></label>
-					<label class="appt-field"><span>Giorno</span><input type="text" inputmode="numeric" bind:value={apptIn.day} disabled={checked} /></label>
-					<label class="appt-field"><span>Ora</span><input type="text" inputmode="numeric" bind:value={apptIn.hour} disabled={checked} /></label>
-					<label class="appt-field"><span>Minuti</span><input type="text" inputmode="numeric" bind:value={apptIn.minute} disabled={checked} onkeydown={(e) => { if (e.key === 'Enter') checkAppt(); }} /></label>
+				<p class="appt-summary">
+					{#if apptIn.month && apptIn.day}
+						{apptIn.month}月{apptIn.day}日{#if apptIn.hour} · {apptIn.hour}:{apptIn.minute !== '' ? apptIn.minute.padStart(2, '0') : '--'}{/if}
+					{:else}
+						Scegli mese, giorno e ora
+					{/if}
+				</p>
+				<div class="appt-picker">
+					<div class="appt-section">
+						<span class="appt-section-label">Mese</span>
+						<div class="appt-btn-grid appt-btn-grid-month">
+							{#each Array.from({ length: 12 }, (_, i) => i + 1) as m (m)}
+								<button type="button" class="appt-btn" class:selected={apptIn.month === String(m)} disabled={checked} onclick={() => (apptIn.month = String(m))}>{m}</button>
+							{/each}
+						</div>
+					</div>
+					<div class="appt-section">
+						<span class="appt-section-label">Giorno</span>
+						<div class="appt-btn-grid appt-btn-grid-day">
+							{#each Array.from({ length: 31 }, (_, i) => i + 1) as d (d)}
+								<button type="button" class="appt-btn appt-btn-day" class:selected={apptIn.day === String(d)} disabled={checked} onclick={() => (apptIn.day = String(d))}>{d}</button>
+							{/each}
+						</div>
+					</div>
+					<div class="appt-section">
+						<span class="appt-section-label">Ora</span>
+						<div class="appt-btn-grid appt-btn-grid-hour">
+							{#each Array.from({ length: 12 }, (_, i) => i + 1) as h (h)}
+								<button type="button" class="appt-btn" class:selected={apptIn.hour === String(h)} disabled={checked} onclick={() => (apptIn.hour = String(h))}>{h}</button>
+							{/each}
+						</div>
+					</div>
+					<div class="appt-section">
+						<span class="appt-section-label">Minuti</span>
+						<div class="appt-btn-grid appt-btn-grid-minute">
+							{#each APPT_MINUTES as min (min)}
+								<button type="button" class="appt-btn" class:selected={apptIn.minute === String(min)} disabled={checked} onclick={() => (apptIn.minute = String(min))}>{String(min).padStart(2, '0')}</button>
+							{/each}
+						</div>
+					</div>
 				</div>
 				{#if !checked}
 					<button class="proceed" onclick={checkAppt}>Controlla</button>
@@ -1031,11 +1067,19 @@
 	.mini { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); font-size: 0.82rem; cursor: pointer; }
 	.mini:disabled { opacity: 0.4; cursor: default; }
 
-	.appt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-	.appt-field { display: grid; gap: 4px; justify-items: center; }
-	.appt-field span { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-	.appt-field input { width: 100%; text-align: center; font-size: 1.4rem; font-weight: 700; padding: 6px 4px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); }
-	.appt-field input:focus { border-color: var(--brand); outline: none; }
+	.appt-summary { margin: 0; text-align: center; font-size: 1.2rem; font-weight: 700; color: var(--ink); min-height: 1.6em; }
+	.appt-picker { display: grid; gap: 10px; }
+	.appt-section { display: grid; gap: 4px; }
+	.appt-section-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-align: center; }
+	.appt-btn-grid { display: grid; gap: 6px; }
+	.appt-btn-grid-month, .appt-btn-grid-hour { grid-template-columns: repeat(6, 1fr); }
+	.appt-btn-grid-day { grid-template-columns: repeat(7, 1fr); }
+	.appt-btn-grid-minute { grid-template-columns: repeat(4, 1fr); }
+	.appt-btn { min-height: 40px; padding: 6px 4px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+	.appt-btn-day { font-size: 0.85rem; padding: 6px 2px; }
+	.appt-btn:hover:not(:disabled) { border-color: var(--brand); }
+	.appt-btn:disabled { cursor: default; opacity: 0.6; }
+	.appt-btn.selected { border-color: var(--brand); background: var(--brand); color: var(--surface); }
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
