@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { shuffle, findWord, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import raw from '$lib/data/coppie-n5n4.json';
@@ -79,7 +80,10 @@
 		detailA = null;
 		detailB = null;
 		if (idx < rounds.length - 1) idx += 1;
-		else scene = 'done';
+		else {
+			scene = 'done';
+			recordGameResult('coppie', score >= rounds.length - 1);
+		}
 	}
 </script>
 

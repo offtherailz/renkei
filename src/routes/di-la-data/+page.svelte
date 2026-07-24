@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
@@ -103,6 +104,7 @@
 			attempts = 0;
 		} else {
 			scene = 'done';
+			recordGameResult('di-la-data', score >= rounds.length - 1);
 		}
 	}
 </script>

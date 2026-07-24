@@ -15,6 +15,7 @@
 	import { findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import {
 		SCENARIOS,
 		THEME_KEYWORD,
@@ -183,6 +184,7 @@
 			isRecord = submitScore('relazioni', finalScore);
 			best = getHighscore('relazioni');
 			scene = 'done';
+			recordGameResult('relazioni', correctCount === turns.length && hintsUsed === 0);
 		}
 	}
 

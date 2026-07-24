@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import raw from '../../../scripts/data/iikae-n5n4.json';
@@ -90,7 +91,10 @@
 		picked = null;
 		detailHref = null;
 		if (idx < rounds.length - 1) idx += 1;
-		else scene = 'done';
+		else {
+			scene = 'done';
+			recordGameResult('iikae', score >= rounds.length - 1);
+		}
 	}
 </script>
 

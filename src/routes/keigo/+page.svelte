@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS, KEIGO_REQUEST_ITEMS } from '$lib/core/keigo';
 	import { curatedKeigoItems } from '$lib/data/propedeutiche';
@@ -164,7 +165,10 @@
 		detailHref = null;
 		heard = '';
 		if (idx < rounds.length - 1) idx += 1;
-		else scene = 'done';
+		else {
+			scene = 'done';
+			recordGameResult('keigo', score >= rounds.length - 1);
+		}
 	}
 </script>
 

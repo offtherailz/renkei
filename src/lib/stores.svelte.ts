@@ -85,7 +85,9 @@ export const appState = $state({
 	// Modalità muta del quiz: volutamente qui (non in AppSettings/DB) così
 	// resta per la sessione corrente ma non sopravvive a un refresh — sopravvive
 	// però alla navigazione verso «🔍 Approfondisci» e ritorno (SPA, stesso store).
-	quizMuted: false
+	quizMuted: false,
+	// Celebrazione cinture/sblocchi (gameBelts): il layout la mostra e la azzera.
+	beltToast: null as { messages: string[]; at: number } | null
 });
 
 export interface DeepDiveItem {

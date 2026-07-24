@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
@@ -200,6 +201,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
+			recordGameResult('comparazioni', score >= rounds.length - 1);
 		}
 	}
 </script>

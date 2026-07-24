@@ -21,6 +21,16 @@
 
 	const { children } = $props();
 
+	// Toast cinture (gameBelts): visibile qualche secondo ovunque, poi sparisce.
+	$effect(() => {
+		const toast = appState.beltToast;
+		if (!toast) return;
+		const t = setTimeout(() => {
+			if (appState.beltToast === toast) appState.beltToast = null;
+		}, 5000);
+		return () => clearTimeout(t);
+	});
+
 	const SEED_DATA_REVISION = SEED_REVISION;
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
@@ -116,6 +126,14 @@
 		</header>
 	{/if}
 	{@render children()}
+
+	{#if appState.beltToast}
+		<div class="belt-toast" role="status">
+			{#each appState.beltToast.messages as msg (msg)}
+				<p class="belt-toast-line">{msg}</p>
+			{/each}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -139,6 +157,41 @@
 	.brand-logo {
 		width: 26px;
 		height: 26px;
+	}
+
+	.belt-toast {
+		position: fixed;
+		left: 50%;
+		bottom: 24px;
+		transform: translateX(-50%);
+		z-index: 90;
+		background: var(--ink);
+		color: var(--surface);
+		border-radius: 12px;
+		padding: 12px 18px;
+		box-shadow: 0 6px 20px rgba(14, 29, 51, 0.35);
+		display: grid;
+		gap: 4px;
+		max-width: min(90vw, 420px);
+		text-align: center;
+		animation: belt-pop 0.25s ease-out;
+	}
+
+	.belt-toast-line {
+		margin: 0;
+		font-size: 0.92rem;
+		font-weight: 700;
+	}
+
+	@keyframes belt-pop {
+		from {
+			opacity: 0;
+			transform: translateX(-50%) translateY(8px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(-50%) translateY(0);
+		}
 	}
 
 	.back-to-quiz {

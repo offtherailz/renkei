@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants, kanaToKanjiWritten } from '$lib/core/speech';
@@ -133,6 +134,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
+			recordGameResult('leggi-a-voce', score >= rounds.length - 1);
 		}
 	}
 </script>

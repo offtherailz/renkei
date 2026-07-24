@@ -11,6 +11,7 @@
 	import type { JLPTLevel } from '$lib/types/models';
 
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 
 	const locale = detectUserLocale();
 
@@ -130,6 +131,7 @@
 			}
 		} else {
 			scene = 'over';
+			recordGameResult('riordina', streak >= 5);
 		}
 	}
 </script>

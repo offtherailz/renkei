@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
@@ -114,6 +115,7 @@
 			picked = null;
 		} else {
 			scene = 'done';
+			recordGameResult('avverbi', score >= rounds.length - 1);
 		}
 	}
 </script>

@@ -16,6 +16,7 @@
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { gameSnapshot } from '$lib/core/gameKit';
 	import {
 		WEEKDAYS,
@@ -317,6 +318,7 @@
 		best = getHighscore('appuntamento');
 		gamesPlayed += 1;
 		scene = 'done';
+		recordGameResult('appuntamento', hintsUsed === 0);
 	}
 
 	// ── Hint 💡: 1=lettura(furigana via TTS ripetuto), 2=traduzione it, 3=evidenzia calendario ──

@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordSpokenPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { speakSentenceJapaneseAsync } from '$lib/core/tts';
@@ -155,6 +156,7 @@
 		} else {
 			submitScore(GAME_ID, best);
 			scene = 'done';
+			recordGameResult('shadowing', best >= 5);
 		}
 	}
 </script>

@@ -9,6 +9,7 @@
 	import type { JlptLevel } from '$lib/core/readingTexts';
 	import { speakDialogue, stopSpeaking } from '$lib/core/tts';
 	import { pickRandom, gameSnapshot } from '$lib/core/gameKit';
+	import { recordGameResult } from '$lib/core/gameBelts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	const QUESTION_SECONDS = 25;
@@ -123,6 +124,7 @@
 			armQuestion();
 		} else {
 			scene = 'result';
+			if (run) recordGameResult('choukai', score === run.questions.length);
 		}
 	}
 
