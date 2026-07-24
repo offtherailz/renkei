@@ -25,7 +25,11 @@
 		type ScenarioId,
 		type CalendarSlot,
 		type Proposal,
+		type WeekDate,
+		generateWeek,
 		generateWeekCalendar,
+		randomPhrasing,
+		dayItalian,
 		isFree,
 		slotAt,
 		hourLabel,
@@ -54,6 +58,7 @@
 
 	let scenario = $state<Scenario | null>(null);
 	let calendar = $state<CalendarSlot[]>([]);
+	let week = $state<WeekDate[]>([]); // date reali (mese/giorno) allineate ai 7 giorni
 	let dialog = $state<{ who: Who; text: string }[]>([]);
 
 	// Negoziazione: l'ultima proposta "sul tavolo" e chi l'ha fatta per ultimo.
@@ -66,7 +71,8 @@
 	let turns = $state(0);
 	let hintsUsed = $state(0);
 	let hintLevel = $state(0); // 0=niente, 1=lettura, 2=traduzione it, 3=evidenzia calendario
-	let npcLine = $state(''); // ultima battuta NPC (per repeat bar / hint)
+	let npcLine = $state(''); // ultima battuta NPC display (per copione / hint)
+	let npcLineSpoken = $state(''); // stessa battuta in kana (per TTS/ripetizione)
 	let npcLineIt = $state('');
 	let showScript = $state(false);
 	let gamesPlayed = $state(0); // per il messaggio guida dei primi 2 round
@@ -95,6 +101,7 @@
 			scene,
 			scenario,
 			calendar,
+			week,
 			dialog,
 			pendingProposal,
 			lastRejected,
@@ -105,6 +112,7 @@
 			hintsUsed,
 			hintLevel,
 			npcLine,
+			npcLineSpoken,
 			npcLineIt,
 			gamesPlayed,
 			pickDay,
@@ -116,6 +124,7 @@
 			scene = s.scene;
 			scenario = s.scenario;
 			calendar = s.calendar;
+			week = s.week;
 			dialog = s.dialog;
 			pendingProposal = s.pendingProposal;
 			lastRejected = s.lastRejected;
@@ -126,6 +135,7 @@
 			hintsUsed = s.hintsUsed;
 			hintLevel = s.hintLevel;
 			npcLine = s.npcLine;
+			npcLineSpoken = s.npcLineSpoken;
 			npcLineIt = s.npcLineIt;
 			gamesPlayed = s.gamesPlayed;
 			pickDay = s.pickDay;
@@ -142,6 +152,7 @@
 	function pick(id: ScenarioId): void {
 		scenario = SCENARIOS.find((s) => s.id === id)!;
 		calendar = generateWeekCalendar();
+		week = generateWeek();
 		dialog = [];
 		pendingProposal = null;
 		lastRejected = null;
@@ -152,6 +163,7 @@
 		hintsUsed = 0;
 		hintLevel = 0;
 		npcLine = '';
+		npcLineSpoken = '';
 		npcLineIt = '';
 		pickDay = null;
 		pickHour = null;
@@ -190,9 +202,9 @@
 	function propose(): void {
 		if (!scenario || pickDay === null || pickHour === null) return;
 		const p: Proposal = { weekdayIndex: pickDay, hour: pickHour };
-		const line = buildProposeLine(scenario, p);
-		pushLine('me', line);
-		speakSentenceJapanese(line, voiceParams(userGender()));
+		const forms = buildProposeLine(scenario, p, week, 'weekday');
+		pushLine('me', forms.display);
+		speakSentenceJapanese(forms.spoken, voiceParams(userGender()));
 		tried = [...tried, p];
 		turns += 1;
 		npcRespond(p);
@@ -201,24 +213,29 @@
 	// L'NPC valuta la proposta corrente: accorda se il giorno gli va bene E
 	// l'utente stesso è libero in quello slot; altrimenti rifiuta+contropropone.
 	function npcRespond(p: Proposal): void {
+		// L'NPC alterna a caso giorno-settimana (土曜日) e giorno-mese (3月14日):
+		// conversazione più naturale, tu devi capirle entrambe dal calendario.
+		const ph = randomPhrasing();
 		const npcOk = isFree(calendar, p.weekdayIndex, p.hour);
 		if (npcOk) {
-			const line = buildNpcAcceptLine(scenario!, p);
-			npcLine = line;
+			const forms = buildNpcAcceptLine(scenario!, p, week, ph);
+			npcLine = forms.display;
+			npcLineSpoken = forms.spoken;
 			npcLineIt = npcAcceptTranslation(p);
-			pushLine('npc', line);
-			speakSequence([{ text: line, options: voiceParams(npcGender()) }]);
+			pushLine('npc', forms.display);
+			speakSequence([{ text: forms.spoken, options: voiceParams(npcGender()) }]);
 			agreed = p;
 			hintLevel = 0;
 			return;
 		}
 		const motivo = randomMotivo(scenario!);
 		const next = pickNpcCounterProposal(calendar, p, tried);
-		const line = buildNpcRejectLine(scenario!, p, next, motivo);
-		npcLine = line;
+		const forms = buildNpcRejectLine(scenario!, p, next, motivo, week, ph);
+		npcLine = forms.display;
+		npcLineSpoken = forms.spoken;
 		npcLineIt = npcRejectTranslation(p, next, motivo);
-		pushLine('npc', line);
-		speakSequence([{ text: line, options: voiceParams(npcGender()) }]);
+		pushLine('npc', forms.display);
+		speakSequence([{ text: forms.spoken, options: voiceParams(npcGender()) }]);
 		lastRejected = p;
 		pendingProposal = next;
 		hintLevel = 0;
@@ -230,9 +247,9 @@
 	// contropropone un terzo slot dal picker.
 	function acceptPending(): void {
 		if (!scenario || !pendingProposal) return;
-		const line = buildUserAcceptLine(scenario);
-		pushLine('me', line);
-		speakSentenceJapanese(line, voiceParams(userGender()));
+		const forms = buildUserAcceptLine(scenario);
+		pushLine('me', forms.display);
+		speakSentenceJapanese(forms.spoken, voiceParams(userGender()));
 		turns += 1;
 		tried = [...tried, pendingProposal];
 		const p = pendingProposal;
@@ -254,9 +271,9 @@
 	function counterFromPending(): void {
 		if (!scenario || !pendingProposal || pickDay === null || pickHour === null) return;
 		const next: Proposal = { weekdayIndex: pickDay, hour: pickHour };
-		const line = buildUserCounterLine(scenario, pendingProposal, next);
-		pushLine('me', line);
-		speakSentenceJapanese(line, voiceParams(userGender()));
+		const forms = buildUserCounterLine(scenario, pendingProposal, next, week, 'weekday');
+		pushLine('me', forms.display);
+		speakSentenceJapanese(forms.spoken, voiceParams(userGender()));
 		turns += 1;
 		tried = [...tried, next];
 		pendingProposal = null;
@@ -266,9 +283,9 @@
 	function confirm(): void {
 		if (!scenario || !agreed) return;
 		luogo = randomLuogo(scenario);
-		const line = buildConfirmLine(scenario, agreed, luogo);
-		pushLine('me', line);
-		speakSentenceJapanese(line, voiceParams(userGender()));
+		const forms = buildConfirmLine(scenario, agreed, luogo, week, 'weekday');
+		pushLine('me', forms.display);
+		speakSentenceJapanese(forms.spoken, voiceParams(userGender()));
 		finalScore = computeScore(turns, hintsUsed);
 		isRecord = submitScore('appuntamento', finalScore);
 		best = getHighscore('appuntamento');
@@ -358,12 +375,13 @@
 
 			<!-- Calendario personale, sempre visibile -->
 			<div class="calendar">
-				<p class="calendar-title">🗓️ Il tuo calendario</p>
+				<p class="calendar-title">🗓️ Il tuo calendario{#if week[0]} — {week[0].month}月{/if}</p>
 				<div class="cal-grid">
 					<div class="cal-corner"></div>
 					{#each dayList as d (d)}
 						<div class="cal-head" class:hl={hintLevel >= 3 && pendingProposal?.weekdayIndex === d}>
-							{WEEKDAYS[d]!.jp.slice(0, 1)}
+							<span class="cal-wd">{WEEKDAYS[d]!.jp.slice(0, 1)}</span>
+							{#if week[d]}<span class="cal-date">{week[d].day}</span>{/if}
 						</div>
 					{/each}
 					{#each HOURS as hour (hour)}
@@ -395,7 +413,7 @@
 							<span class="picker-label">Giorno</span>
 							<div class="picker-grid picker-grid-day">
 								{#each dayList as d (d)}
-									<button type="button" class="picker-btn" class:selected={pickDay === d} onclick={() => (pickDay = d)}>{WEEKDAYS[d]!.jp.slice(0, 1)}</button>
+									<button type="button" class="picker-btn day-btn" class:selected={pickDay === d} onclick={() => (pickDay = d)}><span class="day-wd">{WEEKDAYS[d]!.jp.slice(0, 1)}</span><span class="day-date">{week[d]?.day}</span></button>
 								{/each}
 							</div>
 						</div>
@@ -408,15 +426,24 @@
 							</div>
 						</div>
 					</div>
-					{#if canSpeak && pickDay !== null && pickHour !== null}
-						<button
-							class="mic"
-							class:listening={micState === 'listening'}
-							onclick={() => speakMyLine([buildProposeLine(scenario!, { weekdayIndex: pickDay!, hour: pickHour! })], propose)}
-						>
-							{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
-						</button>
-						<HeardDiff {heard} candidates={[buildProposeLine(scenario, { weekdayIndex: pickDay, hour: pickHour })]} />
+					{#if pickDay !== null && pickHour !== null}
+						{@const myLine = buildProposeLine(scenario, { weekdayIndex: pickDay, hour: pickHour }, week, 'weekday')}
+						<div class="say-preview">
+							<span class="say-label">🗣️ Dici:</span>
+							<span class="say-jp">{myLine.display}</span>
+							<button type="button" class="say-listen" title="Ascolta" onclick={() => speakSentenceJapanese(myLine.spoken, voiceParams(userGender()))}>🔊</button>
+						</div>
+						<p class="say-it">≈ {dayItalian(week, pickDay)}, alle {pickHour}</p>
+						{#if canSpeak}
+							<button
+								class="mic"
+								class:listening={micState === 'listening'}
+								onclick={() => speakMyLine([myLine.display], propose)}
+							>
+								{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
+							</button>
+							<HeardDiff {heard} candidates={[myLine.display]} />
+						{/if}
 					{/if}
 					<button class="proceed" disabled={pickDay === null || pickHour === null} onclick={propose}>
 						Proponi →
@@ -429,7 +456,7 @@
 					<p class="bubble" class:hidden-solution={hintLevel < 2}>
 						{#if hintLevel >= 2}{npcLine}{:else}🔊 …ascolta cosa dice{/if}
 					</p>
-					{@render repeatBar(npcLine)}
+					{@render repeatBar(npcLineSpoken)}
 					{#if hintLevel >= 2}
 						<p class="bubble-it">{npcLineIt}</p>
 					{/if}
@@ -441,15 +468,21 @@
 					</div>
 					<p class="hint">Capito il giorno proposto? Guarda il tuo calendario: sei libero?</p>
 					{#if isFree(calendar, pendingProposal.weekdayIndex, pendingProposal.hour)}
+						{@const acceptLine = buildUserAcceptLine(scenario)}
+						<div class="say-preview">
+							<span class="say-label">🗣️ Dici:</span>
+							<span class="say-jp">{acceptLine.display}</span>
+							<button type="button" class="say-listen" title="Ascolta" onclick={() => speakSentenceJapanese(acceptLine.spoken, voiceParams(userGender()))}>🔊</button>
+						</div>
 						{#if canSpeak}
 							<button
 								class="mic"
 								class:listening={micState === 'listening'}
-								onclick={() => speakMyLine([buildUserAcceptLine(scenario!)], acceptPending)}
+								onclick={() => speakMyLine([acceptLine.display], acceptPending)}
 							>
 								{micState === 'listening' ? '🎙️ Ti ascolto… parla!' : '🎤 Dillo a voce'}
 							</button>
-							<HeardDiff {heard} candidates={[buildUserAcceptLine(scenario)]} />
+							<HeardDiff {heard} candidates={[acceptLine.display]} />
 						{/if}
 						<button class="proceed" onclick={acceptPending}>✅ Accetta</button>
 					{:else}
@@ -459,7 +492,7 @@
 								<span class="picker-label">Giorno</span>
 								<div class="picker-grid picker-grid-day">
 									{#each dayList as d (d)}
-										<button type="button" class="picker-btn" class:selected={pickDay === d} onclick={() => (pickDay = d)}>{WEEKDAYS[d]!.jp.slice(0, 1)}</button>
+										<button type="button" class="picker-btn day-btn" class:selected={pickDay === d} onclick={() => (pickDay = d)}><span class="day-wd">{WEEKDAYS[d]!.jp.slice(0, 1)}</span><span class="day-date">{week[d]?.day}</span></button>
 									{/each}
 								</div>
 							</div>
@@ -472,6 +505,14 @@
 								</div>
 							</div>
 						</div>
+						{#if pickDay !== null && pickHour !== null}
+							{@const cLine = buildUserCounterLine(scenario, pendingProposal!, { weekdayIndex: pickDay, hour: pickHour }, week, 'weekday')}
+							<div class="say-preview">
+								<span class="say-label">🗣️ Dici:</span>
+								<span class="say-jp">{cLine.display}</span>
+								<button type="button" class="say-listen" title="Ascolta" onclick={() => speakSentenceJapanese(cLine.spoken, voiceParams(userGender()))}>🔊</button>
+							</div>
+						{/if}
 						<button class="proceed" disabled={pickDay === null || pickHour === null} onclick={counterFromPending}>
 							Controproponi →
 						</button>
@@ -482,7 +523,7 @@
 				<div class="turn">
 					<p class="who">{scenario.npcIcon} {scenario.npc}</p>
 					<p class="bubble">{npcLine}</p>
-					{@render repeatBar(npcLine)}
+					{@render repeatBar(npcLineSpoken)}
 					<p class="agree-summary">
 						✅ Accordo: <strong>{WEEKDAYS[agreed.weekdayIndex]!.jp} {hourLabel(agreed.hour)}</strong>
 					</p>
@@ -551,7 +592,8 @@
 	.calendar { display: grid; gap: 6px; }
 	.calendar-title { margin: 0; font-size: 0.85rem; font-weight: 700; text-align: center; }
 	.cal-grid { display: grid; grid-template-columns: auto repeat(7, 1fr); gap: 3px; font-size: 0.62rem; }
-	.cal-head { text-align: center; font-weight: 700; color: var(--muted); padding: 2px 0; border-radius: 4px; }
+	.cal-head { display: flex; flex-direction: column; align-items: center; line-height: 1.1; text-align: center; font-weight: 700; color: var(--muted); padding: 2px 0; border-radius: 4px; }
+	.cal-date { font-weight: 600; color: var(--ink); }
 	.cal-head.hl { background: var(--gold-bg); color: var(--gold-ink); }
 	.cal-hourlabel { text-align: right; padding-right: 4px; color: var(--muted); font-weight: 600; white-space: nowrap; }
 	.cal-cell { min-height: 28px; border-radius: 4px; background: var(--ok-bg); display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
@@ -571,6 +613,16 @@
 	.picker-btn { min-height: 40px; padding: 6px 4px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); font-size: 0.85rem; font-weight: 600; cursor: pointer; }
 	.picker-btn:hover { border-color: var(--brand); }
 	.picker-btn.selected { border-color: var(--brand); background: var(--brand); color: var(--surface); }
+	.day-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.05; }
+	.day-wd { font-size: 0.9rem; }
+	.day-date { font-size: 0.68rem; color: var(--muted); font-weight: 600; }
+	.picker-btn.selected .day-date { color: var(--surface); }
+
+	.say-preview { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+	.say-label { font-size: 0.72rem; color: var(--muted); font-weight: 700; }
+	.say-jp { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+	.say-listen { border: none; background: transparent; font-size: 1.1rem; cursor: pointer; padding: 0 2px; }
+	.say-it { margin: 0; text-align: center; font-size: 0.75rem; color: var(--muted); }
 
 	.hint-row { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
 	.hint-btn { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--warn-border); background: var(--warn-bg); color: var(--warn-ink); font-size: 0.82rem; font-weight: 700; cursor: pointer; }

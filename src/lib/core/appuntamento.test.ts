@@ -3,6 +3,7 @@ import {
 	WEEKDAYS,
 	SCENARIOS,
 	findScenario,
+	generateWeek,
 	generateWeekCalendar,
 	isFree,
 	slotAt,
@@ -87,44 +88,67 @@ describe('hourLabel / hourSpokenReading', () => {
 
 const P1 = { weekdayIndex: 5, hour: 19 }; // 土曜日 19時
 const P2 = { weekdayIndex: 0, hour: 10 }; // 月曜日 10時
+// Settimana di test fissa: marzo, giorni 10-16 → week[5].day=15, week[0].day=10.
+const WEEK = Array.from({ length: 7 }, (_, i) => ({ weekdayIndex: i, month: 3, day: 10 + i }));
 
-describe('builder battute — 普通体 (nomi)', () => {
-	const s = findScenario('nomi');
-	it('propone, accetta, contropropone, npc accetta/rifiuta, conferma', () => {
-		expect(buildProposeLine(s, P1)).toBe('土曜日の19時、飲みに行かない？');
-		expect(buildUserAcceptLine(s)).toBe('うん、いいよ。');
-		expect(buildUserCounterLine(s, P1, P2)).toBe('土曜日はちょっと…月曜日の10時はどう？');
-		expect(buildNpcAcceptLine(s, P1)).toBe('いいね、行こう！');
-		expect(buildNpcRejectLine(s, P1, P2, 'バイト')).toBe('ごめん、土曜日はバイトなんだ。月曜日の10時はどう？');
-		expect(buildConfirmLine(s, P1, '駅前')).toBe('じゃあ、土曜日の19時に駅前で。');
+describe('generateWeek', () => {
+	it('7 giorni consecutivi nello stesso mese, lun→dom', () => {
+		const w = generateWeek();
+		expect(w).toHaveLength(7);
+		expect(w.every((d) => d.month === w[0]!.month)).toBe(true);
+		for (let i = 1; i < 7; i += 1) expect(w[i]!.day).toBe(w[i - 1]!.day + 1);
+		expect(w[6]!.day).toBeLessThanOrEqual(28);
 	});
 });
 
-describe('builder battute — 丁寧 (eiga/cafe)', () => {
+describe('builder battute — 普通体 (nomi), phrasing weekday', () => {
+	const s = findScenario('nomi');
+	it('propone, accetta, contropropone, npc accetta/rifiuta, conferma', () => {
+		expect(buildProposeLine(s, P1, WEEK, 'weekday').display).toBe('土曜日の19時、飲みに行かない？');
+		expect(buildUserAcceptLine(s).display).toBe('うん、いいよ。');
+		expect(buildUserCounterLine(s, P1, P2, WEEK, 'weekday').display).toBe('土曜日はちょっと…月曜日の10時はどう？');
+		expect(buildNpcAcceptLine(s, P1, WEEK, 'weekday').display).toBe('いいね、行こう！');
+		expect(buildNpcRejectLine(s, P1, P2, 'バイト', WEEK, 'weekday').display).toBe('ごめん、土曜日はバイトなんだ。月曜日の10時はどう？');
+		expect(buildConfirmLine(s, P1, '駅前', WEEK, 'weekday').display).toBe('じゃあ、土曜日の19時に駅前で。');
+	});
+});
+
+describe('builder battute — 丁寧 (eiga/cafe), phrasing weekday', () => {
 	it('eiga usa 映画に行きませんか, cafe usa お茶でもしませんか, resto identico', () => {
 		const eiga = findScenario('eiga');
 		const cafe = findScenario('cafe');
-		expect(buildProposeLine(eiga, P1)).toBe('土曜日の19時、映画に行きませんか？');
-		expect(buildProposeLine(cafe, P1)).toBe('土曜日の19時、お茶でもしませんか？');
+		expect(buildProposeLine(eiga, P1, WEEK, 'weekday').display).toBe('土曜日の19時、映画に行きませんか？');
+		expect(buildProposeLine(cafe, P1, WEEK, 'weekday').display).toBe('土曜日の19時、お茶でもしませんか？');
 		for (const s of [eiga, cafe]) {
-			expect(buildUserAcceptLine(s)).toBe('はい、大丈夫です。');
-			expect(buildUserCounterLine(s, P1, P2)).toBe('土曜日はちょっと都合が悪くて…月曜日の10時はどうですか？');
-			expect(buildNpcAcceptLine(s, P1)).toBe('いいですね、行きましょう。');
-			expect(buildNpcRejectLine(s, P1, P2, '用事')).toBe('すみません、土曜日は用事があって…月曜日の10時はどうですか？');
-			expect(buildConfirmLine(s, P1, '駅の前')).toBe('じゃあ、土曜日の19時に駅の前で会いましょう。');
+			expect(buildUserAcceptLine(s).display).toBe('はい、大丈夫です。');
+			expect(buildUserCounterLine(s, P1, P2, WEEK, 'weekday').display).toBe('土曜日はちょっと都合が悪くて…月曜日の10時はどうですか？');
+			expect(buildNpcAcceptLine(s, P1, WEEK, 'weekday').display).toBe('いいですね、行きましょう。');
+			expect(buildNpcRejectLine(s, P1, P2, '用事', WEEK, 'weekday').display).toBe('すみません、土曜日は用事があって…月曜日の10時はどうですか？');
+			expect(buildConfirmLine(s, P1, '駅の前', WEEK, 'weekday').display).toBe('じゃあ、土曜日の19時に駅の前で会いましょう。');
 		}
 	});
 });
 
-describe('builder battute — 敬語 (shigoto)', () => {
+describe('builder battute — 敬語 (shigoto), phrasing weekday', () => {
 	const s = findScenario('shigoto');
 	it('usa le forme sonkeigo/kenjougo curate', () => {
-		expect(buildProposeLine(s, P1)).toBe('土曜日の19時に、お打ち合わせのお時間をいただけますでしょうか。');
-		expect(buildUserAcceptLine(s)).toBe('はい、承知いたしました。');
-		expect(buildUserCounterLine(s, P1, P2)).toBe('申し訳ございません、土曜日は都合がつかず…月曜日の10時はいかがでしょうか。');
-		expect(buildNpcAcceptLine(s, P1)).toBe('かしこまりました。土曜日の19時で結構です。');
-		expect(buildNpcRejectLine(s, P1, P2, '先約')).toBe('申し訳ございません、土曜日は先約がございまして…月曜日の10時はいかがでしょうか。');
-		expect(buildConfirmLine(s, P1, '御社')).toBe('では、土曜日の19時に御社に伺います。');
+		expect(buildProposeLine(s, P1, WEEK, 'weekday').display).toBe('土曜日の19時に、お打ち合わせのお時間をいただけますでしょうか。');
+		expect(buildUserAcceptLine(s).display).toBe('はい、承知いたしました。');
+		expect(buildUserCounterLine(s, P1, P2, WEEK, 'weekday').display).toBe('申し訳ございません、土曜日は都合がつかず…月曜日の10時はいかがでしょうか。');
+		expect(buildNpcAcceptLine(s, P1, WEEK, 'weekday').display).toBe('かしこまりました。土曜日の19時で結構です。');
+		expect(buildNpcRejectLine(s, P1, P2, '先約', WEEK, 'weekday').display).toBe('申し訳ございません、土曜日は先約がございまして…月曜日の10時はいかがでしょうか。');
+		expect(buildConfirmLine(s, P1, '御社', WEEK, 'weekday').display).toBe('では、土曜日の19時に御社に伺います。');
+	});
+});
+
+describe('phrasing monthday', () => {
+	const s = findScenario('nomi');
+	it('display usa la data del mese, spoken la mette in kana (niente cifre 日)', () => {
+		const line = buildProposeLine(s, P1, WEEK, 'monthday');
+		expect(line.display).toBe('3月15日の19時、飲みに行かない？'); // week[5] = 3/15
+		expect(line.spoken).not.toContain('15日');
+		expect(line.spoken).toContain('の19時');
+		expect(line.spoken).not.toBe(line.display);
 	});
 });
 

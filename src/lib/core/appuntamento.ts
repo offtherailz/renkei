@@ -3,6 +3,8 @@
 // scenario. Solo dati/logica pura qui — niente stato UI (vive in
 // src/routes/appuntamento/+page.svelte).
 
+import { monthReading, dayReading, hourReading } from './counterGen';
+
 // ── Giorni della settimana (曜日): nessun helper esiste in counterGen.ts ──
 export interface Weekday {
 	jp: string;
@@ -19,6 +21,50 @@ export const WEEKDAYS: Weekday[] = [
 	{ jp: '土曜日', read: 'どようび', it: 'sabato' },
 	{ jp: '日曜日', read: 'にちようび', it: 'domenica' }
 ];
+
+// ── Settimana concreta ──
+// Ogni giorno ha anche una data reale (mese/giorno del mese), così la
+// conversazione può fare riferimento al giorno sia come 曜日 (土曜日) sia come
+// data (3月14日): più naturale e allena entrambe le forme JLPT.
+export interface WeekDate {
+	weekdayIndex: number; // 0=lun … 6=dom (posizione nella settimana)
+	month: number; // 1-12
+	day: number; // giorno del mese 1-31
+}
+
+// Genera una settimana lun→dom con 7 date consecutive dentro lo stesso mese
+// (start 1-21 → l'ultimo giorno resta ≤ 27, niente cambio mese da gestire).
+export function generateWeek(): WeekDate[] {
+	const month = 1 + Math.floor(Math.random() * 12);
+	const startDay = 1 + Math.floor(Math.random() * 21);
+	const week: WeekDate[] = [];
+	for (let i = 0; i < 7; i += 1) week.push({ weekdayIndex: i, month, day: startDay + i });
+	return week;
+}
+
+// Come esprimere il giorno in una battuta: nome del giorno o data del mese.
+export type DayPhrasing = 'weekday' | 'monthday';
+
+export function randomPhrasing(): DayPhrasing {
+	return Math.random() < 0.5 ? 'weekday' : 'monthday';
+}
+
+// Forme (scritta per il copione, parlata in kana per il TTS: le letture dei
+// giorni del mese sono irregolari — 14日=じゅうよっか, 20日=はつか — e il TTS
+// sui kanji sbaglierebbe).
+function dayForms(week: WeekDate[], index: number, phrasing: DayPhrasing): { display: string; spoken: string } {
+	if (phrasing === 'monthday') {
+		const w = week[index]!;
+		return { display: `${w.month}月${w.day}日`, spoken: `${monthReading(w.month)}${dayReading(w.day)}` };
+	}
+	return { display: WEEKDAYS[index]!.jp, spoken: WEEKDAYS[index]!.read };
+}
+
+// Descrizione italiana del giorno (per l'anteprima «cosa dici» e gli aiuti).
+export function dayItalian(week: WeekDate[], index: number): string {
+	const w = week[index]!;
+	return `${WEEKDAYS[index]!.it} ${w.day}/${w.month}`;
+}
 
 // ── Registro ──
 export type Register = 'plain' | 'teinei' | 'keigo';
@@ -168,7 +214,8 @@ export function slotAt(calendar: CalendarSlot[], weekdayIndex: number, hour: num
 }
 
 // ── Lettura ora (solo in punto: la spec usa slot orari tondi tipo ７時/２時) ──
-import { hourReading } from './counterGen';
+// L'ora resta in kanji (19時): il TTS legge 〜時 correttamente. Solo i giorni
+// del mese vanno in kana (letture irregolari).
 export function hourLabel(hour: number): string {
 	return `${hour}時`;
 }
@@ -179,52 +226,113 @@ export function hourSpokenReading(hour: number): string {
 }
 
 // ── Costruzione battute (funzioni pure, testate) ──
+// Ogni battuta con un giorno restituisce { display } per il copione/schermo e
+// { spoken } per il TTS (giorni del mese in kana).
 export interface Proposal {
-	weekdayIndex: number;
+	weekdayIndex: number; // posizione nella settimana (0-6)
 	hour: number;
+}
+
+export interface LineForms {
+	display: string;
+	spoken: string;
 }
 
 function fillTemplate(tpl: string, vars: Record<string, string>): string {
 	return tpl.replace(/\{(\w+)\}/g, (m, key: string) => vars[key] ?? m);
 }
 
-// Utente propone giorno+ora.
-export function buildProposeLine(scenario: Scenario, p: Proposal): string {
-	const g = WEEKDAYS[p.weekdayIndex]!.jp;
+function dayAndTime(
+	week: WeekDate[],
+	p: Proposal,
+	phrasing: DayPhrasing
+): { display: string; spoken: string } {
+	const d = dayForms(week, p.weekdayIndex, phrasing);
 	const h = hourLabel(p.hour);
-	return fillTemplate(scenario.proposeTpl, { G: g, H: h });
+	return { display: `${d.display}の${h}`, spoken: `${d.spoken}の${h}` };
 }
 
-// Utente accetta la controproposta dell'NPC.
-export function buildUserAcceptLine(scenario: Scenario): string {
-	return scenario.acceptTpl;
+// Utente propone giorno+ora.
+export function buildProposeLine(
+	scenario: Scenario,
+	p: Proposal,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const d = dayForms(week, p.weekdayIndex, phrasing);
+	const h = hourLabel(p.hour);
+	return {
+		display: fillTemplate(scenario.proposeTpl, { G: d.display, H: h }),
+		spoken: fillTemplate(scenario.proposeTpl, { G: d.spoken, H: h })
+	};
+}
+
+// Utente accetta la controproposta dell'NPC (nessun giorno nella frase).
+export function buildUserAcceptLine(scenario: Scenario): LineForms {
+	return { display: scenario.acceptTpl, spoken: scenario.acceptTpl };
 }
 
 // Utente rifiuta/contropropone un altro giorno (G = quello rifiutato, G2 = nuova proposta).
-export function buildUserCounterLine(scenario: Scenario, rejected: Proposal, next: Proposal): string {
-	const g = WEEKDAYS[rejected.weekdayIndex]!.jp;
-	const g2 = `${WEEKDAYS[next.weekdayIndex]!.jp}の${hourLabel(next.hour)}`;
-	return fillTemplate(scenario.counterTpl, { G: g, G2: g2 });
+export function buildUserCounterLine(
+	scenario: Scenario,
+	rejected: Proposal,
+	next: Proposal,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const g = dayForms(week, rejected.weekdayIndex, phrasing);
+	const g2 = dayAndTime(week, next, phrasing);
+	return {
+		display: fillTemplate(scenario.counterTpl, { G: g.display, G2: g2.display }),
+		spoken: fillTemplate(scenario.counterTpl, { G: g.spoken, G2: g2.spoken })
+	};
 }
 
 // NPC accetta la proposta dell'utente.
-export function buildNpcAcceptLine(scenario: Scenario, p: Proposal): string {
-	const g = `${WEEKDAYS[p.weekdayIndex]!.jp}の${hourLabel(p.hour)}`;
-	return fillTemplate(scenario.npcAcceptTpl, { G: g });
+export function buildNpcAcceptLine(
+	scenario: Scenario,
+	p: Proposal,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const g = dayAndTime(week, p, phrasing);
+	return {
+		display: fillTemplate(scenario.npcAcceptTpl, { G: g.display }),
+		spoken: fillTemplate(scenario.npcAcceptTpl, { G: g.spoken })
+	};
 }
 
 // NPC rifiuta con motivo e contropropone.
-export function buildNpcRejectLine(scenario: Scenario, rejected: Proposal, next: Proposal, motivo: string): string {
-	const g = WEEKDAYS[rejected.weekdayIndex]!.jp;
-	const g2 = `${WEEKDAYS[next.weekdayIndex]!.jp}の${hourLabel(next.hour)}`;
-	return fillTemplate(scenario.npcRejectTpl, { G: g, G2: g2, MOTIVO: motivo });
+export function buildNpcRejectLine(
+	scenario: Scenario,
+	rejected: Proposal,
+	next: Proposal,
+	motivo: string,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const g = dayForms(week, rejected.weekdayIndex, phrasing);
+	const g2 = dayAndTime(week, next, phrasing);
+	return {
+		display: fillTemplate(scenario.npcRejectTpl, { G: g.display, G2: g2.display, MOTIVO: motivo }),
+		spoken: fillTemplate(scenario.npcRejectTpl, { G: g.spoken, G2: g2.spoken, MOTIVO: motivo })
+	};
 }
 
 // Conferma finale (giorno+ora+luogo concordati).
-export function buildConfirmLine(scenario: Scenario, p: Proposal, luogo: string): string {
-	const g = WEEKDAYS[p.weekdayIndex]!.jp;
+export function buildConfirmLine(
+	scenario: Scenario,
+	p: Proposal,
+	luogo: string,
+	week: WeekDate[],
+	phrasing: DayPhrasing
+): LineForms {
+	const d = dayForms(week, p.weekdayIndex, phrasing);
 	const h = hourLabel(p.hour);
-	return fillTemplate(scenario.confirmTpl, { G: g, H: h, LUOGO: luogo });
+	return {
+		display: fillTemplate(scenario.confirmTpl, { G: d.display, H: h, LUOGO: luogo }),
+		spoken: fillTemplate(scenario.confirmTpl, { G: d.spoken, H: h, LUOGO: luogo })
+	};
 }
 
 // Sceglie una contro-proposta NPC: un giorno/ora diverso dal rifiutato,
