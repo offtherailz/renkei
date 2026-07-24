@@ -470,6 +470,11 @@
 		const card = introCard;
 		if (!card) return;
 		introCard = null;
+		// riprende il timer di sessione congelato durante la scheda
+		if (session?.pausedAt) {
+			session.deadlineAt += Date.now() - session.pausedAt;
+			session.pausedAt = null;
+		}
 		const question = await generateQuestion(card.ref);
 		if (!question) { void advanceToNext(); return; }
 		quiz = { itemRef: card.ref, question, startedAt: Date.now(), answered: false };
@@ -588,6 +593,8 @@
 				introduced.add(next.key);
 				introCard = card;
 				stopAnswerTimer();
+				// il tempo sulla scheda è gratis: congela il timer di sessione
+				if (!session.pausedAt) session.pausedAt = Date.now();
 				quiz = null;
 				if (!appState.quizMuted) {
 					if (card.reading || card.ref.kind === 'word') speakSentenceJapanese(card.reading ?? card.title);
@@ -1590,6 +1597,38 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
+<!-- Barra comandi condivisa fra domanda e scheda di presentazione -->
+{#snippet topbar(showPause: boolean)}
+	<div class="quiz-topbar">
+		<div class="session-stats">
+			<span class="stat-chip">✅ {session?.correct ?? 0}</span>
+			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
+		</div>
+		<div class="timer" title="Tempo sessione">{timeLeftLabel}</div>
+		<div class="topbar-actions">
+			<button
+				class="ghost-btn"
+				class:muted-on={appState.quizMuted}
+				onclick={() => (appState.quizMuted = !appState.quizMuted)}
+				aria-pressed={appState.quizMuted}
+				title={appState.quizMuted ? 'Riattiva audio' : 'Silenzia audio (niente ascolto, niente audio risposte)'}
+			>
+				{appState.quizMuted ? '🔇' : '🔊'}
+			</button>
+			{#if showPause}
+				<button
+					class="ghost-btn {sessionPaused ? 'ctrl-resume' : 'ctrl-pause'}"
+					onclick={toggleSessionPause}
+					title={sessionPaused ? 'Riprendi la sessione' : 'Metti in pausa: nasconde la domanda e ferma i timer'}
+				>
+					{sessionPaused ? '▶️' : '⏸️'}
+				</button>
+			{/if}
+			<button class="ghost-btn ctrl-stop" onclick={confirmEndSession} title="Termina sessione">⏹️</button>
+		</div>
+	</div>
+{/snippet}
+
 <!-- INIT PHASE -->
 {#if phase === 'init'}
 <div class="quiz-init">
@@ -1603,6 +1642,7 @@
 <!-- ✨ PRESENTAZIONE CARTA NUOVA (senza timer, non valutata) -->
 {:else if phase === 'quiz' && introCard}
 <div class="quiz-shell">
+	{@render topbar(false)}
 	<div class="intro-card">
 		<p class="intro-kind">{introCard.kindLabel}</p>
 		<p class="intro-title ja-text">{introCard.title}</p>
@@ -1626,34 +1666,7 @@
 <!-- QUIZ PHASE -->
 {:else if phase === 'quiz' && quiz}
 <div class="quiz-shell">
-	<div class="quiz-topbar">
-		<div class="session-stats">
-			<span class="stat-chip">✅ {session?.correct ?? 0}</span>
-			<span class="stat-chip bad">❌ {session?.wrong ?? 0}</span>
-		</div>
-		<div class="timer" title="Tempo sessione">{timeLeftLabel}</div>
-		<div class="topbar-actions">
-			<button
-				class="ghost-btn"
-				class:muted-on={appState.quizMuted}
-				onclick={() => (appState.quizMuted = !appState.quizMuted)}
-				aria-pressed={appState.quizMuted}
-				title={appState.quizMuted ? 'Riattiva audio' : 'Silenzia audio (niente ascolto, niente audio risposte)'}
-			>
-				{appState.quizMuted ? '🔇' : '🔊'}
-			</button>
-			{#if !quiz.answered}
-				<button
-					class="ghost-btn {sessionPaused ? 'ctrl-resume' : 'ctrl-pause'}"
-					onclick={toggleSessionPause}
-					title={sessionPaused ? 'Riprendi la sessione' : 'Metti in pausa: nasconde la domanda e ferma i timer'}
-				>
-					{sessionPaused ? '▶️' : '⏸️'}
-				</button>
-			{/if}
-			<button class="ghost-btn ctrl-stop" onclick={confirmEndSession} title="Termina sessione">⏹️</button>
-		</div>
-	</div>
+	{@render topbar(!quiz.answered)}
 
 	<div class="quiz-meta">
 		{#if session?.weak}🔁 PUNTI DEBOLI • {/if}{quiz.itemRef.kind.toUpperCase()}
