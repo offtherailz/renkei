@@ -643,6 +643,12 @@
 					<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
 					<span class="cat-best">🏆 record: {getHighscore('appuntamento')}</span>
 				</a>
+				<a class="cat-card" href="{base}/relazioni">
+					<span class="cat-icon">🫂</span>
+					<span class="cat-label">Relazioni <span class="cat-beta">beta</span></span>
+					<span class="cat-hint">conosci qualcuno, senti un amico o parli col capo: il registro cambia col rapporto</span>
+					<span class="cat-best">🏆 record: {getHighscore('relazioni')}</span>
+				</a>
 				<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
 					<span class="cat-icon">🗣️</span>
 					<span class="cat-label">Saluti e convenevoli</span>
