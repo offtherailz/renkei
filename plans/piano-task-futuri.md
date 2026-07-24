@@ -88,6 +88,13 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   ThemeBank/Turn, credito `recordPractice('gram:'+slug, esito)`.
 - 🔲 **Strato 2 (quando capita)**: catene /catena per modalità — て→てもいい,
   て→てはいけない, ない→なければならない→なきゃ (contrazione come passo).
+- ✅ (25/07) **Percorso cinture giochi** (richiesta utente «domare tutti i giochi»):
+  `gameBelts.ts` (bianca→nera+dan su {partite, pulite}, criteri per-gioco da
+  insegnante), `recordGameResult` in 15 giochi, toast globale (layout+appState),
+  UI /giochi (banner X/15, chip cintura, velo 🔒 + anteprima), guida+ARCHITECTURE.
+- 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
+  nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
+  cinture in /stats; migrare i record locali di riordina/skimming a gameScores.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
