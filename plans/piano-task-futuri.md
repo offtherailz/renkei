@@ -224,6 +224,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   くじ→工事 («lavori», stessa lettura): aggiunto come variante sicura in
   writtenVariants (non riapre il bug, 工事 non è lettura alternativa di
   nessun'altra ora).
+- ✅ (25/07) **Fix voce minuti contratti** (bug segnalato: 8分/36分 pronunciati
+  giusti — はっぷん/さんじゅうろっぷん — non riconosciuti): `KANA_DIGIT`/
+  `KANA_NUM_ATOM` in speech.ts non avevano le forme con 促音 じゅっ/ろっ/はっ/
+  いっ (10/6/8/1 davanti a ふん/ぷん) — restavano testo kana mai convertito
+  in cifra, mai convergente con la trascrizione del riconoscitore.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
