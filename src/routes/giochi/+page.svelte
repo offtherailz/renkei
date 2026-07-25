@@ -57,6 +57,7 @@
 		{ id: 'count', label: 'Conta gli oggetti', icon: '🔢', hint: 'quanti? col contatore giusto' },
 		{ id: 'mix', label: 'Misto', icon: '🎲', hint: "un po' di tutto" }
 	] as const;
+	const MIX_GAME = READ_GAMES.find((g) => g.id === 'mix')!;
 
 	type ReadId = (typeof READ_GAMES)[number]['id'];
 	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt'; part: AppointmentPart } | { kind: 'shopping' } | { kind: 'greet' } | { kind: 'order' } | null;
@@ -648,7 +649,7 @@
 
 		<p class="group-title">Numeri e tempo</p>
 		<div class="cat-grid">
-			{#each READ_GAMES as g}
+			{#each READ_GAMES.filter((g) => g.id !== 'mix') as g}
 				<button class="cat-card" class:belt-locked={!unlockedNow(`read-${g.id}`)} onclick={(e) => { if (tapLocked(`read-${g.id}`, e)) start({ kind: 'read', cat: g.id }); }}>
 					<span class="cat-icon">{g.icon}</span>
 					<span class="cat-label">{g.label}</span>
@@ -683,11 +684,19 @@
 			</button>
 			<button class="cat-card" class:belt-locked={!unlockedNow('listen-appt')} onclick={(e) => { if (tapLocked('listen-appt', e)) start({ kind: 'appt', part: 'full' }); }}>
 				<span class="cat-icon">🗓️</span>
-				<span class="cat-label">Data e ora</span>
+				<span class="cat-label">Ascolta data e ora</span>
 				<span class="cat-hint">senti data e ora insieme, segnala sull'agenda</span>
 				<span class="cat-best">🏆 record: {getHighscore('listen-appt')}</span>
 				{@render beltChip('listen-appt')}
 				{@render unlockChip('listen-appt')}
+			</button>
+			<button class="cat-card" class:belt-locked={!unlockedNow('read-mix')} onclick={(e) => { if (tapLocked('read-mix', e)) start({ kind: 'read', cat: 'mix' }); }}>
+				<span class="cat-icon">{MIX_GAME.icon}</span>
+				<span class="cat-label">{MIX_GAME.label}</span>
+				<span class="cat-hint">{MIX_GAME.hint}</span>
+				<span class="cat-best">🏆 record: {getHighscore('read-mix')}</span>
+				{@render beltChip('read-mix')}
+				{@render unlockChip('read-mix')}
 			</button>
 		</div>
 

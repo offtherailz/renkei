@@ -132,6 +132,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   かもしれない/かな/はず/そう/らしい/みたい/っぽい/に違いない), il contesto
   fissa quale ci vuole; 💡 Aiuto a 3 costi, credito gram:<slug>. Sezione
   «Al konbini» assorbita dentro «Conversazione» (richiesta utente).
+- ✅ (25/07) **Rifiniture /giochi** (feedback utente): 🎲 Misto spostato in
+  fondo alla sezione «Numeri e tempo» (prima era in mezzo, dentro il loop
+  READ_GAMES — ora card a parte dopo Ascolta data e ora, MIX_GAME costante);
+  «Data e ora» rinominato **«Ascolta data e ora»** ovunque (è un ascolto,
+  coerenza con Ascolta la data/l'ora).
 - ✅ (25/07) **Cinture v4 (feedback utente)**: sblocco da ALMENO l'arancione
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.

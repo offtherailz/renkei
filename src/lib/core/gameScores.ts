@@ -36,7 +36,7 @@ export const GAME_LABELS: Record<string, string> = {
 	'shop-pay': 'Alla cassa',
 	'listen-date': 'Ascolta la data',
 	'listen-time': "Ascolta l'ora",
-	'listen-appt': 'Data e ora',
+	'listen-appt': 'Ascolta data e ora',
 	'shopping-list': 'Lista della spesa',
 	greetings: 'Saluti',
 	'konbini-order': 'Al konbini',

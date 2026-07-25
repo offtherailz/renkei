@@ -40,7 +40,7 @@ export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
 	{ id: 'listen-number', label: 'Scrivi il numero', icon: '👂' },
 	{ id: 'listen-date', label: 'Ascolta la data', icon: '📆' },
 	{ id: 'listen-time', label: 'Ascolta l\'ora', icon: '🕒' },
-	{ id: 'listen-appt', label: 'Data e ora', icon: '🗓️' },
+	{ id: 'listen-appt', label: 'Ascolta data e ora', icon: '🗓️' },
 	{ id: 'shop-pay', label: 'Alla cassa', icon: '🛒' },
 	{ id: 'shopping-list', label: 'Lista della spesa', icon: '🛍️' },
 	{ id: 'greetings', label: 'Saluti', icon: '🗣️' },

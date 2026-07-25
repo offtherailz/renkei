@@ -6,13 +6,19 @@
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 	import { buildRounds, computeScore, type Round } from '$lib/core/certezza';
 
 	// 🎲 Quanto sei sicuro? (beta): でしょう/かもしれない/かな/はず/そう/らしい/
 	// みたい/っぽい/に違いない — stessa frase base, 4 costruzioni diverse: solo
 	// una si adatta alla FONTE di certezza del contesto dato. L'esito accredita
 	// gram:<slug> (visibile in /forme-composte).
-	const ROUNDS_PER_GAME = 9;
+
+	// Indizio dell'Aiuto: il "summary" della costruzione giusta dal catalogo
+	// (/forme-composte), senza svelare QUALE bottone è — solo la sfumatura da cercare.
+	function hintFor(slug: string): string {
+		return GRAMMAR_FORMS.find((f) => f.slug === slug)?.summary ?? '';
+	}
 
 	type Scene = 'intro' | 'play' | 'done';
 	let scene = $state<Scene>('intro');
@@ -111,7 +117,11 @@
 			</div>
 
 			{#if picked === null}
-				<button class="hint-btn" disabled={showReason} onclick={useHint}>💡 Aiuto</button>
+				{#if showReason}
+					<p class="reason">💡 Cerchi: {hintFor(r.situation.slug)}</p>
+				{:else}
+					<button class="hint-btn" onclick={useHint}>💡 Aiuto</button>
+				{/if}
 			{/if}
 
 			{#if picked !== null}

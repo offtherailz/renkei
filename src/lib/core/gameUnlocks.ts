@@ -8,8 +8,8 @@
 //
 // Filiera: Ore+Minuti → Che ore sono? → Ascolta l'ora
 //          Giorni del mese → Ascolta la data
-//          Ascolta la data + Ascolta l'ora → Data e ora
-//          Data e ora + Dì la data → Prendi appuntamento
+//          Ascolta la data + Ascolta l'ora → Ascolta data e ora
+//          Ascolta data e ora + Dì la data → Prendi appuntamento
 //          Misto: quando tutti gli altri della sezione sono sbloccati.
 
 import { beltProgress, conquered, BELT_GAMES } from '$lib/core/gameBelts';
