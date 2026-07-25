@@ -146,10 +146,22 @@ const KANA_DIGIT: [string, number][] = [
 ];
 const KANA_UNIT: [string, string][] = [
 	['じかん', '時間'], ['ふん', '分'], ['ぷん', '分'], ['にち', '日'],
-	['えん', '円'], ['ばん', '番'], ['がつ', '月'], ['にん', '人'], ['じ', '時']
+	['えん', '円'], ['ばん', '番'], ['がつ', '月'], ['にん', '人'], ['じ', '時'],
+	['だい', '台']
 ];
 const KANA_NUM_ATOM = 'じゅう|ひゃく|びゃく|ぴゃく|せん|ぜん|まん|いち|きゅう|しち|なな|ろく|よん|はち|さん|ご|く|よ|し|に';
-const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(じかん|ふん|ぷん|にち|えん|ばん|がつ|にん|じ)(はん)?`, 'g');
+const KANA_UNIT_ALT = 'じかん|ふん|ぷん|にち|えん|ばん|がつ|にん|だい|じ';
+const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(${KANA_UNIT_ALT})(はん)?`, 'g');
+// Forma ibrida che il riconoscitore produce spesso: cifra araba GIÀ scritta
+// («6») + contatore ancora in kana («だい») invece del kanji («台») — la
+// conversione sopra richiede il numero in kana, questa copre il caso misto.
+const DIGIT_KANA_UNIT_RE = new RegExp(`(\\d+)(${KANA_UNIT_ALT})(はん)?`, 'g');
+function digitKanaUnitToWritten(s: string): string {
+	return s.replace(DIGIT_KANA_UNIT_RE, (m, num: string, unitKana: string, han?: string) => {
+		const unit = KANA_UNIT.find(([k]) => k === unitKana)?.[1] ?? unitKana;
+		return `${num}${unit}${han ? '半' : ''}`;
+	});
+}
 
 function kanaNumberValue(seq: string): number | null {
 	let total = 0;
@@ -186,12 +198,14 @@ function kanaNumeralsToWritten(s: string): string {
 // larghezza, katakana → hiragana (il riconoscitore oscilla tra i due),
 // numeri in kanji → cifre arabe, numerali kana → cifre+unità.
 export function normalizeSpeech(s: string): string {
-	return kanaNumeralsToWritten(
-		kanjiNumeralsToArabic(
-			s
-				.replace(/[\s　。、！？!?．.,]/g, '')
-				.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
-				.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60))
+	return digitKanaUnitToWritten(
+		kanaNumeralsToWritten(
+			kanjiNumeralsToArabic(
+				s
+					.replace(/[\s　。、！？!?．.,]/g, '')
+					.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
+					.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60))
+			)
 		)
 	);
 }
