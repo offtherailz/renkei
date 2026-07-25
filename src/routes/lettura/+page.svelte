@@ -295,7 +295,12 @@
 		scene = 'result';
 	}
 	function rereadFaster(): void {
+		if (!run) return;
 		boostCpm = Math.round(cpm * 1.2);
+		// aumentare la velocità deve sempre variare il testo: rileggere gli
+		// STESSI slot solo più in fretta allena a ricordare, non a leggere
+		// (segnalato dall'utente) — stessa variazione di «stesso testo (varia)».
+		run = instantiate(run.text);
 		void startRsvp();
 	}
 

@@ -206,6 +206,14 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   risposta sbagliata (`registerResult`), mai per un'uscita volontaria.
   Ora `quitInternal()` accredita la cintura con la stessa serie raggiunta
   (pulita ≥5, impresa ≥12), rispettando anche il trucco 7-tap.
+- ✅ (25/07) **Fix dati どうやって**: prima frase con traduzione IT copiata
+  dall'inglese ("How do you get to the station?" invece di "Come si arriva
+  alla stazione?") — corretta in overrides+seed. SEED_REVISION v72.
+- ✅ (25/07) **Fix /lettura — velocità sempre variata**: «⚡ Rileggilo a +20%»
+  ripeteva lo STESSO testo instanziato (stessi slot) solo più veloce —
+  allenava a ricordare, non a leggere (segnalato dall'utente). Ora
+  ri-istanzia il testo (`instantiate(run.text)`) come già fa «Stesso testo
+  (varia)»: aumentare la velocità varia sempre il contenuto.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
