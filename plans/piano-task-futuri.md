@@ -214,6 +214,16 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   allenava a ricordare, non a leggere (segnalato dall'utente). Ora
   ri-istanzia il testo (`instantiate(run.text)`) come già fa «Stesso testo
   (varia)»: aumentare la velocità varia sempre il contenuto.
+- ✅ (25/07) **Fix voce ore — bug più a fondo** (bug segnalato: «se pronuncio
+  なな時 mi accetta anche nanaji»): il problema NON era in `writtenVariants`
+  (già sistemato) ma dentro `kanaNumeralsToWritten` stessa — convertiva SIA
+  しちじ (giusta) SIA ななじ (distrattore "regolare" apposta di counterGen.ts)
+  nella stessa forma "7時", collassandole nel confronto normalizzato. Aggiunta
+  `HOUR_WRONG_ATOMS`: よん/なな/きゅう non si convertono più quando l'unità è
+  時 (じ), restano testo diverso e vengono respinte. Anche omofono segnalato
+  くじ→工事 («lavori», stessa lettura): aggiunto come variante sicura in
+  writtenVariants (non riapre il bug, 工事 non è lettura alternativa di
+  nessun'altra ora).
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

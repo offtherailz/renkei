@@ -182,10 +182,19 @@ function kanaNumberValue(seq: string): number | null {
 	return total + num;
 }
 
+// 時 (ore): solo よ/しち/く sono letture corrette per 4/7/9 — よん/なな/きゅう
+// sono la lettura "regolare" ma SBAGLIATA (esattamente il distrattore apposta
+// di counterGen.ts). Se le convertissimo comunque in cifra+時 finirebbero
+// indistinguibili dalla lettura giusta nel confronto normalizzato (bug
+// segnalato: ななじ accettato per 7時) — qui NON si convertono: restano testo
+// diverso, il confronto le respinge.
+const HOUR_WRONG_ATOMS = /^(よん|なな|きゅう)/;
+
 function kanaNumeralsToWritten(s: string): string {
 	let out = s;
 	for (const [kana, written] of NATIVE_DAYS) out = out.split(kana).join(written);
 	out = out.replace(KANA_NUM_RE, (m, num: string, unitKana: string, han?: string) => {
+		if (unitKana === 'じ' && HOUR_WRONG_ATOMS.test(num)) return m;
 		const v = kanaNumberValue(num);
 		if (v === null) return m;
 		const unit = KANA_UNIT.find(([k]) => k === unitKana)?.[1] ?? unitKana;

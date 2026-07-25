@@ -34,6 +34,21 @@ describe('normalizeSpeech', () => {
 		expect(normalizeSpeech('6だい')).toBe('6台');
 		expect(normalizeSpeech('6にん')).toBe('6人');
 	});
+
+	it('NON converte よんじ/ななじ/きゅうじ in cifra+時 (bug segnalato: ななじ accettato per 7時)', () => {
+		// よじ/しちじ/くじ sono le uniche letture corrette delle ore 4/7/9;
+		// よんじ/ななじ/きゅうじ sono il distrattore "regolare" apposta di
+		// counterGen.ts — se li convertissimo in cifra+時 diventerebbero
+		// indistinguibili dalla lettura giusta nel confronto normalizzato.
+		expect(normalizeSpeech('ななじ')).toBe('ななじ');
+		expect(normalizeSpeech('よんじ')).toBe('よんじ');
+		expect(normalizeSpeech('きゅうじ')).toBe('きゅうじ');
+		// le letture corrette restano convertibili (serve per il match con la
+		// forma scritta se il riconoscitore la trascrive così)
+		expect(normalizeSpeech('しちじ')).toBe('7時');
+		expect(normalizeSpeech('よじ')).toBe('4時');
+		expect(normalizeSpeech('くじ')).toBe('9時');
+	});
 });
 
 describe('speechMatches con numeri kanji/cifre', () => {
@@ -43,5 +58,9 @@ describe('speechMatches con numeri kanji/cifre', () => {
 
 	it('«6だい» trascritto dal riconoscitore combacia con «ろくだい» atteso (bug 6台/rokudai)', () => {
 		expect(speechMatches(['6だい'], [['ろくだい']])).toBe(true);
+	});
+
+	it('«ななじ» (lettura regolare sbagliata) NON combacia con «しちじ» atteso (bug ore)', () => {
+		expect(speechMatches(['ななじ'], [['しちじ']])).toBe(false);
 	});
 });

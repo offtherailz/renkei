@@ -103,6 +103,11 @@
 		const out: string[] = [];
 		const qc = q as GeneratedReading & { count?: number; counterId?: string };
 		if (qc.count && qc.counterId) out.push(`${qc.count}${qc.counterId}`);
+		// omofono comune: くじ (9時) è spesso trascritto dal riconoscitore come
+		// 工事 («lavori»/«costruzione») — stessa lettura, parola diversa. Non
+		// c'entra con la lettura regolare-sbagliata (きゅうじ, già respinta a
+		// monte in speech.ts): qui è proprio un omofono del riconoscitore.
+		if (q.correct === 'くじ') out.push('工事');
 		return out;
 	}
 
