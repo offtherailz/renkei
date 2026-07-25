@@ -24,7 +24,7 @@
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, danKanji, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
 	import BeltIcon from '$lib/components/BeltIcon.svelte';
-	import { isUnlocked, forceUnlock } from '$lib/core/gameUnlocks';
+	import { isUnlocked, unlockHint, forceUnlock } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
@@ -611,7 +611,7 @@
 
 {#snippet unlockChip(id: string)}
 	{#if !unlockedNow(id)}
-		<span class="cat-belt cat-belt-locked">🔒</span>
+		<span class="cat-belt cat-belt-locked">🔒 serve {unlockHint(id)}</span>
 	{/if}
 {/snippet}
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { isUnlocked, forceUnlock } from './gameUnlocks';
+import { isUnlocked, unlockHint, forceUnlock } from './gameUnlocks';
 import { recordGameResult } from './gameBelts';
 
 // Ambiente node "puro" (niente jsdom): niente localStorage globale — le altre
@@ -47,5 +47,20 @@ describe('isUnlocked', () => {
 		forceUnlock('appuntamento');
 		forceUnlock('appuntamento');
 		expect(isUnlocked('appuntamento')).toBe(true);
+	});
+});
+
+describe('unlockHint', () => {
+	it('nomina i prerequisiti mancanti', () => {
+		const hint = unlockHint('read-clock');
+		expect(hint).toContain('Ore');
+		expect(hint).toContain('Minuti');
+	});
+
+	it('null quando non c\'è nulla da sbloccare o è già sbloccato', () => {
+		expect(unlockHint('riordina')).toBeNull();
+		recordGameResult('read-時', true);
+		recordGameResult('read-分', true);
+		expect(unlockHint('read-clock')).toBeNull();
 	});
 });

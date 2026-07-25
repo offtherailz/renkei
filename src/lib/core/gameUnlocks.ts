@@ -1,6 +1,5 @@
 // Sblocchi dei giochi: SOLO la filiera numeri/tempo. Tutto il resto è
-// sempre libero. Il requisito NON è spiegato in UI (niente hint testuale):
-// la card mostra solo 🔒, scoprire cosa sblocca cosa fa parte del gioco.
+// sempre libero. Il requisito è scritto sulla card velata (unlockHint).
 //
 // Regola (insegnante + gamification, «fattibile»): un prerequisito è
 // soddisfatto con ALMENO la cintura arancione in quel gioco (1 partita pulita).
@@ -11,7 +10,7 @@
 //          Data e ora + Dì la data → Prendi appuntamento
 //          Misto: quando tutti gli altri della sezione sono sbloccati.
 
-import { beltProgress, conquered } from '$lib/core/gameBelts';
+import { beltProgress, conquered, BELT_GAMES } from '$lib/core/gameBelts';
 
 // Trucco nascosto: toccare 7 volte veloci una card bloccata la sblocca subito,
 // scavalcando il requisito (come i "7 tap" per gli sviluppatori Android).
@@ -52,5 +51,23 @@ export function isUnlocked(gameId: string): boolean {
 	const reqs = GAME_UNLOCKS[gameId];
 	if (!reqs) return true;
 	return reqs.every((id) => conquered(beltProgress(id)));
+}
+
+function gameName(id: string): string {
+	const g = BELT_GAMES.find((x) => x.id === id);
+	return g ? `${g.icon} ${g.label}` : id;
+}
+
+// Testo del requisito per la card velata: solo ciò che manca.
+// Es.: «cintura arancione in ⏰ Ore e ⏱ Minuti».
+export function unlockHint(gameId: string): string | null {
+	if (gameId === MIX_ID) {
+		return MIX_SECTION.some((id) => !isUnlocked(id)) ? 'apri prima tutti gli altri giochi della sezione' : null;
+	}
+	const reqs = GAME_UNLOCKS[gameId];
+	if (!reqs) return null;
+	const missing = reqs.filter((id) => !conquered(beltProgress(id)));
+	if (missing.length === 0) return null;
+	return `cintura arancione in ${missing.map(gameName).join(' e ')}`;
 }
 
