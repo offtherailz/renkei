@@ -201,7 +201,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
-			recordGameResult('comparazioni', score >= rounds.length - 1);
+			recordGameResult('comparazioni', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

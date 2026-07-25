@@ -93,7 +93,7 @@
 		if (idx < rounds.length - 1) idx += 1;
 		else {
 			scene = 'done';
-			recordGameResult('iikae', score >= rounds.length - 1);
+			recordGameResult('iikae', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

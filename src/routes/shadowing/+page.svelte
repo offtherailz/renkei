@@ -156,7 +156,7 @@
 		} else {
 			submitScore(GAME_ID, best);
 			scene = 'done';
-			recordGameResult('shadowing', best >= 5);
+			recordGameResult('shadowing', best >= 5, best >= 12);
 		}
 	}
 </script>

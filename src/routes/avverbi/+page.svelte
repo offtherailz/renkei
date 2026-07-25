@@ -115,7 +115,7 @@
 			picked = null;
 		} else {
 			scene = 'done';
-			recordGameResult('avverbi', score >= rounds.length - 1);
+			recordGameResult('avverbi', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

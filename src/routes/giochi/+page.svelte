@@ -22,7 +22,7 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
-	import { BELT_GAMES, beltProgress, beltFor, beltLabel, nextBeltHint, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
+	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
 	import BeltIcon from '$lib/components/BeltIcon.svelte';
 	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
@@ -491,8 +491,8 @@
 			gameOver = true;
 			if (game) {
 				submitScore(gameId(game), streak);
-				// cinture: partita = serie chiusa; pulita = serie ≥5
-				recordGameResult(gameId(game), streak >= 5);
+				// cinture: partita = serie chiusa; pulita = serie ≥5; impresa = serie ≥12
+				recordGameResult(gameId(game), streak >= 5, streak >= 12);
 			}
 		}
 	}
@@ -567,8 +567,8 @@
 	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}
 	<span class="cat-belt" class:cat-belt-todo={!label}>
-		<BeltIcon belt={beltFor(bp)} size={13} />
-		{#if label}{label} · {nextBeltHint(bp) ?? 'sali di dan con le pulite'}{:else}da domare{/if}
+		<BeltIcon belt={beltVisual(bp)} size={13} />
+		{#if label}{label} · {nextBeltHint(bp) ?? nextDanHint(bp) ?? 'vetta raggiunta 👑'}{:else}da domare{/if}
 	</span>
 {/snippet}
 
@@ -592,11 +592,8 @@
 
 		<div class="belt-banner">
 			🥋 <strong>Cinture</strong>: {conqueredCount()}/{BELT_GAMES.length} giochi domati.
-			Ogni gioco dà le cinture del karatè (bianca → gialla → arancione → verde → blu →
-			viola → marrone → nera, poi i dan fino a 十段 Gran Maestro): le partite contano,
-			le prestazioni pulite di più. Un gioco è <strong>domato</strong> con la gialla
-			(3 partite) o l'arancione (1 pulita). Solo la filiera del tempo si sblocca in
-			ordine: il requisito è scritto sulla card, e i giochi velati restano provabili.
+			Guadagna le cinture per sbloccare gli altri giochi —
+			<a href="{base}/guida#cinture">come funzionano →</a>
 		</div>
 
 		<p class="group-title">Numeri e tempo</p>

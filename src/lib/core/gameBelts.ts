@@ -1,11 +1,12 @@
 // Cinture di karatè per gioco («doma tutti i giochi» — premio incrementale).
 //
-// Ogni gioco della lista ha contatori locali {partite, pulite}:
-// - partita  = una sessione portata a termine (scena finale raggiunta)
-// - pulita   = prestazione da insegnante (criterio per-gioco: vedi la pagina
-//   del gioco — di norma max 1 errore, serie ≥5 per i giochi a serie,
-//   accordo senza aiuti per i negoziali)
-// La cintura deriva dai contatori; la cintura nera è 初段 e si sale di dan.
+// Ogni gioco della lista ha contatori locali {partite, pulite, imprese}:
+// - partita = una sessione portata a termine (scena finale raggiunta)
+// - pulita  = prestazione da insegnante (di norma max 1 errore, serie ≥5 per
+//   i giochi a serie, accordo senza aiuti per i negoziali)
+// - impresa = prestazione magistrale (0 errori, serie ≥12, senza riascolti…)
+// La cintura deriva dai contatori; la nera è 初段, i dan salgono con pulite E
+// imprese fino al 十段 Gran Maestro (cintura ROSSA, come nel karate).
 // «Domato» = gialla (3 partite) o almeno una pulita — conta per il banner in /giochi
 // ed è il requisito degli sblocchi (gameUnlocks).
 //
@@ -15,11 +16,12 @@
 
 import { appState } from '$lib/stores.svelte';
 
-export type BeltColor = 'nessuna' | 'bianca' | 'gialla' | 'arancione' | 'verde' | 'blu' | 'viola' | 'marrone' | 'nera';
+export type BeltColor = 'nessuna' | 'bianca' | 'gialla' | 'arancione' | 'verde' | 'blu' | 'viola' | 'marrone' | 'nera' | 'rossa';
 
 export interface BeltProgress {
 	played: number; // partite completate
 	clean: number; // prestazioni pulite
+	epic: number; // imprese (prestazioni magistrali)
 }
 
 const KEY = 'renkei_game_belts';
@@ -74,8 +76,21 @@ const BELT_LADDER: { color: BeltColor; cond: (p: BeltProgress) => boolean }[] = 
 	{ color: 'nera', cond: (p) => p.clean >= 10 }
 ];
 
-// Dan della nera: 初段 a 10 pulite, +1 ogni 5. 十段 = Gran Maestro.
-const DAN_LABELS = ['初段', '二段', '三段', '四段', '五段', '六段', '七段', '八段', '九段', '十段'];
+// I 10 dan della nera: pulite E imprese richieste. I primi si sbloccano con
+// la sola qualità costante, gli ultimi chiedono prestazioni magistrali;
+// il 十段 (Gran Maestro) porta la cintura rossa.
+const DAN_LADDER: { label: string; clean: number; epic: number }[] = [
+	{ label: '初段', clean: 10, epic: 0 },
+	{ label: '二段', clean: 15, epic: 0 },
+	{ label: '三段', clean: 20, epic: 1 },
+	{ label: '四段', clean: 25, epic: 2 },
+	{ label: '五段', clean: 30, epic: 3 },
+	{ label: '六段', clean: 35, epic: 4 },
+	{ label: '七段', clean: 40, epic: 5 },
+	{ label: '八段', clean: 45, epic: 6 },
+	{ label: '九段', clean: 50, epic: 8 },
+	{ label: '十段', clean: 60, epic: 10 }
+];
 
 function readAll(): Record<string, BeltProgress> {
 	if (typeof localStorage === 'undefined') return {};
@@ -87,7 +102,9 @@ function readAll(): Record<string, BeltProgress> {
 }
 
 export function beltProgress(gameId: string): BeltProgress {
-	return readAll()[gameId] ?? { played: 0, clean: 0 };
+	const p = readAll()[gameId];
+	// epic è arrivato dopo: i dati salvati prima non ce l'hanno
+	return p ? { played: p.played, clean: p.clean, epic: p.epic ?? 0 } : { played: 0, clean: 0, epic: 0 };
 }
 
 export function beltFor(p: BeltProgress): BeltColor {
@@ -96,12 +113,24 @@ export function beltFor(p: BeltProgress): BeltColor {
 	return belt;
 }
 
-// Dan della cintura nera: 初段 a 10 pulite, poi +1 ogni 5 (tetto 十段).
+// Dan raggiunto: il più alto con pulite E imprese sufficienti.
 export function danFor(p: BeltProgress): string | null {
 	if (beltFor(p) !== 'nera') return null;
-	const dan = Math.min(DAN_LABELS.length, 1 + Math.floor((p.clean - 10) / 5));
-	const label = DAN_LABELS[dan - 1]!;
-	return dan === DAN_LABELS.length ? `${label} 👑 Gran Maestro` : label;
+	let label: string | null = null;
+	let last = false;
+	for (let i = 0; i < DAN_LADDER.length; i += 1) {
+		const d = DAN_LADDER[i]!;
+		if (p.clean >= d.clean && p.epic >= d.epic) {
+			label = d.label;
+			last = i === DAN_LADDER.length - 1;
+		}
+	}
+	return last ? `${label} 👑 Gran Maestro` : label;
+}
+
+// Colore da disegnare: il Gran Maestro porta la ROSSA, gli altri la loro.
+export function beltVisual(p: BeltProgress): BeltColor {
+	return danFor(p)?.includes('十段') ? 'rossa' : beltFor(p);
 }
 
 // Etichetta compatta per le card: «— / bianca / … / nera 二段».
@@ -109,7 +138,9 @@ export function beltLabel(gameId: string): string | null {
 	const p = beltProgress(gameId);
 	const belt = beltFor(p);
 	if (belt === 'nessuna') return null;
-	return belt === 'nera' ? `nera ${danFor(p)}` : belt;
+	if (belt !== 'nera') return belt;
+	const dan = danFor(p)!;
+	return dan.includes('十段') ? `rossa ${dan}` : `nera ${dan}`;
 }
 
 // Pulite richieste per ogni cintura oltre la gialla.
@@ -136,6 +167,17 @@ export function nextBeltHint(p: BeltProgress): string | null {
 	return `${next.color}: ancora ${target - p.clean} pulite`;
 }
 
+// Cosa manca per il prossimo dan (per la card, quando sei già nera).
+export function nextDanHint(p: BeltProgress): string | null {
+	if (beltFor(p) !== 'nera') return null;
+	const next = DAN_LADDER.find((d) => p.clean < d.clean || p.epic < d.epic);
+	if (!next) return null; // Gran Maestro: vetta raggiunta
+	const parts: string[] = [];
+	if (p.clean < next.clean) parts.push(`${next.clean - p.clean} pulite`);
+	if (p.epic < next.epic) parts.push(`${next.epic - p.epic} imprese ⚡`);
+	return `${next.label}: ancora ${parts.join(' e ')}`;
+}
+
 // «Domato»: gialla (3 partite) o almeno una pulita. Requisito degli sblocchi.
 export function conquered(p: BeltProgress): boolean {
 	return p.played >= 3 || p.clean >= 1;
@@ -146,26 +188,32 @@ export function conqueredCount(): number {
 	return BELT_GAMES.filter((g) => conquered(beltProgress(g.id))).length;
 }
 
-// Registra la fine di una partita. Aggiorna i contatori, e se c'è un salto di
-// cintura o uno sblocco mostra il toast globale (layout).
-export function recordGameResult(gameId: string, clean: boolean): void {
+// Registra la fine di una partita (un'impresa è anche pulita). Aggiorna i
+// contatori; salti di cintura/dan, imprese e «domato» finiscono nel toast.
+export function recordGameResult(gameId: string, clean: boolean, epic = false): void {
 	if (typeof localStorage === 'undefined') return;
 	const all = readAll();
-	const prev = all[gameId] ?? { played: 0, clean: 0 };
+	const raw = all[gameId];
+	const prev: BeltProgress = raw ? { played: raw.played, clean: raw.clean, epic: raw.epic ?? 0 } : { played: 0, clean: 0, epic: 0 };
 	const prevBelt = beltFor(prev);
 	const prevDan = danFor(prev);
 	const prevConquered = conquered(prev);
-	const next: BeltProgress = { played: prev.played + 1, clean: prev.clean + (clean ? 1 : 0) };
+	const next: BeltProgress = {
+		played: prev.played + 1,
+		clean: prev.clean + (clean || epic ? 1 : 0),
+		epic: prev.epic + (epic ? 1 : 0)
+	};
 	all[gameId] = next;
 	localStorage.setItem(KEY, JSON.stringify(all));
 
+	const gameLabel = BELT_GAMES.find((g) => g.id === gameId)?.label ?? gameId;
 	const belt = beltFor(next);
 	const dan = danFor(next);
 	const messages: string[] = [];
+	if (epic) messages.push(`⚡ Impresa in ${gameLabel}!`);
 	if (belt !== prevBelt || dan !== prevDan) {
-		const name = belt === 'nera' ? `nera ${dan}` : belt;
-		const label = BELT_GAMES.find((g) => g.id === gameId)?.label ?? gameId;
-		messages.push(`🥋 Cintura ${name} in ${label}!`);
+		const name = belt === 'nera' ? (dan?.includes('十段') ? `ROSSA ${dan}` : `nera ${dan}`) : belt;
+		messages.push(`🥋 Cintura ${name} in ${gameLabel}!`);
 	}
 	if (!prevConquered && conquered(next)) {
 		const g = BELT_GAMES.find((x) => x.id === gameId);

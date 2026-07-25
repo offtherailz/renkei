@@ -104,7 +104,7 @@
 			attempts = 0;
 		} else {
 			scene = 'done';
-			recordGameResult('di-la-data', score >= rounds.length - 1);
+			recordGameResult('di-la-data', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

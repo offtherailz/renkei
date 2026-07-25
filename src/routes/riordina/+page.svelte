@@ -131,7 +131,7 @@
 			}
 		} else {
 			scene = 'over';
-			recordGameResult('riordina', streak >= 5);
+			recordGameResult('riordina', streak >= 5, streak >= 12);
 		}
 	}
 </script>

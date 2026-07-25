@@ -82,7 +82,7 @@
 		if (idx < rounds.length - 1) idx += 1;
 		else {
 			scene = 'done';
-			recordGameResult('coppie', score >= rounds.length - 1);
+			recordGameResult('coppie', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

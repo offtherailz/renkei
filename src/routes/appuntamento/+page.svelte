@@ -318,7 +318,7 @@
 		best = getHighscore('appuntamento');
 		gamesPlayed += 1;
 		scene = 'done';
-		recordGameResult('appuntamento', hintsUsed === 0);
+		recordGameResult('appuntamento', hintsUsed === 0, hintsUsed === 0 && turns <= 3);
 	}
 
 	// ── Hint 💡: 1=lettura(furigana via TTS ripetuto), 2=traduzione it, 3=evidenzia calendario ──

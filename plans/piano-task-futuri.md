@@ -107,6 +107,13 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   «Lettura» (split di «Lettura e frasi»), Dettato in «Ascolta e agisci».
 - ✅ (25/07) **Fix leggi-a-voce**: ほうがいい trascritto 方がいい dal riconoscitore
   ora combacia; diff sul candidato giusto.
+- ✅ (25/07) **Cinture v3 — dan seri e Gran Maestro rosso**: contatore `epic`
+  (imprese: serie ≥12, 0 errori, choukai senza riascolti, accordo ≤3 turni,
+  Relazioni scenario capo), dan con doppio requisito (三段 20+1 … 九段 50+8,
+  十段 60+10 = 👑 Gran Maestro con CINTURA ROSSA, beltVisual/token --belt-rossa),
+  toast ⚡, nextDanHint sulla card. Banner /giochi asciutto con link a
+  /guida#cinture: sezione dedicata con disegni BeltIcon, scala completa,
+  criteri pulita/impresa, filiera sblocchi.
 - 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
   nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
   cinture in /stats; migrare i record locali di riordina/skimming a gameScores.

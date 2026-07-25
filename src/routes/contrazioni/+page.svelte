@@ -134,7 +134,7 @@
 			heard = '';
 		} else {
 			scene = 'done';
-			recordGameResult('contrazioni', score >= rounds.length - 1);
+			recordGameResult('contrazioni', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

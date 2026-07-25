@@ -167,7 +167,7 @@
 		if (idx < rounds.length - 1) idx += 1;
 		else {
 			scene = 'done';
-			recordGameResult('keigo', score >= rounds.length - 1);
+			recordGameResult('keigo', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

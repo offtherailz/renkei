@@ -134,7 +134,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
-			recordGameResult('leggi-a-voce', score >= rounds.length - 1);
+			recordGameResult('leggi-a-voce', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

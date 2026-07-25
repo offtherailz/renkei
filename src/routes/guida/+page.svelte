@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
+	import BeltIcon from '$lib/components/BeltIcon.svelte';
 </script>
 
 <div class="guide">
@@ -38,7 +39,7 @@
 	<section class="g-card">
 		<h2>🎮 Attività</h2>
 		<p><strong>Giochi</strong> — numeri e contatori (giorni, ore, prezzi…), dettato, cassa, appuntamenti, lista della spesa, saluti (anche a voce 🎤), ordini al konbini. A serie: un errore e riparti. <strong>Nei giochi e nelle avventure gli errori non penalizzano mai</strong> (niente punti deboli): contano solo le risposte giuste, che danno credito. La "debolezza" vera si misura solo nel quiz SRS e nel Consolida.</p>
-		<p><strong>🥋 Cinture</strong> — ogni gioco dà le cinture del karatè, disegnate sulla card: <strong>bianca</strong> alla prima partita, <strong>gialla</strong> con la costanza (3 partite), poi arancione→verde→blu→viola→marrone con le <strong>prestazioni pulite</strong> (partita quasi perfetta: max 1 errore, serie ≥5 nei giochi a serie, accordo senza aiuti in quelli negoziali), <strong>nera</strong> a 10 pulite — e da lì i dan, da 初段 fino a <strong>十段 👑 Gran Maestro</strong>. La card mostra la cintura e cosa manca per la prossima; «domare» un gioco (gialla o una pulita) fa salire il contatore in cima a /giochi. <strong>Si sblocca in ordine solo la filiera del tempo</strong>: domi 🕐 Ore e ⏱ Minuti e si apre ⏰ Che ore sono?; da lì 🕒 Ascolta l'ora, mentre 📅 Giorni del mese apre 📆 Ascolta la data; le due insieme aprono 🗓️ Data e ora, che con 🗣️ Dì la data apre 📅 Prendi appuntamento; il 🎲 Misto si apre con tutta la sezione. Il requisito esatto è scritto sulla card velata, col tuo progresso — e il gioco resta comunque provabile 👀.</p>
+		<p><strong>🥋 Cinture</strong> — ogni gioco dà cinture come nel karatè; guadagnale per sbloccare gli altri giochi della filiera del tempo. Livelli, requisiti e disegni: <a href="#cinture">sezione Cinture ↓</a>.</p>
 		<p><strong>🌅 Una giornata</strong> — vivi una giornata giapponese (sveglia, casa, lavoro, imprevisti come compleanni o uscite anticipate): a ogni momento scegli — o di' a voce 🎤 — la frase fatta giusta. Ogni giornata è diversa.</p>
 		<p><strong>👂 聴解 Ascolto trappola</strong> — dialoghi stile JLPT solo audio: cambiano idea, tornano all'originale… tu non cascarci. Alla fine il copione ricco (beta): le domande con le risposte giuste, la battuta-prova riascoltabile e il <strong>perché</strong> di ogni risposta (💡 dov'è la trappola: il ripensamento «やっぱり», l'esca, ecc.); ogni battuta del dialogo col suo 🔊 e il pulsante «▶️ Tutto il dialogo» per riascoltarlo intero.</p>
 		<p><strong>🙇 敬語</strong> — 尊敬語 (le azioni degli altri) vs 謙譲語 (le tue): dal verbo piano alla forma giusta, frasi situazionali con capo e clienti, le richieste cortesi (〜てください vs お/ご + ください) e i completamenti curati — frasi in cui dal contesto (社長は…, わたしは…) capisci chi parla a chi, col perché spiegato dopo la risposta. Dopo ogni risposta senti la forma giusta a voce; con microfono 🎤 puoi anche provare a dirla invece di toccarla.</p>
@@ -49,6 +50,30 @@
 		<p><strong>📢 Leggi a voce</strong> (beta) — leggi TU la frase ad alta voce: i primi round hanno i furigana, poi spariscono (👁 li riaccende). Il modello audio si sente solo dopo il tuo tentativo; col microfono il confronto è automatico, senza ti autovaluti. <strong>✍️ Dettato</strong> (beta) — ascolti una frase (もう一度/🐢 a volontà) e la ricomponi coi pezzi in disordine: allena l'ascolto fine delle particelle; le risposte giuste rafforzano la cella Ascoltare 👂 della parola. <strong>🧬 Catena di forme</strong> (beta) — costruisci le forme composte un passo alla volta (食べる → 食べられる → 食べられない «non riesco a mangiare»): potenziale, たい, ている e ora anche causativo (使役) e passivo (受身); morfologia e significato insieme, con una frase d'esempio vera che mostra la forma finale in uso. Il credito va alla classe verbale e alla costruzione. <strong>🔀 Coppie difficili</strong> (beta) — 妻 o 奥さん? 切符 o 切手? 熱い o 暑い? Il contesto forza una delle due, dopo la risposta il perché della differenza; l'esito allena ENTRAMBE le parole della coppia. <strong>🎚️ Avverbi</strong> (beta) — l'avverbio (副詞: そろそろ, きっと, なかなか…) è cancellato dalla sua frase: scegli quello giusto dal contesto, poi vedi la frase intera cliccabile, la traduzione e la ascolti; l'esito alimenta la cella Usare 🧩 dell'avverbio. <strong>⚖️ Comparazioni</strong> (beta) — la grammatica del confronto N5/N4: どっち (AとB、どちらのほうが〜?), いちばん (il superlativo fra tre), componi «AはBより〜» coi pezzi (anche trascinandoli) e ほど〜ない (A non è … quanto B, N4). Fatti veri; dopo la risposta la frase modello cliccabile + traduzione + 🔊; l'esito alimenta la cella Usare 🧩 dell'aggettivo. <strong>✂️ Contrazioni</strong> (beta) — le forme del parlato e le estese (食べちゃった ↔ 食べてしまった, 行かなきゃ, 買っとく…): scelta multipla nei due sensi, o di' la risposta a voce 🎤 (la voce non penalizza). <strong>🗣️ Dì la data</strong> (beta) — l'inverso di «Appuntamento»: la data o l'ora è scritta (3月9日, 4時半) e la leggi TU a voce, native comprese; sbagliare a voce non penalizza, dopo due tentativi puoi rivelare la lettura. <strong>📅 Prendi appuntamento</strong> (beta) — negozi giorno e ora con un interlocutore, e il <strong>registro cambia con lo scenario</strong>: 🍶 un amico (普通体, casual), 🎬/☕ un conoscente o collega (丁寧, です・ます), 💼 un cliente o superiore (敬語, sonkeigo/kenjougo). Vedi sempre il tuo calendario settimanale (alcuni slot occupati, generati a caso); proponi un giorno+ora dal picker (o a voce 🎤) e l'interlocutore risponde: se il giorno gli va bene ed è libero anche per te, accordo; altrimenti rifiuta con un motivo e contropropone — tu lo capisci ad orecchio, controlli il tuo calendario e accetti o controproponi a tua volta. Il bottone <strong>💡 Aiuto</strong> ha 3 livelli (lettura → traduzione → evidenzia il giorno sul calendario), ma ogni uso riduce il punteggio finale, che premia anche pochi turni di negoziazione. <strong>🫂 Relazioni</strong> (beta) — una conversazione guidata dove il <strong>registro cambia col rapporto</strong>: 🤝 conosci qualcuno la prima volta (丁寧, です・ます), 🫂 senti un amico o un familiare (普通体, casual), 🍻 parli col capo a una cena aziendale (敬語: tu umile — 頑張っております, なさいますか — mentre il capo resta sul piano). L'interlocutore parla di sé e ti fa domande (出身, 仕事, 趣味, 家族…): tu ascolti e scegli la risposta giusta per contenuto E registro (le opzioni sbagliate sono spesso del registro sbagliato), col picker o a voce 🎤. In ogni scenario c'è anche un turno di <strong>permesso/divieto</strong>: la stessa idea cambia forma col rapporto (窓を開けてもいいですか al conoscente, 返さなきゃだめだよ all'amico, お先に失礼してもよろしいでしょうか al capo); l'esito allena le costruzioni 〜てもいい／〜なければならない (vedi /forme-composte). Gli errori sui temi con una parola-chiave nel catalogo (仕事/趣味/家族) alimentano il consolidamento.</p>
 		<p><strong>🗺️ Avventure</strong> — Kaimono (spesa + telefonata), Ristorante, Treno, 仕事場で (primo giorno in ufficio: presentazione, complimento da sminuire, istruzioni da capire, telefono): ascolti, agisci, parli davvero col microfono 🎤. Il copione 📜 è cliccabile; gli errori finiscono nel tuo consolidamento.</p>
 		<p><strong>🚗 Mani libere</strong> (beta, da Giochi → Conversazione) — ripasso <strong>solo a voce</strong>: non leggi né tocchi nulla. Un tocco per partire, poi l'app ti dice in italiano cosa esprimere (o recita un dialogo e fa la domanda) e tu rispondi in giapponese; conferma a voce e ti dà la versione giusta. Comandi vocali <strong>「もう一度」</strong> (risenti), <strong>「ゆっくり」</strong> (lento), <strong>「ちょっと待って」</strong> (pausa), <strong>「次」</strong> (salta), <strong>「やめて」</strong> (basta). La legenda dei comandi è sempre a schermo. Pensato per l'auto o quando hai le mani occupate; serve microfono (Chrome, https).</p>
+	</section>
+
+	<section class="g-card" id="cinture">
+		<h2>🥋 Le cinture dei giochi</h2>
+		<p class="page-sub" style="margin:0 0 8px;">
+			Ogni gioco tiene il conto di <strong>partite</strong> (sessioni finite), <strong>pulite</strong>
+			(prestazione quasi perfetta) e <strong>imprese ⚡</strong> (prestazione magistrale).
+			Vale la cintura più alta raggiunta. Un gioco è <strong>domato</strong> con la gialla o
+			l'arancione: è questo che apre i giochi successivi della filiera del tempo.
+		</p>
+		<ul class="belt-list">
+			<li><BeltIcon belt="bianca" size={15} /> <strong>Bianca</strong> — 1 partita</li>
+			<li><BeltIcon belt="gialla" size={15} /> <strong>Gialla</strong> — 3 partite</li>
+			<li><BeltIcon belt="arancione" size={15} /> <strong>Arancione</strong> — 1 pulita</li>
+			<li><BeltIcon belt="verde" size={15} /> <strong>Verde</strong> — 2 pulite</li>
+			<li><BeltIcon belt="blu" size={15} /> <strong>Blu</strong> — 4 pulite</li>
+			<li><BeltIcon belt="viola" size={15} /> <strong>Viola</strong> — 6 pulite</li>
+			<li><BeltIcon belt="marrone" size={15} /> <strong>Marrone</strong> — 8 pulite</li>
+			<li><BeltIcon belt="nera" size={15} /> <strong>Nera 初段</strong> — 10 pulite; poi i dan: 二段 15 pulite, 三段 20 + 1 impresa, 四段 25 + 2, 五段 30 + 3, 六段 35 + 4, 七段 40 + 5, 八段 45 + 6, 九段 50 + 8</li>
+			<li><BeltIcon belt="rossa" size={15} /> <strong>Rossa 十段 👑 Gran Maestro</strong> — 60 pulite + 10 imprese, come nella tradizione del karatè</li>
+		</ul>
+		<p><strong>Cos'è una «pulita»</strong> — max 1 errore nei giochi a round (dettato, coppie, avverbi, catena, contrazioni, comparazioni, 言い換え, keigo, dì la data, leggi a voce); serie ≥ 5 nei giochi a serie (riordina, shadowing e tutti quelli di Numeri e tempo, cassa, saluti…); tutte giuste nel choukai; accordo senza aiuti in Prendi appuntamento; conversazione perfetta senza aiuti in Relazioni.</p>
+		<p><strong>Cos'è un'«impresa ⚡»</strong> — il gradino sopra: serie ≥ 12, zero errori nei giochi a round, choukai perfetto senza riascolti, accordo senza aiuti in ≤ 3 turni, lo scenario del capo (敬語) perfetto in Relazioni.</p>
+		<p><strong>Sblocchi</strong> — solo la filiera del tempo si apre in ordine (domando i precedenti): 🕐 Ore + ⏱ Minuti → ⏰ Che ore sono? → 🕒 Ascolta l'ora; 📅 Giorni del mese → 📆 Ascolta la data; le due → 🗓️ Data e ora; con 🗣️ Dì la data → 📅 Prendi appuntamento; il 🎲 Misto si apre con tutta la sezione. La card velata dice sempre cosa manca, e il gioco resta provabile 👀.</p>
 	</section>
 
 	<section class="g-card">
@@ -80,6 +105,9 @@
 </div>
 
 <style>
+	.belt-list { margin: 0 0 10px; padding-left: 6px; list-style: none; display: grid; gap: 6px; }
+	.belt-list li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.9rem; }
+
 	.guide { display: grid; gap: 12px; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 	.page-sub { margin: 0; font-size: 0.85rem; color: var(--muted); line-height: 1.55; }

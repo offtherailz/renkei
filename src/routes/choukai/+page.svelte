@@ -124,7 +124,7 @@
 			armQuestion();
 		} else {
 			scene = 'result';
-			if (run) recordGameResult('choukai', score === run.questions.length);
+			if (run) recordGameResult('choukai', score === run.questions.length, score === run.questions.length && listens <= 1);
 		}
 	}
 

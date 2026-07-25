@@ -102,7 +102,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
-			recordGameResult('dettato', score >= rounds.length - 1);
+			recordGameResult('dettato', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

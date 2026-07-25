@@ -232,7 +232,7 @@
 			setupRound();
 		} else {
 			scene = 'done';
-			recordGameResult('catena', score >= rounds.length - 1);
+			recordGameResult('catena', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
 </script>

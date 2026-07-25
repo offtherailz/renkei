@@ -184,7 +184,7 @@
 			isRecord = submitScore('relazioni', finalScore);
 			best = getHighscore('relazioni');
 			scene = 'done';
-			recordGameResult('relazioni', correctCount === turns.length && hintsUsed === 0);
+			recordGameResult('relazioni', correctCount === turns.length && hintsUsed === 0, correctCount === turns.length && hintsUsed === 0 && scenario?.id === 'joushi');
 		}
 	}
 

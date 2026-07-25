@@ -39,6 +39,7 @@
   --belt-viola: #7c3aed;
   --belt-marrone: #7b4a12;
   --belt-nera: #1a1a1a;
+  --belt-rossa: #b91c1c;
   --belt-edge: rgba(14, 29, 51, 0.35);
   color-scheme: light;
 }
@@ -72,6 +73,7 @@
     --danger-bg: rgba(239, 107, 107, 0.16);
     --belt-bianca: #e9e9e2;
     --belt-nera: #050505;
+    --belt-rossa: #dc2626;
     --belt-edge: rgba(231, 237, 247, 0.4);
     color-scheme: dark;
   }
