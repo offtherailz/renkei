@@ -195,10 +195,23 @@ export function danKanji(p: BeltProgress): string | null {
 	return d ? d[0]! : null;
 }
 
-// Registra la fine di una partita (un'impresa è anche pulita). Aggiorna i
-// contatori; salti di cintura/dan e imprese finiscono nel toast.
-export function recordGameResult(gameId: string, clean: boolean, epic = false): void {
+// Quante imprese vale una serie eccezionalmente lunga in un'unica sessione
+// (giochi a serie infinita: riordina, shadowing). Da 12 in su non è più
+// binario: ogni 13 in più aggiunge un'altra impresa (12→1, 25→2, 38→3…) —
+// premia lo strappo senza scavalcare la richiesta di ripetibilità nel tempo
+// che i dan alti rappresentano (idea utente: «se la sai avanzi più veloce»).
+export function epicStepsForStreak(streak: number): number {
+	if (streak < 12) return 0;
+	return Math.floor((streak - 12) / 13) + 1;
+}
+
+// Registra la fine di una partita (un'impresa è anche pulita). `epic` può
+// essere un booleano (0 o 1 impresa) o un numero (più imprese in una volta
+// sola, es. da epicStepsForStreak). Aggiorna i contatori; salti di
+// cintura/dan e imprese finiscono nel toast.
+export function recordGameResult(gameId: string, clean: boolean, epic: boolean | number = false): void {
 	if (typeof localStorage === 'undefined') return;
+	const epicCount = typeof epic === 'number' ? Math.max(0, Math.floor(epic)) : epic ? 1 : 0;
 	const all = readAll();
 	const raw = all[gameId];
 	const prev: BeltProgress = raw ? { played: raw.played, clean: raw.clean, epic: raw.epic ?? 0 } : { played: 0, clean: 0, epic: 0 };
@@ -206,8 +219,8 @@ export function recordGameResult(gameId: string, clean: boolean, epic = false): 
 	const prevDan = danFor(prev);
 	const next: BeltProgress = {
 		played: prev.played + 1,
-		clean: prev.clean + (clean || epic ? 1 : 0),
-		epic: prev.epic + (epic ? 1 : 0)
+		clean: prev.clean + (clean || epicCount > 0 ? 1 : 0),
+		epic: prev.epic + epicCount
 	};
 	all[gameId] = next;
 	localStorage.setItem(KEY, JSON.stringify(all));
@@ -216,7 +229,7 @@ export function recordGameResult(gameId: string, clean: boolean, epic = false): 
 	const belt = beltFor(next);
 	const dan = danFor(next);
 	const messages: string[] = [];
-	if (epic) messages.push(`⚡ Impresa in ${gameLabel}!`);
+	if (epicCount > 0) messages.push(epicCount === 1 ? `⚡ Impresa in ${gameLabel}!` : `⚡ ${epicCount} imprese in ${gameLabel} (serie eccezionale)!`);
 	if (belt !== prevBelt || dan !== prevDan) {
 		const name = belt === 'nera' ? (dan?.includes('十段') ? `ROSSA ${dan}` : `nera ${dan}`) : belt;
 		messages.push(`🥋 Cintura ${name} in ${gameLabel}!`);

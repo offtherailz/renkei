@@ -193,6 +193,19 @@ per tipo di gioco:
   (`recordGameResult(id, false, false)`) sia dal link esterno sia dal
   bottone «← Esci» interno (`quit()`), che già esisteva ma non registrava.
 
+### Imprese multiple da una serie lunghissima (25/07)
+
+Idea dell'utente: una serie molto più lunga della soglia minima (12) dimostra
+già più padronanza di una appena sufficiente — dovrebbe valere più di
+un'impresa sola, MA senza scavalcare il senso dei dan alti (ripetibilità nel
+tempo, non un exploit in una sessione). `epicStepsForStreak(streak)` in
+`gameBelts.ts`: 0 sotto 12, poi 1 impresa a 12, +1 ogni 13 in più (12→1,
+25→2, 38→3…), crescita continua mai a scalare. `recordGameResult` accetta
+ora `epic: boolean | number` (booleano = comportamento di sempre, numero =
+più imprese in un colpo). Usato SOLO dai due giochi a serie infinita
+(riordina, shadowing) — gli altri hanno round fissi troppo corti perché la
+casistica si presenti.
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:

@@ -260,6 +260,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `leaveEarly()` per tipo (round fissi: valuta su round tentati finora;
   serie infinita: streak/best corrente; negoziazione aperta: solo partita,
   niente clean/epic parziale). Dettaglio in ARCHITECTURE.md.
+- ✅ (25/07) **Imprese multiple da serie lunghissime** (idea utente: «se la
+  sai avanzi più veloce», senza scavalcare la ripetibilità dei dan):
+  `epicStepsForStreak()` in gameBelts.ts (0 sotto 12, 1 a 12, +1 ogni 13 in
+  più); `recordGameResult` accetta `epic: boolean | number`. Solo su
+  riordina/shadowing (serie infinita — gli altri hanno round troppo corti).
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { BELT_GAMES, beltFor, danFor, beltVisual, nextBeltHint, nextDanHint, type BeltProgress } from './gameBelts';
+import { BELT_GAMES, beltFor, danFor, beltVisual, nextBeltHint, nextDanHint, epicStepsForStreak, type BeltProgress } from './gameBelts';
 
 const p = (played: number, clean: number, epic = 0): BeltProgress => ({ played, clean, epic });
 
@@ -82,5 +82,21 @@ describe('nextBeltHint', () => {
 	});
 	it('sulla nera non c\'è una cintura successiva', () => {
 		expect(nextBeltHint(p(12, 10))).toBeNull();
+	});
+});
+
+describe('epicStepsForStreak', () => {
+	it('zero imprese sotto la soglia', () => {
+		expect(epicStepsForStreak(0)).toBe(0);
+		expect(epicStepsForStreak(11)).toBe(0);
+	});
+	it('1 impresa da 12, poi +1 ogni 13 in più (idea utente: strisce lunghe avanzano più veloce)', () => {
+		expect(epicStepsForStreak(12)).toBe(1);
+		expect(epicStepsForStreak(24)).toBe(1);
+		expect(epicStepsForStreak(25)).toBe(2);
+		expect(epicStepsForStreak(38)).toBe(3);
+	});
+	it('cresce sempre con la lunghezza della serie (mai a scalare)', () => {
+		expect(epicStepsForStreak(100)).toBeGreaterThan(epicStepsForStreak(50));
 	});
 });

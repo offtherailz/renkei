@@ -12,7 +12,7 @@
 	import type { JLPTLevel } from '$lib/types/models';
 
 	import { shuffle, pickRandom, gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, epicStepsForStreak } from '$lib/core/gameBelts';
 
 	const locale = detectUserLocale();
 
@@ -133,7 +133,7 @@
 			}
 		} else {
 			scene = 'over';
-			recordGameResult('riordina', streak >= 5, streak >= 12);
+			recordGameResult('riordina', streak >= 5, epicStepsForStreak(streak));
 		}
 	}
 
@@ -141,7 +141,7 @@
 	// registrava solo al primo errore (qui non c'è un "fine sessione").
 	function leaveEarly(): void {
 		if (scene !== 'play') return;
-		recordGameResult('riordina', streak >= 5, streak >= 12);
+		recordGameResult('riordina', streak >= 5, epicStepsForStreak(streak));
 	}
 </script>
 

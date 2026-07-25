@@ -72,7 +72,7 @@
 			<li><BeltIcon belt="rossa" size={15} dan="十" /> <strong>Rossa 十段 👑 Gran Maestro</strong> — 60 pulite + 10 imprese, come nella tradizione del karatè</li>
 		</ul>
 		<p><strong>Cos'è una «pulita»</strong> — max 1 errore nei giochi a round (dettato, coppie, avverbi, catena, contrazioni, comparazioni, 言い換え, keigo, dì la data, leggi a voce); serie ≥ 5 nei giochi a serie (riordina, shadowing e tutti quelli di Numeri e tempo, cassa, saluti…); tutte giuste nel choukai; accordo senza aiuti in Prendi appuntamento; conversazione perfetta senza aiuti in Relazioni.</p>
-		<p><strong>Cos'è un'«impresa ⚡»</strong> — il gradino sopra: serie ≥ 12, zero errori nei giochi a round, choukai perfetto senza riascolti, accordo senza aiuti in ≤ 3 turni, lo scenario del capo (敬語) perfetto in Relazioni.</p>
+		<p><strong>Cos'è un'«impresa ⚡»</strong> — il gradino sopra: serie ≥ 12, zero errori nei giochi a round, choukai perfetto senza riascolti, accordo senza aiuti in ≤ 3 turni, lo scenario del capo (敬語) perfetto in Relazioni. Nei due giochi a serie infinita (Riordina, Shadowing) una serie molto più lunga della soglia vale <strong>più imprese in una volta sola</strong> (12 → 1, 25 → 2, 38 → 3…): dimostrare già di saperlo fa avanzare più veloce, senza scavalcare il senso dei dan alti (che restano ripetibilità nel tempo, non un colpo fortunato).</p>
 		<p><strong>Sblocchi</strong> — solo la filiera del tempo si apre in ordine (basta la cintura arancione nei precedenti): 🕐 Ore + ⏱ Minuti → ⏰ Che ore sono? → 🕒 Ascolta l'ora; 📅 Giorni del mese → 📆 Ascolta la data; le due → 🗓️ Ascolta data e ora; con 🗣️ Dì la data → 📅 Prendi appuntamento; il 🎲 Misto si apre con tutta la sezione. La card velata scrive sempre cosa manca.</p>
 	</section>
 
