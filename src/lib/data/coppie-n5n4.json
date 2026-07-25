@@ -30,6 +30,16 @@
   { "a": "帰る", "b": "戻る", "domanda": "Dopo il lavoro, a casa ci…", "corretta": "帰る", "perche": "帰る = tornare al proprio posto (casa); 戻る = tornare indietro a un punto qualsiasi." },
   { "a": "見つける", "b": "見つかる", "domanda": "L'ombrello perso è saltato fuori da solo: si è…", "corretta": "見つかる", "perche": "見つかる = essere trovato (自動詞); 見つける = trovare qualcosa (他動詞)." },
   { "a": "音", "b": "声", "domanda": "Il suono della voce di una persona è…", "corretta": "声", "perche": "声 = voce (persone/animali); 音 = suono/rumore di cose." },
-  { "a": "隣", "b": "近く", "domanda": "La casa ATTACCATA alla tua è…", "corretta": "隣", "perche": "隣 = adiacente, proprio accanto; 近く = nei dintorni, vicino in generale." }
+  { "a": "隣", "b": "近く", "domanda": "La casa ATTACCATA alla tua è…", "corretta": "隣", "perche": "隣 = adiacente, proprio accanto; 近く = nei dintorni, vicino in generale." },
+  { "a": "開く-あく", "b": "開ける", "domanda": "Il vento ha aperto la finestra da solo, senza che nessuno la toccasse: la finestra si…", "corretta": "開く-あく", "perche": "開く（あく）= aprirsi da sé (自動詞); 開ける = aprire qualcosa tu (他動詞)." },
+  { "a": "消える", "b": "消す", "domanda": "Il computer si è spento da solo per la batteria scarica: si…", "corretta": "消える", "perche": "消える = spegnersi da sé (自動詞); 消す = spegnere qualcosa tu (他動詞)." },
+  { "a": "閉まる", "b": "閉める", "domanda": "Il negozio chiude alle 20, per orario fisso: il negozio si…", "corretta": "閉まる", "perche": "閉まる = chiudersi (自動詞, per orario/da sé); 閉める = chiudere qualcosa tu (他動詞)." },
+  { "a": "入る", "b": "入れる", "domanda": "L'acqua è entrata nella barca da una falla: l'acqua ci…", "corretta": "入る", "perche": "入る = entrare (自動詞); 入れる = mettere dentro qualcosa tu (他動詞)." },
+  { "a": "落ちる", "b": "落とす", "domanda": "Il vaso è caduto dal balcone per il vento, nessuno l'ha spinto: il vaso…", "corretta": "落ちる", "perche": "落ちる = cadere da sé (自動詞); 落とす = far cadere qualcosa tu (他動詞)." },
+  { "a": "倒れる", "b": "倒す", "domanda": "L'albero è caduto per il temporale, nessuno l'ha abbattuto: l'albero…", "corretta": "倒れる", "perche": "倒れる = cadere/crollare da sé (自動詞); 倒す = abbattere qualcosa tu (他動詞)." },
+  { "a": "壊れる", "b": "壊す", "domanda": "Il telecomando si è rotto da solo con l'uso normale: si è…", "corretta": "壊れる", "perche": "壊れる = rompersi da sé (自動詞); 壊す = rompere qualcosa tu (他動詞)." },
+  { "a": "始まる", "b": "始める", "domanda": "Il film inizia alle 19, per programmazione: il film…", "corretta": "始まる", "perche": "始まる = iniziare (自動詞, l'evento comincia da sé); 始める = iniziare qualcosa tu (他動詞)." },
+  { "a": "上がる", "b": "上げる", "domanda": "I prezzi sono aumentati per l'inflazione, nessuno li ha alzati apposta: i prezzi…", "corretta": "上がる", "perche": "上がる = salire/aumentare da sé (自動詞); 上げる = alzare qualcosa tu (他動詞)." },
+  { "a": "決まる", "b": "決める", "domanda": "Non so chi abbia scelto, ma la data della riunione è già…", "corretta": "決まる", "perche": "決まる = essere deciso/stabilirsi (自動詞, spesso senza dire da chi); 決める = decidere qualcosa tu (他動詞)." }
  ]
 }

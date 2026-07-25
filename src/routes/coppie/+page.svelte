@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { db } from '$lib/db/schema';
 	import { shuffle, findWord, gameSnapshot } from '$lib/core/gameKit';
 	import { recordGameResult } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
+	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import raw from '$lib/data/coppie-n5n4.json';
+
+	const locale = detectUserLocale();
 
 	// 🔀 Coppie difficili (beta, 18/07): parole legate ma NON interscambiabili
 	// (妻/奥さん, 着る/はく, 切符/切手…) — il contesto forza una delle due, il
@@ -33,10 +39,15 @@
 	let picked = $state<string | null>(null);
 	let detailA = $state<string | null>(null);
 	let detailB = $state<string | null>(null);
+	// frasi vere parallele (自動詞/他動詞): stessa scena vista dai due verbi,
+	// prese dal vocabolario — SOLO quando i due sono davvero partner reciproci
+	// (id_verbo_corrispondente), mai a caso.
+	let pairExampleA = $state<{ jp: string; it: string } | null>(null);
+	let pairExampleB = $state<{ jp: string; it: string } | null>(null);
 
 	export const snapshot = gameSnapshot(
-		() => ({ scene, rounds, idx, score, picked, detailA, detailB }),
-		(s) => ({ scene, rounds, idx, score, picked, detailA, detailB } = s)
+		() => ({ scene, rounds, idx, score, picked, detailA, detailB, pairExampleA, pairExampleB }),
+		(s) => ({ scene, rounds, idx, score, picked, detailA, detailB, pairExampleA, pairExampleB } = s)
 	);
 
 	// la scrittura mostrata: via i disambiguatori degli id (私::わたし → 私)
@@ -72,13 +83,32 @@
 		const [ha, hb] = await Promise.all([findWord(label(r.item.a)), findWord(label(r.item.b))]);
 		detailA = ha?.detailHref ?? null;
 		detailB = hb?.detailHref ?? null;
+		await loadPairExamples(r.item);
 		speakSentenceJapanese(label(r.item.corretta));
+	}
+
+	// Se a/b sono partner 自動詞/他動詞 reciproci (id_verbo_corrispondente),
+	// mostra l'ultima frase di ciascuno: sono state scritte apposta in coppia,
+	// stessa scena vista dai due punti di vista (chi subisce / chi agisce).
+	async function loadPairExamples(item: Item): Promise<void> {
+		pairExampleA = null;
+		pairExampleB = null;
+		const [wa, wb] = await Promise.all([db.words.get(item.a), db.words.get(item.b)]);
+		if (!wa || !wb) return;
+		const isPair = wa.id_verbo_corrispondente === wb.id && wb.id_verbo_corrispondente === wa.id;
+		if (!isPair) return;
+		const exA = wa.frasi_esempio?.at(-1);
+		const exB = wb.frasi_esempio?.at(-1);
+		if (exA) pairExampleA = { jp: stripFuriganaNotation(exA.testo), it: pickLocalizedText(exA.traduzione, locale) };
+		if (exB) pairExampleB = { jp: stripFuriganaNotation(exB.testo), it: pickLocalizedText(exB.traduzione, locale) };
 	}
 
 	function next(): void {
 		picked = null;
 		detailA = null;
 		detailB = null;
+		pairExampleA = null;
+		pairExampleB = null;
 		if (idx < rounds.length - 1) idx += 1;
 		else {
 			scene = 'done';
@@ -118,6 +148,18 @@
 			</div>
 			{#if picked !== null}
 				<p class="nota">💡 {r.item.perche}</p>
+				{#if pairExampleA && pairExampleB}
+					<div class="pair-examples">
+						<div class="pair-example">
+							<InteractiveSentence text={pairExampleA.jp} />
+							<p class="pair-example-it">{pairExampleA.it}</p>
+						</div>
+						<div class="pair-example">
+							<InteractiveSentence text={pairExampleB.jp} />
+							<p class="pair-example-it">{pairExampleB.it}</p>
+						</div>
+					</div>
+				{/if}
 				<div class="after">
 					{#if detailA}<a class="detail-link" href={detailA}>📖 {label(r.item.a)}</a>{/if}
 					{#if detailB}<a class="detail-link" href={detailB}>📖 {label(r.item.b)}</a>{/if}
@@ -160,6 +202,9 @@
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); background: var(--danger-bg); }
 	.nota { margin: 0; text-align: center; font-size: 0.85rem; color: var(--info-ink); background: var(--info-bg); border-radius: 10px; padding: 8px 12px; }
+	.pair-examples { display: grid; gap: 8px; }
+	.pair-example { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; text-align: center; }
+	.pair-example-it { margin: 4px 0 0; font-size: 0.8rem; color: var(--muted); }
 	.after { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; }
 	.detail-link { color: var(--brand); font-weight: 600; text-decoration: none; }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
