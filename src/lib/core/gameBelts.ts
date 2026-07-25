@@ -53,6 +53,7 @@ export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
 	{ id: 'catena', label: 'Catena di forme', icon: '🧬' },
 	{ id: 'contrazioni', label: 'Contrazioni', icon: '✂️' },
 	{ id: 'comparazioni', label: 'Comparazioni', icon: '⚖️' },
+	{ id: 'certezza', label: 'Quanto sei sicuro?', icon: '🎲' },
 	{ id: 'iikae', label: 'Dillo in un altro modo', icon: '🎯' },
 	{ id: 'choukai', label: 'Choukai', icon: '👂' },
 	{ id: 'leggi-a-voce', label: 'Leggi a voce', icon: '📢' },

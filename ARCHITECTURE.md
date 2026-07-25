@@ -190,7 +190,7 @@ Tre livelli distinti, per non rendere l'XP gonfiabile:
 5. **Sblocchi giochi** (`gameUnlocks.ts`): SOLO la filiera numeri/tempo; prerequisito soddisfatto con almeno la cintura arancione (1 pulita). Catena: Ore+Minuti → Che ore sono? → Ascolta l'ora; Giorni del mese → Ascolta la data; le due → Data e ora (`listen-appt`); Data e ora + Dì la data → Prendi appuntamento; Misto quando tutta la sezione è sbloccata. `unlockHint` scrive sulla card velata cosa manca; il gioco è SEMPRE giocabile (niente vero blocco). Easter egg «7 tap veloci» in `/giochi` (`tapLocked`, finestra 700ms): sul 7° tocco lascia partire quella singola partita ma NON sblocca stabilmente la card e NON fa guadagnare cintura per quella run (`beltlessRuns` Set in-memory per i giochi in-page; per la route `/appuntamento`, flag one-shot `sessionStorage['renkei_beltless_appuntamento']` letto e consumato in `confirm()`). «Ascolta la data/l'ora» = varianti del gioco appuntamento (`generateAppointment(part)`, part 'date'|'time'|'full').
 
 ### Giochi sui numeri (`/giochi`)
-Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighscore`. Due gruppi:
+Tutti a serie (un errore azzera), record per gioco via `submitScore`/`getHighscore`. Sezioni: Numeri e tempo, Ascolta e agisci, Parla, Conversazione (include «Al konbini»), Grammatica e parole, Lettura.
 
 **Leggi come si pronuncia** (scelta multipla):
 - **日/時/分/円** — `generateReading`.

@@ -789,10 +789,6 @@
 				<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
 				{@render beltChip('greetings')}
 			</button>
-		</div>
-
-		<p class="group-title">Al konbini</p>
-		<div class="cat-grid">
 			<button class="cat-card" onclick={() => start({ kind: 'order' })}>
 				<span class="cat-icon">🏪</span>
 				<span class="cat-label">Ordina al konbini</span>
@@ -839,6 +835,13 @@
 				<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
 				<span class="cat-hint">より・のほうが・いちばん・ほど〜ない: chi è più… ? componi il confronto</span>
 				{@render beltChip('comparazioni')}
+			</a>
+			<a class="cat-card" href="{base}/certezza">
+				<span class="cat-icon">🎲</span>
+				<span class="cat-label">Quanto sei sicuro? <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">でしょう・かもしれない・らしい・みたい・に違いない…: il contesto dice quale ci vuole</span>
+				<span class="cat-best">🏆 record: {getHighscore('certezza')}</span>
+				{@render beltChip('certezza')}
 			</a>
 		</div>
 

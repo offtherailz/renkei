@@ -6,7 +6,7 @@ const p = (played: number, clean: number, epic = 0): BeltProgress => ({ played, 
 describe('BELT_GAMES', () => {
 	it('ha id unici e copre tutti i giochi (route + in-page)', () => {
 		expect(new Set(BELT_GAMES.map((g) => g.id)).size).toBe(BELT_GAMES.length);
-		expect(BELT_GAMES.length).toBe(30);
+		expect(BELT_GAMES.length).toBe(31);
 	});
 });
 

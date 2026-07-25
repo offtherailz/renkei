@@ -117,6 +117,21 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
 - 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
   nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
   cinture in /stats; migrare i record locali di riordina/skimming a gameScores.
+- ✅ (25/07) **Fix bug**: nei giochi in-page di /giochi, dopo aver giocato un
+  gioco a scelta multipla (read/greet/order) e passare a listen/shop/appt/
+  shopping, `picked` restava non-null e bloccava silenziosamente `onTimeout()`
+  (il timer scadeva ma non succedeva nulla). Fix: `picked = null` in `start()`.
+- ✅ (25/07) **Catalogo — sfumature d'incertezza**: 5 costruzioni nuove
+  (らしい, みたい, っぽい, に違いない; かも come contrazione di かもしれない),
+  related incrociati con でしょう/かもしれない/かな/はず/そう.
+- ✅ (25/07) **都合↔便利 correlati** (falsi amici, non sinonimi): overrides +
+  seed patchati direttamente (comportamento identico al merge shallow dello
+  script sync), SEED_REVISION → v70.
+- ✅ (25/07) **Nuovo gioco 🎲 Quanto sei sicuro?** (beta, `/certezza`):
+  9 situazioni curate, stessa frase base con 4 costruzioni (でしょう/
+  かもしれない/かな/はず/そう/らしい/みたい/っぽい/に違いない), il contesto
+  fissa quale ci vuole; 💡 Aiuto a 3 costi, credito gram:<slug>. Sezione
+  «Al konbini» assorbita dentro «Conversazione» (richiesta utente).
 - ✅ (25/07) **Cinture v4 (feedback utente)**: sblocco da ALMENO l'arancione
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.

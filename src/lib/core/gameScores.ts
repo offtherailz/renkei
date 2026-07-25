@@ -41,7 +41,8 @@ export const GAME_LABELS: Record<string, string> = {
 	greetings: 'Saluti',
 	'konbini-order': 'Al konbini',
 	appuntamento: 'Prendi appuntamento',
-	relazioni: 'Relazioni'
+	relazioni: 'Relazioni',
+	certezza: 'Quanto sei sicuro?'
 };
 export function gameLabel(id: string): string {
 	return GAME_LABELS[id] ?? id;
