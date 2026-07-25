@@ -988,7 +988,25 @@
     "spiegazione": {
       "it": "In che modo?: どうやって chiede il come (「どうやって行きますか」).",
       "en": "how; in what way; by what means"
-    }
+    },
+    "frasi_esempio": [
+      {
+        "testo": "駅までどうやって行く？",
+        "traduzione": {
+          "it": "Come si arriva alla stazione?",
+          "en": "How do you get to the station?"
+        },
+        "parole_linkate": ["どう", "行く", "駅"]
+      },
+      {
+        "testo": "この りょうりは どうやって つくりますか。",
+        "traduzione": {
+          "it": "Come si prepara questo piatto?",
+          "en": "How do you make this dish?"
+        },
+        "parole_linkate": []
+      }
+    ]
   },
   "grammar-api-N5-72": {
     "spiegazione": {
