@@ -24,7 +24,7 @@
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, danKanji, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
 	import BeltIcon from '$lib/components/BeltIcon.svelte';
-	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
+	import { isUnlocked, forceUnlock } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
@@ -561,8 +561,45 @@
 		if (typeof window !== 'undefined') window.removeEventListener('popstate', onPopState);
 	});
 
+
+	// ── Trucco «7 tap veloci» per sbloccare una card bloccata ──
+	let unlockBump = $state(0);
+	const tapState: Record<string, { count: number; last: number }> = {};
+	const TAP_WINDOW_MS = 700;
+	const TAPS_NEEDED = 7;
+
+	function unlockedNow(id: string): boolean {
+		void unlockBump; // dipendenza reattiva: ricalcola dopo un force-unlock
+		return isUnlocked(id);
+	}
+
+	// Ritorna true se il tocco deve procedere normalmente (già sbloccato).
+	// Se bloccato, intercetta il tocco e conta la sequenza rapida.
+	function tapLocked(id: string, e: Event): boolean {
+		if (unlockedNow(id)) return true;
+		e.preventDefault();
+		e.stopPropagation();
+		const now = Date.now();
+		const st = tapState[id] ?? { count: 0, last: 0 };
+		if (now - st.last > TAP_WINDOW_MS) st.count = 0;
+		st.count += 1;
+		st.last = now;
+		tapState[id] = st;
+		if (st.count >= TAPS_NEEDED) {
+			forceUnlock(id);
+			tapState[id] = { count: 0, last: 0 };
+			unlockBump += 1;
+		}
+		return false;
+	}
+
 </script>
 
+<!--
+	Trucco nascosto (nessun testo lo spiega): toccare 7 volte veloci una card
+	bloccata la sblocca subito, scavalcando il requisito — come i "7 tap" per
+	gli sviluppatori Android.
+-->
 {#snippet beltChip(id: string)}
 	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}
@@ -573,8 +610,8 @@
 {/snippet}
 
 {#snippet unlockChip(id: string)}
-	{#if !isUnlocked(id)}
-		<span class="cat-belt cat-belt-locked">🔒 per sbloccare: {unlockHint(id)} — 👀 provalo comunque</span>
+	{#if !unlockedNow(id)}
+		<span class="cat-belt cat-belt-locked">🔒</span>
 	{/if}
 {/snippet}
 
@@ -599,7 +636,7 @@
 		<p class="group-title">Numeri e tempo</p>
 		<div class="cat-grid">
 			{#each READ_GAMES as g}
-				<button class="cat-card" class:belt-locked={!isUnlocked(`read-${g.id}`)} onclick={() => start({ kind: 'read', cat: g.id })}>
+				<button class="cat-card" class:belt-locked={!unlockedNow(`read-${g.id}`)} onclick={(e) => { if (tapLocked(`read-${g.id}`, e)) start({ kind: 'read', cat: g.id }); }}>
 					<span class="cat-icon">{g.icon}</span>
 					<span class="cat-label">{g.label}</span>
 					<span class="cat-hint">{g.hint}</span>
@@ -615,7 +652,7 @@
 				<span class="cat-best">🏆 record: {getHighscore('listen-number')}</span>
 				{@render beltChip('listen-number')}
 			</button>
-			<button class="cat-card" class:belt-locked={!isUnlocked('listen-date')} onclick={() => start({ kind: 'appt', part: 'date' })}>
+			<button class="cat-card" class:belt-locked={!unlockedNow('listen-date')} onclick={(e) => { if (tapLocked('listen-date', e)) start({ kind: 'appt', part: 'date' }); }}>
 				<span class="cat-icon">📆</span>
 				<span class="cat-label">Ascolta la data</span>
 				<span class="cat-hint">senti la data (3月9日), segnala sul calendario</span>
@@ -623,7 +660,7 @@
 				{@render beltChip('listen-date')}
 				{@render unlockChip('listen-date')}
 			</button>
-			<button class="cat-card" class:belt-locked={!isUnlocked('listen-time')} onclick={() => start({ kind: 'appt', part: 'time' })}>
+			<button class="cat-card" class:belt-locked={!unlockedNow('listen-time')} onclick={(e) => { if (tapLocked('listen-time', e)) start({ kind: 'appt', part: 'time' }); }}>
 				<span class="cat-icon">🕒</span>
 				<span class="cat-label">Ascolta l'ora</span>
 				<span class="cat-hint">senti l'ora (4時半), imposta l'orologio</span>
@@ -631,7 +668,7 @@
 				{@render beltChip('listen-time')}
 				{@render unlockChip('listen-time')}
 			</button>
-			<button class="cat-card" class:belt-locked={!isUnlocked('listen-appt')} onclick={() => start({ kind: 'appt', part: 'full' })}>
+			<button class="cat-card" class:belt-locked={!unlockedNow('listen-appt')} onclick={(e) => { if (tapLocked('listen-appt', e)) start({ kind: 'appt', part: 'full' }); }}>
 				<span class="cat-icon">🗓️</span>
 				<span class="cat-label">Data e ora</span>
 				<span class="cat-hint">senti data e ora insieme, segnala sull'agenda</span>
@@ -717,7 +754,7 @@
 				<span class="cat-label">Una giornata</span>
 				<span class="cat-hint">dalla sveglia alla buonanotte: la frase giusta al momento giusto</span>
 			</a>
-			<a class="cat-card" class:belt-locked={!isUnlocked('appuntamento')} href="{base}/appuntamento">
+			<a class="cat-card" class:belt-locked={!unlockedNow('appuntamento')} href="{base}/appuntamento" onclick={(e) => tapLocked('appuntamento', e)}>
 				<span class="cat-icon">📅</span>
 				<span class="cat-label">Prendi appuntamento <span class="cat-beta">beta</span></span>
 				<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
