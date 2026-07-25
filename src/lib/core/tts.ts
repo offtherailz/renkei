@@ -116,7 +116,11 @@ export function speakDialogue(lines: DialogueSpeakLine[], rate = 1): Promise<voi
       if (voices.length > 1) {
         utterance.voice = voices[speakerIndex % voices.length]!;
       } else {
-        utterance.pitch = 1 + (speakerIndex % 2) * 0.35;
+        // Con una sola voce disponibile, alterna un pitch lievemente più basso
+        // (mai più alto: uno shift verso l'alto tende a suonare distorto sui
+        // motori TTS più scarni — segnalato dall'utente). Scarto contenuto,
+        // come in voiceParams() (max ±18%, qui prima era +35%).
+        utterance.pitch = speakerIndex % 2 === 0 ? 1 : 0.88;
       }
       utterance.onend = () => setTimeout(next, 350);
       utterance.onerror = () => resolve();

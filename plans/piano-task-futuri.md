@@ -229,6 +229,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `KANA_NUM_ATOM` in speech.ts non avevano le forme con 促音 じゅっ/ろっ/はっ/
   いっ (10/6/8/1 davanti a ふん/ぷん) — restavano testo kana mai convertito
   in cifra, mai convergente con la trascrizione del riconoscitore.
+- ✅ (25/07) **Fix voce distorta nei dialoghi** (bug segnalato in Mani libere):
+  `speakDialogue` (tts.ts, condivisa da choukai/ascolto/mani-libere) alzava
+  il pitch del +35% per differenziare i personaggi quando c'è una sola voce
+  JP — troppo aggressivo, suonava robotico. Portato alla scala di
+  `voiceParams()` (max ±18%): ora alterna 1 / 0.88, mai verso l'alto.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

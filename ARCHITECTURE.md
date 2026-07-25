@@ -159,6 +159,16 @@ proprio (erano solo derivati dalla pipeline) — creata la voce con
 `frasi_esempio` completo (esistenti + nuova), altrimenti il prossimo sync
 le avrebbe perse (l'override sostituisce l'array per intero, non lo fonde).
 
+### Fix voce distorta nei dialoghi a più personaggi (25/07)
+
+`speakDialogue` (tts.ts, usata da choukai/ascolto/mani-libere) quando c'è
+UNA sola voce giapponese disponibile differenzia i personaggi alzando il
+pitch: era `1 + (speakerIndex % 2) * 0.35` (+35%), troppo aggressivo — uno
+shift verso l'alto tende a suonare robotico/distorto sui motori TTS più
+scarni (bug segnalato: «voce distorta» in Mani libere). Portato alla stessa
+scala già collaudata in `voiceParams()` (max ±18%): ora alterna 1 / 0.88,
+mai verso l'alto.
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:
