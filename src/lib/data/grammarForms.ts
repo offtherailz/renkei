@@ -332,6 +332,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ short: '〜なきゃ', full: '〜なければ(ならない)', fullSlug: 'nakereba', note: 'dovere / obbligo' },
 			{ short: '〜なくちゃ', full: '〜なくては(いけない)', fullSlug: 'nakereba', note: 'dovere / obbligo' },
 			{ short: '〜ちゃだめ / 〜じゃだめ', full: '〜てはだめ(＝てはいけない)', fullSlug: 'te-wa-ikenai', note: 'divieto colloquiale' },
+			{ short: '〜かも', full: '〜かもしれない', fullSlug: 'kamoshirenai', note: 'possibilità debole, colloquiale' },
 			{ short: '〜とく', full: '〜ておく', fullSlug: 'te-oku', note: 'fare in anticipo' },
 			{ short: '〜てる', full: '〜ている', fullSlug: 'te-iru', note: 'azione in corso / stato' },
 			{ short: '〜てく', full: '〜ていく', note: 'andare a fare / continuare' },
@@ -579,7 +580,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'このケーキはおいしそうです。', it: 'Questa torta sembra buona.' },
 			{ jp: '空[そら]を見[み]ると、雨[あめ]が降[ふ]りそうだ。', it: 'A guardare il cielo, sembra che pioverà.' }
 		],
-		related: ['keiyoushi', 'doushi', 'sugiru'],
+		related: ['keiyoushi', 'doushi', 'sugiru', 'mitai', 'rashii'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'radice ます' },
@@ -935,7 +936,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: 'その店[みせ]は、開[あ]いているはずです。', it: 'Quel negozio dovrebbe essere aperto.' },
 			{ jp: '彼[かれ]はもう家[いえ]に着[つ]いたはずです。', it: 'Dovrebbe essere già arrivato a casa.' }
 		],
-		related: ['doushi', 'to-omou', 'sou-apparenza', 'deshou', 'kamoshirenai', 'kana'],
+		related: ['doushi', 'to-omou', 'sou-apparenza', 'deshou', 'kamoshirenai', 'kana', 'nichigainai'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'forma piana' },
@@ -961,7 +962,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '明日[あした]は晴[は]れるでしょう。', it: 'Domani probabilmente sarà sereno.' },
 			{ jp: '寒[さむ]いでしょう？', it: 'Fa freddo, vero?' }
 		],
-		related: ['doushi', 'hazu', 'kamoshirenai', 'to-omou', 'kana'],
+		related: ['doushi', 'hazu', 'kamoshirenai', 'to-omou', 'kana', 'rashii', 'mitai', 'nichigainai'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'forma piana' },
@@ -988,7 +989,7 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 			{ jp: '明日[あした]は雨[あめ]が降[ふ]るかもしれません。', it: 'Forse domani pioverà.' },
 			{ jp: '彼[かれ]は忙[いそが]しいかもしれない。', it: 'Forse è occupato.' }
 		],
-		related: ['doushi', 'hazu', 'deshou', 'to-omou', 'kana'],
+		related: ['doushi', 'hazu', 'deshou', 'to-omou', 'kana', 'rashii', 'nichigainai'],
 		composed: true,
 		attachment: [
 			{ base: 'Verbo', connessione: 'forma piana' },
@@ -1025,6 +1026,109 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 		],
 		schemaId: 'plain',
 		exceptions: ['Solo per pensieri rivolti a se stessi, non domande dirette all\'interlocutore.']
+	},
+	{
+		slug: 'rashii',
+		label: '〜らしい',
+		icon: '👂',
+		title: 'Forma composta: 〜らしい (sentito dire)',
+		summary: 'Voce/informazione di seconda mano, o "tipico di": "a quanto pare…", "proprio da…".',
+		explanation: [
+			'Forma piana + らしい per riferire ciò che si è sentito/letto: 彼は来ないらしい = "a quanto pare non viene" (fonte esterna, non opinione diretta).',
+			'Diversa da かもしれない (possibilità) e でしょう (previsione propria): らしい riporta un\'informazione da fuori, come そう「伝聞」ma con più distacco/oggettività.',
+			'Come suffisso su un nome, significa "tipico di, da vero…": 子供らしい = "da vero bambino", 彼らしいね = "è proprio da lui".'
+		],
+		examples: [
+			{ jp: '天気予報[てんきよほう]によると、明日[あした]は雨[あめ]らしい。', it: 'Secondo le previsioni, domani a quanto pare piove.' },
+			{ jp: 'それは彼[かれ]らしい行動[こうどう]だ。', it: 'È un comportamento proprio da lui.' }
+		],
+		related: ['doushi', 'kamoshirenai', 'deshou', 'sou-apparenza', 'mitai'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'senza な' },
+			{ base: 'Nome', connessione: 'diretto (anche "tipico di")' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Riporta un\'informazione da fonte esterna: non per un\'opinione diretta propria.']
+	},
+	{
+		slug: 'mitai',
+		label: '〜みたい',
+		icon: '🪞',
+		title: 'Forma composta: 〜みたい',
+		summary: 'Sembra, somiglia a: versione colloquiale di 〜ようだ.',
+		explanation: [
+			'Forma piana + みたい: 雨[あめ]が降[ふ]っているみたい = "sembra che stia piovendo" (impressione da indizi, es. si sente il rumore).',
+			'Con nome: diretto, senza の: 学生みたいだ = "sembra uno studente" (anche per paragoni: 彼は子供みたいだ = "sembra un bambino").',
+			'Colloquiale; nello scritto/formale si preferisce 〜ようだ (stessa funzione, registro più alto).'
+		],
+		examples: [
+			{ jp: '外[そと]は寒[さむ]いみたい。', it: 'Fuori sembra che faccia freddo.' },
+			{ jp: '彼女[かのじょ]は元気[げんき]みたいだ。', it: 'Sembra che lei stia bene.' }
+		],
+		related: ['doushi', 'sou-apparenza', 'rashii', 'deshou'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'senza な' },
+			{ base: 'Nome', connessione: 'diretto' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Colloquiale: nello scritto/formale si usa 〜ようだ.'],
+		consolidaId: 'grammar-api-N4-52'
+	},
+	{
+		slug: 'ppoi',
+		label: '〜っぽい',
+		icon: '🎭',
+		title: 'Forma composta: 〜っぽい',
+		summary: 'Tende a essere, ha l\'aria di: "-oso, -accio" (spesso con sfumatura negativa).',
+		explanation: [
+			'Radice/nome + っぽい: 忘[わす]れっぽい = "smemorato" (tende a dimenticare), 子供[こども]っぽい = "infantile" (ha tratti da bambino, detto di un adulto).',
+			'Diverso da らしい "tipico di" (spesso neutro/positivo): っぽい insiste su un tratto ricorrente, spesso con sfumatura di critica o approssimazione.',
+			'Anche coi colori: 白[しろ]っぽい = "biancastro" (tendente al bianco, non proprio bianco).'
+		],
+		examples: [
+			{ jp: '彼[かれ]は忘[わす]れっぽい。', it: 'Lui è smemorato.' },
+			{ jp: 'その色[いろ]は青[あお]っぽいですね。', it: 'Quel colore è tendente al blu.' }
+		],
+		related: ['doushi', 'meishi', 'rashii', 'keiyoushi'],
+		composed: true,
+		attachment: [
+			{ base: 'Nome', connessione: 'diretto' },
+			{ base: 'Verbo', connessione: 'radice ます' }
+		],
+		schemaId: 'stem',
+		exceptions: ['Spesso con sfumatura critica/approssimativa, a differenza di らしい.']
+	},
+	{
+		slug: 'nichigainai',
+		label: '〜に違いない',
+		icon: '💯',
+		title: 'Forma composta: 〜に違いない',
+		summary: 'Certezza forte, dedotta con sicurezza: "di sicuro…, non c\'è dubbio che…".',
+		explanation: [
+			'Forma piana + に違いない: 彼は犯人に違いない = "di sicuro è lui il colpevole" (deduzione sicura da indizi, non un\'opinione debole).',
+			'Con nome/な-aggettivo NON serve だ: 本物[ほんもの]に違いない = "è sicuramente autentico".',
+			'Il più forte del gruppo: più certo di でしょう e di はず, agli antipodi di かもしれない (possibilità debole).'
+		],
+		examples: [
+			{ jp: 'この鍵[かぎ]は彼女[かのじょ]のに違いない。', it: 'Questa chiave è sicuramente sua.' },
+			{ jp: '道[みち]が混[こ]んでいるから、事故[じこ]があったに違いない。', it: 'La strada è intasata, di sicuro c\'è stato un incidente.' }
+		],
+		related: ['doushi', 'hazu', 'deshou', 'kamoshirenai'],
+		composed: true,
+		attachment: [
+			{ base: 'Verbo', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -い', connessione: 'forma piana' },
+			{ base: 'Aggettivo in -な', connessione: 'senza な, senza だ' },
+			{ base: 'Nome', connessione: 'senza だ' }
+		],
+		schemaId: 'plain',
+		exceptions: ['Deduzione con sicurezza da indizi concreti, non semplice previsione.']
 	},
 	{
 		slug: 'kotoninaru',
@@ -1214,6 +1318,7 @@ export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
 	'〜でしょう': 'deshou',
 	'でしょう': 'deshou',
 	'〜かもしれない': 'kamoshirenai',
+	'〜ようだ/みたいだ': 'mitai',
 	'〜ことになる': 'kotoninaru',
 	'〜くなる／〜になる': 'naru',
 	'〜に行く': 'ni-iku',
