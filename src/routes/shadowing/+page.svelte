@@ -159,10 +159,20 @@
 			recordGameResult('shadowing', best >= 5, best >= 12);
 		}
 	}
+
+	// Uscire con «← Giochi» a metà serie perdeva la cintura: si registrava
+	// solo a fine sessione (round 8). Come per /giochi, chi esce in vantaggio
+	// va accreditato con la serie raggiunta fin lì.
+	function leaveEarly(): void {
+		if (scene === 'play') {
+			submitScore(GAME_ID, best);
+			recordGameResult('shadowing', best >= 5, best >= 12);
+		}
+	}
 </script>
 
 <div class="shadowing">
-	<a class="back" href="{base}/giochi">← Giochi</a>
+	<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 
 	{#if scene === 'intro'}
 		<article class="scene">

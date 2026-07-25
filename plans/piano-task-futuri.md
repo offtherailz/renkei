@@ -234,6 +234,24 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   il pitch del +35% per differenziare i personaggi quando c'è una sola voce
   JP — troppo aggressivo, suonava robotico. Portato alla scala di
   `voiceParams()` (max ±18%): ora alterna 1 / 0.88, mai verso l'alto.
+- ✅ (25/07) **Fix cinture — uscita anticipata da shadowing/leggi-a-voce**
+  (bug segnalato): come /giochi, il link «← Giochi» era un semplice `<a>`
+  senza handler — uscire a metà non registrava mai la cintura, solo a fine
+  sessione. Aggiunto `onclick` che accredita la serie/punteggio raggiunto
+  finora prima di navigare (shadowing: streak `best`; leggi-a-voce: score
+  sui round DAVVERO tentati, non sul totale previsto).
+- ✅ (25/07) **Test sistematici voce contatori** (richiesta utente, non a
+  campione): `speechCounters.test.ts` itera OGNI valore 日(1-31)/時(1-12)/
+  分(1-59) coi generatori veri di counterGen.ts, verificando che il
+  distrattore "regolare" di ognuno non converga MAI con la lettura giusta.
+  Ha scovato 2 bug nuovi (utente aveva ragione, "troppo permissivo"):
+  (1) minuti — ふん/ぷん collassavano entrambi su 分 senza controllare quale
+  rendaku è quello giusto per la cifra (24分=にじゅうよんぷん accettava anche
+  にじゅうよんふん sbagliato) → `MINUTE_SUFFIX_BY_ONES`, stesso fix anche in
+  `digitKanaUnitToWritten`; (2) giorni nativi — `NATIVE_DAYS` in speech.ts
+  era disallineata da `IRREGULAR_DAYS` di counterGen.ts (mancavano 14/24) e
+  Xにち non era bloccata per i 13 giorni a lettura nativa esclusiva →
+  `DAY_NATIVE_ONLY` blocca la conversione regolare per questi.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

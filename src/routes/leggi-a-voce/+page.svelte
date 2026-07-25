@@ -137,10 +137,20 @@
 			recordGameResult('leggi-a-voce', score >= rounds.length - 1, score === rounds.length);
 		}
 	}
+
+	// Uscire con «← Giochi» a metà serie perdeva la cintura: si registrava
+	// solo a fine sessione (round 8). Valuta sui round DAVVERO fatti finora
+	// (non sul totale previsto, che qui non si raggiunge mai se si esce prima).
+	function leaveEarly(): void {
+		if (scene !== 'play') return;
+		const attempted = answered !== null ? idx + 1 : idx;
+		if (attempted === 0) return;
+		recordGameResult('leggi-a-voce', score >= attempted - 1, score === attempted);
+	}
 </script>
 
 <div class="leggi">
-	<a class="back" href="{base}/giochi">← Giochi</a>
+	<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 
 	{#if scene === 'intro'}
 		<article class="scene">

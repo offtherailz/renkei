@@ -133,10 +133,16 @@ function kanjiNumeralsToArabic(s: string): string {
 const NATIVE_DAYS: [string, string][] = [
 	['ついたち', '1日'], ['ふつか', '2日'], ['みっか', '3日'], ['よっか', '4日'],
 	['いつか', '5日'], ['むいか', '6日'], ['なのか', '7日'], ['ようか', '8日'],
-	['ここのか', '9日'], ['とおか', '10日'], ['はつか', '20日'],
+	['ここのか', '9日'], ['とおか', '10日'], ['じゅうよっか', '14日'],
+	['はつか', '20日'], ['にじゅうよっか', '24日'],
 	// persone: letture native del contatore 人
 	['ひとり', '1人'], ['ふたり', '2人']
 ];
+// Stessi giorni: 1-10/14/20/24 hanno SOLO la lettura nativa sopra — la
+// lettura "regolare" Xにち non è mai corretta per questi valori (deve
+// restare in dayReading() di counterGen.ts). Va tenuta sincronizzata con
+// IRREGULAR_DAYS lì: se cambia una lista deve cambiare anche l'altra.
+const DAY_NATIVE_ONLY = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 20, 24]);
 const KANA_DIGIT: [string, number][] = [
 	['じゅう', 10], ['ひゃく', 100], ['びゃく', 100], ['ぴゃく', 100],
 	['せん', 1000], ['ぜん', 1000], ['まん', 10000],
@@ -162,6 +168,8 @@ const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(${KANA_UNIT_ALT})(はん
 const DIGIT_KANA_UNIT_RE = new RegExp(`(\\d+)(${KANA_UNIT_ALT})(はん)?`, 'g');
 function digitKanaUnitToWritten(s: string): string {
 	return s.replace(DIGIT_KANA_UNIT_RE, (m, num: string, unitKana: string, han?: string) => {
+		if ((unitKana === 'ふん' || unitKana === 'ぷん') && MINUTE_SUFFIX_BY_ONES[Number(num) % 10] !== unitKana) return m;
+		if (unitKana === 'にち' && DAY_NATIVE_ONLY.has(Number(num))) return m;
 		const unit = KANA_UNIT.find(([k]) => k === unitKana)?.[1] ?? unitKana;
 		return `${num}${unit}${han ? '半' : ''}`;
 	});
@@ -194,6 +202,16 @@ function kanaNumberValue(seq: string): number | null {
 // diverso, il confronto le respinge.
 const HOUR_WRONG_ATOMS = /^(よん|なな|きゅう)/;
 
+// 分 (minuti): ふん/ぷん non sono intercambiabili — ogni cifra (l'unità, non
+// le decine) ha UN rendaku giusto e lessicalizzato (いっぷん・にふん・さんぷん・
+// よんぷん・ごふん・ろっぷん・ななふん・はっぷん・きゅうふん・じゅっぷん), lo
+// stesso distrattore apposta di counterGen.ts scambia l'uno per l'altro.
+// Indicizzato per cifra delle unità (v % 10; 0 copre anche 10/20/30… "X0分").
+const MINUTE_SUFFIX_BY_ONES: Record<number, 'ふん' | 'ぷん'> = {
+	0: 'ぷん', 1: 'ぷん', 2: 'ふん', 3: 'ぷん', 4: 'ぷん',
+	5: 'ふん', 6: 'ぷん', 7: 'ふん', 8: 'ぷん', 9: 'ふん'
+};
+
 function kanaNumeralsToWritten(s: string): string {
 	let out = s;
 	for (const [kana, written] of NATIVE_DAYS) out = out.split(kana).join(written);
@@ -201,6 +219,8 @@ function kanaNumeralsToWritten(s: string): string {
 		if (unitKana === 'じ' && HOUR_WRONG_ATOMS.test(num)) return m;
 		const v = kanaNumberValue(num);
 		if (v === null) return m;
+		if ((unitKana === 'ふん' || unitKana === 'ぷん') && MINUTE_SUFFIX_BY_ONES[v % 10] !== unitKana) return m;
+		if (unitKana === 'にち' && DAY_NATIVE_ONLY.has(v)) return m;
 		const unit = KANA_UNIT.find(([k]) => k === unitKana)?.[1] ?? unitKana;
 		return `${v}${unit}${han ? '半' : ''}`;
 	});
