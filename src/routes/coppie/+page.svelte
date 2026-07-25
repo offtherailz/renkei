@@ -152,10 +152,12 @@
 					<div class="pair-examples">
 						<div class="pair-example">
 							<InteractiveSentence text={pairExampleA.jp} />
+							<button class="listen" onclick={() => speakSentenceJapanese(pairExampleA!.jp)}>🔊</button>
 							<p class="pair-example-it">{pairExampleA.it}</p>
 						</div>
 						<div class="pair-example">
 							<InteractiveSentence text={pairExampleB.jp} />
+							<button class="listen" onclick={() => speakSentenceJapanese(pairExampleB!.jp)}>🔊</button>
 							<p class="pair-example-it">{pairExampleB.it}</p>
 						</div>
 					</div>
@@ -205,6 +207,7 @@
 	.pair-examples { display: grid; gap: 8px; }
 	.pair-example { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; text-align: center; }
 	.pair-example-it { margin: 4px 0 0; font-size: 0.8rem; color: var(--muted); }
+	.listen { margin-left: 6px; padding: 2px 9px; border-radius: 999px; border: 1.5px solid var(--brand); background: var(--surface); color: var(--brand); font-weight: 700; font-size: 0.85rem; cursor: pointer; vertical-align: middle; }
 	.after { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; }
 	.detail-link { color: var(--brand); font-weight: 600; text-decoration: none; }
 	.score-big { margin: 0; text-align: center; font-size: 2.4rem; font-weight: 800; }
