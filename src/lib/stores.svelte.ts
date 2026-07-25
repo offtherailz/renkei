@@ -90,7 +90,13 @@ export const appState = $state({
 	beltToast: null as { messages: string[]; at: number } | null,
 	// Scheda di presentazione carta nuova aperta: se l'utente va alla scheda
 	// completa (/detail) e torna, il quiz rimostra QUESTA intro, non la domanda.
-	pendingIntroRef: null as ItemRef | null
+	pendingIntroRef: null as ItemRef | null,
+	// Incrementato a ogni recordGameResult (gameBelts): letture di beltProgress/
+	// isUnlocked fuori da lì non sono reattive di per sé (leggono localStorage,
+	// non uno $state) — chi le chiama nel template referenzia questo contatore
+	// per farle ricalcolare quando cambia (altrimenti card/badge restano stale
+	// finché non capita un altro re-render per tutt'altro motivo).
+	beltProgressVersion: 0
 });
 
 export interface DeepDiveItem {

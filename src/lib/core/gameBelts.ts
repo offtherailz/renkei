@@ -222,4 +222,5 @@ export function recordGameResult(gameId: string, clean: boolean, epic = false): 
 		messages.push(`🥋 Cintura ${name} in ${gameLabel}!`);
 	}
 	if (messages.length > 0) appState.beltToast = { messages, at: Date.now() };
+	appState.beltProgressVersion += 1;
 }

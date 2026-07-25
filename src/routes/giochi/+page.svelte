@@ -135,6 +135,12 @@
 	let isRecord = $state(false);
 	let gameOver = $state(false);
 
+	// 🎲 Misto (cat 'mix'): il round corrente può essere lettura, dettato o
+	// ascolto data/ora — mixSub dice quale UI mostrare (game.kind resta 'read'
+	// per tutta la sessione, così punteggio/cintura restano su read-mix).
+	let mixSub = $state<'read' | 'listen' | 'appt'>('read');
+	let mixApptPart = $state<AppointmentPart>('date');
+
 	// scelta multipla
 	let question = $state<GeneratedReading | null>(null);
 	let choices = $state<string[]>([]);
@@ -206,7 +212,7 @@
 	}
 	function onTimeout(): void {
 		if (!game || gameOver || checked || picked !== null) return;
-		if (game.kind === 'read') { picked = ' '; }
+		if (game.kind === 'read' && (game.cat !== 'mix' || mixSub === 'read')) { picked = ' '; }
 		else if (game.kind === 'shop') { settleShop(null); return; }
 		else if (game.kind === 'shopping') { deliver(); return; }
 		else if (game.kind === 'greet') { picked = ' '; }
@@ -229,15 +235,11 @@
 	function genFor(cat: ReadId): GeneratedReading | null {
 		if (cat === 'clock') return generateClockReading();
 		if (cat === 'count') return generateCountObjects(counters);
-		if (cat === 'mix') {
-			const pool = ['日', '時', '分', '円', 'clock', 'count'];
-			const id = pool[Math.floor(Math.random() * pool.length)]!;
-			return id === 'clock' ? generateClockReading() : id === 'count' ? generateCountObjects(counters) : generateReading(id);
-		}
 		return generateReading(cat);
 	}
 
-	function newReadQuestion(cat: ReadId): void {
+	// Round di lettura (multiple-choice) per una categoria concreta (non 'mix').
+	function newReadRound(cat: Exclude<ReadId, 'mix'>): void {
 		qGen += 1;
 		let gen: GeneratedReading | null = null;
 		for (let i = 0; i < 10 && !gen; i += 1) {
@@ -245,10 +247,55 @@
 			if (g && g.distractors.length >= 1) gen = g;
 		}
 		if (!gen) return;
+		mixSub = 'read';
 		question = gen;
 		choices = shuffle([gen.correct, ...gen.distractors]);
 		picked = null;
+		dictation = null;
+		appt = null;
 		startCountdown(TIMER_SECONDS.read!); // nessun audio: parte subito
+	}
+
+	// 🎲 Misto: un round a caso fra TUTTA la sezione «Numeri e tempo», non solo
+	// le letture — anche Scrivi il numero e i 3 ascolti data/ora.
+	const MIX_POOL: (
+		| { kind: 'read'; cat: Exclude<ReadId, 'mix'> }
+		| { kind: 'listen' }
+		| { kind: 'appt'; part: AppointmentPart }
+	)[] = [
+		{ kind: 'read', cat: '日' },
+		{ kind: 'read', cat: '時' },
+		{ kind: 'read', cat: '分' },
+		{ kind: 'read', cat: '円' },
+		{ kind: 'read', cat: 'clock' },
+		{ kind: 'read', cat: 'count' },
+		{ kind: 'listen' },
+		{ kind: 'appt', part: 'date' },
+		{ kind: 'appt', part: 'time' },
+		{ kind: 'appt', part: 'full' }
+	];
+
+	function newMixRound(): void {
+		const pick = MIX_POOL[Math.floor(Math.random() * MIX_POOL.length)]!;
+		if (pick.kind === 'read') {
+			newReadRound(pick.cat);
+		} else if (pick.kind === 'listen') {
+			mixSub = 'listen';
+			question = null;
+			appt = null;
+			newDictation();
+		} else {
+			mixSub = 'appt';
+			mixApptPart = pick.part;
+			question = null;
+			dictation = null;
+			newAppt(pick.part);
+		}
+	}
+
+	function newReadQuestion(cat: ReadId): void {
+		if (cat === 'mix') { newMixRound(); return; }
+		newReadRound(cat);
 	}
 
 	function newDictation(): void {
@@ -311,8 +358,10 @@
 	}
 
 	function checkAppt(): void {
-		if (checked || !appt || game?.kind !== 'appt') return;
-		const part = game.part;
+		if (checked || !appt) return;
+		const inMixAppt = game?.kind === 'read' && game.cat === 'mix' && mixSub === 'appt';
+		if (game?.kind !== 'appt' && !inMixAppt) return;
+		const part = game?.kind === 'appt' ? game.part : mixApptPart;
 		const asNum = (s: string) => Number(s.replace(/[^\d]/g, ''));
 		const needed = part === 'date' ? [apptIn.month, apptIn.day] : part === 'time' ? [apptIn.hour, apptIn.minute] : [apptIn.month, apptIn.day, apptIn.hour, apptIn.minute];
 		if (needed.some((v) => v.trim() === '')) return;
@@ -585,7 +634,13 @@
 	const beltlessRuns = new Set<string>();
 
 	function unlockedNow(id: string): boolean {
+		void appState.beltProgressVersion; // dipendenza reattiva: ricalcola a ogni recordGameResult
 		return isUnlocked(id);
+	}
+
+	function conqueredCountNow(): number {
+		void appState.beltProgressVersion;
+		return conqueredCount();
 	}
 
 	// Ritorna true se il tocco deve procedere normalmente (già sbloccato, o
@@ -615,6 +670,7 @@
 </script>
 
 {#snippet beltChip(id: string)}
+	{@const _v = appState.beltProgressVersion}
 	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}
 	<span class="cat-belt" class:cat-belt-todo={!label}>
@@ -642,7 +698,7 @@
 		</label>
 
 		<div class="belt-banner">
-			🥋 <strong>Cinture</strong>: {conqueredCount()}/{BELT_GAMES.length} giochi almeno all'arancione.
+			🥋 <strong>Cinture</strong>: {conqueredCountNow()}/{BELT_GAMES.length} giochi almeno all'arancione.
 			Guadagna le cinture per sbloccare gli altri giochi —
 			<a href="{base}/guida#cinture">come funzionano →</a>
 		</div>
@@ -891,7 +947,7 @@
 			</div>
 		{/if}
 
-		{#if game.kind === 'read' && question}
+		{#if game.kind === 'read' && (game.cat !== 'mix' || mixSub === 'read') && question}
 			<article class="game-card">
 				<p class="game-hint">{game.cat === 'count' ? 'Quanti sono? Scegli la lettura giusta' : 'Come si legge?'}</p>
 				<p class="game-prompt" class:count-prompt={game.cat === 'count'}>{question.prompt}</p>
@@ -924,7 +980,7 @@
 					{/if}
 				{/if}
 			</article>
-		{:else if game.kind === 'listen' && dictation}
+		{:else if (game.kind === 'listen' || (game.kind === 'read' && game.cat === 'mix' && mixSub === 'listen')) && dictation}
 			<article class="game-card">
 				<p class="game-hint">Che numero senti?</p>
 				<button class="replay" onclick={() => speakSentenceJapanese(dictation!.reading)}>🔊 Riascolta</button>
@@ -984,8 +1040,8 @@
 					<button class="proceed" onclick={proceed}>{gameOver ? '🔁 Rigioca' : 'Avanti →'}</button>
 				{/if}
 			</article>
-		{:else if game.kind === 'appt' && appt}
-			{@const part = game.part}
+		{:else if (game.kind === 'appt' || (game.kind === 'read' && game.cat === 'mix' && mixSub === 'appt')) && appt}
+			{@const part = game.kind === 'appt' ? game.part : mixApptPart}
 			<article class="game-card">
 				<p class="game-hint">{part === 'date' ? '📆 Che giorno è?' : part === 'time' ? '🕒 A che ora?' : "📅 Quando è l'appuntamento?"}</p>
 				<button class="replay" onclick={() => speakSentenceJapanese(appt!.reading)}>🔊 Riascolta</button>

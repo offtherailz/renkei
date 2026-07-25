@@ -137,6 +137,22 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   READ_GAMES — ora card a parte dopo Ascolta data e ora, MIX_GAME costante);
   «Data e ora» rinominato **«Ascolta data e ora»** ovunque (è un ascolto,
   coerenza con Ascolta la data/l'ora).
+- ✅ (25/07) **Fix Aiuto in /certezza**: `showReason` impostato ma mai letto
+  da nessun blocco — il bottone non faceva nulla. Ora rivela il `summary`
+  della costruzione giusta dal catalogo prima di rispondere (senza dire
+  quale bottone è).
+- ✅ (25/07) **Misto esteso a tutta la sezione** (era solo le 6 letture):
+  `MIX_POOL`/`newMixRound()` pescano anche Scrivi il numero e i 3 ascolti
+  data/ora; `mixSub` sceglie la UI del round mentre punteggio/cintura
+  restano fissi su `read-mix`. `onTimeout`/`checkAppt`/i 3 blocchi template
+  aggiornati per riconoscere il sub-round attivo.
+- ✅ (25/07) **Fix reattività cinture** (bug segnalato: «ho guadagnato la
+  cintura bianca anche se il gioco non era sbloccato» → in realtà i
+  prerequisiti erano già soddisfatti da test precedenti, ma il badge 🔒
+  restava stale non essendo agganciato a nessuno $state): aggiunto
+  `appState.beltProgressVersion`, bump a ogni `recordGameResult`, letto da
+  `unlockedNow`/`conqueredCountNow`/`beltChip` per forzare il ricalcolo
+  live invece di aspettare un re-render casuale.
 - ✅ (25/07) **Cinture v4 (feedback utente)**: sblocco da ALMENO l'arancione
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.
