@@ -295,6 +295,11 @@
 		best = getHighscore(gameId(g));
 		isRecord = false;
 		gameOver = false;
+		// read/greet/order usano `picked`, gli altri (listen/shop/appt/shopping)
+		// usano `checked`: senza questo reset, un `picked` non-null lasciato da
+		// un giro precedente bloccava silenziosamente onTimeout() sugli altri
+		// kind (il timer scadeva ma non succedeva nulla — bug segnalato).
+		picked = null;
 		if (g.kind === 'read') newReadQuestion(g.cat);
 		else if (g.kind === 'shop') newShop();
 		else if (g.kind === 'appt') newAppt(g.part);
