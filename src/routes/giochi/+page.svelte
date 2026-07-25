@@ -605,7 +605,7 @@
 	{@const label = beltLabel(id)}
 	<span class="cat-belt" class:cat-belt-todo={!label}>
 		<BeltIcon belt={beltVisual(bp)} size={13} dan={danKanji(bp)} />
-		{#if label}{label} · {nextBeltHint(bp) ?? nextDanHint(bp) ?? 'vetta raggiunta 👑'}{:else}da domare{/if}
+		{#if label}{label} · {nextBeltHint(bp) ?? nextDanHint(bp) ?? 'vetta raggiunta 👑'}{:else}bianca: 1 partita{/if}
 	</span>
 {/snippet}
 
