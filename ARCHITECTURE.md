@@ -135,6 +135,30 @@ La funzione `buildGrammarLinkedWords` cercava token delle frasi d'esempio nelle 
 
 ---
 
+### Frasi parallele 自動詞/他動詞 (25/07)
+
+Per le 41 coppie transitive/intransitive collegate da `id_verbo_corrispondente`,
+ogni verbo ha ricevuto UNA frase aggiuntiva scritta apposta in coppia con la
+sua controparte (stessa scena, un lato spontaneo/自動詞 un lato con agente/
+他動詞: 「風でまどが開きました」/「暑いので、まどを開けました」). Vive UNA
+volta sola in `frasi_esempio` (seed + overrides, mai duplicata) e viene
+riusata automaticamente in tre posti:
+- **scheda della parola** (`/detail`): è già lì, nessun cambiamento di UI.
+- **quiz vero**: la modalità `transitivity-pair` in `engine.ts` pesca da
+  `frasi_esempio` cercando la forma coniugata — le nuove frasi entrano nel
+  pool esistente senza altro codice.
+- **🔀 Coppie difficili** (`/coppie`): se i due lati di una coppia sono
+  partner reciproci veri (`wa.id_verbo_corrispondente === wb.id`, controllo
+  esplicito — mai a caso), il reveal mostra l'ULTIMA frase di ciascuno
+  (quella scritta apposta) via `db.words.get(id)` diretto per id (non
+  `findWord` per scrittura: alcuni id hanno un disambiguatore, es.
+  `開く-あく` vs `開く-ひらく`, e la ricerca per scrittura sarebbe ambigua).
+
+`word-overrides.json`: 10 di questi verbi non avevano ancora un override
+proprio (erano solo derivati dalla pipeline) — creata la voce con
+`frasi_esempio` completo (esistenti + nuova), altrimenti il prossimo sync
+le avrebbe perse (l'override sostituisce l'array per intero, non lo fonde).
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:

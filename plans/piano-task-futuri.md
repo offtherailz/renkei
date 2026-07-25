@@ -169,22 +169,6 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   picked/question freschi), la valutazione tardiva poteva finire sul round
   sbagliato («segna come errore la frase precedente»). Aggiunta la stessa
   guardia `myGen !== qGen` già usata da `armAfterAudio` per l'audio TTS.
-- ✅ (25/07) **Fix voce nei giochi a contatore** (bug segnalato: よんにち/ごにち
-  accettati per i giorni del mese): `writtenVariants()` in /giochi accettava
-  ciecamente la forma scritta del prompt (4日/4時/3分) come prova di pronuncia
-  corretta — ma il riconoscitore normalizza QUALUNQUE lettura, giusta o
-  regolarizzata-sbagliata (proprio il distrattore apposta generato da
-  counterGen.ts per 日/時/分/円 e per generateClockReading), nella stessa
-  forma scritta. Tolto il bypass per questi 5 casi (falso negativo innocuo,
-  mai penalizzato, meglio di un falso positivo che convalida la lettura
-  sbagliata); tenuto SOLO per «Conta gli oggetti» dove i distrattori sono
-  contatori diversi (testo diverso, nessuna ambiguità).
-- ✅ (25/07) **Fix race mic fra un giro e l'altro**: `speakReadGame`/
-  `speakGreetGame` non controllavano `qGen` dopo l'attesa di `listenJapanese()`
-  — se il round cambiava mentre il microfono ascoltava (nuova domanda,
-  picked/question freschi), la valutazione tardiva poteva finire sul round
-  sbagliato («segna come errore la frase precedente»). Aggiunta la stessa
-  guardia `myGen !== qGen` già usata da `armAfterAudio` per l'audio TTS.
 - ✅ (25/07) **Cinture v4 (feedback utente)**: sblocco da ALMENO l'arancione
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.
@@ -195,6 +179,26 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   quella run (niente `forceUnlock`/persistenza — rimosso dopo il giro
   precedente che invece rendeva lo sblocco permanente: l'utente voleva
   "gioca comunque, senza cinture e senza sbloccarlo").
+- ✅ (25/07) **Fix voce «6だい» per contatore 台** (bug segnalato: «rokudai» per
+  6 macchine dava errore in Conta gli oggetti): 台 mancava da `KANA_UNIT` in
+  speech.ts; aggiunta anche `digitKanaUnitToWritten()` per la forma ibrida
+  cifra-araba+contatore-kana (es. «6だい»→«6台», comune nel riconoscitore),
+  generale per tutti i contatori di `KANA_UNIT` non solo 台.
+- ✅ (25/07) **Coppie difficili — 10 coppie 自動詞/他動詞 nuove** (idea utente):
+  開く/開ける, 消える/消す, 閉まる/閉める, 入る/入れる, 落ちる/落とす,
+  倒れる/倒す, 壊れる/壊す, 始まる/始める, 上がる/上げる, 決まる/決める
+  (si aggiungono a 見つかる/見つける già presente). Test `coppie.test.ts`.
+- ✅ (25/07) **Frasi parallele 自動詞/他動詞** (idea utente, "la duplicazione è
+  inutile" → Opzione B): per le 41 coppie `id_verbo_corrispondente` del seed,
+  UNA frase nuova a testa scritta apposta in coppia (stessa scena, lato
+  spontaneo vs lato con agente), vive una sola volta in `frasi_esempio`
+  (seed+overrides, 10 verbi senza override proprio creati da zero) e si
+  riusa da sola su scheda (`/detail`) e quiz vero (`transitivity-pair` pesca
+  già da `frasi_esempio`); in **Coppie difficili** il reveal mostra ora le
+  frasi vere quando i due lati sono partner reciproci veri (controllo
+  `id_verbo_corrispondente` esplicito, mai a caso) via `db.words.get(id)`
+  diretto (non `findWord` per scrittura: ambiguo per id con disambiguatore,
+  es. 開く-あく vs 開く-ひらく). SEED_REVISION → v71.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
