@@ -49,6 +49,16 @@ describe('normalizeSpeech', () => {
 		expect(normalizeSpeech('よじ')).toBe('4時');
 		expect(normalizeSpeech('くじ')).toBe('9時');
 	});
+
+	it('converte le forme contratte con 促音 dei minuti (bug segnalato: 8分/36分 non riconosciuti)', () => {
+		// mancavano ろっ/はっ/いっ/じゅっ: senza, はっぷん (8分) e さんじゅうろっぷん
+		// (36分) restavano testo kana, mai convergenti con la cifra scritta.
+		expect(normalizeSpeech('はっぷん')).toBe('8分');
+		expect(normalizeSpeech('いっぷん')).toBe('1分');
+		expect(normalizeSpeech('じゅっぷん')).toBe('10分');
+		expect(normalizeSpeech('さんじゅうろっぷん')).toBe('36分');
+		expect(normalizeSpeech('さんじゅっぷん')).toBe('30分');
+	});
 });
 
 describe('speechMatches con numeri kanji/cifre', () => {

@@ -142,14 +142,18 @@ const KANA_DIGIT: [string, number][] = [
 	['せん', 1000], ['ぜん', 1000], ['まん', 10000],
 	['いち', 1], ['きゅう', 9], ['しち', 7], ['なな', 7], ['ろく', 6],
 	['よん', 4], ['はち', 8], ['さん', 3], ['ご', 5], ['く', 9], ['よ', 4],
-	['し', 4], ['に', 2]
+	['し', 4], ['に', 2],
+	// forme contratte con 促音 (っ), es. minuti: ろっぷん(6), はっぷん(8),
+	// じゅっぷん(10), いっぷん(1) — mancavano, quindi «36分»/«8分» pronunciati
+	// giusti (さんじゅうろっぷん/はっぷん) non convergevano con la cifra scritta.
+	['じゅっ', 10], ['ろっ', 6], ['はっ', 8], ['いっ', 1]
 ];
 const KANA_UNIT: [string, string][] = [
 	['じかん', '時間'], ['ふん', '分'], ['ぷん', '分'], ['にち', '日'],
 	['えん', '円'], ['ばん', '番'], ['がつ', '月'], ['にん', '人'], ['じ', '時'],
 	['だい', '台']
 ];
-const KANA_NUM_ATOM = 'じゅう|ひゃく|びゃく|ぴゃく|せん|ぜん|まん|いち|きゅう|しち|なな|ろく|よん|はち|さん|ご|く|よ|し|に';
+const KANA_NUM_ATOM = 'じゅっ|じゅう|ひゃく|びゃく|ぴゃく|せん|ぜん|まん|いち|きゅう|しち|なな|ろっ|ろく|よん|はっ|はち|いっ|さん|ご|く|よ|し|に';
 const KANA_UNIT_ALT = 'じかん|ふん|ぷん|にち|えん|ばん|がつ|にん|だい|じ';
 const KANA_NUM_RE = new RegExp(`((?:${KANA_NUM_ATOM})+)(${KANA_UNIT_ALT})(はん)?`, 'g');
 // Forma ibrida che il riconoscitore produce spesso: cifra araba GIÀ scritta
