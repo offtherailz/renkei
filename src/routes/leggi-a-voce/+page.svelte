@@ -175,7 +175,7 @@
 					<button class="mic" class:listening={micBusy} disabled={micBusy} onclick={tryRead}>
 						{micBusy ? '🎙️ Leggi ora!' : '🎤 Leggi ad alta voce'}
 					</button>
-					<HeardDiff {heard} candidates={[r.plain]} />
+					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} />
 				{:else}
 					<p class="hint">Leggi la frase ad alta voce, poi valutati:</p>
 					<div class="self-row">
@@ -186,7 +186,7 @@
 			{:else}
 				<p class="who">{answered ? '✅ Bene!' : '❌ Confronta e riprova, se vuoi'}</p>
 				{#if heard}
-					<HeardDiff {heard} candidates={[r.plain]} />
+					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} />
 				{/if}
 				<p class="hint">{r.translation}</p>
 				<div class="listen-row">
