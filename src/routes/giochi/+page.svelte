@@ -21,7 +21,8 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
-	import { GAME_PATH, beltProgress, beltLabel, nextBeltHint, isUnlocked, conqueredCount } from '$lib/core/gameBelts';
+	import { GAME_PATH, beltProgress, beltLabel, nextBeltHint, conqueredCount } from '$lib/core/gameBelts';
+	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
@@ -553,24 +554,20 @@
 		if (typeof window !== 'undefined') window.removeEventListener('popstate', onPopState);
 	});
 
-	// ── Percorso cinture (gameBelts): gioco precedente d'una stazione, per il velo
-	function prevGame(id: string): { icon: string; label: string } | null {
-		const idx = GAME_PATH.findIndex((g) => g.id === id);
-		return idx > 0 ? GAME_PATH[idx - 1]! : null;
-	}
 </script>
 
 {#snippet beltChip(id: string)}
-	{#if !isUnlocked(id)}
-		{@const prev = prevGame(id)}
-		<span class="cat-belt cat-belt-locked">🔒 si sblocca domando {prev?.icon} {prev?.label} — 👀 anteprima libera</span>
+	{@const label = beltLabel(id)}
+	{#if label}
+		<span class="cat-belt">🥋 {label} · {nextBeltHint(beltProgress(id)) ?? 'sali di dan con le pulite'}</span>
 	{:else}
-		{@const label = beltLabel(id)}
-		{#if label}
-			<span class="cat-belt">🥋 {label} · {nextBeltHint(beltProgress(id)) ?? 'sali di dan con le pulite'}</span>
-		{:else}
-			<span class="cat-belt cat-belt-todo">🥋 da domare</span>
-		{/if}
+		<span class="cat-belt cat-belt-todo">🥋 da domare</span>
+	{/if}
+{/snippet}
+
+{#snippet unlockChip(id: string)}
+	{#if !isUnlocked(id)}
+		<span class="cat-belt cat-belt-locked">🔒 per sbloccare: {unlockHint(id)} — 👀 provalo comunque</span>
 	{/if}
 {/snippet}
 
@@ -587,23 +584,25 @@
 		</label>
 
 		<div class="belt-banner">
-			🥋 <strong>Percorso dei giochi</strong>: {conqueredCount()}/{GAME_PATH.length} domati.
-			Ogni gioco dà cinture (bianca → nera, poi i dan): le partite contano, le prestazioni
-			pulite di più. Domare un gioco (gialla o una pulita) sblocca il successivo — che resta
-			comunque provabile in anteprima.
+			🥋 <strong>Cinture</strong>: {conqueredCount()}/{GAME_PATH.length} giochi domati.
+			Ogni gioco dà cinture come nel karatè (bianca → nera, poi i dan): le partite contano,
+			le prestazioni pulite di più. Solo la filiera del tempo si sblocca in ordine
+			(Ore+Minuti → Che ore sono? → Data e ora → Prendi appuntamento): il requisito è
+			scritto sulla card, e i giochi velati restano provabili.
 		</div>
 
 		<p class="group-title">Leggi come si pronuncia</p>
 		<div class="cat-grid">
 			{#each READ_GAMES as g}
-				<button class="cat-card" onclick={() => start({ kind: 'read', cat: g.id })}>
+				<button class="cat-card" class:belt-locked={!isUnlocked(`read-${g.id}`)} onclick={() => start({ kind: 'read', cat: g.id })}>
 					<span class="cat-icon">{g.icon}</span>
 					<span class="cat-label">{g.label}</span>
 					<span class="cat-hint">{g.hint}</span>
 					<span class="cat-best">🏆 record: {getHighscore(`read-${g.id}`)}</span>
+					{@render unlockChip(`read-${g.id}`)}
 				</button>
 			{/each}
-			<a class="cat-card" class:belt-locked={!isUnlocked('di-la-data')} href="{base}/di-la-data">
+			<a class="cat-card" href="{base}/di-la-data">
 				<span class="cat-icon">🗣️</span>
 				<span class="cat-label">Dì la data <span class="cat-beta">beta</span></span>
 				<span class="cat-hint">la data è scritta: leggila TU a voce (9日 = ここのか!)</span>
@@ -625,11 +624,12 @@
 				<span class="cat-hint">il commesso dice il totale: paga esatto</span>
 				<span class="cat-best">🏆 record: {getHighscore('shop-pay')}</span>
 			</button>
-			<button class="cat-card" onclick={() => start({ kind: 'appt' })}>
-				<span class="cat-icon">📅</span>
-				<span class="cat-label">Appuntamento</span>
+			<button class="cat-card" class:belt-locked={!isUnlocked('listen-appt')} onclick={() => start({ kind: 'appt' })}>
+				<span class="cat-icon">🗓️</span>
+				<span class="cat-label">Data e ora</span>
 				<span class="cat-hint">senti data e ora, segnala sull'agenda</span>
 				<span class="cat-best">🏆 record: {getHighscore('listen-appt')}</span>
+				{@render unlockChip('listen-appt')}
 			</button>
 			<button class="cat-card" onclick={() => start({ kind: 'shopping' })}>
 				<span class="cat-icon">🛍️</span>
@@ -637,7 +637,7 @@
 				<span class="cat-hint">senti cosa prendere e riempi il carrello</span>
 				<span class="cat-best">🏆 record: {getHighscore('shopping-list')}</span>
 			</button>
-			<a class="cat-card" class:belt-locked={!isUnlocked('choukai')} href="{base}/choukai">
+			<a class="cat-card" href="{base}/choukai">
 				<span class="cat-icon">👂</span>
 				<span class="cat-label">聴解 — Ascolto trappola</span>
 				<span class="cat-hint">dialoghi stile JLPT: cambiano idea, tu non cascarci</span>
@@ -652,7 +652,7 @@
 					<span class="cat-label">Mani libere <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">solo voce: l'app dice cosa dire, tu rispondi. In auto o senza mani</span>
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('keigo')} href="{base}/keigo">
+				<a class="cat-card" href="{base}/keigo">
 					<span class="cat-icon">🙇</span>
 					<span class="cat-label">敬語 — Linguaggio cortese</span>
 					<span class="cat-hint">尊敬語 o 謙譲語? La forma giusta per capo e clienti</span>
@@ -674,8 +674,9 @@
 					<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
 					<span class="cat-best">🏆 record: {getHighscore('appuntamento')}</span>
 				{@render beltChip('appuntamento')}
+				{@render unlockChip('appuntamento')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('relazioni')} href="{base}/relazioni">
+				<a class="cat-card" href="{base}/relazioni">
 					<span class="cat-icon">🫂</span>
 					<span class="cat-label">Relazioni <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">conosci qualcuno, senti un amico o parli col capo: il registro cambia col rapporto</span>
@@ -688,7 +689,7 @@
 					<span class="cat-hint">rispondi con la formula giusta</span>
 					<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
 				</button>
-				<a class="cat-card" class:belt-locked={!isUnlocked('shadowing')} href="{base}/shadowing">
+				<a class="cat-card" href="{base}/shadowing">
 					<span class="cat-icon">🗣️</span>
 					<span class="cat-label">Shadowing — Ripeti subito</span>
 					<span class="cat-hint">ascolta e ripeti ad alta voce, il microfono ti verifica</span>
@@ -709,13 +710,13 @@
 
 			<p class="group-title">Lettura e frasi</p>
 			<div class="cat-grid">
-				<a class="cat-card" class:belt-locked={!isUnlocked('riordina')} href="{base}/riordina">
+				<a class="cat-card" href="{base}/riordina">
 					<span class="cat-icon">🧩</span>
 					<span class="cat-label">Riordina la frase</span>
 					<span class="cat-hint">i pezzi sono in disordine: ricomponila</span>
 				{@render beltChip('riordina')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('iikae')} href="{base}/iikae">
+				<a class="cat-card" href="{base}/iikae">
 					<span class="cat-icon">🔁</span>
 					<span class="cat-label">言い換え — Dillo in un altro modo</span>
 					<span class="cat-hint">stile JLPT: scegli frase o parola con lo stesso significato</span>
@@ -731,43 +732,43 @@
 					<span class="cat-label">Skimming</span>
 					<span class="cat-hint">prima la domanda, poi trova l'informazione nel testo</span>
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('leggi-a-voce')} href="{base}/leggi-a-voce">
+				<a class="cat-card" href="{base}/leggi-a-voce">
 					<span class="cat-icon">📢</span>
 					<span class="cat-label">Leggi a voce <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">leggi tu la frase: prima coi furigana, poi senza</span>
 				{@render beltChip('leggi-a-voce')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('dettato')} href="{base}/dettato">
+				<a class="cat-card" href="{base}/dettato">
 					<span class="cat-icon">✍️</span>
 					<span class="cat-label">Dettato <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">ascolta e ricomponi la frase, pezzo per pezzo</span>
 				{@render beltChip('dettato')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('catena')} href="{base}/catena">
+				<a class="cat-card" href="{base}/catena">
 					<span class="cat-icon">🧬</span>
 					<span class="cat-label">Catena di forme <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">食べる→食べられる→食べられない: le forme, un passo alla volta</span>
 				{@render beltChip('catena')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('coppie')} href="{base}/coppie">
+				<a class="cat-card" href="{base}/coppie">
 					<span class="cat-icon">🔀</span>
 					<span class="cat-label">Coppie difficili <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
 				{@render beltChip('coppie')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('avverbi')} href="{base}/avverbi">
+				<a class="cat-card" href="{base}/avverbi">
 					<span class="cat-icon">🎚️</span>
 					<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
 				{@render beltChip('avverbi')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('contrazioni')} href="{base}/contrazioni">
+				<a class="cat-card" href="{base}/contrazioni">
 					<span class="cat-icon">✂️</span>
 					<span class="cat-label">Contrazioni <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">食べちゃった ↔ 食べてしまった: parlato ed esteso, anche a voce</span>
 				{@render beltChip('contrazioni')}
 				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('comparazioni')} href="{base}/comparazioni">
+				<a class="cat-card" href="{base}/comparazioni">
 					<span class="cat-icon">⚖️</span>
 					<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
 					<span class="cat-hint">より・のほうが・いちばん・ほど〜ない: chi è più… ? componi il confronto</span>

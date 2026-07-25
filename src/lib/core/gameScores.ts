@@ -34,7 +34,7 @@ export const GAME_LABELS: Record<string, string> = {
 	'read-mix': 'Letture miste',
 	'listen-number': 'Scrivi il numero',
 	'shop-pay': 'Alla cassa',
-	'listen-appt': 'Appuntamento',
+	'listen-appt': 'Data e ora',
 	'shopping-list': 'Lista della spesa',
 	greetings: 'Saluti',
 	'konbini-order': 'Al konbini',

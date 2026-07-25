@@ -88,10 +88,15 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   ThemeBank/Turn, credito `recordPractice('gram:'+slug, esito)`.
 - 🔲 **Strato 2 (quando capita)**: catene /catena per modalità — て→てもいい,
   て→てはいけない, ない→なければならない→なきゃ (contrazione come passo).
-- ✅ (25/07) **Percorso cinture giochi** (richiesta utente «domare tutti i giochi»):
+- ✅ (25/07) **Cinture giochi** (richiesta utente «domare tutti i giochi»):
   `gameBelts.ts` (bianca→nera+dan su {partite, pulite}, criteri per-gioco da
   insegnante), `recordGameResult` in 15 giochi, toast globale (layout+appState),
-  UI /giochi (banner X/15, chip cintura, velo 🔒 + anteprima), guida+ARCHITECTURE.
+  UI /giochi (banner X/15, chip cintura), guida+ARCHITECTURE.
+- ✅ (25/07) **Sblocchi ridisegnati su feedback utente**: via il percorso a catena
+  (bloccava troppo e in modo opaco) → `gameUnlocks.ts`, solo filiera tempo:
+  Ore+Minuti(serie 5)→Che ore sono?; +Giorni del mese→Data e ora (listen-appt
+  RINOMINATO da «Appuntamento»); +Dì la data(1 pulita)→Prendi appuntamento.
+  Requisito esplicito col progresso sulla card velata, sempre provabile 👀.
 - 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
   nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
   cinture in /stats; migrare i record locali di riordina/skimming a gameScores.

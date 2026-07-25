@@ -1,18 +1,16 @@
-// Cinture di karatè per gioco + percorso unico di sblocco («doma tutti i giochi»).
+// Cinture di karatè per gioco («doma tutti i giochi» — premio incrementale).
 //
-// Ogni gioco del PERCORSO ha contatori locali {partite, pulite}:
+// Ogni gioco della lista ha contatori locali {partite, pulite}:
 // - partita  = una sessione portata a termine (scena finale raggiunta)
 // - pulita   = prestazione da insegnante (criterio per-gioco: vedi la pagina
 //   del gioco — di norma max 1 errore, serie ≥5 per i giochi a serie,
 //   accordo senza aiuti per i negoziali)
 // La cintura deriva dai contatori; la cintura nera è 初段 e si sale di dan.
+// «Domato» = gialla (3 partite) o almeno una pulita — conta per il banner X/15.
 //
-// Sblocco MORBIDO: il gioco successivo del percorso si «conquista» con la
-// gialla (3 partite) O con una pulita del precedente — ma resta sempre
-// giocabile in anteprima (si blocca la ricompensa, non l'accesso).
-//
-// Storage: localStorage (come gli highscore) — dato di dispositivo, non entra
-// nel bundle di export.
+// Le cinture NON bloccano niente: gli sblocchi (solo filiera numeri/tempo)
+// stanno in gameUnlocks.ts. Storage: localStorage (come gli highscore) —
+// dato di dispositivo, non entra nel bundle di export.
 
 import { appState } from '$lib/stores.svelte';
 
@@ -25,9 +23,9 @@ export interface BeltProgress {
 
 const KEY = 'renkei_game_belts';
 
-// Ordine del percorso (dal propedeutico alla vetta) — scelto da «insegnante»:
+// I giochi con le cinture, in ordine consigliato (dal propedeutico alla vetta):
 // prima sintassi e lessico, poi ascolto e morfologia, poi produzione orale,
-// in cima la negoziazione e la cortesia.
+// in cima la negoziazione e la cortesia. Solo catalogo: nessun blocco.
 export const GAME_PATH: { id: string; label: string; icon: string }[] = [
 	{ id: 'riordina', label: 'Riordina la frase', icon: '🧩' },
 	{ id: 'coppie', label: 'Coppie difficili', icon: '🔀' },
@@ -45,8 +43,6 @@ export const GAME_PATH: { id: string; label: string; icon: string }[] = [
 	{ id: 'relazioni', label: 'Relazioni', icon: '🫂' },
 	{ id: 'keigo', label: 'Keigo', icon: '🎎' }
 ];
-
-const PATH_INDEX = new Map(GAME_PATH.map((g, i) => [g.id, i]));
 
 // Scala delle cinture: condizione minima per ognuna. La cintura è la PIÙ ALTA
 // con condizione soddisfatta (si può «saltare» la gialla con una pulita subito).
@@ -119,20 +115,12 @@ export function nextBeltHint(p: BeltProgress): string | null {
 	return `${next.color}: ancora ${target - p.clean} pulite`;
 }
 
-// Un gioco «conquista» il successivo con gialla (3 partite) O una pulita.
+// «Domato»: gialla (3 partite) o almeno una pulita.
 function conquered(p: BeltProgress): boolean {
 	return p.played >= 3 || p.clean >= 1;
 }
 
-// Il gioco è sbloccato se è il primo del percorso, se il precedente è
-// conquistato, o se non fa parte del percorso (giochi liberi).
-export function isUnlocked(gameId: string): boolean {
-	const idx = PATH_INDEX.get(gameId);
-	if (idx === undefined || idx === 0) return true;
-	return conquered(beltProgress(GAME_PATH[idx - 1]!.id));
-}
-
-// Quante stazioni del percorso sono conquistate (per la barra in /giochi).
+// Quanti giochi sono domati (per il banner in /giochi).
 export function conqueredCount(): number {
 	return GAME_PATH.filter((g) => conquered(beltProgress(g.id))).length;
 }
@@ -158,10 +146,9 @@ export function recordGameResult(gameId: string, clean: boolean): void {
 		const label = GAME_PATH.find((g) => g.id === gameId)?.label ?? gameId;
 		messages.push(`🥋 Cintura ${name} in ${label}!`);
 	}
-	const idx = PATH_INDEX.get(gameId);
-	if (!prevConquered && conquered(next) && idx !== undefined) {
-		const nextGame = GAME_PATH[idx + 1];
-		if (nextGame) messages.push(`🔓 Hai sbloccato ${nextGame.icon} ${nextGame.label}!`);
+	if (!prevConquered && conquered(next)) {
+		const g = GAME_PATH.find((x) => x.id === gameId);
+		if (g) messages.push(`💪 ${g.icon} ${g.label} domato!`);
 	}
 	if (messages.length > 0) appState.beltToast = { messages, at: Date.now() };
 }
