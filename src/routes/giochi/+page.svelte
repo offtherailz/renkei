@@ -597,7 +597,19 @@
 	function quitInternal(): void {
 		stopCountdown();
 		qGen += 1;
-		if (game && !gameOver) submitScore(gameId(game), streak);
+		if (game && !gameOver) {
+			const id = gameId(game);
+			submitScore(id, streak);
+			// uscire volontariamente con una serie viva (indietro/Esci) è una
+			// partita a tutti gli effetti: senza questo, chi si ferma mentre è
+			// in vantaggio (es. serie da 12) non riceveva NESSUNA cintura — la
+			// cintura si registrava solo alla prima risposta sbagliata.
+			if (beltlessRuns.delete(id)) {
+				/* trucco 7-tap: questa partita non conta per le cinture */
+			} else {
+				recordGameResult(id, streak >= 5, streak >= 12);
+			}
+		}
 		game = null;
 		question = null;
 		dictation = null;

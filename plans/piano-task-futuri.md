@@ -199,6 +199,13 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `id_verbo_corrispondente` esplicito, mai a caso) via `db.words.get(id)`
   diretto (non `findWord` per scrittura: ambiguo per id con disambiguatore,
   es. 開く-あく vs 開く-ひらく). SEED_REVISION → v71.
+- ✅ (25/07) **Fix cinture — uscire con serie viva non assegnava nulla**
+  (bug segnalato: serie da 12 su "giorni", uscito con indietro/Esci → nessuna
+  cintura; tornato → solo bianca). `quitInternal()` chiamava `submitScore`
+  ma MAI `recordGameResult`: la cintura si registrava solo alla prima
+  risposta sbagliata (`registerResult`), mai per un'uscita volontaria.
+  Ora `quitInternal()` accredita la cintura con la stessa serie raggiunta
+  (pulita ≥5, impresa ≥12), rispettando anche il trucco 7-tap.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.
