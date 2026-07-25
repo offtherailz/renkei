@@ -153,6 +153,38 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `appState.beltProgressVersion`, bump a ogni `recordGameResult`, letto da
   `unlockedNow`/`conqueredCountNow`/`beltChip` per forzare il ricalcolo
   live invece di aspettare un re-render casuale.
+- ✅ (25/07) **Fix voce nei giochi a contatore** (bug segnalato: よんにち/ごにち
+  accettati per i giorni del mese): `writtenVariants()` in /giochi accettava
+  ciecamente la forma scritta del prompt (4日/4時/3分) come prova di pronuncia
+  corretta — ma il riconoscitore normalizza QUALUNQUE lettura, giusta o
+  regolarizzata-sbagliata (proprio il distrattore apposta generato da
+  counterGen.ts per 日/時/分/円 e per generateClockReading), nella stessa
+  forma scritta. Tolto il bypass per questi 5 casi (falso negativo innocuo,
+  mai penalizzato, meglio di un falso positivo che convalida la lettura
+  sbagliata); tenuto SOLO per «Conta gli oggetti» dove i distrattori sono
+  contatori diversi (testo diverso, nessuna ambiguità).
+- ✅ (25/07) **Fix race mic fra un giro e l'altro**: `speakReadGame`/
+  `speakGreetGame` non controllavano `qGen` dopo l'attesa di `listenJapanese()`
+  — se il round cambiava mentre il microfono ascoltava (nuova domanda,
+  picked/question freschi), la valutazione tardiva poteva finire sul round
+  sbagliato («segna come errore la frase precedente»). Aggiunta la stessa
+  guardia `myGen !== qGen` già usata da `armAfterAudio` per l'audio TTS.
+- ✅ (25/07) **Fix voce nei giochi a contatore** (bug segnalato: よんにち/ごにち
+  accettati per i giorni del mese): `writtenVariants()` in /giochi accettava
+  ciecamente la forma scritta del prompt (4日/4時/3分) come prova di pronuncia
+  corretta — ma il riconoscitore normalizza QUALUNQUE lettura, giusta o
+  regolarizzata-sbagliata (proprio il distrattore apposta generato da
+  counterGen.ts per 日/時/分/円 e per generateClockReading), nella stessa
+  forma scritta. Tolto il bypass per questi 5 casi (falso negativo innocuo,
+  mai penalizzato, meglio di un falso positivo che convalida la lettura
+  sbagliata); tenuto SOLO per «Conta gli oggetti» dove i distrattori sono
+  contatori diversi (testo diverso, nessuna ambiguità).
+- ✅ (25/07) **Fix race mic fra un giro e l'altro**: `speakReadGame`/
+  `speakGreetGame` non controllavano `qGen` dopo l'attesa di `listenJapanese()`
+  — se il round cambiava mentre il microfono ascoltava (nuova domanda,
+  picked/question freschi), la valutazione tardiva poteva finire sul round
+  sbagliato («segna come errore la frase precedente»). Aggiunta la stessa
+  guardia `myGen !== qGen` già usata da `armAfterAudio` per l'audio TTS.
 - ✅ (25/07) **Cinture v4 (feedback utente)**: sblocco da ALMENO l'arancione
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.

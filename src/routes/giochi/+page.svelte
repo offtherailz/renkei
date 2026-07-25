@@ -71,32 +71,36 @@
 	let heard = $state('');
 	async function speakGreetGame(): Promise<void> {
 		if (micState !== 'idle' || picked !== null || !greet) return;
+		const myGen = qGen; // il round può cambiare mentre il mic ascolta (async)
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
-		if (!greet || picked !== null) return;
+		if (myGen !== qGen || !greet || picked !== null) return;
 		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
 		heard = alts[0]!;
 		const hit = greet.choices.find((c) => speechMatches(alts, [phraseVariants(c)]));
 		if (hit) pickGreet(hit, true);
 	}
 
-	// Il riconoscitore trascrive le letture come FORMA SCRITTA (ここのか → «9日»,
-	// よじはん → «4時30分», さんぼん → «3本»): oltre alle varianti kana della lettura
-	// attesa, accettiamo anche la forma scritta, derivata dal prompt (così vale
-	// anche nel Misto). Senza questo, pronunce giuste risultavano sbagliate.
+	// Il riconoscitore trascrive le letture come FORMA SCRITTA (さんぼん → «3本»):
+	// per «Conta gli oggetti» accettiamo anche la forma scritta derivata dal
+	// prompt — sicuro perché lì i distrattori sono ALTRI contatori (本/個/杯…),
+	// quindi testo diverso, mai la stessa forma scritta.
+	//
+	// NON facciamo lo stesso per 日/時/分/円 (e per «Che ore sono?»): lì il
+	// distrattore apposta è la lettura "regolare"/senza rendaku sbagliata
+	// (4日 → よんにち invece di よっか, 4時 → よんじ invece di よじ, さんふん
+	// invece di さんぷん) — ma il riconoscitore NORMALIZZA qualunque lettura,
+	// giusta o sbagliata, nella STESSA forma scritta «4日»/«4時»/«3分»: accettare
+	// quella forma validerebbe alla cieca anche la lettura sbagliata (bug
+	// segnalato: yon-nichi/go-nichi accettati per i giorni del mese). Qui il
+	// mancato riconoscimento di una pronuncia corretta è un falso negativo
+	// innocuo (si ritocca), l'accettazione di una sbagliata è un falso
+	// positivo che insegna la lettura sbagliata come giusta: si accetta il
+	// primo rischio, non il secondo.
 	function writtenVariants(q: GeneratedReading): string[] {
 		const out: string[] = [];
-		const p = q.prompt;
-		if (/^[\d,]+(日|時|分|円)$/.test(p)) out.push(p);
-		const clock = p.match(/^(\d+):(\d\d)$/);
-		if (clock) {
-			const h = Number(clock[1]);
-			const m = Number(clock[2]);
-			out.push(m === 0 ? `${h}時` : `${h}時${m}分`);
-			if (m === 30) out.push(`${h}時半`);
-		}
 		const qc = q as GeneratedReading & { count?: number; counterId?: string };
 		if (qc.count && qc.counterId) out.push(`${qc.count}${qc.counterId}`);
 		return out;
@@ -107,12 +111,13 @@
 	// risposta giusta (una pronuncia sbagliata non penalizza: puoi ritentare o toccare).
 	async function speakReadGame(): Promise<void> {
 		if (micState !== 'idle' || picked !== null || !question) return;
+		const myGen = qGen; // il round può cambiare mentre il mic ascolta (async)
 		stopCountdown();
 		micState = 'listening';
 		heard = '';
 		const alts = await listenJapanese();
 		micState = 'idle';
-		if (!question || picked !== null) return;
+		if (myGen !== qGen || !question || picked !== null) return;
 		if (alts.length === 0) { heard = '（何も聞こえませんでした…riprova）'; return; }
 		heard = alts[0]!;
 		const varianti = [...phraseVariants(question.correct), question.correct, ...writtenVariants(question)];
