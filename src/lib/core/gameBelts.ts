@@ -7,8 +7,8 @@
 // - impresa = prestazione magistrale (0 errori, serie ≥12, senza riascolti…)
 // La cintura deriva dai contatori; la nera è 初段, i dan salgono con pulite E
 // imprese fino al 十段 Gran Maestro (cintura ROSSA, come nel karate).
-// «Domato» = gialla (3 partite) o almeno una pulita — conta per il banner in /giochi
-// ed è il requisito degli sblocchi (gameUnlocks).
+// Sblocchi (gameUnlocks) e banner in /giochi: conta avere ALMENO la cintura
+// arancione (1 partita pulita).
 //
 // Le cinture NON bloccano niente: gli sblocchi (solo filiera numeri/tempo)
 // stanno in gameUnlocks.ts. Storage: localStorage (come gli highscore) —
@@ -178,18 +178,24 @@ export function nextDanHint(p: BeltProgress): string | null {
 	return `${next.label}: ancora ${parts.join(' e ')}`;
 }
 
-// «Domato»: gialla (3 partite) o almeno una pulita. Requisito degli sblocchi.
+// Almeno la cintura arancione (1 pulita): requisito degli sblocchi.
 export function conquered(p: BeltProgress): boolean {
-	return p.played >= 3 || p.clean >= 1;
+	return p.clean >= 1;
 }
 
-// Quanti giochi sono domati (per il banner in /giochi).
+// Quanti giochi hanno almeno l'arancione (per il banner in /giochi).
 export function conqueredCount(): number {
 	return BELT_GAMES.filter((g) => conquered(beltProgress(g.id))).length;
 }
 
+// Kanji del dan (初/二/…/十) da mostrare in oro sulla cintura nera/rossa.
+export function danKanji(p: BeltProgress): string | null {
+	const d = danFor(p);
+	return d ? d[0]! : null;
+}
+
 // Registra la fine di una partita (un'impresa è anche pulita). Aggiorna i
-// contatori; salti di cintura/dan, imprese e «domato» finiscono nel toast.
+// contatori; salti di cintura/dan e imprese finiscono nel toast.
 export function recordGameResult(gameId: string, clean: boolean, epic = false): void {
 	if (typeof localStorage === 'undefined') return;
 	const all = readAll();
@@ -197,7 +203,6 @@ export function recordGameResult(gameId: string, clean: boolean, epic = false): 
 	const prev: BeltProgress = raw ? { played: raw.played, clean: raw.clean, epic: raw.epic ?? 0 } : { played: 0, clean: 0, epic: 0 };
 	const prevBelt = beltFor(prev);
 	const prevDan = danFor(prev);
-	const prevConquered = conquered(prev);
 	const next: BeltProgress = {
 		played: prev.played + 1,
 		clean: prev.clean + (clean || epic ? 1 : 0),
@@ -214,10 +219,6 @@ export function recordGameResult(gameId: string, clean: boolean, epic = false): 
 	if (belt !== prevBelt || dan !== prevDan) {
 		const name = belt === 'nera' ? (dan?.includes('十段') ? `ROSSA ${dan}` : `nera ${dan}`) : belt;
 		messages.push(`🥋 Cintura ${name} in ${gameLabel}!`);
-	}
-	if (!prevConquered && conquered(next)) {
-		const g = BELT_GAMES.find((x) => x.id === gameId);
-		if (g) messages.push(`💪 ${g.icon} ${g.label} domato!`);
 	}
 	if (messages.length > 0) appState.beltToast = { messages, at: Date.now() };
 }

@@ -3,8 +3,8 @@
 // morbido: la card velata resta giocabile in anteprima.
 //
 // Regola (insegnante + gamification, «fattibile»): un prerequisito è
-// soddisfatto quando quel gioco è DOMATO — cintura gialla (3 partite)
-// o arancione (1 partita pulita). Costanza o bravura, mai frustrante.
+// soddisfatto con ALMENO la cintura arancione in quel gioco (1 partita
+// pulita). Il requisito è scritto sulla card, mai opaco.
 //
 // Filiera: Ore+Minuti → Che ore sono? → Ascolta l'ora
 //          Giorni del mese → Ascolta la data
@@ -14,7 +14,7 @@
 
 import { beltProgress, conquered, BELT_GAMES } from '$lib/core/gameBelts';
 
-// gioco → prerequisiti (id di BELT_GAMES da «domare»)
+// gioco → prerequisiti (id di BELT_GAMES dove serve almeno l'arancione)
 export const GAME_UNLOCKS: Record<string, string[]> = {
 	'read-clock': ['read-時', 'read-分'],
 	'listen-date': ['read-日'],
@@ -39,8 +39,8 @@ function gameName(id: string): string {
 	return g ? `${g.icon} ${g.label}` : id;
 }
 
-// Testo del requisito per la card velata: solo ciò che manca, col progresso.
-// Es.: «doma ⏰ Ore (2/3 partite, o 1 pulita) e ⏱ Minuti».
+// Testo del requisito per la card velata: solo ciò che manca.
+// Es.: «almeno la cintura arancione (1 partita pulita) in ⏰ Ore e ⏱ Minuti».
 export function unlockHint(gameId: string): string | null {
 	if (gameId === MIX_ID) {
 		return MIX_SECTION.some((id) => !isUnlocked(id)) ? 'apri prima tutti gli altri giochi della sezione' : null;
@@ -49,9 +49,5 @@ export function unlockHint(gameId: string): string | null {
 	if (!reqs) return null;
 	const missing = reqs.filter((id) => !conquered(beltProgress(id)));
 	if (missing.length === 0) return null;
-	const parts = missing.map((id) => {
-		const p = beltProgress(id);
-		return `${gameName(id)} (${p.played}/3 partite, o 1 pulita)`;
-	});
-	return `doma ${parts.join(' e ')}`;
+	return `almeno la cintura arancione (1 partita pulita) in ${missing.map(gameName).join(' e ')}`;
 }

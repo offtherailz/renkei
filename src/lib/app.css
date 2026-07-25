@@ -40,6 +40,7 @@
   --belt-marrone: #7b4a12;
   --belt-nera: #1a1a1a;
   --belt-rossa: #b91c1c;
+  --belt-gold: #d4af37;
   --belt-edge: rgba(14, 29, 51, 0.35);
   color-scheme: light;
 }
@@ -74,6 +75,7 @@
     --belt-bianca: #e9e9e2;
     --belt-nera: #050505;
     --belt-rossa: #dc2626;
+    --belt-gold: #e5c988;
     --belt-edge: rgba(231, 237, 247, 0.4);
     color-scheme: dark;
   }

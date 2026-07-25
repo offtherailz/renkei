@@ -22,7 +22,7 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
-	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
+	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, danKanji, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
 	import BeltIcon from '$lib/components/BeltIcon.svelte';
 	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
@@ -567,7 +567,7 @@
 	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}
 	<span class="cat-belt" class:cat-belt-todo={!label}>
-		<BeltIcon belt={beltVisual(bp)} size={13} />
+		<BeltIcon belt={beltVisual(bp)} size={13} dan={danKanji(bp)} />
 		{#if label}{label} · {nextBeltHint(bp) ?? nextDanHint(bp) ?? 'vetta raggiunta 👑'}{:else}da domare{/if}
 	</span>
 {/snippet}
@@ -591,7 +591,7 @@
 		</label>
 
 		<div class="belt-banner">
-			🥋 <strong>Cinture</strong>: {conqueredCount()}/{BELT_GAMES.length} giochi domati.
+			🥋 <strong>Cinture</strong>: {conqueredCount()}/{BELT_GAMES.length} giochi almeno all'arancione.
 			Guadagna le cinture per sbloccare gli altri giochi —
 			<a href="{base}/guida#cinture">come funzionano →</a>
 		</div>

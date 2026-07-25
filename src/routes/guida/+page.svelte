@@ -57,8 +57,8 @@
 		<p class="page-sub" style="margin:0 0 8px;">
 			Ogni gioco tiene il conto di <strong>partite</strong> (sessioni finite), <strong>pulite</strong>
 			(prestazione quasi perfetta) e <strong>imprese ⚡</strong> (prestazione magistrale).
-			Vale la cintura più alta raggiunta. Un gioco è <strong>domato</strong> con la gialla o
-			l'arancione: è questo che apre i giochi successivi della filiera del tempo.
+			Vale la cintura più alta raggiunta. Con <strong>almeno la cintura arancione</strong>
+			un gioco apre i successivi della filiera del tempo.
 		</p>
 		<ul class="belt-list">
 			<li><BeltIcon belt="bianca" size={15} /> <strong>Bianca</strong> — 1 partita</li>
@@ -68,12 +68,12 @@
 			<li><BeltIcon belt="blu" size={15} /> <strong>Blu</strong> — 4 pulite</li>
 			<li><BeltIcon belt="viola" size={15} /> <strong>Viola</strong> — 6 pulite</li>
 			<li><BeltIcon belt="marrone" size={15} /> <strong>Marrone</strong> — 8 pulite</li>
-			<li><BeltIcon belt="nera" size={15} /> <strong>Nera 初段</strong> — 10 pulite; poi i dan: 二段 15 pulite, 三段 20 + 1 impresa, 四段 25 + 2, 五段 30 + 3, 六段 35 + 4, 七段 40 + 5, 八段 45 + 6, 九段 50 + 8</li>
-			<li><BeltIcon belt="rossa" size={15} /> <strong>Rossa 十段 👑 Gran Maestro</strong> — 60 pulite + 10 imprese, come nella tradizione del karatè</li>
+			<li><BeltIcon belt="nera" size={15} dan="初" /> <strong>Nera 初段</strong> — 10 pulite. Il numero del dan è ricamato in oro sulla cintura (初, 二, 三…): 二段 15 pulite, 三段 20 + 1 impresa ⚡, 四段 25 + 2, 五段 30 + 3, 六段 35 + 4, 七段 40 + 5, 八段 45 + 6, 九段 50 + 8</li>
+			<li><BeltIcon belt="rossa" size={15} dan="十" /> <strong>Rossa 十段 👑 Gran Maestro</strong> — 60 pulite + 10 imprese, come nella tradizione del karatè</li>
 		</ul>
 		<p><strong>Cos'è una «pulita»</strong> — max 1 errore nei giochi a round (dettato, coppie, avverbi, catena, contrazioni, comparazioni, 言い換え, keigo, dì la data, leggi a voce); serie ≥ 5 nei giochi a serie (riordina, shadowing e tutti quelli di Numeri e tempo, cassa, saluti…); tutte giuste nel choukai; accordo senza aiuti in Prendi appuntamento; conversazione perfetta senza aiuti in Relazioni.</p>
 		<p><strong>Cos'è un'«impresa ⚡»</strong> — il gradino sopra: serie ≥ 12, zero errori nei giochi a round, choukai perfetto senza riascolti, accordo senza aiuti in ≤ 3 turni, lo scenario del capo (敬語) perfetto in Relazioni.</p>
-		<p><strong>Sblocchi</strong> — solo la filiera del tempo si apre in ordine (domando i precedenti): 🕐 Ore + ⏱ Minuti → ⏰ Che ore sono? → 🕒 Ascolta l'ora; 📅 Giorni del mese → 📆 Ascolta la data; le due → 🗓️ Data e ora; con 🗣️ Dì la data → 📅 Prendi appuntamento; il 🎲 Misto si apre con tutta la sezione. La card velata dice sempre cosa manca, e il gioco resta provabile 👀.</p>
+		<p><strong>Sblocchi</strong> — solo la filiera del tempo si apre in ordine (con almeno l'arancione nei precedenti): 🕐 Ore + ⏱ Minuti → ⏰ Che ore sono? → 🕒 Ascolta l'ora; 📅 Giorni del mese → 📆 Ascolta la data; le due → 🗓️ Data e ora; con 🗣️ Dì la data → 📅 Prendi appuntamento; il 🎲 Misto si apre con tutta la sezione. La card velata dice sempre cosa manca, e il gioco resta provabile 👀.</p>
 	</section>
 
 	<section class="g-card">
