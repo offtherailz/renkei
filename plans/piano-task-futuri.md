@@ -121,12 +121,12 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   (non serve più la gialla); dan ricamato in oro sulla cintura nera/rossa
   (BeltIcon prop `dan`, font mincho/serif); testi «domare» sostituiti.
 - ✅ (25/07) **Sblocchi giochi**: card velata scrive il requisito
-  (`unlockHint`, es. «cintura arancione in ⏰ Ore e ⏱ Minuti»), gioco
-  REALMENTE bloccato (niente anteprima); tenuto sotto l'easter egg
-  «7 tap veloci» (`forceUnlock` in gameUnlocks.ts, `tapLocked` in /giochi)
-  che scavalca il requisito, stile Android developer mode. (Un giro
-  precedente aveva tolto l'hint per farlo tutto segreto — l'utente ha
-  richiesto di rimettere la spiegazione esplicita sulla card.)
+  (`unlockHint`); il gioco resta SEMPRE giocabile (niente vero blocco).
+  Easter egg «7 tap veloci» (`tapLocked` in /giochi): fa partire quella
+  singola partita ma NON sblocca la card e NON fa guadagnare cintura per
+  quella run (niente `forceUnlock`/persistenza — rimosso dopo il giro
+  precedente che invece rendeva lo sblocco permanente: l'utente voleva
+  "gioca comunque, senza cinture e senza sbloccarlo").
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

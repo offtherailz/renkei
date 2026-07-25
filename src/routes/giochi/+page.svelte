@@ -24,7 +24,7 @@
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import { BELT_GAMES, beltProgress, beltVisual, beltLabel, nextBeltHint, nextDanHint, danKanji, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
 	import BeltIcon from '$lib/components/BeltIcon.svelte';
-	import { isUnlocked, unlockHint, forceUnlock } from '$lib/core/gameUnlocks';
+	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
@@ -490,9 +490,15 @@
 		} else {
 			gameOver = true;
 			if (game) {
-				submitScore(gameId(game), streak);
-				// cinture: partita = serie chiusa; pulita = serie ≥5; impresa = serie ≥12
-				recordGameResult(gameId(game), streak >= 5, streak >= 12);
+				const id = gameId(game);
+				submitScore(id, streak);
+				// trucco 7-tap: questa partita non conta per le cinture (consumato una volta)
+				if (beltlessRuns.delete(id)) {
+					/* niente recordGameResult */
+				} else {
+					// cinture: partita = serie chiusa; pulita = serie ≥5; impresa = serie ≥12
+					recordGameResult(id, streak >= 5, streak >= 12);
+				}
 			}
 		}
 	}
@@ -562,23 +568,25 @@
 	});
 
 
-	// ── Trucco «7 tap veloci» per sbloccare una card bloccata ──
-	let unlockBump = $state(0);
+	// ── Trucco «7 tap veloci»: gioca UNA volta un gioco bloccato, senza
+	// sbloccarlo davvero e senza guadagnare cintura per quella partita. La
+	// card resta bloccata al giro dopo (niente forceUnlock/persistenza).
 	const tapState: Record<string, { count: number; last: number }> = {};
 	const TAP_WINDOW_MS = 700;
 	const TAPS_NEEDED = 7;
+	// giochi in-page in corso «senza cintura» per il trucco: registerResult
+	// li consuma (rimuove) e salta recordGameResult per quella partita.
+	const beltlessRuns = new Set<string>();
 
 	function unlockedNow(id: string): boolean {
-		void unlockBump; // dipendenza reattiva: ricalcola dopo un force-unlock
 		return isUnlocked(id);
 	}
 
-	// Ritorna true se il tocco deve procedere normalmente (già sbloccato).
-	// Se bloccato, intercetta il tocco e conta la sequenza rapida.
+	// Ritorna true se il tocco deve procedere normalmente (già sbloccato, o
+	// 7° tocco: gioca comunque ma senza cintura). Se bloccato, intercetta il
+	// tocco e conta la sequenza rapida.
 	function tapLocked(id: string, e: Event): boolean {
 		if (unlockedNow(id)) return true;
-		e.preventDefault();
-		e.stopPropagation();
 		const now = Date.now();
 		const st = tapState[id] ?? { count: 0, last: 0 };
 		if (now - st.last > TAP_WINDOW_MS) st.count = 0;
@@ -586,20 +594,20 @@
 		st.last = now;
 		tapState[id] = st;
 		if (st.count >= TAPS_NEEDED) {
-			forceUnlock(id);
 			tapState[id] = { count: 0, last: 0 };
-			unlockBump += 1;
+			beltlessRuns.add(id);
+			if (id === 'appuntamento') {
+				try { sessionStorage.setItem('renkei_beltless_appuntamento', '1'); } catch { /* storage non disponibile */ }
+			}
+			return true;
 		}
+		e.preventDefault();
+		e.stopPropagation();
 		return false;
 	}
 
 </script>
 
-<!--
-	Trucco nascosto (nessun testo lo spiega): toccare 7 volte veloci una card
-	bloccata la sblocca subito, scavalcando il requisito — come i "7 tap" per
-	gli sviluppatori Android.
--->
 {#snippet beltChip(id: string)}
 	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}

@@ -318,7 +318,13 @@
 		best = getHighscore('appuntamento');
 		gamesPlayed += 1;
 		scene = 'done';
-		recordGameResult('appuntamento', hintsUsed === 0, hintsUsed === 0 && turns <= 3);
+		// trucco 7-tap in /giochi (card bloccata): questa partita non conta per le cinture
+		let beltless = false;
+		try {
+			beltless = sessionStorage.getItem('renkei_beltless_appuntamento') === '1';
+			if (beltless) sessionStorage.removeItem('renkei_beltless_appuntamento');
+		} catch { /* storage non disponibile */ }
+		if (!beltless) recordGameResult('appuntamento', hintsUsed === 0, hintsUsed === 0 && turns <= 3);
 	}
 
 	// ── Hint 💡: 1=lettura(furigana via TTS ripetuto), 2=traduzione it, 3=evidenzia calendario ──

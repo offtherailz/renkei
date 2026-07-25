@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { isUnlocked, unlockHint, forceUnlock } from './gameUnlocks';
+import { isUnlocked, unlockHint } from './gameUnlocks';
 import { recordGameResult } from './gameBelts';
 
 // Ambiente node "puro" (niente jsdom): niente localStorage globale — le altre
 // suite non ne hanno mai avuto bisogno perché testano solo funzioni pure.
-// Qui serve davvero (isUnlocked/forceUnlock leggono/scrivono storage), quindi
-// un finto minimale basta a coprire get/set/clear.
+// Qui serve davvero (isUnlocked legge i progressi da gameBelts), quindi un
+// finto minimale basta a coprire get/set/clear.
 function fakeLocalStorage(): Storage {
 	const store = new Map<string, string>();
 	return {
@@ -37,17 +37,6 @@ describe('isUnlocked', () => {
 		expect(isUnlocked('read-clock')).toBe(true);
 	});
 
-	it('forceUnlock scavalca il requisito (il trucco a 7 tap)', () => {
-		expect(isUnlocked('read-clock')).toBe(false);
-		forceUnlock('read-clock');
-		expect(isUnlocked('read-clock')).toBe(true);
-	});
-
-	it('forceUnlock è permanente e non duplica le voci salvate', () => {
-		forceUnlock('appuntamento');
-		forceUnlock('appuntamento');
-		expect(isUnlocked('appuntamento')).toBe(true);
-	});
 });
 
 describe('unlockHint', () => {
