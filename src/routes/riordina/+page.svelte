@@ -4,6 +4,7 @@
 	import { db } from '$lib/db/schema';
 	import { detectUserLocale, pickLocalizedText } from '$lib/core/i18n';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { isFormEnumeration } from '$lib/core/sentenceFilters';
 	import { createDefaultTokenizer, type JapaneseTokenizer } from '$lib/core/tokenizer';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
@@ -65,6 +66,7 @@
 			const plain = stripFuriganaNotation(testo);
 			if (plain.length < 8 || plain.length > 22) return;
 			if (/[A-Za-z0-9０-９]/.test(plain)) return;
+			if (isFormEnumeration(plain)) return; // elenchi di forme: niente ordine vero
 			if (seen.has(plain)) return;
 			seen.add(plain);
 			const hint = trad ? pickLocalizedText(trad as { it: string; en: string }, locale) : '';

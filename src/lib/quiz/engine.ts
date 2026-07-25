@@ -2,6 +2,7 @@ import { pickLocalizedArray, pickLocalizedText } from "../core/i18n";
 import { createDefaultTokenizer } from "../core/tokenizer";
 import { renderFuriganaToHtml, FIRST_KANJI_REGEX } from "../core/furigana";
 import { stripFuriganaNotation } from "../core/furigana";
+import { isFormEnumeration } from "../core/sentenceFilters";
 import { BLANKABLE_PARTICLES, blankParticleAt, CONFUSABLE_PARTICLES, findParticles } from "../core/particles";
 import { buildConjugationQuestions, buildVerbTable, buildAdjectiveTable, detectVerbClass, detectAdjectiveType } from "../core/conjugation";
 import { findConjugatedForm, USAGE_BLANK, blankSentence, pickOccurrenceIndex } from "../core/usage";
@@ -37,7 +38,7 @@ import type {
 
 const FURIGANA_SEGMENT_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
 const NON_ORDERING_GRAMMAR_MARKER_REGEX =
-  /(意向形|辞書形|ます形|て形|ない形|た形|命令形|可能形|受身形|受け身形|使役|条件形|仮定形|連用形|終止形|未然形|活用|語幹|原形|丁寧形)/;
+  /(意向形|辞書形|ます形|て形|ない形|た形|命令形|禁止形|可能形|受身形|受け身形|使役|条件形|仮定形|連用形|終止形|未然形|活用|語幹|原形|丁寧形)/;
 const SENTENCE_CONTEXT_HINT_REGEX = /[はがをにでとへもやの]|。|、|！|？/;
 const GRAMMAR_STRUCTURE_SPLIT_REGEX = /[\s/／・、,()（）「」『』【】]+/;
 
@@ -346,6 +347,11 @@ async function canCreateSentenceOrderingQuestion(source: ClozeSource): Promise<b
 
   // Skip ordering prompts for conjugation/form labels where there is no meaningful token order.
   if (NON_ORDERING_GRAMMAR_MARKER_REGEX.test(plainSentence) || NON_ORDERING_GRAMMAR_MARKER_REGEX.test(grammarStructure)) {
+    return false;
+  }
+
+  // Elenchi di forme (飲むな、食べるな…): niente ordine da ricostruire.
+  if (isFormEnumeration(plainSentence)) {
     return false;
   }
 

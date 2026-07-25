@@ -14,6 +14,7 @@
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import { renderFuriganaToHtml, stripFuriganaNotation } from '$lib/core/furigana';
+	import { isFormEnumeration } from '$lib/core/sentenceFilters';
 	import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
 	import {
 		createFlashcardProductionQuestion,
@@ -333,7 +334,9 @@
 
 		const entry = context.grammarById.get(ref.key.replace('grammar:', ''));
 		if (!entry || entry.frasi_esempio.length === 0) return null;
-		const example = sample(entry.frasi_esempio);
+		// via gli esempi-elenco (飲むな、食べるな…): buoni per la scheda, non per le domande
+		const usable = entry.frasi_esempio.filter((ex) => !isFormEnumeration(stripFuriganaNotation(ex.testo)));
+		const example = sample(usable.length > 0 ? usable : entry.frasi_esempio);
 		return createGrammarQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context, locale);
 	}
 
