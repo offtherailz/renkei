@@ -128,6 +128,15 @@
 		}
 	}
 
+	// Uscire con «← Giochi» a metà quiz perdeva la cintura: si registrava
+	// solo a fine sessione. Valuta sulle domande DAVVERO fatte finora.
+	function leaveEarly(): void {
+		if (scene !== 'quiz' || !run) return;
+		const attempted = qPicked !== null ? qIdx + 1 : qIdx;
+		if (attempted === 0) return;
+		recordGameResult('choukai', score === attempted, score === attempted && listens <= 1);
+	}
+
 	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.
 	// Se eri su una domanda senza risposta, il timer riparte da capo.
 	export const snapshot = gameSnapshot(
@@ -144,7 +153,7 @@
 
 <div class="choukai">
 	<div class="nav">
-		<a class="back" href="{base}/giochi">← Giochi</a>
+		<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 		{#if scene !== 'level'}
 			<span class="lvl-chip">{level} · 聴解</span>
 		{/if}

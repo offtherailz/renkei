@@ -136,11 +136,18 @@
 			recordGameResult('riordina', streak >= 5, streak >= 12);
 		}
 	}
+
+	// Uscire con «← Giochi» con una serie viva perdeva la cintura: si
+	// registrava solo al primo errore (qui non c'è un "fine sessione").
+	function leaveEarly(): void {
+		if (scene !== 'play') return;
+		recordGameResult('riordina', streak >= 5, streak >= 12);
+	}
 </script>
 
 <div class="riordina">
 	<div class="nav">
-		<a class="back" href="{base}/giochi">← Giochi</a>
+		<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 		{#if scene !== 'level'}
 			<span class="lvl-chip">{level} · Serie: <strong>{streak}</strong> · 🏆 {best}</span>
 		{/if}

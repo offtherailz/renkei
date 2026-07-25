@@ -169,6 +169,30 @@ scarni (bug segnalato: «voce distorta» in Mani libere). Portato alla stessa
 scala già collaudata in `voiceParams()` (max ±18%): ora alterna 1 / 0.88,
 mai verso l'alto.
 
+### Cinture: uscire da un gioco a metà ora accredita sempre qualcosa (25/07)
+
+Audit completo (richiesto dall'utente) su TUTTI i 16 giochi con cintura
+propria fuori da `/giochi`: il link «← Giochi» era ovunque un `<a href>`
+semplice, senza handler — uscire a metà sessione (indietro o link) non
+registrava MAI `recordGameResult`, solo a fine sessione naturale. Stesso
+bug già fissato in `/giochi` (`quitInternal`) esteso qui con `leaveEarly()`
+per tipo di gioco:
+- **A round fissi** (avverbi, catena, contrazioni, coppie, dettato,
+  di-la-data, iikae, keigo, comparazioni, leggi-a-voce, certezza): valuta
+  sui round DAVVERO tentati finora (non sul totale previsto, mai raggiunto
+  se si esce prima) — `attempted = <segnale risposta-data> ? idx+1 : idx`,
+  poi stessa soglia pulita/impresa della fine naturale ma con `attempted`
+  al posto di `rounds.length`. Il "segnale risposta data" varia per file:
+  `picked`/`answered`/`outcome`/`roundOver()` (catena, due passi).
+- **A serie infinita** (riordina, shadowing): nessuna "fine naturale" tranne
+  il primo errore — si accredita la serie/`best` corrente al momento
+  dell'uscita, stessa soglia di sempre.
+- **choukai**: come sopra ma sulle domande (`qIdx`/`qPicked`).
+- **Negoziazione/conversazione aperte** (appuntamento, relazioni): niente
+  punteggio parziale pulito da valutare — si accredita solo la partita
+  (`recordGameResult(id, false, false)`) sia dal link esterno sia dal
+  bottone «← Esci» interno (`quit()`), che già esisteva ma non registrava.
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:

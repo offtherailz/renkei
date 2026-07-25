@@ -252,6 +252,14 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   era disallineata da `IRREGULAR_DAYS` di counterGen.ts (mancavano 14/24) e
   Xにち non era bloccata per i 13 giorni a lettura nativa esclusiva →
   `DAY_NATIVE_ONLY` blocca la conversione regolare per questi.
+- ✅ (25/07) **Audit uscite — tutti i 16 giochi con cintura propria**
+  (richiesta utente «verifica che le vie di uscita siano sempre seguite
+  dall'opportuna ricompensa»): stesso bug di shadowing/leggi-a-voce su
+  avverbi, catena, contrazioni, coppie, dettato, di-la-data, iikae, keigo,
+  comparazioni, certezza, choukai, riordina, appuntamento, relazioni —
+  `leaveEarly()` per tipo (round fissi: valuta su round tentati finora;
+  serie infinita: streak/best corrente; negoziazione aperta: solo partita,
+  niente clean/epic parziale). Dettaglio in ARCHITECTURE.md.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

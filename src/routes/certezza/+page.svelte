@@ -81,10 +81,20 @@
 			recordGameResult('certezza', correctCount === rounds.length && hintsUsed === 0, correctCount === rounds.length && hintsUsed === 0);
 		}
 	}
+
+	// Uscire con «← Giochi» a metà serie perdeva la cintura: si registrava
+	// solo a fine sessione. Valuta sui round DAVVERO fatti finora.
+	function leaveEarly(): void {
+		if (scene !== 'play') return;
+		const attempted = picked !== null ? idx + 1 : idx;
+		if (attempted === 0) return;
+		const clean = correctCount === attempted && hintsUsed === 0;
+		recordGameResult('certezza', clean, clean);
+	}
 </script>
 
 <div class="cert">
-	<a class="back" href="{base}/giochi">← Giochi</a>
+	<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 
 	{#if scene === 'intro'}
 		<article class="scene">

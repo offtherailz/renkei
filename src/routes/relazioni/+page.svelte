@@ -123,8 +123,16 @@
 	}
 
 	function quit(): void {
+		// uscire a metà conversazione (Esci) perdeva la cintura: si registrava
+		// solo a conversazione conclusa. Qui non c'è un punteggio "parziale"
+		// pulito da valutare — si accredita solo la partita.
+		if (scene === 'play') recordGameResult('relazioni', false, false);
 		scenario = null;
 		scene = 'pick';
+	}
+
+	function leaveEarly(): void {
+		if (scene === 'play') recordGameResult('relazioni', false, false);
 	}
 
 	// L'utente sceglie un'opzione (bottone o mic). Registra correttezza,
@@ -200,7 +208,7 @@
 
 <div class="relazioni">
 	<div class="nav">
-		<a class="back" href="{base}/giochi">← Giochi</a>
+		<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 		{#if dialog.length > 0}
 			<button class="script-toggle" onclick={() => (showScript = !showScript)}>📜 Copione ({dialog.length})</button>
 		{/if}

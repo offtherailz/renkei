@@ -178,8 +178,16 @@
 	}
 
 	function quit(): void {
+		// uscire a metà negoziazione (Esci) perdeva la cintura: si registrava
+		// solo a trattativa conclusa. Qui non c'è un punteggio "parziale" pulito
+		// da valutare (negoziazione aperta) — si accredita solo la partita.
+		if (scene === 'play') recordGameResult('appuntamento', false, false);
 		scenario = null;
 		scene = 'pick';
+	}
+
+	function leaveEarly(): void {
+		if (scene === 'play') recordGameResult('appuntamento', false, false);
 	}
 
 	// Traduzioni it per le battute NPC (per l'hint di 2° livello): tenute qui
@@ -363,7 +371,7 @@
 
 <div class="appt">
 	<div class="nav">
-		<a class="back" href="{base}/giochi">← Giochi</a>
+		<a class="back" href="{base}/giochi" onclick={leaveEarly}>← Giochi</a>
 		{#if dialog.length > 0}
 			<button class="script-toggle" onclick={() => (showScript = !showScript)}>📜 Copione ({dialog.length})</button>
 		{/if}
