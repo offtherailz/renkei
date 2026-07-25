@@ -473,6 +473,7 @@
 		const card = introCard;
 		if (!card) return;
 		introCard = null;
+		appState.pendingIntroRef = null;
 		// riprende il timer di sessione congelato durante la scheda
 		if (session?.pausedAt) {
 			session.deadlineAt += Date.now() - session.pausedAt;
@@ -595,6 +596,7 @@
 			if (card) {
 				introduced.add(next.key);
 				introCard = card;
+				appState.pendingIntroRef = next;
 				stopAnswerTimer();
 				// il tempo sulla scheda è gratis: congela il timer di sessione
 				if (!session.pausedAt) session.pausedAt = Date.now();
@@ -656,6 +658,7 @@
 	}
 
 	function endSession(): void {
+		appState.pendingIntroRef = null;
 		if (!session) return;
 		// una sessione «ripasso deboli» completata spunta la voce nel piano di oggi
 		if (session.weak && session.answers > 0) markWeakDoneToday();
@@ -1094,6 +1097,9 @@
 	beforeNavigate((nav) => {
 		if (!session || nav.type === 'leave') return;
 		if (nav.to?.url.pathname.endsWith('/approfondisci')) return;
+		// dalla scheda di presentazione alla scheda completa: niente popup,
+		// al ritorno si riparte dalla stessa presentazione
+		if (introCard && nav.to?.url.pathname.includes('/detail/')) return;
 		if (!window.confirm('Uscire dalla sessione di studio? I progressi restano salvati.')) {
 			nav.cancel();
 		}
@@ -1472,6 +1478,18 @@
 					session = existing;
 					phase = 'quiz';
 					startTimer();
+					// tornati dalla scheda completa di una carta nuova: rimostra la
+					// SUA scheda introduttiva (come Approfondisci), non la prossima.
+					const pendingIntro = appState.pendingIntroRef;
+					if (pendingIntro) {
+						const card = buildIntroCard(pendingIntro);
+						if (card) {
+							introduced.add(pendingIntro.key);
+							introCard = card;
+							if (!session.pausedAt) session.pausedAt = Date.now();
+							return;
+						}
+					}
 					await advanceToNext();
 					return;
 				}

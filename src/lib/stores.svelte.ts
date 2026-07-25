@@ -87,7 +87,10 @@ export const appState = $state({
 	// però alla navigazione verso «🔍 Approfondisci» e ritorno (SPA, stesso store).
 	quizMuted: false,
 	// Celebrazione cinture/sblocchi (gameBelts): il layout la mostra e la azzera.
-	beltToast: null as { messages: string[]; at: number } | null
+	beltToast: null as { messages: string[]; at: number } | null,
+	// Scheda di presentazione carta nuova aperta: se l'utente va alla scheda
+	// completa (/detail) e torna, il quiz rimostra QUESTA intro, non la domanda.
+	pendingIntroRef: null as ItemRef | null
 });
 
 export interface DeepDiveItem {
