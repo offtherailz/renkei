@@ -92,11 +92,21 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `gameBelts.ts` (bianca→nera+dan su {partite, pulite}, criteri per-gioco da
   insegnante), `recordGameResult` in 15 giochi, toast globale (layout+appState),
   UI /giochi (banner X/15, chip cintura), guida+ARCHITECTURE.
-- ✅ (25/07) **Sblocchi ridisegnati su feedback utente**: via il percorso a catena
-  (bloccava troppo e in modo opaco) → `gameUnlocks.ts`, solo filiera tempo:
-  Ore+Minuti(serie 5)→Che ore sono?; +Giorni del mese→Data e ora (listen-appt
-  RINOMINATO da «Appuntamento»); +Dì la data(1 pulita)→Prendi appuntamento.
-  Requisito esplicito col progresso sulla card velata, sempre provabile 👀.
+- ✅ (25/07) **Sblocchi ridisegnati su feedback utente** (2 giri): via il percorso
+  a catena → `gameUnlocks.ts`, solo filiera tempo, regola «domato» (gialla 3
+  partite o arancione 1 pulita): Ore+Minuti→Che ore sono?→Ascolta l'ora;
+  Giorni→Ascolta la data; entrambe→Data e ora (listen-appt RINOMINATO);
+  +Dì la data→Prendi appuntamento; Misto con tutta la sezione. «Ascolta la
+  data/l'ora» = giochi nuovi (generateAppointment(part)). Requisito esplicito
+  col progresso sulla card velata, sempre provabile 👀.
+- ✅ (25/07) **Cinture v2**: scala karate completa (+viola), dan fino a 十段 👑
+  Gran Maestro, cinture DISEGNATE (BeltIcon.svelte + token --belt-* in app.css),
+  cinture anche sui giochi in-page (registerResult → recordGameResult, 30 giochi).
+  Sezioni /giochi riorganizzate: «Numeri e tempo» (con Scrivi il numero),
+  «Parla» (Dì la data, Leggi a voce, Shadowing), «Grammatica e parole» +
+  «Lettura» (split di «Lettura e frasi»), Dettato in «Ascolta e agisci».
+- ✅ (25/07) **Fix leggi-a-voce**: ほうがいい trascritto 方がいい dal riconoscitore
+  ora combacia; diff sul candidato giusto.
 - 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
   nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
   cinture in /stats; migrare i record locali di riordina/skimming a gameScores.

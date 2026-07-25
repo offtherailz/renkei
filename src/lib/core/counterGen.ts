@@ -227,13 +227,19 @@ export interface Appointment {
 	reading: string;
 }
 
-export function generateAppointment(): Appointment {
+// part: 'date' = solo mese+giorno, 'time' = solo ora+minuti, 'full' = tutto.
+// I campi non richiesti restano generati ma non entrano nella lettura.
+export type AppointmentPart = 'date' | 'time' | 'full';
+
+export function generateAppointment(part: AppointmentPart = 'full'): Appointment {
 	const month = 1 + RAND(12);
 	const day = 1 + RAND(31);
 	const hour = 1 + RAND(12);
 	const minute = APPT_MINUTES[RAND(APPT_MINUTES.length)]!;
 	const minPart = minute === 0 ? '' : minute === 30 ? 'はん' : minuteReading(minute);
-	const reading = `${monthReading(month)}${dayReading(day)}の${hourReading(hour)}${minPart}`;
+	const datePart = `${monthReading(month)}${dayReading(day)}`;
+	const timePart = `${hourReading(hour)}${minPart}`;
+	const reading = part === 'date' ? datePart : part === 'time' ? timePart : `${datePart}の${timePart}`;
 	return { month, day, hour, minute, reading };
 }
 

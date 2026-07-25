@@ -11,7 +11,8 @@
 		generateAppointment,
 		YEN_DENOMINATIONS,
 		type GeneratedReading,
-		type Appointment
+		type Appointment,
+		type AppointmentPart
 	} from '$lib/core/counterGen';
 	import { generateCountObjects } from '$lib/quiz/engine';
 	import { readCounterN } from '$lib/core/counterReadings';
@@ -21,7 +22,8 @@
 	import { voiceParams, primeVoices, opposite, type Gender } from '$lib/core/voices';
 	import { appState } from '$lib/stores.svelte';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
-	import { GAME_PATH, beltProgress, beltLabel, nextBeltHint, conqueredCount } from '$lib/core/gameBelts';
+	import { BELT_GAMES, beltProgress, beltFor, beltLabel, nextBeltHint, conqueredCount, recordGameResult } from '$lib/core/gameBelts';
+	import BeltIcon from '$lib/components/BeltIcon.svelte';
 	import { isUnlocked, unlockHint } from '$lib/core/gameUnlocks';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import { shuffle } from '$lib/core/gameKit';
@@ -57,7 +59,7 @@
 	] as const;
 
 	type ReadId = (typeof READ_GAMES)[number]['id'];
-	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt' } | { kind: 'shopping' } | { kind: 'greet' } | { kind: 'order' } | null;
+	type Game = { kind: 'read'; cat: ReadId } | { kind: 'listen' } | { kind: 'shop' } | { kind: 'appt'; part: AppointmentPart } | { kind: 'shopping' } | { kind: 'greet' } | { kind: 'order' } | null;
 
 	let counters = $state<Counter[]>([]);
 	onMount(async () => { primeVoices(); canSpeak = speechAvailable(); counters = await db.counters.toArray(); });
@@ -215,7 +217,7 @@
 	function gameId(g: NonNullable<Game>): string {
 		if (g.kind === 'read') return `read-${g.cat}`;
 		if (g.kind === 'shop') return 'shop-pay';
-		if (g.kind === 'appt') return 'listen-appt';
+		if (g.kind === 'appt') return g.part === 'date' ? 'listen-date' : g.part === 'time' ? 'listen-time' : 'listen-appt';
 		if (g.kind === 'shopping') return 'shopping-list';
 		if (g.kind === 'greet') return 'greetings';
 		if (g.kind === 'order') return 'konbini-order';
@@ -275,12 +277,13 @@
 		armAfterAudio(speakGenderAsync(shopPhrase, opposite(userGender())), TIMER_SECONDS.shop!);
 	}
 
-	function newAppt(): void {
+	function newAppt(part: AppointmentPart): void {
 		qGen += 1;
-		appt = generateAppointment();
+		appt = generateAppointment(part);
 		apptIn = { month: '', day: '', hour: '', minute: '' };
 		checked = false;
-		armAfterAudio(speakSentenceJapaneseAsync(appt.reading), TIMER_SECONDS.appt!);
+		// solo data o solo ora: metà informazione, metà tempo
+		armAfterAudio(speakSentenceJapaneseAsync(appt.reading), part === 'full' ? TIMER_SECONDS.appt! : 12);
 	}
 
 	function start(g: NonNullable<Game>): void {
@@ -294,7 +297,7 @@
 		gameOver = false;
 		if (g.kind === 'read') newReadQuestion(g.cat);
 		else if (g.kind === 'shop') newShop();
-		else if (g.kind === 'appt') newAppt();
+		else if (g.kind === 'appt') newAppt(g.part);
 		else if (g.kind === 'shopping') newShopping();
 		else if (g.kind === 'greet') newGreet();
 		else if (g.kind === 'order') newOrder();
@@ -302,16 +305,16 @@
 	}
 
 	function checkAppt(): void {
-		if (checked || !appt) return;
+		if (checked || !appt || game?.kind !== 'appt') return;
+		const part = game.part;
 		const asNum = (s: string) => Number(s.replace(/[^\d]/g, ''));
-		if ([apptIn.month, apptIn.day, apptIn.hour, apptIn.minute].some((v) => v.trim() === '')) return;
+		const needed = part === 'date' ? [apptIn.month, apptIn.day] : part === 'time' ? [apptIn.hour, apptIn.minute] : [apptIn.month, apptIn.day, apptIn.hour, apptIn.minute];
+		if (needed.some((v) => v.trim() === '')) return;
 		stopCountdown();
 		checked = true;
-		const ok =
-			asNum(apptIn.month) === appt.month &&
-			asNum(apptIn.day) === appt.day &&
-			asNum(apptIn.hour) === appt.hour &&
-			asNum(apptIn.minute) === appt.minute;
+		const dateOk = asNum(apptIn.month) === appt.month && asNum(apptIn.day) === appt.day;
+		const timeOk = asNum(apptIn.hour) === appt.hour && asNum(apptIn.minute) === appt.minute;
+		const ok = part === 'date' ? dateOk : part === 'time' ? timeOk : dateOk && timeOk;
 		if (!ok) {
 			const intro = ['ざんねん、', 'ちがうよ、', 'おしい！', 'ちがう、こたえは'];
 			speakSentenceJapanese(intro[Math.floor(Math.random() * intro.length)] + appt.reading + 'だよ。');
@@ -486,7 +489,11 @@
 			if (streak > best) { best = streak; isRecord = true; }
 		} else {
 			gameOver = true;
-			if (game) submitScore(gameId(game), streak);
+			if (game) {
+				submitScore(gameId(game), streak);
+				// cinture: partita = serie chiusa; pulita = serie ≥5
+				recordGameResult(gameId(game), streak >= 5);
+			}
 		}
 	}
 
@@ -511,7 +518,7 @@
 		if (game.kind === 'order') { advanceOrder(); return; }
 		if (game.kind === 'read') newReadQuestion(game.cat);
 		else if (game.kind === 'shop') newShop();
-		else if (game.kind === 'appt') newAppt();
+		else if (game.kind === 'appt') newAppt(game.part);
 		else if (game.kind === 'shopping') newShopping();
 		else if (game.kind === 'greet') newGreet();
 		else newDictation();
@@ -557,12 +564,12 @@
 </script>
 
 {#snippet beltChip(id: string)}
+	{@const bp = beltProgress(id)}
 	{@const label = beltLabel(id)}
-	{#if label}
-		<span class="cat-belt">🥋 {label} · {nextBeltHint(beltProgress(id)) ?? 'sali di dan con le pulite'}</span>
-	{:else}
-		<span class="cat-belt cat-belt-todo">🥋 da domare</span>
-	{/if}
+	<span class="cat-belt" class:cat-belt-todo={!label}>
+		<BeltIcon belt={beltFor(bp)} size={13} />
+		{#if label}{label} · {nextBeltHint(bp) ?? 'sali di dan con le pulite'}{:else}da domare{/if}
+	</span>
 {/snippet}
 
 {#snippet unlockChip(id: string)}
@@ -584,14 +591,15 @@
 		</label>
 
 		<div class="belt-banner">
-			🥋 <strong>Cinture</strong>: {conqueredCount()}/{GAME_PATH.length} giochi domati.
-			Ogni gioco dà cinture come nel karatè (bianca → nera, poi i dan): le partite contano,
-			le prestazioni pulite di più. Solo la filiera del tempo si sblocca in ordine
-			(Ore+Minuti → Che ore sono? → Data e ora → Prendi appuntamento): il requisito è
-			scritto sulla card, e i giochi velati restano provabili.
+			🥋 <strong>Cinture</strong>: {conqueredCount()}/{BELT_GAMES.length} giochi domati.
+			Ogni gioco dà le cinture del karatè (bianca → gialla → arancione → verde → blu →
+			viola → marrone → nera, poi i dan fino a 十段 Gran Maestro): le partite contano,
+			le prestazioni pulite di più. Un gioco è <strong>domato</strong> con la gialla
+			(3 partite) o l'arancione (1 pulita). Solo la filiera del tempo si sblocca in
+			ordine: il requisito è scritto sulla card, e i giochi velati restano provabili.
 		</div>
 
-		<p class="group-title">Leggi come si pronuncia</p>
+		<p class="group-title">Numeri e tempo</p>
 		<div class="cat-grid">
 			{#each READ_GAMES as g}
 				<button class="cat-card" class:belt-locked={!isUnlocked(`read-${g.id}`)} onclick={() => start({ kind: 'read', cat: g.id })}>
@@ -599,184 +607,215 @@
 					<span class="cat-label">{g.label}</span>
 					<span class="cat-hint">{g.hint}</span>
 					<span class="cat-best">🏆 record: {getHighscore(`read-${g.id}`)}</span>
+					{@render beltChip(`read-${g.id}`)}
 					{@render unlockChip(`read-${g.id}`)}
 				</button>
 			{/each}
-			<a class="cat-card" href="{base}/di-la-data">
-				<span class="cat-icon">🗣️</span>
-				<span class="cat-label">Dì la data <span class="cat-beta">beta</span></span>
-				<span class="cat-hint">la data è scritta: leggila TU a voce (9日 = ここのか!)</span>
-			{@render beltChip('di-la-data')}
-				</a>
-		</div>
-
-		<p class="group-title">Ascolta e agisci</p>
-		<div class="cat-grid">
 			<button class="cat-card" onclick={() => start({ kind: 'listen' })}>
 				<span class="cat-icon">👂</span>
 				<span class="cat-label">Scrivi il numero</span>
 				<span class="cat-hint">senti la lettura, digita le cifre</span>
 				<span class="cat-best">🏆 record: {getHighscore('listen-number')}</span>
+				{@render beltChip('listen-number')}
 			</button>
+			<button class="cat-card" class:belt-locked={!isUnlocked('listen-date')} onclick={() => start({ kind: 'appt', part: 'date' })}>
+				<span class="cat-icon">📆</span>
+				<span class="cat-label">Ascolta la data</span>
+				<span class="cat-hint">senti la data (3月9日), segnala sul calendario</span>
+				<span class="cat-best">🏆 record: {getHighscore('listen-date')}</span>
+				{@render beltChip('listen-date')}
+				{@render unlockChip('listen-date')}
+			</button>
+			<button class="cat-card" class:belt-locked={!isUnlocked('listen-time')} onclick={() => start({ kind: 'appt', part: 'time' })}>
+				<span class="cat-icon">🕒</span>
+				<span class="cat-label">Ascolta l'ora</span>
+				<span class="cat-hint">senti l'ora (4時半), imposta l'orologio</span>
+				<span class="cat-best">🏆 record: {getHighscore('listen-time')}</span>
+				{@render beltChip('listen-time')}
+				{@render unlockChip('listen-time')}
+			</button>
+			<button class="cat-card" class:belt-locked={!isUnlocked('listen-appt')} onclick={() => start({ kind: 'appt', part: 'full' })}>
+				<span class="cat-icon">🗓️</span>
+				<span class="cat-label">Data e ora</span>
+				<span class="cat-hint">senti data e ora insieme, segnala sull'agenda</span>
+				<span class="cat-best">🏆 record: {getHighscore('listen-appt')}</span>
+				{@render beltChip('listen-appt')}
+				{@render unlockChip('listen-appt')}
+			</button>
+		</div>
+
+		<p class="group-title">Ascolta e agisci</p>
+		<div class="cat-grid">
 			<button class="cat-card" onclick={() => start({ kind: 'shop' })}>
 				<span class="cat-icon">🛒</span>
 				<span class="cat-label">Alla cassa</span>
 				<span class="cat-hint">il commesso dice il totale: paga esatto</span>
 				<span class="cat-best">🏆 record: {getHighscore('shop-pay')}</span>
-			</button>
-			<button class="cat-card" class:belt-locked={!isUnlocked('listen-appt')} onclick={() => start({ kind: 'appt' })}>
-				<span class="cat-icon">🗓️</span>
-				<span class="cat-label">Data e ora</span>
-				<span class="cat-hint">senti data e ora, segnala sull'agenda</span>
-				<span class="cat-best">🏆 record: {getHighscore('listen-appt')}</span>
-				{@render unlockChip('listen-appt')}
+				{@render beltChip('shop-pay')}
 			</button>
 			<button class="cat-card" onclick={() => start({ kind: 'shopping' })}>
 				<span class="cat-icon">🛍️</span>
 				<span class="cat-label">Lista della spesa</span>
 				<span class="cat-hint">senti cosa prendere e riempi il carrello</span>
 				<span class="cat-best">🏆 record: {getHighscore('shopping-list')}</span>
+				{@render beltChip('shopping-list')}
 			</button>
 			<a class="cat-card" href="{base}/choukai">
 				<span class="cat-icon">👂</span>
 				<span class="cat-label">聴解 — Ascolto trappola</span>
 				<span class="cat-hint">dialoghi stile JLPT: cambiano idea, tu non cascarci</span>
-			{@render beltChip('choukai')}
-				</a>
+				{@render beltChip('choukai')}
+			</a>
+			<a class="cat-card" href="{base}/dettato">
+				<span class="cat-icon">✍️</span>
+				<span class="cat-label">Dettato <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">ascolta e ricomponi la frase, pezzo per pezzo</span>
+				{@render beltChip('dettato')}
+			</a>
+		</div>
+
+		<p class="group-title">Parla</p>
+		<div class="cat-grid">
+			<a class="cat-card" href="{base}/di-la-data">
+				<span class="cat-icon">🗣️</span>
+				<span class="cat-label">Dì la data <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">la data è scritta: leggila TU a voce (9日 = ここのか!)</span>
+				{@render beltChip('di-la-data')}
+			</a>
+			<a class="cat-card" href="{base}/leggi-a-voce">
+				<span class="cat-icon">📢</span>
+				<span class="cat-label">Leggi a voce <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">leggi tu la frase: prima coi furigana, poi senza</span>
+				{@render beltChip('leggi-a-voce')}
+			</a>
+			<a class="cat-card" href="{base}/shadowing">
+				<span class="cat-icon">🎤</span>
+				<span class="cat-label">Shadowing — Ripeti subito</span>
+				<span class="cat-hint">ascolta e ripeti ad alta voce, il microfono ti verifica</span>
+				<span class="cat-best">🏆 record: {getHighscore('shadowing')}</span>
+				{@render beltChip('shadowing')}
+			</a>
 		</div>
 
 		<p class="group-title">Conversazione</p>
-			<div class="cat-grid">
-				<a class="cat-card" href="{base}/mani-libere">
-					<span class="cat-icon">🚗</span>
-					<span class="cat-label">Mani libere <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">solo voce: l'app dice cosa dire, tu rispondi. In auto o senza mani</span>
-				</a>
-				<a class="cat-card" href="{base}/keigo">
-					<span class="cat-icon">🙇</span>
-					<span class="cat-label">敬語 — Linguaggio cortese</span>
-					<span class="cat-hint">尊敬語 o 謙譲語? La forma giusta per capo e clienti</span>
+		<div class="cat-grid">
+			<a class="cat-card" href="{base}/mani-libere">
+				<span class="cat-icon">🚗</span>
+				<span class="cat-label">Mani libere <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">solo voce: l'app dice cosa dire, tu rispondi. In auto o senza mani</span>
+			</a>
+			<a class="cat-card" href="{base}/keigo">
+				<span class="cat-icon">🙇</span>
+				<span class="cat-label">敬語 — Linguaggio cortese</span>
+				<span class="cat-hint">尊敬語 o 謙譲語? La forma giusta per capo e clienti</span>
 				{@render beltChip('keigo')}
-				</a>
-				<a class="cat-card" href="{base}/presentati">
-					<span class="cat-icon">🙋</span>
-					<span class="cat-label">Presentati — Primo incontro</span>
-					<span class="cat-hint">ti presenti, sminuisci il complimento, e se non capisci?</span>
-				</a>
-				<a class="cat-card" href="{base}/giornata">
-					<span class="cat-icon">🌅</span>
-					<span class="cat-label">Una giornata</span>
-					<span class="cat-hint">dalla sveglia alla buonanotte: la frase giusta al momento giusto</span>
-				</a>
-				<a class="cat-card" class:belt-locked={!isUnlocked('appuntamento')} href="{base}/appuntamento">
-					<span class="cat-icon">📅</span>
-					<span class="cat-label">Prendi appuntamento <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
-					<span class="cat-best">🏆 record: {getHighscore('appuntamento')}</span>
+			</a>
+			<a class="cat-card" href="{base}/presentati">
+				<span class="cat-icon">🙋</span>
+				<span class="cat-label">Presentati — Primo incontro</span>
+				<span class="cat-hint">ti presenti, sminuisci il complimento, e se non capisci?</span>
+			</a>
+			<a class="cat-card" href="{base}/giornata">
+				<span class="cat-icon">🌅</span>
+				<span class="cat-label">Una giornata</span>
+				<span class="cat-hint">dalla sveglia alla buonanotte: la frase giusta al momento giusto</span>
+			</a>
+			<a class="cat-card" class:belt-locked={!isUnlocked('appuntamento')} href="{base}/appuntamento">
+				<span class="cat-icon">📅</span>
+				<span class="cat-label">Prendi appuntamento <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">negozia giorno e ora: il registro cambia con amico, collega o cliente</span>
+				<span class="cat-best">🏆 record: {getHighscore('appuntamento')}</span>
 				{@render beltChip('appuntamento')}
 				{@render unlockChip('appuntamento')}
-				</a>
-				<a class="cat-card" href="{base}/relazioni">
-					<span class="cat-icon">🫂</span>
-					<span class="cat-label">Relazioni <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">conosci qualcuno, senti un amico o parli col capo: il registro cambia col rapporto</span>
-					<span class="cat-best">🏆 record: {getHighscore('relazioni')}</span>
+			</a>
+			<a class="cat-card" href="{base}/relazioni">
+				<span class="cat-icon">🫂</span>
+				<span class="cat-label">Relazioni <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">conosci qualcuno, senti un amico o parli col capo: il registro cambia col rapporto</span>
+				<span class="cat-best">🏆 record: {getHighscore('relazioni')}</span>
 				{@render beltChip('relazioni')}
-				</a>
-				<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
-					<span class="cat-icon">🗣️</span>
-					<span class="cat-label">Saluti e convenevoli</span>
-					<span class="cat-hint">rispondi con la formula giusta</span>
-					<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
-				</button>
-				<a class="cat-card" href="{base}/shadowing">
-					<span class="cat-icon">🗣️</span>
-					<span class="cat-label">Shadowing — Ripeti subito</span>
-					<span class="cat-hint">ascolta e ripeti ad alta voce, il microfono ti verifica</span>
-					<span class="cat-best">🏆 record: {getHighscore('shadowing')}</span>
-				{@render beltChip('shadowing')}
-				</a>
-			</div>
+			</a>
+			<button class="cat-card" onclick={() => start({ kind: 'greet' })}>
+				<span class="cat-icon">🗣️</span>
+				<span class="cat-label">Saluti e convenevoli</span>
+				<span class="cat-hint">rispondi con la formula giusta</span>
+				<span class="cat-best">🏆 record: {getHighscore('greetings')}</span>
+				{@render beltChip('greetings')}
+			</button>
+		</div>
 
-			<p class="group-title">Al konbini</p>
-			<div class="cat-grid">
-				<button class="cat-card" onclick={() => start({ kind: 'order' })}>
-					<span class="cat-icon">🏪</span>
-					<span class="cat-label">Ordina al konbini</span>
-					<span class="cat-hint">chiedi con numero + contatore giusto</span>
-					<span class="cat-best">🏆 record: {getHighscore('konbini-order')}</span>
-				</button>
-			</div>
+		<p class="group-title">Al konbini</p>
+		<div class="cat-grid">
+			<button class="cat-card" onclick={() => start({ kind: 'order' })}>
+				<span class="cat-icon">🏪</span>
+				<span class="cat-label">Ordina al konbini</span>
+				<span class="cat-hint">chiedi con numero + contatore giusto</span>
+				<span class="cat-best">🏆 record: {getHighscore('konbini-order')}</span>
+				{@render beltChip('konbini-order')}
+			</button>
+		</div>
 
-			<p class="group-title">Lettura e frasi</p>
-			<div class="cat-grid">
-				<a class="cat-card" href="{base}/riordina">
-					<span class="cat-icon">🧩</span>
-					<span class="cat-label">Riordina la frase</span>
-					<span class="cat-hint">i pezzi sono in disordine: ricomponila</span>
-				{@render beltChip('riordina')}
-				</a>
-				<a class="cat-card" href="{base}/iikae">
-					<span class="cat-icon">🔁</span>
-					<span class="cat-label">言い換え — Dillo in un altro modo</span>
-					<span class="cat-hint">stile JLPT: scegli frase o parola con lo stesso significato</span>
+		<p class="group-title">Grammatica e parole</p>
+		<div class="cat-grid">
+			<a class="cat-card" href="{base}/iikae">
+				<span class="cat-icon">🔁</span>
+				<span class="cat-label">言い換え — Dillo in un altro modo</span>
+				<span class="cat-hint">stile JLPT: scegli frase o parola con lo stesso significato</span>
 				{@render beltChip('iikae')}
-				</a>
-				<a class="cat-card" href="{base}/lettura">
-					<span class="cat-icon">⚡</span>
-					<span class="cat-label">Lettura veloce</span>
-					<span class="cat-hint">il testo scorre da solo, poi domande a tempo</span>
-				</a>
-				<a class="cat-card" href="{base}/skimming">
-					<span class="cat-icon">🔎</span>
-					<span class="cat-label">Skimming</span>
-					<span class="cat-hint">prima la domanda, poi trova l'informazione nel testo</span>
-				</a>
-				<a class="cat-card" href="{base}/leggi-a-voce">
-					<span class="cat-icon">📢</span>
-					<span class="cat-label">Leggi a voce <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">leggi tu la frase: prima coi furigana, poi senza</span>
-				{@render beltChip('leggi-a-voce')}
-				</a>
-				<a class="cat-card" href="{base}/dettato">
-					<span class="cat-icon">✍️</span>
-					<span class="cat-label">Dettato <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">ascolta e ricomponi la frase, pezzo per pezzo</span>
-				{@render beltChip('dettato')}
-				</a>
-				<a class="cat-card" href="{base}/catena">
-					<span class="cat-icon">🧬</span>
-					<span class="cat-label">Catena di forme <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">食べる→食べられる→食べられない: le forme, un passo alla volta</span>
+			</a>
+			<a class="cat-card" href="{base}/catena">
+				<span class="cat-icon">🧬</span>
+				<span class="cat-label">Catena di forme <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">食べる→食べられる→食べられない: le forme, un passo alla volta</span>
 				{@render beltChip('catena')}
-				</a>
-				<a class="cat-card" href="{base}/coppie">
-					<span class="cat-icon">🔀</span>
-					<span class="cat-label">Coppie difficili <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
+			</a>
+			<a class="cat-card" href="{base}/coppie">
+				<span class="cat-icon">🔀</span>
+				<span class="cat-label">Coppie difficili <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
 				{@render beltChip('coppie')}
-				</a>
-				<a class="cat-card" href="{base}/avverbi">
-					<span class="cat-icon">🎚️</span>
-					<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
+			</a>
+			<a class="cat-card" href="{base}/avverbi">
+				<span class="cat-icon">🎚️</span>
+				<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
 				{@render beltChip('avverbi')}
-				</a>
-				<a class="cat-card" href="{base}/contrazioni">
-					<span class="cat-icon">✂️</span>
-					<span class="cat-label">Contrazioni <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">食べちゃった ↔ 食べてしまった: parlato ed esteso, anche a voce</span>
+			</a>
+			<a class="cat-card" href="{base}/contrazioni">
+				<span class="cat-icon">✂️</span>
+				<span class="cat-label">Contrazioni <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">食べちゃった ↔ 食べてしまった: parlato ed esteso, anche a voce</span>
 				{@render beltChip('contrazioni')}
-				</a>
-				<a class="cat-card" href="{base}/comparazioni">
-					<span class="cat-icon">⚖️</span>
-					<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
-					<span class="cat-hint">より・のほうが・いちばん・ほど〜ない: chi è più… ? componi il confronto</span>
+			</a>
+			<a class="cat-card" href="{base}/comparazioni">
+				<span class="cat-icon">⚖️</span>
+				<span class="cat-label">Comparazioni <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">より・のほうが・いちばん・ほど〜ない: chi è più… ? componi il confronto</span>
 				{@render beltChip('comparazioni')}
-				</a>
-			</div>
+			</a>
+		</div>
 
-			<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
+		<p class="group-title">Lettura</p>
+		<div class="cat-grid">
+			<a class="cat-card" href="{base}/riordina">
+				<span class="cat-icon">🧩</span>
+				<span class="cat-label">Riordina la frase</span>
+				<span class="cat-hint">i pezzi sono in disordine: ricomponila</span>
+				{@render beltChip('riordina')}
+			</a>
+			<a class="cat-card" href="{base}/lettura">
+				<span class="cat-icon">⚡</span>
+				<span class="cat-label">Lettura veloce</span>
+				<span class="cat-hint">il testo scorre da solo, poi domande a tempo</span>
+			</a>
+			<a class="cat-card" href="{base}/skimming">
+				<span class="cat-icon">🔎</span>
+				<span class="cat-label">Skimming</span>
+				<span class="cat-hint">prima la domanda, poi trova l'informazione nel testo</span>
+			</a>
+		</div>
+
+		<a class="back-link" href="{base}/contatori">← Ripassa i contatori</a>
 	{:else}
 		<div class="game-head">
 			<button class="quit" onclick={quit}>← Esci</button>
@@ -887,17 +926,21 @@
 				{/if}
 			</article>
 		{:else if game.kind === 'appt' && appt}
+			{@const part = game.part}
 			<article class="game-card">
-				<p class="game-hint">📅 Quando è l'appuntamento?</p>
+				<p class="game-hint">{part === 'date' ? '📆 Che giorno è?' : part === 'time' ? '🕒 A che ora?' : "📅 Quando è l'appuntamento?"}</p>
 				<button class="replay" onclick={() => speakSentenceJapanese(appt!.reading)}>🔊 Riascolta</button>
 				<p class="appt-summary">
-					{#if apptIn.month && apptIn.day}
-						{apptIn.month}月{apptIn.day}日{#if apptIn.hour} · {apptIn.hour}:{apptIn.minute !== '' ? apptIn.minute.padStart(2, '0') : '--'}{/if}
+					{#if part === 'time'}
+						{apptIn.hour !== '' ? `${apptIn.hour}:${apptIn.minute !== '' ? apptIn.minute.padStart(2, '0') : '--'}` : "Scegli l'ora"}
+					{:else if apptIn.month && apptIn.day}
+						{apptIn.month}月{apptIn.day}日{#if part === 'full' && apptIn.hour} · {apptIn.hour}:{apptIn.minute !== '' ? apptIn.minute.padStart(2, '0') : '--'}{/if}
 					{:else}
-						Scegli mese, giorno e ora
+						{part === 'date' ? 'Scegli mese e giorno' : 'Scegli mese, giorno e ora'}
 					{/if}
 				</p>
 				<div class="appt-picker">
+					{#if part !== 'time'}
 					<div class="appt-section">
 						<span class="appt-section-label">Mese</span>
 						<div class="appt-btn-grid appt-btn-grid-month">
@@ -914,6 +957,8 @@
 							{/each}
 						</div>
 					</div>
+					{/if}
+					{#if part !== 'date'}
 					<div class="appt-section">
 						<span class="appt-section-label">Ora</span>
 						<div class="appt-btn-grid appt-btn-grid-hour">
@@ -930,13 +975,14 @@
 							{/each}
 						</div>
 					</div>
+					{/if}
 				</div>
 				{#if !checked}
 					<button class="proceed" onclick={checkAppt}>Controlla</button>
 				{:else}
 					<p class="verdict" class:ok={!gameOver} class:ko={gameOver}>
 						{#if gameOver}
-							Era <strong>{appt.month}/{appt.day} · {appt.hour}:{String(appt.minute).padStart(2, '0')}</strong> ({appt.reading}). Serie: {streak}
+							Era <strong>{part === 'time' ? '' : `${appt.month}/${appt.day}`}{part === 'full' ? ' · ' : ''}{part === 'date' ? '' : `${appt.hour}:${String(appt.minute).padStart(2, '0')}`}</strong> ({appt.reading}). Serie: {streak}
 						{:else}
 							{isRecord ? '🏆 Nuovo record!' : '✓ Giusto!'} — {appt.reading}
 						{/if}
@@ -1085,7 +1131,7 @@
 		border-radius: 12px;
 		padding: 10px 14px;
 	}
-	.cat-belt { grid-column: 2; font-size: 0.72rem; color: var(--brand); font-weight: 700; margin-top: 2px; }
+	.cat-belt { grid-column: 2; display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--brand); font-weight: 700; margin-top: 2px; }
 	.cat-belt-todo { color: var(--muted); font-weight: 600; }
 	.cat-belt-locked { color: var(--muted); font-weight: 600; }
 	.cat-card.belt-locked { opacity: 0.6; border-style: dashed; }

@@ -6,7 +6,8 @@
 //   del gioco — di norma max 1 errore, serie ≥5 per i giochi a serie,
 //   accordo senza aiuti per i negoziali)
 // La cintura deriva dai contatori; la cintura nera è 初段 e si sale di dan.
-// «Domato» = gialla (3 partite) o almeno una pulita — conta per il banner X/15.
+// «Domato» = gialla (3 partite) o almeno una pulita — conta per il banner in /giochi
+// ed è il requisito degli sblocchi (gameUnlocks).
 //
 // Le cinture NON bloccano niente: gli sblocchi (solo filiera numeri/tempo)
 // stanno in gameUnlocks.ts. Storage: localStorage (come gli highscore) —
@@ -14,7 +15,7 @@
 
 import { appState } from '$lib/stores.svelte';
 
-export type BeltColor = 'nessuna' | 'bianca' | 'gialla' | 'arancione' | 'verde' | 'blu' | 'marrone' | 'nera';
+export type BeltColor = 'nessuna' | 'bianca' | 'gialla' | 'arancione' | 'verde' | 'blu' | 'viola' | 'marrone' | 'nera';
 
 export interface BeltProgress {
 	played: number; // partite completate
@@ -23,10 +24,26 @@ export interface BeltProgress {
 
 const KEY = 'renkei_game_belts';
 
-// I giochi con le cinture, in ordine consigliato (dal propedeutico alla vetta):
-// prima sintassi e lessico, poi ascolto e morfologia, poi produzione orale,
-// in cima la negoziazione e la cortesia. Solo catalogo: nessun blocco.
-export const GAME_PATH: { id: string; label: string; icon: string }[] = [
+// I giochi con le cinture (catalogo: id → nome/icona per toast e banner).
+// Ordine consigliato dal propedeutico alla vetta. Nessun blocco qui.
+export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
+	// giochi sui numeri e sul tempo (dentro /giochi)
+	{ id: 'read-日', label: 'Giorni del mese', icon: '📅' },
+	{ id: 'read-時', label: 'Ore', icon: '🕐' },
+	{ id: 'read-分', label: 'Minuti', icon: '⏱️' },
+	{ id: 'read-円', label: 'Prezzi (yen)', icon: '💴' },
+	{ id: 'read-clock', label: 'Che ore sono?', icon: '⏰' },
+	{ id: 'read-count', label: 'Conta gli oggetti', icon: '🔢' },
+	{ id: 'read-mix', label: 'Misto', icon: '🎲' },
+	{ id: 'listen-number', label: 'Scrivi il numero', icon: '👂' },
+	{ id: 'listen-date', label: 'Ascolta la data', icon: '📆' },
+	{ id: 'listen-time', label: 'Ascolta l\'ora', icon: '🕒' },
+	{ id: 'listen-appt', label: 'Data e ora', icon: '🗓️' },
+	{ id: 'shop-pay', label: 'Alla cassa', icon: '🛒' },
+	{ id: 'shopping-list', label: 'Lista della spesa', icon: '🛍️' },
+	{ id: 'greetings', label: 'Saluti', icon: '🗣️' },
+	{ id: 'konbini-order', label: 'Al konbini', icon: '🏪' },
+	// attività con pagina propria
 	{ id: 'riordina', label: 'Riordina la frase', icon: '🧩' },
 	{ id: 'coppie', label: 'Coppie difficili', icon: '🔀' },
 	{ id: 'dettato', label: 'Dettato', icon: '✍️' },
@@ -50,13 +67,15 @@ const BELT_LADDER: { color: BeltColor; cond: (p: BeltProgress) => boolean }[] = 
 	{ color: 'bianca', cond: (p) => p.played >= 1 },
 	{ color: 'gialla', cond: (p) => p.played >= 3 },
 	{ color: 'arancione', cond: (p) => p.clean >= 1 },
-	{ color: 'verde', cond: (p) => p.clean >= 3 },
-	{ color: 'blu', cond: (p) => p.clean >= 5 },
-	{ color: 'marrone', cond: (p) => p.clean >= 7 },
+	{ color: 'verde', cond: (p) => p.clean >= 2 },
+	{ color: 'blu', cond: (p) => p.clean >= 4 },
+	{ color: 'viola', cond: (p) => p.clean >= 6 },
+	{ color: 'marrone', cond: (p) => p.clean >= 8 },
 	{ color: 'nera', cond: (p) => p.clean >= 10 }
 ];
 
-const DAN_LABELS = ['初段', '二段', '三段', '四段', '五段'];
+// Dan della nera: 初段 a 10 pulite, +1 ogni 5. 十段 = Gran Maestro.
+const DAN_LABELS = ['初段', '二段', '三段', '四段', '五段', '六段', '七段', '八段', '九段', '十段'];
 
 function readAll(): Record<string, BeltProgress> {
 	if (typeof localStorage === 'undefined') return {};
@@ -77,11 +96,12 @@ export function beltFor(p: BeltProgress): BeltColor {
 	return belt;
 }
 
-// Dan della cintura nera: 初段 a 10 pulite, poi +1 ogni 5 (tetto 五段).
+// Dan della cintura nera: 初段 a 10 pulite, poi +1 ogni 5 (tetto 十段).
 export function danFor(p: BeltProgress): string | null {
 	if (beltFor(p) !== 'nera') return null;
 	const dan = Math.min(DAN_LABELS.length, 1 + Math.floor((p.clean - 10) / 5));
-	return DAN_LABELS[dan - 1]!;
+	const label = DAN_LABELS[dan - 1]!;
+	return dan === DAN_LABELS.length ? `${label} 👑 Gran Maestro` : label;
 }
 
 // Etichetta compatta per le card: «— / bianca / … / nera 二段».
@@ -95,9 +115,10 @@ export function beltLabel(gameId: string): string | null {
 // Pulite richieste per ogni cintura oltre la gialla.
 const CLEAN_TARGETS: Partial<Record<BeltColor, number>> = {
 	arancione: 1,
-	verde: 3,
-	blu: 5,
-	marrone: 7,
+	verde: 2,
+	blu: 4,
+	viola: 6,
+	marrone: 8,
 	nera: 10
 };
 
@@ -115,14 +136,14 @@ export function nextBeltHint(p: BeltProgress): string | null {
 	return `${next.color}: ancora ${target - p.clean} pulite`;
 }
 
-// «Domato»: gialla (3 partite) o almeno una pulita.
-function conquered(p: BeltProgress): boolean {
+// «Domato»: gialla (3 partite) o almeno una pulita. Requisito degli sblocchi.
+export function conquered(p: BeltProgress): boolean {
 	return p.played >= 3 || p.clean >= 1;
 }
 
 // Quanti giochi sono domati (per il banner in /giochi).
 export function conqueredCount(): number {
-	return GAME_PATH.filter((g) => conquered(beltProgress(g.id))).length;
+	return BELT_GAMES.filter((g) => conquered(beltProgress(g.id))).length;
 }
 
 // Registra la fine di una partita. Aggiorna i contatori, e se c'è un salto di
@@ -143,11 +164,11 @@ export function recordGameResult(gameId: string, clean: boolean): void {
 	const messages: string[] = [];
 	if (belt !== prevBelt || dan !== prevDan) {
 		const name = belt === 'nera' ? `nera ${dan}` : belt;
-		const label = GAME_PATH.find((g) => g.id === gameId)?.label ?? gameId;
+		const label = BELT_GAMES.find((g) => g.id === gameId)?.label ?? gameId;
 		messages.push(`🥋 Cintura ${name} in ${label}!`);
 	}
 	if (!prevConquered && conquered(next)) {
-		const g = GAME_PATH.find((x) => x.id === gameId);
+		const g = BELT_GAMES.find((x) => x.id === gameId);
 		if (g) messages.push(`💪 ${g.icon} ${g.label} domato!`);
 	}
 	if (messages.length > 0) appState.beltToast = { messages, at: Date.now() };
