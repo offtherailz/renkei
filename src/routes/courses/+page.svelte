@@ -154,22 +154,22 @@
 		}
 	}
 
-	// Corso consigliato incluso nell'app: Genki I mappato sul catalogo N5.
-	let genkiImporting = $state(false);
-	async function importGenki(): Promise<void> {
-		genkiImporting = true;
+	// Corsi consigliati inclusi nell'app: Genki I sul catalogo N5, Genki II sul N4.
+	let genkiImporting = $state('');
+	async function importBundled(file: string, nome: string): Promise<void> {
+		genkiImporting = file;
 		importError = '';
 		importSuccess = '';
 		try {
-			const resp = await fetch(`${base}/corso-genki-1.json`);
+			const resp = await fetch(`${base}/${file}`);
 			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 			const result = await importCourseDataset(await resp.text());
-			importSuccess = `✅ Genki I importato! ${result.lezioniFinalizzate} lezioni.`;
+			importSuccess = `✅ ${nome} importato! ${result.lezioniFinalizzate} lezioni.`;
 			await loadCourses();
 		} catch (e) {
 			importError = `Errore: ${String(e)}`;
 		} finally {
-			genkiImporting = false;
+			genkiImporting = '';
 		}
 	}
 
@@ -253,18 +253,31 @@
 	{/each}
 </section>
 
-{#if !loading && !courses.some((c) => c.id === 'genki-1')}
+{#if !loading && (!courses.some((c) => c.id === 'genki-1') || !courses.some((c) => c.id === 'genki-2'))}
 <section class="section-card recommended">
-	<p class="card-title">⭐ Corso consigliato</p>
-	<div class="rec-row">
-		<div class="rec-body">
-			<strong>Genki I (ordine del libro)</strong>
-			<p class="course-meta">La grammatica N5 nell'ordine delle 12 lezioni di Genki I, con le parole delle frasi d'esempio. Un tocco e hai il percorso.</p>
+	<p class="card-title">⭐ Corsi consigliati</p>
+	{#if !courses.some((c) => c.id === 'genki-1')}
+		<div class="rec-row">
+			<div class="rec-body">
+				<strong>Genki I (ordine del libro)</strong>
+				<p class="course-meta">La grammatica N5 nell'ordine delle 12 lezioni di Genki I, con le parole delle frasi d'esempio. Un tocco e hai il percorso.</p>
+			</div>
+			<button class="btn-primary" disabled={genkiImporting !== ''} onclick={() => importBundled('corso-genki-1.json', 'Genki I')}>
+				{genkiImporting === 'corso-genki-1.json' ? 'Importo…' : '⬇️ Importa'}
+			</button>
 		</div>
-		<button class="btn-primary" disabled={genkiImporting} onclick={importGenki}>
-			{genkiImporting ? 'Importo…' : '⬇️ Importa'}
-		</button>
-	</div>
+	{/if}
+	{#if !courses.some((c) => c.id === 'genki-2')}
+		<div class="rec-row">
+			<div class="rec-body">
+				<strong>Genki II (ordine del libro)</strong>
+				<p class="course-meta">Il seguito: la grammatica N4 nell'ordine delle lezioni L13-L23 (potenziale, keigo, passivo, causativo…), con le parole delle frasi d'esempio.</p>
+			</div>
+			<button class="btn-primary" disabled={genkiImporting !== ''} onclick={() => importBundled('corso-genki-2.json', 'Genki II')}>
+				{genkiImporting === 'corso-genki-2.json' ? 'Importo…' : '⬇️ Importa'}
+			</button>
+		</div>
+	{/if}
 	{#if importError}<p class="error-text">{importError}</p>{/if}
 </section>
 {/if}

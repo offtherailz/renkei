@@ -16,7 +16,7 @@
 		<h2>🧭 Il giro consigliato</h2>
 		<ol>
 			<li><strong>Il piano di oggi</strong> (in home): prima i ripassi SRS, poi i tuoi punti deboli (ciò che hai <em>sbagliato almeno una volta</em> ed è sotto il 60% — le carte nuove non contano; 3 in anteprima, «vedi tutti →» per l'elenco completo filtrabile in <strong>/punti-deboli</strong> — ogni voce apre la sua scheda o pagina di riferimento, e «🔁 ripassali» avvia una sessione quiz sui più deboli, solo pratica), poi l'attività del giorno. In fondo al piano, il totale di ciò che ti aspetta oggi: ripassi dovuti e carte nuove che entreranno (nel limite giornaliero di Impostazioni).</li>
-			<li><strong>Corsi</strong>: importa Genki I (un tocco), premi «🎯 Studia solo questo corso» e avanza lezione per lezione — si sblocca da sola.</li>
+			<li><strong>Corsi</strong>: importa Genki I (un tocco) — e a seguire <strong>Genki II</strong> (L13-L23: potenziale, keigo, passivo, causativo) — poi premi «🎯 Studia solo questo corso» e avanza lezione per lezione: si sblocca da sola.</li>
 			<li>Quando qualcosa non torna, aprine la <strong>scheda</strong>: esempi, usi, coniugazioni, note tue — e 💪 Consolida per il drill senza penalità.</li>
 		</ol>
 		<p class="page-sub" style="margin:0;">Al primo avvio te lo chiediamo subito: «Ho già delle basi» ti fa scegliere quale livello attivare (N5, N4 o entrambi); «Sono all'inizio» imposta da solo il percorso guidato sopra.</p>
