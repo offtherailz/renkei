@@ -1016,6 +1016,12 @@ function fixSuruReadings(words, jmdictIndex) {
   });
 }
 
+// Nomi per cui JMdict marca (per un uso gergale o raro) il primo senso come
+// "vs", generando verbi in -する che nell'uso comune non esistono.
+const SURU_VERB_EXCLUDE = new Set([
+  "信号" // 信号する non esiste: 信号 è "segnale/semaforo", mai "fare segnale"
+]);
+
 // I nomi che JMdict marca "vs" generano la voce verbale in -する come entry
 // separata (動詞/不規則), collegata al nome in entrambe le direzioni.
 function buildSuruVerbs(words, jmdictIndex) {
@@ -1024,6 +1030,7 @@ function buildSuruVerbs(words, jmdictIndex) {
 
   const updated = words.map((word) => {
     if (!word.tipo_jp.startsWith("名詞")) return word;
+    if (SURU_VERB_EXCLUDE.has(word.scrittura)) return word;
     const entry = lookupJmdict(jmdictIndex, word.scrittura, word.lettura);
     if (!entry) return word;
     // "vs" deve stare sul PRIMO senso (uso primario): sensi secondari rari

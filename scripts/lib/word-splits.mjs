@@ -86,6 +86,13 @@ export function fixKanjiRelatedWords(kanjiRows) {
 // La curatela del 2026-07-16 ha trovato okurigana mancanti (下る=さがる→下がる,
 // 落る→落ちる, 落す→落とす, 楽む→楽しむ) e il duplicato うかがう/伺う.
 export const WORD_RENAMES = {
+  // La fonte dà una voce sola con due grafie unite: il sync la rigenererebbe
+  // ad ogni giro (già corretta a mano una volta, commit 1eadd0f7).
+  "初め; 始め": {
+    id: "初め",
+    scrittura: "初め",
+    lettura: "はじめ"
+  },
   "下る": {
     id: "下がる",
     scrittura: "下がる",
