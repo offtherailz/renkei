@@ -11882,6 +11882,20 @@
   "id_verbo_corrispondente": "起こす",
   "frasi_esempio": [
    {
+    "testo": "お子さんはまだ起きているのですか。",
+    "traduzione": {
+     "it": "Is the kid still up?",
+     "en": "Is the kid still up?"
+    }
+   },
+   {
+    "testo": "６時ごろ起きた。",
+    "traduzione": {
+     "it": "I got up at about six.",
+     "en": "I got up at about six."
+    }
+   },
+   {
     "testo": "今朝は六時に起きました。",
     "traduzione": {
      "it": "Stamattina mi sono svegliato alle sei.",
@@ -12227,6 +12241,20 @@
    "ごらんになる"
   ],
   "frasi_esempio": [
+   {
+    "testo": "１０ページの５行目をみなさい。",
+    "traduzione": {
+     "it": "Let's begin with the fifth line on page 10.",
+     "en": "Let's begin with the fifth line on page 10."
+    }
+   },
+   {
+    "testo": "映画を観に行かない？",
+    "traduzione": {
+     "it": "Would you like to take in a movie?",
+     "en": "Would you like to take in a movie?"
+    }
+   },
    {
     "testo": "窓から富士山を見ました。",
     "traduzione": {
@@ -15105,6 +15133,20 @@
   ],
   "frasi_esempio": [
    {
+    "testo": "走者がリレーでバトンを渡さなければなりません。",
+    "traduzione": {
+     "it": "A runner must pass the baton in a relay race.",
+     "en": "A runner must pass the baton in a relay race."
+    }
+   },
+   {
+    "testo": "それじゃあこのメモを渡してください。緊急です。",
+    "traduzione": {
+     "it": "Then, please give him this note. This is urgent.",
+     "en": "Then, please give him this note. This is urgent."
+    }
+   },
+   {
     "testo": "私は友達にプレゼントを渡しました。",
     "traduzione": {
      "it": "Ho consegnato un regalo a un amico.",
@@ -15599,6 +15641,20 @@
   },
   "id_verbo_corrispondente": "入る",
   "frasi_esempio": [
+   {
+    "testo": "あなたは、私にコーヒーをいれてもらいたいですか。",
+    "traduzione": {
+     "it": "Do you want me to make coffee?",
+     "en": "Do you want me to make coffee?"
+    }
+   },
+   {
+    "testo": "それは引き出しに入れておきました。",
+    "traduzione": {
+     "it": "I put it in the drawer.",
+     "en": "I put it in the drawer."
+    }
+   },
    {
     "testo": "コーヒーに砂糖を入れました。",
     "traduzione": {
@@ -16513,6 +16569,20 @@
    "開く-あく"
   ],
   "frasi_esempio": [
+   {
+    "testo": "あいにく店は閉まっていた。",
+    "traduzione": {
+     "it": "Unfortunately, the store was closed.",
+     "en": "Unfortunately, the store was closed."
+    }
+   },
+   {
+    "testo": "ドアが閉まっていたので、入ることが出来なかった。",
+    "traduzione": {
+     "it": "The door was locked, so I couldn't get in.",
+     "en": "The door was locked, so I couldn't get in."
+    }
+   },
    {
     "testo": "風でドアが閉まりました。",
     "traduzione": {
@@ -22772,6 +22842,20 @@
   "id_verbo_corrispondente": "壊す",
   "frasi_esempio": [
    {
+    "testo": "このイヤホンは壊れています。",
+    "traduzione": {
+     "it": "These earphones don't work.",
+     "en": "These earphones don't work."
+    }
+   },
+   {
+    "testo": "あの壊れた花瓶は祖父のものです。",
+    "traduzione": {
+     "it": "That broken vase is my grandfather's.",
+     "en": "That broken vase is my grandfather's."
+    }
+   },
+   {
     "testo": "新しいおもちゃがもう壊れました。",
     "traduzione": {
      "it": "Il giocattolo nuovo si è già rotto.",
@@ -26040,6 +26124,20 @@
   "id_verbo_corrispondente": "始まる",
   "frasi_esempio": [
    {
+    "testo": "いつゴルフを始めたのですか。",
+    "traduzione": {
+     "it": "When did you begin playing golf?",
+     "en": "When did you begin playing golf?"
+    }
+   },
+   {
+    "testo": "私たちは姉妹３人で喫茶店を始めた。",
+    "traduzione": {
+     "it": "We three sisters opened a coffee shop.",
+     "en": "We three sisters opened a coffee shop."
+    }
+   },
+   {
     "testo": "先生は九時に授業を始めました。",
     "traduzione": {
      "it": "L'insegnante ha iniziato la lezione alle nove.",
@@ -27887,6 +27985,20 @@
   "id_verbo_corrispondente": "焼ける",
   "frasi_esempio": [
    {
+    "testo": "この夏はこんがり焼こうと思います。",
+    "traduzione": {
+     "it": "I am going to try to get a good tan.",
+     "en": "I am going to try to get a good tan."
+    }
+   },
+   {
+    "testo": "このお肉をもうすこし焼いてくださいませんか。",
+    "traduzione": {
+     "it": "Could you cook this meat a little more?",
+     "en": "Could you cook this meat a little more?"
+    }
+   },
+   {
     "testo": "母は夕飯に魚を焼きました。",
     "traduzione": {
      "it": "La mamma ha cucinato il pesce alla griglia per cena.",
@@ -27998,6 +28110,20 @@
   },
   "id_verbo_corrispondente": "上げる",
   "frasi_esempio": [
+   {
+    "testo": "明日それをいただきに上がります。",
+    "traduzione": {
+     "it": "I will call for it tomorrow.",
+     "en": "I will call for it tomorrow."
+    }
+   },
+   {
+    "testo": "来月タクシー料金があがります。",
+    "traduzione": {
+     "it": "Taxi fares will go up next month.",
+     "en": "Taxi fares will go up next month."
+    }
+   },
    {
     "testo": "最近、野菜の値段が上がりました。",
     "traduzione": {
@@ -30986,6 +31112,20 @@
   "id_verbo_corrispondente": "直る",
   "frasi_esempio": [
    {
+    "testo": "あなたの時計は明日までには直しておきますよ。",
+    "traduzione": {
+     "it": "I will have repaired your watch by tomorrow.",
+     "en": "I will have repaired your watch by tomorrow."
+    }
+   },
+   {
+    "testo": "その本をなおしなさい。",
+    "traduzione": {
+     "it": "Put the book back where you found it.",
+     "en": "Put the book back where you found it."
+    }
+   },
+   {
     "testo": "父が壊れた時計を直しました。",
     "traduzione": {
      "it": "Papà ha riparato l'orologio rotto.",
@@ -31126,6 +31266,20 @@
   },
   "id_verbo_corrispondente": "通す",
   "frasi_esempio": [
+   {
+    "testo": "私は毎日その教会の前を通る。",
+    "traduzione": {
+     "it": "I go by that church every day.",
+     "en": "I go by that church every day."
+    }
+   },
+   {
+    "testo": "彼女はベスという名で通っていた。",
+    "traduzione": {
+     "it": "She went by the name of Bess.",
+     "en": "She went by the name of Bess."
+    }
+   },
    {
     "testo": "このバスは駅の前を通ります。",
     "traduzione": {
@@ -31880,6 +32034,20 @@
   },
   "id_verbo_corrispondente": "動かす",
   "frasi_esempio": [
+   {
+    "testo": "まだ動くうちに売ってしまわなきゃ。",
+    "traduzione": {
+     "it": "I should sell it while it still runs.",
+     "en": "I should sell it while it still runs."
+    }
+   },
+   {
+    "testo": "私は家の中で何かが動くのを感じた。",
+    "traduzione": {
+     "it": "I felt something move in the house.",
+     "en": "I felt something move in the house."
+    }
+   },
    {
     "testo": "この機械は電気がなくても動きます。",
     "traduzione": {
@@ -33512,6 +33680,20 @@
   "sinonimi": [],
   "frasi_esempio": [
    {
+    "testo": "私のE-mailアドレスが変わりました。",
+    "traduzione": {
+     "it": "My e-mail address has been changed.",
+     "en": "My e-mail address has been changed."
+    }
+   },
+   {
+    "testo": "最近変わった海洋生物が発見された。",
+    "traduzione": {
+     "it": "A strange marine creature was found recently.",
+     "en": "A strange marine creature was found recently."
+    }
+   },
+   {
     "testo": "天気予報が変わりました。",
     "traduzione": {
      "it": "Le previsioni del tempo sono cambiate.",
@@ -34076,6 +34258,20 @@
   },
   "id_verbo_corrispondente": "無くす",
   "frasi_esempio": [
+   {
+    "testo": "あなたの青いペンがなくなってしまいました。",
+    "traduzione": {
+     "it": "I misplaced your blue pen.",
+     "en": "I misplaced your blue pen."
+    }
+   },
+   {
+    "testo": "残り時間があまりなくなってきた。",
+    "traduzione": {
+     "it": "The sands are running out.",
+     "en": "The sands are running out."
+    }
+   },
    {
     "testo": "財布からお金が無くなっていました。",
     "traduzione": {
@@ -34927,6 +35123,20 @@
    ]
   },
   "frasi_esempio": [
+   {
+    "testo": "バースデーケーキにろうそくを立ててください。",
+    "traduzione": {
+     "it": "Please put some candles on the birthday cake.",
+     "en": "Please put some candles on the birthday cake."
+    }
+   },
+   {
+    "testo": "猫が私の手につめを立てた。",
+    "traduzione": {
+     "it": "The cat dug its claws into my hand.",
+     "en": "The cat dug its claws into my hand."
+    }
+   },
    {
     "testo": "店の人は入り口に看板を立てました。",
     "traduzione": {

@@ -9,10 +9,18 @@
       "flight"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "フライトは何時ですか。",
-      "it": "A che ora è il volo?"
-    }
+    "esempi": [
+      {
+        "jp": "フライトは何時ですか。",
+        "it": "A che ora è il volo?",
+        "en": "A che ora è il volo?"
+      },
+      {
+        "jp": "フライトは ３じかんぐらいです。",
+        "it": "Il volo dura circa tre ore.",
+        "en": "The flight is about three hours."
+      }
+    ]
   },
   {
     "scrittura": "チケット",
@@ -24,10 +32,18 @@
       "ticket"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "チケットを見せてください。",
-      "it": "Mi mostri il biglietto, per favore."
-    }
+    "esempi": [
+      {
+        "jp": "チケットを見せてください。",
+        "it": "Mi mostri il biglietto, per favore.",
+        "en": "Mi mostri il biglietto, per favore."
+      },
+      {
+        "jp": "コンサートの チケットを ２まい かいました。",
+        "it": "Ho comprato due biglietti per il concerto.",
+        "en": "I bought two concert tickets."
+      }
+    ]
   },
   {
     "scrittura": "航空券",
@@ -39,10 +55,18 @@
       "airline ticket"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "航空券はもうありますか。",
-      "it": "Ha già il biglietto aereo?"
-    }
+    "esempi": [
+      {
+        "jp": "航空券はもうありますか。",
+        "it": "Ha già il biglietto aereo?",
+        "en": "Ha già il biglietto aereo?"
+      },
+      {
+        "jp": "インターネットで 航空券を 買いました。",
+        "it": "Ho comprato il biglietto aereo su internet.",
+        "en": "I bought my plane ticket on the internet."
+      }
+    ]
   },
   {
     "scrittura": "搭乗券",
@@ -54,10 +78,18 @@
       "boarding pass"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "搭乗券をお願いします。",
-      "it": "Il suo biglietto d'imbarco, per favore."
-    }
+    "esempi": [
+      {
+        "jp": "搭乗券をお願いします。",
+        "it": "Il suo biglietto d'imbarco, per favore.",
+        "en": "Il suo biglietto d'imbarco, per favore."
+      },
+      {
+        "jp": "搭乗券を なくさないで ください。",
+        "it": "Non perda la carta d'imbarco.",
+        "en": "Please do not lose your boarding pass."
+      }
+    ]
   },
   {
     "scrittura": "搭乗口",
@@ -69,10 +101,18 @@
       "boarding gate"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "搭乗口は32番です。",
-      "it": "Il gate d'imbarco è il numero 32."
-    }
+    "esempi": [
+      {
+        "jp": "搭乗口は32番です。",
+        "it": "Il gate d'imbarco è il numero 32.",
+        "en": "Il gate d'imbarco è il numero 32."
+      },
+      {
+        "jp": "搭乗口の 前で 待って いて ください。",
+        "it": "Aspetti davanti al gate d'imbarco.",
+        "en": "Please wait in front of the boarding gate."
+      }
+    ]
   },
   {
     "scrittura": "パスポート",
@@ -84,10 +124,18 @@
       "passport"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "パスポートを見せてください。",
-      "it": "Mi mostri il passaporto, per favore."
-    }
+    "esempi": [
+      {
+        "jp": "パスポートを見せてください。",
+        "it": "Mi mostri il passaporto, per favore.",
+        "en": "Mi mostri il passaporto, per favore."
+      },
+      {
+        "jp": "パスポートを かばんに いれました。",
+        "it": "Ho messo il passaporto nella borsa.",
+        "en": "I put my passport in my bag."
+      }
+    ]
   },
   {
     "scrittura": "手荷物",
@@ -101,10 +149,18 @@
       "baggage"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "手荷物はこちらに置いてください。",
-      "it": "Metta qui il bagaglio, per favore."
-    }
+    "esempi": [
+      {
+        "jp": "手荷物はこちらに置いてください。",
+        "it": "Metta qui il bagaglio, per favore.",
+        "en": "Metta qui il bagaglio, per favore."
+      },
+      {
+        "jp": "手荷物は 一つだけです。",
+        "it": "Ho solo un bagaglio a mano.",
+        "en": "I have only one piece of hand luggage."
+      }
+    ]
   },
   {
     "scrittura": "手荷物受取所",
@@ -116,10 +172,18 @@
       "baggage claim"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "手荷物受取所は一階です。",
-      "it": "Il ritiro bagagli è al piano terra."
-    }
+    "esempi": [
+      {
+        "jp": "手荷物受取所は一階です。",
+        "it": "Il ritiro bagagli è al piano terra.",
+        "en": "Il ritiro bagagli è al piano terra."
+      },
+      {
+        "jp": "手荷物受取所で スーツケースを 待って います。",
+        "it": "Sto aspettando la valigia al ritiro bagagli.",
+        "en": "I am waiting for my suitcase at the baggage claim."
+      }
+    ]
   },
   {
     "scrittura": "税関",
@@ -131,10 +195,18 @@
       "customs"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "税関で荷物を調べられました。",
-      "it": "Alla dogana mi hanno controllato i bagagli."
-    }
+    "esempi": [
+      {
+        "jp": "税関で荷物を調べられました。",
+        "it": "Alla dogana mi hanno controllato i bagagli.",
+        "en": "Alla dogana mi hanno controllato i bagagli."
+      },
+      {
+        "jp": "税関で かばんを 開けました。",
+        "it": "Alla dogana ho aperto la borsa.",
+        "en": "I opened my bag at customs."
+      }
+    ]
   },
   {
     "scrittura": "出国",
@@ -148,10 +220,18 @@
       "leaving the country"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "出国の手続きをしてください。",
-      "it": "Faccia le pratiche per l'uscita dal paese."
-    }
+    "esempi": [
+      {
+        "jp": "出国の手続きをしてください。",
+        "it": "Faccia le pratiche per l'uscita dal paese.",
+        "en": "Faccia le pratiche per l'uscita dal paese."
+      },
+      {
+        "jp": "出国の 前に、おみやげを 買いました。",
+        "it": "Prima di lasciare il paese ho comprato dei souvenir.",
+        "en": "I bought souvenirs before leaving the country."
+      }
+    ]
   },
   {
     "scrittura": "入国",
@@ -165,10 +245,18 @@
       "entering the country"
     ],
     "livello": "EXTRA",
-    "esempio": {
-      "jp": "入国の審査はこちらです。",
-      "it": "Il controllo immigrazione è qui."
-    }
+    "esempi": [
+      {
+        "jp": "入国の審査はこちらです。",
+        "it": "Il controllo immigrazione è qui.",
+        "en": "Il controllo immigrazione è qui."
+      },
+      {
+        "jp": "入国の カードを 書いて ください。",
+        "it": "Compili la carta d'ingresso, per favore.",
+        "en": "Please fill in the immigration card."
+      }
+    ]
   },
   {
     "scrittura": "信号",
@@ -294,6 +382,11 @@
         "jp": "手紙は あした 届くでしょう。",
         "it": "La lettera arriverà probabilmente domani.",
         "en": "The letter will probably arrive tomorrow."
+      },
+      {
+        "jp": "注文した荷物がやっと届きました。",
+        "it": "Il pacco che avevo ordinato è finalmente arrivato.",
+        "en": "The package I ordered finally arrived."
       }
     ]
   },
@@ -352,6 +445,11 @@
         "jp": "店は アルバイトの 人を 増やしました。",
         "it": "Il negozio ha aumentato i lavoratori part-time.",
         "en": "The shop increased its part-time workers."
+      },
+      {
+        "jp": "学校は来年、留学生を増やす予定です。",
+        "it": "La scuola ha in programma di aumentare gli studenti stranieri l'anno prossimo.",
+        "en": "The school plans to increase international students next year."
       }
     ]
   },
@@ -381,6 +479,11 @@
         "jp": "熱が あるので、頭を 冷やしました。",
         "it": "Avevo la febbre, così mi sono rinfrescato la testa.",
         "en": "I had a fever, so I cooled my head."
+      },
+      {
+        "jp": "パーティーのために、ジュースを冷やしておきました。",
+        "it": "Per la festa, ho messo il succo a raffreddare in anticipo.",
+        "en": "For the party, I chilled the juice in advance."
       }
     ]
   },
@@ -410,6 +513,11 @@
         "jp": "たまごを 二つ 割って ください。",
         "it": "Rompi due uova, per favore.",
         "en": "Please crack two eggs."
+      },
+      {
+        "jp": "洗っているときに、コップを割ってしまいました。",
+        "it": "Mentre lo lavavo, ho rotto il bicchiere per sbaglio.",
+        "en": "While washing it, I accidentally broke the glass."
       }
     ]
   },
@@ -437,6 +545,11 @@
         "jp": "子どもが 手を 汚して 帰って きました。",
         "it": "Il bambino è tornato a casa con le mani sporche.",
         "en": "The child came home with dirty hands."
+      },
+      {
+        "jp": "弟が泥でくつを汚しました。",
+        "it": "Mio fratello ha sporcato le scarpe di fango.",
+        "en": "My little brother got the shoes dirty with mud."
       }
     ]
   },
@@ -465,6 +578,11 @@
         "jp": "ドライヤーで かみを 乾かします。",
         "it": "Mi asciugo i capelli con il phon.",
         "en": "I dry my hair with a hair dryer."
+      },
+      {
+        "jp": "雨でぬれたので、タオルでかみを乾かしました。",
+        "it": "Mi sono bagnato per la pioggia, così ho asciugato i capelli con l'asciugamano.",
+        "en": "I got wet in the rain, so I dried my hair with a towel."
       }
     ]
   },
@@ -493,6 +611,11 @@
         "jp": "体を 動かすのは 気持ちが いいです。",
         "it": "Muovere il corpo fa stare bene.",
         "en": "Moving your body feels good."
+      },
+      {
+        "jp": "力を入れて、重い机を動かしました。",
+        "it": "Con forza, ho spostato la scrivania pesante.",
+        "en": "I put in some effort and moved the heavy desk."
       }
     ]
   },
@@ -522,6 +645,11 @@
         "jp": "じゅぎょうの まえに、先生が かねを 鳴らします。",
         "it": "Prima della lezione, l'insegnante suona la campana.",
         "en": "Before class, the teacher rings the bell."
+      },
+      {
+        "jp": "危ないので、車のクラクションを鳴らしました。",
+        "it": "Era pericoloso, così ho suonato il clacson dell'auto.",
+        "en": "It was dangerous, so I honked the car's horn."
       }
     ]
   },
@@ -551,6 +679,11 @@
         "jp": "強い 風が 木を 倒しました。",
         "it": "Un vento forte ha abbattuto un albero.",
         "en": "A strong wind knocked down a tree."
+      },
+      {
+        "jp": "工事のために、古い木を倒しました。",
+        "it": "Per i lavori, hanno abbattuto il vecchio albero.",
+        "en": "They cut down the old tree for the construction work."
       }
     ]
   },
@@ -580,6 +713,11 @@
         "jp": "まどを 開けて、風を 通しました。",
         "it": "Ho aperto la finestra e fatto passare l'aria.",
         "en": "I opened the window to let the air through."
+      },
+      {
+        "jp": "すみませんが、ここを通してください。",
+        "it": "Mi scusi, mi lasci passare di qui.",
+        "en": "Excuse me, please let me through here."
       }
     ]
   },

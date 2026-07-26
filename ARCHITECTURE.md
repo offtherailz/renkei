@@ -230,13 +230,24 @@ esistenti. Le voci curate si aggiungono qui e vengono create da `mergeCuratedGra
 patchabile per id). Portano `source_name: "Renkei — curato"`: è il marcatore che fa sì che
 `normalizeGrammar` le **preservi** ad ogni sync successivo invece di sovrascriverle con l'API.
 
-> ⚠️ **Il sync completo oggi è distruttivo** (verificato 26/07): rigenerando da zero cancella le
-> curatele che vivono **solo** nel seed e non negli overrides — in un test ha tolto sinonimi a 228
-> parole, frasi d'esempio a 58, più correlati/usi/parafrasi, e ha reintrodotto la voce malformata
-> «初め; 始め» già corretta in `1eadd0f7` inventando `信号する`. Finché quelle curatele non sono
-> tutte rientrate negli overrides, le aggiunte al seed vanno applicate **in modo chirurgico**
-> (riusando le funzioni della pipeline, ma senza rigenerare tutto) e il seed va riscritto
-> **minificato** — il sync lo scrive invece indentato, generando un diff di ~118k righe.
+**Il sync non perde più le curatele** (26/07). Prima le cancellava: 57 gruppi di frasi d'esempio,
+più sinonimi/correlati dei verbi in -する, vivevano solo dentro il seed. Tre cause, tutte chiuse:
+
+1. `mergeIdioms` / `mergeExtraWords` **sostituiscono in blocco** `frasi_esempio` con quelle del
+   loro file curato: le frasi aggiunte solo al seed (via `apply-frasi2.mjs`) sparivano. Le 42 voci
+   interessate sono rientrate in `idioms-n5n4.json` / `extra-words-n5n4.json`.
+2. I verbi in -する nascono in `buildSuruVerbs`, che gira **dopo** `applyJmdictMetadata`: gli
+   override scritti sul loro id (用意する, 拝見する…) non li raggiungevano mai. Ora `buildSuruVerbs`
+   riceve `overrides` e li applica su entrambi i rami (verbo già esistente e verbo generato).
+3. Voci malformate rigenerate ogni volta: «初め; 始め» ora è in `WORD_RENAMES`
+   (`scripts/lib/word-splits.mjs`), 信号 in `SURU_VERB_EXCLUDE`.
+
+Verifica di idempotenza fatta girando il sync due volte e confrontando col seed committato:
+**zero perdite** su parole, kanji e grammatica. Guardia contro le ricadute in
+`src/lib/data/curatela.test.ts`.
+
+> Resta una scomodità: il sync scrive il seed **indentato** mentre il repo lo tiene **minificato**
+> (una riga). Dopo un sync, ri-minificare prima di committare, altrimenti il diff è di ~118k righe.
 
 **Relazione `Word.correlati?`** (17/07): parole legate ma **non interscambiabili** (妻↔奥さん,
 兄↔弟, お宅↔家) — distinta dai sinonimi. Curata negli overrides (le "false sinonimie" della

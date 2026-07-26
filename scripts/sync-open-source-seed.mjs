@@ -1024,7 +1024,10 @@ const SURU_VERB_EXCLUDE = new Set([
 
 // I nomi che JMdict marca "vs" generano la voce verbale in -する come entry
 // separata (動詞/不規則), collegata al nome in entrambe le direzioni.
-function buildSuruVerbs(words, jmdictIndex) {
+// `overrides` va ripassato anche qui: questi verbi vengono creati/aggiornati
+// DOPO applyJmdictMetadata, quindi un override scritto sul loro id (es.
+// 用意する → sinonimi) non li raggiungerebbe mai e andrebbe perso ad ogni sync.
+function buildSuruVerbs(words, jmdictIndex, overrides = {}) {
   const byWriting = new Map(words.map((w) => [w.scrittura, w]));
   const generated = [];
 
@@ -1042,6 +1045,8 @@ function buildSuruVerbs(words, jmdictIndex) {
     const existing = byWriting.get(verbWriting);
     if (existing) {
       existing.id_nome_origine = word.id;
+      const patch = overrides[existing.id];
+      if (patch) Object.assign(existing, patch);
       return { ...word, id_verbo_suru: existing.id };
     }
 
@@ -1076,6 +1081,9 @@ function buildSuruVerbs(words, jmdictIndex) {
       omofoni: [],
       updated_at: Date.now()
     };
+    // stesso motivo del ramo sopra: il verbo nasce qui, dopo gli overrides
+    const patch = overrides[verb.id];
+    if (patch) Object.assign(verb, patch);
     generated.push(verb);
     return { ...word, id_verbo_suru: verb.id };
   });
@@ -1355,7 +1363,7 @@ async function main() {
     applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt())
   );
   const withSuruVerbs = await mergeExtraWords(
-    await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex))
+    await mergeIdioms(buildSuruVerbs(enrichedWords, jmdictIndex, overrides))
   );
   // Le relazioni (sinonimi/contrari/omofoni) si calcolano alla fine,
   // su tipi corretti e catalogo completo dei verbi in -する.

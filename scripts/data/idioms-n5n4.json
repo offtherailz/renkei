@@ -11,10 +11,18 @@
       "please treat me well"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "田中です。よろしくお願いします。",
-      "it": "Sono Tanaka. Piacere."
-    }
+    "esempi": [
+      {
+        "jp": "田中です。よろしくお願いします。",
+        "it": "Sono Tanaka. Piacere.",
+        "en": "Sono Tanaka. Piacere."
+      },
+      {
+        "jp": "きょうから ここで はたらきます。よろしくお願いします。",
+        "it": "Da oggi lavoro qui. Conto sul vostro aiuto!",
+        "en": "I start working here today. I look forward to working with you."
+      }
+    ]
   },
   {
     "scrittura": "〜さんによろしくお伝えください",
@@ -28,10 +36,18 @@
       "say hello to ... for me"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "田中さんによろしくお伝えください。",
-      "it": "Porti tanti saluti a Tanaka da parte mia."
-    }
+    "esempi": [
+      {
+        "jp": "田中さんによろしくお伝えください。",
+        "it": "Porti tanti saluti a Tanaka da parte mia.",
+        "en": "Porti tanti saluti a Tanaka da parte mia."
+      },
+      {
+        "jp": "奥さんによろしくお伝えください。",
+        "it": "Porti i miei saluti a sua moglie.",
+        "en": "Please give my regards to your wife."
+      }
+    ]
   },
   {
     "scrittura": "お疲れさまです",
@@ -44,10 +60,18 @@
       "thank you for your hard work"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "お先に失礼します。— お疲れさまです。",
-      "it": "Vado via prima io. — Buon lavoro!"
-    }
+    "esempi": [
+      {
+        "jp": "お先に失礼します。— お疲れさまです。",
+        "it": "Vado via prima io. — Buon lavoro!",
+        "en": "Vado via prima io. — Buon lavoro!"
+      },
+      {
+        "jp": "あ、ぶちょう。お疲れさまです。",
+        "it": "Ah, direttore! Buon lavoro.",
+        "en": "Ah, boss! Thank you for your hard work."
+      }
+    ]
   },
   {
     "scrittura": "いただきます",
@@ -59,10 +83,18 @@
       "thanks for the meal (before eating)"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "おいしそう！いただきます。",
-      "it": "Che buono! Buon appetito."
-    }
+    "esempi": [
+      {
+        "jp": "おいしそう！いただきます。",
+        "it": "Che buono! Buon appetito.",
+        "en": "Che buono! Buon appetito."
+      },
+      {
+        "jp": "いい におい！いただきます。",
+        "it": "Che buon profumo! Buon appetito.",
+        "en": "It smells so good! Let's eat."
+      }
+    ]
   },
   {
     "scrittura": "ごちそうさまでした",
@@ -74,10 +106,18 @@
       "thank you for the meal"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "ごちそうさまでした。おいしかったです。",
-      "it": "Grazie per il pasto, era buonissimo."
-    }
+    "esempi": [
+      {
+        "jp": "ごちそうさまでした。おいしかったです。",
+        "it": "Grazie per il pasto, era buonissimo.",
+        "en": "Grazie per il pasto, era buonissimo."
+      },
+      {
+        "jp": "ごちそうさまでした。また きます。",
+        "it": "Grazie per il pasto! Tornerò.",
+        "en": "Thank you for the meal. I will come again."
+      }
+    ]
   },
   {
     "scrittura": "おじゃまします",
@@ -89,10 +129,18 @@
       "excuse me for intruding"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "どうぞ。— おじゃまします。",
-      "it": "Prego, entra. — Permesso."
-    }
+    "esempi": [
+      {
+        "jp": "どうぞ。— おじゃまします。",
+        "it": "Prego, entra. — Permesso.",
+        "en": "Prego, entra. — Permesso."
+      },
+      {
+        "jp": "おじゃまします。わあ、きれいな へやですね。",
+        "it": "Permesso... Wow, che bella stanza!",
+        "en": "Excuse me for coming in... Wow, what a nice room!"
+      }
+    ]
   },
   {
     "scrittura": "お久しぶりです",
@@ -105,10 +153,18 @@
       "long time no see"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "お久しぶりです。お元気でしたか。",
-      "it": "Quanto tempo! Come sei stato?"
-    }
+    "esempi": [
+      {
+        "jp": "お久しぶりです。お元気でしたか。",
+        "it": "Quanto tempo! Come sei stato?",
+        "en": "Quanto tempo! Come sei stato?"
+      },
+      {
+        "jp": "田中さん、お久しぶりです。",
+        "it": "Signor Tanaka, quanto tempo!",
+        "en": "Mr. Tanaka, it has been a long time!"
+      }
+    ]
   },
   {
     "scrittura": "気をつけて",
@@ -122,10 +178,18 @@
       "be careful"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "雨ですよ。気をつけて。",
-      "it": "Piove, stai attento."
-    }
+    "esempi": [
+      {
+        "jp": "雨ですよ。気をつけて。",
+        "it": "Piove, stai attento.",
+        "en": "Piove, stai attento."
+      },
+      {
+        "jp": "くるまが おおいから、気をつけて ね。",
+        "it": "Ci sono tante macchine: stai attento!",
+        "en": "There are a lot of cars, so be careful."
+      }
+    ]
   },
   {
     "scrittura": "お大事に",
@@ -138,10 +202,18 @@
       "get well soon"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "かぜですか。お大事に。",
-      "it": "Hai il raffreddore? Rimettiti presto."
-    }
+    "esempi": [
+      {
+        "jp": "かぜですか。お大事に。",
+        "it": "Hai il raffreddore? Rimettiti presto.",
+        "en": "Hai il raffreddore? Rimettiti presto."
+      },
+      {
+        "jp": "くすりを のんで、ゆっくり やすんで ください。お大事に。",
+        "it": "Prenda la medicina e riposi bene. Si rimetta presto!",
+        "en": "Take your medicine and get plenty of rest. Get well soon!"
+      }
+    ]
   },
   {
     "scrittura": "どういたしまして",
@@ -154,10 +226,18 @@
       "you're welcome"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "ありがとう。— どういたしまして。",
-      "it": "Grazie. — Di niente."
-    }
+    "esempi": [
+      {
+        "jp": "ありがとう。— どういたしまして。",
+        "it": "Grazie. — Di niente.",
+        "en": "Grazie. — Di niente."
+      },
+      {
+        "jp": "てつだって くれて、ありがとう。— どういたしまして。",
+        "it": "Grazie per l'aiuto. — Di niente.",
+        "en": "Thanks for helping me. — You're welcome."
+      }
+    ]
   },
   {
     "scrittura": "お腹が空いた",
@@ -169,10 +249,18 @@
       "I'm hungry"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "お腹が空いた。何か食べよう。",
-      "it": "Ho fame. Mangiamo qualcosa."
-    }
+    "esempi": [
+      {
+        "jp": "お腹が空いた。何か食べよう。",
+        "it": "Ho fame. Mangiamo qualcosa.",
+        "en": "Ho fame. Mangiamo qualcosa."
+      },
+      {
+        "jp": "たくさん あるいたから、お腹が空いた。",
+        "it": "Ho camminato tanto e mi è venuta fame.",
+        "en": "I walked a lot, so I am hungry."
+      }
+    ]
   },
   {
     "scrittura": "喉が渇いた",
@@ -184,10 +272,18 @@
       "I'm thirsty"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "喉が渇いた。水をください。",
-      "it": "Ho sete. Dell'acqua, per favore."
-    }
+    "esempi": [
+      {
+        "jp": "喉が渇いた。水をください。",
+        "it": "Ho sete. Dell'acqua, per favore.",
+        "en": "Ho sete. Dell'acqua, per favore."
+      },
+      {
+        "jp": "ああ、あつい。喉が渇いたなあ。",
+        "it": "Ah, che caldo... ho proprio sete.",
+        "en": "Ah, it's hot... I'm so thirsty."
+      }
+    ]
   },
   {
     "scrittura": "頑張って",
@@ -202,10 +298,18 @@
       "do your best"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "明日、しけんです。— 頑張って！",
-      "it": "Domani ho l'esame. — In bocca al lupo!"
-    }
+    "esempi": [
+      {
+        "jp": "明日、しけんです。— 頑張って！",
+        "it": "Domani ho l'esame. — In bocca al lupo!",
+        "en": "Domani ho l'esame. — In bocca al lupo!"
+      },
+      {
+        "jp": "あしたは しあいですね。頑張って！",
+        "it": "Domani hai la partita, no? Forza!",
+        "en": "You have a match tomorrow, right? Good luck!"
+      }
+    ]
   },
   {
     "scrittura": "おめでとうございます",
@@ -218,10 +322,18 @@
       "congratulations"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "たんじょうび、おめでとうございます。",
-      "it": "Buon compleanno!"
-    }
+    "esempi": [
+      {
+        "jp": "たんじょうび、おめでとうございます。",
+        "it": "Buon compleanno!",
+        "en": "Buon compleanno!"
+      },
+      {
+        "jp": "ごけっこん、おめでとうございます。",
+        "it": "Congratulazioni per il matrimonio!",
+        "en": "Congratulations on your wedding!"
+      }
+    ]
   },
   {
     "scrittura": "お先に失礼します",
@@ -233,10 +345,18 @@
       "excuse me for leaving first"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "五時ですね。お先に失礼します。",
-      "it": "Sono le cinque. Vado via prima io."
-    }
+    "esempi": [
+      {
+        "jp": "五時ですね。お先に失礼します。",
+        "it": "Sono le cinque. Vado via prima io.",
+        "en": "Sono le cinque. Vado via prima io."
+      },
+      {
+        "jp": "今日は 用事が あるので、お先に失礼します。",
+        "it": "Oggi ho un impegno, quindi vado via prima io.",
+        "en": "I have something to do today, so I am leaving before you."
+      }
+    ]
   },
   {
     "scrittura": "ただいま",
@@ -248,10 +368,18 @@
       "I'm home"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "ただいま。— おかえりなさい。",
-      "it": "Sono a casa! — Bentornato."
-    }
+    "esempi": [
+      {
+        "jp": "ただいま。— おかえりなさい。",
+        "it": "Sono a casa! — Bentornato.",
+        "en": "Sono a casa! — Bentornato."
+      },
+      {
+        "jp": "ただいま。きょうは つかれたよ。",
+        "it": "Sono a casa! Oggi sono proprio stanco.",
+        "en": "I'm home! I'm really tired today."
+      }
+    ]
   },
   {
     "scrittura": "おかえりなさい",
@@ -263,10 +391,18 @@
       "welcome home"
     ],
     "livello": "N5",
-    "esempio": {
-      "jp": "ただいま。— おかえりなさい。ごはんできてるよ。",
-      "it": "Sono a casa! — Bentornato, la cena è pronta."
-    }
+    "esempi": [
+      {
+        "jp": "ただいま。— おかえりなさい。ごはんできてるよ。",
+        "it": "Sono a casa! — Bentornato, la cena è pronta.",
+        "en": "Sono a casa! — Bentornato, la cena è pronta."
+      },
+      {
+        "jp": "おかえりなさい。きょうは はやかったですね。",
+        "it": "Bentornato! Oggi sei tornato presto, eh.",
+        "en": "Welcome back! You are home early today."
+      }
+    ]
   },
   {
     "scrittura": "気に入る",
@@ -279,10 +415,18 @@
       "to take a liking to"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "このかばん、気に入りました。",
-      "it": "Questa borsa mi piace proprio."
-    }
+    "esempi": [
+      {
+        "jp": "このかばん、気に入りました。",
+        "it": "Questa borsa mi piace proprio.",
+        "en": "Questa borsa mi piace proprio."
+      },
+      {
+        "jp": "この ホテルが とても 気に入りました。",
+        "it": "Questo hotel mi è piaciuto moltissimo.",
+        "en": "I really liked this hotel."
+      }
+    ]
   },
   {
     "scrittura": "間に合う",
@@ -295,10 +439,18 @@
       "to be in time"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "急げば、九時のでんしゃに間に合う。",
-      "it": "Se ci sbrighiamo facciamo in tempo per il treno delle 9."
-    }
+    "esempi": [
+      {
+        "jp": "急げば、九時のでんしゃに間に合う。",
+        "it": "Se ci sbrighiamo facciamo in tempo per il treno delle 9.",
+        "en": "Se ci sbrighiamo facciamo in tempo per il treno delle 9."
+      },
+      {
+        "jp": "タクシーで 行けば、飛行機に 間に合いますよ。",
+        "it": "Se andiamo in taxi facciamo in tempo per l'aereo.",
+        "en": "If we go by taxi, we will make the plane in time."
+      }
+    ]
   },
   {
     "scrittura": "仕方がない",
@@ -311,10 +463,18 @@
       "it can't be helped"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "雨か。仕方がないね。",
-      "it": "Piove, eh. Pazienza."
-    }
+    "esempi": [
+      {
+        "jp": "雨か。仕方がないね。",
+        "it": "Piove, eh. Pazienza.",
+        "en": "Piove, eh. Pazienza."
+      },
+      {
+        "jp": "電車が 止まって いるから、仕方がないですね。歩きましょう。",
+        "it": "I treni sono fermi, non c'è niente da fare: andiamo a piedi.",
+        "en": "The trains have stopped, so it cannot be helped — let us walk."
+      }
+    ]
   },
   {
     "scrittura": "かしこまりました",
@@ -326,9 +486,17 @@
       "certainly (formal)"
     ],
     "livello": "N4",
-    "esempio": {
-      "jp": "コーヒーをください。— かしこまりました。",
-      "it": "Un caffè, per favore. — Certamente."
-    }
+    "esempi": [
+      {
+        "jp": "コーヒーをください。— かしこまりました。",
+        "it": "Un caffè, per favore. — Certamente.",
+        "en": "Un caffè, per favore. — Certamente."
+      },
+      {
+        "jp": "チェックアウトを お願いします。— かしこまりました。",
+        "it": "Il check-out, per favore. — Certamente.",
+        "en": "Check-out, please. — Certainly, sir."
+      }
+    ]
   }
 ]
