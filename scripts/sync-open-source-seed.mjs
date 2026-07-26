@@ -11,6 +11,7 @@ import {
 } from "./lib/jmdict.mjs";
 import { classifyNumbersAndCounters } from "./lib/numbers-counters.mjs";
 import { applyWordSplits, applyWordRenames } from "./lib/word-splits.mjs";
+import { mergeCuratedGrammar } from "./lib/grammar-extra.mjs";
 
 const ROOT = process.cwd();
 const SEED_PATH = path.join(ROOT, "static", "seed-n5n4.json");
@@ -21,6 +22,7 @@ const CHOUKAI_PATH = path.join(ROOT, "scripts", "data", "choukai-n5n4.json");
 const IDIOMS_PATH = path.join(ROOT, "scripts", "data", "idioms-n5n4.json");
 const EXTRA_WORDS_PATH = path.join(ROOT, "scripts", "data", "extra-words-n5n4.json");
 const GRAMMAR_EXAMPLES_PATH = path.join(ROOT, "scripts", "data", "grammar-examples-n5n4.json");
+const GRAMMAR_EXTRA_PATH = path.join(ROOT, "scripts", "data", "grammar-extra-n5n4.json");
 const USI_IT_PATH = path.join(ROOT, "scripts", "data", "usi-it.json");
 const IIKAE_PATH = path.join(ROOT, "scripts", "data", "iikae-n5n4.json");
 // Catalogo kanji per livello (davidluzgouveia/kanji-data via allenlu2009):
@@ -1096,6 +1098,17 @@ async function loadGrammarOverrides() {
   }
 }
 
+// Voci di grammatica curate a mano, non coperte dall'API (scripts/data/
+// grammar-extra-n5n4.json): a differenza degli overrides, ne creano di nuove.
+// Vedi mergeCuratedGrammar in scripts/lib/grammar-extra.mjs.
+async function loadGrammarExtra() {
+  try {
+    return JSON.parse(await fs.readFile(GRAMMAR_EXTRA_PATH, "utf8"));
+  } catch {
+    return [];
+  }
+}
+
 function applyGrammarOverrides(grammar, overrides) {
   let patched = 0;
   const next = grammar.map((g) => {
@@ -1353,13 +1366,18 @@ async function main() {
     updated_at: now
   }));
   const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? [], kanjiLevelLookup);
-  const normalizedGrammar = applyGrammarOverrides(
-    await mergeGrammarExamples(normalizeGrammar([
-      { level: "N5", rows: grammarN5 },
-      { level: "N4", rows: grammarN4 }
-    ], existingSeed.grammar ?? [], normalizedWords)),
-    await loadGrammarOverrides()
-  );
+  const grammarWithApiData = await mergeGrammarExamples(normalizeGrammar([
+    { level: "N5", rows: grammarN5 },
+    { level: "N4", rows: grammarN4 }
+  ], existingSeed.grammar ?? [], normalizedWords));
+  // Prima si creano/aggiornano le voci curate a mano (mergeCuratedGrammar può
+  // ANCHE aggiungerne di nuove, cosa che applyGrammarOverrides non fa), poi
+  // gli overrides puntuali le possono ancora ripatchare per id.
+  const grammarWithCurated = mergeCuratedGrammar(grammarWithApiData, await loadGrammarExtra(), {
+    buildLinkedWords: buildGrammarLinkedWords,
+    words: normalizedWords
+  });
+  const normalizedGrammar = applyGrammarOverrides(grammarWithCurated, await loadGrammarOverrides());
 
   const nextSeed = {
     words: normalizedWords,

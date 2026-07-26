@@ -1,0 +1,142 @@
+[
+  {
+    "id": "g-n4-ba-yokatta",
+    "struttura": "〜ばよかった",
+    "livello": "N4",
+    "spiegazione": {
+      "it": "Rimpianto per ciò che NON si è fatto: forma condizionale in 〜ば + よかった = «avrei dovuto…». Con la negazione (〜なければよかった) è il rimpianto opposto: «non avrei dovuto…». La coniugazione è quella di 〜ば (行く→行けば, 食べる→食べれば, する→すれば, 来る→来れば). Il rovescio positivo — la contentezza per ciò che si è fatto — è 〜てよかった.",
+      "en": "Regret about something you did NOT do: the 〜ば conditional + よかった = “I should have…”. With the negative (〜なければよかった) it is the opposite regret: “I shouldn't have…”. The counterpart, being glad about what you did do, is 〜てよかった."
+    },
+    "esempi": [
+      {
+        "jp": "もっと早く予約すればよかったです。",
+        "it": "Avrei dovuto prenotare prima.",
+        "en": "I should have booked earlier."
+      },
+      {
+        "jp": "傘を持って来ればよかった。",
+        "it": "Avrei dovuto portare l'ombrello.",
+        "en": "I should have brought an umbrella."
+      },
+      {
+        "jp": "あんなことを言わなければよかった。",
+        "it": "Non avrei dovuto dire una cosa simile.",
+        "en": "I shouldn't have said something like that."
+      }
+    ],
+    "study_tags": ["n4", "grammar", "exam-core"],
+    "chapter_tags": ["jlpt-n4-core"]
+  },
+  {
+    "id": "g-n4-te-yokatta",
+    "struttura": "〜てよかった",
+    "livello": "N4",
+    "spiegazione": {
+      "it": "Sollievo o contentezza per come sono andate le cose: forma in て + よかった = «meno male che…», «sono contento di aver…». Con la negazione, 〜ないでよかった = «meno male che non…». Da non confondere con 〜ばよかった, che è invece il rimpianto per ciò che non si è fatto.",
+      "en": "Relief or gladness about how things turned out: the て-form + よかった = “I'm glad I…”, “it's a good thing that…”. With the negative, 〜ないでよかった = “I'm glad I didn't…”. Not to be confused with 〜ばよかった, which expresses regret for what you did not do."
+    },
+    "esempi": [
+      {
+        "jp": "日本語の勉強をやめないでよかったです。",
+        "it": "Meno male che non ho smesso di studiare giapponese.",
+        "en": "I'm glad I didn't quit studying Japanese."
+      },
+      {
+        "jp": "早く家を出てよかった。電車に間に合った。",
+        "it": "Meno male che sono uscito presto di casa: ho preso il treno.",
+        "en": "Good thing I left home early — I made the train."
+      },
+      {
+        "jp": "敬語を習ってよかったです。",
+        "it": "Sono contento di aver imparato il keigo.",
+        "en": "I'm glad I learned keigo."
+      }
+    ],
+    "study_tags": ["n4", "grammar", "exam-core"],
+    "chapter_tags": ["jlpt-n4-core"]
+  },
+  {
+    "id": "g-n4-tekurete-arigatou",
+    "struttura": "〜てくれて、ありがとう",
+    "livello": "N4",
+    "spiegazione": {
+      "it": "Ringraziare per un favore ricevuto: forma in て + くれて、ありがとう = «grazie per avermi…». Verso un superiore o un cliente si sale di registro con l'onorifico 〜てくださって、ありがとうございました. Si appoggia ai verbi del dare e ricevere (授受): くれる → くださる.",
+      "en": "Thanking someone for a favour done for you: the て-form + くれて、ありがとう = “thank you for …-ing (for me)”. With a superior or a customer you move up in register with the honorific 〜てくださって、ありがとうございました. It builds on the giving-and-receiving verbs (授受): くれる → くださる."
+    },
+    "esempi": [
+      {
+        "jp": "来てくれて、ありがとう。",
+        "it": "Grazie di essere venuto.",
+        "en": "Thanks for coming."
+      },
+      {
+        "jp": "駅まで送ってくれて、ありがとう。",
+        "it": "Grazie per avermi accompagnato alla stazione.",
+        "en": "Thanks for seeing me to the station."
+      },
+      {
+        "jp": "辞書を貸してくださって、ありがとうございました。",
+        "it": "La ringrazio per avermi prestato il dizionario.",
+        "en": "Thank you for lending me your dictionary."
+      }
+    ],
+    "study_tags": ["n4", "grammar", "exam-core"],
+    "chapter_tags": ["jlpt-n4-core"]
+  },
+  {
+    "id": "g-n4-o-kudasai",
+    "struttura": "お〜ください／ご〜ください",
+    "livello": "N4",
+    "spiegazione": {
+      "it": "Richiesta onorifica (尊敬語): お + radice del verbo in ます + ください, oppure ご + nome di origine cinese + ください. È più rispettosa di 〜てください, che resta la richiesta cortese normale. I verbi con forma onorifica propria la usano: 召し上がる → お召し上がりください.",
+      "en": "Honorific request (尊敬語): お + the ます-stem of the verb + ください, or ご + a Sino-Japanese noun + ください. It is more respectful than 〜てください, which remains the standard polite request. Verbs with their own honorific form use it: 召し上がる → お召し上がりください."
+    },
+    "esempi": [
+      {
+        "jp": "こちらでお待ちください。",
+        "it": "Attenda qui, per favore.",
+        "en": "Please wait here."
+      },
+      {
+        "jp": "どうぞ、お召し上がりください。",
+        "it": "Si serva pure, prego.",
+        "en": "Please help yourself."
+      },
+      {
+        "jp": "足元にご注意ください。",
+        "it": "Faccia attenzione a dove mette i piedi.",
+        "en": "Please watch your step."
+      }
+    ],
+    "study_tags": ["n4", "grammar", "exam-core"],
+    "chapter_tags": ["jlpt-n4-core"]
+  },
+  {
+    "id": "g-n4-o-ni-naru",
+    "struttura": "お〜になる",
+    "livello": "N4",
+    "spiegazione": {
+      "it": "Onorifico produttivo (尊敬語): お + radice del verbo in ます + になる eleva l'azione dell'interlocutore o di un superiore. Si usa con i verbi che non hanno una forma onorifica propria; quando c'è, si preferisce quella (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる).",
+      "en": "Productive honorific (尊敬語): お + the ます-stem of the verb + になる raises the action of the listener or of a superior. Use it with verbs that lack a dedicated honorific form; when one exists, that form is preferred (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる)."
+    },
+    "esempi": [
+      {
+        "jp": "社長はもうお帰りになりました。",
+        "it": "Il presidente è già rientrato.",
+        "en": "The president has already gone home."
+      },
+      {
+        "jp": "先生は毎晩本をお読みになります。",
+        "it": "Il professore legge un libro ogni sera.",
+        "en": "The teacher reads a book every evening."
+      },
+      {
+        "jp": "部長は新幹線にお乗りになりました。",
+        "it": "Il capoufficio ha preso lo shinkansen.",
+        "en": "The section chief took the bullet train."
+      }
+    ],
+    "study_tags": ["n4", "grammar", "exam-core"],
+    "chapter_tags": ["jlpt-n4-core"]
+  }
+]

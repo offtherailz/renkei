@@ -699,5 +699,109 @@
         "en": "The battery is dead."
       }
     ]
+  },
+  {
+    "scrittura": "ご覧になる",
+    "lettura": "ごらんになる",
+    "it": [
+      "guardare (onorifico)",
+      "vedere (di un superiore)"
+    ],
+    "en": [
+      "to look at (honorific)",
+      "to see (said of a superior)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "他動詞[たどうし]",
+    "sinonimi": [
+      "見る"
+    ],
+    "correlati": [
+      "拝見する",
+      "なさる",
+      "いらっしゃる"
+    ],
+    "esempi": [
+      {
+        "jp": "こちらの写真をご覧になりましたか。",
+        "it": "Ha già visto questa foto?",
+        "en": "Have you seen this photo?"
+      },
+      {
+        "jp": "部長は 昨日 その 番組を ご覧になりました。",
+        "it": "Ieri il capoufficio ha visto quel programma.",
+        "en": "The section chief watched that programme yesterday."
+      }
+    ]
+  },
+  {
+    "scrittura": "ご存じ",
+    "lettura": "ごぞんじ",
+    "it": [
+      "sapere (onorifico)",
+      "conoscere (di un superiore)"
+    ],
+    "en": [
+      "to know (honorific)",
+      "to be aware of (said of a superior)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "sinonimi": [
+      "知る"
+    ],
+    "correlati": [
+      "おっしゃる",
+      "いらっしゃる"
+    ],
+    "esempi": [
+      {
+        "jp": "先生は その 話を ご存じですか。",
+        "it": "Professore, lei conosce quella storia?",
+        "en": "Do you know that story, sensei?"
+      },
+      {
+        "jp": "社長は もう ご存じでした。",
+        "it": "Il presidente lo sapeva già.",
+        "en": "The president already knew about it."
+      }
+    ]
+  },
+  {
+    "scrittura": "お休みになる",
+    "lettura": "おやすみになる",
+    "it": [
+      "dormire (onorifico)",
+      "andare a riposare (di un superiore)"
+    ],
+    "en": [
+      "to sleep (honorific)",
+      "to retire for the night (said of a superior)"
+    ],
+    "livello": "N4",
+    "tipo_jp": "動詞[どうし]",
+    "classe_verbo_jp": "五段動詞[ごだんどうし]",
+    "transitivita_jp": "自動詞[じどうし]",
+    "sinonimi": [
+      "寝る"
+    ],
+    "correlati": [
+      "いらっしゃる",
+      "なさる"
+    ],
+    "esempi": [
+      {
+        "jp": "社長は もう お休みになりました。",
+        "it": "Il presidente è già andato a riposare.",
+        "en": "The president has already retired for the night."
+      },
+      {
+        "jp": "どうぞ ゆっくり お休みになってください。",
+        "it": "La prego, riposi con calma.",
+        "en": "Please rest well."
+      }
+    ]
   }
 ]

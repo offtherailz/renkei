@@ -222,6 +222,22 @@ Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:
 > **Non modificare `seed-n5n4.json` a mano**: viene sovrascritto ad ogni sync.
 > Eccezione: `node scripts/fix-numbers-counters.mjs` riapplica al seed committato solo la ricategorizzazione numeri/contatori (stessa logica del pipeline, senza fetch di rete) — utile dopo aver toccato `counters-n5n4.json`.
 
+**Grammatica curata a mano** (`scripts/data/grammar-extra-n5n4.json`, 26/07): l'API della
+grammatica non copre tutto (mancavano 〜ばよかった, 〜てよかった, 〜てくれて、ありがとう,
+お〜ください, お〜になる). Gli *overrides* non bastano: `applyGrammarOverrides` patcha solo voci
+esistenti. Le voci curate si aggiungono qui e vengono create da `mergeCuratedGrammar`
+(`scripts/lib/grammar-extra.mjs`), che gira **prima** degli overrides (così una voce curata resta
+patchabile per id). Portano `source_name: "Renkei — curato"`: è il marcatore che fa sì che
+`normalizeGrammar` le **preservi** ad ogni sync successivo invece di sovrascriverle con l'API.
+
+> ⚠️ **Il sync completo oggi è distruttivo** (verificato 26/07): rigenerando da zero cancella le
+> curatele che vivono **solo** nel seed e non negli overrides — in un test ha tolto sinonimi a 228
+> parole, frasi d'esempio a 58, più correlati/usi/parafrasi, e ha reintrodotto la voce malformata
+> «初め; 始め» già corretta in `1eadd0f7` inventando `信号する`. Finché quelle curatele non sono
+> tutte rientrate negli overrides, le aggiunte al seed vanno applicate **in modo chirurgico**
+> (riusando le funzioni della pipeline, ma senza rigenerare tutto) e il seed va riscritto
+> **minificato** — il sync lo scrive invece indentato, generando un diff di ~118k righe.
+
 **Relazione `Word.correlati?`** (17/07): parole legate ma **non interscambiabili** (妻↔奥さん,
 兄↔弟, お宅↔家) — distinta dai sinonimi. Curata negli overrides (le "false sinonimie" della
 famiglia umile/onorifico sono state spostate qui); mostrata nella scheda come card «Correlati»,

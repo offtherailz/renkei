@@ -1246,6 +1246,122 @@ export const GRAMMAR_FORMS: GrammarForm[] = [
 		schemaId: 'te',
 		exceptions: ['Colloquiale: negli scritti/formale si usa 〜てください.'],
 		consolidaId: 'grammar-api-N4-61'
+	},
+	{
+		slug: 'ba-yokatta',
+		label: '〜ばよかった',
+		icon: '😔',
+		title: 'Forma composta: 〜ばよかった',
+		summary: 'Rimpianto per ciò che non si è fatto: «avrei dovuto…».',
+		explanation: [
+			'Forma condizionale in ば + よかった: 予約[よやく]すればよかった = "avrei dovuto prenotare". Si parla di qualcosa che NON si è fatto e che ora si rimpiange.',
+			'Con la negazione il rimpianto si rovescia: 言[い]わなければよかった = "non avrei dovuto dirlo".',
+			'La coniugazione è quella di 〜ば: 行[い]く→行けば, 食[た]べる→食べれば, する→すれば, 来[く]る→来[く]れば.',
+			'Il rovescio positivo — essere contenti di ciò che si è fatto — è 〜てよかった.'
+		],
+		examples: [
+			{ jp: 'もっと早[はや]く予約[よやく]すればよかったです。', it: 'Avrei dovuto prenotare prima.' },
+			{ jp: '傘[かさ]を持[も]って来[き]ればよかった。', it: "Avrei dovuto portare l'ombrello." },
+			{ jp: 'あんなことを言[い]わなければよかった。', it: 'Non avrei dovuto dire una cosa simile.' }
+		],
+		related: ['ba', 'tara', 'te-yokatta', 'doushi'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma condizionale ば' }],
+		schemaId: 'ba',
+		exceptions: ['Parla sempre del passato: la condizione non si è realizzata.'],
+		consolidaId: 'g-n4-ba-yokatta'
+	},
+	{
+		slug: 'te-yokatta',
+		label: '〜てよかった',
+		icon: '😊',
+		title: 'Forma composta: 〜てよかった',
+		summary: 'Sollievo o contentezza per come sono andate le cose: «meno male che…».',
+		explanation: [
+			'Forma て + よかった: 習[なら]ってよかった = "sono contento di aver imparato". Si parla di qualcosa che è successo davvero.',
+			'Con la negativa: 〜ないでよかった = "meno male che non…" (やめないでよかった = meno male che non ho smesso).',
+			'Da non confondere con 〜ばよかった, che è il rimpianto per ciò che NON si è fatto.'
+		],
+		examples: [
+			{ jp: '日本語[にほんご]の勉強[べんきょう]をやめないでよかったです。', it: 'Meno male che non ho smesso di studiare giapponese.' },
+			{ jp: '早[はや]く家[いえ]を出[で]てよかった。電車[でんしゃ]に間[ま]に合[あ]った。', it: 'Meno male che sono uscito presto di casa: ho preso il treno.' },
+			{ jp: '敬語[けいご]を習[なら]ってよかったです。', it: 'Sono contento di aver imparato il keigo.' }
+		],
+		related: ['ba-yokatta', 'te-shimau', 'doushi'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma て (o ないで)' }],
+		schemaId: 'te',
+		consolidaId: 'g-n4-te-yokatta'
+	},
+	{
+		slug: 'tekurete-arigatou',
+		label: '〜てくれて、ありがとう',
+		icon: '🙇',
+		title: 'Forma composta: 〜てくれて、ありがとう',
+		summary: 'Ringraziare per un favore ricevuto: «grazie per avermi…».',
+		explanation: [
+			'Forma て + くれて、ありがとう: 来[き]てくれて、ありがとう = "grazie di essere venuto". Si ringrazia per un\'azione fatta a proprio favore.',
+			'Verso un superiore o un cliente si sale di registro: 〜てくださって、ありがとうございました.',
+			'Si appoggia ai verbi del dare e ricevere (授受[じゅじゅ]): くれる → onorifico くださる.'
+		],
+		examples: [
+			{ jp: '来[き]てくれて、ありがとう。', it: 'Grazie di essere venuto.' },
+			{ jp: '駅[えき]まで送[おく]ってくれて、ありがとう。', it: 'Grazie per avermi accompagnato alla stazione.' },
+			{ jp: '辞書[じしょ]を貸[か]してくださって、ありがとうございました。', it: 'La ringrazio per avermi prestato il dizionario.' }
+		],
+		related: ['juju', 'o-kudasai', 'doushi'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'forma て + くれて / くださって' }],
+		schemaId: 'te',
+		exceptions: ['Con 〜てあげる non si ringrazia: si ringrazia solo chi ha fatto qualcosa per noi (くれる).'],
+		consolidaId: 'g-n4-tekurete-arigatou'
+	},
+	{
+		slug: 'o-kudasai',
+		label: 'お〜ください／ご〜ください',
+		icon: '🎎',
+		title: 'Forma composta: お〜ください／ご〜ください',
+		summary: 'Richiesta onorifica (尊敬語), più rispettosa di 〜てください.',
+		explanation: [
+			'お + radice ます del verbo + ください: お待[ま]ちください = "attenda, prego".',
+			'Con un nome di origine cinese: ご + nome + ください — ご注意[ちゅうい]ください = "faccia attenzione".',
+			'È il registro onorifico della richiesta: 〜てください resta la richiesta cortese normale.',
+			'I verbi con forma onorifica propria usano quella: 召[め]し上[あ]がる → お召し上がりください.'
+		],
+		examples: [
+			{ jp: 'こちらでお待[ま]ちください。', it: 'Attenda qui, per favore.' },
+			{ jp: 'どうぞ、お召[め]し上[あ]がりください。', it: 'Si serva pure, prego.' },
+			{ jp: '足元[あしもと]にご注意[ちゅうい]ください。', it: 'Faccia attenzione a dove mette i piedi.' }
+		],
+		related: ['o-ni-naru', 'tekurete-arigatou', 'nasai'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'radice ます, preceduta da お' }],
+		schemaId: 'stem',
+		exceptions: ['Mai riferito a sé stessi: è il registro onorifico, riguarda l\'azione dell\'altro.'],
+		consolidaId: 'g-n4-o-kudasai'
+	},
+	{
+		slug: 'o-ni-naru',
+		label: 'お〜になる',
+		icon: '👔',
+		title: 'Forma composta: お〜になる',
+		summary: 'Onorifico produttivo (尊敬語): eleva l\'azione di un superiore.',
+		explanation: [
+			'お + radice ます del verbo + になる: お帰[かえ]りになる = "rientrare" detto di un superiore.',
+			'Si usa per i verbi che NON hanno una forma onorifica propria.',
+			'Quando la forma propria esiste, si preferisce quella: 見[み]る → ご覧[らん]になる, 食[た]べる・飲[の]む → 召[め]し上[あ]がる, 寝[ね]る → お休[やす]みになる.'
+		],
+		examples: [
+			{ jp: '社長[しゃちょう]はもうお帰[かえ]りになりました。', it: 'Il presidente è già rientrato.' },
+			{ jp: '先生[せんせい]は毎晩[まいばん]本[ほん]をお読[よ]みになります。', it: 'Il professore legge un libro ogni sera.' },
+			{ jp: '部長[ぶちょう]は新幹線[しんかんせん]にお乗[の]りになりました。', it: 'Il capoufficio ha preso lo shinkansen.' }
+		],
+		related: ['o-kudasai', 'juju', 'doushi'],
+		composed: true,
+		attachment: [{ base: 'Verbo', connessione: 'radice ます, preceduta da お' }],
+		schemaId: 'stem',
+		exceptions: ['Mai per le proprie azioni: per quelle si usa l\'umile (謙譲語).'],
+		consolidaId: 'g-n4-o-ni-naru'
 	}
 ];
 
@@ -1323,5 +1439,10 @@ export const FORM_SLUG_BY_STRUTTURA: Record<string, string> = {
 	'〜くなる／〜になる': 'naru',
 	'〜に行く': 'ni-iku',
 	'〜なさい': 'nasai',
-	'〜て（依頼）': 'te-irai'
+	'〜て（依頼）': 'te-irai',
+	'〜ばよかった': 'ba-yokatta',
+	'〜てよかった': 'te-yokatta',
+	'〜てくれて、ありがとう': 'tekurete-arigatou',
+	'お〜ください／ご〜ください': 'o-kudasai',
+	'お〜になる': 'o-ni-naru'
 };
