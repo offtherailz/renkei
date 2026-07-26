@@ -14,9 +14,7 @@ export interface ObjectiveSummary {
 	dueCount: number;
 }
 
-// Esportata: riusata da $lib/db/coverage.ts (matrice JLPT×corsi) per non
-// duplicare la raccolta ricorsiva delle chiavi di un obiettivo e dei suoi figli.
-export function gatherKeys(
+function gatherKeys(
 	objectiveId: string,
 	allObjectives: StudyObjective[]
 ): string[] {

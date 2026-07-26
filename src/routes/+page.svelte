@@ -487,10 +487,6 @@
 			<span class="quick-icon">📊</span>
 			<span>Statistiche</span>
 		</a>
-		<a href="{base}/copertura" class="quick-card">
-			<span class="quick-icon">🗺️</span>
-			<span>Copertura</span>
-		</a>
 		<a href="{base}/settings" class="quick-card">
 			<span class="quick-icon">⚙️</span>
 			<span>Impostazioni</span>
