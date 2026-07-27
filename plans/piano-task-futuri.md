@@ -265,6 +265,14 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   `epicStepsForStreak()` in gameBelts.ts (0 sotto 12, 1 a 12, +1 ogni 13 in
   più); `recordGameResult` accetta `epic: boolean | number`. Solo su
   riordina/shadowing (serie infinita — gli altri hanno round troppo corti).
+- ✅ (27/07) **Nuovo gioco «↔️ Transitivo o intransitivo?»** (`/transitivi`,
+  idea utente): frase vera col buco al posto del verbo, gemello della coppia
+  sempre tra le scelte (stessa forma coniugata), indizio が/を. Riusa
+  `createTransitivityPairQuestion` del quiz principale ma pesca solo tra le
+  coppie 自動詞/他動詞 curate; la funzione ora prova tutte le frasi
+  d'esempio (non solo la prima), portando la copertura a 53 round su 35
+  coppie. Round fissi (8), cintura anche su uscita anticipata. Card in
+  /giochi (Grammatica e parole) + voce in /guida.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

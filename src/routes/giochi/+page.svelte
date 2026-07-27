@@ -905,6 +905,13 @@
 				<span class="cat-hint">妻 o 奥さん? 切符 o 切手? il contesto ne forza una sola</span>
 				{@render beltChip('coppie')}
 			</a>
+			<a class="cat-card" href="{base}/transitivi">
+				<span class="cat-icon">↔️</span>
+				<span class="cat-label">Transitivo o intransitivo? <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">開ける o 開く? 消す o 消える? が/を appena prima del buco ti guida</span>
+				<span class="cat-best">🏆 record: {getHighscore('transitivi')}</span>
+				{@render beltChip('transitivi')}
+			</a>
 			<a class="cat-card" href="{base}/avverbi">
 				<span class="cat-icon">🎚️</span>
 				<span class="cat-label">Avverbi <span class="cat-beta">beta</span></span>

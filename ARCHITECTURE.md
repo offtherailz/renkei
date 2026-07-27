@@ -206,6 +206,24 @@ più imprese in un colpo). Usato SOLO dai due giochi a serie infinita
 (riordina, shadowing) — gli altri hanno round fissi troppo corti perché la
 casistica si presenti.
 
+### Gioco dedicato «Transitivo o intransitivo?» (27/07)
+
+`/transitivi` (beta): riusa `createTransitivityPairQuestion` del quiz
+principale (`quiz/engine.ts`) — frase vera col buco al posto del verbo,
+gemello della coppia sempre tra le scelte coniugato nella stessa forma,
+indizio della particella が/を appena prima del buco — ma pesca SOLO tra le
+parole con `id_verbo_corrispondente` invece che tra tutte le parole del
+pool, per un allenamento mirato e ripetibile (a differenza del quiz SRS, qui
+si può rigiocare a piacere). `createTransitivityPairQuestion` ora prova
+TUTTE le frasi d'esempio della parola (non solo la prima): le frasi
+parallele 自動詞/他動詞 curate apposta per la coppia sono spesso l'ultima,
+e limitarsi alla prima escludeva molte coppie valide (copertura passata da
+poche unità a 53 round su 35 delle 41 coppie curate — verificato in
+`transitivi.test.ts` sul seed vero). `core/transitivi.ts` isola
+`buildTransitiviPool`/`pickTransitiviRounds` (nessuna dipendenza da
+SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
+impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:

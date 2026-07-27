@@ -778,8 +778,8 @@ export function createTransitivityPairQuestion(
 ): TransitivityPairQuestion | null {
   if (!word.id_verbo_corrispondente) return null;
   const pair = context.wordsById.get(word.id_verbo_corrispondente);
-  const example = (word.frasi_esempio ?? [])[0];
-  if (!pair || !example) return null;
+  const examples = word.frasi_esempio ?? [];
+  if (!pair || examples.length === 0) return null;
 
   const verbClass = detectVerbClass(word);
   const pairClass = detectVerbClass(pair);
@@ -788,36 +788,41 @@ export function createTransitivityPairQuestion(
   const pairForms = buildVerbTable(pair.scrittura, pairClass);
   if (!forms || !pairForms) return null;
 
-  const sentence = stripFuriganaNotation(example.testo);
-  const hit = findConjugatedForm(sentence, forms);
-  if (!hit) return null;
+  // Prova tutte le frasi d'esempio (non solo la prima): le frasi parallele
+  // 自動詞/他動詞 aggiunte apposta per la coppia sono spesso l'ultima.
+  for (const example of examples) {
+    const sentence = stripFuriganaNotation(example.testo);
+    const hit = findConjugatedForm(sentence, forms);
+    if (!hit) continue;
 
-  const pairSameForm = pairForms.find((f) => f.key === hit.key)?.value;
-  if (!pairSameForm || pairSameForm === hit.value) return null;
+    const pairSameForm = pairForms.find((f) => f.key === hit.key)?.value;
+    if (!pairSameForm || pairSameForm === hit.value) continue;
 
-  // La particella subito prima del verbo (が/を) è l'indizio pedagogico: serve
-  // che ci sia, ma la frase va mostrata INTERA col buco — l'estratto
-  // nome+particella troncava la testa a metà parola (りの部屋から…) e amputava
-  // la coda (…てもいいですか), creando frammenti sospesi e vere ambiguità
-  // (audit dell'insegnante).
-  const at = sentence.indexOf(hit.value);
-  const prefix = sentence.slice(0, at);
-  if (!/([一-龯ぁ-んァ-ヶーA-Za-z0-9]{1,8})([がを])\s*$/.test(prefix)) return null;
+    // La particella subito prima del verbo (が/を) è l'indizio pedagogico: serve
+    // che ci sia, ma la frase va mostrata INTERA col buco — l'estratto
+    // nome+particella troncava la testa a metà parola (りの部屋から…) e amputava
+    // la coda (…てもいいですか), creando frammenti sospesi e vere ambiguità
+    // (audit dell'insegnante).
+    const at = sentence.indexOf(hit.value);
+    const prefix = sentence.slice(0, at);
+    if (!/([一-龯ぁ-んァ-ヶーA-Za-z0-9]{1,8})([がを])\s*$/.test(prefix)) continue;
 
-  const filler = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
-    .map((f) => f.value)
-    .filter((v) => v !== hit.value && v !== pairSameForm)
-    .slice(0, 1);
+    const filler = shuffle(pairForms.filter((f) => f.key !== hit.key && f.key !== "dict"))
+      .map((f) => f.value)
+      .filter((v) => v !== hit.value && v !== pairSameForm)
+      .slice(0, 1);
 
-  return {
-    mode: "transitivity-pair",
-    wordId: word.id,
-    sentenceWithBlank: `${prefix}${USAGE_BLANK}${sentence.slice(at + hit.value.length)}`,
-    fullSentence: sentence,
-    translation: pickLocalizedText(example.traduzione, locale),
-    choices: shuffle([hit.value, pairSameForm, ...filler]),
-    correctChoice: hit.value
-  };
+    return {
+      mode: "transitivity-pair",
+      wordId: word.id,
+      sentenceWithBlank: `${prefix}${USAGE_BLANK}${sentence.slice(at + hit.value.length)}`,
+      fullSentence: sentence,
+      translation: pickLocalizedText(example.traduzione, locale),
+      choices: shuffle([hit.value, pairSameForm, ...filler]),
+      correctChoice: hit.value
+    };
+  }
+  return null;
 }
 
 // ── Quiz lettura numero+contatore: さんぼん o さんほん? ──

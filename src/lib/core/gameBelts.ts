@@ -48,6 +48,7 @@ export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
 	// attività con pagina propria
 	{ id: 'riordina', label: 'Riordina la frase', icon: '🧩' },
 	{ id: 'coppie', label: 'Coppie difficili', icon: '🔀' },
+	{ id: 'transitivi', label: 'Transitivo o intransitivo?', icon: '↔️' },
 	{ id: 'dettato', label: 'Dettato', icon: '✍️' },
 	{ id: 'avverbi', label: 'Avverbi', icon: '🎚️' },
 	{ id: 'catena', label: 'Catena di forme', icon: '🧬' },
