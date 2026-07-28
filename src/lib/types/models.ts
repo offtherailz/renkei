@@ -294,6 +294,8 @@ export interface CourseLessonMeta extends BaseEntity {
   parole: string[];
   kanji: string[];
   grammatica: string[];
+  /** immagini/documenti/link aggiuntivi della lezione */
+  risorse: CourseResourceInput[];
   /** study_objective id created for this lesson */
   objective_id: string;
 }
@@ -357,6 +359,12 @@ export interface CourseGrammarInput {
   frasi_esempio?: CourseGrammarExampleInput[];
 }
 
+export interface CourseResourceInput {
+  tipo: "immagine" | "documento" | "link";
+  url: string;
+  titolo: string;
+}
+
 export interface CourseLessonInput {
   id: string;
   numero: number;
@@ -366,6 +374,7 @@ export interface CourseLessonInput {
   parole?: string[];
   kanji?: string[];
   grammatica?: string[];
+  risorse?: CourseResourceInput[];
 }
 
 export interface CourseDatasetInput {

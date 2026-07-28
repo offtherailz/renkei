@@ -224,6 +224,38 @@ poche unità a 53 round su 35 delle 41 coppie curate — verificato in
 SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
 impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
 
+## Corsi importati — note, risorse, esercizi collegati (28/07)
+
+Il formato `.renkei-course.json` (`COURSE_FORMAT.md`, importer `src/lib/db/course-import.ts`)
+esisteva già ma con due lacune: il campo `note` (markdown) di ogni lezione veniva salvato
+(`db.course_lessons`) ma mai mostrato, e non c'era modo di allegare materiale extra
+(immagini/documenti/link). Estensioni:
+
+- **`risorse`** (nuovo campo opzionale per lezione, `CourseResourceInput[]` in
+  `types/models.ts`): `{ tipo: "immagine"|"documento"|"link", url, titolo }`. `url` è o un link
+  esterno assoluto (`https://...`, es. una risorsa già su Drive) o un percorso relativo a un file
+  impacchettato sotto `static/corsi-assets/{corso.id}/...` — il base-path si risolve SOLO nella
+  UI (`resourceHref` in `courses/+page.svelte`), mai salvato nel file corso (altrimenti si rompe
+  tra dev/staging/prod, che hanno base-path diversi). Validato in `course-import.ts`
+  (`ALLOWED_RESOURCE_TYPES`, rifiuta `javascript:`).
+- **`src/lib/core/courseMarkdown.ts`** — markdown minimale scritto ad-hoc (niente nuova
+  dipendenza npm, coerente con un progetto che ne ha solo 2): intestazioni, grassetto/corsivo,
+  elenchi, tabelle, paragrafi. Tutto il testo è escapato PRIMA di applicare le trasformazioni —
+  un file corso importato non è più fidato del resto dei dati, niente HTML arbitrario passa.
+- **UI `/courses`**: ogni lezione ha un toggle «📖 Leggi la lezione» (nota renderizzata +
+  immagini inline + chip per documenti/link) e un bottone «🎯 Esercitati su questa lezione»
+  (attiva l'obiettivo della lezione se non lo è già e apre `/quiz`). Nota onesta mostrata
+  all'utente: i giochi in `/giochi` pescano da TUTTO il vocabolario del dispositivo (non solo
+  "in studio"), quindi le parole di una lezione appena importata ci sono già senza doverla
+  attivare — solo il quiz/SRS rispetta `study_enabled`.
+- **`static/corso-esempio.json`** + `static/corsi-assets/corso-esempio/` — corso demo originale
+  (2 lezioni, tema gita a Kyoto, nessun materiale di terzi) per mostrare il formato in azione:
+  parole nuove + parole del catalogo aperto referenziate, un kanji nuovo (塔, assente dal seed
+  principale, verificato), una grammatica nuova (dialetto di Kyoto 〜どす) più una referenziata
+  dal seed (〜つもり), un'immagine SVG originale, un documento di testo, due link esterni.
+  Quick-import in `/courses` sotto «🧪 Corso di esempio (demo)» — da rimuovere prima di un
+  deploy pensato per utenti reali, se non lo si vuole visibile.
+
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 
 Il seed viene rigenerato con `npm run sync:open-seed`. Le fasi principali:

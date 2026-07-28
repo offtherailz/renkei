@@ -84,6 +84,30 @@ Array ordinato delle lezioni del corso. Obbligatorio (almeno 1 elemento).
 | `parole` | `string[]` | ❌ | Lista di ID parole. Possono essere ID del seed esistente o ID di `parole_nuove` (prefissati con `corso.id`). |
 | `kanji` | `string[]` | ❌ | Lista di ID kanji (il singolo carattere, es. `"人"`) |
 | `grammatica` | `string[]` | ❌ | Lista di ID forme grammaticali (seed o `grammatica_nuova`) |
+| `risorse` | `CourseResourceInput[]` | ❌ | Immagini/documenti/link aggiuntivi della lezione, vedi sotto |
+
+### Risorse aggiuntive (`lezioni[].risorse`)
+
+Materiale extra oltre a parole/kanji/grammatica: immagini, documenti scaricabili, link esterni.
+
+```json
+{
+  "risorse": [
+    { "tipo": "immagine", "url": "corsi-assets/minna-1/saluti.svg", "titolo": "Schema saluti" },
+    { "tipo": "documento", "url": "corsi-assets/minna-1/riassunto-l01.txt", "titolo": "Riassunto lezione (testo)" },
+    { "tipo": "link", "url": "https://esempio.org/approfondimento", "titolo": "Approfondimento esterno" }
+  ]
+}
+```
+
+| Campo | Tipo | Obbligatorio | Note |
+|---|---|---|---|
+| `tipo` | `"immagine"` \| `"documento"` \| `"link"` | ✅ | |
+| `url` | string | ✅ | Un URL assoluto `https://...` (link esterno, es. una risorsa già su Drive) OPPURE un percorso relativo a un file impacchettato nell'app sotto `static/` (risolto con il base-path a runtime — niente `javascript:`). |
+| `titolo` | string | ✅ | Etichetta mostrata all'utente |
+
+Per immagini/documenti impacchettati nell'app (non link esterni), mettere il file sotto
+`static/corsi-assets/{corso.id}/...` e usare quel percorso relativo come `url`.
 
 ### Come referenziare elementi esistenti
 
@@ -420,6 +444,8 @@ Quando generi un dataset corso da materiale sorgente:
 6. **Note lezione** (`lezioni[].note`): usa Markdown. Includi tabelle di vocabolario, spiegazioni grammaticali, esempi d'uso. Queste note vengono mostrate all'utente nella schermata della lezione.
 7. **Frasi esempio**: usa la notazione `Kanji[lettura]` per il furigana. Mantieni le frasi brevi (sotto i 20 caratteri) e grammaticalmente corrette.
 8. **Non inventare** campi non documentati qui sopra — verranno ignorati.
+9. **Risorse** (`lezioni[].risorse`): usarle solo per materiale che esiste davvero (un'immagine
+   fornita, un link a una pagina reale) — non inventare URL o descrizioni di file inesistenti.
 
 ---
 
@@ -431,5 +457,6 @@ Prima di importare, il file viene validato automaticamente dall'app. Gli errori 
 - `parole` nelle lezioni che referenziano ID non esistenti né nel seed né in `parole_nuove`
 - Campi obbligatori mancanti (es. `scrittura`, `lettura`, `significato_it`)
 - `tipo_jp` con valore non ammesso
+- `risorse` con `tipo` non ammesso, `url` mancante/non valido (es. `javascript:`), o `titolo` mancante
 
 In caso di errore, l'import viene annullato e viene mostrato il messaggio d'errore specifico.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200" role="img" aria-label="Due persone che si salutano con un inchino">
+  <rect x="0" y="0" width="320" height="200" fill="#f6f3ec"/>
+  <line x1="0" y1="160" x2="320" y2="160" stroke="#cfc7b3" stroke-width="2"/>
+
+  <!-- persona 1, inchinata -->
+  <g transform="translate(90,150) rotate(18)">
+    <circle cx="0" cy="-78" r="16" fill="#3a3a3a"/>
+    <line x1="0" y1="-62" x2="0" y2="0" stroke="#3a3a3a" stroke-width="10" stroke-linecap="round"/>
+    <line x1="0" y1="-40" x2="-28" y2="-20" stroke="#3a3a3a" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="-40" x2="28" y2="-20" stroke="#3a3a3a" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- persona 2, inchinata -->
+  <g transform="translate(230,150) rotate(-18)">
+    <circle cx="0" cy="-78" r="16" fill="#5b4636"/>
+    <line x1="0" y1="-62" x2="0" y2="0" stroke="#5b4636" stroke-width="10" stroke-linecap="round"/>
+    <line x1="0" y1="-40" x2="-28" y2="-20" stroke="#5b4636" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="-40" x2="28" y2="-20" stroke="#5b4636" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <text x="160" y="30" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#3a3a3a">はじめまして</text>
+  <text x="160" y="55" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7a">Piacere di conoscerti</text>
+</svg>

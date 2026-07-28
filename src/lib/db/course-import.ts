@@ -14,6 +14,8 @@ import type {
 
 // ── Validation ────────────────────────────────────────────────────────────────
 
+const ALLOWED_RESOURCE_TYPES = ["immagine", "documento", "link"];
+
 const ALLOWED_TIPO_JP: WordTypeJP[] = [
   "名詞[めいし]",
   "動詞[どうし]",
@@ -78,6 +80,17 @@ function validateDataset(dataset: CourseDatasetInput): void {
     for (const gramId of lezione.grammatica ?? []) {
       if (gramId.startsWith(`${corsoId}-`) && !newGrammarIds.has(gramId)) {
         throw new Error(`Lezione "${lezione.id}": la grammatica "${gramId}" non è definita in grammatica_nuova.`);
+      }
+    }
+    for (const r of lezione.risorse ?? []) {
+      if (!ALLOWED_RESOURCE_TYPES.includes(r.tipo)) {
+        throw new Error(`Lezione "${lezione.id}": risorsa di tipo non valido "${r.tipo}".`);
+      }
+      if (!r.url || /^\s*javascript:/i.test(r.url)) {
+        throw new Error(`Lezione "${lezione.id}": risorsa "${r.titolo}" ha un url non valido.`);
+      }
+      if (!r.titolo) {
+        throw new Error(`Lezione "${lezione.id}": risorsa manca di "titolo".`);
       }
     }
   }
@@ -306,6 +319,7 @@ export async function importCourseDataset(jsonText: string): Promise<CourseImpor
       parole: lezione.parole ?? [],
       kanji: lezione.kanji ?? [],
       grammatica: lezione.grammatica ?? [],
+      risorse: lezione.risorse ?? [],
       objective_id: lessonObjectiveId,
       updated_at: now
     });

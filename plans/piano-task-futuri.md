@@ -273,6 +273,19 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   d'esempio (non solo la prima), portando la copertura a 53 round su 35
   coppie. Round fissi (8), cintura anche su uscita anticipata. Card in
   /giochi (Grammatica e parole) + voce in /guida.
+- ✅ (28/07) **Corsi: note in markdown + risorse + esercizi collegati** (idea
+  esplorata con l'utente per un possibile uso scolastico — vedi
+  `~/.claude/plans/virtual-crunching-piglet.md`): il campo `note` di ogni
+  lezione (già salvato all'import ma mai mostrato) ora si vede in
+  `/courses` («📖 Leggi la lezione», markdown minimale scritto ad-hoc in
+  `courseMarkdown.ts`, nessuna dipendenza nuova). Nuovo campo opzionale
+  `risorse` per lezione (immagini/documenti/link, validato contro
+  `javascript:`). Nuovo bottone «🎯 Esercitati su questa lezione» (attiva
+  l'obiettivo e apre `/quiz`); nota onesta che i giochi pescano già da tutto
+  il vocabolario, non serve attivare la lezione per giocarci. Corso demo
+  originale (`corso-esempio.json`, tema Kyoto, 2 lezioni) per provare il
+  formato — quick-import in `/courses`, da togliere prima di un deploy per
+  utenti reali se non lo si vuole visibile.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

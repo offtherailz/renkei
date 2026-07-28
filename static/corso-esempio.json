@@ -1,0 +1,81 @@
+{
+  "versione": "1.0",
+  "corso": {
+    "id": "corso-esempio",
+    "nome": "Corso di esempio — Gita a Kyoto",
+    "descrizione": "Corso dimostrativo (demo, contenuto originale, nessun materiale di terzi): mostra note in markdown, immagini, documenti, link ed esercizi collegati alle lezioni.",
+    "autore": "Renkei (demo)",
+    "livello_jlpt": "N5",
+    "lingua_origine": "it"
+  },
+  "lezioni": [
+    {
+      "id": "L01",
+      "numero": 1,
+      "titolo": "L01 — 自己紹介と好きなこと",
+      "descrizione": "Presentarsi e parlare dei propri gusti.",
+      "note": "## Presentarsi\n\nIn giapponese ci si presenta di solito con nome, provenienza e un interesse. La frase base è **Nome は 〜です**.\n\n| Giapponese | Italiano |\n| --- | --- |\n| わたしは...です | Io sono... |\n| 〜の学生です | Sono studente di... |\n| 趣味は〜です | Il mio hobby è... |\n\nFrasi utili:\n- はじめまして\n- よろしくお願いします\n- 〜が好きです",
+      "parole": ["私::わたし", "名前", "学生", "好き", "国", "学校", "趣味"],
+      "kanji": [],
+      "grammatica": [],
+      "risorse": [
+        { "tipo": "immagine", "url": "corsi-assets/corso-esempio/saluto.svg", "titolo": "Il saluto (お辞儀)" },
+        { "tipo": "link", "url": "https://jisho.org/search/%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B", "titolo": "Approfondisci: 自己紹介 su Jisho" }
+      ]
+    },
+    {
+      "id": "L02",
+      "numero": 2,
+      "titolo": "L02 — 京都旅行の準備",
+      "descrizione": "Prepararsi per un viaggio: santuari, foto, e un tocco di dialetto di Kyoto.",
+      "note": "## Prima del viaggio\n\nA Kyoto ci sono molti **神社** (santuari), famosi per il loro **景色** (paesaggio) **美しい** (bello). Una delle costruzioni più fotografate è il 五重塔, la pagoda a cinque piani.\n\n| Giapponese | Italiano |\n| --- | --- |\n| 写真を撮る | Fare una foto |\n| 神社に行くつもりです | Ho intenzione di andare al santuario |\n\n### Curiosità: il dialetto di Kyoto\n\nA Kyoto si sente ancora 〜どす al posto di 〜です in alcuni contesti tradizionali (locali storici, geisha) — un tocco locale che non si trova sui libri di testo standard.",
+      "parole": ["神社", "写真", "撮る", "景色", "美しい", "corso-esempio-五重塔"],
+      "kanji": ["塔"],
+      "grammatica": ["grammar-api-N4-64", "corso-esempio-gram-dosu"],
+      "risorse": [
+        { "tipo": "documento", "url": "corsi-assets/corso-esempio/frasi-utili-viaggio.txt", "titolo": "Frasi utili per il viaggio (testo)" },
+        { "tipo": "link", "url": "https://jisho.org/search/%E4%BA%94%E9%87%8D%E5%A1%94", "titolo": "Approfondisci: 五重塔 su Jisho" }
+      ]
+    }
+  ],
+  "parole_nuove": [
+    {
+      "id": "corso-esempio-五重塔",
+      "scrittura": "五重塔",
+      "lettura": "ごじゅうのとう",
+      "significato_it": ["pagoda a cinque piani"],
+      "significato_en": ["five-story pagoda"],
+      "livello_jlpt": "N4",
+      "tipo_jp": "名詞[めいし]",
+      "kanji_usati": ["五", "重", "塔"]
+    }
+  ],
+  "kanji_nuovi": [
+    {
+      "id": "塔",
+      "significato_it": "torre, pagoda",
+      "significato_en": "tower, pagoda",
+      "letture_on": ["トウ"],
+      "letture_kun": [],
+      "parole_correlate": ["corso-esempio-五重塔"]
+    }
+  ],
+  "grammatica_nuova": [
+    {
+      "id": "corso-esempio-gram-dosu",
+      "struttura": "〜どす",
+      "spiegazione_it": "Variante dialettale di 〜です usata nel dialetto di Kyoto (京言葉), soprattutto in contesti tradizionali (locali storici, geisha). Non è giapponese standard, ma un tocco locale utile da riconoscere in viaggio.",
+      "spiegazione_en": "Dialectal variant of 〜です used in the Kyoto dialect (Kyōkotoba), mostly in traditional contexts. Not standard Japanese, but useful to recognize while traveling.",
+      "livello_jlpt": "N4",
+      "categoria_jp": "方言[ほうげん]",
+      "frasi_esempio": [
+        {
+          "testo": "おおきに、ありがとうどす。",
+          "traduzione_it": "Grazie mille (in dialetto di Kyoto).",
+          "traduzione_en": "Thank you very much (in Kyoto dialect).",
+          "parole_linkate": []
+        }
+      ]
+    }
+  ]
+}

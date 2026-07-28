@@ -1,12 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
 	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse, studyOnlyCourse } from '$lib/db/course-import';
 	import { loadObjectiveSummaries, loadObjectiveChildren, type ObjectiveSummary } from '$lib/db/queries';
 	import type { CourseDatasetMeta, CourseLessonMeta } from '$lib/types/models';
+	import { renderCourseMarkdown } from '$lib/core/courseMarkdown';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
+
+	// Le risorse di una lezione (immagine/documento/link) puntano a un URL
+	// assoluto (link esterno, es. già su Drive) o a un percorso relativo a un
+	// file impacchettato sotto static/: il base-path va risolto qui, MAI
+	// salvato dentro il file corso (altrimenti si rompe tra dev/staging/prod,
+	// che hanno base-path diversi — vedi CLAUDE.md pipeline a 3 ambienti).
+	function resourceHref(url: string): string {
+		return /^https?:\/\//.test(url) ? url : `${base}/${url}`;
+	}
 
 	// ── Catalogo aperto (N5/N4): l'albero Parole/Kanji/Grammatica→pack esiste
 	// nel DB ma non si vedeva da nessuna parte — qui è espandibile come un
@@ -75,6 +86,13 @@
 		await loadLessonStates();
 	}
 
+	// lezione espansa (mostra note in markdown + risorse) — chiusa di default,
+	// così la lista resta scorribile anche con molte lezioni.
+	let lessonExpanded = $state<Record<string, boolean>>({});
+	function toggleLessonExpanded(lessonId: string): void {
+		lessonExpanded = { ...lessonExpanded, [lessonId]: !lessonExpanded[lessonId] };
+	}
+
 	// stato "in studio" per lezione (obiettivi delle lezioni)
 	let lessonEnabled = $state<Record<string, boolean>>({});
 	async function loadLessonStates(): Promise<void> {
@@ -88,6 +106,18 @@
 		const next = !lessonEnabled[objectiveId];
 		await db.study_objectives.update(objectiveId, { study_enabled: next, updated_at: Date.now() });
 		lessonEnabled = { ...lessonEnabled, [objectiveId]: next };
+	}
+
+	// «Esercitati su questa lezione»: il quiz (/quiz) pesca SOLO dagli
+	// obiettivi con study_enabled — se la lezione era in pausa la accende,
+	// poi apre il quiz. I giochi in /giochi invece pescano da tutto il
+	// vocabolario del dispositivo (non solo "in studio"): le parole di una
+	// lezione appena importata ci sono già, senza bisogno di attivarla.
+	async function startLessonQuiz(lesson: CourseLessonMeta): Promise<void> {
+		if (!lessonEnabled[lesson.objective_id]) {
+			await toggleLesson(lesson.objective_id);
+		}
+		goto(`${base}/quiz`);
 	}
 
 	// Modalità corso: mette in pausa tutti gli obiettivi fuori dal corso e
@@ -282,6 +312,22 @@
 </section>
 {/if}
 
+{#if !loading && !courses.some((c) => c.id === 'corso-esempio')}
+<section class="section-card recommended">
+	<p class="card-title">🧪 Corso di esempio (demo)</p>
+	<div class="rec-row">
+		<div class="rec-body">
+			<strong>Gita a Kyoto</strong>
+			<p class="course-meta">Contenuto dimostrativo originale (nessun materiale di scuole/libri): 2 lezioni con note in markdown, immagine, documento e link — per vedere il formato corso in azione prima di curarne uno vero.</p>
+		</div>
+		<button class="btn-primary" disabled={genkiImporting !== ''} onclick={() => importBundled('corso-esempio.json', 'Corso di esempio')}>
+			{genkiImporting === 'corso-esempio.json' ? 'Importo…' : '⬇️ Importa'}
+		</button>
+	</div>
+	{#if importError}<p class="error-text">{importError}</p>{/if}
+</section>
+{/if}
+
 <!-- Import section -->
 <section class="section-card">
 	<p class="card-title">Importa corso</p>
@@ -390,6 +436,49 @@
 							<span class="mini-chip muted">+{lesson.parole.length - 8}</span>
 						{/if}
 					</div>
+				{/if}
+				{#if lesson.note || lesson.risorse.length > 0}
+					<button class="lesson-read-toggle" onclick={() => toggleLessonExpanded(lesson.id)}>
+						{lessonExpanded[lesson.id] ? '▾ Chiudi' : '📖 Leggi la lezione'}
+					</button>
+					{#if lessonExpanded[lesson.id]}
+						<div class="lesson-reader">
+							{#if lesson.note}
+								<div class="lesson-note">{@html renderCourseMarkdown(lesson.note)}</div>
+							{/if}
+							{#if lesson.risorse.length > 0}
+								<div class="lesson-resources">
+									{#each lesson.risorse as r}
+										{#if r.tipo === 'immagine'}
+											<figure class="resource-image">
+												<img src={resourceHref(r.url)} alt={r.titolo} loading="lazy" />
+												<figcaption>{r.titolo}</figcaption>
+											</figure>
+										{:else}
+											<a
+												class="resource-chip"
+												href={resourceHref(r.url)}
+												target="_blank"
+												rel="noopener noreferrer"
+											>{r.tipo === 'documento' ? '📄' : '🔗'} {r.titolo}</a>
+										{/if}
+									{/each}
+								</div>
+							{/if}
+							<div class="lesson-practice">
+								<button class="btn-primary sm" onclick={() => startLessonQuiz(lesson)}>
+									🎯 Esercitati su questa lezione
+								</button>
+								<p class="hint-text sm">
+									Il quiz (scelta multipla, flashcard, ascolto, scrittura…) pesca solo dalle
+									lezioni attive: questo bottone attiva questa lezione e ti ci porta. I
+									<a href="{base}/giochi">🎮 giochi</a> invece pescano già da tutto il
+									vocabolario del dispositivo — le parole di questa lezione ci sono già,
+									senza doverla attivare.
+								</p>
+							</div>
+						</div>
+					{/if}
 				{/if}
 			</div>
 		</article>
@@ -572,4 +661,53 @@
 
 	.mini-chip:hover { background: #eef2ff; border-color: var(--brand); color: var(--brand); }
 	.mini-chip.muted { color: var(--muted); }
+
+	.lesson-read-toggle {
+		justify-self: start;
+		font-size: 0.75rem;
+		font-weight: 600;
+		padding: 4px 10px;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: var(--surface);
+		color: var(--brand);
+		cursor: pointer;
+	}
+	.lesson-read-toggle:hover { border-color: var(--brand); }
+
+	.lesson-reader {
+		display: grid;
+		gap: 10px;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: var(--surface);
+		border: 1px solid var(--line);
+	}
+	.lesson-note :global(h4),
+	.lesson-note :global(h5) { margin: 0 0 4px; font-size: 0.95rem; }
+	.lesson-note :global(p) { margin: 0 0 6px; font-size: 0.85rem; line-height: 1.6; }
+	.lesson-note :global(ul) { margin: 0 0 6px; padding-left: 1.2em; font-size: 0.85rem; }
+	.lesson-note :global(table) { border-collapse: collapse; font-size: 0.82rem; width: 100%; }
+	.lesson-note :global(th),
+	.lesson-note :global(td) { border: 1px solid var(--line); padding: 4px 8px; text-align: left; }
+	.lesson-note :global(th) { background: var(--surface-2); }
+
+	.lesson-resources { display: flex; flex-wrap: wrap; gap: 10px; }
+	.lesson-practice { display: grid; gap: 6px; padding-top: 4px; border-top: 1px solid var(--line); }
+	.btn-primary.sm { padding: 6px 14px; font-size: 0.8rem; justify-self: start; }
+	.hint-text.sm a { color: var(--brand); font-weight: 600; }
+	.resource-image { margin: 0; display: grid; gap: 4px; max-width: 220px; }
+	.resource-image img { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); }
+	.resource-image figcaption { font-size: 0.72rem; color: var(--muted); text-align: center; }
+	.resource-chip {
+		font-size: 0.78rem;
+		font-weight: 600;
+		padding: 6px 12px;
+		border-radius: 999px;
+		border: 1px solid var(--brand);
+		background: var(--surface);
+		color: var(--brand);
+		text-decoration: none;
+		align-self: flex-start;
+	}
 </style>
