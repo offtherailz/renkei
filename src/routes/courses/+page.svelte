@@ -86,13 +86,6 @@
 		await loadLessonStates();
 	}
 
-	// lezione espansa (mostra note in markdown + risorse) — chiusa di default,
-	// così la lista resta scorribile anche con molte lezioni.
-	let lessonExpanded = $state<Record<string, boolean>>({});
-	function toggleLessonExpanded(lessonId: string): void {
-		lessonExpanded = { ...lessonExpanded, [lessonId]: !lessonExpanded[lessonId] };
-	}
-
 	// stato "in studio" per lezione (obiettivi delle lezioni)
 	let lessonEnabled = $state<Record<string, boolean>>({});
 	async function loadLessonStates(): Promise<void> {
@@ -422,6 +415,47 @@
 					</button>
 				</div>
 				{#if lesson.descrizione}<p class="course-meta">{lesson.descrizione}</p>{/if}
+
+				{#if lesson.note || lesson.risorse.length > 0}
+					<div class="lesson-reader">
+						{#if lesson.note}
+							<div class="lesson-note">{@html renderCourseMarkdown(lesson.note)}</div>
+						{/if}
+						{#if lesson.risorse.length > 0}
+							<div class="lesson-resources">
+								{#each lesson.risorse as r}
+									{#if r.tipo === 'immagine'}
+										<figure class="resource-image">
+											<img src={resourceHref(r.url)} alt={r.titolo} loading="lazy" />
+											<figcaption>{r.titolo}</figcaption>
+										</figure>
+									{:else}
+										<a
+											class="resource-chip"
+											href={resourceHref(r.url)}
+											target="_blank"
+											rel="noopener noreferrer"
+										>{r.tipo === 'documento' ? '📄' : '🔗'} {r.titolo}</a>
+									{/if}
+								{/each}
+							</div>
+						{/if}
+					</div>
+				{/if}
+
+				<div class="lesson-practice">
+					<button class="btn-primary sm" onclick={() => startLessonQuiz(lesson)}>
+						🎯 Esercitati su questa lezione
+					</button>
+					<p class="hint-text sm">
+						Il quiz (scelta multipla, flashcard, ascolto, scrittura…) pesca solo dalle
+						lezioni attive: questo bottone attiva questa lezione e ti ci porta. I
+						<a href="{base}/giochi">🎮 giochi</a> invece pescano già da tutto il
+						vocabolario del dispositivo — le parole di questa lezione ci sono già,
+						senza doverla attivare.
+					</p>
+				</div>
+
 				<div class="lesson-stats">
 					{#if lesson.parole.length > 0}<span class="stat-pill">{lesson.parole.length} parole</span>{/if}
 					{#if lesson.kanji.length > 0}<span class="stat-pill">{lesson.kanji.length} kanji</span>{/if}
@@ -436,49 +470,6 @@
 							<span class="mini-chip muted">+{lesson.parole.length - 8}</span>
 						{/if}
 					</div>
-				{/if}
-				{#if lesson.note || lesson.risorse.length > 0}
-					<button class="lesson-read-toggle" onclick={() => toggleLessonExpanded(lesson.id)}>
-						{lessonExpanded[lesson.id] ? '▾ Chiudi' : '📖 Leggi la lezione'}
-					</button>
-					{#if lessonExpanded[lesson.id]}
-						<div class="lesson-reader">
-							{#if lesson.note}
-								<div class="lesson-note">{@html renderCourseMarkdown(lesson.note)}</div>
-							{/if}
-							{#if lesson.risorse.length > 0}
-								<div class="lesson-resources">
-									{#each lesson.risorse as r}
-										{#if r.tipo === 'immagine'}
-											<figure class="resource-image">
-												<img src={resourceHref(r.url)} alt={r.titolo} loading="lazy" />
-												<figcaption>{r.titolo}</figcaption>
-											</figure>
-										{:else}
-											<a
-												class="resource-chip"
-												href={resourceHref(r.url)}
-												target="_blank"
-												rel="noopener noreferrer"
-											>{r.tipo === 'documento' ? '📄' : '🔗'} {r.titolo}</a>
-										{/if}
-									{/each}
-								</div>
-							{/if}
-							<div class="lesson-practice">
-								<button class="btn-primary sm" onclick={() => startLessonQuiz(lesson)}>
-									🎯 Esercitati su questa lezione
-								</button>
-								<p class="hint-text sm">
-									Il quiz (scelta multipla, flashcard, ascolto, scrittura…) pesca solo dalle
-									lezioni attive: questo bottone attiva questa lezione e ti ci porta. I
-									<a href="{base}/giochi">🎮 giochi</a> invece pescano già da tutto il
-									vocabolario del dispositivo — le parole di questa lezione ci sono già,
-									senza doverla attivare.
-								</p>
-							</div>
-						</div>
-					{/if}
 				{/if}
 			</div>
 		</article>
@@ -661,19 +652,6 @@
 
 	.mini-chip:hover { background: #eef2ff; border-color: var(--brand); color: var(--brand); }
 	.mini-chip.muted { color: var(--muted); }
-
-	.lesson-read-toggle {
-		justify-self: start;
-		font-size: 0.75rem;
-		font-weight: 600;
-		padding: 4px 10px;
-		border-radius: 999px;
-		border: 1px solid var(--line);
-		background: var(--surface);
-		color: var(--brand);
-		cursor: pointer;
-	}
-	.lesson-read-toggle:hover { border-color: var(--brand); }
 
 	.lesson-reader {
 		display: grid;
