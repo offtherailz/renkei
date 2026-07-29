@@ -224,6 +224,19 @@ poche unità a 53 round su 35 delle 41 coppie curate — verificato in
 SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
 impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
 
+## Mani libere: il timer di silenzio si azzerava solo sui successi (30/07)
+
+Bug segnalato: la sessione si fermava spesso con «Non sento risposte da un po'. Mi fermo.»
+anche con l'utente attivo. Causa: `lastActivity` (il timestamp usato per il timeout di
+inattività) veniva aggiornato SOLO quando un riconoscimento aveva successo (`alts.length > 0`),
+mai quando l'app faceva una nuova domanda. Con uno speech-to-text che a volte non riconosce
+nulla per un giro o due (normale, non vuol dire silenzio vero), il tempo trascorso dall'ULTIMO
+SUCCESSO cresceva attraverso più round finché non superava la soglia — fermando la sessione
+anche in mezzo a una conversazione attiva. Fix: `lastActivity` si azzera ora a ogni domanda
+posta dall'app (inizio round + dopo ogni ripeti/lento/spiegami/pausa), coerente con "silenzio
+dall'ultima domanda" invece che "dall'ultimo successo". Soglia alzata da 30s a 2 minuti
+(richiesta utente).
+
 ## Mani libere: comando che si sovrappone alla risposta (29/07)
 
 Bug segnalato dall'utente: in `/mani-libere`, quando la frase CORRETTA di un round contiene

@@ -327,6 +327,13 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   configurabile in Impostazioni. I ripassi già dovuti restano sempre
   illimitati (non è questo il lever, ma introdurre meno carte nuove al
   giorno rallenta la crescita del debito).
+- ✅ (30/07) **Mani libere: fix timer di silenzio** (bug segnalato: si fermava
+  spesso con l'utente attivo) — `lastActivity` si azzerava solo sui
+  riconoscimenti riusciti, mai sulle domande poste dall'app: con STT che a
+  volte non riconosce nulla per un giro (normale), il tempo dall'ultimo
+  successo cresceva tra round finché non superava la soglia. Ora si azzera
+  a ogni domanda (round + ripeti/lento/spiegami/pausa); soglia 30s → 2 min.
+  Dettaglio in ARCHITECTURE.md.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

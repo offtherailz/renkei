@@ -28,7 +28,7 @@
 	let score = $state(0);
 	let running = false;
 	let rounds = $state<HFRound[]>([]);
-	const SILENCE_MS = 30_000; // niente sentito per 30s → ferma la sessione
+	const SILENCE_MS = 120_000; // niente sentito per 2 minuti DALL'ULTIMA DOMANDA → ferma la sessione
 	let lastActivity = 0;
 
 	// Wake Lock: tiene lo SCHERMO acceso durante la partita (per correre col telefono
@@ -145,6 +145,14 @@
 	async function runRound(r: HFRound): Promise<void> {
 		status = 'speaking';
 		let { corretta, varianti, quando } = await playPrompt(r, false);
+		// bug segnalato: il timer di silenzio si azzerava SOLO su un riconoscimento
+		// riuscito, mai su una domanda appena posta — con STT che a volte non
+		// riconosce nulla per un giro o due (normale, non vuol dire silenzio vero),
+		// il tempo trascorso dall'ultimo successo cresceva tra round diversi finché
+		// non superava la soglia, fermando la sessione anche con l'utente attivo.
+		// Ora si azzera ogni volta che l'app FA una domanda (qui e dopo ogni
+		// ripeti/lento/spiegami/pausa), coerente con "dall'ultima domanda".
+		lastActivity = Date.now();
 		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
 			const h = await listenAfterBeep();
@@ -181,14 +189,15 @@
 				cls = classifyUtterance(alts, corretta);
 			}
 
-			if (cls === 'slow') { ({ corretta, varianti, quando } = await playPrompt(r, true)); continue; }
-			if (cls === 'repeat') { ({ corretta, varianti, quando } = await playPrompt(r, false)); continue; }
+			if (cls === 'slow') { ({ corretta, varianti, quando } = await playPrompt(r, true)); lastActivity = Date.now(); continue; }
+			if (cls === 'repeat') { ({ corretta, varianti, quando } = await playPrompt(r, false)); lastActivity = Date.now(); continue; }
 			if (cls === 'explain') {
 				await speakIt(quando ? quando : 'Non ho una spiegazione per questa frase, mi dispiace.');
 				({ corretta, varianti, quando } = await playPrompt(r, false));
+				lastActivity = Date.now();
 				continue;
 			}
-			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti, quando } = await playPrompt(r, false)); continue; }
+			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti, quando } = await playPrompt(r, false)); lastActivity = Date.now(); continue; }
 			if (cls === 'quit') { stop(); return; }
 			if (cls === 'skip') return;
 			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.
