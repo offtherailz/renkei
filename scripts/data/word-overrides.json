@@ -4574,7 +4574,7 @@
    {
     "testo": "お先に失礼します。— お疲れさまです。",
     "traduzione": {
-     "it": "Vado via prima io. — Buon lavoro!",
+     "it": "Vado via prima, mi scusi. — Grazie per il lavoro di oggi.",
      "en": "Vado via prima io. — Buon lavoro!"
     }
    },
@@ -9294,7 +9294,23 @@
     "Oh!"
    ]
   },
-  "tipo_jp": "感動詞[かんどうし]"
+  "tipo_jp": "感動詞[かんどうし]",
+  "frasi_esempio": [
+   {
+    "testo": "ああ、なるほど！",
+    "traduzione": {
+     "it": "Ah, capisco!",
+     "en": "Ah, gotcha!"
+    }
+   },
+   {
+    "testo": "ああ悲しい。",
+    "traduzione": {
+     "it": "Ah, che triste.",
+     "en": "Ah, me!"
+    }
+   }
+  ]
  },
  "あそこ": {
   "significato": {
@@ -9316,6 +9332,22 @@
    "あちら",
    "あっち",
    "向こう"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あそこに大きい木があります。",
+    "traduzione": {
+     "it": "C'è un grande albero laggiù.",
+     "en": "There is a big tree over there."
+    }
+   },
+   {
+    "testo": "あそこから人影が見えた。",
+    "traduzione": {
+     "it": "Da laggiù si vedeva la sagoma di una persona.",
+     "en": "A form appeared from over there."
+    }
+   }
   ]
  },
  "あちら": {
@@ -9335,6 +9367,22 @@
    "そちら",
    "どちら",
    "あそこ"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あちらに着いたら手紙をください。",
+    "traduzione": {
+     "it": "Quando arriva laggiù, mi scriva una lettera, per favore.",
+     "en": "Please write to me when you get there."
+    }
+   },
+   {
+    "testo": "あちらが私の待っていた人です。",
+    "traduzione": {
+     "it": "Quella è la persona che stavo aspettando.",
+     "en": "That's the person I've been waiting for."
+    }
+   }
   ]
  },
  "あっち": {
@@ -9354,6 +9402,22 @@
    "そっち",
    "あそこ",
    "向こう"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あっちに着いたら手紙をください。",
+    "traduzione": {
+     "it": "Quando arriva laggiù, mi scriva una lettera, per favore.",
+     "en": "Please write to me when you get there."
+    }
+   },
+   {
+    "testo": "あっちが私の待っていた人です。",
+    "traduzione": {
+     "it": "Quella è la persona che stavo aspettando.",
+     "en": "That's the person I've been waiting for."
+    }
+   }
   ]
  },
  "あなた": {
@@ -9370,7 +9434,7 @@
    {
     "testo": "ねえあなたたち行かないで。",
     "traduzione": {
-     "it": "Don't go, dears.",
+     "it": "Ehi, non andate via, voi due.",
      "en": "Don't go, dears."
     }
    },
@@ -9402,7 +9466,7 @@
    {
     "testo": "あのおいしいワインをなぜ飲まないんだい。",
     "traduzione": {
-     "it": "Why not try that delicious wine?",
+     "it": "Perché non bevi quel vino così buono?",
      "en": "Why not try that delicious wine?"
     }
    },
@@ -9435,6 +9499,22 @@
    "これ",
    "それ",
    "どれ"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あれがこの町の大通りだ。",
+    "traduzione": {
+     "it": "Quella è la strada principale di questa città.",
+     "en": "That is the main street of this city."
+    }
+   },
+   {
+    "testo": "そう言えば、あれから３０年以上も経つのね。",
+    "traduzione": {
+     "it": "A proposito, sono passati più di 30 anni da allora.",
+     "en": "Now that you mention it, it's been more than 30 years since then."
+    }
+   }
   ]
  },
  "いい; よい": {
@@ -9479,7 +9559,7 @@
    {
     "testo": "コンタクトを入れるというのはいかがでしょう？",
     "traduzione": {
-     "it": "How about wearing contact lenses?",
+     "it": "Che ne dice di mettere le lenti a contatto?",
      "en": "How about wearing contact lenses?"
     }
    },
@@ -9505,6 +9585,22 @@
   },
   "correlati": [
    "いくら"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あなたのお父さんはおいくつですか。",
+    "traduzione": {
+     "it": "Quanti anni ha suo padre?",
+     "en": "How old is your father?"
+    }
+   },
+   {
+    "testo": "いいえ、おもちゃがいくつあるかじゃなくて、鍵がいくつあるかなのよ。",
+    "traduzione": {
+     "it": "No, non è quanti giocattoli ci sono, ma quante chiavi ci sono.",
+     "en": "No, not how many toys, how many keys?"
+    }
+   }
   ]
  },
  "いくら": {
@@ -9520,6 +9616,22 @@
   "sinonimi": [],
   "correlati": [
    "いくつ"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "私がいくら言っても、聞こうとしないのよ。",
+    "traduzione": {
+     "it": "Per quanto io glielo dica, non vuole ascoltare.",
+     "en": "You never listen, no matter how many times I tell you."
+    }
+   },
+   {
+    "testo": "このハンカチはいくらですか。",
+    "traduzione": {
+     "it": "Quanto costa questo fazzoletto?",
+     "en": "How much is this handkerchief?"
+    }
+   }
   ]
  },
  "いつ": {
@@ -9535,7 +9647,7 @@
    {
     "testo": "いつ旅行においでになりますか。",
     "traduzione": {
-     "it": "When will you go on a journey?",
+     "it": "Quando partirà per il viaggio?",
      "en": "When will you go on a journey?"
     }
    },
@@ -9561,7 +9673,23 @@
     "never (with neg. verb)"
    ]
   },
-  "sinonimi": []
+  "sinonimi": [],
+  "frasi_esempio": [
+   {
+    "testo": "私は日曜日にはいつも家にいない。",
+    "traduzione": {
+     "it": "La domenica non sono mai a casa.",
+     "en": "I'm never at home on Sundays."
+    }
+   },
+   {
+    "testo": "いつものところでいつもの人達に会った。",
+    "traduzione": {
+     "it": "Ho incontrato le solite persone nel solito posto.",
+     "en": "I met the usual people at the usual place."
+    }
+   }
+  ]
  },
  "うるさい": {
   "significato": {
@@ -9573,7 +9701,23 @@
     "noisy",
     "annoying"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの子はなんてうるさい子だろう。",
+    "traduzione": {
+     "it": "Che bambino chiassoso che è!",
+     "en": "What a nuisance that child is!"
+    }
+   },
+   {
+    "testo": "隣の部屋がうるさいのです。",
+    "traduzione": {
+     "it": "La stanza accanto è rumorosa.",
+     "en": "It's noisy next door."
+    }
+   }
+  ]
  },
  "お金": {
   "significato": {
@@ -9589,7 +9733,7 @@
    {
     "testo": "どうやってそのお金を手に入れたんですか。",
     "traduzione": {
-     "it": "How did you come by the money?",
+     "it": "Come ha ottenuto quei soldi?",
      "en": "How did you come by the money?"
     }
    },
@@ -9618,7 +9762,7 @@
    {
     "testo": "お手洗いはどこですか。",
     "traduzione": {
-     "it": "Where's the restroom?",
+     "it": "Dov'è il bagno?",
      "en": "Where's the restroom?"
     }
    },
@@ -9644,7 +9788,7 @@
    {
     "testo": "３時はお茶にしよう。",
     "traduzione": {
-     "it": "Let's have tea at 3:00.",
+     "it": "Facciamo una pausa tè alle tre.",
      "en": "Let's have tea at 3:00."
     }
    },
@@ -9673,7 +9817,7 @@
    {
     "testo": "私はほとんど毎日お風呂に入ります。",
     "traduzione": {
-     "it": "I take a bath almost every day.",
+     "it": "Faccio il bagno quasi ogni giorno.",
      "en": "I take a bath almost every day."
     }
    },
@@ -9703,7 +9847,7 @@
    {
     "testo": "お母さんに口答えしてはいけませんよ。",
     "traduzione": {
-     "it": "Don't answer your mother back.",
+     "it": "Non devi rispondere male a tua madre.",
      "en": "Don't answer your mother back."
     }
    },
@@ -9732,14 +9876,14 @@
    {
     "testo": "それはほとんど終わりかかっています。",
     "traduzione": {
-     "it": "It's almost over.",
+     "it": "Sta quasi per finire.",
      "en": "It's almost over."
     }
    },
    {
     "testo": "どうしたらエンジンがかかりますか。",
     "traduzione": {
-     "it": "How can I start the engine?",
+     "it": "Come si fa ad avviare il motore?",
      "en": "How can I start the engine?"
     }
    },
@@ -9771,7 +9915,23 @@
     "call (e.g., phone)",
     "to sit down"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "友達に電話をかけました。",
+    "traduzione": {
+     "it": "Ho telefonato a un amico.",
+     "en": "I called a friend."
+    }
+   },
+   {
+    "testo": "１０円で電話がかけられますか。",
+    "traduzione": {
+     "it": "Si può telefonare con 10 yen?",
+     "en": "Can I make a phone call for ten yen?"
+    }
+   }
+  ]
  },
  "カメラ": {
   "significato": {
@@ -9786,7 +9946,7 @@
    {
     "testo": "おじさんがぼくにカメラをくれました。",
     "traduzione": {
-     "it": "My uncle gave me a camera.",
+     "it": "Lo zio mi ha dato una macchina fotografica.",
      "en": "My uncle gave me a camera."
     }
    },
@@ -9908,6 +10068,22 @@
    "そこ",
    "あそこ",
    "どこ"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "この町の人口はここ１０年間動きがない。",
+    "traduzione": {
+     "it": "La popolazione di questa città è ferma da questi ultimi 10 anni.",
+     "en": "The population of this town has been static for the last ten years."
+    }
+   },
+   {
+    "testo": "ここに手のないナベがある。",
+    "traduzione": {
+     "it": "Qui c'è una pentola senza manico.",
+     "en": "Here is a pan without handles."
+    }
+   }
   ]
  },
  "こちら": {
@@ -9928,6 +10104,22 @@
    "そちら",
    "あちら",
    "どちら"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "こちらへやってくる少年とその犬をごらんなさい。",
+    "traduzione": {
+     "it": "Guardi il ragazzo che viene qui e il suo cane.",
+     "en": "Look at the boy and his dog that are coming this way."
+    }
+   },
+   {
+    "testo": "こちらの方があちらより値段が高い。",
+    "traduzione": {
+     "it": "Questo costa di più di quello.",
+     "en": "This costs more than that."
+    }
+   }
   ]
  },
  "こっち": {
@@ -9947,6 +10139,22 @@
   "correlati": [
    "そっち",
    "あっち"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "こっちへやってくる少年とその犬をごらんなさい。",
+    "traduzione": {
+     "it": "Guardi il ragazzo che viene qui e il suo cane.",
+     "en": "Look at the boy and his dog that are coming this way."
+    }
+   },
+   {
+    "testo": "こっちの方があっちより値段が高い。",
+    "traduzione": {
+     "it": "Questo costa di più di quello.",
+     "en": "This costs more than that."
+    }
+   }
   ]
  },
  "コピーする": {
@@ -9990,6 +10198,22 @@
    "それ",
    "あれ",
    "どれ"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "これは兄です。かっこいいですね。",
+    "traduzione": {
+     "it": "Questo è mio fratello maggiore. È un figo, vero?",
+     "en": "This is my brother. Handsome, isn't he?"
+    }
+   },
+   {
+    "testo": "これは面白い本だよ。",
+    "traduzione": {
+     "it": "Questo è un libro interessante.",
+     "en": "This is an interesting book."
+    }
+   }
   ]
  },
  "さあ": {
@@ -10007,7 +10231,7 @@
    {
     "testo": "さあ東京駅に着きました。",
     "traduzione": {
-     "it": "Here we were at Tokyo Station.",
+     "it": "Ecco, siamo arrivati alla stazione di Tokyo.",
      "en": "Here we were at Tokyo Station."
     }
    },
@@ -10063,7 +10287,7 @@
    {
     "testo": "あなたは私のズボンをどうしたのですか。",
     "traduzione": {
-     "it": "What did you do with my pants?",
+     "it": "Cosa hai fatto ai miei pantaloni?",
      "en": "What did you do with my pants?"
     }
    },
@@ -10155,6 +10379,22 @@
    "こちら",
    "あちら",
    "どちら"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "そちらはセントラル自動車学校ではないんですか。",
+    "traduzione": {
+     "it": "Lì non è la scuola guida Central?",
+     "en": "Isn't this Central Driving School?"
+    }
+   },
+   {
+    "testo": "これとそちらとの違いは何だい。",
+    "traduzione": {
+     "it": "Che differenza c'è tra questo e quello?",
+     "en": "What is the difference between this and that?"
+    }
+   }
   ]
  },
  "そっち": {
@@ -10172,6 +10412,22 @@
   "correlati": [
    "こっち",
    "あっち"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "そっちはセントラル自動車学校ではないんですか。",
+    "traduzione": {
+     "it": "Lì non è la scuola guida Central?",
+     "en": "Isn't this Central Driving School?"
+    }
+   },
+   {
+    "testo": "これとそっちとの違いは何だい。",
+    "traduzione": {
+     "it": "Che differenza c'è tra questo e quello?",
+     "en": "What is the difference between this and that?"
+    }
+   }
   ]
  },
  "たばこ": {
@@ -10213,7 +10469,23 @@
     "somewhat",
     "just a little"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それ以上の仕事はちょっと見つからないだろう。",
+    "traduzione": {
+     "it": "Non si troverà facilmente un lavoro migliore di quello.",
+     "en": "You won't find a better job in a hurry."
+    }
+   },
+   {
+    "testo": "ちょっと、そこのきみ！",
+    "traduzione": {
+     "it": "Ehi, tu lì!",
+     "en": "Hey, you there!"
+    }
+   }
+  ]
  },
  "つまらない": {
   "significato": {
@@ -10256,7 +10528,7 @@
    {
     "testo": "このテープレコーダーは新しくない。",
     "traduzione": {
-     "it": "This tape recorder is not new.",
+     "it": "Questo registratore non è nuovo.",
      "en": "This tape recorder is not new."
     }
    },
@@ -10572,7 +10844,7 @@
    {
     "testo": "このハンカチはいくらですか。",
     "traduzione": {
-     "it": "How much is this handkerchief?",
+     "it": "Quanto costa questo fazzoletto?",
      "en": "How much is this handkerchief?"
     }
    },
@@ -11747,10 +12019,10 @@
     }
    },
    {
-    "testo": "コックさんは少しもかけていない。",
+    "testo": "友達に電話をかけました。",
     "traduzione": {
-     "it": "The cook hasn't put any on it.",
-     "en": "The cook hasn't put any on it."
+     "it": "Ho telefonato a un amico.",
+     "en": "I called a friend."
     }
    },
    {
@@ -13370,7 +13642,23 @@
    "en": [
     "hand"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ここに手のないナベがある。",
+    "traduzione": {
+     "it": "Qui c'è una pentola senza manico.",
+     "en": "Here is a pan without handles."
+    }
+   },
+   {
+    "testo": "いい手を思いついた。",
+    "traduzione": {
+     "it": "I hit upon a good idea.",
+     "en": "I hit upon a good idea."
+    }
+   }
+  ]
  },
  "手紙": {
   "significato": {
@@ -17811,7 +18099,7 @@
    {
     "testo": "いつ旅行においでになりますか。",
     "traduzione": {
-     "it": "When will you go on a journey?",
+     "it": "Quando partirà per il viaggio?",
      "en": "When will you go on a journey?"
     }
    },
@@ -18627,7 +18915,23 @@
   "sinonimi": [
    "いらっしゃる"
   ],
-  "contrari": []
+  "contrari": [],
+  "frasi_esempio": [
+   {
+    "testo": "この雨の中をおいでにならないでください。",
+    "traduzione": {
+     "it": "Don't bother coming in this rain.",
+     "en": "Don't bother coming in this rain."
+    }
+   },
+   {
+    "testo": "いつ旅行においでになりますか。",
+    "traduzione": {
+     "it": "Quando partirà per il viaggio?",
+     "en": "When will you go on a journey?"
+    }
+   }
+  ]
  },
  "オートバイ": {
   "significato": {
@@ -36380,7 +36684,7 @@
    {
     "testo": "おいしそう！いただきます。",
     "traduzione": {
-     "it": "Che buono! Buon appetito.",
+     "it": "Sembra buonissimo! Grazie, comincio a mangiare.",
      "en": "Che buono! Buon appetito."
     }
    },
@@ -36402,7 +36706,7 @@
    {
     "testo": "ただいま。— おかえりなさい。ごはんできてるよ。",
     "traduzione": {
-     "it": "Sono a casa! — Bentornato, la cena è pronta.",
+     "it": "Sono a casa. — Bentornato/a. Il riso è pronto.",
      "en": "Sono a casa! — Bentornato, la cena è pronta."
     }
    },
@@ -36424,7 +36728,7 @@
    {
     "testo": "どうぞ。— おじゃまします。",
     "traduzione": {
-     "it": "Prego, entra. — Permesso.",
+     "it": "Prego, si accomodi. — Con permesso, disturbo un attimo.",
      "en": "Prego, entra. — Permesso."
     }
    },
@@ -36462,7 +36766,7 @@
    {
     "testo": "お久しぶりです。お元気でしたか。",
     "traduzione": {
-     "it": "Quanto tempo! Come sei stato?",
+     "it": "È da tanto che non ci vediamo. Come sta stato?",
      "en": "Quanto tempo! Come sei stato?"
     }
    },
@@ -36484,7 +36788,7 @@
    {
     "testo": "かぜですか。お大事に。",
     "traduzione": {
-     "it": "Hai il raffreddore? Rimettiti presto.",
+     "it": "Ha il raffreddore? Si riguardi.",
      "en": "Hai il raffreddore? Rimettiti presto."
     }
    },
@@ -36544,7 +36848,7 @@
    {
     "testo": "ただいま。— おかえりなさい。",
     "traduzione": {
-     "it": "Sono a casa! — Bentornato.",
+     "it": "Sono a casa. — Bentornato/a.",
      "en": "Sono a casa! — Bentornato."
     }
    },
@@ -36678,15 +36982,15 @@
    {
     "testo": "いつ旅行においでになりますか。",
     "traduzione": {
-     "it": "When will you go on a journey?",
+     "it": "Quando partirà per il viaggio?",
      "en": "When will you go on a journey?"
     }
    },
    {
-    "testo": "らいねん ヨーロッパを 旅行したいです。",
+    "testo": "かぞくで おんせん旅行を しました。",
     "traduzione": {
-     "it": "L'anno prossimo vorrei viaggiare in Europa.",
-     "en": "Next year I want to travel around Europe."
+     "it": "Abbiamo fatto un viaggio alle terme in famiglia.",
+     "en": "We took a hot-spring trip as a family."
     }
    }
   ]

@@ -1,16 +1,43 @@
-# Traduzioni IT identiche all'EN (non tradotte) — audit 29/07
+# Traduzioni IT identiche all'EN (non tradotte) — audit 29/07, aggiornato 30/07
 
 Trovate esplorando i 3 casi falliti di overrides.test.ts (変わる, 見る): erano il
-sintomo visibile di un problema molto più grande — **725 frasi d'esempio nel seed hanno
-il campo `traduzione.it` identico byte-per-byte a `traduzione.en`**: quasi certamente
-inglese copiato come segnaposto, mai davvero tradotto in italiano (viola la regola in
-CLAUDE.md: «traduzioni italiane sempre dal testo giapponese, mai dall'inglese
-intermedio»). Non tocca codice/giochi — visibile solo a chi legge la traduzione IT di
-queste frasi specifiche.
+sintomo visibile di un problema molto più grande — frasi d'esempio nel seed con
+il campo `traduzione.it` identico byte-per-byte a `traduzione.en`: inglese copiato
+come segnaposto, mai davvero tradotto in italiano (viola la regola in CLAUDE.md:
+«traduzioni italiane sempre dal testo giapponese, mai dall'inglese intermedio»).
 
-**Totale: 725 frasi**, per livello:
-- N5: 385
-- N4: 330
+## Causa radice trovata il 30/07
+
+Non è solo dato vecchio: è un bug ATTIVO nella pipeline. In
+`scripts/sync-open-source-seed.mjs`, `applyJmdictMetadata` (riga ~987) genera le
+frasi d'esempio dai dati Tatoeba dentro JMdict così:
+
+```js
+frasi_esempio: examples.map((ex) => ({ testo: ex.jp, traduzione: { it: ex.en, en: ex.en } }))
+```
+
+JMdict/Tatoeba dà solo giapponese+inglese, mai italiano: lo script mette l'inglese
+anche nel campo `it` come segnaposto — silenziosamente, senza flag. Ogni volta che
+`npm run sync:open-seed` gira e matcha una parola nuova o aggiornata con JMdict,
+il problema si ripresenta per quella parola, a meno che non abbia già un override
+con `frasi_esempio` proprio (gli override vincono sempre, riga ~998-999). NON
+sistemato in questa sessione (richiede decidere come segnalare «da tradurre» senza
+rompere i test che richiedono IT non vuoto — da affrontare quando la curatela dei
+725 originari sarà più avanti, altrimenti si rincorre un bersaglio mobile).
+
+## Bonus: bug scoperti sistemando il lotto 1 (30/07)
+
+Aggiungere un override per una parola espande la copertura di
+`overrides.test.ts` (verifica solo le parole CON un override) — ha scoperto 3 casi
+in cui coppie casual/formale delle dimostrative (あっち/あちら, こっち/こちら,
+そっち/そちら) condividevano LA STESSA frase d'esempio testuale (scritta per la
+forma formale, mai adattata alla casual): sistemati sostituendo こちら→こっち ecc.
+nella frase della forma casual, in entrambe le fonti.
+
+## Stato: 663 frasi ancora da tradurre (lotto 1 di 66 fix applicato il 30/07)
+
+- N4: 329
+- N5: 324
 - EXTRA: 10
 
 ## Come si sistema
@@ -18,115 +45,61 @@ queste frasi specifiche.
 Stesso flusso già in uso nel progetto (ciclo insegnante-agente, ARCHITECTURE.md): per
 ognuna, tradurre `it` DAL GIAPPONESE (il testo è già corretto, serve solo la resa
 italiana vera) e scrivere la correzione in `scripts/data/word-overrides.json` (mai
-solo nel seed, o il prossimo sync la cancella). Volume troppo grande per farlo alla
-cieca in una sessione: da trattare come vera curatela, a lotti, con verifica
-linguistica — non un fix meccanico o automatico.
+solo nel seed, o il prossimo sync la cancella) — se la parola non ha ancora un
+override, serve l'INTERO array `frasi_esempio` corrente (gli array negli override
+SOSTITUISCONO, non si fondono: senza tutte le frasi esistenti, il prossimo sync
+perde quelle non incluse). Volume grande: a lotti, con verifica linguistica — non
+un fix meccanico. Controllare anche, per ogni parola toccata, che la frase contenga
+davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
 - `〜さんによろしくお伝えください` (N4) — 田中さんによろしくお伝えください。 — «Porti tanti saluti a Tanaka da parte mia.»
-- `ああ` (N5) — ああ、なるほど！ — «Ah, gotcha!»
-- `ああ` (N5) — ああ悲しい。 — «Ah, me!»
 - `あげる` (N4) — あなたは時には妹さんにおこづかいをあげますか。 — «Do you sometimes give your sister money?»
 - `あげる` (N4) — 質問があれば右手を挙げて下さい。 — «If you have a question, please raise your right hand.»
-- `あそこ` (N5) — 先生、アソコがかゆいんです。 — «Doctor, I've got an itch in my crotch.»
-- `あそこ` (N5) — あそこから人影が見えた。 — «A form appeared from over there.»
-- `あちら` (N5) — あちらに着いたら手紙をください。 — «Please write to me when you get there.»
-- `あちら` (N5) — あちらが私の待っていた人です。 — «That's the person I've been waiting for.»
-- `あっち` (N5) — あちらに着いたら手紙をください。 — «Please write to me when you get there.»
-- `あっち` (N5) — あちらが私の待っていた人です。 — «That's the person I've been waiting for.»
 - `アナウンサー` (N4) — アナウンサーは早口が出来る。 — «The announcer can talk rapidly.»
-- `あなた` (N5) — ねえあなたたち行かないで。 — «Don't go, dears.»
-- `あの` (N5) — あのおいしいワインをなぜ飲まないんだい。 — «Why not try that delicious wine?»
 - `アフリカ` (N4) — 私はいつの日かアフリカに行きたい。 — «I want to go to Africa someday.»
 - `アメリカ` (N4) — アメリカでは英語を話します。 — «They speak English in America.»
 - `アルコール` (N4) — このビールはアルコール分が５％だ。 — «This beer contains 5% alcohol.»
 - `アルバイト` (N4) — あなたはアルバイトをしているの。 — «Do you have a part-time job?»
 - `アルバイトする` (N4) — あなたはアルバイトをしているの。 — «Do you have a part-time job?»
-- `あれ` (N5) — あれがこの町の大通りだ。 — «That is the main street of this city.»
-- `あれ` (N5) — そう言えば、あれから３０年以上も経つのね。 — «Now that you mention it, it's been more than 30 years since then.»
-- `いかが` (N5) — コンタクトを入れるというのはいかがでしょう？ — «How about wearing contact lenses?»
-- `いくつ` (N5) — あなたのお父さんはおいくつですか。 — «How old is your father?»
-- `いくつ` (N5) — いいえ、おもちゃがいくつあるかじゃなくて、鍵がいくつあるかなのよ。 — «No, not how many toys, how many keys?»
-- `いくら` (N5) — 私がいくら言っても、聞こうとしないのよ。 — «You never listen, no matter how many times I tell you.»
-- `いくら` (N5) — このハンカチはいくらですか。 — «How much is this handkerchief?»
-- `いただきます` (N5) — おいしそう！いただきます。 — «Che buono! Buon appetito.»
-- `いつ` (N5) — いつ旅行においでになりますか。 — «When will you go on a journey?»
-- `いつも` (N5) — 私は日曜日にはいつも家にいない。 — «I'm never at home on Sundays.»
-- `いつも` (N5) — いつものところでいつもの人達に会った。 — «I met the usual people at the usual place.»
 - `いらっしゃる` (N4) — お母さんはいらっしゃいますか。 — «Is your mother at home?»
 - `いらっしゃる` (N4) — あなたはご両親のどちらに似ていらっしゃいますか。 — «Which of your parents do you take after?»
 - `うまい` (N4) — それはあまりにもうますぎる話だ。 — «That's too good a story to be true.»
 - `うまい` (N4) — 彼女はテニスは上手いが、水泳は下手だ。 — «She's very good at tennis, but she's not much of a swimmer.»
-- `うるさい` (N5) — あの子はなんてうるさい子だろう。 — «What a nuisance that child is!»
-- `うるさい` (N5) — 隣の部屋がうるさいのです。 — «It's noisy next door.»
 - `エスカレーター` (N4) — 上りのエスカレーターはどこですか？ — «Where's the up-escalator?»
 - `おいでになる` (N4) — この雨の中をおいでにならないでください。 — «Don't bother coming in this rain.»
-- `おいでになる` (N4) — いつ旅行においでになりますか。 — «When will you go on a journey?»
 - `オーバー` (N4) — あなたはオーバーなしですますつもりですか。 — «Do you mean to do without an overcoat?»
 - `オーバー` (N4) — このバッグは４キロの重量オーバーです。 — «This bag is 4 kilograms overweight.»
-- `おかえりなさい` (N5) — ただいま。— おかえりなさい。ごはんできてるよ。 — «Sono a casa! — Bentornato, la cena è pronta.»
-- `おじゃまします` (N5) — どうぞ。— おじゃまします。 — «Prego, entra. — Permesso.»
 - `おっしゃる` (N4) — ここではどんどん意見をおっしゃってかまいません。 — «You can speak out freely here.»
 - `おつり` (N4) — １ドルでおつりがありますか。 — «Have you got change for a dollar?»
 - `おめでとうございます` (N5) — たんじょうび、おめでとうございます。 — «Buon compleanno!»
-- `お久しぶりです` (N5) — お久しぶりです。お元気でしたか。 — «Quanto tempo! Come sei stato?»
-- `お金` (N5) — どうやってそのお金を手に入れたんですか。 — «How did you come by the money?»
 - `お子さん` (N4) — お子さんは何人おありですか。 — «How many children do you have?»
-- `お手洗い` (N5) — お手洗いはどこですか。 — «Where's the restroom?»
 - `お先に失礼します` (N4) — 五時ですね。お先に失礼します。 — «Sono le cinque. Vado via prima io.»
-- `お大事に` (N5) — かぜですか。お大事に。 — «Hai il raffreddore? Rimettiti presto.»
-- `お茶` (N5) — ３時はお茶にしよう。 — «Let's have tea at 3:00.»
 - `お土産` (N4) — これは北海道からのお土産です。 — «This is a souvenir from Hokkaido.»
-- `お疲れさまです` (N5) — お先に失礼します。— お疲れさまです。 — «Vado via prima io. — Buon lavoro!»
-- `お風呂` (N5) — 私はほとんど毎日お風呂に入ります。 — «I take a bath almost every day.»
 - `お腹が空いた` (N5) — お腹が空いた。何か食べよう。 — «Ho fame. Mangiamo qualcosa.»
-- `お母さん` (N5) — お母さんに口答えしてはいけませんよ。 — «Don't answer your mother back.»
 - `カーテン` (N4) — カーテンが風になびいた。 — «The curtains blew in the wind.»
-- `かかる` (N5) — それはほとんど終わりかかっています。 — «It's almost over.»
-- `かかる` (N5) — どうしたらエンジンがかかりますか。 — «How can I start the engine?»
-- `かける` (N5) — コックさんは少しもかけていない。 — «The cook hasn't put any on it.»
-- `かける` (N5) — １０円で電話がかけられますか。 — «Can I make a phone call for ten yen?»
 - `かしこまりました` (N4) — コーヒーをください。— かしこまりました。 — «Un caffè, per favore. — Certamente.»
-- `カメラ` (N5) — おじさんがぼくにカメラをくれました。 — «My uncle gave me a camera.»
 - `ガラス` (N4) — テーブルの上にガラスのコップがある。 — «There is a glass on the table.»
 - `くださる` (N4) — もう一度言ってくださいますか。 — «Could you repeat that, please?»
 - `ケーキ` (N4) — ケイトはケーキの作り方を知っています。 — «Kate knows how to make a cake.»
-- `ここ` (N5) — この町の人口はここ１０年間動きがない。 — «The population of this town has been static for the last ten years.»
-- `ここ` (N5) — ここに手のないナベがある。 — «Here is a pan without handles.»
 - `ごちそうさまでした` (N5) — ごちそうさまでした。おいしかったです。 — «Grazie per il pasto, era buonissimo.»
-- `こちら` (N5) — こちらへやってくる少年とその犬をごらんなさい。 — «Look at the boy and his dog that are coming this way.»
-- `こちら` (N5) — こちらの方があちらより値段が高い。 — «This costs more than that.»
-- `こっち` (N5) — こちらへやってくる少年とその犬をごらんなさい。 — «Look at the boy and his dog that are coming this way.»
-- `こっち` (N5) — こちらの方があちらより値段が高い。 — «This costs more than that.»
 - `この頃` (N4) — このごろ少しも見ないです。 — «I have seen nothing of him lately.»
-- `これ` (N5) — これは兄です。かっこいいですね。 — «This is my brother. Handsome, isn't he?»
-- `これ` (N5) — これは面白い本だよ。 — «This is an interesting book.»
 - `コンサート` (N4) — コンサートはどうだった？ — «How did you enjoy the concert?»
 - `ご主人` (N4) — あなたのご主人は食事にうるさいのかな？ — «Is your husband a picky eater?»
-- `さあ` (N5) — さあ東京駅に着きました。 — «Here we were at Tokyo Station.»
 - `サラダ` (N4) — もう少しサラダはいかがですか。 — «Would you like some more salad?»
 - `サンドイッチ` (N4) — サンドイッチだったらどれくらいかかりますか。 — «How long would a sandwich take?»
 - `ジャム` (N4) — イチゴはジャムに作られる。 — «Strawberries are made into jam.»
 - `ステレオ` (N4) — 私はあの店で新しいステレオを買った。 — «I got a new stereo at that store.»
-- `ズボン` (N5) — あなたは私のズボンをどうしたのですか。 — «What did you do with my pants?»
-- `そちら` (N5) — そちらはセントラル自動車学校ではないんですか。 — «Isn't this Central Driving School?»
-- `そちら` (N5) — これとそちらとの違いは何だい。 — «What is the difference between this and that?»
-- `そっち` (N5) — そちらはセントラル自動車学校ではないんですか。 — «Isn't this Central Driving School?»
-- `そっち` (N5) — これとそちらとの違いは何だい。 — «What is the difference between this and that?»
 - `ソフト` (N4) — スミスさんはソフトな語り口の人物です。 — «Mr Smith is a softly-spoken person.»
 - `ソフト` (N4) — その子はプレイステーションの新しいソフトが欲しいとだだをこねた。 — «When the kid wanted the latest PlayStation software, he acted like a spoiled child.»
 - `タイプ` (N4) — こういうタイプの人はおもしろくない。 — «That type of person is dull.»
 - `タイプ` (N4) — 彼は私にをタイプ使わせてくれた。 — «He let me use his typewriter.»
 - `だから` (N4) — １日中テニスをしていたのだから。 — «He was playing tennis all day.»
-- `ただいま` (N5) — ただいま。— おかえりなさい。 — «Sono a casa! — Bentornato.»
 - `たまに` (N4) — たまには会いに来て下さい。 — «Come and see me once in a while.»
 - `だめ` (N4) — もうだめだ。 — «It's all over.»
 - `だめ` (N4) — 去年はジョギングシューズを２足駄目にした。 — «I wore out two pairs of jogging shoes last year.»
 - `チケット` (N5) — チケットを見せてください。 — «Mi mostri il biglietto, per favore.»
-- `ちょっと` (N5) — それ以上の仕事はちょっと見つからないだろう。 — «You won't find a better job in a hurry.»
-- `ちょっと` (N5) — ちょっと、そこのきみ！ — «Hey, you there!»
-- `テープレコーダー` (N5) — このテープレコーダーは新しくない。 — «This tape recorder is not new.»
 - `できる` (N5) — あの二人はどうもできているらしい。 — «They seem to be in love with each other.»
 - `できる` (N5) — トイレお借りできますか。 — «May I use your toilet?»
 - `できるだけ` (N4) — できるだけ多くの本を読みなさい。 — «Read as many books as you can.»
@@ -145,7 +118,6 @@ linguistica — non un fix meccanico o automatico.
 - `パスポート` (N5) — パスポートを見せてください。 — «Mi mostri il passaporto, per favore.»
 - `パパ` (N4) — ママもパパもひどくいらだっているの。 — «Mummy and Daddy are very nervous.»
 - `パン` (N5) — 私は今朝バターつきのパンを食べた。 — «I ate bread and butter this morning.»
-- `ハンカチ` (N5) — このハンカチはいくらですか。 — «How much is this handkerchief?»
 - `ファックス` (N4) — この手紙を日本までファックスしてください。 — «I'd like to fax this to Japan.»
 - `ファックスする` (N4) — この手紙を日本までファックスしてください。 — «I'd like to fax this to Japan.»
 - `フォーク` (N5) — その子はナイフとフォークをうまく使う。 — «The child handles a knife and fork well.»
@@ -245,7 +217,6 @@ linguistica — non un fix meccanico o automatico.
 - `覚える` (N5) — その音楽には本当に感動をおぼえた。 — «That music really gets me.»
 - `楽しむ` (N4) — グレイ先生は仕事を楽しんでいませんでした。 — «Mr Grey did not enjoy his job.»
 - `掛ける` (N5) — コートをハンガーに掛けておきなさい。 — «Put your coat on a hanger.»
-- `掛ける` (N5) — コックさんは少しもかけていない。 — «The cook hasn't put any on it.»
 - `割れる` (N4) — プラスチックは割れにくい。 — «Plastic does not break easily.»
 - `乾く` (N4) — そのぬれたシャツはすぐに乾くだろう。 — «The wet shirt will soon dry up.»
 - `慣れる` (N4) — 学生の時は勉強することになれていた。 — «I was used to studying when I was a student.»
@@ -432,7 +403,6 @@ linguistica — non un fix meccanico o automatico.
 - `取り替える` (N4) — これを青いのと取り替えてください。 — «Please change this for a blue one.»
 - `取る` (N5) — 水分をたくさん取ってください。 — «You should drink a lot of liquid.»
 - `取る` (N5) — そのお金はいざというときのために取っておくよ。 — «I'm going to lay aside that money for emergencies.»
-- `手` (N5) — ここに手のないナベがある。 — «Here is a pan without handles.»
 - `手` (N5) — いい手を思いついた。 — «I hit upon a good idea.»
 - `手荷物` (EXTRA) — 手荷物はこちらに置いてください。 — «Metta qui il bagaglio, per favore.»
 - `手荷物受取所` (EXTRA) — 手荷物受取所は一階です。 — «Il ritiro bagagli è al piano terra.»
@@ -733,8 +703,6 @@ linguistica — non un fix meccanico o automatico.
 - `卵` (N5) — 卵は硬くゆでてください。 — «Boil the eggs hard.»
 - `立てる` (N4) — バースデーケーキにろうそくを立ててください。 — «Please put some candles on the birthday cake.»
 - `立てる` (N4) — 猫が私の手につめを立てた。 — «The cat dug its claws into my hand.»
-- `旅行` (N5) — いつ旅行においでになりますか。 — «When will you go on a journey?»
-- `旅行する` (N5) — いつ旅行においでになりますか。 — «When will you go on a journey?»
 - `料理` (N5) — これらのりんごは料理用にもってこいだ。 — «These apples are good cookers.»
 - `料理する` (N5) — これらのりんごは料理用にもってこいだ。 — «These apples are good cookers.»
 - `緑` (N5) — 東京ミッドタウンは緑がいっぱい！ — «There's a lot of greenery in Tokyo Midtown!»
