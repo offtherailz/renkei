@@ -242,19 +242,25 @@ esisteva già ma con due lacune: il campo `note` (markdown) di ogni lezione veni
   dipendenza npm, coerente con un progetto che ne ha solo 2): intestazioni, grassetto/corsivo,
   elenchi, tabelle, paragrafi. Tutto il testo è escapato PRIMA di applicare le trasformazioni —
   un file corso importato non è più fidato del resto dei dati, niente HTML arbitrario passa.
-- **UI `/courses`**: ogni lezione ha un toggle «📖 Leggi la lezione» (nota renderizzata +
-  immagini inline + chip per documenti/link) e un bottone «🎯 Esercitati su questa lezione»
-  (attiva l'obiettivo della lezione se non lo è già e apre `/quiz`). Nota onesta mostrata
-  all'utente: i giochi in `/giochi` pescano da TUTTO il vocabolario del dispositivo (non solo
-  "in studio"), quindi le parole di una lezione appena importata ci sono già senza doverla
-  attivare — solo il quiz/SRS rispetta `study_enabled`.
-- **`static/corso-esempio.json`** + `static/corsi-assets/corso-esempio/` — corso demo originale
-  (2 lezioni, tema gita a Kyoto, nessun materiale di terzi) per mostrare il formato in azione:
-  parole nuove + parole del catalogo aperto referenziate, un kanji nuovo (塔, assente dal seed
-  principale, verificato), una grammatica nuova (dialetto di Kyoto 〜どす) più una referenziata
-  dal seed (〜つもり), un'immagine SVG originale, un documento di testo, due link esterni.
-  Quick-import in `/courses` sotto «🧪 Corso di esempio (demo)» — da rimuovere prima di un
-  deploy pensato per utenti reali, se non lo si vuole visibile.
+- **UI `/courses`**: la nota (renderizzata + immagini inline + chip per documenti/link) e il
+  bottone «🎯 Esercitati su questa lezione» (attiva l'obiettivo della lezione se non lo è già e
+  apre `/quiz`) sono SEMPRE visibili nella card della lezione — un primo giro le nascondeva
+  dietro un toggle, ma così la lezione risultava poco browsable/accessibile (feedback utente).
+  Nota onesta mostrata all'utente: i giochi in `/giochi` pescano da TUTTO il vocabolario del
+  dispositivo (non solo "in studio"), quindi le parole di una lezione appena importata ci sono
+  già senza doverla attivare — solo il quiz/SRS rispetta `study_enabled`.
+- **Corso demo rimosso (28/07, stessa giornata)**: era stato creato un `corso-esempio.json` per
+  mostrare il formato in azione, ma l'utente ha notato due limiti reali del riuso del catalogo
+  aperto per un corso strutturato: (1) le parole aggiunte via corso non hanno lo stesso
+  arricchimento relazionale delle parole curate del catalogo (sinonimi/contrari/omofoni, rete di
+  distrattori) — sono più "spoglie"; (2) le frasi d'esempio del catalogo principale sono
+  calibrate sul livello JLPT, non sulla sequenza didattica di un corso specifico — pescare il
+  quiz da lì può usare grammatica/vocabolario non ancora visti nella lezione corrente, rompendo
+  la progressione pedagogica. Conclusione: per un vero corso scolastico (Ramo C, vedi
+  `~/.claude/plans/virtual-crunching-piglet.md`) le frasi d'esempio vanno scritte apposta per
+  la sequenza del corso (come già fa `grammatica_nuova.frasi_esempio` nel formato corso), non
+  ereditate dal catalogo generico — il motore di generazione domande resta riusabile, ma va
+  alimentato con contenuto sequenziato per lezione, non con l'intero catalogo N5/N4.
 
 ## Seed pipeline (`scripts/sync-open-source-seed.mjs`)
 

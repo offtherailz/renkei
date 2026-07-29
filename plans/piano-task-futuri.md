@@ -277,15 +277,19 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   esplorata con l'utente per un possibile uso scolastico — vedi
   `~/.claude/plans/virtual-crunching-piglet.md`): il campo `note` di ogni
   lezione (già salvato all'import ma mai mostrato) ora si vede in
-  `/courses` («📖 Leggi la lezione», markdown minimale scritto ad-hoc in
-  `courseMarkdown.ts`, nessuna dipendenza nuova). Nuovo campo opzionale
-  `risorse` per lezione (immagini/documenti/link, validato contro
+  `/courses`, sempre visibile in ogni lezione (markdown minimale scritto
+  ad-hoc in `courseMarkdown.ts`, nessuna dipendenza nuova). Nuovo campo
+  opzionale `risorse` per lezione (immagini/documenti/link, validato contro
   `javascript:`). Nuovo bottone «🎯 Esercitati su questa lezione» (attiva
   l'obiettivo e apre `/quiz`); nota onesta che i giochi pescano già da tutto
   il vocabolario, non serve attivare la lezione per giocarci. Corso demo
-  originale (`corso-esempio.json`, tema Kyoto, 2 lezioni) per provare il
-  formato — quick-import in `/courses`, da togliere prima di un deploy per
-  utenti reali se non lo si vuole visibile.
+  (`corso-esempio.json`, tema Kyoto) creato per provare il formato, poi
+  RIMOSSO lo stesso giorno: l'utente ha notato che le parole aggiunte via
+  corso non hanno l'arricchimento relazionale del catalogo curato, e che le
+  frasi d'esempio del catalogo (calibrate su livello JLPT, non su sequenza
+  didattica) possono rompere la progressione di un corso vero — confermato
+  che serve un'app dedicata (Ramo C) con contenuto scritto apposta per
+  lezione, non il riuso diretto del catalogo N5/N4 di Renkei.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

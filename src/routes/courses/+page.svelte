@@ -305,22 +305,6 @@
 </section>
 {/if}
 
-{#if !loading && !courses.some((c) => c.id === 'corso-esempio')}
-<section class="section-card recommended">
-	<p class="card-title">🧪 Corso di esempio (demo)</p>
-	<div class="rec-row">
-		<div class="rec-body">
-			<strong>Gita a Kyoto</strong>
-			<p class="course-meta">Contenuto dimostrativo originale (nessun materiale di scuole/libri): 2 lezioni con note in markdown, immagine, documento e link — per vedere il formato corso in azione prima di curarne uno vero.</p>
-		</div>
-		<button class="btn-primary" disabled={genkiImporting !== ''} onclick={() => importBundled('corso-esempio.json', 'Corso di esempio')}>
-			{genkiImporting === 'corso-esempio.json' ? 'Importo…' : '⬇️ Importa'}
-		</button>
-	</div>
-	{#if importError}<p class="error-text">{importError}</p>{/if}
-</section>
-{/if}
-
 <!-- Import section -->
 <section class="section-card">
 	<p class="card-title">Importa corso</p>
