@@ -290,6 +290,21 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   didattica) possono rompere la progressione di un corso vero — confermato
   che serve un'app dedicata (Ramo C) con contenuto scritto apposta per
   lezione, non il riuso diretto del catalogo N5/N4 di Renkei.
+- ✅ (29/07) **Fix 3 test falliti (pre-esistenti, trovati inizio sessione)**:
+  変わる aveva "E-mail" in latino nella frase + IT=EN non tradotto (fix:
+  メール, traduzione italiana vera); 見る usava 観る invece di 見る/みる
+  nell'esempio, e un'altra sua frase aveva traduzione IT sbagliata (parlava
+  d'altro); iikae.test.ts falliva per un bug nel TEST stesso (内/うち sono
+  omofoni, la lettura di 内 sovrascriveva nella mappa di lookup la voce
+  scrittura=うち — corretto dando priorità a scrittura su lettura) più una
+  voce dati (`['あした','明日']`, un gruppo iikae che accoppiava un'unica
+  parola con sé stessa — rimossa, zero item quiz la referenziavano).
+- 🔲 **725 traduzioni IT identiche all'EN (audit 29/07)**: scoperto per caso
+  sistemando 変わる/見る sopra — molto più grande di 3 casi isolati. Report
+  completo con lista in `plans/2026-07-29-traduzioni-it-en-identiche.md`
+  (385 N5, 330 N4, 10 EXTRA). Da trattare come vera curatela a lotti (ciclo
+  insegnante-agente), non un fix meccanico — volume troppo grande per una
+  sessione.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

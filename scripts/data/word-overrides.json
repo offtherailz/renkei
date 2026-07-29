@@ -12244,15 +12244,15 @@
    {
     "testo": "１０ページの５行目をみなさい。",
     "traduzione": {
-     "it": "Let's begin with the fifth line on page 10.",
-     "en": "Let's begin with the fifth line on page 10."
+     "it": "Guarda la quinta riga di pagina 10.",
+     "en": "Look at the fifth line on page 10."
     }
    },
    {
-    "testo": "映画を観に行かない？",
+    "testo": "映画を見に行かない？",
     "traduzione": {
-     "it": "Would you like to take in a movie?",
-     "en": "Would you like to take in a movie?"
+     "it": "Vuoi andare a vedere un film?",
+     "en": "Do you want to go watch a movie?"
     }
    },
    {
@@ -33680,9 +33680,9 @@
   "sinonimi": [],
   "frasi_esempio": [
    {
-    "testo": "私のE-mailアドレスが変わりました。",
+    "testo": "私のメールアドレスが変わりました。",
     "traduzione": {
-     "it": "My e-mail address has been changed.",
+     "it": "Il mio indirizzo email è cambiato.",
      "en": "My e-mail address has been changed."
     }
    },

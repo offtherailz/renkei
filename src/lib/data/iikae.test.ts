@@ -30,13 +30,17 @@ describe('dataset 言い換え', () => {
 	// I gruppi vivono nel campo dedicato `parafrasi` (17/07): equivalenti a
 	// livello di frase, distinti dai sinonimi lessicali interscambiabili.
 	it('le parole dei gruppi sono collegate come parafrasi bidirezionali nel seed', () => {
-		const byForm = new Map(
-			seed.words.flatMap((w: { scrittura: string; lettura?: string; parafrasi?: string[] }) => {
-				const entries: [string, typeof w][] = [[w.scrittura, w]];
-				if (w.lettura) entries.push([w.lettura, w]);
-				return entries;
-			})
-		);
+		// scrittura sempre prioritaria sulla lettura: due parole diverse possono
+		// condividere una lettura (内/うち sono entrambe "うち") — se la lettura
+		// di un omofono venisse inserita dopo, sovrascriverebbe la voce corretta
+		// (quella la cui SCRITTURA è proprio quella lettura).
+		const byForm = new Map<string, { scrittura: string; lettura?: string; parafrasi?: string[] }>();
+		for (const w of seed.words as { scrittura: string; lettura?: string; parafrasi?: string[] }[]) {
+			byForm.set(w.scrittura, w);
+		}
+		for (const w of seed.words as { scrittura: string; lettura?: string; parafrasi?: string[] }[]) {
+			if (w.lettura && !byForm.has(w.lettura)) byForm.set(w.lettura, w);
+		}
 		for (const g of data.gruppi) {
 			const words = g.parole.map((p: string) => byForm.get(p)).filter(Boolean);
 			for (const w of words) {
