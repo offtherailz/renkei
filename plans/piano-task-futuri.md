@@ -305,6 +305,23 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   (385 N5, 330 N4, 10 EXTRA). Da trattare come vera curatela a lotti (ciclo
   insegnante-agente), non un fix meccanico — volume troppo grande per una
   sessione.
+- ✅ (29/07) **Mani libere: fix comando che ruba la risposta + comando 「わかりません」**
+  (bug + idea utente): `classifyUtterance` ora ignora, per il round corrente,
+  i trigger di comando contenuti nella frase corretta (es. もう一度 in «può
+  ripetere?» non fa più scattare il comando "ripeti" invece di essere
+  giudicata risposta). Nuovo comando 「わかりません」/「わからない」: legge la
+  spiegazione (`quando`, registro/uso) della frase, poi ripete il prompt.
+  Dettaglio in ARCHITECTURE.md.
+- ✅ (29/07) **Aeroporto: tolte 4 frasi di nicchia** (feedback utente: «troppo
+  difficili, non ci sono agganci con le altre cose») — Wi-Fi router, dogana,
+  spedizione bagagli: vocabolario isolato, non riusato altrove nel catalogo.
+  Restano le 7 frasi essenziali (gate, check-in, ritiro bagagli, turismo,
+  passaporto, imbarcare, portare in cabina).
+- ✅ (29/07) **Cap carte nuove/giorno: 20 → 10 default** (feedback utente: i
+  ripassi si accumulano) — `DEFAULT_NEW_CARDS_PER_DAY` in `dailyNewCards.ts`,
+  configurabile in Impostazioni. I ripassi già dovuti restano sempre
+  illimitati (non è questo il lever, ma introdurre meno carte nuove al
+  giorno rallenta la crescita del debito).
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

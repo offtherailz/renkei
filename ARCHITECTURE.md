@@ -224,6 +224,27 @@ poche unità a 53 round su 35 delle 41 coppie curate — verificato in
 SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
 impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
 
+## Mani libere: comando che si sovrappone alla risposta (29/07)
+
+Bug segnalato dall'utente: in `/mani-libere`, quando la frase CORRETTA di un round contiene
+letteralmente la parola-trigger di un comando (es. «すみません、もう一度お願いします。» contiene
+もう一度, che è anche il trigger del comando "ripeti"), dirla faceva scattare il comando invece
+di essere giudicata come risposta. La pagina già provava `judgeAnswer` PRIMA di
+`classifyUtterance` (commento preesistente lo spiegava), ma se il match non era perfetto (frase
+detta solo in parte) il residuo finiva comunque classificato come comando.
+
+Fix in `handsFree.ts`: `classifyUtterance` accetta ora un secondo parametro opzionale
+`expectedPhrase` (la frase corretta del round) — `filterOverlapping` toglie dalla lista dei
+trigger di ogni comando quelli che sono contenuti nella frase attesa, PRIMA di cercare un match.
+Così, per quel round specifico, quella parola non può più rubare la risposta (cade fino al ramo
+finale «quasi, si dice: …», pedagogicamente corretto se hai detto solo un pezzo della frase);
+gli altri comandi restano attivi normalmente.
+
+**Nuovo comando 「わかりません」/「わからない」** (idea utente): spiega la frase corrente leggendo
+il campo `quando` (registro/uso, già presente nei dati di `usefulPhrases.ts` ma non ancora
+esposto in `/mani-libere`) prima di ripetere il prompt. Aggiunto `FraseRound.quando` (propagato da
+`buildRounds`), `playPrompt` lo restituisce insieme a `corretta`/`varianti`.
+
 ## Corsi importati — note, risorse, esercizi collegati (28/07)
 
 Il formato `.renkei-course.json` (`COURSE_FORMAT.md`, importer `src/lib/db/course-import.ts`)

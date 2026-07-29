@@ -15,7 +15,8 @@
 	// partire, poi parla-ascolta-avanza in automatico. Mix: recall di frasi utili
 	// (l'app dice in italiano cosa esprimere, tu lo dici in giapponese) e choukai
 	// (l'app recita un dialogo, fa la domanda, rispondi a voce). Comandi vocali:
-	// もう一度 (ripeti), ゆっくり (lento), 次 (avanti).
+	// もう一度 (ripeti), ゆっくり (lento), わかりません (spiegami — legge il "quando/
+	// registro" della frase), 次 (avanti).
 	const ROUNDS = 12;
 	const canSpeak = speechAvailable();
 
@@ -105,11 +106,12 @@
 	}
 
 	// Prepara e pronuncia il prompt del round. Ritorna, per il choukai, la frase
-	// corretta + le sue varianti (per il match); per le frasi, quelle del round.
-	async function playPrompt(r: HFRound, slow: boolean): Promise<{ corretta: string; varianti: string[] }> {
+	// corretta + le sue varianti (per il match); per le frasi, quelle del round
+	// + "quando" (spiegazione uso/registro, letta col comando "Spiegami").
+	async function playPrompt(r: HFRound, slow: boolean): Promise<{ corretta: string; varianti: string[]; quando?: string }> {
 		if (r.kind === 'frase') {
 			await speakIt(`Come si dice: ${r.cueIt}`);
-			return { corretta: r.jp, varianti: r.varianti };
+			return { corretta: r.jp, varianti: r.varianti, quando: r.quando };
 		}
 		const d = LISTENING_DIALOGUES.find((x) => x.id === r.dialogueId)!;
 		const run = instantiateListening(d);
@@ -142,7 +144,7 @@
 
 	async function runRound(r: HFRound): Promise<void> {
 		status = 'speaking';
-		let { corretta, varianti } = await playPrompt(r, false);
+		let { corretta, varianti, quando } = await playPrompt(r, false);
 		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
 			const h = await listenAfterBeep();
@@ -172,12 +174,21 @@
 					await speakJp(corretta);
 					return;
 				}
-				cls = classifyUtterance(alts);
+				// PRIMA la risposta (già fatto sopra), poi il comando — ma un comando il
+				// cui trigger è anche il contenuto giusto da dire qui (es. もう一度 in una
+				// frase che chiede proprio "può ripetere?") non deve rubare la risposta:
+				// classifyUtterance lo ignora per QUESTO round quando combacia con corretta.
+				cls = classifyUtterance(alts, corretta);
 			}
 
-			if (cls === 'slow') { ({ corretta, varianti } = await playPrompt(r, true)); continue; }
-			if (cls === 'repeat') { ({ corretta, varianti } = await playPrompt(r, false)); continue; }
-			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti } = await playPrompt(r, false)); continue; }
+			if (cls === 'slow') { ({ corretta, varianti, quando } = await playPrompt(r, true)); continue; }
+			if (cls === 'repeat') { ({ corretta, varianti, quando } = await playPrompt(r, false)); continue; }
+			if (cls === 'explain') {
+				await speakIt(quando ? quando : 'Non ho una spiegazione per questa frase, mi dispiace.');
+				({ corretta, varianti, quando } = await playPrompt(r, false));
+				continue;
+			}
+			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti, quando } = await playPrompt(r, false)); continue; }
 			if (cls === 'quit') { stop(); return; }
 			if (cls === 'skip') return;
 			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.

@@ -5,7 +5,7 @@
 // (10-60 min), il conto dei ripassi non scende mai perché cresce più in
 // fretta di quanto si riesca a smaltirlo in giornata.
 
-export const DEFAULT_NEW_CARDS_PER_DAY = 20;
+export const DEFAULT_NEW_CARDS_PER_DAY = 10;
 
 export interface NewCardBudget {
 	nuove_oggi?: number;
