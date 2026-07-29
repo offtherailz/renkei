@@ -15,8 +15,8 @@
 	// partire, poi parla-ascolta-avanza in automatico. Mix: recall di frasi utili
 	// (l'app dice in italiano cosa esprimere, tu lo dici in giapponese) e choukai
 	// (l'app recita un dialogo, fa la domanda, rispondi a voce). Comandi vocali:
-	// もう一度 (ripeti), ゆっくり (lento), わかりません (spiegami — legge il "quando/
-	// registro" della frase), 次 (avanti).
+	// もう一度 (ripeti), ゆっくり (lento), わかりません (non lo so — spiega il "quando/
+	// registro" e dà la risposta, poi passa al round dopo), 次 (avanti).
 	const ROUNDS = 12;
 	const canSpeak = speechAvailable();
 
@@ -165,9 +165,14 @@
 				const alts = h.alts;
 				if (alts.length === 0) {
 					if (Date.now() - lastActivity > SILENCE_MS) {
-						await speakIt('Non sento risposte da un po\'. Mi fermo. A presto!');
-						stop();
-						return;
+						// non fermare del tutto la sessione (si perdeva il progresso): pausa,
+						// come col comando "pausa" — riprendendo si ridice la domanda.
+						await speakIt('Non sento risposte da un po\'. Metto in pausa.');
+						const resumed = await pauseUntilResume();
+						if (!resumed || !running) return;
+						({ corretta, varianti, quando } = await playPrompt(r, false));
+						lastActivity = Date.now();
+						continue;
 					}
 					continue; // niente sentito, riascolta (col bip)
 				}
@@ -192,10 +197,13 @@
 			if (cls === 'slow') { ({ corretta, varianti, quando } = await playPrompt(r, true)); lastActivity = Date.now(); continue; }
 			if (cls === 'repeat') { ({ corretta, varianti, quando } = await playPrompt(r, false)); lastActivity = Date.now(); continue; }
 			if (cls === 'explain') {
-				await speakIt(quando ? quando : 'Non ho una spiegazione per questa frase, mi dispiace.');
-				({ corretta, varianti, quando } = await playPrompt(r, false));
-				lastActivity = Date.now();
-				continue;
+				// わかりません: dà la risposta e la spiega (non solo ripete la domanda) —
+				// come il ramo finale "quasi, si dice", ma con la spiegazione prima.
+				status = 'ko';
+				if (quando) await speakIt(quando);
+				await speakIt('Si dice:');
+				await speakJp(corretta, true);
+				return;
 			}
 			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti, quando } = await playPrompt(r, false)); lastActivity = Date.now(); continue; }
 			if (cls === 'quit') { stop(); return; }
@@ -319,7 +327,7 @@
 	.hint { margin: 0; text-align: center; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 	.hint.small { font-size: 0.8rem; }
 	.hint.warn { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 10px; padding: 10px; }
-	.big-status { font-size: 3.4rem; line-height: 1; }
+	.big-status { font-size: 2.2rem; line-height: 1; }
 	.big-status.pulse { animation: pulse 1s ease-in-out infinite; }
 	@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 	.cmd-title { margin: 6px 0 0; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }

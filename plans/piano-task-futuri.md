@@ -332,8 +332,12 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   riconoscimenti riusciti, mai sulle domande poste dall'app: con STT che a
   volte non riconosce nulla per un giro (normale), il tempo dall'ultimo
   successo cresceva tra round finché non superava la soglia. Ora si azzera
-  a ogni domanda (round + ripeti/lento/spiegami/pausa); soglia 30s → 2 min.
-  Dettaglio in ARCHITECTURE.md.
+  a ogni domanda (round + ripeti/lento/spiegami/pausa); soglia 30s → 2 min;
+  allo scadere METTE IN PAUSA (Riprendi/Ferma) invece di terminare la
+  sessione (si perdeva il progresso). Ridefinito anche 「わかりません」: ora
+  spiega E dà la risposta parlata, poi passa al round dopo (prima ripeteva
+  solo la domanda). Ridotta anche l'icona grande di stato (3.4rem → 2.2rem)
+  per stare tutto in verticale con 6 comandi. Dettaglio in ARCHITECTURE.md.
 - 🔲 **Catena a 3 passi** (受身→たい→くない, es. 言われたくない): serve step3 nel Round.
   Piano in `~/.claude/plans/noble-juggling-popcorn.md` (versione precedente).
 - 🔲 **Consolida composizione**: sotto, i **box significato dei kanji** usati nella parola.

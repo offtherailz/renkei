@@ -235,7 +235,14 @@ SUCCESSO cresceva attraverso più round finché non superava la soglia — ferma
 anche in mezzo a una conversazione attiva. Fix: `lastActivity` si azzera ora a ogni domanda
 posta dall'app (inizio round + dopo ogni ripeti/lento/spiegami/pausa), coerente con "silenzio
 dall'ultima domanda" invece che "dall'ultimo successo". Soglia alzata da 30s a 2 minuti
-(richiesta utente).
+(richiesta utente). Allo scadere della soglia, ora **mette in pausa** (bottoni Riprendi/Ferma)
+invece di terminare del tutto la sessione — si perdeva il progresso (idea utente: non fermarsi
+mai senza che sia una scelta esplicita).
+
+Il comando 「わかりません」 (aggiunto il 29/07) inizialmente ripeteva solo la domanda dopo la
+spiegazione; ridefinito (30/07, idea utente): spiega (`quando`) E dà la risposta corretta
+parlata, poi passa al round successivo — stesso schema del ramo finale "quasi, si dice" ma con
+la spiegazione prima. Non è più un "ridimmelo", è un "non lo so, dimmelo tu e vai avanti".
 
 ## Mani libere: comando che si sovrappone alla risposta (29/07)
 
