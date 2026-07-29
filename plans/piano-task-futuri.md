@@ -114,9 +114,14 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   toast ⚡, nextDanHint sulla card. Banner /giochi asciutto con link a
   /guida#cinture: sezione dedicata con disegni BeltIcon, scala completa,
   criteri pulita/impresa, filiera sblocchi.
-- 🔲 **Cinture — seguiti possibili**: badge nel profilo (`badge_sbloccati`) alla
-  nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage); vetrina
-  cinture in /stats; migrare i record locali di riordina/skimming a gameScores.
+- ✅ (30/07) **Vetrina cinture in /stats**: un chip per gioco (icona gioco +
+  `BeltIcon` + dan) per ogni gioco con almeno l'arancione, ordinati dal più
+  avanzato, con l'hint di cosa manca al prossimo traguardo (`nextDanHint` ??
+  `nextBeltHint`) e link al gioco (route propria se ce l'ha, altrimenti
+  /giochi). Riepilogo «N/32 giochi domati» (`conqueredCount()`).
+- 🔲 **Cinture — seguiti ancora possibili**: badge nel profilo (`badge_sbloccati`)
+  alla nera/sblocchi (persisterebbe nei backup; oggi tutto in localStorage);
+  migrare i record locali di riordina/skimming a gameScores.
 - ✅ (25/07) **Fix bug**: nei giochi in-page di /giochi, dopo aver giocato un
   gioco a scelta multipla (read/greet/order) e passare a listen/shop/appt/
   shopping, `picked` restava non-null e bloccava silenziosamente `onTimeout()`

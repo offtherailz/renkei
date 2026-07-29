@@ -6,6 +6,8 @@
 	import { computeStreak, weeklyRecap, STREAK_MILESTONES, type Streak, type WeekRecap } from '$lib/core/celebration';
 	import { FACET_META } from '$lib/core/facets';
 	import { allHighscores, gameLabel } from '$lib/core/gameScores';
+	import { BELT_GAMES, beltProgress, beltVisual, danKanji, nextBeltHint, nextDanHint, conqueredCount, type BeltColor } from '$lib/core/gameBelts';
+	import BeltIcon from '$lib/components/BeltIcon.svelte';
 	import { base } from '$app/paths';
 	import { CONJ_CLASS_LABELS, CONJ_CLASS_ICONS } from '$lib/core/conjugation';
 	import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
@@ -73,6 +75,27 @@
 	// ── Nuove sezioni: totali, sfaccettature, record giochi, successi, voce ──
 	let profile = $state<UserProfile | null>(null);
 	let gameRecords = $state<{ id: string; label: string; score: number }[]>([]);
+
+	// Vetrina cinture: un chip per gioco, ordinato dal più avanzato. I giochi
+	// "dentro /giochi" (numeri/tempo, saluti, spesa…) non hanno una pagina
+	// propria: portano tutti alla schermata /giochi, non a un URL specifico.
+	const STANDALONE_ROUTES = new Set([
+		'riordina', 'coppie', 'transitivi', 'dettato', 'avverbi', 'catena', 'contrazioni',
+		'comparazioni', 'certezza', 'iikae', 'choukai', 'leggi-a-voce', 'di-la-data',
+		'shadowing', 'appuntamento', 'relazioni', 'keigo'
+	]);
+	const BELT_ORDER: BeltColor[] = ['nessuna', 'bianca', 'gialla', 'arancione', 'verde', 'blu', 'viola', 'marrone', 'nera', 'rossa'];
+	interface BeltRow {
+		id: string;
+		label: string;
+		icon: string;
+		belt: BeltColor;
+		dan: string | null;
+		hint: string | null;
+		href: string;
+	}
+	let beltRows = $state<BeltRow[]>([]);
+	let gamesDomati = $state(0);
 	let completed = $state<{ id: string; name: string }[]>([]);
 	let facetAgg = $state<{ icon: string; label: string; avg: number; best: number; count: number }[]>([]);
 	// padronanza per classe di coniugazione (conj:*) e per costruzione (gram:*)
@@ -170,6 +193,23 @@
 			.filter(([, s]) => s > 0)
 			.map(([id, s]) => ({ id, label: gameLabel(id), score: s }))
 			.sort((a, b) => b.score - a.score);
+
+		// cinture: un chip per gioco, il più avanzato in cima
+		gamesDomati = conqueredCount();
+		beltRows = BELT_GAMES
+			.map((g) => {
+				const p = beltProgress(g.id);
+				return {
+					id: g.id,
+					label: g.label,
+					icon: g.icon,
+					belt: beltVisual(p),
+					dan: danKanji(p),
+					hint: nextDanHint(p) ?? nextBeltHint(p),
+					href: STANDALONE_ROUTES.has(g.id) ? `${base}/${g.id}` : `${base}/giochi`
+				};
+			})
+			.sort((a, b) => BELT_ORDER.indexOf(b.belt) - BELT_ORDER.indexOf(a.belt));
 	}
 
 	const accuracyTot = $derived(totali.risposte > 0 ? Math.round((totali.corrette / totali.risposte) * 100) : 0);
@@ -473,6 +513,23 @@
 </section>
 
 <section class="section-card">
+	<p class="card-title">🥋 Cinture <span class="muted-text belt-count">{gamesDomati}/{BELT_GAMES.length} giochi domati</span></p>
+	{#if gamesDomati === 0}
+		<p class="muted-text">Ancora nessuna cintura — gioca ai mini-giochi in Giochi per iniziare a guadagnarle!</p>
+	{:else}
+		<div class="belt-grid">
+			{#each beltRows.filter((r) => r.belt !== 'nessuna') as r (r.id)}
+				<a class="belt-row" href={r.href}>
+					<BeltIcon belt={r.belt} dan={r.dan} size={14} />
+					<span class="belt-lab">{r.icon} {r.label}</span>
+					{#if r.hint}<span class="belt-hint muted-text">{r.hint}</span>{/if}
+				</a>
+			{/each}
+		</div>
+	{/if}
+</section>
+
+<section class="section-card">
 	<p class="card-title">🎖️ Successi</p>
 	<div class="succ-list">
 		{#each milestonesRaggiunti as m (m)}
@@ -510,6 +567,17 @@
 	.forme-row:hover { background: var(--surface-2); }
 	.weak-fill { background: var(--danger); }
 	.weak-num { color: var(--danger); }
+
+	.belt-count { font-weight: 400; font-size: 0.78rem; margin-left: 6px; }
+	.belt-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+	.belt-row {
+		display: flex; align-items: center; gap: 6px; background: var(--surface-2);
+		border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
+		font-size: 0.82rem; text-decoration: none; color: var(--ink);
+	}
+	.belt-row:hover { border-color: var(--brand); }
+	.belt-lab { font-weight: 600; }
+	.belt-hint { font-size: 0.72rem; }
 
 	.rec-list, .succ-list { display: flex; flex-wrap: wrap; gap: 8px; }
 	.rec-row { display: flex; align-items: baseline; gap: 8px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; }
