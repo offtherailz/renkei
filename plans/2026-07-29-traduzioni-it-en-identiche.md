@@ -33,10 +33,10 @@ rompere i test sull'IT non vuoto).
 - 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
   del contatore testato: 一人/九日/五日).
 
-## Stato: 220 frasi ancora da tradurre (lotti 1-6 fatti il 30/07)
+## Stato: 160 frasi ancora da tradurre (lotti 1-7 fatti il 30/07)
 
-- N5: 124
-- N4: 95
+- N5: 89
+- N4: 70
 - EXTRA: 1
 
 ## Come si sistema
@@ -51,66 +51,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `赤ん坊` (N4) — うちの赤ん坊は口をきくようになってきました。 — «Our baby is learning to speak.»
-- `切る` (N5) — エアコンを切ってもかまいませんか。 — «Do you mind if I turn off the AC?»
-- `切る` (N5) — トランプをよく切ってください。 — «Please shuffle the cards carefully.»
-- `切符` (N5) — この切符で二人入れるよ。 — «The ticket admits two persons.»
-- `折れる` (N4) — ついにバス会社が折れた。 — «At last, the bus company gave in.»
-- `折れる` (N4) — 医者は彼の折れた足をついだ。 — «The doctor set his broken leg.»
-- `先` (N5) — それから先の話を聞きたい。 — «I'd like to know the rest of the story.»
-- `先` (N5) — 二人の男のうち、背の高い方が先に出ていった。 — «The taller of the two men went out first.»
-- `浅い` (N4) — この川はあそこで浅くなっている。 — «This river becomes shallow at that point.»
-- `前` (N5) — まっすぐ前を見てください。 — «Look forward, please.»
-- `前` (N5) — 父は２年前に亡くなった。 — «My father passed away two years ago.»
-- `全然` (N4) — あなたの作文は全然だめだというわけではない。 — «Your composition is not altogether bad.»
-- `全然` (N4) — 「長い１日だったのでお疲れでしょう」「いいえ、全然」 — «"You must be tired after a long day." "No, not in the least."»
-- `窓` (N5) — 窓を開けっぱなしにしておいたの？ — «Did you leave the window open?»
-- `走る` (N5) — あの走ってる少年をごらんなさい。 — «Look at that boy running.»
-- `走る` (N5) — 道はくねくねと畑の中を走っていた。 — «The road wound through the fields.»
-- `送る` (N4) — この手紙を日本に送ってくれませんか。 — «Could you send this letter to Japan?»
-- `送る` (N4) — お宅までお送りしましょうか？ — «May I escort you home?»
-- `贈り物` (N4) — ジェニーは贈り物をありがとうと言った。 — «Jenny thanked me for the gift.»
-- `息子` (N4) — 母親は息子にやかましく言って聞かせた。 — «The mother whipped sense into her boy.»
-- `足す` (N4) — ６０にするためには１７に何を足せばよいの。 — «What do you have to add to 17 to get 60?»
-- `足す` (N4) — もしコーヒーが濃すぎれば、いくらかお湯を足して下さい。 — «If the coffee is too strong, add some more water.»
-- `続ける` (N4) — ケンはその歌を歌い続けた。 — «Ken kept on singing that song.»
-- `村` (N5) — 町は村よりも大きい。 — «Towns are larger than villages.»
-- `打つ` (N4) — ８時をちょうど打ちましたね。 — «It has just struck eight, hasn't it?»
-- `打つ` (N4) — スロットを打っているうちに、あれよあれよと今の時間です。 — «I was hitting the slots, and before I knew it, it's this time already.»
-- `待つ` (N5) — しばらく電話を切らずにお待ちください。 — «Please hold the line a moment.»
-- `代わり` (N4) — 自分で行く代わりに手紙を送りました。 — «Instead of going myself, I sent a letter.»
-- `大きい` (N5) — きみは何と大きい家を持っているんだろう。 — «What a big house you have!»
-- `大きい` (N5) — もっと大きい声で言ってください。 — «Louder, please.»
-- `大学生` (N4) — 私の兄は大学生です。 — «My brother is a college student.»
-- `大丈夫` (N5) — いや、大丈夫だ。 — «No, no, that's okay.»
-- `大丈夫` (N5) — 彼女は今のところ大丈夫です。 — «She is all right at the moment.»
-- `大人` (N5) — 大人だけこの映画が見える。 — «Only adults can see this film.»
-- `大勢` (N5) — そこには大勢の人がいた。 — «There was a large crowd there.»
-- `大体` (N4) — だいたいどのくらいの時間がかかりますか。 — «About how long will it take?»
-- `大体` (N4) — 仕事はだいたい終わった。 — «The work is mostly done.»
-- `誰` (N5) — あそこに立ってる女の人はだれですか。 — «Who is the woman standing there?»
-- `短い` (N5) — 日がだんだん短くなっている。 — «The days are becoming shorter.»
-- `短い` (N5) — あの犬はしっぽが短い。 — «That dog has a short tail.»
-- `誕生日` (N5) — 今日は、妹の誕生日です。 — «Today is my sister's birthday.»
-- `暖かい` (N5) — だんだん暖かくなります。 — «It will get warmer and warmer.»
-- `暖かい` (N5) — 彼女は心の温かい人なんです。 — «She has a kind heart.»
-- `男の子` (N5) — あのハンサムな男の子を見て。 — «Look at that good-looking boy.»
-- `値段` (N4) — このラジオの値段はいくらですか。 — «What is the price of this radio?»
-- `地下鉄` (N5) — 地下鉄で行きたいのです。 — «I want to get there by subway.»
-- `地図` (N5) — どこへ行けばヨーロッパの地図が手に入りますか。 — «Where can I obtain a map of Europe?»
-- `池` (N5) — この前の夏にこの池は水がなくなりました。 — «The pond dried up last summer.»
-- `置く` (N5) — あいにく私はカメラを家においてきた。 — «As it happens, I have left the camera at home.»
-- `置く` (N5) — それをテーブルの上に置きなさい。 — «Lay it on the table.»
-- `茶色` (N5) — その犬は茶色で小さくて、やせています。 — «The dog is brown, small and thin.»
-- `中学校` (N4) — この歌を聞くと私の中学校時代を思い出します。 — «This song reminds me of my junior high school days.»
-- `昼` (N5) — ケンは昼まで家にいるでしょう。 — «Ken will be at home until noon.»
-- `昼` (N5) — 昼はホットドッグを食べたんだ。 — «I ate a hot dog for lunch.»
-- `長い` (N5) — だんだん日が長くなっています。 — «The days are getting longer and longer.»
-- `長い` (N5) — これは日本で２番目に長い川だ。 — «This is the second longest river in Japan.»
-- `直す` (N4) — あなたの時計は明日までには直しておきますよ。 — «I will have repaired your watch by tomorrow.»
-- `直す` (N4) — その本をなおしなさい。 — «Put the book back where you found it.»
-- `直る` (N4) — いったい、いつになったらそのケチは直るの？ — «When will you ever loosen your purse strings?»
-- `通る` (N4) — 私は毎日その教会の前を通る。 — «I go by that church every day.»
 - `通る` (N4) — 彼女はベスという名で通っていた。 — «She went by the name of Bess.»
 - `程` (N4) — 「小川さんはいつ来たか」「１０分ほど前だ」 — «"When did Mr Ogawa arrive?" "Ten minutes ago."»
 - `程` (N4) — スージーほど上手にピアノをひけるとよいのだが。 — «I wish I could play the piano as well as Susie.»
