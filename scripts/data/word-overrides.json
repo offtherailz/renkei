@@ -13856,7 +13856,7 @@
    {
     "testo": "姉は私のズボンにアイロンをかけてくれる。",
     "traduzione": {
-     "it": "My sister presses my trousers.",
+     "it": "Mia sorella maggiore mi stira i pantaloni.",
      "en": "My sister presses my trousers."
     }
    },
@@ -13890,7 +13890,7 @@
    {
     "testo": "あなたには何人子供がいますか。",
     "traduzione": {
-     "it": "How many children do you have?",
+     "it": "Quanti figli hai?",
      "en": "How many children do you have?"
     }
    },
@@ -13917,7 +13917,7 @@
    {
     "testo": "そして、電車はキーッという音を立てて止まった。",
     "traduzione": {
-     "it": "Then, the train screeched to a halt.",
+     "it": "Poi il treno si è fermato con uno stridio.",
      "en": "Then, the train screeched to a halt."
     }
    },
@@ -13950,7 +13950,7 @@
    {
     "testo": "その少年は死んだものとしてあきらめられた。",
     "traduzione": {
-     "it": "The boy was given up for dead.",
+     "it": "Il ragazzo è stato dato per morto.",
      "en": "The boy was given up for dead."
     }
    },
@@ -14010,7 +14010,7 @@
    {
     "testo": "その赤ちゃんは歯が生えはじめている。",
     "traduzione": {
-     "it": "The baby is cutting his teeth.",
+     "it": "Al bambino stanno spuntando i primi dentini.",
      "en": "The baby is cutting his teeth."
     }
    },
@@ -14065,7 +14065,7 @@
    {
     "testo": "コートを持ちましょうか。",
     "traduzione": {
-     "it": "Shall I carry your coat?",
+     "it": "Le porto io il cappotto?",
      "en": "Shall I carry your coat?"
     }
    },
@@ -14091,7 +14091,7 @@
    {
     "testo": "ジェーンはときどき学校まで走っていく。",
     "traduzione": {
-     "it": "Jane sometimes runs to school.",
+     "it": "Jane a volte corre fino a scuola.",
      "en": "Jane sometimes runs to school."
     }
    },
@@ -14120,7 +14120,7 @@
    {
     "testo": "いつだって読書の時間は見つけられる。",
     "traduzione": {
-     "it": "We can always find time for reading.",
+     "it": "Si trova sempre il tempo per leggere.",
      "en": "We can always find time for reading."
     }
    },
@@ -14147,7 +14147,7 @@
    {
     "testo": "あなたの時計では何時ですか。",
     "traduzione": {
-     "it": "What time is it by your watch?",
+     "it": "Che ore sono al tuo orologio?",
      "en": "What time is it by your watch?"
     }
    },
@@ -14174,7 +14174,7 @@
    {
     "testo": "この次来るときは、花を持ってきてあげよう。",
     "traduzione": {
-     "it": "Next time I come, I'll bring you some flowers.",
+     "it": "La prossima volta che vengo, ti porterò dei fiori.",
      "en": "Next time I come, I'll bring you some flowers."
     }
    },
@@ -14250,7 +14250,23 @@
     "to borrow",
     "to owe"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この本をお借りしてもよろしいですか。",
+    "traduzione": {
+     "it": "Posso prendere in prestito questo libro?",
+     "en": "May I borrow this book?"
+    }
+   },
+   {
+    "testo": "２部屋あるアパートを借りたいのですが。",
+    "traduzione": {
+     "it": "Vorrei affittare un appartamento con due stanze.",
+     "en": "I want to rent an apartment with two rooms."
+    }
+   }
+  ]
  },
  "弱い": {
   "significato": {
@@ -14265,7 +14281,7 @@
    {
     "testo": "それを言われると弱いなあ。",
     "traduzione": {
-     "it": "That sure puts me on the spot.",
+     "it": "Se me lo dici così, non posso resistere.",
      "en": "That sure puts me on the spot."
     }
    },
@@ -14288,7 +14304,23 @@
     "to take (a class)",
     "to get (a grade)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "水分をたくさん取ってください。",
+    "traduzione": {
+     "it": "Beva molti liquidi.",
+     "en": "You should drink a lot of liquid."
+    }
+   },
+   {
+    "testo": "そのお金はいざというときのために取っておくよ。",
+    "traduzione": {
+     "it": "Terrò da parte quei soldi per un'emergenza.",
+     "en": "I'm going to lay aside that money for emergencies."
+    }
+   }
+  ]
  },
  "手": {
   "significato": {
@@ -14310,7 +14342,7 @@
    {
     "testo": "いい手を思いついた。",
     "traduzione": {
-     "it": "I hit upon a good idea.",
+     "it": "Mi è venuta in mente una buona idea.",
      "en": "I hit upon a good idea."
     }
    }
@@ -14329,7 +14361,7 @@
    {
     "testo": "ここにあなたあての手紙が何通かあります。",
     "traduzione": {
-     "it": "Here are some letters for you.",
+     "it": "Ci sono alcune lettere qui indirizzate a te.",
      "en": "Here are some letters for you."
     }
    },
@@ -14362,7 +14394,7 @@
    {
     "testo": "それは授業の終わりだった。",
     "traduzione": {
-     "it": "That was the end of the class.",
+     "it": "Era la fine della lezione.",
      "en": "That was the end of the class."
     }
    },
@@ -14388,7 +14420,7 @@
    {
     "testo": "車の運転を習っています。",
     "traduzione": {
-     "it": "I've been learning to drive.",
+     "it": "Sto imparando a guidare.",
      "en": "I've been learning to drive."
     }
    },
@@ -14418,7 +14450,7 @@
    {
     "testo": "その会は十時に終わった。",
     "traduzione": {
-     "it": "The party ended at ten o'clock.",
+     "it": "La riunione è finita alle dieci.",
      "en": "The party ended at ten o'clock."
     }
    },
@@ -14444,7 +14476,7 @@
    {
     "testo": "その会は十時に終わった。",
     "traduzione": {
-     "it": "The party ended at ten o'clock.",
+     "it": "La riunione è finita alle dieci.",
      "en": "The party ended at ten o'clock."
     }
    },
@@ -14472,7 +14504,7 @@
    {
     "testo": "１０分前に出かけました。",
     "traduzione": {
-     "it": "She left home ten minutes ago.",
+     "it": "Sono uscito dieci minuti fa.",
      "en": "She left home ten minutes ago."
     }
    },
@@ -14501,14 +14533,14 @@
    {
     "testo": "ここではおいしい食べ物が出されます。",
     "traduzione": {
-     "it": "They serve excellent food here.",
+     "it": "Qui servono del buon cibo.",
      "en": "They serve excellent food here."
     }
    },
    {
     "testo": "この件では名前を出したくない。",
     "traduzione": {
-     "it": "I want to remain anonymous in this.",
+     "it": "Non voglio che il mio nome venga fuori in questa faccenda.",
      "en": "I want to remain anonymous in this."
     }
    },
@@ -27669,7 +27701,7 @@
    {
     "testo": "あなたを見るとお兄さんを思い出します。",
     "traduzione": {
-     "it": "You remind me of your brother.",
+     "it": "Quando ti vedo mi ricordo di tuo fratello maggiore.",
      "en": "You remind me of your brother."
     }
    },
@@ -27726,7 +27758,7 @@
    {
     "testo": "ドアに指をはさみました。",
     "traduzione": {
-     "it": "I caught my finger in the door.",
+     "it": "Mi sono schiacciato un dito nella porta.",
      "en": "I caught my finger in the door."
     }
    },
@@ -27786,7 +27818,7 @@
    {
     "testo": "すぐに旅の支度をしなさい。",
     "traduzione": {
-     "it": "Get ready for the trip at once.",
+     "it": "Preparati subito per il viaggio.",
      "en": "Get ready for the trip at once."
     }
    },
@@ -27844,7 +27876,7 @@
    {
     "testo": "雨がやみさえすればいいのになあ。",
     "traduzione": {
-     "it": "If only it would stop raining!",
+     "it": "Magari smettesse di piovere.",
      "en": "If only it would stop raining!"
     }
    },
@@ -27974,7 +28006,7 @@
    {
     "testo": "とにかく、試験が終わってほっとしたよ。",
     "traduzione": {
-     "it": "Anyhow, I'm relieved the test is over.",
+     "it": "Comunque, sono sollevato che l'esame sia finito.",
      "en": "Anyhow, I'm relieved the test is over."
     }
    },
@@ -28008,7 +28040,7 @@
    {
     "testo": "その試合は何時に始まりますか。",
     "traduzione": {
-     "it": "What time does the game start?",
+     "it": "A che ora inizia la partita?",
      "en": "What time does the game start?"
     }
    },
@@ -28037,7 +28069,7 @@
    {
     "testo": "今日歯医者へ行きました。",
     "traduzione": {
-     "it": "Today I went to the dentist's.",
+     "it": "Oggi sono andato dal dentista.",
      "en": "Today I went to the dentist's."
     }
    },
@@ -28147,7 +28179,23 @@
     "to resemble",
     "to be similar"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私も似た話を聞いたことがある。",
+    "traduzione": {
+     "it": "Ho sentito anch'io una storia simile.",
+     "en": "I also heard a similar story."
+    }
+   },
+   {
+    "testo": "ニュージーランドの気候は日本のと似ている。",
+    "traduzione": {
+     "it": "Il clima della Nuova Zelanda è simile a quello del Giappone.",
+     "en": "The climate of New Zealand is similar to that of Japan."
+    }
+   }
+  ]
  },
  "字": {
   "significato": {
@@ -28333,7 +28381,23 @@
    "en": [
     "to scold"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは先生にしかられましたか。",
+    "traduzione": {
+     "it": "Ti ha sgridato l'insegnante?",
+     "en": "Were you scolded by your teacher?"
+    }
+   },
+   {
+    "testo": "ママに叱られますよ。",
+    "traduzione": {
+     "it": "La mamma ti sgriderà.",
+     "en": "You'll catch it from Mummy."
+    }
+   }
+  ]
  },
  "失敗": {
   "significato": {
@@ -28350,7 +28414,7 @@
    {
     "testo": "１度や２度の失敗はだれにでもある。",
     "traduzione": {
-     "it": "Everybody fails once or twice.",
+     "it": "Uno o due fallimenti capitano a chiunque.",
      "en": "Everybody fails once or twice."
     }
    },
@@ -28374,7 +28438,23 @@
     "impoliteness",
     "Excuse me"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それではそろそろ失礼します。",
+    "traduzione": {
+     "it": "Allora è ora che vada, mi scusi.",
+     "en": "Well, I must be going."
+    }
+   },
+   {
+    "testo": "「失礼ですが」とアンが話に割って入った。",
+    "traduzione": {
+     "it": "«Mi scusi» ha interrotto Ann.",
+     "en": "\"Excuse me,\" Ann broke in."
+    }
+   }
+  ]
  },
  "写す": {
   "significato": {
@@ -28389,6 +28469,22 @@
   },
   "correlati": [
    "撮る"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "その写真は空から写されたものである。",
+    "traduzione": {
+     "it": "Quella foto è stata scattata dal cielo.",
+     "en": "The picture was taken from the air."
+    }
+   },
+   {
+    "testo": "このページをノートに写しておきなさい。",
+    "traduzione": {
+     "it": "Copia questa pagina sul quaderno.",
+     "en": "Copy this page in your notebook."
+    }
+   }
   ]
  },
  "捨てる": {
@@ -28516,7 +28612,7 @@
    {
     "testo": "お邪魔じゃないでしょうか。",
     "traduzione": {
-     "it": "I hope I'm not disturbing you.",
+     "it": "Spero di non disturbare.",
      "en": "I hope I'm not disturbing you."
     }
    },
@@ -28574,7 +28670,7 @@
    {
     "testo": "これを青いのと取り替えてください。",
     "traduzione": {
-     "it": "Please change this for a blue one.",
+     "it": "Me lo cambi con quello blu, per favore.",
      "en": "Please change this for a blue one."
     }
    },
@@ -28627,7 +28723,7 @@
    {
     "testo": "いつでもお手伝いします。",
     "traduzione": {
-     "it": "I am always ready to help you.",
+     "it": "Sono sempre disponibile ad aiutare.",
      "en": "I am always ready to help you."
     }
    },
@@ -28655,7 +28751,7 @@
    {
     "testo": "趣味については話しましたか？",
     "traduzione": {
-     "it": "Did you talk about your hobby?",
+     "it": "Hai parlato dei tuoi hobby?",
      "en": "Did you talk about your hobby?"
     }
    },
@@ -28679,6 +28775,22 @@
   },
   "correlati": [
    "喉"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "あなたの首は風前のともし火だ。",
+    "traduzione": {
+     "it": "Il tuo posto è appeso a un filo.",
+     "en": "Your job hangs by a thread."
+    }
+   },
+   {
+    "testo": "鳥は首をひょいと水に浸した。",
+    "traduzione": {
+     "it": "L'uccello ha immerso il collo nell'acqua all'improvviso.",
+     "en": "The bird dipped its head into the water."
+    }
+   }
   ]
  },
  "受ける": {
@@ -28773,7 +28885,23 @@
     "to pick up (something)",
     "to find"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ホテルの前で私を車で拾ってください。",
+    "traduzione": {
+     "it": "Venga a prendermi in macchina davanti all'hotel.",
+     "en": "Please pick me up by car in front of the hotel."
+    }
+   },
+   {
+    "testo": "日本では昼間でも夜でもタクシーを拾うことができる。",
+    "traduzione": {
+     "it": "In Giappone si può prendere un taxi sia di giorno che di notte.",
+     "en": "In Japan you can always catch a cab, day or night."
+    }
+   }
+  ]
  },
  "終わり": {
   "significato": {
@@ -28816,7 +28944,23 @@
    "en": [
     "custom (in reference to culture)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その習慣は中国で始まった。",
+    "traduzione": {
+     "it": "Quell'usanza è nata in Cina.",
+     "en": "The custom originated in China."
+    }
+   },
+   {
+    "testo": "彼はたばこを吸う習慣をやめた。",
+    "traduzione": {
+     "it": "Ha smesso l'abitudine di fumare.",
+     "en": "He got out of the habit of smoking."
+    }
+   }
+  ]
  },
  "舟": {
   "significato": {
@@ -28961,6 +29105,22 @@
   },
   "correlati": [
    "足りる"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "私はこの本を買うのに十分なお金を持っている。",
+    "traduzione": {
+     "it": "Ho abbastanza soldi per comprare questo libro.",
+     "en": "I have enough money to buy this book."
+    }
+   },
+   {
+    "testo": "もっと召し上がりますか。いいえ、じゅうぶんいただきました。",
+    "traduzione": {
+     "it": "«Ne vuole ancora?» «No, ne ho preso già abbastanza».",
+     "en": "\"Would you like any more?\" \"No, I've had enough.\""
+    }
+   }
   ]
  },
  "柔らかい": {
@@ -38066,15 +38226,15 @@
    {
     "testo": "それは授業の終わりだった。",
     "traduzione": {
-     "it": "That was the end of the class.",
+     "it": "Era la fine della lezione.",
      "en": "That was the end of the class."
     }
    },
    {
-    "testo": "きょうは オンラインで 授業しました。",
+    "testo": "授業に おくれないで ください。",
     "traduzione": {
-     "it": "Oggi la lezione si è tenuta online.",
-     "en": "Today the class was held online."
+     "it": "Non arrivare in ritardo a lezione.",
+     "en": "Please don't be late for class."
     }
    }
   ]
@@ -38332,15 +38492,15 @@
    {
     "testo": "１度や２度の失敗はだれにでもある。",
     "traduzione": {
-     "it": "Everybody fails once or twice.",
+     "it": "Uno o due fallimenti capitano a chiunque.",
      "en": "Everybody fails once or twice."
     }
    },
    {
-    "testo": "ケーキ作りに 失敗しました。",
+    "testo": "失敗を おそれないで ください。",
     "traduzione": {
-     "it": "Ho sbagliato a fare la torta.",
-     "en": "I failed at making the cake."
+     "it": "Non temere gli errori.",
+     "en": "Don't be afraid of failure."
     }
    }
   ],
@@ -38394,15 +38554,15 @@
    {
     "testo": "すぐに旅の支度をしなさい。",
     "traduzione": {
-     "it": "Get ready for the trip at once.",
+     "it": "Preparati subito per il viaggio.",
      "en": "Get ready for the trip at once."
     }
    },
    {
-    "testo": "早く 出かける 支度を しなさい。",
+    "testo": "夕飯の 支度が できました。",
     "traduzione": {
-     "it": "Sbrigati a prepararti per uscire.",
-     "en": "Hurry up and get ready to go out."
+     "it": "I preparativi per la cena sono pronti.",
+     "en": "Dinner preparations are done."
     }
    }
   ]
@@ -38545,15 +38705,15 @@
    {
     "testo": "その試合は何時に始まりますか。",
     "traduzione": {
-     "it": "What time does the game start?",
+     "it": "A che ora inizia la partita?",
      "en": "What time does the game start?"
     }
    },
    {
-    "testo": "となりの 学校と 試合します。",
+    "testo": "あしたの 試合は 雨でも あります。",
     "traduzione": {
-     "it": "Giochiamo contro la scuola vicina.",
-     "en": "We will play a match against the neighboring school."
+     "it": "La partita di domani si gioca anche con la pioggia.",
+     "en": "Tomorrow's match will be held even in the rain."
     }
    }
   ]
@@ -38563,15 +38723,15 @@
    {
     "testo": "とにかく、試験が終わってほっとしたよ。",
     "traduzione": {
-     "it": "Anyhow, I'm relieved the test is over.",
+     "it": "Comunque, sono sollevato che l'esame sia finito.",
      "en": "Anyhow, I'm relieved the test is over."
     }
    },
    {
-    "testo": "新しい 薬を 試験して います。",
+    "testo": "試験の 結果は 来週 わかります。",
     "traduzione": {
-     "it": "Stanno testando un nuovo farmaco.",
-     "en": "They are testing a new medicine."
+     "it": "I risultati dell'esame si sapranno la settimana prossima.",
+     "en": "The exam results will be known next week."
     }
    }
   ]
@@ -39487,6 +39647,42 @@
     "traduzione": {
      "it": "Non vedo l'ora che arrivi la primavera per l'hanami.",
      "en": "I can't wait for spring to come so we can sit under the cherry trees."
+    }
+   }
+  ]
+ },
+ "失礼する": {
+  "frasi_esempio": [
+   {
+    "testo": "それではそろそろ失礼します。",
+    "traduzione": {
+     "it": "Allora è ora che vada, mi scusi.",
+     "en": "Well, I must be going."
+    }
+   },
+   {
+    "testo": "「失礼ですが」とアンが話に割って入った。",
+    "traduzione": {
+     "it": "«Mi scusi» ha interrotto Ann.",
+     "en": "\"Excuse me,\" Ann broke in."
+    }
+   }
+  ]
+ },
+ "邪魔する": {
+  "frasi_esempio": [
+   {
+    "testo": "お邪魔じゃないでしょうか。",
+    "traduzione": {
+     "it": "Spero di non disturbare.",
+     "en": "I hope I'm not disturbing you."
+    }
+   },
+   {
+    "testo": "仕事の 邪魔を しないで ください。",
+    "traduzione": {
+     "it": "Non disturbarmi mentre lavoro.",
+     "en": "Please don't disturb my work."
     }
    }
   ]

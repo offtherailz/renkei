@@ -33,10 +33,10 @@ rompere i test sull'IT non vuoto).
 - 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
   del contatore testato: 一人/九日/五日).
 
-## Stato: 340 frasi ancora da tradurre (lotti 1-3 fatti il 30/07)
+## Stato: 280 frasi ancora da tradurre (lotti 1-5 fatti il 30/07)
 
-- N4: 170
-- N5: 168
+- N5: 143
+- N4: 135
 - EXTRA: 2
 
 ## Come si sistema
@@ -51,66 +51,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `姉` (N5) — 姉は私のズボンにアイロンをかけてくれる。 — «My sister presses my trousers.»
-- `子供` (N5) — あなたには何人子供がいますか。 — «How many children do you have?»
-- `思い出す` (N4) — あなたを見るとお兄さんを思い出します。 — «You remind me of your brother.»
-- `指` (N4) — ドアに指をはさみました。 — «I caught my finger in the door.»
-- `支度` (N4) — すぐに旅の支度をしなさい。 — «Get ready for the trip at once.»
-- `支度する` (N4) — すぐに旅の支度をしなさい。 — «Get ready for the trip at once.»
-- `止まる` (N5) — そして、電車はキーッという音を立てて止まった。 — «Then, the train screeched to a halt.»
-- `止む` (N4) — 雨がやみさえすればいいのになあ。 — «If only it would stop raining!»
-- `死ぬ` (N5) — その少年は死んだものとしてあきらめられた。 — «The boy was given up for dead.»
-- `試験` (N4) — とにかく、試験が終わってほっとしたよ。 — «Anyhow, I'm relieved the test is over.»
-- `試験する` (N4) — とにかく、試験が終わってほっとしたよ。 — «Anyhow, I'm relieved the test is over.»
-- `試合` (N4) — その試合は何時に始まりますか。 — «What time does the game start?»
-- `試合する` (N4) — その試合は何時に始まりますか。 — «What time does the game start?»
-- `歯` (N5) — その赤ちゃんは歯が生えはじめている。 — «The baby is cutting his teeth.»
-- `歯医者` (N4) — 今日歯医者へ行きました。 — «Today I went to the dentist's.»
-- `似る` (N4) — 私も似た話を聞いたことがある。 — «I also heard a similar story.»
-- `似る` (N4) — ニュージーランドの気候は日本のと似ている。 — «The climate of New Zealand is similar to that of Japan.»
-- `持つ` (N5) — コートを持ちましょうか。 — «Shall I carry your coat?»
-- `時々` (N5) — ジェーンはときどき学校まで走っていく。 — «Jane sometimes runs to school.»
-- `時間` (N5) — いつだって読書の時間は見つけられる。 — «We can always find time for reading.»
-- `時計` (N5) — あなたの時計では何時ですか。 — «What time is it by your watch?»
-- `次` (N5) — この次来るときは、花を持ってきてあげよう。 — «Next time I come, I'll bring you some flowers.»
-- `叱る` (N4) — あなたは先生にしかられましたか。 — «Were you scolded by your teacher?»
-- `叱る` (N4) — ママに叱られますよ。 — «You'll catch it from Mummy.»
-- `失敗` (N4) — １度や２度の失敗はだれにでもある。 — «Everybody fails once or twice.»
-- `失敗する` (N4) — １度や２度の失敗はだれにでもある。 — «Everybody fails once or twice.»
-- `失礼` (N4) — それではそろそろ失礼します。 — «Well, I must be going.»
-- `失礼` (N4) — 「失礼ですが」とアンが話に割って入った。 — «"Excuse me," Ann broke in.»
-- `失礼する` (N4) — それではそろそろ失礼します。 — «Well, I must be going.»
-- `失礼する` (N4) — 「失礼ですが」とアンが話に割って入った。 — «"Excuse me," Ann broke in.»
-- `写す` (N4) — その写真は空から写されたものである。 — «The picture was taken from the air.»
-- `写す` (N4) — このページをノートに写しておきなさい。 — «Copy this page in your notebook.»
-- `邪魔` (N4) — お邪魔じゃないでしょうか。 — «I hope I'm not disturbing you.»
-- `邪魔する` (N4) — お邪魔じゃないでしょうか。 — «I hope I'm not disturbing you.»
-- `借りる` (N5) — この本をお借りしてもよろしいですか。 — «May I borrow this book?»
-- `借りる` (N5) — ２部屋あるアパートを借りたいのですが。 — «I want to rent an apartment with two rooms.»
-- `弱い` (N5) — それを言われると弱いなあ。 — «That sure puts me on the spot.»
-- `取り替える` (N4) — これを青いのと取り替えてください。 — «Please change this for a blue one.»
-- `取る` (N5) — 水分をたくさん取ってください。 — «You should drink a lot of liquid.»
-- `取る` (N5) — そのお金はいざというときのために取っておくよ。 — «I'm going to lay aside that money for emergencies.»
-- `手` (N5) — いい手を思いついた。 — «I hit upon a good idea.»
-- `手紙` (N5) — ここにあなたあての手紙が何通かあります。 — «Here are some letters for you.»
-- `手伝う` (N4) — いつでもお手伝いします。 — «I am always ready to help you.»
-- `趣味` (N4) — 趣味については話しましたか？ — «Did you talk about your hobby?»
-- `首` (N4) — あなたの首は風前のともし火だ。 — «Your job hangs by a thread.»
-- `首` (N4) — 鳥は首をひょいと水に浸した。 — «The bird dipped its head into the water.»
-- `授業` (N5) — それは授業の終わりだった。 — «That was the end of the class.»
-- `授業する` (N5) — それは授業の終わりだった。 — «That was the end of the class.»
-- `拾う` (N4) — ホテルの前で私を車で拾ってください。 — «Please pick me up by car in front of the hotel.»
-- `拾う` (N4) — 日本では昼間でも夜でもタクシーを拾うことができる。 — «In Japan you can always catch a cab, day or night.»
-- `習う` (N5) — 車の運転を習っています。 — «I've been learning to drive.»
-- `習慣` (N4) — その習慣は中国で始まった。 — «The custom originated in China.»
-- `習慣` (N4) — 彼はたばこを吸う習慣をやめた。 — «He got out of the habit of smoking.»
-- `十::(〜を) とお` (N5) — その会は十時に終わった。 — «The party ended at ten o'clock.»
-- `十::じゅう` (N5) — その会は十時に終わった。 — «The party ended at ten o'clock.»
-- `十分` (N4) — 私はこの本を買うのに十分なお金を持っている。 — «I have enough money to buy this book.»
-- `十分` (N4) — 「もっと召し上がりますか」「いいえ、じゅうぶんいただきました」 — «"Would you like any more?" "No, I've had enough."»
-- `出かける` (N5) — １０分前に出かけました。 — «She left home ten minutes ago.»
-- `出す` (N5) — ここではおいしい食べ物が出されます。 — «They serve excellent food here.»
-- `出す` (N5) — この件では名前を出したくない。 — «I want to remain anonymous in this.»
 - `出る` (N5) — 電話には出なかったからメールしておきました。 — «He didn't answer the phone, so I left him an email.»
 - `出る` (N5) — 私の家におばけが出たのは本当だ。 — «It's true that a ghost appeared at my house.»
 - `出国する` (EXTRA) — あなたが出国するまでお預かりします。 — «We will keep it for you until you leave.»
