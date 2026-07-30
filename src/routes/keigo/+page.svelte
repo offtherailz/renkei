@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { shuffle, pickRandom, findWord, gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, cleanOnEarlyExit, epicOnEarlyExit } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { KEIGO_VERBS, KEIGO_ITEMS, KEIGO_REQUEST_ITEMS } from '$lib/core/keigo';
 	import { curatedKeigoItems } from '$lib/data/propedeutiche';
@@ -177,7 +177,7 @@
 		if (scene !== 'play') return;
 		const attempted = picked !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		recordGameResult('keigo', score >= attempted - 1, score === attempted);
+		recordGameResult('keigo', cleanOnEarlyExit(score, attempted), epicOnEarlyExit(score, attempted));
 	}
 </script>
 

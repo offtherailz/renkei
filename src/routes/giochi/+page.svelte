@@ -814,6 +814,7 @@
 				<span class="cat-icon">🗣️</span>
 				<span class="cat-label">Dì la data <span class="cat-beta">beta</span></span>
 				<span class="cat-hint">la data è scritta: leggila TU a voce (9日 = ここのか!)</span>
+				<span class="cat-best">🏆 record: {getHighscore('di-la-data')}</span>
 				{@render beltChip('di-la-data')}
 			</a>
 			<a class="cat-card" href="{base}/leggi-a-voce">

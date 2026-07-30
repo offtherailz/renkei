@@ -224,6 +224,44 @@ poche unità a 53 round su 35 delle 41 coppie curate — verificato in
 SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
 impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
 
+## Giro di bug segnalati sull'ascolto/voce (30/07)
+
+**Uscita anticipata: "pulita" gratis con un solo round tentato.** In 12 giochi, `leaveEarly()`
+usava `score >= attempted - 1` per decidere la pulita — con `attempted=1` questo è `score >= 0`,
+SEMPRE vero: uscire subito dopo il primo round (giusto O sbagliato) dava comunque la pulita.
+Fix: due funzioni condivise in `gameBelts.ts`, `cleanOnEarlyExit(score, attempted)` e
+`epicOnEarlyExit(score, attempted)`, che aggiungono un minimo di round tentati
+(`MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT = 3`, stesso numero della cintura gialla) prima di poter
+accreditare qualunque cosa. Applicate a keigo, contrazioni, di-la-data, avverbi, iikae,
+leggi-a-voce, catena, comparazioni, dettato, coppie, transitivi (formula standard) e
+certezza/choukai (formule proprie, stesso minimo aggiunto a mano).
+
+**Diff vocale "Ho sentito" non riconosce kana↔kanji della stessa parola.** Bug segnalato:
+leggendo 時々 (ときどき) ad alta voce, il confronto marcava tutto sbagliato pur avendolo detto
+giusto. Causa: `diffChars`/`normalizeSpeech` confrontano caratteri dopo normalizzazioni solo
+numeriche (cifre, kanji-numero, katakana→hiragana) — non sanno che 時々 e ときどき sono la
+STESSA parola, quindi un carattere per carattere tra kana e kanji non condivide nulla. Fix
+riusabile: `readingOnlyNotation()` in `furigana.ts` (opposto di `stripFuriganaNotation`: tiene
+la lettura al posto del kanji, stessa cura sul prefisso kana-prima-del-kanji già presente in
+`renderFuriganaToHtml`); `HeardDiff.svelte` accetta ora un prop opzionale `annotatedText` (il
+testo CON la notazione 漢字[よみ]) e aggiunge da solo la lettura come candidato in più al
+confronto — centralizzato nel componente condiviso (usato in 17 pagine) invece che ricostruito
+in ognuna. Applicato finora a `/leggi-a-voce` (il caso segnalato); altre pagine con testo
+annotato disponibile da valutare.
+
+**Dì la data: cintura/record mancanti, impresa troppo facile.** Non mostrava mai il record
+(mancava `getHighscore`/`submitScore`, aggiunto). L'impresa (`score === rounds.length`) era
+banale da ottenere: coi ritenti illimitati (l'audio non penalizza) bastava ritentare ogni round
+finché non usciva giusto. Fix: nuovo stato `firstTryPerfect` (falso se un round richiede più di
+un tentativo, o se si rivela la lettura) — l'impresa richiede ora tutto giusto E al primo colpo
+su ogni round.
+
+**罰禁止形 grammar-api-N4-12: virgolette di citazione mancanti.** Segnalato dall'utente: la
+frase d'esempio del 「〜と書いてある」 (citazione) non aveva le virgolette 「」 attorno alla
+parte citata («ここで泳ぐな」と書いてあります» invece di «ここで泳ぐな と 書いて あります» coi
+soli spazi). Corretto in grammar-overrides.json; sistemata anche la prima frase d'esempio dello
+stesso costrutto, che aveva una traduzione-segnaposto invece di una vera traduzione.
+
 ## Mani libere: il timer di silenzio si azzerava solo sui successi (30/07)
 
 Bug segnalato: la sessione si fermava spesso con «Non sento risposte da un po'. Mi fermo.»

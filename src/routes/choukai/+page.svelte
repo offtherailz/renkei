@@ -9,7 +9,7 @@
 	import type { JlptLevel } from '$lib/core/readingTexts';
 	import { speakDialogue, stopSpeaking } from '$lib/core/tts';
 	import { pickRandom, gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 
 	const QUESTION_SECONDS = 25;
@@ -134,7 +134,8 @@
 		if (scene !== 'quiz' || !run) return;
 		const attempted = qPicked !== null ? qIdx + 1 : qIdx;
 		if (attempted === 0) return;
-		recordGameResult('choukai', score === attempted, score === attempted && listens <= 1);
+		const clean = attempted >= MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT && score === attempted;
+		recordGameResult('choukai', clean, clean && listens <= 1);
 	}
 
 	// Conserva la partita quando navighi via (popup → scheda) e torni indietro.

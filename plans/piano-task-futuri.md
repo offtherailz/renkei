@@ -327,6 +327,29 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   configurabile in Impostazioni. I ripassi già dovuti restano sempre
   illimitati (non è questo il lever, ma introdurre meno carte nuove al
   giorno rallenta la crescita del debito).
+- ✅ (30/07) **Uscita anticipata: pulita gratis con 1 solo round** (bug
+  trovato indagando un'impresa "troppo facile" in Dì la data): `score >=
+  attempted - 1` con `attempted=1` è sempre vero. Fix condiviso in
+  gameBelts.ts (`cleanOnEarlyExit`/`epicOnEarlyExit`, minimo 3 round
+  tentati), applicato a 12 giochi. Dì la data: aggiunto record mancante
+  (getHighscore/submitScore) e impresa ora richiede anche il primo tentativo
+  giusto su ogni round (coi ritenti illimitati, "tutto giusto" da solo era
+  banale). Dettaglio in ARCHITECTURE.md.
+- ✅ (30/07) **Diff vocale "Ho sentito": kana↔kanji non riconosciuti** (bug
+  segnalato: 時々/ときどき marcato tutto sbagliato pur detto giusto) —
+  `readingOnlyNotation()` nuova in furigana.ts, `HeardDiff.svelte` accetta
+  `annotatedText` e aggiunge da solo la lettura come candidato — fix
+  centralizzato nel componente condiviso (17 pagine lo usano), applicato
+  finora a /leggi-a-voce. Dettaglio in ARCHITECTURE.md.
+- ✅ (30/07) **Grammatica N4-12: virgolette di citazione mancanti** (bug
+  segnalato) — 「ここで泳ぐな」と書いてあります al posto degli spazi senza
+  virgolette; sistemata anche una traduzione-segnaposto nello stesso
+  costrutto.
+- ✅ (30/07) **倒す: gloss IT sovrapposto a 落とす** (domanda utente: è
+  sinonimo di 落ちる/落とす?) — no, sono azioni diverse (ribaltarsi/abbattere
+  vs cadere/far cadere da un'altezza); il gloss IT "far cadere" era però
+  identico a quello di 落とす, fonte di confusione — cambiato in
+  "abbattere, rovesciare".
 - ✅ (30/07) **Mani libere: fix timer di silenzio** (bug segnalato: si fermava
   spesso con l'utente attivo) — `lastActivity` si azzerava solo sui
   riconoscimenti riusciti, mai sulle domande poste dall'app: con STT che a

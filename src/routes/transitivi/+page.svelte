@@ -4,7 +4,7 @@
 	import { db } from '$lib/db/schema';
 	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
 	import { gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, cleanOnEarlyExit, epicOnEarlyExit } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
@@ -105,7 +105,7 @@
 		if (scene !== 'play') return;
 		const attempted = picked !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		recordGameResult('transitivi', correctCount >= attempted - 1, correctCount === attempted);
+		recordGameResult('transitivi', cleanOnEarlyExit(correctCount, attempted), epicOnEarlyExit(correctCount, attempted));
 	}
 </script>
 

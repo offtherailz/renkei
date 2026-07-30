@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { getHighscore, submitScore } from '$lib/core/gameScores';
@@ -88,7 +88,7 @@
 		if (scene !== 'play') return;
 		const attempted = picked !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		const clean = correctCount === attempted && hintsUsed === 0;
+		const clean = attempted >= MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT && correctCount === attempted && hintsUsed === 0;
 		recordGameResult('certezza', clean, clean);
 	}
 </script>

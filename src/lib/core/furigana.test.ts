@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { renderFuriganaToHtml, stripFuriganaNotation } from "./furigana";
+import { renderFuriganaToHtml, stripFuriganaNotation, readingOnlyNotation } from "./furigana";
 
 describe("renderFuriganaToHtml", () => {
   it("converte la notazione base[lettura] in ruby", () => {
@@ -36,5 +36,19 @@ describe("stripFuriganaNotation", () => {
 
   it("non modifica il testo senza notazione", () => {
     expect(stripFuriganaNotation("おいしいよ！")).toBe("おいしいよ！");
+  });
+});
+
+describe("readingOnlyNotation", () => {
+  it("tiene la lettura al posto del kanji (opposto di stripFuriganaNotation)", () => {
+    expect(readingOnlyNotation("犬[いぬ]と猫[ねこ]がいます。")).toBe("いぬとねこがいます。");
+  });
+
+  it("non ingloba i kana che precedono la parola (stesso caso di renderFuriganaToHtml)", () => {
+    expect(readingOnlyNotation("ドア[どあ]が開いて[あいて]いる。")).toBe("どあがあいている。");
+  });
+
+  it("lascia intatto il testo senza notazione", () => {
+    expect(readingOnlyNotation("おいしいよ！")).toBe("おいしいよ！");
   });
 });

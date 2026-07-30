@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, cleanOnEarlyExit, epicOnEarlyExit } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
@@ -211,7 +211,7 @@
 		if (scene !== 'play') return;
 		const attempted = answered !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		recordGameResult('comparazioni', score >= attempted - 1, score === attempted);
+		recordGameResult('comparazioni', cleanOnEarlyExit(score, attempted), epicOnEarlyExit(score, attempted));
 	}
 </script>
 

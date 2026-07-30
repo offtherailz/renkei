@@ -206,6 +206,22 @@ export function epicStepsForStreak(streak: number): number {
 	return Math.floor((streak - 12) / 13) + 1;
 }
 
+// ── Uscita anticipata dai giochi a round fissi (leaveEarly) ─────────────────
+// Bug segnalato: `score >= attempted - 1` con attempted=1 è `score >= 0`,
+// SEMPRE vero — uscire subito dopo il primo round (giusto o sbagliato) dava
+// la pulita gratis. Serve un minimo di round tentati perché "pulita" (max 1
+// errore) e "impresa" (tutto giusto) abbiano senso — stesso minimo della
+// cintura gialla (played>=3). Usato da ogni gioco a round fissi in leaveEarly.
+export const MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT = 3;
+
+export function cleanOnEarlyExit(score: number, attempted: number): boolean {
+	return attempted >= MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT && score >= attempted - 1;
+}
+
+export function epicOnEarlyExit(score: number, attempted: number): boolean {
+	return attempted >= MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT && score === attempted;
+}
+
 // Registra la fine di una partita (un'impresa è anche pulita). `epic` può
 // essere un booleano (0 o 1 impresa) o un numero (più imprese in una volta
 // sola, es. da epicStepsForStreak). Aggiorna i contatori; salti di

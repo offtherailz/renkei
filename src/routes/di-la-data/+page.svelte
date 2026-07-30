@@ -2,11 +2,12 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, cleanOnEarlyExit, epicOnEarlyExit } from '$lib/core/gameBelts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches } from '$lib/core/speech';
 	import { monthReading, dayReading, clockReading } from '$lib/core/counterGen';
+	import { getHighscore, submitScore } from '$lib/core/gameScores';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 
 	// 🗣️ Dì la data (beta): l'inverso di «Appuntamento» — la data/ora è SCRITTA,
@@ -32,13 +33,19 @@
 	let heard = $state('');
 	let canSpeak = $state(false);
 	let attempts = $state(0);
+	let best = $state(0);
+	let isRecord = $state(false);
+	// impresa = tutto giusto E ogni round al primo tentativo — coi ritenti
+	// illimitati (la voce non penalizza), "tutto giusto" da solo era troppo
+	// facile: bastava ritentare finché non usciva giusto (segnalato dall'utente).
+	let firstTryPerfect = $state(true);
 
 	export const snapshot = gameSnapshot(
 		() => ({ scene, rounds, idx, score, outcome }),
 		(s) => ({ scene, rounds, idx, score, outcome } = s)
 	);
 
-	onMount(() => { canSpeak = speechAvailable(); });
+	onMount(() => { canSpeak = speechAvailable(); best = getHighscore('di-la-data'); });
 
 	const R = (n: number) => 1 + Math.floor(Math.random() * n);
 
@@ -61,6 +68,9 @@
 		outcome = null;
 		heard = '';
 		attempts = 0;
+		firstTryPerfect = true;
+		isRecord = false;
+		best = getHighscore('di-la-data');
 		scene = 'play';
 	}
 
@@ -82,6 +92,7 @@
 		if (speechMatches(alts, [[r.lettura, r.scritta]])) {
 			outcome = 'ok';
 			score += 1;
+			if (attempts > 0) firstTryPerfect = false;
 			void recordPractice('counter:' + r.counterId, true);
 			speakSentenceJapanese(r.lettura);
 		} else {
@@ -93,6 +104,7 @@
 	function reveal(): void {
 		if (outcome !== null) return;
 		outcome = 'reveal';
+		firstTryPerfect = false;
 		speakSentenceJapanese(cur().lettura);
 	}
 
@@ -104,7 +116,9 @@
 			attempts = 0;
 		} else {
 			scene = 'done';
-			recordGameResult('di-la-data', score >= rounds.length - 1, score === rounds.length);
+			isRecord = submitScore('di-la-data', score);
+			best = getHighscore('di-la-data');
+			recordGameResult('di-la-data', score >= rounds.length - 1, score === rounds.length && firstTryPerfect);
 		}
 	}
 
@@ -114,7 +128,7 @@
 		if (scene !== 'play') return;
 		const attempted = outcome !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		recordGameResult('di-la-data', score >= attempted - 1, score === attempted);
+		recordGameResult('di-la-data', cleanOnEarlyExit(score, attempted), epicOnEarlyExit(score, attempted) && firstTryPerfect);
 	}
 </script>
 
@@ -131,6 +145,7 @@
 			</p>
 			{#if canSpeak}
 				<button class="proceed" onclick={start}>▶️ はじめる</button>
+				<p class="hint">🏆 Record: {best}</p>
 			{:else}
 				<p class="hint warn">Serve un browser con riconoscimento vocale (Chrome) e https.</p>
 			{/if}
@@ -162,6 +177,7 @@
 		<article class="scene">
 			<p class="who">{score === rounds.length ? '🎉 Perfetto!' : '🏁 Finito'}</p>
 			<p class="score-big">{score} / {rounds.length}</p>
+			<p class="hint">🏆 record: {best}{isRecord ? ' — nuovo record!' : ''}</p>
 			<button class="proceed" onclick={start}>🔁 Un'altra serie</button>
 		</article>
 	{/if}

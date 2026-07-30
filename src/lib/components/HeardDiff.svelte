@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { diffChars, bestDiffTarget, type DiffPart } from '$lib/core/speechDiff';
+	import { readingOnlyNotation } from '$lib/core/furigana';
 
 	interface Props {
 		heard: string;
 		candidates: (string | undefined)[];
+		// Testo originale con notazione 漢字[よみ] (se disponibile): se una
+		// parola non annotata è comune in kana nel parlato (es. 時々/ときどき),
+		// il confronto a soli caratteri contro il solo kanji la segnava tutta
+		// sbagliata anche quando l'utente la diceva giusta — bug segnalato.
+		// Passandolo qui la lettura diventa un candidato IN PIÙ, centralizzato
+		// una volta sola invece che ricostruito in ogni pagina che usa HeardDiff.
+		annotatedText?: string;
 	}
-	const { heard, candidates }: Props = $props();
+	const { heard, candidates, annotatedText }: Props = $props();
 
 	// Confronto detto/atteso: barrato rosso ciò che non corrisponde (detto per
 	// sbaglio o non richiesto), verde ciò che manca o va corretto.
 	const diffParts = $derived.by((): DiffPart[] => {
 		if (!heard) return [];
-		const list = candidates.filter((c): c is string => !!c);
+		const readingVariant = annotatedText ? readingOnlyNotation(annotatedText) : undefined;
+		const list = [...candidates, readingVariant].filter((c): c is string => !!c);
 		if (!list.length) return [];
 		const target = bestDiffTarget(heard, list);
 		return diffChars(heard, target);

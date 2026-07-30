@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { shuffle, gameSnapshot } from '$lib/core/gameKit';
-	import { recordGameResult } from '$lib/core/gameBelts';
+	import { recordGameResult, cleanOnEarlyExit, epicOnEarlyExit } from '$lib/core/gameBelts';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants, kanaToKanjiWritten } from '$lib/core/speech';
@@ -145,7 +145,7 @@
 		if (scene !== 'play') return;
 		const attempted = answered !== null ? idx + 1 : idx;
 		if (attempted === 0) return;
-		recordGameResult('leggi-a-voce', score >= attempted - 1, score === attempted);
+		recordGameResult('leggi-a-voce', cleanOnEarlyExit(score, attempted), epicOnEarlyExit(score, attempted));
 	}
 </script>
 
@@ -185,7 +185,7 @@
 					<button class="mic" class:listening={micBusy} disabled={micBusy} onclick={tryRead}>
 						{micBusy ? '🎙️ Leggi ora!' : '🎤 Leggi ad alta voce'}
 					</button>
-					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} />
+					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} annotatedText={r.testo} />
 				{:else}
 					<p class="hint">Leggi la frase ad alta voce, poi valutati:</p>
 					<div class="self-row">
@@ -196,7 +196,7 @@
 			{:else}
 				<p class="who">{answered ? '✅ Bene!' : '❌ Confronta e riprova, se vuoi'}</p>
 				{#if heard}
-					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} />
+					<HeardDiff {heard} candidates={[r.plain, kanaToKanjiWritten(r.plain) ?? undefined]} annotatedText={r.testo} />
 				{/if}
 				<p class="hint">{r.translation}</p>
 				<div class="listen-row">
