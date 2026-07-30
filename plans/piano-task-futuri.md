@@ -310,8 +310,11 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   overrides.test.ts` (588 test totali verdi). Trovati e sistemati una decina
   di bug collegati (mismatch parola/esempio, numeri in cifre invece che nel
   kanji del contatore, punteggiatura rotta, frasi segnaposto sulle forme
-  verbali). Causa radice nello script di sync ANCORA APERTA (si ripresenta
-  per parole nuove non overridate) — dettaglio in ARCHITECTURE.md e
+  verbali). Causa radice RISOLTA lo stesso giorno: `sync-open-source-seed.mjs`
+  aveva due punti (parole da JMdict, grammatica da jlpt-grammar-api) che
+  copiavano l'inglese anche in `it` — ora mettono `it: ""`, con fallback su
+  `en` in UI (`pickLocalizedText`) ma distinguibile per una prossima
+  curatela. Dettaglio in ARCHITECTURE.md e
   `plans/2026-07-29-traduzioni-it-en-identiche.md`. SEED_REVISION v83.
 - ✅ (29/07) **Mani libere: fix comando che ruba la risposta + comando 「わかりません」**
   (bug + idea utente): `classifyUtterance` ora ignora, per il round corrente,

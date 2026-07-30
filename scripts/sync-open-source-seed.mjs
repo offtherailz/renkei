@@ -983,8 +983,14 @@ function applyJmdictMetadata(words, jmdictIndex, overrides, allowedKanji, usiIt 
         ...(usi.length > 0 ? { usi } : {}),
         _xrefAnt: xrefs.antonyms,
         _xrefRel: xrefs.related,
+        // it VUOTO apposta: Tatoeba/JMdict danno solo giapponese+inglese, mai
+        // italiano. Prima si copiava l'inglese anche in it — sembrava tradotto,
+        // non lo era (bug trovato il 29-30/07, 879 frasi da rifare a mano).
+        // Con it vuoto pickLocalizedText() mostra comunque l'inglese come
+        // fallback (non lascia un buco), ma resta possibile trovare le frasi
+        // ancora da tradurre filtrando ex.traduzione.it === "".
         frasi_esempio: examples.length
-          ? examples.map((ex) => ({ testo: ex.jp, traduzione: { it: ex.en, en: ex.en } }))
+          ? examples.map((ex) => ({ testo: ex.jp, traduzione: { it: "", en: ex.en } }))
           : word.frasi_esempio
       };
       if (metadata.tipo_jp && metadata.tipo_jp !== "動詞[どうし]") {
@@ -1294,8 +1300,14 @@ function normalizeGrammar(importedGroups, existingSeedGrammar, words) {
     return {
       id: `grammar-api-${level}-${row.id}`,
       struttura: normalizeText(row.grammar),
+      // it VUOTO apposta: l'API dà solo l'inglese (row.meaning), mai
+      // l'italiano — copiarlo in it sembrava tradotto e non lo era (stesso
+      // bug di applyJmdictMetadata sopra, trovato il 29-30/07). Ogni voce
+      // reale del catalogo ha comunque un override in grammar-overrides.json
+      // che sovrascrive questo campo; resta vuoto solo per voci NUOVE non
+      // ancora curate — pickLocalizedText() mostra l'inglese come fallback.
       spiegazione: {
-        it: normalizeText(row.meaning),
+        it: "",
         en: normalizeText(row.meaning)
       },
       chapter_tags: [level === "N5" ? "jlpt-n5-core" : "jlpt-n4-core"],
@@ -1309,7 +1321,7 @@ function normalizeGrammar(importedGroups, existingSeedGrammar, words) {
         {
           testo: parsedExample.japanese,
           traduzione: {
-            it: parsedExample.english,
+            it: "",
             en: parsedExample.english
           },
           parole_linkate: linkedWords

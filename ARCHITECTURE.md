@@ -235,9 +235,16 @@ overrides.test.ts` — la copertura dei test si allarga automaticamente man mano
 override nuovi, e ha scoperto una decina di bug ulteriori pre-esistenti (mismatch parola/
 esempio, forme numeriche in cifre invece che nel kanji del contatore testato, virgolette che
 rompevano la punteggiatura, frasi segnaposto sulle liste di forme verbali). Dettaglio completo
-nel report. **Causa radice NON risolta**: `sync-open-source-seed.mjs` riga ~987 mette ancora
-l'inglese anche in IT per le parole nuove da JMdict/Tatoeba — se il sync gira di nuovo su parole
-non ancora overridate, il problema si ripresenta per quelle (da tenere a mente).
+nel report.
+
+**Causa radice RISOLTA**: `sync-open-source-seed.mjs` aveva DUE punti che copiavano l'inglese
+anche nel campo `it` come segnaposto (sembrava tradotto, non lo era) — `applyJmdictMetadata`
+(~riga 987, frasi Tatoeba delle parole) e `normalizeGrammar` (~riga 1296-1323, `spiegazione` e
+`frasi_esempio` della grammatica da jlpt-grammar-api). Entrambi ora mettono `it: ""` invece di
+duplicare l'inglese: `pickLocalizedText()` (`core/i18n.ts`) fa comunque fallback su `en` se `it`
+è vuoto (mai un buco in UI), ma ora le frasi ancora da tradurre sono DISTINGUIBILI (`it === ""`)
+invece di sembrare già fatte. Non testato con un sync live (rete, non eseguito in questo
+ambiente) — verificato per lettura e con `node --check` sulla sintassi.
 
 ## Giro di bug segnalati sull'ascolto/voce (30/07)
 
