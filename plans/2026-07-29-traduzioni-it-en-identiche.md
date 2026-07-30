@@ -33,11 +33,10 @@ rompere i test sull'IT non vuoto).
 - 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
   del contatore testato: 一人/九日/五日).
 
-## Stato: 160 frasi ancora da tradurre (lotti 1-7 fatti il 30/07)
+## Stato: 100 frasi ancora da tradurre (lotti 1-8 fatti il 30/07)
 
-- N5: 89
-- N4: 70
-- EXTRA: 1
+- N5: 59
+- N4: 41
 
 ## Come si sistema
 
@@ -51,66 +50,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `通る` (N4) — 彼女はベスという名で通っていた。 — «She went by the name of Bess.»
-- `程` (N4) — 「小川さんはいつ来たか」「１０分ほど前だ」 — «"When did Mr Ogawa arrive?" "Ten minutes ago."»
-- `程` (N4) — スージーほど上手にピアノをひけるとよいのだが。 — «I wish I could play the piano as well as Susie.»
-- `天気` (N5) — 今日が天気ならいいのに。 — «I wish it were fine today.»
-- `展覧会` (N4) — 私たちは毎年展覧会を開く。 — «We hold an exhibition every year.»
-- `点` (N4) — どんな小さな点でも見ることができる。 — «I can see the tiniest spot.»
-- `点` (N4) — 我々のチームが２点リードしている。 — «Our team is two points ahead.»
-- `田舎` (N4) — 去年の夏、父の田舎に行きました。 — «I visited my father's hometown last summer.»
-- `田舎` (N4) — １週間田舎にいてすっかり元気になったような気がする。 — «I feel completely restored after a week in the country.»
-- `電車` (N5) — あなたは始発電車に間にあいましたか。 — «Did you catch the first train?»
-- `電灯` (N4) — ルーシーは電灯のスイッチをつけた。 — «Lucy turned on the light switch.»
-- `塗る` (N4) — ジョンがドアにペンキを塗っていた。 — «John has been painting the door.»
-- `渡す` (N5) — 走者がリレーでバトンを渡さなければなりません。 — «A runner must pass the baton in a relay race.»
-- `渡す` (N5) — それじゃあこのメモを渡してください。緊急です。 — «Then, please give him this note. This is urgent.»
-- `登る` (N5) — あなたは、上れませんよ。 — «You cannot climb!»
-- `登る` (N5) — そのとき太陽がのぼるところだった。 — «The sun was coming up then.»
-- `途中` (N4) — 学校へ行く途中でトムに会った。 — «I met Tom on my way to school.»
-- `途中` (N4) — 途中であきらめるな。 — «Don't give up halfway.»
-- `都合` (N4) — 何時がご都合よいでしょうか。 — «What time will be right for you?»
-- `土曜日` (N5) — 私は土曜日からここにいます。 — «I've been here since Saturday.»
-- `冬` (N5) — まもなく冬だ。 — «It will be winter before long.»
-- `答える` (N5) — 「はい、ありません」とジョーダンさんは答えた。 — «"No, I don't," said Mr Jordan.»
-- `頭` (N5) — アリスは頭に花をさしています。 — «Alice has a flower in her hair.»
-- `頭` (N5) — トムは先週の頭に車を盗まれた。 — «Tom had his car stolen early last week.»
-- `働く` (N5) — スイッチは時間通りに働かなかった。 — «The switch didn't work on time.»
-- `働く` (N5) — 彼は５時間以上もぶっ続けで働いた。 — «He worked more than five hours on end.»
-- `動く` (N4) — まだ動くうちに売ってしまわなきゃ。 — «I should sell it while it still runs.»
-- `動く` (N4) — 私は家の中で何かが動くのを感じた。 — «I felt something move in the house.»
-- `動物` (N5) — 私はその動物の名前を知っている。 — «I know the name of this animal.»
-- `特急` (N4) — 時計がおくれていたので、私は特急にのりそこねた。 — «As my watch was slow, I missed the special express.»
-- `読む` (N5) — ミルトンの作品を読んだことがありますか。 — «Have you ever read Milton's works?»
-- `読む` (N5) — 彼女の心の動きを読むことさえできなかった。 — «I could not even make a guess at the working of her mind.»
-- `届ける` (N4) — 家に届けていただけますか。 — «Can you deliver it to my house?»
-- `内` (N4) — 教会は私の家とあなたの家の中にあります。 — «The church is between my house and yours.»
-- `内` (N4) — エイズが私が生きているうちに治ることを願っているよ。 — «I have a dream that AIDS will be cured in my lifetime.»
-- `南` (N5) — フランスは英国の南にある。 — «France is to the south of England.»
-- `二十日` (N5) — 私は二十日までに帰るつもりです。 — «I expect to be back by the 20th.»
-- `二日` (N5) — それは１週間前、すなわち４月２日に行われた。 — «It was due a week ago, namely on April second.»
-- `二日` (N5) — ２日で３つの州を走破した。 — «We covered three states in two days.»
-- `匂い` (N4) — あの花はにおいが強いな。 — «That flower has a powerful smell.»
-- `入れる` (N5) — あなたは、私にコーヒーをいれてもらいたいですか。 — «Do you want me to make coffee?»
-- `入れる` (N5) — それは引き出しに入れておきました。 — «I put it in the drawer.»
-- `入国する` (EXTRA) — 入国の目的は何ですか。 — «What's the purpose of your visit?»
-- `熱` (N4) — １０２゜Ｆの熱があります。 — «I have a fever of 102 degrees.»
-- `熱` (N4) — 彼は学生運動熱に浮かされている。 — «He is being carried away by a student movement.»
-- `年` (N5) — お年をお聞きしてよろしいでしょうか。 — «Might I ask your age?»
-- `年` (N5) — 一月は年の一番目の月です。 — «January is the first month of the year.»
-- `拝見` (N4) — パスポートを拝見できますか。 — «May I see your passport, please?»
-- `拝見する` (N4) — パスポートを拝見できますか。 — «May I see your passport, please?»
-- `背広` (N5) — 私は新しい背広を買った。 — «I bought a new suit of clothes.»
-- `倍` (N4) — あの山はこの山の５倍の高さである。 — «That mountain is five times as high as this one.»
-- `倍` (N4) — 彼は私の倍食べた。 — «He ate twice as much as I did.»
-- `買い物` (N5) — １日おきに買い物に行く。 — «I go shopping every other day.»
-- `買い物する` (N5) — １日おきに買い物に行く。 — «I go shopping every other day.»
-- `薄い` (N5) — 肉を薄く切りなさい。 — «Cut the meat into thin slices.»
-- `薄い` (N5) — 彼はうすい青色のネクタイをしていた。 — «He wore a light blue tie.»
-- `発音` (N4) — あなたのお名前はどのように発音するのですか。 — «How do you pronounce your name?»
-- `発音する` (N4) — あなたのお名前はどのように発音するのですか。 — «How do you pronounce your name?»
-- `番号` (N5) — ええ、じゃあ私の電話番号教えるね。 — «OK. Let me give you my number.»
-- `悲しい` (N4) — そんな悲しい目で見ないで。 — «Don't give me such a sad look.»
 - `飛ぶ` (N5) — ヒューズが飛んだ。 — «A fuse has blown.»
 - `飛ぶ` (N5) — 彼の話はいろいろなところへ飛ぶ。 — «He frequently jumps from one topic to another while he is talking.»
 - `飛行機` (N5) — あなたは飛行機で旅行したことがありますか。 — «Have you ever traveled by air?»
