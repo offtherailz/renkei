@@ -224,6 +224,21 @@ poche unità a 53 round su 35 delle 41 coppie curate — verificato in
 SvelteKit, testabile in node puro). Round fissi (8), pulita = max 1 errore,
 impresa = tutte giuste; cintura anche su uscita anticipata (`leaveEarly`).
 
+## Traduzioni IT completate: 879 frasi (30/07)
+
+L'audit del 29/07 (vedi `plans/2026-07-29-traduzioni-it-en-identiche.md`) aveva trovato 725
+frasi-parola + 154 frasi-grammatica con `traduzione.it` identico a `traduzione.en` (inglese
+mai tradotto). Tutte tradotte dal giapponese nella sessione del 30/07, in 9 lotti (script Python
+usa-e-getta: dizionario testo→traduzione applicato solo dove `it === en`, scrive sia il seed sia
+gli override corrispondenti). Ogni lotto verificato con `npx vitest run src/lib/data/
+overrides.test.ts` — la copertura dei test si allarga automaticamente man mano che si aggiungono
+override nuovi, e ha scoperto una decina di bug ulteriori pre-esistenti (mismatch parola/
+esempio, forme numeriche in cifre invece che nel kanji del contatore testato, virgolette che
+rompevano la punteggiatura, frasi segnaposto sulle liste di forme verbali). Dettaglio completo
+nel report. **Causa radice NON risolta**: `sync-open-source-seed.mjs` riga ~987 mette ancora
+l'inglese anche in IT per le parole nuove da JMdict/Tatoeba — se il sync gira di nuovo su parole
+non ancora overridate, il problema si ripresenta per quelle (da tenere a mente).
+
 ## Giro di bug segnalati sull'ascolto/voce (30/07)
 
 **Uscita anticipata: "pulita" gratis con un solo round tentato.** In 12 giochi, `leaveEarly()`

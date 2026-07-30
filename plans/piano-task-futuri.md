@@ -304,12 +304,15 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
   scrittura=うち — corretto dando priorità a scrittura su lettura) più una
   voce dati (`['あした','明日']`, un gruppo iikae che accoppiava un'unica
   parola con sé stessa — rimossa, zero item quiz la referenziavano).
-- 🔲 **725 traduzioni IT identiche all'EN (audit 29/07)**: scoperto per caso
-  sistemando 変わる/見る sopra — molto più grande di 3 casi isolati. Report
-  completo con lista in `plans/2026-07-29-traduzioni-it-en-identiche.md`
-  (385 N5, 330 N4, 10 EXTRA). Da trattare come vera curatela a lotti (ciclo
-  insegnante-agente), non un fix meccanico — volume troppo grande per una
-  sessione.
+- ✅ (30/07) **879 traduzioni IT completate** (725 parole + 154 grammatica,
+  audit 29/07) — tutte tradotte dal giapponese in 9 lotti nella sessione del
+  30/07, verificate a ogni lotto con `npx vitest run src/lib/data/
+  overrides.test.ts` (588 test totali verdi). Trovati e sistemati una decina
+  di bug collegati (mismatch parola/esempio, numeri in cifre invece che nel
+  kanji del contatore, punteggiatura rotta, frasi segnaposto sulle forme
+  verbali). Causa radice nello script di sync ANCORA APERTA (si ripresenta
+  per parole nuove non overridate) — dettaglio in ARCHITECTURE.md e
+  `plans/2026-07-29-traduzioni-it-en-identiche.md`. SEED_REVISION v83.
 - ✅ (29/07) **Mani libere: fix comando che ruba la risposta + comando 「わかりません」**
   (bug + idea utente): `classifyUtterance` ora ignora, per il round corrente,
   i trigger di comando contenuti nella frase corretta (es. もう一度 in «può
