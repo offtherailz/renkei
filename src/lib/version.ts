@@ -1,4 +1,4 @@
 // Versione unica di app e dati (seed). Bump SEED_REVISION a ogni rigenerazione
 // del seed: l'app la usa per il cache-busting e la mostra nelle Impostazioni.
-export const SEED_REVISION = '2026-07-30-v79-traduzioni-lotto4';
+export const SEED_REVISION = '2026-07-30-v80-traduzioni-lotto5';
 export const SEED_LOADED_KEY = 'renkei_seed_loaded';

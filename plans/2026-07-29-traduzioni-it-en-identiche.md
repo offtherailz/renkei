@@ -33,11 +33,11 @@ rompere i test sull'IT non vuoto).
 - 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
   del contatore testato: 一人/九日/五日).
 
-## Stato: 280 frasi ancora da tradurre (lotti 1-5 fatti il 30/07)
+## Stato: 220 frasi ancora da tradurre (lotti 1-6 fatti il 30/07)
 
-- N5: 143
-- N4: 135
-- EXTRA: 2
+- N5: 124
+- N4: 95
+- EXTRA: 1
 
 ## Come si sistema
 
@@ -51,66 +51,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `出る` (N5) — 電話には出なかったからメールしておきました。 — «He didn't answer the phone, so I left him an email.»
-- `出る` (N5) — 私の家におばけが出たのは本当だ。 — «It's true that a ghost appeared at my house.»
-- `出国する` (EXTRA) — あなたが出国するまでお預かりします。 — «We will keep it for you until you leave.»
-- `出発` (N4) — すぐに出発した方がいいですよ。 — «You had better depart at once.»
-- `出発する` (N4) — すぐに出発した方がいいですよ。 — «You had better depart at once.»
-- `準備` (N4) — 準備ができるまでちょっと待ってくれ。 — «Hang on a bit until I'm ready.»
-- `準備する` (N4) — 準備ができるまでちょっと待ってくれ。 — «Hang on a bit until I'm ready.»
-- `所` (N5) — おじを見送りに駅に行ってきたところだ。 — «I have been to the station to see my uncle off.»
-- `所` (N5) — あっ、いけない！忘れるところだった！ — «Oh, no! I almost forgot!»
-- `書く` (N5) — ここにあなたの名前をかいてくれませんか。 — «Would you please write your name here?»
-- `女性` (N4) — その少女は大きくなってすらりとした女性になった。 — «The girl has grown into a slender woman.»
-- `勝つ` (N4) — この病気に勝てる人は少ない。 — «Not many survive this disease.»
-- `召し上がる` (N4) — ここで召し上がりますか、それともお持ち帰りですか。 — «Is this to eat here, or to go?»
-- `小学校` (N4) — あなたは小学校に通っているの？ — «Do you go to an elementary school?»
-- `小説` (N4) — トムは小説を読んでいる。 — «Tom is reading a novel.»
-- `小説` (N4) — 事実は小説よりも奇なり。 — «Fact is stranger than fiction.»
-- `小鳥` (N4) — 小鳥たちはたのしそうにさえずっています。 — «The birds are singing merrily.»
-- `少し` (N5) — 少しテレビを見てもいいですか。 — «Do you mind if I watch TV for a while?»
-- `床屋` (N4) — おや、床屋へ行ってきたのだね。 — «Oh, you've been to the barbershop.»
-- `承知` (N4) — 人はすべて死すべきものと承知している。 — «We know that all men are mortal.»
-- `承知` (N4) — よろしい。お申し出は承知しました。 — «All right. I'll accept your offer.»
-- `承知する` (N4) — 人はすべて死すべきものと承知している。 — «We know that all men are mortal.»
-- `承知する` (N4) — よろしい。お申し出は承知しました。 — «All right. I'll accept your offer.»
-- `招待` (N4) — ご招待をありがとうございます。 — «Thank you for your invitation.»
-- `招待する` (N4) — ご招待をありがとうございます。 — «Thank you for your invitation.»
-- `消える` (N5) — その音楽の音はしだいに消えていった。 — «The music faded away.»
-- `消える` (N5) — 流行は古くなって消えていく。 — «Fashions grow old and die.»
-- `消しゴム` (N4) — ちょっと消しゴムをかしてくれませんか。 — «Can I borrow your eraser for a moment?»
-- `焼く` (N4) — この夏はこんがり焼こうと思います。 — «I am going to try to get a good tan.»
-- `焼く` (N4) — このお肉をもうすこし焼いてくださいませんか。 — «Could you cook this meat a little more?»
-- `焼ける` (N4) — このトーストはよく焼けていません。 — «This toast is not done enough.»
-- `上がる` (N4) — 明日それをいただきに上がります。 — «I will call for it tomorrow.»
-- `上がる` (N4) — 来月タクシー料金があがります。 — «Taxi fares will go up next month.»
-- `上手` (N5) — あなたは上手にバスケットボールができますか。 — «Do you play basketball well?»
-- `心配` (N4) — その男の子は心配して病気になった。 — «The boy got sick from anxiety.»
-- `心配` (N4) — 心配してくれる人がいて幸せだ。 — «I'm so lucky to have someone who cares.»
-- `心配する` (N4) — その男の子は心配して病気になった。 — «The boy got sick from anxiety.»
-- `心配する` (N4) — 心配してくれる人がいて幸せだ。 — «I'm so lucky to have someone who cares.»
-- `新聞` (N5) — ジョンのことが新聞に出ていた。 — «John was mentioned in the paper.»
-- `進む` (N4) — あの時計は１分進んでいます。 — «That clock is one minute fast.»
-- `人` (N5) — この人は画家だ！ — «This fellow is an artist!»
-- `人` (N5) — 人は意識のある生き物だ。 — «Man is a conscious being.»
-- `人形` (N4) — メアリーは私にアメリカの人形をくれた。 — «Mary gave me an American doll.»
-- `吹く` (N5) — あの日は強い風が吹いていました。 — «There was a strong wind that day.»
-- `吹く` (N5) — ローズはしゃぼん玉を吹いていた。 — «Rose was blowing bubbles.»
-- `水泳` (N4) — 水泳が私の楽しみの１つです。 — «Swimming is one thing I enjoy.»
-- `水泳する` (N4) — 水泳が私の楽しみの１つです。 — «Swimming is one thing I enjoy.»
-- `随分` (N4) — 私たちはもうずいぶん長くここにいます。 — «We've been here long enough.»
-- `随分` (N4) — あなたはこの１年に英語が随分進歩した。 — «You've made remarkable progress in English in the past year.»
-- `星` (N4) — ドアには大きな金色の星がついていました。 — «There was a big gold star on the door.»
-- `星` (N4) — その星は必ずしも肉眼で見えるわけではない。 — «We cannot necessarily see the star with the naked eye.»
-- `晴れる` (N5) — 明日は晴れるだろう。 — «It will be fine tomorrow.»
-- `正月` (N4) — 正月はすぐそこまで来ている。 — «New Year's Day is close at hand.»
-- `生産` (N4) — この工場はＣＤプレーヤーを生産している。 — «This factory produces CD players.»
-- `生産する` (N4) — この工場はＣＤプレーヤーを生産している。 — «This factory produces CD players.»
-- `声` (N5) — あなたの声が聞けてうれしいわ。 — «I am happy to hear your voice.»
-- `声` (N5) — 日本人は鳥や虫の声を楽しむ。 — «The Japanese enjoy the songs of birds and insects.»
-- `青い` (N5) — なぜ空が青いか知っているか。 — «Do you know why the sky is blue?»
-- `青い` (N5) — お前はまだ「青い」な。 — «You're still green.»
-- `席` (N4) — この席を見ていてくれませんか。 — «Can you save this seat for me?»
 - `赤ん坊` (N4) — うちの赤ん坊は口をきくようになってきました。 — «Our baby is learning to speak.»
 - `切る` (N5) — エアコンを切ってもかまいませんか。 — «Do you mind if I turn off the AC?»
 - `切る` (N5) — トランプをよく切ってください。 — «Please shuffle the cards carefully.»
