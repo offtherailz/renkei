@@ -17,28 +17,27 @@ frasi_esempio: examples.map((ex) => ({ testo: ex.jp, traduzione: { it: ex.en, en
 ```
 
 JMdict/Tatoeba dà solo giapponese+inglese, mai italiano: lo script mette l'inglese
-anche nel campo `it` come segnaposto — silenziosamente, senza flag. Ogni volta che
-`npm run sync:open-seed` gira e matcha una parola nuova o aggiornata con JMdict,
-il problema si ripresenta per quella parola, a meno che non abbia già un override
-con `frasi_esempio` proprio (gli override vincono sempre, riga ~998-999). NON
-sistemato in questa sessione (richiede decidere come segnalare «da tradurre» senza
-rompere i test che richiedono IT non vuoto — da affrontare quando la curatela dei
-725 originari sarà più avanti, altrimenti si rincorre un bersaglio mobile).
+anche nel campo `it` come segnaposto — silenziosamente, senza flag. Non ancora
+sistemato nello script (richiede decidere come segnalare «da tradurre» senza
+rompere i test sull'IT non vuoto).
 
-## Bonus: bug scoperti sistemando il lotto 1 (30/07)
+## Bonus: altri bug scoperti sistemando i lotti (30/07)
 
-Aggiungere un override per una parola espande la copertura di
-`overrides.test.ts` (verifica solo le parole CON un override) — ha scoperto 3 casi
-in cui coppie casual/formale delle dimostrative (あっち/あちら, こっち/こちら,
-そっち/そちら) condividevano LA STESSA frase d'esempio testuale (scritta per la
-forma formale, mai adattata alla casual): sistemati sostituendo こちら→こっち ecc.
-nella frase della forma casual, in entrambe le fonti.
+- 3 coppie casual/formale delle dimostrative (あっち/あちら, こっち/こちら,
+  そっち/そちら) condividevano la stessa frase scritta per la forma formale.
+- Alcune frasi con IT=EN avevano in realtà l'ITALIANO copiato anche in EN (bug
+  nella direzione opposta, da vecchie sessioni di curatela): 8+3 casi sistemati
+  dando una vera traduzione inglese.
+- 2 casi di mismatch parola/esempio (あげる testato con 挙げる invece del senso
+  "dare"; どうぞ con virgolette a fine frase che rompevano la punteggiatura).
+- 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
+  del contatore testato: 一人/九日/五日).
 
-## Stato: 663 frasi ancora da tradurre (lotto 1 di 66 fix applicato il 30/07)
+## Stato: 401 frasi ancora da tradurre (lotti 1-2 fatti il 30/07: 66+62+61 fix)
 
-- N4: 329
-- N5: 324
-- EXTRA: 10
+- N4: 200
+- N5: 199
+- EXTRA: 2
 
 ## Come si sistema
 
@@ -47,259 +46,11 @@ ognuna, tradurre `it` DAL GIAPPONESE (il testo è già corretto, serve solo la r
 italiana vera) e scrivere la correzione in `scripts/data/word-overrides.json` (mai
 solo nel seed, o il prossimo sync la cancella) — se la parola non ha ancora un
 override, serve l'INTERO array `frasi_esempio` corrente (gli array negli override
-SOSTITUISCONO, non si fondono: senza tutte le frasi esistenti, il prossimo sync
-perde quelle non incluse). Volume grande: a lotti, con verifica linguistica — non
-un fix meccanico. Controllare anche, per ogni parola toccata, che la frase contenga
-davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
+SOSTITUISCONO, non si fondono). Controllare anche, per ogni parola toccata, che la
+frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliata).
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `〜さんによろしくお伝えください` (N4) — 田中さんによろしくお伝えください。 — «Porti tanti saluti a Tanaka da parte mia.»
-- `あげる` (N4) — あなたは時には妹さんにおこづかいをあげますか。 — «Do you sometimes give your sister money?»
-- `あげる` (N4) — 質問があれば右手を挙げて下さい。 — «If you have a question, please raise your right hand.»
-- `アナウンサー` (N4) — アナウンサーは早口が出来る。 — «The announcer can talk rapidly.»
-- `アフリカ` (N4) — 私はいつの日かアフリカに行きたい。 — «I want to go to Africa someday.»
-- `アメリカ` (N4) — アメリカでは英語を話します。 — «They speak English in America.»
-- `アルコール` (N4) — このビールはアルコール分が５％だ。 — «This beer contains 5% alcohol.»
-- `アルバイト` (N4) — あなたはアルバイトをしているの。 — «Do you have a part-time job?»
-- `アルバイトする` (N4) — あなたはアルバイトをしているの。 — «Do you have a part-time job?»
-- `いらっしゃる` (N4) — お母さんはいらっしゃいますか。 — «Is your mother at home?»
-- `いらっしゃる` (N4) — あなたはご両親のどちらに似ていらっしゃいますか。 — «Which of your parents do you take after?»
-- `うまい` (N4) — それはあまりにもうますぎる話だ。 — «That's too good a story to be true.»
-- `うまい` (N4) — 彼女はテニスは上手いが、水泳は下手だ。 — «She's very good at tennis, but she's not much of a swimmer.»
-- `エスカレーター` (N4) — 上りのエスカレーターはどこですか？ — «Where's the up-escalator?»
-- `おいでになる` (N4) — この雨の中をおいでにならないでください。 — «Don't bother coming in this rain.»
-- `オーバー` (N4) — あなたはオーバーなしですますつもりですか。 — «Do you mean to do without an overcoat?»
-- `オーバー` (N4) — このバッグは４キロの重量オーバーです。 — «This bag is 4 kilograms overweight.»
-- `おっしゃる` (N4) — ここではどんどん意見をおっしゃってかまいません。 — «You can speak out freely here.»
-- `おつり` (N4) — １ドルでおつりがありますか。 — «Have you got change for a dollar?»
-- `おめでとうございます` (N5) — たんじょうび、おめでとうございます。 — «Buon compleanno!»
-- `お子さん` (N4) — お子さんは何人おありですか。 — «How many children do you have?»
-- `お先に失礼します` (N4) — 五時ですね。お先に失礼します。 — «Sono le cinque. Vado via prima io.»
-- `お土産` (N4) — これは北海道からのお土産です。 — «This is a souvenir from Hokkaido.»
-- `お腹が空いた` (N5) — お腹が空いた。何か食べよう。 — «Ho fame. Mangiamo qualcosa.»
-- `カーテン` (N4) — カーテンが風になびいた。 — «The curtains blew in the wind.»
-- `かしこまりました` (N4) — コーヒーをください。— かしこまりました。 — «Un caffè, per favore. — Certamente.»
-- `ガラス` (N4) — テーブルの上にガラスのコップがある。 — «There is a glass on the table.»
-- `くださる` (N4) — もう一度言ってくださいますか。 — «Could you repeat that, please?»
-- `ケーキ` (N4) — ケイトはケーキの作り方を知っています。 — «Kate knows how to make a cake.»
-- `ごちそうさまでした` (N5) — ごちそうさまでした。おいしかったです。 — «Grazie per il pasto, era buonissimo.»
-- `この頃` (N4) — このごろ少しも見ないです。 — «I have seen nothing of him lately.»
-- `コンサート` (N4) — コンサートはどうだった？ — «How did you enjoy the concert?»
-- `ご主人` (N4) — あなたのご主人は食事にうるさいのかな？ — «Is your husband a picky eater?»
-- `サラダ` (N4) — もう少しサラダはいかがですか。 — «Would you like some more salad?»
-- `サンドイッチ` (N4) — サンドイッチだったらどれくらいかかりますか。 — «How long would a sandwich take?»
-- `ジャム` (N4) — イチゴはジャムに作られる。 — «Strawberries are made into jam.»
-- `ステレオ` (N4) — 私はあの店で新しいステレオを買った。 — «I got a new stereo at that store.»
-- `ソフト` (N4) — スミスさんはソフトな語り口の人物です。 — «Mr Smith is a softly-spoken person.»
-- `ソフト` (N4) — その子はプレイステーションの新しいソフトが欲しいとだだをこねた。 — «When the kid wanted the latest PlayStation software, he acted like a spoiled child.»
-- `タイプ` (N4) — こういうタイプの人はおもしろくない。 — «That type of person is dull.»
-- `タイプ` (N4) — 彼は私にをタイプ使わせてくれた。 — «He let me use his typewriter.»
-- `だから` (N4) — １日中テニスをしていたのだから。 — «He was playing tennis all day.»
-- `たまに` (N4) — たまには会いに来て下さい。 — «Come and see me once in a while.»
-- `だめ` (N4) — もうだめだ。 — «It's all over.»
-- `だめ` (N4) — 去年はジョギングシューズを２足駄目にした。 — «I wore out two pairs of jogging shoes last year.»
-- `チケット` (N5) — チケットを見せてください。 — «Mi mostri il biglietto, per favore.»
-- `できる` (N5) — あの二人はどうもできているらしい。 — «They seem to be in love with each other.»
-- `できる` (N5) — トイレお借りできますか。 — «May I use your toilet?»
-- `できるだけ` (N4) — できるだけ多くの本を読みなさい。 — «Read as many books as you can.»
-- `テニス` (N4) — １日中テニスをしていたのだから。 — «He was playing tennis all day.»
-- `デパート` (N5) — あのデパートで新しいコートを買いたい。 — «I would like to buy a new coat at that department store.»
-- `テレビ` (N5) — あなたはどこでテレビを見ますか。 — «Where do you watch television?»
-- `トイレ` (N5) — トイレの水が止まりません。 — «The toilet won't stop running.»
-- `どういたしまして` (N5) — ありがとう。— どういたしまして。 — «Grazie. — Di niente.»
-- `どうぞ` (N5) — 写真をどうぞ見せて下さい。 — «Please show me your picture.»
-- `どうぞ` (N5) — 「電話を使わせてもらってもいいですか」「ええ、どうぞ」 — «"Do you mind if I use your phone?" "No, please go ahead."»
-- `どこ` (N5) — あなたはどこでテレビを見ますか。 — «Where do you watch television?»
-- `とても` (N5) — この雨の中を外出することはとてもできないことです。 — «Going out in this rain is out of the question.»
-- `とても` (N5) — 「これはとてもおもしろそうだね」とひろしが言います。 — «"This looks pretty interesting," Hiroshi says.»
-- `どんどん` (N4) — だれかがドアをどんどんたたいている。 — «Someone is battering at the door.»
-- `なるべく` (N4) — なるべく安いほうがいいです。 — «I would like the least expensive one.»
-- `パスポート` (N5) — パスポートを見せてください。 — «Mi mostri il passaporto, per favore.»
-- `パパ` (N4) — ママもパパもひどくいらだっているの。 — «Mummy and Daddy are very nervous.»
-- `パン` (N5) — 私は今朝バターつきのパンを食べた。 — «I ate bread and butter this morning.»
-- `ファックス` (N4) — この手紙を日本までファックスしてください。 — «I'd like to fax this to Japan.»
-- `ファックスする` (N4) — この手紙を日本までファックスしてください。 — «I'd like to fax this to Japan.»
-- `フォーク` (N5) — その子はナイフとフォークをうまく使う。 — «The child handles a knife and fork well.»
-- `フライト` (N5) — フライトは何時ですか。 — «A che ora è il volo?»
-- `プレゼント` (N4) — ハーモニカはお父さんからのプレゼントですか。 — «Is the harmonica a present from his father?»
-- `プレゼントする` (N4) — ハーモニカはお父さんからのプレゼントですか。 — «Is the harmonica a present from his father?»
-- `ベッド` (N5) — どんなベッドでもないよりはよい。 — «Any bed is better than no bed.»
-- `ポケット` (N5) — ポケットに何を持っていますか。 — «What do you have in your pocket?»
-- `ほとんど` (N4) — ケイトは中国語をほとんど話せない。 — «Kate can hardly speak Chinese.»
-- `ほとんど` (N4) — 夕食の準備はほとんどできています。 — «The dinner is almost ready.»
-- `まずい` (N5) — あ！まずい！ガソリンが切れてきた。 — «Oh, no! We're running out of gas.»
-- `まずい` (N5) — すき腹にまずいものなし。 — «Hunger is the best sauce.»
-- `もう` (N5) — もう〜、なにやってんだよ。 — «Jeez, what're you up to?»
-- `もう` (N5) — もうそろそろ帰る時間だ。 — «It is about time we were leaving.»
-- `やる` (N5) — サイン書いてやってもいいぞ。 — «I can give you an autograph if you want.»
-- `やる` (N5) — ５ドルをやる。 — «Here's $5.»
-- `よろしくお願いします` (N5) — 田中です。よろしくお願いします。 — «Sono Tanaka. Piacere.»
-- `ラジオ` (N5) — そのニュースはラジオで聞いたよ。 — «I heard the news on the radio.»
-- `レジ` (N4) — レジはどこですか。 — «Where's the checkout counter?»
-- `レジ` (N4) — くしくも、レジでの合計額は７７７円であった。 — «Strangely, the cash register's total was 777 yen.»
-- `ワープロ` (N4) — このワープロをお借りしていいですか。 — «May I use this word processor?»
-- `悪い` (N5) — 私のステレオはあなたのより音質が悪い。 — «My stereo set is inferior to yours in sound quality.»
-- `悪い` (N5) — すいません。あなたに悪いことをしました。 — «I'm sorry. I did you wrong.»
-- `暗い` (N5) — あたりがもう暗くなっていることに気がついた。 — «I observed that it had already got dark.»
-- `以外` (N4) — その仕事以外ならなんでもやる。 — «I'll do anything but that job.»
-- `以上` (N4) — 以上ですか？ — «Is that all?»
-- `以上` (N4) — 必要以上にお金を使わないようにしなさい。 — «Try not to spend more money than is necessary.»
-- `以内` (N4) — １週間以内に電話します。 — «I'll call you within a week.»
-- `意見` (N4) — ここではどんどん意見をおっしゃってかまいません。 — «You can speak out freely here.»
-- `意味` (N5) — その語にはいくつかの意味がある。 — «The word has several meanings.»
-- `意味する` (N5) — その語にはいくつかの意味がある。 — «The word has several meanings.»
-- `椅子` (N5) — ちょっと椅子をずらしてくれない？ — «Could you move the chair a bit?»
-- `医学` (N4) — 二人の医者が医学の話をしていた。 — «Two doctors were talking shop.»
-- `一` (N5) — これは東京一のインドレストランです。 — «This is the best Indian restaurant anywhere in Tokyo.»
-- `一` (N5) — 卵を一ダースづつつめなさい。 — «Pack eggs in dozens.»
-- `一人` (N5) — 私は一人の弟がいます。 — «I have one brother.»
-- `一人` (N5) — ジムは目覚めると、自分が部屋に１人なのに気がついた。 — «Jim awoke and found himself alone in the room.»
-- `一生懸命` (N4) — もっと一生懸命勉強すべきだったのに。 — «You should have worked harder.»
-- `一日::いちにち` (N5) — 私は、月・水・金と一日おきに仕事をします。 — «I work every other day: Monday, Wednesday, and Friday.»
-- `一日::いちにち` (N5) — 私のｅ―ｍａｉｌアドレスは４月１日より下記になります。 — «My e-mail address will be as follows effective April 1.»
-- `一番` (N5) — このネクタイにしましょう、一番よさそうだから。 — «I will take this tie, as it seems to be the best.»
-- `引き出し` (N4) — きれいなタオルは引き出しにありますよ。 — «The clean towels are in the drawer.»
-- `引く` (N5) — あんな本みたらフツーの女は引くもんな！ — «Obviously a normal woman would lose interest if she saw a book like that!»
-- `引く` (N5) — あなたの引いたカードは赤のマークですね。 — «The card you drew was a red, wasn't it?»
-- `引っ越す` (N4) — 去年の秋、私たちはニューヨークに引っ越した。 — «We moved to New York last fall.»
-- `飲み物` (N5) — 何か飲み物をいただけますか。 — «May I have something to drink?»
-- `運ぶ` (N4) — 仕事はすらすらと運んだ。 — «The work progressed smoothly.»
-- `運ぶ` (N4) — 荷物を二階に運んでいただけませんか。 — «Would you carry my luggage upstairs?»
-- `運転` (N4) — キャロルはレンタカーを運転しています。 — «Carol is driving a rent-a-car.»
-- `運転` (N4) — 君は資金をうまく運転しなくてはならない。 — «You must employ your capital well.»
-- `運転する` (N4) — キャロルはレンタカーを運転しています。 — «Carol is driving a rent-a-car.»
-- `運転する` (N4) — 君は資金をうまく運転しなくてはならない。 — «You must employ your capital well.»
-- `雲` (N4) — 雲がだんだん黒くなっています。 — «The clouds are getting darker.»
-- `映画` (N5) — その映画をもう一度見たいな。 — «I want to see the movie again.»
-- `英語` (N5) — アメリカでは英語を話します。 — «They speak English in America.»
-- `駅` (N5) — グランド・セントラル駅までやってください。 — «Grand Central Station, please.»
-- `鉛筆` (N5) — ペンか鉛筆を持っていますか。 — «Do you have a pen or a pencil?»
-- `塩` (N5) — このスープは塩が少し足りない。 — «This soup wants a bit of salt.»
-- `汚い` (N5) — ジャックは私に汚いいたずらをした。 — «Jack played a dirty trick on me.»
-- `押す` (N5) — シャッターを押してくれますか。 — «Could you press this button?»
-- `億` (N4) — １０億人の人たちが英語を話しています。 — «One billion people speak English.»
-- `屋上` (N4) — デパートの屋上にアドバルーンが上がっている。 — «There is an advertising balloon flying above the department store.»
-- `温い` (N5) — このコーヒーはぬるいです。 — «This coffee is not hot enough.»
-- `音` (N4) — ここから海の音が聞こえる。 — «We can hear the ocean from here.»
-- `音` (N4) — 彼女はピアノで高い音を出した。 — «She struck high notes on the piano.»
-- `下` (N5) — 雨が私のレインコートの下までしみとおった。 — «The rain penetrated my raincoat.»
-- `下` (N5) — 私はダンテをミルトンのしたに置く。 — «I put Milton after Dante.»
-- `下げる` (N4) — ラジオの音を下げてくれませんか。 — «Could you turn down the radio?»
-- `下着` (N4) — 私は新しい下着が気に入っている。 — «I'm pleased with my new underwear.»
-- `何` (N5) — 今のアナウンスは何だったのですか。 — «What did the announcement just say?»
-- `夏休み` (N5) — この夏休みはどこかへ行くのですか。 — «Are you going away this summer?»
-- `家` (N5) — 木立の間に家が見える。 — «I see a house among the trees.»
-- `家族` (N5) — あなたの家族はきっと親切でしょう。 — «Your family must be very nice.»
-- `家庭` (N5) — 食事は家庭で食べますか、外食ですか。 — «Do you eat at home or eat out?»
-- `家内` (N4) — 家内は海外旅行中で、よく電話をかけてくる。 — «My wife often rings me up, while she travels abroad.»
-- `暇` (N5) — 仕事は楽で、暇がたくさんあります。 — «My job is easy and I have a lot of free time.»
-- `暇` (N5) — ジョンはひどく急いでいたので話をする暇もなかった。 — «John was in such a hurry that he had no time for talking.»
-- `歌` (N5) — この歌を聞くと私はいつも、学生時代を思い出す。 — «Whenever I hear this song, I am reminded of my school days.»
-- `歌う` (N5) — ジョンはステージで何を歌いましたか。 — «What did John sing on the stage?»
-- `火曜日` (N5) — 火曜日に国会が開かれる。 — «The Diet will meet on Tuesday.»
-- `花見` (N4) — お花見に行きませんか？ — «Why don't we go and see the cherry blossoms?»
-- `花見` (N4) — 花見ができる春が待ち遠しい。 — «I can't wait for spring to come so we can sit under the cherry trees.»
-- `花見する` (N4) — お花見に行きませんか？ — «Why don't we go and see the cherry blossoms?»
-- `花見する` (N4) — 花見ができる春が待ち遠しい。 — «I can't wait for spring to come so we can sit under the cherry trees.»
-- `過ぎる` (N4) — このスープは、しょっぱ過ぎて飲めないよ。 — «This soup is too salty to eat.»
-- `過ぎる` (N4) — 今日もまた寂しい一日が過ぎる。 — «Another lonely day.»
-- `壊れる` (N4) — このイヤホンは壊れています。 — «These earphones don't work.»
-- `壊れる` (N4) — あの壊れた花瓶は祖父のものです。 — «That broken vase is my grandfather's.»
-- `海` (N5) — 何としても海をひと目みたいものだ。 — «I ache for a sight of the sea.»
-- `海岸` (N4) — このバスは、海岸に行きますか。 — «Does this bus go to the beach?»
-- `皆さん` (N5) — 皆さんじっとしていてください。 — «Could you keep still, everyone?»
-- `階段` (N5) — その階段を上ってはいけません。 — «You must not go up the stairs.»
-- `外::そと` (N5) — うちはうち、そとはそと。 — «Our house, our rules.»
-- `外::そと` (N5) — いつもと変えてたまに外で食事しよう。 — «Let's occasionally change where we go to eat out.»
-- `外国` (N5) — あなたは外国の本を持っていますか。 — «Do you have any foreign books?»
-- `覚える` (N5) — 日本語は外人にとって覚えにくい。 — «It is hard for foreigners to learn Japanese.»
-- `覚える` (N5) — その音楽には本当に感動をおぼえた。 — «That music really gets me.»
-- `楽しむ` (N4) — グレイ先生は仕事を楽しんでいませんでした。 — «Mr Grey did not enjoy his job.»
-- `掛ける` (N5) — コートをハンガーに掛けておきなさい。 — «Put your coat on a hanger.»
-- `割れる` (N4) — プラスチックは割れにくい。 — «Plastic does not break easily.»
-- `乾く` (N4) — そのぬれたシャツはすぐに乾くだろう。 — «The wet shirt will soon dry up.»
-- `慣れる` (N4) — 学生の時は勉強することになれていた。 — «I was used to studying when I was a student.»
-- `甘い` (N5) — メアリーにはつい甘くなってしまう。 — «I have always had a soft spot in my heart for Mary.»
-- `甘い` (N5) — このチョコレートはとっても甘くておいしい。 — «This chocolate is very sweet and tasty.»
-- `看護婦` (N4) — なぜ看護婦になりたいのですか。 — «Why do you want to be a nurse?»
-- `簡単` (N4) — テニスをすることは私には簡単だ。 — «Playing tennis is easy for me.»
-- `間` (N4) — 二人の間がしっくり行かない。 — «They don't get along together.»
-- `間` (N4) — テニスは学生の間で大変人気がある。 — «Tennis is very popular among students.»
-- `間に合う` (N4) — 急げば、九時のでんしゃに間に合う。 — «Se ci sbrighiamo facciamo in tempo per il treno delle 9.»
-- `関係` (N4) — これとあれはどういう関係があるの。 — «How is this connected to that?»
-- `関係する` (N4) — これとあれはどういう関係があるの。 — «How is this connected to that?»
-- `頑張って` (N5) — 明日、しけんです。— 頑張って！ — «Domani ho l'esame. — In bocca al lupo!»
-- `頑張る` (N4) — いや、頑張ればできるよ。 — «Yes, he can, if he tries hard.»
-- `顔` (N5) — ヘレンはみんなにほめられて顔を赤くした。 — «Helen blushed at their praise.»
-- `喜ぶ` (N4) — 喜んで質問に答えましょう。 — «I'll be happy to answer your question.»
-- `喜ぶ` (N4) — 彼らは良い知らせを聞いて喜んだ。 — «They were delighted at the good news.»
-- `寄る` (N4) — ちょっと寄って行きませんか。 — «Won't you come in for a moment?»
-- `機会` (N4) — またの機会にしましょう。 — «Let's make it some other time.»
-- `気に入る` (N4) — このかばん、気に入りました。 — «Questa borsa mi piace proprio.»
-- `気をつけて` (N5) — 雨ですよ。気をつけて。 — «Piove, stai attento.»
-- `気分` (N4) — とても気分がリフレッシュされる。 — «I feel like a brand new person.»
-- `汽車` (N4) — 汽車はまだ着きません。 — «The train has not arrived yet.»
-- `汽車` (N4) — 直してある古い汽車に乗ることも出来ます。 — «You can also ride on an old, restored, steam train.»
-- `祈る` (N4) — 早くよくなられるように祈っています。 — «I hope you'll get well soon.»
-- `起きる` (N5) — お子さんはまだ起きているのですか。 — «Is the kid still up?»
-- `起きる` (N5) — ６時ごろ起きた。 — «I got up at about six.»
-- `喫茶店` (N5) — 私たちは喫茶店で昼食をとった。 — «We ate lunch in a coffee lounge.»
-- `客` (N4) — 春先だから客もあまりいませんでした。 — «It was early spring, so there weren't many customers.»
-- `客` (N4) — 夕食にお客を招いていますか。 — «Do you have guests for dinner?»
-- `休み` (N5) — １０時４０分から１１時まで休み時間です。 — «We have a break from 10:40 to 11:00.»
-- `休み` (N5) — 今度の休みはどこへ行くの？ — «Where are you going on your vacation?»
-- `休む` (N5) — 父はまだ休んでいる。 — «Father is still in bed.»
-- `休む` (N5) — 彼はしばらくの間休んだ。 — «He rested for a while.»
-- `吸う` (N5) — この紙はインクを吸わない。 — «This paper does not absorb ink.»
-- `去年` (N5) — ビルは去年の秋に私に会いに来た。 — «Bill came to see me last autumn.»
-- `居る` (N5) — 映画に行くのと家にいるの、どっちがいい？ — «Which would you rather do, go to the cinema or stay at home?»
-- `居る` (N5) — すっかり食べ終わってはいない。 — «I haven't quite finished eating.»
-- `魚` (N5) — こうして私はいつも魚を料理する。 — «This is how I usually cook fish.»
-- `教える` (N5) — ジョーンズ先生が私たちに英会話を教えてくれます。 — «Mr Jones teaches us English conversation.»
-- `教える` (N5) — 地下鉄へ行く道を教えていただけませんか。 — «Could you tell me how to get to the subway station?»
-- `教会` (N4) — その教会は１１７３年までさかのぼる。 — «The church dates back to 1173.»
-- `教室` (N5) — ＬＬ教室を使ってもよいですか。 — «May we use the language lab?»
-- `教室` (N5) — エアロビクス教室に一日入学したいのですが。 — «I'd like to try out the aerobics class for a day.»
-- `興味` (N4) — あなたは花に興味がありますか。 — «Are you interested in flowers?»
-- `鏡` (N4) — 海は鏡のようになめらかだった。 — «The sea was as smooth as glass.»
-- `曲る` (N5) — ネクタイが曲がってるよ。 — «Your tie is crooked.»
-- `曲る` (N5) — 風に吹かれて木が曲がった。 — «The tree bent in the wind.»
-- `近い` (N5) — クリスマスが近くなってきた。 — «Christmas is fast approaching.»
-- `近く` (N5) — ７時近くだ。学校へ行かなくては。 — «It is close to seven o'clock. We have to go to school.»
-- `近く` (N5) — 国会は近く解散するだろう。 — «The Diet will soon be dissolved.»
-- `九日` (N5) — スピーチコンテストは１１月９日に行われた。 — «The speech contest took place on the ninth of November.»
-- `九日` (N5) — 大会９日目、ベスト８が出揃った。 — «The top eight players survived the ninth day of the tournament.»
-- `具合` (N4) — 時計の具合が悪い。 — «Something is the matter with my watch.»
-- `空港` (N4) — どの空港から出発しますか。 — «Which airport do I leave from?»
-- `兄弟` (N5) — あなたは何人兄弟がいますか。 — «How many siblings do you have?»
-- `経験` (N4) — この仕事では経験がものを言う。 — «Experience counts in this job.»
-- `経験する` (N4) — この仕事では経験がものを言う。 — «Experience counts in this job.»
-- `経済` (N4) — アメリカはサービス経済の国だ。 — «The U.S. is a service economy.»
-- `鶏肉` (N5) — 鶏肉を３ポンド分ください。 — «I'd like three pounds of chicken.»
-- `鶏肉` (N5) — この鶏肉はよく揚げられている。 — «This chicken is fried well.»
-- `迎える` (N4) — ６時にホテルに車で迎えて下さい。 — «Please pick me up at the hotel at six o'clock.»
-- `迎える` (N4) — よいお年をお迎えください。 — «I wish you a Happy New Year.»
-- `決して` (N4) — アンディはけっしてデートにおくれたことはない。 — «Andy is never late for a date.»
-- `決まる` (N4) — いつ始めるのかはまだ決まっていない。 — «It is still undecided when we will begin.»
-- `決める` (N4) — そこに行くことに決めた。 — «I made up my mind to go there.»
-- `結構` (N5) — いや結構です。たくさんいただきました。 — «No more, thank you. I'm full.»
-- `結構` (N5) — どちらの日でも結構です。 — «Either day is OK.»
-- `血` (N4) — 私たちは血がつながっている。 — «We are related by blood.»
-- `血` (N4) — ナイフは血に塗れていた。 — «The knife was covered in blood.»
-- `見つかる` (N4) — 運悪く仕事が見つからなかった。 — «He had no luck in finding work.»
-- `元気` (N5) — こんにちは、ロジャー。とっても元気よ。 — «Hi, Roger. I'm pretty good!»
-- `言う` (N5) — この動物は日本語で何と言いますか。 — «What do you call this animal in Japanese?»
-- `言う` (N5) — 「みんなひと休みしようぜ」とジョンは言った。 — «John said, "Hey guys, let's take a break."»
-- `言葉` (N5) — 言葉が出てこなかった。 — «Words failed me.»
-- `言葉` (N5) — 乱暴な言葉を使ってはいけない。 — «Don't be rough in speech.»
-- `呼ぶ` (N5) — あなたをケパと呼ぶことにします。 — «You will be called Cephas.»
-- `呼ぶ` (N5) — あなたが呼べば、彼は来るでしょう。 — «He will come if you call him.»
-- `五日` (N5) — １月５日から１月１５日までおねがいします。 — «From the 5th to the 15th of January, please.»
-- `五日` (N5) — 三日から五日で。 — «Maybe three to five days.»
-- `午後` (N5) — その急行は午後六時三十分着だ。 — «The express arrives at 6:30 p.m.»
-- `午前` (N5) — その電車は午前９時にここを出発します。 — «The train departs here at 9:00 a.m.»
-- `後` (N5) — あと２通手紙を書かなくてはならない。 — «I have another two letters to write.»
 - `後` (N5) — 少女たちのうち一人が後に残された。 — «One of the girls was left behind.»
 - `御飯` (N5) — ご飯とパンどちらがいいですか。 — «Which do you prefer, rice or bread?»
 - `御飯` (N5) — 友達にご飯をおごってもらった。 — «My friends treated me to a meal.»
@@ -311,12 +62,10 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `向こう` (N5) — その男の子は向こうにいます。 — «The boy is over there.»
 - `向こう` (N5) — 向こうの思う壷だぞ。 — «You will play into their hands.»
 - `喉` (N4) — 今日起きたら喉がいがらっぽかったです。 — «When I got up today, my throat felt a little sore.»
-- `喉が渇いた` (N5) — 喉が渇いた。水をください。 — «Ho sete. Dell'acqua, per favore.»
 - `好き` (N5) — 「ケーキはお好きですか」「はい、好きです」 — «"Do you like cake?" "Yes, I do."»
 - `好き` (N5) — 実を言うと、私は彼が好きでないのです。 — «To tell you the truth, I don't love him.»
 - `考える` (N4) — あなたは家族の事を考えるべきです。 — «You must think of your family.»
 - `考える` (N4) — それほど多くの人々のための料理の献立を考えるのはむずかしい。 — «It is difficult planning meals for so many people.»
-- `航空券` (EXTRA) — 航空券はもうありますか。 — «Ha già il biglietto aereo?»
 - `行く` (N5) — その音はだんだん小さくなっていった。 — «The sound grew fainter and fainter.»
 - `行く` (N5) — あなたのおかげで仕事がうまく行きました。 — «Thanks to you, the job went well.»
 - `講義` (N4) — その講義へ来た人はほとんどいなかった。 — «Few people came to the lecture.»
@@ -329,7 +78,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `合う` (N4) — このチョッキは前が合わない。 — «This waistcoat won't meet at the front.»
 - `黒い` (N5) — ナンシーはヘレンよりもほんのすこし色が黒い。 — «Nancy is a shade darker than Helen.»
 - `黒い` (N5) — 州知事は黒い金に手をつけました。 — «The governor took the money out of a slush fund.»
-- `今` (N5) — 今のアナウンスは何だったのですか。 — «What did the announcement just say?»
 - `今月` (N5) — 今月の売り上げはよくない。 — «Sales have been off this month.»
 - `今週` (N5) — 今週はどちらにいらしゃいましたか。 — «Where have you been this week?»
 - `今度` (N4) — 今度の土曜日、テニスをしませんか。 — «How about playing tennis next Saturday?»
@@ -404,8 +152,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `取る` (N5) — 水分をたくさん取ってください。 — «You should drink a lot of liquid.»
 - `取る` (N5) — そのお金はいざというときのために取っておくよ。 — «I'm going to lay aside that money for emergencies.»
 - `手` (N5) — いい手を思いついた。 — «I hit upon a good idea.»
-- `手荷物` (EXTRA) — 手荷物はこちらに置いてください。 — «Metta qui il bagaglio, per favore.»
-- `手荷物受取所` (EXTRA) — 手荷物受取所は一階です。 — «Il ritiro bagagli è al piano terra.»
 - `手紙` (N5) — ここにあなたあての手紙が何通かあります。 — «Here are some letters for you.»
 - `手伝う` (N4) — いつでもお手伝いします。 — «I am always ready to help you.»
 - `趣味` (N4) — 趣味については話しましたか？ — «Did you talk about your hobby?»
@@ -427,7 +173,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `出す` (N5) — この件では名前を出したくない。 — «I want to remain anonymous in this.»
 - `出る` (N5) — 電話には出なかったからメールしておきました。 — «He didn't answer the phone, so I left him an email.»
 - `出る` (N5) — 私の家におばけが出たのは本当だ。 — «It's true that a ghost appeared at my house.»
-- `出国` (EXTRA) — 出国の手続きをしてください。 — «Faccia le pratiche per l'uscita dal paese.»
 - `出国する` (EXTRA) — あなたが出国するまでお預かりします。 — «We will keep it for you until you leave.»
 - `出発` (N4) — すぐに出発した方がいいですよ。 — «You had better depart at once.»
 - `出発する` (N4) — すぐに出発した方がいいですよ。 — «You had better depart at once.»
@@ -459,14 +204,12 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `焼ける` (N4) — このトーストはよく焼けていません。 — «This toast is not done enough.»
 - `上がる` (N4) — 明日それをいただきに上がります。 — «I will call for it tomorrow.»
 - `上がる` (N4) — 来月タクシー料金があがります。 — «Taxi fares will go up next month.»
-- `上げる` (N5) — あなたは時には妹さんにおこづかいをあげますか。 — «Do you sometimes give your sister money?»
 - `上手` (N5) — あなたは上手にバスケットボールができますか。 — «Do you play basketball well?»
 - `心配` (N4) — その男の子は心配して病気になった。 — «The boy got sick from anxiety.»
 - `心配` (N4) — 心配してくれる人がいて幸せだ。 — «I'm so lucky to have someone who cares.»
 - `心配する` (N4) — その男の子は心配して病気になった。 — «The boy got sick from anxiety.»
 - `心配する` (N4) — 心配してくれる人がいて幸せだ。 — «I'm so lucky to have someone who cares.»
 - `新聞` (N5) — ジョンのことが新聞に出ていた。 — «John was mentioned in the paper.»
-- `親切` (N4) — あなたの家族はきっと親切でしょう。 — «Your family must be very nice.»
 - `進む` (N4) — あの時計は１分進んでいます。 — «That clock is one minute fast.»
 - `人` (N5) — この人は画家だ！ — «This fellow is an artist!»
 - `人` (N5) — 人は意識のある生き物だ。 — «Man is a conscious being.»
@@ -487,7 +230,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `声` (N5) — 日本人は鳥や虫の声を楽しむ。 — «The Japanese enjoy the songs of birds and insects.»
 - `青い` (N5) — なぜ空が青いか知っているか。 — «Do you know why the sky is blue?»
 - `青い` (N5) — お前はまだ「青い」な。 — «You're still green.»
-- `税関` (EXTRA) — 税関で荷物を調べられました。 — «Alla dogana mi hanno controllato i bagagli.»
 - `席` (N4) — この席を見ていてくれませんか。 — «Can you save this seat for me?»
 - `赤ん坊` (N4) — うちの赤ん坊は口をきくようになってきました。 — «Our baby is learning to speak.»
 - `切る` (N5) — エアコンを切ってもかまいませんか。 — «Do you mind if I turn off the AC?»
@@ -539,7 +281,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `池` (N5) — この前の夏にこの池は水がなくなりました。 — «The pond dried up last summer.»
 - `置く` (N5) — あいにく私はカメラを家においてきた。 — «As it happens, I have left the camera at home.»
 - `置く` (N5) — それをテーブルの上に置きなさい。 — «Lay it on the table.»
-- `遅れる` (N4) — アンディはけっしてデートにおくれたことはない。 — «Andy is never late for a date.»
 - `茶色` (N5) — その犬は茶色で小さくて、やせています。 — «The dog is brown, small and thin.»
 - `中学校` (N4) — この歌を聞くと私の中学校時代を思い出します。 — «This song reminds me of my junior high school days.»
 - `昼` (N5) — ケンは昼まで家にいるでしょう。 — «Ken will be at home until noon.»
@@ -571,8 +312,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `都合` (N4) — 何時がご都合よいでしょうか。 — «What time will be right for you?»
 - `土曜日` (N5) — 私は土曜日からここにいます。 — «I've been here since Saturday.»
 - `冬` (N5) — まもなく冬だ。 — «It will be winter before long.»
-- `搭乗券` (EXTRA) — 搭乗券をお願いします。 — «Il suo biglietto d'imbarco, per favore.»
-- `搭乗口` (EXTRA) — 搭乗口は32番です。 — «Il gate d'imbarco è il numero 32.»
 - `答える` (N5) — 「はい、ありません」とジョーダンさんは答えた。 — «"No, I don't," said Mr Jordan.»
 - `頭` (N5) — アリスは頭に花をさしています。 — «Alice has a flower in her hair.»
 - `頭` (N5) — トムは先週の頭に車を盗まれた。 — «Tom had his car stolen early last week.»
@@ -594,7 +333,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `匂い` (N4) — あの花はにおいが強いな。 — «That flower has a powerful smell.»
 - `入れる` (N5) — あなたは、私にコーヒーをいれてもらいたいですか。 — «Do you want me to make coffee?»
 - `入れる` (N5) — それは引き出しに入れておきました。 — «I put it in the drawer.»
-- `入国` (EXTRA) — 入国の審査はこちらです。 — «Il controllo immigrazione è qui.»
 - `入国する` (EXTRA) — 入国の目的は何ですか。 — «What's the purpose of your visit?»
 - `熱` (N4) — １０２゜Ｆの熱があります。 — «I have a fever of 102 degrees.»
 - `熱` (N4) — 彼は学生運動熱に浮かされている。 — «He is being carried away by a student movement.»
@@ -627,7 +365,6 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `普通` (N4) — 彼女は普通９時に寝る。 — «She usually goes to bed at nine.»
 - `部屋` (N5) — マユコは部屋に入った。 — «Mayuko entered the room.»
 - `部屋` (N5) — 私の部屋は４階にあります。 — «My apartment is on the fourth floor.»
-- `風` (N5) — カーテンが風になびいた。 — «The curtains blew in the wind.»
 - `風邪` (N5) — ただの風邪でしょう。 — «You probably just have a cold.»
 - `払う` (N4) — 払えるかどうか分からないざます。 — «I'm not sure I can afford it.»
 - `払う` (N4) — ジャックはブラシで上着のほこりを払った。 — «Jack brushed the dust off his coat.»
@@ -693,13 +430,11 @@ davvero la parola stessa (non un sinonimo/variante, vedi bonus bug sopra).
 - `要る` (N5) — 今のところお金はいらない。 — «I don't need money at present.»
 - `踊り` (N4) — 私のガールフレンドは踊りがうまい。 — «My girlfriend is a good dancer.»
 - `来る` (N5) — 私の父は私に、ぜひそこを見てくるようにといった。 — «My father insisted that I should go to see the place.»
-- `来る` (N5) — １０時までに来ます。 — «I'll come by 10.»
 - `来週` (N5) — 来週ヨーロッパへ行くつもりなんです。 — «I'm going to Europe next week.»
 - `頼む` (N5) — あなたに頼んでもよろしいですか。 — «May I request a favour of you?»
 - `頼む` (N5) — 田中さんのことを頼むよ。 — «Take care of Mr. Tanaka for me!»
 - `落ちる` (N4) — 勉強しないと試験に落ちるよ。 — «If you don't study, you will fail the exam.»
 - `落ちる` (N4) — サーバーが落ちていた。 — «The server was down.»
-- `卵` (N5) — 卵を一ダースづつつめなさい。 — «Pack eggs in dozens.»
 - `卵` (N5) — 卵は硬くゆでてください。 — «Boil the eggs hard.»
 - `立てる` (N4) — バースデーケーキにろうそくを立ててください。 — «Please put some candles on the birthday cake.»
 - `立てる` (N4) — 猫が私の手につめを立てた。 — «The cat dug its claws into my hand.»

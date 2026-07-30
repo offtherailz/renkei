@@ -11719,7 +11719,7 @@
    {
     "testo": "シャッターを押してくれますか。",
     "traduzione": {
-     "it": "Could you press this button?",
+     "it": "Puoi premere il pulsante di scatto?",
      "en": "Could you press this button?"
     }
    },
@@ -11745,7 +11745,7 @@
    {
     "testo": "このコーヒーはぬるいです。",
     "traduzione": {
-     "it": "This coffee is not hot enough.",
+     "it": "Questo caffè è tiepido.",
      "en": "This coffee is not hot enough."
     }
    },
@@ -11772,7 +11772,23 @@
     "below",
     "beneath"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "雨が私のレインコートの下までしみとおった。",
+    "traduzione": {
+     "it": "La pioggia è filtrata fin sotto il mio impermeabile.",
+     "en": "The rain penetrated my raincoat."
+    }
+   },
+   {
+    "testo": "私はダンテをミルトンのしたに置く。",
+    "traduzione": {
+     "it": "Metto Dante sotto Milton.",
+     "en": "I put Milton after Dante."
+    }
+   }
+  ]
  },
  "何": {
   "significato": {
@@ -11787,7 +11803,7 @@
    {
     "testo": "今のアナウンスは何だったのですか。",
     "traduzione": {
-     "it": "What did the announcement just say?",
+     "it": "Cos'era quell'annuncio di poco fa?",
      "en": "What did the announcement just say?"
     }
    },
@@ -11841,7 +11857,7 @@
    {
     "testo": "この夏休みはどこかへ行くのですか。",
     "traduzione": {
-     "it": "Are you going away this summer?",
+     "it": "Andrai da qualche parte per queste vacanze estive?",
      "en": "Are you going away this summer?"
     }
    },
@@ -11868,7 +11884,7 @@
    {
     "testo": "木立の間に家が見える。",
     "traduzione": {
-     "it": "I see a house among the trees.",
+     "it": "Si vede una casa tra gli alberi.",
      "en": "I see a house among the trees."
     }
    },
@@ -11895,7 +11911,7 @@
    {
     "testo": "あなたの家族はきっと親切でしょう。",
     "traduzione": {
-     "it": "Your family must be very nice.",
+     "it": "La tua famiglia sarà sicuramente gentile.",
      "en": "Your family must be very nice."
     }
    },
@@ -11926,7 +11942,7 @@
    {
     "testo": "食事は家庭で食べますか、外食ですか。",
     "traduzione": {
-     "it": "Do you eat at home or eat out?",
+     "it": "Mangi a casa o fuori?",
      "en": "Do you eat at home or eat out?"
     }
    },
@@ -11953,7 +11969,23 @@
     "free time",
     "leisure"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "仕事は楽で、暇がたくさんあります。",
+    "traduzione": {
+     "it": "Il lavoro è leggero e ho molto tempo libero.",
+     "en": "My job is easy and I have a lot of free time."
+    }
+   },
+   {
+    "testo": "ジョンはひどく急いでいたので話をする暇もなかった。",
+    "traduzione": {
+     "it": "John aveva così fretta che non ha avuto tempo di parlare.",
+     "en": "John was in such a hurry that he had no time for talking."
+    }
+   }
+  ]
  },
  "歌": {
   "significato": {
@@ -11968,7 +12000,7 @@
    {
     "testo": "この歌を聞くと私はいつも、学生時代を思い出す。",
     "traduzione": {
-     "it": "Whenever I hear this song, I am reminded of my school days.",
+     "it": "Quando sento questa canzone, mi ricordo sempre dei miei anni da studente.",
      "en": "Whenever I hear this song, I am reminded of my school days."
     }
    },
@@ -11994,7 +12026,7 @@
    {
     "testo": "ジョンはステージで何を歌いましたか。",
     "traduzione": {
-     "it": "What did John sing on the stage?",
+     "it": "Cosa ha cantato John sul palco?",
      "en": "What did John sing on the stage?"
     }
    },
@@ -12020,7 +12052,7 @@
    {
     "testo": "火曜日に国会が開かれる。",
     "traduzione": {
-     "it": "The Diet will meet on Tuesday.",
+     "it": "Il parlamento si riunisce martedì.",
      "en": "The Diet will meet on Tuesday."
     }
    },
@@ -12047,7 +12079,7 @@
    {
     "testo": "何としても海をひと目みたいものだ。",
     "traduzione": {
-     "it": "I ache for a sight of the sea.",
+     "it": "Vorrei vedere il mare almeno una volta, costi quel che costi.",
      "en": "I ache for a sight of the sea."
     }
    },
@@ -12075,7 +12107,7 @@
    {
     "testo": "皆さんじっとしていてください。",
     "traduzione": {
-     "it": "Could you keep still, everyone?",
+     "it": "State fermi tutti, per favore.",
      "en": "Could you keep still, everyone?"
     }
    },
@@ -12101,7 +12133,7 @@
    {
     "testo": "その階段を上ってはいけません。",
     "traduzione": {
-     "it": "You must not go up the stairs.",
+     "it": "Non deve salire quella scala.",
      "en": "You must not go up the stairs."
     }
    },
@@ -12124,7 +12156,23 @@
     "outside",
     "exterior"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "うちはうち、そとはそと。",
+    "traduzione": {
+     "it": "Casa nostra è casa nostra, fuori è fuori.",
+     "en": "Our house, our rules."
+    }
+   },
+   {
+    "testo": "いつもと変えてたまに外で食事しよう。",
+    "traduzione": {
+     "it": "Cambiamo un po', mangiamo fuori ogni tanto.",
+     "en": "Let's occasionally change where we go to eat out."
+    }
+   }
+  ]
  },
  "外国": {
   "significato": {
@@ -12141,7 +12189,7 @@
    {
     "testo": "あなたは外国の本を持っていますか。",
     "traduzione": {
-     "it": "Do you have any foreign books?",
+     "it": "Hai libri stranieri?",
      "en": "Do you have any foreign books?"
     }
    },
@@ -12173,6 +12221,22 @@
   ],
   "correlati": [
    "習う"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "日本語は外人にとって覚えにくい。",
+    "traduzione": {
+     "it": "Il giapponese è difficile da imparare per gli stranieri.",
+     "en": "It is hard for foreigners to learn Japanese."
+    }
+   },
+   {
+    "testo": "その音楽には本当に感動をおぼえた。",
+    "traduzione": {
+     "it": "Quella musica mi ha davvero commosso.",
+     "en": "That music really gets me."
+    }
+   }
   ]
  },
  "掛ける": {
@@ -12190,7 +12254,7 @@
    {
     "testo": "コートをハンガーに掛けておきなさい。",
     "traduzione": {
-     "it": "Put your coat on a hanger.",
+     "it": "Appendi il cappotto sulla gruccia.",
      "en": "Put your coat on a hanger."
     }
    },
@@ -12228,7 +12292,23 @@
     "generous",
     "sweet"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "メアリーにはつい甘くなってしまう。",
+    "traduzione": {
+     "it": "Finisco sempre per essere indulgente con Mary.",
+     "en": "I have always had a soft spot in my heart for Mary."
+    }
+   },
+   {
+    "testo": "このチョコレートはとっても甘くておいしい。",
+    "traduzione": {
+     "it": "Questo cioccolato è molto dolce e buono.",
+     "en": "This chocolate is very sweet and tasty."
+    }
+   }
+  ]
  },
  "丸い; 円い": {
   "significato": {
@@ -12297,7 +12377,7 @@
    {
     "testo": "ヘレンはみんなにほめられて顔を赤くした。",
     "traduzione": {
-     "it": "Helen blushed at their praise.",
+     "it": "Helen è arrossita quando tutti l'hanno elogiata.",
      "en": "Helen blushed at their praise."
     }
    },
@@ -12332,14 +12412,14 @@
    {
     "testo": "お子さんはまだ起きているのですか。",
     "traduzione": {
-     "it": "Is the kid still up?",
+     "it": "Suo figlio è ancora sveglio?",
      "en": "Is the kid still up?"
     }
    },
    {
     "testo": "６時ごろ起きた。",
     "traduzione": {
-     "it": "I got up at about six.",
+     "it": "Mi sono svegliato verso le 6.",
      "en": "I got up at about six."
     }
    },
@@ -12365,7 +12445,7 @@
    {
     "testo": "私たちは喫茶店で昼食をとった。",
     "traduzione": {
-     "it": "We ate lunch in a coffee lounge.",
+     "it": "Abbiamo pranzato in un bar.",
      "en": "We ate lunch in a coffee lounge."
     }
    },
@@ -12389,7 +12469,23 @@
     "day off",
     "absence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１０時４０分から１１時まで休み時間です。",
+    "traduzione": {
+     "it": "L'intervallo è dalle 10:40 alle 11.",
+     "en": "We have a break from 10:40 to 11:00."
+    }
+   },
+   {
+    "testo": "今度の休みはどこへ行くの？",
+    "traduzione": {
+     "it": "Dove vai per le prossime vacanze?",
+     "en": "Where are you going on your vacation?"
+    }
+   }
+  ]
  },
  "休む": {
   "significato": {
@@ -12402,7 +12498,23 @@
     "to have a break",
     "to get time off"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "父はまだ休んでいる。",
+    "traduzione": {
+     "it": "Mio padre sta ancora riposando.",
+     "en": "Father is still in bed."
+    }
+   },
+   {
+    "testo": "彼はしばらくの間休んだ。",
+    "traduzione": {
+     "it": "Si è riposato per un po'.",
+     "en": "He rested for a while."
+    }
+   }
+  ]
  },
  "吸う": {
   "significato": {
@@ -12419,7 +12531,7 @@
    {
     "testo": "この紙はインクを吸わない。",
     "traduzione": {
-     "it": "This paper does not absorb ink.",
+     "it": "Questa carta non assorbe l'inchiostro.",
      "en": "This paper does not absorb ink."
     }
    },
@@ -12445,7 +12557,7 @@
    {
     "testo": "ビルは去年の秋に私に会いに来た。",
     "traduzione": {
-     "it": "Bill came to see me last autumn.",
+     "it": "Bill è venuto a trovarmi l'autunno scorso.",
      "en": "Bill came to see me last autumn."
     }
    },
@@ -12482,6 +12594,22 @@
    "有る",
    "いらっしゃる",
    "おる"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "映画に行くのと家にいるの、どっちがいい？",
+    "traduzione": {
+     "it": "Meglio andare al cinema o stare a casa?",
+     "en": "Which would you rather do, go to the cinema or stay at home?"
+    }
+   },
+   {
+    "testo": "すっかり食べ終わってはいない。",
+    "traduzione": {
+     "it": "Non ho ancora finito di mangiare del tutto.",
+     "en": "I haven't quite finished eating."
+    }
+   }
   ]
  },
  "魚": {
@@ -12497,7 +12625,7 @@
    {
     "testo": "こうして私はいつも魚を料理する。",
     "traduzione": {
-     "it": "This is how I usually cook fish.",
+     "it": "Cucino sempre il pesce così.",
      "en": "This is how I usually cook fish."
     }
    },
@@ -12521,7 +12649,23 @@
     "to inform",
     "to instruct"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョーンズ先生が私たちに英会話を教えてくれます。",
+    "traduzione": {
+     "it": "Il professor Jones ci insegna conversazione inglese.",
+     "en": "Mr Jones teaches us English conversation."
+    }
+   },
+   {
+    "testo": "地下鉄へ行く道を教えていただけませんか。",
+    "traduzione": {
+     "it": "Potrebbe indicarmi la strada per la metropolitana?",
+     "en": "Could you tell me how to get to the subway station?"
+    }
+   }
+  ]
  },
  "教室": {
   "significato": {
@@ -12531,7 +12675,23 @@
    "en": [
     "classroom"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ＬＬ教室を使ってもよいですか。",
+    "traduzione": {
+     "it": "Posso usare il laboratorio linguistico?",
+     "en": "May we use the language lab?"
+    }
+   },
+   {
+    "testo": "エアロビクス教室に一日入学したいのですが。",
+    "traduzione": {
+     "it": "Vorrei fare una lezione di prova di aerobica.",
+     "en": "I'd like to try out the aerobics class for a day."
+    }
+   }
+  ]
  },
  "曲る": {
   "significato": {
@@ -12544,7 +12704,23 @@
     "to bend"
    ]
   },
-  "sinonimi": []
+  "sinonimi": [],
+  "frasi_esempio": [
+   {
+    "testo": "ネクタイが曲がってるよ。",
+    "traduzione": {
+     "it": "Hai la cravatta storta.",
+     "en": "Your tie is crooked."
+    }
+   },
+   {
+    "testo": "風に吹かれて木が曲がった。",
+    "traduzione": {
+     "it": "L'albero si è piegato per il vento.",
+     "en": "The tree bent in the wind."
+    }
+   }
+  ]
  },
  "近い": {
   "significato": {
@@ -12561,7 +12737,7 @@
    {
     "testo": "クリスマスが近くなってきた。",
     "traduzione": {
-     "it": "Christmas is fast approaching.",
+     "it": "Si avvicina il Natale.",
      "en": "Christmas is fast approaching."
     }
    },
@@ -12591,6 +12767,22 @@
   ],
   "contrari": [
    "遠く"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "７時近くだ。学校へ行かなくては。",
+    "traduzione": {
+     "it": "Sono quasi le 7. Devo andare a scuola.",
+     "en": "It is close to seven o'clock. We have to go to school."
+    }
+   },
+   {
+    "testo": "国会は近く解散するだろう。",
+    "traduzione": {
+     "it": "Il parlamento verrà probabilmente sciolto a breve.",
+     "en": "The Diet will soon be dissolved."
+    }
+   }
   ]
  },
  "九日": {
@@ -12603,7 +12795,23 @@
     "nine days",
     "ninth day of the month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "スピーチコンテストは１１月九日に行われた。",
+    "traduzione": {
+     "it": "Il concorso di public speaking si è tenuto il 9 novembre.",
+     "en": "The speech contest took place on the ninth of November."
+    }
+   },
+   {
+    "testo": "大会九日目、ベスト８が出揃った。",
+    "traduzione": {
+     "it": "Al nono giorno del torneo, sono stati definiti gli otto finalisti.",
+     "en": "The top eight players survived the ninth day of the tournament."
+    }
+   }
+  ]
  },
  "兄弟": {
   "significato": {
@@ -12619,7 +12827,7 @@
    {
     "testo": "あなたは何人兄弟がいますか。",
     "traduzione": {
-     "it": "How many siblings do you have?",
+     "it": "Quanti fratelli hai?",
      "en": "How many siblings do you have?"
     }
    },
@@ -12652,6 +12860,22 @@
    "肉",
    "牛肉",
    "豚肉"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "鶏肉を３ポンド分ください。",
+    "traduzione": {
+     "it": "Mi dia tre libbre di pollo.",
+     "en": "I'd like three pounds of chicken."
+    }
+   },
+   {
+    "testo": "この鶏肉はよく揚げられている。",
+    "traduzione": {
+     "it": "Questo pollo è fritto bene.",
+     "en": "This chicken is fried well."
+    }
+   }
   ]
  },
  "結構": {
@@ -12666,7 +12890,23 @@
     "tolerably"
    ]
   },
-  "sinonimi": []
+  "sinonimi": [],
+  "frasi_esempio": [
+   {
+    "testo": "いや結構です。たくさんいただきました。",
+    "traduzione": {
+     "it": "No grazie, va bene così. Ne ho preso già abbastanza.",
+     "en": "No more, thank you. I'm full."
+    }
+   },
+   {
+    "testo": "どちらの日でも結構です。",
+    "traduzione": {
+     "it": "Va bene qualsiasi giorno.",
+     "en": "Either day is OK."
+    }
+   }
+  ]
  },
  "見る": {
   "id_verbo_corrispondente": "見える",
@@ -12727,7 +12967,7 @@
    {
     "testo": "こんにちは、ロジャー。とっても元気よ。",
     "traduzione": {
-     "it": "Hi, Roger. I'm pretty good!",
+     "it": "Ciao Roger. Sto benissimo.",
      "en": "Hi, Roger. I'm pretty good!"
     }
    },
@@ -12782,6 +13022,22 @@
   "correlati": [
    "申す",
    "おっしゃる"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "この動物は日本語で何と言いますか。",
+    "traduzione": {
+     "it": "Come si dice questo animale in giapponese?",
+     "en": "What do you call this animal in Japanese?"
+    }
+   },
+   {
+    "testo": "「みんなひと休みしようぜ」とジョンは言った。",
+    "traduzione": {
+     "it": "«Facciamo tutti una pausa» ha detto John.",
+     "en": "John said, \"Hey guys, let's take a break.\""
+    }
+   }
   ]
  },
  "言葉": {
@@ -12795,7 +13051,23 @@
     "word(s)",
     "expression(s)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "言葉が出てこなかった。",
+    "traduzione": {
+     "it": "Non mi uscivano le parole.",
+     "en": "Words failed me."
+    }
+   },
+   {
+    "testo": "乱暴な言葉を使ってはいけない。",
+    "traduzione": {
+     "it": "Non si devono usare parole volgari.",
+     "en": "Don't be rough in speech."
+    }
+   }
+  ]
  },
  "呼ぶ": {
   "significato": {
@@ -12807,7 +13079,23 @@
     "to call (one's name)",
     "to invite"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたをケパと呼ぶことにします。",
+    "traduzione": {
+     "it": "Ti chiamerò Kepa.",
+     "en": "You will be called Cephas."
+    }
+   },
+   {
+    "testo": "あなたが呼べば、彼は来るでしょう。",
+    "traduzione": {
+     "it": "Se lo chiami, verrà.",
+     "en": "He will come if you call him."
+    }
+   }
+  ]
  },
  "五": {
   "significato": {
@@ -12845,7 +13133,23 @@
     "five days",
     "fifth day of the month"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１月五日から１月１５日までおねがいします。",
+    "traduzione": {
+     "it": "Dal 5 al 15 gennaio, per favore.",
+     "en": "From the 5th to the 15th of January, please."
+    }
+   },
+   {
+    "testo": "三日から五日で。",
+    "traduzione": {
+     "it": "In tre o cinque giorni.",
+     "en": "Maybe three to five days."
+    }
+   }
+  ]
  },
  "午後": {
   "significato": {
@@ -12861,7 +13165,7 @@
    {
     "testo": "その急行は午後六時三十分着だ。",
     "traduzione": {
-     "it": "The express arrives at 6:30 p.m.",
+     "it": "Quel treno rapido arriva alle 18:30.",
      "en": "The express arrives at 6:30 p.m."
     }
    },
@@ -12892,7 +13196,7 @@
    {
     "testo": "その電車は午前９時にここを出発します。",
     "traduzione": {
-     "it": "The train departs here at 9:00 a.m.",
+     "it": "Quel treno parte da qui alle 9 del mattino.",
      "en": "The train departs here at 9:00 a.m."
     }
    },
@@ -12924,7 +13228,23 @@
     "the rest",
     "since then"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あと２通手紙を書かなくてはならない。",
+    "traduzione": {
+     "it": "Devo ancora scrivere altre due lettere.",
+     "en": "I have another two letters to write."
+    }
+   },
+   {
+    "testo": "少女たちのうち一人が後に残された。",
+    "traduzione": {
+     "it": "One of the girls was left behind.",
+     "en": "One of the girls was left behind."
+    }
+   }
+  ]
  },
  "御飯": {
   "significato": {
@@ -13122,7 +13442,7 @@
    {
     "testo": "今のアナウンスは何だったのですか。",
     "traduzione": {
-     "it": "What did the announcement just say?",
+     "it": "Cos'era quell'annuncio di poco fa?",
      "en": "What did the announcement just say?"
     }
    },
@@ -23042,7 +23362,7 @@
    {
     "testo": "１０億人の人たちが英語を話しています。",
     "traduzione": {
-     "it": "One billion people speak English.",
+     "it": "Un miliardo di persone parla inglese.",
      "en": "One billion people speak English."
     }
    },
@@ -23068,7 +23388,7 @@
    {
     "testo": "デパートの屋上にアドバルーンが上がっている。",
     "traduzione": {
-     "it": "There is an advertising balloon flying above the department store.",
+     "it": "Un pallone pubblicitario è issato sul tetto del grande magazzino.",
      "en": "There is an advertising balloon flying above the department store."
     }
    },
@@ -23094,6 +23414,22 @@
   },
   "correlati": [
    "声"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "ここから海の音が聞こえる。",
+    "traduzione": {
+     "it": "Da qui si sente il rumore del mare.",
+     "en": "We can hear the ocean from here."
+    }
+   },
+   {
+    "testo": "彼女はピアノで高い音を出した。",
+    "traduzione": {
+     "it": "Ha suonato una nota acuta al piano.",
+     "en": "She struck high notes on the piano."
+    }
+   }
   ]
  },
  "下げる": {
@@ -23111,7 +23447,7 @@
    {
     "testo": "ラジオの音を下げてくれませんか。",
     "traduzione": {
-     "it": "Could you turn down the radio?",
+     "it": "Puoi abbassare il volume della radio?",
      "en": "Could you turn down the radio?"
     }
    },
@@ -23200,7 +23536,7 @@
    {
     "testo": "私は新しい下着が気に入っている。",
     "traduzione": {
-     "it": "I'm pleased with my new underwear.",
+     "it": "Mi piace la mia biancheria intima nuova.",
      "en": "I'm pleased with my new underwear."
     }
    },
@@ -23229,7 +23565,7 @@
    {
     "testo": "家内は海外旅行中で、よく電話をかけてくる。",
     "traduzione": {
-     "it": "My wife often rings me up, while she travels abroad.",
+     "it": "Mia moglie è in viaggio all'estero e mi chiama spesso.",
      "en": "My wife often rings me up, while she travels abroad."
     }
    },
@@ -23341,7 +23677,23 @@
    "en": [
     "cherry-blossom viewing"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お花見に行きませんか？",
+    "traduzione": {
+     "it": "Andiamo a vedere i ciliegi in fiore?",
+     "en": "Why don't we go and see the cherry blossoms?"
+    }
+   },
+   {
+    "testo": "花見ができる春が待ち遠しい。",
+    "traduzione": {
+     "it": "Non vedo l'ora che arrivi la primavera per l'hanami.",
+     "en": "I can't wait for spring to come so we can sit under the cherry trees."
+    }
+   }
+  ]
  },
  "課長": {
   "significato": {
@@ -23384,7 +23736,23 @@
     "to exceed",
     "to go beyond"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このスープは、しょっぱ過ぎて飲めないよ。",
+    "traduzione": {
+     "it": "Questa zuppa è troppo salata, non si beve.",
+     "en": "This soup is too salty to eat."
+    }
+   },
+   {
+    "testo": "今日もまた寂しい一日が過ぎる。",
+    "traduzione": {
+     "it": "Anche oggi passa un'altra giornata solitaria.",
+     "en": "Another lonely day."
+    }
+   }
+  ]
  },
  "会議": {
   "significato": {
@@ -23548,14 +23916,14 @@
    {
     "testo": "このイヤホンは壊れています。",
     "traduzione": {
-     "it": "These earphones don't work.",
+     "it": "Questi auricolari sono rotti.",
      "en": "These earphones don't work."
     }
    },
    {
     "testo": "あの壊れた花瓶は祖父のものです。",
     "traduzione": {
-     "it": "That broken vase is my grandfather's.",
+     "it": "Quel vaso rotto era di mio nonno.",
      "en": "That broken vase is my grandfather's."
     }
    },
@@ -23583,7 +23951,7 @@
    {
     "testo": "このバスは、海岸に行きますか。",
     "traduzione": {
-     "it": "Does this bus go to the beach?",
+     "it": "Questo autobus va alla spiaggia?",
      "en": "Does this bus go to the beach?"
     }
    },
@@ -23733,7 +24101,7 @@
    {
     "testo": "プラスチックは割れにくい。",
     "traduzione": {
-     "it": "Plastic does not break easily.",
+     "it": "La plastica non si rompe facilmente.",
      "en": "Plastic does not break easily."
     }
    },
@@ -23856,7 +24224,7 @@
    {
     "testo": "そのぬれたシャツはすぐに乾くだろう。",
     "traduzione": {
-     "it": "The wet shirt will soon dry up.",
+     "it": "Quella camicia bagnata si asciugherà presto.",
      "en": "The wet shirt will soon dry up."
     }
    },
@@ -23890,7 +24258,7 @@
    {
     "testo": "学生の時は勉強することになれていた。",
     "traduzione": {
-     "it": "I was used to studying when I was a student.",
+     "it": "Da studente ero abituato a studiare.",
      "en": "I was used to studying when I was a student."
     }
    },
@@ -23919,7 +24287,7 @@
    {
     "testo": "なぜ看護婦になりたいのですか。",
     "traduzione": {
-     "it": "Why do you want to be a nurse?",
+     "it": "Perché vuoi diventare infermiera?",
      "en": "Why do you want to be a nurse?"
     }
    },
@@ -23946,7 +24314,7 @@
    {
     "testo": "テニスをすることは私には簡単だ。",
     "traduzione": {
-     "it": "Playing tennis is easy for me.",
+     "it": "Giocare a tennis è facile per me.",
      "en": "Playing tennis is easy for me."
     }
    },
@@ -23969,7 +24337,23 @@
     "space",
     "interval"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "二人の間がしっくり行かない。",
+    "traduzione": {
+     "it": "Le cose tra loro due non vanno bene.",
+     "en": "They don't get along together."
+    }
+   },
+   {
+    "testo": "テニスは学生の間で大変人気がある。",
+    "traduzione": {
+     "it": "Il tennis è molto popolare tra gli studenti.",
+     "en": "Tennis is very popular among students."
+    }
+   }
+  ]
  },
  "間違える": {
   "significato": {
@@ -24013,7 +24397,7 @@
    {
     "testo": "これとあれはどういう関係があるの。",
     "traduzione": {
-     "it": "How is this connected to that?",
+     "it": "Che relazione c'è tra questo e quello?",
      "en": "How is this connected to that?"
     }
    },
@@ -24042,7 +24426,7 @@
    {
     "testo": "いや、頑張ればできるよ。",
     "traduzione": {
-     "it": "Yes, he can, if he tries hard.",
+     "it": "No, se ti impegni ce la puoi fare.",
      "en": "Yes, he can, if he tries hard."
     }
    },
@@ -24097,7 +24481,23 @@
     "to be delighted",
     "to be glad"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "喜んで質問に答えましょう。",
+    "traduzione": {
+     "it": "Risponderò volentieri alle domande.",
+     "en": "I'll be happy to answer your question."
+    }
+   },
+   {
+    "testo": "彼らは良い知らせを聞いて喜んだ。",
+    "traduzione": {
+     "it": "Sono stati felici di sentire la buona notizia.",
+     "en": "They were delighted at the good news."
+    }
+   }
+  ]
  },
  "寄る": {
   "significato": {
@@ -24113,7 +24513,7 @@
    {
     "testo": "ちょっと寄って行きませんか。",
     "traduzione": {
-     "it": "Won't you come in for a moment?",
+     "it": "Non ti fermi un attimo da noi?",
      "en": "Won't you come in for a moment?"
     }
    },
@@ -24141,7 +24541,7 @@
    {
     "testo": "またの機会にしましょう。",
     "traduzione": {
-     "it": "Let's make it some other time.",
+     "it": "Rimandiamo a un'altra occasione.",
      "en": "Let's make it some other time."
     }
    },
@@ -24260,7 +24660,7 @@
    {
     "testo": "とても気分がリフレッシュされる。",
     "traduzione": {
-     "it": "I feel like a brand new person.",
+     "it": "Mi sento molto rigenerato.",
      "en": "I feel like a brand new person."
     }
    },
@@ -24288,6 +24688,22 @@
   },
   "correlati": [
    "電車"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "汽車はまだ着きません。",
+    "traduzione": {
+     "it": "Il treno non è ancora arrivato.",
+     "en": "The train has not arrived yet."
+    }
+   },
+   {
+    "testo": "直してある古い汽車に乗ることも出来ます。",
+    "traduzione": {
+     "it": "Si può anche salire su un vecchio treno restaurato.",
+     "en": "You can also ride on an old, restored, steam train."
+    }
+   }
   ]
  },
  "祈る": {
@@ -24305,7 +24721,7 @@
    {
     "testo": "早くよくなられるように祈っています。",
     "traduzione": {
-     "it": "I hope you'll get well soon.",
+     "it": "Prego che tu guarisca presto.",
      "en": "I hope you'll get well soon."
     }
    },
@@ -24446,7 +24862,23 @@
     "guest",
     "customer"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "春先だから客もあまりいませんでした。",
+    "traduzione": {
+     "it": "Essendo inizio primavera, non c'erano molti clienti.",
+     "en": "It was early spring, so there weren't many customers."
+    }
+   },
+   {
+    "testo": "夕食にお客を招いていますか。",
+    "traduzione": {
+     "it": "Hai invitato ospiti a cena?",
+     "en": "Do you have guests for dinner?"
+    }
+   }
+  ]
  },
  "久しぶり": {
   "significato": {
@@ -24660,7 +25092,7 @@
    {
     "testo": "その教会は１１７３年までさかのぼる。",
     "traduzione": {
-     "it": "The church dates back to 1173.",
+     "it": "Quella chiesa risale al 1173.",
      "en": "The church dates back to 1173."
     }
    },
@@ -24686,7 +25118,7 @@
    {
     "testo": "あなたは花に興味がありますか。",
     "traduzione": {
-     "it": "Are you interested in flowers?",
+     "it": "Sei interessato ai fiori?",
      "en": "Are you interested in flowers?"
     }
    },
@@ -24712,7 +25144,7 @@
    {
     "testo": "海は鏡のようになめらかだった。",
     "traduzione": {
-     "it": "The sea was as smooth as glass.",
+     "it": "Il mare era liscio come uno specchio.",
      "en": "The sea was as smooth as glass."
     }
    },
@@ -24822,7 +25254,7 @@
    {
     "testo": "時計の具合が悪い。",
     "traduzione": {
-     "it": "Something is the matter with my watch.",
+     "it": "L'orologio non funziona bene.",
      "en": "Something is the matter with my watch."
     }
    },
@@ -24937,7 +25369,7 @@
    {
     "testo": "どの空港から出発しますか。",
     "traduzione": {
-     "it": "Which airport do I leave from?",
+     "it": "Da quale aeroporto parti?",
      "en": "Which airport do I leave from?"
     }
    },
@@ -25072,7 +25504,7 @@
    {
     "testo": "この仕事では経験がものを言う。",
     "traduzione": {
-     "it": "Experience counts in this job.",
+     "it": "In questo lavoro conta l'esperienza.",
      "en": "Experience counts in this job."
     }
    },
@@ -25100,7 +25532,7 @@
    {
     "testo": "アメリカはサービス経済の国だ。",
     "traduzione": {
-     "it": "The U.S. is a service economy.",
+     "it": "L'America è un paese con un'economia di servizi.",
      "en": "The U.S. is a service economy."
     }
    },
@@ -25191,6 +25623,22 @@
   },
   "correlati": [
    "送る"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "６時にホテルに車で迎えて下さい。",
+    "traduzione": {
+     "it": "Venga a prendermi in auto in hotel alle 6.",
+     "en": "Please pick me up at the hotel at six o'clock."
+    }
+   },
+   {
+    "testo": "よいお年をお迎えください。",
+    "traduzione": {
+     "it": "Le auguro un felice anno nuovo.",
+     "en": "I wish you a Happy New Year."
+    }
+   }
   ]
  },
  "決して": {
@@ -25206,7 +25654,7 @@
    {
     "testo": "アンディはけっしてデートにおくれたことはない。",
     "traduzione": {
-     "it": "Andy is never late for a date.",
+     "it": "Andy non ha mai fatto tardi a un appuntamento.",
      "en": "Andy is never late for a date."
     }
    },
@@ -25238,7 +25686,7 @@
    {
     "testo": "いつ始めるのかはまだ決まっていない。",
     "traduzione": {
-     "it": "It is still undecided when we will begin.",
+     "it": "Non è ancora stabilito quando si comincerà.",
      "en": "It is still undecided when we will begin."
     }
    },
@@ -25272,7 +25720,7 @@
    {
     "testo": "そこに行くことに決めた。",
     "traduzione": {
-     "it": "I made up my mind to go there.",
+     "it": "Ho deciso di andarci.",
      "en": "I made up my mind to go there."
     }
    },
@@ -25300,7 +25748,23 @@
    "en": [
     "blood"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちは血がつながっている。",
+    "traduzione": {
+     "it": "Siamo legati da vincoli di sangue.",
+     "en": "We are related by blood."
+    }
+   },
+   {
+    "testo": "ナイフは血に塗れていた。",
+    "traduzione": {
+     "it": "Il coltello era macchiato di sangue.",
+     "en": "The knife was covered in blood."
+    }
+   }
+  ]
  },
  "月": {
   "significato": {
@@ -25555,7 +26019,7 @@
    {
     "testo": "運悪く仕事が見つからなかった。",
     "traduzione": {
-     "it": "He had no luck in finding work.",
+     "it": "Sfortunatamente non ho trovato lavoro.",
      "en": "He had no luck in finding work."
     }
    },
@@ -29466,7 +29930,7 @@
    {
     "testo": "あなたの家族はきっと親切でしょう。",
     "traduzione": {
-     "it": "Your family must be very nice.",
+     "it": "La tua famiglia sarà sicuramente gentile.",
      "en": "Your family must be very nice."
     }
    },
@@ -31464,7 +31928,7 @@
    {
     "testo": "アンディはけっしてデートにおくれたことはない。",
     "traduzione": {
-     "it": "Andy is never late for a date.",
+     "it": "Andy non ha mai fatto tardi a un appuntamento.",
      "en": "Andy is never late for a date."
     }
    },
@@ -37400,7 +37864,7 @@
    {
     "testo": "雨ですよ。気をつけて。",
     "traduzione": {
-     "it": "Piove, stai attento.",
+     "it": "Sta piovendo. Attento.",
      "en": "Piove, stai attento."
     }
    },
@@ -37807,15 +38271,15 @@
    {
     "testo": "この仕事では経験がものを言う。",
     "traduzione": {
-     "it": "Experience counts in this job.",
+     "it": "In questo lavoro conta l'esperienza.",
      "en": "Experience counts in this job."
     }
    },
    {
-    "testo": "初めて 地震を 経験しました。",
+    "testo": "外国で 働いた 経験が あります。",
     "traduzione": {
-     "it": "Ho vissuto un terremoto per la prima volta.",
-     "en": "I experienced an earthquake for the first time."
+     "it": "Ho esperienza di lavoro all'estero.",
+     "en": "I have experience working abroad."
     }
    }
   ]
@@ -37915,15 +38379,15 @@
    {
     "testo": "これとあれはどういう関係があるの。",
     "traduzione": {
-     "it": "How is this connected to that?",
+     "it": "Che relazione c'è tra questo e quello?",
      "en": "How is this connected to that?"
     }
    },
    {
-    "testo": "この 問題は みんなに 関係します。",
+    "testo": "二人は 仕事の 関係で 知り合いました。",
     "traduzione": {
-     "it": "Questo problema riguarda tutti.",
-     "en": "This problem concerns everyone."
+     "it": "I due si sono conosciuti per motivi di lavoro.",
+     "en": "The two met through work."
     }
    }
   ]
@@ -38240,7 +38704,7 @@
    {
     "testo": "グレイ先生は仕事を楽しんでいませんでした。",
     "traduzione": {
-     "it": "Mr Grey did not enjoy his job.",
+     "it": "Il professor Gray non si godeva il lavoro.",
      "en": "Mr Grey did not enjoy his job."
     }
    },
@@ -38749,6 +39213,24 @@
     "traduzione": {
      "it": "Devi gestire bene i fondi.",
      "en": "You must employ your capital well."
+    }
+   }
+  ]
+ },
+ "花見する": {
+  "frasi_esempio": [
+   {
+    "testo": "お花見に行きませんか？",
+    "traduzione": {
+     "it": "Andiamo a vedere i ciliegi in fiore?",
+     "en": "Why don't we go and see the cherry blossoms?"
+    }
+   },
+   {
+    "testo": "花見ができる春が待ち遠しい。",
+    "traduzione": {
+     "it": "Non vedo l'ora che arrivi la primavera per l'hanami.",
+     "en": "I can't wait for spring to come so we can sit under the cherry trees."
     }
    }
   ]
