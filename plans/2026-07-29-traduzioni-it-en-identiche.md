@@ -33,10 +33,10 @@ rompere i test sull'IT non vuoto).
 - 3 casi di forma numerica sbagliata (１人/９日/５日 in cifre invece che nel kanji
   del contatore testato: 一人/九日/五日).
 
-## Stato: 401 frasi ancora da tradurre (lotti 1-2 fatti il 30/07: 66+62+61 fix)
+## Stato: 340 frasi ancora da tradurre (lotti 1-3 fatti il 30/07)
 
-- N4: 200
-- N5: 199
+- N4: 170
+- N5: 168
 - EXTRA: 2
 
 ## Come si sistema
@@ -51,66 +51,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 
 ## Lista completa (id — livello — giapponese — «traduzione da correggere»)
 
-- `後` (N5) — 少女たちのうち一人が後に残された。 — «One of the girls was left behind.»
-- `御飯` (N5) — ご飯とパンどちらがいいですか。 — «Which do you prefer, rice or bread?»
-- `御飯` (N5) — 友達にご飯をおごってもらった。 — «My friends treated me to a meal.»
-- `交差点` (N5) — あの交差点で何が起こったのか。 — «What happened at that crossing?»
-- `光` (N4) — 光が世にやって来た。 — «Light has come into the world.»
-- `公園` (N5) — この公園はすべての人に公開されている。 — «The park is open to everybody.»
-- `口` (N5) — あの仕事の口はまだあるよ。 — «The job offer still stands.»
-- `口` (N5) — 瓶の口までいっぱいに入れて空気が入らないようにしなさい。 — «Fill the bottle to the top so as to exclude all air.»
-- `向こう` (N5) — その男の子は向こうにいます。 — «The boy is over there.»
-- `向こう` (N5) — 向こうの思う壷だぞ。 — «You will play into their hands.»
-- `喉` (N4) — 今日起きたら喉がいがらっぽかったです。 — «When I got up today, my throat felt a little sore.»
-- `好き` (N5) — 「ケーキはお好きですか」「はい、好きです」 — «"Do you like cake?" "Yes, I do."»
-- `好き` (N5) — 実を言うと、私は彼が好きでないのです。 — «To tell you the truth, I don't love him.»
-- `考える` (N4) — あなたは家族の事を考えるべきです。 — «You must think of your family.»
-- `考える` (N4) — それほど多くの人々のための料理の献立を考えるのはむずかしい。 — «It is difficult planning meals for so many people.»
-- `行く` (N5) — その音はだんだん小さくなっていった。 — «The sound grew fainter and fainter.»
-- `行く` (N5) — あなたのおかげで仕事がうまく行きました。 — «Thanks to you, the job went well.»
-- `講義` (N4) — その講義へ来た人はほとんどいなかった。 — «Few people came to the lecture.»
-- `講義する` (N4) — その講義へ来た人はほとんどいなかった。 — «Few people came to the lecture.»
-- `郊外` (N4) — 私は東京の郊外に住んでいる。 — «I live on the outskirts of Tokyo.»
-- `降りる` (N5) — ここで降りましょう。 — «Let's get off here.»
-- `降りる` (N5) — 今朝は露が降りた。 — «The dew fell this morning.»
-- `降る` (N5) — シカゴのあたりでは雨が降っていました。 — «It was raining around Chicago.»
-- `合う` (N4) — この白いコートはあなたによく合うでしょう。 — «This white coat will look very nice on you.»
-- `合う` (N4) — このチョッキは前が合わない。 — «This waistcoat won't meet at the front.»
-- `黒い` (N5) — ナンシーはヘレンよりもほんのすこし色が黒い。 — «Nancy is a shade darker than Helen.»
-- `黒い` (N5) — 州知事は黒い金に手をつけました。 — «The governor took the money out of a slush fund.»
-- `今月` (N5) — 今月の売り上げはよくない。 — «Sales have been off this month.»
-- `今週` (N5) — 今週はどちらにいらしゃいましたか。 — «Where have you been this week?»
-- `今度` (N4) — 今度の土曜日、テニスをしませんか。 — «How about playing tennis next Saturday?»
-- `今度` (N4) — 今度だけは遅刻を大目に見てやろう。 — «I will overlook your lateness this time.»
-- `今日` (N5) — 今日は何をしたいですか。 — «What would you like to do today?»
-- `今日` (N5) — その事故は去年の今日、起きたのだ。 — «The accident happened a year ago today.»
-- `今夜` (N4) — 今夜、パーティーを開きます。 — «We're giving a party tonight.»
-- `差し上げる` (N4) — 飲み物を差し上げましょうか。 — «May I offer you a drink?»
-- `差し上げる` (N4) — 彼はトロフィーを高々と差し上げた。 — «He held the trophy up high.»
-- `砂` (N4) — 後ろ足で砂をかけるようなことをした。 — «He raised his heel against me.»
-- `再来月` (N4) — 再来月は１２月だ。 — «The month after next is December.»
-- `再来週` (N4) — 再来週の木曜日はどう？ — «How about two weeks from Thursday?»
-- `最も` (N4) — ケンは三人のなかでもっとも速く走ります。 — «Ken runs fastest of the three.»
-- `最初` (N4) — その考えは最初のうちはばかげているように思えた。 — «The idea seemed absurd at first.»
-- `済む` (N4) — １０時ちょっと前に仕事が済んだ。 — «We got through the work just before ten.»
-- `在る` (N5) — 悪いけどほかに用事があるの。 — «I'm sorry, I have another engagement.»
-- `咲く` (N5) — これらの花は春に咲く。 — «These flowers bloom in spring.»
-- `撮る` (N5) — これは私の妹を撮った写真です。 — «This is a picture of my sister.»
-- `雑誌` (N5) — その雑誌はどこで買えますか。 — «Where can I buy that magazine?»
-- `三日` (N5) — １０月３日です。 — «It's the third of October.»
-- `三日` (N5) — 彼女には３日前に会ったよ。 — «I met her three days ago.»
-- `参る` (N4) — ２、３分したらそちらにまいります。 — «I'll be with you in a few minutes.»
-- `参る` (N4) — ジョーはその女の子にすっかり参っている。 — «Joe's nuts about the girl.»
-- `産業` (N4) — 日本は産業国である。 — «Japan is an industrial country.»
-- `残る` (N4) — もう３ページ残っている。 — «I have three more pages to go.»
-- `仕方` (N4) — あなたはチェスの仕方を知っていますか。 — «Do you know how to play chess?»
-- `仕方がない` (N4) — 雨か。仕方がないね。 — «Piove, eh. Pazienza.»
-- `伺う` (N4) — 体重をおうかがいしてもよろしいですか。 — «May I ask you what your weight is?»
-- `伺う` (N4) — 病気のため本日はうかがうことができませんでした。 — «On account of illness, I couldn't call on you today.»
-- `四日` (N5) — 長くても４日しか待てませんよ。 — «I can wait four days at the longest.»
-- `四日` (N5) — ７月４日はアメリカでは記念すべき日だ。 — «July 4th is a red-letter day in America.»
-- `始める` (N4) — いつゴルフを始めたのですか。 — «When did you begin playing golf?»
-- `始める` (N4) — 私たちは姉妹３人で喫茶店を始めた。 — «We three sisters opened a coffee shop.»
 - `姉` (N5) — 姉は私のズボンにアイロンをかけてくれる。 — «My sister presses my trousers.»
 - `子供` (N5) — あなたには何人子供がいますか。 — «How many children do you have?»
 - `思い出す` (N4) — あなたを見るとお兄さんを思い出します。 — «You remind me of your brother.»
@@ -418,7 +358,6 @@ frase contenga davvero la parola stessa (non un sinonimo/variante/cifra sbagliat
 - `野菜` (N5) — その店は野菜を売っている。 — «The store deals in vegetables.»
 - `役に立つ` (N4) — それ以上はお役に立てません。 — «Beyond that I cannot help you.»
 - `訳` (N4) — そういうわけで私はこんなに早く帰って来たのです。 — «That's why I came back so soon.»
-- `有る` (N5) — 悪いけどほかに用事があるの。 — «I'm sorry, I have another engagement.»
 - `遊び` (N4) — 今度の旅行は仕事じゃなくて遊びです。 — «Our next trip is for pleasure, not for work.»
 - `郵便局` (N5) — あの〜郵便局はどちらでしょうか。 — «Uh..., where's the post office?»
 - `夕方` (N5) — ひょっとすると夕方前に雨になるかもしれない。 — «It might rain before evening.»
