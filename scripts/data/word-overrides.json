@@ -67743,7 +67743,8 @@
      "en": "He's not a very meticulous guy."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "性質": {
   "significato": {
@@ -67765,7 +67766,8 @@
      "en": "He is obstinate in disposition."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "成功": {
   "significato": {
@@ -67792,7 +67794,8 @@
      "en": "Success in life is not necessarily the same thing as the acquirement of riches."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "成人": {
   "significato": {
@@ -67984,7 +67987,8 @@
      "en": "We usually have lunch at noon."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "正式": {
   "significato": {
@@ -68108,6 +68112,10 @@
      "en": "Death is the antithesis of life."
     }
    }
+  ],
+  "sinonimi": [
+   "生まれ",
+   "誕生"
   ]
  },
  "生::なま": {
@@ -68545,7 +68553,8 @@
      "en": "It is the particular environment that has shaped the Japanese mentality."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "声明": {
   "significato": {
@@ -68628,6 +68637,9 @@
      "en": "Mr Smith sued them for damages."
     }
    }
+  ],
+  "sinonimi": [
+   "要求"
   ]
  },
  "青年": {
@@ -68648,7 +68660,8 @@
      "en": "That long-haired youth is rude."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "税": {
   "significato": {
@@ -68728,7 +68741,8 @@
      "en": "Oil is scarce in this country."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "積む": {
   "significato": {
@@ -68923,7 +68937,8 @@
      "en": "I wish I could get back the tone and nimbleness I once had."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "切れる": {
   "significato": {
@@ -68952,6 +68967,9 @@
      "en": "These scissors don't cut well."
     }
    }
+  ],
+  "sinonimi": [
+   "断つ"
   ]
  },
  "接ぐ": {
@@ -69002,6 +69020,11 @@
      "en": "I had it made after my own plan."
     }
    }
+  ],
+  "sinonimi": [
+   "プラン",
+   "計画",
+   "案"
   ]
  },
  "設備": {
@@ -69046,6 +69069,9 @@
      "en": "He seems to hold people from Kakogawa in contempt."
     }
    }
+  ],
+  "sinonimi": [
+   "調子"
   ]
  },
  "節::せつ": {
@@ -69076,7 +69102,8 @@
      "en": "We'll sing that song, omitting the last two verses."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "節約": {
   "significato": {
@@ -69256,7 +69283,8 @@
      "en": "Once you get the taste for gambling, it's hard to give it up."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "宣伝": {
   "significato": {
@@ -69296,7 +69324,8 @@
      "en": "I am going to major in French."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "戦い": {
   "significato": {
@@ -69357,7 +69386,8 @@
      "en": "The fountain sends hot water to a height of 170 feet."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "洗剤": {
   "significato": {
@@ -69517,7 +69547,8 @@
   ],
   "contrari": [
    "後者"
-  ]
+  ],
+  "sinonimi": []
  },
  "前進": {
   "significato": {
@@ -69559,7 +69590,8 @@
      "en": "Competition is neither good nor evil in itself."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "全": {
   "significato": {
@@ -69588,6 +69620,10 @@
      "en": "The dictionary comes in two volumes."
     }
    }
+  ],
+  "sinonimi": [
+   "全部",
+   "全て"
   ]
  },
  "全く": {
@@ -69636,6 +69672,10 @@
      "en": "All men are equal."
     }
    }
+  ],
+  "sinonimi": [
+   "全",
+   "全部"
   ]
  },
  "全員": {
@@ -69676,7 +69716,8 @@
      "en": "The news report spread all over the country."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "全身": {
   "significato": {
@@ -70170,7 +70211,8 @@
      "en": "A jet airliner does not admit of careless handling."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "巣": {
   "significato": {
@@ -70897,7 +70939,8 @@
      "en": "She should listen more to other people."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "多少": {
   "significato": {
@@ -70942,7 +70985,8 @@
      "en": "The marigold rises with the sun."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "打つ::ぶつ": {
   "significato": {
@@ -71085,7 +71129,8 @@
     "to confront",
     "to oppose"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "対照": {
   "significato": {
@@ -71129,7 +71174,8 @@
      "en": "This history book is written for high school students."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "帯": {
   "significato": {
@@ -71529,7 +71575,8 @@
      "en": "Large or small?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "大いに": {
   "significato": {
@@ -71820,6 +71867,10 @@
      "en": "The teacher assigned us ten problems for homework."
     }
    }
+  ],
+  "sinonimi": [
+   "タイトル",
+   "題名"
   ]
  },
  "題名": {
@@ -71917,6 +71968,9 @@
      "en": "A stranger beat urgently at the front door."
     }
    }
+  ],
+  "sinonimi": [
+   "殴る"
   ]
  },
  "達する": {
@@ -72048,7 +72102,8 @@
      "en": "How many credits is this course?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "単語": {
   "significato": {
@@ -72201,7 +72256,10 @@
     "to sever",
     "to cut off"
    ]
-  }
+  },
+  "sinonimi": [
+   "切れる"
+  ]
  },
  "断る": {
   "significato": {
@@ -72268,6 +72326,9 @@
      "en": "I warmed up the room."
     }
    }
+  ],
+  "sinonimi": [
+   "温める"
   ]
  },
  "段": {
@@ -72335,7 +72396,8 @@
      "en": "Obviously that's different for men and women."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "値": {
   "significato": {
@@ -72383,6 +72445,9 @@
      "en": "I am very pleased at the news."
     }
    }
+  ],
+  "sinonimi": [
+   "掲示"
   ]
  },
  "知恵": {
@@ -72663,6 +72728,13 @@
      "en": "It seems the rural area will be developed on a large scale."
     }
    }
+  ],
+  "sinonimi": [
+   "地域",
+   "辺"
+  ],
+  "contrari": [
+   "中央"
   ]
  },
  "地味": {
@@ -72685,7 +72757,8 @@
      "en": "She favors quiet colors."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "遅れ": {
   "significato": {
@@ -72771,6 +72844,9 @@
      "en": "Tea is widely grown in India."
     }
    }
+  ],
+  "sinonimi": [
+   "お茶"
   ]
  },
  "着ける": {
@@ -72828,7 +72904,8 @@
      "en": "He got sick during the trip."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "中央": {
   "significato": {
@@ -72849,6 +72926,12 @@
      "en": "We sat in the center of the room."
     }
    }
+  ],
+  "sinonimi": [
+   "真中"
+  ],
+  "contrari": [
+   "地方"
   ]
  },
  "中学": {
@@ -72869,6 +72952,9 @@
      "en": "In junior high and high schools, they say insidious forms of bullying are on the rise."
     }
    }
+  ],
+  "sinonimi": [
+   "中学校"
   ]
  },
  "中古": {
@@ -72998,7 +73084,8 @@
      "en": "I am on visiting terms with him."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "仲間": {
   "significato": {
@@ -73021,7 +73108,8 @@
      "en": "Mr. Tanaka is one of my father's fishing companions."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "昼食": {
   "significato": {
@@ -73136,7 +73224,8 @@
      "en": "I've ordered you some dessert."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "注目": {
   "significato": {
@@ -73157,7 +73246,8 @@
      "en": "Please give me your attention."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "虫歯": {
   "significato": {
@@ -73298,6 +73388,9 @@
      "en": "I'd like a room with a good view."
     }
    }
+  ],
+  "sinonimi": [
+   "光景"
   ]
  },
  "眺める": {
@@ -73362,6 +73455,11 @@
      "en": "Is your new car behaving well?"
     }
    }
+  ],
+  "sinonimi": [
+   "具合",
+   "状態",
+   "節::ふし"
   ]
  },
  "超える": {
@@ -73383,6 +73481,11 @@
      "en": "To exceed the budget."
     }
    }
+  ],
+  "sinonimi": [
+   "越える",
+   "過ぎる",
+   "超す"
   ]
  },
  "超す": {
@@ -73404,6 +73507,10 @@
      "en": "There were more applications than the capacity."
     }
    }
+  ],
+  "sinonimi": [
+   "越える",
+   "超える"
   ]
  },
  "長期": {
@@ -88276,7 +88383,8 @@
      "en": "Success in life is not necessarily the same thing as the acquirement of riches."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "成長する": {
   "frasi_esempio": [
@@ -88342,6 +88450,9 @@
      "en": "Mr Smith sued them for damages."
     }
    }
+  ],
+  "sinonimi": [
+   "要求する"
   ]
  },
  "誕生する": {
@@ -88547,7 +88658,8 @@
      "en": "A jet airliner does not admit of careless handling."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "相続する": {
   "frasi_esempio": [
@@ -88799,7 +88911,8 @@
      "en": "I've ordered you some dessert."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "注目する": {
   "frasi_esempio": [
@@ -88810,7 +88923,8 @@
      "en": "Please give me your attention."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "駐車する": {
   "frasi_esempio": [
