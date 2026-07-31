@@ -464,20 +464,27 @@ dedup con 'うんてん' di N3) spostati in `extra-words-n5n4.json` (curati a ma
 futuri cambiamenti upstream). Seed: 3950 parole (2492 N3, 736 N4, 713 N5, 9 EXTRA), 874 kanji,
 173 grammatica (invariata, nessuna fonte N3).
 
-**Curatela traduzioni IT in corso (31/07)**: stesso metodo del lotto N4/N5 (879 frasi, v83) —
-dizionario testo-per-testo dal giapponese (mai dall'inglese intermedio), scritto sia nel seed sia
-in `word-overrides.json`, verificato con `npx vitest run src/lib/data/overrides.test.ts` a ogni
-lotto, commit a ogni lotto (~110 parole ciascuno, SEED_REVISION bump v86→v91+).
-**Stato: 1052/2114 parole N3 tradotte** (significato.it), lotti 1-6 fatti. Prossimo passo:
-continuare i lotti fino a coprire tutte le ~2114 parole (interrogare
-`w.livello_jlpt==='N3' && JSON.stringify(w.significato.it)===JSON.stringify(w.significato.en)`
-sul seed per la lista rimanente — nota: alcuni loanword katakana risultano sempre "già uguali"
-anche se corretti, es. album/jeans/hotel, perché la traduzione italiana coincide col prestito
-inglese: non è un bug, sono già a posto). Dopo le parole restano da fare: frasi_esempio delle
-parole N3 (già `it:""` grazie al fix pipeline, in attesa di traduzione dal giapponese) e la
-curatela di sinonimi/contrari/omofoni/correlati (l'euristica automatica di `enrichWordRelations`
-gira già e produce risultati plausibili ma non verificati da madrelingua — vedi
-[[sinonimi-contrari-strategia]], da fare "da insegnante" non euristicamente).
+**Curatela traduzioni IT parole — COMPLETATA (31/07)**: stesso metodo del lotto N4/N5 (879
+frasi, v83) — dizionario testo-per-testo dal giapponese (mai dall'inglese intermedio), scritto
+sia nel seed sia in `word-overrides.json`, verificato con
+`npx vitest run src/lib/data/overrides.test.ts` a ogni lotto, commit a ogni lotto (SEED_REVISION
+v86→v100). **Tutte le 2119 parole N3 tradotte** in 19 lotti (alcuni loanword katakana come
+album/jeans/hotel/Buddha restano "uguali" per coincidenza lecita — l'italiano È il prestito
+inglese, non un segnaposto dimenticato). check/build/vitest puliti a fine lavoro (588 test).
+
+**Prossimo passo (non iniziato): frasi_esempio delle parole N3.** 2870 frasi totali, **2820 con
+`traduzione.it` ancora vuoto** (verificato 31/07 — query:
+`w.livello_jlpt==='N3'` + `frasi_esempio[].traduzione.it === ""`). Il fallback UI
+(`pickLocalizedText`) mostra comunque l'inglese, quindi non è un buco visibile, ma va tradotto
+dal giapponese con lo stesso metodo (mai dall'inglese intermedio) — è un lavoro PIÙ GRANDE del
+lotto parole appena fatto (frase intera, non solo glossa). Stesso schema di batch: query sul seed,
+dizionario testo giapponese→traduzione, scrittura su seed + word-overrides.json (array
+`frasi_esempio` intero, sostituisce non fonde), verifica con overrides.test.ts, commit a lotti.
+
+**Dopo le frasi**: curatela di sinonimi/contrari/omofoni/correlati per le 2119 parole N3
+(l'euristica automatica di `enrichWordRelations` gira già in sync e produce risultati plausibili
+ma NON verificati da madrelingua — vedi [[sinonimi-contrari-strategia]]: va fatta "da insegnante"
+non euristicamente, com'è stato per N5/N4).
 
 ## Verifiche pendenti
 
