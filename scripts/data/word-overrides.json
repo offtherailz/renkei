@@ -162,7 +162,10 @@
    "en": [
     "marriage (get married)"
    ]
-  }
+  },
+  "correlati": [
+   "離婚"
+  ]
  },
  "結婚する": {
   "frasi_esempio": [
@@ -11566,7 +11569,8 @@
    }
   ],
   "correlati": [
-   "映画館"
+   "映画館",
+   "監督"
   ]
  },
  "英語": {
@@ -11925,7 +11929,8 @@
    }
   ],
   "correlati": [
-   "両親"
+   "両親",
+   "親戚"
   ]
  },
  "家庭": {
@@ -12848,7 +12853,8 @@
    "兄",
    "姉",
    "弟",
-   "妹"
+   "妹",
+   "姉妹"
   ]
  },
  "鶏肉": {
@@ -16296,6 +16302,9 @@
      "en": "How will the weather be tomorrow?"
     }
    }
+  ],
+  "correlati": [
+   "気候"
   ]
  },
  "店": {
@@ -16604,6 +16613,9 @@
      "en": "What animals do you like?"
     }
    }
+  ],
+  "correlati": [
+   "植物"
   ]
  },
  "同じ": {
@@ -19336,7 +19348,8 @@
    }
   ],
   "correlati": [
-   "学生"
+   "学生",
+   "留学"
   ]
  },
  "旅行": {
@@ -24531,6 +24544,9 @@
      "en": "The meeting was long and I got tired."
     }
    }
+  ],
+  "correlati": [
+   "会議室"
   ]
  },
  "会議室": {
@@ -24557,6 +24573,9 @@
      "en": "I'd like to use the meeting room from three."
     }
    }
+  ],
+  "correlati": [
+   "会議"
   ]
  },
  "会場": {
@@ -25513,6 +25532,9 @@
      "en": "The season changed and it became cool."
     }
    }
+  ],
+  "correlati": [
+   "四季"
   ]
  },
  "規則": {
@@ -26302,6 +26324,9 @@
      "en": "Economic news is difficult."
     }
    }
+  ],
+  "correlati": [
+   "景気"
   ]
  },
  "計画": {
@@ -26365,7 +26390,8 @@
   ],
   "correlati": [
    "警官",
-   "交番"
+   "交番",
+   "犯罪"
   ]
  },
  "迎える": {
@@ -30014,7 +30040,8 @@
   },
   "correlati": [
    "本",
-   "文学"
+   "文学",
+   "作家"
   ],
   "frasi_esempio": [
    {
@@ -31357,6 +31384,9 @@
      "en": "Young people should also take an interest in politics."
     }
    }
+  ],
+  "correlati": [
+   "政府"
   ]
  },
  "星": {
@@ -32504,6 +32534,9 @@
      "en": "We took graduation photos."
     }
    }
+  ],
+  "correlati": [
+   "入学"
   ]
  },
  "太る": {
@@ -34813,6 +34846,9 @@
      "en": "I got a watch to celebrate my school entrance."
     }
    }
+  ],
+  "correlati": [
+   "卒業"
   ]
  },
  "濡れる": {
@@ -35245,6 +35281,9 @@
   "sinonimi": [],
   "contrari": [
    "彼"
+  ],
+  "correlati": [
+   "恋人"
   ]
  },
  "悲しい": {
@@ -35916,6 +35955,9 @@
      "en": "While traveling, I encountered various cultures."
     }
    }
+  ],
+  "correlati": [
+   "伝統"
   ]
  },
  "文学": {
@@ -37166,6 +37208,9 @@
      "en": "Exports increased and the economy improved."
     }
    }
+  ],
+  "contrari": [
+   "輸入"
   ]
  },
  "輸入": {
@@ -37192,6 +37237,9 @@
      "en": "Imported fruit is cheap."
     }
    }
+  ],
+  "contrari": [
+   "輸出"
   ]
  },
  "優しい": {
@@ -47539,6 +47587,9 @@
      "en": "There is no limit to the universe."
     }
    }
+  ],
+  "correlati": [
+   "地球"
   ]
  },
  "羽": {
@@ -48144,6 +48195,9 @@
      "en": "Nothing could hinder Kate from using all her energy to polish her performances."
     }
    }
+  ],
+  "correlati": [
+   "俳優"
   ]
  },
  "演説": {
@@ -49672,6 +49726,9 @@
      "en": "The artist is eternally a boy."
     }
    }
+  ],
+  "correlati": [
+   "絵画"
   ]
  },
  "芽": {
@@ -50011,6 +50068,9 @@
      "en": "I found the picture interesting."
     }
    }
+  ],
+  "correlati": [
+   "画家"
   ]
  },
  "開始": {
@@ -51426,6 +51486,9 @@
      "en": "The Representative Director supervises Directors' performance of duties."
     }
    }
+  ],
+  "correlati": [
+   "映画"
   ]
  },
  "管::くだ": {
@@ -52451,6 +52514,9 @@
      "en": "That country has a mild climate."
     }
    }
+  ],
+  "correlati": [
+   "天気"
   ]
  },
  "気体": {
@@ -55536,6 +55602,9 @@
      "en": "Business is so slow these days."
     }
    }
+  ],
+  "correlati": [
+   "経済"
   ]
  },
  "経つ": {
@@ -58034,6 +58103,9 @@
      "en": "The factory manufactures toys."
     }
    }
+  ],
+  "correlati": [
+   "製造"
   ]
  },
  "幸い": {
@@ -60011,6 +60083,9 @@
      "en": "The writer is well known to us."
     }
    }
+  ],
+  "correlati": [
+   "小説"
   ]
  },
  "作業": {
@@ -60724,6 +60799,9 @@
      "en": "Spring is my favourite of the four seasons."
     }
    }
+  ],
+  "correlati": [
+   "季節"
   ]
  },
  "始まり": {
@@ -60763,6 +60841,9 @@
      "en": "Both his sisters are beautiful."
     }
    }
+  ],
+  "correlati": [
+   "兄弟"
   ]
  },
  "姿": {
@@ -63295,6 +63376,9 @@
      "en": "For a start, I visited Jerusalem - a sacred place for three major religions."
     }
    }
+  ],
+  "correlati": [
+   "信仰"
   ]
  },
  "就く": {
@@ -65959,6 +66043,9 @@
      "en": "Plants are nourished by earth."
     }
    }
+  ],
+  "correlati": [
+   "動物"
   ]
  },
  "殖やす": {
@@ -66334,6 +66421,9 @@
      "en": "Do you believe in Christianity?"
     }
    }
+  ],
+  "correlati": [
+   "宗教"
   ]
  },
  "信用": {
@@ -66891,6 +66981,9 @@
      "en": "Kuniko is related to Mr Nagai."
     }
    }
+  ],
+  "correlati": [
+   "家族"
   ]
  },
  "親友": {
@@ -66911,6 +67004,9 @@
      "en": "Tom and Frank are good friends."
     }
    }
+  ],
+  "correlati": [
+   "友人"
   ]
  },
  "診る": {
@@ -68057,6 +68153,9 @@
      "en": "The government was overthrown."
     }
    }
+  ],
+  "correlati": [
+   "政治"
   ]
  },
  "整理": {
@@ -68751,6 +68850,9 @@
      "en": "The factory manufactures toys."
     }
    }
+  ],
+  "correlati": [
+   "工場::こうば"
   ]
  },
  "製品": {
@@ -69601,6 +69703,9 @@
      "en": "The prefectural governor got the upper hand in the July elections."
     }
    }
+  ],
+  "correlati": [
+   "投票"
   ]
  },
  "選考": {
@@ -71142,7 +71247,10 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "correlati": [
+   "地球"
+  ]
  },
  "打つ::ぶつ": {
   "significato": {
@@ -72825,6 +72933,10 @@
      "en": "Pollution is damaging our earth."
     }
    }
+  ],
+  "correlati": [
+   "宇宙",
+   "太陽"
   ]
  },
  "地区": {
@@ -74803,6 +74915,9 @@
      "en": "Old traditions are crumbling away."
     }
    }
+  ],
+  "correlati": [
+   "文化"
   ]
  },
  "田": {
@@ -74966,6 +75081,9 @@
   ],
   "contrari": [
    "田舎"
+  ],
+  "correlati": [
+   "都市"
   ]
  },
  "都市": {
@@ -74987,6 +75105,9 @@
      "en": "What is the area of this city?"
     }
    }
+  ],
+  "correlati": [
+   "都会"
   ]
  },
  "努力": {
@@ -75227,6 +75348,9 @@
      "en": "If I were twenty, I could vote."
     }
    }
+  ],
+  "correlati": [
+   "選挙"
   ]
  },
  "東洋": {
@@ -77218,6 +77342,9 @@
      "en": "He ought to have been an actor."
     }
    }
+  ],
+  "correlati": [
+   "演技"
   ]
  },
  "肺": {
@@ -77984,6 +78111,9 @@
      "en": "War is a crime against humanity."
     }
    }
+  ],
+  "correlati": [
+   "警察"
   ]
  },
  "犯人": {
@@ -83464,6 +83594,9 @@
      "en": "A friend of mine came to see me."
     }
    }
+  ],
+  "correlati": [
+   "親友"
   ]
  },
  "有機": {
@@ -84499,6 +84632,9 @@
      "en": "I will consent to the divorce."
     }
    }
+  ],
+  "correlati": [
+   "結婚"
   ]
  },
  "陸": {
@@ -84817,6 +84953,9 @@
      "en": "I will study abroad on my own."
     }
    }
+  ],
+  "correlati": [
+   "留学生"
   ]
  },
  "旅": {
@@ -85357,6 +85496,9 @@
      "en": "I call my sweetheart darling."
     }
    }
+  ],
+  "correlati": [
+   "彼女"
   ]
  },
  "連れ": {
