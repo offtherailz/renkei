@@ -49109,7 +49109,8 @@
      "en": "I saw some poor cats kicked out."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "可愛らしい": {
   "significato": {
@@ -49130,7 +49131,8 @@
      "en": "My brother gave me a cute doll."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "可能": {
   "significato": {
@@ -49258,6 +49260,9 @@
      "en": "Which subject do you like best?"
     }
    }
+  ],
+  "sinonimi": [
+   "課程"
   ]
  },
  "歌手": {
@@ -49398,7 +49403,8 @@
      "en": "Let's start with Lesson Ten."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "課題": {
   "significato": {
@@ -49427,6 +49433,9 @@
      "en": "The student concentrated on his subject."
     }
    }
+  ],
+  "sinonimi": [
+   "題"
   ]
  },
  "課程": {
@@ -49475,6 +49484,9 @@
      "en": "Did you have a nice Christmas?"
     }
    }
+  ],
+  "sinonimi": [
+   "経る"
   ]
  },
  "過去": {
@@ -49681,6 +49693,9 @@
      "en": "This is a very important meeting."
     }
    }
+  ],
+  "sinonimi": [
+   "出会い"
   ]
  },
  "解く": {
@@ -49760,7 +49775,8 @@
      "en": "The problem is not settled yet."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "解釈": {
   "significato": {
@@ -49823,7 +49839,8 @@
      "en": "This is a very nice fireplace."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "悔しい": {
   "significato": {
@@ -49968,7 +49985,8 @@
      "en": "What I have in my hand is a fossil seashell."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "外す": {
   "significato": {
@@ -50189,7 +50207,8 @@
      "en": "The drinks were served in coconut shells."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "確かめる": {
   "significato": {
@@ -50278,7 +50297,8 @@
      "en": "I went for a walk to try to sober up."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "覚める": {
   "significato": {
@@ -50358,7 +50378,8 @@
      "en": "The sum of all the angles in a triangle equals 180 degrees."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "革": {
   "significato": {
@@ -50478,6 +50499,11 @@
      "en": "I don't think this is a good approach to biology."
     }
    }
+  ],
+  "sinonimi": [
+   "研究",
+   "勉強",
+   "学問"
   ]
  },
  "学問": {
@@ -50507,6 +50533,9 @@
      "en": "A little learning is a dangerous thing."
     }
    }
+  ],
+  "sinonimi": [
+   "学習"
   ]
  },
  "学歴": {
@@ -50863,6 +50892,9 @@
      "en": "I recommended he study abroad."
     }
    }
+  ],
+  "sinonimi": [
+   "誘う"
   ]
  },
  "巻く": {
@@ -51370,7 +51402,8 @@
      "en": "I entrusted my property to him."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "缶": {
   "significato": {
@@ -51665,7 +51698,8 @@
      "en": "They drew the boat on the beach."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "癌": {
   "significato": {
@@ -51783,7 +51817,8 @@
      "en": "That company is growing rapidly."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "喜び": {
   "significato": {
@@ -52192,7 +52227,8 @@
      "en": "He is chary of offending people."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "機構": {
   "significato": {
@@ -52380,7 +52416,8 @@
      "en": "He noticed the mistake."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "気味": {
   "significato": {
@@ -52773,7 +52810,8 @@
      "en": "The member of the Diet brought in a bill on political contribution, but it didn't pass."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "議会": {
   "significato": {
@@ -52795,6 +52833,9 @@
      "en": "The argument ended in a fight."
     }
    }
+  ],
+  "sinonimi": [
+   "国会"
   ]
  },
  "議長": {
@@ -53199,6 +53240,10 @@
      "en": "He immigrated to Brazil in search of a better life."
     }
    }
+  ],
+  "sinonimi": [
+   "頼む",
+   "探す"
   ]
  },
  "汲む": {
@@ -53221,6 +53266,9 @@
      "en": "He fetched some water from the well."
     }
    }
+  ],
+  "sinonimi": [
+   "酌む"
   ]
  },
  "球::きゅう": {
@@ -53346,7 +53394,8 @@
      "en": "My father has a ranch and breeds cattle and horses."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "去る": {
   "significato": {
@@ -86319,7 +86368,8 @@
      "en": "I entrusted my property to him."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "観光する": {
   "frasi_esempio": [
