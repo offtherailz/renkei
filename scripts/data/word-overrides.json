@@ -52570,5 +52570,1248 @@
     "cause"
    ]
   }
+ },
+ "種類": {
+  "significato": {
+   "it": [
+    "tipo",
+    "varietà"
+   ],
+   "en": [
+    "variety",
+    "kind"
+   ]
+  }
+ },
+ "酒": {
+  "significato": {
+   "it": [
+    "alcolici",
+    "sakè"
+   ],
+   "en": [
+    "alcohol",
+    "sake"
+   ]
+  }
+ },
+ "首相": {
+  "significato": {
+   "it": [
+    "primo ministro"
+   ],
+   "en": [
+    "Prime Minister"
+   ]
+  }
+ },
+ "首都": {
+  "significato": {
+   "it": [
+    "capitale"
+   ],
+   "en": [
+    "capital city"
+   ]
+  }
+ },
+ "受け取る": {
+  "significato": {
+   "it": [
+    "ricevere"
+   ],
+   "en": [
+    "to receive",
+    "to get",
+    "to accept"
+   ]
+  }
+ },
+ "需要": {
+  "significato": {
+   "it": [
+    "domanda (economia)"
+   ],
+   "en": [
+    "demand"
+   ]
+  }
+ },
+ "収める": {
+  "significato": {
+   "it": [
+    "riporre",
+    "conseguire"
+   ],
+   "en": [
+    "to store to pay",
+    "to supply"
+   ]
+  }
+ },
+ "収穫": {
+  "significato": {
+   "it": [
+    "raccolto"
+   ],
+   "en": [
+    "harvest",
+    "crop",
+    "ingathering"
+   ]
+  }
+ },
+ "収入": {
+  "significato": {
+   "it": [
+    "reddito"
+   ],
+   "en": [
+    "income",
+    "revenue"
+   ]
+  }
+ },
+ "周囲": {
+  "significato": {
+   "it": [
+    "dintorni",
+    "circonferenza"
+   ],
+   "en": [
+    "surroundings",
+    "circumference",
+    "environs"
+   ]
+  }
+ },
+ "宗教": {
+  "significato": {
+   "it": [
+    "religione"
+   ],
+   "en": [
+    "religion"
+   ]
+  }
+ },
+ "就く": {
+  "significato": {
+   "it": [
+    "assumere (una carica)",
+    "sedersi"
+   ],
+   "en": [
+    "to settle in (place)",
+    "to take (seat position)",
+    "to study (under teacher)"
+   ]
+  }
+ },
+ "就職": {
+  "significato": {
+   "it": [
+    "trovare lavoro"
+   ],
+   "en": [
+    "finding employment"
+   ]
+  }
+ },
+ "州": {
+  "significato": {
+   "it": [
+    "stato",
+    "provincia"
+   ],
+   "en": [
+    "state",
+    "province"
+   ]
+  }
+ },
+ "修飾": {
+  "significato": {
+   "it": [
+    "modifica (grammaticale)"
+   ],
+   "en": [
+    "ornamentation",
+    "modification (gram)"
+   ]
+  }
+ },
+ "修正": {
+  "significato": {
+   "it": [
+    "correzione"
+   ],
+   "en": [
+    "amendment",
+    "correction"
+   ]
+  }
+ },
+ "修理": {
+  "significato": {
+   "it": [
+    "riparazione"
+   ],
+   "en": [
+    "repairing",
+    "mending"
+   ]
+  }
+ },
+ "終える": {
+  "significato": {
+   "it": [
+    "finire"
+   ],
+   "en": [
+    "to finish"
+   ]
+  }
+ },
+ "臭い": {
+  "significato": {
+   "it": [
+    "puzzolente"
+   ],
+   "en": [
+    "stinky",
+    "smelly",
+    "bad-smelling"
+   ]
+  }
+ },
+ "衆": {
+  "significato": {
+   "it": [
+    "masse",
+    "popolo"
+   ],
+   "en": [
+    "masses",
+    "people"
+   ]
+  }
+ },
+ "蹴る": {
+  "significato": {
+   "it": [
+    "calciare"
+   ],
+   "en": [
+    "to kick"
+   ]
+  }
+ },
+ "週": {
+  "significato": {
+   "it": [
+    "settimana"
+   ],
+   "en": [
+    "week"
+   ]
+  }
+ },
+ "集まり": {
+  "significato": {
+   "it": [
+    "raduno"
+   ],
+   "en": [
+    "gathering",
+    "meeting",
+    "collection"
+   ]
+  }
+ },
+ "集団": {
+  "significato": {
+   "it": [
+    "gruppo"
+   ],
+   "en": [
+    "group",
+    "mass"
+   ]
+  }
+ },
+ "集中": {
+  "significato": {
+   "it": [
+    "concentrazione"
+   ],
+   "en": [
+    "concentration",
+    "focusing the mind"
+   ]
+  }
+ },
+ "住": {
+  "significato": {
+   "it": [
+    "abitazione"
+   ],
+   "en": [
+    "dwelling",
+    "living"
+   ]
+  }
+ },
+ "住宅": {
+  "significato": {
+   "it": [
+    "abitazione",
+    "casa"
+   ],
+   "en": [
+    "resident",
+    "housing"
+   ]
+  }
+ },
+ "住民": {
+  "significato": {
+   "it": [
+    "abitanti"
+   ],
+   "en": [
+    "inhabitants",
+    "residents"
+   ]
+  }
+ },
+ "従う": {
+  "significato": {
+   "it": [
+    "obbedire",
+    "seguire"
+   ],
+   "en": [
+    "to abide (by the rules)",
+    "to obey"
+   ]
+  }
+ },
+ "従兄弟": {
+  "significato": {
+   "it": [
+    "cugino"
+   ],
+   "en": [
+    "cousin (male)"
+   ]
+  }
+ },
+ "従姉妹": {
+  "significato": {
+   "it": [
+    "cugina"
+   ],
+   "en": [
+    "cousin (female)"
+   ]
+  }
+ },
+ "渋滞": {
+  "significato": {
+   "it": [
+    "ingorgo (traffico)"
+   ],
+   "en": [
+    "congestion (e.g., traffic)",
+    "delay"
+   ]
+  }
+ },
+ "重なる": {
+  "significato": {
+   "it": [
+    "sovrapporsi"
+   ],
+   "en": [
+    "to be piled up",
+    "lie on top of one another"
+   ]
+  }
+ },
+ "重ねる": {
+  "significato": {
+   "it": [
+    "sovrapporre",
+    "accumulare"
+   ],
+   "en": [
+    "to pile up",
+    "to put something on another",
+    "to heap up"
+   ]
+  }
+ },
+ "重視": {
+  "significato": {
+   "it": [
+    "importanza data a"
+   ],
+   "en": [
+    "importance",
+    "stress"
+   ]
+  }
+ },
+ "重体": {
+  "significato": {
+   "it": [
+    "condizioni gravi"
+   ],
+   "en": [
+    "seriously ill",
+    "critical state"
+   ]
+  }
+ },
+ "重大": {
+  "significato": {
+   "it": [
+    "grave",
+    "importante"
+   ],
+   "en": [
+    "serious",
+    "important"
+   ]
+  }
+ },
+ "重要": {
+  "significato": {
+   "it": [
+    "importante"
+   ],
+   "en": [
+    "important",
+    "essential"
+   ]
+  }
+ },
+ "銃": {
+  "significato": {
+   "it": [
+    "fucile",
+    "pistola"
+   ],
+   "en": [
+    "gun"
+   ]
+  }
+ },
+ "宿": {
+  "significato": {
+   "it": [
+    "locanda",
+    "alloggio"
+   ],
+   "en": [
+    "inn",
+    "lodging"
+   ]
+  }
+ },
+ "宿泊": {
+  "significato": {
+   "it": [
+    "pernottamento"
+   ],
+   "en": [
+    "lodging"
+   ]
+  }
+ },
+ "祝い": {
+  "significato": {
+   "it": [
+    "festeggiamento"
+   ],
+   "en": [
+    "celebration",
+    "festival"
+   ]
+  }
+ },
+ "祝う": {
+  "significato": {
+   "it": [
+    "festeggiare"
+   ],
+   "en": [
+    "to congratulate",
+    "to celebrate"
+   ]
+  }
+ },
+ "出": {
+  "significato": {
+   "it": [
+    "uscita",
+    "provenienza"
+   ],
+   "en": [
+    "outflow",
+    "coming (going) out",
+    "graduate (of)"
+   ]
+  }
+ },
+ "出会い": {
+  "significato": {
+   "it": [
+    "incontro"
+   ],
+   "en": [
+    "meeting",
+    "rendezvous",
+    "encounter"
+   ]
+  }
+ },
+ "出会う": {
+  "significato": {
+   "it": [
+    "incontrare (per caso)"
+   ],
+   "en": [
+    "to meet by chance",
+    "to come across",
+    "to happen to encounter"
+   ]
+  }
+ },
+ "出合い": {
+  "significato": {
+   "it": [
+    "incontro"
+   ],
+   "en": [
+    "an encounter"
+   ]
+  }
+ },
+ "出場": {
+  "significato": {
+   "it": [
+    "partecipazione (a una gara)"
+   ],
+   "en": [
+    "participation"
+   ]
+  }
+ },
+ "出身": {
+  "significato": {
+   "it": [
+    "provenienza"
+   ],
+   "en": [
+    "come from"
+   ]
+  }
+ },
+ "出版": {
+  "significato": {
+   "it": [
+    "pubblicazione"
+   ],
+   "en": [
+    "publication"
+   ]
+  }
+ },
+ "出来事": {
+  "significato": {
+   "it": [
+    "evento",
+    "avvenimento"
+   ],
+   "en": [
+    "incident happening",
+    "event"
+   ]
+  }
+ },
+ "述べる": {
+  "significato": {
+   "it": [
+    "esprimere",
+    "affermare"
+   ],
+   "en": [
+    "to state",
+    "to express",
+    "to mention"
+   ]
+  }
+ },
+ "瞬間": {
+  "significato": {
+   "it": [
+    "istante"
+   ],
+   "en": [
+    "moment",
+    "second"
+   ]
+  }
+ },
+ "盾": {
+  "significato": {
+   "it": [
+    "scudo"
+   ],
+   "en": [
+    "shield"
+   ]
+  }
+ },
+ "順": {
+  "significato": {
+   "it": [
+    "ordine",
+    "turno"
+   ],
+   "en": [
+    "order",
+    "turn"
+   ]
+  }
+ },
+ "順調": {
+  "significato": {
+   "it": [
+    "che procede bene"
+   ],
+   "en": [
+    "doing well"
+   ]
+  }
+ },
+ "順番": {
+  "significato": {
+   "it": [
+    "turno",
+    "ordine"
+   ],
+   "en": [
+    "turn (in line)",
+    "order of things"
+   ]
+  }
+ },
+ "処理": {
+  "significato": {
+   "it": [
+    "trattamento",
+    "elaborazione"
+   ],
+   "en": [
+    "processing",
+    "treatment",
+    "disposition"
+   ]
+  }
+ },
+ "所為": {
+  "significato": {
+   "it": [
+    "causa",
+    "colpa"
+   ],
+   "en": [
+    "cause",
+    "reason",
+    "fault"
+   ]
+  }
+ },
+ "署名": {
+  "significato": {
+   "it": [
+    "firma"
+   ],
+   "en": [
+    "signature"
+   ]
+  }
+ },
+ "書斎": {
+  "significato": {
+   "it": [
+    "studio (stanza)"
+   ],
+   "en": [
+    "study",
+    "den"
+   ]
+  }
+ },
+ "書物": {
+  "significato": {
+   "it": [
+    "libri"
+   ],
+   "en": [
+    "books"
+   ]
+  }
+ },
+ "書類": {
+  "significato": {
+   "it": [
+    "documenti"
+   ],
+   "en": [
+    "documents",
+    "official papers"
+   ]
+  }
+ },
+ "助かる": {
+  "significato": {
+   "it": [
+    "essere salvato",
+    "essere d'aiuto"
+   ],
+   "en": [
+    "to be saved",
+    "(something) helps (v.i.)"
+   ]
+  }
+ },
+ "助ける": {
+  "significato": {
+   "it": [
+    "aiutare",
+    "salvare"
+   ],
+   "en": [
+    "to help (v.t.)",
+    "to save",
+    "to rescue"
+   ]
+  }
+ },
+ "助詞": {
+  "significato": {
+   "it": [
+    "particella (grammaticale)"
+   ],
+   "en": [
+    "(gram) particle(s)",
+    "postposition"
+   ]
+  }
+ },
+ "助手": {
+  "significato": {
+   "it": [
+    "assistente"
+   ],
+   "en": [
+    "helper",
+    "assistant"
+   ]
+  }
+ },
+ "女王": {
+  "significato": {
+   "it": [
+    "regina"
+   ],
+   "en": [
+    "queen"
+   ]
+  }
+ },
+ "女史": {
+  "significato": {
+   "it": [
+    "signora (titolo)"
+   ],
+   "en": [
+    "Ms."
+   ]
+  }
+ },
+ "女子": {
+  "significato": {
+   "it": [
+    "donna",
+    "ragazza"
+   ],
+   "en": [
+    "woman",
+    "girl"
+   ]
+  }
+ },
+ "女優": {
+  "significato": {
+   "it": [
+    "attrice"
+   ],
+   "en": [
+    "actress"
+   ]
+  }
+ },
+ "徐々に": {
+  "significato": {
+   "it": [
+    "gradualmente"
+   ],
+   "en": [
+    "slowly",
+    "little by little"
+   ]
+  }
+ },
+ "除く": {
+  "significato": {
+   "it": [
+    "escludere",
+    "rimuovere"
+   ],
+   "en": [
+    "to remove",
+    "to exclude",
+    "to except"
+   ]
+  }
+ },
+ "傷": {
+  "significato": {
+   "it": [
+    "ferita"
+   ],
+   "en": [
+    "wound",
+    "injury",
+    "hurt"
+   ]
+  }
+ },
+ "傷める": {
+  "significato": {
+   "it": [
+    "danneggiare"
+   ],
+   "en": [
+    "to damage",
+    "to impair",
+    "to spoil"
+   ]
+  }
+ },
+ "勝ち": {
+  "significato": {
+   "it": [
+    "vittoria"
+   ],
+   "en": [
+    "win",
+    "victory"
+   ]
+  }
+ },
+ "商人": {
+  "significato": {
+   "it": [
+    "commerciante"
+   ],
+   "en": [
+    "trader",
+    "shopkeeper",
+    "merchant"
+   ]
+  }
+ },
+ "商売": {
+  "significato": {
+   "it": [
+    "commercio"
+   ],
+   "en": [
+    "trade",
+    "business",
+    "commerce"
+   ]
+  }
+ },
+ "商品": {
+  "significato": {
+   "it": [
+    "prodotto",
+    "merce"
+   ],
+   "en": [
+    "commodity",
+    "merchandise"
+   ]
+  }
+ },
+ "奨学金": {
+  "significato": {
+   "it": [
+    "borsa di studio"
+   ],
+   "en": [
+    "scholarship"
+   ]
+  }
+ },
+ "小": {
+  "significato": {
+   "it": [
+    "piccolo"
+   ],
+   "en": [
+    "small"
+   ]
+  }
+ },
+ "小屋": {
+  "significato": {
+   "it": [
+    "capanna"
+   ],
+   "en": [
+    "hut",
+    "cabin",
+    "shed"
+   ]
+  }
+ },
+ "小銭": {
+  "significato": {
+   "it": [
+    "spiccioli"
+   ],
+   "en": [
+    "coins",
+    "small change"
+   ]
+  }
+ },
+ "小麦": {
+  "significato": {
+   "it": [
+    "grano"
+   ],
+   "en": [
+    "wheat"
+   ]
+  }
+ },
+ "小包": {
+  "significato": {
+   "it": [
+    "pacco"
+   ],
+   "en": [
+    "parcel",
+    "package"
+   ]
+  }
+ },
+ "少々": {
+  "significato": {
+   "it": [
+    "un poco"
+   ],
+   "en": [
+    "a little",
+    "short (time) (formal for 少し (すこし))"
+   ]
+  }
+ },
+ "少しも": {
+  "significato": {
+   "it": [
+    "per niente"
+   ],
+   "en": [
+    "anything of",
+    "not one bit"
+   ]
+  }
+ },
+ "少女": {
+  "significato": {
+   "it": [
+    "ragazza"
+   ],
+   "en": [
+    "young girl"
+   ]
+  }
+ },
+ "少年": {
+  "significato": {
+   "it": [
+    "ragazzo"
+   ],
+   "en": [
+    "boys",
+    "juveniles"
+   ]
+  }
+ },
+ "床": {
+  "significato": {
+   "it": [
+    "pavimento"
+   ],
+   "en": [
+    "floor"
+   ]
+  }
+ },
+ "承認": {
+  "significato": {
+   "it": [
+    "approvazione"
+   ],
+   "en": [
+    "recognition",
+    "approval"
+   ]
+  }
+ },
+ "招く": {
+  "significato": {
+   "it": [
+    "invitare"
+   ],
+   "en": [
+    "to invite"
+   ]
+  }
+ },
+ "昇る": {
+  "significato": {
+   "it": [
+    "salire",
+    "sorgere"
+   ],
+   "en": [
+    "to arise",
+    "to ascend",
+    "to go up"
+   ]
+  }
+ },
+ "松": {
+  "significato": {
+   "it": [
+    "pino"
+   ],
+   "en": [
+    "pine tree"
+   ]
+  }
+ },
+ "消費": {
+  "significato": {
+   "it": [
+    "consumo"
+   ],
+   "en": [
+    "consumption",
+    "expenditure"
+   ]
+  }
+ },
+ "消防": {
+  "significato": {
+   "it": [
+    "vigili del fuoco"
+   ],
+   "en": [
+    "fire fighting",
+    "fire department"
+   ]
+  }
+ },
+ "照明": {
+  "significato": {
+   "it": [
+    "illuminazione"
+   ],
+   "en": [
+    "illumination"
+   ]
+  }
+ },
+ "症状": {
+  "significato": {
+   "it": [
+    "sintomi"
+   ],
+   "en": [
+    "symptoms",
+    "condition"
+   ]
+  }
+ },
+ "省く": {
+  "significato": {
+   "it": [
+    "omettere"
+   ],
+   "en": [
+    "to omit",
+    "to eliminate"
+   ]
+  }
+ },
+ "省略": {
+  "significato": {
+   "it": [
+    "omissione"
+   ],
+   "en": [
+    "omission",
+    "abbreviation",
+    "abridgment"
+   ]
+  }
+ },
+ "章": {
+  "significato": {
+   "it": [
+    "capitolo"
+   ],
+   "en": [
+    "chapter",
+    "section",
+    "medal"
+   ]
+  }
+ },
+ "笑い": {
+  "significato": {
+   "it": [
+    "risata"
+   ],
+   "en": [
+    "laugh",
+    "laughter",
+    "smile"
+   ]
+  }
+ },
+ "笑顔": {
+  "significato": {
+   "it": [
+    "viso sorridente"
+   ],
+   "en": [
+    "smile (on one's face)"
+   ]
+  }
+ },
+ "衝突": {
+  "significato": {
+   "it": [
+    "scontro",
+    "collisione"
+   ],
+   "en": [
+    "collision",
+    "conflict"
+   ]
+  }
+ },
+ "証明": {
+  "significato": {
+   "it": [
+    "prova",
+    "dimostrazione"
+   ],
+   "en": [
+    "proof",
+    "verification"
+   ]
+  }
+ },
+ "詳しい": {
+  "significato": {
+   "it": [
+    "dettagliato",
+    "esperto"
+   ],
+   "en": [
+    "detailed",
+    "full",
+    "accurate"
+   ]
+  }
+ },
+ "象": {
+  "significato": {
+   "it": [
+    "elefante"
+   ],
+   "en": [
+    "elephant"
+   ]
+  }
+ },
+ "賞": {
+  "significato": {
+   "it": [
+    "premio"
+   ],
+   "en": [
+    "prize",
+    "award"
+   ]
+  }
+ },
+ "賞品": {
+  "significato": {
+   "it": [
+    "premio (oggetto)"
+   ],
+   "en": [
+    "prize",
+    "trophy"
+   ]
+  }
+ },
+ "鐘": {
+  "significato": {
+   "it": [
+    "campana"
+   ],
+   "en": [
+    "bell",
+    "chime"
+   ]
+  }
+ },
+ "障害": {
+  "significato": {
+   "it": [
+    "ostacolo",
+    "disabilità"
+   ],
+   "en": [
+    "obstacle",
+    "impediment"
+   ]
+  }
  }
 }
