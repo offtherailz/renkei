@@ -505,10 +505,36 @@ stessa classe già vista nell'audit di giugno-luglio:
 Ogni volta la correzione è: sostituire la frase con una scritta a mano, pertinente e con la
 lunghezza giusta — mai provare a "salvare" la frase JMdict originale.
 
-**Dopo le frasi**: curatela di sinonimi/contrari/omofoni/correlati per le 2119 parole N3
-(l'euristica automatica di `enrichWordRelations` gira già in sync e produce risultati plausibili
-ma NON verificati da madrelingua — vedi [[sinonimi-contrari-strategia]]: va fatta "da insegnante"
-non euristicamente, com'è stato per N5/N4).
+**Curatela sinonimi/contrari/omofoni N3 — COMPLETATA (31/07).** check/build/vitest puliti a fine
+lavoro (588 test). SEED_REVISION v127→v134.
+
+- **Sinonimi**: audit manuale "da insegnante" (non euristico) su tutte le ~937 parole N3
+  originariamente flaggate da `enrichWordRelations` con sinonimi. 7 lotti da ~130 parole, ~275
+  correzioni totali (svuotati o corretti ~25-30% dei campi, in linea con la stima di
+  [[sinonimi-contrari-strategia]]). Classi di errore ricorrenti: confusione su omografi inglesi
+  (grass/glass, order→注文/次第/順/命令 tutti diversi, field→畑/分野/原/野, claim→請求/主張,
+  nature→性質/自然, change→変化/両替/おつり, draw→描く/汲む), accoppiamenti casuali dalla stessa
+  falla euristica vista su 勧める/暖める/誘う/預かる/離れる (5-6 "sinonimi" quasi tutti estranei),
+  confusione di categoria grammaticale. Scoperte 8 coppie di **veri contrari** scambiate per
+  sinonimi, spostate in `contrari` bidirezionale: 需要/供給, 現実/理想, 後者/前者, 後輩/先輩,
+  地方/中央, 不利/有利 (+ le code pulite nel lotto 7).
+- **Omofoni**: verificati tutti i 709 termini N3 con `omofoni` popolato. A differenza di
+  sinonimi/contrari, questa è una relazione **puramente fonologica** (stessa `lettura`, kanji
+  diversi) e quindi verificabile meccanicamente: script che confronta le letture di ogni coppia
+  referenziata — **0 mismatch su 709**, 0 auto-riferimenti, nessuna lista anomala. Confermato
+  anche con campionamento manuale su 50 voci sparse. Nessuna correzione necessaria: l'euristica
+  di sync produce risultati corretti per questa relazione (a differenza di sinonimi/contrari che
+  richiedono giudizio semantico, non solo un confronto di stringhe).
+- **Contrari**: copertura euristica di partenza pochissima (47/2510 parole N3, 1.9%, contro il
+  21% di N5 e il 14% di N4 — gap reale). Costruita ed eseguita in 3 lotti una ricerca mirata di
+  coppie di contrari plausibili tra il vocabolario N3 esistente (liste di candidati costruite a
+  mano su aggettivi/verbi/sostantivi comuni + scansione diretta degli aggettivi in -i N3),
+  verificando che entrambi i membri esistano davvero nel seed con la lettura/significato giusti
+  prima di collegarli (scartate coppie con omografi ambigui tipo 甘い/辛い::つらい — lettura
+  sbagliata per "piccante" — o incompatibilità di categoria grammaticale). Risultato: 40 coppie
+  nuove, 80 parole collegate, copertura N3 47→104 (4.1%). Non raggiunge la percentuale di N4/N5
+  (avrebbe richiesto una lettura manuale di tutte le 2510 parole, non solo ricerca per pattern) ma
+  più che raddoppiata rispetto al punto di partenza euristico.
 
 ## Verifiche pendenti
 
