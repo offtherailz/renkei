@@ -83333,7 +83333,8 @@
   ],
   "contrari": [
    "不利"
-  ]
+  ],
+  "sinonimi": []
  },
  "湧く": {
   "significato": {
@@ -83361,6 +83362,9 @@
      "en": "Her eyes gushed with tears."
     }
    }
+  ],
+  "sinonimi": [
+   "沸く"
   ]
  },
  "誘う": {
@@ -83382,6 +83386,9 @@
      "en": "The soft, gentle sunlight beckoned me to sleep."
     }
    }
+  ],
+  "sinonimi": [
+   "勧める"
   ]
  },
  "郵便": {
@@ -83442,7 +83449,8 @@
      "en": "The committee approved the budget."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "予想": {
   "significato": {
@@ -83612,7 +83620,8 @@
      "en": "I'll come in for a nice profit if land values continue to rise."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "預ける": {
   "significato": {
@@ -83863,7 +83872,8 @@
      "en": "Be on your guard against fire."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "要するに": {
   "significato": {
@@ -84181,7 +84191,8 @@
   ],
   "contrari": [
    "現実"
-  ]
+  ],
+  "sinonimi": []
  },
  "裏切る": {
   "significato": {
@@ -84242,6 +84253,10 @@
      "en": "Kate left this place for good."
     }
    }
+  ],
+  "sinonimi": [
+   "離す",
+   "別れる"
   ]
  },
  "離婚": {
@@ -84620,7 +84635,8 @@
      "en": "Please change this to dollars."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "寮": {
   "significato": {
@@ -89926,7 +89942,8 @@
      "en": "Be on your guard against fire."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "要求する": {
   "frasi_esempio": [
@@ -89992,7 +90009,8 @@
      "en": "Please change this to dollars."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "連想する": {
   "frasi_esempio": [
