@@ -2476,7 +2476,10 @@
    "en": [
     "a telephone"
    ]
-  }
+  },
+  "correlati": [
+   "携帯"
+  ]
  },
  "電話する": {
   "frasi_esempio": [
@@ -7996,7 +7999,10 @@
    "en": [
     "mountain"
    ]
-  }
+  },
+  "correlati": [
+   "丘"
+  ]
  },
  "散歩": {
   "frasi_esempio": [
@@ -24015,7 +24021,8 @@
    }
   ],
   "correlati": [
-   "空"
+   "空",
+   "霧"
   ]
  },
  "遠く": {
@@ -24340,7 +24347,8 @@
    }
   ],
   "correlati": [
-   "服"
+   "服",
+   "衣服"
   ]
  },
  "家内": {
@@ -27450,7 +27458,8 @@
    }
   ],
   "correlati": [
-   "田舎"
+   "田舎",
+   "都会"
   ]
  },
  "高校; 高等学校": {
@@ -28433,7 +28442,8 @@
   ],
   "correlati": [
    "指",
-   "アクセサリー"
+   "アクセサリー",
+   "宝石"
   ]
  },
  "支度": {
@@ -30078,7 +30088,8 @@
   "correlati": [
    "本",
    "文学",
-   "作家"
+   "作家",
+   "詩"
   ],
   "frasi_esempio": [
    {
@@ -32713,7 +32724,9 @@
    }
   ],
   "correlati": [
-   "風"
+   "風",
+   "雷",
+   "嵐"
   ]
  },
  "大学生": {
@@ -33816,7 +33829,8 @@
   ],
   "correlati": [
    "盗む",
-   "すり"
+   "すり",
+   "犯罪"
   ]
  },
  "適当": {
@@ -36121,7 +36135,8 @@
    }
   ],
   "correlati": [
-   "御飯"
+   "御飯",
+   "稲"
   ]
  },
  "壁": {
@@ -44773,6 +44788,9 @@
      "en": "This beer contains 5% alcohol."
     }
    }
+  ],
+  "correlati": [
+   "酒"
   ]
  },
  "ピクニック": {
@@ -46878,6 +46896,9 @@
      "en": "They wear very little clothing."
     }
    }
+  ],
+  "correlati": [
+   "下着"
   ]
  },
  "衣料": {
@@ -47376,6 +47397,9 @@
      "en": "Rice is grown in rainy regions."
     }
    }
+  ],
+  "correlati": [
+   "米"
   ]
  },
  "印": {
@@ -53198,6 +53222,9 @@
      "en": "The hill commands a fine view."
     }
    }
+  ],
+  "correlati": [
+   "山"
   ]
  },
  "丘陵": {
@@ -55646,6 +55673,9 @@
      "en": "Americans have the right to bear arms."
     }
    }
+  ],
+  "correlati": [
+   "電話"
   ]
  },
  "敬意": {
@@ -61607,6 +61637,9 @@
      "en": "By whom was this poem written?"
     }
    }
+  ],
+  "correlati": [
+   "小説"
   ]
  },
  "詩人": {
@@ -63294,6 +63327,9 @@
      "en": "I neither drink nor smoke."
     }
    }
+  ],
+  "correlati": [
+   "ビール"
   ]
  },
  "首相": {
@@ -64931,6 +64967,9 @@
      "en": "Goods at the food and clothing stalls were very cheap."
     }
    }
+  ],
+  "correlati": [
+   "製品"
   ]
  },
  "奨学金": {
@@ -69009,6 +69048,9 @@
      "en": "This product is made in Italy."
     }
    }
+  ],
+  "correlati": [
+   "商品"
   ]
  },
  "請求": {
@@ -75228,7 +75270,8 @@
    "田舎"
   ],
   "correlati": [
-   "都市"
+   "都市",
+   "郊外"
   ]
  },
  "都市": {
@@ -78271,7 +78314,8 @@
    }
   ],
   "correlati": [
-   "警察"
+   "警察",
+   "泥棒"
   ]
  },
  "犯人": {
@@ -81413,6 +81457,9 @@
      "en": "He locked up his jewels in the safe."
     }
    }
+  ],
+  "correlati": [
+   "指輪"
   ]
  },
  "抱える": {
@@ -82558,6 +82605,9 @@
      "en": "A thick fog delayed our flight."
     }
    }
+  ],
+  "correlati": [
+   "雲"
   ]
  },
  "名": {
@@ -84601,6 +84651,9 @@
      "en": "The thunder scared the children."
     }
    }
+  ],
+  "correlati": [
+   "台風"
   ]
  },
  "嵐": {
@@ -84620,6 +84673,9 @@
      "en": "This wind is a sign of a storm."
     }
    }
+  ],
+  "correlati": [
+   "台風"
   ]
  },
  "利益": {
