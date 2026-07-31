@@ -434,6 +434,26 @@ Seed a **v67** (nessun bump in questa sessione). Ultimo deploy staging: `15af809
     bundle via URL, caricamento lezioni insegnante (grande, da progettare — non per
     non-tecnici allo stato attuale).
 
+## Sessione 31/07 — branch `release` + inizio catalogo N3
+
+Creato branch `release` (da questa macchina, push via SSH) per congelare lo stato N5/N4
+completo (879 traduzioni, cinture in stats, sync script pulito). Da qui in avanti: **sviluppo
+N3 solo su `main`**, ogni bugfix va applicato a **entrambi i branch** (cherry-pick).
+
+Bug pipeline trovato e risolto su entrambi i branch (`main` faa3e93e, `release` 52a7d335):
+gli override in `word-overrides.json` si applicavano a metà pipeline (dentro
+`applyJmdictMetadata`) e potevano essere silenziosamente cancellati da `mergeIdioms`/
+`mergeExtraWords` dopo (successo a 倒す, ご存じ) — aggiunto `applyWordOverridesFinal` come vero
+ultimo passo, come già faceva `applyGrammarOverrides` per la grammatica. Trovato anche un terzo
+punto (dopo i due di v83) che duplicava EN in IT come segnaposto: `deriveJmdictUsi` in
+`scripts/lib/jmdict.mjs` (campi `usi`, sensi multipli JMdict) — stesso fix, `it: ""`.
+
+Catalogo N3: vocabolario disponibile alla stessa fonte di N5/N4 (allenlu2009/japanese-learning-
+datasets, 2139 parole, verificato raggiungibile), kanji N3 già in cache locale
+(`scripts/data/kanji-n3.json`) ma non ancora incluso nell'output finale, grammatica N3 **senza
+fonte automatica** (jlpt-grammar-api risponde 404 per N3 — richiede voci curate a mano, come già
+fatto per le forme composte custom). Lavoro in corso, non ancora wired nello script.
+
 ## Verifiche pendenti
 
 Checklist completa in `2026-07-17-verifiche-propedeutiche.md` (22 punti + questioni aperte).
