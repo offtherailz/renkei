@@ -6839,7 +6839,8 @@
    "開く-ひらく"
   ],
   "contrari": [
-   "閉まる"
+   "閉まる",
+   "閉じる"
   ],
   "correlati": [
    "空く::あく"
@@ -12665,6 +12666,9 @@
      "en": "Could you tell me how to get to the subway station?"
     }
    }
+  ],
+  "contrari": [
+   "学ぶ"
   ]
  },
  "教室": {
@@ -15993,7 +15997,8 @@
    ]
   },
   "contrari": [
-   "夜"
+   "夜",
+   "夜::よ"
   ],
   "frasi_esempio": [
    {
@@ -17299,7 +17304,8 @@
   },
   "sinonimi": [],
   "contrari": [
-   "厚い"
+   "厚い",
+   "濃い"
   ],
   "correlati": [
    "細い"
@@ -23408,6 +23414,10 @@
      "en": "With you here, I feel at ease."
     }
    }
+  ],
+  "contrari": [
+   "心配",
+   "緊張"
   ]
  },
  "安全": {
@@ -24767,6 +24777,9 @@
   ],
   "correlati": [
    "空く::あく"
+  ],
+  "contrari": [
+   "閉じる"
   ]
  },
  "確か": {
@@ -26870,6 +26883,9 @@
      "en": "They are investigating the cause of the accident."
     }
    }
+  ],
+  "contrari": [
+   "結果"
   ]
  },
  "厳しい": {
@@ -28150,6 +28166,9 @@
      "en": "The teacher started the class at nine."
     }
    }
+  ],
+  "contrari": [
+   "終える"
   ]
  },
  "子": {
@@ -28975,6 +28994,9 @@
      "en": "Don't be afraid of failure."
     }
    }
+  ],
+  "contrari": [
+   "成功"
   ]
  },
  "失礼": {
@@ -29699,6 +29721,10 @@
      "en": "A baby's hands are soft."
     }
    }
+  ],
+  "contrari": [
+   "堅; 硬; 固い",
+   "硬い"
   ]
  },
  "柔道": {
@@ -29784,6 +29810,9 @@
   ],
   "correlati": [
    "出る"
+  ],
+  "contrari": [
+   "到着"
   ]
  },
  "準備": {
@@ -30988,6 +31017,10 @@
      "en": "The construction is progressing smoothly."
     }
    }
+  ],
+  "contrari": [
+   "戻る",
+   "退く"
   ]
  },
  "人形": {
@@ -31877,6 +31910,9 @@
      "en": "I heard stories about the war from my grandfather."
     }
    }
+  ],
+  "contrari": [
+   "平和"
   ]
  },
  "浅い": {
@@ -32169,7 +32205,9 @@
     "to dispatch"
    ]
   },
-  "contrari": [],
+  "contrari": [
+   "受け取る"
+  ],
   "frasi_esempio": [
    {
     "testo": "この手紙を日本に送ってくれませんか。",
@@ -33947,6 +33985,9 @@
      "en": "I feel completely restored after a week in the country."
     }
    }
+  ],
+  "contrari": [
+   "都会"
   ]
  },
  "電灯": {
@@ -38250,6 +38291,9 @@
      "en": "Tomorrow I will attend my friend's wedding."
     }
    }
+  ],
+  "contrari": [
+   "欠席する"
   ]
  },
  "世話する": {
@@ -48748,6 +48792,9 @@
      "en": "There is a school down the mountain."
     }
    }
+  ],
+  "contrari": [
+   "上る"
   ]
  },
  "為る::する": {
@@ -49509,6 +49556,10 @@
      "en": "I try not to dwell on the past."
     }
    }
+  ],
+  "contrari": [
+   "未来",
+   "現在"
   ]
  },
  "過程": {
@@ -50443,6 +50494,9 @@
      "en": "One is never too old to learn."
     }
    }
+  ],
+  "contrari": [
+   "教える"
   ]
  },
  "学期": {
@@ -50579,6 +50633,10 @@
      "en": "Travelling is easy these days."
     }
    }
+  ],
+  "contrari": [
+   "苦",
+   "苦しい"
   ]
  },
  "楽器": {
@@ -52060,6 +52118,9 @@
      "en": "This was his one and only hope."
     }
    }
+  ],
+  "contrari": [
+   "失望"
   ]
  },
  "旗": {
@@ -52748,6 +52809,9 @@
      "en": "Are you still in doubt about what I have said?"
     }
    }
+  ],
+  "contrari": [
+   "信じる"
   ]
  },
  "疑問": {
@@ -54181,6 +54245,9 @@
      "en": "His home run excited the crowd."
     }
    }
+  ],
+  "contrari": [
+   "冷静"
   ]
  },
  "蕎麦": {
@@ -54463,6 +54530,9 @@
      "en": "Cold-war tension has mounted."
     }
    }
+  ],
+  "contrari": [
+   "安心"
   ]
  },
  "菌": {
@@ -54793,6 +54863,9 @@
      "en": "It's so painful. Stop it!"
     }
    }
+  ],
+  "contrari": [
+   "楽"
   ]
  },
  "苦しむ": {
@@ -54836,6 +54909,9 @@
      "en": "I am out of my element in math."
     }
    }
+  ],
+  "contrari": [
+   "得意"
   ]
  },
  "苦痛": {
@@ -56124,6 +56200,9 @@
      "en": "Don't worry about the results."
     }
    }
+  ],
+  "contrari": [
+   "原因"
   ]
  },
  "結局": {
@@ -56891,6 +56970,9 @@
      "en": "The ruling party has secured 50 seats as of 5 o'clock."
     }
    }
+  ],
+  "contrari": [
+   "過去"
   ]
  },
  "現実": {
@@ -57531,6 +57613,9 @@
      "en": "I'm sorry I misunderstood you."
     }
    }
+  ],
+  "contrari": [
+   "理解"
   ]
  },
  "交ざる": {
@@ -58288,6 +58373,9 @@
   "sinonimi": [
    "堅い",
    "堅; 硬; 固い"
+  ],
+  "contrari": [
+   "柔らかい"
   ]
  },
  "硬貨": {
@@ -62042,6 +62130,9 @@
      "en": "I was disappointed at the results."
     }
    }
+  ],
+  "contrari": [
+   "希望"
   ]
  },
  "湿る": {
@@ -62498,6 +62589,9 @@
      "en": "A promise made is a debt unpaid."
     }
    }
+  ],
+  "contrari": [
+   "貸し"
   ]
  },
  "借金": {
@@ -63017,6 +63111,9 @@
      "en": "She seems to have taken my remark as an insult."
     }
    }
+  ],
+  "contrari": [
+   "送る"
   ]
  },
  "需要": {
@@ -63309,6 +63406,9 @@
      "en": "Are you through with the work?"
     }
    }
+  ],
+  "contrari": [
+   "始める"
   ]
  },
  "臭い": {
@@ -65316,6 +65416,9 @@
      "en": "You cannot climb!"
     }
    }
+  ],
+  "contrari": [
+   "下る::くだる"
   ]
  },
  "上京": {
@@ -66161,6 +66264,9 @@
      "en": "I am sure of his trusting you."
     }
    }
+  ],
+  "contrari": [
+   "疑う"
   ]
  },
  "信仰": {
@@ -67795,7 +67901,10 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "contrari": [
+   "失敗"
+  ]
  },
  "成人": {
   "significato": {
@@ -71332,6 +71441,9 @@
      "en": "But you're going to owe me one."
     }
    }
+  ],
+  "contrari": [
+   "借り"
   ]
  },
  "退く": {
@@ -71354,6 +71466,9 @@
      "en": "Move! You're in my way."
     }
    }
+  ],
+  "contrari": [
+   "進む"
   ]
  },
  "退学": {
@@ -72012,6 +72127,9 @@
      "en": "The man robbed me of my purse."
     }
    }
+  ],
+  "contrari": [
+   "与える"
   ]
  },
  "谷": {
@@ -74798,6 +74916,9 @@
      "en": "They are longing for city life."
     }
    }
+  ],
+  "contrari": [
+   "田舎"
   ]
  },
  "都市": {
@@ -75327,6 +75448,9 @@
      "en": "The train arrived on schedule."
     }
    }
+  ],
+  "contrari": [
+   "出発"
   ]
  },
  "討つ": {
@@ -75722,6 +75846,9 @@
      "en": "He congratulates himself on his foresight."
     }
    }
+  ],
+  "contrari": [
+   "苦手"
   ]
  },
  "特徴": {
@@ -76666,6 +76793,9 @@
      "en": "The piano was made of beautiful, dark brown wood."
     }
    }
+  ],
+  "contrari": [
+   "薄い"
   ]
  },
  "納める": {
@@ -78904,7 +79034,10 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "contrari": [
+   "豊か"
+  ]
  },
  "瓶": {
   "significato": {
@@ -79102,6 +79235,9 @@
      "en": "Food has been in short supply."
     }
    }
+  ],
+  "contrari": [
+   "豊富"
   ]
  },
  "不通": {
@@ -79165,6 +79301,9 @@
      "en": "What made you so dissatisfied?"
     }
    }
+  ],
+  "contrari": [
+   "満足"
   ]
  },
  "不利": {
@@ -80228,6 +80367,9 @@
      "en": "The dove is a symbol of peace."
     }
    }
+  ],
+  "contrari": [
+   "戦争"
   ]
  },
  "柄::え": {
@@ -80300,7 +80442,11 @@
     "to close (e.g., book, eyes)",
     "to shut"
    ]
-  }
+  },
+  "contrari": [
+   "開く-ひらく",
+   "開く-あく"
+  ]
  },
  "癖": {
   "significato": {
@@ -81220,6 +81366,9 @@
      "en": "Australia is rich in natural resources."
     }
    }
+  ],
+  "contrari": [
+   "貧しい"
   ]
  },
  "豊富": {
@@ -81240,6 +81389,9 @@
      "en": "Oil is abundant in that country."
     }
    }
+  ],
+  "contrari": [
+   "不足"
   ]
  },
  "飽きる": {
@@ -81752,6 +81904,9 @@
      "en": "He was zealous in satisfying his employer."
     }
    }
+  ],
+  "contrari": [
+   "不満"
   ]
  },
  "味方": {
@@ -81791,6 +81946,9 @@
      "en": "To your future!"
     }
    }
+  ],
+  "contrari": [
+   "過去"
   ]
  },
  "魅力": {
@@ -82777,6 +82935,9 @@
      "en": "Don't you sleep well at night?"
     }
    }
+  ],
+  "contrari": [
+   "昼"
   ]
  },
  "夜中": {
@@ -83594,6 +83755,9 @@
      "en": "A man can receive only what is given to him from heaven."
     }
    }
+  ],
+  "contrari": [
+   "奪う"
   ]
  },
  "預かる": {
@@ -84169,6 +84333,9 @@
      "en": "I can understand what you are saying."
     }
    }
+  ],
+  "contrari": [
+   "誤解"
   ]
  },
  "理想": {
@@ -84937,6 +85104,9 @@
      "en": "You should act more calmly."
     }
    }
+  ],
+  "contrari": [
+   "興奮"
   ]
  },
  "礼": {
@@ -87248,7 +87418,10 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "contrari": [
+   "出席する"
+  ]
  },
  "決行する": {
   "frasi_esempio": [
