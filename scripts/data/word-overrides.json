@@ -61582,7 +61582,16 @@
    "en": [
     "medical treatment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "治療よりも予防。",
+    "traduzione": {
+     "it": "Prevenire è meglio che curare.",
+     "en": "Prevention is better than cure."
+    }
+   }
+  ]
  },
  "磁器": {
   "significato": {
@@ -61603,7 +61612,16 @@
    "en": [
     "magnetism"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その機械は磁気の力で動く。",
+    "traduzione": {
+     "it": "Quella macchina funziona grazie alla forza magnetica.",
+     "en": "Magnetic force drives the mechanism."
+    }
+   }
+  ]
  },
  "示す": {
   "significato": {
@@ -61615,7 +61633,16 @@
     "to show",
     "to indicate"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "何もかも彼の有罪をしめしている。",
+    "traduzione": {
+     "it": "Tutto indica la sua colpevolezza.",
+     "en": "Everything points to his guilt."
+    }
+   }
+  ]
  },
  "自己": {
   "significato": {
@@ -61626,7 +61653,16 @@
     "self",
     "oneself"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は自己を没却する男ではない。",
+    "traduzione": {
+     "it": "Non è un uomo che rinuncia a sé stesso.",
+     "en": "He knows how to assert himself."
+    }
+   }
+  ]
  },
  "自殺": {
   "significato": {
@@ -61636,7 +61672,16 @@
    "en": [
     "suicide"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は自殺しようとしたが、未遂に終わった。",
+    "traduzione": {
+     "it": "Ha tentato il suicidio, ma è finito in un fallimento.",
+     "en": "He tried to kill himself but it ended in failure."
+    }
+   }
+  ]
  },
  "自身": {
   "significato": {
@@ -61646,7 +61691,16 @@
    "en": [
     "oneself"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジェーン自身がこの手紙を書いた。",
+    "traduzione": {
+     "it": "Jane stessa ha scritto questa lettera.",
+     "en": "Jane wrote the letter herself."
+    }
+   }
+  ]
  },
  "自然": {
   "significato": {
@@ -61657,7 +61711,16 @@
     "nature",
     "spontaneous"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "われわれは自然の法則に従う。",
+    "traduzione": {
+     "it": "Siamo soggetti alle leggi della natura.",
+     "en": "We are subject to the laws of nature."
+    }
+   }
+  ]
  },
  "自動": {
   "significato": {
@@ -61668,7 +61731,16 @@
     "automatic",
     "self-motion"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は自動式の洗濯機をもっている。",
+    "traduzione": {
+     "it": "Ha una lavatrice automatica.",
+     "en": "She has an automatic washing machine."
+    }
+   }
+  ]
  },
  "自慢": {
   "significato": {
@@ -61680,7 +61752,16 @@
     "pride",
     "boast"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "われわれは体力を自慢した。",
+    "traduzione": {
+     "it": "Eravamo orgogliosi della nostra forza fisica.",
+     "en": "We took pride in our strength."
+    }
+   }
+  ]
  },
  "蒔く": {
   "significato": {
@@ -61701,7 +61782,16 @@
    "en": [
     "to retire"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はやめるほか仕方がない。",
+    "traduzione": {
+     "it": "Non ha altra scelta che dimettersi.",
+     "en": "He has no choice but to resign."
+    }
+   }
+  ]
  },
  "辞退": {
   "significato": {
@@ -61711,7 +61801,16 @@
    "en": [
     "refusal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "芥川賞の受賞を辞退したいのですが。",
+    "traduzione": {
+     "it": "Vorrei rifiutare il premio Akutagawa.",
+     "en": "I would like to excuse myself from receiving the Akutagawa Prize."
+    }
+   }
+  ]
  },
  "失う": {
   "significato": {
@@ -61741,7 +61840,23 @@
    "en": [
     "unemployment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "失業した後、彼は大変苦労した。",
+    "traduzione": {
+     "it": "Dopo aver perso il lavoro, ha attraversato momenti molto difficili.",
+     "en": "After losing his job, he went through a very difficult time."
+    }
+   },
+   {
+    "testo": "この地域の失業はほぼないに等しい。",
+    "traduzione": {
+     "it": "La disoccupazione in questa zona è quasi inesistente.",
+     "en": "Unemployment in this part of the country is virtually nonexistent."
+    }
+   }
+  ]
  },
  "失望": {
   "significato": {
@@ -61752,7 +61867,16 @@
     "disappointment",
     "despair"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はその結果に失望した。",
+    "traduzione": {
+     "it": "Sono rimasto deluso dai risultati.",
+     "en": "I was disappointed at the results."
+    }
+   }
+  ]
  },
  "湿る": {
   "significato": {
@@ -61763,7 +61887,16 @@
     "to be wet",
     "to be damp"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "洗濯物はまだ湿っている。",
+    "traduzione": {
+     "it": "Il bucato è ancora umido.",
+     "en": "The washing is still damp."
+    }
+   }
+  ]
  },
  "湿気": {
   "significato": {
@@ -61775,7 +61908,16 @@
     "humidity",
     "dampness"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "夏はとても湿気が多いんです。",
+    "traduzione": {
+     "it": "D'estate c'è molta umidità.",
+     "en": "In the summer, it's very humid."
+    }
+   }
+  ]
  },
  "湿度": {
   "significato": {
@@ -61785,7 +61927,16 @@
    "en": [
     "humidity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ニューヨークの天候は、夏は暑く湿度も高い。",
+    "traduzione": {
+     "it": "A New York, l'estate è calda e molto umida.",
+     "en": "New York weather is hot and humid in the summer."
+    }
+   }
+  ]
  },
  "質": {
   "significato": {
@@ -61796,7 +61947,16 @@
     "quality",
     "nature (of person)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お茶の質は下がりつつある。",
+    "traduzione": {
+     "it": "La qualità del tè sta peggiorando.",
+     "en": "The quality of tea is going down."
+    }
+   }
+  ]
  },
  "実": {
   "significato": {
@@ -61809,7 +61969,16 @@
     "seed",
     "good result"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この木は甘い実をつける。",
+    "traduzione": {
+     "it": "Questo albero produce frutti dolci.",
+     "en": "This tree bears sweet fruit."
+    }
+   }
+  ]
  },
  "実に": {
   "significato": {
@@ -61821,7 +61990,16 @@
     "truly",
     "surely"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日は実によい天気だ。",
+    "traduzione": {
+     "it": "Oggi fa davvero un bel tempo.",
+     "en": "It is truly a nice day today."
+    }
+   }
+  ]
  },
  "実は": {
   "significato": {
@@ -61832,7 +62010,16 @@
     "actually",
     "in fact"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "実はそれはただのうわさだったよ。",
+    "traduzione": {
+     "it": "In realtà era solo una voce.",
+     "en": "Actually, it was just a rumour."
+    }
+   }
+  ]
  },
  "実験": {
   "significato": {
@@ -61843,7 +62030,16 @@
     "lab work",
     "experiment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "実験は成功だった。",
+    "traduzione": {
+     "it": "L'esperimento è stato un successo.",
+     "en": "The experiment was successful."
+    }
+   }
+  ]
  },
  "実現": {
   "significato": {
@@ -61855,7 +62051,16 @@
     "materialization",
     "realization"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの夢がみんな実現されますように。",
+    "traduzione": {
+     "it": "Che tutti i tuoi sogni si avverino!",
+     "en": "May all your dreams come true!"
+    }
+   }
+  ]
  },
  "実行": {
   "significato": {
@@ -61867,7 +62072,16 @@
     "execution (e.g., program)",
     "realization"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は彼の実行的能力を信頼している。",
+    "traduzione": {
+     "it": "Ho fiducia nella sua capacità esecutiva.",
+     "en": "I trust his executive ability."
+    }
+   }
+  ]
  },
  "実際": {
   "significato": {
@@ -61879,7 +62093,23 @@
     "in fact",
     "in actuality"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "人間は実際自然のなすがままである。",
+    "traduzione": {
+     "it": "In realtà l'uomo è alla mercé della natura.",
+     "en": "Man is indeed at the mercy of nature."
+    }
+   },
+   {
+    "testo": "この物語は実際の出来事に基づいている。",
+    "traduzione": {
+     "it": "Questa storia è basata su fatti reali.",
+     "en": "This story is based on actual events."
+    }
+   }
+  ]
  },
  "実施": {
   "significato": {
@@ -61891,7 +62121,16 @@
     "carry out",
     "operation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その計画は実施された。",
+    "traduzione": {
+     "it": "Il piano è stato attuato.",
+     "en": "The plan was put into operation."
+    }
+   }
+  ]
  },
  "実力": {
   "significato": {
@@ -61902,7 +62141,16 @@
     "ability",
     "force"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "けっきょく、実力が勝つ。",
+    "traduzione": {
+     "it": "Alla fine vince la vera capacità.",
+     "en": "Real ability wins in the end."
+    }
+   }
+  ]
  },
  "芝居": {
   "significato": {
@@ -61913,7 +62161,16 @@
     "play",
     "drama"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どの芝居がいいですか。",
+    "traduzione": {
+     "it": "Quale spettacolo mi consigli?",
+     "en": "Can you recommend a good play?"
+    }
+   }
+  ]
  },
  "芝生": {
   "significato": {
@@ -61923,7 +62180,16 @@
    "en": [
     "lawn"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "芝生に露が降りている。",
+    "traduzione": {
+     "it": "Sul prato si è formata la rugiada.",
+     "en": "Dew has formed on the lawn."
+    }
+   }
+  ]
  },
  "写る": {
   "significato": {
@@ -61934,7 +62200,16 @@
     "to be photographed",
     "to be projected"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は鏡に写っている自分を見つめているのです。",
+    "traduzione": {
+     "it": "Sto fissando me stesso riflesso nello specchio.",
+     "en": "I'm staring at myself in a mirror."
+    }
+   }
+  ]
  },
  "射す": {
   "significato": {
@@ -61946,7 +62221,16 @@
     "to shine",
     "to strike"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "雲間が開け光が射した。",
+    "traduzione": {
+     "it": "Le nuvole si aprirono e filtrò la luce.",
+     "en": "The clouds opened and the sun shone through."
+    }
+   }
+  ]
  },
  "煮える": {
   "significato": {
@@ -61959,7 +62243,16 @@
     "to cook",
     "to be cooked"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "スープがなべでぐつぐつ煮えている。",
+    "traduzione": {
+     "it": "La zuppa sta bollendo in pentola.",
+     "en": "The soup is bubbling in the pot."
+    }
+   }
+  ]
  },
  "煮る": {
   "significato": {
@@ -61971,7 +62264,16 @@
     "to boil",
     "to cook"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "くたくたに煮る。",
+    "traduzione": {
+     "it": "Cuocere fino a ridurre in poltiglia.",
+     "en": "Reduce to pulp by boiling."
+    }
+   }
+  ]
  },
  "者": {
   "significato": {
@@ -61981,7 +62283,16 @@
    "en": [
     "person (same as 人 (ひと))"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "じっくり彼に耳を貸す者はいない。",
+    "traduzione": {
+     "it": "Nessuno si ferma ad ascoltarlo con attenzione.",
+     "en": "No one stops to listen to him."
+    }
+   }
+  ]
  },
  "借り": {
   "significato": {
@@ -61994,7 +62305,16 @@
     "debt",
     "loan"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "なした約束は払ってない借りである。",
+    "traduzione": {
+     "it": "Una promessa fatta è un debito non pagato.",
+     "en": "A promise made is a debt unpaid."
+    }
+   }
+  ]
  },
  "借金": {
   "significato": {
@@ -62006,7 +62326,16 @@
     "loan",
     "liabilities"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "君は借金を払うべきだ。",
+    "traduzione": {
+     "it": "Dovresti pagare i tuoi debiti.",
+     "en": "You should pay your debts."
+    }
+   }
+  ]
  },
  "酌む": {
   "significato": {
@@ -62028,7 +62357,16 @@
     "to be emaciated",
     "to be dejected"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あらしの勢いが弱まった。",
+    "traduzione": {
+     "it": "La tempesta si è attenuata.",
+     "en": "The storm abated."
+    }
+   }
+  ]
  },
  "弱める": {
   "significato": {
@@ -62038,7 +62376,16 @@
    "en": [
     "to weaken"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "大きなかしわの木が風の力を弱めている。",
+    "traduzione": {
+     "it": "Il grande albero di quercia attutisce la forza del vento.",
+     "en": "The big oak tree breaks the force of the wind."
+    }
+   }
+  ]
  },
  "主に": {
   "significato": {
@@ -62049,7 +62396,16 @@
     "mainly",
     "primarily"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の病気は主に精神的な物だった。",
+    "traduzione": {
+     "it": "La sua malattia era principalmente psicologica.",
+     "en": "His illness was mainly psychological."
+    }
+   }
+  ]
  },
  "主義": {
   "significato": {
@@ -62062,7 +62418,16 @@
     "cause",
     "principle"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それは私の主義に反する。",
+    "traduzione": {
+     "it": "Questo va contro i miei principi.",
+     "en": "That runs against my principles."
+    }
+   }
+  ]
  },
  "主張": {
   "significato": {
@@ -62075,7 +62440,16 @@
     "insistence",
     "assertion"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちはその重要性を主張した。",
+    "traduzione": {
+     "it": "Abbiamo insistito sulla sua importanza.",
+     "en": "We insisted on its importance."
+    }
+   }
+  ]
  },
  "主婦": {
   "significato": {
@@ -62085,7 +62459,16 @@
    "en": [
     "housewife"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "主婦は節約に努めるべきである。",
+    "traduzione": {
+     "it": "Una casalinga dovrebbe cercare di risparmiare.",
+     "en": "A housewife should be economical."
+    }
+   }
+  ]
  },
  "主要": {
   "significato": {
@@ -62118,7 +62501,23 @@
     "to pick up",
     "to confiscate"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "全新聞がその事件を大きく取り上げた。",
+    "traduzione": {
+     "it": "Tutti i giornali hanno dato grande risalto al caso.",
+     "en": "All the papers featured the case."
+    }
+   },
+   {
+    "testo": "このブログは情報インフラを中心としたトピックを取り上げています。",
+    "traduzione": {
+     "it": "Questo blog tratta argomenti incentrati sull'infrastruttura informativa.",
+     "en": "This blog covers topics that centre on information infrastructure."
+    }
+   }
+  ]
  },
  "取れる": {
   "significato": {
@@ -62129,7 +62528,23 @@
     "to come off",
     "to be taken off"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "しびれがとれるまで食事はしないでください。",
+    "traduzione": {
+     "it": "Non mangi finché non le passa l'intorpidimento.",
+     "en": "Don't eat till the numbness wears off."
+    }
+   },
+   {
+    "testo": "オリーブの実から油が取れます。",
+    "traduzione": {
+     "it": "Dall'oliva si ricava l'olio.",
+     "en": "Oil is extracted from olives."
+    }
+   }
+  ]
  },
  "守る": {
   "significato": {
@@ -62140,7 +62555,23 @@
     "to protect",
     "to abide (by the rules)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは、自分の家族を守らなければならない。",
+    "traduzione": {
+     "it": "Devi proteggere la tua famiglia.",
+     "en": "You have to protect your family."
+    }
+   },
+   {
+    "testo": "いったん約束したのであれば、守らなければならない。",
+    "traduzione": {
+     "it": "Una volta fatta una promessa, bisogna mantenerla.",
+     "en": "Once you have made a promise, you must keep it."
+    }
+   }
+  ]
  },
  "手間": {
   "significato": {
@@ -62151,7 +62582,16 @@
     "time",
     "labor"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "食べるのにどうしてそんなに手間がかかるのか。",
+    "traduzione": {
+     "it": "Perché ci metti così tanto a mangiare?",
+     "en": "Why do you take so long to eat?"
+    }
+   }
+  ]
  },
  "手術": {
   "significato": {
@@ -62161,7 +62601,16 @@
    "en": [
     "surgical operation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "手術をしなければなりません。",
+    "traduzione": {
+     "it": "Deve sottoporsi a un intervento chirurgico.",
+     "en": "You have to have an operation."
+    }
+   }
+  ]
  },
  "手段": {
   "significato": {
@@ -62174,7 +62623,16 @@
     "way",
     "measure"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "全ての手段が試みられたわけではない。",
+    "traduzione": {
+     "it": "Non sono stati tentati tutti i mezzi.",
+     "en": "Every means has not been tried."
+    }
+   }
+  ]
  },
  "手伝い": {
   "significato": {
@@ -62186,7 +62644,16 @@
     "helper",
     "assistant"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "台所でお母さんの手伝いをしていたの。",
+    "traduzione": {
+     "it": "Stavo aiutando mia madre in cucina.",
+     "en": "I helped my mother in the kitchen."
+    }
+   }
+  ]
  },
  "手品": {
   "significato": {
@@ -62197,7 +62664,16 @@
     "conjuring trick",
     "magic"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "少年はたくさんの手品が使える。",
+    "traduzione": {
+     "it": "Il ragazzo sa fare molti giochi di prestigio.",
+     "en": "The boy knows many magic tricks."
+    }
+   }
+  ]
  },
  "狩り": {
   "significato": {
@@ -62207,7 +62683,16 @@
    "en": [
     "hunting"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "男たちはライオン狩りに出かけた。",
+    "traduzione": {
+     "it": "Gli uomini andarono a caccia di leoni.",
+     "en": "The men went hunting for lions."
+    }
+   }
+  ]
  },
  "種": {
   "significato": {
@@ -62219,7 +62704,23 @@
     "material",
     "cause"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そんなことをすれば笑いものの種なるよ。",
+    "traduzione": {
+     "it": "Se fai una cosa del genere, diventerai lo zimbello di tutti.",
+     "en": "If you do that, you're going to subject yourself to ridicule."
+    }
+   },
+   {
+    "testo": "蒔かぬ種は生えない。",
+    "traduzione": {
+     "it": "Non si può raccogliere ciò che non si è seminato.",
+     "en": "You must sow before you can reap."
+    }
+   }
+  ]
  },
  "種類": {
   "significato": {
@@ -62231,7 +62732,16 @@
     "variety",
     "kind"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "動物園にはたくさんの種類の動物がいる。",
+    "traduzione": {
+     "it": "Nello zoo ci sono molti tipi di animali.",
+     "en": "There are many kinds of animals in the zoo."
+    }
+   }
+  ]
  },
  "酒": {
   "significato": {
@@ -62243,7 +62753,16 @@
     "alcohol",
     "sake"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "僕は酒も煙草もやらないんだ。",
+    "traduzione": {
+     "it": "Non bevo né fumo.",
+     "en": "I neither drink nor smoke."
+    }
+   }
+  ]
  },
  "首相": {
   "significato": {
@@ -62253,7 +62772,16 @@
    "en": [
     "Prime Minister"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "首相の留守中は外務大臣が代理を務める。",
+    "traduzione": {
+     "it": "In assenza del primo ministro, il ministro degli esteri agisce come suo sostituto.",
+     "en": "The foreign minister will act for the Prime Minister in his absence."
+    }
+   }
+  ]
  },
  "首都": {
   "significato": {
@@ -62263,7 +62791,16 @@
    "en": [
     "capital city"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "東京は日本の首都です。",
+    "traduzione": {
+     "it": "Tokyo è la capitale del Giappone.",
+     "en": "Tokyo is the capital of Japan."
+    }
+   }
+  ]
  },
  "受け取る": {
   "significato": {
@@ -62275,7 +62812,23 @@
     "to get",
     "to accept"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この贈り物は受け取れません。",
+    "traduzione": {
+     "it": "Non posso accettare questo regalo.",
+     "en": "I cannot accept this gift."
+    }
+   },
+   {
+    "testo": "彼女は私の言葉を侮辱と受け取ったようだ。",
+    "traduzione": {
+     "it": "Sembra che abbia interpretato le mie parole come un insulto.",
+     "en": "She seems to have taken my remark as an insult."
+    }
+   }
+  ]
  },
  "需要": {
   "significato": {
@@ -62306,7 +62859,23 @@
     "to store to pay",
     "to supply"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのアメリカ映画は大成功を収めた。",
+    "traduzione": {
+     "it": "Quel film americano ha riscosso un grande successo.",
+     "en": "That American movie was a great success."
+    }
+   },
+   {
+    "testo": "その事典は約５０万語の単語を収めている。",
+    "traduzione": {
+     "it": "Quel dizionario contiene circa 500.000 parole.",
+     "en": "The dictionary contains about half a million words."
+    }
+   }
+  ]
  },
  "収穫": {
   "significato": {
@@ -62318,7 +62887,16 @@
     "crop",
     "ingathering"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちはみな収穫の手伝いをした。",
+    "traduzione": {
+     "it": "Abbiamo tutti aiutato con il raccolto.",
+     "en": "We all helped with the harvest."
+    }
+   }
+  ]
  },
  "収入": {
   "significato": {
@@ -62329,7 +62907,16 @@
     "income",
     "revenue"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "収入以上の生活をするな。",
+    "traduzione": {
+     "it": "Non vivere al di sopra delle tue possibilità.",
+     "en": "Do not live above your income."
+    }
+   }
+  ]
  },
  "周囲": {
   "significato": {
@@ -62342,7 +62929,23 @@
     "circumference",
     "environs"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この木は周囲３メートルある。",
+    "traduzione": {
+     "it": "Questo albero misura tre metri di circonferenza.",
+     "en": "This tree measures three meters around."
+    }
+   },
+   {
+    "testo": "生活のしかたを周囲の状況に合わせたらどうだい。",
+    "traduzione": {
+     "it": "Perché non adatti il tuo stile di vita alle circostanze?",
+     "en": "Why don't you adapt your way of life to circumstances?"
+    }
+   }
+  ]
  },
  "宗教": {
   "significato": {
@@ -62352,7 +62955,16 @@
    "en": [
     "religion"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "手始めは、三大宗教の聖地、エルサレムを訪れることだった。",
+    "traduzione": {
+     "it": "Per cominciare, visitai Gerusalemme, luogo sacro per le tre grandi religioni.",
+     "en": "For a start, I visited Jerusalem - a sacred place for three major religions."
+    }
+   }
+  ]
  },
  "就く": {
   "significato": {
@@ -62365,7 +62977,23 @@
     "to take (seat position)",
     "to study (under teacher)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "友人の好意で職に就くことができた。",
+    "traduzione": {
+     "it": "Sono riuscito a trovare lavoro grazie alla cortesia di un amico.",
+     "en": "I was able to get a job through the good offices of my friend."
+    }
+   },
+   {
+    "testo": "私たちは家路についた。",
+    "traduzione": {
+     "it": "Ci siamo incamminati verso casa.",
+     "en": "We set out for home."
+    }
+   }
+  ]
  },
  "就職": {
   "significato": {
@@ -62375,7 +63003,16 @@
    "en": [
     "finding employment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "なぜ就職を断られたのか。",
+    "traduzione": {
+     "it": "Perché mi hanno rifiutato per il lavoro?",
+     "en": "Why was I turned down for the job?"
+    }
+   }
+  ]
  },
  "州": {
   "significato": {
@@ -62387,7 +63024,16 @@
     "state",
     "province"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "南部の州へ冬期に旅行すると、今旅行するよりも料金が高くなります。",
+    "traduzione": {
+     "it": "Viaggiare verso gli stati del sud in inverno costerà di più di adesso.",
+     "en": "Traveling to the southern states during the winter will be costlier than it is now."
+    }
+   }
+  ]
  },
  "修飾": {
   "significato": {
@@ -62398,7 +63044,16 @@
     "ornamentation",
     "modification (gram)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "名詞を修飾するものは、形容詞または形容詞相当語句です。",
+    "traduzione": {
+     "it": "Ciò che modifica un sostantivo sono gli aggettivi o espressioni equivalenti.",
+     "en": "Things that modify nouns are adjectives or equivalent to adjectives."
+    }
+   }
+  ]
  },
  "修正": {
   "significato": {
@@ -62409,7 +63064,16 @@
     "amendment",
     "correction"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "失礼ですが御提案を修正させていただきます。",
+    "traduzione": {
+     "it": "Mi scusi, ma vorrei modificare la sua proposta.",
+     "en": "I beg to modify your proposal."
+    }
+   }
+  ]
  },
  "修理": {
   "significato": {
@@ -62420,7 +63084,16 @@
     "repairing",
     "mending"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その車は修理する価値がない。",
+    "traduzione": {
+     "it": "Quell'auto non vale la pena di essere riparata.",
+     "en": "The car isn't worth repairing."
+    }
+   }
+  ]
  },
  "終える": {
   "significato": {
@@ -62430,7 +63103,16 @@
    "en": [
     "to finish"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その仕事をもう終えましたか。",
+    "traduzione": {
+     "it": "Hai già finito quel lavoro?",
+     "en": "Are you through with the work?"
+    }
+   }
+  ]
  },
  "臭い": {
   "significato": {
@@ -62442,7 +63124,16 @@
     "smelly",
     "bad-smelling"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あいつが臭い。",
+    "traduzione": {
+     "it": "Lui è sospetto.",
+     "en": "He looks suspicious."
+    }
+   }
+  ]
  },
  "衆": {
   "significato": {
@@ -62464,7 +63155,23 @@
    "en": [
     "to kick"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は私たちの要求をきっぱりとけった。",
+    "traduzione": {
+     "it": "Ha respinto categoricamente le nostre richieste.",
+     "en": "He rejected our demand flatly."
+    }
+   },
+   {
+    "testo": "けってドアを開けるな。",
+    "traduzione": {
+     "it": "Non aprire la porta a calci.",
+     "en": "Don't kick the door open."
+    }
+   }
+  ]
  },
  "週": {
   "significato": {
@@ -62474,7 +63181,16 @@
    "en": [
     "week"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それはその前の週に買ったものでした。",
+    "traduzione": {
+     "it": "L'avevo comprato la settimana prima.",
+     "en": "I had bought it the week before."
+    }
+   }
+  ]
  },
  "集まり": {
   "significato": {
@@ -62486,7 +63202,16 @@
     "meeting",
     "collection"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ごく内輪の集まりなのです。",
+    "traduzione": {
+     "it": "È una riunione molto informale, tra pochi intimi.",
+     "en": "It's quite an informal meeting."
+    }
+   }
+  ]
  },
  "集団": {
   "significato": {
@@ -62497,7 +63222,16 @@
     "group",
     "mass"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "君はいまやエリート集団の一員だ。",
+    "traduzione": {
+     "it": "Ora fai parte di un gruppo d'élite.",
+     "en": "You are now among the elite."
+    }
+   }
+  ]
  },
  "集中": {
   "significato": {
@@ -62508,7 +63242,23 @@
     "concentration",
     "focusing the mind"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の仕事の大半が都市部に集中している。",
+    "traduzione": {
+     "it": "La maggior parte del suo lavoro è concentrata nelle aree urbane.",
+     "en": "The bulk of his work is in the urban area."
+    }
+   },
+   {
+    "testo": "私は読書に集中していた。",
+    "traduzione": {
+     "it": "Ero concentrato sulla lettura.",
+     "en": "I was concentrating on reading."
+    }
+   }
+  ]
  },
  "住": {
   "significato": {
@@ -62531,7 +63281,16 @@
     "resident",
     "housing"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どちらかといえば木造住宅に住みたい。",
+    "traduzione": {
+     "it": "Se dovessi scegliere, preferirei vivere in una casa di legno.",
+     "en": "I'd rather live in a wooden house."
+    }
+   }
+  ]
  },
  "住民": {
   "significato": {
@@ -62542,7 +63301,16 @@
     "inhabitants",
     "residents"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "住民は反対運動を始めた。",
+    "traduzione": {
+     "it": "Gli abitanti hanno iniziato un movimento di protesta.",
+     "en": "The residents started a protest movement."
+    }
+   }
+  ]
  },
  "従う": {
   "significato": {
@@ -62554,7 +63322,16 @@
     "to abide (by the rules)",
     "to obey"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "善良な市民は法律に従う。",
+    "traduzione": {
+     "it": "Un buon cittadino rispetta le leggi.",
+     "en": "A good citizen obeys the laws."
+    }
+   }
+  ]
  },
  "従兄弟": {
   "significato": {
@@ -62564,7 +63341,16 @@
    "en": [
     "cousin (male)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私には弁護士のいとこがいる。",
+    "traduzione": {
+     "it": "Ho un cugino avvocato.",
+     "en": "I have a cousin who is a lawyer."
+    }
+   }
+  ]
  },
  "従姉妹": {
   "significato": {
@@ -64876,7 +65662,23 @@
     "vigor",
     "momentum"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "勢いに流されているんですよ。",
+    "traduzione": {
+     "it": "Ti stai lasciando trasportare dall'impeto del momento.",
+     "en": "You are carried along with the slide."
+    }
+   },
+   {
+    "testo": "あらしの勢いが弱まった。",
+    "traduzione": {
+     "it": "La tempesta si è attenuata.",
+     "en": "The storm abated."
+    }
+   }
+  ]
  },
  "姓": {
   "significato": {
@@ -65914,7 +66716,23 @@
     "whole",
     "entire"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "全新聞がその事件を大きく取り上げた。",
+    "traduzione": {
+     "it": "Tutti i giornali hanno dato grande risalto al caso.",
+     "en": "All the papers featured the case."
+    }
+   },
+   {
+    "testo": "その辞書は全２巻です。",
+    "traduzione": {
+     "it": "Il dizionario è composto da due volumi.",
+     "en": "The dictionary comes in two volumes."
+    }
+   }
+  ]
  },
  "全く": {
   "significato": {
@@ -69819,7 +70637,16 @@
     "to store to pay",
     "to supply"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "税金を納める。",
+    "traduzione": {
+     "it": "Pagare le tasse.",
+     "en": "To pay taxes."
+    }
+   }
+  ]
  },
  "納得": {
   "significato": {
@@ -72827,7 +73654,16 @@
    "en": [
     "noun"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "名詞を修飾するものは、形容詞または形容詞相当語句です。",
+    "traduzione": {
+     "it": "Ciò che modifica un sostantivo sono gli aggettivi o espressioni equivalenti.",
+     "en": "Things that modify nouns are adjectives or equivalent to adjectives."
+    }
+   }
+  ]
  },
  "名人": {
   "significato": {
@@ -73657,7 +74493,16 @@
     "prevention",
     "protection against"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "治療よりも予防。",
+    "traduzione": {
+     "it": "Prevenire è meglio che curare.",
+     "en": "Prevention is better than cure."
+    }
+   }
+  ]
  },
  "余分": {
   "significato": {
@@ -74563,7 +75408,16 @@
    "en": [
     "dew"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "芝生に露が降りている。",
+    "traduzione": {
+     "it": "Sul prato si è formata la rugiada.",
+     "en": "Dew has formed on the lawn."
+    }
+   }
+  ]
  },
  "労働": {
   "significato": {
@@ -77005,6 +77859,222 @@
     "traduzione": {
      "it": "Il mio capo mi ha sgridato duramente per aver fatto telefonate personali con il telefono dell'ufficio.",
      "en": "My boss called me down for making private calls on the office phone."
+    }
+   }
+  ]
+ },
+ "治療する": {
+  "frasi_esempio": [
+   {
+    "testo": "治療よりも予防。",
+    "traduzione": {
+     "it": "Prevenire è meglio che curare.",
+     "en": "Prevention is better than cure."
+    }
+   }
+  ]
+ },
+ "自殺する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼は自殺しようとしたが、未遂に終わった。",
+    "traduzione": {
+     "it": "Ha tentato il suicidio, ma è finito in un fallimento.",
+     "en": "He tried to kill himself but it ended in failure."
+    }
+   }
+  ]
+ },
+ "自慢する": {
+  "frasi_esempio": [
+   {
+    "testo": "われわれは体力を自慢した。",
+    "traduzione": {
+     "it": "Eravamo orgogliosi della nostra forza fisica.",
+     "en": "We took pride in our strength."
+    }
+   }
+  ]
+ },
+ "辞退する": {
+  "frasi_esempio": [
+   {
+    "testo": "芥川賞の受賞を辞退したいのですが。",
+    "traduzione": {
+     "it": "Vorrei rifiutare il premio Akutagawa.",
+     "en": "I would like to excuse myself from receiving the Akutagawa Prize."
+    }
+   }
+  ]
+ },
+ "失望する": {
+  "frasi_esempio": [
+   {
+    "testo": "私はその結果に失望した。",
+    "traduzione": {
+     "it": "Sono rimasto deluso dai risultati.",
+     "en": "I was disappointed at the results."
+    }
+   }
+  ]
+ },
+ "実験する": {
+  "frasi_esempio": [
+   {
+    "testo": "実験は成功だった。",
+    "traduzione": {
+     "it": "L'esperimento è stato un successo.",
+     "en": "The experiment was successful."
+    }
+   }
+  ]
+ },
+ "実現する": {
+  "frasi_esempio": [
+   {
+    "testo": "あなたの夢がみんな実現されますように。",
+    "traduzione": {
+     "it": "Che tutti i tuoi sogni si avverino!",
+     "en": "May all your dreams come true!"
+    }
+   }
+  ]
+ },
+ "実行する": {
+  "frasi_esempio": [
+   {
+    "testo": "私は彼の実行的能力を信頼している。",
+    "traduzione": {
+     "it": "Ho fiducia nella sua capacità esecutiva.",
+     "en": "I trust his executive ability."
+    }
+   }
+  ]
+ },
+ "実施する": {
+  "frasi_esempio": [
+   {
+    "testo": "その計画は実施された。",
+    "traduzione": {
+     "it": "Il piano è stato attuato.",
+     "en": "The plan was put into operation."
+    }
+   }
+  ]
+ },
+ "借金する": {
+  "frasi_esempio": [
+   {
+    "testo": "君は借金を払うべきだ。",
+    "traduzione": {
+     "it": "Dovresti pagare i tuoi debiti.",
+     "en": "You should pay your debts."
+    }
+   }
+  ]
+ },
+ "主張する": {
+  "frasi_esempio": [
+   {
+    "testo": "私たちはその重要性を主張した。",
+    "traduzione": {
+     "it": "Abbiamo insistito sulla sua importanza.",
+     "en": "We insisted on its importance."
+    }
+   }
+  ]
+ },
+ "手術する": {
+  "frasi_esempio": [
+   {
+    "testo": "手術をしなければなりません。",
+    "traduzione": {
+     "it": "Deve sottoporsi a un intervento chirurgico.",
+     "en": "You have to have an operation."
+    }
+   }
+  ]
+ },
+ "収穫する": {
+  "frasi_esempio": [
+   {
+    "testo": "私たちはみな収穫の手伝いをした。",
+    "traduzione": {
+     "it": "Abbiamo tutti aiutato con il raccolto.",
+     "en": "We all helped with the harvest."
+    }
+   }
+  ]
+ },
+ "就職する": {
+  "frasi_esempio": [
+   {
+    "testo": "なぜ就職を断られたのか。",
+    "traduzione": {
+     "it": "Perché mi hanno rifiutato per il lavoro?",
+     "en": "Why was I turned down for the job?"
+    }
+   }
+  ]
+ },
+ "修飾する": {
+  "frasi_esempio": [
+   {
+    "testo": "名詞を修飾するものは、形容詞または形容詞相当語句です。",
+    "traduzione": {
+     "it": "Ciò che modifica un sostantivo sono gli aggettivi o espressioni equivalenti.",
+     "en": "Things that modify nouns are adjectives or equivalent to adjectives."
+    }
+   }
+  ]
+ },
+ "修正する": {
+  "frasi_esempio": [
+   {
+    "testo": "失礼ですが御提案を修正させていただきます。",
+    "traduzione": {
+     "it": "Mi scusi, ma vorrei modificare la sua proposta.",
+     "en": "I beg to modify your proposal."
+    }
+   }
+  ]
+ },
+ "修理する": {
+  "frasi_esempio": [
+   {
+    "testo": "その車は修理する価値がない。",
+    "traduzione": {
+     "it": "Quell'auto non vale la pena di essere riparata.",
+     "en": "The car isn't worth repairing."
+    }
+   }
+  ]
+ },
+ "集中する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼の仕事の大半が都市部に集中している。",
+    "traduzione": {
+     "it": "La maggior parte del suo lavoro è concentrata nelle aree urbane.",
+     "en": "The bulk of his work is in the urban area."
+    }
+   },
+   {
+    "testo": "私は読書に集中していた。",
+    "traduzione": {
+     "it": "Ero concentrato sulla lettura.",
+     "en": "I was concentrating on reading."
+    }
+   }
+  ]
+ },
+ "予防する": {
+  "frasi_esempio": [
+   {
+    "testo": "治療よりも予防。",
+    "traduzione": {
+     "it": "Prevenire è meglio che curare.",
+     "en": "Prevention is better than cure."
     }
    }
   ]
