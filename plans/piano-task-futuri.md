@@ -452,7 +452,32 @@ Catalogo N3: vocabolario disponibile alla stessa fonte di N5/N4 (allenlu2009/jap
 datasets, 2139 parole, verificato raggiungibile), kanji N3 già in cache locale
 (`scripts/data/kanji-n3.json`) ma non ancora incluso nell'output finale, grammatica N3 **senza
 fonte automatica** (jlpt-grammar-api risponde 404 per N3 — richiede voci curate a mano, come già
-fatto per le forme composte custom). Lavoro in corso, non ancora wired nello script.
+fatto per le forme composte custom).
+
+**Wired e sincronizzato (31/07)**: vocabolario + kanji N3 dentro `sync-open-source-seed.mjs`
+(commit `a5f2221b`). Bug scoperti aumentando la scala (2139 parole in più fanno emergere
+collisioni prima invisibili): `applyIikaeGroups` cercava le parole dei gruppi 言い換え solo per
+scrittura, non per id — con più livelli possono esistere due parole con la stessa scrittura ma
+letture diverse (訳 N4 わけ "motivo" vs N3 やく "traduzione"); ora cerca prima per id. 下がる
+(rimosso dalla fonte N4 upstream) e 運転 (lettura anomala 'うんてんする' in N4 che confondeva la
+dedup con 'うんてん' di N3) spostati in `extra-words-n5n4.json` (curati a mano, sopravvivono a
+futuri cambiamenti upstream). Seed: 3950 parole (2492 N3, 736 N4, 713 N5, 9 EXTRA), 874 kanji,
+173 grammatica (invariata, nessuna fonte N3).
+
+**Curatela traduzioni IT in corso (31/07)**: stesso metodo del lotto N4/N5 (879 frasi, v83) —
+dizionario testo-per-testo dal giapponese (mai dall'inglese intermedio), scritto sia nel seed sia
+in `word-overrides.json`, verificato con `npx vitest run src/lib/data/overrides.test.ts` a ogni
+lotto, commit a ogni lotto (~110 parole ciascuno, SEED_REVISION bump v86→v91+).
+**Stato: 1052/2114 parole N3 tradotte** (significato.it), lotti 1-6 fatti. Prossimo passo:
+continuare i lotti fino a coprire tutte le ~2114 parole (interrogare
+`w.livello_jlpt==='N3' && JSON.stringify(w.significato.it)===JSON.stringify(w.significato.en)`
+sul seed per la lista rimanente — nota: alcuni loanword katakana risultano sempre "già uguali"
+anche se corretti, es. album/jeans/hotel, perché la traduzione italiana coincide col prestito
+inglese: non è un bug, sono già a posto). Dopo le parole restano da fare: frasi_esempio delle
+parole N3 (già `it:""` grazie al fix pipeline, in attesa di traduzione dal giapponese) e la
+curatela di sinonimi/contrari/omofoni/correlati (l'euristica automatica di `enrichWordRelations`
+gira già e produce risultati plausibili ma non verificati da madrelingua — vedi
+[[sinonimi-contrari-strategia]], da fare "da insegnante" non euristicamente).
 
 ## Verifiche pendenti
 
