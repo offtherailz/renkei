@@ -42214,7 +42214,16 @@
     "roughly",
     "in round numbers"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はパンフレットにざっと目をとおした。",
+    "traduzione": {
+     "it": "Ho dato una scorsa alla brochure.",
+     "en": "I glanced through the brochure."
+    }
+   }
+  ]
  },
  "さっぱり": {
   "significato": {
@@ -42226,7 +42235,23 @@
     "feeling refreshed",
     "neat"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ほんの一寝入りしたら、さっぱりした。",
+    "traduzione": {
+     "it": "Bastò un pisolino per sentirmi rigenerato.",
+     "en": "Just a spot of shut-eye has already refreshed my mind."
+    }
+   },
+   {
+    "testo": "私はこの手のことにはさっぱりだ。",
+    "traduzione": {
+     "it": "Sono completamente negato per queste cose.",
+     "en": "I'm a total stranger to things of this kind."
+    }
+   }
+  ]
  },
  "さて": {
   "significato": {
@@ -42238,7 +42263,16 @@
     "well",
     "now (typically used when switching to a new, usually more important topic)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "さて次の話題に移ることにしよう。",
+    "traduzione": {
+     "it": "Bene, passiamo al prossimo argomento.",
+     "en": "Let's go on to the next subject."
+    }
+   }
+  ]
  },
  "ジーンズ": {
   "significato": {
@@ -42248,7 +42282,16 @@
    "en": [
     "jeans"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は日曜日はたいていジーンズをはいている。",
+    "traduzione": {
+     "it": "Di solito indosso i jeans la domenica.",
+     "en": "I usually wear jeans on Sunday."
+    }
+   }
+  ]
  },
  "ジェット機": {
   "significato": {
@@ -42258,7 +42301,16 @@
    "en": [
     "jet plane"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジェット機は離陸する時に轟音を立てた。",
+    "traduzione": {
+     "it": "Il jet fece un boato al decollo.",
+     "en": "The jet roared during takeoff."
+    }
+   }
+  ]
  },
  "しかも": {
   "significato": {
@@ -42272,7 +42324,16 @@
     "besides",
     "plus"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はそれをした、しかも彼女のいる前で。",
+    "traduzione": {
+     "it": "L'ha fatto, per di più davanti a lei.",
+     "en": "He did it, and in her presence."
+    }
+   }
+  ]
  },
  "しきりに": {
   "significato": {
@@ -42285,7 +42346,16 @@
     "repeatedly",
     "eagerly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "トムはしきりに新車を買いたがっている。",
+    "traduzione": {
+     "it": "Tom continua a insistere per comprare un'auto nuova.",
+     "en": "Tom is eager to buy a new car."
+    }
+   }
+  ]
  },
  "したがって": {
   "significato": {
@@ -42297,7 +42367,16 @@
     "therefore",
     "consequently"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "したがって、私は行かなければならない。",
+    "traduzione": {
+     "it": "Perciò devo andare.",
+     "en": "Therefore, I have to go."
+    }
+   }
+  ]
  },
  "じっと": {
   "significato": {
@@ -42309,7 +42388,23 @@
     "patiently",
     "quietly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "さあ言ってよ、じっと聞いているから。",
+    "traduzione": {
+     "it": "Dai, dimmelo, ti ascolto con attenzione.",
+     "en": "Tell me. I'm all ears."
+    }
+   },
+   {
+    "testo": "人をじっと見つめるのは無礼である。",
+    "traduzione": {
+     "it": "Fissare le persone è maleducato.",
+     "en": "It's impolite to stare at people."
+    }
+   }
+  ]
  },
  "しばしば": {
   "significato": {
@@ -42322,7 +42417,16 @@
     "again and again",
     "frequently"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はしばしば絶望感に襲われた。",
+    "traduzione": {
+     "it": "Sono stato spesso assalito dalla disperazione.",
+     "en": "I was often seized by despair."
+    }
+   }
+  ]
  },
  "しゃべる": {
   "significato": {
@@ -42335,7 +42439,16 @@
     "to chat",
     "to chatter (same as 話す (はなす))"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "つい彼が病気だということをしゃべってしまった。",
+    "traduzione": {
+     "it": "Mi è scappato di dire che lui è malato.",
+     "en": "I've just let slip that he is sick."
+    }
+   }
+  ]
  },
  "ジュース": {
   "significato": {
@@ -42347,7 +42460,23 @@
     "soft drink",
     "deuce"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女はオレンジからジュースを絞り出そうとした。",
+    "traduzione": {
+     "it": "Lei ha cercato di spremere il succo dall'arancia.",
+     "en": "She tried to express juice from the orange."
+    }
+   },
+   {
+    "testo": "彼が明日時間通りに来るかどうかジュース一本賭けない？",
+    "traduzione": {
+     "it": "Scommettiamo un succo se domani arriva puntuale o no?",
+     "en": "I wonder whether he'll make it here on time tomorrow. Want to bet a can of juice on it?"
+    }
+   }
+  ]
  },
  "ショック": {
   "significato": {
@@ -42357,7 +42486,16 @@
    "en": [
     "shock"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はその悲しい知らせを聞いてショックを受けた。",
+    "traduzione": {
+     "it": "Sono rimasto scioccato nel sentire quella triste notizia.",
+     "en": "I was shocked at the sad news."
+    }
+   }
+  ]
  },
  "スイッチ": {
   "significato": {
@@ -42367,7 +42505,16 @@
    "en": [
     "switch"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この仕掛けはスイッチで動く。",
+    "traduzione": {
+     "it": "Questo meccanismo funziona con un interruttore.",
+     "en": "This device is actuated by a switch."
+    }
+   }
+  ]
  },
  "スープ": {
   "significato": {
@@ -42377,7 +42524,16 @@
    "en": [
     "(Western) soup"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このスープは、しょっぱ過ぎて飲めないよ。",
+    "traduzione": {
+     "it": "Questa zuppa è troppo salata, non si può bere.",
+     "en": "This soup is too salty to eat."
+    }
+   }
+  ]
  },
  "スキー": {
   "significato": {
@@ -42387,7 +42543,23 @@
    "en": [
     "ski"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは毎年何回スキーに行きますか。",
+    "traduzione": {
+     "it": "Quante volte all'anno vai a sciare?",
+     "en": "How many times a year do you go skiing?"
+    }
+   },
+   {
+    "testo": "あなたのスキーを逆Ｖ字型にしなさい。",
+    "traduzione": {
+     "it": "Metti gli sci a V rovesciata.",
+     "en": "Place your skis in an inverted V."
+    }
+   }
+  ]
  },
  "すくなくとも": {
   "significato": {
@@ -42397,7 +42569,16 @@
    "en": [
     "at least"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はすくなくとも三回来た。",
+    "traduzione": {
+     "it": "Lui è venuto almeno tre volte.",
+     "en": "He came at least three times."
+    }
+   }
+  ]
  },
  "スケート": {
   "significato": {
@@ -42408,7 +42589,16 @@
     "skate(s)",
     "skating"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "とても寒いからスケートが出来るよ。",
+    "traduzione": {
+     "it": "Fa così freddo che si può pattinare.",
+     "en": "It's so cold that we can skate."
+    }
+   }
+  ]
  },
  "スケジュール": {
   "significato": {
@@ -42419,7 +42609,16 @@
    "en": [
     "schedule"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "スケジュールがバッティングしなきゃ大丈夫です。",
+    "traduzione": {
+     "it": "Va bene, purché non ci siano sovrapposizioni nel programma.",
+     "en": "The schedule's fine as long as nothing clashes."
+    }
+   }
+  ]
  },
  "スター": {
   "significato": {
@@ -42429,7 +42628,16 @@
    "en": [
     "star"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "スターの野球選手はよくサインを求められる。",
+    "traduzione": {
+     "it": "Ai giocatori di baseball famosi viene spesso chiesto l'autografo.",
+     "en": "Star baseball players are often asked for autographs."
+    }
+   }
+  ]
  },
  "スタイル": {
   "significato": {
@@ -42439,7 +42647,16 @@
    "en": [
     "style"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ダンスはスタイルをよくするのにいい。",
+    "traduzione": {
+     "it": "Ballare fa bene alla linea.",
+     "en": "Dancing is good for the figure."
+    }
+   }
+  ]
  },
  "スタンド": {
   "significato": {
@@ -42450,7 +42667,23 @@
    "en": [
     "stand"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "次のスタンドまでどのくらいありますか。",
+    "traduzione": {
+     "it": "Quanto manca al prossimo distributore?",
+     "en": "How far is the next gas station?"
+    }
+   },
+   {
+    "testo": "私は大きな電気スタンドは嫌いだ。",
+    "traduzione": {
+     "it": "Non mi piacciono le grandi lampade da tavolo.",
+     "en": "I don't like big desk lamps."
+    }
+   }
+  ]
  },
  "ずっと": {
   "significato": {
@@ -42463,7 +42696,23 @@
     "all the time",
     "consecutively"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この時計はあれよりもずっと高価だ。",
+    "traduzione": {
+     "it": "Questo orologio è molto più costoso di quello.",
+     "en": "This clock is far more expensive than that."
+    }
+   },
+   {
+    "testo": "この慣習は、ずっと前から廃止されている。",
+    "traduzione": {
+     "it": "Questa usanza è stata abolita da molto tempo.",
+     "en": "This practice has long since been done away with."
+    }
+   }
+  ]
  },
  "すっぱい": {
   "significato": {
@@ -42475,7 +42724,16 @@
     "sour",
     "acid"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "すっぱい木においしい林檎はならない。",
+    "traduzione": {
+     "it": "Da un albero acido non nascono mele buone.",
+     "en": "No good apple on a sour stock."
+    }
+   }
+  ]
  },
  "すてき": {
   "significato": {
@@ -42487,7 +42745,16 @@
     "lovely",
     "great"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このドレスはすてきですね。",
+    "traduzione": {
+     "it": "Questo vestito è splendido.",
+     "en": "This dress is lovely."
+    }
+   }
+  ]
  },
  "ストレス": {
   "significato": {
@@ -42497,7 +42764,16 @@
    "en": [
     "stress"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ストレスを避けることが必要です。",
+    "traduzione": {
+     "it": "È necessario evitare lo stress.",
+     "en": "It's necessary to avoid stress."
+    }
+   }
+  ]
  },
  "すなわち": {
   "significato": {
@@ -42510,7 +42786,16 @@
     "namely",
     "e.g."
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "すなわち彼はそれをしたくないのだ。",
+    "traduzione": {
+     "it": "In altre parole, lui non vuole farlo.",
+     "en": "In other words, he doesn't want to do it."
+    }
+   }
+  ]
  },
  "スピーチ": {
   "significato": {
@@ -42520,7 +42805,16 @@
    "en": [
     "speech"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちは彼にスピーチを頼んだ。",
+    "traduzione": {
+     "it": "Gli abbiamo chiesto di fare un discorso.",
+     "en": "We called on him for a speech."
+    }
+   }
+  ]
  },
  "ずれる": {
   "significato": {
@@ -42532,7 +42826,16 @@
     "move",
     "off the point"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "予定が少しずれた。",
+    "traduzione": {
+     "it": "Il programma si è leggermente spostato.",
+     "en": "The schedule shifted a bit."
+    }
+   }
+  ]
  },
  "すれ違う": {
   "significato": {
@@ -42542,7 +42845,16 @@
    "en": [
     "to pass by one another"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "通りですれ違った時私をわざと無視した。",
+    "traduzione": {
+     "it": "Quando ci siamo incrociati per strada, mi ha ignorato di proposito.",
+     "en": "He deliberately ignored me when I passed him in the street."
+    }
+   }
+  ]
  },
  "セット": {
   "significato": {
@@ -42553,7 +42865,23 @@
    "en": [
     "set"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "洗髪とセットの予約をしたいのですが。",
+    "traduzione": {
+     "it": "Vorrei prenotare uno shampoo e messa in piega.",
+     "en": "I'd like to make an appointment for a shampoo and a set."
+    }
+   },
+   {
+    "testo": "目覚ましを７時にセットしよう。",
+    "traduzione": {
+     "it": "Metterò la sveglia alle sette.",
+     "en": "I'll set the alarm for seven o'clock."
+    }
+   }
+  ]
  },
  "センター": {
   "significato": {
@@ -42563,7 +42891,16 @@
    "en": [
     "center"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ウィンブルドンには、センターコートを含めて１８の芝生コートがある。",
+    "traduzione": {
+     "it": "Wimbledon ha diciotto campi in erba, incluso il Centrale.",
+     "en": "Wimbledon has eighteen grass courts, including the Center Court."
+    }
+   }
+  ]
  },
  "そこで": {
   "significato": {
@@ -42575,7 +42912,16 @@
     "so (conj.)",
     "accordingly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "雨が降り出した。そこで傘をさした。",
+    "traduzione": {
+     "it": "Ha iniziato a piovere. Allora ho aperto l'ombrello.",
+     "en": "It started raining, so I opened my umbrella."
+    }
+   }
+  ]
  },
  "そして": {
   "significato": {
@@ -42586,7 +42932,16 @@
    "en": [
     "and then"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は京都と、そして奈良にも訪れる計画を立てている。",
+    "traduzione": {
+     "it": "Ho intenzione di visitare Kyoto e anche Nara.",
+     "en": "I am planning to visit Kyoto, and Nara as well."
+    }
+   }
+  ]
  },
  "そっくり": {
   "significato": {
@@ -42598,7 +42953,23 @@
     "the splitting image of",
     "entirely"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはお母さんにそっくりね。",
+    "traduzione": {
+     "it": "Assomigli proprio a tua madre.",
+     "en": "You look just like your mother."
+    }
+   },
+   {
+    "testo": "計画はそっくり承認された。",
+    "traduzione": {
+     "it": "Il piano è stato approvato interamente.",
+     "en": "The plan was approved in its entirety."
+    }
+   }
+  ]
  },
  "そっと": {
   "significato": {
@@ -42610,7 +42981,16 @@
     "softly",
     "gently"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は子供をそっと寝かせた。",
+    "traduzione": {
+     "it": "Lei mise a letto il bambino delicatamente.",
+     "en": "She laid the child down gently."
+    }
+   }
+  ]
  },
  "そのうえ": {
   "significato": {
@@ -42622,7 +43002,16 @@
     "in addition",
     "furthermore"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は頭がいい、そのうえ努力家だ。",
+    "traduzione": {
+     "it": "Lui è intelligente, e per di più lavora sodo.",
+     "en": "He's smart, and moreover hardworking."
+    }
+   }
+  ]
  },
  "そのうち": {
   "significato": {
@@ -42635,7 +43024,16 @@
     "eventually",
     "sooner or later"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのうち一緒に仕事ができるといいなと思っています。",
+    "traduzione": {
+     "it": "Spero che potremo lavorare insieme presto.",
+     "en": "Hope we can work together soon."
+    }
+   }
+  ]
  },
  "そのまま": {
   "significato": {
@@ -42647,7 +43045,16 @@
     "without change",
     "as it is (e.g., now)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ドアをそのままにしておいてはいけません。",
+    "traduzione": {
+     "it": "Non si deve lasciare la porta così com'è.",
+     "en": "The door must not be left open."
+    }
+   }
+  ]
  },
  "ソファー": {
   "significato": {
@@ -42658,7 +43065,16 @@
     "sofa",
     "couch"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このソファーは場所を取りすぎる。",
+    "traduzione": {
+     "it": "Questo divano occupa troppo spazio.",
+     "en": "This sofa takes too much room."
+    }
+   }
+  ]
  },
  "それぞれ": {
   "significato": {
@@ -42671,7 +43087,16 @@
     "every",
     "respectively"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その兄弟はそれぞれ車を所有している。",
+    "traduzione": {
+     "it": "Ognuno dei fratelli possiede un'auto.",
+     "en": "Each of the brothers has a car."
+    }
+   }
+  ]
  },
  "それでも": {
   "significato": {
@@ -42684,7 +43109,16 @@
     "and yet",
     "nevertheless"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "雨が激しく降っていますそれでも私は行かなければならない。",
+    "traduzione": {
+     "it": "Sta piovendo forte, eppure devo andare.",
+     "en": "It's raining hard and yet I must go."
+    }
+   }
+  ]
  },
  "それと": {
   "significato": {
@@ -42695,7 +43129,16 @@
    "en": [
     "and"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それと俺がホモだとしたら、罪になるわけ？",
+    "traduzione": {
+     "it": "E poi, se io fossi gay, sarebbe un crimine?",
+     "en": "And if I were gay, would that be a crime?"
+    }
+   }
+  ]
  },
  "それとも": {
   "significato": {
@@ -42706,7 +43149,16 @@
     "or",
     "or else"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはリンゴが好きですか、それともオレンジが好きですか。",
+    "traduzione": {
+     "it": "Ti piacciono le mele o le arance?",
+     "en": "Do you like apples or oranges?"
+    }
+   }
+  ]
  },
  "タイトル": {
   "significato": {
@@ -42716,7 +43168,16 @@
    "en": [
     "title"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その本のタイトルは何ですか。",
+    "traduzione": {
+     "it": "Qual è il titolo di quel libro?",
+     "en": "What is the title of the book?"
+    }
+   }
+  ]
  },
  "タイプライター": {
   "significato": {
@@ -42726,7 +43187,16 @@
    "en": [
     "typewriter"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私のタイプライターにさわらないで。",
+    "traduzione": {
+     "it": "Non toccare la mia macchina da scrivere.",
+     "en": "Keep your hands off my typewriter."
+    }
+   }
+  ]
  },
  "ダイヤ": {
   "significato": {
@@ -42749,7 +43219,23 @@
    "en": [
     "down"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "サーバーがダウンしてて、メールチェックできない。",
+    "traduzione": {
+     "it": "Il server è giù, non riesco a controllare la posta.",
+     "en": "I can't check my mail. The server is down."
+    }
+   },
+   {
+    "testo": "彼女は風邪でダウンした。",
+    "traduzione": {
+     "it": "Lei è stata a letto con il raffreddore.",
+     "en": "She came down with a cold."
+    }
+   }
+  ]
  },
  "だが": {
   "significato": {
@@ -42761,7 +43247,16 @@
     "but",
     "however"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたに手紙を書くつもりだったのだが。",
+    "traduzione": {
+     "it": "Avevo intenzione di scriverti una lettera.",
+     "en": "I meant to have written to you."
+    }
+   }
+  ]
  },
  "だけど": {
   "significato": {
@@ -42772,7 +43267,16 @@
    "en": [
     "however"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "行きたいんだけど、時間がない。",
+    "traduzione": {
+     "it": "Vorrei andare, però non ho tempo.",
+     "en": "I want to go, but I don't have time."
+    }
+   }
+  ]
  },
  "たしか": {
   "significato": {
@@ -42785,7 +43289,16 @@
     "sure",
     "if I remember correctly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "たしか彼はここに住んでいたはずだ。",
+    "traduzione": {
+     "it": "Se non sbaglio, lui abitava qui.",
+     "en": "If I remember correctly, he used to live here."
+    }
+   }
+  ]
  },
  "ただ": {
   "significato": {
@@ -42798,7 +43311,23 @@
     "just (~)",
     "only (~)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はその切符をただで手にいれた。",
+    "traduzione": {
+     "it": "Ho ottenuto quel biglietto gratis.",
+     "en": "I got the ticket for nothing."
+    }
+   },
+   {
+    "testo": "君はただ皿を洗いさえすればいい。",
+    "traduzione": {
+     "it": "Devi solo lavare i piatti.",
+     "en": "All you have to do is wash the dishes."
+    }
+   }
+  ]
  },
  "だって": {
   "significato": {
@@ -42811,7 +43340,23 @@
     "because",
     "even"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "子供にだってそんな事は分かるよ。",
+    "traduzione": {
+     "it": "Anche un bambino lo capirebbe.",
+     "en": "Even children can understand it."
+    }
+   },
+   {
+    "testo": "今日この番組でハッカーの問題をクローズアップするんだって。",
+    "traduzione": {
+     "it": "Pare che oggi questo programma metta a fuoco il problema degli hacker.",
+     "en": "This program is going to focus on computer hacking issues today."
+    }
+   }
+  ]
  },
  "たっぷり": {
   "significato": {
@@ -42824,7 +43369,23 @@
     "in plenty",
     "ample"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "まだ時間はたっぷりある。",
+    "traduzione": {
+     "it": "C'è ancora molto tempo.",
+     "en": "We still have plenty of time left."
+    }
+   },
+   {
+    "testo": "教授の話はユーモアたっぷりだった。",
+    "traduzione": {
+     "it": "Il discorso del professore era pieno di umorismo.",
+     "en": "The professor's speech was full of humor."
+    }
+   }
+  ]
  },
  "たとえ": {
   "significato": {
@@ -42837,7 +43398,16 @@
     "no matter",
     "though"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "たとえ雨が降っても行きます。",
+    "traduzione": {
+     "it": "Anche se piove, ci andrò.",
+     "en": "Even if it rains, I'll go."
+    }
+   }
+  ]
  },
  "たびたび": {
   "significato": {
@@ -42850,7 +43420,16 @@
     "repeatedly",
     "frequently"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はたびたび彼から手紙をもらう。",
+    "traduzione": {
+     "it": "Ricevo spesso lettere da lui.",
+     "en": "I often get a letter from him."
+    }
+   }
+  ]
  },
  "たまらない": {
   "significato": {
@@ -42863,7 +43442,23 @@
     "unbearable",
     "unendurable"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのカメラが欲しくてたまらない。",
+    "traduzione": {
+     "it": "Desidero moltissimo quella macchina fotografica.",
+     "en": "I'm dying for that camera."
+    }
+   },
+   {
+    "testo": "このにおいはたまらなく嫌だ。",
+    "traduzione": {
+     "it": "Questo odore è insopportabile.",
+     "en": "This smell disgusts me."
+    }
+   }
+  ]
  },
  "ダンス": {
   "significato": {
@@ -42874,7 +43469,16 @@
    "en": [
     "dance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ダンスはスタイルをよくするのにいい。",
+    "traduzione": {
+     "it": "Ballare fa bene alla linea.",
+     "en": "Dancing is good for the figure."
+    }
+   }
+  ]
  },
  "チーズ": {
   "significato": {
@@ -42884,7 +43488,16 @@
    "en": [
     "cheese"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョージは朝にたくさんのチーズを食べた。",
+    "traduzione": {
+     "it": "George ha mangiato molto formaggio a colazione.",
+     "en": "George had a lot of cheese for breakfast."
+    }
+   }
+  ]
  },
  "チーム": {
   "significato": {
@@ -42894,7 +43507,16 @@
    "en": [
     "team"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "サッカーのチームはトムによって引率される。",
+    "traduzione": {
+     "it": "La squadra di calcio è guidata da Tom.",
+     "en": "The soccer team is led by Tom."
+    }
+   }
+  ]
  },
  "チャイム": {
   "significato": {
@@ -42904,7 +43526,16 @@
    "en": [
     "chime"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "チャイムが鳴って授業が始まった。",
+    "traduzione": {
+     "it": "La campanella suonò e la lezione iniziò.",
+     "en": "The bell rang and class began."
+    }
+   }
+  ]
  },
  "チャンス": {
   "significato": {
@@ -42916,7 +43547,16 @@
     "chance",
     "opportunity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お願いだ！俺にチャンスをくれ。",
+    "traduzione": {
+     "it": "Ti prego! Dammi una possibilità.",
+     "en": "Come on! Give me a chance."
+    }
+   }
+  ]
  },
  "ちゃんと": {
   "significato": {
@@ -42929,7 +43569,16 @@
     "properly",
     "exactly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この道具はちゃんと使えばとても役に立つ。",
+    "traduzione": {
+     "it": "Se usato correttamente, questo attrezzo è molto utile.",
+     "en": "If it is used properly, this tool will be a great help."
+    }
+   }
+  ]
  },
  "ちょうだい": {
   "significato": {
@@ -42940,7 +43589,23 @@
     "-- colloquial form of ください",
     "typically used by children or women --"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "市民の皆様の御意見をちょうだいする予定です。",
+    "traduzione": {
+     "it": "Abbiamo intenzione di raccogliere le opinioni dei cittadini.",
+     "en": "We plan to elicit opinions from the public."
+    }
+   },
+   {
+    "testo": "このバラちょうだい。",
+    "traduzione": {
+     "it": "Mi dai queste rose?",
+     "en": "I'll take these roses."
+    }
+   }
+  ]
  },
  "つまり": {
   "significato": {
@@ -42953,7 +43618,16 @@
     "in other words",
     "in short"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "つまり彼女は下手な踊り子だ。",
+    "traduzione": {
+     "it": "Insomma, lei è una ballerina scadente.",
+     "en": "That is, she is a poor dancer."
+    }
+   }
+  ]
  },
  "データ": {
   "significato": {
@@ -42963,7 +43637,16 @@
    "en": [
     "data"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのデータは全く役に立たなかった。",
+    "traduzione": {
+     "it": "Quei dati non sono stati per niente utili.",
+     "en": "The data was completely useless."
+    }
+   }
+  ]
  },
  "デート": {
   "significato": {
@@ -42973,7 +43656,16 @@
    "en": [
     "date (in the sense of 'social engagement' only)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "アンディはけっしてデートにおくれたことはない。",
+    "traduzione": {
+     "it": "Andy non è mai stato in ritardo a un appuntamento.",
+     "en": "Andy is never late for a date."
+    }
+   }
+  ]
  },
  "できれば": {
   "significato": {
@@ -42983,7 +43675,16 @@
    "en": [
     "if possible…"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "できれば手伝ってほしい。",
+    "traduzione": {
+     "it": "Se possibile, vorrei che mi aiutassi.",
+     "en": "If possible, I'd like your help."
+    }
+   }
+  ]
  },
  "デザート": {
   "significato": {
@@ -42993,7 +43694,16 @@
    "en": [
     "dessert"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "デザートは何になさいますか？",
+    "traduzione": {
+     "it": "Cosa desidera per dessert?",
+     "en": "What would you like for dessert?"
+    }
+   }
+  ]
  },
  "デザイン": {
   "significato": {
@@ -43003,7 +43713,16 @@
    "en": [
     "design"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼のデザインは大変独創的だ。",
+    "traduzione": {
+     "it": "I suoi design sono molto originali.",
+     "en": "His designs are highly original."
+    }
+   }
+  ]
  },
  "ですから": {
   "significato": {
@@ -43014,7 +43733,16 @@
    "en": [
     "therefore"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いいえ、結構です。お腹が一杯ですから。",
+    "traduzione": {
+     "it": "No grazie, sono sazio.",
+     "en": "No, thank you. I've had enough."
+    }
+   }
+  ]
  },
  "デモ": {
   "significato": {
@@ -43026,7 +43754,16 @@
     "demo",
     "demonstration"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "デモに参加しようと思う。",
+    "traduzione": {
+     "it": "Ho intenzione di partecipare a una manifestazione.",
+     "en": "I'm going to join a demonstration."
+    }
+   }
+  ]
  },
  "テント": {
   "significato": {
@@ -43036,7 +43773,16 @@
    "en": [
     "tent"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちは暗くならないうちにテントを張った。",
+    "traduzione": {
+     "it": "Abbiamo montato le tende prima che facesse buio.",
+     "en": "We set up our tents before dark."
+    }
+   }
+  ]
  },
  "と": {
   "significato": {
@@ -43046,7 +43792,23 @@
    "en": [
     "and"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１２と２４と７と１１の合計は５４です。",
+    "traduzione": {
+     "it": "La somma di 12, 24, 7 e 11 è 54.",
+     "en": "The sum of 12, 24, 7 and 11 is 54."
+    }
+   },
+   {
+    "testo": "彼はあなたとうまくやっていけそうな人だった。",
+    "traduzione": {
+     "it": "Era il tipo di persona con cui saresti potuto andare d'accordo.",
+     "en": "He was the sort of man you could get along with."
+    }
+   }
+  ]
  },
  "どうしても": {
   "significato": {
@@ -47274,7 +48036,16 @@
    "en": [
     "to include"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ウィンブルドンには、センターコートを含めて１８の芝生コートがある。",
+    "traduzione": {
+     "it": "Wimbledon ha diciotto campi in erba, incluso il Centrale.",
+     "en": "Wimbledon has eighteen grass courts, including the Center Court."
+    }
+   }
+  ]
  },
  "岸": {
   "significato": {
@@ -58167,7 +58938,23 @@
     "mere",
     "only"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はその切符をただで手にいれた。",
+    "traduzione": {
+     "it": "Ho ottenuto quel biglietto gratis.",
+     "en": "I got the ticket for nothing."
+    }
+   },
+   {
+    "testo": "君はただ皿を洗いさえすればいい。",
+    "traduzione": {
+     "it": "Devi solo lavare i piatti.",
+     "en": "All you have to do is wash the dishes."
+    }
+   }
+  ]
  },
  "叩く": {
   "significato": {
@@ -64045,7 +64832,23 @@
     "sole",
     "plain"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はその切符をただで手にいれた。",
+    "traduzione": {
+     "it": "Ho ottenuto quel biglietto gratis.",
+     "en": "I got the ticket for nothing."
+    }
+   },
+   {
+    "testo": "君はただ皿を洗いさえすればいい。",
+    "traduzione": {
+     "it": "Devi solo lavare i piatti.",
+     "en": "All you have to do is wash the dishes."
+    }
+   }
+  ]
  },
  "唯::たった": {
   "significato": {
@@ -64056,7 +64859,23 @@
     "only",
     "just"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "たった一つのミスで負けた。",
+    "traduzione": {
+     "it": "Ho perso per un solo errore.",
+     "en": "I lost because of just one mistake."
+    }
+   },
+   {
+    "testo": "残りはたった三日だ。",
+    "traduzione": {
+     "it": "Restano solo tre giorni.",
+     "en": "Only three days remain."
+    }
+   }
+  ]
  },
  "唯一": {
   "significato": {
@@ -65016,7 +65835,16 @@
     "example",
     "even though"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "これはいい例えだ。",
+    "traduzione": {
+     "it": "Questo è un buon esempio.",
+     "en": "This is a good example."
+    }
+   }
+  ]
  },
  "例外": {
   "significato": {
@@ -65626,6 +66454,86 @@
     "traduzione": {
      "it": "Ti viene chiesto di non fumare finché il segnale non si spegne.",
      "en": "You are asked to refrain from smoking until the sign is switched off."
+    }
+   }
+  ]
+ },
+ "スケートする": {
+  "frasi_esempio": [
+   {
+    "testo": "とても寒いからスケートが出来るよ。",
+    "traduzione": {
+     "it": "Fa così freddo che si può pattinare.",
+     "en": "It's so cold that we can skate."
+    }
+   }
+  ]
+ },
+ "ダウンする": {
+  "frasi_esempio": [
+   {
+    "testo": "サーバーがダウンしてて、メールチェックできない。",
+    "traduzione": {
+     "it": "Il server è giù, non riesco a controllare la posta.",
+     "en": "I can't check my mail. The server is down."
+    }
+   },
+   {
+    "testo": "彼女は風邪でダウンした。",
+    "traduzione": {
+     "it": "Lei è stata a letto con il raffreddore.",
+     "en": "She came down with a cold."
+    }
+   }
+  ]
+ },
+ "ダンスする": {
+  "frasi_esempio": [
+   {
+    "testo": "ダンスはスタイルをよくするのにいい。",
+    "traduzione": {
+     "it": "Ballare fa bene alla linea.",
+     "en": "Dancing is good for the figure."
+    }
+   }
+  ]
+ },
+ "ちょうだいする": {
+  "frasi_esempio": [
+   {
+    "testo": "市民の皆様の御意見をちょうだいする予定です。",
+    "traduzione": {
+     "it": "Abbiamo intenzione di raccogliere le opinioni dei cittadini.",
+     "en": "We plan to elicit opinions from the public."
+    }
+   },
+   {
+    "testo": "このバラちょうだい。",
+    "traduzione": {
+     "it": "Mi dai queste rose?",
+     "en": "I'll take these roses."
+    }
+   }
+  ]
+ },
+ "デートする": {
+  "frasi_esempio": [
+   {
+    "testo": "アンディはけっしてデートにおくれたことはない。",
+    "traduzione": {
+     "it": "Andy non è mai stato in ritardo a un appuntamento.",
+     "en": "Andy is never late for a date."
+    }
+   }
+  ]
+ },
+ "デザインする": {
+  "frasi_esempio": [
+   {
+    "testo": "彼のデザインは大変独創的だ。",
+    "traduzione": {
+     "it": "I suoi design sono molto originali.",
+     "en": "His designs are highly original."
     }
    }
   ]
