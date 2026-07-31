@@ -26081,6 +26081,10 @@
      "en": "I'm hungry and have no energy."
     }
    }
+  ],
+  "contrari": [
+   "込む",
+   "混雑"
   ]
  },
  "空気": {
@@ -31516,6 +31520,9 @@
      "en": "This car is produced in Japan."
     }
    }
+  ],
+  "contrari": [
+   "消費"
   ]
  },
  "盛ん": {
@@ -52856,6 +52863,9 @@
      "en": "I never knew about such a duty."
     }
    }
+  ],
+  "contrari": [
+   "権利"
   ]
  },
  "議員": {
@@ -53631,6 +53641,9 @@
      "en": "Smoking is not permitted here."
     }
    }
+  ],
+  "contrari": [
+   "禁止"
   ]
  },
  "魚::うお": {
@@ -54459,6 +54472,9 @@
      "en": "Smoking is strictly prohibited."
     }
    }
+  ],
+  "contrari": [
+   "許可"
   ]
  },
  "筋": {
@@ -56555,6 +56571,9 @@
      "en": "You have no right to go there."
     }
    }
+  ],
+  "contrari": [
+   "義務"
   ]
  },
  "県": {
@@ -57226,6 +57245,9 @@
      "en": "This room is for individual use."
     }
    }
+  ],
+  "contrari": [
+   "集団"
   ]
  },
  "呼吸": {
@@ -59396,6 +59418,9 @@
      "en": "The roads are jammed with cars."
     }
    }
+  ],
+  "contrari": [
+   "空く::すく"
   ]
  },
  "混乱": {
@@ -59485,6 +59510,9 @@
      "en": "That week had nothing to do with discrimination."
     }
    }
+  ],
+  "contrari": [
+   "平等"
   ]
  },
  "砂漠": {
@@ -63528,6 +63556,9 @@
      "en": "You are now among the elite."
     }
    }
+  ],
+  "contrari": [
+   "個人"
   ]
  },
  "集中": {
@@ -64984,6 +65015,9 @@
      "en": "The car consumes a lot of fuel."
     }
    }
+  ],
+  "contrari": [
+   "生産"
   ]
  },
  "消防": {
@@ -80348,6 +80382,9 @@
      "en": "Not all men are created equal."
     }
    }
+  ],
+  "contrari": [
+   "差別"
   ]
  },
  "平和": {
@@ -83277,6 +83314,9 @@
      "en": "She is among the best artists of today."
     }
    }
+  ],
+  "contrari": [
+   "劣る"
   ]
  },
  "優秀": {
@@ -85209,6 +85249,9 @@
      "en": "She is inferior to him in math."
     }
    }
+  ],
+  "contrari": [
+   "優れる"
   ]
  },
  "裂く": {
