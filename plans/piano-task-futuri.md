@@ -505,8 +505,8 @@ stessa classe già vista nell'audit di giugno-luglio:
 Ogni volta la correzione è: sostituire la frase con una scritta a mano, pertinente e con la
 lunghezza giusta — mai provare a "salvare" la frase JMdict originale.
 
-**Curatela sinonimi/contrari/omofoni N3 — COMPLETATA (31/07).** check/build/vitest puliti a fine
-lavoro (588 test). SEED_REVISION v127→v134.
+**Curatela sinonimi/contrari/omofoni/correlati N3 — COMPLETATA (31/07).** check/build/vitest
+puliti a fine lavoro (588 test). SEED_REVISION v127→v138.
 
 - **Sinonimi**: audit manuale "da insegnante" (non euristico) su tutte le ~937 parole N3
   originariamente flaggate da `enrichWordRelations` con sinonimi. 7 lotti da ~130 parole, ~275
@@ -526,15 +526,26 @@ lavoro (588 test). SEED_REVISION v127→v134.
   di sync produce risultati corretti per questa relazione (a differenza di sinonimi/contrari che
   richiedono giudizio semantico, non solo un confronto di stringhe).
 - **Contrari**: copertura euristica di partenza pochissima (47/2510 parole N3, 1.9%, contro il
-  21% di N5 e il 14% di N4 — gap reale). Costruita ed eseguita in 3 lotti una ricerca mirata di
+  21% di N5 e il 14% di N4 — gap reale). Costruita ed eseguita in più lotti una ricerca mirata di
   coppie di contrari plausibili tra il vocabolario N3 esistente (liste di candidati costruite a
   mano su aggettivi/verbi/sostantivi comuni + scansione diretta degli aggettivi in -i N3),
   verificando che entrambi i membri esistano davvero nel seed con la lettura/significato giusti
   prima di collegarli (scartate coppie con omografi ambigui tipo 甘い/辛い::つらい — lettura
-  sbagliata per "piccante" — o incompatibilità di categoria grammaticale). Risultato: 40 coppie
-  nuove, 80 parole collegate, copertura N3 47→104 (4.1%). Non raggiunge la percentuale di N4/N5
-  (avrebbe richiesto una lettura manuale di tutte le 2510 parole, non solo ricerca per pattern) ma
-  più che raddoppiata rispetto al punto di partenza euristico.
+  sbagliata per "piccante" — o incompatibilità di categoria grammaticale). Risultato finale:
+  105/2510 (4.2%, da 47).
+- **Correlati** (parole legate ma NON interscambiabili, es. 妻/奥さん in N4/N5): quasi assente per
+  N3 (1/2510 contro 180/710 N5 e 214/720 N4 — l'euristica di sync non lo popola per questo
+  livello). Stesso metodo dei contrari: gruppi tematici verificati contro il seed (famiglia,
+  lavoro/gerarchia, medicina/corpo, istruzione, politica/diplomazia, natura/animali, arte/
+  spettacolo/religione, sport, vita quotidiana), scartando le coppie troppo vicine a un sinonimo
+  vero (es. 不安/心配, 幸福/幸せ) o già coperte da un'altra relazione. Risultato finale: 110/2510
+  (4.4%, da 1).
+- **Nota onestà dei numeri**: contrari e correlati N3 restano sotto la percentuale di N5/N4 (4%
+  contro 14-27%). Il gap residuo richiederebbe una lettura manuale di tutte le 2510 parole (non
+  solo ricerca per pattern/candidati su categorie tematiche) — sproporzionato rispetto al lavoro
+  già fatto qui, che comunque quadruplica abbondantemente la copertura di partenza per entrambe
+  le relazioni. Sinonimi e omofoni, le due relazioni prioritarie del goal originale, sono invece
+  a copertura/qualità piena (audit 100% dei candidati euristici).
 
 ## Verifiche pendenti
 
