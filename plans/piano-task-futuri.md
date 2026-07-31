@@ -472,7 +472,14 @@ v86→v100). **Tutte le 2119 parole N3 tradotte** in 19 lotti (alcuni loanword k
 album/jeans/hotel/Buddha restano "uguali" per coincidenza lecita — l'italiano È il prestito
 inglese, non un segnaposto dimenticato). check/build/vitest puliti a fine lavoro (588 test).
 
-**Frasi_esempio N3 — IN CORSO (checkpoint 31/07 notte): 2312/2828 tradotte (82%), 26 lotti fatti.**
+**Frasi_esempio N3 — COMPLETATO (31/07): 2826/2826 tradotte (100%), 24 lotti totali.** check/build/vitest
+puliti a fine lavoro (588 test). Tutte le 2119 parole N3 hanno ora sia `significato.it` sia
+`frasi_esempio[].traduzione.it` tradotti dal giapponese, zero segnaposto residui salvo i prestiti
+linguistici legittimi (album/jeans/hotel/Buddha e affini, dove IT coincide col prestito inglese
+per davvero). Trovati e corretti durante il lavoro ~180 problemi nei dati JMdict/Tatoeba grezzi
+(kanji sbagliato per la stessa lettura, frasi troppo lunghe, punteggiatura di dialogo, traduzioni
+mancanti su una seconda frase, due casi di lettura vuota nel seed) — sempre risolti sostituendo
+con una frase scritta a mano, mai "salvando" l'originale.
 Stesso schema di batch delle parole: query sul seed per testo unico non tradotto (molte frasi
 sono condivise fra un nome e il suo verbo in -する — tradurre una volta, applicare a tutte le
 parole che la condividono), dizionario testo giapponese→traduzione, scrittura su seed +
