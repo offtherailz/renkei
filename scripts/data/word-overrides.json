@@ -75399,6 +75399,12 @@
      "en": "You will be paid according to your work."
     }
    }
+  ],
+  "sinonimi": [
+   "勤め",
+   "作業",
+   "仕事",
+   "労働"
   ]
  },
  "動詞": {
@@ -75503,6 +75509,9 @@
      "en": "They are in the same camp."
     }
    }
+  ],
+  "sinonimi": [
+   "同士"
   ]
  },
  "同時": {
@@ -75514,7 +75523,8 @@
     "simultaneous(ly)",
     "same time"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "同様": {
   "significato": {
@@ -75881,6 +75891,9 @@
      "en": "I cannot finish reading this thick book in a week."
     }
    }
+  ],
+  "sinonimi": [
+   "読書"
   ]
  },
  "読書": {
@@ -75971,7 +75984,8 @@
      "en": "Attached is the tentative agenda."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "謎": {
   "significato": {
@@ -76116,7 +76130,8 @@
      "en": "It is said that Friday the 13th is an unlucky day."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "日光": {
   "significato": {
@@ -76318,7 +76333,8 @@
      "en": "We appreciate his talent."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "濡らす": {
   "significato": {
@@ -76518,6 +76534,9 @@
      "en": "The 1990s began with the Gulf War."
     }
    }
+  ],
+  "sinonimi": [
+   "時代"
   ]
  },
  "年中": {
@@ -76559,7 +76578,8 @@
      "en": "My grandfather is five times as old as I am."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "燃える": {
   "significato": {
@@ -76667,6 +76687,9 @@
      "en": "To pay taxes."
     }
    }
+  ],
+  "sinonimi": [
+   "収める"
   ]
  },
  "納得": {
@@ -76837,7 +76860,8 @@
      "en": "I saw Mary looking into a show window."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "波": {
   "significato": {
@@ -77074,7 +77098,8 @@
      "en": "The plum blossoms are at their best this week."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "梅雨::つゆ": {
   "significato": {
@@ -77221,6 +77246,9 @@
      "en": "I'll put you up for the night."
     }
    }
+  ],
+  "sinonimi": [
+   "泊まる"
   ]
  },
  "爆発": {
@@ -77315,7 +77343,8 @@
      "en": "He has had a long teaching career."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "発見": {
   "significato": {
@@ -78060,6 +78089,9 @@
      "en": "I can peel an apple."
     }
    }
+  ],
+  "sinonimi": [
+   "肌"
   ]
  },
  "碑": {
@@ -78579,7 +78611,8 @@
      "en": "The bill passed by a small majority of 10 votes."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "表::ひょう": {
   "significato": {
@@ -78641,7 +78674,8 @@
      "en": "He's not good at expressing his emotions."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "表情": {
   "significato": {
@@ -78758,6 +78792,9 @@
      "en": "Finally, I finished a painting."
     }
    }
+  ],
+  "sinonimi": [
+   "描く::かく"
   ]
  },
  "描く::かく": {
@@ -78779,6 +78816,9 @@
      "en": "Finally, I finished a painting."
     }
    }
+  ],
+  "sinonimi": [
+   "描く::えがく"
   ]
  },
  "秒": {
@@ -78842,7 +78882,8 @@
      "en": "He is a common sort of man."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "貧しい": {
   "significato": {
@@ -78862,7 +78903,8 @@
      "en": "We must not laugh at the poor."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "瓶": {
   "significato": {
@@ -79143,6 +79185,10 @@
      "en": "This evidence was against him."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "有利"
   ]
  },
  "付き合い": {
@@ -79193,7 +79239,8 @@
      "en": "He has taken to drinking since the death of his wife."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "付ける": {
   "significato": {
@@ -79324,7 +79371,8 @@
      "en": "This cloth tears easily."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "普段": {
   "significato": {
@@ -79596,7 +79644,8 @@
      "en": "A female kangaroo carries its young in the pouch."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "覆う": {
   "significato": {
@@ -79617,7 +79666,8 @@
      "en": "The desk is covered with dust."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "仏": {
   "significato": {
@@ -79899,7 +79949,8 @@
      "en": "He is a trailblazer in this field."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "焚く": {
   "significato": {
@@ -79962,7 +80013,8 @@
      "en": "The hotel has an air of luxury."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "文": {
   "significato": {
@@ -80345,6 +80397,9 @@
      "en": "Can you conjugate this verb?"
     }
    }
+  ],
+  "sinonimi": [
+   "変更"
   ]
  },
  "変更": {
@@ -80366,6 +80421,9 @@
      "en": "The rule is utterly inflexible."
     }
    }
+  ],
+  "sinonimi": [
+   "変化"
   ]
  },
  "片付く": {
@@ -80394,7 +80452,8 @@
      "en": "My work is almost finished."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "片付け": {
   "significato": {
@@ -80463,7 +80522,8 @@
      "en": "A couple of flights were delayed on account of a minor accident."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "便り": {
   "significato": {
@@ -80525,7 +80585,8 @@
      "en": "He is in custody of his uncle."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "保証": {
   "significato": {
@@ -80720,6 +80781,9 @@
      "en": "Do you think you can live on a dollar a day in America?"
     }
    }
+  ],
+  "sinonimi": [
+   "生きる"
   ]
  },
  "暮れ": {
@@ -80956,7 +81020,8 @@
     "to get free",
     "to cut oneself off"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "方::ほう": {
   "significato": {
@@ -81124,7 +81189,8 @@
      "en": "I meant to have called on you."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "豊か": {
   "significato": {
@@ -81455,7 +81521,8 @@
      "en": "The bad news is unfortunately true."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "本物": {
   "significato": {
@@ -81524,7 +81591,8 @@
      "en": "I have to cover his loss."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "幕": {
   "significato": {
@@ -83262,6 +83330,9 @@
      "en": "The evidence was in his favor."
     }
    }
+  ],
+  "contrari": [
+   "不利"
   ]
  },
  "湧く": {
@@ -89253,6 +89324,9 @@
      "en": "Can you conjugate this verb?"
     }
    }
+  ],
+  "sinonimi": [
+   "変更する"
   ]
  },
  "熱中する": {
@@ -89592,6 +89666,9 @@
      "en": "The rule is utterly inflexible."
     }
    }
+  ],
+  "sinonimi": [
+   "変化する"
   ]
  },
  "便りする": {
@@ -89614,7 +89691,8 @@
      "en": "He is in custody of his uncle."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "保証する": {
   "frasi_esempio": [
