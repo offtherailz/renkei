@@ -53650,6 +53650,9 @@
      "en": "Water was supplied from outside."
     }
    }
+  ],
+  "contrari": [
+   "需要"
   ]
  },
  "競技": {
@@ -60431,6 +60434,9 @@
      "en": "Specifications and price are subject to change."
     }
    }
+  ],
+  "sinonimi": [
+   "様"
   ]
  },
  "使用": {
@@ -60503,7 +60509,8 @@
      "en": "I got a lot of mosquito bites."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "刺激": {
   "significato": {
@@ -60656,6 +60663,10 @@
      "en": "Look at yourself in the mirror."
     }
    }
+  ],
+  "sinonimi": [
+   "形態",
+   "かっこう"
   ]
  },
  "市::いち": {
@@ -60987,7 +60998,8 @@
      "en": "Silence reigned in the forest."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "支払": {
   "significato": {
@@ -61046,7 +61058,8 @@
      "en": "Don't bite your nails."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "死": {
   "significato": {
@@ -61315,7 +61328,8 @@
      "en": "I tried climbing the mountain."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "試す": {
   "significato": {
@@ -61525,7 +61539,8 @@
      "en": "That dress really becomes her."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "児童": {
   "significato": {
@@ -61600,6 +61615,11 @@
      "en": "The weather changes very often at this time of year."
     }
    }
+  ],
+  "sinonimi": [
+   "時刻",
+   "時間",
+   "長期"
   ]
  },
  "時刻": {
@@ -61621,6 +61641,10 @@
      "en": "It's almost time to go to bed."
     }
    }
+  ],
+  "sinonimi": [
+   "時期",
+   "時間"
   ]
  },
  "次々": {
@@ -61690,6 +61714,9 @@
      "en": "This is how it stands."
     }
    }
+  ],
+  "sinonimi": [
+   "順"
   ]
  },
  "治める": {
@@ -62220,7 +62247,8 @@
      "en": "I trust his executive ability."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "実際": {
   "significato": {
@@ -62309,6 +62337,9 @@
      "en": "Can you recommend a good play?"
     }
    }
+  ],
+  "sinonimi": [
+   "劇"
   ]
  },
  "芝生": {
@@ -62391,6 +62422,13 @@
      "en": "The soup is bubbling in the pot."
     }
    }
+  ],
+  "sinonimi": [
+   "煮る",
+   "炊く",
+   "茹でる",
+   "沸かす",
+   "沸く"
   ]
  },
  "煮る": {
@@ -62412,6 +62450,13 @@
      "en": "Reduce to pulp by boiling."
     }
    }
+  ],
+  "sinonimi": [
+   "茹でる",
+   "煮える",
+   "炊く",
+   "沸かす",
+   "沸く"
   ]
  },
  "者": {
@@ -62588,7 +62633,8 @@
      "en": "We insisted on its importance."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "主婦": {
   "significato": {
@@ -62656,7 +62702,8 @@
      "en": "This blog covers topics that centre on information infrastructure."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "取れる": {
   "significato": {
@@ -62710,7 +62757,8 @@
      "en": "Once you have made a promise, you must keep it."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "手間": {
   "significato": {
@@ -62730,7 +62778,8 @@
      "en": "Why do you take so long to eat?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "手術": {
   "significato": {
@@ -62792,7 +62841,8 @@
      "en": "I helped my mother in the kitchen."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "手品": {
   "significato": {
@@ -62986,6 +63036,10 @@
      "en": "The price reflects the demand."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "供給"
   ]
  },
  "収める": {
@@ -63132,6 +63186,9 @@
      "en": "We set out for home."
     }
    }
+  ],
+  "sinonimi": [
+   "付く"
   ]
  },
  "就職": {
@@ -63172,7 +63229,8 @@
      "en": "Traveling to the southern states during the winter will be costlier than it is now."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "修飾": {
   "significato": {
@@ -63470,7 +63528,8 @@
      "en": "A good citizen obeys the laws."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "従兄弟": {
   "significato": {
@@ -63709,7 +63768,8 @@
      "en": "We need accommodation for six."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "祝い": {
   "significato": {
@@ -63792,7 +63852,8 @@
      "en": "Our meeting was quite accidental."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "出会う": {
   "significato": {
@@ -63999,6 +64060,9 @@
      "en": "The entry words are arranged alphabetically."
     }
    }
+  ],
+  "sinonimi": [
+   "次第"
   ]
  },
  "順調": {
@@ -64122,7 +64186,8 @@
      "en": "This door leads to the study."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "書物": {
   "significato": {
@@ -64251,7 +64316,8 @@
      "en": "I am looking for an assistant."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "女王": {
   "significato": {
@@ -64529,7 +64595,8 @@
      "en": "He applied for the scholarship."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "小": {
   "significato": {
@@ -64548,7 +64615,8 @@
      "en": "Large or small?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "小屋": {
   "significato": {
@@ -64795,7 +64863,8 @@
    "en": [
     "pine tree"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "消費": {
   "significato": {
@@ -65190,6 +65259,9 @@
      "en": "The blue lines on the map correspond to rivers."
     }
    }
+  ],
+  "sinonimi": [
+   "上::かみ"
   ]
  },
  "上::うわ": {
@@ -65342,7 +65414,8 @@
      "en": "Give me a lift in your car."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "乗客": {
   "significato": {
@@ -65524,7 +65597,8 @@
      "en": "Is this information right?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "条件": {
   "significato": {
@@ -65672,6 +65746,9 @@
      "en": "He offered his seat to an old woman."
     }
    }
+  ],
+  "sinonimi": [
+   "渡す"
   ]
  },
  "飾り": {
@@ -66032,6 +66109,10 @@
      "en": "He reached out and took down a small leather bound book."
     }
    }
+  ],
+  "sinonimi": [
+   "延ばす",
+   "伸びる"
   ]
  },
  "伸びる": {
@@ -66265,6 +66346,9 @@
      "en": "Learn wisdom from the faults of others."
     }
    }
+  ],
+  "sinonimi": [
+   "スタイル"
   ]
  },
  "振る": {
@@ -87663,7 +87747,8 @@
      "en": "I trust his executive ability."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "実施する": {
   "frasi_esempio": [
@@ -87696,7 +87781,8 @@
      "en": "We insisted on its importance."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "手術する": {
   "frasi_esempio": [
@@ -87824,7 +87910,8 @@
      "en": "We need accommodation for six."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "出場する": {
   "frasi_esempio": [
