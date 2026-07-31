@@ -2166,7 +2166,10 @@
    "en": [
     "bridge"
    ]
-  }
+  },
+  "correlati": [
+   "道路"
+  ]
  },
  "勤める": {
   "frasi_esempio": [
@@ -2414,7 +2417,8 @@
   },
   "sinonimi": [],
   "correlati": [
-   "大学生"
+   "大学生",
+   "高校; 高等学校"
   ]
  },
  "弟": {
@@ -5211,7 +5215,10 @@
    "en": [
     "apartment (abbr.)"
    ]
-  }
+  },
+  "correlati": [
+   "家賃"
+  ]
  },
  "いいえ": {
   "frasi_esempio": [
@@ -6710,7 +6717,11 @@
    "en": [
     "Music"
    ]
-  }
+  },
+  "correlati": [
+   "楽器",
+   "作曲"
+  ]
  },
  "下さい": {
   "frasi_esempio": [
@@ -7248,7 +7259,10 @@
    "en": [
     "bank"
    ]
-  }
+  },
+  "correlati": [
+   "貯金"
+  ]
  },
  "九::きゅう": {
   "frasi_esempio": [
@@ -7825,7 +7839,10 @@
    "en": [
     "wallet"
    ]
-  }
+  },
+  "correlati": [
+   "現金"
+  ]
  },
  "作る": {
   "frasi_esempio": [
@@ -12017,6 +12034,9 @@
      "en": "I learned one Japanese song."
     }
    }
+  ],
+  "correlati": [
+   "歌手"
   ]
  },
  "歌う": {
@@ -13311,6 +13331,9 @@
      "en": "Please turn left at the next intersection."
     }
    }
+  ],
+  "correlati": [
+   "信号"
   ]
  },
  "公園": {
@@ -14276,6 +14299,9 @@
      "en": "I want to rent an apartment with two rooms."
     }
    }
+  ],
+  "correlati": [
+   "借金"
   ]
  },
  "弱い": {
@@ -26692,7 +26718,9 @@
   ],
   "sinonimi": [],
   "correlati": [
-   "勉強"
+   "勉強",
+   "論文",
+   "実験"
   ]
  },
  "研究室": {
@@ -27363,6 +27391,9 @@
      "en": "Please lend me your lecture notes."
     }
    }
+  ],
+  "correlati": [
+   "講演"
   ]
  },
  "講堂": {
@@ -27452,7 +27483,8 @@
   "sinonimi": [],
   "correlati": [
    "中学校",
-   "高校生"
+   "高校生",
+   "大学"
   ]
  },
  "高校生": {
@@ -28653,7 +28685,11 @@
   ],
   "tipo_jp": "名詞[めいし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "correlati": [
+   "競技",
+   "優勝"
+  ]
  },
  "歯医者": {
   "significato": {
@@ -30026,7 +30062,8 @@
    }
   ],
   "correlati": [
-   "中学校"
+   "中学校",
+   "中学"
   ]
  },
  "小説": {
@@ -31109,6 +31146,9 @@
      "en": "Tokyo has a large population."
     }
    }
+  ],
+  "correlati": [
+   "都市"
   ]
  },
  "尋ねる": {
@@ -34820,6 +34860,9 @@
      "en": "The hospital stay is planned for one week."
     }
    }
+  ],
+  "correlati": [
+   "手術"
   ]
  },
  "入学": {
@@ -35455,7 +35498,8 @@
    }
   ],
   "correlati": [
-   "展覧会"
+   "展覧会",
+   "絵画"
   ]
  },
  "必ず": {
@@ -38005,6 +38049,9 @@
      "en": "This town has a long history."
     }
    }
+  ],
+  "correlati": [
+   "博物館"
   ]
  },
  "連れる": {
@@ -41354,6 +41401,9 @@
      "en": "I have exhausted my energy."
     }
    }
+  ],
+  "correlati": [
+   "資源"
   ]
  },
  "エンジン": {
@@ -42893,6 +42943,9 @@
      "en": "It's necessary to avoid stress."
     }
    }
+  ],
+  "correlati": [
+   "疲れ"
   ]
  },
  "すなわち": {
@@ -46947,6 +47000,9 @@
      "en": "That gentleman must be a doctor."
     }
    }
+  ],
+  "correlati": [
+   "患者"
   ]
  },
  "医療": {
@@ -47866,6 +47922,9 @@
      "en": "This fish is inexpensive but nourishing."
     }
    }
+  ],
+  "correlati": [
+   "健康"
   ]
  },
  "永遠": {
@@ -48932,6 +48991,9 @@
      "en": "Do you study chemistry?"
     }
    }
+  ],
+  "correlati": [
+   "物理"
   ]
  },
  "化粧": {
@@ -49357,6 +49419,9 @@
      "en": "How much is the rent per month?"
     }
    }
+  ],
+  "correlati": [
+   "アパート"
   ]
  },
  "科目": {
@@ -49400,6 +49465,9 @@
      "en": "That singer is a teenage idol."
     }
    }
+  ],
+  "correlati": [
+   "歌"
   ]
  },
  "歌謡": {
@@ -50070,7 +50138,8 @@
    }
   ],
   "correlati": [
-   "画家"
+   "画家",
+   "美術館"
   ]
  },
  "開始": {
@@ -50730,6 +50799,9 @@
      "en": "Do you play a musical instrument?"
     }
    }
+  ],
+  "correlati": [
+   "音楽"
   ]
  },
  "額::がく": {
@@ -51153,6 +51225,9 @@
      "en": "I'll be your first patient."
     }
    }
+  ],
+  "correlati": [
+   "医師"
   ]
  },
  "感じ": {
@@ -51464,6 +51539,9 @@
      "en": "Not a day goes by without our hearing of an environmental problem."
     }
    }
+  ],
+  "correlati": [
+   "自然"
   ]
  },
  "監督": {
@@ -52516,7 +52594,8 @@
    }
   ],
   "correlati": [
-   "天気"
+   "天気",
+   "湿度"
   ]
  },
  "気体": {
@@ -53825,6 +53904,9 @@
      "en": "Did you take part in the game?"
     }
    }
+  ],
+  "correlati": [
+   "試合"
   ]
  },
  "共に": {
@@ -54597,6 +54679,9 @@
      "en": "Swimming develops our muscles."
     }
    }
+  ],
+  "correlati": [
+   "骨"
   ]
  },
  "緊張": {
@@ -56356,6 +56441,9 @@
      "en": "Blood circulates through the body."
     }
    }
+  ],
+  "correlati": [
+   "血管"
   ]
  },
  "血管": {
@@ -56375,6 +56463,9 @@
      "en": "Blood poured from the cut vein."
     }
    }
+  ],
+  "correlati": [
+   "血液"
   ]
  },
  "件": {
@@ -56416,6 +56507,9 @@
      "en": "Smoking is bad for the health."
     }
    }
+  ],
+  "correlati": [
+   "栄養"
   ]
  },
  "券": {
@@ -57042,6 +57136,9 @@
      "en": "You don't have to pay in cash."
     }
    }
+  ],
+  "correlati": [
+   "財布"
   ]
  },
  "現在": {
@@ -57350,6 +57447,9 @@
      "en": "I still can't get the knack of English pronunciation."
     }
    }
+  ],
+  "correlati": [
+   "肺"
   ]
  },
  "故郷": {
@@ -58710,6 +58810,9 @@
      "en": "Who is going to speak tonight?"
     }
    }
+  ],
+  "correlati": [
+   "講義"
   ]
  },
  "貢献": {
@@ -59229,6 +59332,9 @@
      "en": "It'll take the bone a month or so to set completely."
     }
    }
+  ],
+  "correlati": [
+   "筋肉"
   ]
  },
  "骨折": {
@@ -60127,6 +60233,9 @@
      "en": "This music was composed by Bach."
     }
    }
+  ],
+  "correlati": [
+   "音楽"
   ]
  },
  "作品": {
@@ -61620,6 +61729,9 @@
      "en": "The ocean affords various kinds of resources."
     }
    }
+  ],
+  "correlati": [
+   "エネルギー"
   ]
  },
  "資本": {
@@ -62096,6 +62208,9 @@
      "en": "We are subject to the laws of nature."
     }
    }
+  ],
+  "correlati": [
+   "環境"
   ]
  },
  "自動": {
@@ -62315,6 +62430,9 @@
      "en": "New York weather is hot and humid in the summer."
     }
    }
+  ],
+  "correlati": [
+   "気候"
   ]
  },
  "質": {
@@ -62418,6 +62536,9 @@
      "en": "The experiment was successful."
     }
    }
+  ],
+  "correlati": [
+   "研究"
   ]
  },
  "実現": {
@@ -62735,6 +62856,9 @@
      "en": "You should pay your debts."
     }
    }
+  ],
+  "correlati": [
+   "借りる"
   ]
  },
  "酌む": {
@@ -63014,6 +63138,9 @@
      "en": "You have to have an operation."
     }
    }
+  ],
+  "correlati": [
+   "入院"
   ]
  },
  "手段": {
@@ -65264,6 +65391,9 @@
      "en": "The baby is not old enough to be capable of hostile laughter."
     }
    }
+  ],
+  "correlati": [
+   "冗談"
   ]
  },
  "笑顔": {
@@ -65687,6 +65817,9 @@
      "en": "No more of your jokes, please."
     }
    }
+  ],
+  "correlati": [
+   "笑い"
   ]
  },
  "城": {
@@ -66934,6 +67067,9 @@
      "en": "He is sensitive."
     }
    }
+  ],
+  "correlati": [
+   "脳"
   ]
  },
  "親しい": {
@@ -69664,6 +69800,9 @@
      "en": "He swallowed detergent by mistake."
     }
    }
+  ],
+  "correlati": [
+   "洗濯機"
   ]
  },
  "羨ましい": {
@@ -73232,6 +73371,9 @@
   ],
   "sinonimi": [
    "中学校"
+  ],
+  "correlati": [
+   "小学校"
   ]
  },
  "中古": {
@@ -73622,6 +73764,9 @@
      "en": "She put aside a lot of money."
     }
    }
+  ],
+  "correlati": [
+   "銀行"
   ]
  },
  "挑戦": {
@@ -75107,7 +75252,8 @@
    }
   ],
   "correlati": [
-   "都会"
+   "都会",
+   "人口"
   ]
  },
  "努力": {
@@ -75922,6 +76068,9 @@
      "en": "The cliff hangs over the road."
     }
    }
+  ],
+  "correlati": [
+   "橋"
   ]
  },
  "銅貨": {
@@ -77078,6 +77227,9 @@
      "en": "The man blew out his own brains."
     }
    }
+  ],
+  "correlati": [
+   "神経"
   ]
  },
  "農家": {
@@ -77364,6 +77516,9 @@
      "en": "Smoking has affected his lungs."
     }
    }
+  ],
+  "correlati": [
+   "呼吸"
   ]
  },
  "配達": {
@@ -77514,6 +77669,9 @@
      "en": "That museum is worth visiting."
     }
    }
+  ],
+  "correlati": [
+   "歴史"
   ]
  },
  "拍手": {
@@ -78370,7 +78528,10 @@
     "tiredness",
     "fatigue"
    ]
-  }
+  },
+  "correlati": [
+   "ストレス"
+  ]
  },
  "皮": {
   "significato": {
@@ -80124,6 +80285,9 @@
      "en": "Physics is my favorite subject."
     }
    }
+  ],
+  "correlati": [
+   "化学"
   ]
  },
  "分::ぶ": {
@@ -83503,6 +83667,9 @@
      "en": "Tom got first prize, didn't he?"
     }
    }
+  ],
+  "correlati": [
+   "試合"
   ]
  },
  "勇気": {
@@ -85702,6 +85869,9 @@
      "en": "He wrote a paper on the subject."
     }
    }
+  ],
+  "correlati": [
+   "研究"
   ]
  },
  "話し合う": {
@@ -90432,5 +90602,15 @@
  },
  "異動する": {
   "sinonimi": []
+ },
+ "信号": {
+  "correlati": [
+   "交差点"
+  ]
+ },
+ "洗濯機": {
+  "correlati": [
+   "洗剤"
+  ]
  }
 }
