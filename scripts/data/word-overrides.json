@@ -29728,7 +29728,8 @@
   ],
   "contrari": [
    "堅; 硬; 固い",
-   "硬い"
+   "硬い",
+   "堅い"
   ]
  },
  "柔道": {
@@ -46659,6 +46660,9 @@
      "en": "Their opinions differ from mine."
     }
    }
+  ],
+  "contrari": [
+   "等しい"
   ]
  },
  "異常": {
@@ -48692,6 +48696,9 @@
      "en": "The sea looks calm and smooth."
     }
    }
+  ],
+  "contrari": [
+   "激しい"
   ]
  },
  "音::おん": {
@@ -55947,6 +55954,9 @@
      "en": "The two teams fought very hard."
     }
    }
+  ],
+  "contrari": [
+   "穏やか"
   ]
  },
  "欠く": {
@@ -56383,6 +56393,9 @@
   "sinonimi": [
    "硬い",
    "堅; 硬; 固い"
+  ],
+  "contrari": [
+   "柔らかい"
   ]
  },
  "嫌う": {
@@ -75443,6 +75456,9 @@
      "en": "His request was equivalent to an order."
     }
    }
+  ],
+  "contrari": [
+   "異なる"
   ]
  },
  "答案": {
