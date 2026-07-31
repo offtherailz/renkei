@@ -140,6 +140,49 @@ export async function ensureDefaultObjectives(): Promise<void> {
 			updated_at: now
 		},
 		{
+			id: "obj-catalog-n3",
+			name: "Catalogo JLPT N3",
+			objective_type: "jlpt",
+			target_jlpt: "N3",
+			catalog_item_keys: [],
+			study_enabled: true,
+			created_at: now,
+			updated_at: now
+		},
+		{
+			id: "obj-catalog-n3-words",
+			name: "Parole N3",
+			objective_type: "custom",
+			target_jlpt: "N3",
+			parent_objective_id: "obj-catalog-n3",
+			catalog_item_keys: levelWordKeys("N3"),
+			study_enabled: true,
+			created_at: now,
+			updated_at: now
+		},
+		{
+			id: "obj-catalog-n3-kanji",
+			name: "Kanji N3",
+			objective_type: "custom",
+			target_jlpt: "N3",
+			parent_objective_id: "obj-catalog-n3",
+			catalog_item_keys: levelKanjiKeys("N3"),
+			study_enabled: true,
+			created_at: now,
+			updated_at: now
+		},
+		{
+			id: "obj-catalog-n3-grammar",
+			name: "Grammatica N3",
+			objective_type: "custom",
+			target_jlpt: "N3",
+			parent_objective_id: "obj-catalog-n3",
+			catalog_item_keys: levelGrammarKeys("N3"),
+			study_enabled: true,
+			created_at: now,
+			updated_at: now
+		},
+		{
 			// Parole utili fuori dalle liste JLPT (lessico viaggio/tecnico, badge EX):
 			// studiabili e pausabili come il resto, ma catalogate onestamente.
 			id: "obj-catalog-extra",
@@ -162,7 +205,10 @@ export async function ensureDefaultObjectives(): Promise<void> {
 		...buildPackObjectives("obj-catalog-n5-grammar", "Grammatica N5", "N5", levelGrammarKeys("N5"), 8, now),
 		...buildPackObjectives("obj-catalog-n4-words", "Parole N4", "N4", levelWordKeys("N4"), 50, now),
 		...buildPackObjectives("obj-catalog-n4-kanji", "Kanji N4", "N4", levelKanjiKeys("N4"), 20, now),
-		...buildPackObjectives("obj-catalog-n4-grammar", "Grammatica N4", "N4", levelGrammarKeys("N4"), 8, now)
+		...buildPackObjectives("obj-catalog-n4-grammar", "Grammatica N4", "N4", levelGrammarKeys("N4"), 8, now),
+		...buildPackObjectives("obj-catalog-n3-words", "Parole N3", "N3", levelWordKeys("N3"), 50, now),
+		...buildPackObjectives("obj-catalog-n3-kanji", "Kanji N3", "N3", levelKanjiKeys("N3"), 20, now),
+		...buildPackObjectives("obj-catalog-n3-grammar", "Grammatica N3", "N3", levelGrammarKeys("N3"), 8, now)
 	);
 
 	const previousById = new Map(rows.map((row) => [row.id, row]));

@@ -73,7 +73,7 @@ export async function importDatabaseFromJson(jsonData: string): Promise<void> {
   // EXTRA = lessico utile fuori dalle liste JLPT (v64): livello legittimo.
   // Senza, l'import del seed fresco lanciava e i dispositivi NUOVI restavano
   // senza init (niente onboarding) — bug trovato dall'utente 18/07.
-  assertSeedLevels(parsed, ["N5", "N4", "EXTRA"]);
+  assertSeedLevels(parsed, ["N5", "N4", "N3", "EXTRA"]);
   assertGrammarSentenceWordLevels(parsed);
 
   const now = Date.now();
