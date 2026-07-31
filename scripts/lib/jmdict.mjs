@@ -155,14 +155,18 @@ export function deriveJmdictUsi(entry) {
       .slice(0, 3)
       .join("; ");
     if (!glosses) continue;
-    const uso = { tipi_jp: tipi, significato: { it: glosses, en: glosses } };
+    // it vuoto finché non c'è una traduzione curata in usi-it.json (vedi
+    // translateUsi in sync-open-source-seed.mjs): pickLocalizedText() fa
+    // comunque fallback su en in UI, ma così le voci da tradurre restano
+    // distinguibili (it === "") invece di sembrare già fatte.
+    const uso = { tipi_jp: tipi, significato: { it: "", en: glosses } };
     const ex = (sense.examples ?? [])
       .map((e) => ({
         jp: e.sentences?.find((s) => s.lang === "jpn")?.text,
         en: e.sentences?.find((s) => s.lang === "eng")?.text
       }))
       .find((e) => e.jp && e.en && e.jp.length <= 34);
-    if (ex) uso.esempio = { testo: ex.jp, traduzione: { it: ex.en, en: ex.en } };
+    if (ex) uso.esempio = { testo: ex.jp, traduzione: { it: "", en: ex.en } };
     usi.push(uso);
   }
   const distinct = new Set(usi.flatMap((u) => u.tipi_jp));

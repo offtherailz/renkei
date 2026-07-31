@@ -1130,6 +1130,26 @@ async function loadGrammarExtra() {
   }
 }
 
+// Bug trovato il 31/07: gli override si applicavano SOLO dentro
+// applyJmdictMetadata, a metà pipeline — mergeIdioms/mergeExtraWords
+// (dopo) possono ridefinire la STESSA parola (per scrittura) da un file
+// curato diverso e vecchio, cancellando silenziosamente l'override più
+// recente (successo a 倒す e ご存じ). Riapplicati qui, all'ultimo passo
+// della pipeline parole, così come già fa applyGrammarOverrides per la
+// grammatica: l'override vince SEMPRE, indipendentemente da chi altro
+// tocca la parola nel frattempo.
+function applyWordOverridesFinal(words, overrides) {
+  let patched = 0;
+  const next = words.map((w) => {
+    const patch = overrides[w.id];
+    if (!patch) return w;
+    patched += 1;
+    return { ...w, ...patch, updated_at: Date.now() };
+  });
+  console.log(`Word overrides riapplicati in fondo alla pipeline: ${patched}.`);
+  return next;
+}
+
 function applyGrammarOverrides(grammar, overrides) {
   let patched = 0;
   const next = grammar.map((g) => {
@@ -1386,28 +1406,30 @@ async function main() {
   // Dopo enrichWordRelations, così sovrascrive anche eventuali sinonimi generati.
   const nc = classifyNumbersAndCounters(normalizedWords);
   console.log(`Numeri/contatori: ${nc.numeri} numerali, ${nc.contatori} contatori ricategorizzati.`);
-  const counters = await buildCounters(normalizedWords);
+  // Ultimissimo passo: gli override vincono SEMPRE (vedi commento sulla funzione).
+  const finalWords = applyWordOverridesFinal(normalizedWords, overrides);
+  const counters = await buildCounters(finalWords);
   const now = Date.now();
   const dialogues = JSON.parse(await fs.readFile(CHOUKAI_PATH, "utf8")).map((d) => ({
     ...d,
     updated_at: now
   }));
-  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], normalizedWords, existingSeed.kanji ?? [], kanjiLevelLookup);
+  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], finalWords, existingSeed.kanji ?? [], kanjiLevelLookup);
   const grammarWithApiData = await mergeGrammarExamples(normalizeGrammar([
     { level: "N5", rows: grammarN5 },
     { level: "N4", rows: grammarN4 }
-  ], existingSeed.grammar ?? [], normalizedWords));
+  ], existingSeed.grammar ?? [], finalWords));
   // Prima si creano/aggiornano le voci curate a mano (mergeCuratedGrammar può
   // ANCHE aggiungerne di nuove, cosa che applyGrammarOverrides non fa), poi
   // gli overrides puntuali le possono ancora ripatchare per id.
   const grammarWithCurated = mergeCuratedGrammar(grammarWithApiData, await loadGrammarExtra(), {
     buildLinkedWords: buildGrammarLinkedWords,
-    words: normalizedWords
+    words: finalWords
   });
   const normalizedGrammar = applyGrammarOverrides(grammarWithCurated, await loadGrammarOverrides());
 
   const nextSeed = {
-    words: normalizedWords,
+    words: finalWords,
     kanji: normalizedKanji,
     grammar: normalizedGrammar,
     counters,
