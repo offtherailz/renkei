@@ -56337,5 +56337,1272 @@
     "to sue (a person)"
    ]
   }
+ },
+ "鼠": {
+  "significato": {
+   "it": [
+    "topo"
+   ],
+   "en": [
+    "mouse",
+    "rat"
+   ]
+  }
+ },
+ "僧": {
+  "significato": {
+   "it": [
+    "monaco"
+   ],
+   "en": [
+    "monk",
+    "priest"
+   ]
+  }
+ },
+ "創造": {
+  "significato": {
+   "it": [
+    "creazione"
+   ],
+   "en": [
+    "creation"
+   ]
+  }
+ },
+ "双子": {
+  "significato": {
+   "it": [
+    "gemelli"
+   ],
+   "en": [
+    "twins",
+    "a twin"
+   ]
+  }
+ },
+ "想像": {
+  "significato": {
+   "it": [
+    "immaginazione"
+   ],
+   "en": [
+    "imagination",
+    "guess"
+   ]
+  }
+ },
+ "捜査": {
+  "significato": {
+   "it": [
+    "indagine"
+   ],
+   "en": [
+    "search (esp. in criminal investigations, investigation)"
+   ]
+  }
+ },
+ "掃く": {
+  "significato": {
+   "it": [
+    "spazzare"
+   ],
+   "en": [
+    "to sweep",
+    "to brush",
+    "to gather up"
+   ]
+  }
+ },
+ "挿す": {
+  "significato": {
+   "it": [
+    "inserire"
+   ],
+   "en": [
+    "to insert",
+    "to put in",
+    "to graft"
+   ]
+  }
+ },
+ "掻く": {
+  "significato": {
+   "it": [
+    "grattare"
+   ],
+   "en": [
+    "to scratch"
+   ]
+  }
+ },
+ "操作": {
+  "significato": {
+   "it": [
+    "manovra",
+    "operazione"
+   ],
+   "en": [
+    "operation",
+    "management",
+    "processing"
+   ]
+  }
+ },
+ "操縦": {
+  "significato": {
+   "it": [
+    "pilotaggio"
+   ],
+   "en": [
+    "management",
+    "control",
+    "manipulation"
+   ]
+  }
+ },
+ "巣": {
+  "significato": {
+   "it": [
+    "nido"
+   ],
+   "en": [
+    "nest",
+    "breeding place"
+   ]
+  }
+ },
+ "争う": {
+  "significato": {
+   "it": [
+    "litigare",
+    "contendere"
+   ],
+   "en": [
+    "to dispute",
+    "to argue",
+    "to fight"
+   ]
+  }
+ },
+ "相": {
+  "significato": {
+   "it": [
+    "aspetto",
+    "fase"
+   ],
+   "en": [
+    "aspect",
+    "phase",
+    "countenance"
+   ]
+  }
+ },
+ "相手": {
+  "significato": {
+   "it": [
+    "interlocutore",
+    "avversario"
+   ],
+   "en": [
+    "partner",
+    "addressee",
+    "the person you are talking to"
+   ]
+  }
+ },
+ "相続": {
+  "significato": {
+   "it": [
+    "eredità"
+   ],
+   "en": [
+    "succession",
+    "inheritance"
+   ]
+  }
+ },
+ "相当": {
+  "significato": {
+   "it": [
+    "considerevolmente"
+   ],
+   "en": [
+    "considerably",
+    "fairly",
+    "worth ~"
+   ]
+  }
+ },
+ "相変わらず": {
+  "significato": {
+   "it": [
+    "come sempre"
+   ],
+   "en": [
+    "as ever",
+    "as usual"
+   ]
+  }
+ },
+ "装置": {
+  "significato": {
+   "it": [
+    "dispositivo",
+    "apparecchio"
+   ],
+   "en": [
+    "equipment",
+    "installation",
+    "apparatus"
+   ]
+  }
+ },
+ "遭う": {
+  "significato": {
+   "it": [
+    "incontrare (qualcosa di spiacevole)"
+   ],
+   "en": [
+    "to meet",
+    "to encounter (undesirable nuance)"
+   ]
+  }
+ },
+ "霜": {
+  "significato": {
+   "it": [
+    "brina"
+   ],
+   "en": [
+    "frost"
+   ]
+  }
+ },
+ "騒ぎ": {
+  "significato": {
+   "it": [
+    "trambusto"
+   ],
+   "en": [
+    "uproar",
+    "disturbance"
+   ]
+  }
+ },
+ "騒音": {
+  "significato": {
+   "it": [
+    "rumore"
+   ],
+   "en": [
+    "noise"
+   ]
+  }
+ },
+ "像": {
+  "significato": {
+   "it": [
+    "statua"
+   ],
+   "en": [
+    "statue",
+    "image"
+   ]
+  }
+ },
+ "増す": {
+  "significato": {
+   "it": [
+    "aumentare"
+   ],
+   "en": [
+    "to increase",
+    "to gain"
+   ]
+  }
+ },
+ "増加": {
+  "significato": {
+   "it": [
+    "aumento"
+   ],
+   "en": [
+    "increase",
+    "addition"
+   ]
+  }
+ },
+ "贈る": {
+  "significato": {
+   "it": [
+    "regalare"
+   ],
+   "en": [
+    "to present",
+    "to give to",
+    "to award to"
+   ]
+  }
+ },
+ "息": {
+  "significato": {
+   "it": [
+    "respiro"
+   ],
+   "en": [
+    "breath"
+   ]
+  }
+ },
+ "束": {
+  "significato": {
+   "it": [
+    "mazzo",
+    "fascio"
+   ],
+   "en": [
+    "bunch",
+    "bundle"
+   ]
+  }
+ },
+ "測る": {
+  "significato": {
+   "it": [
+    "misurare"
+   ],
+   "en": [
+    "to measure",
+    "to weigh",
+    "to survey"
+   ]
+  }
+ },
+ "足袋": {
+  "significato": {
+   "it": [
+    "calzini giapponesi (tabi)"
+   ],
+   "en": [
+    "Japanese socks (with split toe)"
+   ]
+  }
+ },
+ "速度": {
+  "significato": {
+   "it": [
+    "velocità"
+   ],
+   "en": [
+    "speed",
+    "velocity",
+    "rate"
+   ]
+  }
+ },
+ "続き": {
+  "significato": {
+   "it": [
+    "seguito",
+    "continuazione"
+   ],
+   "en": [
+    "sequel",
+    "continuation"
+   ]
+  }
+ },
+ "袖": {
+  "significato": {
+   "it": [
+    "manica"
+   ],
+   "en": [
+    "sleeve"
+   ]
+  }
+ },
+ "揃う": {
+  "significato": {
+   "it": [
+    "essere al completo"
+   ],
+   "en": [
+    "to become complete",
+    "to be equal"
+   ]
+  }
+ },
+ "揃える": {
+  "significato": {
+   "it": [
+    "mettere in ordine",
+    "radunare"
+   ],
+   "en": [
+    "to put things in order",
+    "to arrange"
+   ]
+  }
+ },
+ "存在": {
+  "significato": {
+   "it": [
+    "esistenza"
+   ],
+   "en": [
+    "existence",
+    "being"
+   ]
+  }
+ },
+ "孫": {
+  "significato": {
+   "it": [
+    "nipote (di nonno)"
+   ],
+   "en": [
+    "grandchild"
+   ]
+  }
+ },
+ "尊敬": {
+  "significato": {
+   "it": [
+    "rispetto"
+   ],
+   "en": [
+    "respect",
+    "reverence",
+    "honor"
+   ]
+  }
+ },
+ "尊重": {
+  "significato": {
+   "it": [
+    "rispetto",
+    "considerazione"
+   ],
+   "en": [
+    "respect",
+    "esteem",
+    "regard"
+   ]
+  }
+ },
+ "損": {
+  "significato": {
+   "it": [
+    "perdita",
+    "svantaggio"
+   ],
+   "en": [
+    "loss",
+    "disadvantage"
+   ]
+  }
+ },
+ "損害": {
+  "significato": {
+   "it": [
+    "danno"
+   ],
+   "en": [
+    "damage",
+    "loss"
+   ]
+  }
+ },
+ "他::た": {
+  "significato": {
+   "it": [
+    "altro"
+   ],
+   "en": [
+    "other (esp. places and things)"
+   ]
+  }
+ },
+ "他::ほか": {
+  "significato": {
+   "it": [
+    "altro"
+   ],
+   "en": [
+    "other (esp. places and things)"
+   ]
+  }
+ },
+ "他人": {
+  "significato": {
+   "it": [
+    "estraneo"
+   ],
+   "en": [
+    "unrelated person",
+    "stranger"
+   ]
+  }
+ },
+ "多少": {
+  "significato": {
+   "it": [
+    "un po'"
+   ],
+   "en": [
+    "a little (same as 少し (すこし))"
+   ]
+  }
+ },
+ "太陽": {
+  "significato": {
+   "it": [
+    "sole"
+   ],
+   "en": [
+    "sun"
+   ]
+  }
+ },
+ "打つ::ぶつ": {
+  "significato": {
+   "it": [
+    "colpire"
+   ],
+   "en": [
+    "to hit",
+    "to strike"
+   ]
+  }
+ },
+ "体育": {
+  "significato": {
+   "it": [
+    "educazione fisica"
+   ],
+   "en": [
+    "physical education",
+    "gymnastics",
+    "athletics"
+   ]
+  }
+ },
+ "体温": {
+  "significato": {
+   "it": [
+    "temperatura corporea"
+   ],
+   "en": [
+    "temperature (body)"
+   ]
+  }
+ },
+ "体重": {
+  "significato": {
+   "it": [
+    "peso corporeo"
+   ],
+   "en": [
+    "(body) weight"
+   ]
+  }
+ },
+ "対::たい": {
+  "significato": {
+   "it": [
+    "coppia",
+    "paio"
+   ],
+   "en": [
+    "pair",
+    "couple",
+    "set"
+   ]
+  }
+ },
+ "対::つい": {
+  "significato": {
+   "it": [
+    "coppia",
+    "paio"
+   ],
+   "en": [
+    "pair",
+    "couple",
+    "set"
+   ]
+  }
+ },
+ "対する": {
+  "significato": {
+   "it": [
+    "riguardare",
+    "contrapporsi a"
+   ],
+   "en": [
+    "to face",
+    "to confront",
+    "to oppose"
+   ]
+  }
+ },
+ "対照": {
+  "significato": {
+   "it": [
+    "contrasto",
+    "confronto"
+   ],
+   "en": [
+    "contrast",
+    "antithesis",
+    "comparison"
+   ]
+  }
+ },
+ "対象": {
+  "significato": {
+   "it": [
+    "oggetto",
+    "bersaglio"
+   ],
+   "en": [
+    "target",
+    "object (of worship, study, etc.)",
+    "subject (i.e., of taxation)"
+   ]
+  }
+ },
+ "帯": {
+  "significato": {
+   "it": [
+    "obi",
+    "fascia"
+   ],
+   "en": [
+    "band",
+    "sash"
+   ]
+  }
+ },
+ "怠ける": {
+  "significato": {
+   "it": [
+    "essere pigro"
+   ],
+   "en": [
+    "to be idle",
+    "to neglect"
+   ]
+  }
+ },
+ "態度": {
+  "significato": {
+   "it": [
+    "atteggiamento"
+   ],
+   "en": [
+    "attitude",
+    "manner"
+   ]
+  }
+ },
+ "替える": {
+  "significato": {
+   "it": [
+    "cambiare",
+    "sostituire"
+   ],
+   "en": [
+    "to exchange",
+    "to interchange",
+    "to substitute"
+   ]
+  }
+ },
+ "滞在": {
+  "significato": {
+   "it": [
+    "soggiorno"
+   ],
+   "en": [
+    "stay",
+    "sojourn"
+   ]
+  }
+ },
+ "袋": {
+  "significato": {
+   "it": [
+    "sacchetto"
+   ],
+   "en": [
+    "bag",
+    "sack"
+   ]
+  }
+ },
+ "貸し": {
+  "significato": {
+   "it": [
+    "prestito (concesso)"
+   ],
+   "en": [
+    "loan",
+    "lending"
+   ]
+  }
+ },
+ "退く": {
+  "significato": {
+   "it": [
+    "ritirarsi",
+    "spostarsi"
+   ],
+   "en": [
+    "to retreat",
+    "to recede",
+    "to withdraw"
+   ]
+  }
+ },
+ "退学": {
+  "significato": {
+   "it": [
+    "abbandono scolastico"
+   ],
+   "en": [
+    "dropping out of school"
+   ]
+  }
+ },
+ "退屈": {
+  "significato": {
+   "it": [
+    "noia"
+   ],
+   "en": [
+    "tedium",
+    "boring"
+   ]
+  }
+ },
+ "逮捕": {
+  "significato": {
+   "it": [
+    "arresto"
+   ],
+   "en": [
+    "arrest",
+    "apprehension",
+    "capture"
+   ]
+  }
+ },
+ "隊": {
+  "significato": {
+   "it": [
+    "squadra",
+    "truppa"
+   ],
+   "en": [
+    "party",
+    "troops"
+   ]
+  }
+ },
+ "代える": {
+  "significato": {
+   "it": [
+    "sostituire"
+   ],
+   "en": [
+    "to exchange",
+    "to interchange",
+    "to substitute"
+   ]
+  }
+ },
+ "代る": {
+  "significato": {
+   "it": [
+    "sostituire",
+    "prendere il posto di"
+   ],
+   "en": [
+    "to take the place of",
+    "to relieve",
+    "to be substituted for"
+   ]
+  }
+ },
+ "代金": {
+  "significato": {
+   "it": [
+    "prezzo",
+    "costo"
+   ],
+   "en": [
+    "price",
+    "cost"
+   ]
+  }
+ },
+ "代表": {
+  "significato": {
+   "it": [
+    "rappresentante"
+   ],
+   "en": [
+    "representative",
+    "delegation"
+   ]
+  }
+ },
+ "代理": {
+  "significato": {
+   "it": [
+    "delega",
+    "procura"
+   ],
+   "en": [
+    "representation",
+    "proxy",
+    "deputy"
+   ]
+  }
+ },
+ "大": {
+  "significato": {
+   "it": [
+    "grande"
+   ],
+   "en": [
+    "big",
+    "great"
+   ]
+  }
+ },
+ "大いに": {
+  "significato": {
+   "it": [
+    "molto"
+   ],
+   "en": [
+    "much",
+    "considerably (same as 大変 (たいへん))",
+    "greatly"
+   ]
+  }
+ },
+ "大した": {
+  "significato": {
+   "it": [
+    "notevole",
+    "considerevole"
+   ],
+   "en": [
+    "significant",
+    "great",
+    "considerable"
+   ]
+  }
+ },
+ "大家": {
+  "significato": {
+   "it": [
+    "padrone di casa"
+   ],
+   "en": [
+    "landlord"
+   ]
+  }
+ },
+ "大会": {
+  "significato": {
+   "it": [
+    "torneo",
+    "convegno"
+   ],
+   "en": [
+    "convention",
+    "(big) tournament",
+    "mass meeting"
+   ]
+  }
+ },
+ "大気": {
+  "significato": {
+   "it": [
+    "atmosfera"
+   ],
+   "en": [
+    "atmosphere"
+   ]
+  }
+ },
+ "大使": {
+  "significato": {
+   "it": [
+    "ambasciatore"
+   ],
+   "en": [
+    "ambassador"
+   ]
+  }
+ },
+ "大臣": {
+  "significato": {
+   "it": [
+    "ministro"
+   ],
+   "en": [
+    "cabinet minister"
+   ]
+  }
+ },
+ "大人しい": {
+  "significato": {
+   "it": [
+    "docile",
+    "tranquillo"
+   ],
+   "en": [
+    "obedient",
+    "docile",
+    "quiet"
+   ]
+  }
+ },
+ "大戦": {
+  "significato": {
+   "it": [
+    "grande guerra"
+   ],
+   "en": [
+    "great war",
+    "great battle"
+   ]
+  }
+ },
+ "大統領": {
+  "significato": {
+   "it": [
+    "presidente"
+   ],
+   "en": [
+    "president"
+   ]
+  }
+ },
+ "大半": {
+  "significato": {
+   "it": [
+    "la maggior parte"
+   ],
+   "en": [
+    "most of",
+    "majority",
+    "mostly"
+   ]
+  }
+ },
+ "大部分": {
+  "significato": {
+   "it": [
+    "la maggior parte"
+   ],
+   "en": [
+    "most part",
+    "majority"
+   ]
+  }
+ },
+ "大陸": {
+  "significato": {
+   "it": [
+    "continente"
+   ],
+   "en": [
+    "continent"
+   ]
+  }
+ },
+ "題": {
+  "significato": {
+   "it": [
+    "titolo",
+    "tema"
+   ],
+   "en": [
+    "title",
+    "subject",
+    "theme"
+   ]
+  }
+ },
+ "題名": {
+  "significato": {
+   "it": [
+    "titolo"
+   ],
+   "en": [
+    "title"
+   ]
+  }
+ },
+ "宅": {
+  "significato": {
+   "it": [
+    "casa",
+    "abitazione"
+   ],
+   "en": [
+    "house",
+    "home"
+   ]
+  }
+ },
+ "只": {
+  "significato": {
+   "it": [
+    "gratis",
+    "semplice"
+   ],
+   "en": [
+    "free of charge",
+    "mere",
+    "only"
+   ]
+  }
+ },
+ "叩く": {
+  "significato": {
+   "it": [
+    "colpire",
+    "picchiare"
+   ],
+   "en": [
+    "to strike",
+    "to beat"
+   ]
+  }
+ },
+ "達する": {
+  "significato": {
+   "it": [
+    "raggiungere"
+   ],
+   "en": [
+    "to reach",
+    "to get to"
+   ]
+  }
+ },
+ "奪う": {
+  "significato": {
+   "it": [
+    "rubare",
+    "sottrarre"
+   ],
+   "en": [
+    "to rob",
+    "to deprive"
+   ]
+  }
+ },
+ "谷": {
+  "significato": {
+   "it": [
+    "valle"
+   ],
+   "en": [
+    "valley"
+   ]
+  }
+ },
+ "単なる": {
+  "significato": {
+   "it": [
+    "semplice",
+    "mero"
+   ],
+   "en": [
+    "mere",
+    "simple",
+    "sheer"
+   ]
+  }
+ },
+ "単に": {
+  "significato": {
+   "it": [
+    "semplicemente"
+   ],
+   "en": [
+    "simply",
+    "merely"
+   ]
+  }
+ },
+ "単位": {
+  "significato": {
+   "it": [
+    "unità",
+    "credito (scolastico)"
+   ],
+   "en": [
+    "credit (for a course in school)",
+    "unit",
+    "denomination"
+   ]
+  }
+ },
+ "単語": {
+  "significato": {
+   "it": [
+    "parola",
+    "vocabolo"
+   ],
+   "en": [
+    "word",
+    "vocabulary"
+   ]
+  }
+ },
+ "単純": {
+  "significato": {
+   "it": [
+    "semplicità"
+   ],
+   "en": [
+    "simplicity"
+   ]
+  }
+ },
+ "担当": {
+  "significato": {
+   "it": [
+    "incarico"
+   ],
+   "en": [
+    "(in) charge"
+   ]
+  }
+ },
+ "端": {
+  "significato": {
+   "it": [
+    "estremità",
+    "bordo"
+   ],
+   "en": [
+    "end (e.g., of street)",
+    "edge",
+    "margin"
+   ]
+  }
+ },
+ "誕生": {
+  "significato": {
+   "it": [
+    "nascita"
+   ],
+   "en": [
+    "birth"
+   ]
+  }
+ },
+ "団体": {
+  "significato": {
+   "it": [
+    "organizzazione",
+    "gruppo"
+   ],
+   "en": [
+    "organization",
+    "association"
+   ]
+  }
+ },
+ "弾": {
+  "significato": {
+   "it": [
+    "proiettile"
+   ],
+   "en": [
+    "bullet",
+    "shot"
+   ]
+  }
+ },
+ "断つ": {
+  "significato": {
+   "it": [
+    "recidere",
+    "interrompere"
+   ],
+   "en": [
+    "to sever",
+    "to cut off"
+   ]
+  }
+ },
+ "断る": {
+  "significato": {
+   "it": [
+    "rifiutare"
+   ],
+   "en": [
+    "to refuse",
+    "to decline",
+    "to dismiss"
+   ]
+  }
+ },
+ "暖まる": {
+  "significato": {
+   "it": [
+    "scaldarsi"
+   ],
+   "en": [
+    "to warm up"
+   ]
+  }
+ },
+ "暖める": {
+  "significato": {
+   "it": [
+    "scaldare"
+   ],
+   "en": [
+    "to warm (up to someone/something)",
+    "to heat (up to someone/something)"
+   ]
+  }
+ },
+ "段": {
+  "significato": {
+   "it": [
+    "gradino",
+    "livello"
+   ],
+   "en": [
+    "step",
+    "stair",
+    "grade"
+   ]
+  }
+ },
+ "男の人": {
+  "significato": {
+   "it": [
+    "uomo"
+   ],
+   "en": [
+    "man"
+   ]
+  }
  }
 }
