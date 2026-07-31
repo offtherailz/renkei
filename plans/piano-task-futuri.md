@@ -472,7 +472,7 @@ v86→v100). **Tutte le 2119 parole N3 tradotte** in 19 lotti (alcuni loanword k
 album/jeans/hotel/Buddha restano "uguali" per coincidenza lecita — l'italiano È il prestito
 inglese, non un segnaposto dimenticato). check/build/vitest puliti a fine lavoro (588 test).
 
-**Frasi_esempio N3 — IN CORSO (checkpoint 31/07 notte): 2091/2830 tradotte (74%), 24 lotti fatti.**
+**Frasi_esempio N3 — IN CORSO (checkpoint 31/07 notte): 2312/2828 tradotte (82%), 26 lotti fatti.**
 Stesso schema di batch delle parole: query sul seed per testo unico non tradotto (molte frasi
 sono condivise fra un nome e il suo verbo in -する — tradurre una volta, applicare a tutte le
 parole che la condividono), dizionario testo giapponese→traduzione, scrittura su seed +
