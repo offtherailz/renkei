@@ -472,14 +472,31 @@ v86→v100). **Tutte le 2119 parole N3 tradotte** in 19 lotti (alcuni loanword k
 album/jeans/hotel/Buddha restano "uguali" per coincidenza lecita — l'italiano È il prestito
 inglese, non un segnaposto dimenticato). check/build/vitest puliti a fine lavoro (588 test).
 
-**Prossimo passo (non iniziato): frasi_esempio delle parole N3.** 2870 frasi totali, **2820 con
-`traduzione.it` ancora vuoto** (verificato 31/07 — query:
-`w.livello_jlpt==='N3'` + `frasi_esempio[].traduzione.it === ""`). Il fallback UI
-(`pickLocalizedText`) mostra comunque l'inglese, quindi non è un buco visibile, ma va tradotto
-dal giapponese con lo stesso metodo (mai dall'inglese intermedio) — è un lavoro PIÙ GRANDE del
-lotto parole appena fatto (frase intera, non solo glossa). Stesso schema di batch: query sul seed,
-dizionario testo giapponese→traduzione, scrittura su seed + word-overrides.json (array
-`frasi_esempio` intero, sostituisce non fonde), verifica con overrides.test.ts, commit a lotti.
+**Frasi_esempio N3 — IN CORSO (checkpoint 31/07 sera): 719/2848 tradotte (25%), 6 lotti fatti.**
+Stesso schema di batch delle parole: query sul seed per testo unico non tradotto (molte frasi
+sono condivise fra un nome e il suo verbo in -する — tradurre una volta, applicare a tutte le
+parole che la condividono), dizionario testo giapponese→traduzione, scrittura su seed +
+word-overrides.json (array `frasi_esempio` intero per parola, sostituisce non fonde), verifica
+con `npx vitest run src/lib/data/overrides.test.ts`, commit a lotti (SEED_REVISION v101→v106+).
+
+**Script diagnostico riusabile** (in scratchpad di sessione, non nel repo — da ricreare se serve):
+replica le 4 verifiche di `overrides.test.ts` su TUTTI gli id in un colpo solo (Node, non
+vitest), per trovare tutti i problemi di un lotto in una volta invece di scoprirli uno alla volta
+rilanciando i test. Ogni lotto di ~90 frasi nuove ne fa emergere 9-24 di pre-esistenti (stessa
+scala del problema, proporzionale al numero di omografi/coppie-kanji nel lotto), sempre della
+stessa classe già vista nell'audit di giugno-luglio:
+- **kanji sbagliato per la stessa lettura**: coppie come 温かい/暖かい, 越える/超える, 下す/降ろす,
+  河/川, 街/町, 羽/羽根, 押える/押さえる — JMdict lega l'esempio al kanji sbagliato del gruppo.
+- **frase troppo lunga** (>34 caratteri, limite pensato per UI/voce).
+- **punteggiatura finale strana** (frasi di dialogo con virgolette invece di 。！？).
+- **caratteri latini vietati** (frasi con parole inglesi tipo "that" dentro, non ammesse salvo
+  quando è la parola stessa a contenerli).
+- **traduzione mancante su una seconda frase della stessa parola** (un lotto traduce SOLO le
+  frasi il cui testo matcha il dizionario di quel giro; se la parola ne ha un'altra non ancora
+  tradotta, l'override scritto con l'intero array fa fallire il test finché non si completa
+  anche quella).
+Ogni volta la correzione è: sostituire la frase con una scritta a mano, pertinente e con la
+lunghezza giusta — mai provare a "salvare" la frase JMdict originale.
 
 **Dopo le frasi**: curatela di sinonimi/contrari/omofoni/correlati per le 2119 parole N3
 (l'euristica automatica di `enrichWordRelations` gira già in sync e produce risultati plausibili
