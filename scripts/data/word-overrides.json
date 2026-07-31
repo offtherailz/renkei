@@ -23887,32 +23887,6 @@
    }
   ]
  },
- "運転": {
-  "significato": {
-   "it": [
-    "guida (di veicoli)"
-   ],
-   "en": [
-    "driving"
-   ]
-  },
-  "frasi_esempio": [
-   {
-    "testo": "キャロルはレンタカーを運転しています。",
-    "traduzione": {
-     "it": "Carol sta guidando un'auto a noleggio.",
-     "en": "Carol is driving a rent-a-car."
-    }
-   },
-   {
-    "testo": "君は資金をうまく運転しなくてはならない。",
-    "traduzione": {
-     "it": "Devi gestire bene i fondi.",
-     "en": "You must employ your capital well."
-    }
-   }
-  ]
- },
  "運転手": {
   "significato": {
    "it": [
@@ -39926,46 +39900,6 @@
     }
    }
   ]
- },
- "下がる": {
-  "significato": {
-   "it": [
-    "scendere",
-    "calare"
-   ],
-   "en": [
-    "to descend",
-    "to drop",
-    "to fall"
-   ]
-  },
-  "frasi_esempio": [
-   {
-    "testo": "熱が やっと 下がりました。",
-    "traduzione": {
-     "it": "La febbre è finalmente scesa.",
-     "en": "The fever finally went down."
-    }
-   },
-   {
-    "testo": "冬に なって、気温が 下がりました。",
-    "traduzione": {
-     "it": "È arrivato l'inverno e la temperatura è scesa.",
-     "en": "Winter came and the temperature dropped."
-    }
-   },
-   {
-    "testo": "夜になると、気温が急に下がります。",
-    "traduzione": {
-     "it": "Quando arriva la notte, la temperatura scende all'improvviso.",
-     "en": "When night comes, the temperature drops suddenly."
-    }
-   }
-  ],
-  "scrittura": "下がる",
-  "lettura": "さがる",
-  "id_verbo_corrispondente": "下げる",
-  "sinonimi": []
  },
  "落ちる": {
   "significato": {

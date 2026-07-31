@@ -254,7 +254,7 @@ describe("sfaccettature: copertura totale di modi e catalogo", () => {
     }
   });
 
-  it("applicableFacets regge su TUTTO il catalogo reale (1457 parole): mai vuoto, mai celle impossibili", () => {
+  it("applicableFacets regge su TUTTO il catalogo reale (N5-N3): mai vuoto, mai celle impossibili", () => {
     const seed = JSON.parse(
       readFileSync(resolve(__dirname, "../../../static/seed-n5n4.json"), "utf8")
     ) as { words: Word[] };
@@ -271,7 +271,7 @@ describe("sfaccettature: copertura totale di modi e catalogo", () => {
       // solo celle del vocabolario delle sfaccettature
       for (const c of cells) expect(FACET_FIELDS).toContain(c);
     }
-  });
+  }, 20000);
 
   it("ogni cella applicabile a QUALCHE parola del catalogo è anche allenabile a stage 7", () => {
     const seed = JSON.parse(

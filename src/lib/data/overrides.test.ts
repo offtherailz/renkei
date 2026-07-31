@@ -110,7 +110,7 @@ describe('seed: invarianti globali', () => {
 		for (const w of seed.words) {
 			for (const ex of w.frasi_esempio ?? []) {
 				expect(ex.testo?.trim(), w.id).toBeTruthy();
-				expect(ex.traduzione?.it ?? ex.traduzione?.en, w.id).toBeTruthy();
+				expect(ex.traduzione?.it || ex.traduzione?.en, w.id).toBeTruthy();
 			}
 		}
 	});

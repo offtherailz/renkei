@@ -53,7 +53,10 @@ async function applyIikaeGroups(words) {
   } catch {
     return words;
   }
-  const find = (p) => words.find((w) => w.scrittura === p) ?? words.find((w) => w.lettura === p);
+  // id prima di scrittura: con più livelli (N5-N3) può esistere più di una
+  // parola con la stessa scrittura (es. 訳, N4 わけ "motivo" vs N3 やく
+  // "traduzione") — l'id resta univoco anche quando la scrittura no.
+  const find = (p) => words.find((w) => w.id === p) ?? words.find((w) => w.scrittura === p) ?? words.find((w) => w.lettura === p);
   for (const gruppo of curated.gruppi ?? []) {
     const linked = gruppo.parole.map(find).filter(Boolean);
     for (const word of linked) {
@@ -191,7 +194,8 @@ const OPEN_SOURCE = {
   repo: "https://github.com/allenlu2009/japanese-learning-datasets",
   urls: {
     vocabN5: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n5.json",
-    vocabN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n4.json"
+    vocabN4: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n4.json",
+    vocabN3: "https://raw.githubusercontent.com/allenlu2009/japanese-learning-datasets/master/vocabulary/n3.json"
     // I cataloghi kanji per livello sono in cache locale, vedi KANJI_LEVEL_PATHS.
   }
 };
@@ -1365,9 +1369,10 @@ function normalizeGrammar(importedGroups, existingSeedGrammar, words) {
 
 async function main() {
   const existingSeed = JSON.parse(await fs.readFile(SEED_PATH, "utf8"));
-  const [vocabN5, vocabN4, kanjiN5, kanjiN4, kanjiN3, kanjiN2, kanjiN1, grammarN5, grammarN4] = await Promise.all([
+  const [vocabN5, vocabN4, vocabN3, kanjiN5, kanjiN4, kanjiN3, kanjiN2, kanjiN1, grammarN5, grammarN4] = await Promise.all([
     fetchJson(OPEN_SOURCE.urls.vocabN5),
     fetchJson(OPEN_SOURCE.urls.vocabN4),
+    fetchJson(OPEN_SOURCE.urls.vocabN3),
     loadKanjiLevelCatalog("N5"),
     loadKanjiLevelCatalog("N4"),
     loadKanjiLevelCatalog("N3"),
@@ -1388,9 +1393,9 @@ async function main() {
   const jmdictIndex = buildJmdictIndex(await ensureJmdictData(JMDICT_CACHE_DIR));
   const overrides = await loadOverrides();
 
-  const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words], existingSeed.words ?? []);
+  const heuristicWords = normalizeWords([...vocabN5.words, ...vocabN4.words, ...vocabN3.words], existingSeed.words ?? []);
   const cleanedWords = fixSuruReadings(heuristicWords, jmdictIndex);
-  const allowedKanji = new Set([...kanjiN5.kanji, ...kanjiN4.kanji].map((row) => row.character));
+  const allowedKanji = new Set([...kanjiN5.kanji, ...kanjiN4.kanji, ...kanjiN3.kanji].map((row) => row.character));
   const enrichedWords = await applyIikaeGroups(
     applyJmdictMetadata(cleanedWords, jmdictIndex, overrides, allowedKanji, await loadUsiIt())
   );
@@ -1414,7 +1419,7 @@ async function main() {
     ...d,
     updated_at: now
   }));
-  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji], finalWords, existingSeed.kanji ?? [], kanjiLevelLookup);
+  const normalizedKanji = normalizeKanji([...kanjiN5.kanji, ...kanjiN4.kanji, ...kanjiN3.kanji], finalWords, existingSeed.kanji ?? [], kanjiLevelLookup);
   const grammarWithApiData = await mergeGrammarExamples(normalizeGrammar([
     { level: "N5", rows: grammarN5 },
     { level: "N4", rows: grammarN4 }
