@@ -40899,7 +40899,8 @@
      "en": "As a writer, she does not fit into any of the traditional categories."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "いたずら": {
   "significato": {
@@ -40955,7 +40956,8 @@
      "en": "Let's meet again someday."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "いつでも": {
   "significato": {
@@ -40983,6 +40985,9 @@
      "en": "You will be welcome at any time."
     }
    }
+  ],
+  "sinonimi": [
+   "いつも"
   ]
  },
  "いつのまにか": {
@@ -41121,7 +41126,8 @@
      "en": "You must write your name in ink."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "インタビュー": {
   "significato": {
@@ -41140,7 +41146,8 @@
      "en": "What he said in his interview makes sense."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ウイスキー": {
   "significato": {
@@ -41760,7 +41767,8 @@
      "en": "She filled the glass with wine."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "グランド": {
   "significato": {
@@ -41792,7 +41800,8 @@
      "en": "She beat the cream for dessert."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "クリスマス": {
   "significato": {
@@ -41857,6 +41866,9 @@
      "en": "Your name is taped on the case."
     }
    }
+  ],
+  "sinonimi": [
+   "場合"
   ]
  },
  "ゲーム": {
@@ -41876,7 +41888,8 @@
      "en": "We played many kinds of games."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "けち": {
   "significato": {
@@ -42637,7 +42650,8 @@
      "en": "Star baseball players are often asked for autographs."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "スタイル": {
   "significato": {
@@ -42656,7 +42670,8 @@
      "en": "Dancing is good for the figure."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "スタンド": {
   "significato": {
@@ -42683,7 +42698,8 @@
      "en": "I don't like big desk lamps."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ずっと": {
   "significato": {
@@ -42754,7 +42770,8 @@
      "en": "This dress is lovely."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ストレス": {
   "significato": {
@@ -42854,7 +42871,8 @@
      "en": "He deliberately ignored me when I passed him in the street."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "セット": {
   "significato": {
@@ -43138,6 +43156,10 @@
      "en": "And if I were gay, would that be a crime?"
     }
    }
+  ],
+  "sinonimi": [
+   "すると",
+   "そうして; そして"
   ]
  },
  "それとも": {
@@ -44705,7 +44727,8 @@
      "en": "The truck bumped into our car."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ぶつける": {
   "significato": {
@@ -44734,6 +44757,10 @@
      "en": "He threw mud at me and made me dirty."
     }
    }
+  ],
+  "sinonimi": [
+   "打つ::ぶつ",
+   "打つ"
   ]
  },
  "ふと": {
@@ -44863,7 +44890,8 @@
      "en": "She is wearing a leather belt around her waist."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ペンキ": {
   "significato": {
@@ -45603,7 +45631,8 @@
      "en": "He has a great sense of humour."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ヨーロッパ": {
   "significato": {
@@ -45728,7 +45757,8 @@
      "en": "This label sticks easily."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "ルール": {
   "significato": {
@@ -45747,6 +45777,9 @@
      "en": "This rule applies to all cases."
     }
    }
+  ],
+  "sinonimi": [
+   "規則"
   ]
  },
  "レベル": {
@@ -46193,7 +46226,8 @@
      "en": "The picnic was a disappointment."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "以前": {
   "significato": {
@@ -46664,7 +46698,8 @@
      "en": "Food is digested in the stomach."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "衣服": {
   "significato": {
@@ -47208,7 +47243,8 @@
      "en": "What does this mark mean?"
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "印刷": {
   "significato": {
@@ -47584,6 +47620,9 @@
      "en": "I talked with our sales people."
     }
    }
+  ],
+  "sinonimi": [
+   "商売"
   ]
  },
  "影": {
@@ -48755,7 +48794,8 @@
      "en": "He will become a doctor."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "化学": {
   "significato": {
@@ -85307,7 +85347,8 @@
      "en": "What he said in his interview makes sense."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "お辞儀する": {
   "frasi_esempio": [
@@ -85463,7 +85504,8 @@
      "en": "I'll take these roses."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "デートする": {
   "frasi_esempio": [
@@ -85810,6 +85852,9 @@
      "en": "I talked with our sales people."
     }
    }
+  ],
+  "sinonimi": [
+   "商売する"
   ]
  },
  "影響する": {
@@ -89602,5 +89647,8 @@
     }
    }
   ]
+ },
+ "異動する": {
+  "sinonimi": []
  }
 }
