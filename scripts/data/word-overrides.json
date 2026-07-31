@@ -45402,7 +45402,16 @@
    "en": [
     "milk"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このコップをミルクで満たした。",
+    "traduzione": {
+     "it": "Ho riempito questo bicchiere di latte.",
+     "en": "I filled this glass with milk."
+    }
+   }
+  ]
  },
  "メッセージ": {
   "significato": {
@@ -45412,7 +45421,16 @@
    "en": [
     "message"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このメッセージは意味をなさない。",
+    "traduzione": {
+     "it": "Questo messaggio non ha senso.",
+     "en": "This message doesn't make sense."
+    }
+   }
+  ]
  },
  "メモ": {
   "significato": {
@@ -45424,7 +45442,16 @@
     "memorandum",
     "note"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私の電話番号をメモしましたか。",
+    "traduzione": {
+     "it": "Hai preso nota del mio numero di telefono?",
+     "en": "Did you note down my phone number?"
+    }
+   }
+  ]
  },
  "メンバー": {
   "significato": {
@@ -45434,7 +45461,16 @@
    "en": [
     "member"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ボーリングに行くなら私をメンバーからはずしておいて。",
+    "traduzione": {
+     "it": "Se andate a giocare a bowling, non contate su di me.",
+     "en": "Count me out if you go bowling."
+    }
+   }
+  ]
  },
  "もしかすると": {
   "significato": {
@@ -45447,7 +45483,16 @@
     "maybe",
     "by some chance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "もしかすると彼は明日来るかもしれない。",
+    "traduzione": {
+     "it": "Forse domani lui verrà.",
+     "en": "He might come tomorrow."
+    }
+   }
+  ]
  },
  "もしも": {
   "significato": {
@@ -45457,7 +45502,16 @@
    "en": [
     "if"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "もしも別の方法でお手伝いできることがありましたら、ご連絡ください。",
+    "traduzione": {
+     "it": "Se ci fosse un altro modo in cui possiamo aiutarla, ci contatti pure.",
+     "en": "Please let us know if we can be of help in other ways."
+    }
+   }
+  ]
  },
  "もったいない": {
   "significato": {
@@ -45470,7 +45524,16 @@
     "more than one deserves",
     "unworthy of"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "とてもいい天気だから家の中にいるのがもったいない。",
+    "traduzione": {
+     "it": "Fa così bel tempo che sarebbe un peccato restare in casa.",
+     "en": "It's too sunny to stay inside."
+    }
+   }
+  ]
  },
  "やがて": {
   "significato": {
@@ -45483,7 +45546,23 @@
     "soon",
     "at length"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "やがて彼はその事件のことを忘れた。",
+    "traduzione": {
+     "it": "Col tempo dimenticò quell'episodio.",
+     "en": "By and by he forgot that affair."
+    }
+   },
+   {
+    "testo": "私たちはやがてまたあなたにお目にかかるでしょう。",
+    "traduzione": {
+     "it": "Presto ci rivedremo.",
+     "en": "We will be seeing you again before long."
+    }
+   }
+  ]
  },
  "やや": {
   "significato": {
@@ -45496,7 +45575,16 @@
     "partially",
     "somewhat"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この学校は規律がやや緩やかだ。",
+    "traduzione": {
+     "it": "In questa scuola la disciplina è un po' blanda.",
+     "en": "Discipline is rather mild at this school."
+    }
+   }
+  ]
  },
  "ユーモア": {
   "significato": {
@@ -45506,7 +45594,16 @@
    "en": [
     "humor"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼には素晴らしいユーモアのセンスがある。",
+    "traduzione": {
+     "it": "Ha un grande senso dell'umorismo.",
+     "en": "He has a great sense of humour."
+    }
+   }
+  ]
  },
  "ヨーロッパ": {
   "significato": {
@@ -45516,7 +45613,16 @@
    "en": [
     "Europe"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ヨーロッパにいる間に僕はパリをたずねた。",
+    "traduzione": {
+     "it": "Durante il mio soggiorno in Europa ho visitato Parigi.",
+     "en": "I visited Paris in Europe."
+    }
+   }
+  ]
  },
  "ヨット": {
   "significato": {
@@ -45526,7 +45632,16 @@
    "en": [
     "yacht"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのヨットはブイを回って航行した。",
+    "traduzione": {
+     "it": "Lo yacht navigò intorno alla boa.",
+     "en": "The yacht sailed round a buoy."
+    }
+   }
+  ]
  },
  "より": {
   "significato": {
@@ -45538,7 +45653,23 @@
     "twist",
     "ply"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はより熱心に勉強しようと決心した。",
+    "traduzione": {
+     "it": "Ho deciso di studiare più duramente.",
+     "en": "I resolved to study harder."
+    }
+   },
+   {
+    "testo": "もうこれよりほかに手はない。",
+    "traduzione": {
+     "it": "Non c'è altro modo che questo, ormai.",
+     "en": "There's no other way than this now."
+    }
+   }
+  ]
  },
  "ライター": {
   "significato": {
@@ -45550,7 +45681,16 @@
     "lighter",
     "writer"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お客様、テーブルにライターをお忘れですよ。",
+    "traduzione": {
+     "it": "Signore, ha dimenticato l'accendino sul tavolo.",
+     "en": "Sir, you have left your lighter on the table."
+    }
+   }
+  ]
  },
  "ラケット": {
   "significato": {
@@ -45560,7 +45700,16 @@
    "en": [
     "racket"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "好きなラケットを選びなさい。",
+    "traduzione": {
+     "it": "Scegli la racchetta che preferisci.",
+     "en": "Choose your favorite racket."
+    }
+   }
+  ]
  },
  "ラベル": {
   "significato": {
@@ -45570,7 +45719,16 @@
    "en": [
     "label"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このラベルは簡単につきますよ。",
+    "traduzione": {
+     "it": "Questa etichetta si attacca facilmente.",
+     "en": "This label sticks easily."
+    }
+   }
+  ]
  },
  "ルール": {
   "significato": {
@@ -45580,7 +45738,16 @@
    "en": [
     "rule"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このルールはすべての場合に当てはまる。",
+    "traduzione": {
+     "it": "Questa regola si applica a tutti i casi.",
+     "en": "This rule applies to all cases."
+    }
+   }
+  ]
  },
  "レベル": {
   "significato": {
@@ -45590,7 +45757,16 @@
    "en": [
     "level"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "国際レベルの運動選手になるためには、毎日練習しなければならない。",
+    "traduzione": {
+     "it": "Per diventare un atleta di livello internazionale, bisogna allenarsi ogni giorno.",
+     "en": "One must practice every day in order to become a world-class athlete."
+    }
+   }
+  ]
  },
  "ロケット": {
   "significato": {
@@ -45602,7 +45778,16 @@
     "locket",
     "rocket"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その飛行機は補助ロケットを使って離陸した。",
+    "traduzione": {
+     "it": "L'aereo decollò usando razzi ausiliari.",
+     "en": "The airplane used a rocket motor to assist with takeoff."
+    }
+   }
+  ]
  },
  "ワイン": {
   "significato": {
@@ -45612,7 +45797,16 @@
    "en": [
     "wine"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あのおいしいワインをなぜ飲まないんだい。",
+    "traduzione": {
+     "it": "Perché non provi quel vino delizioso?",
+     "en": "Why not try that delicious wine?"
+    }
+   }
+  ]
  },
  "わがまま": {
   "significato": {
@@ -45625,7 +45819,16 @@
     "egoism",
     "willfulness"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの子を甘やかしてはいけません。とてもわがままになりますよ。",
+    "traduzione": {
+     "it": "Non devi viziare quel bambino. Diventerà molto capriccioso.",
+     "en": "You shouldn't indulge that child. It will make him very selfish."
+    }
+   }
+  ]
  },
  "わざと": {
   "significato": {
@@ -45636,7 +45839,16 @@
    "en": [
     "on purpose"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そのピエロはわざと転んだ。",
+    "traduzione": {
+     "it": "Il pagliaccio cadde apposta.",
+     "en": "The clown fell down on purpose."
+    }
+   }
+  ]
  },
  "哀れ": {
   "significato": {
@@ -45649,7 +45861,23 @@
     "pity",
     "pathetic"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は哀れを誘う有様だった。",
+    "traduzione": {
+     "it": "Era in uno stato pietoso.",
+     "en": "She was in a piteous state."
+    }
+   },
+   {
+    "testo": "彼は神にあわれな少女を助けてくださいと祈った。",
+    "traduzione": {
+     "it": "Pregò Dio di aiutare quella povera ragazza.",
+     "en": "He prayed to God to help the poor girl."
+    }
+   }
+  ]
  },
  "愛": {
   "significato": {
@@ -45659,7 +45887,16 @@
    "en": [
     "love"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "愛の動きは不可解。",
+    "traduzione": {
+     "it": "Le vie dell'amore sono misteriose.",
+     "en": "Love moves in mysterious ways."
+    }
+   }
+  ]
  },
  "愛する": {
   "significato": {
@@ -45669,7 +45906,16 @@
    "en": [
     "to love"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ロメオはジュリエットが愛している男だ。",
+    "traduzione": {
+     "it": "Romeo è l'uomo che Giulietta ama.",
+     "en": "Romeo is the man Juliet loves."
+    }
+   }
+  ]
  },
  "愛情": {
   "significato": {
@@ -45681,7 +45927,16 @@
     "love",
     "affection"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "とりわけ子供たちは愛情を必要とする。",
+    "traduzione": {
+     "it": "I bambini, più di tutti, hanno bisogno di affetto.",
+     "en": "Above all, children need love."
+    }
+   }
+  ]
  },
  "悪": {
   "significato": {
@@ -45693,7 +45948,16 @@
     "evil",
     "vice"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いかなる善意の考えもそれ自体はあくでありうる。",
+    "traduzione": {
+     "it": "Qualsiasi idea ben intenzionata può in sé essere malvagia.",
+     "en": "Any virtuous idea can be vicious in itself."
+    }
+   }
+  ]
  },
  "悪口": {
   "significato": {
@@ -45705,7 +45969,16 @@
     "abuse",
     "insult"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "陰で他人の悪口を言うべきでない。",
+    "traduzione": {
+     "it": "Non dovresti parlare male degli altri alle loro spalle.",
+     "en": "You should not speak ill of others behind their backs."
+    }
+   }
+  ]
  },
  "悪魔": {
   "significato": {
@@ -45718,7 +45991,16 @@
     "demon",
     "evil spirit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "悪魔は岩の間に隠れている。",
+    "traduzione": {
+     "it": "I demoni si nascondono tra le rocce.",
+     "en": "Devils are hiding among the rocks."
+    }
+   }
+  ]
  },
  "握る": {
   "significato": {
@@ -45731,7 +46013,16 @@
     "to seize",
     "to mold sushi"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼らが眠っている間私がハンドルを握った。",
+    "traduzione": {
+     "it": "Mentre dormivano, ho guidato io.",
+     "en": "I took the wheel while he slept."
+    }
+   }
+  ]
  },
  "握手": {
   "significato": {
@@ -45741,7 +46032,16 @@
    "en": [
     "handshake"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は友人と握手した。",
+    "traduzione": {
+     "it": "Ha stretto la mano al suo amico.",
+     "en": "He shook hands with his friend."
+    }
+   }
+  ]
  },
  "扱う": {
   "significato": {
@@ -45754,7 +46054,23 @@
     "to handle",
     "to deal with"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "心理学は人間の感情を扱う。",
+    "traduzione": {
+     "it": "La psicologia si occupa delle emozioni umane.",
+     "en": "Psychology deals with human emotions."
+    }
+   },
+   {
+    "testo": "この問題は私が扱います。",
+    "traduzione": {
+     "it": "Mi occuperò io di questo problema.",
+     "en": "I will deal with this problem."
+    }
+   }
+  ]
  },
  "宛てる": {
   "significato": {
@@ -45765,7 +46081,16 @@
     "to address",
     "to put"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この手紙は彼女に宛てて書いた。",
+    "traduzione": {
+     "it": "Ho scritto questa lettera indirizzata a lei.",
+     "en": "I wrote this letter addressed to her."
+    }
+   }
+  ]
  },
  "或": {
   "significato": {
@@ -45777,7 +46102,16 @@
     "a certain...",
     "some..."
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ある学生に会うところです。",
+    "traduzione": {
+     "it": "Sto per incontrare un certo studente.",
+     "en": "I'm going to meet a certain student."
+    }
+   }
+  ]
  },
  "安定": {
   "significato": {
@@ -45788,7 +46122,16 @@
     "stability",
     "equilibrium"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日の政治状況はそれほど安定していない。",
+    "traduzione": {
+     "it": "L'attuale situazione politica non è molto stabile.",
+     "en": "The current political situation is not very stable."
+    }
+   }
+  ]
  },
  "暗記": {
   "significato": {
@@ -45800,7 +46143,16 @@
     "memorization",
     "learning by heart"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この詩を暗記しましょう。",
+    "traduzione": {
+     "it": "Impariamo questa poesia a memoria.",
+     "en": "Let's learn this poem by heart."
+    }
+   }
+  ]
  },
  "案": {
   "significato": {
@@ -45813,7 +46165,16 @@
     "scheme",
     "proposal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "驚いたことに、彼は簡単に案を考え出した。",
+    "traduzione": {
+     "it": "Con mia sorpresa, gli venne facilmente in mente un'idea.",
+     "en": "To my surprise, he easily came up with a plan."
+    }
+   }
+  ]
  },
  "案外": {
   "significato": {
@@ -45823,7 +46184,16 @@
    "en": [
     "unexpectedly"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ピクニックは案外つまらなかった。",
+    "traduzione": {
+     "it": "Il picnic è stato inaspettatamente noioso.",
+     "en": "The picnic was a disappointment."
+    }
+   }
+  ]
  },
  "以前": {
   "significato": {
@@ -45835,7 +46205,23 @@
     "in the past",
     "before"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "以前はこの丘の上に城があった。",
+    "traduzione": {
+     "it": "Un tempo su questa collina c'era un castello.",
+     "en": "There used to be a castle on this hill."
+    }
+   },
+   {
+    "testo": "最善を尽くしますが、よくいっても木曜以前に終える事は出来ません。",
+    "traduzione": {
+     "it": "Farò del mio meglio, ma nella migliore delle ipotesi non riuscirò a finire prima di giovedì.",
+     "en": "I'll do my best, but I'll not be able to finish it before Thursday at best."
+    }
+   }
+  ]
  },
  "以来": {
   "significato": {
@@ -45847,7 +46233,16 @@
     "since",
     "henceforth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "１９８８年以来トムに会っていません。",
+    "traduzione": {
+     "it": "Non vedo Tom dal 1988.",
+     "en": "I haven't seen Tom since 1988."
+    }
+   }
+  ]
  },
  "位": {
   "significato": {
@@ -45860,7 +46255,16 @@
     "rank",
     "about"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "５８１４を千の位に四捨五入すれば何になりますか。",
+    "traduzione": {
+     "it": "Arrotondando 5814 al migliaio più vicino, quanto viene?",
+     "en": "What is 5814 rounded to the nearest thousand?"
+    }
+   }
+  ]
  },
  "位置": {
   "significato": {
@@ -45871,7 +46275,23 @@
     "place",
     "position"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はパレードが見えるいい位置にいた。",
+    "traduzione": {
+     "it": "Ero in una buona posizione per vedere la sfilata.",
+     "en": "I was in a good position to see the parade."
+    }
+   },
+   {
+    "testo": "彼の事務所は町の中心部に位置している。",
+    "traduzione": {
+     "it": "Il suo ufficio si trova nel centro della città.",
+     "en": "His office is located in the center of the town."
+    }
+   }
+  ]
  },
  "依然": {
   "significato": {
@@ -45883,7 +46303,16 @@
     "still",
     "as yet"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "３人が依然行方不明です。",
+    "traduzione": {
+     "it": "Tre persone risultano ancora disperse.",
+     "en": "Three people are still missing."
+    }
+   }
+  ]
  },
  "依頼": {
   "significato": {
@@ -45895,7 +46324,16 @@
     "request",
     "dependence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "事務弁護士に遺言状の作成を依頼した。",
+    "traduzione": {
+     "it": "Ho chiesto a un avvocato di redigere il mio testamento.",
+     "en": "I asked the solicitor to make out my will."
+    }
+   }
+  ]
  },
  "偉大": {
   "significato": {
@@ -45906,7 +46344,16 @@
    "en": [
     "greatness"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "リンカーンは偉大な政治家であった。",
+    "traduzione": {
+     "it": "Lincoln fu un grande statista.",
+     "en": "Lincoln was a great statesman."
+    }
+   }
+  ]
  },
  "囲む": {
   "significato": {
@@ -45917,7 +46364,16 @@
     "to surround",
     "to encircle"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "湖は緑の丘に囲まれている。",
+    "traduzione": {
+     "it": "Il lago è circondato da colline verdi.",
+     "en": "The lake is surrounded by green hills."
+    }
+   }
+  ]
  },
  "委員": {
   "significato": {
@@ -45927,7 +46383,16 @@
    "en": [
     "committee member"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "委員は全員出席している。",
+    "traduzione": {
+     "it": "Tutti i membri del comitato sono presenti.",
+     "en": "The committee are all present."
+    }
+   }
+  ]
  },
  "意": {
   "significato": {
@@ -45938,7 +46403,16 @@
    "en": [
     "will"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたのご親切に対し深く感謝の意を表します。",
+    "traduzione": {
+     "it": "Desidero esprimere la mia profonda gratitudine per la sua gentilezza.",
+     "en": "I wish to express my deep appreciation for your kindness."
+    }
+   }
+  ]
  },
  "意外": {
   "significato": {
@@ -45950,7 +46424,16 @@
     "unexpected",
     "surprising"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "意外な結果が発表された。",
+    "traduzione": {
+     "it": "Sono stati annunciati risultati inaspettati.",
+     "en": "Unexpected results were announced."
+    }
+   }
+  ]
  },
  "意志": {
   "significato": {
@@ -45961,7 +46444,16 @@
     "will",
     "volition"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "意志に反して何かを無理にさせる事はできない。",
+    "traduzione": {
+     "it": "Nessuno può costringerti a fare qualcosa contro la tua volontà.",
+     "en": "No one can force you to do anything against your will."
+    }
+   }
+  ]
  },
  "意思": {
   "significato": {
@@ -45973,7 +46465,16 @@
     "intention",
     "purpose"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "意思伝達は色々な形をとる。",
+    "traduzione": {
+     "it": "La comunicazione assume forme diverse.",
+     "en": "Communication takes many forms."
+    }
+   }
+  ]
  },
  "意識": {
   "significato": {
@@ -45984,7 +46485,16 @@
     "consciousness",
     "senses"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このお料理は、パリのエスプリを意識して、味付けしてみました。",
+    "traduzione": {
+     "it": "Ho condito questo piatto pensando allo spirito di Parigi.",
+     "en": "This cuisine is seasoned to evoke the esprit of Paris."
+    }
+   }
+  ]
  },
  "意地": {
   "significato": {
@@ -45998,7 +46508,16 @@
     "obstinacy",
     "appetite"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の意地の悪い発言で、講義が一層激しくなった。",
+    "traduzione": {
+     "it": "I suoi commenti maliziosi hanno reso la discussione ancora più accesa.",
+     "en": "His nasty comments fueled the argument."
+    }
+   }
+  ]
  },
  "意地悪": {
   "significato": {
@@ -46011,7 +46530,16 @@
     "mean",
     "unkind"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女の意地悪な言葉は結局自分の身に跳ね返ってきた。",
+    "traduzione": {
+     "it": "Le sue parole cattive alla fine si sono ritorte contro di lei.",
+     "en": "Her unkind words boomeranged."
+    }
+   }
+  ]
  },
  "異": {
   "significato": {
@@ -46034,7 +46562,16 @@
     "to differ",
     "to vary"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼らの意見は私のとは異なっている。",
+    "traduzione": {
+     "it": "Le loro opinioni sono diverse dalle mie.",
+     "en": "Their opinions differ from mine."
+    }
+   }
+  ]
  },
  "異常": {
   "significato": {
@@ -46047,7 +46584,16 @@
     "abnormality",
     "disorder"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そんなにたくさん食べるのは異常だ。",
+    "traduzione": {
+     "it": "Mangiare così tanto è anomalo.",
+     "en": "It is abnormal to eat so much."
+    }
+   }
+  ]
  },
  "異動": {
   "significato": {
@@ -46070,7 +46616,16 @@
     "migration",
     "movement"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼らは新しい場所へ移動した。",
+    "traduzione": {
+     "it": "Si sono spostati in un nuovo posto.",
+     "en": "They moved to a new place."
+    }
+   }
+  ]
  },
  "維持": {
   "significato": {
@@ -46081,7 +46636,16 @@
     "maintenance",
     "preservation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この車の維持は高くつく。",
+    "traduzione": {
+     "it": "Mantenere questa macchina costa caro.",
+     "en": "It is expensive running this car."
+    }
+   }
+  ]
  },
  "胃": {
   "significato": {
@@ -46091,7 +46655,16 @@
    "en": [
     "stomach"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "食物は胃の中で消化される。",
+    "traduzione": {
+     "it": "Il cibo viene digerito nello stomaco.",
+     "en": "Food is digested in the stomach."
+    }
+   }
+  ]
  },
  "衣服": {
   "significato": {
@@ -46102,7 +46675,16 @@
    "en": [
     "clothes"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼らは衣服をほとんど着用しない。",
+    "traduzione": {
+     "it": "Indossano pochissimi vestiti.",
+     "en": "They wear very little clothing."
+    }
+   }
+  ]
  },
  "衣料": {
   "significato": {
@@ -46112,7 +46694,16 @@
    "en": [
     "clothing"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "衣料品がだぶついている。",
+    "traduzione": {
+     "it": "C'è un eccesso di scorte di abbigliamento.",
+     "en": "We have an oversupply of clothing."
+    }
+   }
+  ]
  },
  "違い": {
   "significato": {
@@ -46123,7 +46714,16 @@
     "difference",
     "discrepancy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は１分違いで列車に乗り遅れた。",
+    "traduzione": {
+     "it": "Ho perso il treno per un solo minuto.",
+     "en": "I missed the train by a minute."
+    }
+   }
+  ]
  },
  "違いない": {
   "significato": {
@@ -46136,7 +46736,16 @@
     "no mistaking it",
     "for certain"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "再婚した今、彼はもっと幸福に違いない。",
+    "traduzione": {
+     "it": "Ora che si è risposato, deve essere più felice.",
+     "en": "He must be happier now after having remarried."
+    }
+   }
+  ]
  },
  "違反": {
   "significato": {
@@ -46147,7 +46756,16 @@
     "violation (of law)",
     "infringement"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "相次ぐ不祥事にも関わらず、警察はオメオメ違反切符を切っている。",
+    "traduzione": {
+     "it": "Nonostante gli scandali continui, la polizia continua a fare multe come se niente fosse.",
+     "en": "Despite their own scandals, the police continue to make arrests as though nothing had happened at all."
+    }
+   }
+  ]
  },
  "医院": {
   "significato": {
@@ -46159,7 +46777,16 @@
     "doctor's office (surgery)",
     "clinic"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "手術は医院内で三十分以内に完了します。",
+    "traduzione": {
+     "it": "L'intervento, eseguito nella nostra clinica, si conclude entro mezz'ora.",
+     "en": "The surgery, performed at our clinic, is over in half an hour."
+    }
+   }
+  ]
  },
  "医師": {
   "significato": {
@@ -46170,7 +46797,16 @@
     "doctor",
     "physician"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの紳士は医師にちがいない。",
+    "traduzione": {
+     "it": "Quel signore dev'essere un medico.",
+     "en": "That gentleman must be a doctor."
+    }
+   }
+  ]
  },
  "医療": {
   "significato": {
@@ -46181,7 +46817,16 @@
     "medical care",
     "medical treatment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は医療に一生を捧げた。",
+    "traduzione": {
+     "it": "Ha dedicato la sua vita alla medicina.",
+     "en": "He dedicated his life to medical work."
+    }
+   }
+  ]
  },
  "育つ": {
   "significato": {
@@ -46192,7 +46837,16 @@
     "to be brought up",
     "to grow (up)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "植物は土壌で育つ。",
+    "traduzione": {
+     "it": "Le piante crescono nel terreno.",
+     "en": "Plants are nourished by earth."
+    }
+   }
+  ]
  },
  "一家": {
   "significato": {
@@ -46203,7 +46857,16 @@
     "family",
     "clan"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジョンソン一家はパーティーをするのが大好きだ。",
+    "traduzione": {
+     "it": "Alla famiglia Johnson piace moltissimo fare feste.",
+     "en": "The Johnsons love to have parties."
+    }
+   }
+  ]
  },
  "一言": {
   "significato": {
@@ -46214,7 +46877,16 @@
    "en": [
     "one word"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "一言で言えば、彼は馬鹿だと思います。",
+    "traduzione": {
+     "it": "In una parola, penso che sia uno stupido.",
+     "en": "In a word, I think he's a fool."
+    }
+   }
+  ]
  },
  "一時": {
   "significato": {
@@ -46225,7 +46897,23 @@
     "for a time",
     "temporarily"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は一時ここに住んでいた。",
+    "traduzione": {
+     "it": "Ha vissuto qui per un periodo.",
+     "en": "He lived here for a time."
+    }
+   },
+   {
+    "testo": "霧のために、交通は一時不通になっている。",
+    "traduzione": {
+     "it": "A causa della nebbia, il traffico è temporaneamente bloccato.",
+     "en": "Due to the fog, traffic is temporarily suspended."
+    }
+   }
+  ]
  },
  "一種": {
   "significato": {
@@ -46238,7 +46926,23 @@
     "a kind",
     "a variety"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "怒りを抑えることは一種の美徳である。",
+    "traduzione": {
+     "it": "Trattenere la rabbia è una sorta di virtù.",
+     "en": "It's a kind of virtue to keep one's temper."
+    }
+   },
+   {
+    "testo": "イルカは哺乳類の一種です。",
+    "traduzione": {
+     "it": "Il delfino è un tipo di mammifero.",
+     "en": "A dolphin is a kind of mammal."
+    }
+   }
+  ]
  },
  "一瞬": {
   "significato": {
@@ -46249,7 +46953,16 @@
     "a moment",
     "an instant"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "それは私にとってはらはらする一瞬だった。",
+    "traduzione": {
+     "it": "Per me fu un attimo di grande tensione.",
+     "en": "It was a nervous moment for me."
+    }
+   }
+  ]
  },
  "一人一人": {
   "significato": {
@@ -46261,7 +46974,16 @@
     "one by one",
     "each"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "メイドは客を一人一人大声でとりついた。",
+    "traduzione": {
+     "it": "La cameriera annunciò ogni ospite ad alta voce.",
+     "en": "The maid announced each guest."
+    }
+   }
+  ]
  },
  "一生": {
   "significato": {
@@ -46271,7 +46993,23 @@
    "en": [
     "throughout (one's) life"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたは、一生勉強しなければならない。",
+    "traduzione": {
+     "it": "Devi studiare per tutta la vita.",
+     "en": "You must study your whole life."
+    }
+   },
+   {
+    "testo": "マイホームは一生の買い物だからね、そんな即断即決はできないよ。",
+    "traduzione": {
+     "it": "Comprare casa è un acquisto che si fa una volta nella vita, non si può decidere così su due piedi.",
+     "en": "A home is a once-in-a-lifetime purchase so you don't want to make any snap decisions."
+    }
+   }
+  ]
  },
  "一層": {
   "significato": {
@@ -46282,7 +47020,16 @@
     "much more",
     "still more"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今まで以上にいっそう勉強に励みなさい。",
+    "traduzione": {
+     "it": "Impegnati nello studio ancora di più di prima.",
+     "en": "You should study even more than before."
+    }
+   }
+  ]
  },
  "一体": {
   "significato": {
@@ -46296,7 +47043,23 @@
     "what on earth?",
     "generally"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "いったいなぜ彼を駅に連れて行ったの？",
+    "traduzione": {
+     "it": "Perché diavolo l'hai portato alla stazione?",
+     "en": "Why on earth did you take him to the station?"
+    }
+   },
+   {
+    "testo": "一体どこで彼に会ったんだ。",
+    "traduzione": {
+     "it": "Ma dove diavolo l'hai incontrato?",
+     "en": "Where on earth did you meet him?"
+    }
+   }
+  ]
  },
  "一帯": {
   "significato": {
@@ -46464,7 +47227,23 @@
     "shadow",
     "other side"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "陰で他人の悪口を言うべきでない。",
+    "traduzione": {
+     "it": "Non dovresti parlare male degli altri alle loro spalle.",
+     "en": "You should not speak ill of others behind their backs."
+    }
+   },
+   {
+    "testo": "あの木の陰に腰をおろしましょう。",
+    "traduzione": {
+     "it": "Sediamoci all'ombra di quell'albero.",
+     "en": "Let's sit down in the shade of that tree."
+    }
+   }
+  ]
  },
  "隠す": {
   "significato": {
@@ -47218,7 +47997,24 @@
     "to do",
     "to attempt"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はすぐに出発する。",
+    "traduzione": {
+     "it": "Lui partirà subito.",
+     "en": "He will leave right away."
+    }
+   },
+   {
+    "testo": "毎朝散歩をする。",
+    "traduzione": {
+     "it": "Faccio una passeggiata ogni mattina.",
+     "en": "I take a walk every morning."
+    }
+   }
+  ],
+  "lettura": "する"
  },
  "為る::なる": {
   "significato": {
@@ -47230,7 +48026,16 @@
     "to be of use",
     "to reach to"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は医者になる。",
+    "traduzione": {
+     "it": "Lui diventerà medico.",
+     "en": "He will become a doctor."
+    }
+   }
+  ]
  },
  "化学": {
   "significato": {
@@ -51602,7 +52407,16 @@
     "to appear",
     "to reveal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はついに姿を現した。",
+    "traduzione": {
+     "it": "Alla fine si fece vedere.",
+     "en": "He finally showed himself."
+    }
+   }
+  ]
  },
  "現れ": {
   "significato": {
@@ -56473,7 +57287,16 @@
     "plant",
     "vegetation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "植物は土壌で育つ。",
+    "traduzione": {
+     "it": "Le piante crescono nel terreno.",
+     "en": "Plants are nourished by earth."
+    }
+   }
+  ]
  },
  "殖やす": {
   "significato": {
@@ -58527,7 +59350,16 @@
    "en": [
     "all members"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "委員は全員出席している。",
+    "traduzione": {
+     "it": "Tutti i membri del comitato sono presenti.",
+     "en": "The committee are all present."
+    }
+   }
+  ]
  },
  "全国": {
   "significato": {
@@ -63284,7 +64116,16 @@
     "to express",
     "to show"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この記号は感謝を表す。",
+    "traduzione": {
+     "it": "Questo simbolo esprime gratitudine.",
+     "en": "This symbol expresses gratitude."
+    }
+   }
+  ]
  },
  "表現": {
   "significato": {
@@ -67480,6 +68321,134 @@
     "traduzione": {
      "it": "Gli errori di stampa devono essere segnalati subito.",
      "en": "Mistakes in the printing should be pointed out at once."
+    }
+   }
+  ]
+ },
+ "メモする": {
+  "frasi_esempio": [
+   {
+    "testo": "私の電話番号をメモしましたか。",
+    "traduzione": {
+     "it": "Hai preso nota del mio numero di telefono?",
+     "en": "Did you note down my phone number?"
+    }
+   }
+  ]
+ },
+ "握手する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼は友人と握手した。",
+    "traduzione": {
+     "it": "Ha stretto la mano al suo amico.",
+     "en": "He shook hands with his friend."
+    }
+   }
+  ]
+ },
+ "安定する": {
+  "frasi_esempio": [
+   {
+    "testo": "今日の政治状況はそれほど安定していない。",
+    "traduzione": {
+     "it": "L'attuale situazione politica non è molto stabile.",
+     "en": "The current political situation is not very stable."
+    }
+   }
+  ]
+ },
+ "暗記する": {
+  "frasi_esempio": [
+   {
+    "testo": "この詩を暗記しましょう。",
+    "traduzione": {
+     "it": "Impariamo questa poesia a memoria.",
+     "en": "Let's learn this poem by heart."
+    }
+   }
+  ]
+ },
+ "位置する": {
+  "frasi_esempio": [
+   {
+    "testo": "私はパレードが見えるいい位置にいた。",
+    "traduzione": {
+     "it": "Ero in una buona posizione per vedere la sfilata.",
+     "en": "I was in a good position to see the parade."
+    }
+   },
+   {
+    "testo": "彼の事務所は町の中心部に位置している。",
+    "traduzione": {
+     "it": "Il suo ufficio si trova nel centro della città.",
+     "en": "His office is located in the center of the town."
+    }
+   }
+  ]
+ },
+ "依頼する": {
+  "frasi_esempio": [
+   {
+    "testo": "事務弁護士に遺言状の作成を依頼した。",
+    "traduzione": {
+     "it": "Ho chiesto a un avvocato di redigere il mio testamento.",
+     "en": "I asked the solicitor to make out my will."
+    }
+   }
+  ]
+ },
+ "意識する": {
+  "frasi_esempio": [
+   {
+    "testo": "このお料理は、パリのエスプリを意識して、味付けしてみました。",
+    "traduzione": {
+     "it": "Ho condito questo piatto pensando allo spirito di Parigi.",
+     "en": "This cuisine is seasoned to evoke the esprit of Paris."
+    }
+   }
+  ]
+ },
+ "移動する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼らは新しい場所へ移動した。",
+    "traduzione": {
+     "it": "Si sono spostati in un nuovo posto.",
+     "en": "They moved to a new place."
+    }
+   }
+  ]
+ },
+ "維持する": {
+  "frasi_esempio": [
+   {
+    "testo": "この車の維持は高くつく。",
+    "traduzione": {
+     "it": "Mantenere questa macchina costa caro.",
+     "en": "It is expensive running this car."
+    }
+   }
+  ]
+ },
+ "違反する": {
+  "frasi_esempio": [
+   {
+    "testo": "相次ぐ不祥事にも関わらず、警察はオメオメ違反切符を切っている。",
+    "traduzione": {
+     "it": "Nonostante gli scandali continui, la polizia continua a fare multe come se niente fosse.",
+     "en": "Despite their own scandals, the police continue to make arrests as though nothing had happened at all."
+    }
+   }
+  ]
+ },
+ "一言する": {
+  "frasi_esempio": [
+   {
+    "testo": "一言で言えば、彼は馬鹿だと思います。",
+    "traduzione": {
+     "it": "In una parola, penso che sia uno stupido.",
+     "en": "In a word, I think he's a fool."
     }
    }
   ]
