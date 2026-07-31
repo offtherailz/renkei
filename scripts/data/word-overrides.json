@@ -31820,6 +31820,9 @@
      "en": "I went to lunch with my senior."
     }
    }
+  ],
+  "contrari": [
+   "後輩"
   ]
  },
  "専門": {
@@ -54695,7 +54698,8 @@
      "en": "I prefer silver rings to gold ones."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "句": {
   "significato": {
@@ -55053,7 +55057,8 @@
      "en": "\"No,\" repeated the Englishman."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "訓": {
   "significato": {
@@ -55063,7 +55068,8 @@
    "en": [
     "native Japanese reading of a Chinese character"
    ]
-  }
+  },
+  "sinonimi": []
  },
  "訓練": {
   "significato": {
@@ -55083,7 +55089,8 @@
      "en": "We had a fire drill yesterday."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "群": {
   "significato": {
@@ -55164,7 +55171,8 @@
      "en": "This is a map of the Toyono district."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "係": {
   "significato": {
@@ -55354,6 +55362,9 @@
      "en": "\"Fully booked\" was on the notice."
     }
    }
+  ],
+  "sinonimi": [
+   "知らせ"
   ]
  },
  "携帯": {
@@ -55495,7 +55506,8 @@
      "en": "The hotel is run by his uncle."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "経由": {
   "significato": {
@@ -55660,7 +55672,8 @@
      "en": "For instance, gauges, such as thermometers and barometers, are instruments."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "計算": {
   "significato": {
@@ -55747,7 +55760,8 @@
      "en": "Stay put. I'll come and get you."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "劇": {
   "significato": {
@@ -55926,7 +55940,8 @@
      "en": "Let's drink to absent friends."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "欠点": {
   "significato": {
@@ -55970,7 +55985,8 @@
      "en": "I am quite tired of daily routine."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "決行": {
   "significato": {
@@ -56265,6 +56281,10 @@
      "en": "He has a firm character."
     }
    }
+  ],
+  "sinonimi": [
+   "硬い",
+   "堅; 硬; 固い"
   ]
  },
  "嫌う": {
@@ -56389,7 +56409,8 @@
      "en": "She was idly turning over the pages of a magazine."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "検査": {
   "significato": {
@@ -56594,7 +56615,8 @@
      "en": "I have a rough idea where it is."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "見舞い": {
   "significato": {
@@ -56789,7 +56811,8 @@
      "en": "This is a sign of progress."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "現れる": {
   "significato": {
@@ -56884,6 +56907,10 @@
      "en": "Open your eyes to reality."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "理想"
   ]
  },
  "現象": {
@@ -57355,6 +57382,10 @@
      "en": "He pointed out that the former was inferior to the latter in some respects."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "前者"
   ]
  },
  "後輩": {
@@ -57374,6 +57405,10 @@
      "en": "He is my junior by three years."
     }
    }
+  ],
+  "sinonimi": [],
+  "contrari": [
+   "先輩"
   ]
  },
  "碁": {
@@ -57716,7 +57751,8 @@
      "en": "My credit is good for 50,000 yen."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "効果": {
   "significato": {
@@ -57979,6 +58015,11 @@
      "en": "The rumor spread far and wide."
     }
    }
+  ],
+  "sinonimi": [
+   "延ばす",
+   "伸ばす",
+   "広げる"
   ]
  },
  "広げる": {
@@ -58240,6 +58281,10 @@
      "en": "Boil the eggs hard."
     }
    }
+  ],
+  "sinonimi": [
+   "堅い",
+   "堅; 硬; 固い"
   ]
  },
  "硬貨": {
@@ -58662,7 +58707,8 @@
      "en": "Check your answers with his."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "合格": {
   "significato": {
@@ -58823,6 +58869,9 @@
      "en": "The Diet will meet on Tuesday."
     }
    }
+  ],
+  "sinonimi": [
+   "議会"
   ]
  },
  "国境": {
@@ -59048,7 +59097,8 @@
      "en": "She was on verge of fainting."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "今回": {
   "significato": {
@@ -69380,6 +69430,9 @@
      "en": "He pointed out that the former was inferior to the latter in some respects."
     }
    }
+  ],
+  "contrari": [
+   "後者"
   ]
  },
  "前進": {
@@ -83863,6 +83916,9 @@
      "en": "To John, Sammy was an ideal singer."
     }
    }
+  ],
+  "contrari": [
+   "現実"
   ]
  },
  "裏切る": {
@@ -86808,7 +86864,8 @@
      "en": "We had a fire drill yesterday."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "契約する": {
   "frasi_esempio": [
@@ -86830,7 +86887,8 @@
      "en": "\"Fully booked\" was on the notice."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "携帯する": {
   "frasi_esempio": [
@@ -86859,7 +86917,8 @@
      "en": "The hotel is run by his uncle."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "経由する": {
   "frasi_esempio": [
@@ -86910,7 +86969,8 @@
      "en": "Let's drink to absent friends."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "決行する": {
   "frasi_esempio": [
@@ -87119,7 +87179,8 @@
      "en": "The enemy attacked us at night."
     }
    }
-  ]
+  ],
+  "sinonimi": []
  },
  "構成する": {
   "frasi_esempio": [
