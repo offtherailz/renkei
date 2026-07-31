@@ -66995,7 +66995,16 @@
     "to design",
     "to refer A to B"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はいろいろな機会を利用して英語の上達をはかった。",
+    "traduzione": {
+     "it": "Ho colto diverse occasioni per migliorare il mio inglese.",
+     "en": "I made use of every opportunity to improve my English."
+    }
+   }
+  ]
  },
  "図書": {
   "significato": {
@@ -67005,7 +67014,16 @@
    "en": [
     "books"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私のところの図書は自由にお使い下さい。",
+    "traduzione": {
+     "it": "Sei libero di usare i libri della mia biblioteca.",
+     "en": "You're welcome to any book in my library."
+    }
+   }
+  ]
  },
  "推薦": {
   "significato": {
@@ -67015,7 +67033,16 @@
    "en": [
     "recommendation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私達は彼を議長に推薦した。",
+    "traduzione": {
+     "it": "Lo abbiamo raccomandato come presidente.",
+     "en": "We recommended him as chairman."
+    }
+   }
+  ]
  },
  "水準": {
   "significato": {
@@ -67027,7 +67054,16 @@
     "level",
     "standard"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "君の仕事は期待している水準に達していない。",
+    "traduzione": {
+     "it": "Il tuo lavoro non raggiunge lo standard atteso.",
+     "en": "Your work comes short of the expected standard."
+    }
+   }
+  ]
  },
  "水洗": {
   "significato": {
@@ -67048,7 +67084,16 @@
     "to boil",
     "to cook"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ご飯の上手なたき方を知っていますか。",
+    "traduzione": {
+     "it": "Sai come cucinare bene il riso?",
+     "en": "Do you know how to cook rice well?"
+    }
+   }
+  ]
  },
  "睡眠": {
   "significato": {
@@ -67058,7 +67103,16 @@
    "en": [
     "sleep"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "睡眠は薬に勝る。",
+    "traduzione": {
+     "it": "Il sonno vale più di qualsiasi medicina.",
+     "en": "Sleep is better than medicine."
+    }
+   }
+  ]
  },
  "粋": {
   "significato": {
@@ -67071,7 +67125,16 @@
     "style",
     "purity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日の格好はとっても粋ですね。",
+    "traduzione": {
+     "it": "Il tuo look di oggi è davvero elegante.",
+     "en": "You're looking snappy today."
+    }
+   }
+  ]
  },
  "遂に": {
   "significato": {
@@ -67082,7 +67145,16 @@
     "finally",
     "at last"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ついに病気で疲れた男たちは彼が待っている山岳都市に到着した。",
+    "traduzione": {
+     "it": "Alla fine, gli uomini malati ed esausti raggiunsero la città di montagna dove lui li aspettava.",
+     "en": "Finally, the sick, tired men reached the mountain town where he was waiting."
+    }
+   }
+  ]
  },
  "酔う": {
   "significato": {
@@ -67092,7 +67164,16 @@
    "en": [
     "to get drunk"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "まるで酔っているようだ。",
+    "traduzione": {
+     "it": "Sembra proprio ubriaca.",
+     "en": "She looks as if she were drunk."
+    }
+   }
+  ]
  },
  "数::すう": {
   "significato": {
@@ -67103,7 +67184,23 @@
     "number",
     "figure"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの木の枝に数羽の鳥がとまっている。",
+    "traduzione": {
+     "it": "Alcuni uccelli sono appollaiati su quel ramo.",
+     "en": "Some birds are sitting on the branch of that tree."
+    }
+   },
+   {
+    "testo": "今年は失業者数が記録的になるだろう。",
+    "traduzione": {
+     "it": "Quest'anno il numero dei disoccupati raggiungerà livelli record.",
+     "en": "This year unemployment will reach record levels."
+    }
+   }
+  ]
  },
  "数::かず": {
   "significato": {
@@ -67116,7 +67213,16 @@
     "figure",
     "amount"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "算数は数を取り扱う。",
+    "traduzione": {
+     "it": "L'aritmetica si occupa dei numeri.",
+     "en": "Arithmetic deals with numbers."
+    }
+   }
+  ]
  },
  "数える": {
   "significato": {
@@ -67126,7 +67232,16 @@
    "en": [
     "to count"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの子は２０まで数えられる。",
+    "traduzione": {
+     "it": "Quel bambino sa contare fino a venti.",
+     "en": "That child can count to twenty."
+    }
+   }
+  ]
  },
  "数字": {
   "significato": {
@@ -67137,7 +67252,23 @@
     "numeral",
     "figure"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "数字は天文学的なものだろう。",
+    "traduzione": {
+     "it": "La cifra sarà astronomica.",
+     "en": "The figure will be astronomical."
+    }
+   },
+   {
+    "testo": "小切手の金額は数字と文字の両方で書いて下さい。",
+    "traduzione": {
+     "it": "Scriva l'importo dell'assegno sia in cifre sia in lettere.",
+     "en": "Write the amount on the check in letters as well as figures."
+    }
+   }
+  ]
  },
  "澄む": {
   "significato": {
@@ -67149,7 +67280,16 @@
     "to clear (e.g., weather)",
     "to become transparent"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "水が底まで澄んでいる。",
+    "traduzione": {
+     "it": "L'acqua è limpida fino in fondo.",
+     "en": "The water is clear to the bottom."
+    }
+   }
+  ]
  },
  "世": {
   "significato": {
@@ -67162,7 +67302,23 @@
     "society",
     "generation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "新聞は世の動向を左右する。",
+    "traduzione": {
+     "it": "I giornali influenzano l'andamento del mondo.",
+     "en": "Newspapers influence the current of time."
+    }
+   },
+   {
+    "testo": "光が世にやって来た。",
+    "traduzione": {
+     "it": "La luce è venuta nel mondo.",
+     "en": "Light has come into the world."
+    }
+   }
+  ]
  },
  "世の中": {
   "significato": {
@@ -67174,7 +67330,16 @@
     "society",
     "the world"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "世の中全体がおかしくなっているんだよ。",
+    "traduzione": {
+     "it": "Il mondo intero sta impazzendo.",
+     "en": "The whole world is off its rocker."
+    }
+   }
+  ]
  },
  "世間": {
   "significato": {
@@ -67196,7 +67361,16 @@
    "en": [
     "century"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は１９世紀に生まれた。",
+    "traduzione": {
+     "it": "È nato nel diciannovesimo secolo.",
+     "en": "He was born in the 19th century."
+    }
+   }
+  ]
  },
  "制限": {
   "significato": {
@@ -67209,7 +67383,16 @@
     "restraint",
     "limitation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "制限スピードを超えるなよ。",
+    "traduzione": {
+     "it": "Non superare il limite di velocità.",
+     "en": "Don't go beyond the speed limit."
+    }
+   }
+  ]
  },
  "制度": {
   "significato": {
@@ -67221,7 +67404,16 @@
     "system",
     "institution"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "新制度は成功だと分かった。",
+    "traduzione": {
+     "it": "Il nuovo sistema si è rivelato un successo.",
+     "en": "The new system proved a success."
+    }
+   }
+  ]
  },
  "勢い": {
   "significato": {
@@ -67261,7 +67453,16 @@
     "surname",
     "family name"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの姓はどう発音するのですか。",
+    "traduzione": {
+     "it": "Come si pronuncia il suo cognome?",
+     "en": "How do you pronounce your last name?"
+    }
+   }
+  ]
  },
  "姓名": {
   "significato": {
@@ -67283,7 +67484,23 @@
     "sex",
     "gender"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "習い性となる。",
+    "traduzione": {
+     "it": "L'abitudine diventa una seconda natura.",
+     "en": "Habit is second nature."
+    }
+   },
+   {
+    "testo": "３番目に考慮すべき事柄は、カーペットの時代性である。",
+    "traduzione": {
+     "it": "La terza cosa da considerare è l'epoca del tappeto.",
+     "en": "The age of the carpet is a third thing to consider."
+    }
+   }
+  ]
  },
  "性格": {
   "significato": {
@@ -67294,7 +67511,16 @@
     "character",
     "personality"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あいつもアバウトな性格だよな。",
+    "traduzione": {
+     "it": "Anche lui ha un carattere piuttosto approssimativo.",
+     "en": "He's not a very meticulous guy."
+    }
+   }
+  ]
  },
  "性質": {
   "significato": {
@@ -67307,7 +67533,16 @@
     "property",
     "disposition"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は性質が頑固だ。",
+    "traduzione": {
+     "it": "Ha un carattere ostinato.",
+     "en": "He is obstinate in disposition."
+    }
+   }
+  ]
  },
  "成功": {
   "significato": {
@@ -67318,7 +67553,23 @@
     "success",
     "hit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "成功。おめでとうございます。",
+    "traduzione": {
+     "it": "Successo. Congratulazioni.",
+     "en": "Let me congratulate you on your success."
+    }
+   },
+   {
+    "testo": "人生における成功とはかならずしも富の獲得と同じものではない。",
+    "traduzione": {
+     "it": "Il successo nella vita non equivale sempre all'accumulo di ricchezza.",
+     "en": "Success in life is not necessarily the same thing as the acquirement of riches."
+    }
+   }
+  ]
  },
  "成人": {
   "significato": {
@@ -67328,7 +67579,23 @@
    "en": [
     "adult"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "サンドラは成人して美人になりました。",
+    "traduzione": {
+     "it": "Sandra è cresciuta diventando una bella donna.",
+     "en": "Sandra has grown up to be a beautiful woman."
+    }
+   },
+   {
+    "testo": "その映画は成人しかみられない。",
+    "traduzione": {
+     "it": "Quel film può essere visto solo dagli adulti.",
+     "en": "Only adults may watch that film."
+    }
+   }
+  ]
  },
  "成績": {
   "significato": {
@@ -67340,7 +67607,16 @@
     "grade (i.e., on a test)",
     "academic record"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "学校の成績は普通でしたよ。",
+    "traduzione": {
+     "it": "I miei voti a scuola erano nella media.",
+     "en": "My school grades were average."
+    }
+   }
+  ]
  },
  "成長": {
   "significato": {
@@ -67350,7 +67626,16 @@
    "en": [
     "growth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ジェーンは成長して素敵な女性になった。",
+    "traduzione": {
+     "it": "Jane è cresciuta diventando una donna splendida.",
+     "en": "Jane grew up to be a fine lady."
+    }
+   }
+  ]
  },
  "成年": {
   "significato": {
@@ -67361,7 +67646,16 @@
     "majority",
     "adult age"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの娘さんはいつ成年に達したのですか。",
+    "traduzione": {
+     "it": "Quando ha raggiunto la maggiore età sua figlia?",
+     "en": "When did your daughter come of age?"
+    }
+   }
+  ]
  },
  "政府": {
   "significato": {
@@ -67372,7 +67666,16 @@
     "government",
     "administration"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "政府は倒された。",
+    "traduzione": {
+     "it": "Il governo è stato rovesciato.",
+     "en": "The government was overthrown."
+    }
+   }
+  ]
  },
  "整理": {
   "significato": {
@@ -67383,7 +67686,16 @@
     "sorting",
     "arrangement"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "部屋の整理をしたほうがいいよ。",
+    "traduzione": {
+     "it": "Faresti bene a riordinare la stanza.",
+     "en": "You should set your room in order."
+    }
+   }
+  ]
  },
  "正": {
   "significato": {
@@ -67408,7 +67720,16 @@
     "punctuality",
     "exact"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この時計の時間は正確だ。",
+    "traduzione": {
+     "it": "Questo orologio segna l'ora con precisione.",
+     "en": "This watch keeps correct time."
+    }
+   }
+  ]
  },
  "正規": {
   "significato": {
@@ -67431,7 +67752,16 @@
     "noon",
     "mid-day"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私たちは、普通正午に昼食を食べます。",
+    "traduzione": {
+     "it": "Di solito pranziamo a mezzogiorno.",
+     "en": "We usually have lunch at noon."
+    }
+   }
+  ]
  },
  "正式": {
   "significato": {
@@ -67443,7 +67773,16 @@
     "official",
     "formal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女の服装は正式なパーティーでは場違いだった。",
+    "traduzione": {
+     "it": "Il suo abbigliamento era fuori luogo per una festa formale.",
+     "en": "Her clothes were out of place at a formal party."
+    }
+   }
+  ]
  },
  "正体": {
   "significato": {
@@ -67456,7 +67795,16 @@
     "one's true colors",
     "true character"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ついに正体を暴露したな。",
+    "traduzione": {
+     "it": "Alla fine hai svelato la tua vera natura.",
+     "en": "Now you've given yourself away."
+    }
+   }
+  ]
  },
  "正直": {
   "significato": {
@@ -67468,7 +67816,16 @@
     "integrity",
     "frankness"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その事実は彼の正直さを証明している。",
+    "traduzione": {
+     "it": "Questo fatto dimostra la sua onestà.",
+     "en": "The fact proves his honesty."
+    }
+   }
+  ]
  },
  "清む": {
   "significato": {
@@ -67480,7 +67837,16 @@
     "to clear (e.g., weather)",
     "to become transparent"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "空気が清んでいる。",
+    "traduzione": {
+     "it": "L'aria è limpida.",
+     "en": "The air is clear."
+    }
+   }
+  ]
  },
  "清潔": {
   "significato": {
@@ -67490,7 +67856,16 @@
    "en": [
     "clean"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その別荘は清潔で整然としていた。",
+    "traduzione": {
+     "it": "Il cottage era pulito e ordinato.",
+     "en": "The cottage was clean and tidy."
+    }
+   }
+  ]
  },
  "生::せい": {
   "significato": {
@@ -67501,7 +67876,16 @@
    "en": [
     "birth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "死は生の正反対である。",
+    "traduzione": {
+     "it": "La morte è l'esatto opposto della vita.",
+     "en": "Death is the antithesis of life."
+    }
+   }
+  ]
  },
  "生::なま": {
   "significato": {
@@ -67512,7 +67896,23 @@
     "raw",
     "unprocessed"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "アメリカ人にはよくあることだが彼はなまの魚を好かない。",
+    "traduzione": {
+     "it": "Come spesso capita agli americani, non ama il pesce crudo.",
+     "en": "As is often the case with Americans, he does not care for raw fish."
+    }
+   },
+   {
+    "testo": "ゴムをすると確かに性感が落ちるので、出来れば生でしたいです。",
+    "traduzione": {
+     "it": "Con il preservativo la sensibilità diminuisce di sicuro, quindi se possibile preferirei farlo senza.",
+     "en": "The sensitivity certainly drops if I use a condom, so if possible I'd like to do it bareback."
+    }
+   }
+  ]
  },
  "生える": {
   "significato": {
@@ -67524,7 +67924,23 @@
     "to spring up",
     "to cut (teeth)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この子は今歯が生えかけているところです。",
+    "traduzione": {
+     "it": "A questo bambino stanno spuntando i dentini.",
+     "en": "This child is teething now."
+    }
+   },
+   {
+    "testo": "おたまじゃくしは大きくなるにつれ、尻尾が消えて足が生えはじめる。",
+    "traduzione": {
+     "it": "Man mano che il girino cresce, la coda scompare e cominciano a crescergli le zampe.",
+     "en": "As a tadpole grows, the tail disappears and legs begin to form."
+    }
+   }
+  ]
  },
  "生き物": {
   "significato": {
@@ -67535,7 +67951,16 @@
     "living thing",
     "creature"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この森には多くの生き物がいる。",
+    "traduzione": {
+     "it": "In questa foresta ci sono molte creature.",
+     "en": "There are many creatures in this forest."
+    }
+   }
+  ]
  },
  "生じる": {
   "significato": {
@@ -67548,7 +67973,16 @@
     "to arise",
     "to be generated"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "事故は不注意から生じる。",
+    "traduzione": {
+     "it": "Gli incidenti nascono dalla disattenzione.",
+     "en": "Accidents arise from carelessness."
+    }
+   }
+  ]
  },
  "生まれ": {
   "significato": {
@@ -67560,7 +67994,16 @@
     "birth",
     "birth-place"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は生まれも育ちも東京だ。",
+    "traduzione": {
+     "it": "Sono nato e cresciuto a Tokyo.",
+     "en": "I was born and raised in Tokyo."
+    }
+   }
+  ]
  },
  "生やす": {
   "significato": {
@@ -67572,7 +68015,16 @@
     "to cultivate",
     "to wear beard"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼はひげを生やしている。",
+    "traduzione": {
+     "it": "Ha la barba.",
+     "en": "He has a beard."
+    }
+   }
+  ]
  },
  "生る": {
   "significato": {
@@ -67582,7 +68034,16 @@
    "en": [
     "to bear fruit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この木には実がならないんだ。",
+    "traduzione": {
+     "it": "Questo albero non produce frutti.",
+     "en": "This tree does not bear fruit."
+    }
+   }
+  ]
  },
  "生涯": {
   "significato": {
@@ -67592,7 +68053,23 @@
    "en": [
     "one's lifetime"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "叔母は幸せな生涯を送った。",
+    "traduzione": {
+     "it": "Mia zia ha vissuto una vita felice.",
+     "en": "My aunt lived a happy life."
+    }
+   },
+   {
+    "testo": "彼は生涯独身のままだった。",
+    "traduzione": {
+     "it": "È rimasto celibe per tutta la vita.",
+     "en": "He remained a bachelor all his life."
+    }
+   }
+  ]
  },
  "生地": {
   "significato": {
@@ -67604,7 +68081,23 @@
     "fabric",
     "dough"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "生地を預ければドレスを仕立ててくれますか。",
+    "traduzione": {
+     "it": "Se le lascio il tessuto, può cucirmi un vestito?",
+     "en": "Will you make me up a dress if I give you the material?"
+    }
+   },
+   {
+    "testo": "イースト菌がパン生地を膨らます。",
+    "traduzione": {
+     "it": "Il lievito fa gonfiare l'impasto del pane.",
+     "en": "Yeast makes dough rise."
+    }
+   }
+  ]
  },
  "生長": {
   "significato": {
@@ -67614,7 +68107,16 @@
    "en": [
     "growth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "植物は光で生長する。",
+    "traduzione": {
+     "it": "Le piante crescono con la luce.",
+     "en": "Plants grow with light."
+    }
+   }
+  ]
  },
  "生年月日": {
   "significato": {
@@ -67624,7 +68126,16 @@
    "en": [
     "birth date"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "生年月日は１９６０年２月１４日です。",
+    "traduzione": {
+     "it": "La mia data di nascita è il 14 febbraio 1960.",
+     "en": "I was born on February 14, 1960."
+    }
+   }
+  ]
  },
  "生物": {
   "significato": {
@@ -67635,7 +68146,16 @@
     "living thing",
     "organism"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "地球以外の天体に生物はいますか。",
+    "traduzione": {
+     "it": "Esistono forme di vita su corpi celesti diversi dalla Terra?",
+     "en": "Is there life on other worlds?"
+    }
+   }
+  ]
  },
  "生命": {
   "significato": {
@@ -67645,7 +68165,16 @@
    "en": [
     "life"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "生命はいつ誕生したのですか。",
+    "traduzione": {
+     "it": "Quando è nata la vita?",
+     "en": "When did life come into being?"
+    }
+   }
+  ]
  },
  "生理": {
   "significato": {
@@ -67657,7 +68186,16 @@
     "physiology",
     "menses"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "生理用ナプキンはどこにありますか。",
+    "traduzione": {
+     "it": "Dove sono gli assorbenti igienici?",
+     "en": "Where are the sanitary napkins?"
+    }
+   }
+  ]
  },
  "盛り": {
   "significato": {
@@ -67669,7 +68207,23 @@
     "helping",
     "serving"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は今男盛りだ。",
+    "traduzione": {
+     "it": "È nel fiore degli anni.",
+     "en": "He is now in the prime of manhood."
+    }
+   },
+   {
+    "testo": "桜の花は４月が盛りだ。",
+    "traduzione": {
+     "it": "I ciliegi sono al culmine della fioritura ad aprile.",
+     "en": "The cherry blossoms are at their best in April."
+    }
+   }
+  ]
  },
  "精々": {
   "significato": {
@@ -67680,7 +68234,23 @@
     "at the most",
     "at best"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "桜の花は数日、せいぜい一週間しか持たない。",
+    "traduzione": {
+     "it": "I fiori di ciliegio durano solo pochi giorni, al massimo una settimana.",
+     "en": "Cherry blossoms last only for a few days, a week at the most."
+    }
+   },
+   {
+    "testo": "狭い部屋をせいぜい広く使った。",
+    "traduzione": {
+     "it": "Ho sfruttato al massimo lo spazio di quella stanza piccola.",
+     "en": "I made the best of my small room."
+    }
+   }
+  ]
  },
  "精巧": {
   "significato": {
@@ -67693,7 +68263,16 @@
     "delicate",
     "exquisite"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その機械は精巧に出来ているので、すぐ壊れる。",
+    "traduzione": {
+     "it": "Quella macchina è così delicata che si rompe facilmente.",
+     "en": "The machine is so delicate that it easily breaks."
+    }
+   }
+  ]
  },
  "精算": {
   "significato": {
@@ -67705,7 +68284,16 @@
     "exact calculation",
     "adjustment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は精算をしてホテルを出た。",
+    "traduzione": {
+     "it": "Ha saldato il conto ed è uscito dall'hotel.",
+     "en": "He checked out of the hotel."
+    }
+   }
+  ]
  },
  "精神": {
   "significato": {
@@ -67718,7 +68306,23 @@
     "soul",
     "spirit"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "我々は精神を養わなければならない。",
+    "traduzione": {
+     "it": "Dobbiamo nutrire il nostro spirito.",
+     "en": "We need to nourish our spirit."
+    }
+   },
+   {
+    "testo": "日本人の精神はその独特の風土に根ざしている。",
+    "traduzione": {
+     "it": "La mentalità giapponese affonda le radici nel suo ambiente unico.",
+     "en": "It is the particular environment that has shaped the Japanese mentality."
+    }
+   }
+  ]
  },
  "声明": {
   "significato": {
@@ -67730,7 +68334,16 @@
     "statement",
     "proclamation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の声明は疑いの余地がない。",
+    "traduzione": {
+     "it": "La sua dichiarazione non lascia spazio a dubbi.",
+     "en": "His statement admits of no doubt."
+    }
+   }
+  ]
  },
  "製造": {
   "significato": {
@@ -67761,7 +68374,16 @@
     "manufactured goods",
     "finished goods"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この製品はイタリア製だ。",
+    "traduzione": {
+     "it": "Questo prodotto è fatto in Italia.",
+     "en": "This product is made in Italy."
+    }
+   }
+  ]
  },
  "請求": {
   "significato": {
@@ -67774,7 +68396,16 @@
     "demand",
     "request"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "スミス氏は損害賠償を請求して彼らを告訴した。",
+    "traduzione": {
+     "it": "Il signor Smith li ha citati in giudizio chiedendo un risarcimento.",
+     "en": "Mr Smith sued them for damages."
+    }
+   }
+  ]
  },
  "青年": {
   "significato": {
@@ -67785,7 +68416,16 @@
     "youth",
     "young man"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの長髪の青年は粗野だ。",
+    "traduzione": {
+     "it": "Quel giovane con i capelli lunghi è rozzo.",
+     "en": "That long-haired youth is rude."
+    }
+   }
+  ]
  },
  "税": {
   "significato": {
@@ -67795,7 +68435,16 @@
    "en": [
     "tax"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "タバコにかけられている税は高い。",
+    "traduzione": {
+     "it": "La tassa sul tabacco è alta.",
+     "en": "There is a heavy tax on tobacco."
+    }
+   }
+  ]
  },
  "税金": {
   "significato": {
@@ -67807,7 +68456,16 @@
     "tax",
     "duty"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "新しい税金がワインにかせられた。",
+    "traduzione": {
+     "it": "È stata imposta una nuova tassa sul vino.",
+     "en": "A new tax was imposed on wine."
+    }
+   }
+  ]
  },
  "石炭": {
   "significato": {
@@ -67817,7 +68475,16 @@
    "en": [
     "coal"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "石炭を石油の代わりに使いました。",
+    "traduzione": {
+     "it": "Hanno usato il carbone al posto del petrolio.",
+     "en": "They substituted coal for oil."
+    }
+   }
+  ]
  },
  "石油": {
   "significato": {
@@ -67829,7 +68496,16 @@
     "petroleum",
     "kerosene"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この国には石油が乏しい。",
+    "traduzione": {
+     "it": "In questo paese il petrolio scarseggia.",
+     "en": "Oil is scarce in this country."
+    }
+   }
+  ]
  },
  "積む": {
   "significato": {
@@ -67841,7 +68517,23 @@
     "to pile up",
     "to stack"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は幅広い経験を積んでいる人だ。",
+    "traduzione": {
+     "it": "È una persona con una vasta esperienza.",
+     "en": "He is a man of wide experience."
+    }
+   },
+   {
+    "testo": "流しの横にお皿を積んでおいてくだされば、後で私が洗います。",
+    "traduzione": {
+     "it": "Se impila i piatti accanto al lavandino, li laverò più tardi.",
+     "en": "If you stack the dishes up by the sink, I'll do them later."
+    }
+   }
+  ]
  },
  "積もる": {
   "significato": {
@@ -67851,7 +68543,16 @@
    "en": [
     "to pile up"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "塵も積もれば山となる。",
+    "traduzione": {
+     "it": "Granello dopo granello si fa la montagna.",
+     "en": "Many a little makes a mickle."
+    }
+   }
+  ]
  },
  "積極的": {
   "significato": {
@@ -67864,7 +68565,16 @@
     "active",
     "proactive"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は婦人解放運動で積極的に活躍した。",
+    "traduzione": {
+     "it": "Ha partecipato attivamente al movimento per la liberazione delle donne.",
+     "en": "She took an active part in the women's lib movement."
+    }
+   }
+  ]
  },
  "責める": {
   "significato": {
@@ -67877,7 +68587,16 @@
     "to blame",
     "to criticize"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あまり自分を責めないで。",
+    "traduzione": {
+     "it": "Non essere troppo duro con te stesso.",
+     "en": "Don't be too hard on yourself."
+    }
+   }
+  ]
  },
  "責任": {
   "significato": {
@@ -67888,7 +68607,16 @@
     "duty",
     "responsibility"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "けんかは両方に責任がある。",
+    "traduzione": {
+     "it": "In un litigio la colpa è di entrambe le parti.",
+     "en": "It takes two to make a quarrel."
+    }
+   }
+  ]
  },
  "跡": {
   "significato": {
@@ -67901,7 +68629,23 @@
     "remains",
     "scar"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その女性の顔には悲しみの跡があった。",
+    "traduzione": {
+     "it": "Sul volto di quella donna c'erano tracce di tristezza.",
+     "en": "The woman's face was marked with grief."
+    }
+   },
+   {
+    "testo": "ここは城の跡です。",
+    "traduzione": {
+     "it": "Questo è il sito di un castello.",
+     "en": "This is the site of a castle."
+    }
+   }
+  ]
  },
  "切り": {
   "significato": {
@@ -67912,7 +68656,23 @@
     "limits",
     "place to leave off"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は３８歳なのに両親に頼りきりです。",
+    "traduzione": {
+     "it": "Anche se ha 38 anni, dipende ancora completamente dai suoi genitori.",
+     "en": "Though 38, he is still dependent on his parents."
+    }
+   },
+   {
+    "testo": "彼はそこに行ったきり２度と帰ってこなかった。",
+    "traduzione": {
+     "it": "Andò lì e non tornò mai più.",
+     "en": "He went there, never to return."
+    }
+   }
+  ]
  },
  "切れ": {
   "significato": {
@@ -67924,7 +68684,23 @@
     "piece",
     "cut"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "肉は何切れにしましょうか。",
+    "traduzione": {
+     "it": "Quante fette di carne desidera?",
+     "en": "How many slices of meat would you like?"
+    }
+   },
+   {
+    "testo": "昔のような身体の切れを取り戻したい。",
+    "traduzione": {
+     "it": "Vorrei ritrovare l'agilità fisica di un tempo.",
+     "en": "I wish I could get back the tone and nimbleness I once had."
+    }
+   }
+  ]
  },
  "切れる": {
   "significato": {
@@ -67937,7 +68713,23 @@
     "to be sharp",
     "to break (off)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ガソリンが切れかかっている。",
+    "traduzione": {
+     "it": "La benzina sta per finire.",
+     "en": "We're running out of gas."
+    }
+   },
+   {
+    "testo": "このはさみは良く切れない。",
+    "traduzione": {
+     "it": "Queste forbici non tagliano bene.",
+     "en": "These scissors don't cut well."
+    }
+   }
+  ]
  },
  "接ぐ": {
   "significato": {
@@ -69781,7 +70573,16 @@
    "en": [
     "birth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "生命はいつ誕生したのですか。",
+    "traduzione": {
+     "it": "Quando è nata la vita?",
+     "en": "When did life come into being?"
+    }
+   }
+  ]
  },
  "団体": {
   "significato": {
@@ -80098,6 +80899,123 @@
     "traduzione": {
      "it": "Il cibo scarseggia.",
      "en": "Food has been in short supply."
+    }
+   }
+  ]
+ },
+ "推薦する": {
+  "frasi_esempio": [
+   {
+    "testo": "私達は彼を議長に推薦した。",
+    "traduzione": {
+     "it": "Lo abbiamo raccomandato come presidente.",
+     "en": "We recommended him as chairman."
+    }
+   }
+  ]
+ },
+ "制限する": {
+  "frasi_esempio": [
+   {
+    "testo": "制限スピードを超えるなよ。",
+    "traduzione": {
+     "it": "Non superare il limite di velocità.",
+     "en": "Don't go beyond the speed limit."
+    }
+   }
+  ]
+ },
+ "成功する": {
+  "frasi_esempio": [
+   {
+    "testo": "成功。おめでとうございます。",
+    "traduzione": {
+     "it": "Successo. Congratulazioni.",
+     "en": "Let me congratulate you on your success."
+    }
+   },
+   {
+    "testo": "人生における成功とはかならずしも富の獲得と同じものではない。",
+    "traduzione": {
+     "it": "Il successo nella vita non equivale sempre all'accumulo di ricchezza.",
+     "en": "Success in life is not necessarily the same thing as the acquirement of riches."
+    }
+   }
+  ]
+ },
+ "成長する": {
+  "frasi_esempio": [
+   {
+    "testo": "ジェーンは成長して素敵な女性になった。",
+    "traduzione": {
+     "it": "Jane è cresciuta diventando una donna splendida.",
+     "en": "Jane grew up to be a fine lady."
+    }
+   }
+  ]
+ },
+ "整理する": {
+  "frasi_esempio": [
+   {
+    "testo": "部屋の整理をしたほうがいいよ。",
+    "traduzione": {
+     "it": "Faresti bene a riordinare la stanza.",
+     "en": "You should set your room in order."
+    }
+   }
+  ]
+ },
+ "生長する": {
+  "frasi_esempio": [
+   {
+    "testo": "植物は光で生長する。",
+    "traduzione": {
+     "it": "Le piante crescono con la luce.",
+     "en": "Plants grow with light."
+    }
+   }
+  ]
+ },
+ "精算する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼は精算をしてホテルを出た。",
+    "traduzione": {
+     "it": "Ha saldato il conto ed è uscito dall'hotel.",
+     "en": "He checked out of the hotel."
+    }
+   }
+  ]
+ },
+ "声明する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼の声明は疑いの余地がない。",
+    "traduzione": {
+     "it": "La sua dichiarazione non lascia spazio a dubbi.",
+     "en": "His statement admits of no doubt."
+    }
+   }
+  ]
+ },
+ "請求する": {
+  "frasi_esempio": [
+   {
+    "testo": "スミス氏は損害賠償を請求して彼らを告訴した。",
+    "traduzione": {
+     "it": "Il signor Smith li ha citati in giudizio chiedendo un risarcimento.",
+     "en": "Mr Smith sued them for damages."
+    }
+   }
+  ]
+ },
+ "誕生する": {
+  "frasi_esempio": [
+   {
+    "testo": "生命はいつ誕生したのですか。",
+    "traduzione": {
+     "it": "Quando è nata la vita?",
+     "en": "When did life come into being?"
     }
    }
   ]
