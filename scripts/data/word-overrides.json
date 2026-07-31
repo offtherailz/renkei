@@ -65154,7 +65154,16 @@
     "improvement",
     "advance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "君の英語は上達している。",
+    "traduzione": {
+     "it": "Il tuo inglese sta migliorando.",
+     "en": "Your English is improving."
+    }
+   }
+  ]
  },
  "上等": {
   "significato": {
@@ -65165,7 +65174,16 @@
     "first class",
     "very good"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どうしてこんな上等のぶどう酒を今まで取って置いたのか。",
+    "traduzione": {
+     "it": "Perché hai tenuto da parte fino ad ora un vino così pregiato?",
+     "en": "Why have you kept such an excellent wine back till now?"
+    }
+   }
+  ]
  },
  "乗せる": {
   "significato": {
@@ -65195,7 +65213,16 @@
    "en": [
     "passenger"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "乗客はどちらの側にも４人すわっていた。",
+    "traduzione": {
+     "it": "C'erano quattro passeggeri seduti da ciascun lato.",
+     "en": "The passengers sat four aside."
+    }
+   }
+  ]
  },
  "冗談": {
   "significato": {
@@ -65205,7 +65232,16 @@
    "en": [
     "a joke"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "冗談はもうたくさんだ。",
+    "traduzione": {
+     "it": "Basta scherzi, per favore.",
+     "en": "No more of your jokes, please."
+    }
+   }
+  ]
  },
  "城": {
   "significato": {
@@ -65215,7 +65251,16 @@
    "en": [
     "castle"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その城は１６１０年に建てられた。",
+    "traduzione": {
+     "it": "Il castello risale al 1610.",
+     "en": "The castle dates back to 1610."
+    }
+   }
+  ]
  },
  "場": {
   "significato": {
@@ -65226,7 +65271,23 @@
     "place",
     "field (physics)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このネクタイはこのような場にふさわしくありません。",
+    "traduzione": {
+     "it": "Questa cravatta non è adatta a un'occasione del genere.",
+     "en": "This tie is not suitable for a situation like this."
+    }
+   },
+   {
+    "testo": "場が白けた。",
+    "traduzione": {
+     "it": "L'atmosfera si è raffreddata.",
+     "en": "The party grew chilly."
+    }
+   }
+  ]
  },
  "場面": {
   "significato": {
@@ -65237,7 +65298,23 @@
     "scene",
     "setting (e.g., of novel)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "アクション場面の少ない映画にはいつも退屈してしまう。",
+    "traduzione": {
+     "it": "Mi annoio sempre con i film che hanno poche scene d'azione.",
+     "en": "I'm always bored with films that have little action."
+    }
+   },
+   {
+    "testo": "その場面は彼の記憶の底に留まっていた。",
+    "traduzione": {
+     "it": "Quella scena era rimasta impressa nella sua memoria.",
+     "en": "The scene was embedded in his memory."
+    }
+   }
+  ]
  },
  "常に": {
   "significato": {
@@ -65247,7 +65324,16 @@
    "en": [
     "always (same as いつも) (written expression)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "常に疲労感があります。",
+    "traduzione": {
+     "it": "Mi sento sempre stanco.",
+     "en": "I always have a tired feeling."
+    }
+   }
+  ]
  },
  "常識": {
   "significato": {
@@ -65257,7 +65343,16 @@
    "en": [
     "common sense"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女には常識が欠けている。",
+    "traduzione": {
+     "it": "Le manca il buon senso.",
+     "en": "She is lacking in common sense."
+    }
+   }
+  ]
  },
  "情": {
   "significato": {
@@ -65281,7 +65376,16 @@
     "information",
     "(military) intelligence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この情報は正しいか。",
+    "traduzione": {
+     "it": "Questa informazione è corretta?",
+     "en": "Is this information right?"
+    }
+   }
+  ]
  },
  "条件": {
   "significato": {
@@ -65292,7 +65396,16 @@
     "conditions",
     "terms"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そちらの条件を受け入れましょう。",
+    "traduzione": {
+     "it": "Accetteremo le vostre condizioni.",
+     "en": "We will accept your conditions."
+    }
+   }
+  ]
  },
  "状況": {
   "significato": {
@@ -65303,7 +65416,16 @@
     "state of affairs",
     "situation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "状況をお知らせください。",
+    "traduzione": {
+     "it": "Mi tenga informato sulla situazione.",
+     "en": "Please let me know the status."
+    }
+   }
+  ]
  },
  "状態": {
   "significato": {
@@ -65315,7 +65437,16 @@
     "condition",
     "situation"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その古家はひどい状態であった。",
+    "traduzione": {
+     "it": "La vecchia casa era in pessime condizioni.",
+     "en": "The old house was in bad shape."
+    }
+   }
+  ]
  },
  "畳む": {
   "significato": {
@@ -65353,7 +65484,16 @@
     "humid",
     "sultry"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "今日は蒸し暑い。",
+    "traduzione": {
+     "it": "Oggi è afoso.",
+     "en": "It's humid today."
+    }
+   }
+  ]
  },
  "蒸す": {
   "significato": {
@@ -65377,7 +65517,23 @@
     "to assign",
     "to hand over"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はこの点については一歩も譲れません。",
+    "traduzione": {
+     "it": "Su questo punto non farò un passo indietro.",
+     "en": "I will not give an inch on this point."
+    }
+   },
+   {
+    "testo": "彼は老婦人に席をゆずった。",
+    "traduzione": {
+     "it": "Ha ceduto il posto a un'anziana signora.",
+     "en": "He offered his seat to an old woman."
+    }
+   }
+  ]
  },
  "飾り": {
   "significato": {
@@ -65387,7 +65543,16 @@
    "en": [
     "decoration"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その箱に飾りのテープをかけてください。",
+    "traduzione": {
+     "it": "Metta un nastro decorativo su quella scatola.",
+     "en": "Do up the box with decorative tape."
+    }
+   }
+  ]
  },
  "拭く": {
   "significato": {
@@ -65440,7 +65605,16 @@
     "to increase",
     "to add to"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "貯金を殖やす。",
+    "traduzione": {
+     "it": "Aumentare i risparmi.",
+     "en": "To increase one's savings."
+    }
+   }
+  ]
  },
  "織る": {
   "significato": {
@@ -65450,7 +65624,16 @@
    "en": [
     "to weave"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女はずっとナプキンを織り続けた。",
+    "traduzione": {
+     "it": "Ha continuato a piegare tovaglioli per tutto il tempo.",
+     "en": "She folded napkins all the way."
+    }
+   }
+  ]
  },
  "職": {
   "significato": {
@@ -65460,7 +65643,16 @@
    "en": [
     "employment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "職探しはどうなったの？",
+    "traduzione": {
+     "it": "Come va la ricerca di lavoro?",
+     "en": "How is your job hunting going?"
+    }
+   }
+  ]
  },
  "職業": {
   "significato": {
@@ -65471,7 +65663,16 @@
     "occupation",
     "business"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の職業は弁護士です。",
+    "traduzione": {
+     "it": "Di professione fa l'avvocato.",
+     "en": "He is a lawyer by profession."
+    }
+   }
+  ]
  },
  "触れる": {
   "significato": {
@@ -65483,7 +65684,23 @@
     "to feel",
     "to violate"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼の手紙はその事件にそれとなくふれている。",
+    "traduzione": {
+     "it": "La sua lettera allude in modo indiretto a quell'episodio.",
+     "en": "His letter alludes to the event."
+    }
+   },
+   {
+    "testo": "何かが足に触れるのを感じた。",
+    "traduzione": {
+     "it": "Ho sentito qualcosa toccarmi il piede.",
+     "en": "I felt something touch my feet."
+    }
+   }
+  ]
  },
  "食う": {
   "significato": {
@@ -65493,7 +65710,23 @@
    "en": [
     "(male) (vulg.) to eat"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "お腹を空かせたその男は、食物をむさぼり食った。",
+    "traduzione": {
+     "it": "L'uomo affamato divorò il cibo.",
+     "en": "The starving man devoured the food."
+    }
+   },
+   {
+    "testo": "この事業は金を食う。",
+    "traduzione": {
+     "it": "Questo progetto divora soldi.",
+     "en": "This job eats money."
+    }
+   }
+  ]
  },
  "食卓": {
   "significato": {
@@ -65503,7 +65736,16 @@
    "en": [
     "dining table"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は食卓に料理を並べた。",
+    "traduzione": {
+     "it": "Ha disposto le pietanze sulla tavola.",
+     "en": "She spread dishes on the table."
+    }
+   }
+  ]
  },
  "食品": {
   "significato": {
@@ -65514,7 +65756,16 @@
    "en": [
     "foodstuff"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "この食品は有毒である。",
+    "traduzione": {
+     "it": "Questo alimento è tossico.",
+     "en": "This food is unhealthy."
+    }
+   }
+  ]
  },
  "食物": {
   "significato": {
@@ -65525,7 +65776,16 @@
     "food",
     "foodstuff"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はたくさんの食物を持って帰ろう。",
+    "traduzione": {
+     "it": "Riporterò a casa molto cibo.",
+     "en": "I will bring back a lot of food."
+    }
+   }
+  ]
  },
  "食欲": {
   "significato": {
@@ -65535,7 +65795,16 @@
    "en": [
     "appetite (for food)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "最近食欲がないんです。",
+    "traduzione": {
+     "it": "Ultimamente non ho appetito.",
+     "en": "Recently I have had no appetite."
+    }
+   }
+  ]
  },
  "食料": {
   "significato": {
@@ -65546,7 +65815,16 @@
    "en": [
     "food"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼らはじゅうぶんな食料を手に入れられなかった。",
+    "traduzione": {
+     "it": "Non sono riusciti a procurarsi cibo a sufficienza.",
+     "en": "They could not get enough food."
+    }
+   }
+  ]
  },
  "食糧": {
   "significato": {
@@ -65558,7 +65836,16 @@
     "provisions",
     "rations"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "食糧が不足している。",
+    "traduzione": {
+     "it": "Il cibo scarseggia.",
+     "en": "Food has been in short supply."
+    }
+   }
+  ]
  },
  "尻": {
   "significato": {
@@ -65569,7 +65856,16 @@
     "buttocks",
     "bottom"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は女の子の尻ばかり追いかけている。",
+    "traduzione": {
+     "it": "Lui corre sempre dietro alle ragazze.",
+     "en": "He's always chasing girls."
+    }
+   }
+  ]
  },
  "伸ばす": {
   "significato": {
@@ -65636,7 +65932,16 @@
    "en": [
     "to believe"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "きっと彼はあなたを信じると思いますよ。",
+    "traduzione": {
+     "it": "Sono sicuro che ti crederà.",
+     "en": "I am sure of his trusting you."
+    }
+   }
+  ]
  },
  "信仰": {
   "significato": {
@@ -65647,7 +65952,16 @@
     "(religious) faith",
     "belief"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "キリスト教を信仰していますか。",
+    "traduzione": {
+     "it": "Professi la fede cristiana?",
+     "en": "Do you believe in Christianity?"
+    }
+   }
+  ]
  },
  "信用": {
   "significato": {
@@ -65658,7 +65972,23 @@
     "confidence",
     "dependence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私はもう彼を信用しない。",
+    "traduzione": {
+     "it": "Non mi fido più di lui.",
+     "en": "I do not trust him any longer."
+    }
+   },
+   {
+    "testo": "相当の信用がないと家を買うのは無理だ。",
+    "traduzione": {
+     "it": "Senza un buon credito, è impossibile comprare casa.",
+     "en": "Unless you have good credit, buying a house is impossible."
+    }
+   }
+  ]
  },
  "信頼": {
   "significato": {
@@ -65671,7 +66001,16 @@
     "trust",
     "confidence"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "確かに彼は信頼できます。",
+    "traduzione": {
+     "it": "Di certo ci si può fidare di lui.",
+     "en": "You can certainly rely on him."
+    }
+   }
+  ]
  },
  "審判": {
   "significato": {
@@ -65683,7 +66022,23 @@
     "referee",
     "judgment"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼一人だけ余る、だから審判させよう。",
+    "traduzione": {
+     "it": "Lui è di troppo da solo, quindi lo faremo arbitrare.",
+     "en": "He's an odd man; so we'll have him referee."
+    }
+   },
+   {
+    "testo": "大衆の注意は彼の審判に向けられた。",
+    "traduzione": {
+     "it": "L'attenzione del pubblico si rivolse al suo giudizio.",
+     "en": "The public interest was directed at his judgement."
+    }
+   }
+  ]
  },
  "心臓": {
   "significato": {
@@ -65693,7 +66048,16 @@
    "en": [
     "heart"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は自分の心臓が激しく打っているのがわかった。",
+    "traduzione": {
+     "it": "Sentivo il cuore battermi forte.",
+     "en": "I felt my heart beating wildly."
+    }
+   }
+  ]
  },
  "心理": {
   "significato": {
@@ -65704,7 +66068,16 @@
    "en": [
     "mentality"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は彼の心理が分からない。",
+    "traduzione": {
+     "it": "Non capisco la sua psicologia.",
+     "en": "I can't understand his psychology."
+    }
+   }
+  ]
  },
  "慎重": {
   "significato": {
@@ -65716,7 +66089,16 @@
     "prudent",
     "cautious"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "裁判官には慎重さがなくてはならない。",
+    "traduzione": {
+     "it": "Ai giudici serve prudenza.",
+     "en": "Discretion is proper to judges."
+    }
+   }
+  ]
  },
  "振り": {
   "significato": {
@@ -65728,7 +66110,23 @@
     "style",
     "manner"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は彼の言っている事がわからないふりをした。",
+    "traduzione": {
+     "it": "Ho finto di non capire quello che diceva.",
+     "en": "I affected not to understand what he was saying."
+    }
+   },
+   {
+    "testo": "人のふり見て我がふり直せ。",
+    "traduzione": {
+     "it": "Impara dagli errori altrui.",
+     "en": "Learn wisdom from the faults of others."
+    }
+   }
+  ]
  },
  "振る": {
   "significato": {
@@ -65742,7 +66140,23 @@
     "to sprinkle",
     "to cast (actor)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は頭を数回振った。",
+    "traduzione": {
+     "it": "Ho scosso la testa un paio di volte.",
+     "en": "I shook my head a few times."
+    }
+   },
+   {
+    "testo": "カズちゃん、さっき完膚無きまでに振っちゃおうとしたでしょ？",
+    "traduzione": {
+     "it": "Kazu, stavi per lasciarla in modo definitivo poco fa, vero?",
+     "en": "You were about to dump her flat out, weren't you?"
+    }
+   }
+  ]
  },
  "振興": {
   "significato": {
@@ -65754,7 +66168,16 @@
     "promotion",
     "encouragement"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "政府は工業の振興計画を開始した。",
+    "traduzione": {
+     "it": "Il governo ha avviato un programma per promuovere l'industria.",
+     "en": "The government started a program to promote industry."
+    }
+   }
+  ]
  },
  "新た": {
   "significato": {
@@ -65765,7 +66188,16 @@
     "new",
     "fresh"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は記憶を新たにするためにその写真を見た。",
+    "traduzione": {
+     "it": "Ha guardato la foto per rinfrescarsi la memoria.",
+     "en": "She looked at the picture to refresh her memory."
+    }
+   }
+  ]
  },
  "新興": {
   "significato": {
@@ -65788,7 +66220,16 @@
    "en": [
     "fresh"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "どうやって新鮮な魚をえらぶのですか。",
+    "traduzione": {
+     "it": "Come si sceglie il pesce fresco?",
+     "en": "How can I pick out fresh fish?"
+    }
+   }
+  ]
  },
  "深まる": {
   "significato": {
@@ -65798,7 +66239,16 @@
    "en": [
     "to deepen"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "夕闇が次第に深まっていった。",
+    "traduzione": {
+     "it": "Il crepuscolo si faceva sempre più profondo.",
+     "en": "The twilight merged into darkness."
+    }
+   }
+  ]
  },
  "深める": {
   "significato": {
@@ -65810,7 +66260,16 @@
     "to heighten",
     "to intensify"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "我々は親睦を深めた。",
+    "traduzione": {
+     "it": "Abbiamo rafforzato la nostra amicizia.",
+     "en": "We deepened our friendship."
+    }
+   }
+  ]
  },
  "深刻": {
   "significato": {
@@ -65821,7 +66280,16 @@
    "en": [
     "serious"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "事態は非常に深刻である。",
+    "traduzione": {
+     "it": "La situazione è molto grave.",
+     "en": "The situation is very serious."
+    }
+   }
+  ]
  },
  "申し込む": {
   "significato": {
@@ -65833,7 +66301,16 @@
     "to apply for",
     "to make an application"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたはあの勤め口に申し込むべきだ。",
+    "traduzione": {
+     "it": "Dovresti fare domanda per quel posto di lavoro.",
+     "en": "You should apply for that post."
+    }
+   }
+  ]
  },
  "申し訳": {
   "significato": {
@@ -65855,7 +66332,16 @@
     "report",
     "statement"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "申告にはどの書類が必要ですか。",
+    "traduzione": {
+     "it": "Quali documenti servono per la dichiarazione?",
+     "en": "What forms do we need to file?"
+    }
+   }
+  ]
  },
  "真っ赤": {
   "significato": {
@@ -65866,7 +66352,23 @@
     "deep red",
     "flushed (of face)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "そいつは真っ赤なうそだ。",
+    "traduzione": {
+     "it": "Quella è una bugia bella e buona.",
+     "en": "That's a blessed lie."
+    }
+   },
+   {
+    "testo": "真っ赤な夕焼けは明日の晴天を告げた。",
+    "traduzione": {
+     "it": "Il tramonto rosso acceso preannunciava bel tempo per domani.",
+     "en": "The deep red of the setting sun portended fine weather."
+    }
+   }
+  ]
  },
  "真剣": {
   "significato": {
@@ -65878,7 +66380,16 @@
     "seriousness",
     "earnestness"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は真剣に考えた。",
+    "traduzione": {
+     "it": "Ci ha pensato seriamente.",
+     "en": "He thought about it seriously."
+    }
+   }
+  ]
  },
  "真似": {
   "significato": {
@@ -65890,7 +66401,16 @@
     "imitation",
     "behavior"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その少年は馬鹿なまねをした。",
+    "traduzione": {
+     "it": "Il ragazzo ha fatto una sciocchezza.",
+     "en": "The boy made a fool of himself."
+    }
+   }
+  ]
  },
  "真理": {
   "significato": {
@@ -65900,7 +66420,16 @@
    "en": [
     "truth"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "ついに彼は真理を知った。",
+    "traduzione": {
+     "it": "Alla fine ha scoperto la verità.",
+     "en": "At last he found out the truth."
+    }
+   }
+  ]
  },
  "神": {
   "significato": {
@@ -65910,7 +66439,16 @@
    "en": [
     "god"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "人間は神ほど万能ではない。",
+    "traduzione": {
+     "it": "L'uomo non è onnipotente come Dio.",
+     "en": "Man is not as almighty as God."
+    }
+   }
+  ]
  },
  "神経": {
   "significato": {
@@ -65921,7 +66459,16 @@
     "nerve",
     "sensitivity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は神経が細い。",
+    "traduzione": {
+     "it": "È una persona sensibile.",
+     "en": "He is sensitive."
+    }
+   }
+  ]
  },
  "親しい": {
   "significato": {
@@ -65933,7 +66480,23 @@
     "intimate",
     "close (e.g., friend)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "犬は人間の最も親しい友達である。",
+    "traduzione": {
+     "it": "Il cane è l'amico più intimo dell'uomo.",
+     "en": "Dogs are man's closest friends."
+    }
+   },
+   {
+    "testo": "ジョンは私の親しい友人です。",
+    "traduzione": {
+     "it": "John è un mio caro amico.",
+     "en": "John is a good friend of mine."
+    }
+   }
+  ]
  },
  "親戚": {
   "significato": {
@@ -65943,7 +66506,16 @@
    "en": [
     "relative(s)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "クニ子は長井さんと親戚です。",
+    "traduzione": {
+     "it": "Kuniko è parente del signor Nagai.",
+     "en": "Kuniko is related to Mr Nagai."
+    }
+   }
+  ]
  },
  "親友": {
   "significato": {
@@ -65954,7 +66526,16 @@
     "close friend",
     "buddy"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "トムとフランクは親友だ。",
+    "traduzione": {
+     "it": "Tom e Frank sono amici intimi.",
+     "en": "Tom and Frank are good friends."
+    }
+   }
+  ]
  },
  "診る": {
   "significato": {
@@ -65964,7 +66545,16 @@
    "en": [
     "to examine (a patient)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "歯医者に診てもらうべきだ。",
+    "traduzione": {
+     "it": "Dovresti farti visitare da un dentista.",
+     "en": "You ought to see a dentist."
+    }
+   }
+  ]
  },
  "診察": {
   "significato": {
@@ -65974,7 +66564,16 @@
    "en": [
     "medical examination (of a patient)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "医者は私ののどを診察した。",
+    "traduzione": {
+     "it": "Il medico mi ha visitato la gola.",
+     "en": "The doctor examined my throat."
+    }
+   }
+  ]
  },
  "身": {
   "significato": {
@@ -66006,7 +66605,16 @@
     "height (of body)",
     "stature"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "息子はもう私と同じ身長だ。",
+    "traduzione": {
+     "it": "Mio figlio è già alto quanto me.",
+     "en": "My son is now as tall as I am."
+    }
+   }
+  ]
  },
  "辛い::つらい": {
   "significato": {
@@ -66030,7 +66638,23 @@
     "to promote",
     "to hasten"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "その計画は進められている。",
+    "traduzione": {
+     "it": "Il progetto è in corso.",
+     "en": "The project is underway."
+    }
+   },
+   {
+    "testo": "ナポレオンは軍隊をロシアに進めた。",
+    "traduzione": {
+     "it": "Napoleone fece avanzare i suoi eserciti in Russia.",
+     "en": "Napoleon marched his armies into Russia."
+    }
+   }
+  ]
  },
  "進学": {
   "significato": {
@@ -66040,7 +66664,16 @@
    "en": [
     "going on to university"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼は大学院に進学しないだろう。",
+    "traduzione": {
+     "it": "Probabilmente non proseguirà con un dottorato.",
+     "en": "He won't go on to graduate school."
+    }
+   }
+  ]
  },
  "進行": {
   "significato": {
@@ -66050,7 +66683,23 @@
    "en": [
     "advance"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "このころ、病気の進行は遅くなった。",
+    "traduzione": {
+     "it": "In questo periodo, il progredire della malattia è rallentato.",
+     "en": "About this time, the disease slowed."
+    }
+   },
+   {
+    "testo": "その仕事は現在進行しています。",
+    "traduzione": {
+     "it": "Il lavoro è attualmente in corso.",
+     "en": "The work is now in progress."
+    }
+   }
+  ]
  },
  "進歩": {
   "significato": {
@@ -66062,7 +66711,16 @@
     "progress",
     "development"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "科学の進歩は止まることがない。",
+    "traduzione": {
+     "it": "Il progresso scientifico non si ferma mai.",
+     "en": "Advance in science is continuous."
+    }
+   }
+  ]
  },
  "針": {
   "significato": {
@@ -66074,7 +66732,23 @@
     "needle",
     "hand (e.g., clock)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は時計の針を１０分進ませた。",
+    "traduzione": {
+     "it": "Ha spostato avanti di dieci minuti le lancette dell'orologio.",
+     "en": "She advanced the hand ten minutes."
+    }
+   },
+   {
+    "testo": "針で親指を突いてしまった。",
+    "traduzione": {
+     "it": "Mi sono punto il pollice con un ago.",
+     "en": "I pricked my thumb with a needle."
+    }
+   }
+  ]
  },
  "震える": {
   "significato": {
@@ -66086,7 +66760,16 @@
     "to shake",
     "to quake"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "少年は物音に震えた。",
+    "traduzione": {
+     "it": "Il ragazzo tremò al rumore.",
+     "en": "The boy quivered at the sound."
+    }
+   }
+  ]
  },
  "人間": {
   "significato": {
@@ -66097,7 +66780,16 @@
     "human being",
     "person"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "人間はミスをする生き物だ。",
+    "traduzione": {
+     "it": "Gli esseri umani sono creature che sbagliano.",
+     "en": "Humans are creatures who make mistakes."
+    }
+   }
+  ]
  },
  "人気": {
   "significato": {
@@ -66107,7 +66799,16 @@
    "en": [
     "popularity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "人気がでて彼女はうぬぼれた。",
+    "traduzione": {
+     "it": "La popolarità le ha dato alla testa.",
+     "en": "The popularity turned her head."
+    }
+   }
+  ]
  },
  "人工": {
   "significato": {
@@ -66129,7 +66830,16 @@
    "en": [
     "crowd of people"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "私は人込みを割って前進した。",
+    "traduzione": {
+     "it": "Mi sono fatto largo tra la folla.",
+     "en": "I made my way through the crowd."
+    }
+   }
+  ]
  },
  "人種": {
   "significato": {
@@ -66139,7 +66849,16 @@
    "en": [
     "race (of people)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あなたの人種、年齢、宗教は問いません。",
+    "traduzione": {
+     "it": "Non m'importa la tua razza, età o religione.",
+     "en": "I don't care about your race, age, or religion."
+    }
+   }
+  ]
  },
  "人生": {
   "significato": {
@@ -66149,7 +66868,16 @@
    "en": [
     "(human) life (e.g., conception to death)"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "できるあいだに人生を楽しみなさい。",
+    "traduzione": {
+     "it": "Goditi la vita finché puoi.",
+     "en": "Enjoy your life while you are able to."
+    }
+   }
+  ]
  },
  "人物": {
   "significato": {
@@ -66162,7 +66890,16 @@
     "personality",
     "talented man"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "あの人はどんな人物か教えて下さい？",
+    "traduzione": {
+     "it": "Dimmi che tipo di persona è quello.",
+     "en": "Tell me what that man is like."
+    }
+   }
+  ]
  },
  "人類": {
   "significato": {
@@ -66173,7 +66910,16 @@
     "mankind",
     "humanity"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "人類だけが火の使い方を知っている。",
+    "traduzione": {
+     "it": "Solo l'umanità sa come usare il fuoco.",
+     "en": "Only man knows how to use fire."
+    }
+   }
+  ]
  },
  "塵": {
   "significato": {
@@ -66184,7 +66930,16 @@
     "garbage",
     "litter"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "彼女は玄関のごみをはいた。",
+    "traduzione": {
+     "it": "Ha spazzato lo sporco dall'ingresso.",
+     "en": "She swept the dirt from the porch."
+    }
+   }
+  ]
  },
  "酢": {
   "significato": {
@@ -66194,7 +66949,16 @@
    "en": [
     "vinegar"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "酢はすっぱい味がする。",
+    "traduzione": {
+     "it": "L'aceto ha un sapore acido.",
+     "en": "Vinegar has a sharp taste."
+    }
+   }
+  ]
  },
  "図": {
   "significato": {
@@ -66207,7 +66971,16 @@
     "drawing",
     "illustration"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "図で説明しましょう。",
+    "traduzione": {
+     "it": "Lo spiego con un diagramma.",
+     "en": "Let me explain it with a diagram."
+    }
+   }
+  ]
  },
  "図る": {
   "significato": {
@@ -71071,7 +71844,23 @@
     "to strike",
     "to poke"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "テーブルにひじを突くのはやめなさい。",
+    "traduzione": {
+     "it": "Smetti di appoggiare i gomiti sul tavolo.",
+     "en": "Stop resting your elbows on the table."
+    }
+   },
+   {
+    "testo": "針で親指を突いてしまった。",
+    "traduzione": {
+     "it": "Mi sono punto il pollice con un ago.",
+     "en": "I pricked my thumb with a needle."
+    }
+   }
+  ]
  },
  "突然": {
   "significato": {
@@ -72823,7 +73612,16 @@
     "insufficiency",
     "shortage"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "食糧が不足している。",
+    "traduzione": {
+     "it": "Il cibo scarseggia.",
+     "en": "Food has been in short supply."
+    }
+   }
+  ]
  },
  "不通": {
   "significato": {
@@ -73149,7 +73947,16 @@
    "en": [
     "sounds"
    ]
-  }
+  },
+  "frasi_esempio": [
+   {
+    "testo": "少年は物音に震えた。",
+    "traduzione": {
+     "it": "Il ragazzo tremò al rumore.",
+     "en": "The boy quivered at the sound."
+    }
+   }
+  ]
  },
  "物価": {
   "significato": {
@@ -79127,6 +79934,170 @@
     "traduzione": {
      "it": "Potrebbe approvare la mia proposta?",
      "en": "Could you approve my proposal?"
+    }
+   }
+  ]
+ },
+ "上達する": {
+  "frasi_esempio": [
+   {
+    "testo": "君の英語は上達している。",
+    "traduzione": {
+     "it": "Il tuo inglese sta migliorando.",
+     "en": "Your English is improving."
+    }
+   }
+  ]
+ },
+ "信仰する": {
+  "frasi_esempio": [
+   {
+    "testo": "キリスト教を信仰していますか。",
+    "traduzione": {
+     "it": "Professi la fede cristiana?",
+     "en": "Do you believe in Christianity?"
+    }
+   }
+  ]
+ },
+ "信用する": {
+  "frasi_esempio": [
+   {
+    "testo": "私はもう彼を信用しない。",
+    "traduzione": {
+     "it": "Non mi fido più di lui.",
+     "en": "I do not trust him any longer."
+    }
+   },
+   {
+    "testo": "相当の信用がないと家を買うのは無理だ。",
+    "traduzione": {
+     "it": "Senza un buon credito, è impossibile comprare casa.",
+     "en": "Unless you have good credit, buying a house is impossible."
+    }
+   }
+  ]
+ },
+ "信頼する": {
+  "frasi_esempio": [
+   {
+    "testo": "確かに彼は信頼できます。",
+    "traduzione": {
+     "it": "Di certo ci si può fidare di lui.",
+     "en": "You can certainly rely on him."
+    }
+   }
+  ]
+ },
+ "審判する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼一人だけ余る、だから審判させよう。",
+    "traduzione": {
+     "it": "Lui è di troppo da solo, quindi lo faremo arbitrare.",
+     "en": "He's an odd man; so we'll have him referee."
+    }
+   },
+   {
+    "testo": "大衆の注意は彼の審判に向けられた。",
+    "traduzione": {
+     "it": "L'attenzione del pubblico si rivolse al suo giudizio.",
+     "en": "The public interest was directed at his judgement."
+    }
+   }
+  ]
+ },
+ "振興する": {
+  "frasi_esempio": [
+   {
+    "testo": "政府は工業の振興計画を開始した。",
+    "traduzione": {
+     "it": "Il governo ha avviato un programma per promuovere l'industria.",
+     "en": "The government started a program to promote industry."
+    }
+   }
+  ]
+ },
+ "申告する": {
+  "frasi_esempio": [
+   {
+    "testo": "申告にはどの書類が必要ですか。",
+    "traduzione": {
+     "it": "Quali documenti servono per la dichiarazione?",
+     "en": "What forms do we need to file?"
+    }
+   }
+  ]
+ },
+ "真似する": {
+  "frasi_esempio": [
+   {
+    "testo": "その少年は馬鹿なまねをした。",
+    "traduzione": {
+     "it": "Il ragazzo ha fatto una sciocchezza.",
+     "en": "The boy made a fool of himself."
+    }
+   }
+  ]
+ },
+ "診察する": {
+  "frasi_esempio": [
+   {
+    "testo": "医者は私ののどを診察した。",
+    "traduzione": {
+     "it": "Il medico mi ha visitato la gola.",
+     "en": "The doctor examined my throat."
+    }
+   }
+  ]
+ },
+ "進学する": {
+  "frasi_esempio": [
+   {
+    "testo": "彼は大学院に進学しないだろう。",
+    "traduzione": {
+     "it": "Probabilmente non proseguirà con un dottorato.",
+     "en": "He won't go on to graduate school."
+    }
+   }
+  ]
+ },
+ "進行する": {
+  "frasi_esempio": [
+   {
+    "testo": "このころ、病気の進行は遅くなった。",
+    "traduzione": {
+     "it": "In questo periodo, il progredire della malattia è rallentato.",
+     "en": "About this time, the disease slowed."
+    }
+   },
+   {
+    "testo": "その仕事は現在進行しています。",
+    "traduzione": {
+     "it": "Il lavoro è attualmente in corso.",
+     "en": "The work is now in progress."
+    }
+   }
+  ]
+ },
+ "進歩する": {
+  "frasi_esempio": [
+   {
+    "testo": "科学の進歩は止まることがない。",
+    "traduzione": {
+     "it": "Il progresso scientifico non si ferma mai.",
+     "en": "Advance in science is continuous."
+    }
+   }
+  ]
+ },
+ "不足する": {
+  "frasi_esempio": [
+   {
+    "testo": "食糧が不足している。",
+    "traduzione": {
+     "it": "Il cibo scarseggia.",
+     "en": "Food has been in short supply."
     }
    }
   ]
