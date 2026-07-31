@@ -2111,7 +2111,10 @@
     "a picture",
     "a drawing"
    ]
-  }
+  },
+  "correlati": [
+   "筆"
+  ]
  },
  "机": {
   "frasi_esempio": [
@@ -6239,7 +6242,10 @@
    "en": [
     "button"
    ]
-  }
+  },
+  "correlati": [
+   "スイッチ"
+  ]
  },
  "ホテル": {
   "frasi_esempio": [
@@ -12122,6 +12128,9 @@
      "en": "You can see the sea from the hotel."
     }
    }
+  ],
+  "correlati": [
+   "魚::うお"
   ]
  },
  "皆さん": {
@@ -12232,6 +12241,9 @@
      "en": "I want to work abroad."
     }
    }
+  ],
+  "correlati": [
+   "外交"
   ]
  },
  "覚える": {
@@ -16226,6 +16238,9 @@
      "en": "In the morning I woke to the sound of birds."
     }
    }
+  ],
+  "correlati": [
+   "羽根"
   ]
  },
  "痛い": {
@@ -27145,6 +27160,9 @@
      "en": "I will take the civil service exam."
     }
    }
+  ],
+  "correlati": [
+   "官僚"
   ]
  },
  "向かう": {
@@ -28698,7 +28716,8 @@
   "contrari": [],
   "correlati": [
    "競技",
-   "優勝"
+   "優勝",
+   "審判"
   ]
  },
  "歯医者": {
@@ -34580,7 +34599,9 @@
    }
   ],
   "correlati": [
-   "動物"
+   "動物",
+   "猿",
+   "象"
   ]
  },
  "道具": {
@@ -36519,6 +36540,9 @@
      "en": "A new law was made."
     }
    }
+  ],
+  "correlati": [
+   "憲法"
   ]
  },
  "褒める": {
@@ -36716,6 +36740,9 @@
      "en": "I work in translation."
     }
    }
+  ],
+  "correlati": [
+   "通訳"
   ]
  },
  "漫画": {
@@ -42097,6 +42124,9 @@
      "en": "The coach gave me some advice."
     }
    }
+  ],
+  "correlati": [
+   "選手"
   ]
  },
  "コード": {
@@ -42695,6 +42725,9 @@
      "en": "This device is actuated by a switch."
     }
    }
+  ],
+  "correlati": [
+   "ボタン"
   ]
  },
  "スープ": {
@@ -47715,6 +47748,9 @@
      "en": "The fan blades are spinning."
     }
    }
+  ],
+  "correlati": [
+   "鳥"
   ]
  },
  "渦": {
@@ -48378,6 +48414,9 @@
      "en": "The monkey climbed the tree."
     }
    }
+  ],
+  "correlati": [
+   "動物園"
   ]
  },
  "縁::えん": {
@@ -50282,6 +50321,10 @@
      "en": "English is useful in diplomacy and tourism."
     }
    }
+  ],
+  "correlati": [
+   "大使",
+   "外国"
   ]
  },
  "外出": {
@@ -51230,6 +51273,9 @@
      "en": "His resignation left a vacancy in the cabinet."
     }
    }
+  ],
+  "correlati": [
+   "公務員"
   ]
  },
  "患者": {
@@ -52427,6 +52473,9 @@
      "en": "I am going to put this machine to the test today."
     }
    }
+  ],
+  "correlati": [
+   "装置"
   ]
  },
  "機関": {
@@ -52853,6 +52902,10 @@
      "en": "No silence was ever written down."
     }
    }
+  ],
+  "correlati": [
+   "優勝",
+   "選手"
   ]
  },
  "貴重": {
@@ -53064,7 +53117,10 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "correlati": [
+   "国会"
+  ]
  },
  "議会": {
   "significato": {
@@ -53842,6 +53898,9 @@
      "en": "This is how I usually cook fish."
     }
    }
+  ],
+  "correlati": [
+   "海"
   ]
  },
  "享受": {
@@ -56692,6 +56751,9 @@
      "en": "America has an elaborate system of constitutional checks and balances."
     }
    }
+  ],
+  "correlati": [
+   "法律"
   ]
  },
  "捲る": {
@@ -59203,6 +59265,9 @@
   ],
   "sinonimi": [
    "議会"
+  ],
+  "correlati": [
+   "議員"
   ]
  },
  "国境": {
@@ -61639,7 +61704,8 @@
    }
   ],
   "correlati": [
-   "小説"
+   "小説",
+   "詩人"
   ]
  },
  "詩人": {
@@ -61659,6 +61725,9 @@
      "en": "England is proud of her poets."
     }
    }
+  ],
+  "correlati": [
+   "詩"
   ]
  },
  "試し": {
@@ -63349,6 +63418,9 @@
      "en": "The foreign minister will act for the Prime Minister in his absence."
     }
    }
+  ],
+  "correlati": [
+   "大統領"
   ]
  },
  "首都": {
@@ -65549,6 +65621,9 @@
      "en": "The little boy gazed at the huge elephant, eyes wide open."
     }
    }
+  ],
+  "correlati": [
+   "動物園"
   ]
  },
  "賞": {
@@ -66673,6 +66748,9 @@
      "en": "The public interest was directed at his judgement."
     }
    }
+  ],
+  "correlati": [
+   "試合"
   ]
  },
  "心臓": {
@@ -67086,6 +67164,9 @@
      "en": "Man is not as almighty as God."
     }
    }
+  ],
+  "correlati": [
+   "仏"
   ]
  },
  "神経": {
@@ -69926,6 +70007,10 @@
      "en": "Akira is a good tennis player."
     }
    }
+  ],
+  "correlati": [
+   "コーチ",
+   "記録"
   ]
  },
  "選択": {
@@ -70835,6 +70920,9 @@
      "en": "This heating system burns oil."
     }
    }
+  ],
+  "correlati": [
+   "機械"
   ]
  },
  "遭う": {
@@ -72149,6 +72237,9 @@
      "en": "The ambassador was recalled from Warsaw."
     }
    }
+  ],
+  "correlati": [
+   "外交"
   ]
  },
  "大臣": {
@@ -72229,6 +72320,9 @@
      "en": "The President took a hard line."
     }
    }
+  ],
+  "correlati": [
+   "首相"
   ]
  },
  "大半": {
@@ -74389,6 +74483,9 @@
      "en": "He engaged her as an interpreter."
     }
    }
+  ],
+  "correlati": [
+   "翻訳"
   ]
  },
  "掴む": {
@@ -79063,6 +79160,9 @@
      "en": "I add a few finishing touches."
     }
    }
+  ],
+  "correlati": [
+   "絵"
   ]
  },
  "紐": {
@@ -80210,6 +80310,9 @@
      "en": "He is a saint of a man."
     }
    }
+  ],
+  "correlati": [
+   "神"
   ]
  },
  "物音": {
@@ -83719,7 +83822,8 @@
    }
   ],
   "correlati": [
-   "試合"
+   "試合",
+   "記録"
   ]
  },
  "勇気": {
