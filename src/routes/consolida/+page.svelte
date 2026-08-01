@@ -179,6 +179,7 @@
 		<button class="chip" class:on={lvl === null} onclick={() => (lvl = null)}>Tutti</button>
 		<button class="chip" class:on={lvl === 'N5'} onclick={() => (lvl = lvl === 'N5' ? null : 'N5')}>N5</button>
 		<button class="chip" class:on={lvl === 'N4'} onclick={() => (lvl = lvl === 'N4' ? null : 'N4')}>N4</button>
+		<button class="chip" class:on={lvl === 'N3'} onclick={() => (lvl = lvl === 'N3' ? null : 'N3')}>N3</button>
 		<button class="chip" class:on={lvl === 'EXTRA'} onclick={() => (lvl = lvl === 'EXTRA' ? null : 'EXTRA')} title="Fuori dalle liste JLPT: lessico utile di riferimento">EX</button>
 	</div>
 	<div class="filters">
