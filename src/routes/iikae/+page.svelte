@@ -38,7 +38,7 @@
 		return { kind: 'parola', parola: prompt!, senso: g.senso, opzioni: shuffle([corretta!, ...esche]), corretta: corretta! };
 	}
 
-	function buildRounds(livello: 'N5' | 'N4' | 'tutti'): Round[] {
+	function buildRounds(livello: 'N5' | 'N4' | 'N3' | 'tutti'): Round[] {
 		const pool = ITEMS.filter((it) => livello === 'tutti' || it.livello === livello);
 		const frasi: Round[] = shuffle(pool)
 			.slice(0, 6)
@@ -54,7 +54,7 @@
 	let score = $state(0);
 	let picked = $state<string | null>(null);
 
-	function start(livello: 'N5' | 'N4' | 'tutti'): void {
+	function start(livello: 'N5' | 'N4' | 'N3' | 'tutti'): void {
 		rounds = buildRounds(livello);
 		idx = 0;
 		score = 0;
@@ -120,6 +120,7 @@
 			<div class="levels">
 				<button class="proceed" onclick={() => start('N5')}>N5</button>
 				<button class="proceed" onclick={() => start('N4')}>N4</button>
+				<button class="proceed" onclick={() => start('N3')}>N3</button>
 				<button class="proceed" onclick={() => start('tutti')}>Tutti</button>
 			</div>
 		</article>

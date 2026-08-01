@@ -42111,6 +42111,10 @@
      "en": "Our teacher separated us into two groups."
     }
    }
+  ],
+  "parafrasi": [
+   "集団",
+   "班"
   ]
  },
  "ケース": {
@@ -46745,6 +46749,9 @@
      "en": "I wish to express my deep appreciation for your kindness."
     }
    }
+  ],
+  "parafrasi": [
+   "意志"
   ]
  },
  "意外": {
@@ -46786,6 +46793,9 @@
      "en": "No one can force you to do anything against your will."
     }
    }
+  ],
+  "parafrasi": [
+   "意"
   ]
  },
  "意思": {
@@ -47024,6 +47034,9 @@
   ],
   "correlati": [
    "下着"
+  ],
+  "parafrasi": [
+   "服装"
   ]
  },
  "衣料": {
@@ -47895,6 +47908,10 @@
      "en": "Sooner or later, his luck will run out."
     }
    }
+  ],
+  "parafrasi": [
+   "幸運",
+   "福"
   ]
  },
  "餌": {
@@ -47939,6 +47956,9 @@
    }
   ],
   "sinonimi": [
+   "商売"
+  ],
+  "parafrasi": [
    "商売"
   ]
  },
@@ -48098,6 +48118,9 @@
      "en": "The artist is eternally a boy."
     }
    }
+  ],
+  "parafrasi": [
+   "永久"
   ]
  },
  "永久": {
@@ -48120,6 +48143,9 @@
      "en": "He left Japan for good."
     }
    }
+  ],
+  "parafrasi": [
+   "永遠"
   ]
  },
  "泳ぎ": {
@@ -48208,6 +48234,10 @@
      "en": "To cross the mountain."
     }
    }
+  ],
+  "parafrasi": [
+   "超える",
+   "超す"
   ]
  },
  "越す": {
@@ -48744,6 +48774,9 @@
      "en": "They are plotting to kill the king."
     }
    }
+  ],
+  "parafrasi": [
+   "王様"
   ]
  },
  "王子": {
@@ -48782,6 +48815,9 @@
      "en": "The king always wears a crown."
     }
    }
+  ],
+  "parafrasi": [
+   "王"
   ]
  },
  "沖": {
@@ -48903,6 +48939,9 @@
      "en": "Will you warm the milk, please?"
     }
    }
+  ],
+  "parafrasi": [
+   "暖める"
   ]
  },
  "温暖": {
@@ -49304,6 +49343,10 @@
      "en": "The price reflects the demand."
     }
    }
+  ],
+  "parafrasi": [
+   "代金",
+   "値"
   ]
  },
  "価値": {
@@ -50485,6 +50528,9 @@
      "en": "The town was glowing with illuminations."
     }
    }
+  ],
+  "parafrasi": [
+   "都市"
   ]
  },
  "拡大": {
@@ -51199,7 +51245,11 @@
     "publication",
     "issue"
    ]
-  }
+  },
+  "parafrasi": [
+   "出版",
+   "発行"
+  ]
  },
  "勘": {
   "significato": {
@@ -51242,6 +51292,9 @@
      "en": "The bill amounts to 500 dollars."
     }
    }
+  ],
+  "parafrasi": [
+   "計算"
   ]
  },
  "勧める": {
@@ -51501,6 +51554,9 @@
      "en": "Tom got a grip on his emotions."
     }
    }
+  ],
+  "parafrasi": [
+   "情"
   ]
  },
  "感心": {
@@ -51625,6 +51681,10 @@
      "en": "To exchange yen for dollars."
     }
    }
+  ],
+  "parafrasi": [
+   "替える",
+   "代える"
   ]
  },
  "歓迎": {
@@ -52149,6 +52209,10 @@
      "en": "My wish is to study painting in Paris."
     }
    }
+  ],
+  "parafrasi": [
+   "希望",
+   "望み"
   ]
  },
  "願う": {
@@ -52370,6 +52434,9 @@
      "en": "This is a very strange letter."
     }
    }
+  ],
+  "parafrasi": [
+   "妙"
   ]
  },
  "寄せる": {
@@ -52443,6 +52510,10 @@
   ],
   "contrari": [
    "失望"
+  ],
+  "parafrasi": [
+   "願い",
+   "望み"
   ]
  },
  "旗": {
@@ -52549,6 +52620,10 @@
      "en": "Let's hope for the best anyway."
     }
    }
+  ],
+  "parafrasi": [
+   "予期",
+   "予想"
   ]
  },
  "機械": {
@@ -53044,6 +53119,9 @@
      "en": "What followed was still worse."
     }
    }
+  ],
+  "parafrasi": [
+   "生じる"
   ]
  },
  "起源": {
@@ -53065,6 +53143,10 @@
      "en": "The origins of these people is shrouded in mystery."
     }
    }
+  ],
+  "parafrasi": [
+   "元",
+   "始まり"
   ]
  },
  "輝く": {
@@ -53167,6 +53249,9 @@
      "en": "Ask him if you have any doubt."
     }
    }
+  ],
+  "parafrasi": [
+   "問い"
   ]
  },
  "義務": {
@@ -53192,6 +53277,10 @@
   ],
   "contrari": [
    "権利"
+  ],
+  "parafrasi": [
+   "責任",
+   "務め"
   ]
  },
  "議員": {
@@ -53241,6 +53330,9 @@
    }
   ],
   "sinonimi": [
+   "国会"
+  ],
+  "parafrasi": [
    "国会"
   ]
  },
@@ -53378,6 +53470,9 @@
   ],
   "correlati": [
    "山"
+  ],
+  "parafrasi": [
+   "丘陵"
   ]
  },
  "丘陵": {
@@ -53397,6 +53492,9 @@
      "en": "Small hills look flat from an airplane."
     }
    }
+  ],
+  "parafrasi": [
+   "丘"
   ]
  },
  "休暇": {
@@ -53441,6 +53539,9 @@
      "en": "Let's take a break for coffee."
     }
    }
+  ],
+  "parafrasi": [
+   "休息"
   ]
  },
  "休息": {
@@ -53462,6 +53563,9 @@
      "en": "We work by day and rest by night."
     }
    }
+  ],
+  "parafrasi": [
+   "休憩"
   ]
  },
  "及ぼす": {
@@ -53598,6 +53702,9 @@
      "en": "Nothing but God can save you."
     }
    }
+  ],
+  "parafrasi": [
+   "助ける"
   ]
  },
  "救助": {
@@ -55290,6 +55397,9 @@
      "en": "His face is distorted by pain."
     }
    }
+  ],
+  "parafrasi": [
+   "痛み"
   ]
  },
  "苦労": {
@@ -55566,6 +55676,9 @@
      "en": "Our army attacked the kingdom."
     }
    }
+  ],
+  "parafrasi": [
+   "軍隊"
   ]
  },
  "軍隊": {
@@ -55587,6 +55700,9 @@
      "en": "The troops had plenty of arms."
     }
    }
+  ],
+  "parafrasi": [
+   "軍"
   ]
  },
  "郡": {
@@ -55801,6 +55917,9 @@
   ],
   "sinonimi": [
    "知らせ"
+  ],
+  "parafrasi": [
+   "知らせ"
   ]
  },
  "携帯": {
@@ -55852,6 +55971,10 @@
      "en": "You should be respectful to your parents."
     }
    }
+  ],
+  "parafrasi": [
+   "尊敬",
+   "尊重"
   ]
  },
  "景気": {
@@ -56032,6 +56155,10 @@
      "en": "Please connect me with Mr Smith."
     }
    }
+  ],
+  "parafrasi": [
+   "繋げる",
+   "結ぶ"
   ]
  },
  "繋げる": {
@@ -56051,6 +56178,10 @@
      "en": "My tape recorder is compatible with your amplifier."
     }
    }
+  ],
+  "parafrasi": [
+   "繋ぐ",
+   "結ぶ"
   ]
  },
  "計": {
@@ -56094,6 +56225,10 @@
      "en": "To measure the time."
     }
    }
+  ],
+  "parafrasi": [
+   "測る",
+   "量る"
   ]
  },
  "計器": {
@@ -56142,6 +56277,9 @@
      "en": "He calculated the consequences of his action."
     }
    }
+  ],
+  "parafrasi": [
+   "勘定"
   ]
  },
  "警告": {
@@ -56365,6 +56503,10 @@
      "en": "This system has obvious defects."
     }
    }
+  ],
+  "parafrasi": [
+   "欠点",
+   "粗"
   ]
  },
  "欠席": {
@@ -56408,6 +56550,10 @@
      "en": "I love him despite his faults."
     }
    }
+  ],
+  "parafrasi": [
+   "欠陥",
+   "粗"
   ]
  },
  "決まり": {
@@ -56539,6 +56685,10 @@
      "en": "It bears fruit, but it seems it may even set root from cuttings?"
     }
    }
+  ],
+  "parafrasi": [
+   "繋ぐ",
+   "繋げる"
   ]
  },
  "結果": {
@@ -56745,6 +56895,9 @@
   ],
   "contrari": [
    "柔らかい"
+  ],
+  "parafrasi": [
+   "硬い"
   ]
  },
  "嫌う": {
@@ -56916,6 +57069,9 @@
      "en": "We debated the matter at length."
     }
    }
+  ],
+  "parafrasi": [
+   "考慮"
   ]
  },
  "権利": {
@@ -56998,6 +57154,9 @@
      "en": "Your views are quite opposite to mine."
     }
    }
+  ],
+  "parafrasi": [
+   "視点"
   ]
  },
  "見掛ける": {
@@ -57171,6 +57330,10 @@
      "en": "The clerk died from overwork."
     }
    }
+  ],
+  "parafrasi": [
+   "起源",
+   "始まり"
   ]
  },
  "原": {
@@ -57255,6 +57418,9 @@
      "en": "He finally showed himself."
     }
    }
+  ],
+  "parafrasi": [
+   "示す"
   ]
  },
  "現れ": {
@@ -57639,6 +57805,9 @@
   ],
   "correlati": [
    "肺"
+  ],
+  "parafrasi": [
+   "息"
   ]
  },
  "故郷": {
@@ -57737,6 +57906,9 @@
      "en": "England is proud of her poets."
     }
    }
+  ],
+  "parafrasi": [
+   "自慢"
   ]
  },
  "雇う": {
@@ -58029,6 +58201,11 @@
      "en": "Red and blue mix."
     }
    }
+  ],
+  "parafrasi": [
+   "交じる",
+   "混ざる",
+   "混じる"
   ]
  },
  "交じる": {
@@ -58049,6 +58226,11 @@
      "en": "Fakes are mixed in with the real ones."
     }
    }
+  ],
+  "parafrasi": [
+   "交ざる",
+   "混ざる",
+   "混じる"
   ]
  },
  "交ぜる": {
@@ -58111,6 +58293,10 @@
      "en": "The man took up with his wife."
     }
    }
+  ],
+  "parafrasi": [
+   "付き合い",
+   "友情"
   ]
  },
  "候補": {
@@ -58192,6 +58378,9 @@
      "en": "The king ruled his kingdom justly."
     }
    }
+  ],
+  "parafrasi": [
+   "公平"
   ]
  },
  "公平": {
@@ -58205,7 +58394,10 @@
     "impartial",
     "justice"
    ]
-  }
+  },
+  "parafrasi": [
+   "公正"
+  ]
  },
  "効く": {
   "significato": {
@@ -58435,6 +58627,9 @@
      "en": "The rich are not always happy."
     }
    }
+  ],
+  "parafrasi": [
+   "幸福"
   ]
  },
  "幸運": {
@@ -58455,6 +58650,10 @@
      "en": "We exulted at our good fortune."
     }
    }
+  ],
+  "parafrasi": [
+   "運",
+   "福"
   ]
  },
  "幸福": {
@@ -58475,6 +58674,9 @@
      "en": "The rich are not always happy."
     }
    }
+  ],
+  "parafrasi": [
+   "幸せ"
   ]
  },
  "広がる": {
@@ -58593,6 +58795,9 @@
      "en": "The goods were advertised on TV."
     }
    }
+  ],
+  "parafrasi": [
+   "宣伝"
   ]
  },
  "慌てる": {
@@ -58634,6 +58839,9 @@
      "en": "This decision is not binding on all of you."
     }
    }
+  ],
+  "parafrasi": [
+   "制限"
   ]
  },
  "攻める": {
@@ -58772,6 +58980,9 @@
   ],
   "contrari": [
    "柔らかい"
+  ],
+  "parafrasi": [
+   "堅い"
   ]
  },
  "硬貨": {
@@ -58840,6 +59051,9 @@
      "en": "I'm considering going with them."
     }
    }
+  ],
+  "parafrasi": [
+   "検討"
   ]
  },
  "航海": {
@@ -58880,6 +59094,9 @@
      "en": "The aviation expert analyzed the statistics in detail."
     }
    }
+  ],
+  "parafrasi": [
+   "飛行"
   ]
  },
  "荒廃": {
@@ -58957,6 +59174,10 @@
      "en": "She is quite decent in conduct."
     }
    }
+  ],
+  "parafrasi": [
+   "作法",
+   "礼儀"
   ]
  },
  "行動": {
@@ -59365,6 +59586,9 @@
   ],
   "correlati": [
    "議員"
+  ],
+  "parafrasi": [
+   "議会"
   ]
  },
  "国境": {
@@ -59682,6 +59906,9 @@
      "en": "I found it difficult to understand what he was saying."
     }
    }
+  ],
+  "parafrasi": [
+   "難"
   ]
  },
  "婚約": {
@@ -59741,6 +59968,11 @@
      "en": "Oil and water don't mix."
     }
    }
+  ],
+  "parafrasi": [
+   "交ざる",
+   "交じる",
+   "混じる"
   ]
  },
  "混じる": {
@@ -59761,6 +59993,11 @@
      "en": "Tom is ill at ease among strangers."
     }
    }
+  ],
+  "parafrasi": [
+   "交ざる",
+   "交じる",
+   "混ざる"
   ]
  },
  "混ぜる": {
@@ -60318,6 +60555,9 @@
      "en": "Bill did not commit the crime."
     }
    }
+  ],
+  "parafrasi": [
+   "犯罪"
   ]
  },
  "財産": {
@@ -60384,6 +60624,9 @@
   ],
   "correlati": [
    "小説"
+  ],
+  "parafrasi": [
+   "著者"
   ]
  },
  "作業": {
@@ -60492,6 +60735,10 @@
      "en": "I admire his aristocratic manners."
     }
    }
+  ],
+  "parafrasi": [
+   "行儀",
+   "礼儀"
   ]
  },
  "昨": {
@@ -61123,6 +61370,10 @@
      "en": "Well begun is half done."
     }
    }
+  ],
+  "parafrasi": [
+   "起源",
+   "元"
   ]
  },
  "姉妹": {
@@ -61590,6 +61841,9 @@
      "en": "As soon as man is born, he begins to die."
     }
    }
+  ],
+  "parafrasi": [
+   "死亡"
   ]
  },
  "死亡": {
@@ -61609,6 +61863,9 @@
      "en": "We were shocked at the news of his death."
     }
    }
+  ],
+  "parafrasi": [
+   "死"
   ]
  },
  "氏": {
@@ -61630,6 +61887,9 @@
      "en": "Judging from those facts, Mr Mori must be a wealthy person."
     }
    }
+  ],
+  "parafrasi": [
+   "姓"
   ]
  },
  "私用": {
@@ -61779,6 +62039,9 @@
      "en": "This is a valid point of view."
     }
    }
+  ],
+  "parafrasi": [
+   "見解"
   ]
  },
  "詩": {
@@ -61995,6 +62258,9 @@
      "en": "Give me a hand with this case."
     }
    }
+  ],
+  "parafrasi": [
+   "出来事"
   ]
  },
  "事実": {
@@ -62329,6 +62595,9 @@
      "en": "Everything points to his guilt."
     }
    }
+  ],
+  "parafrasi": [
+   "現す"
   ]
  },
  "自己": {
@@ -62410,6 +62679,9 @@
   ],
   "correlati": [
    "環境"
+  ],
+  "parafrasi": [
+   "天然"
   ]
  },
  "自動": {
@@ -62451,6 +62723,9 @@
      "en": "We took pride in our strength."
     }
    }
+  ],
+  "parafrasi": [
+   "誇り"
   ]
  },
  "蒔く": {
@@ -62850,6 +63125,9 @@
      "en": "Real ability wins in the end."
     }
    }
+  ],
+  "parafrasi": [
+   "能力"
   ]
  },
  "芝居": {
@@ -63034,6 +63312,9 @@
   ],
   "contrari": [
    "貸し"
+  ],
+  "parafrasi": [
+   "借金"
   ]
  },
  "借金": {
@@ -63058,6 +63339,9 @@
   ],
   "correlati": [
    "借りる"
+  ],
+  "parafrasi": [
+   "借り"
   ]
  },
  "酌む": {
@@ -63619,6 +63903,9 @@
      "en": "The dictionary contains about half a million words."
     }
    }
+  ],
+  "parafrasi": [
+   "納める"
   ]
  },
  "収穫": {
@@ -63988,6 +64275,10 @@
   ],
   "contrari": [
    "個人"
+  ],
+  "parafrasi": [
+   "グループ",
+   "班"
   ]
  },
  "集中": {
@@ -64257,6 +64548,9 @@
      "en": "He made an important discovery."
     }
    }
+  ],
+  "parafrasi": [
+   "深刻"
   ]
  },
  "重要": {
@@ -64517,6 +64811,10 @@
      "en": "We finally published the book."
     }
    }
+  ],
+  "parafrasi": [
+   "刊行",
+   "発行"
   ]
  },
  "出来事": {
@@ -64538,6 +64836,9 @@
      "en": "This is how the incident happened."
     }
    }
+  ],
+  "parafrasi": [
+   "事件"
   ]
  },
  "述べる": {
@@ -64766,6 +65067,9 @@
      "en": "We can derive pleasure from books."
     }
    }
+  ],
+  "parafrasi": [
+   "図書"
   ]
  },
  "書類": {
@@ -64836,6 +65140,9 @@
      "en": "Education helps to mold character."
     }
    }
+  ],
+  "parafrasi": [
+   "救う"
   ]
  },
  "助詞": {
@@ -65115,6 +65422,9 @@
      "en": "Local shops do good business with tourists."
     }
    }
+  ],
+  "parafrasi": [
+   "営業"
   ]
  },
  "商品": {
@@ -65949,6 +66259,11 @@
      "en": "Your English is improving."
     }
    }
+  ],
+  "parafrasi": [
+   "進歩",
+   "発達",
+   "発展"
   ]
  },
  "上等": {
@@ -66155,7 +66470,10 @@
     "emotion",
     "passion"
    ]
-  }
+  },
+  "parafrasi": [
+   "感情"
+  ]
  },
  "情報": {
   "significato": {
@@ -66582,6 +66900,9 @@
      "en": "I will bring back a lot of food."
     }
    }
+  ],
+  "parafrasi": [
+   "食料"
   ]
  },
  "食欲": {
@@ -66621,6 +66942,9 @@
      "en": "They could not get enough food."
     }
    }
+  ],
+  "parafrasi": [
+   "食物"
   ]
  },
  "食糧": {
@@ -67102,6 +67426,9 @@
      "en": "The situation is very serious."
     }
    }
+  ],
+  "parafrasi": [
+   "重大"
   ]
  },
  "申し込む": {
@@ -67524,6 +67851,9 @@
      "en": "The work is now in progress."
     }
    }
+  ],
+  "parafrasi": [
+   "前進"
   ]
  },
  "進歩": {
@@ -67545,6 +67875,11 @@
      "en": "Advance in science is continuous."
     }
    }
+  ],
+  "parafrasi": [
+   "上達",
+   "発達",
+   "発展"
   ]
  },
  "針": {
@@ -67848,6 +68183,9 @@
      "en": "You're welcome to any book in my library."
     }
    }
+  ],
+  "parafrasi": [
+   "書物"
   ]
  },
  "推薦": {
@@ -68143,6 +68481,9 @@
      "en": "Light has come into the world."
     }
    }
+  ],
+  "parafrasi": [
+   "世間"
   ]
  },
  "世の中": {
@@ -68176,7 +68517,10 @@
     "world",
     "society"
    ]
-  }
+  },
+  "parafrasi": [
+   "世"
+  ]
  },
  "世紀": {
   "significato": {
@@ -68217,6 +68561,9 @@
      "en": "Don't go beyond the speed limit."
     }
    }
+  ],
+  "parafrasi": [
+   "拘束"
   ]
  },
  "制度": {
@@ -68287,6 +68634,9 @@
      "en": "How do you pronounce your last name?"
     }
    }
+  ],
+  "parafrasi": [
+   "氏"
   ]
  },
  "姓名": {
@@ -68466,6 +68816,9 @@
      "en": "Jane grew up to be a fine lady."
     }
    }
+  ],
+  "parafrasi": [
+   "生長"
   ]
  },
  "成年": {
@@ -68799,6 +69152,9 @@
      "en": "There are many creatures in this forest."
     }
    }
+  ],
+  "parafrasi": [
+   "生物"
   ]
  },
  "生じる": {
@@ -68821,6 +69177,9 @@
      "en": "Accidents arise from carelessness."
     }
    }
+  ],
+  "parafrasi": [
+   "起こる"
   ]
  },
  "生まれ": {
@@ -68955,6 +69314,9 @@
      "en": "Plants grow with light."
     }
    }
+  ],
+  "parafrasi": [
+   "成長"
   ]
  },
  "生年月日": {
@@ -68994,6 +69356,9 @@
      "en": "Is there life on other worlds?"
     }
    }
+  ],
+  "parafrasi": [
+   "生き物"
   ]
  },
  "生命": {
@@ -69013,6 +69378,9 @@
      "en": "When did life come into being?"
     }
    }
+  ],
+  "parafrasi": [
+   "命"
   ]
  },
  "生理": {
@@ -69294,6 +69662,9 @@
      "en": "There is a heavy tax on tobacco."
     }
    }
+  ],
+  "parafrasi": [
+   "税金"
   ]
  },
  "税金": {
@@ -69315,6 +69686,9 @@
      "en": "A new tax was imposed on wine."
     }
    }
+  ],
+  "parafrasi": [
+   "税"
   ]
  },
  "石炭": {
@@ -69467,6 +69841,10 @@
      "en": "It takes two to make a quarrel."
     }
    }
+  ],
+  "parafrasi": [
+   "義務",
+   "務め"
   ]
  },
  "跡": {
@@ -69661,6 +70039,9 @@
      "en": "You have to pay for utilities."
     }
    }
+  ],
+  "parafrasi": [
+   "装置"
   ]
  },
  "節::ふし": {
@@ -69918,6 +70299,9 @@
      "en": "The goods are advertised on TV."
     }
    }
+  ],
+  "parafrasi": [
+   "広告"
   ]
  },
  "専攻": {
@@ -70085,6 +70469,9 @@
      "en": "Rules in connection with staff selection are set as follows."
     }
    }
+  ],
+  "parafrasi": [
+   "選択"
   ]
  },
  "選手": {
@@ -70128,6 +70515,9 @@
      "en": "The choice is all up to you."
     }
    }
+  ],
+  "parafrasi": [
+   "選考"
   ]
  },
  "前もって": {
@@ -70193,6 +70583,9 @@
      "en": "The army advanced up the hill."
     }
    }
+  ],
+  "parafrasi": [
+   "進行"
   ]
  },
  "善": {
@@ -70248,6 +70641,9 @@
   "sinonimi": [
    "全部",
    "全て"
+  ],
+  "parafrasi": [
+   "全て"
   ]
  },
  "全く": {
@@ -70300,6 +70696,9 @@
   "sinonimi": [
    "全",
    "全部"
+  ],
+  "parafrasi": [
+   "全"
   ]
  },
  "全員": {
@@ -70436,6 +70835,10 @@
      "en": "He is a very irritating critic of others."
     }
    }
+  ],
+  "parafrasi": [
+   "欠陥",
+   "欠点"
   ]
  },
  "粗末": {
@@ -70898,7 +71301,10 @@
     "phase",
     "countenance"
    ]
-  }
+  },
+  "parafrasi": [
+   "様子"
+  ]
  },
  "相手": {
   "significato": {
@@ -71020,6 +71426,9 @@
   ],
   "correlati": [
    "機械"
+  ],
+  "parafrasi": [
+   "設備"
   ]
  },
  "遭う": {
@@ -71219,6 +71628,9 @@
      "en": "They are a perfect match for each other."
     }
    }
+  ],
+  "parafrasi": [
+   "呼吸"
   ]
  },
  "束": {
@@ -71261,6 +71673,10 @@
      "en": "To measure the distance."
     }
    }
+  ],
+  "parafrasi": [
+   "計る",
+   "量る"
   ]
  },
  "足袋": {
@@ -71447,6 +71863,10 @@
      "en": "You're respected by everybody."
     }
    }
+  ],
+  "parafrasi": [
+   "敬意",
+   "尊重"
   ]
  },
  "尊重": {
@@ -71469,6 +71889,10 @@
      "en": "I defer to your judgement."
     }
    }
+  ],
+  "parafrasi": [
+   "敬意",
+   "尊敬"
   ]
  },
  "損": {
@@ -71510,6 +71934,9 @@
      "en": "The storm brought heavy losses."
     }
    }
+  ],
+  "parafrasi": [
+   "被害"
   ]
  },
  "他::た": {
@@ -71895,6 +72322,10 @@
      "en": "Let's change the sheets."
     }
    }
+  ],
+  "parafrasi": [
+   "換える",
+   "代える"
   ]
  },
  "滞在": {
@@ -72092,6 +72523,10 @@
      "en": "He cannot be replaced."
     }
    }
+  ],
+  "parafrasi": [
+   "換える",
+   "替える"
   ]
  },
  "代る": {
@@ -72135,6 +72570,10 @@
      "en": "Can I pay for the book by check?"
     }
    }
+  ],
+  "parafrasi": [
+   "価格",
+   "値"
   ]
  },
  "代表": {
@@ -72441,6 +72880,9 @@
      "en": "The students are for the most part diligent."
     }
    }
+  ],
+  "parafrasi": [
+   "大部分"
   ]
  },
  "大部分": {
@@ -72461,6 +72903,9 @@
      "en": "Coal consists mostly of carbon."
     }
    }
+  ],
+  "parafrasi": [
+   "大半"
   ]
  },
  "大陸": {
@@ -72974,6 +73419,9 @@
   ],
   "sinonimi": [
    "温める"
+  ],
+  "parafrasi": [
+   "温める"
   ]
  },
  "段": {
@@ -73069,6 +73517,10 @@
      "en": "He put the painting at a very high price."
     }
    }
+  ],
+  "parafrasi": [
+   "価格",
+   "代金"
   ]
  },
  "知らせ": {
@@ -73097,6 +73549,9 @@
    }
   ],
   "sinonimi": [
+   "掲示"
+  ],
+  "parafrasi": [
    "掲示"
   ]
  },
@@ -73264,6 +73719,9 @@
      "en": "This area will continue to be rainy."
     }
    }
+  ],
+  "parafrasi": [
+   "地方"
   ]
  },
  "地下": {
@@ -73389,6 +73847,9 @@
   ],
   "contrari": [
    "中央"
+  ],
+  "parafrasi": [
+   "地域"
   ]
  },
  "地味": {
@@ -73983,6 +74444,9 @@
      "en": "Who is the author of this book?"
     }
    }
+  ],
+  "parafrasi": [
+   "作家"
   ]
  },
  "貯金": {
@@ -74146,6 +74610,10 @@
    "越える",
    "過ぎる",
    "超す"
+  ],
+  "parafrasi": [
+   "越える",
+   "超す"
   ]
  },
  "超す": {
@@ -74169,6 +74637,10 @@
    }
   ],
   "sinonimi": [
+   "越える",
+   "超える"
+  ],
+  "parafrasi": [
    "越える",
    "超える"
   ]
@@ -74391,6 +74863,9 @@
      "en": "The pain of the wound doesn't go away."
     }
    }
+  ],
+  "parafrasi": [
+   "苦痛"
   ]
  },
  "通じる": {
@@ -74487,6 +74962,9 @@
      "en": "Watch out for passing cars."
     }
    }
+  ],
+  "parafrasi": [
+   "通行"
   ]
  },
  "通学": {
@@ -74545,6 +75023,9 @@
      "en": "There is no passage for big vehicles here."
     }
    }
+  ],
+  "parafrasi": [
+   "通過"
   ]
  },
  "通信": {
@@ -75184,6 +75665,9 @@
      "en": "This car runs on natural gas."
     }
    }
+  ],
+  "parafrasi": [
+   "自然"
   ]
  },
  "添う": {
@@ -75496,6 +75980,9 @@
   "correlati": [
    "都会",
    "人口"
+  ],
+  "parafrasi": [
+   "街"
   ]
  },
  "努力": {
@@ -76796,7 +77283,10 @@
     "hardships",
     "defect"
    ]
-  }
+  },
+  "parafrasi": [
+   "困難"
+  ]
  },
  "日::にち": {
   "significato": {
@@ -77167,6 +77657,9 @@
      "en": "The blind nurse devoted herself to caring for the elderly."
     }
    }
+  ],
+  "parafrasi": [
+   "老人"
   ]
  },
  "年月::としつき": {
@@ -77385,6 +77878,9 @@
   ],
   "sinonimi": [
    "収める"
+  ],
+  "parafrasi": [
+   "収める"
   ]
  },
  "納得": {
@@ -77449,6 +77945,9 @@
      "en": "His talent was of a high order."
     }
    }
+  ],
+  "parafrasi": [
+   "実力"
   ]
  },
  "脳": {
@@ -78023,6 +78522,9 @@
      "en": "I don't have the feeling for Chinese music in my body."
     }
    }
+  ],
+  "parafrasi": [
+   "皮"
   ]
  },
  "畑": {
@@ -78098,6 +78600,10 @@
      "en": "New stamps will be issued next month."
     }
    }
+  ],
+  "parafrasi": [
+   "刊行",
+   "出版"
   ]
  },
  "発射": {
@@ -78159,6 +78665,11 @@
      "en": "Swimming develops our muscles."
     }
    }
+  ],
+  "parafrasi": [
+   "上達",
+   "進歩",
+   "発展"
   ]
  },
  "発展": {
@@ -78188,6 +78699,11 @@
      "en": "They will contribute greatly to the growth of the town."
     }
    }
+  ],
+  "parafrasi": [
+   "上達",
+   "進歩",
+   "発達"
   ]
  },
  "発表": {
@@ -78520,6 +79036,9 @@
   "correlati": [
    "警察",
    "泥棒"
+  ],
+  "parafrasi": [
+   "罪"
   ]
  },
  "犯人": {
@@ -78562,6 +79081,10 @@
      "en": "At the summer camp, she was in charge of the group I belonged to."
     }
    }
+  ],
+  "parafrasi": [
+   "グループ",
+   "集団"
   ]
  },
  "販売": {
@@ -78724,6 +79247,9 @@
      "en": "His criticisms were very severe."
     }
    }
+  ],
+  "parafrasi": [
+   "批評"
   ]
  },
  "批評": {
@@ -78746,6 +79272,9 @@
      "en": "Musicians are usually sensitive to criticism."
     }
    }
+  ],
+  "parafrasi": [
+   "批判"
   ]
  },
  "比較": {
@@ -78810,6 +79339,9 @@
    }
   ],
   "sinonimi": [
+   "肌"
+  ],
+  "parafrasi": [
    "肌"
   ]
  },
@@ -78897,6 +79429,9 @@
      "en": "The typhoon has done much harm."
     }
    }
+  ],
+  "parafrasi": [
+   "損害"
   ]
  },
  "費用": {
@@ -79064,6 +79599,9 @@
      "en": "She was quite nervous about her first flight."
     }
    }
+  ],
+  "parafrasi": [
+   "航空"
   ]
  },
  "備える": {
@@ -79437,6 +79975,9 @@
      "en": "A sudden wind agitated the surface of the pond."
     }
    }
+  ],
+  "parafrasi": [
+   "面"
   ]
  },
  "評価": {
@@ -79872,6 +80413,9 @@
      "en": "You are always complaining."
     }
    }
+  ],
+  "parafrasi": [
+   "不満"
   ]
  },
  "不満": {
@@ -79896,6 +80440,9 @@
   ],
   "contrari": [
    "満足"
+  ],
+  "parafrasi": [
+   "不平"
   ]
  },
  "不利": {
@@ -79941,6 +80488,10 @@
      "en": "He's just a business associate."
     }
    }
+  ],
+  "parafrasi": [
+   "交際",
+   "友情"
   ]
  },
  "付く": {
@@ -80327,6 +80878,9 @@
      "en": "You have good taste in clothes."
     }
    }
+  ],
+  "parafrasi": [
+   "衣服"
   ]
  },
  "福": {
@@ -80347,6 +80901,10 @@
      "en": "Turn your misfortune to account."
     }
    }
+  ],
+  "parafrasi": [
+   "運",
+   "幸運"
   ]
  },
  "腹": {
@@ -81147,6 +81705,9 @@
   ],
   "sinonimi": [
    "変更"
+  ],
+  "parafrasi": [
+   "変更"
   ]
  },
  "変更": {
@@ -81170,6 +81731,9 @@
    }
   ],
   "sinonimi": [
+   "変化"
+  ],
+  "parafrasi": [
    "変化"
   ]
  },
@@ -81354,6 +81918,9 @@
      "en": "You have my word on her sincerity."
     }
    }
+  ],
+  "parafrasi": [
+   "保障"
   ]
  },
  "保障": {
@@ -81375,6 +81942,9 @@
      "en": "To receive social security."
     }
    }
+  ],
+  "parafrasi": [
+   "保証"
   ]
  },
  "保存": {
@@ -82064,6 +82634,10 @@
      "en": "That team has little, if any, chance of winning."
     }
    }
+  ],
+  "parafrasi": [
+   "願い",
+   "希望"
   ]
  },
  "望む": {
@@ -82622,6 +83196,9 @@
      "en": "He offered no specific explanation for his strange behavior."
     }
    }
+  ],
+  "parafrasi": [
+   "奇妙"
   ]
  },
  "務め": {
@@ -82641,6 +83218,10 @@
      "en": "To fulfill one's duty as a parent."
     }
    }
+  ],
+  "parafrasi": [
+   "義務",
+   "責任"
   ]
  },
  "夢中": {
@@ -82918,6 +83499,9 @@
      "en": "The dog saved the girl's life."
     }
    }
+  ],
+  "parafrasi": [
+   "生命"
   ]
  },
  "命じる": {
@@ -83259,6 +83843,9 @@
      "en": "Two men met face to face."
     }
    }
+  ],
+  "parafrasi": [
+   "表面"
   ]
  },
  "面接": {
@@ -83494,6 +84081,9 @@
      "en": "I found the question very easy."
     }
    }
+  ],
+  "parafrasi": [
+   "疑問"
   ]
  },
  "問う": {
@@ -84003,6 +84593,10 @@
      "en": "He cannot appreciate friendship."
     }
    }
+  ],
+  "parafrasi": [
+   "交際",
+   "付き合い"
   ]
  },
  "友人": {
@@ -84207,6 +84801,10 @@
      "en": "I little expected to see you here."
     }
    }
+  ],
+  "parafrasi": [
+   "期待",
+   "予想"
   ]
  },
  "予算": {
@@ -84249,6 +84847,10 @@
      "en": "What results do you anticipate?"
     }
    }
+  ],
+  "parafrasi": [
+   "期待",
+   "予期"
   ]
  },
  "予測": {
@@ -84573,6 +85175,9 @@
      "en": "He looked uncertain what to do."
     }
    }
+  ],
+  "parafrasi": [
+   "相"
   ]
  },
  "溶く": {
@@ -85536,6 +86141,10 @@
      "en": "To measure one's weight."
     }
    }
+  ],
+  "parafrasi": [
+   "計る",
+   "測る"
   ]
  },
  "臨む": {
@@ -85778,6 +86387,10 @@
      "en": "That is beneath ordinary decency."
     }
    }
+  ],
+  "parafrasi": [
+   "行儀",
+   "作法"
   ]
  },
  "列": {
@@ -86074,6 +86687,9 @@
      "en": "That old man is a fussy eater."
     }
    }
+  ],
+  "parafrasi": [
+   "年寄"
   ]
  },
  "論じる": {
@@ -86465,6 +87081,9 @@
      "en": "Compare your translation with his."
     }
    }
+  ],
+  "parafrasi": [
+   "理由"
   ]
  },
  "あちこちする": {

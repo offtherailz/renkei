@@ -21,7 +21,7 @@ describe('dataset 言い換え', () => {
 			expect(item.opzioni.length, item.frase).toBe(4);
 			expect(new Set(item.opzioni).size, item.frase).toBe(4);
 			expect(item.frase.includes(item.marcata), `${item.marcata} ∉ ${item.frase}`).toBe(true);
-			expect(['N5', 'N4']).toContain(item.livello);
+			expect(['N5', 'N4', 'N3']).toContain(item.livello);
 			// la corretta (prima opzione) non è identica alla frase originale
 			expect(item.opzioni[0]).not.toBe(item.frase);
 		}
