@@ -39717,7 +39717,12 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ]
  },
  "水泳する": {
   "frasi_esempio": [
@@ -40250,6 +40255,11 @@
      "en": "I put my passport in my bag."
     }
    }
+  ],
+  "livello_jlpt": "N5",
+  "study_tags": [
+   "kana-only",
+   "n5"
   ]
  },
  "フライト": {
@@ -40453,6 +40463,11 @@
      "en": "My little brother got the shoes dirty with mud."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "割る": {
@@ -40478,6 +40493,11 @@
      "en": "While washing it, I accidentally broke the glass."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "乾かす": {
@@ -40503,6 +40523,11 @@
      "en": "I got wet in the rain, so I dried my hair with a towel."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "増やす": {
@@ -40528,6 +40553,11 @@
      "en": "The school plans to increase international students next year."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "通す": {
@@ -40553,6 +40583,11 @@
      "en": "Excuse me, please let me through here."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "倒す": {
@@ -40588,7 +40623,12 @@
     "to knock down",
     "to topple"
    ]
-  }
+  },
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ]
  },
  "動かす": {
   "frasi_esempio": [
@@ -40613,6 +40653,11 @@
      "en": "I put in some effort and moved the heavy desk."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "届く": {
@@ -40638,6 +40683,11 @@
      "en": "The package I ordered finally arrived."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "鳴らす": {
@@ -40663,6 +40713,11 @@
      "en": "It was dangerous, so I honked the car's horn."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "冷やす": {
@@ -40688,6 +40743,11 @@
      "en": "For the party, I chilled the juice in advance."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "運転する": {
@@ -40706,7 +40766,14 @@
      "en": "You must employ your capital well."
     }
    }
-  ]
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "suru-verb",
+   "n4"
+  ],
+  "id_nome_origine": "運転"
  },
  "花見する": {
   "frasi_esempio": [
@@ -90806,11 +90873,67 @@
  "信号": {
   "correlati": [
    "交差点"
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
   ]
  },
  "洗濯機": {
   "correlati": [
    "洗剤"
+  ]
+ },
+ "屋根": {
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ]
+ },
+ "咳": {
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ]
+ },
+ "減る": {
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ]
+ },
+ "タオル": {
+  "livello_jlpt": "N5",
+  "study_tags": [
+   "kana-only",
+   "n5"
+  ]
+ },
+ "運転": {
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "contains-kanji",
+   "n4"
+  ],
+  "frasi_esempio": [
+   {
+    "testo": "キャロルはレンタカーを運転しています。",
+    "traduzione": {
+     "it": "Carol sta guidando un'auto a noleggio.",
+     "en": "Carol is driving a rent-a-car."
+    }
+   },
+   {
+    "testo": "君は資金をうまく運転しなくてはならない。",
+    "traduzione": {
+     "it": "Devi gestire bene i fondi.",
+     "en": "You must employ your capital well."
+    }
+   }
   ]
  }
 }

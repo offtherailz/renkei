@@ -1227,7 +1227,22 @@ function normalizeWords(importedRows, existingSeedWords) {
       };
     });
 
-  const byId = new Map(imported.map((word) => [word.id, word]));
+  // Una stessa parola (stessa scrittura::lettura, quindi stesso id da
+  // makeImportedWordId) può comparire nelle liste sorgente di più livelli
+  // (es. 咳/屋根/信号 sia in quella N4 sia in quella N3): senza questa scelta
+  // esplicita vince l'ultima processata nell'ordine di concatenazione
+  // (N5,N4,N3), quindi il livello più difficile — anche per parole
+  // storicamente N4/N5 già curate. Il livello giusto è il più FACILE tra i
+  // duplicati: se una parola è già nella lista N4, non serve (e non va)
+  // spostata a N3 solo perché una fonte più rumorosa la ripete.
+  const LEVEL_RANK = { N5: 1, N4: 2, N3: 3, N2: 4, N1: 5 };
+  const byId = new Map();
+  for (const word of imported) {
+    const prev = byId.get(word.id);
+    if (!prev || LEVEL_RANK[word.livello_jlpt] < LEVEL_RANK[prev.livello_jlpt]) {
+      byId.set(word.id, word);
+    }
+  }
   for (const word of existingSeedWords) {
     if (word.source_name === OPEN_SOURCE.name) {
       continue;
