@@ -547,7 +547,7 @@
 				<div class="chip-row">
 					{#each list as w}
 						<a href="{base}/detail/word:{w.id}" class="word-chip">
-							<span class="chip-writing">{w.scrittura}</span>
+							<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}</span>
 							<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 						</a>
 					{/each}
@@ -683,7 +683,7 @@
 			<div class="chip-row">
 				{#each wordsUsingKanji.slice(0, 20) as w}
 					<a href="{base}/detail/word:{w.id}" class="word-chip">
-						<span class="chip-writing">{w.scrittura}</span>
+						<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}</span>
 						<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 					</a>
 				{/each}
@@ -1033,6 +1033,7 @@
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }
 	.chip-writing { font-size: 1.15rem; font-weight: 600; }
+	.chip-reading { font-size: 0.7rem; font-weight: 400; color: var(--muted); }
 	.chip-meaning { font-size: 0.68rem; color: var(--muted); }
 
 	.grammar-row {
