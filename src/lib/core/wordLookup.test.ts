@@ -90,6 +90,24 @@ describe('lookupToken', () => {
 		expect(lookupToken(map3, '食べられる')?.id).toBe('食べる');
 	});
 
+	const map3b = mapOf([
+		hit('急ぐ', '急ぐ', 'いそぐ', '動詞[どうし]'),
+		hit('急', '急', 'きゅう', '形容詞[けいようし]'),
+		hit('食べる', '食べる', 'たべる', '動詞[どうし]'),
+		hit('帰る', '帰る', 'かえる', '動詞[どうし]')
+	]);
+
+	it('急げば trova 急ぐ (condizionale), non 急 (aggettivo-な)', () => {
+		const r = lookupToken(map3b, '急げば');
+		expect(r?.id).toBe('急ぐ');
+		expect(r?.forma).toContain('condizionale');
+	});
+
+	it('食べれば trova 食べる (ichidan); 帰れば trova 帰る (godan る)', () => {
+		expect(lookupToken(map3b, '食べれば')?.id).toBe('食べる');
+		expect(lookupToken(map3b, '帰れば')?.id).toBe('帰る');
+	});
+
 	const map4 = mapOf([
 		hit('飲む', '飲む', 'のむ', '動詞[どうし]'),
 		hit('乾く', '乾く', 'かわく', '動詞[どうし]'),

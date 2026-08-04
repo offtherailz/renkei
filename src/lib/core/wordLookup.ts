@@ -110,6 +110,16 @@ function deconjugate(t: string): { candidates: string[]; forma: string; adj?: bo
 			out.push({ candidates: [t.slice(0, -2) + GODAN_POT_BACK[pre]], forma: 'potenziale (〜' + pre + 'る)' });
 		}
 	}
+	// condizionale 〜ば: 急げば→急ぐ (godan), 食べれば→食べる (ichidan, れ→る
+	// nella stessa tabella). Senza questo caso mancava del tutto: 急げば non
+	// veniva mai riconosciuto e il fallback per sottostringa-con-kanji
+	// pescava 急 (aggettivo-な, tutt'altra parola) invece di 急ぐ.
+	if (t.endsWith('ば') && t.length >= 3) {
+		const pre = t[t.length - 2]!;
+		if (GODAN_POT_BACK[pre]) {
+			out.push({ candidates: [t.slice(0, -2) + GODAN_POT_BACK[pre]], forma: 'condizionale (〜ば)' });
+		}
+	}
 	const masuForms: [string, string][] = [
 		['ましょうか', 'proposta cortese (〜ましょうか)'],
 		['ましょう', 'volitiva cortese (〜ましょう)'],
