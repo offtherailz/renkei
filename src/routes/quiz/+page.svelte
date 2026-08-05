@@ -996,6 +996,12 @@
 					kanji: true
 				});
 			}
+			// usage-cloze/verb-form-cloze hanno una frase intera come particle-cloze
+			// e transitivity-pair, ma non pescavano le ALTRE parole della frase
+			// (es. 去年 in «二人は去年別れたそうです»): bug segnalato dall'utente.
+			if (q.mode === 'usage-cloze' || q.mode === 'verb-form-cloze') {
+				dives.push(...wordsInSentence(q.fullSentence, word?.id));
+			}
 			// le risposte sbagliate, quando corrispondono a una parola vera del
 			// catalogo, sono utili da approfondire quanto quella giusta — non
 			// solo il testo del "perché era sbagliata" (vedi wrongChoiceNotes).
