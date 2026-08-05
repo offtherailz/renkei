@@ -15101,7 +15101,8 @@
      "en": "Please shuffle the cards carefully."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "切れる"
  },
  "切符": {
   "significato": {
@@ -23809,7 +23810,8 @@
      "en": "My grandmother raised five children."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "育つ"
  },
  "一生懸命": {
   "significato": {
@@ -25095,7 +25097,8 @@
   ],
   "correlati": [
    "習慣"
-  ]
+  ],
+  "id_verbo_corrispondente": "慣らす"
  },
  "看護婦": {
   "significato": {
@@ -29152,7 +29155,8 @@
      "en": "Copy this page in your notebook."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "写る"
  },
  "捨てる": {
   "significato": {
@@ -31120,7 +31124,8 @@
   "contrari": [
    "戻る",
    "退く"
-  ]
+  ],
+  "id_verbo_corrispondente": "進める"
  },
  "人形": {
   "significato": {
@@ -34068,7 +34073,8 @@
      "en": "Please pass this news on to everyone."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "伝わる"
  },
  "田舎": {
   "significato": {
@@ -36372,7 +36378,8 @@
      "en": "Put away your toys."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "片付く"
  },
  "返事": {
   "significato": {
@@ -37180,7 +37187,8 @@
   "contrari": [
    "進む"
   ],
-  "correlati": []
+  "correlati": [],
+  "id_verbo_corrispondente": "戻す"
  },
  "役に立つ": {
   "significato": {
@@ -45614,7 +45622,8 @@
      "en": "After three hours of discussion we got nowhere."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "まとめる"
  },
  "まとめる": {
   "significato": {
@@ -45636,7 +45645,8 @@
      "en": "The data hasn't been compiled yet."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "まとまる"
  },
  "まぶしい": {
   "significato": {
@@ -47202,7 +47212,8 @@
      "en": "Plants are nourished by earth."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "育てる"
  },
  "一家": {
   "significato": {
@@ -47756,7 +47767,8 @@
      "en": "I saw my mother hide the cake."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "隠れる"
  },
  "隠れる": {
   "significato": {
@@ -47783,7 +47795,8 @@
      "en": "The sun disappeared behind a cloud."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "隠す"
  },
  "宇宙": {
   "significato": {
@@ -48053,7 +48066,8 @@
      "en": "A tall tree projects its long shadow on the water."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "映る"
  },
  "映る": {
   "significato": {
@@ -48074,7 +48088,8 @@
      "en": "Look at yourself in the mirror."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "映す"
  },
  "栄養": {
   "significato": {
@@ -48334,7 +48349,8 @@
      "en": "I postponed the meeting until next week."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "延びる"
  },
  "延びる": {
   "significato": {
@@ -48354,7 +48370,8 @@
      "en": "The meeting has been put off until next week."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "延ばす"
  },
  "延期": {
   "significato": {
@@ -49389,7 +49406,8 @@
      "en": "Add water and stir to a paste."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "加わる"
  },
  "加わる": {
   "significato": {
@@ -49417,7 +49435,8 @@
      "en": "This is the latest acquisition to my library."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "加える"
  },
  "加減": {
   "significato": {
@@ -50414,7 +50433,8 @@
      "en": "He took off his glasses."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "外れる"
  },
  "外れる": {
   "significato": {
@@ -50442,7 +50462,8 @@
      "en": "His explanation is beside the point."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "外す"
  },
  "外交": {
   "significato": {
@@ -51637,7 +51658,8 @@
      "en": "To acclimate the body to the cold."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "慣れる"
  },
  "慣行": {
   "significato": {
@@ -54384,7 +54406,8 @@
      "en": "The words confirmed him in his suspicions."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "強める"
  },
  "強める": {
   "significato": {
@@ -54404,7 +54427,8 @@
      "en": "He spoke raising his voice."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "強まる"
  },
  "強調": {
   "significato": {
@@ -57375,7 +57399,8 @@
      "en": "Try to lose weight by jogging."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "減る"
  },
  "減少": {
   "significato": {
@@ -57421,7 +57446,8 @@
   ],
   "parafrasi": [
    "示す"
-  ]
+  ],
+  "id_verbo_corrispondente": "現れる"
  },
  "現れ": {
   "significato": {
@@ -57472,7 +57498,8 @@
      "en": "The medicine took effect."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "現す"
  },
  "現金": {
   "significato": {
@@ -58231,7 +58258,8 @@
    "交ざる",
    "混ざる",
    "混じる"
-  ]
+  ],
+  "id_verbo_corrispondente": "交ぜる"
  },
  "交ぜる": {
   "significato": {
@@ -58251,7 +58279,8 @@
      "en": "Shuffle the cards well."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "交じる"
  },
  "交換": {
   "significato": {
@@ -58749,7 +58778,8 @@
      "en": "The rumors spread soon abroad."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "広める"
  },
  "広める": {
   "significato": {
@@ -58776,7 +58806,8 @@
      "en": "Travel broadens one's horizons."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "広まる"
  },
  "広告": {
   "significato": {
@@ -59330,7 +59361,8 @@
      "en": "The cheers swelled to a roar."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "高める"
  },
  "高める": {
   "significato": {
@@ -59352,7 +59384,8 @@
      "en": "The novel added to his reputation."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "高まる"
  },
  "高価": {
   "significato": {
@@ -59973,7 +60006,8 @@
    "交ざる",
    "交じる",
    "混じる"
-  ]
+  ],
+  "id_verbo_corrispondente": "混ぜる"
  },
  "混じる": {
   "significato": {
@@ -60018,7 +60052,8 @@
      "en": "Add water and mix to a firm dough."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "混ざる"
  },
  "混雑": {
   "significato": {
@@ -60994,7 +61029,8 @@
      "en": "He scattered the coins of the money-changers and overturned their table."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "散る"
  },
  "散る": {
   "significato": {
@@ -61015,7 +61051,8 @@
      "en": "By the time you get home, all the cherry blossoms will have fallen."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "散らす"
  },
  "産む": {
   "significato": {
@@ -63190,7 +63227,8 @@
      "en": "I'm staring at myself in a mirror."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "写す"
  },
  "射す": {
   "significato": {
@@ -65111,7 +65149,8 @@
      "en": "I gave up all hope of survival."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "助ける"
  },
  "助ける": {
   "significato": {
@@ -65143,7 +65182,8 @@
   ],
   "parafrasi": [
    "救う"
-  ]
+  ],
+  "id_verbo_corrispondente": "助かる"
  },
  "助詞": {
   "significato": {
@@ -67018,7 +67058,8 @@
   "sinonimi": [
    "延ばす",
    "伸びる"
-  ]
+  ],
+  "id_verbo_corrispondente": "伸びる"
  },
  "伸びる": {
   "significato": {
@@ -67047,7 +67088,8 @@
      "en": "This sweater is all stretched out of shape."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "伸ばす"
  },
  "信じる": {
   "significato": {
@@ -67385,7 +67427,8 @@
      "en": "The twilight merged into darkness."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "深める"
  },
  "深める": {
   "significato": {
@@ -67406,7 +67449,8 @@
      "en": "We deepened our friendship."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "深まる"
  },
  "深刻": {
   "significato": {
@@ -67806,7 +67850,8 @@
      "en": "Napoleon marched his armies into Russia."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "進む"
  },
  "進学": {
   "significato": {
@@ -69758,7 +69803,8 @@
      "en": "If you stack the dishes up by the sink, I'll do them later."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "積もる"
  },
  "積もる": {
   "significato": {
@@ -69777,7 +69823,8 @@
      "en": "Many a little makes a mickle."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "積む"
  },
  "積極的": {
   "significato": {
@@ -69962,7 +70009,8 @@
   ],
   "sinonimi": [
    "断つ"
-  ]
+  ],
+  "id_verbo_corrispondente": "切る"
  },
  "接ぐ": {
   "significato": {
@@ -75746,7 +75794,8 @@
      "en": "Light travels much faster than sound."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "伝える"
  },
  "伝言": {
   "significato": {
@@ -76331,7 +76380,8 @@
      "en": "Strange to say, his prediction has come true."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "当てる"
  },
  "当てる": {
   "significato": {
@@ -76359,7 +76409,8 @@
      "en": "Don't expose this chemical to direct sunlight."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "当たる"
  },
  "当り": {
   "significato": {
@@ -78128,7 +78179,8 @@
      "en": "Who has torn the envelope open?"
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "破れる"
  },
  "破れる": {
   "significato": {
@@ -78148,7 +78200,8 @@
      "en": "I was late for the bus, late for work, and got a run in my stocking."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "破る"
  },
  "破産": {
   "significato": {
@@ -81764,7 +81817,8 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "id_verbo_corrispondente": "片付ける"
  },
  "片付け": {
   "significato": {
@@ -82892,7 +82946,8 @@
      "en": "The hall was filled with such a large audience that there wasn't even standing room."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "埋める"
  },
  "埋める": {
   "significato": {
@@ -82922,7 +82977,8 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "id_verbo_corrispondente": "埋まる"
  },
  "幕": {
   "significato": {
@@ -84061,7 +84117,8 @@
      "en": "Put the book back on the shelf."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "戻る"
  },
  "問い": {
   "significato": {
@@ -85627,7 +85684,8 @@
      "en": "I'm sorry, I'm busy right now."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "離れる"
  },
  "離れる": {
   "significato": {
@@ -85652,7 +85710,8 @@
   "sinonimi": [
    "離す",
    "別れる"
-  ]
+  ],
+  "id_verbo_corrispondente": "離す"
  },
  "離婚": {
   "significato": {
@@ -86295,7 +86354,8 @@
      "en": "Let your food cool off a bit; don't eat it while it's hot."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "冷める"
  },
  "冷める": {
   "significato": {
@@ -86322,7 +86382,8 @@
      "en": "\"No, I'm not,\" replied the Englishman coldly."
     }
    }
-  ]
+  ],
+  "id_verbo_corrispondente": "冷ます"
  },
  "冷静": {
   "significato": {
@@ -91523,7 +91584,8 @@
   "study_tags": [
    "contains-kanji",
    "n4"
-  ]
+  ],
+  "id_verbo_corrispondente": "減らす"
  },
  "タオル": {
   "livello_jlpt": "N5",
