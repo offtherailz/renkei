@@ -4,11 +4,15 @@
 // Service worker SvelteKit: pre-cachea build e static (incluso il seed),
 // così l'app funziona offline. `version` cambia a ogni build → cache nuova
 // e pulizia della vecchia all'activate.
-import { build, files, version } from '$service-worker';
+import { base, build, files, version } from '$service-worker';
 
 const sw = self as unknown as ServiceWorkerGlobalScope;
 const CACHE_NAME = `renkei-${version}`;
-const ASSETS = [...build, ...files];
+// App SPA: `fallback: index.html`. La shell NON è in build/files, quindi va
+// precachata a mano, altrimenti un reload offline su una rotta non visitata
+// non trova nulla in cache. È la stessa HTML per ogni rotta (routing client).
+const APP_SHELL = `${base}/index.html`;
+const ASSETS = [...build, ...files, APP_SHELL];
 
 sw.addEventListener('install', (event) => {
 	event.waitUntil(
@@ -56,9 +60,11 @@ sw.addEventListener('fetch', (event) => {
 					return response;
 				})
 				.catch(async () => {
+					// Offline: la rotta esatta potrebbe non essere mai stata visitata.
+					// Fallback alla shell precachata (SPA: il router client fa il resto).
 					const cache = await caches.open(CACHE_NAME);
 					const cached = await cache.match(request);
-					return cached ?? Response.error();
+					return cached ?? (await cache.match(APP_SHELL)) ?? Response.error();
 				})
 		);
 	}
