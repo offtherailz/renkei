@@ -1,0 +1,1 @@
+import"../chunks/Bzak7iHL.js";import"../chunks/Bm9tMkL0.js";import{E as e,a as o}from"../chunks/BCvg2-tL.js";function a(i){e(i,{title:"🎁 Direzione del favore",intro:"Chi dà, chi riceve, in che direzione? Scegli あげる / くれる / もらう (e il keigo) giusto.",get rounds(){return o},creditMondai:["hatsuwa","sokuji","bunpo1"],showArrows:!0})}export{a as component};

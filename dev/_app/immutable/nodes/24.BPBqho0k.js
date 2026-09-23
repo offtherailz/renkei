@@ -1,0 +1,1 @@
+import"../chunks/Bzak7iHL.js";import"../chunks/Bm9tMkL0.js";import{E as o,G as t}from"../chunks/BCvg2-tL.js";function r(i){o(i,{title:"🔀 Condizionali と / ば / たら / なら",intro:"Scegli la condizionale giusta per il contesto: conseguenza automatica, ipotesi, richiesta o ripresa del tema.",get rounds(){return t},creditMondai:["bunpo1","kumitate"]})}export{r as component};
