@@ -208,3 +208,19 @@ describe('cadenza "una volta al giorno" (oncePerDay)', () => {
 		expect(noParam.next_review_date).toBe(withParam.next_review_date);
 	});
 });
+
+describe("applySrsReview — scadenza esame", () => {
+  const high = { ...createInitialSrs("word:x", NOW), srs_stage: 7 as const };
+  it("comprime l'intervallo verso la scadenza (cap = metà del tempo rimanente)", () => {
+    const noDeadline = applySrsReview(high, true, NOW);
+    const tenDays = NOW + 10 * 24 * 60 * 60_000;
+    const withDeadline = applySrsReview(high, true, NOW, false, tenDays);
+    expect(withDeadline.next_review_date).toBeLessThan(noDeadline.next_review_date);
+    expect(withDeadline.next_review_date).toBeLessThanOrEqual(NOW + 5 * 24 * 60 * 60_000 + 1000);
+  });
+  it("scadenza passata o assente: nessun cambiamento", () => {
+    expect(applySrsReview(high, true, NOW, false, NOW - 1000).next_review_date).toBe(
+      applySrsReview(high, true, NOW).next_review_date
+    );
+  });
+});

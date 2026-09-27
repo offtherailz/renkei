@@ -34,7 +34,8 @@ export function applySrsReview(
   progress: SrsProgress,
   isCorrect: boolean,
   nowTs = Date.now(),
-  oncePerDay = false
+  oncePerDay = false,
+  deadline?: number
 ): SrsProgress {
   const nextStage = isCorrect ? clamp(progress.srs_stage + 1, 0, 7) : clamp(progress.srs_stage - 1, 0, 7);
   const nextEase = isCorrect ? clamp(progress.ease_factor + 0.05, 1.3, 2.8) : clamp(progress.ease_factor - 0.2, 1.3, 2.8);
@@ -46,6 +47,15 @@ export function applySrsReview(
     const scaled = Math.round(mins * Math.max(1, nextEase * 0.9));
     nextReviewDate = nowTs + scaled * 60_000;
     if (oncePerDay) nextReviewDate = Math.max(nextReviewDate, startOfNextLocalDay(nowTs));
+    // Scadenza esame: comprime gli intervalli verso la data (cap = metà del
+    // tempo rimanente, min 1 giorno) → più esposizioni prima dell'esame.
+    if (deadline) {
+      const remaining = deadline - nowTs;
+      if (remaining > 0) {
+        const maxMs = Math.max(24 * 60 * 60_000, remaining / 2);
+        nextReviewDate = Math.min(nextReviewDate, nowTs + maxMs);
+      }
+    }
   } else {
     nextReviewDate = nowTs + 8 * 60_000;
   }

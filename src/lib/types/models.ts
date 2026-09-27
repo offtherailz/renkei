@@ -254,6 +254,9 @@ export interface AppSettings extends BaseEntity {
   // giorno (dopo una risposta giusta il prossimo ripasso viene spostato a domani
   // se cadrebbe ancora oggi). Falso = "learning steps" ravvicinati (10/60 min).
   ripasso_una_volta_al_giorno?: boolean;
+  // Modalità «punta all'esame»: timestamp della data d'esame. Se impostato, gli
+  // intervalli SRS si comprimono verso la data (più ripassi prima dell'esame).
+  esame_scadenza?: number;
 }
 
 export interface DatabaseSeed {

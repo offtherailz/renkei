@@ -154,4 +154,20 @@ describe('lookupToken', () => {
 	it('senza il contesto dell\'idioma つく trova comunque 点く (elettricità)', () => {
 		expect(lookupToken(map4, 'つきました', '電気が')?.id).toBe('点く');
 	});
+
+	const map5 = mapOf([
+		hit('呼ぶ', '呼ぶ', 'よぶ', '動詞[どうし]'),
+		hit('読む', '読む', 'よむ', '動詞[どうし]'),
+		hit('時', '時', 'とき'),
+		hit('食べる', '食べる', 'たべる', '動詞[どうし]')
+	]);
+
+	it('nome/nominalizzatore incollato: 呼びたいとき→呼ぶ, 読むこと→読む', () => {
+		expect(lookupToken(map5, '呼びたいとき')?.id).toBe('呼ぶ');
+		expect(lookupToken(map5, '読むこと')?.id).toBe('読む');
+	});
+
+	it('とき da solo (kana) trova 時 via lettura', () => {
+		expect(lookupToken(map5, 'とき')?.id).toBe('時');
+	});
 });

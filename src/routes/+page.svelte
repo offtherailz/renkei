@@ -196,6 +196,24 @@
 
 	onMount(loadData);
 
+	// Prova esame in sospeso (salvata da /esame/prova): avviso in home.
+	let pendingExam = $state<{ secIndex: number; sezioni: number; answered: number } | null>(null);
+	onMount(() => {
+		try {
+			const raw = localStorage.getItem('esame:prova:v1');
+			if (raw) {
+				const s = JSON.parse(raw);
+				pendingExam = {
+					secIndex: s.secIndex ?? 0,
+					sezioni: s.mock?.sezioni?.length ?? 0,
+					answered: (s.answers ?? []).filter((a: { answered?: boolean }) => a.answered).length
+				};
+			}
+		} catch {
+			pendingExam = null;
+		}
+	});
+
 	// Ricarica quando appState viene inizializzato; l'onboarding si mostra solo
 	// a quel punto (serve il seed pronto se si sceglie il percorso guidato).
 	$effect(() => {
@@ -312,6 +330,15 @@
 	<button class="party-close" onclick={() => (packParty = [])} aria-label="Chiudi">✕</button>
 </div>
 {/if}
+{#if pendingExam}
+	<a class="exam-resume" href="{base}/esame/prova">
+		<span class="er-icon">📝</span>
+		<span class="er-body">
+			<span class="er-title">Prova esame in sospeso</span>
+			<span class="er-sub">Sezione {pendingExam.secIndex + 1}/{pendingExam.sezioni} · {pendingExam.answered} risposte — Riprendi →</span>
+		</span>
+	</a>
+{/if}
 <section class="section-card">
 	<h2 class="section-title">☀️ Il piano di oggi
 		<span class="plan-progress" class:complete={planDone >= planTotal}>{planDone}/{planTotal}</span>
@@ -415,10 +442,17 @@
 			<span class="quick-icon">💪</span>
 			<span>Punti deboli — ripassa sempre</span>
 		</a>
-		<a href="{base}/courses" class="quick-card">
-			<span class="quick-icon">📚</span>
-			<span>Corsi</span>
+		<a href="{base}/esame" class="quick-card">
+			<span class="quick-icon">🎯</span>
+			<span>Esame JLPT N4</span>
 		</a>
+		<!-- Corsi temporaneamente nascosto (allineamento) -->
+		{#if false}
+			<a href="{base}/courses" class="quick-card">
+				<span class="quick-icon">📚</span>
+				<span>Corsi</span>
+			</a>
+		{/if}
 	</div>
 
 	<h2 class="section-title group">🎮 Attività</h2>
@@ -645,6 +679,12 @@
 		cursor: pointer;
 		padding: 4px;
 	}
+
+	.exam-resume { display: flex; align-items: center; gap: 12px; border: 2px solid var(--brand); border-radius: 14px; background: var(--info-bg); padding: 14px; text-decoration: none; color: var(--ink); margin-bottom: 14px; }
+	.exam-resume .er-icon { font-size: 1.4rem; }
+	.exam-resume .er-body { display: grid; gap: 2px; }
+	.exam-resume .er-title { font-weight: 800; }
+	.exam-resume .er-sub { font-size: 0.8rem; color: var(--muted); }
 
 	.section-card {
 		background: var(--surface);

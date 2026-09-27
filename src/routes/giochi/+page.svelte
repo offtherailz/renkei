@@ -940,6 +940,25 @@
 			</a>
 		</div>
 
+		<p class="group-title">Esame JLPT N4</p>
+		<div class="cat-grid">
+			<a class="cat-card" href="{base}/esame">
+				<span class="cat-icon">🎯</span>
+				<span class="cat-label">Preparazione esame</span>
+				<span class="cat-hint">le 3 sezioni, i 15 tipi di domanda, trucchi e punti caldi</span>
+			</a>
+			<a class="cat-card" href="{base}/esame/gioco/juju">
+				<span class="cat-icon">🎁</span>
+				<span class="cat-label">Direzione del favore <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">授受: あげる/くれる/もらう + keigo, con le frecce chi dà → chi riceve</span>
+			</a>
+			<a class="cat-card" href="{base}/esame/gioco/joken">
+				<span class="cat-icon">🔀</span>
+				<span class="cat-label">Condizionali <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">と・ば・たら・なら: scegli quella giusta per il contesto</span>
+			</a>
+		</div>
+
 		<p class="group-title">Lettura</p>
 		<div class="cat-grid">
 			<a class="cat-card" href="{base}/riordina">

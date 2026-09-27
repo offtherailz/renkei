@@ -10,3 +10,4 @@ src/lib/buildInfo.ts
 test-results/
 playwright-report/
 corsi/
+study/

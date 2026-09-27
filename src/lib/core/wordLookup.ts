@@ -219,6 +219,18 @@ export function lookupToken(map: Map<string, WordHit>, token: string, prevToken?
 		const stripped = f.replace(/(でしょう|でした|です)$/, '');
 		if (stripped.length >= 1 && stripped !== f) forms.push(stripped);
 	}
+	// BudouX a volte incolla un nome/nominalizzatore alla forma verbale
+	// (呼びたいとき, 読むこと, 行くため): stacca il nome così la parte verbale
+	// resta deconiugabile (呼びたい→呼ぶ) e il nome può risolversi da sé.
+	const NOMINALIZERS = ['とき', 'こと', 'ところ', 'ため', 'よう', 'はず', 'わけ', 'あいだ', 'まえ', 'あと'];
+	for (const f of [...forms]) {
+		for (const n of NOMINALIZERS) {
+			if (f.endsWith(n) && f.length > n.length + 1) {
+				forms.push(f.slice(0, -n.length));
+				break;
+			}
+		}
+	}
 	for (const f of [...forms]) {
 		const aux = f.match(
 			/^(.{2,}?[てで])(ください(?:ませんか)?|いただけますか|もらえますか|います|いました|いません|いる|いた|おきます|おく|しまいました|しまった|しまう|みます|みる|みたい|もいいですか|もいいです)$/

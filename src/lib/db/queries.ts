@@ -2,6 +2,7 @@ import { db } from './schema';
 import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
+import { findMondai } from '$lib/data/esame-n4';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
 export interface ObjectiveSummary {
@@ -210,7 +211,7 @@ const CONJ_FORME_SLUG: Record<string, string> = {
 // la padronanza è tutta nei mastery_points. 'phrase' (avventure/giochi a voce)
 // e 'conj' (coniugazione per classe), 'particella' e 'gram' (costruzioni:
 // potenziale, passiva, condizionali…) — contatori di sola pratica.
-const practiceOnlyKinds = new Set(['phrase', 'conj', 'particella', 'gram']);
+const practiceOnlyKinds = new Set(['phrase', 'conj', 'particella', 'gram', 'mondai']);
 function pctFor(r: SrsProgress): number {
 	const kind = r.id_item.includes(':') ? r.id_item.split(':')[0] : 'word';
 	return practiceOnlyKinds.has(kind)
@@ -266,8 +267,59 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 		} else if (kind === 'gram') {
 			label = GRAMMAR_FORMS.find((f) => f.slug === raw)?.title ?? raw;
 			href = `forme-composte#${raw}`;
+		} else if (kind === 'mondai') {
+			const found = findMondai(raw);
+			label = found ? `${found.mondai.titolo_jp} · ${found.mondai.titolo_it}` : raw;
+			href = `esame/${encodeURIComponent(raw)}`;
 		}
 		out.push({ kind, raw, label, href, pct });
+	}
+	return out;
+}
+
+// Copertura N4 per il cruscotto «Pronto per l'N4»: quanti kanji / parole /
+// grammatica di livello N4 sono già padroneggiati (mastery ≥ 60%) sul totale.
+export interface CoveragePart {
+	done: number;
+	total: number;
+}
+export interface N4Readiness {
+	kanji: CoveragePart;
+	words: CoveragePart;
+	grammar: CoveragePart;
+}
+export async function loadN4Readiness(): Promise<N4Readiness> {
+	const [words, kanji, grammar, srs] = await Promise.all([
+		db.words.toArray(),
+		db.kanji.toArray(),
+		db.grammar.toArray(),
+		db.srs_progress.toArray()
+	]);
+	const byId = new Map(srs.map((r) => [r.id_item, r]));
+	const mastered = (key: string): boolean => {
+		const r = byId.get(key);
+		return r ? normalizeMastery(r.srs_stage, r.mastery_points) >= 60 : false;
+	};
+	const calc = (arr: { id: string; livello_jlpt: string }[], prefix: string): CoveragePart => {
+		const n4 = arr.filter((x) => x.livello_jlpt === 'N4');
+		return { total: n4.length, done: n4.filter((x) => mastered(`${prefix}:${x.id}`)).length };
+	};
+	return {
+		kanji: calc(kanji, 'kanji'),
+		words: calc(words, 'word'),
+		grammar: calc(grammar, 'grammar')
+	};
+}
+
+// Padronanza per-mondai dell'esame N4 (chiavi 'mondai:<slug>'). Ritorna la %
+// solo per i mondai che hanno almeno un tentativo; gli altri restano ignoti
+// (la landing li mostra come "non ancora provato"). Sola pratica → mastery.
+export async function loadMondaiMastery(): Promise<Record<string, number>> {
+	const rows = await db.srs_progress.where('id_item').startsWith('mondai:').toArray();
+	const out: Record<string, number> = {};
+	for (const r of rows) {
+		const slug = r.id_item.slice('mondai:'.length);
+		if (slug) out[slug] = normalizePracticeOnlyMastery(r.mastery_points);
 	}
 	return out;
 }

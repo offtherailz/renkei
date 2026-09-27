@@ -16,7 +16,8 @@
 		phrase: { icon: '🗣️', label: 'Frasi' },
 		conj: { icon: '🔄', label: 'Coniugazione' },
 		particella: { icon: '🪝', label: 'Particelle' },
-		gram: { icon: '🧩', label: 'Costruzioni' }
+		gram: { icon: '🧩', label: 'Costruzioni' },
+		mondai: { icon: '🎯', label: 'Esame N4' }
 	};
 	function kindMeta(k: string): { icon: string; label: string } {
 		return KIND_META[k] ?? { icon: '❓', label: 'Altro' };
@@ -37,8 +38,11 @@
 	}
 
 	onMount(async () => {
+		const wanted = new URLSearchParams(location.search).get('kind');
 		items = await loadWeakItems();
 		loading = false;
+		// Deep-link da /esame: se il filtro richiesto ha almeno una voce, applicalo.
+		if (wanted && items.some((i) => i.kind === wanted)) kind = wanted;
 	});
 
 	const kinds = $derived.by(() => {
