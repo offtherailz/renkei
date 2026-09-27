@@ -69,9 +69,9 @@
 	const covCards = $derived(
 		readiness
 			? [
-					{ titolo: '漢 Kanji N4', part: readiness.kanji, href: 'courses' },
-					{ titolo: '📦 Parole N4', part: readiness.words, href: 'courses' },
-					{ titolo: '📖 Grammatica N4', part: readiness.grammar, href: 'forme' }
+					{ titolo: '漢 Kanji N4', part: readiness.kanji, href: 'quiz?ripasso=n4-kanji' },
+					{ titolo: '📦 Parole N4', part: readiness.words, href: 'quiz?ripasso=n4-word' },
+					{ titolo: '📖 Grammatica N4', part: readiness.grammar, href: 'quiz?ripasso=n4-grammar' }
 				]
 			: []
 	);

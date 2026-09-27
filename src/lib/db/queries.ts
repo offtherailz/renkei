@@ -311,6 +311,26 @@ export async function loadN4Readiness(): Promise<N4Readiness> {
 	};
 }
 
+// Coda di ripasso mirato N4 per area (dalle card del cruscotto "Pronto per l'N4?").
+// Restituisce le carte N4 NON ancora padroneggiate (mastery < 60), le mai viste
+// per prime, poi le altre dalla padronanza più bassa. Formato adatto a weakQueue.
+export type N4ReviewArea = 'kanji' | 'word' | 'grammar';
+export async function loadN4ReviewQueue(area: N4ReviewArea, limit = 12): Promise<{ kind: string; raw: string }[]> {
+	const table = area === 'kanji' ? db.kanji : area === 'word' ? db.words : db.grammar;
+	const [items, srs] = await Promise.all([table.toArray(), db.srs_progress.toArray()]);
+	const byId = new Map(srs.map((r) => [r.id_item, r]));
+	const n4 = (items as { id: string; livello_jlpt: string }[]).filter((x) => x.livello_jlpt === 'N4');
+	const scored = n4
+		.map((x) => {
+			const r = byId.get(`${area}:${x.id}`);
+			const m = r ? normalizeMastery(r.srs_stage, r.mastery_points) : -1; // -1 = mai vista
+			return { id: x.id, m };
+		})
+		.filter((x) => x.m < 60)
+		.sort((a, b) => a.m - b.m);
+	return scored.slice(0, limit).map((x) => ({ kind: area, raw: x.id }));
+}
+
 // Padronanza per-mondai dell'esame N4 (chiavi 'mondai:<slug>'). Ritorna la %
 // solo per i mondai che hanno almeno un tentativo; gli altri restano ignoti
 // (la landing li mostra come "non ancora provato"). Sola pratica → mastery.

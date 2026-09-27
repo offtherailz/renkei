@@ -109,6 +109,27 @@ describe('prova simulata N4', () => {
 		expect(ids).toEqual(ordine);
 	});
 
+	it('le prove ufficiali fisse (seed) sono deterministiche e distinte', () => {
+		const sig = (m: ReturnType<typeof buildMock>) =>
+			m.sezioni.flatMap((s) => s.questions.map((q) => q.prompt)).join('|');
+		const a1 = buildMock({ seed: 1001, difficolta: 'esame' });
+		const a2 = buildMock({ seed: 1001, difficolta: 'esame' });
+		const b = buildMock({ seed: 1002, difficolta: 'esame' });
+		expect(sig(a1)).toBe(sig(a2)); // stesso seed → prova identica
+		expect(sig(a1)).not.toBe(sig(b)); // seed diversi → prove diverse
+	});
+
+	it('la prova ufficiale fissa riempie i conteggi reali', () => {
+		const mock = buildMock({ seed: 1001, difficolta: 'esame' });
+		const perSlug = new Map<string, number>();
+		for (const s of mock.sezioni)
+			for (const q of s.questions) perSlug.set(q.mondaiSlug, (perSlug.get(q.mondaiSlug) ?? 0) + 1);
+		const sotto: string[] = [];
+		for (const sec of EXAM_N4_SECTIONS)
+			for (const m of sec.mondai) if ((perSlug.get(m.slug) ?? 0) < m.count) sotto.push(m.slug);
+		expect(sotto, `mondai sotto il conteggio: ${sotto.join(', ')}`).toEqual([]);
+	});
+
 	// La "Prova d'esame ufficiale" deve riempire i conteggi reali a ENTRAMBE le
 	// difficoltà, altrimenti non è realistica. Segnala i mondai ancora sottili.
 	for (const diff of ['facile', 'esame'] as const) {

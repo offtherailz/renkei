@@ -106,6 +106,9 @@
 		secRemaining: number;
 		totalElapsed: number;
 		phase: Phase;
+		picked: number | null; // risposta in corso (perché il feedback resti dopo un Approfondisci)
+		showTip: boolean;
+		qElapsed: number; // tempo già trascorso sulla domanda corrente
 		savedAt: number;
 	}
 	let saved = $state<Snapshot | null>(null);
@@ -113,7 +116,7 @@
 
 	function saveState() {
 		if (!mock || (phase !== 'running' && phase !== 'section-done')) return;
-		const snap: Snapshot = { mode, difficolta, mock, secIndex, qIndex, answers, secRemaining, totalElapsed, phase, savedAt: Date.now() };
+		const snap: Snapshot = { mode, difficolta, mock, secIndex, qIndex, answers, secRemaining, totalElapsed, phase, picked, showTip, qElapsed, savedAt: Date.now() };
 		try {
 			localStorage.setItem(KEY, JSON.stringify(snap));
 		} catch {
@@ -185,13 +188,16 @@
 		secRemaining = saved.secRemaining;
 		totalElapsed = saved.totalElapsed ?? 0;
 		phase = saved.phase;
+		picked = saved.picked ?? null;
+		showTip = saved.showTip ?? false;
 		paused = false;
 		idlePrompt = false;
 		if (phase === 'running') {
-			qStart = Date.now();
-			qElapsed = 0;
+			qElapsed = saved.qElapsed ?? 0;
+			qStart = Date.now() - qElapsed * 1000;
 			runTicker();
-			maybePlayListening();
+			// Non rigiocare l'audio se la domanda era già stata risposta (feedback aperto).
+			if (picked === null) maybePlayListening();
 		}
 	}
 
@@ -314,9 +320,14 @@
 	async function start() {
 		clearSaved();
 		const extra = await generaDaCatalogo();
+		const ufficiale = selectedSet?.startsWith('ufficiale-') ? Number(selectedSet.slice('ufficiale-'.length)) : null;
 		if (selectedSet === 'weak') {
 			const mastery = await loadMondaiMastery();
 			mock = buildWeakFocus(mastery, { extra, difficolta }) ?? buildMock({ extra, difficolta });
+		} else if (ufficiale != null) {
+			// Prova ufficiale FISSA: seed deterministico, solo pool curato (niente
+			// `extra` dal catalogo) → identica a ogni apertura e su ogni dispositivo.
+			mock = buildMock({ seed: 1000 + ufficiale, difficolta });
 		} else if (selectedSet) {
 			mock = buildSet(selectedSet) ?? buildMock({ extra, difficolta });
 		} else {
@@ -558,9 +569,23 @@
 
 		<p class="group-label">Quale prova</p>
 		<div class="sets">
+			<p class="group-label sub">Prove ufficiali fisse — stessa prova ogni volta, tutte le domande ai numeri reali (25+55+35 min)</p>
+			{#each [1, 2, 3] as n (n)}
+				<button class="setbtn row" class:on={selectedSet === `ufficiale-${n}`} onclick={() => (selectedSet = `ufficiale-${n}`)}>
+					<span class="set-body">
+						<span class="set-title">📄 Prova ufficiale {n}</span>
+						<span class="set-desc">Simulazione completa in formato esame: conteggi, tipi, tempi e punteggio reali. Domande fisse (uguali a ogni apertura), tutte originali.</span>
+					</span>
+					<span class="set-clock">
+						<TimeClock total={120} green={115} size={46} />
+						<span class="set-clock-cap">~115 min</span>
+					</span>
+				</button>
+			{/each}
+			<p class="group-label sub">Altre modalità</p>
 			<button class="setbtn" class:on={selectedSet === null} onclick={() => (selectedSet = null)}>
-				<span class="set-title">🎯 Prova d'esame ufficiale (consigliata)</span>
-				<span class="set-desc">Numero di domande, tipi, tempi (25+55+35 min) e punteggio come l'esame vero. Domande diverse ogni volta dal catalogo. È la simulazione realistica.</span>
+				<span class="set-title">🎲 Prova casuale (formato ufficiale)</span>
+				<span class="set-desc">Stessi numeri, tipi, tempi e punteggio dell'esame, ma domande diverse ogni volta (pescate dal catalogo). Per allenarti su prove sempre nuove.</span>
 			</button>
 			<button class="setbtn" class:on={selectedSet === 'weak'} onclick={() => (selectedSet = 'weak')}>
 				<span class="set-title">🎯 Ripasso mirato (punti deboli)</span>

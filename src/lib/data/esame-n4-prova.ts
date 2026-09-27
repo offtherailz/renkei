@@ -361,25 +361,41 @@ export function buildWeakFocus(mastery: Record<string, number>, opts: BuildOptio
 	};
 }
 
-function shuffle<T>(xs: T[]): T[] {
+function shuffle<T>(xs: T[], rng: () => number = Math.random): T[] {
 	const a = [...xs];
 	for (let i = a.length - 1; i > 0; i -= 1) {
-		const j = Math.floor(Math.random() * (i + 1));
+		const j = Math.floor(rng() * (i + 1));
 		[a[i], a[j]] = [a[j]!, a[i]!];
 	}
 	return a;
+}
+
+// PRNG deterministico (mulberry32): con lo stesso seed la prova pesca sempre le
+// stesse domande nello stesso ordine — così le "Prove ufficiali" fisse sono
+// identiche a ogni apertura e su ogni dispositivo (solo pool curato, no catalogo).
+function makeRng(seed: number): () => number {
+	let s = seed >>> 0;
+	return () => {
+		s |= 0;
+		s = (s + 0x6d2b79f5) | 0;
+		let t = Math.imul(s ^ (s >>> 15), 1 | s);
+		t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	};
 }
 
 export interface BuildOptions {
 	shuffle?: boolean; // default true; false per test deterministici
 	extra?: Record<string, PoolItem[]>; // domande generate dal catalogo
 	difficolta?: Difficolta; // filtra gli item per tier di difficoltà
+	seed?: number; // se presente: selezione/ordine deterministici (prove fisse)
 }
 
 // Costruisce una prova: per ogni 問題 del blueprint prende fino a `count`
 // domande dal pool curato. I 問題 senza contenuto finiscono in mondaiMancanti.
 export function buildMock(opts: BuildOptions = {}): Mock {
-	const doShuffle = opts.shuffle ?? true;
+	const rng = opts.seed != null ? makeRng(opts.seed) : Math.random;
+	const doShuffle = opts.seed != null ? true : (opts.shuffle ?? true);
 	const pool = poolByMondai(opts.extra);
 	const sezioni: ProvaSezione[] = [];
 	const mancanti: { slug: string; titolo: string }[] = [];
@@ -394,7 +410,7 @@ export function buildMock(opts: BuildOptions = {}): Mock {
 				mancanti.push({ slug: m.slug, titolo: `${m.titolo_jp} · ${m.titolo_it}` });
 				continue;
 			}
-			const scelte = (doShuffle ? shuffle(disponibili) : disponibili).slice(0, m.count);
+			const scelte = (doShuffle ? shuffle(disponibili, rng) : disponibili).slice(0, m.count);
 			for (const q of scelte) {
 				questions.push({
 					...q,
