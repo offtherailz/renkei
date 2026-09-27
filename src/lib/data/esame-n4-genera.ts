@@ -18,8 +18,18 @@ import {
 import type { QuizContext } from '$lib/quiz/types';
 import type { Word } from '$lib/types/models';
 import type { PoolItem } from './esame-n4-prova';
+import { isInLevel } from './kanjiN4';
 
 const MAX_PER_MONDAI = 80;
+
+// All'esame N4 il 問題1/2 testa SOLO kanji entro N4. Una parola può essere N4 ma
+// scritta con kanji più avanzati (es. 複雑 → 複・雑 sono N2/N3): all'esame va in
+// kana, mai come target da leggere/scrivere. Tiene solo parole coi kanji ≤ N4.
+function soloKanjiN4(scrittura: string): boolean {
+	const kanji = scrittura.match(/[一-龯]/g);
+	if (!kanji) return false; // nessun kanji: non è un target 漢字読み/表記
+	return kanji.every((k) => isInLevel(k));
+}
 
 let cache: Record<string, PoolItem[]> | null = null;
 
@@ -71,7 +81,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		}
 
 		// 表記: dalla lettura in kana, scegli la scrittura in kanji giusta.
-		for (const w of shuffle(words).filter((w: Word) => w.scrittura !== w.lettura)) {
+		for (const w of shuffle(words).filter((w: Word) => w.scrittura !== w.lettura && soloKanjiN4(w.scrittura))) {
 			if (out.hyoki!.length >= MAX_PER_MONDAI) break;
 			const q = createFlashcardReadingRecognitionQuestion(w, locale, distractorIndex, context);
 			if (!q.choices || q.choices.length < 3) continue;
@@ -90,7 +100,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		// 漢字読み: come all'esame vero, la parola è dentro una FRASE d'esempio e va
 		// sottolineata (【…】), non isolata con "◯の読み方は". Distrattori = letture
 		// reali di altre parole N4 (livello garantito), lunghezza simile.
-		const kanjiWords = words.filter((w) => w.scrittura !== w.lettura);
+		const kanjiWords = words.filter((w) => w.scrittura !== w.lettura && soloKanjiN4(w.scrittura));
 		const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		for (const w of shuffle(kanjiWords)) {
 			if (out['kanji-yomi']!.length >= MAX_PER_MONDAI) break;

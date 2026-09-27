@@ -547,7 +547,7 @@
 				<div class="chip-row">
 					{#each list as w}
 						<a href="{base}/detail/word:{w.id}" class="word-chip">
-							<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}</span>
+							<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}<span class="chip-lv lv-{w.livello_jlpt}">{w.livello_jlpt === 'EXTRA' ? 'EX' : w.livello_jlpt}</span></span>
 							<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 						</a>
 					{/each}
@@ -1033,6 +1033,13 @@
 	.kanji-char { font-size: 1.6rem; line-height: 1; }
 	.kanji-meaning { font-size: 0.68rem; color: var(--muted); }
 	.chip-writing { font-size: 1.15rem; font-weight: 600; }
+	/* Riferimento livello (piccolo) nel chip dell'elemento collegato. */
+	.chip-lv { font-size: 0.6rem; font-weight: 800; vertical-align: super; margin-left: 4px; padding: 1px 5px; border-radius: 6px; letter-spacing: 0.03em; background: var(--surface-2); color: var(--muted); }
+	.chip-lv.lv-N5 { background: var(--ok-bg); color: var(--ok-ink); }
+	.chip-lv.lv-N4 { background: var(--info-bg); color: var(--info-ink); }
+	.chip-lv.lv-N3 { background: var(--gold-bg); color: var(--gold-ink); }
+	.chip-lv.lv-N2 { background: var(--n2-bg); color: var(--n2-ink); }
+	.chip-lv.lv-N1 { background: var(--danger-bg); color: var(--danger); }
 	.chip-reading { font-size: 0.7rem; font-weight: 400; color: var(--muted); }
 	.chip-meaning { font-size: 0.68rem; color: var(--muted); }
 

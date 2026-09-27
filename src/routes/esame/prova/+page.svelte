@@ -38,6 +38,11 @@
 	const timeFactor = $derived(mode === 'campione' ? 0.8 : 1); // 🏆 −20%
 	const perQuestionLimit = $derived(mode === 'challenge' || mode === 'campione');
 	let selectedSet = $state<string | null>(null); // default: prova ufficiale (casuale, conteggi/tempi reali)
+	let continua = $state(false); // ♾️ flusso infinito senza timer, si ricostruisce da solo
+	// Mini esami (pochi item, tutti i tipi) vs Extra (varianti curate lunghe).
+	const MINI_IDS = new Set(['set-1', 'set-2']);
+	const miniSets = EXAM_SETS.filter((s) => MINI_IDS.has(s.id));
+	const extraSets = EXAM_SETS.filter((s) => !MINI_IDS.has(s.id));
 	let mock = $state<Mock | null>(null);
 	let secIndex = $state(0);
 	let qIndex = $state(0);
@@ -134,6 +139,16 @@
 
 	onMount(() => {
 		loadStorico();
+		// Preselezione dalla landing: /esame/prova?tipo=esami|casuale|mini|continua|deboli
+		const tipo = new URLSearchParams(window.location.search).get('tipo');
+		const preset: Record<string, string | null> = {
+			esami: 'ufficiale-1',
+			casuale: null,
+			mini: miniSets[0]?.id ?? 'set-1',
+			continua: 'continua',
+			deboli: 'weak'
+		};
+		if (tipo && tipo in preset) selectedSet = preset[tipo]!;
 		try {
 			const raw = localStorage.getItem(KEY);
 			if (raw) saved = JSON.parse(raw) as Snapshot;
@@ -321,7 +336,13 @@
 		clearSaved();
 		const extra = await generaDaCatalogo();
 		const ufficiale = selectedSet?.startsWith('ufficiale-') ? Number(selectedSet.slice('ufficiale-'.length)) : null;
-		if (selectedSet === 'weak') {
+		// ♾️ Continua: flusso infinito senza timer → sempre 練習 (feedback subito),
+		// pesca casuale dal catalogo; a fine giro si ricostruisce da solo.
+		continua = selectedSet === 'continua';
+		if (continua) {
+			mode = 'renshu';
+			mock = buildMock({ extra, difficolta });
+		} else if (selectedSet === 'weak') {
 			const mastery = await loadMondaiMastery();
 			mock = buildWeakFocus(mastery, { extra, difficolta }) ?? buildMock({ extra, difficolta });
 		} else if (ufficiale != null) {
@@ -387,6 +408,20 @@
 				}
 			}
 		}
+		// ♾️ Continua: niente schermata di fine sezione né risultati — scorre e basta.
+		if (continua) {
+			if (isLastSection) {
+				// ricostruisce un nuovo giro casuale e riparte (le risposte si sommano)
+				generaDaCatalogo().then((extra) => {
+					mock = buildMock({ extra, difficolta });
+					secIndex = 0;
+					startSection();
+				});
+			} else {
+				continueNextSection();
+			}
+			return;
+		}
 		if (isLastSection) finish();
 		else {
 			phase = 'section-done';
@@ -397,6 +432,12 @@
 	function continueNextSection() {
 		secIndex += 1;
 		startSection();
+	}
+
+	// ♾️ Continua: chiude il flusso e mostra il riepilogo di quanto fatto finora.
+	function terminaContinua() {
+		continua = false;
+		finish();
 	}
 
 	async function finish() {
@@ -569,12 +610,12 @@
 
 		<p class="group-label">Quale prova</p>
 		<div class="sets">
-			<p class="group-label sub">Prove ufficiali fisse — stessa prova ogni volta, tutte le domande ai numeri reali (25+55+35 min)</p>
+			<p class="group-label sub">📄 Esami completi — formato esame: conteggi, tipi, tempi e punteggio reali (25+55+35 min)</p>
 			{#each [1, 2, 3] as n (n)}
 				<button class="setbtn row" class:on={selectedSet === `ufficiale-${n}`} onclick={() => (selectedSet = `ufficiale-${n}`)}>
 					<span class="set-body">
-						<span class="set-title">📄 Prova ufficiale {n}</span>
-						<span class="set-desc">Simulazione completa in formato esame: conteggi, tipi, tempi e punteggio reali. Domande fisse (uguali a ogni apertura), tutte originali.</span>
+						<span class="set-title">📄 Esame {n} (fisso)</span>
+						<span class="set-desc">Prova completa uguale a ogni apertura: comoda per confrontarti nel tempo. Tutte le domande originali.</span>
 					</span>
 					<span class="set-clock">
 						<TimeClock total={120} green={115} size={46} />
@@ -582,20 +623,16 @@
 					</span>
 				</button>
 			{/each}
-			<p class="group-label sub">Altre modalità</p>
 			<button class="setbtn" class:on={selectedSet === null} onclick={() => (selectedSet = null)}>
-				<span class="set-title">🎲 Prova casuale (formato ufficiale)</span>
-				<span class="set-desc">Stessi numeri, tipi, tempi e punteggio dell'esame, ma domande diverse ogni volta (pescate dal catalogo). Per allenarti su prove sempre nuove.</span>
+				<span class="set-title">🎲 Esame casuale</span>
+				<span class="set-desc">Stessi numeri/tipi/tempi/punteggio, ma domande diverse ogni volta (pescate dal catalogo). Per prove sempre nuove.</span>
 			</button>
-			<button class="setbtn" class:on={selectedSet === 'weak'} onclick={() => (selectedSet = 'weak')}>
-				<span class="set-title">🎯 Ripasso mirato (punti deboli)</span>
-				<span class="set-desc">Prova breve concentrata sulle tipologie dove vai peggio (in base alle prove/drill fatti).</span>
-			</button>
-			<p class="group-label sub">Varianti curate (sottoinsiemi fissi, non ai numeri ufficiali)</p>
-			{#each EXAM_SETS as s (s.id)}
+
+			<p class="group-label sub">🧩 Mini esami — pochi item ma di tutti i tipi, per allenarti in fretta</p>
+			{#each miniSets as s (s.id)}
 				<button class="setbtn row" class:on={selectedSet === s.id} onclick={() => (selectedSet = s.id)}>
 					<span class="set-body">
-						<span class="set-title">📄 {s.titolo}</span>
+						<span class="set-title">🧩 {s.titolo}</span>
 						<span class="set-desc">{s.descrizione}</span>
 					</span>
 					<span class="set-clock">
@@ -604,6 +641,32 @@
 					</span>
 				</button>
 			{/each}
+
+			<p class="group-label sub">♾️ Continua & mirato</p>
+			<button class="setbtn" class:on={selectedSet === 'continua'} onclick={() => (selectedSet = 'continua')}>
+				<span class="set-title">♾️ Continua (domande random, senza timer)</span>
+				<span class="set-desc">Flusso infinito di domande miste col feedback subito: macini pratica senza pressione. Fermati quando vuoi.</span>
+			</button>
+			<button class="setbtn" class:on={selectedSet === 'weak'} onclick={() => (selectedSet = 'weak')}>
+				<span class="set-title">🎯 Punti deboli</span>
+				<span class="set-desc">Prova breve concentrata sulle tipologie dove vai peggio (in base alle prove/drill fatti).</span>
+			</button>
+
+			{#if extraSets.length}
+				<p class="group-label sub">Extra — varianti curate (sottoinsiemi fissi, non ai numeri ufficiali)</p>
+				{#each extraSets as s (s.id)}
+					<button class="setbtn row" class:on={selectedSet === s.id} onclick={() => (selectedSet = s.id)}>
+						<span class="set-body">
+							<span class="set-title">📄 {s.titolo}</span>
+							<span class="set-desc">{s.descrizione}</span>
+						</span>
+						<span class="set-clock">
+							<TimeClock total={120} green={setTotalMinutes(s.id)} size={46} />
+							<span class="set-clock-cap">~{setTotalMinutes(s.id)} min</span>
+						</span>
+					</button>
+				{/each}
+			{/if}
 		</div>
 
 		<p class="group-label">Modalità</p>
@@ -645,7 +708,9 @@
 		<header class="run-head">
 			<span class="sec-name">{sezione.titolo_jp}</span>
 			<span class="timers">
-				{#if mode === 'honban'}
+				{#if continua}
+					<span class="sec-timer soft">♾️ Continua</span>
+				{:else if mode === 'honban'}
 					<span class="sec-timer" class:warn={secRemaining <= 60}>sezione ⏱️ {fmt(secRemaining)}</span>
 				{:else if mode === 'challenge'}
 					<span class="sec-timer soft">⚡ Challenge</span>
@@ -656,7 +721,11 @@
 				{/if}
 				<span class="tot-timer">totale ⌛ {fmt(totalElapsed)}</span>
 			</span>
-			<button class="pause-btn" onclick={togglePause} title="Pausa" aria-label="Pausa">⏸️</button>
+			{#if continua}
+				<button class="pause-btn" onclick={terminaContinua} title="Termina">⏹️</button>
+			{:else}
+				<button class="pause-btn" onclick={togglePause} title="Pausa" aria-label="Pausa">⏸️</button>
+			{/if}
 		</header>
 
 		{#if paused}
