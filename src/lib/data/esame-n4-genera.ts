@@ -87,12 +87,20 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			});
 		}
 
-		// 漢字読み: dalla scrittura in kanji, scegli la lettura. Distrattori =
-		// letture reali di altre parole N4 (livello garantito), lunghezza simile.
+		// 漢字読み: come all'esame vero, la parola è dentro una FRASE d'esempio e va
+		// sottolineata (【…】), non isolata con "◯の読み方は". Distrattori = letture
+		// reali di altre parole N4 (livello garantito), lunghezza simile.
 		const kanjiWords = words.filter((w) => w.scrittura !== w.lettura);
+		const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		for (const w of shuffle(kanjiWords)) {
 			if (out['kanji-yomi']!.length >= MAX_PER_MONDAI) break;
 			const correctR = w.lettura;
+			// frase d'esempio che contiene la parola (col termine nel contesto)
+			const ex = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			if (!ex) continue;
+			// sottolinea il termine e rimuovi la SUA lettura (è ciò che si chiede)
+			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.scrittura}】`);
+			if (!marked.includes(`【${w.scrittura}】`)) continue;
 			const distr = [
 				...new Set(
 					shuffle(kanjiWords)
@@ -106,11 +114,12 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			const choices = shuffle([correctR, ...distr]);
 			out['kanji-yomi']!.push({
 				mondaiSlug: 'kanji-yomi',
-				prompt: `【${w.scrittura}】の 読[よ]み方[かた]は?`,
+				prompt: marked,
 				choices,
 				correct: choices.indexOf(correctR),
 				perche_giusta: `${w.scrittura} = ${w.lettura}.`,
-				perche_sbagliate: []
+				perche_sbagliate: [],
+				traduzione: locale === 'it' ? ex.traduzione.it : ex.traduzione.en
 			});
 		}
 	} catch {

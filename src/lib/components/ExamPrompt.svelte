@@ -49,6 +49,21 @@
 	}
 
 	const p = $derived(parse(text));
+	// 【…】 marca la parola-bersaglio (es. 漢字読み): all'esame va SOTTOLINEATA,
+	// non messa tra parentesi. Spezza la riga in segmenti normali/bersaglio.
+	function segs(line: string): { t: string; target: boolean }[] {
+		const parts: { t: string; target: boolean }[] = [];
+		const re = /【([^】]*)】/g;
+		let last = 0;
+		let m: RegExpExecArray | null;
+		while ((m = re.exec(line))) {
+			if (m.index > last) parts.push({ t: line.slice(last, m.index), target: false });
+			parts.push({ t: m[1]!, target: true });
+			last = m.index + m[0].length;
+		}
+		if (last < line.length) parts.push({ t: line.slice(last), target: false });
+		return parts.length ? parts : [{ t: line, target: false }];
+	}
 	// Righe del corpo: se è un dialogo (役:「…」) → una battuta per riga;
 	// altrimenti (lettura) → una frase per riga. Non spezzare dentro 「…」.
 	const DLG_RE =
@@ -76,17 +91,23 @@
 		<div class="ep-body">
 			{#each bodyLines as line (line)}
 				<p class="ep-line">
-					{#if interactive}<InteractiveSentence text={line} />{:else if furigana}<FuriganaText text={line} force={true} />{:else}<FuriganaText text={examStrip(line)} force={true} />{/if}
+					{#each segs(line) as seg (seg.t + seg.target)}
+						{#if seg.target}<span class="ep-target">{@render piece(seg.t)}</span>{:else}{@render piece(seg.t)}{/if}
+					{/each}
 				</p>
 			{/each}
 		</div>
 	{/if}
 	{#if p.question}
 		<p class="ep-q">
-			❓ {#if interactive}<InteractiveSentence text={p.question} />{:else if furigana}<FuriganaText text={p.question} force={true} />{:else}<FuriganaText text={examStrip(p.question)} force={true} />{/if}
+			❓ {#each segs(p.question) as seg (seg.t + seg.target)}{#if seg.target}<span class="ep-target">{@render piece(seg.t)}</span>{:else}{@render piece(seg.t)}{/if}{/each}
 		</p>
 	{/if}
 </div>
+
+{#snippet piece(t: string)}
+	{#if interactive}<InteractiveSentence text={t} />{:else if furigana}<FuriganaText text={t} force={true} />{:else}<FuriganaText text={examStrip(t)} force={true} />{/if}
+{/snippet}
 
 <style>
 	.exam-prompt { display: grid; gap: 6px; }
@@ -95,4 +116,6 @@
 	.ep-body { display: grid; gap: 2px; }
 	.ep-line { margin: 0; }
 	.ep-q { margin: 4px 0 0; font-weight: 700; border-top: 1px solid var(--line); padding-top: 6px; }
+	/* Parola-bersaglio come all'esame: sottolineata, non tra parentesi. */
+	.ep-target { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
 </style>
