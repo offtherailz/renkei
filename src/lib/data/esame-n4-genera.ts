@@ -207,9 +207,13 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 
 		// 言い換え (問題4): frase con la parola sottolineata; scegli l'espressione di
 		// pari significato. Fonte: gruppi 言い換え curati (iikae-n5n4.json), livello N4.
+		// tutti i kanji (nella frase e in OGNI opzione) devono essere entro N4:
+		// altrimenti la risposta userebbe vocabolario N3+ (es. 突然), fuori livello.
+		const entroN4 = (s: string) => (s.match(/[一-龯]/g) ?? []).every((k) => isInLevel(k));
 		for (const it of shuffle((iikaeRaw.items as IikaeItem[]).filter((x) => x.livello === 'N4'))) {
 			if (out.iikae!.length >= MAX_PER_MONDAI) break;
 			if (!it.opzioni || it.opzioni.length < 4) continue;
+			if (!entroN4(it.marcata) || !it.opzioni.every(entroN4)) continue;
 			const marked = it.frase.includes(it.marcata) ? it.frase.replace(it.marcata, `【${it.marcata}】`) : it.frase;
 			const correct = it.opzioni[0]!;
 			const choices = shuffle([...it.opzioni]);
