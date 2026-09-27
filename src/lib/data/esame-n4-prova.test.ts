@@ -108,4 +108,22 @@ describe('prova simulata N4', () => {
 		const ordine = EXAM_N4_SECTIONS.map((s) => s.id).filter((id) => ids.includes(id));
 		expect(ids).toEqual(ordine);
 	});
+
+	// La "Prova d'esame ufficiale" deve riempire i conteggi reali a ENTRAMBE le
+	// difficoltà, altrimenti non è realistica. Segnala i mondai ancora sottili.
+	for (const diff of ['facile', 'esame'] as const) {
+		it(`riempie i conteggi ufficiali a difficoltà ${diff}`, () => {
+			const mock = buildMock({ shuffle: false, difficolta: diff });
+			const perSlug = new Map<string, number>();
+			for (const s of mock.sezioni)
+				for (const q of s.questions) perSlug.set(q.mondaiSlug, (perSlug.get(q.mondaiSlug) ?? 0) + 1);
+			const sotto: string[] = [];
+			for (const sec of EXAM_N4_SECTIONS)
+				for (const m of sec.mondai) {
+					const n = perSlug.get(m.slug) ?? 0;
+					if (n < m.count) sotto.push(`${m.slug}: ${n}/${m.count}`);
+				}
+			expect(sotto, `mondai sotto il conteggio a ${diff}: ${sotto.join(', ')}`).toEqual([]);
+		});
+	}
 });
