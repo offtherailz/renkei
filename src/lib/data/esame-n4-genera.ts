@@ -210,20 +210,28 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		// tutti i kanji (nella frase e in OGNI opzione) devono essere entro N4:
 		// altrimenti la risposta userebbe vocabolario N3+ (es. 突然), fuori livello.
 		const entroN4 = (s: string) => (s.match(/[一-龯]/g) ?? []).every((k) => isInLevel(k));
+		// senso IT di ogni espressione (dai gruppi 言い換え): serve per dare una nota
+		// anche alle opzioni SBAGLIATE (altrimenti in risultati restano senza spiegazione).
+		const gruppi = (iikaeRaw.gruppi as { parole: string[]; senso: string }[]) ?? [];
+		const sensoOf = new Map<string, string>();
+		for (const g of gruppi) for (const p of g.parole) if (!sensoOf.has(p)) sensoOf.set(p, g.senso);
+		const notaOpz = (o: string) => (sensoOf.get(o) ? `«${o}» = ${sensoOf.get(o)}` : `«${o}»: significato diverso`);
 		for (const it of shuffle((iikaeRaw.items as IikaeItem[]).filter((x) => x.livello === 'N4'))) {
 			if (out.iikae!.length >= MAX_PER_MONDAI) break;
 			if (!it.opzioni || it.opzioni.length < 4) continue;
 			if (!entroN4(it.marcata) || !it.opzioni.every(entroN4)) continue;
 			const marked = it.frase.includes(it.marcata) ? it.frase.replace(it.marcata, `【${it.marcata}】`) : it.frase;
 			const correct = it.opzioni[0]!;
-			const choices = shuffle([...it.opzioni]);
+			const wrongOpts = it.opzioni.slice(1);
+			// NON mescolare qui: passa correct in testa + note allineate, poi ci pensa
+			// poolByMondai a mescolare e rimappare (così le note seguono l'opzione giusta).
 			out.iikae!.push({
 				mondaiSlug: 'iikae',
 				prompt: marked,
-				choices,
-				correct: choices.indexOf(correct),
-				perche_giusta: `«${it.marcata}» equivale a «${correct}».`,
-				perche_sbagliate: [],
+				choices: [correct, ...wrongOpts],
+				correct: 0,
+				perche_giusta: `«${it.marcata}» equivale a «${correct}»${it.traduzione ? ` (${it.traduzione})` : ''}.`,
+				perche_sbagliate: wrongOpts.map(notaOpz),
 				traduzione: it.traduzione
 			});
 		}
@@ -237,6 +245,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			const correctEx = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
 			if (!correctEx) continue;
 			const distr: string[] = [];
+			const distrNote: string[] = [];
 			for (const x of shuffle(sentWords)) {
 				if (distr.length >= 3) break;
 				if (x.id === w.id) continue;
@@ -247,16 +256,19 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 				if (swapped === ex2.testo || swapped.includes(w.scrittura) === false) continue;
 				if (distr.includes(swapped)) continue;
 				distr.push(swapped);
+				const tr = locale === 'it' ? ex2.traduzione.it : ex2.traduzione.en;
+				// nota + traduzione: qui la parola giusta è un'altra (con la sua frase)
+				distrNote.push(`Qui è corretto «${x.lettura}» (${tr}), non «${w.lettura}».`);
 			}
 			if (distr.length < 3) continue;
-			const choices = shuffle([correctEx.testo, ...distr]);
+			// niente pre-shuffle: correct in testa + note allineate → mescola poolByMondai
 			out.yoho!.push({
 				mondaiSlug: 'yoho',
 				prompt: w.lettura,
-				choices,
-				correct: choices.indexOf(correctEx.testo),
+				choices: [correctEx.testo, ...distr],
+				correct: 0,
 				perche_giusta: `Uso corretto di ${w.scrittura}: «${correctEx.testo}».`,
-				perche_sbagliate: [],
+				perche_sbagliate: distrNote,
 				traduzione: locale === 'it' ? correctEx.traduzione.it : correctEx.traduzione.en
 			});
 		}

@@ -11,7 +11,7 @@ export function isInLevel(kanji: string): boolean { return N4_KANJI.has(kanji); 
 export function examStrip(text: string): string {
 	return text
 		.replace(/([\u4e00-\u9faf々]+)\[([^\]]+)\]/g, (m: string, base: string) =>
-			[...base].every((c) => N4_KANJI.has(c) || c === '々') ? base : m
+			[...base].every((c) => N4_KANJI.has(c) || c === '々') ? base : "​" + m
 		)
 		.replace(/[\s　]/g, '');
 }

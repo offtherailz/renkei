@@ -1,4 +1,7 @@
-const FURIGANA_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
+// La base è la parte prima di [lettura]. Esclude spazi e lo ZWSP (U+200B): quest'
+// ultimo è un confine invisibile che examStrip inserisce prima dei furigana
+// mantenuti, così il match greedy non ingloba la parola precedente (写真を撮[と]).
+const FURIGANA_REGEX = /([^\[\]\s\u200B]+)\[([^\[\]]+)\]/g;
 
 function escapeHtml(raw: string): string {
   return raw
