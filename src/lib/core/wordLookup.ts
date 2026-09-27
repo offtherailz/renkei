@@ -271,6 +271,20 @@ export function lookupToken(map: Map<string, WordHit>, token: string, prevToken?
 	return null;
 }
 
+// BudouX a volte stacca l'ausiliario cortese/desiderativo come token a sé
+// (働き | ます | 。): così «働き» matcha il NOME 働き («lavoro») invece del verbo
+// 働く. Riattacca questi ausiliari al token precedente prima del lookup, così la
+// forma completa (働きます) si deconiuga al verbo giusto.
+const AUX_MERGE = /^(ます|ました|ません|ませんでした|ませんか|ましょうか|ましょう|たい|たかった|たくない|たくなかった|ながら)$/;
+export function mergeAuxTokens(tokens: string[]): string[] {
+	const out: string[] = [];
+	for (const t of tokens) {
+		if (out.length > 0 && AUX_MERGE.test(t)) out[out.length - 1] += t;
+		else out.push(t);
+	}
+	return out;
+}
+
 export function jishoUrl(q: string): string {
 	return `https://jisho.org/search/${encodeURIComponent(q)}`;
 }

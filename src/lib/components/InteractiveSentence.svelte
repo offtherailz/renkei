@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { createDefaultTokenizer } from '$lib/core/tokenizer';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
-	import { ensureWordIndex, lookupToken, jishoUrl, type WordHit } from '$lib/core/wordLookup';
+	import { ensureWordIndex, lookupToken, mergeAuxTokens, jishoUrl, type WordHit } from '$lib/core/wordLookup';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
@@ -95,7 +95,7 @@
 
 	onMount(async () => {
 		const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(detectUserLocale())]);
-		tokens = tok.tokenize(plain);
+		tokens = mergeAuxTokens(tok.tokenize(plain));
 		hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
 	});
 

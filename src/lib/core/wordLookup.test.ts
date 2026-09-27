@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lookupToken, type WordHit } from './wordLookup';
+import { lookupToken, mergeAuxTokens, type WordHit } from './wordLookup';
 
 const hit = (id: string, scrittura: string, lettura: string, tipo = '名詞[めいし]'): WordHit => ({
 	id, scrittura, lettura, tipo_jp: tipo, livello_jlpt: 'N5', significato: id
@@ -169,5 +169,19 @@ describe('lookupToken', () => {
 
 	it('とき da solo (kana) trova 時 via lettura', () => {
 		expect(lookupToken(map5, 'とき')?.id).toBe('時');
+	});
+
+	// BudouX stacca ます: senza merge, 働き matcha il NOME invece del verbo 働く.
+	it('mergeAuxTokens riattacca gli ausiliari (働き+ます→働きます)', () => {
+		expect(mergeAuxTokens(['夜', 'だけ', '働き', 'ます', '。'])).toEqual(['夜', 'だけ', '働きます', '。']);
+		expect(mergeAuxTokens(['食べ', 'たい'])).toEqual(['食べたい']);
+	});
+
+	const map6 = mapOf([
+		hit('働く', '働く', 'はたらく', '動詞[どうし]'),
+		hit('働き', '働き', 'はたらき', '名詞[めいし]')
+	]);
+	it('働きます (dopo merge) risolve al verbo 働く, non al nome 働き', () => {
+		expect(lookupToken(map6, '働きます')?.id).toBe('働く');
 	});
 });
