@@ -15,6 +15,9 @@ import type { QuizContext } from '$lib/quiz/types';
 import type { Word } from '$lib/types/models';
 import type { PoolItem } from './esame-n4-prova';
 import { isInLevel } from './kanjiN4';
+import iikaeRaw from '../../../scripts/data/iikae-n5n4.json';
+
+interface IikaeItem { livello: string; frase: string; marcata: string; parola: string; opzioni: string[]; traduzione?: string }
 
 const MAX_PER_MONDAI = 80;
 
@@ -104,7 +107,7 @@ function similarWritings(writing: string, pool: string[]): string[] {
 // Genera domande dal catalogo. Cache in memoria (una volta per sessione).
 export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 	if (cache) return cache;
-	const out: Record<string, PoolItem[]> = { bunmyaku: [], hyoki: [], 'kanji-yomi': [] };
+	const out: Record<string, PoolItem[]> = { bunmyaku: [], hyoki: [], 'kanji-yomi': [], iikae: [], yoho: [] };
 	try {
 		const all = await db.words.toArray();
 		const words = all.filter((w) => w.livello_jlpt === 'N4');
@@ -199,6 +202,58 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 				perche_giusta: `${w.scrittura} = ${w.lettura}.`,
 				perche_sbagliate: [],
 				traduzione: locale === 'it' ? ex.traduzione.it : ex.traduzione.en
+			});
+		}
+
+		// 言い換え (問題4): frase con la parola sottolineata; scegli l'espressione di
+		// pari significato. Fonte: gruppi 言い換え curati (iikae-n5n4.json), livello N4.
+		for (const it of shuffle((iikaeRaw.items as IikaeItem[]).filter((x) => x.livello === 'N4'))) {
+			if (out.iikae!.length >= MAX_PER_MONDAI) break;
+			if (!it.opzioni || it.opzioni.length < 4) continue;
+			const marked = it.frase.includes(it.marcata) ? it.frase.replace(it.marcata, `【${it.marcata}】`) : it.frase;
+			const correct = it.opzioni[0]!;
+			const choices = shuffle([...it.opzioni]);
+			out.iikae!.push({
+				mondaiSlug: 'iikae',
+				prompt: marked,
+				choices,
+				correct: choices.indexOf(correct),
+				perche_giusta: `«${it.marcata}» equivale a «${correct}».`,
+				perche_sbagliate: [],
+				traduzione: it.traduzione
+			});
+		}
+
+		// 用法 (問題5): data una parola, scegli la frase in cui è usata correttamente.
+		// La giusta è la frase d'esempio della parola; i distrattori sono frasi di
+		// ALTRE parole in cui si è inserita questa parola (uso/collocazione errati).
+		const sentWords = words.filter((w) => (w.frasi_esempio ?? []).some((e) => e.testo.includes(w.scrittura)));
+		for (const w of shuffle(sentWords)) {
+			if (out.yoho!.length >= MAX_PER_MONDAI) break;
+			const correctEx = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			if (!correctEx) continue;
+			const distr: string[] = [];
+			for (const x of shuffle(sentWords)) {
+				if (distr.length >= 3) break;
+				if (x.id === w.id) continue;
+				const ex2 = (x.frasi_esempio ?? []).find((e) => e.testo.includes(x.scrittura));
+				if (!ex2) continue;
+				// sostituisci l'altra parola (e la sua eventuale lettura) con questa
+				const swapped = ex2.testo.replace(new RegExp(escapeReg(x.scrittura) + '(\\[[^\\]]*\\])?'), w.scrittura);
+				if (swapped === ex2.testo || swapped.includes(w.scrittura) === false) continue;
+				if (distr.includes(swapped)) continue;
+				distr.push(swapped);
+			}
+			if (distr.length < 3) continue;
+			const choices = shuffle([correctEx.testo, ...distr]);
+			out.yoho!.push({
+				mondaiSlug: 'yoho',
+				prompt: w.lettura,
+				choices,
+				correct: choices.indexOf(correctEx.testo),
+				perche_giusta: `Uso corretto di ${w.scrittura}: «${correctEx.testo}».`,
+				perche_sbagliate: [],
+				traduzione: locale === 'it' ? correctEx.traduzione.it : correctEx.traduzione.en
 			});
 		}
 	} catch {
