@@ -10,11 +10,7 @@
 
 import { db } from '$lib/db/schema';
 import { detectUserLocale } from '$lib/core/i18n';
-import { preloadDistractorIndex } from '$lib/quiz/distractorIndex';
-import {
-	createUsageClozeQuestion,
-	createFlashcardReadingRecognitionQuestion
-} from '$lib/quiz/engine';
+import { createUsageClozeQuestion } from '$lib/quiz/engine';
 import type { QuizContext } from '$lib/quiz/types';
 import type { Word } from '$lib/types/models';
 import type { PoolItem } from './esame-n4-prova';
@@ -42,6 +38,69 @@ function shuffle<T>(xs: T[]): T[] {
 	return a;
 }
 
+// Coppie dakuten/handakuten ⇄ base: i distrattori tipici del 漢字読み confondono
+// proprio queste (けいけん/けいげん, ば/ぱ/は…).
+const DAKUTEN: Record<string, string[]> = {
+	か: ['が'], き: ['ぎ'], く: ['ぐ'], け: ['げ'], こ: ['ご'],
+	さ: ['ざ'], し: ['じ'], す: ['ず'], せ: ['ぜ'], そ: ['ぞ'],
+	た: ['だ'], ち: ['ぢ'], つ: ['づ'], て: ['で'], と: ['ど'],
+	は: ['ば', 'ぱ'], ひ: ['び', 'ぴ'], ふ: ['ぶ', 'ぷ'], へ: ['べ', 'ぺ'], ほ: ['ぼ', 'ぽ'],
+	が: ['か'], ぎ: ['き'], ぐ: ['く'], げ: ['け'], ご: ['こ'],
+	ざ: ['さ'], じ: ['し'], ず: ['す'], ぜ: ['せ'], ぞ: ['そ'],
+	だ: ['た'], で: ['て'], ど: ['と'],
+	ば: ['は', 'ぱ'], び: ['ひ', 'ぴ'], ぶ: ['ふ', 'ぷ'], べ: ['へ', 'ぺ'], ぼ: ['ほ', 'ぽ'],
+	ぱ: ['は', 'ば'], ぴ: ['ひ', 'び'], ぷ: ['ふ', 'ぶ'], ぺ: ['へ', 'べ'], ぽ: ['ほ', 'ぼ']
+};
+
+// Distrattori fonetici della lettura giusta (come al 問題1): dakuten/handakuten,
+// 長音 (allunga/accorcia), 促音 (っ). Sono errori di lettura plausibili, non
+// letture a caso.
+function phoneticVariants(r: string): string[] {
+	const out = new Set<string>();
+	const chars = [...r];
+	for (let i = 0; i < chars.length; i += 1) {
+		for (const a of DAKUTEN[chars[i]!] ?? []) {
+			const c = [...chars];
+			c[i] = a;
+			out.add(c.join(''));
+		}
+	}
+	// 促音: se c'è っ toglilo; altrimenti inseriscilo tra le more
+	if (r.includes('っ')) out.add(r.replace('っ', ''));
+	else for (let i = 1; i < chars.length; i += 1) {
+		const c = [...chars];
+		c.splice(i, 0, 'っ');
+		out.add(c.join(''));
+	}
+	// 長音: togli la vocale lunga finale, oppure aggiungine una
+	if (/[うい]$/.test(r)) out.add(r.slice(0, -1));
+	out.add(r + 'う');
+	// vocale lunga interna: しょくどう → しょくど (togli un う interno)
+	out.add(r.replace(/う(?=.)/, ''));
+	out.delete(r);
+	return [...out].filter((v) => v.length > 0);
+}
+
+// Distrattori del 表記: stessa parola con UN kanji sostituito (送る→近る/逆る…,
+// 場所→揚所/場斦…). Mantiene okurigana e lunghezza: forma tipica del 問題2.
+function similarWritings(writing: string, pool: string[]): string[] {
+	const positions = [...writing].map((c, i) => ({ c, i })).filter((p) => /[一-龯]/.test(p.c));
+	if (positions.length === 0 || pool.length === 0) return [];
+	const out = new Set<string>();
+	let guard = 0;
+	while (out.size < 3 && guard < 60) {
+		guard += 1;
+		const pos = positions[Math.floor(Math.random() * positions.length)]!;
+		const repl = pool[Math.floor(Math.random() * pool.length)]!;
+		if (repl === pos.c) continue;
+		const arr = [...writing];
+		arr[pos.i] = repl;
+		const v = arr.join('');
+		if (v !== writing) out.add(v);
+	}
+	return [...out];
+}
+
 // Genera domande dal catalogo. Cache in memoria (una volta per sessione).
 export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 	if (cache) return cache;
@@ -55,12 +114,14 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		}
 		const locale = detectUserLocale();
 		const grammar = await db.grammar.toArray();
+		// Pool kanji del catalogo (N5/N4): serve per i distrattori del 表記 (kanji
+		// simili). Solo i kanji "veri" (un carattere 一-龯).
+		const kanjiPool = (await db.kanji.toArray()).map((k) => k.id).filter((c) => /^[一-龯]$/.test(c));
 		const context: QuizContext = {
 			locale,
 			wordsById: new Map(all.map((w) => [w.id, w])),
 			grammarById: new Map(grammar.map((g) => [g.id, g]))
 		};
-		const distractorIndex = await preloadDistractorIndex();
 
 		// 文脈規定: parola giusta nel contesto (serve una frase d'esempio).
 		for (const w of shuffle(words).filter((w) => (w.frasi_esempio ?? []).length > 0)) {
@@ -80,46 +141,54 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			});
 		}
 
-		// 表記: dalla lettura in kana, scegli la scrittura in kanji giusta.
+		const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+		// 表記 (問題2): frase con la parola in KANA sottolineata; si sceglie il KANJI.
+		// Distrattori = stessa parola con un kanji simile sostituito (送る→近る/逆る…).
 		for (const w of shuffle(words).filter((w: Word) => w.scrittura !== w.lettura && soloKanjiN4(w.scrittura))) {
 			if (out.hyoki!.length >= MAX_PER_MONDAI) break;
-			const q = createFlashcardReadingRecognitionQuestion(w, locale, distractorIndex, context);
-			if (!q.choices || q.choices.length < 3) continue;
-			const correct = q.choices.indexOf(q.correctAnswer);
-			if (correct < 0) continue;
+			const ex = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			if (!ex) continue;
+			// il termine appare in kana (la sua lettura), sottolineato: si sceglie il kanji
+			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.lettura}】`);
+			if (!marked.includes(`【${w.lettura}】`)) continue;
+			const distr = similarWritings(w.scrittura, kanjiPool);
+			if (distr.length < 3) continue;
+			const choices = shuffle([w.scrittura, ...distr]);
 			out.hyoki!.push({
 				mondaiSlug: 'hyoki',
-				prompt: `この ことばは 漢字で どう 書きますか。　【${q.prompt}】`,
-				choices: q.choices,
-				correct,
-				perche_giusta: `«${q.correctAnswer}» si legge ${q.prompt}.`,
-				perche_sbagliate: []
+				prompt: marked,
+				choices,
+				correct: choices.indexOf(w.scrittura),
+				perche_giusta: `«${w.lettura}» si scrive ${w.scrittura}.`,
+				perche_sbagliate: [],
+				traduzione: locale === 'it' ? ex.traduzione.it : ex.traduzione.en
 			});
 		}
 
-		// 漢字読み: come all'esame vero, la parola è dentro una FRASE d'esempio e va
-		// sottolineata (【…】), non isolata con "◯の読み方は". Distrattori = letture
-		// reali di altre parole N4 (livello garantito), lunghezza simile.
+		// 漢字読み (問題1): la parola è dentro una FRASE d'esempio, sottolineata (【…】).
+		// Distrattori = varianti FONETICHE della lettura (dakuten/長音/促音), come
+		// all'esame; se non bastano, letture reali di altre parole N4 di lunghezza simile.
 		const kanjiWords = words.filter((w) => w.scrittura !== w.lettura && soloKanjiN4(w.scrittura));
-		const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		for (const w of shuffle(kanjiWords)) {
 			if (out['kanji-yomi']!.length >= MAX_PER_MONDAI) break;
 			const correctR = w.lettura;
-			// frase d'esempio che contiene la parola (col termine nel contesto)
 			const ex = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
 			if (!ex) continue;
 			// sottolinea il termine e rimuovi la SUA lettura (è ciò che si chiede)
 			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.scrittura}】`);
 			if (!marked.includes(`【${w.scrittura}】`)) continue;
-			const distr = [
-				...new Set(
-					shuffle(kanjiWords)
-						.filter((x) => x.lettura !== correctR && x.scrittura !== w.scrittura)
-						.map((x) => x.lettura)
-				)
-			]
-				.sort((a, b) => Math.abs(a.length - correctR.length) - Math.abs(b.length - correctR.length))
-				.slice(0, 3);
+			let distr = shuffle([...new Set(phoneticVariants(correctR))].filter((v) => v !== correctR)).slice(0, 3);
+			if (distr.length < 3) {
+				const extra = [
+					...new Set(
+						shuffle(kanjiWords)
+							.filter((x) => x.lettura !== correctR && !distr.includes(x.lettura))
+							.map((x) => x.lettura)
+					)
+				].sort((a, b) => Math.abs(a.length - correctR.length) - Math.abs(b.length - correctR.length));
+				distr = [...distr, ...extra].slice(0, 3);
+			}
 			if (distr.length < 3) continue;
 			const choices = shuffle([correctR, ...distr]);
 			out['kanji-yomi']!.push({
