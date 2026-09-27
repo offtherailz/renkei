@@ -103,10 +103,32 @@ export function shuffleChoices(
 	};
 }
 
+// 発話表現/即時応答 all'esame hanno SOLO 3 opzioni: se un item ne ha di più,
+// tieni la giusta + i primi 2 distrattori (con le loro note), poi si mescola.
+function keepThree(choices: string[], correct: number, wrong: string[]): { choices: string[]; correct: number; wrong: string[] } {
+	const others = choices.map((c, i) => ({ c, i })).filter((x) => x.i !== correct).slice(0, 2);
+	const noteFor = (idx: number): string => {
+		let k = 0;
+		for (let j = 0; j < choices.length; j += 1) {
+			if (j === correct) continue;
+			if (j === idx) return wrong[k] ?? '';
+			k += 1;
+		}
+		return '';
+	};
+	return { choices: [choices[correct]!, ...others.map((x) => x.c)], correct: 0, wrong: others.map((x) => noteFor(x.i)) };
+}
+
 function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolItem[]> {
 	const pool: Record<string, PoolItem[]> = {};
 	const push = (slug: string, q: PoolItem) => {
-		const s = shuffleChoices(q.choices, q.correct, q.perche_sbagliate);
+		let { choices, correct } = q;
+		let wrong = q.perche_sbagliate;
+		if ((slug === 'hatsuwa' || slug === 'sokuji') && choices.length > 3) {
+			const t = keepThree(choices, correct, wrong);
+			choices = t.choices; correct = t.correct; wrong = t.wrong;
+		}
+		const s = shuffleChoices(choices, correct, wrong);
 		(pool[slug] ??= []).push({ ...q, choices: s.choices, correct: s.correct, perche_sbagliate: s.wrong });
 	};
 
@@ -281,7 +303,12 @@ export function buildSet(setId: string): Mock | null {
 		const questions: ProvaQuestion[] = [];
 		for (const m of sec.mondai) {
 			for (const it of bySlug[m.slug] ?? []) {
-				const s = shuffleChoices(it.choices, it.correct, it.spiegazione.perche_sbagliate);
+				let ic = it.choices, icorr = it.correct, iw = it.spiegazione.perche_sbagliate;
+				if ((m.slug === 'hatsuwa' || m.slug === 'sokuji') && ic.length > 3) {
+					const t = keepThree(ic, icorr, iw);
+					ic = t.choices; icorr = t.correct; iw = t.wrong;
+				}
+				const s = shuffleChoices(ic, icorr, iw);
 				questions.push({
 					sezione: sec.id,
 					mondaiSlug: m.slug,

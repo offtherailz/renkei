@@ -102,6 +102,14 @@ describe('prova simulata N4', () => {
 		expect(passaTier('difficile', 'medio')).toBe(true);
 	});
 
+	it('発話表現/即時応答 hanno esattamente 3 opzioni (come all’esame)', () => {
+		const mock = buildMock({ shuffle: false });
+		for (const s of mock.sezioni)
+			for (const q of s.questions)
+				if (q.mondaiSlug === 'hatsuwa' || q.mondaiSlug === 'sokuji')
+					expect(q.choices.length, `${q.mondaiSlug}: ${q.prompt}`).toBe(3);
+	});
+
 	it('le sezioni rispettano l’ordine ufficiale', () => {
 		const mock = buildMock({ shuffle: false });
 		const ids = mock.sezioni.map((s) => s.id);

@@ -941,6 +941,9 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{ id: 'bm-10', mondai: 'bunmyaku', livello_jlpt: 'N4', prompt: '部屋[へや]が 汚[きたな]く なったので、＿＿ を した。', choices: ['掃除[そうじ]', '洗濯[せんたく]', '料理[りょうり]', '買[か]い物[もの]'], correct: 0,
 		traduzione: 'La stanza si era sporcata, così ho fatto le pulizie.',
 		spiegazione: { perche_giusta: '部屋が汚い → 掃除 («pulizie»).', perche_sbagliate: ['洗濯 = «bucato» (vestiti)', '料理 = «cucinare»', '買い物 = «spesa»'] } },
+	{ id: 'bm-11', mondai: 'bunmyaku', livello_jlpt: 'N4', prompt: 'スーパー[すーぱー]で もらった ＿＿ を 見[み]ると、何[なに]を 買[か]ったか わかります。', choices: ['レシート', 'レジ', 'おつり', 'さいふ'], correct: 0,
+		traduzione: 'Guardando lo scontrino ricevuto al supermercato, si capisce che cosa si è comprato.',
+		spiegazione: { perche_giusta: 'Ciò che «mostra cosa hai comprato» è lo scontrino: レシート.', perche_sbagliate: ['レジ = la «cassa» (il banco), non un foglio da guardare', 'おつり = il «resto» (soldi)', 'さいふ = il «portafoglio»'] } },
 	// 文の文法1
 	{ id: 'bp-14', mondai: 'bunpo1', livello_jlpt: 'N4', prompt: 'ここは 図書館[としょかん]です。大[おお]きな 声[こえ]で 話[はな]し ＿＿。', choices: ['ては いけません', 'ても いいです', 'て ください', 'て みます'], correct: 0,
 		traduzione: 'Qui è la biblioteca: non si deve parlare a voce alta.',
