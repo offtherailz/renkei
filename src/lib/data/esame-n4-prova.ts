@@ -33,6 +33,9 @@ export interface ProvaQuestion {
 	perche_sbagliate: string[]; // può essere vuoto per gli item convertiti dai giochi
 	traduzione?: string; // traduzione italiana della frase (aiuta a capire il perché)
 	tier?: 'facile' | 'difficile'; // tier di difficoltà del contenuto
+	// Frase completa (JP) da mostrare nei risultati per i 問題 in cui si riempiono
+	// spazi (組み立て, cloze): parti inserite tra 【…】 (sottolineate) + ascoltabile intera.
+	fraseCompleta?: string;
 }
 
 // Filtro per difficoltà: 'facile' esclude i 'difficile'; 'esame' esclude i
@@ -142,7 +145,8 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 			perche_giusta: it.spiegazione.perche_giusta,
 			perche_sbagliate: it.spiegazione.perche_sbagliate,
 			traduzione: it.traduzione,
-			tier: it.tier
+			tier: it.tier,
+			fraseCompleta: it.frase_completa
 		});
 	}
 
@@ -320,7 +324,8 @@ export function buildSet(setId: string): Mock | null {
 					correct: s.correct,
 					perche_giusta: it.spiegazione.perche_giusta,
 					perche_sbagliate: s.wrong,
-					traduzione: it.traduzione
+					traduzione: it.traduzione,
+					fraseCompleta: it.frase_completa
 				});
 			}
 		}

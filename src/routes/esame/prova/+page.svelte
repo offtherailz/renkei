@@ -809,6 +809,15 @@
 						<ExamPrompt text={q.prompt} interactive={true} mondai={q.mondaiSlug} />
 						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => (isListening ? speakExamListening(q.prompt) : speak(q.prompt))}>🔊</button>
 					</div>
+					{#if q.fraseCompleta}
+						<div class="fb-completa">
+							<span class="fbc-label">Frase completa (parti inserite sottolineate):</span>
+							<div class="fb-jp">
+								<ExamPrompt text={q.fraseCompleta} furigana={qFurigana} />
+								<button class="tts" title="Ascolta intera" aria-label="Ascolta intera" onclick={() => speak(q.fraseCompleta!.replace(/[【】]/g, ''))}>🔊</button>
+							</div>
+						</div>
+					{/if}
 					{#if q.traduzione}<p class="fb-it">💬 {q.traduzione}</p>{/if}
 					<div class="fb-opts">
 						{#each q.choices as c, ci (ci)}
@@ -1039,6 +1048,8 @@
 	.fb-note { font-size: 0.8rem; color: var(--info-ink); }
 	.fb-note.muted { color: var(--muted); }
 	.fb-it { margin: 0; font-size: 0.85rem; color: var(--ink); }
+	.fb-completa { display: grid; gap: 2px; border-left: 3px solid var(--ok-ink); padding-left: 8px; }
+	.fbc-label { font-size: 0.72rem; color: var(--muted); font-weight: 700; }
 	.fb-hint { margin: 0; font-size: 0.72rem; color: var(--muted); }
 	.fb-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 	.fbl-label { font-size: 0.72rem; color: var(--muted); }

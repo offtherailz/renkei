@@ -370,6 +370,9 @@ export interface CuratedExamItem {
 	// Tier di difficoltà del contenuto: 'facile' (versione semplice, per il
 	// livello Facile) o 'difficile' (vicino all'esame). Assente = adatto a tutti.
 	tier?: 'facile' | 'difficile';
+	// Frase completa (JP) per i 問題 in cui si riempiono spazi (組み立て): le parti
+	// inserite vanno tra 【…】 (sottolineate nei risultati) e la frase è ascoltabile.
+	frase_completa?: string;
 	spiegazione: ExamExplanation;
 	suggerimento?: string; // override del suggerimento del mondai, se serve
 	// Punti caldi allenati (id in EXAM_N4_HOT_POINTS): per la matrice di copertura.
@@ -445,6 +448,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ です。」 語群: 映画を・見に・行く・つもり',
 		choices: ['行く', '見に', '映画を', 'つもり'], correct: 0,
 		traduzione: 'Frase completa: 私は 映画を 見に 行く つもり です — «Ho intenzione di andare a vedere un film».',
+		frase_completa: '私[わたし]は【映画[えいが]を見[み]に行[い]くつもり】です。',
 		spiegazione: { perche_giusta: 'Ordine: 映画を→見に→行く→つもり («ho intenzione di andare a vedere un film»); alla ★ (3ª casella) va 行く.', perche_sbagliate: ['見に va nella 2ª casella', '映画を va nella 1ª casella', 'つもり chiude, nella 4ª casella'] }
 	},
 	{
@@ -452,6 +456,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		prompt: '★に 入るのは? 「日本語が ＿① ＿② ★③ ＿④。」 語群: 話せる・ように・なり・たい',
 		choices: ['なり', 'ように', '話せる', 'たい'], correct: 0,
 		traduzione: 'Frase completa: 日本語が 話せる ように なりたい — «Voglio arrivare a saper parlare giapponese».',
+		frase_completa: '日本語[にほんご]が【話[はな]せるようになり】たい。',
 		spiegazione: { perche_giusta: 'Pattern 〜ようになる: 話せる→ように→なり→たい («voglio arrivare a saper parlare»); alla ★ va なり.', perche_sbagliate: ['ように va nella 2ª casella', '話せる apre, nella 1ª casella', 'たい chiude, nella 4ª casella'] }
 	},
 
@@ -730,6 +735,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ ある。」 語群: 日本[にほん]へ・行[い]った・ことが・一度[いちど]',
 		choices: ['ことが', '行[い]った', '一度[いちど]', '日本[にほん]へ'], correct: 0,
 		traduzione: 'Frase completa: 私は 一度 日本へ 行った ことが ある — «Sono stato in Giappone una volta».',
+		frase_completa: '私[わたし]は【一度[いちど]日本[にほん]へ行[い]ったことが】ある。',
 		spiegazione: { perche_giusta: 'Pattern 〜たことがある: 一度→日本へ→行った→ことが→ある; alla ★ (3ª) va ことが.', perche_sbagliate: ['行った va nella 2ª casella', '一度 apre, nella 1ª casella', '日本へ va prima del verbo'] }
 	},
 	{
@@ -793,6 +799,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	// 文の組み立て
 	{ id: 'ku-4', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「休[やす]みの 日[ひ]は ＿① ＿② ★③ ＿④ する。」 語群: 本[ほん]を・読[よ]んだり・音楽[おんがく]を・聞[き]いたり', choices: ['音楽[おんがく]を', '読[よ]んだり', '本[ほん]を', '聞[き]いたり'], correct: 0,
 		traduzione: 'Frase completa: 休みの日は 本を 読んだり 音楽を 聞いたり する — «Nei giorni liberi leggo, ascolto musica, ecc.».',
+		frase_completa: '休[やす]みの日[ひ]は【本[ほん]を読[よ]んだり音楽[おんがく]を聞[き]いたり】する。',
 		spiegazione: { perche_giusta: 'Pattern 〜たり〜たり: 本を→読んだり→音楽を→聞いたり; alla ★ va 音楽を.', perche_sbagliate: ['読んだり va nella 2ª casella', '本を apre, 1ª casella', '聞いたり chiude, 4ª casella'] } },
 	// 文章の文法
 	{ id: 'bb-4', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile', prompt: '田中[たなか]さんは いつも 人[ひと]を 助[たす]ける。＿＿ 人[ひと]は クラスに 少[すく]ない。', choices: ['そんな', 'あんな', 'どんな', 'こんな'], correct: 0,
@@ -866,9 +873,11 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	// 文の組み立て
 	{ id: 'ku-5', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ する。」 語群: 音楽[おんがく]を・聞[き]き・ながら・勉強[べんきょう]', choices: ['ながら', '聞[き]き', '音楽[おんがく]を', '勉強[べんきょう]'], correct: 0,
 		traduzione: 'Frase completa: 私は 音楽を 聞き ながら 勉強 する — «Studio ascoltando musica».',
+		frase_completa: '私[わたし]は【音楽[おんがく]を聞[き]きながら勉強[べんきょう]】する。',
 		spiegazione: { perche_giusta: 'Pattern 〜ながら: 音楽を→聞き→ながら→勉強; alla ★ va ながら.', perche_sbagliate: ['聞き va nella 2ª casella', '音楽を apre, 1ª casella', '勉強 chiude, 4ª casella'] } },
 	{ id: 'ku-6', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「もう おそいから ＿① ＿② ★③ ＿④ です。」 語群: 早[はや]く・寝[ね]た・ほうが・いい', choices: ['ほうが', '寝[ね]た', '早[はや]く', 'いい'], correct: 0,
 		traduzione: 'Frase completa: もう おそいから 早く 寝た ほうが いい です — «È tardi, meglio andare a dormire presto».',
+		frase_completa: 'もう おそいから【早[はや]く寝[ね]たほうがいい】です。',
 		spiegazione: { perche_giusta: 'Pattern 〜たほうがいい: 早く→寝た→ほうが→いい; alla ★ va ほうが.', perche_sbagliate: ['寝た va nella 2ª casella', '早く apre, 1ª casella', 'いい chiude, 4ª casella'] } },
 	// 読解 短文
 	{ id: 'dt-4', mondai: 'dokkai-tan', livello_jlpt: 'N4', tier: 'facile', prompt: '〔文章〕先週[せんしゅう]、友[とも]だちと 山[やま]に 登[のぼ]った。天気[てんき]が よくて、上[うえ]から 町[まち]が よく 見[み]えた。つかれたが、とても 楽[たの]しかった。 問: この 人は 山[やま]で どう 思[おも]いましたか。', choices: ['疲[つか]れたが 楽[たの]しかった', 'つまらなかった', '天気[てんき]が 悪[わる]くて 残念[ざんねん]だった', '町[まち]が 見[み]えなかった'], correct: 0,
@@ -966,8 +975,12 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	// ── Volume sui tipi curati-only (originali) ──────────────────────────
 	// 組み立て
 	{ id: 'ku-7', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ 見[み]ます。」 語群: 宿題[しゅくだい]を・してから・テレビを・ゆっくり', choices: ['テレビを', 'してから', '宿題[しゅくだい]を', 'ゆっくり'], correct: 0,
+		traduzione: 'Frase completa: 私は 宿題を してから テレビを ゆっくり 見ます — «Faccio i compiti e poi guardo la TV con calma».',
+		frase_completa: '私[わたし]は【宿題[しゅくだい]をしてからテレビをゆっくり】見[み]ます。',
 		spiegazione: { perche_giusta: 'Pattern 〜てから: 宿題を→してから→テレビを→ゆっくり見ます; alla ★ va テレビを.', perche_sbagliate: ['してから va nella 2ª casella', '宿題を apre, 1ª casella', 'ゆっくり va appena prima del verbo'] } },
 	{ id: 'ku-8', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「この 本[ほん]は ＿① ＿② ★③ ＿④ です。」 語群: 字[じ]が・小[ちい]さくて・読[よ]み・にくい', choices: ['読[よ]み', '小[ちい]さくて', '字[じ]が', 'にくい'], correct: 0,
+		traduzione: 'Frase completa: この 本は 字が 小さくて 読みにくい です — «Questo libro ha caratteri piccoli ed è difficile da leggere».',
+		frase_completa: 'この本[ほん]は【字[じ]が小[ちい]さくて読[よ]みにくい】です。',
 		spiegazione: { perche_giusta: 'Pattern 〜にくい: 字が→小さくて→読み→にくい; alla ★ va 読み.', perche_sbagliate: ['小さくて va nella 2ª casella', '字が apre, 1ª casella', 'にくい chiude, 4ª casella'] } },
 	// 言い換え
 	{ id: 'ii-7', mondai: 'iikae', livello_jlpt: 'N4', prompt: 'この 仕事[しごと]は 難[むずか]しく ない。 ≒ ?', choices: ['この 仕事[しごと]は やさしい。', 'この 仕事[しごと]は 大変[たいへん]だ。', 'この 仕事[しごと]は 多[おお]い。', 'この 仕事[しごと]は 大切[たいせつ]だ。'], correct: 0,

@@ -49,6 +49,24 @@
 	}
 
 	const p = $derived(parse(text));
+
+	// 組み立て: i 4 spazi «＿①＿②★③＿④» sono illeggibili una volta tolti gli spazi.
+	// Renderli come CASELLE distinte, senza numeri, con la ★ evidenziata (il pezzo
+	// da indovinare va lì). Ritorna testo e caselle da comporre inline.
+	function kumiSegments(body: string): { kind: 'text' | 'box'; text?: string; star?: boolean }[] {
+		const out: { kind: 'text' | 'box'; text?: string; star?: boolean }[] = [];
+		const re = /([＿★])[①-⑳]/g;
+		let last = 0;
+		let m: RegExpExecArray | null;
+		while ((m = re.exec(body))) {
+			if (m.index > last) out.push({ kind: 'text', text: body.slice(last, m.index) });
+			out.push({ kind: 'box', star: m[1] === '★' });
+			last = m.index + m[0].length;
+		}
+		if (last < body.length) out.push({ kind: 'text', text: body.slice(last) });
+		return out;
+	}
+	const kumiParts = $derived(p.kumitate ? kumiSegments(p.body) : []);
 	// 【…】 marca la parola-bersaglio (es. 漢字読み): all'esame va SOTTOLINEATA,
 	// non messa tra parentesi. Spezza la riga in segmenti normali/bersaglio.
 	function segs(line: string): { t: string; target: boolean }[] {
@@ -87,7 +105,13 @@
 	{:else if instr}
 		<p class="ep-instr">{instr}</p>
 	{/if}
-	{#if p.body}
+	{#if p.body && p.kumitate}
+		<p class="ep-line kumi">
+			{#each kumiParts as part, i (i)}
+				{#if part.kind === 'box'}<span class="kumi-box" class:star={part.star}>{part.star ? '★' : ''}</span>{:else}{@render piece(part.text ?? '')}{/if}
+			{/each}
+		</p>
+	{:else if p.body}
 		<div class="ep-body">
 			{#each bodyLines as line (line)}
 				<p class="ep-line">
@@ -118,4 +142,8 @@
 	.ep-q { margin: 4px 0 0; font-weight: 700; border-top: 1px solid var(--line); padding-top: 6px; }
 	/* Parola-bersaglio come all'esame: sottolineata, non tra parentesi. */
 	.ep-target { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+	/* 組み立て: caselle vuote ben separate, la ★ evidenziata (lì va la risposta). */
+	.ep-line.kumi { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; line-height: 2.2; }
+	.kumi-box { display: inline-block; min-width: 2.4em; border-bottom: 2px solid var(--ink); text-align: center; }
+	.kumi-box.star { border: 2px solid var(--warn-ink); border-radius: 6px; color: var(--warn-ink); font-weight: 800; background: var(--warn-bg); min-width: 2em; }
 </style>
