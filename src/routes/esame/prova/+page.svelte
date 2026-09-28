@@ -918,6 +918,15 @@
 						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => (a.q.sezione === 'choukai' ? speakExamListening(a.q.prompt) : speak(a.q.prompt))}>🔊</button>
 					</div>
 					<p class="rev-line">✔️ <strong>{a.q.choices[a.q.correct]}</strong></p>
+					{#if a.q.fraseCompleta}
+						<div class="rev-completa">
+							<span class="fbc-label">Frase completa (parti inserite sottolineate):</span>
+							<div class="rev-q">
+								<ExamPrompt text={a.q.fraseCompleta} furigana={qFurigana} />
+								<button class="tts" title="Ascolta la soluzione" aria-label="Ascolta la soluzione" onclick={() => speak(a.q.fraseCompleta!.replace(/[【】]/g, ''))}>🔊</button>
+							</div>
+						</div>
+					{/if}
 					{#if a.q.traduzione}<p class="rev-line it">💬 {a.q.traduzione}</p>{/if}
 					{#if a.answered && !a.correct && (a.picked ?? -1) >= 0}
 						<p class="rev-line muted">La tua: {a.q.choices[a.picked ?? 0]}</p>
@@ -1048,7 +1057,7 @@
 	.fb-note { font-size: 0.8rem; color: var(--info-ink); }
 	.fb-note.muted { color: var(--muted); }
 	.fb-it { margin: 0; font-size: 0.85rem; color: var(--ink); }
-	.fb-completa { display: grid; gap: 2px; border-left: 3px solid var(--ok-ink); padding-left: 8px; }
+	.fb-completa, .rev-completa { display: grid; gap: 2px; border-left: 3px solid var(--ok-ink); padding-left: 8px; }
 	.fbc-label { font-size: 0.72rem; color: var(--muted); font-weight: 700; }
 	.fb-hint { margin: 0; font-size: 0.72rem; color: var(--muted); }
 	.fb-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
