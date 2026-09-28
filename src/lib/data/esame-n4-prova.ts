@@ -177,7 +177,8 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 				choices: q.choices,
 				correct: q.correct,
 				perche_giusta: q.perche_giusta,
-				perche_sbagliate: q.perche_sbagliate
+				perche_sbagliate: q.perche_sbagliate,
+				traduzione: q.traduzione
 			});
 		}
 	}

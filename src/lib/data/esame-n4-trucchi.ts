@@ -20,6 +20,7 @@ export interface TruccoQuiz {
 	correct: number;
 	perche_giusta: string;
 	perche_sbagliate: string[]; // una nota per ciascun distrattore, ordine = choices senza la giusta
+	traduzione?: string; // traduzione IT della frase (mostrata nei risultati)
 }
 
 export interface TruccoVocab {
@@ -95,6 +96,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: 'ドアに かぎが ＿＿。（鍵はかかった状態）',
+				traduzione: 'La porta è chiusa a chiave. (stato: la chiave è girata)',
 				choices: ['かかって います', 'かけて います', 'かけます', 'かかります'],
 				correct: 0,
 				perche_giusta: 'Stato risultante: 自動詞 かかる + ている = «la chiave è messa / è chiuso a chiave».',
@@ -106,6 +108,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: 'あっ、コップ＿＿ 割[わ]れましたよ。',
+				traduzione: 'Ah, il bicchiere si è rotto!',
 				choices: ['が', 'を', 'に', 'で'],
 				correct: 0,
 				perche_giusta: '割れる è intransitivo: vuole が, il bicchiere si rompe da sé.',
@@ -117,6 +120,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: 'エアコンを ＿＿ から、部屋[へや]が 涼[すず]しく なりました。',
+				traduzione: 'Da quando ho acceso il condizionatore, la stanza si è rinfrescata.',
 				choices: ['つけた', 'ついた', 'つく', 'つけて ある'],
 				correct: 0,
 				perche_giusta: 'Serve l’azione compiuta da qualcuno: 他動詞 つける al passato piano つけた + から (causa).',
@@ -181,6 +185,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: '先生[せんせい]、荷物[にもつ]を 持[も]って ＿＿ ありがとうございます。',
+				traduzione: 'Professore, grazie per avermi portato i bagagli.',
 				choices: ['くださって', 'あげて', 'やって', 'もらって'],
 				correct: 0,
 				perche_giusta: 'Un superiore fa un favore verso di me → 〜てくださって (keigo di 〜てくれて).',
@@ -192,6 +197,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '私[わたし]は 友[とも]だち＿＿ 消[け]しゴムを 借[か]りました。',
+				traduzione: 'Ho preso in prestito la gomma da un amico.',
 				choices: ['に', 'が', 'を', 'へ'],
 				correct: 0,
 				perche_giusta: 'La fonte di ciò che ricevo/prendo si marca con に (o から): 友だちに借りる.',
@@ -203,6 +209,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '田中[たなか]さんが 私[わたし]の 息子[むすこ]に 日本語[にほんご]を 教[おし]えて ＿＿。',
+				traduzione: 'Il signor Tanaka ha insegnato il giapponese a mio figlio (per me).',
 				choices: ['くれました', 'もらいました', 'あげました', 'いただきました'],
 				correct: 0,
 				perche_giusta: 'Il favore va verso il mio gruppo (mio figlio) e il soggetto è chi dà (田中さんが) → 〜てくれました.',
@@ -267,6 +274,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: '時間[じかん]が ＿＿、映画[えいが]を 見[み]に 行[い]きましょう。',
+				traduzione: 'Se c’è tempo, andiamo a vedere un film.',
 				choices: ['あったら', 'あると', 'あれば いい', 'ある なら'],
 				correct: 0,
 				perche_giusta: 'たら regge una proposta/volontà nella principale (〜ましょう): «se c’è tempo, andiamo».',
@@ -278,6 +286,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '「レポート[れぽーと]、どう しよう…」「難[むずか]しい ＿＿、先生[せんせい]に 聞[き]いて みたら？」',
+				traduzione: '«La relazione, come faccio…» «Se è difficile, perché non provi a chiedere al professore?»',
 				choices: ['なら', 'と', 'ば', 'たら'],
 				correct: 0,
 				perche_giusta: 'なら riprende ciò che l’altro ha appena detto («è difficile?») per dare un consiglio.',
@@ -289,6 +298,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '「いい 辞書[じしょ]が ほしいんです。」「辞書[じしょ]＿＿、駅前[えきまえ]の 店[みせ]が 安[やす]いですよ。」',
+				traduzione: '«Vorrei un buon dizionario.» «Per quanto riguarda i dizionari, il negozio davanti alla stazione è economico.»',
 				choices: ['なら', 'だと', 'たら', 'ば'],
 				correct: 0,
 				perche_giusta: 'なら si attacca direttamente al nome e riprende il tema appena introdotto (i dizionari) per dare un consiglio.',
@@ -348,6 +358,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: 'お客[きゃく]さま、こちらで 少々[しょうしょう] ＿＿ ください。',
+				traduzione: 'Gentile cliente, attenda un momento qui, prego.',
 				choices: ['お待[ま]ち', '待って いて', 'お待ちに なって', '待たれて'],
 				correct: 0,
 				perche_giusta: 'お＋連用形＋ください è la richiesta onorifica standard: お待ちください.',
@@ -359,6 +370,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '（自分[じぶん]の こと）明日[あした]、御社[おんしゃ]に ＿＿。',
+				traduzione: '(di sé) Domani verrò presso la vostra azienda.',
 				choices: ['伺[うかが]います', 'いらっしゃいます', 'おいでに なります', '来[こ]られます'],
 				correct: 0,
 				perche_giusta: 'Parlo di ME che vado dall’altro → 謙譲語 伺う.',
@@ -370,6 +382,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '先生[せんせい]は この 本[ほん]を もう ＿＿ か。',
+				traduzione: 'Professore, ha già letto questo libro?',
 				choices: ['お読[よ]みに なりました', '拝読[はいどく]しました', 'お読みしました', '読んで あげました'],
 				correct: 0,
 				perche_giusta: 'Chiedo dell’azione del maestro → 尊敬語 お読みになりました.',
@@ -429,6 +442,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: '子供[こども]の とき、母[はは]に 毎日[まいにち] 野菜[やさい]を ＿＿。',
+				traduzione: 'Da bambino, mia madre mi faceva mangiare le verdure ogni giorno.',
 				choices: ['食[た]べさせられました', '食べられました', '食べさせました', '食べさせて くれました'],
 				correct: 0,
 				perche_giusta: '«Ero costretto a mangiare» = 使役受身 食べさせられる.',
@@ -440,6 +454,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '昨日[きのう]、電車[でんしゃ]で 足[あし]を ＿＿、痛[いた]かったです。',
+				traduzione: 'Ieri in treno mi hanno pestato un piede e mi ha fatto male.',
 				choices: ['踏[ふ]まれて', '踏ませて', '踏んで', '踏まれさせて'],
 				correct: 0,
 				perche_giusta: 'Passivo di sofferenza: «mi hanno pestato il piede» → 踏まれる.',
@@ -451,6 +466,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '先生[せんせい]は 生徒[せいと]＿＿ 教室[きょうしつ]を 掃除[そうじ]させました。',
+				traduzione: 'Il professore ha fatto pulire l’aula agli studenti.',
 				choices: ['に', 'を', 'が', 'へ'],
 				correct: 0,
 				perche_giusta: 'Causativo di un verbo transitivo (掃除する): la persona fatta agire prende に.',
@@ -510,6 +526,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: 'ニュース[にゅーす]に よると、来年[らいねん] 電車[でんしゃ]の 料金[りょうきん]が 上[あ]がる ＿＿。',
+				traduzione: 'Secondo il notiziario, l’anno prossimo le tariffe dei treni aumenteranno (pare).',
 				choices: ['そうです', 'そうな', 'ようです', 'ように'],
 				correct: 0,
 				perche_giusta: 'Riporto una notizia (ニュースによると) → 〜そうだ hearsay, attaccato alla piana 上がる.',
@@ -521,6 +538,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: 'この 靴[くつ]、ちょっと 高[たか]い けど、＿＿ ですね。',
+				traduzione: 'Queste scarpe sono un po’ care, ma sembrano buone, vero?',
 				choices: ['よさそう', 'いいそう', 'よいらしい', 'いいよう'],
 				correct: 0,
 				perche_giusta: 'Apparenza da いい: irregolare いい→よさそう.',
@@ -532,6 +550,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '（窓[まど]の 外[そと]を 見[み]て）道[みち]が ぬれて いる。夜[よる]の 間[あいだ]に 雨[あめ]が 降[ふ]った ＿＿。',
+				traduzione: '(guardando fuori) La strada è bagnata. Dev’essere piovuto durante la notte.',
 				choices: ['ようだ', 'そうだ（様態）', 'らしい と 言[い]った', 'そう'],
 				correct: 0,
 				perche_giusta: 'Deduco da un indizio che vedo io (strada bagnata) → 〜ようだ.',
@@ -591,6 +610,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: '一生懸命[いっしょうけんめい] 練習[れんしゅう]した。＿＿、優勝[ゆうしょう]できなかった。',
+				traduzione: 'Mi sono allenato con tutte le forze. Ciononostante, non sono riuscito a vincere.',
 				choices: ['それでも', 'だから', 'それで', 'つまり'],
 				correct: 0,
 				perche_giusta: 'C’è un contrasto (mi sono impegnato ma non ho vinto) → それでも «ciononostante».',
@@ -602,6 +622,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '今朝[けさ]は 忙[いそが]しくて、＿＿ 朝[あさ]ご飯[はん]を 食[た]べる 時間[じかん]が なかった。',
+				traduzione: 'Stamattina ero occupato e non ho avuto nemmeno il tempo di fare colazione.',
 				choices: ['ぜんぜん', 'とても', 'もう', 'きっと'],
 				correct: 0,
 				perche_giusta: 'ぜんぜん + negativo = «per niente»: si accorda con なかった.',
@@ -613,6 +634,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '駅[えき]から 遠[とお]い。＿＿、家賃[やちん]も 高[たか]い。この 部屋[へや]は やめよう。',
+				traduzione: 'È lontano dalla stazione. Per di più, l’affitto è alto. Lasciamo perdere questa stanza.',
 				choices: ['それに', 'しかし', 'だから', 'でも'],
 				correct: 0,
 				perche_giusta: 'それに aggiunge un secondo difetto nello stesso senso (lontano E caro).',
@@ -672,6 +694,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: '来週[らいしゅう] 友[とも]だち＿＿ 京都[きょうと]へ 行[い]きます。',
+				traduzione: 'La prossima settimana vado a Kyoto con un amico.',
 				choices: ['と', 'に', 'を', 'で'],
 				correct: 0,
 				perche_giusta: 'と = «insieme a»: 友だちと行く.',
@@ -683,6 +706,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: 'コンビニ[こんびに]＿＿ お弁当[べんとう]を 買[か]いました。',
+				traduzione: 'Ho comprato un bento al konbini.',
 				choices: ['で', 'に', 'を', 'へ'],
 				correct: 0,
 				perche_giusta: 'で = luogo in cui avviene l’azione di comprare.',
@@ -694,6 +718,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '「机[つくえ]の 上[うえ]＿＿ 何[なに]が ありますか。」',
+				traduzione: '«Che cosa c’è sul tavolo?»',
 				choices: ['に', 'で', 'を', 'と'],
 				correct: 0,
 				perche_giusta: 'に = luogo di esistenza con ある.',
@@ -753,6 +778,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 		quiz: [
 			{
 				prompt: 'すみません、その 話[はなし]は ＿＿ 覚[おぼ]えて いません。',
+				traduzione: 'Scusi, non ricordo affatto quella storia.',
 				choices: ['あまり', 'とても', 'ずっと', 'すっかり'],
 				correct: 0,
 				perche_giusta: 'あまり + negativo = «non molto»: あまり覚えていません.',
@@ -764,6 +790,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '急[いそ]げば、まだ 終電[しゅうでん]に ＿＿。',
+				traduzione: 'Se ci sbrighiamo, facciamo ancora in tempo per l’ultimo treno.',
 				choices: ['間[ま]に 合[あ]う', '間に する', '時間[じかん]が する', '合[あ]わせる'],
 				correct: 0,
 				perche_giusta: 'La collocazione fissa è 間に合う «fare in tempo».',
@@ -775,6 +802,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 			},
 			{
 				prompt: '大切[たいせつ]な 書類[しょるい]です。なくさない ように ＿＿ ください。',
+				traduzione: 'Sono documenti importanti. Faccia attenzione a non perderli.',
 				choices: ['気[き]を つけて', '気に なって', '気が して', '気に して'],
 				correct: 0,
 				perche_giusta: '気をつける = «fare attenzione»: collocazione con を.',
