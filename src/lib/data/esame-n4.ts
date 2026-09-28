@@ -733,10 +733,10 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{
 		id: 'ku-3', mondai: 'kumitate', livello_jlpt: 'N4',
 		prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ ある。」 語群: 日本[にほん]へ・行[い]った・ことが・一度[いちど]',
-		choices: ['ことが', '行[い]った', '一度[いちど]', '日本[にほん]へ'], correct: 0,
+		choices: ['ことが', '行[い]った', '一度[いちど]', '日本[にほん]へ'], correct: 1,
 		traduzione: 'Frase completa: 私は 一度 日本へ 行った ことが ある — «Sono stato in Giappone una volta».',
 		frase_completa: '私[わたし]は【一度[いちど]日本[にほん]へ行[い]ったことが】ある。',
-		spiegazione: { perche_giusta: 'Pattern 〜たことがある: 一度→日本へ→行った→ことが→ある; alla ★ (3ª) va ことが.', perche_sbagliate: ['行った va nella 2ª casella', '一度 apre, nella 1ª casella', '日本へ va prima del verbo'] }
+		spiegazione: { perche_giusta: 'Pattern 〜たことがある: 一度→日本へ→行った→ことが→ある; alla ★ (3ª casella) va 行った.', perche_sbagliate: ['ことが chiude prima di ある, 4ª casella', '一度 apre, 1ª casella', '日本へ va nella 2ª casella'] }
 	},
 	{
 		id: 'bb-3', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile',
@@ -797,10 +797,10 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		traduzione: 'Stamattina sono andato a scuola senza fare colazione.',
 		spiegazione: { perche_giusta: '〜ないで = «senza fare»: andò senza mangiare.', perche_sbagliate: ['〜なくて esprime causa/stato, non «senza compiere l’azione»', '〜ないと = «se non»', '〜ずには richiede un seguito (〜ずにはいられない)'] } },
 	// 文の組み立て
-	{ id: 'ku-4', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「休[やす]みの 日[ひ]は ＿① ＿② ★③ ＿④ する。」 語群: 本[ほん]を・読[よ]んだり・音楽[おんがく]を・聞[き]いたり', choices: ['音楽[おんがく]を', '読[よ]んだり', '本[ほん]を', '聞[き]いたり'], correct: 0,
-		traduzione: 'Frase completa: 休みの日は 本を 読んだり 音楽を 聞いたり する — «Nei giorni liberi leggo, ascolto musica, ecc.».',
-		frase_completa: '休[やす]みの日[ひ]は【本[ほん]を読[よ]んだり音楽[おんがく]を聞[き]いたり】する。',
-		spiegazione: { perche_giusta: 'Pattern 〜たり〜たり: 本を→読んだり→音楽を→聞いたり; alla ★ va 音楽を.', perche_sbagliate: ['読んだり va nella 2ª casella', '本を apre, 1ª casella', '聞いたり chiude, 4ª casella'] } },
+	{ id: 'ku-4', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「最近[さいきん] 日本語[にほんご]が ＿① ＿② ★③ ＿④ きた。」 語群: 少[すこ]しずつ・分[わ]かる・ように・なって', choices: ['ように', '分[わ]かる', '少[すこ]しずつ', 'なって'], correct: 0,
+		traduzione: 'Frase completa: 最近 日本語が 少しずつ 分かる ように なって きた — «Ultimamente capisco il giapponese a poco a poco».',
+		frase_completa: '最近[さいきん]日本語[にほんご]が【少[すこ]しずつ分[わ]かるようになって】きた。',
+		spiegazione: { perche_giusta: 'Pattern 〜ようになってくる: 少しずつ→分かる→ように→なって; alla ★ (3ª casella) va ように.', perche_sbagliate: ['分かる va nella 2ª casella', '少しずつ apre, 1ª casella', 'なって va prima di きた, 4ª casella'] } },
 	// 文章の文法
 	{ id: 'bb-4', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile', prompt: '田中[たなか]さんは いつも 人[ひと]を 助[たす]ける。＿＿ 人[ひと]は クラスに 少[すく]ない。', choices: ['そんな', 'あんな', 'どんな', 'こんな'], correct: 0,
 		spiegazione: { perche_giusta: 'そんな riprende quanto appena detto (persone «così»).', perche_sbagliate: ['あんな = «di quel tipo (lontano da entrambi)»', 'どんな = «che tipo?» (domanda)', 'こんな = «così (vicino a me)», non riprende il discorso'] } },
@@ -974,10 +974,10 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 
 	// ── Volume sui tipi curati-only (originali) ──────────────────────────
 	// 組み立て
-	{ id: 'ku-7', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「私は ＿① ＿② ★③ ＿④ 見[み]ます。」 語群: 宿題[しゅくだい]を・してから・テレビを・ゆっくり', choices: ['テレビを', 'してから', '宿題[しゅくだい]を', 'ゆっくり'], correct: 0,
-		traduzione: 'Frase completa: 私は 宿題を してから テレビを ゆっくり 見ます — «Faccio i compiti e poi guardo la TV con calma».',
-		frase_completa: '私[わたし]は【宿題[しゅくだい]をしてからテレビをゆっくり】見[み]ます。',
-		spiegazione: { perche_giusta: 'Pattern 〜てから: 宿題を→してから→テレビを→ゆっくり見ます; alla ★ va テレビを.', perche_sbagliate: ['してから va nella 2ª casella', '宿題を apre, 1ª casella', 'ゆっくり va appena prima del verbo'] } },
+	{ id: 'ku-7', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「子[こ]どもが ＿① ＿② ★③ ＿④ なった。」 語群: 一人[ひとり]で・服[ふく]を・着[き]られる・ように', choices: ['着[き]られる', '服[ふく]を', '一人[ひとり]で', 'ように'], correct: 0,
+		traduzione: 'Frase completa: 子どもが 一人で 服を 着られる ように なった — «Il bambino è diventato capace di vestirsi da solo».',
+		frase_completa: '子[こ]どもが【一人[ひとり]で服[ふく]を着[き]られるように】なった。',
+		spiegazione: { perche_giusta: 'Pattern 〜ようになる: 一人で・服を→着られる→ように→なった; alla ★ (3ª casella) va 着られる (resta 3ª qualunque sia l’ordine di 一人で/服を).', perche_sbagliate: ['服を precede 着られる (1ª/2ª casella)', '一人で apre, 1ª casella', 'ように va prima di なった, 4ª casella'] } },
 	{ id: 'ku-8', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「この 本[ほん]は ＿① ＿② ★③ ＿④ です。」 語群: 字[じ]が・小[ちい]さくて・読[よ]み・にくい', choices: ['読[よ]み', '小[ちい]さくて', '字[じ]が', 'にくい'], correct: 0,
 		traduzione: 'Frase completa: この 本は 字が 小さくて 読みにくい です — «Questo libro ha caratteri piccoli ed è difficile da leggere».',
 		frase_completa: 'この本[ほん]は【字[じ]が小[ちい]さくて読[よ]みにくい】です。',
