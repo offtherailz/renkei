@@ -50,12 +50,14 @@ export function opposite(g: Gender): Gender {
 export function voiceParams(gender: Gender): SpeakOptions {
 	const v = findGenderVoice(gender);
 	if (gender === 'femminile') {
-		return v ? { voice: v, pitch: 1.0, rate: 1 } : { voice: null, pitch: 1.06, rate: 1 };
+		return v ? { voice: v, pitch: 1.0, rate: 1 } : { voice: null, pitch: 1.12, rate: 1.02 };
 	}
 	if (v) return { voice: v, pitch: 1.0, rate: 0.98 };
 	const voices = jaVoices();
-	if (voices.length > 1) return { voice: voices[voices.length - 1]!, pitch: 0.92, rate: 0.97 };
-	return { voice: null, pitch: 0.82, rate: 0.96 };
+	if (voices.length > 1) return { voice: voices[voices.length - 1]!, pitch: 0.9, rate: 0.95 };
+	// Una sola voce di sistema: divario più ampio così maschile/femminile si
+	// distinguono comunque (utente lamentava voci troppo simili nei dialoghi).
+	return { voice: null, pitch: 0.72, rate: 0.94 };
 }
 
 // Alcuni browser popolano le voci in modo asincrono: forza un caricamento.

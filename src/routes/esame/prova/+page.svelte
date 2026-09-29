@@ -250,11 +250,16 @@
 	// 発話表現/即時応答: opzioni SOLO AUDIO come all'esame (testo svelato dopo la risposta).
 	const audioOnly = $derived(q?.mondaiSlug === 'hatsuwa' || q?.mondaiSlug === 'sokuji');
 	const revealText = $derived(!isListening || (picked !== null && mode === 'renshu'));
-	// riproduce l'audio giusto per il tipo: 発話/即時 leggono anche le opzioni
+	// Riproduce l'audio giusto per il tipo. UN SOLO punto: così domanda, feedback e
+	// review usano SEMPRE le stesse voci (utente lamentava voci diverse nella risposta).
+	function playFor(qq: ProvaQuestion, rate = 1) {
+		if (qq.sezione !== 'choukai') { speak(qq.prompt, rate); return; }
+		if (qq.mondaiSlug === 'hatsuwa' || qq.mondaiSlug === 'sokuji')
+			speakExamChoices(qq.prompt, qq.choices, qq.mondaiSlug as 'hatsuwa' | 'sokuji', rate);
+		else speakExamListening(qq.prompt, rate);
+	}
 	function playCurrent(rate = 1) {
-		if (!q) return;
-		if (audioOnly) speakExamChoices(q.prompt, q.choices, q.mondaiSlug as 'hatsuwa' | 'sokuji', rate);
-		else speakExamListening(q.prompt, rate);
+		if (q) playFor(q, rate);
 	}
 
 	function fmt(sec: number): string {
@@ -830,7 +835,7 @@
 					<p class="fb"><strong>{picked === q.correct ? '✅ Giusto!' : picked === -1 ? '🤷 Vediamola insieme.' : '❌ Non proprio.'}</strong></p>
 					<div class="fb-jp">
 						<ExamPrompt text={q.prompt} interactive={true} mondai={q.mondaiSlug} />
-						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => (isListening ? speakExamListening(q.prompt) : speak(q.prompt))}>🔊</button>
+						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => playFor(q!)}>🔊</button>
 					</div>
 					{#if q.fraseCompleta}
 						<div class="fb-completa">
@@ -938,7 +943,7 @@
 				<article class="rev" class:ko={!a.correct}>
 					<div class="rev-q">
 						<ExamPrompt text={a.q.prompt} interactive={true} mondai={a.q.mondaiSlug} />
-						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => (a.q.sezione === 'choukai' ? speakExamListening(a.q.prompt) : speak(a.q.prompt))}>🔊</button>
+						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => playFor(a.q)}>🔊</button>
 					</div>
 					<p class="rev-line">✔️ <strong>{a.q.choices[a.q.correct]}</strong></p>
 					{#if a.q.fraseCompleta}
