@@ -110,6 +110,17 @@ describe('prova simulata N4', () => {
 					expect(q.choices.length, `${q.mondaiSlug}: ${q.prompt}`).toBe(3);
 	});
 
+	// Regressione: i cloze grammaticali (col buco ＿) NON devono finire in 発話表現
+	// (situazione → cosa dici) né in 即時応答 (battuta → risposta). Erano finiti lì
+	// i round del gioco 授受.
+	it('発話表現/即時応答 non contengono cloze grammaticali (nessun buco ＿)', () => {
+		for (const slug of ['hatsuwa', 'sokuji']) {
+			for (const q of mondaiPool(slug, { shuffle: false })) {
+				expect(q.prompt.includes('＿'), `${slug} con buco: ${q.prompt}`).toBe(false);
+			}
+		}
+	});
+
 	it('le sezioni rispettano l’ordine ufficiale', () => {
 		const mock = buildMock({ shuffle: false });
 		const ids = mock.sezioni.map((s) => s.id);

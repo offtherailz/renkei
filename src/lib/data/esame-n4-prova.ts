@@ -187,10 +187,12 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 		}
 	}
 
-	// 3) Round dei mini-giochi (授受 → 発話表現; 条件 → 文法1)
+	// 3) Round dei mini-giochi. Sono CLOZE grammaticali (scegli la forma nel buco):
+	// 授受 e 条件 vanno entrambi in 文法1 (文の文法), NON in 発話表現 (che è
+	// «situazione → cosa dici»). 発話表現 usa solo item curati col formato giusto.
 	for (const r of GIOCO_JUJU) {
-		push('hatsuwa', {
-			mondaiSlug: 'hatsuwa',
+		push('bunpo1', {
+			mondaiSlug: 'bunpo1',
 			prompt: r.prompt,
 			choices: r.choices,
 			correct: r.correct,
