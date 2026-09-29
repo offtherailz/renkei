@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-label="Chiamare il commesso in un negozio">
+  <rect width="360" height="240" fill="#f3f6fb"/>
+  <rect x="20" y="30" width="320" height="180" rx="12" fill="#e8eef7"/>
+  <!-- shelves -->
+  <rect x="30" y="45" width="80" height="150" rx="6" fill="#d7e0ec"/>
+  <rect x="38" y="60" width="64" height="18" rx="3" fill="#b9c6d8"/>
+  <rect x="38" y="90" width="64" height="18" rx="3" fill="#b9c6d8"/>
+  <rect x="38" y="120" width="64" height="18" rx="3" fill="#b9c6d8"/>
+  <!-- counter -->
+  <rect x="210" y="150" width="120" height="45" rx="6" fill="#cdb894"/>
+  <!-- clerk behind counter -->
+  <circle cx="290" cy="120" r="16" fill="#f0c39c"/>
+  <rect x="276" y="136" width="28" height="20" rx="8" fill="#8bd0a8"/>
+  <!-- customer raising hand -->
+  <circle cx="150" cy="120" r="20" fill="#f0c39c"/>
+  <path d="M132 117 q18 -22 36 0" fill="#3b3b3b"/>
+  <rect x="132" y="143" width="36" height="50" rx="14" fill="#f2a65a"/>
+  <!-- raised arm -->
+  <rect x="160" y="96" width="12" height="52" rx="6" fill="#f2a65a" transform="rotate(20 160 148)"/>
+  <text x="150" y="70" font-size="30" text-anchor="middle" fill="#e0913a">!</text>
+</svg>

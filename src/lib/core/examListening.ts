@@ -123,3 +123,32 @@ export function speakExamListening(prompt: string, rate = 1): void {
 
 	void runSequence(items, token);
 }
+
+// 発話表現 / 即時応答: opzioni SOLO AUDIO come all'esame. Legge la situazione o la
+// battuta iniziale, poi le 3 (o più) risposte numerate «1ばん…». kind:
+//  - 'hatsuwa': prompt = situazione, letta dal narratore;
+//  - 'sokuji': prompt = battuta dell'interlocutore (voce femminile); risposte a
+//    voce alternata come farebbe l'altra persona.
+const NUM_KANA = ['１ばん', '２ばん', '３ばん', '４ばん'];
+export function speakExamChoices(prompt: string, options: string[], kind: 'hatsuwa' | 'sokuji', rate = 1): void {
+	const token = ++playToken;
+	stopSpeaking();
+	const fBase = voiceParams('femminile');
+	const narrator: SpeakOptions = { ...fBase, pitch: (fBase.pitch ?? 1) + 0.3, rate: rate * 0.92 };
+	const female: SpeakOptions = { ...voiceParams('femminile'), rate };
+	const male: SpeakOptions = { ...voiceParams('maschile'), rate };
+
+	// pulisci la consegna dai marcatori di servizio (〔…〕, 問:, ★/語群 non pertinenti)
+	let p = prompt.replace(/^〔[^〕]*〕\s*/, '').replace(/問[:：]\s*/, '').trim();
+
+	const items: Seg[] = [];
+	items.push({ text: kind === 'hatsuwa' ? 'えを 見[み]て ください。' : '', options: narrator });
+	items.push({ text: p, options: kind === 'hatsuwa' ? narrator : female });
+	items.push({ pause: 1500 });
+	options.forEach((o, i) => {
+		items.push({ text: NUM_KANA[i] ?? `${i + 1}`, options: narrator });
+		items.push({ text: o, options: male }); // le risposte le dice l'altra persona
+		items.push({ pause: 900 });
+	});
+	void runSequence(items.filter((s) => s.pause || (s.text ?? '') !== ''), token);
+}

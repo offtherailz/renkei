@@ -373,6 +373,9 @@ export interface CuratedExamItem {
 	// Frase completa (JP) per i 問題 in cui si riempiono spazi (組み立て): le parti
 	// inserite vanno tra 【…】 (sottolineate nei risultati) e la frase è ascoltabile.
 	frase_completa?: string;
+	// 発話表現: nome file immagine della situazione, in static/esame/hatsuwa/ (es.
+	// 'ha-1.webp'). Assente → situazione mostrata a testo. Opzioni sempre solo-audio.
+	immagine?: string;
 	spiegazione: ExamExplanation;
 	suggerimento?: string; // override del suggerimento del mondai, se serve
 	// Punti caldi allenati (id in EXAM_N4_HOT_POINTS): per la matrice di copertura.
@@ -690,18 +693,21 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{
 		id: 'ha-1', mondai: 'hatsuwa', livello_jlpt: 'N4',
 		prompt: '友[とも]だちの 家[いえ]に 上[あ]がる とき、何[なん]と 言[い]いますか。', choices: ['おじゃまします。', 'いただきます。', 'ごちそうさま。', 'ただいま。'], correct: 0,
+		immagine: 'ha-1.svg',
 		traduzione: 'Cosa dici quando entri in casa di un amico?',
 		spiegazione: { perche_giusta: 'Entrando in casa altrui si dice おじゃまします.', perche_sbagliate: ['いただきます si dice prima di mangiare', 'ごちそうさま dopo aver mangiato', 'ただいま si dice tornando a casa PROPRIA'] }
 	},
 	{
 		id: 'ha-2', mondai: 'hatsuwa', livello_jlpt: 'N4',
 		prompt: '店[みせ]で 店員[てんいん]を 呼[よ]びたい とき、何[なん]と 言[い]いますか。', choices: ['すみません。', 'ごめんください。', 'おつかれさま。', 'しつれいしました。'], correct: 0,
+		immagine: 'ha-2.svg',
 		traduzione: 'Cosa dici quando vuoi chiamare il commesso in un negozio?',
 		spiegazione: { perche_giusta: 'Per chiamare il personale: すみません.', perche_sbagliate: ['ごめんください si usa entrando in una casa/negozio vuoto', 'おつかれさま è tra colleghi', 'しつれいしました = «mi scusi (per il disturbo fatto)»'] }
 	},
 	{
 		id: 'ha-3', mondai: 'hatsuwa', livello_jlpt: 'N4',
 		prompt: '人[ひと]の 足[あし]を 踏[ふ]んで しまった とき、何[なん]と 言[い]いますか。', choices: ['あ、すみません。', 'どうぞ。', 'おだいじに。', 'よろしく。'], correct: 0,
+		immagine: 'ha-3.svg',
 		traduzione: 'Cosa dici quando pesti il piede a qualcuno?',
 		spiegazione: { perche_giusta: 'Ci si scusa: あ、すみません.', perche_sbagliate: ['どうぞ = «prego», offrire', 'おだいじに = «riguardati» (a un malato)', 'よろしく = «piacere/conto su di te»'] }
 	},
@@ -746,6 +752,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{
 		id: 'ha-4', mondai: 'hatsuwa', livello_jlpt: 'N4',
 		prompt: 'レストランで 注文[ちゅうもん]したい とき、店員[てんいん]に 何[なん]と 言[い]いますか。', choices: ['すみません、お願[ねが]いします。', 'ごちそうさまでした。', 'いただきます。', '失礼[しつれい]しました。'], correct: 0,
+		immagine: 'ha-4.svg',
 		traduzione: 'Cosa dici al cameriere quando vuoi ordinare al ristorante?',
 		spiegazione: { perche_giusta: 'Per ordinare si richiama il cameriere: すみません、お願いします.', perche_sbagliate: ['ごちそうさま si dice a fine pasto', 'いただきます prima di mangiare', '失礼しました = «scusi il disturbo»'] }
 	},
@@ -839,6 +846,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: '«字幕なしで 見たくて».', perche_sbagliate: ['non per lavoro', 'non per viverci', 'non per amici'] } },
 	// 発話表現
 	{ id: 'ha-5', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: 'バスの 中[なか]で、お年寄[としよ]りに 席[せき]を ゆずる とき、何[なん]と 言[い]いますか。', choices: ['どうぞ、座[すわ]って ください。', 'いらっしゃいませ。', 'おだいじに。', 'しつれいします。'], correct: 0,
+		immagine: 'ha-5.svg',
 		traduzione: 'Cosa dici quando cedi il posto a un anziano sull’autobus?',
 		spiegazione: { perche_giusta: 'Si offre il posto: どうぞ、座って ください.', perche_sbagliate: ['いらっしゃいませ è per i clienti', 'おだいじに a un malato', 'しつれいします = «con permesso»'] } },
 	// 即時応答
@@ -969,6 +977,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: 'Accettando un’offerta: あ、いただきます.', perche_sbagliate: ['どういたしまして risponde a un grazie', 'おかげさまで risponde a «come sta?»'] } },
 	// 発話表現 (3 opzioni, come l'esame)
 	{ id: 'ha-6', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: '友[とも]だちが かぜを ひきました。何[なん]と 言[い]いますか。', choices: ['お大事[だいじ]に。', 'おめでとう。', 'いただきます。'], correct: 0,
+		immagine: 'ha-6.svg',
 		traduzione: 'Un amico si è preso il raffreddore. Cosa gli dici?',
 		spiegazione: { perche_giusta: 'A chi è malato: お大事に («riguardati»).', perche_sbagliate: ['おめでとう = «congratulazioni»', 'いただきます prima di mangiare'] } },
 

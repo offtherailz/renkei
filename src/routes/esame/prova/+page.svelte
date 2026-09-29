@@ -7,7 +7,7 @@
 	import ExamPrompt from '$lib/components/ExamPrompt.svelte';
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import { examStrip } from '$lib/data/kanjiN4';
-	import { speakExamListening } from '$lib/core/examListening';
+	import { speakExamListening, speakExamChoices } from '$lib/core/examListening';
 	import { detectGrammar } from '$lib/core/examGrammar';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { mondaiKey, EXAM_N4_SCORING, EXAM_N4_HOT_POINTS, MONDAI_GIOCHI_UTILI, CONSEGNE } from '$lib/data/esame-n4';
@@ -247,7 +247,15 @@
 	const isLastSection = $derived(!!mock && secIndex >= mock.sezioni.length - 1);
 	// Ascolto: il testo è la soluzione → resta nascosto finché non si risponde.
 	const isListening = $derived(q?.sezione === 'choukai');
+	// 発話表現/即時応答: opzioni SOLO AUDIO come all'esame (testo svelato dopo la risposta).
+	const audioOnly = $derived(q?.mondaiSlug === 'hatsuwa' || q?.mondaiSlug === 'sokuji');
 	const revealText = $derived(!isListening || (picked !== null && mode === 'renshu'));
+	// riproduce l'audio giusto per il tipo: 発話/即時 leggono anche le opzioni
+	function playCurrent(rate = 1) {
+		if (!q) return;
+		if (audioOnly) speakExamChoices(q.prompt, q.choices, q.mondaiSlug as 'hatsuwa' | 'sokuji', rate);
+		else speakExamListening(q.prompt, rate);
+	}
 
 	function fmt(sec: number): string {
 		const m = Math.floor(sec / 60);
@@ -489,7 +497,12 @@
 	// in allenamento).
 	function maybePlayListening() {
 		const cur = sezione?.questions[qIndex];
-		if (cur && cur.sezione === 'choukai') setTimeout(() => speakExamListening(cur.prompt), 150);
+		if (!cur || cur.sezione !== 'choukai') return;
+		const audio = cur.mondaiSlug === 'hatsuwa' || cur.mondaiSlug === 'sokuji';
+		setTimeout(() => {
+			if (audio) speakExamChoices(cur.prompt, cur.choices, cur.mondaiSlug as 'hatsuwa' | 'sokuji');
+			else speakExamListening(cur.prompt);
+		}, 150);
 	}
 
 	// ── Risultati ──────────────────────────────────────────────────────────
@@ -761,11 +774,14 @@
 
 		{#if isListening && !revealText}
 			<div class="prompt listen">
+				{#if q.mondaiSlug === 'hatsuwa' && q.immagine}
+					<img class="hatsuwa-img" src="{base}/esame/hatsuwa/{q.immagine}" alt="situazione" onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')} />
+				{/if}
 				<span class="listen-hint">{q.mondaiSlug === 'sokuji' ? '👂 Ascolta la battuta: scegli la RISPOSTA adatta' : q.mondaiSlug === 'hatsuwa' ? '👂 Nella situazione, scegli COSA DIRE' : '🎧 Ascolta e rispondi alla domanda'}</span>
 				{#if mode === 'renshu'}
 					<div class="listen-btns">
-						<button class="lbtn" onclick={() => speakExamListening(q.prompt)}>🔊 もう一度</button>
-						<button class="lbtn" onclick={() => speakExamListening(q.prompt, 0.6)}>🐢 ゆっくり</button>
+						<button class="lbtn" onclick={() => playCurrent()}>🔊 もう一度</button>
+						<button class="lbtn" onclick={() => playCurrent(0.6)}>🐢 ゆっくり</button>
 					</div>
 				{:else}
 					<span class="listen-note">🎧 una sola volta, come all'esame</span>
@@ -792,10 +808,17 @@
 					class:sel={picked === i}
 					class:right={mode === 'renshu' && picked !== null && i === q.correct}
 					class:wrong={mode === 'renshu' && picked === i && i !== q.correct}
+					class:audio={audioOnly && picked === null}
 					disabled={picked !== null}
 					onclick={() => answer(i)}
 				>
-					{#if qFurigana}<FuriganaText text={c} force={true} />{:else}<FuriganaText text={examStrip(c)} force={true} />{/if}
+					{#if audioOnly && picked === null}
+						<!-- solo audio come all'esame: numero + riascolto della singola opzione -->
+						<span class="opt-num">{i + 1}</span>
+						<span class="opt-play" role="button" tabindex="0" title="Riascolta"
+							onclick={(e) => { e.stopPropagation(); speak(c); }}
+							onkeydown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); speak(c); } }}>🔊</span>
+					{:else if qFurigana}<FuriganaText text={c} force={true} />{:else}<FuriganaText text={examStrip(c)} force={true} />{/if}
 				</button>
 			{/each}
 		</div>
@@ -1045,6 +1068,10 @@
 	.opt.sel { border-color: var(--brand); }
 	.opt.right { border-color: var(--success); background: var(--ok-bg); }
 	.opt.wrong { border-color: var(--danger); background: var(--danger-bg); }
+	.opt.audio { display: flex; align-items: center; justify-content: center; gap: 12px; }
+	.opt-num { display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); font-weight: 800; }
+	.opt-play { font-size: 1.1rem; cursor: pointer; }
+	.hatsuwa-img { max-width: 100%; max-height: 220px; border-radius: 12px; align-self: center; }
 
 	.feedback { display: grid; gap: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 10px 12px; }
 	.fb { margin: 0; font-size: 0.9rem; }

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-label="Un amico è raffreddato">
+  <rect width="360" height="240" fill="#f3f6fb"/>
+  <rect x="20" y="30" width="320" height="180" rx="12" fill="#e8eef7"/>
+  <!-- bed -->
+  <rect x="60" y="150" width="240" height="45" rx="8" fill="#c9d6e8"/>
+  <rect x="60" y="135" width="70" height="30" rx="8" fill="#ffffff"/>
+  <!-- sick person head on pillow -->
+  <circle cx="105" cy="140" r="22" fill="#f0c39c"/>
+  <!-- mask -->
+  <rect x="88" y="140" width="34" height="18" rx="6" fill="#ffffff" stroke="#b9c6d8"/>
+  <!-- fever sweat -->
+  <path d="M126 118 q6 10 0 16 q-6 -6 0 -16" fill="#6ba0f2"/>
+  <!-- blanket -->
+  <rect x="128" y="158" width="168" height="34" rx="8" fill="#8bb0e0"/>
+  <!-- thermometer -->
+  <rect x="150" y="120" width="46" height="10" rx="5" fill="#ffffff" stroke="#d64545"/>
+  <rect x="150" y="120" width="26" height="10" rx="5" fill="#d64545"/>
+</svg>

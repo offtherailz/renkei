@@ -36,6 +36,9 @@ export interface ProvaQuestion {
 	// Frase completa (JP) da mostrare nei risultati per i 問題 in cui si riempiono
 	// spazi (組み立て, cloze): parti inserite tra 【…】 (sottolineate) + ascoltabile intera.
 	fraseCompleta?: string;
+	// 発話表現: nome file immagine della situazione (in static/esame/hatsuwa/). Se
+	// assente, si mostra la situazione a testo. Opzioni comunque solo-audio.
+	immagine?: string;
 }
 
 // Filtro per difficoltà: 'facile' esclude i 'difficile'; 'esame' esclude i
@@ -146,7 +149,8 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 			perche_sbagliate: it.spiegazione.perche_sbagliate,
 			traduzione: it.traduzione,
 			tier: it.tier,
-			fraseCompleta: it.frase_completa
+			fraseCompleta: it.frase_completa,
+			immagine: it.immagine
 		});
 	}
 
@@ -326,7 +330,8 @@ export function buildSet(setId: string): Mock | null {
 					perche_giusta: it.spiegazione.perche_giusta,
 					perche_sbagliate: s.wrong,
 					traduzione: it.traduzione,
-					fraseCompleta: it.frase_completa
+					fraseCompleta: it.frase_completa,
+					immagine: it.immagine
 				});
 			}
 		}
