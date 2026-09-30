@@ -122,6 +122,7 @@
 	</div>
 	<div class="cta-row">
 		<a class="cta ghost" href="{base}/esame/pronto">📊 Pronto per l'N4?</a>
+		<a class="cta ghost" href="{base}/esame/ascolto">🎧 Trucchi ascolto</a>
 		<a class="cta ghost" href="{base}/punti-deboli?kind=mondai">💪 I miei punti deboli d'esame</a>
 	</div>
 	<p class="score-note">
