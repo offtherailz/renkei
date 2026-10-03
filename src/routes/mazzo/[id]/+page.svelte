@@ -83,6 +83,11 @@
 				<span class="d-d">Vedi il significato, produci la parola giapponese</span>
 			</button>
 		</div>
+		<p class="lbl">Oppure mettiti alla prova</p>
+		<a class="dirbtn test" href="{base}/quiz?collezione={mazzo.id}">
+			<span class="d-t">🎯 Mini-test (quiz)</span>
+			<span class="d-d">Domande vere su queste parole: lettura, ascolto, composizione, kanji… (come l’SRS, randomizzato). Alimenta i ripassi.</span>
+		</a>
 	{:else if scene === 'play' && card}
 		<div class="hud"><span>{pos + 1} / {order.length}</span><span class="hud-r">{rivedere.length ? `🔁 ${rivedere.length} da rivedere` : ''}</span></div>
 		<button class="card" onclick={flip} aria-label="Gira la carta">
@@ -141,6 +146,7 @@
 	.dirs { display: grid; gap: 8px; }
 	.dirbtn { display: grid; gap: 2px; text-align: left; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 12px; cursor: pointer; color: var(--ink); }
 	.dirbtn:hover { border-color: var(--brand); }
+	.dirbtn.test { text-decoration: none; border-color: var(--brand); }
 	.d-t { font-weight: 700; font-size: 1rem; }
 	.d-d { font-size: 0.78rem; color: var(--muted); }
 

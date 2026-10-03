@@ -331,6 +331,29 @@ export async function loadN4ReviewQueue(area: N4ReviewArea, limit = 12): Promise
 	return scored.slice(0, limit).map((x) => ({ kind: area, raw: x.id }));
 }
 
+// Coda di ripasso per una COLLEZIONE tematica (mazzo): le parole del mazzo che
+// esistono a catalogo diventano item del quiz, che ci genera sopra TUTTI i tipi
+// di domanda (lettura/ascolto/composizione/kanji…). Le voci non a catalogo
+// (espressioni tipo 調子がいい) restano solo nelle flashcard, qui si saltano.
+export async function loadCollezioneQueue(mazzoId: string): Promise<{ kind: string; raw: string }[]> {
+	const { findMazzo } = await import('$lib/data/mazzi');
+	const mazzo = findMazzo(mazzoId);
+	if (!mazzo) return [];
+	const words = await db.words.toArray();
+	const byWriting = new Map(words.map((w) => [w.scrittura, w]));
+	const byReading = new Map(words.map((w) => [w.lettura, w]));
+	const out: { kind: string; raw: string }[] = [];
+	const seen = new Set<string>();
+	for (const c of mazzo.carte) {
+		const w = byWriting.get(c.jp) ?? byReading.get(c.yomi);
+		if (w && !seen.has(w.id)) {
+			seen.add(w.id);
+			out.push({ kind: 'word', raw: w.id });
+		}
+	}
+	return out;
+}
+
 // Padronanza per-mondai dell'esame N4 (chiavi 'mondai:<slug>'). Ritorna la %
 // solo per i mondai che hanno almeno un tentativo; gli altri restano ignoti
 // (la landing li mostra come "non ancora provato"). Sola pratica → mastery.

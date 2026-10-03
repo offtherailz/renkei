@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto, beforeNavigate } from '$app/navigation';
 	import { db } from '$lib/db/schema';
-	import { loadWeakItems, loadN4ReviewQueue, type N4ReviewArea } from '$lib/db/queries';
+	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, type N4ReviewArea } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
@@ -1475,7 +1475,9 @@
 			const ripassoRaw = params.get('ripasso');
 			const n4Area: N4ReviewArea | null =
 				ripassoRaw === 'n4-kanji' ? 'kanji' : ripassoRaw === 'n4-word' ? 'word' : ripassoRaw === 'n4-grammar' ? 'grammar' : null;
-			const wantWeak = params.has('deboli') || n4Area !== null;
+			// Mini-test di una collezione tematica (mazzo): ?collezione=<id>.
+			const collezioneId = params.get('collezione');
+			const wantWeak = params.has('deboli') || n4Area !== null || collezioneId !== null;
 
 			// Riprende una sessione ancora in corso (es. ritorno da "Approfondisci"),
 			// recuperando il tempo di pausa se il timer era fermo nel dettaglio.
@@ -1517,11 +1519,13 @@
 			// Dose del giorno: solo i 12 più deboli (la lista intera resterebbe
 			// scoraggiante); il resto aspetta in /punti-deboli e la lista si svuota
 			// da sola man mano che i ripassi graduano l'SRS.
-			const weakQueue = n4Area
-				? await loadN4ReviewQueue(n4Area, 12)
-				: wantWeak
-					? (await loadWeakItems(12)).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
-					: undefined;
+			const weakQueue = collezioneId
+				? await loadCollezioneQueue(collezioneId)
+				: n4Area
+					? await loadN4ReviewQueue(n4Area, 12)
+					: wantWeak
+						? (await loadWeakItems(12)).filter((it) => it.kind !== 'phrase').map(({ kind, raw }) => ({ kind, raw }))
+						: undefined;
 			session = {
 				startedAt: now,
 				deadlineAt: now + durationMs,
