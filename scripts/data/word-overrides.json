@@ -65480,10 +65480,17 @@
   },
   "frasi_esempio": [
    {
-    "testo": "食料品と衣類の陳列台にある商品は非常に安かった。",
+    "testo": "この 店[みせ]の 商品[しょうひん]は 安[やす]いです。",
     "traduzione": {
-     "it": "I prodotti sui banchi di alimentari e vestiti erano molto economici.",
-     "en": "Goods at the food and clothing stalls were very cheap."
+     "it": "I prodotti di questo negozio sono economici.",
+     "en": "This store’s products are cheap."
+    }
+   },
+   {
+    "testo": "新[あたら]しい 商品[しょうひん]が 届[とど]きました。",
+    "traduzione": {
+     "it": "È arrivato un prodotto nuovo.",
+     "en": "A new product has arrived."
     }
    }
   ],
