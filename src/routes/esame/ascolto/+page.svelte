@@ -107,6 +107,12 @@
 	</section>
 
 	<section class="block">
+		<h2>🃏 Mazzi tematici (flashcard + pronuncia)</h2>
+		<p>Ripassa il lessico per tema: tocca la carta per girarla, 🔊 per la pronuncia; le «da rivedere» tornano.</p>
+		<p class="drills"><a href="{base}/mazzo/kaden">🔌 家電を買う — elettrodomestici e acquisti</a></p>
+	</section>
+
+	<section class="block">
 		<h2>Esempi ascoltabili</h2>
 		{#each ESEMPI as ex (ex.titolo)}
 			<article class="ex">
