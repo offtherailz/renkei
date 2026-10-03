@@ -55,3 +55,35 @@ export function findMazzo(id: string): Mazzo | null {
 	return MAZZI[id] ?? null;
 }
 export const allMazzi = (): Mazzo[] => Object.values(MAZZI);
+
+// Mazzi AUTO: definiti da un filtro sul catalogo (non liste fisse). Solo mini-test
+// (il quiz genera i tipi di domanda). `tipo` = prefisso di tipo_jp; `livello` e
+// `tag` (in study_tags) opzionali. kind 'grammar' pesca dai punti grammaticali.
+export interface AutoMazzo {
+	id: string;
+	titolo: string;
+	emoji: string;
+	descrizione: string;
+	kind: 'word' | 'grammar';
+	tipo?: string;
+	livello?: string;
+	tag?: string;
+}
+
+export const AUTO_MAZZI: AutoMazzo[] = [
+	{ id: 'verbi-n5', titolo: '動詞 N5 (verbi)', emoji: '🏃', descrizione: 'Verbi di livello N5.', kind: 'word', tipo: '動詞', livello: 'N5' },
+	{ id: 'verbi-n4', titolo: '動詞 N4 (verbi)', emoji: '🏃', descrizione: 'Verbi di livello N4.', kind: 'word', tipo: '動詞', livello: 'N4' },
+	{ id: 'agg-n5', titolo: '形容詞 N5 (aggettivi)', emoji: '🎨', descrizione: 'Aggettivi い/な di livello N5.', kind: 'word', tipo: '形容詞', livello: 'N5' },
+	{ id: 'agg-n4', titolo: '形容詞 N4 (aggettivi)', emoji: '🎨', descrizione: 'Aggettivi い/な di livello N4.', kind: 'word', tipo: '形容詞', livello: 'N4' },
+	{ id: 'avverbi', titolo: '副詞 (avverbi)', emoji: '⚡', descrizione: 'Avverbi (tutti i livelli).', kind: 'word', tipo: '副詞' },
+	{ id: 'connettori', titolo: '接続詞 (connettori)', emoji: '🔗', descrizione: 'Connettivi: でも, だから, それから…', kind: 'word', tipo: '接続詞' },
+	{ id: 'modidire', titolo: '慣用表現 (modi di dire)', emoji: '💬', descrizione: 'Espressioni idiomatiche.', kind: 'word', tipo: '慣用表現' },
+	{ id: 'contatori', titolo: '助数詞 (contatori)', emoji: '🔢', descrizione: 'Classificatori numerali.', kind: 'word', tipo: '助数詞' },
+	{ id: 'suru-n4', titolo: 'する動詞 N4', emoji: '⚙️', descrizione: 'Verbi in する di livello N4.', kind: 'word', livello: 'N4', tag: 'suru-verb' },
+	{ id: 'gram-n5', titolo: '文法 N5 (grammatica)', emoji: '📖', descrizione: 'Punti grammaticali N5.', kind: 'grammar', livello: 'N5' },
+	{ id: 'gram-n4', titolo: '文法 N4 (grammatica)', emoji: '📖', descrizione: 'Punti grammaticali N4.', kind: 'grammar', livello: 'N4' }
+];
+
+export function findAutoMazzo(id: string): AutoMazzo | null {
+	return AUTO_MAZZI.find((m) => m.id === id) ?? null;
+}

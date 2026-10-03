@@ -446,9 +446,9 @@
 			<span class="quick-icon">🎯</span>
 			<span>Esame JLPT N4</span>
 		</a>
-		<a href="{base}/mazzo/kaden" class="quick-card">
+		<a href="{base}/mazzi" class="quick-card">
 			<span class="quick-icon">🃏</span>
-			<span>Mazzo 家電 (flashcard)</span>
+			<span>Mazzi e mini-test</span>
 		</a>
 		<!-- Corsi temporaneamente nascosto (allineamento) -->
 		{#if false}

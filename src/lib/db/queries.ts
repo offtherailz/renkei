@@ -354,6 +354,35 @@ export async function loadCollezioneQueue(mazzoId: string): Promise<{ kind: stri
 	return out;
 }
 
+// Coda per un mazzo AUTO (filtro sul catalogo): parole per tipo/livello/tag, o
+// punti grammaticali per livello. Mescolate e limitate a una dose di sessione.
+export async function loadAutoQueue(id: string, limit = 15): Promise<{ kind: string; raw: string }[]> {
+	const { findAutoMazzo } = await import('$lib/data/mazzi');
+	const m = findAutoMazzo(id);
+	if (!m) return [];
+	const shuffle = <T>(xs: T[]): T[] => {
+		const a = [...xs];
+		for (let i = a.length - 1; i > 0; i -= 1) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j]!, a[i]!];
+		}
+		return a;
+	};
+	if (m.kind === 'grammar') {
+		const g = await db.grammar.toArray();
+		const pool = g.filter((x) => (!m.livello || x.livello_jlpt === m.livello) && (x.frasi_esempio?.length ?? 0) > 0);
+		return shuffle(pool).slice(0, limit).map((x) => ({ kind: 'grammar', raw: x.id }));
+	}
+	const w = await db.words.toArray();
+	const pool = w.filter(
+		(x) =>
+			(!m.tipo || x.tipo_jp.startsWith(m.tipo)) &&
+			(!m.livello || x.livello_jlpt === m.livello) &&
+			(!m.tag || (x.study_tags ?? []).includes(m.tag))
+	);
+	return shuffle(pool).slice(0, limit).map((x) => ({ kind: 'word', raw: x.id }));
+}
+
 // Padronanza per-mondai dell'esame N4 (chiavi 'mondai:<slug>'). Ritorna la %
 // solo per i mondai che hanno almeno un tentativo; gli altri restano ignoti
 // (la landing li mostra come "non ancora provato"). Sola pratica → mastery.
