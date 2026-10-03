@@ -7,7 +7,7 @@
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { examStrip } from '$lib/data/kanjiN4';
-	import { speakExamListening } from '$lib/core/examListening';
+	import { speakExamListening, speakExamChoices } from '$lib/core/examListening';
 	import { detectGrammar } from '$lib/core/examGrammar';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { mondaiKey, findMondai } from '$lib/data/esame-n4';
@@ -62,6 +62,13 @@
 	// Ascolto: testo nascosto (è la soluzione) finché non si risponde.
 	const isListening = $derived(found?.section.id === 'choukai');
 	const revealText = $derived(!isListening || picked !== null);
+	const audioOnly = $derived(slug === 'hatsuwa' || slug === 'sokuji');
+	// stesse voci di prova: 発話/即時 leggono anche le opzioni
+	function playFor(qq: ProvaQuestion, rate = 1) {
+		if (found?.section.id !== 'choukai') { speak(qq.prompt, rate); return; }
+		if (slug === 'hatsuwa' || slug === 'sokuji') speakExamChoices(qq.prompt, qq.choices, slug as 'hatsuwa' | 'sokuji', rate);
+		else speakExamListening(qq.prompt, rate);
+	}
 
 	async function begin() {
 		const extra = await generaDaCatalogo();
@@ -83,7 +90,7 @@
 
 	function maybePlayListening() {
 		const cur = questions[index];
-		if (cur && found?.section.id === 'choukai') setTimeout(() => speakExamListening(cur.prompt), 150);
+		if (cur && found?.section.id === 'choukai') setTimeout(() => playFor(cur), 150);
 	}
 
 	async function answer(i: number) {
@@ -177,10 +184,13 @@
 			{#if CONSEGNE[slug]}<p class="consegna">{CONSEGNE[slug]}</p>{/if}
 			{#if isListening && !revealText}
 				<div class="prompt listen">
+					{#if slug === 'hatsuwa' && q.immagine}
+						<img class="hatsuwa-img" src="{base}/esame/hatsuwa/{q.immagine}" alt="situazione" onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')} />
+					{/if}
 					<span class="listen-hint">{slug === 'sokuji' ? '👂 Ascolta la battuta: scegli la RISPOSTA adatta' : slug === 'hatsuwa' ? '👂 Nella situazione, scegli COSA DIRE' : '🎧 Ascolta e rispondi alla domanda'}</span>
 					<div class="listen-btns">
-						<button class="lbtn" onclick={() => speakExamListening(q.prompt)}>🔊 もう一度</button>
-						<button class="lbtn" onclick={() => speakExamListening(q.prompt, 0.6)}>🐢 ゆっくり</button>
+						<button class="lbtn" onclick={() => playFor(q)}>🔊 もう一度</button>
+						<button class="lbtn" onclick={() => playFor(q, 0.6)}>🐢 ゆっくり</button>
 					</div>
 				</div>
 			{:else}
@@ -204,10 +214,16 @@
 						class="opt"
 						class:right={picked !== null && i === q.correct}
 						class:wrong={picked === i && i !== q.correct}
+						class:audio={audioOnly && picked === null}
 						disabled={picked !== null}
 						onclick={() => answer(i)}
 					>
-						<FuriganaText text={examStrip(c)} force={true} />
+						{#if audioOnly && picked === null}
+							<span class="opt-num">{i + 1}</span>
+							<span class="opt-play" role="button" tabindex="0" title="Riascolta"
+								onclick={(e) => { e.stopPropagation(); speak(c); }}
+								onkeydown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); speak(c); } }}>🔊</span>
+						{:else}<FuriganaText text={examStrip(c)} force={true} />{/if}
 					</button>
 				{/each}
 			</div>
@@ -218,7 +234,7 @@
 					<p class="fb"><strong>{picked === q.correct ? '✅ Giusto!' : picked === -1 ? '🤷 Vediamola insieme.' : '❌ Non proprio.'}</strong></p>
 					<div class="fb-jp">
 						<ExamPrompt text={q.prompt} interactive={true} mondai={slug} />
-						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => (isListening ? speakExamListening(q.prompt) : speak(q.prompt))}>🔊</button>
+						<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => playFor(q)}>🔊</button>
 					</div>
 					{#if q.traduzione}<p class="fb-it">💬 {q.traduzione}</p>{/if}
 					<div class="fb-opts">
@@ -285,6 +301,10 @@
 	.qtimer.over { color: var(--warn-ink); background: var(--warn-bg); border-color: var(--warn-bg); font-weight: 600; }
 	.prompt { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 14px; }
 	.prompt.listen { flex-direction: column; align-items: stretch; gap: 10px; }
+	.hatsuwa-img { max-width: 100%; max-height: 220px; border-radius: 12px; align-self: center; }
+	.opt.audio { display: flex; align-items: center; justify-content: center; gap: 12px; }
+	.opt-num { display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); font-weight: 800; }
+	.opt-play { font-size: 1.1rem; cursor: pointer; }
 	.listen-hint { font-size: 1rem; font-weight: 700; text-align: center; }
 	.listen-btns { display: flex; gap: 8px; justify-content: center; }
 	.lbtn { border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--ink); padding: 8px 14px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
