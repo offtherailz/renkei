@@ -65,7 +65,7 @@
 </script>
 
 <div class="mazzo">
-	<a class="back" href="{base}/esame/ascolto">← Esame</a>
+	<a class="back" href="{base}/">← Home</a>
 	{#if !mazzo}
 		<p class="muted">Mazzo non trovato.</p>
 	{:else if scene === 'setup'}
