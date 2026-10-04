@@ -1126,7 +1126,65 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: 'A un ringraziamento: «こちらこそ» (grazie a lei).', perche_sbagliate: ['«sì, esatto» non c’entra', '«piacere» è un primo incontro'] } },
 	{ id: 'sq-8', mondai: 'sokuji', livello_jlpt: 'N4', prompt: '「この ケーキ[けーき]、もう 一[ひと]つ いかがですか。」', choices: ['いえ、もう 十分[じゅうぶん]です。', 'はい、作[つく]りました。', 'ケーキが ありません。'], correct: 0,
 		traduzione: '«Gradisce un’altra fetta di torta?»',
-		spiegazione: { perche_giusta: 'Rifiuto gentile: «もう十分です» (basta così).', perche_sbagliate: ['«l’ho fatta» non risponde', 'contraddice l’offerta'] } }
+		spiegazione: { perche_giusta: 'Rifiuto gentile: «もう十分です» (basta così).', perche_sbagliate: ['«l’ho fatta» non risponde', 'contraddice l’offerta'] } },
+
+	// ── Batch 2ª prova: volume sui mondai sottili (ordine forzato, trappole reali) ──
+	// 組み立て (pattern a ordine forzato: compound/collocazioni, mai avverbi mobili)
+	{ id: 'ku-9', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「かぜの ときは ＿① ＿② ★③ ＿④ です。」 語群: ゆっくり・休[やす]んだ・ほうが・いい', choices: ['ほうが', '休[やす]んだ', 'ゆっくり', 'いい'], correct: 0,
+		traduzione: 'Frase completa: かぜの ときは ゆっくり 休んだ ほうが いい です — «Quando hai il raffreddore è meglio riposare con calma».',
+		frase_completa: 'かぜの ときは【ゆっくり休[やす]んだほうがいい】です。',
+		spiegazione: { perche_giusta: 'Pattern 〜たほうがいい: ゆっくり→休んだ→ほうが→いい; alla ★ (3ª casella) va ほうが.', perche_sbagliate: ['休んだ va nella 2ª casella', 'ゆっくり apre, 1ª casella', 'いい chiude, 4ª casella'] } },
+	{ id: 'ku-10', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「電車[でんしゃ]が ＿① ＿② ★③ ＿④ 遅[おく]れました。」 語群: 事故[じこ]で・止[と]まった・ので・学校[がっこう]に', choices: ['ので', '止[と]まった', '事故[じこ]で', '学校[がっこう]に'], correct: 0,
+		traduzione: 'Frase completa: 電車が 事故で 止まった ので 学校に 遅れました — «Il treno si è fermato per un incidente, perciò ho fatto tardi a scuola».',
+		frase_completa: '電車[でんしゃ]が【事故[じこ]で止[と]まったので学校[がっこう]に】遅[おく]れました。',
+		spiegazione: { perche_giusta: 'Pattern 〜ので (causa): 事故で→止まった→ので→学校に; alla ★ (3ª casella) va ので.', perche_sbagliate: ['止まった va nella 2ª casella', '事故で apre, 1ª casella', '学校に precede 遅れました, 4ª casella'] } },
+	{ id: 'ku-11', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「やっと 自転車[じてんしゃ]に ＿① ＿② ★③ ＿④ なった。」 語群: 乗[の]る・ことが・できる・ように', choices: ['できる', 'ことが', '乗[の]る', 'ように'], correct: 0,
+		traduzione: 'Frase completa: やっと 自転車に 乗る ことが できる ように なった — «Finalmente sono diventato capace di andare in bicicletta».',
+		frase_completa: 'やっと 自転車[じてんしゃ]に【乗[の]ることができるように】なった。',
+		spiegazione: { perche_giusta: 'Pattern 〜ことができる＋ようになる: 乗る→ことが→できる→ように; alla ★ (3ª casella) va できる.', perche_sbagliate: ['ことが va nella 2ª casella', '乗る apre, 1ª casella', 'ように precede なった, 4ª casella'] } },
+	{ id: 'ku-12', mondai: 'kumitate', livello_jlpt: 'N4', prompt: '★に 入るのは? 「毎日[まいにち] ＿① ＿② ★③ ＿④ なりません。」 語群: 決[き]まった 時間[じかん]に・薬[くすり]を・飲[の]ま・なければ', choices: ['飲[の]ま', '薬[くすり]を', '決[き]まった 時間[じかん]に', 'なければ'], correct: 0,
+		traduzione: 'Frase completa: 毎日 決まった 時間に 薬を 飲まなければ なりません — «Ogni giorno devo prendere la medicina a un orario fisso».',
+		frase_completa: '毎日[まいにち]【決[き]まった時間[じかん]に薬[くすり]を飲[の]まなければ】なりません。',
+		spiegazione: { perche_giusta: 'Pattern 〜なければならない: (決まった時間に・薬を)→飲ま→なければ; alla ★ (3ª casella) va 飲ま (resta 3ª in ogni ordine di 決まった時間に/薬を).', perche_sbagliate: ['薬を precede 飲ま (1ª/2ª casella)', '決まった時間に apre, 1ª casella', 'なければ chiude, 4ª casella'] } },
+
+	// 発話表現 (situazione a testo; 3 opzioni) — fallback senza immagine
+	{ id: 'ha-7', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: '朝[あさ]、学校[がっこう]で 先生[せんせい]に 会[あ]いました。何[なん]と 言[い]いますか。', choices: ['おはようございます。', 'こんばんは。', 'おやすみなさい。'], correct: 0,
+		traduzione: 'La mattina incontri il professore a scuola. Cosa dici?',
+		spiegazione: { perche_giusta: 'Saluto del mattino: おはようございます.', perche_sbagliate: ['こんばんは = buonasera', 'おやすみなさい = buonanotte'] } },
+	{ id: 'ha-8', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: 'レストランを 出[で]る とき、店[みせ]の 人[ひと]に 何[なん]と 言[い]いますか。', choices: ['ごちそうさまでした。', 'いただきます。', 'おじゃまします。'], correct: 0,
+		traduzione: 'Quando esci dal ristorante, cosa dici al personale?',
+		spiegazione: { perche_giusta: 'Dopo aver mangiato: ごちそうさまでした.', perche_sbagliate: ['いただきます si dice PRIMA di mangiare', 'おじゃまします entrando in casa altrui'] } },
+	{ id: 'ha-9', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: '友[とも]だちに プレゼント[ぷれぜんと]を もらいました。何[なん]と 言[い]いますか。', choices: ['ありがとう。うれしい！', 'どういたしまして。', 'おめでとう。'], correct: 0,
+		traduzione: 'Un amico ti ha fatto un regalo. Cosa dici?',
+		spiegazione: { perche_giusta: 'Ringrazi: ありがとう。', perche_sbagliate: ['どういたしまして è la risposta a un grazie', 'おめでとう = congratulazioni'] } },
+	{ id: 'ha-10', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: '会社[かいしゃ]で、同僚[どうりょう]より 先[さき]に 帰[かえ]ります。何[なん]と 言[い]いますか。', choices: ['お先[さき]に 失礼[しつれい]します。', 'ただいま。', 'おかえりなさい。'], correct: 0,
+		traduzione: 'In ufficio, torni a casa prima dei colleghi. Cosa dici?',
+		spiegazione: { perche_giusta: 'Andarsene prima: お先に 失礼します。', perche_sbagliate: ['ただいま = «sono tornato» (arrivando)', 'おかえりなさい = «bentornato» (a chi torna)'] } },
+	{ id: 'ha-11', mondai: 'hatsuwa', livello_jlpt: 'N4', prompt: '久[ひさ]しぶりに 友[とも]だちに 会[あ]いました。何[なん]と 言[い]いますか。', choices: ['ひさしぶり！元気[げんき]?', 'はじめまして。', 'おだいじに。'], correct: 0,
+		traduzione: 'Rivedi un amico dopo tanto tempo. Cosa dici?',
+		spiegazione: { perche_giusta: 'Dopo tanto tempo: ひさしぶり！', perche_sbagliate: ['はじめまして = primo incontro', 'おだいじに = «guarisci presto»'] } },
+
+	// 読解 短文/中文 — tier difficile (per riempire la 2ª prova a livello Esame)
+	{ id: 'dt-9', mondai: 'dokkai-tan', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔メモ〕山田[やまだ]さんへ 会議[かいぎ]の 資料[しりょう]を 机[つくえ]の 上[うえ]に 置[お]いて おきました。足[た]りない ときは コピーして ください。終[お]わったら、田中[たなか]に 返[かえ]して ください。 鈴木[すずき] 問: 資料が 足りない とき、山田さんは どう しますか。',
+		choices: ['自分[じぶん]で コピーする', '田中さんに 返す', '鈴木さんを 呼[よ]ぶ', '会議を やめる'], correct: 0,
+		traduzione: 'A Yamada: ho lasciato i materiali della riunione sulla scrivania. Se non bastano, falli in copia. Quando hai finito, restituiscili a Tanaka. (Suzuki) — Se i materiali non bastano, cosa fa Yamada?',
+		spiegazione: { perche_giusta: '«足りない ときは コピーして» → li fotocopia da sé.', perche_sbagliate: ['restituire è DOPO aver finito, non quando mancano', 'non si dice di chiamarlo', 'non espresso'] } },
+	{ id: 'dt-10', mondai: 'dokkai-tan', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '私[わたし]は 本[ほん]を 読[よ]むのが 好[す]きだ。でも、買[か]うと お金[かね]が かかるし、場所[ばしょ]も とる。だから、ほとんど 図書館[としょかん]で 借[か]りる。 問: この 人は どうして 本を あまり 買わないのですか。',
+		choices: ['お金が かかり、場所も とるから', '読むのが きらいだから', '図書館が 遠[とお]いから', '本が 好きじゃないから'], correct: 0,
+		traduzione: 'Mi piace leggere. Ma comprare libri costa e occupa spazio. Perciò li prendo quasi sempre in biblioteca. — Perché non compra molti libri?',
+		spiegazione: { perche_giusta: 'Costa e occupa spazio → li prende in prestito.', perche_sbagliate: ['gli PIACE leggere', 'non detto (anzi li prende lì)', 'contraddice «好きだ»'] } },
+	{ id: 'dc-9', mondai: 'dokkai-chu', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔文章〕子[こ]どもの ころ、私[わたし]は 野菜[やさい]が きらいで、母[はは]に よく しかられた。でも、自分[じぶん]で 料理[りょうり]を する ように なってから、野菜の おいしさが 分[わ]かる ように なった。今[いま]では、肉[にく]より 野菜の ほうが 好[す]きだ。 問: この 人は 今、野菜に ついて どう 思って いますか。',
+		choices: ['肉より 好きだ', 'きらいだ', 'あまり 食[た]べない', '母に しかられる'], correct: 0,
+		traduzione: 'Da bambino odiavo le verdure e la mamma mi sgridava spesso. Ma da quando ho cominciato a cucinare da solo, ho capito quanto sono buone. Ora mi piacciono più della carne. — Cosa pensa ora delle verdure?',
+		spiegazione: { perche_giusta: '今では 肉より 野菜の ほうが 好き.', perche_sbagliate: ['«きらい» era da bambino', 'contraddice il presente', 'riguarda il passato'] } },
+	{ id: 'dc-10', mondai: 'dokkai-chu', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔文章〕先月[せんげつ]、駅[えき]の 近[ちか]くに 新[あたら]しい スーパー[すーぱー]が できた。安[やす]くて 便利[べんり]なので、よく 行[い]く。ただ、いつも こんで いて、レジ[れじ]に 並[なら]ぶ 時間[じかん]が 長[なが]い。それだけが 残念[ざんねん]だ。 問: この 人は スーパーの 何[なに]が 残念だと 言って いますか。',
+		choices: ['レジで 待[ま]つ 時間が 長い こと', 'ねだんが 高[たか]い こと', '駅から 遠[とお]い こと', '品物[しなもの]が 少[すく]ない こと'], correct: 0,
+		traduzione: 'Il mese scorso ha aperto un nuovo supermercato vicino alla stazione. È economico e comodo, ci vado spesso. Però è sempre affollato e la fila alla cassa è lunga. È l’unica cosa che mi dispiace. — Cosa gli dispiace del supermercato?',
+		spiegazione: { perche_giusta: 'La fila alla cassa è lunga (それだけが残念).', perche_sbagliate: ['è economico (安くて)', 'è vicino alla stazione', 'non detto'] } }
 ];
 
 // --- Prove d'autore (Set numerati fissi, ripetibili) ------------------------

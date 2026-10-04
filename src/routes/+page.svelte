@@ -450,6 +450,14 @@
 			<span class="quick-icon">🃏</span>
 			<span>Mazzi e mini-test</span>
 		</a>
+		<a href="{base}/forme" class="quick-card">
+			<span class="quick-icon">📖</span>
+			<span>Grammatica (forme)</span>
+		</a>
+		<a href="{base}/consolida" class="quick-card">
+			<span class="quick-icon">📝</span>
+			<span>Consolida</span>
+		</a>
 		<!-- Corsi temporaneamente nascosto (allineamento) -->
 		{#if false}
 			<a href="{base}/courses" class="quick-card">
