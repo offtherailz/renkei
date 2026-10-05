@@ -3,6 +3,8 @@
 	import { allMazzi, AUTO_MAZZI } from '$lib/data/mazzi';
 
 	const curati = allMazzi();
+	const autoParole = AUTO_MAZZI.filter((m) => m.kind === 'word');
+	const autoGram = AUTO_MAZZI.filter((m) => m.kind === 'grammar');
 </script>
 
 <div class="mazzi">
@@ -26,10 +28,22 @@
 		</div>
 	{/if}
 
-	<h2 class="sec">Per categoria / livello (dal catalogo)</h2>
+	<h2 class="sec">Parole per categoria / livello</h2>
 	<p class="note">Mini-test automatici: domande randomizzate su un sottoinsieme (≈15 per sessione).</p>
 	<div class="grid">
-		{#each AUTO_MAZZI as m (m.id)}
+		{#each autoParole as m (m.id)}
+			<a class="card auto" href="{base}/quiz?auto={m.id}">
+				<div class="c-top"><span class="c-emoji">{m.emoji}</span><span class="c-titolo">{m.titolo}</span></div>
+				<p class="c-desc">{m.descrizione}</p>
+				<span class="c-go">🎯 Mini-test →</span>
+			</a>
+		{/each}
+	</div>
+
+	<h2 class="sec">Grammatica per funzione</h2>
+	<p class="note">Ogni gruppo = un mini-test sui punti grammaticali di quella funzione.</p>
+	<div class="grid">
+		{#each autoGram as m (m.id)}
 			<a class="card auto" href="{base}/quiz?auto={m.id}">
 				<div class="c-top"><span class="c-emoji">{m.emoji}</span><span class="c-titolo">{m.titolo}</span></div>
 				<p class="c-desc">{m.descrizione}</p>

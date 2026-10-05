@@ -370,7 +370,14 @@ export async function loadAutoQueue(id: string, limit = 15): Promise<{ kind: str
 	};
 	if (m.kind === 'grammar') {
 		const g = await db.grammar.toArray();
-		const pool = g.filter((x) => (!m.livello || x.livello_jlpt === m.livello) && (x.frasi_esempio?.length ?? 0) > 0);
+		let gruppoMap: Record<string, string> = {};
+		if (m.gruppo) gruppoMap = (await import('$lib/data/grammar-gruppi.json')).default as Record<string, string>;
+		const pool = g.filter(
+			(x) =>
+				(!m.livello || x.livello_jlpt === m.livello) &&
+				(!m.gruppo || gruppoMap[x.id] === m.gruppo) &&
+				(x.frasi_esempio?.length ?? 0) > 0
+		);
 		return shuffle(pool).slice(0, limit).map((x) => ({ kind: 'grammar', raw: x.id }));
 	}
 	const w = await db.words.toArray();

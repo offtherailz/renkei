@@ -68,6 +68,7 @@ export interface AutoMazzo {
 	tipo?: string;
 	livello?: string;
 	tag?: string;
+	gruppo?: string; // grammatica per funzione (chiave in grammar-gruppi.json)
 }
 
 export const AUTO_MAZZI: AutoMazzo[] = [
@@ -80,8 +81,25 @@ export const AUTO_MAZZI: AutoMazzo[] = [
 	{ id: 'modidire', titolo: '慣用表現 (modi di dire)', emoji: '💬', descrizione: 'Espressioni idiomatiche.', kind: 'word', tipo: '慣用表現' },
 	{ id: 'contatori', titolo: '助数詞 (contatori)', emoji: '🔢', descrizione: 'Classificatori numerali.', kind: 'word', tipo: '助数詞' },
 	{ id: 'suru-n4', titolo: 'する動詞 N4', emoji: '⚙️', descrizione: 'Verbi in する di livello N4.', kind: 'word', livello: 'N4', tag: 'suru-verb' },
-	{ id: 'gram-n5', titolo: '文法 N5 (grammatica)', emoji: '📖', descrizione: 'Punti grammaticali N5.', kind: 'grammar', livello: 'N5' },
-	{ id: 'gram-n4', titolo: '文法 N4 (grammatica)', emoji: '📖', descrizione: 'Punti grammaticali N4.', kind: 'grammar', livello: 'N4' }
+	{ id: 'gram-n5', titolo: '文法 N5 (tutta)', emoji: '📖', descrizione: 'Tutti i punti grammaticali N5.', kind: 'grammar', livello: 'N5' },
+	{ id: 'gram-n4', titolo: '文法 N4 (tutta)', emoji: '📖', descrizione: 'Tutti i punti grammaticali N4.', kind: 'grammar', livello: 'N4' },
+	// Grammatica per FUNZIONE (gruppo in grammar-gruppi.json)
+	{ id: 'g-forme-verbo', titolo: '動詞の形', emoji: '🔧', descrizione: 'Possibile, volitiva, imperativo, proibitivo, causativo, passivo.', kind: 'grammar', gruppo: 'forme-verbo' },
+	{ id: 'g-condizionali', titolo: '条件 (と・ば・たら・なら)', emoji: '🔀', descrizione: 'Condizionali e ipotesi.', kind: 'grammar', gruppo: 'condizionali' },
+	{ id: 'g-juju', titolo: '授受 (あげる・くれる・もらう)', emoji: '🎁', descrizione: 'Dare e ricevere, anche 〜て.', kind: 'grammar', gruppo: 'juju' },
+	{ id: 'g-passivo-causativo', titolo: '受身・使役', emoji: '🔄', descrizione: 'Passivo, causativo, causativo-passivo.', kind: 'grammar', gruppo: 'passivo-causativo' },
+	{ id: 'g-keigo', titolo: '敬語 (尊敬・謙譲)', emoji: '🙇', descrizione: 'Linguaggio cortese.', kind: 'grammar', gruppo: 'keigo' },
+	{ id: 'g-supposizione', titolo: '推量・様態・伝聞', emoji: '🔮', descrizione: 'そう/よう/みたい/らしい/はず/でしょう…', kind: 'grammar', gruppo: 'supposizione' },
+	{ id: 'g-ausiliari-te', titolo: '〜て + 補助動詞', emoji: '🧩', descrizione: 'ている/ておく/てしまう/てみる/てくる…', kind: 'grammar', gruppo: 'ausiliari-te' },
+	{ id: 'g-dovere-permesso', titolo: '義務・許可・禁止', emoji: '✅', descrizione: 'なければ/てもいい/てはいけない…', kind: 'grammar', gruppo: 'dovere-permesso' },
+	{ id: 'g-comparazione', titolo: '比較・程度', emoji: '⚖️', descrizione: 'より/ほうがいい/すぎる/たい…', kind: 'grammar', gruppo: 'comparazione-grado' },
+	{ id: 'g-tempo', titolo: '時・順序', emoji: '⏱️', descrizione: 'てから/まえに/ながら/とき/予定…', kind: 'grammar', gruppo: 'tempo-ordine' },
+	{ id: 'g-nominalizzazione', titolo: '名詞化・修飾', emoji: '🔖', descrizione: 'こと/の/ために/ように/ところ…', kind: 'grammar', gruppo: 'nominalizzazione' },
+	{ id: 'g-connessione', titolo: '接続・理由・逆接', emoji: '🔗', descrizione: 'から/ので/のに/ても/し…', kind: 'grammar', gruppo: 'connessione' },
+	{ id: 'g-citazione', titolo: '引用・疑問', emoji: '💭', descrizione: 'と思う/と言う/か/かどうか…', kind: 'grammar', gruppo: 'citazione' },
+	{ id: 'g-inviti', titolo: '誘い・依頼', emoji: '🙋', descrizione: 'ましょう/ませんか/てください…', kind: 'grammar', gruppo: 'inviti' },
+	{ id: 'g-particelle', titolo: '助詞 (particelle)', emoji: '🔸', descrizione: 'は・が・を・に・へ・で・も…', kind: 'grammar', gruppo: 'particelle' },
+	{ id: 'g-base', titolo: '基礎 (です・形容詞…)', emoji: '🧱', descrizione: 'Copula, aggettivi, 〜になる…', kind: 'grammar', gruppo: 'base' }
 ];
 
 export function findAutoMazzo(id: string): AutoMazzo | null {
