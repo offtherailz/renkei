@@ -12,12 +12,21 @@ export interface MazzoCard {
 	es_it?: string;
 }
 
+// Esercizio curato del mazzo (cloze/scelta): grammatica/funzioni del tema.
+export interface MazzoEsercizio {
+	prompt: string; // frase col buco ＿＿ (furigana 漢字[かな])
+	choices: string[]; // la prima è la corretta (si mescola a runtime)
+	spiega: string;
+	traduzione: string;
+}
+
 export interface Mazzo {
 	id: string;
 	titolo: string;
 	emoji: string;
 	descrizione: string;
 	carte: MazzoCard[];
+	esercizi?: MazzoEsercizio[];
 }
 
 export const MAZZI: Record<string, Mazzo> = {
@@ -47,6 +56,26 @@ export const MAZZI: Record<string, Mazzo> = {
 			{ jp: '洗濯機', yomi: 'せんたくき', it: 'lavatrice', es: '洗濯機[せんたくき]で 服[ふく]を 洗[あら]います。', es_it: 'Lavo i vestiti in lavatrice.' },
 			{ jp: '掃除機', yomi: 'そうじき', it: 'aspirapolvere', es: '掃除機[そうじき]を かけました。', es_it: 'Ho passato l’aspirapolvere.' },
 			{ jp: '電子レンジ', yomi: 'でんしレンジ', it: 'forno a microonde', es: '電子[でんし]レンジで あたためます。', es_it: 'Lo scaldo al microonde.' }
+		],
+		// Grammatica/funzioni del capitolo: «qualcosa si è rotto / non funziona» +
+		// 〜てしまう (rammarico, «purtroppo»), 調子が悪い, 動かない, つかない, 気になる.
+		esercizi: [
+			{ prompt: 'パソコン[ぱそこん]が 急[きゅう]に ＿＿ なりました。', choices: ['動[うご]かなく', '動[うご]く', '使[つか]わなく', '買[か]わなく'],
+				spiega: '動かなくなる = «smettere di funzionare». 動かない + なる.', traduzione: 'Il computer all’improvviso ha smesso di funzionare.' },
+			{ prompt: '新[あたら]しい スマホ[すまほ]を 落[お]として ＿＿。', choices: ['しまいました', 'おきました', 'みました', 'いました'],
+				spiega: '〜てしまう = rammarico/completamento («purtroppo»): 落として しまいました.', traduzione: 'Purtroppo ho fatto cadere lo smartphone nuovo.' },
+			{ prompt: 'この エアコン[えあこん]は ＿＿ が 悪[わる]いです。', choices: ['調子[ちょうし]', '気分[きぶん]', '元気[げんき]', '天気[てんき]'],
+				spiega: '調子が悪い = (una macchina) «funziona male».', traduzione: 'Questo condizionatore funziona male.' },
+			{ prompt: '時計[とけい]が 止[と]まって ＿＿。', choices: ['しまいました', 'きました', 'おきました', 'みました'],
+				spiega: '止まってしまう: si è fermato (e purtroppo è così).', traduzione: 'L’orologio si è fermato (purtroppo).' },
+			{ prompt: 'スイッチ[すいっち]を 押[お]しても、電気[でんき]が ＿＿。', choices: ['つきません', 'あきません', 'でません', 'なりません'],
+				spiega: '（電気が）つく = «accendersi»; negativo cortese つきません.', traduzione: 'Anche premendo l’interruttore, la luce non si accende.' },
+			{ prompt: 'せっかく 買[か]ったのに、もう ＿＿。', choices: ['壊[こわ]れて しまいました', '使[つか]って います', '届[とど]きました', '安[やす]いです'],
+				spiega: 'せっかく〜のに + 〜てしまう: rammarico (si è già rotto).', traduzione: 'L’avevo appena comprato, eppure si è già rotto.' },
+			{ prompt: '冷蔵庫[れいぞうこ]の 音[おと]が 大[おお]きくて、＿＿。', choices: ['気[き]に なります', '気[き]を つけます', '気[き]が します', '元気[げんき]です'],
+				spiega: '気になる = «dà fastidio / ci faccio caso».', traduzione: 'Il rumore del frigo mi dà fastidio.' },
+			{ prompt: 'パソコン[ぱそこん]が 動[うご]かなくて、＿＿。', choices: ['困[こま]って います', 'うれしいです', '便利[べんり]です', '楽[たの]しいです'],
+				spiega: '〜て、困っている: esprimere il problema («sono in difficoltà»).', traduzione: 'Il computer non funziona e sono in difficoltà.' }
 		]
 	}
 };

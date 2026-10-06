@@ -13,7 +13,35 @@
 	let pos = $state(0);
 	let flipped = $state(false);
 	let rivedere = $state<number[]>([]); // indici segnati «da rivedere»
-	let scene = $state<'setup' | 'play' | 'done'>('setup');
+	let scene = $state<'setup' | 'play' | 'eserc' | 'done'>('setup');
+
+	// Modalità esercizi (cloze/scelta): grammatica/funzioni del capitolo.
+	let eIdx = $state(0);
+	let ePicked = $state<number | null>(null);
+	let eChoices = $state<string[]>([]);
+	let eCorrect = $state(0);
+	const esercizi = $derived(mazzo?.esercizi ?? []);
+	function prepEserc() {
+		const ex = esercizi[eIdx];
+		if (!ex) return;
+		const sh = shuffle(ex.choices.map((c, i) => ({ c, i })));
+		eChoices = sh.map((x) => x.c);
+		eCorrect = sh.findIndex((x) => x.i === 0); // la prima era la corretta
+		ePicked = null;
+	}
+	function startEserc() {
+		eIdx = 0;
+		scene = 'eserc';
+		prepEserc();
+	}
+	function nextEserc() {
+		if (eIdx + 1 < esercizi.length) {
+			eIdx += 1;
+			prepEserc();
+		} else {
+			scene = 'done';
+		}
+	}
 
 	function shuffle<T>(xs: T[]): T[] {
 		const a = [...xs];
@@ -84,10 +112,37 @@
 			</button>
 		</div>
 		<p class="lbl">Oppure mettiti alla prova</p>
+		{#if esercizi.length}
+			<button class="dirbtn test" onclick={startEserc}>
+				<span class="d-t">📝 Esercizi di grammatica ({esercizi.length})</span>
+				<span class="d-d">Frasi del capitolo da completare: 〜てしまう (purtroppo), 調子が悪い, non funziona… con spiegazione.</span>
+			</button>
+		{/if}
 		<a class="dirbtn test" href="{base}/quiz?collezione={mazzo.id}">
 			<span class="d-t">🎯 Mini-test (quiz)</span>
 			<span class="d-d">Domande vere su queste parole: lettura, ascolto, composizione, kanji… (come l’SRS, randomizzato). Alimenta i ripassi.</span>
 		</a>
+	{:else if scene === 'eserc'}
+		{@const ex = esercizi[eIdx]}
+		<div class="hud"><span>{eIdx + 1} / {esercizi.length}</span><span>📝 Esercizi</span></div>
+		<div class="eq-prompt"><FuriganaText text={ex.prompt} force={true} /></div>
+		<div class="eopts">
+			{#each eChoices as c, i (i)}
+				<button class="opt" class:right={ePicked !== null && i === eCorrect} class:wrong={ePicked === i && i !== eCorrect}
+					disabled={ePicked !== null} onclick={() => (ePicked = i)}>
+					<FuriganaText text={c} force={true} />
+				</button>
+			{/each}
+		</div>
+		{#if ePicked !== null}
+			<div class="efb" class:ok={ePicked === eCorrect}>
+				<p class="efb-t"><strong>{ePicked === eCorrect ? '✅ Giusto!' : '❌ Non proprio.'}</strong>
+					<button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => say(ex.prompt.replace('＿＿', eChoices[eCorrect] ?? ''))}>🔊</button></p>
+				<p class="efb-why">{ex.spiega}</p>
+				<p class="efb-it">💬 {ex.traduzione}</p>
+			</div>
+			<button class="cta" onclick={nextEserc}>{eIdx + 1 < esercizi.length ? 'Prossima →' : 'Fine'}</button>
+		{/if}
 	{:else if scene === 'play' && card}
 		<div class="hud"><span>{pos + 1} / {order.length}</span><span class="hud-r">{rivedere.length ? `🔁 ${rivedere.length} da rivedere` : ''}</span></div>
 		<button class="card" onclick={flip} aria-label="Gira la carta">
@@ -169,4 +224,16 @@
 	.r-ok { background: var(--ok-bg); color: var(--ok-ink); border-color: var(--success); }
 	.r-no { background: var(--warn-bg); color: var(--warn-ink); border-color: var(--warn-border); }
 	.cta { width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; background: var(--brand); color: #fff; border: none; cursor: pointer; }
+	.eq-prompt { font-size: 1.3rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 16px; text-align: center; }
+	.eopts { display: grid; gap: 8px; }
+	.opt { text-align: center; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); padding: 12px; font-size: 1.1rem; cursor: pointer; }
+	.opt:disabled { cursor: default; }
+	.opt.right { border-color: var(--success); background: var(--ok-bg); }
+	.opt.wrong { border-color: var(--danger); background: var(--danger-bg); }
+	.efb { display: grid; gap: 4px; border-left: 3px solid var(--line); padding-left: 10px; }
+	.efb.ok { border-left-color: var(--success); }
+	.efb-t { margin: 0; display: flex; align-items: center; gap: 8px; }
+	.efb-why { margin: 0; font-size: 0.9rem; }
+	.efb-it { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.tts { border: none; background: none; cursor: pointer; font-size: 1rem; }
 </style>
