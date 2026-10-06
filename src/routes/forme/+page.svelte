@@ -36,6 +36,7 @@
 	<p class="page-sub">Le categorie che vedi nei badge, spiegate. Tocca un badge in qualsiasi punto dell'app per aprire la scheda.</p>
 
 	<a class="composte-link" href="{base}/forme-composte">🧩 Forme composte (〜てみる, 〜たい, condizionali…) →</a>
+	<a class="composte-link" href="{base}/coppie-jita">↔️ Coppie 自動詞/他動詞 (lista + esercizio) →</a>
 
 	<div class="forms-index">
 		{#each forms as form}

@@ -162,20 +162,22 @@ export async function loadSkillMastery(): Promise<SkillMastery> {
 // di obiettivi in pausa restano salvati ma non vengono proposti né contati.
 export async function getActiveItemKeys(): Promise<Set<string>> {
 	const objectives = await db.study_objectives.toArray();
-	const enabled = objectives.filter((o) => o.study_enabled);
-	const keys = new Set<string>();
-	const stack = [...enabled];
-	const seen = new Set(enabled.map((o) => o.id));
-	while (stack.length) {
-		const obj = stack.pop()!;
-		for (const k of obj.catalog_item_keys) keys.add(k);
-		for (const child of objectives.filter(
-			(o) => o.parent_objective_id === obj.id && o.study_enabled && !seen.has(o.id)
-		)) {
-			seen.add(child.id);
-			stack.push(child);
+	const byId = new Map(objectives.map((o) => [o.id, o]));
+	// attivo solo se ESSO e tutti gli antenati sono attivi (la pausa del padre
+	// mette in pausa i figli) — stessa semantica del pool quiz.
+	const effEnabled = (o: (typeof objectives)[number]): boolean => {
+		let cur: (typeof objectives)[number] | undefined = o;
+		const guard = new Set<string>();
+		while (cur) {
+			if (guard.has(cur.id)) break;
+			guard.add(cur.id);
+			if (!cur.study_enabled) return false;
+			cur = cur.parent_objective_id ? byId.get(cur.parent_objective_id) : undefined;
 		}
-	}
+		return true;
+	};
+	const keys = new Set<string>();
+	for (const o of objectives) if (effEnabled(o)) for (const k of o.catalog_item_keys) keys.add(k);
 	return keys;
 }
 

@@ -127,6 +127,7 @@
 			{:else}
 				<button class="proceed" onclick={start}>はじめる</button>
 				<p class="record">🏆 Record: {best}</p>
+				<a class="lista-link" href="{base}/coppie-jita">📋 Vedi l'elenco delle coppie</a>
 			{/if}
 		</article>
 	{:else if scene === 'play'}
@@ -187,6 +188,7 @@
 	.hint { margin: 0; text-align: center; font-size: 0.88rem; color: var(--muted); }
 	.prompt { margin: 0; text-align: center; background: var(--surface-2); border-radius: 12px; padding: 14px; font-size: 1.1rem; font-weight: 600; }
 	.record { margin: 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
+	.lista-link { display: block; text-align: center; margin-top: 8px; color: var(--brand); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.15rem; text-align: center; cursor: pointer; }
 	.choice:hover:not(.answered) { border-color: var(--brand); }

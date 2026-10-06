@@ -200,22 +200,24 @@
 	}
 
 	function getActivePool(): ItemRef[] {
-		const enabled = objectives.filter((o) => o.study_enabled);
-		const keys = new Set<string>();
-		const stack = [...enabled];
-		const seen = new Set(enabled.map((o) => o.id));
-		while (stack.length) {
-			const obj = stack.pop()!;
-			for (const k of obj.catalog_item_keys) keys.add(k);
-			// i figli in pausa restano fuori: mettere in pausa "Parole N5"
-			// deve funzionare anche col padre "Catalogo N5" attivo
-			for (const child of objectives.filter(
-				(o) => o.parent_objective_id === obj.id && o.study_enabled && !seen.has(o.id)
-			)) {
-				seen.add(child.id);
-				stack.push(child);
+		// Un obiettivo è attivo solo se ESSO e TUTTI gli antenati sono attivi:
+		// così mettere in pausa un catalogo-padre (es. "Catalogo N4") mette in pausa
+		// anche i figli ("Parole/Kanji/Grammatica N4"); e mettere in pausa solo un
+		// figlio col padre attivo continua a funzionare.
+		const byId = new Map(objectives.map((o) => [o.id, o]));
+		const effEnabled = (o: StudyObjective): boolean => {
+			let cur: StudyObjective | undefined = o;
+			const guard = new Set<string>();
+			while (cur) {
+				if (guard.has(cur.id)) break; // anti-ciclo
+				guard.add(cur.id);
+				if (!cur.study_enabled) return false;
+				cur = cur.parent_objective_id ? byId.get(cur.parent_objective_id) : undefined;
 			}
-		}
+			return true;
+		};
+		const keys = new Set<string>();
+		for (const o of objectives) if (effEnabled(o)) for (const k of o.catalog_item_keys) keys.add(k);
 		const fromObjectives = [...keys]
 			.map((key): ItemRef | null => {
 				if (key.startsWith('word:')) return { key, kind: 'word' };
