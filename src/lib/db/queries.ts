@@ -392,6 +392,57 @@ export async function loadAutoQueue(id: string, limit = 15): Promise<{ kind: str
 	return shuffle(pool).slice(0, limit).map((x) => ({ kind: 'word', raw: x.id }));
 }
 
+// Padronanza della grammatica per GRUPPO funzionale (per il cruscotto diagnostico).
+// Usa grammar-gruppi.json (id→gruppo) + SRS. mastery media sui punti già provati.
+export interface GrammarGroupStat { gruppo: string; total: number; tested: number; mastery: number }
+export async function loadGrammarGroupStats(): Promise<Record<string, GrammarGroupStat>> {
+	const map = (await import('$lib/data/grammar-gruppi.json')).default as Record<string, string>;
+	const [grammar, srs] = await Promise.all([db.grammar.toArray(), db.srs_progress.toArray()]);
+	const byId = new Map(srs.map((r) => [r.id_item, r]));
+	const out: Record<string, GrammarGroupStat> = {};
+	for (const g of grammar) {
+		if ((g.frasi_esempio?.length ?? 0) === 0) continue;
+		const gr = map[g.id];
+		if (!gr) continue;
+		const st = (out[gr] ??= { gruppo: gr, total: 0, tested: 0, mastery: 0 });
+		st.total += 1;
+		const r = byId.get(`grammar:${g.id}`);
+		if (r) {
+			st.tested += 1;
+			st.mastery += normalizeMastery(r.srs_stage, r.mastery_points);
+		}
+	}
+	for (const st of Object.values(out)) st.mastery = st.tested ? Math.round(st.mastery / st.tested) : -1; // -1 = non provato
+	return out;
+}
+
+// Coda "giro diagnostico" grammatica: ~1-2 punti per ogni gruppo funzionale,
+// preferendo i NON ancora provati → sonda tutta la grammatica in fretta.
+export async function loadGrammarDiagnosticaQueue(perGruppo = 1): Promise<{ kind: string; raw: string }[]> {
+	const map = (await import('$lib/data/grammar-gruppi.json')).default as Record<string, string>;
+	const [grammar, srs] = await Promise.all([db.grammar.toArray(), db.srs_progress.toArray()]);
+	const have = new Set(srs.map((r) => r.id_item));
+	const shuffle = <T>(xs: T[]): T[] => {
+		const a = [...xs];
+		for (let i = a.length - 1; i > 0; i -= 1) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j]!, a[i]!]; }
+		return a;
+	};
+	const byGroup: Record<string, typeof grammar> = {};
+	for (const g of grammar) {
+		if ((g.frasi_esempio?.length ?? 0) === 0) continue;
+		const gr = map[g.id];
+		if (!gr) continue;
+		(byGroup[gr] ??= []).push(g);
+	}
+	const out: { kind: string; raw: string }[] = [];
+	for (const list of Object.values(byGroup)) {
+		// prima i non provati, poi gli altri
+		const sorted = shuffle(list).sort((a, b) => Number(have.has(`grammar:${a.id}`)) - Number(have.has(`grammar:${b.id}`)));
+		for (const g of sorted.slice(0, perGruppo)) out.push({ kind: 'grammar', raw: g.id });
+	}
+	return shuffle(out);
+}
+
 // Padronanza per-mondai dell'esame N4 (chiavi 'mondai:<slug>'). Ritorna la %
 // solo per i mondai che hanno almeno un tentativo; gli altri restano ignoti
 // (la landing li mostra come "non ancora provato"). Sola pratica → mastery.

@@ -41,7 +41,7 @@
 	</div>
 
 	<h2 class="sec">Grammatica per funzione</h2>
-	<p class="note">Ogni gruppo = un mini-test sui punti grammaticali di quella funzione.</p>
+	<p class="note">Ogni gruppo = un mini-test. Vuoi scoprire dove sei forte/debole? <a href="{base}/grammatica">📖 Giro diagnostico grammatica →</a></p>
 	<div class="grid">
 		{#each autoGram as m (m.id)}
 			<a class="card auto" href="{base}/quiz?auto={m.id}">

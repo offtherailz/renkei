@@ -37,6 +37,7 @@
 
 	<a class="composte-link" href="{base}/forme-composte">🧩 Forme composte (〜てみる, 〜たい, condizionali…) →</a>
 	<a class="composte-link" href="{base}/coppie-jita">↔️ Coppie 自動詞/他動詞 (lista + esercizio) →</a>
+	<a class="composte-link" href="{base}/grammatica">📖 Grammatica: forte/debole + giro diagnostico →</a>
 
 	<div class="forms-index">
 		{#each forms as form}

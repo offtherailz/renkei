@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto, beforeNavigate } from '$app/navigation';
 	import { db } from '$lib/db/schema';
-	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadAutoQueue, type N4ReviewArea } from '$lib/db/queries';
+	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadAutoQueue, loadGrammarDiagnosticaQueue, type N4ReviewArea } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
@@ -1523,7 +1523,9 @@
 			// Dose del giorno: solo i 12 più deboli (la lista intera resterebbe
 			// scoraggiante); il resto aspetta in /punti-deboli e la lista si svuota
 			// da sola man mano che i ripassi graduano l'SRS.
-			const weakQueue = autoId
+			const weakQueue = autoId === 'gram-diagnostica'
+				? await loadGrammarDiagnosticaQueue(1)
+				: autoId
 				? await loadAutoQueue(autoId)
 				: collezioneId
 				? await loadCollezioneQueue(collezioneId)
