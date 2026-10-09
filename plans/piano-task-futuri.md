@@ -17,6 +17,75 @@ Per OGNI item, prima del rilascio:
 
 ---
 
+## Roadmap 2026-10 — qualità N4 e oltre (pianificazione «team»)
+
+Lenti: 👩‍🏫 insegnante · 🛠 engineer · 🎨 UX · 🗃 dati · 🔭 vision.
+Obiettivo doppio: (1) **far passare l'N4 di dicembre 2026**; (2) rendere l'app utile **dopo** l'N4
+(N3, studio a lungo termine, corso Marugoto). Ordine = impatto sul passaggio prima, poi scala.
+
+### Contesto: cosa è già stato fatto (sessione ott 2026)
+Sezione **Esame N4** completa (15 mondai, conteggi/tempi/punteggio reali, prove fisse+casuale+mini+continua,
+cruscotto «Pronto»). Generatori dal catalogo per 漢字読み/表記/文脈規定/言い換え/用法 (distrattori
+fonetici per 漢字読み, note sulle opzioni). Ascolto stile esame (voci, play unico, opzioni solo-audio,
+immagini 発話 SVG). **Mazzi/collezioni** (flashcard + mini-test riusando il motore faccette) + auto per
+categoria/livello. **Grammatica divisa in 16 gruppi funzionali** + cruscotto diagnostico `/grammatica`.
+Lista **coppie 自他** `/coppie-jita`. Fix: pausa catalogo a cascata, furigana sfalsato (ZWSP), lookup
+〜ます (mergeAux), 組み立て ambigui/errati. 5 parole + 6 kanji 家電 a catalogo (v144).
+
+### P0 — Qualità domande N4 (👩‍🏫🗃 impatto diretto sul punteggio) — PRIMA
+1. **用法 (problema maggiore)**: i distrattori generati (frase di altra parola con la parola target
+   inserita) restano plausibili o diventano nonsense. Azione: tenere 用法 **prevalentemente curato**;
+   per il generato, vincolare i distrattori a **collocazioni vicine** (stessa particella/oggetto tipico)
+   o scartare. Target: ogni 用法 ha 4 frasi di cui 3 «uso sbagliato» credibili.
+2. **表記**: distrattori = sostituire un kanji con uno **simile per lettura/radicale**, non a caso
+   (便利/硬利). Serve una mini-mappa kanji→simili (per lettura on condivisa o componente). Frase più kana.
+3. **文脈規定**: garantire 4 opzioni **stessa categoria/POS**, plausibili.
+4. **漢字読み**: aggiungere 1-2 distrattori «**lettura di parola reale**» di lunghezza simile accanto
+   alle varianti fonetiche (evitare letture inesistenti troppo facili).
+5. **Esempi fuori livello**: regola «**esempio più corto/semplice**» nel quiz quando un vocabolo ne ha
+   più d'uno; ripulire via override gli esempi Tatoeba duri (come 商品).
+
+### P1 — Esame completo e fedele (👩‍🏫🎨)
+6. **読解** difficile: +6-8 brani (短文/中文) con inferenza e distrattori vicini (riempire 2+ prove a Esame).
+7. **Prove distinte**: portare i pool al punto da avere **3 prove ufficiali** con poco riuso reale.
+8. **聴解**: micro-pausa «leggi le opzioni» alla ポイント理解; +dialoghi 課題/ポイント; +battute 即時;
+   accettare il limite TTS (vedi P4 per audio).
+9. **発話表現 immagini**: asset (Gemini PNG) con **freccia** sul parlante; collegare quando l'utente li carica.
+
+### P2 — Robustezza del motore (🛠 abilita scala)
+10. **Tokenizer de-split**: quando un token non risolve, prova a **unire kanji/parti adiacenti** e
+    ri-cerca (働きます, 一生懸命). **Con test** (regola utente: ogni modifica allo split → test).
+11. **Refactor file giganti** (`quiz/+page.svelte` ~1500 righe): estrarre la logica sessione/coda in
+    moduli testabili; **test UI** chiave (prova esame, mazzo, scoping collezione/auto).
+12. **A11y / perf**: togliere controlli annidati (span cliccabile in button); valutare caricamento
+    lazy del catalogo se cresce molto.
+
+### P3 — Studio del corso & collezioni (🎨👩‍🏫)
+13. **Mazzi Marugoto per lezione**: l'utente incolla i vocaboli di una 課/トピック → mazzo (flashcard
+    + esercizi tematici) + parole nuove a catalogo. Schema id `mrgt-<liv>-t<n>`.
+14. **Import lezioni** (vedi `idea-import-lezioni-csv.md`): caricare un CSV di vocaboli → collezione.
+15. **Collezioni espandibili** con progress/padronanza per collezione (mini-cruscotto come `/grammatica`).
+
+### P4 — Oltre l'N4 (🔭 futuro)
+16. **Estendere a N3**: catalogo N3 già presente (2483 parole); replicare esame/diagnostica/mazzi su N3
+    (blueprint N3, più grammatica N3). La grammatica per-funzione e i mazzi auto **già** scalano per livello.
+17. **Studio continuo generale** (non solo esame): obiettivi personali, SRS a lungo termine, ripasso
+    adattivo cross-livello.
+18. **Produzione attiva**: scrittura/parlato con valutazione (lo shadowing e spoken-production ci sono;
+    ampliare feedback).
+19. **Audio**: valutare voci TTS migliori dove disponibili o registrazioni per un **set core** di ascolto
+    (il limite più serio verso un esame reale).
+20. **Analytics apprendimento**: curve di retention/padronanza per guidare il ripasso.
+
+### P5 — Igiene continua (🗃)
+21. Pipeline overrides→seed + `SEED_REVISION`; validatore esteso; **audit traduzioni** periodico
+    (IT sempre dal giapponese, mai dall'EN).
+
+**Ordine consigliato**: P0 → P1 → P2 → (P3 in parallelo quando arrivano i vocaboli) → P4 dopo l'N4.
+Ogni item: una cosa alla volta, check/build/test/staging/prod, commit a nome utente.
+
+---
+
 ## Stato attuale (17/07/2026 — handoff di sessione)
 
 **FATTO (commit su main, staging deployato con tutto, PROD MAI deployata in questa sessione):**
