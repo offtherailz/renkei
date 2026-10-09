@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { createDefaultTokenizer } from '$lib/core/tokenizer';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
-	import { ensureWordIndex, lookupToken, mergeAuxTokens, jishoUrl, type WordHit } from '$lib/core/wordLookup';
+	import { ensureWordIndex, lookupToken, mergeAuxTokens, mergeByDictionary, jishoUrl, type WordHit } from '$lib/core/wordLookup';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { recordPracticeMiss } from '$lib/core/practiceMiss';
@@ -95,7 +95,9 @@
 
 	onMount(async () => {
 		const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(detectUserLocale())]);
-		tokens = mergeAuxTokens(tok.tokenize(plain));
+		// 1) BudouX → 2) riattacca ausiliari (働き+ます) → 3) riunisce parole composte
+		// spezzate se esistono a catalogo (一生懸命 → 一生+懸命).
+		tokens = mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s));
 		hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
 	});
 

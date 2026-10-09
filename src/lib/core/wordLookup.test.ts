@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lookupToken, mergeAuxTokens, type WordHit } from './wordLookup';
+import { lookupToken, mergeAuxTokens, mergeByDictionary, type WordHit } from './wordLookup';
 
 const hit = (id: string, scrittura: string, lettura: string, tipo = '名詞[めいし]'): WordHit => ({
 	id, scrittura, lettura, tipo_jp: tipo, livello_jlpt: 'N5', significato: id
@@ -183,5 +183,17 @@ describe('lookupToken', () => {
 	]);
 	it('働きます (dopo merge) risolve al verbo 働く, non al nome 働き', () => {
 		expect(lookupToken(map6, '働きます')?.id).toBe('働く');
+	});
+
+	// BudouX spezza le parole composte: mergeByDictionary le riunisce se esistono.
+	it('mergeByDictionary riunisce i composti spezzati (一生+懸命→一生懸命)', () => {
+		const known = new Set(['一生懸命', '自動車', '勉強']);
+		const has = (s: string) => known.has(s);
+		expect(mergeByDictionary(['一生', '懸命', 'に', '勉強'], has)).toEqual(['一生懸命', 'に', '勉強']);
+		expect(mergeByDictionary(['自動', '車', 'で'], has)).toEqual(['自動車', 'で']);
+		// non unisce se il risultato non è noto
+		expect(mergeByDictionary(['私', 'は'], has)).toEqual(['私', 'は']);
+		// preferisce la forma più lunga nota
+		expect(mergeByDictionary(['一生', '懸命'], (s) => s === '一生懸命' || s === '一生')).toEqual(['一生懸命']);
 	});
 });

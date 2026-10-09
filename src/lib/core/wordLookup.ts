@@ -285,6 +285,31 @@ export function mergeAuxTokens(tokens: string[]): string[] {
 	return out;
 }
 
+// BudouX può spezzare una parola composta in più token (一生懸命 → 一生+懸命,
+// 自動車 → 自動+車): nessuno dei pezzi risolve bene. Unisce 2-3 token adiacenti
+// quando la forma unita È una parola del catalogo (`known`), preferendo la più
+// lunga. Sicuro: unisce solo se il risultato esiste davvero.
+export function mergeByDictionary(tokens: string[], known: (s: string) => boolean): string[] {
+	const out: string[] = [];
+	let i = 0;
+	while (i < tokens.length) {
+		let merged = tokens[i]!;
+		let take = 1;
+		for (let n = 3; n >= 2; n -= 1) {
+			if (i + n > tokens.length) continue;
+			const joined = tokens.slice(i, i + n).join('');
+			if (known(joined)) {
+				merged = joined;
+				take = n;
+				break;
+			}
+		}
+		out.push(merged);
+		i += take;
+	}
+	return out;
+}
+
 export function jishoUrl(q: string): string {
 	return `https://jisho.org/search/${encodeURIComponent(q)}`;
 }
