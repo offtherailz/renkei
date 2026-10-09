@@ -86,15 +86,21 @@ function phoneticVariants(r: string): string[] {
 
 // Distrattori del 表記: stessa parola con UN kanji sostituito (送る→近る/逆る…,
 // 場所→揚所/場斦…). Mantiene okurigana e lunghezza: forma tipica del 問題2.
-function similarWritings(writing: string, pool: string[]): string[] {
+function similarWritings(writing: string, pool: string[], similarKanji: (c: string) => string[]): string[] {
 	const positions = [...writing].map((c, i) => ({ c, i })).filter((p) => /[一-龯]/.test(p.c));
 	if (positions.length === 0 || pool.length === 0) return [];
+	const pick = (c: string): string => {
+		// prima un kanji che condivide una lettura col target; se non c'è, a caso
+		const sim = similarKanji(c).filter((x) => x !== c);
+		if (sim.length) return sim[Math.floor(Math.random() * sim.length)]!;
+		return pool[Math.floor(Math.random() * pool.length)]!;
+	};
 	const out = new Set<string>();
 	let guard = 0;
-	while (out.size < 3 && guard < 60) {
+	while (out.size < 3 && guard < 80) {
 		guard += 1;
 		const pos = positions[Math.floor(Math.random() * positions.length)]!;
-		const repl = pool[Math.floor(Math.random() * pool.length)]!;
+		const repl = pick(pos.c);
 		if (repl === pos.c) continue;
 		const arr = [...writing];
 		arr[pos.i] = repl;
@@ -117,9 +123,23 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		}
 		const locale = detectUserLocale();
 		const grammar = await db.grammar.toArray();
-		// Pool kanji del catalogo (N5/N4): serve per i distrattori del 表記 (kanji
-		// simili). Solo i kanji "veri" (un carattere 一-龯).
-		const kanjiPool = (await db.kanji.toArray()).map((k) => k.id).filter((c) => /^[一-龯]$/.test(c));
+		// Pool kanji del catalogo: per i distrattori del 表記 preferiamo kanji che
+		// CONDIVIDONO una lettura col target (trappola reale «stesso suono, kanji
+		// sbagliato»), con fallback a kanji a caso.
+		const kanjiRows = (await db.kanji.toArray()).filter((k) => /^[一-龯]$/.test(k.id));
+		const kanjiPool = kanjiRows.map((k) => k.id);
+		const readingsOf = new Map<string, string[]>();
+		const kanjiByReading = new Map<string, string[]>();
+		for (const k of kanjiRows) {
+			const rs = [...(k.letture_on ?? []), ...(k.letture_kun ?? []).map((r) => r.split('.')[0]!)].filter(Boolean);
+			readingsOf.set(k.id, rs);
+			for (const r of rs) (kanjiByReading.get(r) ?? kanjiByReading.set(r, []).get(r)!).push(k.id);
+		}
+		const similarKanji = (c: string): string[] => {
+			const set = new Set<string>();
+			for (const r of readingsOf.get(c) ?? []) for (const o of kanjiByReading.get(r) ?? []) if (o !== c) set.add(o);
+			return [...set];
+		};
 		const context: QuizContext = {
 			locale,
 			wordsById: new Map(all.map((w) => [w.id, w])),
@@ -155,7 +175,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			// il termine appare in kana (la sua lettura), sottolineato: si sceglie il kanji
 			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.lettura}】`);
 			if (!marked.includes(`【${w.lettura}】`)) continue;
-			const distr = similarWritings(w.scrittura, kanjiPool);
+			const distr = similarWritings(w.scrittura, kanjiPool, similarKanji);
 			if (distr.length < 3) continue;
 			const choices = shuffle([w.scrittura, ...distr]);
 			out.hyoki!.push({
@@ -181,17 +201,20 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 			// sottolinea il termine e rimuovi la SUA lettura (è ciò che si chiede)
 			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.scrittura}】`);
 			if (!marked.includes(`【${w.scrittura}】`)) continue;
-			let distr = shuffle([...new Set(phoneticVariants(correctR))].filter((v) => v !== correctR)).slice(0, 3);
-			if (distr.length < 3) {
-				const extra = [
-					...new Set(
-						shuffle(kanjiWords)
-							.filter((x) => x.lettura !== correctR && !distr.includes(x.lettura))
-							.map((x) => x.lettura)
-					)
-				].sort((a, b) => Math.abs(a.length - correctR.length) - Math.abs(b.length - correctR.length));
-				distr = [...distr, ...extra].slice(0, 3);
-			}
+			// letture REALI di altre parole, lunghezza simile (evita distrattori troppo facili)
+			const realReadings = [
+				...new Set(
+					shuffle(kanjiWords)
+						.filter((x) => x.lettura !== correctR)
+						.map((x) => x.lettura)
+				)
+			].sort((a, b) => Math.abs(a.length - correctR.length) - Math.abs(b.length - correctR.length));
+			const fonetiche = shuffle([...new Set(phoneticVariants(correctR))].filter((v) => v !== correctR));
+			// mix come all'esame: ~2 varianti fonetiche + ≥1 lettura reale
+			const distr: string[] = [];
+			for (const v of fonetiche) { if (distr.length >= 2) break; distr.push(v); }
+			for (const v of realReadings) { if (distr.length >= 3) break; if (!distr.includes(v)) distr.push(v); }
+			for (const v of fonetiche) { if (distr.length >= 3) break; if (!distr.includes(v)) distr.push(v); }
 			if (distr.length < 3) continue;
 			const choices = shuffle([correctR, ...distr]);
 			out['kanji-yomi']!.push({
