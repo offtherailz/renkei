@@ -57,7 +57,9 @@ const ROLE_NAME: Record<string, string> = {
 	店員: '店員[てんいん]', 客: 'お客[きゃく]さん'
 };
 
-export function speakExamListening(prompt: string, rate = 1): void {
+// leadPauseMs: pausa tra domanda e dialogo. Alla ポイント理解 l'esame dà più tempo
+// per LEGGERE le opzioni stampate prima del dialogo → passare un valore più alto.
+export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500): void {
 	const token = ++playToken;
 	stopSpeaking();
 
@@ -102,8 +104,8 @@ export function speakExamListening(prompt: string, rate = 1): void {
 	}
 	if (question) items.push({ text: question, options: narrator });
 
-	// pausa prima del dialogo
-	items.push({ pause: 2500 });
+	// pausa prima del dialogo (più lunga alla ポイント理解: leggere le opzioni)
+	items.push({ pause: leadPauseMs });
 
 	// 2) dialogo a voci alternate
 	if (lines.length > 0) {

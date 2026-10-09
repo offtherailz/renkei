@@ -1184,7 +1184,49 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		prompt: '〔文章〕先月[せんげつ]、駅[えき]の 近[ちか]くに 新[あたら]しい スーパー[すーぱー]が できた。安[やす]くて 便利[べんり]なので、よく 行[い]く。ただ、いつも こんで いて、レジ[れじ]に 並[なら]ぶ 時間[じかん]が 長[なが]い。それだけが 残念[ざんねん]だ。 問: この 人は スーパーの 何[なに]が 残念だと 言って いますか。',
 		choices: ['レジで 待[ま]つ 時間が 長い こと', 'ねだんが 高[たか]い こと', '駅から 遠[とお]い こと', '品物[しなもの]が 少[すく]ない こと'], correct: 0,
 		traduzione: 'Il mese scorso ha aperto un nuovo supermercato vicino alla stazione. È economico e comodo, ci vado spesso. Però è sempre affollato e la fila alla cassa è lunga. È l’unica cosa che mi dispiace. — Cosa gli dispiace del supermercato?',
-		spiegazione: { perche_giusta: 'La fila alla cassa è lunga (それだけが残念).', perche_sbagliate: ['è economico (安くて)', 'è vicino alla stazione', 'non detto'] } }
+		spiegazione: { perche_giusta: 'La fila alla cassa è lunga (それだけが残念).', perche_sbagliate: ['è economico (安くて)', 'è vicino alla stazione', 'non detto'] } },
+
+	// ── P1: +読解 difficile + 聴解 (volume per prove distinte) ──────────────────
+	{ id: 'dt-11', mondai: 'dokkai-tan', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔お知[し]らせ〕あしたの 午後[ごご]、ビル[びる]の 水道[すいどう]の 工事[こうじ]が あります。午後[ごご]1時[じ]から 4時[じ]まで、水[みず]が 使[つか]えません。お手洗[てあら]いも 使[つか]えませんので、気[き]を つけて ください。 問: あした、使[つか]えなく なるのは 何[なん]ですか。',
+		choices: ['水[みず]（とお手洗[てあら]い）', 'エレベーター[えれべーたー]', '電気[でんき]', '電話[でんわ]'], correct: 0,
+		traduzione: '〔Avviso〕Domani pomeriggio lavori all’impianto idrico del palazzo: dall’1 alle 4 non ci sarà acqua. Non si potranno usare neanche i bagni, fate attenzione. — Cosa non si potrà usare domani?',
+		spiegazione: { perche_giusta: 'Lavori all’acqua → niente acqua (e bagni).', perche_sbagliate: ['non menzionato', 'non menzionato', 'non menzionato'] } },
+	{ id: 'dt-12', mondai: 'dokkai-tan', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '私[わたし]は 歩[ある]くのが 好[す]きだ。駅[えき]まで バス[ばす]で 10分[ぷん]だが、歩[ある]くと 30分[ぷん]かかる。それでも 天気[てんき]が いい 日[ひ]は 歩[ある]いて 行[い]く。体[からだ]に いいからだ。 問: この 人は 天気が いい 日に どう しますか。',
+		choices: ['歩[ある]いて 駅[えき]へ 行[い]く', 'バス[ばす]に 乗[の]る', '家[いえ]に いる', '自転車[じてんしゃ]で 行[い]く'], correct: 0,
+		traduzione: 'Mi piace camminare. Alla stazione in autobus sono 10 minuti, a piedi 30. Eppure nei giorni di bel tempo ci vado a piedi, perché fa bene alla salute. — Cosa fa nei giorni di bel tempo?',
+		spiegazione: { perche_giusta: 'Nei giorni belli va a piedi (体にいいから).', perche_sbagliate: ['la bus è l’alternativa più veloce, non la scelta dei bei giorni', 'non detto', 'non menzionato'] } },
+	{ id: 'dc-11', mondai: 'dokkai-chu', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔文章〕私[わたし]は 去年[きょねん]から ギター[ぎたー]を 習[なら]って いる。最初[さいしょ]は 指[ゆび]が 痛[いた]くて、何度[なんど]も やめようと 思[おも]った。でも、先生[せんせい]が「ゆっくりで いい」と 言[い]って くれた ので、続[つづ]けられた。今[いま]は 簡単[かんたん]な 曲[きょく]が ひける。 問: この 人が ギターを 続[つづ]けられたのは なぜですか。',
+		choices: ['先生[せんせい]が はげまして くれたから', '指[ゆび]が 痛[いた]く なかったから', 'すぐ 上手[じょうず]に なったから', '曲[きょく]が 簡単[かんたん]だったから'], correct: 0,
+		traduzione: 'Dall’anno scorso studio chitarra. All’inizio le dita facevano male e ho pensato più volte di smettere. Ma il maestro mi disse «va bene piano piano», così ho continuato. Ora suono brani semplici. — Perché è riuscito a continuare?',
+		spiegazione: { perche_giusta: 'Il maestro lo ha incoraggiato («ゆっくりでいい»).', perche_sbagliate: ['le dita FACEVANO male', 'non è migliorato subito', 'i brani facili sono il risultato di ora, non il motivo'] } },
+	{ id: 'dc-12', mondai: 'dokkai-chu', livello_jlpt: 'N4', tier: 'difficile',
+		prompt: '〔文章〕うちの 近[ちか]くに 古[ふる]い 喫茶店[きっさてん]が ある。コーヒー[こーひー]は 特別[とくべつ] おいしい わけでは ないが、店[みせ]の 人[ひと]が とても 親切[しんせつ]で、いつも 静[しず]かだ。だから 私[わたし]は 本[ほん]を 読[よ]みに よく 行[い]く。 問: この 人は どうして その 喫茶店[きっさてん]に 行[い]きますか。',
+		choices: ['親切[しんせつ]で 静[しず]かだから', 'コーヒー[こーひー]が 一番[いちばん] おいしいから', '家[いえ]から 遠[とお]いから', '安[やす]いから'], correct: 0,
+		traduzione: 'Vicino a casa c’è un vecchio caffè. Il caffè non è particolarmente buono, ma il personale è gentilissimo ed è sempre tranquillo. Perciò ci vado spesso a leggere. — Perché va in quel caffè?',
+		spiegazione: { perche_giusta: 'Personale gentile e locale tranquillo.', perche_sbagliate: ['il caffè NON è particolarmente buono', 'è vicino, non lontano', 'non detto'] } },
+
+	// 聴解 extra (volume)
+	{ id: 'kq-9', mondai: 'kadai', livello_jlpt: 'N4', prompt: '〔会話〕女[おんな]:「パーティー[ぱーてぃー]の 飲[の]み物[もの]、買[か]った?」 男[おとこ]:「お茶[ちゃ]は 買[か]った。ジュース[じゅーす]は これから。」 女:「じゃあ、私[わたし]が ジュースを 買[か]う。あなたは ケーキ[けーき]を お願[ねが]い。」 問: 男の人は 何[なに]を 買[か]いますか。', choices: ['ケーキ', 'ジュース', 'お茶', '何[なに]も 買わない'], correct: 0,
+		traduzione: 'Hai comprato le bibite per la festa? — Il tè sì, il succo ancora no. — Allora il succo lo compro io; tu pensa alla torta. — Cosa compra lui?',
+		spiegazione: { perche_giusta: 'Lei prende il succo, a lui tocca la torta.', perche_sbagliate: ['il succo lo compra lei', 'il tè è già comprato', 'un compito ce l’ha'] } },
+	{ id: 'kq-10', mondai: 'kadai', livello_jlpt: 'N4', prompt: '〔会話〕先生[せんせい]:「テスト[てすと]の 前[まえ]に、机[つくえ]の 上[うえ]には 何[なに]も 置[お]かないで。」 学生[がくせい]:「えんぴつは?」 先生:「えんぴつと けしゴムだけ いいです。」 問: 机[つくえ]の 上[うえ]に 置[お]いて いいのは 何[なん]ですか。', choices: ['えんぴつと けしゴム', '教科書[きょうかしょ]', 'かばん', 'けいたい電話[でんわ]'], correct: 0,
+		traduzione: 'Prima del test non lasciate niente sul banco. — E la matita? — Solo matita e gomma vanno bene. — Cosa si può tenere sul banco?',
+		spiegazione: { perche_giusta: 'Solo matita e gomma.', perche_sbagliate: ['niente altro', 'non permesso', 'non permesso'] } },
+	{ id: 'pq-8', mondai: 'point', livello_jlpt: 'N4', prompt: '〔会話〕女[おんな]:「旅行[りょこう]、どうだった?」 男[おとこ]:「山[やま]は きれいだったけど、ずっと 雨[あめ]で 写真[しゃしん]が あまり 撮[と]れなかった。」 問: 男の人は 何[なに]が 残念[ざんねん]でしたか。', choices: ['雨[あめ]で 写真[しゃしん]が 撮[と]れなかった こと', '山[やま]が きれいじゃ なかった こと', '旅行[りょこう]に 行[い]けなかった こと', '道[みち]が こんで いた こと'], correct: 0,
+		traduzione: 'Com’è andato il viaggio? — La montagna era bella, ma è piovuto tutto il tempo e non ho potuto fare molte foto. — Cosa gli è dispiaciuto?',
+		spiegazione: { perche_giusta: 'Pioggia → poche foto.', perche_sbagliate: ['la montagna ERA bella', 'c’è andato', 'non detto'] } },
+	{ id: 'pq-9', mondai: 'point', livello_jlpt: 'N4', prompt: '〔会話〕男[おとこ]:「新[あたら]しい 仕事[しごと]、どう?」 女[おんな]:「仕事[しごと]は おもしろいけど、家[いえ]から 遠[とお]くて、毎朝[まいあさ] 早[はや]く 起[お]きないと いけないの。」 問: 女の人は 何[なに]が 大変[たいへん]だと 言って いますか。', choices: ['朝[あさ] 早[はや]く 起[お]きる こと', '仕事[しごと]が つまらない こと', '給料[きゅうりょう]が 安[やす]い こと', '同僚[どうりょう]が きびしい こと'], correct: 0,
+		traduzione: 'Com’è il nuovo lavoro? — Il lavoro è interessante, ma è lontano da casa e ogni mattina devo alzarmi presto. — Cosa trova faticoso?',
+		spiegazione: { perche_giusta: 'Alzarsi presto ogni mattina.', perche_sbagliate: ['il lavoro è interessante', 'non detto', 'non detto'] } },
+	{ id: 'sq-9', mondai: 'sokuji', livello_jlpt: 'N4', prompt: '「その 荷物[にもつ]、重[おも]そうですね。持[も]ちましょうか。」', choices: ['あ、すみません。お願[ねが]いします。', 'いいえ、重[おも]く ないです。', 'はい、持[も]って います。'], correct: 0,
+		traduzione: '«Quel bagaglio sembra pesante. Glielo porto?»',
+		spiegazione: { perche_giusta: 'Offerta di aiuto → si accetta ringraziando.', perche_sbagliate: ['nega il peso ma non risponde all’offerta', 'non risponde all’offerta'] } },
+	{ id: 'sq-10', mondai: 'sokuji', livello_jlpt: 'N4', prompt: '「あれ? かさを 持[も]って こなかったんですか。」', choices: ['ええ、朝[あさ]は 晴[は]れて いたので。', 'はい、かさを 買[か]いました。', 'いいえ、雨[あめ]が 好[す]きです。'], correct: 0,
+		traduzione: '«Ehi? Non hai portato l’ombrello?»',
+		spiegazione: { perche_giusta: 'Spiega il perché: la mattina era sereno.', perche_sbagliate: ['non risponde alla domanda', 'fuori tema'] } }
 ];
 
 // --- Prove d'autore (Set numerati fissi, ripetibili) ------------------------

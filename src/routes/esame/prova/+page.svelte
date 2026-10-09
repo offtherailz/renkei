@@ -256,7 +256,7 @@
 		if (qq.sezione !== 'choukai') { speak(qq.prompt, rate); return; }
 		if (qq.mondaiSlug === 'hatsuwa' || qq.mondaiSlug === 'sokuji')
 			speakExamChoices(qq.prompt, qq.choices, qq.mondaiSlug as 'hatsuwa' | 'sokuji', rate);
-		else speakExamListening(qq.prompt, rate);
+		else speakExamListening(qq.prompt, rate, qq.mondaiSlug === 'point' ? 5000 : 2500);
 	}
 	function playCurrent(rate = 1) {
 		if (q) playFor(q, rate);

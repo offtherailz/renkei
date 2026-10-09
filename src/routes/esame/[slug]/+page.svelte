@@ -67,7 +67,7 @@
 	function playFor(qq: ProvaQuestion, rate = 1) {
 		if (found?.section.id !== 'choukai') { speak(qq.prompt, rate); return; }
 		if (slug === 'hatsuwa' || slug === 'sokuji') speakExamChoices(qq.prompt, qq.choices, slug as 'hatsuwa' | 'sokuji', rate);
-		else speakExamListening(qq.prompt, rate);
+		else speakExamListening(qq.prompt, rate, slug === 'point' ? 5000 : 2500);
 	}
 
 	async function begin() {
