@@ -629,7 +629,7 @@
 		<p class="group-label">Quale prova</p>
 		<div class="sets">
 			<p class="group-label sub">📄 Esami completi — formato esame: conteggi, tipi, tempi e punteggio reali (25+55+35 min)</p>
-			{#each [1, 2, 3] as n (n)}
+			{#each [1, 2, 3, 4, 5] as n (n)}
 				<button class="setbtn row" class:on={selectedSet === `ufficiale-${n}`} onclick={() => (selectedSet = `ufficiale-${n}`)}>
 					<span class="set-body">
 						<span class="set-title">📄 Esame {n} (fisso)</span>

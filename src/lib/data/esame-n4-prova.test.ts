@@ -138,6 +138,20 @@ describe('prova simulata N4', () => {
 		expect(sig(a1)).not.toBe(sig(b)); // seed diversi → prove diverse
 	});
 
+	it('le 5 prove ufficiali (seed 1001-1005) riempiono i conteggi e sono distinte', () => {
+		const sig = (m: ReturnType<typeof buildMock>) =>
+			m.sezioni.flatMap((s) => s.questions.map((q) => q.prompt)).join('|');
+		const sigs = [1, 2, 3, 4, 5].map((n) => {
+			const mock = buildMock({ seed: 1000 + n, difficolta: 'esame' });
+			const perSlug = new Map<string, number>();
+			for (const s of mock.sezioni) for (const q of s.questions) perSlug.set(q.mondaiSlug, (perSlug.get(q.mondaiSlug) ?? 0) + 1);
+			for (const sec of EXAM_N4_SECTIONS)
+				for (const m of sec.mondai) expect(perSlug.get(m.slug) ?? 0, `esame ${n} ${m.slug}`).toBeGreaterThanOrEqual(m.count);
+			return sig(mock);
+		});
+		expect(new Set(sigs).size, 'le 5 prove devono essere distinte').toBe(5);
+	});
+
 	it('la prova ufficiale fissa riempie i conteggi reali', () => {
 		const mock = buildMock({ seed: 1001, difficolta: 'esame' });
 		const perSlug = new Map<string, number>();
