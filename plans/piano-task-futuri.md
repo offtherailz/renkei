@@ -32,6 +32,12 @@ categoria/livello. **Grammatica divisa in 16 gruppi funzionali** + cruscotto dia
 Lista **coppie 自他** `/coppie-jita`. Fix: pausa catalogo a cascata, furigana sfalsato (ZWSP), lookup
 〜ます (mergeAux), 組み立て ambigui/errati. 5 parole + 6 kanji 家電 a catalogo (v144).
 
+### AVANZAMENTO (aggiornato 2026-10-09, tutto su DEV)
+- **P0**: ✅ 表記 (kanji con lettura condivisa), ✅ 漢字読み (mix fonetico+lettura reale), ✅ esempio più corto (漢字読み/表記/用法), ✅ 用法 distrattori stessa categoria. ⏭️ **P0.3 文脈規定 saltato** (richiede engine `createUsageClozeQuestion`, scelta utente).
+- **P1**: ✅ micro-pausa «leggi opzioni» ポイント理解 (lead 5s), ✅ +読解 difficile (dt-11/12, dc-11/12), ✅ +聴解 (kadai/point/sokuji), ✅ 5 prove ufficiali distinte. ⏳ 発話 immagini = bloccato sui PNG Gemini dell'utente.
+- **P2**: ✅ de-split tokenizer (`mergeByDictionary`, con test). ⏭️ refactor file giganti + test UI (P2.11) e a11y/perf (P2.12) ancora da fare.
+- **P3/P4/P5**: da iniziare (P3 quando l'utente passa i vocaboli Marugoto).
+
 ### P0 — Qualità domande N4 (👩‍🏫🗃 impatto diretto sul punteggio) — PRIMA
 1. **用法 (problema maggiore)**: i distrattori generati (frase di altra parola con la parola target
    inserita) restano plausibili o diventano nonsense. Azione: tenere 用法 **prevalentemente curato**;
