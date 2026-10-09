@@ -30,6 +30,14 @@ function soloKanjiN4(scrittura: string): boolean {
 	return kanji.every((k) => isInLevel(k));
 }
 
+// Tra le frasi d'esempio che contengono `key`, la PIÙ CORTA (= più semplice per
+// il livello): evita gli esempi Tatoeba lunghi/difficili.
+function shortestExample(w: Word, key: string): NonNullable<Word['frasi_esempio']>[number] | undefined {
+	return (w.frasi_esempio ?? [])
+		.filter((e) => e.testo.includes(key))
+		.sort((a, b) => a.testo.length - b.testo.length)[0];
+}
+
 let cache: Record<string, PoolItem[]> | null = null;
 
 function shuffle<T>(xs: T[]): T[] {
@@ -170,7 +178,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		// Distrattori = stessa parola con un kanji simile sostituito (送る→近る/逆る…).
 		for (const w of shuffle(words).filter((w: Word) => w.scrittura !== w.lettura && soloKanjiN4(w.scrittura))) {
 			if (out.hyoki!.length >= MAX_PER_MONDAI) break;
-			const ex = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			const ex = shortestExample(w, w.scrittura);
 			if (!ex) continue;
 			// il termine appare in kana (la sua lettura), sottolineato: si sceglie il kanji
 			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.lettura}】`);
@@ -196,7 +204,7 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		for (const w of shuffle(kanjiWords)) {
 			if (out['kanji-yomi']!.length >= MAX_PER_MONDAI) break;
 			const correctR = w.lettura;
-			const ex = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			const ex = shortestExample(w, w.scrittura);
 			if (!ex) continue;
 			// sottolinea il termine e rimuovi la SUA lettura (è ciò che si chiede)
 			const marked = ex.testo.replace(new RegExp(escapeReg(w.scrittura) + '(\\[[^\\]]*\\])?'), `【${w.scrittura}】`);
@@ -265,14 +273,18 @@ export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 		const sentWords = words.filter((w) => (w.frasi_esempio ?? []).some((e) => e.testo.includes(w.scrittura)));
 		for (const w of shuffle(sentWords)) {
 			if (out.yoho!.length >= MAX_PER_MONDAI) break;
-			const correctEx = (w.frasi_esempio ?? []).find((e) => e.testo.includes(w.scrittura));
+			const correctEx = shortestExample(w, w.scrittura);
 			if (!correctEx) continue;
 			const distr: string[] = [];
 			const distrNote: string[] = [];
-			for (const x of shuffle(sentWords)) {
+			// distrattori più plausibili: stessa CATEGORIA (POS) del target prima
+			// (inserire un verbo nella frase di un verbo «stona» meno a caso), poi gli altri
+			const pos = w.tipo_jp.slice(0, 2);
+			const cand = shuffle(sentWords).sort((a, b) => Number(b.tipo_jp.startsWith(pos)) - Number(a.tipo_jp.startsWith(pos)));
+			for (const x of cand) {
 				if (distr.length >= 3) break;
 				if (x.id === w.id) continue;
-				const ex2 = (x.frasi_esempio ?? []).find((e) => e.testo.includes(x.scrittura));
+				const ex2 = shortestExample(x, x.scrittura);
 				if (!ex2) continue;
 				// sostituisci l'altra parola (e la sua eventuale lettura) con questa
 				const swapped = ex2.testo.replace(new RegExp(escapeReg(x.scrittura) + '(\\[[^\\]]*\\])?'), w.scrittura);
