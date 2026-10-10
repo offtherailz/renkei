@@ -13,7 +13,7 @@
 	let pos = $state(0);
 	let flipped = $state(false);
 	let rivedere = $state<number[]>([]); // indici segnati «da rivedere»
-	let scene = $state<'setup' | 'play' | 'eserc' | 'done'>('setup');
+	let scene = $state<'setup' | 'play' | 'eserc' | 'prod' | 'done'>('setup');
 
 	// Modalità esercizi (cloze/scelta): grammatica/funzioni del capitolo.
 	let eIdx = $state(0);
@@ -38,6 +38,29 @@
 		if (eIdx + 1 < esercizi.length) {
 			eIdx += 1;
 			prepEserc();
+		} else {
+			scene = 'done';
+		}
+	}
+
+	// Modalità produzione (consegna IT → produci la frase → rivela soluzione).
+	let pIdx = $state(0);
+	let pShown = $state(false);
+	const produzione = $derived(mazzo?.produzione ?? []);
+	function startProd() {
+		pIdx = 0;
+		pShown = false;
+		scene = 'prod';
+	}
+	function revealProd() {
+		pShown = true;
+		const r = produzione[pIdx]?.risposta;
+		if (r) say(r.replace(/[【】]/g, ''));
+	}
+	function nextProd() {
+		if (pIdx + 1 < produzione.length) {
+			pIdx += 1;
+			pShown = false;
 		} else {
 			scene = 'done';
 		}
@@ -118,6 +141,12 @@
 				<span class="d-d">Frasi del capitolo da completare: 〜てしまう (purtroppo), 調子が悪い, non funziona… con spiegazione.</span>
 			</button>
 		{/if}
+		{#if produzione.length}
+			<button class="dirbtn test" onclick={startProd}>
+				<span class="d-t">✍️ Produzione ({produzione.length})</span>
+				<span class="d-d">Ti dico cosa dire (in italiano) + il pattern; tu produci la frase, poi riveli la soluzione con spiegazione. Per imparare a costruirle da solo.</span>
+			</button>
+		{/if}
 		<a class="dirbtn test" href="{base}/quiz?collezione={mazzo.id}">
 			<span class="d-t">🎯 Mini-test (quiz)</span>
 			<span class="d-d">Domande vere su queste parole: lettura, ascolto, composizione, kanji… (come l’SRS, randomizzato). Alimenta i ripassi.</span>
@@ -181,6 +210,27 @@
 		{:else}
 			<button class="cta" onclick={flip}>Gira ↻</button>
 		{/if}
+	{:else if scene === 'prod'}
+		{@const p = produzione[pIdx]}
+		<div class="hud"><span>{pIdx + 1} / {produzione.length}</span><span>✍️ Produzione</span></div>
+		{#if pIdx === 0 && mazzo.produzioneNota}
+			<p class="prod-nota">💡 {mazzo.produzioneNota}</p>
+		{/if}
+		<div class="prod-card">
+			<p class="prod-consegna">{p.consegna}</p>
+			<p class="prod-pattern">Usa: <strong>{p.pattern}</strong></p>
+			{#if pShown}
+				<div class="prod-sol">
+					<div class="prod-jp"><FuriganaText text={p.risposta} force={true} /><button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => say(p.risposta.replace(/[【】]/g, ''))}>🔊</button></div>
+					<p class="prod-spiega">{p.spiega}</p>
+				</div>
+			{/if}
+		</div>
+		{#if pShown}
+			<button class="cta" onclick={nextProd}>{pIdx + 1 < produzione.length ? 'Prossima →' : 'Fine'}</button>
+		{:else}
+			<button class="cta" onclick={revealProd}>Mostra la soluzione</button>
+		{/if}
 	{:else if scene === 'done'}
 		<h1 class="page-title">🎉 Mazzo finito!</h1>
 		<p class="sub">Hai ripassato tutte le carte di «{mazzo.titolo}».</p>
@@ -236,4 +286,12 @@
 	.efb-why { margin: 0; font-size: 0.9rem; }
 	.efb-it { margin: 0; font-size: 0.85rem; color: var(--muted); }
 	.tts { border: none; background: none; cursor: pointer; font-size: 1rem; }
+	.prod-nota { font-size: 0.82rem; color: var(--info-ink); background: var(--info-bg); border-radius: 10px; padding: 10px 12px; margin: 0; line-height: 1.5; }
+	.prod-card { display: grid; gap: 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 16px; }
+	.prod-consegna { margin: 0; font-size: 1.1rem; font-weight: 700; }
+	.prod-pattern { margin: 0; font-size: 0.9rem; color: var(--muted); }
+	.prod-pattern strong { color: var(--brand); }
+	.prod-sol { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
+	.prod-jp { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 700; flex-wrap: wrap; }
+	.prod-spiega { margin: 0; font-size: 0.85rem; color: var(--ink); }
 </style>

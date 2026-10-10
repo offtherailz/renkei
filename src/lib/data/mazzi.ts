@@ -20,6 +20,15 @@ export interface MazzoEsercizio {
 	traduzione: string;
 }
 
+// Esercizio di PRODUZIONE: consegna in italiano + pattern da usare → l'utente
+// prova a produrre la frase, poi rivela la soluzione modello con spiegazione.
+export interface MazzoProduzione {
+	consegna: string; // cosa dire (IT)
+	pattern: string; // forma da usare (es. 〜なくなる, 〜ちゃう)
+	risposta: string; // frase modello (furigana 漢字[かな])
+	spiega: string; // come si forma / nota
+}
+
 export interface Mazzo {
 	id: string;
 	titolo: string;
@@ -27,6 +36,9 @@ export interface Mazzo {
 	descrizione: string;
 	carte: MazzoCard[];
 	esercizi?: MazzoEsercizio[];
+	produzione?: MazzoProduzione[];
+	// nota didattica mostrata all'inizio della modalità produzione
+	produzioneNota?: string;
 }
 
 export const MAZZI: Record<string, Mazzo> = {
@@ -76,6 +88,73 @@ export const MAZZI: Record<string, Mazzo> = {
 				spiega: '気になる = «dà fastidio / ci faccio caso».', traduzione: 'Il rumore del frigo mi dà fastidio.' },
 			{ prompt: 'パソコン[ぱそこん]が 動[うご]かなくて、＿＿。', choices: ['困[こま]って います', 'うれしいです', '便利[べんり]です', '楽[たの]しいです'],
 				spiega: '〜て、困っている: esprimere il problema («sono in difficoltà»).', traduzione: 'Il computer non funziona e sono in difficoltà.' }
+		],
+		produzioneNota:
+			'Formule chiave: 〜なくなる = «smettere di (fare/funzionare)» (dizionario→ない→なくなる). 〜てしまう = azione completata o con rammarico («purtroppo»); in parlato diventa 〜ちゃう (da 〜て) e 〜じゃう (da 〜で: 読んで→読んじゃう). 〜ないで = «senza fare» (ない + で). Puoi combinarle: 動かなくなってしまう.',
+		produzione: [
+			{ consegna: 'Di’ che la lavatrice non funziona più.', pattern: '〜なくなる',
+				risposta: '洗濯機[せんたくき]が 動[うご]かなく なりました。',
+				spiega: '動く → 動かない → 動かなく+なる: «ha smesso di funzionare / non funziona più».' },
+			{ consegna: 'Di’ che la TV non si accende più.', pattern: '〜なくなる',
+				risposta: 'テレビ[てれび]が つかなく なりました。',
+				spiega: 'つく (accendersi) → つかない → つかなくなる.' },
+			{ consegna: 'Di’ che, purtroppo, hai dimenticato i compiti.', pattern: '〜ちゃう',
+				risposta: '宿題[しゅくだい]を 忘[わす]れちゃった。',
+				spiega: '忘れてしまった → (parlato) 忘れちゃった. Rammarico: «me ne sono purtroppo dimenticato».' },
+			{ consegna: 'Di’ che hai fatto cadere un bicchiere per errore (purtroppo).', pattern: '〜てしまう',
+				risposta: 'コップ[こっぷ]を 落[お]として しまいました。',
+				spiega: '落とす → 落として + しまう: azione non voluta / con rammarico.' },
+			{ consegna: 'Di’ che hai mangiato tutta la torta.', pattern: '〜ちゃう',
+				risposta: 'ケーキ[けーき]を 全部[ぜんぶ] 食[た]べちゃった。',
+				spiega: '食べてしまった → 食べちゃった. Qui 〜ちゃう = «completamento» (fino in fondo).' },
+			{ consegna: 'Di’ che hai finito di leggere tutto il manga.', pattern: '〜じゃう',
+				risposta: '漫画[まんが]を 全部[ぜんぶ] 読[よ]んじゃった。',
+				spiega: '読んでしまった → 読んじゃった. Con la て sonora (〜で) la contrazione è 〜じゃう.' },
+			{ consegna: 'Di’ che, purtroppo, la lavatrice non funziona più.', pattern: '〜なくなってしまう',
+				risposta: '洗濯機[せんたくき]が 動[うご]かなく なって しまいました。',
+				spiega: 'Combina 〜なくなる (smettere) + 〜てしまう (rammarico): 動かなくなってしまった.' },
+			{ consegna: 'Di’ che la lavatrice ha smesso di funzionare (purtroppo).', pattern: '調子 + ちゃう',
+				risposta: '洗濯機[せんたくき]の 調子[ちょうし]が 悪[わる]く なっちゃった。',
+				spiega: '調子が悪くなる (iniziare a funzionare male) + 〜ちゃう: 悪くなっちゃった.' },
+			{ consegna: 'Di’ che sei venuto/a senza fare colazione.', pattern: '〜ないで',
+				risposta: '朝[あさ]ごはんを 食[た]べないで 来[き]ました。',
+				spiega: '食べる → 食べ+ないで: «senza mangiare». 〜ないで + verbo principale.' },
+			{ consegna: 'Di’ che puoi fare acquisti senza andare in negozio.', pattern: '〜ないで',
+				risposta: '店[みせ]に 行[い]かないで 買[か]い物[もの]が できます。',
+				spiega: '行く → 行かないで: «senza andare». 〜ないで esprime il modo (senza fare X).' },
+			{ consegna: 'Di’ che il condizionatore non si raffredda più.', pattern: '〜なくなる',
+				risposta: 'エアコン[えあこん]が 冷[ひ]えなく なりました。',
+				spiega: '冷える → 冷えない → 冷えなくなる.' },
+			{ consegna: 'Di’ che l’orologio non va più.', pattern: '〜なくなる',
+				risposta: '時計[とけい]が 動[うご]かなく なりました。',
+				spiega: '動く → 動かない → 動かなくなる.' },
+			{ consegna: 'Di’ che, purtroppo, hai perso il portafoglio.', pattern: '〜てしまう',
+				risposta: '財布[さいふ]を なくして しまいました。',
+				spiega: 'なくす → なくして + しまう (rammarico).' },
+			{ consegna: 'Di’ che purtroppo hai perso il treno.', pattern: '〜ちゃう',
+				risposta: '電車[でんしゃ]に 乗[の]り遅[おく]れちゃった。',
+				spiega: '乗り遅れてしまった → 乗り遅れちゃった.' },
+			{ consegna: 'Di’ che hai bevuto tutto il caffè.', pattern: '〜ちゃう',
+				risposta: 'コーヒー[こーひー]を 全部[ぜんぶ] 飲[の]んじゃった。',
+				spiega: '飲んでしまった → 飲んじゃった (て sonora 〜で → 〜じゃう).' },
+			{ consegna: 'Di’ che hai finito di scrivere la lettera.', pattern: '〜ちゃう',
+				risposta: '手紙[てがみ]を 書[か]いちゃった。',
+				spiega: '書いてしまった → 書いちゃった.' },
+			{ consegna: 'Di’ che purtroppo ti sei perso per strada.', pattern: '〜てしまう',
+				risposta: '道[みち]に 迷[まよ]って しまいました。',
+				spiega: '迷う → 迷って + しまう.' },
+			{ consegna: 'Di’ che purtroppo ti sei preso il raffreddore.', pattern: '〜ちゃう',
+				risposta: '風邪[かぜ]を ひいちゃった。',
+				spiega: 'ひいてしまった → ひいちゃった.' },
+			{ consegna: 'Di’ che il computer ha smesso di funzionare (purtroppo).', pattern: '調子 + ちゃう',
+				risposta: 'パソコン[ぱそこん]の 調子[ちょうし]が 悪[わる]く なっちゃった。',
+				spiega: '調子が悪くなる + 〜ちゃう: 悪くなっちゃった.' },
+			{ consegna: 'Di’ che sei uscito senza portare l’ombrello.', pattern: '〜ないで',
+				risposta: 'かさを 持[も]たないで 出[で]かけました。',
+				spiega: '持つ → 持たないで: «senza portare».' },
+			{ consegna: 'Di’ che ti sei addormentato senza spegnere la luce (purtroppo).', pattern: '〜ないで + 〜ちゃう',
+				risposta: '電気[でんき]を 消[け]さないで 寝[ね]ちゃった。',
+				spiega: 'Combina 〜ないで (senza spegnere) + 寝てしまった→寝ちゃった.' }
 		]
 	}
 };
