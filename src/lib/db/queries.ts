@@ -3,6 +3,7 @@ import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 import { findMondai } from '$lib/data/esame-n4';
+import type { WeakWord } from '$lib/core/handsFree';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
 export interface ObjectiveSummary {
@@ -275,6 +276,33 @@ export async function loadWeakItems(limit?: number): Promise<WeakItem[]> {
 			href = `esame/${encodeURIComponent(raw)}`;
 		}
 		out.push({ kind, raw, label, href, pct });
+	}
+	return out;
+}
+
+// Parole deboli per il ripasso vocale «Mani libere» (significato it → parola jp).
+// Stesso criterio di debolezza di loadWeakItems, ma solo parole e con i dati
+// (it/scrittura/lettura) pronti per il round vocale.
+export async function loadWeakWordsRecall(limit = 20): Promise<WeakWord[]> {
+	const rows = await db.srs_progress.toArray();
+	const active = await getActiveItemKeys();
+	const scored = rows
+		.filter((r) => !isPlanKey(r.id_item) || active.has(r.id_item))
+		.filter((r) => !r.buried)
+		.filter((r) => r.id_item.startsWith('word:') || !r.id_item.includes(':'))
+		.filter((r) => (r.lapses ?? 0) > 0 || r.mastery_points < 0)
+		.map((r) => ({ r, pct: pctFor(r) }))
+		.filter((x) => x.pct < 60)
+		.sort((a, b) => a.pct - b.pct)
+		.slice(0, limit);
+	const out: WeakWord[] = [];
+	for (const { r } of scored) {
+		const id = r.id_item.startsWith('word:') ? r.id_item.slice('word:'.length) : r.id_item;
+		const w = await db.words.get(id);
+		if (!w) continue;
+		const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
+		if (!it || !w.scrittura) continue;
+		out.push({ it, jp: w.scrittura, yomi: w.lettura, creditKey: `word:${id}` });
 	}
 	return out;
 }

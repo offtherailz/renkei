@@ -7,7 +7,8 @@
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
-	import { buildRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
+	import { buildRounds, buildWordRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
+	import { loadWeakWordsRecall } from '$lib/db/queries';
 
 	type Heard = { tap: Command } | { alts: string[] };
 
@@ -22,7 +23,10 @@
 
 	type Scene = 'intro' | 'play' | 'done';
 	type Status = 'speaking' | 'listening' | 'ok' | 'ko' | 'paused';
+	type Source = 'mix' | 'deboli';
 	let scene = $state<Scene>('intro');
+	let source = $state<Source>('mix');
+	let sourceNote = $state(''); // es. "nessun punto debole: uso frasi e ascolto"
 	let status = $state<Status>('speaking');
 	let idx = $state(0);
 	let score = $state(0);
@@ -182,7 +186,7 @@
 					status = 'ok';
 					score += 1;
 					// solo credito POSITIVO sulle giuste (l'audio non penalizza).
-					if (r.kind === 'frase') void recordPractice('phrase:' + r.jp, true, 'facet_form_speak');
+					if (r.kind === 'frase') void recordPractice(r.creditKey ?? ('phrase:' + r.jp), true, 'facet_form_speak');
 					await speakJp('そう！');
 					await speakJp(corretta);
 					return;
@@ -233,7 +237,19 @@
 	async function start(): Promise<void> {
 		const words = await db.words.toArray(); // scalda il DB; non serve altro
 		void words;
-		rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
+		sourceNote = '';
+		if (source === 'deboli') {
+			const weak = await loadWeakWordsRecall(ROUNDS);
+			if (weak.length > 0) {
+				rounds = buildWordRounds(weak, ROUNDS);
+			} else {
+				// nessun punto debole ancora: non lasciare la sessione vuota, ripiega sul mix
+				sourceNote = 'Nessun punto debole ancora: ripasso frasi e ascolto.';
+				rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
+			}
+		} else {
+			rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
+		}
 		idx = 0;
 		score = 0;
 		scene = 'play';
@@ -242,6 +258,7 @@
 		primeBeep();
 		await acquireWakeLock();
 		if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisibility);
+		if (sourceNote) await speakIt(sourceNote);
 		await mainLoop();
 	}
 
@@ -274,6 +291,11 @@
 				Perfetto in auto o mentre fai altro.
 			</p>
 			{#if canSpeak}
+				<div class="src-seg" role="group" aria-label="Cosa ripassare">
+					<button class="src-btn" class:on={source === 'mix'} onclick={() => (source = 'mix')}>🗣️ Frasi & ascolto</button>
+					<button class="src-btn" class:on={source === 'deboli'} onclick={() => (source = 'deboli')}>🎯 Punti deboli</button>
+				</div>
+				<p class="hint small">{source === 'deboli' ? 'Ripassi le tue parole deboli: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : 'Mix di frasi utili (italiano → giapponese) e ascolto (dialoghi + domanda).'}</p>
 				<button class="proceed" onclick={start}>▶️ はじめる</button>
 				<p class="hint small">Al primo avvio concedi il permesso al microfono. Lo schermo resta acceso durante la partita (utile mentre corri, col telefono in tasca). Nota: non funziona a schermo spento — mic e voce del browser non girano in background.</p>
 			{:else}
@@ -352,4 +374,8 @@
 	.score-big { margin: 0; text-align: center; font-size: 2.6rem; font-weight: 800; }
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }
+	.src-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+	.src-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+	.src-btn.on { border-color: var(--brand); background: var(--brand); color: #fff; }
+	.src-btn:active { transform: scale(0.98); }
 </style>

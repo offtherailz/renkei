@@ -1,7 +1,7 @@
 // Logica pura del gioco «Mani libere» (vocale puro): classifica ciò che l'utente
 // dice (comando o risposta), costruisce il mix di round, e giudica la risposta.
 // Niente DOM/voce qui → testabile. La pagina orchestra TTS/mic con queste funzioni.
-import { normalizeSpeech, phraseVariants, speechMatches } from './speech';
+import { normalizeSpeech, phraseVariants, speechMatches, kanaToKanjiWritten } from './speech';
 import type { Situation } from './usefulPhrases';
 import type { ListeningDialogue } from './listeningDialogues';
 
@@ -75,6 +75,7 @@ export interface FraseRound {
 	jp: string; // frase attesa
 	varianti: string[]; // per il match vocale
 	quando?: string; // spiegazione (registro/uso), letta col comando "Spiegami"
+	creditKey?: string; // chiave SRS da premiare sulla giusta (default: phrase:<jp>)
 }
 export interface ChoukaiRound {
 	kind: 'choukai';
@@ -90,6 +91,24 @@ function shuffle<T>(xs: T[], rng: () => number): T[] {
 		[a[i], a[j]] = [a[j]!, a[i]!];
 	}
 	return a;
+}
+
+// Round «punti deboli»: ripasso vocale del vocabolario debole. L'app dice il
+// significato italiano, l'utente dice la parola giapponese; la giusta premia la
+// chiave SRS della parola (creditKey) così alimenta davvero il consolidamento.
+export interface WeakWord {
+	it: string; // significato italiano (prompt)
+	jp: string; // scrittura attesa
+	yomi: string; // lettura (variante per il match)
+	creditKey: string; // es. word:<id>
+}
+export function buildWordRounds(words: WeakWord[], n: number, rng: () => number = Math.random): FraseRound[] {
+	const rounds: FraseRound[] = words.map((w) => {
+		const kanji = kanaToKanjiWritten(w.yomi);
+		const varianti = [...new Set([...phraseVariants(w.jp), w.jp, w.yomi, ...(kanji ? [kanji] : [])].filter(Boolean))] as string[];
+		return { kind: 'frase', cueIt: w.it, jp: w.jp, varianti, quando: w.yomi, creditKey: w.creditKey };
+	});
+	return shuffle(rounds, rng).slice(0, n);
 }
 
 // Mix deterministico (con rng iniettabile): ~1 choukai ogni 3 frasi.

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { classifyUtterance, judgeAnswer, buildRounds } from './handsFree';
+import { classifyUtterance, judgeAnswer, buildRounds, buildWordRounds, type WeakWord } from './handsFree';
 import type { Situation } from './usefulPhrases';
 import type { ListeningDialogue } from './listeningDialogues';
 
@@ -79,5 +79,30 @@ describe('handsFree.buildRounds', () => {
 		const rounds = buildRounds(situationsConQuando, [], 1, () => 0.5);
 		const frase = rounds.find((r) => r.kind === 'frase');
 		expect(frase && 'quando' in frase && frase.quando).toBe('La richiesta standard.');
+	});
+});
+
+describe('handsFree.buildWordRounds', () => {
+	const words: WeakWord[] = [
+		{ it: 'lavatrice', jp: '洗濯機', yomi: 'せんたくき', creditKey: 'word:w1' },
+		{ it: 'frigorifero', jp: '冷蔵庫', yomi: 'れいぞうこ', creditKey: 'word:w2' }
+	];
+
+	it('crea round frase col significato it come prompt e varianti per il match', () => {
+		const rounds = buildWordRounds(words, 5, () => 0.5);
+		expect(rounds).toHaveLength(2);
+		const r = rounds.find((x) => x.jp === '洗濯機')!;
+		expect(r.cueIt).toBe('lavatrice');
+		expect(r.varianti).toContain('洗濯機');
+		expect(r.varianti).toContain('せんたくき');
+	});
+
+	it('porta la chiave SRS della parola per il credito', () => {
+		const rounds = buildWordRounds(words, 5, () => 0.5);
+		expect(rounds.every((r) => r.creditKey?.startsWith('word:'))).toBe(true);
+	});
+
+	it('rispetta il limite n', () => {
+		expect(buildWordRounds(words, 1, () => 0.5)).toHaveLength(1);
 	});
 });
