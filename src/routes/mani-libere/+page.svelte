@@ -8,7 +8,8 @@
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
 	import { buildRounds, buildWordRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
-	import { loadWeakWordsRecall } from '$lib/db/queries';
+	import { loadWeakWordsRecall, loadMazzoWordsRecall } from '$lib/db/queries';
+	import { allMazzi, AUTO_MAZZI } from '$lib/data/mazzi';
 
 	type Heard = { tap: Command } | { alts: string[] };
 
@@ -23,10 +24,16 @@
 
 	type Scene = 'intro' | 'play' | 'done';
 	type Status = 'speaking' | 'listening' | 'ok' | 'ko' | 'paused';
-	type Source = 'mix' | 'deboli';
+	type Source = 'mix' | 'deboli' | 'mazzo';
 	let scene = $state<Scene>('intro');
 	let source = $state<Source>('mix');
 	let sourceNote = $state(''); // es. "nessun punto debole: uso frasi e ascolto"
+	// Mazzi di parole selezionabili: tematici curati + automatici di parole.
+	const MAZZO_OPZIONI = [
+		...allMazzi().map((m) => ({ id: m.id, label: `${m.emoji} ${m.titolo}` })),
+		...AUTO_MAZZI.filter((m) => m.kind === 'word').map((m) => ({ id: m.id, label: `${m.emoji} ${m.titolo}` }))
+	];
+	let mazzoId = $state(MAZZO_OPZIONI[0]?.id ?? 'kaden');
 	let status = $state<Status>('speaking');
 	let idx = $state(0);
 	let score = $state(0);
@@ -247,6 +254,14 @@
 				sourceNote = 'Nessun punto debole ancora: ripasso frasi e ascolto.';
 				rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
 			}
+		} else if (source === 'mazzo') {
+			const parole = await loadMazzoWordsRecall(mazzoId, ROUNDS);
+			if (parole.length > 0) {
+				rounds = buildWordRounds(parole, ROUNDS);
+			} else {
+				sourceNote = 'Mazzo vuoto: ripasso frasi e ascolto.';
+				rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
+			}
 		} else {
 			rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
 		}
@@ -291,11 +306,19 @@
 				Perfetto in auto o mentre fai altro.
 			</p>
 			{#if canSpeak}
-				<div class="src-seg" role="group" aria-label="Cosa ripassare">
+				<div class="src-seg three" role="group" aria-label="Cosa ripassare">
 					<button class="src-btn" class:on={source === 'mix'} onclick={() => (source = 'mix')}>🗣️ Frasi & ascolto</button>
 					<button class="src-btn" class:on={source === 'deboli'} onclick={() => (source = 'deboli')}>🎯 Punti deboli</button>
+					<button class="src-btn" class:on={source === 'mazzo'} onclick={() => (source = 'mazzo')}>📦 Mazzo</button>
 				</div>
-				<p class="hint small">{source === 'deboli' ? 'Ripassi le tue parole deboli: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : 'Mix di frasi utili (italiano → giapponese) e ascolto (dialoghi + domanda).'}</p>
+				{#if source === 'mazzo'}
+					<select class="mazzo-select" bind:value={mazzoId} aria-label="Scegli il mazzo">
+						{#each MAZZO_OPZIONI as o (o.id)}
+							<option value={o.id}>{o.label}</option>
+						{/each}
+					</select>
+				{/if}
+				<p class="hint small">{source === 'deboli' ? 'Ripassi le tue parole deboli: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : source === 'mazzo' ? 'Ripassi le parole del mazzo scelto: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : 'Mix di frasi utili (italiano → giapponese) e ascolto (dialoghi + domanda).'}</p>
 				<button class="proceed" onclick={start}>▶️ はじめる</button>
 				<p class="hint small">Al primo avvio concedi il permesso al microfono. Lo schermo resta acceso durante la partita (utile mentre corri, col telefono in tasca). Nota: non funziona a schermo spento — mic e voce del browser non girano in background.</p>
 			{:else}
@@ -375,7 +398,9 @@
 	.proceed { justify-self: center; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.stop { padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--danger); background: var(--surface); color: var(--danger); font-weight: 700; cursor: pointer; }
 	.src-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-	.src-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+	.src-seg.three { grid-template-columns: repeat(3, 1fr); }
+	.src-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; }
 	.src-btn.on { border-color: var(--brand); background: var(--brand); color: #fff; }
 	.src-btn:active { transform: scale(0.98); }
+	.mazzo-select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.95rem; font-weight: 600; }
 </style>

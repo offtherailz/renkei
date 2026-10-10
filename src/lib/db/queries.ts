@@ -3,6 +3,7 @@ import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 import { findMondai } from '$lib/data/esame-n4';
+import { findMazzo, findAutoMazzo } from '$lib/data/mazzi';
 import type { WeakWord } from '$lib/core/handsFree';
 import type { StudyObjective, SrsProgress } from '$lib/types/models';
 
@@ -303,6 +304,35 @@ export async function loadWeakWordsRecall(limit = 20): Promise<WeakWord[]> {
 		const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
 		if (!it || !w.scrittura) continue;
 		out.push({ it, jp: w.scrittura, yomi: w.lettura, creditKey: `word:${id}` });
+	}
+	return out;
+}
+
+// Parole di un mazzo tematico per il ripasso vocale «Mani libere». Copre sia i
+// mazzi curati (carte con jp/yomi/it pronti) sia i mazzi automatici di parole
+// (filtro su catalogo). Credito sulla parola di catalogo quando risolvibile.
+export async function loadMazzoWordsRecall(mazzoId: string, limit = 20): Promise<WeakWord[]> {
+	const out: WeakWord[] = [];
+	const curato = findMazzo(mazzoId);
+	if (curato) {
+		for (const c of curato.carte) {
+			if (!c.it || !c.jp) continue;
+			const w = await db.words.where('scrittura').equals(c.jp).first();
+			out.push({ it: c.it, jp: c.jp, yomi: c.yomi, creditKey: w ? `word:${w.id}` : `phrase:${c.jp}` });
+			if (out.length >= limit) break;
+		}
+		return out;
+	}
+	const auto = findAutoMazzo(mazzoId);
+	if (auto && auto.kind === 'word') {
+		const q = await loadAutoQueue(mazzoId, limit);
+		for (const { raw } of q) {
+			const w = await db.words.get(raw);
+			if (!w) continue;
+			const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
+			if (!it || !w.scrittura) continue;
+			out.push({ it, jp: w.scrittura, yomi: w.lettura, creditKey: `word:${w.id}` });
+		}
 	}
 	return out;
 }
