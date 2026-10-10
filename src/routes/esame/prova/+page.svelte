@@ -236,6 +236,18 @@
 	const q = $derived(sezione?.questions[qIndex] ?? null);
 	const isLastSection = $derived(!!mock && secIndex >= mock.sezioni.length - 1);
 	// Ascolto: il testo è la soluzione → resta nascosto finché non si risponde.
+	// descrizione sempre visibile della combinazione scelta (i tooltip title non
+	// compaiono su touch): mostrata sotto la barra impostazioni.
+	const modeHint = $derived(
+		mode === 'renshu' ? '📝 練習: puoi sforare il tempo; trucco, spiegazione e «Non la so» dopo ogni domanda'
+		: mode === 'honban' ? '🎯 本番: cronometro di sezione che blocca; spiegazioni solo nei risultati'
+		: mode === 'challenge' ? '⚡ Challenge: timer per singola domanda, poi avanza; nessun aiuto'
+		: '🏆 Campione: come Challenge, tempi ridotti del 20%'
+	);
+	const diffHint = $derived(
+		difficolta === 'facile' ? '🟢 furigana + testo spaziato, letture più semplici' : '🔴 kanji continuo, niente furigana/spazi, come l’esame'
+	);
+
 	const isListening = $derived(q?.sezione === 'choukai');
 	// 発話表現/即時応答: opzioni SOLO AUDIO come all'esame (testo svelato dopo la risposta).
 	const audioOnly = $derived(q?.mondaiSlug === 'hatsuwa' || q?.mondaiSlug === 'sokuji');
@@ -636,11 +648,12 @@
 			<div class="seg-group">
 				<span class="seg-label">Difficoltà</span>
 				<div class="seg">
-					<button class="seg-btn" class:on={difficolta === 'facile'} title="🟢 Facile: furigana + testo spaziato, letture più semplici." onclick={() => (difficolta = 'facile')}>🟢 Facile</button>
-					<button class="seg-btn" class:on={difficolta === 'esame'} title="🔴 Esame: kanji continuo, niente furigana/spazi, distrattori vicini." onclick={() => (difficolta = 'esame')}>🔴 Esame</button>
+					<button class="seg-btn" class:on={difficolta === 'facile'} onclick={() => (difficolta = 'facile')}>🟢 Facile</button>
+					<button class="seg-btn" class:on={difficolta === 'esame'} onclick={() => (difficolta = 'esame')}>🔴 Esame</button>
 				</div>
 			</div>
 		</div>
+		<p class="seg-hint">{modeHint} · {diffHint}</p>
 
 		<p class="group-label">Scegli la prova <span class="go-hint">→ parte subito</span></p>
 		<div class="sets">
@@ -1009,6 +1022,7 @@
 	.seg-btn { border: none; background: none; color: var(--ink); padding: 6px 11px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border-right: 1px solid var(--line); white-space: nowrap; }
 	.seg-btn:last-child { border-right: none; }
 	.seg-btn.on { background: var(--brand); color: #fff; }
+	.seg-hint { margin: 2px 0 0; font-size: 0.78rem; color: var(--muted); }
 	.group-label.sub { font-weight: 400; font-size: 0.72rem; margin-top: 4px; }
 	.sets { display: grid; gap: 8px; }
 	.setbtn { display: grid; gap: 4px; text-align: left; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 12px; cursor: pointer; }
