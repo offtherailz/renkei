@@ -97,34 +97,13 @@
 		</a>
 	{/if}
 
-	<h2 class="block-title">Fai una prova</h2>
-	<div class="prove-grid">
-		<a class="prova-card" href="{base}/esame/prova?tipo=esami">
-			<span class="pc-icon">📄</span>
-			<span class="pc-label">Esami completi</span>
-			<span class="pc-sub">Prove intere ai numeri reali (fisse o casuale)</span>
-		</a>
-		<a class="prova-card" href="{base}/esame/prova?tipo=mini">
-			<span class="pc-icon">🧩</span>
-			<span class="pc-label">Mini esami</span>
-			<span class="pc-sub">Pochi item, ma di tutti i tipi</span>
-		</a>
-		<a class="prova-card" href="{base}/esame/prova?tipo=continua">
-			<span class="pc-icon">♾️</span>
-			<span class="pc-label">Continua</span>
-			<span class="pc-sub">Domande random, senza timer</span>
-		</a>
-		<a class="prova-card" href="{base}/esame/prova?tipo=deboli">
-			<span class="pc-icon">🎯</span>
-			<span class="pc-label">Punti deboli</span>
-			<span class="pc-sub">Le tipologie dove vai peggio</span>
-		</a>
-	</div>
 	<div class="cta-row">
+		<a class="cta primary" href="{base}/esame/prova">{pending ? '↩️ Riprendi la prova' : '▶️ Fai una prova'}</a>
 		<a class="cta ghost" href="{base}/esame/pronto">📊 Pronto per l'N4?</a>
 		<a class="cta ghost" href="{base}/esame/ascolto">🎧 Trucchi ascolto</a>
-		<a class="cta ghost" href="{base}/punti-deboli?kind=mondai">💪 I miei punti deboli d'esame</a>
+		<a class="cta ghost" href="{base}/punti-deboli?kind=mondai">💪 Punti deboli d'esame</a>
 	</div>
+	<p class="page-sub">Nella prova scegli in alto <strong>modalità</strong> e <strong>difficoltà</strong>, poi tocca una prova (Esami completi · Mini · Continua · Punti deboli): parte subito.</p>
 	<p class="score-note">
 		Punteggio: {EXAM_N4_SCORING.linguaLettura.max} (lingua+lettura, min {EXAM_N4_SCORING.linguaLettura.minimo}) + {EXAM_N4_SCORING.ascolto.max} (ascolto, min {EXAM_N4_SCORING.ascolto.minimo}), si passa con ≥ {EXAM_N4_SCORING.totaleMinimo}/{EXAM_N4_SCORING.totaleMax}. Il JLPT usa punteggio <strong>scalato (IRT)</strong>: non ci sono punti fissi per domanda.
 	</p>
@@ -228,12 +207,6 @@
 
 	.block-title { margin: 8px 0 0; font-size: 1.1rem; }
 	.block-sub { margin: 0; font-size: 0.8rem; color: var(--muted); }
-	.prove-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-	.prova-card { display: grid; gap: 2px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none; color: var(--ink); }
-	.prova-card:hover { border-color: var(--brand); }
-	.pc-icon { font-size: 1.4rem; }
-	.pc-label { font-weight: 700; font-size: 0.95rem; }
-	.pc-sub { font-size: 0.72rem; color: var(--muted); }
 	.cta-row { display: flex; flex-wrap: wrap; gap: 8px; }
 	.cta { display: inline-flex; align-items: baseline; gap: 6px; padding: 10px 14px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 0.9rem; }
 	.cta.primary { background: var(--brand); color: #fff; }

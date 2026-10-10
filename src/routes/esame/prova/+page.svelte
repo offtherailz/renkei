@@ -139,16 +139,6 @@
 
 	onMount(() => {
 		loadStorico();
-		// Preselezione dalla landing: /esame/prova?tipo=esami|casuale|mini|continua|deboli
-		const tipo = new URLSearchParams(window.location.search).get('tipo');
-		const preset: Record<string, string | null> = {
-			esami: 'ufficiale-1',
-			casuale: null,
-			mini: miniSets[0]?.id ?? 'set-1',
-			continua: 'continua',
-			deboli: 'weak'
-		};
-		if (tipo && tipo in preset) selectedSet = preset[tipo]!;
 		try {
 			const raw = localStorage.getItem(KEY);
 			if (raw) saved = JSON.parse(raw) as Snapshot;
@@ -633,39 +623,26 @@
 			</div>
 		{/if}
 
-		<p class="group-label">1 · Modalità</p>
-		<div class="modes">
-			<button class="mode" class:on={mode === 'renshu'} onclick={() => (mode = 'renshu')}>
-				<span class="mode-title">練習 · Allenamento</span>
-				<span class="mode-desc">Puoi sforare il tempo (non blocca). Trucco, spiegazione e «Non la so» dopo ogni domanda.</span>
-			</button>
-			<button class="mode" class:on={mode === 'honban'} onclick={() => (mode = 'honban')}>
-				<span class="mode-title">本番 · Esame reale</span>
-				<span class="mode-desc">Cronometro di sezione che blocca a scadenza. Nessun aiuto: spiegazioni solo nei risultati.</span>
-			</button>
-			<button class="mode" class:on={mode === 'challenge'} onclick={() => (mode = 'challenge')}>
-				<span class="mode-title">⚡ Challenge</span>
-				<span class="mode-desc">Timer per singola domanda: rispondi entro il suo tempo o è persa e si avanza. Nessun aiuto.</span>
-			</button>
-			<button class="mode" class:on={mode === 'campione'} onclick={() => (mode = 'campione')}>
-				<span class="mode-title">🏆 Campione</span>
-				<span class="mode-desc">Come Challenge ma coi tempi ridotti del 20%: per i più veloci.</span>
-			</button>
+		<div class="exam-settings">
+			<div class="seg-group">
+				<span class="seg-label">Modalità</span>
+				<div class="seg">
+					<button class="seg-btn" class:on={mode === 'renshu'} title="練習 · Allenamento: puoi sforare il tempo; trucco, spiegazione e «Non la so» dopo ogni domanda." onclick={() => (mode = 'renshu')}>📝 練習</button>
+					<button class="seg-btn" class:on={mode === 'honban'} title="本番 · Esame reale: cronometro di sezione che blocca; spiegazioni solo nei risultati." onclick={() => (mode = 'honban')}>🎯 本番</button>
+					<button class="seg-btn" class:on={mode === 'challenge'} title="⚡ Challenge: timer per singola domanda, poi avanza. Nessun aiuto." onclick={() => (mode = 'challenge')}>⚡</button>
+					<button class="seg-btn" class:on={mode === 'campione'} title="🏆 Campione: come Challenge ma coi tempi ridotti del 20%." onclick={() => (mode = 'campione')}>🏆</button>
+				</div>
+			</div>
+			<div class="seg-group">
+				<span class="seg-label">Difficoltà</span>
+				<div class="seg">
+					<button class="seg-btn" class:on={difficolta === 'facile'} title="🟢 Facile: furigana + testo spaziato, letture più semplici." onclick={() => (difficolta = 'facile')}>🟢 Facile</button>
+					<button class="seg-btn" class:on={difficolta === 'esame'} title="🔴 Esame: kanji continuo, niente furigana/spazi, distrattori vicini." onclick={() => (difficolta = 'esame')}>🔴 Esame</button>
+				</div>
+			</div>
 		</div>
 
-		<p class="group-label">2 · Difficoltà</p>
-		<div class="modes">
-			<button class="mode" class:on={difficolta === 'facile'} onclick={() => (difficolta = 'facile')}>
-				<span class="mode-title">🟢 Facile</span>
-				<span class="mode-desc">Furigana visibili + testo spaziato (わかち書き); letture più brevi e semplici. Per iniziare.</span>
-			</button>
-			<button class="mode" class:on={difficolta === 'esame'} onclick={() => (difficolta = 'esame')}>
-				<span class="mode-title">🔴 Esame</span>
-				<span class="mode-desc">Kanji continuo, senza spazi né furigana; letture piene, distrattori vicini: identico all'esame.</span>
-			</button>
-		</div>
-
-		<p class="group-label">3 · Scegli la prova <span class="go-hint">→ parte subito ({mode === 'renshu' ? '練習' : mode === 'honban' ? '本番' : mode === 'challenge' ? '⚡' : '🏆'} · {difficolta === 'facile' ? '🟢' : '🔴'})</span></p>
+		<p class="group-label">Scegli la prova <span class="go-hint">→ parte subito</span></p>
 		<div class="sets">
 			<p class="group-label sub">📄 Esami completi — formato esame: conteggi, tipi, tempi e punteggio reali (25+55+35 min)</p>
 			{#each [1, 2, 3, 4, 5] as n (n)}
@@ -1024,6 +1001,14 @@
 
 	.group-label { margin: 6px 0 0; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
 	.go-hint { font-weight: 600; color: var(--brand); }
+	/* barra impostazioni compatta (modalità + difficoltà) */
+	.exam-settings { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+	.seg-group { display: flex; align-items: center; gap: 8px; }
+	.seg-label { font-size: 0.72rem; font-weight: 700; color: var(--muted); }
+	.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--bg); }
+	.seg-btn { border: none; background: none; color: var(--ink); padding: 6px 11px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border-right: 1px solid var(--line); white-space: nowrap; }
+	.seg-btn:last-child { border-right: none; }
+	.seg-btn.on { background: var(--brand); color: #fff; }
 	.group-label.sub { font-weight: 400; font-size: 0.72rem; margin-top: 4px; }
 	.sets { display: grid; gap: 8px; }
 	.setbtn { display: grid; gap: 4px; text-align: left; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 12px; cursor: pointer; }
