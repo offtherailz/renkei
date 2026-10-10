@@ -345,6 +345,13 @@
 		saveState();
 	}
 
+	// Click su una prova = seleziona e PARTE subito (niente bottone «Inizia»):
+	// modalità e difficoltà si scelgono prima, in alto.
+	function startWith(set: string | null) {
+		selectedSet = set;
+		start();
+	}
+
 	async function start() {
 		clearSaved();
 		const extra = await generaDaCatalogo();
@@ -626,68 +633,7 @@
 			</div>
 		{/if}
 
-		<p class="group-label">Quale prova</p>
-		<div class="sets">
-			<p class="group-label sub">📄 Esami completi — formato esame: conteggi, tipi, tempi e punteggio reali (25+55+35 min)</p>
-			{#each [1, 2, 3, 4, 5] as n (n)}
-				<button class="setbtn row" class:on={selectedSet === `ufficiale-${n}`} onclick={() => (selectedSet = `ufficiale-${n}`)}>
-					<span class="set-body">
-						<span class="set-title">📄 Esame {n} (fisso)</span>
-						<span class="set-desc">Prova completa uguale a ogni apertura: comoda per confrontarti nel tempo. Tutte le domande originali.</span>
-					</span>
-					<span class="set-clock">
-						<TimeClock total={120} green={115} size={46} />
-						<span class="set-clock-cap">~115 min</span>
-					</span>
-				</button>
-			{/each}
-			<button class="setbtn" class:on={selectedSet === null} onclick={() => (selectedSet = null)}>
-				<span class="set-title">🎲 Esame casuale</span>
-				<span class="set-desc">Stessi numeri/tipi/tempi/punteggio, ma domande diverse ogni volta (pescate dal catalogo). Per prove sempre nuove.</span>
-			</button>
-
-			<p class="group-label sub">🧩 Mini esami — pochi item ma di tutti i tipi, per allenarti in fretta</p>
-			{#each miniSets as s (s.id)}
-				<button class="setbtn row" class:on={selectedSet === s.id} onclick={() => (selectedSet = s.id)}>
-					<span class="set-body">
-						<span class="set-title">🧩 {s.titolo}</span>
-						<span class="set-desc">{s.descrizione}</span>
-					</span>
-					<span class="set-clock">
-						<TimeClock total={120} green={setTotalMinutes(s.id)} size={46} />
-						<span class="set-clock-cap">~{setTotalMinutes(s.id)} min</span>
-					</span>
-				</button>
-			{/each}
-
-			<p class="group-label sub">♾️ Continua & mirato</p>
-			<button class="setbtn" class:on={selectedSet === 'continua'} onclick={() => (selectedSet = 'continua')}>
-				<span class="set-title">♾️ Continua (domande random, senza timer)</span>
-				<span class="set-desc">Flusso infinito di domande miste col feedback subito: macini pratica senza pressione. Fermati quando vuoi.</span>
-			</button>
-			<button class="setbtn" class:on={selectedSet === 'weak'} onclick={() => (selectedSet = 'weak')}>
-				<span class="set-title">🎯 Punti deboli</span>
-				<span class="set-desc">Prova breve concentrata sulle tipologie dove vai peggio (in base alle prove/drill fatti).</span>
-			</button>
-
-			{#if extraSets.length}
-				<p class="group-label sub">Extra — varianti curate (sottoinsiemi fissi, non ai numeri ufficiali)</p>
-				{#each extraSets as s (s.id)}
-					<button class="setbtn row" class:on={selectedSet === s.id} onclick={() => (selectedSet = s.id)}>
-						<span class="set-body">
-							<span class="set-title">📄 {s.titolo}</span>
-							<span class="set-desc">{s.descrizione}</span>
-						</span>
-						<span class="set-clock">
-							<TimeClock total={120} green={setTotalMinutes(s.id)} size={46} />
-							<span class="set-clock-cap">~{setTotalMinutes(s.id)} min</span>
-						</span>
-					</button>
-				{/each}
-			{/if}
-		</div>
-
-		<p class="group-label">Modalità</p>
+		<p class="group-label">1 · Modalità</p>
 		<div class="modes">
 			<button class="mode" class:on={mode === 'renshu'} onclick={() => (mode = 'renshu')}>
 				<span class="mode-title">練習 · Allenamento</span>
@@ -707,7 +653,7 @@
 			</button>
 		</div>
 
-		<p class="group-label">Difficoltà</p>
+		<p class="group-label">2 · Difficoltà</p>
 		<div class="modes">
 			<button class="mode" class:on={difficolta === 'facile'} onclick={() => (difficolta = 'facile')}>
 				<span class="mode-title">🟢 Facile</span>
@@ -719,7 +665,66 @@
 			</button>
 		</div>
 
-		<button class="cta" onclick={start}>Inizia la prova</button>
+		<p class="group-label">3 · Scegli la prova <span class="go-hint">→ parte subito ({mode === 'renshu' ? '練習' : mode === 'honban' ? '本番' : mode === 'challenge' ? '⚡' : '🏆'} · {difficolta === 'facile' ? '🟢' : '🔴'})</span></p>
+		<div class="sets">
+			<p class="group-label sub">📄 Esami completi — formato esame: conteggi, tipi, tempi e punteggio reali (25+55+35 min)</p>
+			{#each [1, 2, 3, 4, 5] as n (n)}
+				<button class="setbtn row" onclick={() => startWith(`ufficiale-${n}`)}>
+					<span class="set-body">
+						<span class="set-title">📄 Esame {n} (fisso)</span>
+						<span class="set-desc">Prova completa uguale a ogni apertura: comoda per confrontarti nel tempo. Tutte le domande originali.</span>
+					</span>
+					<span class="set-clock">
+						<TimeClock total={120} green={115} size={46} />
+						<span class="set-clock-cap">~115 min</span>
+					</span>
+				</button>
+			{/each}
+			<button class="setbtn" onclick={() => startWith(null)}>
+				<span class="set-title">🎲 Esame casuale</span>
+				<span class="set-desc">Stessi numeri/tipi/tempi/punteggio, ma domande diverse ogni volta (pescate dal catalogo). Per prove sempre nuove.</span>
+			</button>
+
+			<p class="group-label sub">🧩 Mini esami — pochi item ma di tutti i tipi, per allenarti in fretta</p>
+			{#each miniSets as s (s.id)}
+				<button class="setbtn row" onclick={() => startWith(s.id)}>
+					<span class="set-body">
+						<span class="set-title">🧩 {s.titolo}</span>
+						<span class="set-desc">{s.descrizione}</span>
+					</span>
+					<span class="set-clock">
+						<TimeClock total={120} green={setTotalMinutes(s.id)} size={46} />
+						<span class="set-clock-cap">~{setTotalMinutes(s.id)} min</span>
+					</span>
+				</button>
+			{/each}
+
+			<p class="group-label sub">♾️ Continua & mirato</p>
+			<button class="setbtn" onclick={() => startWith('continua')}>
+				<span class="set-title">♾️ Continua (domande random, senza timer)</span>
+				<span class="set-desc">Flusso infinito di domande miste col feedback subito: macini pratica senza pressione. Fermati quando vuoi.</span>
+			</button>
+			<button class="setbtn" onclick={() => startWith('weak')}>
+				<span class="set-title">🎯 Punti deboli</span>
+				<span class="set-desc">Prova breve concentrata sulle tipologie dove vai peggio (in base alle prove/drill fatti).</span>
+			</button>
+
+			{#if extraSets.length}
+				<p class="group-label sub">Extra — varianti curate (sottoinsiemi fissi, non ai numeri ufficiali)</p>
+				{#each extraSets as s (s.id)}
+					<button class="setbtn row" onclick={() => startWith(s.id)}>
+						<span class="set-body">
+							<span class="set-title">📄 {s.titolo}</span>
+							<span class="set-desc">{s.descrizione}</span>
+						</span>
+						<span class="set-clock">
+							<TimeClock total={120} green={setTotalMinutes(s.id)} size={46} />
+							<span class="set-clock-cap">~{setTotalMinutes(s.id)} min</span>
+						</span>
+					</button>
+				{/each}
+			{/if}
+		</div>
 
 		<p class="note">Nota: la prova usa le domande curate disponibili. I tipi ancora in preparazione sono esclusi (elencati sotto), non riempiti a caso.</p>
 	{:else if phase === 'running' && sezione && q}
@@ -1018,6 +1023,7 @@
 	.note { margin: 0; font-size: 0.78rem; color: var(--muted); }
 
 	.group-label { margin: 6px 0 0; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+	.go-hint { font-weight: 600; color: var(--brand); }
 	.group-label.sub { font-weight: 400; font-size: 0.72rem; margin-top: 4px; }
 	.sets { display: grid; gap: 8px; }
 	.setbtn { display: grid; gap: 4px; text-align: left; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 12px; cursor: pointer; }
