@@ -1,0 +1,1 @@
+const s=/[はがをにで]|から|ので|けど|かどうか/;function n(e){const r=e.split("、").map(t=>t.replace(/[。！？\s　]/g,"").trim()).filter(Boolean);return r.length<3?!1:r.every(t=>[...t].length<=6)?!0:!s.test(e)}export{n as i};

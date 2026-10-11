@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-label="Aver pestato il piede a qualcuno">
+  <rect width="360" height="240" fill="#f3f6fb"/>
+  <rect x="20" y="30" width="320" height="180" rx="12" fill="#e8eef7"/>
+  <rect x="20" y="185" width="320" height="25" fill="#cdb894"/>
+  <!-- person A (stepped) -->
+  <circle cx="120" cy="90" r="20" fill="#f0c39c"/>
+  <rect x="102" y="113" width="36" height="55" rx="14" fill="#6ba0f2"/>
+  <ellipse cx="120" cy="188" rx="18" ry="7" fill="#3b3b3b"/>
+  <text x="120" y="60" font-size="26" text-anchor="middle" fill="#d64545">!</text>
+  <!-- person B (apologizing, bowing) -->
+  <circle cx="215" cy="110" r="20" fill="#f0c39c"/>
+  <path d="M197 108 q18 -20 36 0" fill="#3b3b3b"/>
+  <rect x="198" y="132" width="40" height="40" rx="14" fill="#f2a65a" transform="rotate(12 215 150)"/>
+  <!-- foot on foot -->
+  <ellipse cx="150" cy="188" rx="22" ry="8" fill="#5b6b7a"/>
+  <ellipse cx="160" cy="184" rx="16" ry="6" fill="#7a8a99"/>
+</svg>
