@@ -515,6 +515,16 @@
     "jp": "私は 漢字が 少し 読めます。",
     "it": "Io so leggere un po' i kanji.",
     "en": "I can read kanji a little."
+   },
+   {
+    "jp": "はしで 上手に 食べられますか。",
+    "it": "Riesci a mangiare bene con le bacchette?",
+    "en": "Can you eat well with chopsticks?"
+   },
+   {
+    "jp": "この 水は 飲めますか。",
+    "it": "Si può bere quest'acqua?",
+    "en": "Can you drink this water?"
    }
   ],
   "grammar-api-N4-12": [
@@ -522,6 +532,16 @@
     "jp": "ここで 泳ぐな と 書いて あります。",
     "it": "C'è scritto «vietato nuotare qui».",
     "en": "It says \"do not swim here.\""
+   },
+   {
+    "jp": "授業中に 寝るな。",
+    "it": "Non dormire durante la lezione.",
+    "en": "Don't sleep during class."
+   },
+   {
+    "jp": "うそを つくな。",
+    "it": "Non dire bugie.",
+    "en": "Don't tell lies."
    }
   ],
   "grammar-api-N4-81": [
@@ -557,6 +577,16 @@
     "jp": "母は 弟に 野菜を 食べさせました。",
     "it": "La mamma ha fatto mangiare le verdure a mio fratello.",
     "en": "Mom made my brother eat vegetables."
+   },
+   {
+    "jp": "先生は 学生に 本を 読ませました。",
+    "it": "L'insegnante ha fatto leggere il libro agli studenti.",
+    "en": "The teacher made the students read the book."
+   },
+   {
+    "jp": "母は 妹に 部屋を 掃除させた。",
+    "it": "La mamma ha fatto pulire la stanza a mia sorella.",
+    "en": "Mom made my sister clean the room."
    }
   ],
   "grammar-api-N4-17": [
@@ -564,6 +594,16 @@
     "jp": "きらいな ものを 食べさせられました。",
     "it": "Mi hanno costretto a mangiare qualcosa che detesto.",
     "en": "I was made to eat something I hate."
+   },
+   {
+    "jp": "子どもの とき、ピアノを 習わせられた。",
+    "it": "Da bambino mi hanno fatto studiare il piano.",
+    "en": "As a child, I was made to learn piano."
+   },
+   {
+    "jp": "部長に お酒を 飲まされました。",
+    "it": "Il capo mi ha fatto bere alcol controvoglia.",
+    "en": "I was made to drink alcohol by my boss."
    }
   ],
   "grammar-api-N4-62": [
@@ -585,6 +625,16 @@
     "jp": "弟に ケーキを 食べられました。",
     "it": "Mio fratello mi ha mangiato la torta (l'ho subìto).",
     "en": "My cake was eaten by my brother."
+   },
+   {
+    "jp": "先生に 名前を 呼ばれました。",
+    "it": "Sono stato chiamato per nome dall'insegnante.",
+    "en": "I was called by name by the teacher."
+   },
+   {
+    "jp": "この 歌は みんなに 歌われています。",
+    "it": "Questa canzone è cantata da tutti.",
+    "en": "This song is sung by everyone."
    }
   ],
   "grammar-api-N4-32": [
@@ -613,6 +663,16 @@
     "jp": "あぶない！ 止まれ！",
     "it": "Pericolo! Fermati!",
     "en": "Danger! Stop!"
+   },
+   {
+    "jp": "早く 起きろ。",
+    "it": "Alzati presto!",
+    "en": "Get up early!"
+   },
+   {
+    "jp": "ここに 名前を 書け。",
+    "it": "Scrivi qui il tuo nome.",
+    "en": "Write your name here."
    }
   ],
   "grammar-api-N4-63": [
