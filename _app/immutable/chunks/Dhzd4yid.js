@@ -1,0 +1,1 @@
+import{at as r}from"./CYVCcpcm.js";async function a(t){t&&(await r(),requestAnimationFrame(()=>{var o;(o=document.getElementById(t))==null||o.scrollIntoView({behavior:"smooth",block:"start"})}))}export{a as s};
