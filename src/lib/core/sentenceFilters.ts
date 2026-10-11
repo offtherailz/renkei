@@ -11,5 +11,15 @@
 const PARTICLE_OR_CONNECTIVE = /[はがをにで]|から|ので|けど|かどうか/;
 
 export function isFormEnumeration(plainSentence: string): boolean {
-	return plainSentence.split('、').length >= 3 && !PARTICLE_OR_CONNECTIVE.test(plainSentence);
+	const segs = plainSentence
+		.split('、')
+		.map((x) => x.replace(/[。！？\s　]/g, '').trim())
+		.filter(Boolean);
+	if (segs.length < 3) return false;
+	// Elenco di forme = 3+ segmenti TUTTI brevi (飲める、食べられる、できる、来られる。):
+	// anche quando una forma contiene per caso un kana-particella (で in «できる»,
+	// に…), che prima faceva fallire il controllo basato sulle particelle. Una
+	// frase vera ha almeno un segmento lungo (predicato/soggetto esteso).
+	if (segs.every((x) => [...x].length <= 6)) return true;
+	return !PARTICLE_OR_CONNECTIVE.test(plainSentence);
 }
