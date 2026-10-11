@@ -4,6 +4,7 @@
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import { findMazzo, type MazzoCard } from '$lib/data/mazzi';
+	import { speechMatches, listenJapanese, speechAvailable } from '$lib/core/speech';
 
 	const mazzo = $derived(findMazzo($page.params.id ?? ''));
 
@@ -43,14 +44,47 @@
 		}
 	}
 
-	// Modalità produzione (consegna IT → produci la frase → rivela soluzione).
+	// Modalità produzione (consegna IT → produci la frase → verifica → soluzione).
 	let pIdx = $state(0);
 	let pShown = $state(false);
+	let pInput = $state(''); // la frase che l'utente digita (o detta col 🎤)
+	let pResult = $state<null | 'ok' | 'ko'>(null); // esito del confronto
+	let pListening = $state(false);
+	const canSpeak = speechAvailable();
 	const produzione = $derived(mazzo?.produzione ?? []);
+	// Dalla risposta con furigana (漢字[かな]) ricava: la forma scritta (kanji) e la
+	// lettura (tutto in kana), per un confronto tollerante a spazi/furigana/kana.
+	const prodWriting = (r: string) => r.replace(/\[[^\]]*\]/g, '').replace(/[【】]/g, '');
+	const prodReading = (r: string) => r.replace(/[一-龯々〇〆]+\[([^\]]*)\]/g, '$1').replace(/[【】]/g, '');
 	function startProd() {
 		pIdx = 0;
 		pShown = false;
+		pInput = '';
+		pResult = null;
 		scene = 'prod';
+	}
+	// Confronta ciò che l'utente ha prodotto con la soluzione (scritta o lettura),
+	// ignorando spazi, punteggiatura e differenze kana↔katakana (normalizeSpeech).
+	function judgeProd(said: string[]): void {
+		const r = produzione[pIdx]?.risposta;
+		if (!r) return;
+		const ok = speechMatches(said, [[prodWriting(r), prodReading(r)]]);
+		pResult = ok ? 'ok' : 'ko';
+		revealProd();
+	}
+	function checkProd() {
+		if (!pInput.trim()) return;
+		judgeProd([pInput]);
+	}
+	async function micProd() {
+		if (!canSpeak || pListening) return;
+		pListening = true;
+		try {
+			const alts = await listenJapanese();
+			if (alts.length) { pInput = alts[0]!; judgeProd(alts); }
+		} finally {
+			pListening = false;
+		}
 	}
 	function revealProd() {
 		pShown = true;
@@ -61,6 +95,8 @@
 		if (pIdx + 1 < produzione.length) {
 			pIdx += 1;
 			pShown = false;
+			pInput = '';
+			pResult = null;
 		} else {
 			scene = 'done';
 		}
@@ -219,7 +255,25 @@
 		<div class="prod-card">
 			<p class="prod-consegna">{p.consegna}</p>
 			<p class="prod-pattern">Usa: <strong>{p.pattern}</strong></p>
+			{#if !pShown}
+				<div class="prod-try">
+					<input
+						class="prod-input"
+						bind:value={pInput}
+						placeholder="Scrivi la frase in giapponese…"
+						onkeydown={(e) => { if (e.key === 'Enter') checkProd(); }}
+						autocomplete="off" autocapitalize="off" spellcheck="false"
+					/>
+					{#if canSpeak}
+						<button class="prod-mic" class:live={pListening} title="Dillo a voce" aria-label="Dillo a voce" onclick={micProd}>🎤</button>
+					{/if}
+				</div>
+			{/if}
 			{#if pShown}
+				{#if pResult}
+					<p class="prod-esito" class:ok={pResult === 'ok'}>{pResult === 'ok' ? '✅ Giusto!' : '🔸 Quasi — confronta con la soluzione'}</p>
+					{#if pInput}<p class="prod-mine">La tua: {pInput}</p>{/if}
+				{/if}
 				<div class="prod-sol">
 					<div class="prod-jp"><FuriganaText text={p.risposta} force={true} /><button class="tts" title="Ascolta" aria-label="Ascolta" onclick={() => say(p.risposta.replace(/[【】]/g, ''))}>🔊</button></div>
 					<p class="prod-spiega">{p.spiega}</p>
@@ -229,7 +283,10 @@
 		{#if pShown}
 			<button class="cta" onclick={nextProd}>{pIdx + 1 < produzione.length ? 'Prossima →' : 'Fine'}</button>
 		{:else}
-			<button class="cta" onclick={revealProd}>Mostra la soluzione</button>
+			<div class="prod-actions">
+				<button class="cta" onclick={checkProd} disabled={!pInput.trim()}>Controlla</button>
+				<button class="r-ok" onclick={revealProd}>Mostra la soluzione</button>
+			</div>
 		{/if}
 	{:else if scene === 'done'}
 		<h1 class="page-title">🎉 Mazzo finito!</h1>
@@ -294,4 +351,14 @@
 	.prod-sol { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
 	.prod-jp { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 700; flex-wrap: wrap; }
 	.prod-spiega { margin: 0; font-size: 0.85rem; color: var(--ink); }
+	.prod-try { display: flex; gap: 8px; align-items: center; }
+	.prod-input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1.05rem; }
+	.prod-input:focus { outline: none; border-color: var(--brand); }
+	.prod-mic { padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); cursor: pointer; font-size: 1.1rem; }
+	.prod-mic.live { border-color: var(--brand); background: var(--brand); }
+	.prod-esito { margin: 4px 0 0; font-weight: 800; color: var(--warn-ink); }
+	.prod-esito.ok { color: var(--success); }
+	.prod-mine { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.prod-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+	.prod-actions .r-ok { padding: 12px; border-radius: 12px; font-weight: 700; border: 1px solid var(--success); cursor: pointer; }
 </style>
