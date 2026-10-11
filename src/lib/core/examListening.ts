@@ -11,14 +11,54 @@ import { voiceParams, type Gender } from './voices';
 let playToken = 0;
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+// Suono tipico prima dell'ascolto (il «ポーン» dell'esame): due note soft in
+// Web Audio. Segnala «ora parte l'audio» e dà il tempo di prepararsi. Se il
+// browser blocca l'AudioContext (nessun gesto recente) fallisce in silenzio.
+let audioCtx: AudioContext | null = null;
+function playChime(): Promise<void> {
+	return new Promise((resolve) => {
+		try {
+			if (typeof window === 'undefined') { resolve(); return; }
+			const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+			if (!Ctor) { resolve(); return; }
+			if (!audioCtx) audioCtx = new Ctor();
+			const ctx = audioCtx;
+			void ctx.resume?.();
+			const now = ctx.currentTime;
+			for (const n of [{ f: 784, t: 0 }, { f: 1047, t: 0.2 }]) { // Sol → Do («pin-pòn»)
+				const o = ctx.createOscillator();
+				const g = ctx.createGain();
+				o.type = 'sine';
+				o.frequency.value = n.f;
+				const t0 = now + n.t;
+				g.gain.setValueAtTime(0.0001, t0);
+				g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.02);
+				g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
+				o.connect(g);
+				g.connect(ctx.destination);
+				o.start(t0);
+				o.stop(t0 + 0.55);
+			}
+			setTimeout(resolve, 850);
+		} catch {
+			resolve();
+		}
+	});
+}
+
 interface Seg {
 	text?: string;
 	options?: SpeakOptions;
 	pause?: number; // ms di silenzio
+	chime?: boolean; // suono tipico d'esame prima dell'audio
 }
 async function runSequence(items: Seg[], token: number): Promise<void> {
 	for (const it of items) {
 		if (token !== playToken) return; // superata da una nuova lettura / stop
+		if (it.chime) {
+			await playChime();
+			continue;
+		}
 		if (it.pause) {
 			await delay(it.pause);
 			continue;
@@ -88,6 +128,7 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 
 	const lines = parseLines(body);
 	const items: Seg[] = [];
+	items.push({ chime: true }); // suono tipico d'esame prima dell'ascolto
 
 	// 1) annuncio: scena/cornice + domanda
 	if (scena && scena !== '会話') {
@@ -143,8 +184,26 @@ export function speakExamChoices(prompt: string, options: string[], kind: 'hatsu
 	// pulisci la consegna dai marcatori di servizio (〔…〕, 問:, ★/語群 non pertinenti)
 	let p = prompt.replace(/^〔[^〕]*〕\s*/, '').replace(/問[:：]\s*/, '').trim();
 
+	// Scena iniziale tra parentesi «（友だちに）…»: è il contesto, non la battuta.
+	// All'esame la dà il narratore, PRIMA e staccata; se la si legge attaccata
+	// alla frase non si capisce dove finisce (segnalato). La estraiamo e la
+	// facciamo leggere al narratore, con una pausa prima della battuta.
+	let scene = '';
+	const sceneMatch = p.match(/^[（(]([^）)]*)[）)]\s*/);
+	if (sceneMatch) {
+		scene = sceneMatch[1]!.trim();
+		p = p.slice(sceneMatch[0].length).trim();
+	}
+	// togli le virgolette dalla battuta: non vanno "lette" dal TTS
+	p = p.replace(/[「」『』]/g, '').trim();
+
 	const items: Seg[] = [];
+	items.push({ chime: true }); // suono tipico d'esame prima dell'ascolto
 	items.push({ text: kind === 'hatsuwa' ? 'えを 見[み]て ください。' : '', options: narrator });
+	if (scene) {
+		items.push({ text: scene, options: narrator });
+		items.push({ pause: 1200 });
+	}
 	items.push({ text: p, options: kind === 'hatsuwa' ? narrator : female });
 	items.push({ pause: 1500 });
 	options.forEach((o, i) => {
@@ -152,5 +211,5 @@ export function speakExamChoices(prompt: string, options: string[], kind: 'hatsu
 		items.push({ text: o, options: male }); // le risposte le dice l'altra persona
 		items.push({ pause: 900 });
 	});
-	return runSequence(items.filter((s) => s.pause || (s.text ?? '') !== ''), token);
+	return runSequence(items.filter((s) => s.chime || s.pause || (s.text ?? '') !== ''), token);
 }
