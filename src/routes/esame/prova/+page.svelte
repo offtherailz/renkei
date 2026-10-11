@@ -37,6 +37,11 @@
 	const qFurigana = $derived(difficolta === 'facile'); // Facile: furigana + spazi
 	const timeFactor = $derived(mode === 'campione' ? 0.8 : 1); // 🏆 −20%
 	const perQuestionLimit = $derived(mode === 'challenge' || mode === 'campione');
+	// Ascolto: il cronometro per-domanda NON scorre durante l'audio; alla fine
+	// dell'audio parte una finestra fissa per rispondere (come il vuoto tra una
+	// domanda e l'altra all'esame vero). audioPlaying congela il timer per-domanda.
+	let audioPlaying = $state(false);
+	const LISTEN_ANSWER_SEC = 10; // secondi per rispondere dopo l'audio d'ascolto
 	let selectedSet = $state<string | null>(null); // default: prova ufficiale (casuale, conteggi/tempi reali)
 	let continua = $state(false); // ♾️ flusso infinito senza timer, si ricostruisce da solo
 	// Mini esami (pochi item, tutti i tipi) vs Extra (varianti curate lunghe).
@@ -202,7 +207,7 @@
 			qStart = Date.now() - qElapsed * 1000;
 			runTicker();
 			// Non rigiocare l'audio se la domanda era già stata risposta (feedback aperto).
-			if (picked === null) maybePlayListening();
+			if (picked === null) void maybePlayListening();
 		}
 	}
 
@@ -264,6 +269,14 @@
 		if (q) playFor(q, rate);
 	}
 
+	// Limite/ritmo per-domanda. Per l'ascolto: finestra fissa dopo l'audio (il
+	// timer è congelato durante l'audio). Altrimenti il tempo consigliato (ridotto
+	// nelle modalità a timer: 🏆 −20%).
+	function limitFor(qq: ProvaQuestion): number {
+		if (qq.sezione === 'choukai') return LISTEN_ANSWER_SEC;
+		return perQuestionLimit ? Math.round(qq.tempoSec * timeFactor) : qq.tempoSec;
+	}
+
 	function fmt(sec: number): string {
 		const m = Math.floor(sec / 60);
 		const s = sec % 60;
@@ -315,11 +328,23 @@
 			}
 			// 練習: mentre studi la risposta (feedback aperto) il tempo si ferma.
 			if (mode === 'renshu' && picked !== null) return;
+			// Ascolto in corso: congela il timer per-domanda (qStart resta "adesso"),
+			// così i secondi per rispondere partono solo quando l'audio finisce.
+			if (audioPlaying) {
+				qStart = Date.now();
+				qElapsed = 0;
+				totalElapsed += 1;
+				if (mode === 'honban') {
+					secRemaining -= 1;
+					if (secRemaining <= 0) endSection();
+				}
+				return;
+			}
 			qElapsed = Math.floor((Date.now() - qStart) / 1000);
 			totalElapsed += 1;
 			// ⚡/🏆: timer per singola domanda; scaduto = persa, avanza.
 			if ((mode === 'challenge' || mode === 'campione') && picked === null && q) {
-				if (qElapsed >= Math.round(q.tempoSec * timeFactor)) {
+				if (qElapsed >= limitFor(q)) {
 					timeoutQuestion();
 					return;
 				}
@@ -343,7 +368,7 @@
 		qElapsed = 0;
 		phase = 'running';
 		runTicker();
-		maybePlayListening();
+		void maybePlayListening();
 		saveState();
 	}
 
@@ -412,7 +437,7 @@
 			showTip = false;
 			qStart = Date.now();
 			qElapsed = 0;
-			maybePlayListening();
+			void maybePlayListening();
 			saveState();
 		}
 	}
@@ -508,15 +533,29 @@
 
 	// Ascolto: audio automatico all'apertura della domanda (le ripetizioni
 	// manuali もう一度/🐢 non ricontano — l'esame dà max 2 ascolti, qui liberi
-	// in allenamento).
-	function maybePlayListening() {
+	// in allenamento). Durante l'audio audioPlaying=true congela il timer
+	// per-domanda; finito l'audio si (ri)azzera qStart → partono i secondi per
+	// rispondere (finestra fissa, vedi limitFor).
+	async function maybePlayListening() {
 		const cur = sezione?.questions[qIndex];
-		if (!cur || cur.sezione !== 'choukai') return;
+		if (!cur || cur.sezione !== 'choukai') { audioPlaying = false; return; }
+		const myQ = qIndex;
+		const myS = secIndex;
+		audioPlaying = true;
 		const audio = cur.mondaiSlug === 'hatsuwa' || cur.mondaiSlug === 'sokuji';
-		setTimeout(() => {
-			if (audio) speakExamChoices(cur.prompt, cur.choices, cur.mondaiSlug as 'hatsuwa' | 'sokuji');
-			else speakExamListening(cur.prompt);
-		}, 150);
+		await new Promise((r) => setTimeout(r, 150));
+		if (qIndex !== myQ || secIndex !== myS) return; // domanda cambiata nel frattempo
+		const p = audio
+			? speakExamChoices(cur.prompt, cur.choices, cur.mondaiSlug as 'hatsuwa' | 'sokuji')
+			: speakExamListening(cur.prompt, 1, cur.mondaiSlug === 'point' ? 5000 : 2500);
+		await p;
+		// Audio finito (o superato da un もう一度/stop): se siamo ancora sulla stessa
+		// domanda, sblocca il timer e fai partire la finestra di risposta da zero.
+		if (qIndex === myQ && secIndex === myS) {
+			audioPlaying = false;
+			qStart = Date.now();
+			qElapsed = 0;
+		}
 	}
 
 	// ── Risultati ──────────────────────────────────────────────────────────
@@ -761,14 +800,16 @@
 		<div class="progress">問題 {qIndex + 1} / {sezione.questions.length} · <span class="mondai-tag">{q.mondaiTitolo}</span></div>
 		{#if CONSEGNE[q.mondaiSlug]}<p class="consegna">{CONSEGNE[q.mondaiSlug]}</p>{/if}
 
-		{@const tSec = perQuestionLimit ? Math.round(q.tempoSec * timeFactor) : q.tempoSec}
-		<div class="pace" class:over={qElapsed >= tSec}>
-			{#if perQuestionLimit}
+		{@const tSec = limitFor(q)}
+		<div class="pace" class:over={!audioPlaying && qElapsed >= tSec}>
+			{#if audioPlaying}
+				🎧 ascolto… <span class="pace-target">(il tempo parte alla fine)</span>
+			{:else if perQuestionLimit}
 				{#if qElapsed < tSec}⏳ {tSec - qElapsed}s <span class="pace-target">(scade!)</span>{:else}⏱️ scaduto{/if}
 			{:else if qElapsed < tSec}
-				⏳ {tSec - qElapsed}s <span class="pace-target">(consigliati ~{tSec}s)</span>
+				⏳ {tSec - qElapsed}s <span class="pace-target">{isListening ? '(per rispondere)' : `(consigliati ~${tSec}s)`}</span>
 			{:else}
-				⏱️ oltre il tempo consigliato (~{tSec}s)
+				⏱️ oltre il tempo {isListening ? 'per rispondere' : `consigliato (~${tSec}s)`}
 			{/if}
 		</div>
 

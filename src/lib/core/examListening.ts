@@ -59,7 +59,7 @@ const ROLE_NAME: Record<string, string> = {
 
 // leadPauseMs: pausa tra domanda e dialogo. Alla ポイント理解 l'esame dà più tempo
 // per LEGGERE le opzioni stampate prima del dialogo → passare un valore più alto.
-export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500): void {
+export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500): Promise<void> {
 	const token = ++playToken;
 	stopSpeaking();
 
@@ -123,7 +123,7 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 		items.push({ text: question, options: narrator });
 	}
 
-	void runSequence(items, token);
+	return runSequence(items, token);
 }
 
 // 発話表現 / 即時応答: opzioni SOLO AUDIO come all'esame. Legge la situazione o la
@@ -132,7 +132,7 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 //  - 'sokuji': prompt = battuta dell'interlocutore (voce femminile); risposte a
 //    voce alternata come farebbe l'altra persona.
 const NUM_KANA = ['１ばん', '２ばん', '３ばん', '４ばん'];
-export function speakExamChoices(prompt: string, options: string[], kind: 'hatsuwa' | 'sokuji', rate = 1): void {
+export function speakExamChoices(prompt: string, options: string[], kind: 'hatsuwa' | 'sokuji', rate = 1): Promise<void> {
 	const token = ++playToken;
 	stopSpeaking();
 	const fBase = voiceParams('femminile');
@@ -152,5 +152,5 @@ export function speakExamChoices(prompt: string, options: string[], kind: 'hatsu
 		items.push({ text: o, options: male }); // le risposte le dice l'altra persona
 		items.push({ pause: 900 });
 	});
-	void runSequence(items.filter((s) => s.pause || (s.text ?? '') !== ''), token);
+	return runSequence(items.filter((s) => s.pause || (s.text ?? '') !== ''), token);
 }
