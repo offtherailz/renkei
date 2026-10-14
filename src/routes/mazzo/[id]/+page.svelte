@@ -5,11 +5,21 @@
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import { findMazzo, type MazzoCard } from '$lib/data/mazzi';
 	import { speechMatches, listenJapanese, speechAvailable } from '$lib/core/speech';
+	import { db } from '$lib/db/schema';
+	import { recordPractice } from '$lib/core/practiceMiss';
+	import type { FacetField } from '$lib/core/srs';
 
 	const mazzo = $derived(findMazzo($page.params.id ?? ''));
 
-	type Dir = 'jp2it' | 'it2jp';
-	let dir = $state<Dir>('jp2it'); // jp→ : leggi/traduci; it→ : produci la parola
+	type Dir = 'jp2it' | 'it2jp' | 'listen';
+	let dir = $state<Dir>('jp2it'); // jp→ : leggi/traduci; it→ : produci; listen: riconosci a orecchio
+	// Ogni direzione allena (e muove nel radar) una sfaccettatura diversa della parola.
+	const FACET_BY_DIR: Record<Dir, FacetField> = {
+		jp2it: 'facet_meaning_r', // vedo il JP, recupero il senso
+		it2jp: 'facet_meaning_p', // dal senso produco il JP
+		listen: 'facet_form_listen' // la riconosco a orecchio
+	};
+	const canTts = typeof window !== 'undefined' && 'speechSynthesis' in window;
 	let order = $state<number[]>([]);
 	let pos = $state(0);
 	let flipped = $state(false);
@@ -132,8 +142,24 @@
 		if (flipped && card) say(card.yomi); // pronuncia alla scoperta
 	}
 
+	// Direzione «Ascolta»: la carta parte a faccia coperta e pronuncia da sola la
+	// parola — devi riconoscerla a orecchio prima di girare.
+	$effect(() => {
+		if (scene === 'play' && dir === 'listen' && !flipped && card) say(card.yomi);
+	});
+
+	// I flashcard muovono il radar delle sfaccettature: «sapevo/da rivedere» dà
+	// credito (positivo/negativo) alla cella allenata da questa direzione, sulla
+	// parola di catalogo corrispondente (per scrittura). Se non è in catalogo si
+	// salta (niente credito), senza bloccare lo studio.
+	async function creditFacet(cardJp: string, known: boolean): Promise<void> {
+		const w = await db.words.where('scrittura').equals(cardJp).first();
+		if (w) await recordPractice(`word:${w.id}`, known, FACET_BY_DIR[dir]);
+	}
+
 	function next(known: boolean) {
 		if (!card) return;
+		void creditFacet(card.jp, known);
 		if (!known) rivedere = [...rivedere, order[pos]!];
 		if (pos + 1 < order.length) {
 			pos += 1;
@@ -169,6 +195,12 @@
 				<span class="d-t">Italiano → 日本語</span>
 				<span class="d-d">Vedi il significato, produci la parola giapponese</span>
 			</button>
+			{#if canTts}
+				<button class="dirbtn" onclick={() => start('listen')}>
+					<span class="d-t">🔊 Ascolta → riconosci</span>
+					<span class="d-d">Senti la parola (niente testo), prova a riconoscerla, poi gira per verificare</span>
+				</button>
+			{/if}
 		</div>
 		<p class="lbl">Oppure mettiti alla prova</p>
 		{#if esercizi.length}
@@ -211,7 +243,19 @@
 	{:else if scene === 'play' && card}
 		<div class="hud"><span>{pos + 1} / {order.length}</span><span class="hud-r">{rivedere.length ? `🔁 ${rivedere.length} da rivedere` : ''}</span></div>
 		<button class="card" onclick={flip} aria-label="Gira la carta">
-			{#if dir === 'jp2it'}
+			{#if dir === 'listen'}
+				<!-- fronte: solo audio, niente testo — riconosci a orecchio -->
+				{#if flipped}
+					<div class="c-front">{card.jp}</div>
+					<div class="c-reading"><FuriganaText text={card.yomi} force={true} /></div>
+					<div class="c-it">{card.it}</div>
+					{#if card.es}<div class="c-es"><FuriganaText text={card.es} force={true} /></div>{/if}
+					{#if card.es_it}<div class="c-esit">{card.es_it}</div>{/if}
+				{:else}
+					<div class="c-front it">🔊</div>
+					<div class="c-hint">ascolta e riconosci · tocca per girare</div>
+				{/if}
+			{:else if dir === 'jp2it'}
 				<!-- fronte: parola senza furigana (allena la lettura) -->
 				<div class="c-front">{card.jp}</div>
 				{#if flipped}
