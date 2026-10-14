@@ -10,6 +10,7 @@ export type QuizMode =
   | "reading-choice"
   | "listening"
   | "listening-meaning"
+  | "word-reading"
   | "particle-cloze"
   | "counter-quiz"
   | "conjugation"
@@ -128,6 +129,17 @@ export interface ListeningQuestion {
   correctChoice: string;
 }
 
+// Kanji → lettura: vedi la parola in kanji, scegli la pronuncia (よみ). Verso
+// inverso di flashcard-reading-recognition (lettura → scrittura): completa
+// l'asse 📖 «come si legge?». Gli omofoni NON sono distrattori (sarebbero giusti).
+export interface WordReadingQuestion {
+  mode: "word-reading";
+  wordId: string;
+  prompt: string; // scrittura in kanji
+  choices: string[]; // letture (kana)
+  correctChoice: string;
+}
+
 // Ascolto → significato: senti la parola (readingToSpeak), scegli la traduzione
 // IT. Complementa ListeningQuestion (ascolto → scrittura): stessa abilità 👂,
 // ma verifica la comprensione del senso, non il riconoscimento della forma.
@@ -203,6 +215,7 @@ export type QuizQuestion =
   | ReadingChoiceQuestion
   | ListeningQuestion
   | ListeningMeaningQuestion
+  | WordReadingQuestion
   | ParticleClozeQuestion
   | CounterQuestion
   | ConjugationQuizQuestion

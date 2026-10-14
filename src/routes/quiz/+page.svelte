@@ -27,6 +27,7 @@
 		createMultipleChoiceQuestion,
 		createListeningQuestion,
 		createListeningMeaningQuestion,
+		createWordReadingQuestion,
 		createGrammarQuestion,
 		createParticleClozeQuestion,
 		createCounterQuestion,
@@ -49,7 +50,7 @@
 	import type {
 		QuizQuestion, QuizContext, DistractorIndex,
 		FlashcardQuestion, MultipleChoiceQuestion,
-		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, VerbFormClozeQuestion, UsageClozeQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion, ListeningMeaningQuestion,
+		SentenceOrderingQuestion, CompositionQuestion, SpokenProductionQuestion, VerbFormClozeQuestion, UsageClozeQuestion, ClozeQuestion, ReadingChoiceQuestion, ListeningQuestion, ListeningMeaningQuestion, WordReadingQuestion,
 		ParticleClozeQuestion, CounterQuestion, ConjugationQuizQuestion,
 		TransitivityPairQuestion, CounterReadingQuestion, TimeReadingQuestion
 	} from '$lib/quiz/types';
@@ -166,11 +167,11 @@
 	// Le celle senza un modo in questa rosa (Usare → speciali conjugation/
 	// particle-cloze; Dire/Scrivere → modalità future) restano fuori qui.
 	let lastFacetPicked: FacetField | null = null;
-	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'listening-meaning' | 'composition' | 'spoken-production';
+	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'listening-meaning' | 'word-reading' | 'composition' | 'spoken-production';
 	const MODE_BY_FACET: Partial<Record<FacetField, WordMode[]>> = {
 		facet_meaning_r: ['flashcard-recognition', 'multiple-choice'],
 		facet_meaning_p: ['flashcard-production'],
-		facet_form_read: ['flashcard-reading-recognition'],
+		facet_form_read: ['flashcard-reading-recognition', 'word-reading'],
 		facet_form_listen: ['listening', 'listening-meaning'],
 		facet_form_write: ['composition'],
 		facet_form_speak: ['spoken-production']
@@ -303,6 +304,7 @@
 			if (mode === 'flashcard-production') return createFlashcardProductionQuestion(word, locale);
 			if (mode === 'flashcard-recognition') return createFlashcardRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'flashcard-reading-recognition') return createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
+			if (mode === 'word-reading') return createWordReadingQuestion(word, context) ?? createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'listening') return createListeningQuestion(word, distractorIndex, context);
 			if (mode === 'listening-meaning') return createListeningMeaningQuestion(word, locale, context) ?? createListeningQuestion(word, distractorIndex, context);
 			if (mode === 'composition') {
@@ -826,6 +828,8 @@
 			case 'listening':
 			case 'listening-meaning':
 				return { prompt: `🔊 ${q.readingToSpeak}`, correct: q.correctChoice };
+			case 'word-reading':
+				return { prompt: `Lettura di ${q.prompt}`, correct: q.correctChoice };
 			case 'particle-cloze':
 			case 'transitivity-pair':
 				return { prompt: q.sentenceWithBlank, correct: q.correctChoice };
@@ -1064,6 +1068,7 @@
 			'particle-cloze': 'particella non adatta qui',
 			'counter-quiz': "contatore di un'altra categoria",
 			'counter-reading': 'lettura errata (rendaku/concatenazione)',
+			'word-reading': 'lettura di un altro termine',
 			'time-reading': 'lettura regolare errata',
 			'transitivity-pair': 'verbo gemello (transitività opposta)',
 			'verb-form-cloze': 'forma che non si aggancia a questa struttura',
@@ -1134,6 +1139,8 @@
 				return { question: 'Quale parola hai sentito?', correctReason: `Si legge ${q.readingToSpeak} → ${correct}` };
 			case 'listening-meaning':
 				return { question: 'Cosa significa la parola che hai sentito?', correctReason: `${q.readingToSpeak} = ${correct}` };
+			case 'word-reading':
+				return { question: `Come si legge ${q.prompt}?`, correctReason: `${q.prompt} si legge ${correct}` };
 			case 'conjugation':
 				return { question: `${q.dictionary} → ${q.formLabel}`, correctReason: `${correct} è la ${q.formLabel} di ${q.dictionary}` };
 			case 'particle-cloze':
@@ -1365,6 +1372,7 @@
 		else if (q.mode === 'reading-choice') correct = choice === (q as ReadingChoiceQuestion).correctChoice;
 		else if (q.mode === 'listening') correct = choice === (q as ListeningQuestion).correctChoice;
 		else if (q.mode === 'listening-meaning') correct = choice === (q as ListeningMeaningQuestion).correctChoice;
+		else if (q.mode === 'word-reading') correct = choice === (q as WordReadingQuestion).correctChoice;
 		else if (q.mode === 'particle-cloze') correct = choice === (q as ParticleClozeQuestion).correctChoice;
 		else if (q.mode === 'verb-form-cloze') correct = choice === (q as VerbFormClozeQuestion).correctChoice;
 		else if (q.mode === 'usage-cloze') correct = choice === (q as UsageClozeQuestion).correctChoice;
@@ -1892,6 +1900,23 @@
 			<button class="listen-btn" onclick={() => speakSentenceJapanese(q.readingToSpeak)}>
 				🔊 Riascolta
 			</button>
+			<div class="choices ja-choices">
+				{#each q.choices as choice, i}
+					<button
+						class="choice-btn"
+						class:correct-choice={quiz.answered && choice === q.correctChoice}
+						class:wrong-choice={quiz.answered && answerFeedback === 'wrong' && choice !== q.correctChoice}
+						disabled={quiz.answered}
+						onclick={() => handleChoiceClick(choice)}
+					><kbd class="key-hint">{i + 1}</kbd>{choice}</button>
+				{/each}
+			</div>
+
+		<!-- word-reading: vedi il kanji, scegli la lettura -->
+		{:else if quiz.question.mode === 'word-reading'}
+			{@const q = quiz.question as WordReadingQuestion}
+			<p class="question-prompt ja-text">{q.prompt}</p>
+			<p class="question-hint">Come si legge?</p>
 			<div class="choices ja-choices">
 				{#each q.choices as choice, i}
 					<button

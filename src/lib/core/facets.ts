@@ -78,6 +78,7 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 		case 'flashcard-production':
 			return 'facet_meaning_p';
 		case 'flashcard-reading-recognition':
+		case 'word-reading':
 		case 'reading-choice':
 			return 'facet_form_read';
 		case 'composition':

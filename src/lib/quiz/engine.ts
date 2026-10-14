@@ -26,6 +26,7 @@ import type {
   FlashcardQuestion,
   ListeningQuestion,
   ListeningMeaningQuestion,
+  WordReadingQuestion,
   MultipleChoiceQuestion,
   ParticleClozeQuestion,
   QuizContext,
@@ -291,6 +292,37 @@ export function createListeningQuestion(
     mode: "listening",
     wordId: word.id,
     readingToSpeak: word.lettura,
+    choices: shuffle([correct, ...distractors]).slice(0, 4),
+    correctChoice: correct
+  };
+}
+
+// 📖 Kanji → lettura: vedi la parola in kanji, scegli la pronuncia. Distrattori
+// = letture di altre parole (stesso livello quando possibile), MAI omofoni del
+// bersaglio (sarebbero giusti). null se non ha kanji o mancano distrattori.
+export function createWordReadingQuestion(
+  word: Word,
+  context: QuizContext
+): WordReadingQuestion | null {
+  if (word.scrittura === word.lettura) return null; // full-kana: niente da leggere
+  const correct = word.lettura;
+  const pool = shuffle([...context.wordsById.values()].filter((w) => w.id !== word.id));
+  const sameLevel = pool.filter((w) => w.livello_jlpt === word.livello_jlpt);
+  const distractors = [
+    ...new Set(
+      [...sameLevel, ...pool]
+        .map((w) => w.lettura)
+        .filter((r) => r && r !== correct)
+    )
+  ]
+    // vicine per lunghezza: più confondibili, meno scartabili a colpo d'occhio
+    .sort((a, b) => Math.abs(a.length - correct.length) - Math.abs(b.length - correct.length))
+    .slice(0, 3);
+  if (distractors.length < 2) return null;
+  return {
+    mode: "word-reading",
+    wordId: word.id,
+    prompt: word.scrittura,
     choices: shuffle([correct, ...distractors]).slice(0, 4),
     correctChoice: correct
   };
@@ -946,6 +978,7 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "reading-choice": 13,
   listening: 11,
   "listening-meaning": 11,
+  "word-reading": 9,
   "particle-cloze": 13,
   "counter-quiz": 12,
   conjugation: 13,

@@ -3,6 +3,7 @@ import {
   calculateQuizXp,
   createFlashcardRecognitionQuestion,
   createListeningMeaningQuestion,
+  createWordReadingQuestion,
   createMultipleChoiceQuestion,
   pickReadingTarget,
   shuffle
@@ -364,5 +365,33 @@ describe("createListeningMeaningQuestion", () => {
     const words = [makeWord("w1", "本", "libro")];
     const { context } = makeContext(words);
     expect(createListeningMeaningQuestion(words[0]!, "it", context)).toBeNull();
+  });
+});
+
+describe("createWordReadingQuestion", () => {
+  it("prompt = kanji, scelte = letture col giusto incluso", () => {
+    const words = [
+      makeWord("w1", "本", "libro"),
+      makeWord("w2", "水", "acqua"),
+      makeWord("w3", "犬", "cane"),
+      makeWord("w4", "猫", "gatto")
+    ];
+    words[0]!.lettura = "ほん";
+    words[1]!.lettura = "みず";
+    words[2]!.lettura = "いぬ";
+    words[3]!.lettura = "ねこ";
+    const { context } = makeContext(words);
+    const q = createWordReadingQuestion(words[0]!, context);
+    expect(q).not.toBeNull();
+    expect(q!.mode).toBe("word-reading");
+    expect(q!.prompt).toBe("本");
+    expect(q!.correctChoice).toBe("ほん");
+    expect(q!.choices).toContain("ほん");
+  });
+
+  it("null se full-kana (niente kanji da leggere)", () => {
+    const words = [makeWord("w1", "くれる", "dare"), makeWord("w2", "みず", "acqua"), makeWord("w3", "いぬ", "cane")];
+    const { context } = makeContext(words);
+    expect(createWordReadingQuestion(words[0]!, context)).toBeNull();
   });
 });
