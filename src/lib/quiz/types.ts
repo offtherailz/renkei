@@ -9,6 +9,7 @@ export type QuizMode =
   | "cloze"
   | "reading-choice"
   | "listening"
+  | "listening-meaning"
   | "particle-cloze"
   | "counter-quiz"
   | "conjugation"
@@ -127,6 +128,17 @@ export interface ListeningQuestion {
   correctChoice: string;
 }
 
+// Ascolto → significato: senti la parola (readingToSpeak), scegli la traduzione
+// IT. Complementa ListeningQuestion (ascolto → scrittura): stessa abilità 👂,
+// ma verifica la comprensione del senso, non il riconoscimento della forma.
+export interface ListeningMeaningQuestion {
+  mode: "listening-meaning";
+  wordId: string;
+  readingToSpeak: string;
+  choices: string[]; // significati IT
+  correctChoice: string;
+}
+
 export interface ParticleClozeQuestion {
   mode: "particle-cloze";
   wordId: string;
@@ -190,6 +202,7 @@ export type QuizQuestion =
   | ClozeQuestion
   | ReadingChoiceQuestion
   | ListeningQuestion
+  | ListeningMeaningQuestion
   | ParticleClozeQuestion
   | CounterQuestion
   | ConjugationQuizQuestion

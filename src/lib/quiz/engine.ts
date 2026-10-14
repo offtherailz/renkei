@@ -25,6 +25,7 @@ import type {
   DistractorIndex,
   FlashcardQuestion,
   ListeningQuestion,
+  ListeningMeaningQuestion,
   MultipleChoiceQuestion,
   ParticleClozeQuestion,
   QuizContext,
@@ -288,6 +289,36 @@ export function createListeningQuestion(
 
   return {
     mode: "listening",
+    wordId: word.id,
+    readingToSpeak: word.lettura,
+    choices: shuffle([correct, ...distractors]).slice(0, 4),
+    correctChoice: correct
+  };
+}
+
+// 👂→💡 Ascolto → significato: senti la parola, scegli la traduzione IT.
+// Distrattori = primi significati di altre parole (stesso livello quando
+// possibile), diversi dal giusto. null se non si riesce a comporre abbastanza
+// opzioni (troppo poche parole con glossa).
+export function createListeningMeaningQuestion(
+  word: Word,
+  locale: "it" | "en",
+  context: QuizContext
+): ListeningMeaningQuestion | null {
+  const correct = pickLocalizedArray(word.significato, locale)[0] ?? "";
+  if (!correct) return null;
+  const pool = shuffle([...context.wordsById.values()].filter((w) => w.id !== word.id));
+  const sameLevel = pool.filter((w) => w.livello_jlpt === word.livello_jlpt);
+  const distractors = [
+    ...new Set(
+      [...sameLevel, ...pool]
+        .map((w) => pickLocalizedArray(w.significato, locale)[0] ?? "")
+        .filter((m) => m && m !== correct)
+    )
+  ].slice(0, 3);
+  if (distractors.length < 2) return null;
+  return {
+    mode: "listening-meaning",
     wordId: word.id,
     readingToSpeak: word.lettura,
     choices: shuffle([correct, ...distractors]).slice(0, 4),
@@ -914,6 +945,7 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   cloze: 14,
   "reading-choice": 13,
   listening: 11,
+  "listening-meaning": 11,
   "particle-cloze": 13,
   "counter-quiz": 12,
   conjugation: 13,

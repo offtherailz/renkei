@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   calculateQuizXp,
   createFlashcardRecognitionQuestion,
+  createListeningMeaningQuestion,
   createMultipleChoiceQuestion,
   pickReadingTarget,
   shuffle
@@ -337,5 +338,31 @@ describe("createUsageClozeQuestion", () => {
     expect(q!.sentenceWithBlank).not.toContain("パン");
     expect(q!.correctChoice).toBe("パン");
     expect(q!.choices.length).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe("createListeningMeaningQuestion", () => {
+  it("il prompt è la lettura da pronunciare; le opzioni sono significati IT col giusto incluso", () => {
+    const words = [
+      makeWord("w1", "本", "libro"),
+      makeWord("w2", "水", "acqua"),
+      makeWord("w3", "犬", "cane"),
+      makeWord("w4", "猫", "gatto")
+    ];
+    words[0]!.lettura = "ほん";
+    const { context } = makeContext(words);
+    const q = createListeningMeaningQuestion(words[0]!, "it", context);
+    expect(q).not.toBeNull();
+    expect(q!.mode).toBe("listening-meaning");
+    expect(q!.readingToSpeak).toBe("ほん");
+    expect(q!.correctChoice).toBe("libro");
+    expect(q!.choices).toContain("libro");
+    expect(q!.choices.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("null se non ci sono abbastanza altre parole con glossa per i distrattori", () => {
+    const words = [makeWord("w1", "本", "libro")];
+    const { context } = makeContext(words);
+    expect(createListeningMeaningQuestion(words[0]!, "it", context)).toBeNull();
   });
 });

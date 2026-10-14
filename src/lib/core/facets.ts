@@ -83,6 +83,7 @@ export function facetOfMode(mode: QuizQuestion['mode']): FacetField | null {
 		case 'composition':
 			return 'facet_form_write';
 		case 'listening':
+		case 'listening-meaning':
 			return 'facet_form_listen';
 		case 'spoken-production':
 			return 'facet_form_speak';
