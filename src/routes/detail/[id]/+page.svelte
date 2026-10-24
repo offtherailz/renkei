@@ -6,7 +6,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
-	import { normalizeMastery, createInitialSrs, markKnown, snoozeReview, setBuried } from '$lib/core/srs';
+	import { normalizeMastery, createInitialSrs, markKnown, snoozeReview, setBuried, formatReviewIn } from '$lib/core/srs';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { saveCorrection } from '$lib/db/corrections';
@@ -260,8 +260,7 @@
 						wordSrs = srs;
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
 						srsStage = srs.srs_stage;
-						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+						nextReviewLabel = formatReviewIn(srs.next_review_date);
 					}
 				}
 			} else if (currentKind === 'kanji') {
@@ -275,8 +274,7 @@
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
 						srsStage = srs.srs_stage;
-						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+						nextReviewLabel = formatReviewIn(srs.next_review_date);
 					}
 				}
 			} else if (currentKind === 'grammar') {
@@ -286,8 +284,7 @@
 					if (srs) {
 						masteryPct = normalizeMastery(srs.srs_stage, srs.mastery_points);
 						srsStage = srs.srs_stage;
-						const mins = Math.max(0, Math.round((srs.next_review_date - Date.now()) / 60_000));
-						nextReviewLabel = mins <= 0 ? 'adesso' : `tra ~${mins} min`;
+						nextReviewLabel = formatReviewIn(srs.next_review_date);
 					}
 				}
 			}
@@ -309,8 +306,7 @@
 		wordSrs = updated;
 		masteryPct = normalizeMastery(updated.srs_stage, updated.mastery_points);
 		srsStage = updated.srs_stage;
-		const mins = Math.max(0, Math.round((updated.next_review_date - Date.now()) / 60_000));
-		nextReviewLabel = mins <= 0 ? 'adesso' : mins >= 1440 ? `tra ~${Math.round(mins / 1440)} g` : `tra ~${mins} min`;
+		nextReviewLabel = formatReviewIn(updated.next_review_date);
 	}
 	// snapshot per l'annulla di «La so già» (finché resti sulla scheda)
 	let knownUndo = $state<SrsProgress | null>(null);

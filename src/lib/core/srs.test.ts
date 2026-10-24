@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate, markKnown, snoozeReview, setBuried, startOfNextLocalDay } from "./srs";
+import { applyPracticeReview, applySrsReview, createInitialSrs, normalizeMastery, normalizePracticeOnlyMastery, touchReviewDate, markKnown, snoozeReview, setBuried, startOfNextLocalDay, formatReviewIn } from "./srs";
 
 const NOW = 1_700_000_000_000;
 
@@ -222,5 +222,20 @@ describe("applySrsReview — scadenza esame", () => {
     expect(applySrsReview(high, true, NOW, false, NOW - 1000).next_review_date).toBe(
       applySrsReview(high, true, NOW).next_review_date
     );
+  });
+});
+
+describe("formatReviewIn", () => {
+  const T = 1_700_000_000_000;
+  const M = 60_000;
+  it("sceglie l'unità leggibile", () => {
+    expect(formatReviewIn(T - M, T)).toBe("adesso");
+    expect(formatReviewIn(T + 10 * M, T)).toBe("tra ~10 min");
+    expect(formatReviewIn(T + 60 * M, T)).toBe("tra ~1 ora");
+    expect(formatReviewIn(T + 8 * 60 * M, T)).toBe("tra ~8 ore");
+    expect(formatReviewIn(T + 1440 * M, T)).toBe("tra ~1 giorno");
+    expect(formatReviewIn(T + 14 * 1440 * M, T)).toBe("tra ~14 giorni");
+    expect(formatReviewIn(T + 60 * 1440 * M, T)).toBe("tra ~2 mesi");
+    expect(formatReviewIn(T + 800 * 1440 * M, T)).toBe("tra ~2 anni");
   });
 });

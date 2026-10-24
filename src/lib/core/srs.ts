@@ -150,6 +150,24 @@ export function snoozeReview(progress: SrsProgress, days = 3, nowTs = Date.now()
   };
 }
 
+// Etichetta leggibile per «prossimo ripasso»: min sotto l'ora, poi ore,
+// giorni, mesi, anni (mai «tra ~43200 min»).
+export function formatReviewIn(targetTs: number, nowTs = Date.now()): string {
+  const mins = Math.round((targetTs - nowTs) / 60_000);
+  if (mins <= 0) return 'adesso';
+  if (mins < 60) return `tra ~${mins} min`;
+  const hours = Math.round(mins / 60);
+  if (hours < 24) return `tra ~${hours} ${hours === 1 ? 'ora' : 'ore'}`;
+  const days = Math.round(mins / 1440);
+  if (days < 30) return `tra ~${days} ${days === 1 ? 'giorno' : 'giorni'}`;
+  if (days < 365) {
+    const months = Math.round(days / 30);
+    return `tra ~${months} ${months === 1 ? 'mese' : 'mesi'}`;
+  }
+  const years = Math.round(days / 365);
+  return `tra ~${years} ${years === 1 ? 'anno' : 'anni'}`;
+}
+
 // «Seppellisci» / «Riesuma»: fuori (o di nuovo dentro) la rotazione attiva.
 export function setBuried(progress: SrsProgress, buried: boolean, nowTs = Date.now()): SrsProgress {
   return { ...progress, buried, updated_at: nowTs };
