@@ -30,6 +30,9 @@ export interface FlashcardQuestion {
   choices?: string[];
   correctAnswer: string;
   warningMultipleDefinitions: boolean;
+  // prova d'uso su frase (Consolida «Completa: …»): frase intera da mostrare/leggere dopo
+  fullSentence?: string;
+  translation?: string;
 }
 
 export interface MultipleChoiceQuestion {
@@ -100,7 +103,10 @@ export interface CompositionQuestion {
   promptLanguage: LocaleCode;
   reading?: string; // lettura mostrata come aiuto se la parola ha kanji
   tokens: string[]; // caratteri della parola + intrusi, da mescolare
-  correctAnswer: string; // word.scrittura
+  correctAnswer: string; // word.scrittura (o la forma coniugata)
+  // composizione di una FORMA coniugata: dizionario + forma richiesta (il prompt resta il significato)
+  dictionary?: string;
+  formLabel?: string;
 }
 
 export interface ClozeQuestion {
@@ -109,6 +115,8 @@ export interface ClozeQuestion {
   sentenceWithBlank: string;
   choices: string[];
   correctChoice: string;
+  fullSentence?: string; // frase intera senza furigana (letta dopo la risposta)
+  translation?: string;
 }
 
 export interface ReadingChoiceQuestion {

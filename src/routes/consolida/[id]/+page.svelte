@@ -16,6 +16,7 @@
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
 		createConjugationQuizQuestion,
+		createConjugationCompositionQuestion,
 		createParticleClozeQuestion,
 		createCounterQuestion,
 		createCounterDrillQuestion,
@@ -31,7 +32,7 @@
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
 	import { curatedByParticle, curatedByWord, curatedByGram, curatedToQuestion } from '$lib/data/propedeutiche';
-	import type { Word, Counter } from '$lib/types/models';
+	import type { Word, Counter, Kanji } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
 	const locale = detectUserLocale();
@@ -61,6 +62,13 @@
 	let loading = $state(true);
 
 	const current = $derived(queue[idx] ?? null);
+	// catalogo parole: dopo una coniugazione mostra il significato del verbo
+	let wordsById = $state<Map<string, Word>>(new Map());
+	function meaningOfWord(id: string | undefined): string {
+		const w = id ? wordsById.get(id) : undefined;
+		return w ? pickLocalizedArray(w.significato, locale).join(' / ') : '';
+	}
+	const hasJapanese = (t: string) => /[ぁ-ヿ一-龯々]/u.test(t);
 
 	// ✍️ composizione: banco/risposta a token (come nel quiz). Setup IMPERATIVO
 	// al cambio di domanda (setupComp da next/build), non con $effect: l'effect
@@ -71,6 +79,7 @@
 	// frase da mostrare/ascoltare alla fine: SOLO se la domanda era su una frase
 	// (ha fullSentence). Le domande su una parola/kanji non mostrano frasi.
 	function revealSentence(q: QuizQuestion | null): { jp: string; it: string } | null {
+		if (q?.mode === 'reading-choice') return { jp: q.plainSentence, it: '' };
 		if (!q || !('fullSentence' in q) || !q.fullSentence) return null;
 		return { jp: q.fullSentence, it: 'translation' in q && q.translation ? q.translation : '' };
 	}
@@ -99,6 +108,7 @@
 		phraseStep = 'ready'; heard = ''; lastOk = null;
 
 		const [words, counters] = await Promise.all([db.words.toArray(), db.counters.toArray()]);
+		wordsById = new Map(words.map((x) => [x.id, x]));
 		const context: QuizContext = {
 			locale,
 			wordsById: new Map(words.map((x) => [x.id, x])),
@@ -149,7 +159,14 @@
 					qs.push(q);
 				}
 			}
-			queue = qs;
+			// ✍️ due forme da comporre carattere per carattere
+			let comps = 0;
+			for (const w of pool.slice(20, 40)) {
+				if (comps >= 2) break;
+				const cq = createConjugationCompositionQuestion(w, allowed, locale);
+				if (cq) { qs.push(cq); comps += 1; }
+			}
+			queue = shuffle(qs);
 			loading = false;
 			return;
 		}
@@ -250,7 +267,11 @@
 			word = w;
 			srsTarget = `word:${w.id}`;
 			title = w.scrittura;
-			queue = shuffle(buildWordQuestions(w, context, distractors, counters as Counter[]));
+			const kanjiRows = w.kanji_usati.length > 0 ? await db.kanji.toArray() : [];
+			queue = shuffle([
+				...buildWordQuestions(w, context, distractors, counters as Counter[]),
+				...kanjiMeaningQuestions(w, kanjiRows)
+			]);
 			loading = false;
 			return;
 		}
@@ -337,6 +358,9 @@
 				const cq = createConjugationQuizQuestion(w, new Set(DEFAULT_KNOWN_FORMS));
 				if (cq && !seen.has(cq.formLabel)) { seen.add(cq.formLabel); qs.push(cq); }
 			}
+			// ✍️ una forma coniugata da comporre
+			const ccq = createConjugationCompositionQuestion(w, new Set(DEFAULT_KNOWN_FORMS), locale);
+			if (ccq) qs.push(ccq);
 		}
 		// frasi propedeutiche curate della parola (自/他, keigo, forma nel
 		// contesto): la frase forza la risposta, col «perché» dopo.
@@ -356,6 +380,36 @@
 		if (w.id_contatore_suggerito) {
 			const cq = createCounterQuestion(w, counters, locale);
 			if (cq) qs.push(cq);
+		}
+		return qs;
+	}
+
+	// Significato dei kanji della parola: «食 (in 食べる)?» — opzioni = significati
+	// di altri kanji (stesso livello se possibile). Un kanji senza significato
+	// in catalogo viene saltato.
+	function kanjiMeaningQuestions(w: Word, kanjiRows: Kanji[]): QuizQuestion[] {
+		const byId = new Map(kanjiRows.map((k) => [k.id, k]));
+		const qs: QuizQuestion[] = [];
+		for (const ch of [...new Set(w.kanji_usati)]) {
+			const k = byId.get(ch);
+			const correct = k ? pickLocalizedText(k.significato, locale) : '';
+			if (!k || !correct) continue;
+			const others = kanjiRows.filter((x) => x.id !== k.id && !w.kanji_usati.includes(x.id));
+			const sameLevel = others.filter((x) => x.livello_jlpt === k.livello_jlpt);
+			const pool = (sameLevel.length >= 3 ? sameLevel : others)
+				.map((x) => pickLocalizedText(x.significato, locale))
+				.filter((m) => m && m !== correct);
+			const distractors = shuffle([...new Set(pool)]).slice(0, 3);
+			if (distractors.length < 2) continue;
+			qs.push({
+				mode: 'flashcard-recognition',
+				wordId: `kanji:${k.id}`,
+				prompt: `Significato del kanji ${k.id} (in ${w.scrittura})`,
+				promptLanguage: locale,
+				choices: shuffle([correct, ...distractors]),
+				correctAnswer: correct,
+				warningMultipleDefinitions: false
+			});
 		}
 		return qs;
 	}
@@ -380,7 +434,9 @@
 			promptLanguage: 'ja',
 			choices: shuffle([w.scrittura, ...distractors]),
 			correctAnswer: w.scrittura,
-			warningMultipleDefinitions: false
+			warningMultipleDefinitions: false,
+			fullSentence: sentence,
+			translation: pickLocalizedText(ex.traduzione, locale)
 		};
 	}
 
@@ -430,9 +486,9 @@
 			setTimeout(() => speakSentenceJapanese(say), 150);
 		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
 			speakSentenceJapanese(correctOf(current));
-		} else if (m === 'flashcard-recognition' && !counterMode) {
-			// in modalità contatore la flashcard chiede il significato (italiano): niente TTS
-			speakSentenceJapanese(correctOf(current));
+		} else if (m === 'flashcard-recognition') {
+			// se la risposta è un significato (contatore, kanji): niente TTS
+			if (hasJapanese(correctOf(current))) speakSentenceJapanese(correctOf(current));
 		} else if (word) {
 			speakWordReading(word);
 		}
@@ -563,7 +619,7 @@
 			{#key idx}
 			<article class="card">
 				<p class="qmode">{current.mode}</p>
-				{#if current.mode === 'conjugation'}
+				{#if current.mode === 'conjugation' || (current.mode === 'composition' && current.dictionary)}
 					<p class="qprompt">{current.dictionary}</p>
 					<p class="ask-form">→ <span class="ask-chip">{current.formLabel}</span></p>
 				{:else}
@@ -575,10 +631,10 @@
 						bind:bank={compBank}
 						bind:answer={compAnswer}
 						disabled={revealed}
-						placeholder="Componi qui la parola…"
+						placeholder={current.dictionary ? 'Componi qui la forma…' : 'Componi qui la parola…'}
 						status={revealed ? (picked === current.correctAnswer ? 'right' : 'wrong') : null} />
 					{#if !revealed}
-						<button class="next" onclick={compSubmit} disabled={compAnswer.length === 0}>Conferma parola</button>
+						<button class="next" onclick={compSubmit} disabled={compAnswer.length === 0}>{current.dictionary ? 'Conferma forma' : 'Conferma parola'}</button>
 					{:else}
 						<p class="muted" style="text-align:center;">{picked === current.correctAnswer ? '✓' : '✗'} {current.correctAnswer}{current.reading ? `（${current.reading}）` : ''}</p>
 					{/if}
@@ -611,6 +667,10 @@
 					{/if}
 					{#if current.mode === 'conjugation'}
 						<p class="explain-it">✅ {current.dictionary} → {current.formLabel}: <strong>{current.correctChoice}</strong></p>
+					{/if}
+					{#if current.mode === 'conjugation' || (current.mode === 'composition' && current.dictionary)}
+						{@const meaning = meaningOfWord(current.wordId)}
+						{#if meaning}<p class="explain-it">💬 {current.dictionary} = {meaning}</p>{/if}
 					{/if}
 					<button class="next" onclick={next}>{idx + 1 >= queue.length ? '🔁 Altro giro' : 'Avanti →'}</button>
 				{/if}

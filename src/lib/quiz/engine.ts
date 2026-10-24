@@ -607,7 +607,9 @@ export async function createClozeQuestion(
     grammarId: source.grammar.id,
     sentenceWithBlank: renderFuriganaToHtml(blanked),
     choices: shuffle([fallbackTarget, ...distractorChoices]).slice(0, 4),
-    correctChoice: fallbackTarget
+    correctChoice: fallbackTarget,
+    fullSentence: plainSentence,
+    translation: pickLocalizedText(source.example.traduzione, context.locale)
   };
 }
 
@@ -956,6 +958,35 @@ export function createConjugationQuizQuestion(
     formKey: q.key,
     choices: shuffle(q.choices),
     correctChoice: q.correct
+  };
+}
+
+// ✍️ Composizione di una forma coniugata: componi 食べなかった coi caratteri
+// della forma giusta + intrusi presi dalle forme SBAGLIATE della stessa domanda
+// (な/か/っ/た… le desinenze confondibili sono gli intrusi più utili).
+export function createConjugationCompositionQuestion(
+  word: Word,
+  allowedForms: Set<string>,
+  locale: "it" | "en"
+): CompositionQuestion | null {
+  const cq = createConjugationQuizQuestion(word, allowedForms);
+  if (!cq) return null;
+  const chars = [...cq.correctChoice];
+  if (chars.length < 2 || chars.length > 12) return null;
+  const inForm = new Set(chars);
+  const wrongChars = [...new Set(cq.choices.filter((c) => c !== cq.correctChoice).flatMap((c) => [...c]))]
+    .filter((c) => !inForm.has(c));
+  const intruders = shuffle(wrongChars).slice(0, 3);
+  if (intruders.length < 1) return null;
+  return {
+    mode: "composition",
+    wordId: word.id,
+    prompt: pickLocalizedArray(word.significato, locale).join(" / "),
+    promptLanguage: locale,
+    tokens: shuffle([...chars, ...intruders]),
+    correctAnswer: cq.correctChoice,
+    dictionary: cq.dictionary,
+    formLabel: cq.formLabel
   };
 }
 

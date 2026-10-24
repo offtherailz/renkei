@@ -125,6 +125,23 @@ describe("nuove modalità con distrattori pedagogici", () => {
     expect(q!.choices).toContain("飲んで");
   });
 
+  it("composizione di una forma coniugata: caratteri giusti + intrusi dalle forme sbagliate", async () => {
+    const { createConjugationCompositionQuestion } = await import("./engine");
+    const verb = {
+      ...makeWord("飲む", "飲む", "bere"),
+      tipo_jp: "動詞[どうし]",
+      classe_verbo_jp: "五段動詞[ごだんどうし]"
+    };
+    const q = createConjugationCompositionQuestion(verb as never, new Set(["te"]), "it");
+    expect(q).not.toBeNull();
+    expect(q!.correctAnswer).toBe("飲んで");
+    expect(q!.dictionary).toBe("飲む");
+    expect(q!.prompt).toBe("bere");
+    // tutti i caratteri della forma ci sono, più almeno un intruso
+    for (const c of "飲んで") expect(q!.tokens).toContain(c);
+    expect(q!.tokens.length).toBeGreaterThan(3);
+  });
+
   it("particle-cloze: oscura una particella e offre confondibili", async () => {
     const { createParticleClozeQuestion } = await import("./engine");
     const word = {
