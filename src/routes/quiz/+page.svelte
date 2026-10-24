@@ -6,7 +6,7 @@
 	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadAutoQueue, loadGrammarDiagnosticaQueue, type N4ReviewArea } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
+	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, snoozeReview, setBuried, FACET_FIELDS, type FacetField } from '$lib/core/srs';
 	import { facetOfMode, facetsToTrain } from '$lib/core/facets';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
@@ -78,6 +78,10 @@
 	let quiz = $state<ActiveQuiz | null>(null);
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
+	// Comandi carta dopo la risposta (🔁 Non la ricordavo / 💤 Rimanda / ⚰️ Seppellisci):
+	// snapshot SRS di prima della risposta + azione già applicata a questa domanda.
+	let srsBeforeAnswer = $state<SrsProgress | null>(null);
+	let cardAction = $state<'forgot' | 'snooze' | 'bury' | null>(null);
 	let bankTokens = $state<string[]>([]);
 	let answerTokens = $state<string[]>([]);
 	// 🎤 spoken-production: stato del microfono e trascrizione sentita
@@ -1232,6 +1236,8 @@
 		quiz.answered = true;
 		answerFeedback = correct ? 'correct' : 'wrong';
 		stopAnswerTimer();
+		srsBeforeAnswer = getSrs(quiz.itemRef.key) ?? null;
+		cardAction = null;
 
 		session.answers++;
 		const skill: SkillKey = quiz.itemRef.kind === 'kanji' ? 'kanji' : quiz.itemRef.kind === 'grammar' ? 'grammar' : 'words';
@@ -1359,6 +1365,31 @@
 		}
 
 		if (correct) startAutoNext();
+	}
+
+	// Comandi carta dal quiz, come nella scheda. «Non la ricordavo»: hai risposto
+	// giusto (o tirato a indovinare) ma non te la ricordi davvero → la carta
+	// riparte dallo stato di PRIMA della risposta, trattata come un errore
+	// (stage −1, ripasso tra pochi minuti). XP e statistiche della sessione
+	// restano: conta solo lo scheduling.
+	async function applyCardAction(action: 'forgot' | 'snooze' | 'bury'): Promise<void> {
+		if (!quiz?.answered || cardAction) return;
+		const key = quiz.itemRef.key;
+		const current = getSrs(key);
+		let updated: SrsProgress | null = null;
+		if (action === 'forgot') updated = applySrsReview(srsBeforeAnswer ?? current ?? createInitialSrs(key), false);
+		else if (current) updated = action === 'snooze' ? snoozeReview(current) : setBuried(current, true);
+		if (!updated) return;
+		// la sfaccettatura appena mossa non va persa ripartendo dallo snapshot
+		if (action === 'forgot' && current) {
+			for (const f of FACET_FIELDS) {
+				if (current[f] !== undefined) updated = { ...updated, [f]: current[f] };
+			}
+		}
+		await db.srs_progress.put(updated);
+		srsMap.set(key, updated);
+		cardAction = action;
+		stopAutoNext();
 	}
 
 	function handleChoiceClick(choice: string): void {
@@ -2112,6 +2143,23 @@
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>
 			{/if}
+			<div class="card-actions">
+				{#if cardAction === 'forgot'}
+					<span class="card-action-done">🔁 Rimessa in ripasso: torna tra pochi minuti</span>
+				{:else if cardAction === 'snooze'}
+					<span class="card-action-done">💤 Rimandata di 3 giorni</span>
+				{:else if cardAction === 'bury'}
+					<span class="card-action-done">⚰️ Seppellita (la riesumi dalla scheda)</span>
+				{:else}
+					{#if answerFeedback === 'correct'}
+						<button class="card-action-btn" onclick={() => applyCardAction('forgot')} title="Hai risposto giusto ma non te la ricordi davvero: la carta viene trattata come sbagliata e torna presto">🔁 Non la ricordavo</button>
+					{/if}
+					{#if getSrs(quiz.itemRef.key)}
+						<button class="card-action-btn" onclick={() => applyCardAction('snooze')} title="Sposta il prossimo ripasso di 3 giorni">💤 Rimanda</button>
+						<button class="card-action-btn" onclick={() => applyCardAction('bury')} title="Fuori dalla rotazione finché non la riesumi dalla scheda">⚰️ Seppellisci</button>
+					{/if}
+				{/if}
+			</div>
 			<div class="after-actions">
 				{#if buildDeepDives().length > 0}
 					<button class="dives-toggle" onclick={openDeepDive}>🔍 Approfondisci</button>
@@ -2490,6 +2538,27 @@
 
 	.feedback-correct { background: var(--ok-bg); color: var(--ok-ink); }
 	.feedback-wrong { background: #fee2e2; color: #991b1b; }
+
+	.card-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-bottom: 8px;
+	}
+
+	.card-action-btn {
+		padding: 4px 10px;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: var(--surface-2);
+		color: var(--muted);
+		font-size: 0.78rem;
+		cursor: pointer;
+	}
+
+	.card-action-btn:hover { border-color: var(--brand); color: var(--ink); }
+
+	.card-action-done { font-size: 0.8rem; color: var(--muted); }
 
 	.after-actions {
 		display: flex;
