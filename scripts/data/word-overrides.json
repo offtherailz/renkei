@@ -50992,11 +50992,12 @@
   "significato": {
    "it": [
     "comodo",
-    "facile"
+    "facile",
+    "agevole"
    ],
    "en": [
-    "comfort",
-    "ease"
+    "comfortable",
+    "easy"
    ]
   },
   "frasi_esempio": [
@@ -51006,12 +51007,21 @@
      "it": "Al giorno d'oggi viaggiare è comodo.",
      "en": "Travelling is easy these days."
     }
+   },
+   {
+    "testo": "この ソファは とても 楽です。",
+    "traduzione": {
+     "it": "Questo divano è molto comodo.",
+     "en": "This sofa is very comfortable."
+    }
    }
   ],
   "contrari": [
    "苦",
    "苦しい"
-  ]
+  ],
+  "tipo_jp": "形容詞[けいようし]",
+  "tipo_aggettivo_jp": "な形容詞[なけいようし]"
  },
  "楽器": {
   "significato": {
@@ -52747,11 +52757,12 @@
  "機能": {
   "significato": {
    "it": [
-    "funzione"
+    "funzione",
+    "funzionalità"
    ],
    "en": [
     "function",
-    "faculty"
+    "feature"
    ]
   },
   "frasi_esempio": [
@@ -86129,12 +86140,12 @@
  "料金": {
   "significato": {
    "it": [
-    "tariffa"
+    "tariffa",
+    "costo di un servizio"
    ],
    "en": [
     "fee",
-    "charge",
-    "fare"
+    "charge"
    ]
   },
   "frasi_esempio": [
@@ -91306,20 +91317,30 @@
  "満足する": {
   "frasi_esempio": [
    {
-    "testo": "いつもあかだらけで、食事も満足に与えられていない様子でした。",
+    "testo": "この 商品に とても 満足して います。",
     "traduzione": {
-     "it": "Era sempre sporco e sembrava non ricevere cibo a sufficienza.",
-     "en": "He was always filthy and looked like he wasn't given enough food."
+     "it": "Sono molto soddisfatto di questo prodotto.",
+     "en": "I am very satisfied with this product."
     }
    },
    {
-    "testo": "彼は努めて雇い主を満足させようとした。",
+    "testo": "サービスにも 値段にも 満足しました。",
     "traduzione": {
-     "it": "Si sforzò di soddisfare il suo datore di lavoro.",
-     "en": "He was zealous in satisfying his employer."
+     "it": "Sono rimasto soddisfatto sia del servizio sia del prezzo.",
+     "en": "I was satisfied with both the service and the price."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere soddisfatto",
+    "accontentarsi"
+   ],
+   "en": [
+    "to be satisfied"
+   ]
+  },
+  "transitivita_jp": "自動詞[じどうし]"
  },
  "無視する": {
   "frasi_esempio": [

@@ -887,3 +887,10 @@ quiz (sotto Avanti), Approfondisci (carta del quiz con `DeepDivePayload.card` + 
 significato e romaji (Hepburn/Kunrei → hiragana) con chiave kana tollerante a vocali lunghe e
 katakana (`kanaSearchKey`); `rankWords` mette in cima i match esatti. Usata da `/consolida`
 (Vocabolario) e da `QuickSearch.svelte` (layout; «/» o 🔍, `appState.quickSearchOpen`).
+
+**Sync del seed** (`scripts/sync-open-source-seed.mjs`): il livello JLPT dei kanji che la fonte
+mette solo in una lista troppo alta si corregge in `scripts/data/kanji-level-overrides.json`
+(kanji → livello), mai a mano nel seed. Gli id `scrittura::lettura` rimasti unici dopo le
+pulizie tornano la scrittura (`collapseUniqueDisambiguatedIds`, es. 運転). I suffissi (〜代・〜料・
+〜費) hanno tipo `接尾辞[せつびじ]`. Carta di mazzo → parola: `cardCatalogKeys` /
+`findMazzoCardWord` (な finale, varianti «A, B», lettura).

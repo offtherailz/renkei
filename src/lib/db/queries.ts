@@ -3,9 +3,9 @@ import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 import { findMondai } from '$lib/data/esame-n4';
-import { findMazzo, findAutoMazzo } from '$lib/data/mazzi';
+import { findMazzo, findAutoMazzo, cardCatalogKeys, type MazzoCard } from '$lib/data/mazzi';
 import type { WeakWord } from '$lib/core/handsFree';
-import type { StudyObjective, SrsProgress } from '$lib/types/models';
+import type { StudyObjective, SrsProgress, Word } from '$lib/types/models';
 
 export interface ObjectiveSummary {
 	objective: StudyObjective;
@@ -311,13 +311,27 @@ export async function loadWeakWordsRecall(limit = 20): Promise<WeakWord[]> {
 // Parole di un mazzo tematico per il ripasso vocale «Mani libere». Copre sia i
 // mazzi curati (carte con jp/yomi/it pronti) sia i mazzi automatici di parole
 // (filtro su catalogo). Credito sulla parola di catalogo quando risolvibile.
+// Parola di catalogo di una carta di mazzo curato (undefined se non c'è).
+export async function findMazzoCardWord(c: MazzoCard): Promise<Word | undefined> {
+	const { writings, readings } = cardCatalogKeys(c);
+	for (const s of writings) {
+		const w = await db.words.where('scrittura').equals(s).first();
+		if (w) return w;
+	}
+	for (const s of readings) {
+		const w = await db.words.where('lettura').equals(s).first();
+		if (w) return w;
+	}
+	return undefined;
+}
+
 export async function loadMazzoWordsRecall(mazzoId: string, limit = 20): Promise<WeakWord[]> {
 	const out: WeakWord[] = [];
 	const curato = findMazzo(mazzoId);
 	if (curato) {
 		for (const c of curato.carte) {
 			if (!c.it || !c.jp) continue;
-			const w = await db.words.where('scrittura').equals(c.jp).first();
+			const w = await findMazzoCardWord(c);
 			out.push({ it: c.it, jp: c.jp, yomi: c.yomi, creditKey: w ? `word:${w.id}` : `phrase:${c.jp}` });
 			if (out.length >= limit) break;
 		}
@@ -405,7 +419,8 @@ export async function loadCollezioneQueue(mazzoId: string): Promise<{ kind: stri
 	const out: { kind: string; raw: string }[] = [];
 	const seen = new Set<string>();
 	for (const c of mazzo.carte) {
-		const w = byWriting.get(c.jp) ?? byReading.get(c.yomi);
+		const { writings, readings } = cardCatalogKeys(c);
+		const w = writings.map((s) => byWriting.get(s)).find(Boolean) ?? readings.map((s) => byReading.get(s)).find(Boolean);
 		if (w && !seen.has(w.id)) {
 			seen.add(w.id);
 			out.push({ kind: 'word', raw: w.id });

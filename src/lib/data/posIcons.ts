@@ -14,6 +14,7 @@ export const ICONS_BY_LABEL: Record<string, string> = {
 	数詞: '🔟',
 	助数詞: '🔢',
 	慣用表現: '💬',
+	接尾辞: '🧷',
 	五段動詞: '5️⃣',
 	一段動詞: '1️⃣',
 	不規則動詞: '*️⃣',

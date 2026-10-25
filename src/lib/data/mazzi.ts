@@ -156,8 +156,68 @@ export const MAZZI: Record<string, Mazzo> = {
 				risposta: '電気[でんき]を 消[け]さないで 寝[ね]ちゃった。',
 				spiega: 'Combina 〜ないで (senza spegnere) + 寝てしまった→寝ちゃった.' }
 		]
+	},
+	netshop: {
+		id: 'netshop',
+		titolo: 'ネットで買い物',
+		emoji: '🛒',
+		descrizione: 'Comprare online: prezzi, spedizione, recensioni, funzioni e costi (〜代・〜料・〜費).',
+		carte: [
+			{ jp: '複雑な', yomi: 'ふくざつな', it: 'complicato, complesso', es: 'この 機能[きのう]は 少[すこ]し 複雑[ふくざつ]です。', es_it: 'Questa funzione è un po’ complicata.' },
+			{ jp: '値段', yomi: 'ねだん', it: 'prezzo', es: '値段[ねだん]を 比[くら]べてから 買[か]います。', es_it: 'Compro dopo aver confrontato i prezzi.' },
+			{ jp: '省エネ, 省エネルギー', yomi: 'しょうエネ', it: 'risparmio energetico, efficienza energetica', es: 'この エアコンは 省[しょう]エネです。', es_it: 'Questo condizionatore è a risparmio energetico.' },
+			{ jp: 'モデル', yomi: 'モデル', it: 'modello', es: '新[あたら]しい モデルは 前[まえ]のより 軽[かる]いです。', es_it: 'Il nuovo modello è più leggero di quello di prima.' },
+			{ jp: 'レビュー', yomi: 'レビュー', it: 'recensione', es: '買[か]う 前[まえ]に レビューを 読[よ]みます。', es_it: 'Prima di comprare leggo le recensioni.' },
+			{ jp: '重さ', yomi: 'おもさ', it: 'peso', es: '重[おも]さは 2キロです。', es_it: 'Pesa due chili.' },
+			{ jp: '送料', yomi: 'そうりょう', it: 'spese di spedizione, costo della spedizione', es: '送料[そうりょう]は 500円[えん]です。', es_it: 'La spedizione costa 500 yen.' },
+			{ jp: '無料', yomi: 'むりょう', it: 'gratuito', es: '今日[きょう]は 送料[そうりょう]が 無料[むりょう]です。', es_it: 'Oggi la spedizione è gratuita.' },
+			{ jp: '気に入る', yomi: 'きにいる', it: 'piacere, essere di proprio gradimento', es: 'この デザインが とても 気[き]に 入[い]りました。', es_it: 'Questo design mi è piaciuto molto.' },
+			{ jp: '翌日', yomi: 'よくじつ', it: 'il giorno seguente, il giorno dopo', es: '注文[ちゅうもん]した 翌日[よくじつ]に 届[とど]きました。', es_it: 'È arrivato il giorno dopo l’ordine.' },
+			{ jp: '有料', yomi: 'ゆうりょう', it: 'a pagamento', es: 'この サービスは 有料[ゆうりょう]です。', es_it: 'Questo servizio è a pagamento.' },
+			{ jp: '楽な', yomi: 'らくな', it: 'comodo, facile, agevole', es: 'ネットで 買[か]うのは 楽[らく]です。', es_it: 'Comprare online è comodo.' },
+			{ jp: '捨てる', yomi: 'すてる', it: 'buttare, gettare via', es: '古[ふる]い 冷蔵庫[れいぞうこ]を 捨[す]てました。', es_it: 'Ho buttato il vecchio frigorifero.' },
+			{ jp: '多分', yomi: 'たぶん', it: 'forse, probabilmente', es: '多分[たぶん] 明日[あした] 届[とど]きます。', es_it: 'Probabilmente arriva domani.' },
+			{ jp: 'ユーザーコメント', yomi: 'ユーザーコメント', it: 'commento dell’utente', es: 'ユーザーコメントを 読[よ]んでから 決[き]めました。', es_it: 'Ho deciso dopo aver letto i commenti degli utenti.' },
+			{ jp: 'エネルギー', yomi: 'エネルギー', it: 'energia', es: 'エネルギーを むだに しないように しましょう。', es_it: 'Cerchiamo di non sprecare energia.' },
+			{ jp: 'サイズ', yomi: 'サイズ', it: 'dimensione, misura, taglia', es: 'サイズが ちょうど いいです。', es_it: 'La misura è giusta.' },
+			{ jp: 'おしゃれな', yomi: 'おしゃれな', it: 'elegante, alla moda, di design', es: 'おしゃれな ランプを 買[か]いました。', es_it: 'Ho comprato una lampada di design.' },
+			{ jp: '税込み', yomi: 'ぜいこみ', it: 'IVA inclusa', es: '税込[ぜいこ]みで 3300円[えん]です。', es_it: 'Sono 3300 yen, IVA inclusa.' },
+			{ jp: '満足する', yomi: 'まんぞくする', it: 'essere soddisfatto', es: 'この 商品[しょうひん]に とても 満足[まんぞく]して います。', es_it: 'Sono molto soddisfatto di questo prodotto.' },
+			{ jp: '機能', yomi: 'きのう', it: 'funzione, funzionalità', es: 'この 炊飯器[すいはんき]は 機能[きのう]が 多[おお]いです。', es_it: 'Questo cuociriso ha molte funzioni.' },
+			{ jp: '〜代', yomi: 'だい', it: 'costo di…, soldi per…', es: '今月[こんげつ]は 電気代[でんきだい]が 高[たか]かったです。', es_it: 'Questo mese la bolletta della luce è stata cara.' },
+			{ jp: '〜料', yomi: 'りょう', it: 'tariffa, quota per un servizio', es: '入場料[にゅうじょうりょう]は 千円[せんえん]です。', es_it: 'L’ingresso costa mille yen.' },
+			{ jp: '料金', yomi: 'りょうきん', it: 'tariffa, costo di un servizio', es: '電話[でんわ]の 料金[りょうきん]を 払[はら]いました。', es_it: 'Ho pagato la bolletta del telefono.' },
+			{ jp: '〜費', yomi: 'ひ', it: 'spesa, costo per…', es: '交通費[こうつうひ]は 会社[かいしゃ]が 払[はら]います。', es_it: 'Le spese di trasporto le paga l’azienda.' },
+			{ jp: '費用', yomi: 'ひよう', it: 'costo, spese necessarie', es: '修理[しゅうり]の 費用[ひよう]は いくらですか。', es_it: 'Quanto costa la riparazione?' }
+		],
+		// Funzioni del capitolo: gratis/a pagamento, i tre suffissi di costo
+		// (〜代 consumi e cose, 〜料 tariffe di servizi, 〜費 categorie di spesa),
+		// 気に入る vs 満足する (particella), 税込み.
+		esercizi: [
+			{ prompt: '駐車場[ちゅうしゃじょう]は ＿＿ ですから、お金[かね]は いりません。', choices: ['無料[むりょう]', '有料[ゆうりょう]', '送料[そうりょう]', '税込[ぜいこ]み'],
+				spiega: '無料 = gratuito; 有料 = a pagamento.', traduzione: 'Il parcheggio è gratuito, quindi non servono soldi.' },
+			{ prompt: '今月[こんげつ]は 電気[でんき]＿＿が 高[たか]かったです。', choices: ['代[だい]', '料[りょう]', '費[ひ]', '値段[ねだん]'],
+				spiega: '電気代: 〜代 per consumi e bollette (電気代・ガス代) e per il costo di una cosa (タクシー代・本代).', traduzione: 'Questo mese la bolletta della luce è stata cara.' },
+			{ prompt: '美術館[びじゅつかん]の 入場[にゅうじょう]＿＿は 千円[せんえん]です。', choices: ['料[りょう]', '代[だい]', '費[ひ]', '金[きん]'],
+				spiega: '入場料: 〜料 = tariffa per usare un servizio (入場料・授業料・送料).', traduzione: 'L’ingresso al museo costa mille yen.' },
+			{ prompt: '会社[かいしゃ]が 交通[こうつう]＿＿を 払[はら]って くれます。', choices: ['費[ひ]', '料[りょう]', '代[だい]', '値段[ねだん]'],
+				spiega: '交通費: 〜費 = una categoria di spesa (交通費・食費・生活費).', traduzione: 'L’azienda mi paga le spese di trasporto.' },
+			{ prompt: 'この ソファ＿＿ とても 満足[まんぞく]して います。', choices: ['に', 'が', 'を', 'で'],
+				spiega: 'Xに 満足する = essere soddisfatto di X. Invece: Xが 気に入る = X mi piace.', traduzione: 'Sono molto soddisfatto di questo divano.' },
+			{ prompt: '値段[ねだん]は ＿＿で 3300円[えん]です。', choices: ['税込[ぜいこ]み', '無料[むりょう]', '送料[そうりょう]', '有料[ゆうりょう]'],
+				spiega: '税込み = tasse incluse (contrario: 税抜き, tasse escluse).', traduzione: 'Il prezzo è di 3300 yen, IVA inclusa.' }
+		]
 	}
 };
+
+// Carta del mazzo → chiavi per la parola di catalogo: scrittura (prima
+// variante di «省エネ, 省エネルギー», 〜 dei suffissi, anche senza な finale:
+// 快適な → 快適), poi lettura (おしゃれな → お洒落).
+export function cardCatalogKeys(c: MazzoCard): { writings: string[]; readings: string[] } {
+	const jp = c.jp.split(/[,、]/)[0]!.trim().replace(/^～/, '〜');
+	const yomi = c.yomi.replace(/^～/, '〜');
+	return { writings: [jp, jp.replace(/な$/, '')], readings: [yomi, yomi.replace(/な$/, '')] };
+}
 
 export function findMazzo(id: string): Mazzo | null {
 	return MAZZI[id] ?? null;

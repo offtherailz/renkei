@@ -7,6 +7,7 @@
 	import { speechMatches, listenJapanese, speechAvailable } from '$lib/core/speech';
 	import { db } from '$lib/db/schema';
 	import { recordPractice } from '$lib/core/practiceMiss';
+	import { findMazzoCardWord } from '$lib/db/queries';
 	import type { FacetField } from '$lib/core/srs';
 
 	const mazzo = $derived(findMazzo($page.params.id ?? ''));
@@ -152,14 +153,57 @@
 	// credito (positivo/negativo) alla cella allenata da questa direzione, sulla
 	// parola di catalogo corrispondente (per scrittura). Se non è in catalogo si
 	// salta (niente credito), senza bloccare lo studio.
-	async function creditFacet(cardJp: string, known: boolean): Promise<void> {
-		const w = await db.words.where('scrittura').equals(cardJp).first();
+	async function creditFacet(c: MazzoCard, known: boolean): Promise<void> {
+		const w = await findMazzoCardWord(c);
 		if (w) await recordPractice(`word:${w.id}`, known, FACET_BY_DIR[dir]);
 	}
 
+	// Andando alla scheda il componente si smonta: il giro in corso si salva
+	// e si riprende al ritorno (stessa carta, girata).
+	const RESUME_KEY = 'renkei-mazzo-resume';
+	function saveResume(): void {
+		try {
+			sessionStorage.setItem(RESUME_KEY, JSON.stringify({ id: mazzo?.id, dir, order, pos, rivedere }));
+		} catch {
+			/* storage non disponibile: si riparte da capo */
+		}
+	}
+	$effect(() => {
+		const id = mazzo?.id;
+		if (!id) return;
+		try {
+			const raw = sessionStorage.getItem(RESUME_KEY);
+			sessionStorage.removeItem(RESUME_KEY);
+			const r = raw ? JSON.parse(raw) : null;
+			if (r?.id === id && Array.isArray(r.order) && r.order.length > 0) {
+				dir = r.dir;
+				order = r.order;
+				pos = r.pos;
+				rivedere = r.rivedere ?? [];
+				scene = 'play';
+				flipped = true;
+			}
+		} catch {
+			/* niente da riprendere */
+		}
+	});
+
+	// 📖 Scheda della parola sotto la carta girata: da lì Metti in studio, ecc.
+	let cardWordId = $state<string | null>(null);
+	$effect(() => {
+		const c = card;
+		cardWordId = null;
+		if (!c) return;
+		findMazzoCardWord(c)
+			.then((w) => {
+				if (card === c) cardWordId = w?.id ?? null;
+			})
+			.catch(() => {});
+	});
+
 	function next(known: boolean) {
 		if (!card) return;
-		void creditFacet(card.jp, known);
+		void creditFacet(card, known);
 		if (!known) rivedere = [...rivedere, order[pos]!];
 		if (pos + 1 < order.length) {
 			pos += 1;
@@ -278,6 +322,9 @@
 				{/if}
 			{/if}
 		</button>
+		{#if flipped && cardWordId}
+			<a class="c-scheda" onclick={saveResume} href="{base}/detail/{encodeURIComponent(`word:${cardWordId}`)}">📖 Scheda della parola</a>
+		{/if}
 		<div class="tts-row">
 			<button class="lbtn" onclick={() => say(card!.yomi)}>🔊 Pronuncia</button>
 			<button class="lbtn" onclick={() => say(card!.yomi, 0.6)}>🐢 ゆっくり</button>
@@ -365,6 +412,7 @@
 	.c-it { font-size: 1rem; color: var(--ink); }
 	.c-es { font-size: 1rem; border-top: 1px solid var(--line); padding-top: 8px; margin-top: 4px; }
 	.c-esit { font-size: 0.8rem; color: var(--muted); }
+	.c-scheda { justify-self: center; font-size: 0.85rem; font-weight: 600; color: var(--brand); text-decoration: none; }
 	.c-hint { font-size: 0.78rem; color: var(--muted); }
 
 	.tts-row { display: flex; gap: 8px; justify-content: center; }

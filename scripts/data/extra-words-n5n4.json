@@ -1100,5 +1100,334 @@
         "en": "I vacuum the room."
       }
     ]
+  },
+  {
+    "scrittura": "省エネ",
+    "lettura": "しょうえね",
+    "it": [
+      "risparmio energetico",
+      "efficienza energetica"
+    ],
+    "en": [
+      "energy saving",
+      "energy efficiency"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "この エアコンは 省エネです。",
+        "it": "Questo condizionatore è a risparmio energetico.",
+        "en": "This air conditioner is energy-efficient."
+      },
+      {
+        "jp": "省エネの 冷蔵庫を 買いたいです。",
+        "it": "Voglio comprare un frigorifero a basso consumo.",
+        "en": "I want to buy an energy-saving fridge."
+      }
+    ]
+  },
+  {
+    "scrittura": "モデル",
+    "lettura": "もでる",
+    "it": [
+      "modello"
+    ],
+    "en": [
+      "model"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "これは 新しい モデルです。",
+        "it": "Questo è il modello nuovo.",
+        "en": "This is the new model."
+      },
+      {
+        "jp": "前の モデルより 軽いです。",
+        "it": "È più leggero del modello precedente.",
+        "en": "It is lighter than the previous model."
+      }
+    ]
+  },
+  {
+    "scrittura": "レビュー",
+    "lettura": "れびゅー",
+    "it": [
+      "recensione"
+    ],
+    "en": [
+      "review"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "買う 前に レビューを 読みます。",
+        "it": "Prima di comprare leggo le recensioni.",
+        "en": "I read the reviews before buying."
+      },
+      {
+        "jp": "この 商品は レビューが いいです。",
+        "it": "Questo prodotto ha buone recensioni.",
+        "en": "This product has good reviews."
+      }
+    ]
+  },
+  {
+    "scrittura": "重さ",
+    "lettura": "おもさ",
+    "it": [
+      "peso"
+    ],
+    "en": [
+      "weight"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "重さは 2キロです。",
+        "it": "Pesa due chili.",
+        "en": "It weighs two kilos."
+      },
+      {
+        "jp": "二つの パソコンの 重さを 比べました。",
+        "it": "Ho confrontato il peso dei due computer.",
+        "en": "I compared the weight of the two computers."
+      }
+    ]
+  },
+  {
+    "scrittura": "送料",
+    "lettura": "そうりょう",
+    "it": [
+      "spese di spedizione",
+      "costo della spedizione"
+    ],
+    "en": [
+      "shipping fee",
+      "postage"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "送料は 500円です。",
+        "it": "La spedizione costa 500 yen.",
+        "en": "Shipping is 500 yen."
+      },
+      {
+        "jp": "3000円 以上 買うと、送料が 無料に なります。",
+        "it": "Se compri per più di 3000 yen, la spedizione diventa gratuita.",
+        "en": "If you spend over 3000 yen, shipping becomes free."
+      }
+    ]
+  },
+  {
+    "scrittura": "翌日",
+    "lettura": "よくじつ",
+    "it": [
+      "il giorno seguente",
+      "il giorno dopo"
+    ],
+    "en": [
+      "the next day",
+      "the following day"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "注文した 翌日に 届きました。",
+        "it": "È arrivato il giorno dopo l’ordine.",
+        "en": "It arrived the day after I ordered it."
+      },
+      {
+        "jp": "翌日の 朝、また 来ました。",
+        "it": "Il mattino seguente è tornato.",
+        "en": "He came again the next morning."
+      }
+    ]
+  },
+  {
+    "scrittura": "有料",
+    "lettura": "ゆうりょう",
+    "it": [
+      "a pagamento"
+    ],
+    "en": [
+      "paid",
+      "fee-charging"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "この サービスは 有料です。",
+        "it": "Questo servizio è a pagamento.",
+        "en": "This service is not free."
+      },
+      {
+        "jp": "駐車場は 有料ですか、無料ですか。",
+        "it": "Il parcheggio è a pagamento o gratuito?",
+        "en": "Is the parking paid or free?"
+      }
+    ]
+  },
+  {
+    "scrittura": "ユーザーコメント",
+    "lettura": "ゆーざーこめんと",
+    "it": [
+      "commento dell’utente",
+      "commenti degli utenti"
+    ],
+    "en": [
+      "user comment"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "ユーザーコメントを 読んでから 決めました。",
+        "it": "Ho deciso dopo aver letto i commenti degli utenti.",
+        "en": "I decided after reading the user comments."
+      },
+      {
+        "jp": "ユーザーコメントに「音が 静か」と 書いて ありました。",
+        "it": "Nei commenti degli utenti c’era scritto «è silenzioso».",
+        "en": "The user comments said it was quiet."
+      }
+    ]
+  },
+  {
+    "scrittura": "サイズ",
+    "lettura": "さいず",
+    "it": [
+      "dimensione",
+      "misura",
+      "taglia"
+    ],
+    "en": [
+      "size"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "サイズが ちょうど いいです。",
+        "it": "La misura è giusta.",
+        "en": "The size is just right."
+      },
+      {
+        "jp": "もっと 大きい サイズは ありますか。",
+        "it": "C’è una taglia più grande?",
+        "en": "Do you have a bigger size?"
+      }
+    ]
+  },
+  {
+    "scrittura": "税込み",
+    "lettura": "ぜいこみ",
+    "it": [
+      "IVA inclusa",
+      "tasse incluse"
+    ],
+    "en": [
+      "tax included"
+    ],
+    "livello": "N4",
+    "tipo_jp": "名詞[めいし]",
+    "esempi": [
+      {
+        "jp": "値段は 税込みで 3300円です。",
+        "it": "Il prezzo è di 3300 yen, IVA inclusa.",
+        "en": "The price is 3300 yen including tax."
+      },
+      {
+        "jp": "これは 税込みの 値段ですか。",
+        "it": "Questo prezzo è IVA inclusa?",
+        "en": "Is this price including tax?"
+      }
+    ]
+  },
+  {
+    "scrittura": "〜代",
+    "lettura": "〜だい",
+    "it": [
+      "costo di…",
+      "soldi per…"
+    ],
+    "en": [
+      "charge for…",
+      "cost of…"
+    ],
+    "livello": "N4",
+    "tipo_jp": "接尾辞[せつびじ]",
+    "esempi": [
+      {
+        "jp": "今月は 電気代が 高かったです。",
+        "it": "Questo mese la bolletta della luce è stata cara.",
+        "en": "The electricity bill was high this month."
+      },
+      {
+        "jp": "タクシー代は 私が 払います。",
+        "it": "Il taxi lo pago io.",
+        "en": "I'll pay for the taxi."
+      }
+    ]
+  },
+  {
+    "scrittura": "〜料",
+    "lettura": "〜りょう",
+    "it": [
+      "tariffa",
+      "quota per un servizio"
+    ],
+    "en": [
+      "fee for…",
+      "charge"
+    ],
+    "livello": "N4",
+    "tipo_jp": "接尾辞[せつびじ]",
+    "esempi": [
+      {
+        "jp": "入場料は 千円です。",
+        "it": "L’ingresso costa mille yen.",
+        "en": "The admission fee is 1000 yen."
+      },
+      {
+        "jp": "授業料が 高く なりました。",
+        "it": "La retta del corso è aumentata.",
+        "en": "The tuition fee went up."
+      }
+    ]
+  },
+  {
+    "scrittura": "〜費",
+    "lettura": "〜ひ",
+    "it": [
+      "spesa",
+      "costo per…"
+    ],
+    "en": [
+      "expenses",
+      "cost of…"
+    ],
+    "livello": "N4",
+    "tipo_jp": "接尾辞[せつびじ]",
+    "esempi": [
+      {
+        "jp": "交通費は 会社が 払います。",
+        "it": "Le spese di trasporto le paga l’azienda.",
+        "en": "The company pays the transport expenses."
+      },
+      {
+        "jp": "一か月の 食費は いくらですか。",
+        "it": "Quanto spendi al mese per mangiare?",
+        "en": "How much do you spend on food a month?"
+      }
+    ]
   }
 ]
