@@ -246,6 +246,7 @@
 		<p class="topbar-sub">Lv.{userLevel} • 🔥 {streak} giorni</p>
 	</div>
 	<div class="topbar-xp">
+		<button class="topbar-search" onclick={() => (appState.quickSearchOpen = true)} title="Cerca una parola (tasto /)">🔍 Cerca</button>
 		<div class="xp-badge">XP {userXp}</div>
 		<div class="xp-bar-wrap">
 			<div class="xp-bar-fill" style="width:{xpProgress}%"></div>
@@ -556,6 +557,17 @@
 	.logo { border-radius: 10px; width: 52px; height: 52px; display: block; }
 
 	.topbar-info { min-width: 0; }
+
+	.topbar-search {
+		padding: 3px 10px;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.12);
+		color: inherit;
+		font-size: 0.78rem;
+		cursor: pointer;
+	}
+	.topbar-search:hover { background: rgba(255, 255, 255, 0.22); }
 
 	.topbar-title {
 		margin: 0;

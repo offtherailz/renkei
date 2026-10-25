@@ -875,3 +875,15 @@ discreta a delta pieno (keigo → 🧩, iikae → 🎯), orale fuzzy con `record
 avventure non ancora agganciate. Punti deboli: solo item con `lapses>0` (le carte nuove non
 sono "deboli"). Audit linguistico delle domande generate:
 `AUDIT=1 npx vitest run src/lib/quiz/questionAudit.test.ts` → `plans/question-audit-sample.md`.
+
+**Comandi carta** (`core/cardActions.ts` + `CardActions.svelte`): 🔁 Non la ricordavo
+(dallo snapshot SRS di prima della risposta, come un errore: stage −1, +8 min; se mai studiata
+entra in SRS = «📚 Metti in studio»), 💤 Rimanda, ⚰️ Seppellisci, ↩️ Annulla. Stessa logica in
+quiz (sotto Avanti), Approfondisci (carta del quiz con `DeepDivePayload.card` + ogni
+`DeepDiveItem.key`), popup di `InteractiveSentence`, lista Vocabolario e ricerca rapida.
+`noteSessionCardAction` li registra in `StudySessionState.cardActions` → riepilogo finale.
+
+**Ricerca parole** (`core/wordSearch.ts` su `core/romaji.ts`): scrittura, lettura,
+significato e romaji (Hepburn/Kunrei → hiragana) con chiave kana tollerante a vocali lunghe e
+katakana (`kanaSearchKey`); `rankWords` mette in cima i match esatti. Usata da `/consolida`
+(Vocabolario) e da `QuickSearch.svelte` (layout; «/» o 🔍, `appState.quickSearchOpen`).

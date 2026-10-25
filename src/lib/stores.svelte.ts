@@ -100,7 +100,9 @@ export const appState = $state({
 	// non uno $state) — chi le chiama nel template referenzia questo contatore
 	// per farle ricalcolare quando cambia (altrimenti card/badge restano stale
 	// finché non capita un altro re-render per tutt'altro motivo).
-	beltProgressVersion: 0
+	beltProgressVersion: 0,
+	// 🔍 Ricerca rapida (QuickSearch nel layout): aperta da «/» o dai bottoni.
+	quickSearchOpen: false
 });
 
 // Registra (o, con action null = ↩️ Annulla, toglie) un comando carta nella

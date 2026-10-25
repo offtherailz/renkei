@@ -5,7 +5,8 @@
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { createInitialSrs, markKnown } from '$lib/core/srs';
-	import { kanaSearchKey, romajiQueryKey } from '$lib/core/romaji';
+	import { kanaSearchKey } from '$lib/core/romaji';
+	import { makeWordMatcher, queryKanaKey, rankWords } from '$lib/core/wordSearch';
 	import { saveCardAction } from '$lib/core/cardActions';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
@@ -121,27 +122,17 @@
 		new Map(kanji.map((k) => [k.id, [...k.letture_on, ...k.letture_kun].map((r) => kanaSearchKey(r.replace(/[.-]/g, '')))]))
 	);
 	// chiave in kana della query: da romaji, o la query stessa se già in kana
-	const kanaKey = $derived.by(() => {
-		const q = query.trim();
-		if (!q) return null;
-		if (/^[ぁ-んァ-ヶー]+$/.test(q)) return kanaSearchKey(q);
-		return romajiQueryKey(q);
-	});
+	const kanaKey = $derived(queryKanaKey(query));
 
+	// con una ricerca attiva, prima i match esatti (setsumei → 説明 in cima)
 	const filtered = $derived.by(() => {
-		const q = query.trim().toLowerCase();
-		const rk = kanaKey;
-		return words.filter((w) => {
+		const matches = makeWordMatcher(query, locale);
+		const out = words.filter((w) => {
 			if (lvl && w.livello_jlpt !== lvl) return false;
 			if (tipo && stripFuriganaNotation(w.tipo_jp) !== tipo) return false;
-			if (!q) return true;
-			return (
-				w.scrittura.includes(q) ||
-				w.lettura.includes(q) ||
-				(rk !== null && wordKeys.get(w.id)!.includes(rk)) ||
-				pickLocalizedArray(w.significato, locale).some((m) => m.toLowerCase().includes(q))
-			);
+			return matches(w, wordKeys.get(w.id)!);
 		});
+		return query.trim() ? rankWords(out, query, locale, wordKeys) : out;
 	});
 	const results = $derived(filtered.slice(0, limit));
 

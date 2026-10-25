@@ -16,6 +16,7 @@
 		ensureDefaultStudyGoal
 	} from '$lib/db/objectives';
 	import { appState } from '$lib/stores.svelte';
+	import QuickSearch from '$lib/components/QuickSearch.svelte';
 	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
 	import type { DatabaseSeed } from '$lib/types/models';
 
@@ -120,12 +121,16 @@
 				<img class="brand-logo" src="{base}/renkei-logo.svg" alt="" />
 				<span class="brand-name">Renkei</span>
 			</a>
-			{#if appState.sessionState}
-				<a class="back-to-quiz" href="{base}/quiz{appState.sessionState?.weak ? '?deboli=1' : ''}">⏸️ Torna al quiz</a>
-			{/if}
+			<span class="header-right">
+				<button class="header-search" onclick={() => (appState.quickSearchOpen = true)} title="Cerca una parola (tasto /)">🔍</button>
+				{#if appState.sessionState}
+					<a class="back-to-quiz" href="{base}/quiz{appState.sessionState?.weak ? '?deboli=1' : ''}">⏸️ Torna al quiz</a>
+				{/if}
+			</span>
 		</header>
 	{/if}
 	{@render children()}
+	<QuickSearch bind:open={appState.quickSearchOpen} />
 
 	{#if appState.beltToast}
 		<div class="belt-toast" role="status">
@@ -193,6 +198,17 @@
 			transform: translateX(-50%) translateY(0);
 		}
 	}
+
+	.header-right { display: inline-flex; align-items: center; gap: 8px; }
+	.header-search {
+		padding: 4px 10px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: var(--surface);
+		font-size: 1rem;
+		cursor: pointer;
+	}
+	.header-search:hover { border-color: var(--brand); }
 
 	.back-to-quiz {
 		padding: 6px 14px;
