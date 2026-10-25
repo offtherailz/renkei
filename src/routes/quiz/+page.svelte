@@ -2224,6 +2224,18 @@
 				{/each}
 			</div>
 		{/if}
+		{#if summarySession.cardActions?.length}
+			<div class="summary-restudied">
+				<p class="errors-title">Comandi carta di questa sessione ({summarySession.cardActions.length})</p>
+				<div class="restudied-chips">
+					{#each summarySession.cardActions as ca (ca.key)}
+						<a class="restudied-chip" href="{base}/detail/{encodeURIComponent(ca.key)}" onclick={markReviewReturn}>
+							{ca.action === 'forgot' ? '🔁' : ca.action === 'snooze' ? '💤' : '⚰️'} {ca.label}
+						</a>
+					{/each}
+				</div>
+			</div>
+		{/if}
 		<div class="summary-actions">
 			{#if finishedEverything && !poolFullyExhausted}
 				<button class="btn-primary" onclick={() => continueWithMoreCards(5)}>➕ Continua ancora un po' (5 carte)</button>
@@ -2664,6 +2676,19 @@
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 	}
+
+	.summary-restudied { margin-bottom: 16px; }
+	.restudied-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+	.restudied-chip {
+		padding: 4px 10px;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: var(--surface-2);
+		color: var(--ink);
+		font-size: 0.85rem;
+		text-decoration: none;
+	}
+	.restudied-chip:hover { border-color: var(--brand); }
 
 	.error-row {
 		display: grid;

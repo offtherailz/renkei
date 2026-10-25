@@ -2,15 +2,18 @@
 	import { db } from '$lib/db/schema';
 	import type { SrsProgress } from '$lib/types/models';
 	import { CARD_ACTION_DONE, computeCardAction, type CardAction } from '$lib/core/cardActions';
+	import { noteSessionCardAction } from '$lib/stores.svelte';
 
 	// Comandi carta (🔁/💤/⚰️ + ↩️ Annulla) per UNA carta SRS. quizCard: è la
 	// carta della domanda (label nel bottone, before = SRS prima della risposta,
 	// forgot = mostra «Non la ricordavo», cioè solo se la risposta era giusta).
 	// Altrimenti è un'altra parola/kanji della domanda: «Metti in studio» se
-	// mai studiata, «Non la ricordavo» se già in SRS.
+	// mai studiata, «Non la ricordavo» se già in SRS. name: come appare nel
+	// riepilogo di fine sessione (default label).
 	const {
 		itemKey,
 		label = '',
+		name = '',
 		quizCard = false,
 		before = null,
 		forgot = true,
@@ -18,6 +21,7 @@
 	}: {
 		itemKey: string;
 		label?: string;
+		name?: string;
 		quizCard?: boolean;
 		before?: SrsProgress | null;
 		forgot?: boolean;
@@ -55,6 +59,7 @@
 			undoTo = fresh;
 			current = updated;
 			done = action;
+			noteSessionCardAction(itemKey, name || label || itemKey, action);
 			onchange?.(action, updated);
 		} finally {
 			busy = false;
@@ -69,6 +74,7 @@
 			else await db.srs_progress.delete(itemKey);
 			current = undoTo;
 			done = null;
+			noteSessionCardAction(itemKey, name || label || itemKey, null);
 			onchange?.(null, undoTo ?? null);
 		} finally {
 			busy = false;

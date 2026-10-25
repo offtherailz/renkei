@@ -1,6 +1,7 @@
 import type { AppSettings, SrsProgress, StudyGoal, UserProfile } from "./types/models";
 import type { QuizQuestion } from "./quiz/types";
 import { DEFAULT_KNOWN_FORMS } from "./core/conjugation";
+import type { CardAction } from "./core/cardActions";
 import { DEFAULT_NEW_CARDS_PER_DAY } from "./core/dailyNewCards";
 
 export type ItemKind = "word" | "grammar" | "kanji" | "counter" | "dialogue" | "objective";
@@ -49,6 +50,9 @@ export interface StudySessionState {
 	// Carte extra sbloccate con "Continua ancora un po'": vivono NELLA sessione
 	// così sopravvivono ad Approfondisci (il componente si smonta e rimonta).
 	extraCards?: number;
+	// Comandi carta dati durante la sessione (quiz, Approfondisci, popup delle
+	// frasi): finiscono nel riepilogo finale («Rimesse in ripasso»).
+	cardActions?: { key: string; label: string; action: CardAction }[];
 }
 
 export interface ActiveQuiz {
@@ -98,6 +102,15 @@ export const appState = $state({
 	// finché non capita un altro re-render per tutt'altro motivo).
 	beltProgressVersion: 0
 });
+
+// Registra (o, con action null = ↩️ Annulla, toglie) un comando carta nella
+// sessione quiz in corso; fuori da una sessione non fa nulla.
+export function noteSessionCardAction(key: string, label: string, action: CardAction | null): void {
+	const s = appState.sessionState;
+	if (!s) return;
+	const rest = (s.cardActions ?? []).filter((c) => c.key !== key);
+	s.cardActions = action ? [...rest, { key, label, action }] : rest;
+}
 
 export interface DeepDiveItem {
 	label: string;

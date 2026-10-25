@@ -7,6 +7,7 @@
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { saveCardAction } from '$lib/core/cardActions';
+	import { noteSessionCardAction } from '$lib/stores.svelte';
 	import { formatReviewIn } from '$lib/core/srs';
 	import { db } from '$lib/db/schema';
 	import type { SrsProgress } from '$lib/types/models';
@@ -130,6 +131,7 @@
 	let flagged = $state<Set<string>>(new Set());
 	async function flagUnknown(hit: WordHit): Promise<void> {
 		await saveCardAction('forgot', 'word:' + hit.id);
+		noteSessionCardAction('word:' + hit.id, hit.scrittura, 'forgot');
 		flagged = new Set([...flagged, hit.id]);
 		void loadPopSrs(hit);
 	}

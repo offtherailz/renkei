@@ -106,7 +106,7 @@
 						</div>
 						<!-- la carta del quiz ha i suoi comandi in alto (con lo snapshot) -->
 						{#if d.key && d.key !== dive.card?.key}
-							<div class="row-cmds"><CardActions itemKey={d.key} /></div>
+							<div class="row-cmds"><CardActions itemKey={d.key} name={d.label} /></div>
 						{/if}
 					</div>
 				{/each}
