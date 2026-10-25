@@ -556,6 +556,7 @@
 					<a href="{base}/detail/kanji:{k.id}" class="kanji-chip">
 						<span class="kanji-char">{k.id}</span>
 						<span class="kanji-meaning">{locale === 'it' ? k.significato.it : k.significato.en}</span>
+						<JlptBadge level={k.livello_jlpt} />
 					</a>
 				{/each}
 				{#each kanjiMissing as c (c)}
@@ -1000,7 +1001,7 @@
 		text-align: center;
 	}
 
-	.kanji-chip:hover, .word-chip:hover { background: #eef2ff; border-color: var(--brand); }
+	.kanji-chip:hover, .word-chip:hover { background: var(--info-bg); border-color: var(--brand); }
 	.kanji-chip.out { opacity: 0.75; border-style: dashed; }
 	.usi-list { display: grid; gap: 10px; }
 	.uso-row { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2); display: grid; gap: 6px; }
