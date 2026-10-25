@@ -6,7 +6,10 @@
 	import { ensureWordIndex, lookupToken, mergeAuxTokens, mergeByDictionary, jishoUrl, type WordHit } from '$lib/core/wordLookup';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { saveCardAction } from '$lib/core/cardActions';
+	import { formatReviewIn } from '$lib/core/srs';
+	import { db } from '$lib/db/schema';
+	import type { SrsProgress } from '$lib/types/models';
 
 	// testo con eventuale notazione furigana base[lettura]; mark = sottostringhe
 	// del testo da evidenziare (es. la frase che conteneva la risposta)
@@ -109,15 +112,26 @@
 		anchorEl = e.currentTarget as HTMLElement;
 		open = i;
 		repositionPopover();
+		void loadPopSrs(hits[i]);
+	}
+
+	// Stato SRS della parola nel popup: già nei ripassi? quando torna?
+	let popSrs = $state<SrsProgress | null | undefined>(undefined);
+	async function loadPopSrs(hit: WordHit | null): Promise<void> {
+		popSrs = undefined;
+		if (!hit) return;
+		const s = await db.srs_progress.get('word:' + hit.id).catch(() => undefined);
+		if (hits[open ?? -1]?.id === hit.id) popSrs = s ?? null;
 	}
 
 	// «Metti in studio» (ex «Non la conoscevo», rinominato 17/07): la parola
-	// entra nel consolidamento (punti deboli in home) senza lasciare il flusso —
-	// stessa via degli errori nelle avventure.
+	// torna nei ripassi tra pochi minuti senza lasciare il flusso — stessa
+	// logica di «🔁 Non la ricordavo» (core/cardActions).
 	let flagged = $state<Set<string>>(new Set());
 	async function flagUnknown(hit: WordHit): Promise<void> {
-		await recordPracticeMiss('word:' + hit.id);
+		await saveCardAction('forgot', 'word:' + hit.id);
 		flagged = new Set([...flagged, hit.id]);
+		void loadPopSrs(hit);
 	}
 </script>
 
@@ -135,6 +149,13 @@
 							<span class="pop-gloss">{hits[i]!.significato}</span>
 							{#if hits[i]!.forma}
 								<span class="pop-form">{hits[i]!.forma}</span>
+							{/if}
+							{#if popSrs === null}
+								<span class="pop-srs">✨ mai studiata</span>
+							{:else if popSrs?.buried}
+								<span class="pop-srs">⚰️ sepolta</span>
+							{:else if popSrs}
+								<span class="pop-srs">📅 nei ripassi: {formatReviewIn(popSrs.next_review_date)}</span>
 							{/if}
 							<span class="pop-actions">
 								<a href="{base}/detail/{encodeURIComponent(`word:${hits[i]!.id}`)}">📖 Scheda</a>
@@ -194,6 +215,7 @@
 	.pop-reading { color: var(--brand); font-weight: 700; }
 	.pop-form { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.pop-gloss { color: var(--muted); }
+	.pop-srs { flex-basis: 100%; font-size: 0.72rem; color: var(--muted); }
 	.pop-actions { display: inline-flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 	.pop-actions a { color: var(--brand); text-decoration: none; font-weight: 600; }
 	.pop-flag { border: 1px solid var(--warn-border); background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; }
