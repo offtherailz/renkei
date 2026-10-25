@@ -2,6 +2,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { base } from '$app/paths';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import CardActions from '$lib/components/CardActions.svelte';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 
@@ -41,6 +42,11 @@
 					{#if dive.meaning}<span class="f-mean">{dive.meaning}</span>{/if}
 				</p>
 			{/if}
+			{#if dive.card}
+				<div class="card-cmds">
+					<CardActions itemKey={dive.card.key} label={dive.card.label} quizCard before={dive.card.before} forgot={dive.card.forgot} />
+				</div>
+			{/if}
 		</header>
 
 		{#if dive.question}
@@ -77,28 +83,36 @@
 			</section>
 		{/if}
 
+		{#if dive.dives.length > 0}
 		<section class="block">
 			<p class="block-title">Da approfondire</p>
 			<div class="rows">
 				{#each dive.dives as d (d.href)}
-					<div class="row" class:primary={d.primary}>
-						<a class="row-main" href={d.href}>
-							{#if d.kanji}
-								<span class="jp-kanji-badge">漢</span>
-							{:else}
-								<span class="r-icon">{typeIcon(d.tipo, d.kanji)}</span>
+					<div class="row-wrap">
+						<div class="row" class:primary={d.primary}>
+							<a class="row-main" href={d.href}>
+								{#if d.kanji}
+									<span class="jp-kanji-badge">漢</span>
+								{:else}
+									<span class="r-icon">{typeIcon(d.tipo, d.kanji)}</span>
+								{/if}
+								<span class="r-label">{d.label}</span>
+								{#if d.level}<span class="r-level">{d.level}</span>{/if}
+								{#if d.meaning}<span class="r-mean">{d.meaning}</span>{/if}
+							</a>
+							{#if d.consolidaHref}
+								<a class="r-drill" href={d.consolidaHref} title="Consolida">💪</a>
 							{/if}
-							<span class="r-label">{d.label}</span>
-							{#if d.level}<span class="r-level">{d.level}</span>{/if}
-							{#if d.meaning}<span class="r-mean">{d.meaning}</span>{/if}
-						</a>
-						{#if d.consolidaHref}
-							<a class="r-drill" href={d.consolidaHref} title="Consolida">💪</a>
+						</div>
+						<!-- la carta del quiz ha i suoi comandi in alto (con lo snapshot) -->
+						{#if d.key && d.key !== dive.card?.key}
+							<div class="row-cmds"><CardActions itemKey={d.key} /></div>
 						{/if}
 					</div>
 				{/each}
 			</div>
 		</section>
+		{/if}
 
 		{#if appState.sessionState}
 			<a class="resume" href="{base}/quiz{appState.sessionState?.weak ? '?deboli=1' : ''}">⏸️ Torna al quiz</a>
@@ -127,7 +141,10 @@
 	.wrong-note { margin: 0; font-size: 0.85rem; color: var(--muted); }
 	.nc { font-weight: 700; color: var(--ink); }
 
-	.rows { display: grid; gap: 6px; }
+	.card-cmds { margin-top: 8px; }
+	.rows { display: grid; gap: 10px; }
+	.row-wrap { display: grid; gap: 4px; }
+	.row-cmds { padding-left: 12px; }
 	.row { display: flex; align-items: stretch; gap: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); overflow: hidden; }
 	.row.primary { border-color: var(--brand); }
 	.row-main { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 12px; text-decoration: none; color: var(--ink); }

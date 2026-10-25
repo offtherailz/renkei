@@ -1,4 +1,4 @@
-import type { AppSettings, StudyGoal, UserProfile } from "./types/models";
+import type { AppSettings, SrsProgress, StudyGoal, UserProfile } from "./types/models";
 import type { QuizQuestion } from "./quiz/types";
 import { DEFAULT_KNOWN_FORMS } from "./core/conjugation";
 import { DEFAULT_NEW_CARDS_PER_DAY } from "./core/dailyNewCards";
@@ -108,6 +108,7 @@ export interface DeepDiveItem {
 	meaning?: string;
 	consolidaHref?: string;
 	kanji?: boolean;
+	key?: string; // id SRS (word:…/kanji:…): abilita i comandi carta
 }
 
 export interface DeepDivePayload {
@@ -121,4 +122,7 @@ export interface DeepDivePayload {
 	sentence?: { testo: string; annotated?: string; traduzione?: string };
 	dives: DeepDiveItem[];
 	notes: { choice: string; reason: string }[];
+	// La carta della domanda, per i comandi carta (before = SRS prima della
+	// risposta, forgot = risposta giusta → «Non la ricordavo» disponibile).
+	card?: { key: string; label: string; before: SrsProgress | null; forgot: boolean };
 }
