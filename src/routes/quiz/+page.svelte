@@ -2280,7 +2280,7 @@
 		color: var(--ok-ink);
 	}
 
-	.stat-chip.bad { background: #fee2e2; color: #991b1b; }
+	.stat-chip.bad { background: var(--danger-bg); color: var(--danger); }
 
 	.timer {
 		font-size: 1rem;
@@ -2397,7 +2397,7 @@
 		color: var(--ink);
 	}
 
-	.choice-btn:hover:not(:disabled) { border-color: var(--brand); background: #eef2ff; }
+	.choice-btn:hover:not(:disabled) { border-color: var(--brand); background: var(--info-bg); }
 
 	.ja-choices .choice-btn { font-size: 1.2rem; }
 
@@ -2429,15 +2429,15 @@
 	}
 	.choice-btn:disabled { cursor: default; }
 	.choice-btn.good { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); }
-	.choice-btn.bad { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
+	.choice-btn.bad { border-color: var(--danger); background: var(--danger-bg); color: var(--danger); }
 	.choice-btn.correct-choice { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); }
-	.choice-btn.wrong-choice { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
+	.choice-btn.wrong-choice { border-color: var(--danger); background: var(--danger-bg); color: var(--danger); }
 
 	.solution {
 		padding: 12px 16px;
 		border-radius: 10px;
-		background: #f0fdf4;
-		border: 1px solid #86efac;
+		background: var(--ok-bg);
+		border: 1px solid var(--success);
 		font-size: 0.95rem;
 		font-weight: 600;
 	}
@@ -2477,7 +2477,7 @@
 		padding: 14px 28px;
 		border-radius: 12px;
 		border: 1.5px solid var(--brand);
-		background: #eef2ff;
+		background: var(--info-bg);
 		color: var(--brand);
 		font-size: 1.05rem;
 		font-weight: 700;
@@ -2701,7 +2701,7 @@
 		color: var(--ink);
 	}
 
-	.error-row:hover { border-color: var(--brand); background: #eef2ff; }
+	.error-row:hover { border-color: var(--brand); background: var(--info-bg); }
 
 	.error-prompt { font-size: 0.92rem; font-weight: 600; }
 
