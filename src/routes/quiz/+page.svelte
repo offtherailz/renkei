@@ -6,6 +6,8 @@
 	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadAutoQueue, loadGrammarDiagnosticaQueue, type N4ReviewArea } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
+	import { analyzeSentence } from '$lib/core/wordLookup';
+	import { PARTICLE_ROLE } from '$lib/data/particleGuide';
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
 	import { facetOfMode, facetsToTrain } from '$lib/core/facets';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
@@ -903,16 +905,33 @@
 		};
 	}
 
-	function wordsInSentence(sentence: string, excludeId?: string): DeepDiveItem[] {
-		return words
-			.filter((w) => w.id !== excludeId && !w.id_nome_origine)
-			.filter((w) => (w.scrittura.length >= 2 || /[一-龯]/.test(w.scrittura)) && sentence.includes(w.scrittura))
-			.sort((a, b) => b.scrittura.length - a.scrittura.length)
-			.slice(0, 4)
-			.map((w) => wordItem(w));
+	// Parole della frase, nell'ordine in cui compaiono: stessa analisi delle
+	// frasi cliccabili (anche coniugate: 行きます → 行く), poi le sottostringhe
+	// esatte come rete di sicurezza. Niente particelle.
+	async function wordsInSentence(sentence: string, excludeId?: string): Promise<DeepDiveItem[]> {
+		const ids: string[] = [];
+		try {
+			const { hits } = await analyzeSentence(sentence, locale);
+			for (const h of hits) if (h) ids.push(h.id);
+		} catch {
+			/* tokenizer non disponibile: solo sottostringhe */
+		}
+		for (const w of words) {
+			if (!w.id_nome_origine && (w.scrittura.length >= 2 || /[一-龯]/.test(w.scrittura)) && sentence.includes(w.scrittura)) ids.push(w.id);
+		}
+		const seen = new Set<string>();
+		const out: DeepDiveItem[] = [];
+		for (const id of ids) {
+			if (id === excludeId || seen.has(id)) continue;
+			seen.add(id);
+			const w = context?.wordsById.get(id);
+			if (!w || w.tipo_jp.startsWith('助詞')) continue;
+			out.push(wordItem(w));
+		}
+		return out.slice(0, 5);
 	}
 
-	function buildDeepDives(): DeepDiveItem[] {
+	async function buildDeepDives(): Promise<DeepDiveItem[]> {
 		if (!quiz) return [];
 		const q = quiz.question;
 		const rawId = quiz.itemRef.key.split(':').slice(1).join(':');
@@ -927,7 +946,7 @@
 					: { label: `Particella ${q.correctChoice}`, href: `${base}/particelle#${encodeURIComponent(q.correctChoice)}`, primary: true }
 			);
 			if (wordLink) dives.push(wordLink);
-			dives.push(...wordsInSentence(q.fullSentence, word?.id));
+			dives.push(...(await wordsInSentence(q.fullSentence, word?.id)));
 		} else if (q.mode === 'transitivity-pair') {
 			dives.push({ label: 'Transitivo vs intransitivo', href: `${base}/forme/tadoushi`, primary: true });
 			if (wordLink) dives.push(wordLink);
@@ -935,7 +954,7 @@
 				const pair = context?.wordsById.get(word.id_verbo_corrispondente);
 				if (pair) dives.push(wordItem(pair));
 			}
-			dives.push(...wordsInSentence(q.fullSentence, word?.id));
+			dives.push(...(await wordsInSentence(q.fullSentence, word?.id)));
 		} else if (q.mode === 'conjugation') {
 			const classSlug = word?.classe_verbo_jp?.startsWith('五段')
 				? 'godan'
@@ -976,7 +995,7 @@
 						: q.mode === 'cloze'
 							? q.sentenceWithBlank.replace(/<[^>]*>/g, '').replace(/___/g, '')
 							: '';
-			if (sentence) dives.push(...wordsInSentence(sentence));
+			if (sentence) dives.push(...(await wordsInSentence(sentence)));
 		} else if (quiz.itemRef.kind === 'kanji') {
 			dives.push({
 				label: rawId,
@@ -1019,7 +1038,7 @@
 			// e transitivity-pair, ma non pescavano le ALTRE parole della frase
 			// (es. 去年 in «二人は去年別れたそうです»): bug segnalato dall'utente.
 			if (q.mode === 'usage-cloze' || q.mode === 'verb-form-cloze') {
-				dives.push(...wordsInSentence(q.fullSentence, word?.id));
+				dives.push(...(await wordsInSentence(q.fullSentence, word?.id)));
 			}
 			// le risposte sbagliate, quando corrispondono a una parola vera del
 			// catalogo, sono utili da approfondire quanto quella giusta — non
@@ -1038,9 +1057,9 @@
 			}
 		}
 
-		// dedupe per href, massimo 6 chip
+		// dedupe per href, massimo 8 chip
 		const seen = new Set<string>();
-		return dives.filter((d) => !seen.has(d.href) && seen.add(d.href)).slice(0, 6);
+		return dives.filter((d) => !seen.has(d.href) && seen.add(d.href)).slice(0, 8);
 	}
 
 	// Glosse dei distrattori: per le domande a scelta, spiega perché ogni
@@ -1096,6 +1115,9 @@
 					reason = src
 						? `«${choice}» = ${src.scrittura}${src.lettura !== src.scrittura ? ` (${src.lettura})` : ''}`
 						: 'significato di un altro termine';
+				} else if (q.mode === 'particle-cloze') {
+					// cosa indicherebbe quella particella: così si vede perché qui stona
+					reason = PARTICLE_ROLE[choice] ? `indica ${PARTICLE_ROLE[choice]}` : reason;
 				} else if (q.mode === 'conjugation') {
 					const form = conjTable.find((f) => f.value === choice);
 					reason = form ? `sarebbe la ${form.label}` : 'forma non corretta';
@@ -1154,7 +1176,7 @@
 			case 'conjugation':
 				return { question: `${q.dictionary} → ${q.formLabel}`, correctReason: `${correct} è la ${q.formLabel} di ${q.dictionary}` };
 			case 'particle-cloze':
-				return { question: q.sentenceWithBlank, correctReason: `Ci va «${correct}»` };
+				return { question: q.sentenceWithBlank, correctReason: PARTICLE_ROLE[correct] ? `Ci va «${correct}»: ${PARTICLE_ROLE[correct]}` : `Ci va «${correct}»` };
 			case 'transitivity-pair':
 				return { question: q.sentenceWithBlank, correctReason: `Forma corretta: ${correct}` };
 			case 'counter-quiz':
@@ -1231,7 +1253,7 @@
 			question: summary.question,
 			correctReason: summary.correctReason,
 			sentence: await buildDiveSentence().catch(() => undefined),
-			dives: buildDeepDives(),
+			dives: await buildDeepDives(),
 			notes: wrongChoiceNotes()
 		};
 		goto(`${base}/approfondisci`);

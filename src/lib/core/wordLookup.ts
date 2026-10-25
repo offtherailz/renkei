@@ -313,3 +313,17 @@ export function mergeByDictionary(tokens: string[], known: (s: string) => boolea
 export function jishoUrl(q: string): string {
 	return `https://jisho.org/search/${encodeURIComponent(q)}`;
 }
+
+// Frase → token (BudouX, ausiliari riattaccati, composti riuniti se a
+// catalogo) + parola di catalogo per token (anche coniugata: 行きます → 行く).
+// Condivisa da InteractiveSentence e dagli approfondimenti del quiz.
+export async function analyzeSentence(
+	plain: string,
+	locale: 'it' | 'en' = 'it'
+): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
+	const { createDefaultTokenizer } = await import('./tokenizer');
+	const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(locale)]);
+	const tokens = mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s));
+	const hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
+	return { tokens, hits };
+}

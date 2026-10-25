@@ -120,3 +120,23 @@ export const PARTICLE_GUIDE: ParticleEntry[] = [
 		confusioni: 'や vs と: や = elenco aperto, と = elenco chiuso.'
 	}
 ];
+
+// Ruolo in una riga, per spiegare nel quiz perché una particella va (o non
+// va) nel buco: «で = luogo dove si svolge l'azione, o mezzo».
+export const PARTICLE_ROLE: Record<string, string> = {
+	は: 'tema della frase («quanto a…»), o contrasto',
+	が: 'soggetto; oggetto di 好き・わかる・ある・ほしい',
+	を: 'complemento oggetto (o percorso: 道を歩く)',
+	に: 'momento preciso (3時に・日曜日に), destinazione, luogo dove si è (いる・ある), persona a cui',
+	で: "luogo dove si svolge l'azione, o mezzo (電車で)",
+	と: '«con» qualcuno, «e» in un elenco completo, citazione',
+	へ: 'direzione del movimento («verso…»)',
+	の: 'collega due nomi (possesso: 私の本)',
+	も: '«anche»',
+	から: 'punto di partenza («da»), o causa',
+	まで: 'limite («fino a»)',
+	より: 'termine di paragone («di/che»)',
+	や: 'elenco non completo («… e altri»)',
+	な: 'aggettivo in な davanti a un nome',
+	い: 'desinenza degli aggettivi in い'
+};
