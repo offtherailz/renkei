@@ -7,6 +7,8 @@
 	import { detectUserLocale, pickLocalizedText, pickLocalizedArray } from '$lib/core/i18n';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { normalizeMastery, createInitialSrs, markKnown, snoozeReview, setBuried, formatReviewIn } from '$lib/core/srs';
+	import { computeCardAction } from '$lib/core/cardActions';
+	import { noteSessionCardAction } from '$lib/stores.svelte';
 	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { saveCorrection } from '$lib/db/corrections';
@@ -186,7 +188,7 @@
 
 	async function loadItem(): Promise<void> {
 		loading = true;
-		word = null; kanji = null; grammar = null; wordSrs = null;
+		word = null; kanji = null; grammar = null; wordSrs = null; studyUndo = undefined;
 		synonyms = []; antonyms = []; homophones = []; related = []; paraphrases = []; kanjiUsed = []; kanjiMissing = []; grammarUsing = []; wordsUsingKanji = [];
 		verbPair = null; suggestedCounter = null; suruVerb = null; baseNoun = null;
 		keigoEntry = null; keigoRole = null; keigoPlainWord = null; keigoSonkeigoWord = null; keigoKenjougoWord = null;
@@ -327,6 +329,31 @@
 		}
 		knownUndo = null;
 	}
+	// 📚 Metti in studio / 🔁 Rimetti in ripasso: la parola torna tra pochi
+	// minuti (core/cardActions, come «Non la ricordavo» nel quiz). studyUndo:
+	// stato di prima (null = non c'era riga), undefined = niente da annullare.
+	let studyUndo = $state<SrsProgress | null | undefined>(undefined);
+	async function studyWord(): Promise<void> {
+		if (!word) return;
+		const key = `word:${word.id}`;
+		const updated = computeCardAction('forgot', key, wordSrs ?? undefined);
+		if (!updated) return;
+		studyUndo = wordSrs;
+		await saveWordSrs(updated);
+		noteSessionCardAction(key, word.scrittura, 'forgot');
+	}
+	async function undoStudy(): Promise<void> {
+		if (!word || studyUndo === undefined) return;
+		const key = `word:${word.id}`;
+		if (studyUndo) await saveWordSrs(studyUndo);
+		else {
+			await db.srs_progress.delete(key);
+			wordSrs = null; masteryPct = 0; srsStage = 0; nextReviewLabel = '';
+		}
+		noteSessionCardAction(key, word.scrittura, null);
+		studyUndo = undefined;
+	}
+
 	async function snoozeWord(): Promise<void> {
 		if (!wordSrs) return;
 		await saveWordSrs(snoozeReview(wordSrs));
@@ -439,6 +466,11 @@
 					<button class="srs-btn" onclick={undoKnown} title="Ripristina lo stato precedente">↩ Annulla «La so già»</button>
 				{:else if !wordSrs || wordSrs.srs_stage < 5}
 					<button class="srs-btn known-cta" onclick={markWordKnown} title="Salta i ripassi iniziali: la carta parte già consolidata (ripasso tra ~1 settimana). Se poi la sbagli, scende normalmente.">La so già</button>
+				{/if}
+				{#if studyUndo !== undefined}
+					<button class="srs-btn" onclick={undoStudy} title="Ripristina lo stato precedente">↩ Annulla «In studio»</button>
+				{:else}
+					<button class="srs-btn" onclick={studyWord} title="Torna nei ripassi tra pochi minuti">{wordSrs ? '🔁 Rimetti in ripasso' : '📚 Metti in studio'}</button>
 				{/if}
 				{#if wordSrs && !wordSrs.buried}
 					<button class="srs-btn" onclick={snoozeWord} title="Sposta il prossimo ripasso di 3 giorni">💤 Rimanda</button>

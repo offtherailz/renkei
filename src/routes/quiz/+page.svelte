@@ -79,7 +79,7 @@
 	let revealedProduction = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
 	// Comandi carta dopo la risposta (CardActions): snapshot SRS di prima della
-	// risposta, per «Non la ricordavo» (qui e in Approfondisci).
+	// risposta, per «Non la ricordavo».
 	let srsBeforeAnswer = $state<SrsProgress | null>(null);
 	let bankTokens = $state<string[]>([]);
 	let answerTokens = $state<string[]>([]);
@@ -888,7 +888,6 @@
 		return {
 			label: w.scrittura,
 			href: `${base}/detail/${encodeURIComponent(`word:${w.id}`)}`,
-			key: `word:${w.id}`,
 			consolidaHref: `${base}/consolida/${encodeURIComponent(w.id)}`,
 			level: w.livello_jlpt,
 			tipo: w.tipo_jp,
@@ -993,7 +992,6 @@
 						dives.push({
 							label: wrongKanji.id,
 							href: `${base}/detail/${encodeURIComponent(`kanji:${wrongKanji.id}`)}`,
-							key: `kanji:${wrongKanji.id}`,
 							kanji: true
 						});
 					}
@@ -1006,7 +1004,6 @@
 				dives.push({
 					label: k,
 					href: `${base}/detail/${encodeURIComponent(`kanji:${k}`)}`,
-					key: `kanji:${k}`,
 					consolidaHref: `${base}/consolida/${encodeURIComponent(k)}`,
 					kanji: true
 				});
@@ -1228,13 +1225,7 @@
 			correctReason: summary.correctReason,
 			sentence: await buildDiveSentence().catch(() => undefined),
 			dives: buildDeepDives(),
-			notes: wrongChoiceNotes(),
-			card: {
-				key: quiz!.itemRef.key,
-				label: recap?.jp ?? '',
-				before: srsBeforeAnswer,
-				forgot: answerFeedback === 'correct'
-			}
+			notes: wrongChoiceNotes()
 		};
 		goto(`${base}/approfondisci`);
 	}
@@ -2149,7 +2140,6 @@
 				<CardActions
 					itemKey={quiz.itemRef.key}
 					label={answeredRecap?.jp ?? ''}
-					quizCard
 					before={srsBeforeAnswer}
 					forgot={answerFeedback === 'correct'}
 					onchange={(_, srs) => onCardAction(quiz!.itemRef.key, srs)}

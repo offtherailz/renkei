@@ -6,13 +6,11 @@
 	import { detectUserLocale, pickLocalizedArray } from '$lib/core/i18n';
 	import { kanaSearchKey } from '$lib/core/romaji';
 	import { makeWordMatcher, rankWords } from '$lib/core/wordSearch';
-	import { saveCardAction } from '$lib/core/cardActions';
-	import { noteSessionCardAction } from '$lib/stores.svelte';
 	import type { Word } from '$lib/types/models';
 
 	// 🔍 Ricerca rapida da ogni pagina (tasto «/» o bottone): cerchi una parola
-	// che non ricordi (anche in romaji), apri la scheda o la metti in ripasso
-	// senza perdere il punto in cui eri.
+	// che non ricordi (anche in romaji) e apri la scheda (da lì: Metti in
+	// studio, Rimanda…) o il 💪 drill, come nel Vocabolario.
 	let { open = $bindable(false) }: { open?: boolean } = $props();
 
 	const locale = detectUserLocale();
@@ -20,7 +18,6 @@
 	let query = $state('');
 	let words = $state<Word[]>([]);
 	let keys = $state(new Map<string, string>());
-	let studied = $state<Set<string>>(new Set());
 	let inputEl = $state<HTMLInputElement | null>(null);
 
 	$effect(() => {
@@ -46,13 +43,6 @@
 		const matches = makeWordMatcher(query, locale);
 		return rankWords(words.filter((w) => matches(w, keys.get(w.id)!)), query, locale, keys).slice(0, MAX);
 	});
-
-	async function putInStudy(w: Word): Promise<void> {
-		const key = `word:${w.id}`;
-		if (!(await saveCardAction('forgot', key))) return;
-		noteSessionCardAction(key, w.scrittura, 'forgot');
-		studied = new Set([...studied, w.id]);
-	}
 
 	function onKeydown(e: KeyboardEvent): void {
 		if (open && e.key === 'Escape') {
@@ -92,15 +82,11 @@
 						{#if w.lettura !== w.scrittura}<span class="qs-read">{w.lettura}</span>{/if}
 						<span class="qs-gloss">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 					</a>
-					{#if studied.has(w.id)}
-						<span class="qs-btn done" title="Nei ripassi: torna tra pochi minuti">✓</span>
-					{:else}
-						<button class="qs-btn" onclick={() => putInStudy(w)} title="📚 Metti in ripasso: torna tra pochi minuti">📚</button>
-					{/if}
+					<a class="qs-btn" href="{base}/consolida/{encodeURIComponent(w.id)}" title="Consolida">💪</a>
 				</div>
 			{/each}
 		</div>
-		<p class="qs-hint">📖 tocca la parola per la scheda · 📚 la rimette in ripasso · Esc per chiudere</p>
+		<p class="qs-hint">📖 tocca la parola per la scheda · 💪 drill · Esc per chiudere</p>
 	</div>
 {/if}
 
@@ -141,8 +127,7 @@
 	.qs-jp { font-size: 1.2rem; font-weight: 700; }
 	.qs-read { font-size: 0.8rem; color: var(--brand); }
 	.qs-gloss { font-size: 0.82rem; color: var(--muted); flex: 1; min-width: 100px; }
-	.qs-btn { display: grid; place-items: center; padding: 0 14px; border: none; border-left: 1px solid var(--line); background: none; font-size: 1.05rem; cursor: pointer; }
+	.qs-btn { display: grid; place-items: center; padding: 0 14px; border-left: 1px solid var(--line); font-size: 1.05rem; text-decoration: none; }
 	.qs-btn:hover { background: rgba(107, 160, 242, 0.14); }
-	.qs-btn.done { color: var(--success); font-weight: 700; cursor: default; }
 	.qs-empty, .qs-hint { margin: 0; font-size: 0.75rem; color: var(--muted); }
 </style>
