@@ -1115,6 +1115,18 @@ async function loadOverrides() {
 // Vincono sul dato scaricato e sopravvivono ai sync.
 const GRAMMAR_OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "grammar-overrides.json");
 
+// Livello JLPT corretto a mano per i kanji che la fonte mette solo in una
+// lista troppo alta (製・検・器 solo in N1): kanji → livello, vince sul lookup.
+const KANJI_LEVEL_OVERRIDES_PATH = path.join(ROOT, "scripts", "data", "kanji-level-overrides.json");
+
+async function loadKanjiLevelOverrides() {
+  try {
+    return JSON.parse(await fs.readFile(KANJI_LEVEL_OVERRIDES_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
 async function loadGrammarOverrides() {
   try {
     return JSON.parse(await fs.readFile(GRAMMAR_OVERRIDES_PATH, "utf8"));
@@ -1142,6 +1154,31 @@ async function loadGrammarExtra() {
 // della pipeline parole, così come già fa applyGrammarOverrides per la
 // grammatica: l'override vince SEMPRE, indipendentemente da chi altro
 // tocca la parola nel frattempo.
+// Id «scrittura::lettura» nascono solo se la fonte ha più voci con la stessa
+// scrittura. Se dopo le pulizie ne resta una sola (運転::うんてんする, la
+// lettura con する poi ripulita), l'id torna la scrittura: overrides, SRS
+// e link usano quella. Aggiorna anche i riferimenti dalle altre parole.
+const WORD_REF_FIELDS = ["id_nome_origine", "id_verbo_suru", "id_verbo_corrispondente"];
+const WORD_REF_LIST_FIELDS = ["sinonimi", "contrari", "omofoni", "correlati"];
+function collapseUniqueDisambiguatedIds(words) {
+  const countByWriting = new Map();
+  for (const w of words) countByWriting.set(w.scrittura, (countByWriting.get(w.scrittura) ?? 0) + 1);
+  const ids = new Set(words.map((w) => w.id));
+  const rename = new Map();
+  for (const w of words) {
+    if (w.id.includes("::") && countByWriting.get(w.scrittura) === 1 && !ids.has(w.scrittura)) rename.set(w.id, w.scrittura);
+  }
+  if (rename.size === 0) return words;
+  const mapId = (id) => rename.get(id) ?? id;
+  console.log(`Id disambiguati non più necessari: ${[...rename.keys()].join(", ")}.`);
+  return words.map((w) => {
+    const next = { ...w, id: mapId(w.id) };
+    for (const f of WORD_REF_FIELDS) if (typeof next[f] === "string") next[f] = mapId(next[f]);
+    for (const f of WORD_REF_LIST_FIELDS) if (Array.isArray(next[f])) next[f] = next[f].map(mapId);
+    return next;
+  });
+}
+
 function applyWordOverridesFinal(words, overrides) {
   let patched = 0;
   const next = words.map((w) => {
@@ -1405,6 +1442,7 @@ async function main() {
     { level: "N4", rows: kanjiN4.kanji },
     { level: "N5", rows: kanjiN5.kanji }
   ]);
+  for (const [char, level] of Object.entries(await loadKanjiLevelOverrides())) kanjiLevelLookup.set(char, level);
   const jmdictIndex = buildJmdictIndex(await ensureJmdictData(JMDICT_CACHE_DIR));
   const overrides = await loadOverrides();
 
@@ -1427,7 +1465,7 @@ async function main() {
   const nc = classifyNumbersAndCounters(normalizedWords);
   console.log(`Numeri/contatori: ${nc.numeri} numerali, ${nc.contatori} contatori ricategorizzati.`);
   // Ultimissimo passo: gli override vincono SEMPRE (vedi commento sulla funzione).
-  const finalWords = applyWordOverridesFinal(normalizedWords, overrides);
+  const finalWords = applyWordOverridesFinal(collapseUniqueDisambiguatedIds(normalizedWords), overrides);
   const counters = await buildCounters(finalWords);
   const now = Date.now();
   const dialogues = JSON.parse(await fs.readFile(CHOUKAI_PATH, "utf8")).map((d) => ({
