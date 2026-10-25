@@ -77,6 +77,9 @@
 	let session = $state<StudySessionState | null>(null);
 	let quiz = $state<ActiveQuiz | null>(null);
 	let revealedProduction = $state(false);
+	// «Produci significato e pronuncia» → ❌: cosa non ricordavi? (aggiusta le
+	// sfaccettature giuste: 🎯 significato, 📖 lettura)
+	let productionMiss = $state(false);
 	let answerFeedback = $state<'correct' | 'wrong' | null>(null);
 	// Comandi carta dopo la risposta (CardActions): snapshot SRS di prima della
 	// risposta, per «Non la ricordavo».
@@ -492,6 +495,7 @@
 		if (!question) { void advanceToNext(); return; }
 		quiz = { itemRef: card.ref, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
+		productionMiss = false;
 		answerFeedback = null;
 		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
 		answerTokens = [];
@@ -583,6 +587,7 @@
 			}
 			quiz = { itemRef: nw.ref, question: nw.q, startedAt: Date.now(), answered: false };
 			revealedProduction = false;
+			productionMiss = false;
 			answerFeedback = null;
 			bankTokens = nw.q.mode === 'sentence-ordering' || nw.q.mode === 'composition' ? shuffle(nw.q.tokens) : [];
 			answerTokens = [];
@@ -626,6 +631,7 @@
 				if (q2) {
 					quiz = { itemRef: alt, question: q2, startedAt: Date.now(), answered: false };
 					revealedProduction = false;
+					productionMiss = false;
 					answerFeedback = null;
 					bankTokens = q2.mode === 'sentence-ordering' || q2.mode === 'composition' ? shuffle(q2.tokens) : [];
 					answerTokens = [];
@@ -642,6 +648,7 @@
 		}
 		quiz = { itemRef: next, question, startedAt: Date.now(), answered: false };
 		revealedProduction = false;
+		productionMiss = false;
 		answerFeedback = null;
 		bankTokens = question.mode === 'sentence-ordering' || question.mode === 'composition' ? shuffle(question.tokens) : [];
 		answerTokens = [];
@@ -1230,7 +1237,14 @@
 		goto(`${base}/approfondisci`);
 	}
 
-	async function handleAnswer(correct: boolean, selectedText = '', isTimeout = false): Promise<void> {
+	// facets: sfaccettature da muovere al posto di quella del modo (es. la
+	// flashcard di produzione, dove si dice cosa non si ricordava).
+	async function handleAnswer(
+		correct: boolean,
+		selectedText = '',
+		isTimeout = false,
+		facets?: [FacetField, boolean][]
+	): Promise<void> {
 		if (!quiz || quiz.answered || !session) return;
 		quiz.answered = true;
 		answerFeedback = correct ? 'correct' : 'wrong';
@@ -1317,13 +1331,13 @@
 		// secondo incremento: la classe sopra, l'Uso della parola qui).
 		if (quiz.itemRef.kind === 'word') {
 			const facetField = facetOfMode(quiz.question.mode);
-			if (facetField) {
-				const row = getSrs(quiz.itemRef.key);
-				if (row) {
-					const withFacet = bumpFacet(row, facetField, correct);
-					await db.srs_progress.put(withFacet);
-					srsMap.set(quiz.itemRef.key, withFacet);
-				}
+			const toBump: [FacetField, boolean][] = facets ?? (facetField ? [[facetField, correct]] : []);
+			const row = getSrs(quiz.itemRef.key);
+			if (row && toBump.length > 0) {
+				let withFacet = row;
+				for (const [f, ok] of toBump) withFacet = bumpFacet(withFacet, f, ok);
+				await db.srs_progress.put(withFacet);
+				srsMap.set(quiz.itemRef.key, withFacet);
 			}
 		}
 
@@ -1372,6 +1386,29 @@
 		if (srs) srsMap.set(key, srs);
 		else srsMap.delete(key);
 		stopAutoNext();
+	}
+
+	// Flashcard di produzione: significato (🎯 Recuperare) e lettura (📖 Leggere)
+	// si muovono separatamente; da sbagliata conta comunque come errore SRS.
+	// Parole tutte in kana: la pronuncia è scritta, niente 📖 né domanda.
+	function productionHasReading(): boolean {
+		return !!currentQuizWord && currentQuizWord.scrittura !== currentQuizWord.lettura;
+	}
+	function productionFacets(meaningOk: boolean, readingOk: boolean): [FacetField, boolean][] {
+		return productionHasReading()
+			? [['facet_meaning_p', meaningOk], ['facet_form_read', readingOk]]
+			: [['facet_meaning_p', meaningOk]];
+	}
+	function answerProduction(): void {
+		void handleAnswer(true, 'Ricordata', false, productionFacets(true, true));
+	}
+	function productionWrong(): void {
+		if (productionHasReading()) productionMiss = true;
+		else answerProductionMiss('meaning');
+	}
+	function answerProductionMiss(what: 'meaning' | 'reading' | 'both'): void {
+		const label = what === 'meaning' ? 'Non ricordavo il significato' : what === 'reading' ? 'Non ricordavo la pronuncia' : 'Non ricordavo né significato né pronuncia';
+		void handleAnswer(false, label, false, productionFacets(what === 'reading', what === 'meaning'));
 	}
 
 	function handleChoiceClick(choice: string): void {
@@ -1464,8 +1501,12 @@
 		const q = quiz.question;
 		if (q.mode === 'flashcard-production') {
 			if (!revealedProduction) return;
-			if (num === 1) handleAnswer(true, 'Ricordata');
-			else if (num === 2) handleAnswer(false, 'Non ricordata');
+			if (productionMiss) {
+				if (num === 1) answerProductionMiss('meaning');
+				else if (num === 2) answerProductionMiss('reading');
+				else if (num === 3) answerProductionMiss('both');
+			} else if (num === 1) answerProduction();
+			else if (num === 2) productionWrong();
 			return;
 		}
 		if (q.mode === 'sentence-ordering' || q.mode === 'composition' || q.mode === 'spoken-production') return;
@@ -1780,10 +1821,20 @@
 					<button class="choice-btn" onclick={() => revealedProduction = true}>Mostra soluzione</button>
 				{:else}
 					<div class="solution">{q.correctAnswer}</div>
-					<div class="production-btns">
-						<button class="choice-btn good" onclick={() => handleAnswer(true, 'Ricordata')}>✅ Ricordata</button>
-						<button class="choice-btn bad" onclick={() => handleAnswer(false, 'Non ricordata')}>❌ Non ricordata</button>
-					</div>
+					{#if !productionMiss}
+						<div class="production-btns">
+							<button class="choice-btn good" onclick={answerProduction}><kbd class="key-hint">1</kbd>✅ Ricordata</button>
+							<button class="choice-btn bad" onclick={productionWrong}><kbd class="key-hint">2</kbd>❌ Non ricordata</button>
+						</div>
+					{:else}
+						<p class="question-hint">Cosa non ricordavi?</p>
+						<div class="production-btns miss">
+							<button class="choice-btn bad" onclick={() => answerProductionMiss('meaning')}><kbd class="key-hint">1</kbd>🎯 Il significato</button>
+							<button class="choice-btn bad" onclick={() => answerProductionMiss('reading')}><kbd class="key-hint">2</kbd>📖 La pronuncia</button>
+							<button class="choice-btn bad" onclick={() => answerProductionMiss('both')}><kbd class="key-hint">3</kbd>Tutti e due</button>
+						</div>
+						<button class="dontknow-btn" onclick={() => (productionMiss = false)}>← Indietro</button>
+					{/if}
 				{/if}
 			{:else}
 				<div class="solution">{q.correctAnswer}</div>
@@ -2437,6 +2488,8 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 8px;
 	}
+
+	.production-btns.miss { grid-template-columns: repeat(3, 1fr); }
 
 	.ordering-actions {
 		display: flex;
