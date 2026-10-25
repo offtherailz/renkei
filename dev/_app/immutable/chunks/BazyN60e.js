@@ -1,0 +1,1 @@
+import{ak as r}from"./CLfzc6w2.js";async function a(o){o&&(await r(),requestAnimationFrame(()=>{var t;(t=document.getElementById(o))==null||t.scrollIntoView({behavior:"smooth",block:"start"})}))}export{a as s};
