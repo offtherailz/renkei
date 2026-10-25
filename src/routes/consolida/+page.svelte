@@ -5,6 +5,8 @@
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { createInitialSrs, markKnown } from '$lib/core/srs';
+	import { kanaSearchKey, romajiQueryKey } from '$lib/core/romaji';
+	import { saveCardAction } from '$lib/core/cardActions';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import JpBadge from '$lib/components/JpBadge.svelte';
 	import { ICONS_BY_LABEL } from '$lib/data/posIcons';
@@ -28,6 +30,17 @@
 	let selecting = $state(false);
 	let selected = $state<Set<string>>(new Set());
 	let srsByWord = $state<Map<string, SrsProgress>>(new Map());
+
+	// 📚 dalla lista: la parola cercata entra subito nei ripassi (come
+	// «Non la ricordavo»: se già in SRS scende di uno stage, se nuova parte).
+	let studied = $state<Set<string>>(new Set());
+	async function putInStudy(wordId: string): Promise<void> {
+		const key = `word:${wordId}`;
+		const updated = await saveCardAction('forgot', key);
+		if (!updated) return;
+		srsByWord = new Map(srsByWord).set(key, updated);
+		studied = new Set([...studied, wordId]);
+	}
 	let applying = $state(false);
 	let doneMsg = $state('');
 
@@ -101,8 +114,23 @@
 		return [...seen.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
 	});
 
+	// Ricerca in romaji/kana tollerante (setsumei → せつめい, benkyoo → べんきょう):
+	// chiavi di lettura calcolate una volta sola per catalogo.
+	const wordKeys = $derived(new Map(words.map((w) => [w.id, kanaSearchKey(w.lettura)])));
+	const kanjiKeys = $derived(
+		new Map(kanji.map((k) => [k.id, [...k.letture_on, ...k.letture_kun].map((r) => kanaSearchKey(r.replace(/[.-]/g, '')))]))
+	);
+	// chiave in kana della query: da romaji, o la query stessa se già in kana
+	const kanaKey = $derived.by(() => {
+		const q = query.trim();
+		if (!q) return null;
+		if (/^[ぁ-んァ-ヶー]+$/.test(q)) return kanaSearchKey(q);
+		return romajiQueryKey(q);
+	});
+
 	const filtered = $derived.by(() => {
 		const q = query.trim().toLowerCase();
+		const rk = kanaKey;
 		return words.filter((w) => {
 			if (lvl && w.livello_jlpt !== lvl) return false;
 			if (tipo && stripFuriganaNotation(w.tipo_jp) !== tipo) return false;
@@ -110,6 +138,7 @@
 			return (
 				w.scrittura.includes(q) ||
 				w.lettura.includes(q) ||
+				(rk !== null && wordKeys.get(w.id)!.includes(rk)) ||
 				pickLocalizedArray(w.significato, locale).some((m) => m.toLowerCase().includes(q))
 			);
 		});
@@ -121,12 +150,14 @@
 	const isKanji = $derived(tipo === 'kanji');
 	const filteredKanji = $derived.by(() => {
 		const q = query.trim().toLowerCase();
+		const rk = kanaKey;
 		return kanji.filter((k) => {
 			if (lvl && k.livello_jlpt !== lvl) return false;
 			if (!q) return true;
 			return (
 				k.id.includes(q) ||
 				[...k.letture_on, ...k.letture_kun].some((r) => r.toLowerCase().includes(q)) ||
+				(rk !== null && kanjiKeys.get(k.id)!.some((r) => r.includes(rk))) ||
 				pickLocalizedText(k.significato, locale).toLowerCase().includes(q)
 			);
 		});
@@ -173,7 +204,7 @@
 		</p>
 	{/if}
 
-	<input class="search" placeholder="Cerca (giapponese, lettura o significato)…" bind:value={query} />
+	<input class="search" placeholder="Cerca (giapponese, romaji, lettura o significato)…" bind:value={query} />
 
 	<div class="filters">
 		<button class="chip" class:on={lvl === null} onclick={() => (lvl = null)}>Tutti</button>
@@ -234,6 +265,11 @@
 							<span class="w-badges"><JlptBadge level={w.livello_jlpt} /><JpBadge label={w.tipo_jp} variant="jp-badge-pos" /></span>
 							<span class="w-gloss">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 						</a>
+						{#if studied.has(w.id)}
+							<span class="w-study done" title="Nei ripassi: torna tra pochi minuti">✓</span>
+						{:else}
+							<button class="w-study" onclick={() => putInStudy(w.id)} title="📚 Metti in ripasso: torna tra pochi minuti">📚</button>
+						{/if}
 						<a class="w-drill" href="{base}/consolida/{encodeURIComponent(w.id)}" title="Consolida">💪</a>
 					</div>
 				{/each}
@@ -275,6 +311,9 @@
 	.w-main { flex: 1; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 12px; text-decoration: none; color: var(--ink); }
 	.w-drill { display: grid; place-items: center; padding: 0 14px; font-size: 1.2rem; text-decoration: none; border-left: 1px solid var(--line); }
 	.w-drill:hover { background: rgba(107,160,242,0.14); }
+	.w-study { display: grid; place-items: center; padding: 0 12px; font-size: 1.05rem; border: none; border-left: 1px solid var(--line); background: none; cursor: pointer; }
+	.w-study:hover { background: rgba(107,160,242,0.14); }
+	.w-study.done { color: var(--success); font-weight: 700; cursor: default; }
 	.w-jp { font-size: 1.25rem; font-weight: 700; }
 	.w-read { font-size: 0.8rem; color: var(--muted); }
 	.w-badges { display: inline-flex; gap: 4px; }
