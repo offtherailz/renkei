@@ -622,6 +622,10 @@ puliti a fine lavoro (588 test). SEED_REVISION v127→v138.
   le relazioni. Sinonimi e omofoni, le due relazioni prioritarie del goal originale, sono invece
   a copertura/qualità piena (audit 100% dei candidati euristici).
 
+## Frasi per livello
+
+Una frase master con letture, scrittura calcolata per livello: `2026-10-31-frasi-livelli-varianti.md` (piano, da avviare col pilota).
+
 ## Verifiche pendenti
 
 Checklist completa in `2026-07-17-verifiche-propedeutiche.md` (22 punti + questioni aperte).
