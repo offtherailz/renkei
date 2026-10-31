@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
+	import { speakSentenceJapaneseAsync, speechStartCount } from '$lib/core/tts';
 	import { speakExamChoices, speakExamListening, stopExamListening } from '$lib/core/examListening';
 	import { voiceParams } from '$lib/core/voices';
 	import { GRAMMAR_CURATED_ITEMS } from '$lib/data/propedeutiche';
@@ -11,9 +11,11 @@
 	import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from '$lib/core/listenOnly';
 
 	// 🎧 Solo ascolto: niente microfono né tocchi. La voce propone, pausa per il
-	// richiamo, poi la risposta. Pensato per il telefono in tasca: lo schermo resta
-	// acceso (voce del browser ferma a schermo spento), quindi è nero e i comandi
-	// vanno tenuti premuti, così un tocco involontario non fa niente.
+	// richiamo, poi la risposta. Pensato per il telefono in tasca: una traccia silenziosa
+	// e la Media Session fanno vedere la pagina al sistema come un lettore audio, così
+	// può continuare a schermo bloccato. Non tutti i telefoni lasciano parlare la voce
+	// di sistema in background: se tace ci si ferma senza segnare nulla come ascoltato.
+	// A schermo acceso è nero e i comandi vanno tenuti premuti, contro i tocchi involontari.
 	const HOLD_MS = 800;
 	const SEEN_MAX_CHARS = 1_000_000;
 
@@ -31,6 +33,8 @@
 	let revealed = $state(false);
 	let phase = $state<'ask' | 'recall' | 'answer'>('ask');
 	let paused = $state(false);
+	let stalled = $state(false); // il telefono ha sospeso la voce a schermo bloccato
+	let skipCurrent = false;
 	let listened = $state(0);
 	let seenCount = $state(0);
 	let running = false;
@@ -104,15 +108,60 @@
 	}
 	function onVisibility(): void {
 		if (document.visibilityState === 'visible') {
+			stalled = false;
 			if (running && !wakeLock) void acquireWakeLock();
 		} else {
-			stopVoice();
 			wakeLock = null;
 		}
 	}
 
+	// Un secondo di silenzio in loop, generato qui: niente file da scaricare.
+	let keepAlive: HTMLAudioElement | null = null;
+	function silentWavUrl(): string {
+		const rate = 8000;
+		const buf = new ArrayBuffer(44 + rate);
+		const v = new DataView(buf);
+		const tag = (at: number, t: string) => [...t].forEach((c, i) => v.setUint8(at + i, c.charCodeAt(0)));
+		tag(0, 'RIFF'); v.setUint32(4, 36 + rate, true); tag(8, 'WAVEfmt '); v.setUint32(16, 16, true);
+		v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate, true);
+		v.setUint16(32, 1, true); v.setUint16(34, 8, true); tag(36, 'data'); v.setUint32(40, rate, true);
+		new Uint8Array(buf, 44).fill(128); // 8 bit: 128 è il silenzio
+		return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+	}
+	function startKeepAlive(): void {
+		try {
+			if (!keepAlive) {
+				keepAlive = new Audio(silentWavUrl());
+				keepAlive.loop = true;
+			}
+			void keepAlive.play().catch(() => {});
+			const ms = navigator.mediaSession;
+			if (ms) {
+				ms.metadata = new MediaMetadata({ title: 'Renkei — Solo ascolto', artist: 'Ripasso JLPT' });
+				ms.playbackState = 'playing';
+				ms.setActionHandler('play', () => { if (paused) togglePause(); });
+				ms.setActionHandler('pause', () => { if (!paused) togglePause(); });
+				ms.setActionHandler('nexttrack', () => { skipCurrent = true; stopVoice(); });
+			}
+		} catch {
+			/* niente lettore: funziona comunque a schermo acceso */
+		}
+	}
+	function stopKeepAlive(): void {
+		try {
+			keepAlive?.pause();
+			const ms = navigator.mediaSession;
+			if (ms) {
+				ms.playbackState = 'none';
+				for (const a of ['play', 'pause', 'nexttrack'] as const) ms.setActionHandler(a, null);
+			}
+		} catch {
+			/* pazienza */
+		}
+	}
+
 	const visible = () => typeof document === 'undefined' || document.visibilityState === 'visible';
-	const alive = () => running && !paused && visible();
+	const alive = () => running && !paused && !stalled && !skipCurrent;
 	const sleepRaw = (ms: number) => new Promise((r) => setTimeout(r, ms));
 	// Attesa interrompibile: pausa o schermo spento la chiudono subito.
 	async function wait(ms: number): Promise<void> {
@@ -155,7 +204,13 @@
 		for (const step of steps) {
 			if (!alive()) return false;
 			if (step.t === 'recall') phase = 'recall';
+			const startsBefore = speechStartCount();
 			await runStep(step);
+			// Bloccato e nessuna lettura partita: il telefono ha sospeso la voce.
+			if (!visible() && alive() && step.t !== 'wait' && step.t !== 'recall' && speechStartCount() === startsBefore) {
+				stalled = true;
+				return false;
+			}
 			if (step.t === 'recall') {
 				phase = 'answer';
 				revealed = true;
@@ -182,8 +237,13 @@
 			current = item;
 			const done = await playItem(item);
 			if (!running) return;
+			if (skipCurrent) {
+				skipCurrent = false;
+				pos += 1;
+				continue;
+			}
 			if (!done) {
-				while (running && (paused || !visible())) await sleepRaw(300);
+				while (running && (paused || stalled)) await sleepRaw(300);
 				continue;
 			}
 			seen.add(item.key);
@@ -213,6 +273,9 @@
 		current = null;
 		scene = 'play';
 		running = true;
+		stalled = false;
+		skipCurrent = false;
+		startKeepAlive(); // qui, sul tocco di avvio: dopo il browser lo rifiuterebbe
 		await acquireWakeLock();
 		document.addEventListener('visibilitychange', onVisibility);
 		await loop();
@@ -221,17 +284,25 @@
 	function stop(): void {
 		running = false;
 		stopVoice();
+		stopKeepAlive();
 		releaseWakeLock();
 		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
 		scene = 'done';
 	}
 	function togglePause(): void {
 		paused = !paused;
-		if (paused) stopVoice();
+		if (paused) {
+			stopVoice();
+			void keepAlive?.pause();
+		} else {
+			void keepAlive?.play().catch(() => {});
+		}
+		if (navigator.mediaSession) navigator.mediaSession.playbackState = paused ? 'paused' : 'playing';
 	}
 	onDestroy(() => {
 		running = false;
 		stopVoice();
+		if (typeof navigator !== 'undefined') stopKeepAlive();
 		releaseWakeLock();
 		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
 	});
@@ -263,6 +334,9 @@
 {#if scene === 'play'}
 	<div class="pocket" oncontextmenu={(e) => e.preventDefault()} role="presentation">
 		<p class="count">{seenCount} / {items.length}{current?.cat ? ` · ${current.cat}` : ''}{paused ? ' · in pausa' : ''}</p>
+		{#if stalled}
+			<p class="it">Il telefono ha fermato la voce a schermo bloccato. Riparto da qui.</p>
+		{/if}
 		{#if current}
 			<p class="status">{paused ? '⏸️' : phase === 'recall' ? '🧠' : '🔊'}</p>
 			{#if revealed}
@@ -316,7 +390,7 @@
 						<button class="opt" class:on={pause === 'lunga'} onclick={() => (pause = 'lunga')}>Lunga</button>
 					</div>
 					<button class="proceed" disabled={loading} onclick={start}>▶️ はじめる</button>
-					<p class="hint small">Riparte da ciò che non hai ancora ascoltato. Lo schermo resta acceso e nero: a schermo spento la voce del browser si ferma. Attiva il blocco tasca del telefono se c'è. Non conta come ripasso nei tuoi progressi, perché non c'è una risposta da verificare.</p>
+					<p class="hint small">Riparte da ciò che non hai ancora ascoltato. Dopo l'avvio puoi bloccare lo schermo e usare i comandi audio del telefono o delle cuffie. Se il tuo telefono ferma comunque la voce, tienilo sbloccato: lo schermo resta nero e i comandi si tengono premuti. Non conta come ripasso nei tuoi progressi, perché non c'è una risposta da verificare.</p>
 				{:else}
 					<p class="hint warn">Questo browser non ha la sintesi vocale.</p>
 				{/if}

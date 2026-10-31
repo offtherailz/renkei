@@ -42,6 +42,11 @@ export function speakSentenceJapanese(sentenceWithFurigana: string, options?: Sp
 // Come speakSentenceJapanese, ma ritorna una Promise che si risolve quando
 // l'audio è finito (o subito, se il TTS non è disponibile): utile per far
 // partire un timer solo dopo che la voce ha finito di parlare.
+// Quante letture sono partite davvero: a schermo bloccato il telefono può sospendere
+// la voce, e il timer di riserva farebbe sembrare finita una frase mai detta.
+let speechStarts = 0;
+export const speechStartCount = (): number => speechStarts;
+
 export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options?: SpeakOptions): Promise<void> {
   if (typeof window === "undefined" || !window.speechSynthesis) {
     return Promise.resolve();
@@ -52,6 +57,7 @@ export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options
     const utterance = buildUtterance(plainText, options);
     let done = false;
     const finish = (): void => { if (!done) { done = true; resolve(); } };
+    utterance.onstart = () => { speechStarts += 1; };
     utterance.onend = finish;
     utterance.onerror = finish;
     // Fallback: alcune implementazioni non emettono onend in modo affidabile.
