@@ -11,3 +11,7 @@ test-results/
 playwright-report/
 corsi/
 study/
+android-ascolto/app/src/main/assets/items.json
+android-ascolto/**/build/
+android-ascolto/.gradle/
+android-ascolto/build.log

@@ -1,0 +1,63 @@
+name: App Android Ascolto
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'android-ascolto/**'
+      - 'src/lib/core/listen*'
+      - 'src/lib/core/examListening.ts'
+      - 'src/lib/data/esame-n4*'
+      - 'src/lib/data/grammatica-contesto.json'
+      - 'static/seed-n5n4.json'
+      - '.github/workflows/android-ascolto.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Genera i contenuti
+        run: |
+          npm ci
+          EXPORT_ASCOLTO=1 npx vitest run src/lib/core/listenExport.test.ts
+          test -s android-ascolto/app/src/main/assets/items.json
+
+      # Stessa firma fra una compilazione e l'altra, così l'app si aggiorna senza disinstallarla.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: android-debug-keystore-v1
+
+      - name: Compila
+        working-directory: android-ascolto
+        run: |
+          set -o pipefail
+          gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee build.log || {
+            grep -E '^e: |error:|FAILURE|What went wrong' -A2 build.log | head -40 | sed 's/^/::error::/'
+            exit 1
+          }
+
+      - name: Pubblica l'APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android-ascolto/app/build/outputs/apk/debug/app-debug.apk renkei-ascolto.apk
+          gh release delete ascolto-apk --yes --cleanup-tag || true
+          gh release create ascolto-apk renkei-ascolto.apk --prerelease --title "Renkei Ascolto" --notes "App Android per ripassare a schermo bloccato. Compilazione ${{ github.run_number }}, commit ${{ github.sha }}."

@@ -52,12 +52,14 @@ function playChime(): Promise<void> {
 	});
 }
 
-interface Seg {
+export interface ExamSegment {
 	text?: string;
 	options?: SpeakOptions;
 	pause?: number; // ms di silenzio
 	chime?: boolean; // suono tipico d'esame prima dell'audio
+	who?: 'N' | 'F' | 'M'; // chi parla: narratore, donna, uomo (per l'app Android)
 }
+type Seg = ExamSegment;
 async function runSequence(items: Seg[], token: number): Promise<void> {
 	for (const it of items) {
 		if (token !== playToken) return; // superata da una nuova lettura / stop
@@ -108,7 +110,10 @@ const ROLE_NAME: Record<string, string> = {
 export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500): Promise<void> {
 	const token = ++playToken;
 	stopSpeaking();
+	return runSequence(examListeningSegments(prompt, rate, leadPauseMs), token);
+}
 
+export function examListeningSegments(prompt: string, rate = 1, leadPauseMs = 2500): ExamSegment[] {
 	// Voci nettamente diverse: narratrice = femminile con pitch/tempo distinti,
 	// 女 = femminile normale, 男 = maschile. Così si capisce chi parla.
 	const fBase = voiceParams('femminile');
@@ -170,7 +175,7 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 		items.push({ text: question, options: narrator });
 	}
 
-	return runSequence(items, token);
+	return items.map((it) => (it.text ? { ...it, who: it.options === narrator ? 'N' : it.options === male ? 'M' : 'F' } : it));
 }
 
 // 発話表現 / 即時応答: opzioni SOLO AUDIO come all'esame. Legge la situazione o la
@@ -182,6 +187,10 @@ const NUM_KANA = ['１ばん', '２ばん', '３ばん', '４ばん'];
 export function speakExamChoices(prompt: string, options: string[], kind: 'hatsuwa' | 'sokuji', rate = 1): Promise<void> {
 	const token = ++playToken;
 	stopSpeaking();
+	return runSequence(examChoicesSegments(prompt, options, kind, rate), token);
+}
+
+export function examChoicesSegments(prompt: string, options: string[], kind: 'hatsuwa' | 'sokuji', rate = 1): ExamSegment[] {
 	const fBase = voiceParams('femminile');
 	const narrator: SpeakOptions = { ...fBase, pitch: (fBase.pitch ?? 1) + 0.3, rate: rate * 0.92 };
 	const female: SpeakOptions = { ...voiceParams('femminile'), rate };
@@ -217,5 +226,7 @@ export function speakExamChoices(prompt: string, options: string[], kind: 'hatsu
 		items.push({ text: o, options: male }); // le risposte le dice l'altra persona
 		items.push({ pause: 900 });
 	});
-	return runSequence(items.filter((s) => s.chime || s.pause || (s.text ?? '') !== ''), token);
+	return items
+		.filter((s) => s.chime || s.pause || (s.text ?? '') !== '')
+		.map((it) => (it.text ? { ...it, who: it.options === narrator ? 'N' : it.options === male ? 'M' : 'F' } : it));
 }
