@@ -70,7 +70,7 @@ adatta come fonte definitiva.
 - `core/levelText.ts`, funzione pura `renderAtLevel(master, livello, modo)` con test.
 - Dati dei livelli dei kanji già in `seed.kanji`, da caricare come mappa anche per N3-N1
   (`kanjiN4.ts` copre solo N5/N4).
-- Impostazione «kanji sopra il mio livello»: kana (default) o furigana.
+- Kanji sopra livello: sempre hiragana.
 
 ### Fase 4: adozione per schermata
 Una per volta, con deploy in mezzo: riordina, poi quiz e consolida, poi comparazioni e item curati, poi il
@@ -84,12 +84,20 @@ catalogo parole arriva a N3, quindi lì significa solo «tutti i kanji».
 
 ## Decisioni da prendere
 
-1. **Sopra livello: kana o furigana?** Proposta: kana di default e furigana come impostazione. Il kana allena
-   la parola come si studia a quel livello, il furigana allena a riconoscere il kanji.
+1. **Sopra livello: DECISO (31/10) hiragana**, come scelta dell'utente per fare come il JLPT. Niente impostazione
+   furigana nella prima versione. Da controllare sui sample ufficiali di jlpt.jp: la prova d'esame in app oggi usa
+   furigana sopra livello (`examStrip`), e una ricerca web non ha chiarito quale dei due sia fedele.
 2. **Il livello dello studente da dove viene?** Proposta: dall'impostazione di livello già scelta all'avvio
    (da verificare in fase 3), non dalla carta sola, così uno studente N4 vede i kanji N4 anche nelle carte N5.
 3. **I kanji già studiati valgono?** Se ho in ripasso un kanji sopra livello, lo mostro? Proposta: no nella
    prima versione, poi eventuale estensione: è personale ma cambierebbe la frase mentre si studia.
+
+## Da riprendere più avanti: furigana come progressione
+
+Annotato, non deciso. Al passaggio al livello successivo (per esempio verso N3) il furigana può fare da ponte:
+hiragana per i kanji lontani, furigana per quelli del livello che si sta iniziando, poi kanji nudo. L'utente non ha
+ancora un'idea di come regolare questa progressione: se ne riparla quando si avvicina il passaggio. Il master con
+letture la rende possibile senza rifare i dati.
 
 ## Rischi
 
