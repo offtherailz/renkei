@@ -135,7 +135,8 @@ describe('handsFree.buildFormRounds', () => {
 	it('forme innaturali escluse: intransitivi non voluti, nomi con する, ない', () => {
 		const forme = (w: Word) => new Set(Array.from({ length: 40 }, (_, i) => buildFormRounds([w], 1, () => i / 40)[0]?.forma?.label));
 		expect(forme(verb('割れる', 'われる', '一段'))).toEqual(new Set(['Forma te', 'Passato piano', 'Negativo piano', 'Condizionale in ba']));
-		expect(forme(verb('卒業する', 'そつぎょうする', '不規則'))).toEqual(new Set(['Forma te', 'Passato piano', 'Negativo piano', 'Condizionale in ba', 'Potenziale']));
+		expect(forme(verb('卒業する', 'そつぎょうする', '不規則'))).toEqual(new Set(['Forma te', 'Passato piano', 'Negativo piano', 'Condizionale in ba']));
+		expect(buildFormRounds([verb('召し上がる', 'めしあがる', '五段')], 1)).toEqual([]);
 		expect(forme({ ...verb('割る', 'わる', '五段'), transitivita_jp: '他動詞[たどうし]' } as Word).has('Passiva')).toBe(true);
 		expect(buildFormRounds([{ ...verb('ない', 'ない', ''), tipo_jp: '形容詞[けいようし]' } as Word], 1)).toEqual([]);
 	});

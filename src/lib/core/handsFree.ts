@@ -189,7 +189,8 @@ const ADJECTIVE_FORMS: { key: string; label: string }[] = [
 // forme (分かれる, くれられる, いらっしゃれ, あらない): dette a voce insegnerebbero errori.
 const NO_FORM_DRILL = new Set([
 	'ある', '有る', 'できる', '出来る', '分かる', 'わかる', '見える', '聞こえる', 'いらっしゃる',
-	'おっしゃる', 'くださる', '下さる', 'なさる', 'ござる', '問う', 'くれる', '呉れる', 'ない', '無い'
+	'おっしゃる', 'くださる', '下さる', 'なさる', 'ござる', '問う', 'くれる', '呉れる', 'ない', '無い',
+	'めしあがる', '召し上がる', 'いたす', '致す', 'まいる', '参る', '申す', 'うかがう', '伺う', 'さしあげる', '差し上げる', 'いただく', '頂く', '存じる'
 ]);
 // Potenziale, volitiva, passiva e causativa suonano naturali solo su azioni volute
 // (われよう, はれさせる no): verbi transitivi, più gli intransitivi di questa lista.
@@ -200,8 +201,8 @@ const INTRANSITIVI_VOLONTARI = new Set([
 const FORME_BASE = new Set(['te', 'ta', 'nai', 'ba']);
 function formaAdatta(w: Word, key: string): boolean {
 	if (!w.tipo_jp.startsWith('動詞') || FORME_BASE.has(key)) return true;
-	// nomi con する: 卒業できる sì, 卒業される o 卒業させよう raramente servono
-	if (w.scrittura !== 'する' && w.scrittura.endsWith('する')) return key === 'potential';
+	// nomi con する: solo forme base, 故障できる o 卒業される non si dicono
+	if (w.scrittura !== 'する' && w.scrittura.endsWith('する')) return false;
 	return w.transitivita_jp?.startsWith('他動詞') === true || INTRANSITIVI_VOLONTARI.has(w.scrittura);
 }
 
