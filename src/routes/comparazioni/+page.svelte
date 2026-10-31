@@ -12,22 +12,25 @@
 	import type { Word } from '$lib/types/models';
 
 	// ⚖️ Comparazioni (beta): la grammatica del confronto N5/N4.
-	// 4 tipi di round — どっち (のほうが), 一番 (superlativo), componi «AはBより〜»,
-	// ほど〜ない (negativo, N4). Dati curati (fatti veri) in comparazioni.json; la
+	// 5 tipi di round — どっち (のほうが), 一番 (superlativo), componi «AはBより〜»,
+	// ほど〜ない (negativo, N4), forma giusta nella frase (より/ほど/同じくらい…). Dati curati (fatti veri) in comparazioni.json; la
 	// traduzione italiana delle frasi è costruita dalle glosse. L'esito accredita
 	// l'aggettivo (cella Usare 🧩) quando è nel catalogo.
 	const ROUNDS_PER_GAME = 8;
 
 	type Lvl = 'N5' | 'N4';
-	interface Item { jp: string; it: string }
+	interface Item { jp: string; it: string; f?: boolean }
 	interface Coppia { a: Item; b: Item; adj: { dict: string; neg: string; it: string }; winner: 'a' | 'b'; level: Lvl }
 	interface Superlativo { gruppo: { it: string }; items: Item[]; adj: { dict: string; it: string }; winner: number; level: Lvl }
 	const coppie = DATA.coppie as Coppia[];
 	const superlativi = DATA.superlativi as Superlativo[];
+	interface FraseForma { frase: string; corretta: string; distrattori: string[]; it: string; perche: string; level: Lvl }
+	const frasi = DATA.frasi as FraseForma[];
 
-	type Kind = 'dochi' | 'ichiban' | 'compose' | 'hodo';
+	type Kind = 'dochi' | 'ichiban' | 'compose' | 'hodo' | 'forma';
 	interface Round {
 		kind: Kind;
+		key: string; // lo stesso per tutti i round sulla stessa coppia/gruppo/frase
 		questionJp: string;
 		contextIt: string;
 		choices: string[]; // vuoto per compose
@@ -36,22 +39,35 @@
 		revealJp: string;
 		revealIt: string;
 		adjLettura: string;
+		note?: string;
 	}
 
 	const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+	// «di» articolata: più grande del gatto, non «di il gatto».
+	function di(it: string): string {
+		const m: [string, string][] = [['il ', 'del '], ['lo ', 'dello '], ["l'", "dell'"], ['la ', 'della ']];
+		for (const [art, out] of m) if (it.startsWith(art)) return out + it.slice(art.length);
+		return `di ${it}`;
+	}
+	// accordo col soggetto: «la luna è più piccola»
+	const agree = (adj: string, i: Item) => (i.f ? adj.replace(/o$/, 'a') : adj);
+	const piuDi = (win: Item, los: Item, adj: string) => `${cap(win.it)} è più ${agree(adj, win)} ${di(los.it)}.`;
+	const nonQuanto = (los: Item, win: Item, adj: string) => `${cap(los.it)} non è ${agree(adj, los)} quanto ${win.it}.`;
+	const pairKey = (p: Coppia) => `${p.a.jp}|${p.b.jp}|${p.adj.dict}`;
 
 	function makeDochi(p: Coppia): Round {
 		const win = p.winner === 'a' ? p.a : p.b;
 		const los = p.winner === 'a' ? p.b : p.a;
 		return {
 			kind: 'dochi',
+			key: pairKey(p),
 			questionJp: `${p.a.jp}と${p.b.jp}、どちらのほうが${p.adj.dict}ですか。`,
 			contextIt: '',
-			choices: [p.a.jp, p.b.jp],
+			choices: shuffle([p.a.jp, p.b.jp]),
 			correct: win.jp,
 			tokens: [],
 			revealJp: `${los.jp}より${win.jp}のほうが${p.adj.dict}です。`,
-			revealIt: `${cap(win.it)} è più ${p.adj.it} di ${los.it}.`,
+			revealIt: piuDi(win, los, p.adj.it),
 			adjLettura: p.adj.dict
 		};
 	}
@@ -61,13 +77,14 @@
 		const tokens = [win.jp, 'は', los.jp, 'より', p.adj.dict, 'です'];
 		return {
 			kind: 'compose',
+			key: pairKey(p),
 			questionJp: '',
-			contextIt: `${cap(win.it)} è più ${p.adj.it} di ${los.it}.`,
+			contextIt: piuDi(win, los, p.adj.it),
 			choices: [],
 			correct: tokens.join(''),
 			tokens,
 			revealJp: tokens.join(''),
-			revealIt: `${cap(win.it)} è più ${p.adj.it} di ${los.it}.`,
+			revealIt: piuDi(win, los, p.adj.it),
 			adjLettura: p.adj.dict
 		};
 	}
@@ -78,13 +95,14 @@
 		const distr = [p.adj.dict, p.adj.dict.slice(0, -1) + 'くなかった', p.adj.dict + 'じゃない'];
 		return {
 			kind: 'hodo',
+			key: pairKey(p),
 			questionJp: `${stem}＿＿＿`,
-			contextIt: `${cap(los.it)} non è ${p.adj.it} quanto ${win.it}.`,
+			contextIt: nonQuanto(los, win, p.adj.it),
 			choices: shuffle([p.adj.neg, ...distr]),
 			correct: p.adj.neg,
 			tokens: [],
 			revealJp: `${stem}${p.adj.neg}です。`,
-			revealIt: `${cap(los.it)} non è ${p.adj.it} quanto ${win.it}.`,
+			revealIt: nonQuanto(los, win, p.adj.it),
 			adjLettura: p.adj.dict
 		};
 	}
@@ -92,15 +110,50 @@
 		const win = s.items[s.winner]!;
 		return {
 			kind: 'ichiban',
+			key: `${s.items.map((i) => i.jp).join('|')}|${s.adj.dict}`,
 			questionJp: `つぎの中で、どれがいちばん${s.adj.dict}ですか。`,
 			contextIt: `(${s.gruppo.it})`,
 			choices: shuffle(s.items.map((i) => i.jp)),
 			correct: win.jp,
 			tokens: [],
 			revealJp: `${win.jp}がいちばん${s.adj.dict}です。`,
-			revealIt: `Tra questi, ${win.it} è il più ${s.adj.it}.`,
+			revealIt: `Tra questi, ${win.it} è ${win.f ? 'la' : 'il'} più ${agree(s.adj.it, win)}.`,
 			adjLettura: s.adj.dict
 		};
+	}
+	function makeForma(f: FraseForma): Round {
+		const full = f.frase.replace('＿＿', f.corretta);
+		return {
+			kind: 'forma',
+			key: f.frase,
+			questionJp: f.frase,
+			contextIt: '',
+			choices: shuffle([f.corretta, ...f.distrattori]),
+			correct: f.corretta,
+			tokens: [],
+			revealJp: full,
+			revealIt: f.it,
+			adjLettura: '',
+			note: f.perche
+		};
+	}
+
+	// Ultime domande viste: si ripescano solo quando quelle nuove finiscono.
+	const RECENT_KEY = 'renkei-comparazioni-recenti';
+	const RECENT_MAX = 60;
+	function loadRecent(): string[] {
+		try {
+			return JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]') as string[];
+		} catch {
+			return [];
+		}
+	}
+	function saveRecent(keys: string[]): void {
+		try {
+			localStorage.setItem(RECENT_KEY, JSON.stringify(keys.slice(-RECENT_MAX)));
+		} catch {
+			/* pazienza */
+		}
 	}
 
 	type Scene = 'level' | 'play' | 'done';
@@ -137,17 +190,23 @@
 
 	function pickLevel(l: Lvl | 'tutti'): void {
 		level = l;
+		// Un solo round per coppia, col tipo a caso; prima ciò che non si è visto di recente.
 		const cand: Round[] = [];
 		for (const p of coppie) {
 			if (!inLevel(p.level)) continue;
-			cand.push(makeDochi(p));
-			cand.push(makeCompose(p));
-			if (level !== 'N5') cand.push(makeHodo(p)); // ほど〜ない è N4
+			const makers = level === 'N5' ? [makeDochi, makeCompose] : [makeDochi, makeCompose, makeHodo]; // ほど〜ない è N4
+			cand.push(makers[Math.floor(Math.random() * makers.length)]!(p));
 		}
 		for (const s of superlativi) {
 			if (inLevel(s.level)) cand.push(makeIchiban(s));
 		}
-		rounds = shuffle(cand).slice(0, ROUNDS_PER_GAME);
+		for (const f of frasi) {
+			if (inLevel(f.level)) cand.push(makeForma(f));
+		}
+		const recent = new Set(loadRecent());
+		const mixed = shuffle(cand);
+		rounds = [...mixed.filter((r) => !recent.has(r.key)), ...mixed.filter((r) => recent.has(r.key))].slice(0, ROUNDS_PER_GAME);
+		saveRecent([...loadRecent().filter((k) => !rounds.some((r) => r.key === k)), ...rounds.map((r) => r.key)]);
 		idx = 0;
 		score = 0;
 		scene = 'play';
@@ -225,8 +284,8 @@
 		<article class="scene">
 			<h1 class="page-title">⚖️ Comparazioni <span class="beta-chip">beta</span></h1>
 			<p class="hint">
-				La grammatica del confronto: より・のほうが (più di), いちばん (il più) e ほど〜ない
-				(non… quanto). Scegli il vincitore, il superlativo o componi la frase.
+				La grammatica del confronto: より・のほうが (più di), いちばん (il più), ほど〜ない
+				(non… quanto) e 同じくらい (come). Scegli il vincitore o la forma giusta, oppure componi la frase.
 			</p>
 			<div class="choices plat">
 				<button class="choice" onclick={() => pickLevel('N5')}>🌱 N5</button>
@@ -269,8 +328,9 @@
 			{#if answered !== null}
 				<div class="reveal">
 					<p class="who">{answered ? '✅ Giusto!' : '❌ Non era così'}</p>
-					<p class="reveal-jp"><InteractiveSentence text={r.revealJp} /></p>
+					<p class="reveal-jp"><InteractiveSentence text={r.revealJp} furigana /></p>
 					<p class="hint">{r.revealIt}</p>
+					{#if r.note}<p class="hint">💡 {r.note}</p>{/if}
 					<button class="listen" onclick={() => speakSentenceJapanese(r.revealJp)}>🔊 もう一度</button>
 				</div>
 				<button class="proceed" onclick={next}>{idx < rounds.length - 1 ? 'Avanti →' : 'Risultato →'}</button>

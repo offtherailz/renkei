@@ -1,24 +1,1581 @@
 {
-  "_nota": "Dati curati per il gioco ⚖️ Comparazioni. Fatti veri e non opinabili. jp in kana (livello N5) o kanji (N4). adj.dict = forma del dizionario (い-aggettivo), adj.neg = negativa 〜くない fornita esplicita (niente derivazione automatica). La traduzione italiana delle frasi è costruita a runtime dalle glosse .it.",
-  "coppie": [
-    { "a": { "jp": "ねこ", "it": "il gatto" }, "b": { "jp": "ぞう", "it": "l'elefante" }, "adj": { "dict": "おおきい", "neg": "おおきくない", "it": "grande" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "じてんしゃ", "it": "la bicicletta" }, "b": { "jp": "しんかんせん", "it": "lo shinkansen" }, "adj": { "dict": "はやい", "neg": "はやくない", "it": "veloce" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "でんしゃ", "it": "il treno" }, "b": { "jp": "ひこうき", "it": "l'aereo" }, "adj": { "dict": "はやい", "neg": "はやくない", "it": "veloce" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "スカイツリー", "it": "la Skytree" }, "b": { "jp": "ふじさん", "it": "il monte Fuji" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "alto" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "おか", "it": "la collina" }, "b": { "jp": "やま", "it": "la montagna" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "alto" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "ふゆ", "it": "l'inverno" }, "b": { "jp": "なつ", "it": "l'estate" }, "adj": { "dict": "あつい", "neg": "あつくない", "it": "caldo" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "つき", "it": "la luna" }, "b": { "jp": "たいよう", "it": "il sole" }, "adj": { "dict": "あかるい", "neg": "あかるくない", "it": "luminoso" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "さかな", "it": "il pesce" }, "b": { "jp": "くじら", "it": "la balena" }, "adj": { "dict": "おおきい", "neg": "おおきくない", "it": "grande" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "ぎん", "it": "l'argento" }, "b": { "jp": "きん", "it": "l'oro" }, "adj": { "dict": "たかい", "neg": "たかくない", "it": "costoso" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "みず", "it": "l'acqua" }, "b": { "jp": "こおり", "it": "il ghiaccio" }, "adj": { "dict": "つめたい", "neg": "つめたくない", "it": "freddo" }, "winner": "b", "level": "N5" },
-    { "a": { "jp": "大阪", "it": "Osaka" }, "b": { "jp": "東京", "it": "Tokyo" }, "adj": { "dict": "おおい", "neg": "おおくない", "it": "numeroso (di abitanti)" }, "winner": "b", "level": "N4" },
-    { "a": { "jp": "秋", "it": "l'autunno" }, "b": { "jp": "冬", "it": "l'inverno" }, "adj": { "dict": "さむい", "neg": "さむくない", "it": "freddo" }, "winner": "b", "level": "N4" },
-    { "a": { "jp": "川", "it": "il fiume" }, "b": { "jp": "海", "it": "il mare" }, "adj": { "dict": "ひろい", "neg": "ひろくない", "it": "vasto" }, "winner": "b", "level": "N4" }
-  ],
-  "superlativi": [
-    { "gruppo": { "it": "le montagne del mondo" }, "items": [{ "jp": "エベレスト", "it": "l'Everest" }, { "jp": "ふじさん", "it": "il monte Fuji" }, { "jp": "スカイツリー", "it": "la Skytree" }], "adj": { "dict": "たかい", "it": "alto" }, "winner": 0, "level": "N5" },
-    { "gruppo": { "it": "gli animali" }, "items": [{ "jp": "ぞう", "it": "l'elefante" }, { "jp": "ねこ", "it": "il gatto" }, { "jp": "ねずみ", "it": "il topo" }], "adj": { "dict": "おおきい", "it": "grande" }, "winner": 0, "level": "N5" },
-    { "gruppo": { "it": "i mezzi di trasporto" }, "items": [{ "jp": "ひこうき", "it": "l'aereo" }, { "jp": "しんかんせん", "it": "lo shinkansen" }, { "jp": "じてんしゃ", "it": "la bicicletta" }], "adj": { "dict": "はやい", "it": "veloce" }, "winner": 0, "level": "N5" },
-    { "gruppo": { "it": "le stagioni" }, "items": [{ "jp": "なつ", "it": "l'estate" }, { "jp": "はる", "it": "la primavera" }, { "jp": "ふゆ", "it": "l'inverno" }], "adj": { "dict": "あつい", "it": "caldo" }, "winner": 0, "level": "N5" }
-  ]
+ "_nota": "Dati curati per il gioco ⚖️ Comparazioni. Fatti veri e non opinabili. jp in kana (livello N5) o kanji (N4). adj.dict = forma del dizionario (い-aggettivo), adj.neg = negativa 〜くない fornita esplicita (niente derivazione automatica). La traduzione italiana delle frasi è costruita a runtime dalle glosse .it.",
+ "coppie": [
+  {
+   "a": {
+    "jp": "ねこ",
+    "it": "il gatto"
+   },
+   "b": {
+    "jp": "ぞう",
+    "it": "l'elefante"
+   },
+   "adj": {
+    "dict": "おおきい",
+    "neg": "おおきくない",
+    "it": "grande"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "じてんしゃ",
+    "it": "la bicicletta"
+   },
+   "b": {
+    "jp": "しんかんせん",
+    "it": "lo shinkansen"
+   },
+   "adj": {
+    "dict": "はやい",
+    "neg": "はやくない",
+    "it": "veloce"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "でんしゃ",
+    "it": "il treno"
+   },
+   "b": {
+    "jp": "ひこうき",
+    "it": "l'aereo"
+   },
+   "adj": {
+    "dict": "はやい",
+    "neg": "はやくない",
+    "it": "veloce"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "スカイツリー",
+    "it": "la Skytree",
+    "f": true
+   },
+   "b": {
+    "jp": "ふじさん",
+    "it": "il monte Fuji"
+   },
+   "adj": {
+    "dict": "たかい",
+    "neg": "たかくない",
+    "it": "alto"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "おか",
+    "it": "la collina",
+    "f": true
+   },
+   "b": {
+    "jp": "やま",
+    "it": "la montagna",
+    "f": true
+   },
+   "adj": {
+    "dict": "たかい",
+    "neg": "たかくない",
+    "it": "alto"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ふゆ",
+    "it": "l'inverno"
+   },
+   "b": {
+    "jp": "なつ",
+    "it": "l'estate",
+    "f": true
+   },
+   "adj": {
+    "dict": "あつい",
+    "neg": "あつくない",
+    "it": "caldo"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "つき",
+    "it": "la luna",
+    "f": true
+   },
+   "b": {
+    "jp": "たいよう",
+    "it": "il sole"
+   },
+   "adj": {
+    "dict": "あかるい",
+    "neg": "あかるくない",
+    "it": "luminoso"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "さかな",
+    "it": "il pesce"
+   },
+   "b": {
+    "jp": "くじら",
+    "it": "la balena",
+    "f": true
+   },
+   "adj": {
+    "dict": "おおきい",
+    "neg": "おおきくない",
+    "it": "grande"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ぎん",
+    "it": "l'argento"
+   },
+   "b": {
+    "jp": "きん",
+    "it": "l'oro"
+   },
+   "adj": {
+    "dict": "たかい",
+    "neg": "たかくない",
+    "it": "costoso"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "みず",
+    "it": "l'acqua",
+    "f": true
+   },
+   "b": {
+    "jp": "こおり",
+    "it": "il ghiaccio"
+   },
+   "adj": {
+    "dict": "つめたい",
+    "neg": "つめたくない",
+    "it": "freddo"
+   },
+   "winner": "b",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "秋",
+    "it": "l'autunno"
+   },
+   "b": {
+    "jp": "冬",
+    "it": "l'inverno"
+   },
+   "adj": {
+    "dict": "さむい",
+    "neg": "さむくない",
+    "it": "freddo"
+   },
+   "winner": "b",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "川",
+    "it": "il fiume"
+   },
+   "b": {
+    "jp": "海",
+    "it": "il mare"
+   },
+   "adj": {
+    "dict": "ひろい",
+    "neg": "ひろくない",
+    "it": "vasto"
+   },
+   "winner": "b",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "ねずみ",
+    "it": "il topo"
+   },
+   "b": {
+    "jp": "ねこ",
+    "it": "il gatto"
+   },
+   "adj": {
+    "dict": "ちいさい",
+    "neg": "ちいさくない",
+    "it": "piccolo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "あり",
+    "it": "la formica",
+    "f": true
+   },
+   "b": {
+    "jp": "いぬ",
+    "it": "il cane"
+   },
+   "adj": {
+    "dict": "ちいさい",
+    "neg": "ちいさくない",
+    "it": "piccolo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "じてんしゃ",
+    "it": "la bicicletta",
+    "f": true
+   },
+   "b": {
+    "jp": "くるま",
+    "it": "l'automobile",
+    "f": true
+   },
+   "adj": {
+    "dict": "おそい",
+    "neg": "おそくない",
+    "it": "lento"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ふね",
+    "it": "la nave",
+    "f": true
+   },
+   "b": {
+    "jp": "ひこうき",
+    "it": "l'aereo"
+   },
+   "adj": {
+    "dict": "おそい",
+    "neg": "おそくない",
+    "it": "lento"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "かめ",
+    "it": "la tartaruga",
+    "f": true
+   },
+   "b": {
+    "jp": "うま",
+    "it": "il cavallo"
+   },
+   "adj": {
+    "dict": "おそい",
+    "neg": "おそくない",
+    "it": "lento"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "おか",
+    "it": "la collina",
+    "f": true
+   },
+   "b": {
+    "jp": "やま",
+    "it": "la montagna",
+    "f": true
+   },
+   "adj": {
+    "dict": "ひくい",
+    "neg": "ひくくない",
+    "it": "basso"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ふゆ",
+    "it": "l'inverno"
+   },
+   "b": {
+    "jp": "なつ",
+    "it": "l'estate",
+    "f": true
+   },
+   "adj": {
+    "dict": "さむい",
+    "neg": "さむくない",
+    "it": "freddo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "つき",
+    "it": "la luna",
+    "f": true
+   },
+   "b": {
+    "jp": "たいよう",
+    "it": "il sole"
+   },
+   "adj": {
+    "dict": "ちいさい",
+    "neg": "ちいさくない",
+    "it": "piccolo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ちきゅう",
+    "it": "la Terra",
+    "f": true
+   },
+   "b": {
+    "jp": "つき",
+    "it": "la luna",
+    "f": true
+   },
+   "adj": {
+    "dict": "おおきい",
+    "neg": "おおきくない",
+    "it": "grande"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "てつ",
+    "it": "il ferro"
+   },
+   "b": {
+    "jp": "かみ",
+    "it": "la carta",
+    "f": true
+   },
+   "adj": {
+    "dict": "おもい",
+    "neg": "おもくない",
+    "it": "pesante"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "かみ",
+    "it": "la carta",
+    "f": true
+   },
+   "b": {
+    "jp": "いし",
+    "it": "la pietra",
+    "f": true
+   },
+   "adj": {
+    "dict": "かるい",
+    "neg": "かるくない",
+    "it": "leggero"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ぞう",
+    "it": "l'elefante"
+   },
+   "b": {
+    "jp": "いぬ",
+    "it": "il cane"
+   },
+   "adj": {
+    "dict": "おもい",
+    "neg": "おもくない",
+    "it": "pesante"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "いちねん",
+    "it": "un anno"
+   },
+   "b": {
+    "jp": "いっしゅうかん",
+    "it": "una settimana",
+    "f": true
+   },
+   "adj": {
+    "dict": "ながい",
+    "neg": "ながくない",
+    "it": "lungo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "いちじかん",
+    "it": "un'ora",
+    "f": true
+   },
+   "b": {
+    "jp": "いっぷん",
+    "it": "un minuto"
+   },
+   "adj": {
+    "dict": "ながい",
+    "neg": "ながくない",
+    "it": "lungo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "いちにち",
+    "it": "un giorno"
+   },
+   "b": {
+    "jp": "いっしゅうかん",
+    "it": "una settimana",
+    "f": true
+   },
+   "adj": {
+    "dict": "みじかい",
+    "neg": "みじかくない",
+    "it": "breve"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "あかちゃん",
+    "it": "il neonato"
+   },
+   "b": {
+    "jp": "おじいさん",
+    "it": "il nonno"
+   },
+   "adj": {
+    "dict": "わかい",
+    "neg": "わかくない",
+    "it": "giovane"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ひる",
+    "it": "il giorno"
+   },
+   "b": {
+    "jp": "よる",
+    "it": "la notte",
+    "f": true
+   },
+   "adj": {
+    "dict": "あかるい",
+    "neg": "あかるくない",
+    "it": "luminoso"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "よる",
+    "it": "la notte",
+    "f": true
+   },
+   "b": {
+    "jp": "ひる",
+    "it": "il giorno"
+   },
+   "adj": {
+    "dict": "くらい",
+    "neg": "くらくない",
+    "it": "buio"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "いけ",
+    "it": "lo stagno"
+   },
+   "b": {
+    "jp": "うみ",
+    "it": "il mare"
+   },
+   "adj": {
+    "dict": "せまい",
+    "neg": "せまくない",
+    "it": "piccolo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ゆき",
+    "it": "la neve",
+    "f": true
+   },
+   "b": {
+    "jp": "おゆ",
+    "it": "l'acqua calda",
+    "f": true
+   },
+   "adj": {
+    "dict": "つめたい",
+    "neg": "つめたくない",
+    "it": "freddo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "こども",
+    "it": "il bambino"
+   },
+   "b": {
+    "jp": "おとな",
+    "it": "l'adulto"
+   },
+   "adj": {
+    "dict": "ちいさい",
+    "neg": "ちいさくない",
+    "it": "piccolo"
+   },
+   "winner": "a",
+   "level": "N5"
+  },
+  {
+   "a": {
+    "jp": "ひこうき",
+    "it": "l'aereo"
+   },
+   "b": {
+    "jp": "電車",
+    "it": "il treno"
+   },
+   "adj": {
+    "dict": "はやい",
+    "neg": "はやくない",
+    "it": "veloce"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "自転車",
+    "it": "la bicicletta",
+    "f": true
+   },
+   "b": {
+    "jp": "車",
+    "it": "l'automobile",
+    "f": true
+   },
+   "adj": {
+    "dict": "おそい",
+    "neg": "おそくない",
+    "it": "lento"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "夏",
+    "it": "l'estate",
+    "f": true
+   },
+   "b": {
+    "jp": "春",
+    "it": "la primavera",
+    "f": true
+   },
+   "adj": {
+    "dict": "あつい",
+    "neg": "あつくない",
+    "it": "caldo"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "一日",
+    "it": "un giorno"
+   },
+   "b": {
+    "jp": "一週間",
+    "it": "una settimana",
+    "f": true
+   },
+   "adj": {
+    "dict": "みじかい",
+    "neg": "みじかくない",
+    "it": "breve"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "一年",
+    "it": "un anno"
+   },
+   "b": {
+    "jp": "一か月",
+    "it": "un mese"
+   },
+   "adj": {
+    "dict": "ながい",
+    "neg": "ながくない",
+    "it": "lungo"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "海",
+    "it": "il mare"
+   },
+   "b": {
+    "jp": "いけ",
+    "it": "lo stagno"
+   },
+   "adj": {
+    "dict": "ふかい",
+    "neg": "ふかくない",
+    "it": "profondo"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "図書館",
+    "it": "la biblioteca",
+    "f": true
+   },
+   "b": {
+    "jp": "教室",
+    "it": "l'aula",
+    "f": true
+   },
+   "adj": {
+    "dict": "ひろい",
+    "neg": "ひろくない",
+    "it": "grande"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "てつ",
+    "it": "il ferro"
+   },
+   "b": {
+    "jp": "紙",
+    "it": "la carta",
+    "f": true
+   },
+   "adj": {
+    "dict": "おもい",
+    "neg": "おもくない",
+    "it": "pesante"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "紙",
+    "it": "la carta",
+    "f": true
+   },
+   "b": {
+    "jp": "いし",
+    "it": "la pietra",
+    "f": true
+   },
+   "adj": {
+    "dict": "かるい",
+    "neg": "かるくない",
+    "it": "leggero"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "朝",
+    "it": "il mattino"
+   },
+   "b": {
+    "jp": "夜",
+    "it": "la notte",
+    "f": true
+   },
+   "adj": {
+    "dict": "あかるい",
+    "neg": "あかるくない",
+    "it": "luminoso"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "夜",
+    "it": "la notte",
+    "f": true
+   },
+   "b": {
+    "jp": "昼",
+    "it": "il giorno"
+   },
+   "adj": {
+    "dict": "くらい",
+    "neg": "くらくない",
+    "it": "buio"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "大人",
+    "it": "l'adulto"
+   },
+   "b": {
+    "jp": "子ども",
+    "it": "il bambino"
+   },
+   "adj": {
+    "dict": "おおきい",
+    "neg": "おおきくない",
+    "it": "grande"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "学生",
+    "it": "lo studente"
+   },
+   "b": {
+    "jp": "そふ",
+    "it": "il nonno"
+   },
+   "adj": {
+    "dict": "わかい",
+    "neg": "わかくない",
+    "it": "giovane"
+   },
+   "winner": "a",
+   "level": "N4"
+  },
+  {
+   "a": {
+    "jp": "ふじさん",
+    "it": "il monte Fuji"
+   },
+   "b": {
+    "jp": "東京タワー",
+    "it": "la Tokyo Tower",
+    "f": true
+   },
+   "adj": {
+    "dict": "たかい",
+    "neg": "たかくない",
+    "it": "alto"
+   },
+   "winner": "a",
+   "level": "N4"
+  }
+ ],
+ "superlativi": [
+  {
+   "gruppo": {
+    "it": "le montagne del mondo"
+   },
+   "items": [
+    {
+     "jp": "エベレスト",
+     "it": "l'Everest"
+    },
+    {
+     "jp": "ふじさん",
+     "it": "il monte Fuji"
+    },
+    {
+     "jp": "スカイツリー",
+     "it": "la Skytree",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "たかい",
+    "it": "alto"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "gli animali"
+   },
+   "items": [
+    {
+     "jp": "ぞう",
+     "it": "l'elefante"
+    },
+    {
+     "jp": "ねこ",
+     "it": "il gatto"
+    },
+    {
+     "jp": "ねずみ",
+     "it": "il topo"
+    }
+   ],
+   "adj": {
+    "dict": "おおきい",
+    "it": "grande"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "i mezzi di trasporto"
+   },
+   "items": [
+    {
+     "jp": "ひこうき",
+     "it": "l'aereo"
+    },
+    {
+     "jp": "しんかんせん",
+     "it": "lo shinkansen"
+    },
+    {
+     "jp": "じてんしゃ",
+     "it": "la bicicletta"
+    }
+   ],
+   "adj": {
+    "dict": "はやい",
+    "it": "veloce"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "le stagioni"
+   },
+   "items": [
+    {
+     "jp": "なつ",
+     "it": "l'estate",
+     "f": true
+    },
+    {
+     "jp": "はる",
+     "it": "la primavera",
+     "f": true
+    },
+    {
+     "jp": "ふゆ",
+     "it": "l'inverno"
+    }
+   ],
+   "adj": {
+    "dict": "あつい",
+    "it": "caldo"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "i tempi"
+   },
+   "items": [
+    {
+     "jp": "いちびょう",
+     "it": "un secondo"
+    },
+    {
+     "jp": "いっぷん",
+     "it": "un minuto"
+    },
+    {
+     "jp": "いちじかん",
+     "it": "un'ora",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "みじかい",
+    "it": "breve"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "gli animali"
+   },
+   "items": [
+    {
+     "jp": "あり",
+     "it": "la formica",
+     "f": true
+    },
+    {
+     "jp": "ねこ",
+     "it": "il gatto"
+    },
+    {
+     "jp": "うま",
+     "it": "il cavallo"
+    }
+   ],
+   "adj": {
+    "dict": "ちいさい",
+    "it": "piccolo"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "gli animali"
+   },
+   "items": [
+    {
+     "jp": "かめ",
+     "it": "la tartaruga",
+     "f": true
+    },
+    {
+     "jp": "うさぎ",
+     "it": "il coniglio"
+    },
+    {
+     "jp": "うま",
+     "it": "il cavallo"
+    }
+   ],
+   "adj": {
+    "dict": "おそい",
+    "it": "lento"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "i materiali"
+   },
+   "items": [
+    {
+     "jp": "てつ",
+     "it": "il ferro"
+    },
+    {
+     "jp": "き",
+     "it": "il legno"
+    },
+    {
+     "jp": "かみ",
+     "it": "la carta",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "おもい",
+    "it": "pesante"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "le stagioni"
+   },
+   "items": [
+    {
+     "jp": "ふゆ",
+     "it": "l'inverno"
+    },
+    {
+     "jp": "はる",
+     "it": "la primavera",
+     "f": true
+    },
+    {
+     "jp": "あき",
+     "it": "l'autunno"
+    }
+   ],
+   "adj": {
+    "dict": "さむい",
+    "it": "freddo"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "nel cielo"
+   },
+   "items": [
+    {
+     "jp": "たいよう",
+     "it": "il sole"
+    },
+    {
+     "jp": "ちきゅう",
+     "it": "la Terra",
+     "f": true
+    },
+    {
+     "jp": "つき",
+     "it": "la luna",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "おおきい",
+    "it": "grande"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "i tempi"
+   },
+   "items": [
+    {
+     "jp": "いちねん",
+     "it": "un anno"
+    },
+    {
+     "jp": "ひとつき",
+     "it": "un mese"
+    },
+    {
+     "jp": "いっしゅうかん",
+     "it": "una settimana",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "ながい",
+    "it": "lungo"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "la giornata"
+   },
+   "items": [
+    {
+     "jp": "よる",
+     "it": "la notte",
+     "f": true
+    },
+    {
+     "jp": "ゆうがた",
+     "it": "la sera",
+     "f": true
+    },
+    {
+     "jp": "ひる",
+     "it": "il giorno"
+    }
+   ],
+   "adj": {
+    "dict": "くらい",
+    "it": "buio"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "l'acqua"
+   },
+   "items": [
+    {
+     "jp": "うみ",
+     "it": "il mare"
+    },
+    {
+     "jp": "かわ",
+     "it": "il fiume"
+    },
+    {
+     "jp": "いけ",
+     "it": "lo stagno"
+    }
+   ],
+   "adj": {
+    "dict": "ひろい",
+    "it": "grande"
+   },
+   "winner": 0,
+   "level": "N5"
+  },
+  {
+   "gruppo": {
+    "it": "l'acqua"
+   },
+   "items": [
+    {
+     "jp": "海",
+     "it": "il mare"
+    },
+    {
+     "jp": "川",
+     "it": "il fiume"
+    },
+    {
+     "jp": "いけ",
+     "it": "lo stagno"
+    }
+   ],
+   "adj": {
+    "dict": "ふかい",
+    "it": "profondo"
+   },
+   "winner": 0,
+   "level": "N4"
+  },
+  {
+   "gruppo": {
+    "it": "i materiali"
+   },
+   "items": [
+    {
+     "jp": "てつ",
+     "it": "il ferro"
+    },
+    {
+     "jp": "木",
+     "it": "il legno"
+    },
+    {
+     "jp": "紙",
+     "it": "la carta",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "おもい",
+    "it": "pesante"
+   },
+   "winner": 0,
+   "level": "N4"
+  },
+  {
+   "gruppo": {
+    "it": "i tempi"
+   },
+   "items": [
+    {
+     "jp": "一日",
+     "it": "un giorno"
+    },
+    {
+     "jp": "一週間",
+     "it": "una settimana",
+     "f": true
+    },
+    {
+     "jp": "一年",
+     "it": "un anno"
+    }
+   ],
+   "adj": {
+    "dict": "みじかい",
+    "it": "breve"
+   },
+   "winner": 0,
+   "level": "N4"
+  },
+  {
+   "gruppo": {
+    "it": "i mezzi di trasporto"
+   },
+   "items": [
+    {
+     "jp": "ひこうき",
+     "it": "l'aereo"
+    },
+    {
+     "jp": "電車",
+     "it": "il treno"
+    },
+    {
+     "jp": "自転車",
+     "it": "la bicicletta",
+     "f": true
+    }
+   ],
+   "adj": {
+    "dict": "はやい",
+    "it": "veloce"
+   },
+   "winner": 0,
+   "level": "N4"
+  },
+  {
+   "gruppo": {
+    "it": "le stagioni"
+   },
+   "items": [
+    {
+     "jp": "夏",
+     "it": "l'estate",
+     "f": true
+    },
+    {
+     "jp": "春",
+     "it": "la primavera",
+     "f": true
+    },
+    {
+     "jp": "冬",
+     "it": "l'inverno"
+    }
+   ],
+   "adj": {
+    "dict": "あつい",
+    "it": "caldo"
+   },
+   "winner": 0,
+   "level": "N4"
+  }
+ ],
+ "frasi": [
+  {
+   "frase": "ひらがなは かんじ＿＿ やさしいです。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "から",
+    "で"
+   ],
+   "it": "L'hiragana è più facile dei kanji.",
+   "perche": "Il termine di paragone prende より. ほど va con il verbo negativo.",
+   "level": "N5"
+  },
+  {
+   "frase": "バスより でんしゃの＿＿が はやいです。",
+   "corretta": "ほう",
+   "distrattori": [
+    "より",
+    "いちばん",
+    "ほど"
+   ],
+   "it": "Il treno è più veloce dell'autobus.",
+   "perche": "Schema fisso: AよりBのほうが.",
+   "level": "N5"
+  },
+  {
+   "frase": "くだものの 中＿＿ りんごが いちばん すきです。",
+   "corretta": "で",
+   "distrattori": [
+    "に",
+    "が",
+    "を"
+   ],
+   "it": "Tra i frutti, la mela è quello che mi piace di più.",
+   "perche": "Il gruppo in cui si sceglie: 〜の中で.",
+   "level": "N5"
+  },
+  {
+   "frase": "コーヒーと こうちゃと、＿＿が いいですか。",
+   "corretta": "どちら",
+   "distrattori": [
+    "どれ",
+    "なに",
+    "どこ"
+   ],
+   "it": "Tra caffè e tè, quale preferisce?",
+   "perche": "Con due cose si usa どちら. どれ è per tre o più.",
+   "level": "N5"
+  },
+  {
+   "frase": "りんごと みかんと バナナの 中で、＿＿が いちばん すきですか。",
+   "corretta": "どれ",
+   "distrattori": [
+    "どちら",
+    "だれ",
+    "どこ"
+   ],
+   "it": "Tra mele, mandarini e banane, quale ti piace di più?",
+   "perche": "Con tre o più cose si usa どれ.",
+   "level": "N5"
+  },
+  {
+   "frase": "クラスで ＿＿ せが たかいのは たなかさんです。",
+   "corretta": "いちばん",
+   "distrattori": [
+    "より",
+    "ほう",
+    "ほど"
+   ],
+   "it": "Il più alto della classe è Tanaka.",
+   "perche": "Il massimo in un gruppo: いちばん + aggettivo.",
+   "level": "N5"
+  },
+  {
+   "frase": "かぞくの 中で ＿＿が いちばん せが たかいですか。",
+   "corretta": "だれ",
+   "distrattori": [
+    "どれ",
+    "なに",
+    "どこ"
+   ],
+   "it": "Chi è il più alto della famiglia?",
+   "perche": "Tra persone si chiede con だれ.",
+   "level": "N5"
+  },
+  {
+   "frase": "いちねんで ＿＿が いちばん さむいですか。",
+   "corretta": "いつ",
+   "distrattori": [
+    "だれ",
+    "なに",
+    "どこ"
+   ],
+   "it": "Qual è il periodo più freddo dell'anno?",
+   "perche": "Nel confronto tra periodi si chiede con いつ.",
+   "level": "N5"
+  },
+  {
+   "frase": "あには わたし＿＿ せが たかいです。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "と",
+    "が"
+   ],
+   "it": "Mio fratello maggiore è più alto di me.",
+   "perche": "AはBより + aggettivo.",
+   "level": "N5"
+  },
+  {
+   "frase": "「やまと うみと どちらが すきですか。」「＿＿ すきです。」",
+   "corretta": "どちらも",
+   "distrattori": [
+    "どちら",
+    "どれも",
+    "だれも"
+   ],
+   "it": "«Preferisci la montagna o il mare?» «Mi piacciono entrambi.»",
+   "perche": "Entrambe le cose di una coppia: どちらも.",
+   "level": "N5"
+  },
+  {
+   "frase": "でんしゃ＿＿ バスの ほうが やすいです。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "から",
+    "まで"
+   ],
+   "it": "L'autobus costa meno del treno.",
+   "perche": "Schema fisso: AよりBのほうが.",
+   "level": "N5"
+  },
+  {
+   "frase": "今年の夏は去年＿＿あつくないです。",
+   "corretta": "ほど",
+   "distrattori": [
+    "しか",
+    "だけ",
+    "に"
+   ],
+   "it": "Quest'estate non è calda come quella dell'anno scorso.",
+   "perche": "A non è… quanto B: AはBほど + negativo.",
+   "level": "N4"
+  },
+  {
+   "frase": "この町は東京＿＿にぎやかではありません。",
+   "corretta": "ほど",
+   "distrattori": [
+    "しか",
+    "に",
+    "を"
+   ],
+   "it": "Questa città non è vivace come Tokyo.",
+   "perche": "ほど regge il predicato negativo.",
+   "level": "N4"
+  },
+  {
+   "frase": "このかばんはあのかばんと＿＿くらい高いです。",
+   "corretta": "同じ",
+   "distrattori": [
+    "いちばん",
+    "より",
+    "ほど"
+   ],
+   "it": "Questa borsa costa più o meno come quella.",
+   "perche": "Uguaglianza: AはBと同じくらい + aggettivo.",
+   "level": "N4"
+  },
+  {
+   "frase": "弟は父と同じ＿＿せが高いです。",
+   "corretta": "くらい",
+   "distrattori": [
+    "より",
+    "ほう",
+    "しか"
+   ],
+   "it": "Mio fratello minore è alto più o meno come mio padre.",
+   "perche": "同じくらい: «più o meno uguale».",
+   "level": "N4"
+  },
+  {
+   "frase": "ひこうきで行く＿＿、しんかんせんで行くほうが安いです。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "のが",
+    "ほう"
+   ],
+   "it": "Andare in shinkansen costa meno che andare in aereo.",
+   "perche": "Anche con i verbi: forma in dizionario + より.",
+   "level": "N4"
+  },
+  {
+   "frase": "電車で行く＿＿が早いですよ。",
+   "corretta": "ほう",
+   "distrattori": [
+    "より",
+    "ほど",
+    "いちばん"
+   ],
+   "it": "Fai prima se vai in treno.",
+   "perche": "Si indica l'opzione migliore con forma in dizionario + ほうが.",
+   "level": "N4"
+  },
+  {
+   "frase": "日本語の勉強で、＿＿むずかしいのは漢字です。",
+   "corretta": "いちばん",
+   "distrattori": [
+    "より",
+    "ほう",
+    "ほど"
+   ],
+   "it": "Nello studio del giapponese, la cosa più difficile sono i kanji.",
+   "perche": "Il massimo in un ambito: 一番 + aggettivo.",
+   "level": "N4"
+  },
+  {
+   "frase": "このへやは少しくらいから、＿＿明るいへやがいいです。",
+   "corretta": "もっと",
+   "distrattori": [
+    "ぜんぜん",
+    "あまり",
+    "ほど"
+   ],
+   "it": "Questa stanza è un po' buia: ne vorrei una più luminosa.",
+   "perche": "Più di così: もっと + aggettivo. ぜんぜん e あまり vogliono il negativo.",
+   "level": "N4"
+  },
+  {
+   "frase": "兄は私＿＿ずっとせが高いです。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "しか",
+    "と"
+   ],
+   "it": "Mio fratello maggiore è molto più alto di me.",
+   "perche": "ずっと rafforza il paragone con より.",
+   "level": "N4"
+  },
+  {
+   "frase": "テストは思った＿＿かんたんでした。",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "ほう",
+    "しか"
+   ],
+   "it": "Il test è stato più facile di quanto pensassi.",
+   "perche": "Predicato affermativo: より. 思ったほど vorrebbe il negativo.",
+   "level": "N4"
+  },
+  {
+   "frase": "A「肉と魚と、どちらがすきですか。」B「肉＿＿魚のほうがすきです。」",
+   "corretta": "より",
+   "distrattori": [
+    "ほど",
+    "から",
+    "まで"
+   ],
+   "it": "A: «Preferisci la carne o il pesce?» B: «Preferisco il pesce alla carne.»",
+   "perche": "Schema fisso: AよりBのほうが.",
+   "level": "N4"
+  }
+ ]
 }
