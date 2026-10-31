@@ -9,7 +9,16 @@ export interface ListenItem {
 	jp: string; // ciò che dice la voce giapponese
 	it: string;
 	scritto: string; // come mostrarlo a chi tira fuori il telefono
+	cat?: string; // categoria nel mix «Tutto per l'esame»
+	steps?: ListenStep[]; // sequenza propria; senza, la decide la direzione scelta
 }
+export type ListenStep =
+	| { t: 'ja'; text: string; rate?: number; voice?: 'M' | 'F' }
+	| { t: 'it'; text: string }
+	| { t: 'wait'; ms: number }
+	| { t: 'recall'; ms: number } // pausa per ricordare: dopo si mostra la soluzione
+	| { t: 'esame'; prompt: string } // prova d'ascolto a più voci
+	| { t: 'scelte'; prompt: string; options: string[] }; // battuta e risposte numerate
 export type ListenDirection = 'jp-it' | 'it-jp';
 export type ListenPause = 'breve' | 'media' | 'lunga';
 

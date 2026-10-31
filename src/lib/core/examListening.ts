@@ -11,6 +11,12 @@ import { voiceParams, type Gender } from './voices';
 let playToken = 0;
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+// Ferma la lettura in corso: senza il token, dopo lo stop partirebbe la battuta dopo.
+export function stopExamListening(): void {
+	playToken += 1;
+	stopSpeaking();
+}
+
 // Suono tipico prima dell'ascolto (il «ポーン» dell'esame): due note soft in
 // Web Audio. Segnala «ora parte l'audio» e dà il tempo di prepararsi. Se il
 // browser blocca l'AudioContext (nessun gesto recente) fallisce in silenzio.
@@ -63,7 +69,7 @@ async function runSequence(items: Seg[], token: number): Promise<void> {
 			await delay(it.pause);
 			continue;
 		}
-		if (it.text) await speakSentenceJapaneseAsync(it.text, it.options);
+		if (it.text) await speakSentenceJapaneseAsync(it.text, { waitMs: 25000, ...it.options });
 	}
 }
 

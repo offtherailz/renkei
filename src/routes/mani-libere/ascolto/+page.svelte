@@ -3,8 +3,12 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
+	import { speakExamChoices, speakExamListening, stopExamListening } from '$lib/core/examListening';
+	import { voiceParams } from '$lib/core/voices';
 	import { GRAMMAR_CURATED_ITEMS } from '$lib/data/propedeutiche';
-	import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenDirection, type ListenItem, type ListenPause } from '$lib/core/listenOnly';
+	import { LISTENING_DIALOGUES } from '$lib/core/listeningDialogues';
+	import { buildExamMix, buildMixQueue } from '$lib/core/listenExam';
+	import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from '$lib/core/listenOnly';
 
 	// 🎧 Solo ascolto: niente microfono né tocchi. La voce propone, pausa per il
 	// richiamo, poi la risposta. Pensato per il telefono in tasca: lo schermo resta
@@ -14,12 +18,12 @@
 	const SEEN_MAX_CHARS = 1_000_000;
 
 	type Scene = 'intro' | 'play' | 'done';
-	type Content = 'frasi' | 'parole';
+	type Content = 'tutto' | 'frasi' | 'parole';
 	let scene = $state<Scene>('intro');
-	let content = $state<Content>('frasi');
+	let content = $state<Content>('tutto');
 	let direction = $state<ListenDirection>('jp-it');
 	let pause = $state<ListenPause>('media');
-	let livelli = $state<string[]>(['N5', 'N4']);
+	let livelli = $state<string[]>(['N4']);
 	let loading = $state(false);
 
 	let items = $state<ListenItem[]>([]);
@@ -39,7 +43,7 @@
 		livelli = livelli.includes(l) ? livelli.filter((x) => x !== l) : [...livelli, l];
 	}
 
-	const seenKey = () => `renkei-ascolto-visti-${content}-${direction}`;
+	const seenKey = () => (content === 'tutto' ? 'renkei-ascolto-visti-tutto' : `renkei-ascolto-visti-${content}-${direction}`);
 	function loadSeen(): Set<string> {
 		try {
 			return new Set(JSON.parse(localStorage.getItem(seenKey()) ?? '[]') as string[]);
@@ -65,7 +69,7 @@
 		}
 	}
 
-	const SETTINGS_KEY = 'renkei-ascolto-opzioni';
+	const SETTINGS_KEY = 'renkei-ascolto-opzioni-v2';
 	onMount(() => {
 		try {
 			const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? '{}') as { content?: Content; direction?: ListenDirection; pause?: ListenPause; livelli?: string[] };
@@ -102,7 +106,7 @@
 		if (document.visibilityState === 'visible') {
 			if (running && !wakeLock) void acquireWakeLock();
 		} else {
-			stopSpeaking();
+			stopVoice();
 			wakeLock = null;
 		}
 	}
@@ -116,29 +120,54 @@
 		while (alive() && Date.now() < end) await sleepRaw(Math.min(150, end - Date.now()));
 	}
 	const sayJp = (t: string, rate?: number) => speakSentenceJapaneseAsync(t, { waitMs: 25000, ...(rate ? { rate } : {}) });
+	const stopVoice = () => stopExamListening();
 	const sayIt = (t: string) => speakSentenceJapaneseAsync(t, { lang: 'it-IT', waitMs: 25000 });
+
+	function defaultSteps(item: ListenItem): ListenStep[] {
+		const recall: ListenStep = { t: 'recall', ms: recallMs(item, direction, pause) };
+		return direction === 'it-jp'
+			? [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.8 }]
+			: [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp }];
+	}
+	function runStep(s: ListenStep): Promise<unknown> {
+		switch (s.t) {
+			case 'ja':
+				if (s.voice) return speakSentenceJapaneseAsync(s.text, { ...voiceParams(s.voice === 'M' ? 'maschile' : 'femminile'), waitMs: 25000 });
+				return sayJp(s.text, s.rate);
+			case 'it':
+				return sayIt(s.text);
+			case 'wait':
+			case 'recall':
+				return wait(s.ms);
+			case 'esame':
+				return speakExamListening(s.prompt);
+			case 'scelte':
+				return speakExamChoices(s.prompt, s.options, 'sokuji');
+		}
+	}
 
 	// true = arrivato in fondo; false = interrotto, da rifare alla ripresa.
 	async function playItem(item: ListenItem): Promise<boolean> {
-		const toJp = direction === 'it-jp';
-		const steps: (() => Promise<unknown>)[] = [
-			() => { phase = 'ask'; revealed = false; return toJp ? sayIt(item.it) : sayJp(item.jp); },
-			() => { phase = 'recall'; return wait(recallMs(item, direction, pause)); },
-			() => { phase = 'answer'; revealed = true; return toJp ? sayJp(item.jp) : sayIt(item.it); },
-			() => wait(500),
-			// la frase giapponese torna sempre: è l'orecchio che va allenato
-			() => sayJp(item.jp, toJp ? 0.8 : undefined),
-			() => wait(900)
-		];
+		const steps = item.steps ?? defaultSteps(item);
+		const hasRecall = steps.some((s) => s.t === 'recall');
+		phase = 'ask';
+		revealed = !hasRecall;
 		for (const step of steps) {
 			if (!alive()) return false;
-			await step();
+			if (step.t === 'recall') phase = 'recall';
+			await runStep(step);
+			if (step.t === 'recall') {
+				phase = 'answer';
+				revealed = true;
+			}
 		}
+		await wait(900);
 		return alive();
 	}
 
 	async function loop(): Promise<void> {
-		let queue = buildQueue(items, seen);
+		const nextQueue = () => (content === 'tutto' ? buildMixQueue(items, seen) : buildQueue(items, seen));
+		let queue = nextQueue();
 		let pos = 0;
 		while (running) {
 			if (pos >= queue.length) {
@@ -146,7 +175,7 @@
 					clearSeen();
 					await sayIt('Hai ascoltato tutto. Ricomincio da capo.');
 				}
-				queue = buildQueue(items, seen);
+				queue = nextQueue();
 				pos = 0;
 			}
 			const item = queue[pos]!;
@@ -169,7 +198,12 @@
 		loading = true;
 		saveSettings();
 		const [words, grammar] = await Promise.all([db.words.toArray(), db.grammar.toArray()]);
-		items = content === 'frasi' ? buildSentenceItems(words, grammar, GRAMMAR_CURATED_ITEMS, livelli) : buildWordItems(words, livelli);
+		items =
+			content === 'tutto'
+				? buildExamMix({ words, grammar, curated: GRAMMAR_CURATED_ITEMS, dialogues: LISTENING_DIALOGUES, levels: livelli, pause })
+				: content === 'frasi'
+					? buildSentenceItems(words, grammar, GRAMMAR_CURATED_ITEMS, livelli)
+					: buildWordItems(words, livelli);
 		loading = false;
 		if (items.length === 0) return;
 		seen = loadSeen();
@@ -186,18 +220,18 @@
 
 	function stop(): void {
 		running = false;
-		stopSpeaking();
+		stopVoice();
 		releaseWakeLock();
 		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
 		scene = 'done';
 	}
 	function togglePause(): void {
 		paused = !paused;
-		if (paused) stopSpeaking();
+		if (paused) stopVoice();
 	}
 	onDestroy(() => {
 		running = false;
-		stopSpeaking();
+		stopVoice();
 		releaseWakeLock();
 		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
 	});
@@ -228,7 +262,7 @@
 
 {#if scene === 'play'}
 	<div class="pocket" oncontextmenu={(e) => e.preventDefault()} role="presentation">
-		<p class="count">{seenCount} / {items.length}{paused ? ' · in pausa' : ''}</p>
+		<p class="count">{seenCount} / {items.length}{current?.cat ? ` · ${current.cat}` : ''}{paused ? ' · in pausa' : ''}</p>
 		{#if current}
 			<p class="status">{paused ? '⏸️' : phase === 'recall' ? '🧠' : '🔊'}</p>
 			{#if revealed}
@@ -252,10 +286,11 @@
 		{#if scene === 'intro'}
 			<article class="scene">
 				<h1 class="page-title">🎧 Solo ascolto</h1>
-				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Niente microfono e niente da toccare: va avanti da sola finché non la fermi.</p>
+				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Niente microfono e niente da toccare: va avanti da sola finché non la fermi, anche per ore.</p>
 				{#if canSpeak}
 					<p class="lab">Cosa ripassare</p>
 					<div class="seg" role="group" aria-label="Cosa ripassare">
+						<button class="opt wide" class:on={content === 'tutto'} onclick={() => (content = 'tutto')}>🎯 Tutto per l'esame</button>
 						<button class="opt" class:on={content === 'frasi'} onclick={() => (content = 'frasi')}>💬 Frasi</button>
 						<button class="opt" class:on={content === 'parole'} onclick={() => (content = 'parole')}>📚 Parole</button>
 					</div>
@@ -265,11 +300,15 @@
 							<button class="opt" class:on={livelli.includes(l)} aria-pressed={livelli.includes(l)} onclick={() => toggleLivello(l)}>{l}</button>
 						{/each}
 					</div>
-					<p class="lab">Direzione</p>
-					<div class="seg" role="group" aria-label="Direzione">
-						<button class="opt" class:on={direction === 'jp-it'} onclick={() => (direction = 'jp-it')}>🇯🇵 → 🇮🇹 Capire</button>
-						<button class="opt" class:on={direction === 'it-jp'} onclick={() => (direction = 'it-jp')}>🇮🇹 → 🇯🇵 Dire</button>
-					</div>
+					{#if content === 'tutto'}
+						<p class="hint small">Prove di ascolto, grammatica, letture, trucchi, forme, frasi e parole, a turno. Le prove d'esame e i trucchi sono sempre N4; i livelli valgono per il resto.</p>
+					{:else}
+						<p class="lab">Direzione</p>
+						<div class="seg" role="group" aria-label="Direzione">
+							<button class="opt" class:on={direction === 'jp-it'} onclick={() => (direction = 'jp-it')}>🇯🇵 → 🇮🇹 Capire</button>
+							<button class="opt" class:on={direction === 'it-jp'} onclick={() => (direction = 'it-jp')}>🇮🇹 → 🇯🇵 Dire</button>
+						</div>
+					{/if}
 					<p class="lab">Pausa per ricordare</p>
 					<div class="seg three" role="group" aria-label="Pausa per ricordare">
 						<button class="opt" class:on={pause === 'breve'} onclick={() => (pause = 'breve')}>Breve</button>
@@ -307,6 +346,7 @@
 	.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 	.seg.three { grid-template-columns: repeat(3, 1fr); }
 	.opt { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+	.opt.wide { grid-column: 1 / -1; }
 	.opt.on { border-color: var(--brand); background: var(--brand); color: white; }
 	.proceed { justify-self: center; margin-top: 6px; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: white; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 	.proceed:disabled { opacity: 0.5; }

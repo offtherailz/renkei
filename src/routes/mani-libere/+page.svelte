@@ -19,7 +19,7 @@
 	// (l'app recita un dialogo, fa la domanda, rispondi a voce). Comandi vocali:
 	// もう一度 (ripeti), ゆっくり (lento), わかりません (non lo so — spiega il "quando/
 	// registro" e dà la risposta, poi passa al round dopo), 次 (avanti).
-	const ROUNDS = 12;
+	const ROUNDS = 50; // da telefono in tasca non si tocca ogni poco per ripartire
 	const canSpeak = speechAvailable();
 
 	type Scene = 'intro' | 'play' | 'done';
