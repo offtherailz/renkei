@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { buildExamMix, buildMixQueue } from './listenExam';
-import { LISTENING_DIALOGUES } from './listeningDialogues';
+import { instantiateListening, LISTENING_DIALOGUES } from './listeningDialogues';
+import { hasDialogueTranslation } from './listeningDialoguesIt';
 import { GRAMMAR_CURATED_ITEMS } from '../data/propedeutiche';
 import type { ListenStep } from './listenOnly';
 
@@ -83,3 +84,37 @@ describe('buildMixQueue', () => {
 		expect(buildMixQueue(list, new Set(list.map((i) => (i as { key: string }).key))).length).toBe(list.length);
 	});
 });
+
+describe('risposta completa', () => {
+	it('dopo la pausa: giapponese, poi di nuovo giapponese piano', () => {
+		for (const i of items) {
+			const r = i.steps!.findIndex((s) => s.t === 'recall');
+			const dopo = i.steps!.slice(r + 1);
+			const last = dopo[dopo.length - 1];
+			expect(last?.t, i.key).toBe('ja');
+			expect(last?.t === 'ja' && last.rate, i.key).toBe(0.75);
+		}
+	});
+	it('ogni voce ha la traduzione italiana dopo la pausa', () => {
+		const senza = items.filter((i) => {
+			const r = i.steps!.findIndex((s) => s.t === 'recall');
+			return !i.steps!.slice(r + 1).some((s) => s.t === 'it');
+		});
+		expect(senza.map((i) => i.key)).toEqual([]);
+	});
+});
+
+describe('traduzioni dei dialoghi', () => {
+	it('coprono tutte le domande e le risposte possibili', () => {
+		const manca = new Set<string>();
+		for (let giro = 0; giro < 40; giro += 1) {
+			for (const d of LISTENING_DIALOGUES) {
+				for (const q of instantiateListening(d).questions) {
+					if (!hasDialogueTranslation(q.q, q.choices[q.correct]!)) manca.add(`${q.q} => ${q.choices[q.correct]}`);
+				}
+			}
+		}
+		expect([...manca]).toEqual([]);
+	});
+});
+

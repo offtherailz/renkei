@@ -3,6 +3,8 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, speakDialogue, stopSpeaking } from '$lib/core/tts';
+	import { cueAnswer, cueNewItem, primeCues } from '$lib/core/audioCues';
+	import { dialogueAnswerIt } from '$lib/core/listeningDialoguesIt';
 	import { abortableListen, speechAvailable, phraseVariants, kanaToKanjiWritten } from '$lib/core/speech';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
@@ -130,6 +132,7 @@
 	// Prepara e pronuncia il prompt del round. Ritorna, per il choukai, la frase
 	// corretta + le sue varianti (per il match); per le frasi, quelle del round
 	// + "quando" (spiegazione uso/registro, letta col comando "Spiegami").
+	let itDialogo = ''; // traduzione di domanda e risposta del dialogo in corso
 	async function playPrompt(r: HFRound, slow: boolean): Promise<{ corretta: string; varianti: string[]; quando?: string }> {
 		if (r.kind === 'guarda') {
 			if (r.ask === 'lettura') {
@@ -157,6 +160,7 @@
 		const q = run.questions[r.questionIdx]!;
 		await speakJp(q.q, slow);
 		const corretta = q.choices[q.correct]!;
+		itDialogo = dialogueAnswerIt(q.q, corretta);
 		// il riconoscitore trascrive in forma scritta: aggiungi la variante kanji
 		// della risposta kana (えきのまえ → 駅の前); i numerali kana convergono già
 		// in normalizeSpeech (さんじ ↔ 3時)
@@ -178,13 +182,17 @@
 		return true;
 	}
 
-	// La risposta ad alta voce: in italiano per «cosa significa?».
-	async function sayAnswer(prefix: string, corretta: string, r: HFRound): Promise<void> {
-		if (r.kind === 'guarda' && r.ask === 'significato') {
-			await speakIt(`${prefix}: ${corretta}`);
+	// La risposta completa: giapponese, traduzione, di nuovo il giapponese piano per la pronuncia.
+	async function sayAnswer(r: HFRound, corretta: string, itDialogo: string): Promise<void> {
+		if (r.kind === 'guarda') {
+			await speakJp(r.lettura);
+			await speakIt(r.significati.join(', '));
+			await speakJp(r.lettura, true);
 			return;
 		}
-		await speakIt(`${prefix}:`);
+		await speakJp(corretta);
+		const it = r.kind === 'choukai' ? itDialogo : r.forma ? `${r.quando ?? ''}. ${r.forma.label}.` : r.cueIt;
+		if (it) await speakIt(it);
 		await speakJp(corretta, true);
 	}
 	// Lascia il tempo di leggere la soluzione sullo schermo.
@@ -197,7 +205,7 @@
 	async function runRound(r: HFRound): Promise<void> {
 		status = 'speaking';
 		lookDone = false;
-		const ansVerb = r.kind === 'guarda' ? (r.ask === 'lettura' ? 'Si legge' : 'Significa') : 'Si dice';
+		await cueNewItem();
 		const lang = r.kind === 'guarda' && r.ask === 'significato' ? 'it-IT' : 'ja-JP';
 		let { corretta, varianti, quando } = await playPrompt(r, false);
 		// bug segnalato: il timer di silenzio si azzerava SOLO su un riconoscimento
@@ -240,12 +248,9 @@
 					if (r.kind === 'frase') void recordPractice(r.creditKey ?? ('phrase:' + r.jp), true, 'facet_form_speak');
 					if (r.kind === 'guarda') void recordPractice(r.creditKey, true, r.ask === 'lettura' ? 'facet_form_read' : 'facet_meaning_r');
 					lookDone = r.kind === 'guarda';
-					if (lang === 'it-IT') {
-						await speakIt(`Sì. ${corretta}`);
-					} else {
-						await speakJp('そう！');
-						await speakJp(corretta);
-					}
+					if (lang === 'it-IT') await speakIt('Sì.');
+					else await speakJp('そう！');
+					await sayAnswer(r, corretta, itDialogo);
 					await showLook(r);
 					return;
 				}
@@ -263,8 +268,9 @@
 				// come il ramo finale "quasi, si dice", ma con la spiegazione prima.
 				status = 'ko';
 				lookDone = r.kind === 'guarda';
-				if (quando) await speakIt(quando);
-				await sayAnswer(ansVerb, corretta, r);
+				await cueAnswer();
+				if (quando && !(r.kind === 'frase' && r.forma)) await speakIt(quando);
+				await sayAnswer(r, corretta, itDialogo);
 				await showLook(r);
 				return;
 			}
@@ -274,7 +280,9 @@
 			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.
 			status = 'ko';
 			lookDone = r.kind === 'guarda';
-			await sayAnswer(`Quasi. ${ansVerb}`, corretta, r);
+			await cueAnswer();
+			await speakIt('Quasi.');
+			await sayAnswer(r, corretta, itDialogo);
 			await showLook(r);
 			return;
 		}
@@ -333,11 +341,13 @@
 		lookDone = false;
 		scene = 'play';
 		running = true;
+		primeCues();
 		lastActivity = Date.now();
 		primeBeep();
 		await acquireWakeLock();
 		if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisibility);
 		if (sourceNote) await speakIt(sourceNote);
+		else await speakIt(`${SOURCE_SAY[source]} ${rounds.length} domande.`);
 		await mainLoop();
 	}
 
@@ -354,6 +364,7 @@
 		if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisibility);
 	});
 
+	const SOURCE_SAY: Record<Source, string> = { mix: 'Frasi e ascolto.', parole: 'Parole.', deboli: 'Punti deboli.', mazzo: 'Mazzo.', forme: 'Forme.' };
 	const STATUS_ICON: Record<Status, string> = { speaking: '🔊', listening: '🎙️', ok: '✅', ko: '↩️', paused: '⏸️' };
 </script>
 

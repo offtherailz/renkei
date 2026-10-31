@@ -2,6 +2,7 @@
 // dice (comando o risposta), costruisce il mix di round, e giudica la risposta.
 // Niente DOM/voce qui → testabile. La pagina orchestra TTS/mic con queste funzioni.
 import { normalizeSpeech, phraseVariants, speechMatches, kanaToKanjiWritten } from './speech';
+import { spokenIt } from './listenOnly';
 import { buildAdjectiveTable, buildVerbTable, conjClassKey, detectAdjectiveType, detectVerbClass, type ConjugationForm } from './conjugation';
 import type { Word } from '../types/models';
 import type { Situation } from './usefulPhrases';
@@ -101,6 +102,7 @@ export interface FraseRound {
 	quando?: string; // spiegazione (registro/uso), letta col comando "Spiegami"
 	creditKey?: string; // chiave SRS da premiare sulla giusta (default: phrase:<jp>)
 	forma?: { label: string; yomi: string }; // round sulle forme: «Passato piano di: たべる»
+	yomi?: string; // parole: la lettura, per la risposta e per «come si legge?»
 }
 // Round col colpo d'occhio allo schermo: la parola scritta, l'app chiede come si
 // legge (risposta in giapponese) o cosa significa (risposta in italiano).
@@ -139,11 +141,17 @@ export interface WeakWord {
 	yomi: string; // lettura (variante per il match)
 	creditKey: string; // es. word:<id>
 }
+// Due significati al massimo, senza precisazioni tra parentesi: si devono capire a voce.
+function speakableMeaning(it: string): string {
+	return it.split(/,\s*/).map(spokenIt).filter(Boolean).slice(0, 2).join(', ') || it;
+}
+const JA_IN_TEXT = /[ぁ-んァ-ヶ一-龯]/;
+
 export function buildWordRounds(words: WeakWord[], n: number, rng: () => number = Math.random): FraseRound[] {
 	const rounds: FraseRound[] = words.map((w) => {
 		const kanji = kanaToKanjiWritten(w.yomi);
 		const varianti = [...new Set([...phraseVariants(w.jp), w.jp, w.yomi, ...(kanji ? [kanji] : [])].filter(Boolean))] as string[];
-		return { kind: 'frase', cueIt: w.it, jp: w.jp, varianti, quando: w.yomi, creditKey: w.creditKey };
+		return { kind: 'frase', cueIt: speakableMeaning(w.it), jp: w.jp, varianti, yomi: w.yomi, creditKey: w.creditKey };
 	});
 	return shuffle(rounds, rng).slice(0, n);
 }
@@ -152,18 +160,18 @@ export function buildWordRounds(words: WeakWord[], n: number, rng: () => number 
 // senza kanji non hanno niente da leggere: solo significato.
 export function withLookRounds(rounds: HFRound[]): HFRound[] {
 	return rounds.map((r, i) => {
-		if (r.kind !== 'frase' || r.forma || !r.creditKey?.startsWith('word:') || !r.quando || i % 3 === 0) return r;
+		if (r.kind !== 'frase' || r.forma || !r.creditKey?.startsWith('word:') || !r.yomi || i % 3 === 0) return r;
 		const hasKanji = /[一-龯々]/.test(r.jp);
 		const ask = i % 3 === 1 && hasKanji ? 'lettura' : 'significato';
-		const kanji = kanaToKanjiWritten(r.quando);
+		const kanji = kanaToKanjiWritten(r.yomi);
 		return {
 			kind: 'guarda',
 			ask,
 			parola: r.jp,
-			lettura: r.quando,
+			lettura: r.yomi,
 			significati: [r.cueIt],
-			corretta: ask === 'lettura' ? r.quando : r.cueIt,
-			varianti: ask === 'lettura' ? [...new Set([r.quando, r.jp, ...(kanji ? [kanji] : [])])] : [],
+			corretta: ask === 'lettura' ? r.yomi : r.cueIt,
+			varianti: ask === 'lettura' ? [...new Set([r.yomi, r.jp, ...(kanji ? [kanji] : [])])] : [],
 			creditKey: r.creditKey
 		} satisfies GuardaRound;
 	});
@@ -243,7 +251,7 @@ export function buildFormRounds(words: Word[], n: number, rng: () => number = Ma
 			cueIt: form.label,
 			jp: parlata, // in kana: la voce non sbaglia la lettura (来れば)
 			varianti: [...new Set([scritta, parlata, ...(kanji ? [kanji] : [])])],
-			quando: Array.isArray(it) ? it.join(', ') : it,
+			quando: speakableMeaning(Array.isArray(it) ? it.join(', ') : it),
 			creditKey: conjClassKey(w) ?? `word:${w.id}`,
 			forma: { label: form.label, yomi }
 		});
@@ -261,8 +269,10 @@ export function buildRounds(
 	const frasi: FraseRound[] = [];
 	for (const s of situations) {
 		for (const f of s.frasi) {
+			if (f.jp.includes('〇')) continue; // segnaposto da sostituire: a voce non si dice
 			const varianti = [...new Set([...phraseVariants(f.jp), f.jp, f.yomi].filter(Boolean))] as string[];
-			frasi.push({ kind: 'frase', cueIt: f.it, jp: f.jp, varianti, quando: f.quando });
+			// le note con giapponese dentro si leggono solo a schermo
+			frasi.push({ kind: 'frase', cueIt: spokenIt(f.it), jp: f.jp, varianti, quando: f.quando && !JA_IN_TEXT.test(f.quando) ? f.quando : undefined });
 		}
 	}
 	const chou: ChoukaiRound[] = dialogues.map((d) => ({ kind: 'choukai', dialogueId: d.id, questionIdx: 0 }));

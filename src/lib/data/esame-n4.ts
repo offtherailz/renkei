@@ -681,11 +681,13 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{
 		id: 'bb-1', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile',
 		prompt: '今日[きょう]は 朝[あさ]から 雨[あめ]だった。＿＿、サッカーの 練習[れんしゅう]は 中止[ちゅうし]に なった。', choices: ['それで', 'しかし', 'それに', 'たとえば'], correct: 0,
+		traduzione: 'Oggi pioveva dal mattino. Perciò l’allenamento di calcio è stato annullato.',
 		spiegazione: { perche_giusta: 'それで introduce la conseguenza (pioggia → allenamento annullato).', perche_sbagliate: ['しかし = contrasto, qui è una causa-effetto', 'それに = aggiunta', 'たとえば = «per esempio»'] }
 	},
 	{
 		id: 'bb-2', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile',
 		prompt: '弟[おとうと]は まだ 五歳[ごさい]だ。＿＿、漢字[かんじ]が 少[すこ]し 読[よ]める。', choices: ['でも', 'だから', 'それで', 'つまり'], correct: 0,
+		traduzione: 'Mio fratello minore ha solo cinque anni. Però sa leggere qualche kanji.',
 		spiegazione: { perche_giusta: 'で も segnala il contrasto: piccolo, «eppure» legge kanji.', perche_sbagliate: ['だから darebbe una conseguenza logica, qui c’è sorpresa', 'それで = effetto naturale', 'つまり = riformulazione'] }
 	},
 
@@ -747,6 +749,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 	{
 		id: 'bb-3', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile',
 		prompt: '私は 毎日[まいにち] 日記[にっき]を 書[か]いて いる。＿＿、昨日[きのう]は 疲[つか]れて 書[か]けなかった。', choices: ['しかし', 'だから', 'それで', 'さらに'], correct: 0,
+		traduzione: 'Scrivo un diario ogni giorno. Però ieri ero stanco e non sono riuscito a scriverlo.',
 		spiegazione: { perche_giusta: 'しかし segnala il contrasto con l’abitudine.', perche_sbagliate: ['だから = conseguenza', 'それで = effetto naturale', 'さらに = «inoltre», aggiunta'] }
 	},
 	{
@@ -810,6 +813,7 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: 'Pattern 〜ようになってくる: 少しずつ→分かる→ように→なって; alla ★ (3ª casella) va ように.', perche_sbagliate: ['分かる va nella 2ª casella', '少しずつ apre, 1ª casella', 'なって va prima di きた, 4ª casella'] } },
 	// 文章の文法
 	{ id: 'bb-4', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile', prompt: '田中[たなか]さんは いつも 人[ひと]を 助[たす]ける。＿＿ 人[ひと]は クラスに 少[すく]ない。', choices: ['そんな', 'あんな', 'どんな', 'こんな'], correct: 0,
+		traduzione: 'Tanaka aiuta sempre gli altri. Persone così, in classe, sono poche.',
 		spiegazione: { perche_giusta: 'そんな riprende quanto appena detto (persone «così»).', perche_sbagliate: ['あんな = «di quel tipo (lontano da entrambi)»', 'どんな = «che tipo?» (domanda)', 'こんな = «così (vicino a me)», non riprende il discorso'] } },
 	// 読解 中文
 	{ id: 'dc-3', mondai: 'dokkai-chu', livello_jlpt: 'N4', tier: 'facile', prompt: '〔文章〕私[わたし]の 父[ちち]は 昔[むかし]、運動[うんどう]が 大[だい]きらいだった。でも、五十歳[ごじゅっさい]の とき 病気[びょうき]を して から、毎朝[まいあさ] 走[はし]る ように なった。今[いま]では 走[はし]らないと 気持[きも]ちが 悪[わる]いと 言[い]う。 問: 父は なぜ 毎朝[まいあさ] 走[はし]る ように なりましたか。', choices: ['病気[びょうき]を したから', '昔[むかし]から 運動[うんどう]が 好[す]きだから', '医者[いしゃ]に なりたいから', 'やせたいから'], correct: 0,
@@ -897,8 +901,10 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: '«電話で 話すのは よくない» (la voce disturba).', perche_sbagliate: ['la mail è permessa', 'i giochi sono permessi (senza audio)', 'leggere non è vietato'] } },
 	// 文章の文法
 	{ id: 'bb-5', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile', prompt: '日本語[にほんご]の 勉強[べんきょう]は 大変[たいへん]だ。＿＿、毎日[まいにち] 少[すこ]しずつ 続[つづ]けて いる。', choices: ['それでも', 'だから', 'つまり', 'たとえば'], correct: 0,
+		traduzione: 'Studiare giapponese è faticoso. Anche così, continuo un po’ ogni giorno.',
 		spiegazione: { perche_giusta: 'それでも = «ciononostante»: è dura, eppure continua.', perche_sbagliate: ['だから = conseguenza', 'つまり = riformulazione', 'たとえば = «per esempio»'] } },
 	{ id: 'bb-6', mondai: 'bunsho-bunpo', livello_jlpt: 'N4', tier: 'facile', prompt: '駅[えき]の 前[まえ]に 新[あたら]しい 店[みせ]が できた。昨日[きのう]、＿＿ 店[みせ]で パンを 買[か]った。', choices: ['その', 'あの', 'どの', 'こんな'], correct: 0,
+		traduzione: 'Davanti alla stazione ha aperto un negozio nuovo. Ieri in quel negozio ho comprato il pane.',
 		spiegazione: { perche_giusta: 'その riprende il negozio appena nominato.', perche_sbagliate: ['あの = «quel (lontano, noto a entrambi da prima)»', 'どの = «quale?» (domanda)', 'こんな = «di questo tipo»'] } },
 
 	// 情報検索 — più difficili: note a margine (※) ed eccezioni da cogliere
@@ -993,8 +999,10 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: 'Pattern 〜にくい: 字が→小さくて→読み→にくい; alla ★ va 読み.', perche_sbagliate: ['小さくて va nella 2ª casella', '字が apre, 1ª casella', 'にくい chiude, 4ª casella'] } },
 	// 言い換え
 	{ id: 'ii-7', mondai: 'iikae', livello_jlpt: 'N4', prompt: 'この 仕事[しごと]は 難[むずか]しく ない。 ≒ ?', choices: ['この 仕事[しごと]は やさしい。', 'この 仕事[しごと]は 大変[たいへん]だ。', 'この 仕事[しごと]は 多[おお]い。', 'この 仕事[しごと]は 大切[たいせつ]だ。'], correct: 0,
+		traduzione: 'Questo lavoro non è difficile.',
 		spiegazione: { perche_giusta: '«non difficile» ≒ やさしい («facile»).', perche_sbagliate: ['大変 = «duro»', '多い = «numeroso»', '大切 = «importante»'] } },
 	{ id: 'ii-8', mondai: 'iikae', livello_jlpt: 'N4', prompt: '彼[かれ]は 約束[やくそく]を 守[まも]る 人[ひと]だ。 ≒ ?', choices: ['彼[かれ]は 信[しん]じられる 人[ひと]だ。', '彼[かれ]は うそつきだ。', '彼[かれ]は 有名[ゆうめい]だ。', '彼[かれ]は いそがしい。'], correct: 0,
+		traduzione: 'Lui è una persona che mantiene le promesse.',
 		spiegazione: { perche_giusta: 'chi mantiene le promesse ≒ 信じられる («affidabile»).', perche_sbagliate: ['うそつき = «bugiardo», opposto', '有名 = «famoso»', 'いそがしい = «occupato»'] } },
 	// 用法
 	{ id: 'yo-7', mondai: 'yoho', livello_jlpt: 'N4', prompt: '「慣[な]れる」の 正[ただ]しい 使[つか]い方[かた]は?', choices: ['新[あたら]しい 仕事[しごと]に やっと 慣[な]れた。', 'この 服[ふく]は 私[わたし]に 慣[な]れる。', '駅[えき]まで 慣[な]れて 遠[とお]い。', 'ごはんを 慣[な]れる。'], correct: 0,

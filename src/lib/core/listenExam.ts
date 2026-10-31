@@ -8,6 +8,7 @@ import { stripFuriganaNotation } from './furigana';
 import { buildFormRounds } from './handsFree';
 import { buildQueue, buildSentenceItems, buildWordItems, recallMs, spokenIt, spokenJa, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from './listenOnly';
 import { instantiateListening, type ListeningDialogue } from './listeningDialogues';
+import { dialogueAnswerIt } from './listeningDialoguesIt';
 import type { Grammar, Word } from '../types/models';
 
 const JA_CHAR = /[ぁ-んァ-ヶ一-龯々]/;
@@ -23,6 +24,11 @@ function italianNote(...candidates: (string | undefined)[]): ListenStep[] {
 		if (t.length >= 3 && !JA_CHAR.test(t)) return [{ t: 'it', text: t }];
 	}
 	return [];
+}
+
+// La risposta completa: giapponese, traduzione, di nuovo il giapponese piano per la pronuncia.
+function fullAnswer(jp: string, it: ListenStep[]): ListenStep[] {
+	return [{ t: 'ja', text: jp }, ...it, { t: 'wait', ms: 500 }, { t: 'ja', text: jp, rate: 0.75 }];
 }
 
 function shuffled<T>(xs: T[], rng: () => number): T[] {
@@ -46,7 +52,7 @@ function clozeSteps(prompt: string, risposta: string, note: ListenStep[], pause:
 	if (before) steps.push({ t: 'ja', text: before });
 	steps.push({ t: 'bip' });
 	if (JA_CHAR.test(after)) steps.push({ t: 'ja', text: after.replace(/^[、。，．\s]+/, '') });
-	steps.push(recallFor(pause), { t: 'ja', text: full }, ...note);
+	steps.push(recallFor(pause), ...fullAnswer(full, note));
 	return { steps, full };
 }
 
@@ -57,13 +63,13 @@ function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => numb
 	switch (item.mondai) {
 		case 'kadai':
 		case 'point':
-			return { ...base, cat: 'ascolto', steps: [{ t: 'esame', prompt: plain(item.prompt) }, recallFor(pause), { t: 'ja', text: correct }, ...note] };
+			return { ...base, cat: 'ascolto', steps: [{ t: 'esame', prompt: plain(item.prompt) }, recallFor(pause), ...fullAnswer(correct, note)] };
 		case 'hatsuwa':
 		case 'sokuji': {
 			const wrong = shuffled(item.choices.filter((_, i) => i !== item.correct), rng).slice(0, 2);
 			const options = shuffled([item.choices[item.correct]!, ...wrong], rng).map(plain);
 			const n = options.indexOf(correct) + 1;
-			return { ...base, cat: 'ascolto', steps: [{ t: 'scelte', prompt: plain(item.prompt), options }, recallFor(pause), { t: 'ja', text: `${n}ばん。${correct}` }, ...note] };
+			return { ...base, cat: 'ascolto', steps: [{ t: 'scelte', prompt: plain(item.prompt), options }, recallFor(pause), { t: 'ja', text: `${n}ばん` }, ...fullAnswer(correct, note)] };
 		}
 		case 'bunpo1':
 		case 'bunmyaku':
@@ -73,7 +79,7 @@ function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => numb
 		}
 		case 'iikae': {
 			const frase = plain(item.prompt).replace(/\s*≒.*$/, '');
-			return { ...base, cat: 'grammatica', scritto: `${frase} ≒ ${correct}`, steps: [{ t: 'ja', text: frase }, recallFor(pause), { t: 'ja', text: correct }, ...italianNote(item.spiegazione.perche_giusta)] };
+			return { ...base, cat: 'grammatica', scritto: `${frase} ≒ ${correct}`, steps: [{ t: 'ja', text: frase }, recallFor(pause), ...fullAnswer(correct, note)] };
 		}
 		case 'kumitate': {
 			const pezzi = plain(item.prompt).split(/語群[:：]/)[1]?.split(/[・、]/).map((s) => s.trim()).filter(Boolean);
@@ -85,7 +91,7 @@ function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => numb
 				...base,
 				cat: 'grammatica',
 				scritto: full,
-				steps: [{ t: 'it', text: 'Metti in ordine.' }, ...pezzi.flatMap((text): ListenStep[] => [{ t: 'ja', text }, { t: 'wait', ms: 500 }]), recallFor(pause, 3000), { t: 'ja', text: full }, ...italianNote(it)]
+				steps: [{ t: 'it', text: 'Metti in ordine.' }, ...pezzi.flatMap((text): ListenStep[] => [{ t: 'ja', text }, { t: 'wait', ms: 500 }]), recallFor(pause, 3000), ...fullAnswer(full, italianNote(it))]
 			};
 		}
 		case 'dokkai-tan':
@@ -96,7 +102,7 @@ function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => numb
 			return {
 				...base,
 				cat: 'lettura',
-				steps: [...frasi.map((text): ListenStep => ({ t: 'ja', text })), { t: 'wait', ms: 800 }, { t: 'ja', text: domanda }, recallFor(pause), { t: 'ja', text: correct }, ...italianNote(item.spiegazione.perche_giusta)]
+				steps: [...frasi.map((text): ListenStep => ({ t: 'ja', text })), { t: 'wait', ms: 800 }, { t: 'ja', text: domanda }, recallFor(pause), ...fullAnswer(correct, note)]
 			};
 		}
 		default:
@@ -123,7 +129,7 @@ function fromDialogue(d: ListeningDialogue, pause: ListenPause): ListenItem | nu
 			{ t: 'wait', ms: 800 },
 			{ t: 'ja', text: q.q },
 			recallFor(pause),
-			{ t: 'ja', text: correct }
+			...fullAnswer(correct, italianNote(dialogueAnswerIt(q.q, correct)))
 		]
 	};
 }
@@ -134,7 +140,7 @@ function fromTrucchi(pause: ListenPause): ListenItem[] {
 	for (const t of Object.values(TRUCCHI)) {
 		t.esempi.forEach((e, i) => {
 			const jp = spokenJa(plain(e.jp));
-			out.push({ key: `trucco:${t.id}:${i}`, cat: 'trucchi', jp, it: e.it, scritto: jp, steps: [...italianNote(e.it), recallFor(pause), { t: 'ja', text: jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: jp }] });
+			out.push({ key: `trucco:${t.id}:${i}`, cat: 'trucchi', jp, it: e.it, scritto: jp, steps: [...italianNote(e.it), recallFor(pause), ...fullAnswer(jp, italianNote(e.it))] });
 		});
 	}
 	return out;
@@ -153,7 +159,7 @@ function fromForms(words: Word[], pause: ListenPause, rng: () => number): Listen
 				jp: r.jp,
 				it: `${r.cueIt} di ${r.forma.yomi}`,
 				scritto: r.jp,
-				steps: [{ t: 'it', text: `${r.cueIt} di:` }, { t: 'ja', text: r.forma.yomi }, recallFor(pause), { t: 'ja', text: r.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: r.jp }]
+				steps: [{ t: 'it', text: `${r.cueIt} di:` }, { t: 'ja', text: r.forma.yomi }, recallFor(pause), ...fullAnswer(r.jp, italianNote(r.quando ? `${r.quando}. ${r.cueIt}.` : r.cueIt))]
 			});
 		}
 	}
@@ -162,9 +168,10 @@ function fromForms(words: Word[], pause: ListenPause, rng: () => number): Listen
 
 function directionSteps(item: ListenItem, direction: ListenDirection, pause: ListenPause): ListenStep[] {
 	const recall: ListenStep = { t: 'recall', ms: recallMs(item, direction, pause) };
+	const slow: ListenStep = { t: 'ja', text: item.jp, rate: 0.75 };
 	return direction === 'jp-it'
-		? [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp }]
-		: [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.8 }];
+		? [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, slow]
+		: [{ t: 'it', text: item.it }, recall, ...fullAnswer(item.jp, [{ t: 'it', text: item.it }])];
 }
 const withDirections = (item: ListenItem, cat: string, pause: ListenPause): ListenItem => ({
 	...item,

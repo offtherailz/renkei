@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { dialogueAnswerIt } from '$lib/core/listeningDialoguesIt';
 	import { onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import {
@@ -240,6 +241,7 @@
 								la prova: «{run.lines[q.evidenceLine]!.text}»
 							</p>
 						{/if}
+						{#if dialogueAnswerIt(q.q, q.choices[q.correct]!)}<p class="recap-why">🇮🇹 {dialogueAnswerIt(q.q, q.choices[q.correct]!)}</p>{/if}
 						<p class="recap-why">💡 {q.spiega}</p>
 					</div>
 				{/each}

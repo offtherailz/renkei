@@ -5,6 +5,7 @@
 	import { speakSentenceJapaneseAsync, speechStartCount } from '$lib/core/tts';
 	import { speakExamChoices, speakExamListening, stopExamListening } from '$lib/core/examListening';
 	import { voiceParams } from '$lib/core/voices';
+	import { cueAnswer, cueBlank, cueNewItem, primeCues } from '$lib/core/audioCues';
 	import { GRAMMAR_CURATED_ITEMS } from '$lib/data/propedeutiche';
 	import { LISTENING_DIALOGUES } from '$lib/core/listeningDialogues';
 	import { buildExamMix, buildMixQueue } from '$lib/core/listenExam';
@@ -164,45 +165,6 @@
 		}
 	}
 
-	// Segnali per orientarsi senza guardare: due note = voce nuova, una nota grave = risposta.
-	let audioCtx: AudioContext | null = null;
-	function primeCues(): void {
-		try {
-			const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-			if (Ctor && !audioCtx) audioCtx = new Ctor();
-			void audioCtx?.resume?.();
-		} catch {
-			/* niente segnali: la voce va comunque */
-		}
-	}
-	async function cue(notes: { f: number; at: number }[], ms: number): Promise<void> {
-		if (!audioCtx) return;
-		try {
-			void audioCtx.resume?.();
-			const now = audioCtx.currentTime;
-			for (const n of notes) {
-				const o = audioCtx.createOscillator();
-				const g = audioCtx.createGain();
-				o.type = 'sine';
-				o.frequency.value = n.f;
-				const t = now + n.at;
-				g.gain.setValueAtTime(0.0001, t);
-				g.gain.exponentialRampToValueAtTime(0.18, t + 0.015);
-				g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-				o.connect(g);
-				g.connect(audioCtx.destination);
-				o.start(t);
-				o.stop(t + 0.25);
-			}
-		} catch {
-			return;
-		}
-		await sleepRaw(ms);
-	}
-	const cueNewItem = () => cue([{ f: 880, at: 0 }, { f: 1175, at: 0.14 }], 550);
-	const cueAnswer = () => cue([{ f: 440, at: 0 }], 350);
-	const cueBlank = () => cue([{ f: 1320, at: 0 }, { f: 1320, at: 0.12 }], 700);
-
 	const visible = () => typeof document === 'undefined' || document.visibilityState === 'visible';
 	const alive = () => running && !paused && !stalled && !skipCurrent;
 	const sleepRaw = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -218,8 +180,8 @@
 	function defaultSteps(item: ListenItem): ListenStep[] {
 		const recall: ListenStep = { t: 'recall', ms: recallMs(item, direction, pause) };
 		return direction === 'it-jp'
-			? [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.8 }]
-			: [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp }];
+			? [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.75 }]
+			: [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.75 }];
 	}
 	function runStep(s: ListenStep): Promise<unknown> {
 		switch (s.t) {
