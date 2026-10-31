@@ -28,7 +28,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
@@ -45,9 +44,11 @@ jobs:
           path: ~/.android/debug.keystore
           key: android-debug-keystore-v1
 
+      # L'SDK Android è già installato sui runner di GitHub (ANDROID_HOME).
       - name: Compila
         working-directory: android-ascolto
         run: |
+          echo "SDK: $ANDROID_HOME"; ls "$ANDROID_HOME/platforms" | tail -5
           set -o pipefail
           gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee build.log || {
             grep -E '^e: |error:|FAILURE|What went wrong' -A2 build.log | head -40 | sed 's/^/::error::/'
