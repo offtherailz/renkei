@@ -89,9 +89,10 @@ describe("audit domande (solo con AUDIT=1)", () => {
     for (const g of shuffle([...grammar]).slice(0, PER_MODE)) {
       const ex = g.frasi_esempio?.[0];
       if (!ex) continue;
-      grammarQs.push(await createGrammarQuestion({ grammar: g, example: ex }, index, g.livello_jlpt, context, "it"));
+      const gq = await createGrammarQuestion({ grammar: g, example: ex }, index, g.livello_jlpt, context, "it");
+      if (gq) grammarQs.push(gq);
     }
-    push("grammatica (cloze/reading/ordering)", grammarQs);
+    push("grammatica (cloze/ordering)", grammarQs);
 
     fs.writeFileSync("plans/question-audit-sample.md", sections.join("\n") + "\n");
   }, 120_000);

@@ -10,7 +10,7 @@ import { naiveReading, parseIrregularReadings, readCounterN, voicingVariants } f
 import { GENERATED_COUNTERS, generateReading, type GeneratedReading } from "../core/counterGen";
 import { isTimeTriggerWord, TIME_READINGS } from "../core/timeReadings";
 import { KEIGO_SUPPLETIVE_WORDS } from "../core/keigo";
-import type { Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
+import type { Grammar, Counter, JLPTLevel, LocaleCode, Word } from "../types/models";
 import { buildDistractors } from "./distractorIndex";
 import type {
   ClozeQuestion,
@@ -38,11 +38,28 @@ import type {
   XpInput
 } from "./types";
 
+import GRAMMAR_GROUPS from "../data/grammar-gruppi.json";
+
 const FURIGANA_SEGMENT_REGEX = /([^\[\]\s]+)\[([^\[\]]+)\]/g;
 const NON_ORDERING_GRAMMAR_MARKER_REGEX =
   /(意向形|辞書形|ます形|て形|ない形|た形|命令形|禁止形|可能形|受身形|受け身形|使役|条件形|仮定形|連用形|終止形|未然形|活用|語幹|原形|丁寧形)/;
 const SENTENCE_CONTEXT_HINT_REGEX = /[はがをにでとへもやの]|。|、|！|？/;
-const GRAMMAR_STRUCTURE_SPLIT_REGEX = /[\s/／・、,()（）「」『』【】]+/;
+const GRAMMAR_STRUCTURE_SPLIT_REGEX = /[\s/／・、,()（）「」『』【】〜~]+/;
+// Etichette grammaticali in struttura (可能形, 謙譲語, 自動詞): non sono forme da mettere in una frase.
+const GRAMMAR_LABEL_REGEX = /(形|語|詞)$|^(依頼|小さい|少ない|短い|下|いる)$/;
+// Forme quasi equivalenti: messe insieme nelle opzioni darebbero due risposte giuste.
+const SAME_MEANING_FORMS = [
+  ["から", "ので"],
+  ["けど", "けれども", "でも", "しかし", "が"],
+  ["でしょう", "だろう"],
+  ["ようだ", "みたいだ", "よう", "みたい"],
+  ["なければいけない", "なくてはいけない", "なくてはならない", "なくちゃ"],
+  ["てはいけない", "ちゃいけない", "じゃいけない"],
+  ["すぎる", "ぎる"],
+  ["たら", "ば", "と", "なら"],
+  ["一番", "いちばん"],
+  ["ほうがいい", "たほうがいい"]
+];
 
 export function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -398,7 +415,8 @@ export async function createSentenceOrderingQuestion(source: ClozeSource, locale
   return {
     mode: "sentence-ordering",
     grammarId: source.grammar.id,
-    prompt: pickLocalizedText(source.grammar.spiegazione, locale),
+    // la traduzione rende unica la frase da comporre (la spiegazione del punto no)
+    prompt: pickLocalizedText(source.example.traduzione, locale) || pickLocalizedText(source.grammar.spiegazione, locale),
     tokens: shuffle(plainTokens),
     correctOrder: plainTokens,
     translation: pickLocalizedText(source.example.traduzione, locale)
@@ -448,9 +466,7 @@ function pickClozeTarget(tokens: string[]): string {
 }
 
 function pickGrammarStructureTarget(source: ClozeSource, plainSentence: string): string | null {
-  const structurePlain = stripFuriganaNotation(source.grammar.struttura ?? "")
-    .replace(/[〜~]/g, "")
-    .trim();
+  const structurePlain = stripFuriganaNotation(source.grammar.struttura ?? "").trim();
 
   if (!structurePlain) {
     return null;
@@ -459,7 +475,10 @@ function pickGrammarStructureTarget(source: ClozeSource, plainSentence: string):
   const candidates = structurePlain
     .split(GRAMMAR_STRUCTURE_SPLIT_REGEX)
     .map((part) => part.trim())
-    .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part))
+    .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part) && !GRAMMAR_LABEL_REGEX.test(part))
+    // Un kana solo è la forma testata solo se è TUTTA la struttura (か): di
+    // 〜(に)する oscurerebbe un に qualunque.
+    .filter((part) => part.length >= 2 || part === structurePlain.replace(/[〜~]/g, ""))
     .sort((a, b) => b.length - a.length);
 
   for (const candidate of candidates) {
@@ -545,70 +564,52 @@ function buildReadingDistractors(context: QuizContext, jlptLevel: JLPTLevel, exc
   return shuffle(pool).slice(0, 3);
 }
 
-function createReadingChoiceQuestion(source: ClozeSource, jlptLevel: JLPTLevel, context: QuizContext): ReadingChoiceQuestion | null {
-  const target = pickReadingTarget(source.example.testo);
-  if (!target) {
-    return null;
-  }
-
-  const distractors = buildReadingDistractors(context, jlptLevel, target.reading);
-  return {
-    mode: "reading-choice",
-    grammarId: source.grammar.id,
-    sentenceHtml: buildReadingSentenceHtml(source.example.testo, target.match),
-    plainSentence: stripFuriganaNotation(source.example.testo),
-    targetText: target.base,
-    choices: shuffle([target.reading, ...distractors]).slice(0, 4),
-    correctChoice: target.reading
-  };
-}
-
+// Cloze SULLA forma del punto grammaticale, mai su una parola a caso: senza la
+// forma nella frase (coniugata, per esempio) null, e il chiamante passa ad altro.
 export async function createClozeQuestion(
   source: ClozeSource,
   distractorIndex: DistractorIndex,
   jlptLevel: JLPTLevel,
   context: QuizContext
-): Promise<ClozeQuestion> {
-  const tokenizer = await createDefaultTokenizer();
+): Promise<ClozeQuestion | null> {
   const plainSentence = stripFuriganaNotation(source.example.testo);
-  const tokens = tokenizer.tokenize(plainSentence);
-  const randomTarget = pickClozeTarget(tokens);
-  const structureTarget = pickGrammarStructureTarget(source, plainSentence);
-  const target = structureTarget ?? (randomTarget.length < plainSentence.length ? randomTarget : "");
+  const target = pickGrammarStructureTarget(source, plainSentence);
+  if (!target) return null;
+  // Particelle: al quiz bastano e avanzano quelle curate (の/で/に si
+  // sovrappongono troppo per generarle senza controllo).
+  const groups = GRAMMAR_GROUPS as Record<string, string>;
+  const group = groups[source.grammar.id];
+  if (target.length === 1 && group === "particelle") return null;
 
-  const fallbackTarget =
-    target ||
-    tokens.find((token) => /[ぁ-んァ-ヶ一-龯]/.test(token) && token.length > 0 && token.length < plainSentence.length) ||
-    (plainSentence.length > 1 ? plainSentence.slice(-1) : plainSentence);
-
-  // Distrattori della STESSA categoria: pezzi di altre strutture grammaticali,
-  // simili per lunghezza — pescare parole dal vocabolario faceva risolvere
-  // quasi ogni cloze per esclusione di categoria (audit dell'insegnante).
-  // Fallback alle parole solo se le strutture non bastano.
-  const grammarChunks = [...context.grammarById.values()]
-    .filter((g) => g.id !== source.grammar.id)
-    .map((g) => stripFuriganaNotation(g.struttura ?? "").replace(/[〜~]/g, "").trim())
-    .flatMap((st) => st.split(GRAMMAR_STRUCTURE_SPLIT_REGEX))
-    .map((part) => part.trim())
-    .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part) && part !== fallbackTarget)
-    .filter((part) => Math.abs(part.length - fallbackTarget.length) <= 2);
-  const fromGrammar = shuffle([...new Set(grammarChunks)]).slice(0, 3);
+  // Distrattori: pezzi di altre strutture, prima dello stesso gruppo funzionale
+  // (si confondono davvero), simili per lunghezza. Mai forme equivalenti al
+  // bersaglio, né altre che lo contengono o ne sono contenute.
+  const sameMeaning = new Set(SAME_MEANING_FORMS.filter((set) => set.includes(target)).flat());
+  const chunksOf = (g: Grammar): string[] =>
+    stripFuriganaNotation(g.struttura ?? "")
+      .split(GRAMMAR_STRUCTURE_SPLIT_REGEX)
+      .map((part) => part.trim())
+      .filter((part) => /[ぁ-んァ-ヶ一-龯]/.test(part) && !GRAMMAR_LABEL_REGEX.test(part))
+      .filter((part) => part.length >= 2)
+      .filter((part) => !sameMeaning.has(part) && !part.includes(target) && !target.includes(part))
+      .filter((part) => Math.abs(part.length - target.length) <= 2);
+  const others = [...context.grammarById.values()].filter((g) => g.id !== source.grammar.id);
+  const fromGroup = shuffle([...new Set(others.filter((g) => groups[g.id] === group).flatMap(chunksOf))]);
+  const fromAll = shuffle([...new Set(others.flatMap(chunksOf))]);
+  const fromGrammar = [...new Set([...fromGroup, ...fromAll])].slice(0, 3);
+  // Lo stampo vuole 4 opzioni: fallback alle parole solo se le forme non bastano.
   const fromWords = buildDistractors(jlptLevel, distractorIndex, "", 3)
     .map((d) => context.wordsById.get(d.id)?.scrittura)
     .filter((v): v is string => Boolean(v));
-  const distractorChoices = [...fromGrammar, ...fromWords].filter((v) => v !== fallbackTarget).slice(0, 3);
-
-  let blanked = blankClozeTarget(source.example.testo, fallbackTarget);
-  if (stripFuriganaNotation(blanked).trim() === "___") {
-    blanked = source.example.testo;
-  }
+  const distractorChoices = [...new Set([...fromGrammar, ...fromWords])].filter((v) => v !== target).slice(0, 3);
+  if (distractorChoices.length === 0) return null;
 
   return {
     mode: "cloze",
     grammarId: source.grammar.id,
-    sentenceWithBlank: renderFuriganaToHtml(blanked),
-    choices: shuffle([fallbackTarget, ...distractorChoices]).slice(0, 4),
-    correctChoice: fallbackTarget,
+    sentenceWithBlank: renderFuriganaToHtml(blankClozeTarget(source.example.testo, target)),
+    choices: shuffle([target, ...distractorChoices]),
+    correctChoice: target,
     fullSentence: plainSentence,
     translation: pickLocalizedText(source.example.traduzione, context.locale)
   };
@@ -1023,23 +1024,23 @@ const MODE_BASE_XP: Record<XpInput["quizMode"], number> = {
   "usage-cloze": 13
 };
 
+// Domanda su un punto grammaticale: la forma in contesto prima di tutto; il
+// riordino solo come variante o quando la forma non è isolabile. null se la
+// frase non permette nessuno dei due.
 export async function createGrammarQuestion(
   source: ClozeSource,
   distractorIndex: DistractorIndex,
   jlptLevel: JLPTLevel,
   context: QuizContext,
   locale: "it" | "en"
-): Promise<SentenceOrderingQuestion | ClozeQuestion | ReadingChoiceQuestion> {
-  if (Math.random() < 0.5 && (await canCreateSentenceOrderingQuestion(source))) {
+): Promise<SentenceOrderingQuestion | ClozeQuestion | null> {
+  const canOrder = await canCreateSentenceOrderingQuestion(source);
+  if (canOrder && Math.random() < 0.2) {
     return createSentenceOrderingQuestion(source, locale);
   }
-
-  const readingQuestion = createReadingChoiceQuestion(source, jlptLevel, context);
-  if (readingQuestion) {
-    return readingQuestion;
-  }
-
-  return createClozeQuestion(source, distractorIndex, jlptLevel, context);
+  const cloze = await createClozeQuestion(source, distractorIndex, jlptLevel, context);
+  if (cloze) return cloze;
+  return canOrder ? createSentenceOrderingQuestion(source, locale) : null;
 }
 
 export function calculateQuizXp(input: XpInput): XpBreakdown {

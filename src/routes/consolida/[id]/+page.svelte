@@ -31,7 +31,7 @@
 	import { blankSentence } from '$lib/core/usage';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { SITUATIONS, type UsefulPhrase } from '$lib/core/usefulPhrases';
-	import { curatedByParticle, curatedByWord, curatedByGram, curatedToQuestion } from '$lib/data/propedeutiche';
+	import { curatedByParticle, curatedByWord, curatedByGram, curatedForGrammar, curatedToQuestion } from '$lib/data/propedeutiche';
 	import type { Word, Counter, Kanji } from '$lib/types/models';
 	import type { QuizContext, DistractorIndex, QuizQuestion } from '$lib/quiz/types';
 
@@ -120,18 +120,19 @@
 		const [kind, ...rest] = wordId.includes(':') ? wordId.split(':') : ['auto', wordId];
 		const rawId = wordId.includes(':') ? rest.join(':') : wordId;
 
-		// Grammatica: micro-drill con le domande grammaticali (cloze/reading).
+		// Grammatica: micro-drill sulla forma in contesto (curate, poi cloze).
 		if (kind === 'grammar') {
 			const g = await db.grammar.get(rawId);
-			if (g && g.frasi_esempio?.length) {
+			const curated = g ? curatedForGrammar(g.id, g.struttura) : [];
+			if (g && (g.frasi_esempio?.length || curated.length > 0)) {
 				grammarMode = true;
 				srsTarget = `grammar:${g.id}`;
 				title = g.struttura;
-				const qs: QuizQuestion[] = [];
-				for (let i = 0; i < 8 && qs.length < 5; i += 1) {
+				const qs: QuizQuestion[] = shuffle(curated).slice(0, 5);
+				for (let i = 0; i < 8 && qs.length < 5 && g.frasi_esempio?.length; i += 1) {
 					const example = g.frasi_esempio[Math.floor(Math.random() * g.frasi_esempio.length)]!;
 					const q = await createGrammarQuestion({ grammar: g, example }, distractors, g.livello_jlpt, context, locale);
-					if (q.mode === 'cloze' || q.mode === 'reading-choice') qs.push(q);
+					if (q?.mode === 'cloze') qs.push(q);
 				}
 				queue = qs;
 			}

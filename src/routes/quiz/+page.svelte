@@ -45,7 +45,7 @@
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
-	import { curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
+	import { curatedByWord, curatedForGrammar, curatedToQuestion } from '$lib/data/propedeutiche';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import { markWeakDoneToday } from '$lib/core/dailyPlan';
 	import Confetti from '$lib/components/Confetti.svelte';
@@ -348,11 +348,19 @@
 		}
 
 		const entry = context.grammarById.get(ref.key.replace('grammar:', ''));
-		if (!entry || entry.frasi_esempio.length === 0) return null;
+		if (!entry) return null;
+		// Item curati quasi sempre: il contesto rende unica la risposta. Un giro su
+		// cinque resta alle frasi del catalogo, per non ripetere sempre le stesse.
+		const curatedGram = curatedForGrammar(entry.id, entry.struttura);
+		if (curatedGram.length > 0 && (entry.frasi_esempio.length === 0 || Math.random() < 0.8)) {
+			return curatedGram[Math.floor(Math.random() * curatedGram.length)]!;
+		}
+		if (entry.frasi_esempio.length === 0) return null;
 		// via gli esempi-elenco (飲むな、食べるな…): buoni per la scheda, non per le domande
 		const usable = entry.frasi_esempio.filter((ex) => !isFormEnumeration(stripFuriganaNotation(ex.testo)));
 		const example = sample(usable.length > 0 ? usable : entry.frasi_esempio);
-		return createGrammarQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context, locale);
+		const generated = await createGrammarQuestion({ grammar: entry, example }, distractorIndex, entry.livello_jlpt, context, locale);
+		return generated ?? curatedGram[0] ?? null;
 	}
 
 	// I ripassi dovuti sono sempre illimitati; solo l'ingresso di carte MAI
@@ -1918,7 +1926,7 @@
 				</div>
 			{:else}
 				<div class="solution"><InteractiveSentence text={q.correctOrder.join('')} furigana /></div>
-				{#if q.translation}<p class="question-hint">💬 {q.translation}</p>{/if}
+				{#if q.translation && q.translation !== q.prompt}<p class="question-hint">💬 {q.translation}</p>{/if}
 			{/if}
 
 		<!-- composizione: componi la parola coi caratteri (con intrusi) -->

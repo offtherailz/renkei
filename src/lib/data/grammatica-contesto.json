@@ -1,0 +1,1097 @@
+{
+ "_nota": "Forma giusta in contesto per punto grammaticale (stampo 問題1 JLPT, item originali): il contesto ammette una sola risposta, distrattori della stessa famiglia. Pescati da /quiz e /consolida per grammar:<id>.",
+ "items": [
+  {
+   "grammatica": "grammar-api-N4-45",
+   "frase_con_buco": "この ボタンを ＿＿、水が 出ます。",
+   "corretta": "おすと",
+   "distrattori": [
+    "おすなら",
+    "おすのに",
+    "おすまで"
+   ],
+   "perche": "Conseguenza automatica e sempre vera: si usa と. なら vale per «se hai intenzione di…», のに esprime contrasto.",
+   "traduzione_it": "Se premi questo pulsante, esce l'acqua."
+  },
+  {
+   "grammatica": "grammar-api-N4-46",
+   "frase_con_buco": "お金が ＿＿、新しい 車を 買いたいです。",
+   "corretta": "あれば",
+   "distrattori": [
+    "あると",
+    "あっても",
+    "あるのに"
+   ],
+   "perche": "Ipotesi seguita da un desiderio: va bene ば. と non regge desideri o volontà nella seconda parte.",
+   "traduzione_it": "Se avessi i soldi, vorrei comprare un'auto nuova."
+  },
+  {
+   "grammatica": "grammar-api-N4-47",
+   "frase_con_buco": "駅に ＿＿、電話して ください。",
+   "corretta": "着いたら",
+   "distrattori": [
+    "着くと",
+    "着いても",
+    "着くのに"
+   ],
+   "perche": "Prima arrivi, poi chiami, e segue una richiesta: serve たら. と non regge richieste.",
+   "traduzione_it": "Quando arrivi alla stazione, chiamami."
+  },
+  {
+   "grammatica": "grammar-api-N4-48",
+   "frase_con_buco": "A「来週、きょうとへ 行きます。」B「きょうとへ ＿＿、この おてらが いいですよ。」",
+   "corretta": "行くなら",
+   "distrattori": [
+    "行くと",
+    "行っても",
+    "行くのに"
+   ],
+   "perche": "B riprende ciò che ha appena detto A e dà un consiglio: è il compito di なら.",
+   "traduzione_it": "A: «La settimana prossima vado a Kyoto.» B: «Se vai a Kyoto, ti consiglio questo tempio.»"
+  },
+  {
+   "grammatica": "g-n4-tara-dou-desu-ka",
+   "frase_con_buco": "ねつが あるなら、病院へ ＿＿どうですか。",
+   "corretta": "行ったら",
+   "distrattori": [
+    "行くと",
+    "行っても",
+    "行けて"
+   ],
+   "perche": "Il suggerimento gentile è 〜たらどうですか, sempre con la forma in た.",
+   "traduzione_it": "Se hai la febbre, perché non vai in ospedale?"
+  },
+  {
+   "grammatica": "grammar-api-N4-51",
+   "frase_con_buco": "雨の ＿＿は、しあいは ありません。",
+   "corretta": "ばあい",
+   "distrattori": [
+    "ところ",
+    "ほう",
+    "こと"
+   ],
+   "perche": "場合は introduce un'eventualità: «in caso di pioggia».",
+   "traduzione_it": "In caso di pioggia, la partita non si fa."
+  },
+  {
+   "grammatica": "g-n4-ba-yokatta",
+   "frase_con_buco": "テストが 悪かったです。もっと 勉強＿＿よかったです。",
+   "corretta": "すれば",
+   "distrattori": [
+    "すると",
+    "しても",
+    "するなら"
+   ],
+   "perche": "Rimpianto per ciò che non si è fatto: 〜ばよかった.",
+   "traduzione_it": "Il test è andato male. Avrei dovuto studiare di più."
+  },
+  {
+   "grammatica": "g-n4-te-yokatta",
+   "frase_con_buco": "友だちも できたし、日本に ＿＿ よかったです。",
+   "corretta": "来て",
+   "distrattori": [
+    "来れば",
+    "来ると",
+    "来ても"
+   ],
+   "perche": "Sei contento di ciò che è successo: 〜てよかった. 来ればよかった sarebbe un rimpianto, ma qui in Giappone ci sei venuto.",
+   "traduzione_it": "Mi sono fatto anche degli amici: sono contento di essere venuto in Giappone."
+  },
+  {
+   "grammatica": "grammar-api-N4-6",
+   "frase_con_buco": "弟は まだ 字が 読めないので、私が 本を ＿＿。",
+   "corretta": "読んであげました",
+   "distrattori": [
+    "読んでくれました",
+    "読んでもらいました",
+    "読んでいただきました"
+   ],
+   "perche": "Il favore va da me a un altro, e chi lo fa è 私が: 〜てあげる.",
+   "traduzione_it": "Mio fratello minore non sa ancora leggere, così gli ho letto il libro."
+  },
+  {
+   "grammatica": "grammar-api-N4-7",
+   "frase_con_buco": "友だちが 私を 駅まで 車で ＿＿。",
+   "corretta": "送ってくれました",
+   "distrattori": [
+    "送ってあげました",
+    "送ってもらいました",
+    "送ってやりました"
+   ],
+   "perche": "Un altro fa un favore a me, ed è lui il soggetto con が: 〜てくれる.",
+   "traduzione_it": "Un amico mi ha accompagnato in auto fino alla stazione."
+  },
+  {
+   "grammatica": "grammar-api-N4-8",
+   "frase_con_buco": "日本語が わからないので、私は 田中さんに 手紙を ＿＿。",
+   "corretta": "読んでもらいました",
+   "distrattori": [
+    "読んであげました",
+    "読んでくれました",
+    "読んでさしあげました"
+   ],
+   "perche": "Il soggetto sono io, chi fa il favore è segnato da に: 〜てもらう.",
+   "traduzione_it": "Non capisco il giapponese, quindi mi sono fatto leggere la lettera dal signor Tanaka."
+  },
+  {
+   "grammatica": "grammar-api-N4-84",
+   "frase_con_buco": "先生が 作文を ＿＿。",
+   "corretta": "なおしてくださいました",
+   "distrattori": [
+    "なおしていただきました",
+    "なおしてさしあげました",
+    "なおしてあげました"
+   ],
+   "perche": "Il superiore è il soggetto (先生が) e fa un favore a me: 〜てくださる. いただく vorrebbe 先生に e me come soggetto.",
+   "traduzione_it": "L'insegnante mi ha gentilmente corretto il tema."
+  },
+  {
+   "grammatica": "grammar-api-N4-9",
+   "frase_con_buco": "すみません、この 漢字の 読み方を ＿＿か。",
+   "corretta": "教えていただけません",
+   "distrattori": [
+    "教えてあげません",
+    "教えてもらいません",
+    "教えてさしあげません"
+   ],
+   "perche": "Richiesta molto cortese: 〜ていただけませんか.",
+   "traduzione_it": "Scusi, potrebbe insegnarmi come si legge questo kanji?"
+  },
+  {
+   "grammatica": "g-n4-tekurete-arigatou",
+   "frase_con_buco": "プレゼント、＿＿ ありがとう。",
+   "corretta": "買ってくれて",
+   "distrattori": [
+    "買ってあげて",
+    "買ってもらって",
+    "買ってしまって"
+   ],
+   "perche": "Si ringrazia per un favore ricevuto: 〜てくれて ありがとう.",
+   "traduzione_it": "Grazie di avermi comprato il regalo."
+  },
+  {
+   "grammatica": "grammar-api-N4-57",
+   "frase_con_buco": "空が くらいですね。午後は 雨が ＿＿。",
+   "corretta": "ふるかもしれません",
+   "distrattori": [
+    "ふるつもりです",
+    "ふりたいです",
+    "ふってください"
+   ],
+   "perche": "Possibilità non certa: 〜かもしれません. Il tempo non ha intenzioni né desideri.",
+   "traduzione_it": "Il cielo è scuro. Nel pomeriggio forse pioverà."
+  },
+  {
+   "grammatica": "grammar-api-N4-54",
+   "frase_con_buco": "ニュースに よると、あした ゆきが ＿＿そうです。",
+   "corretta": "ふる",
+   "distrattori": [
+    "ふり",
+    "ふって",
+    "ふろう"
+   ],
+   "perche": "ニュースによると annuncia una notizia riferita: forma piana + そうだ. 降りそう, con lo stem, vorrebbe dire «sembra che stia per nevicare» a vista.",
+   "traduzione_it": "Secondo il telegiornale, domani nevicherà."
+  },
+  {
+   "grammatica": "grammar-api-N4-58",
+   "frase_con_buco": "田中さんは 九時に 出たから、もう 着いて いる＿＿です。",
+   "corretta": "はず",
+   "distrattori": [
+    "つもり",
+    "ばかり",
+    "ため"
+   ],
+   "perche": "Deduzione su basi solide: 〜はずです. つもり è l'intenzione di chi parla.",
+   "traduzione_it": "Tanaka è uscito alle nove, quindi dovrebbe essere già arrivato."
+  },
+  {
+   "grammatica": "grammar-api-N4-52",
+   "frase_con_buco": "電気が きえて いますね。だれも いない＿＿です。",
+   "corretta": "よう",
+   "distrattori": [
+    "つもり",
+    "ばかり",
+    "こと"
+   ],
+   "perche": "Deduzione da un indizio che si vede (la luce spenta): 〜ようです.",
+   "traduzione_it": "La luce è spenta. Sembra che non ci sia nessuno."
+  },
+  {
+   "grammatica": "grammar-api-N4-53",
+   "frase_con_buco": "ゆきの ＿＿ 白い 花が さいて います。",
+   "corretta": "ような",
+   "distrattori": [
+    "そうな",
+    "はずの",
+    "つもりの"
+   ],
+   "perche": "Paragone davanti a un nome: Nの ような + nome.",
+   "traduzione_it": "Sono sbocciati fiori bianchi come la neve."
+  },
+  {
+   "grammatica": "grammar-api-N4-72",
+   "frase_con_buco": "だいどころから いい におい＿＿。",
+   "corretta": "がします",
+   "distrattori": [
+    "をします",
+    "にします",
+    "でします"
+   ],
+   "perche": "Sensazione percepita (odore, suono, sapore): 〜がする.",
+   "traduzione_it": "Dalla cucina viene un buon profumo."
+  },
+  {
+   "grammatica": "grammar-api-N4-55",
+   "frase_con_buco": "あしたは たぶん はれる＿＿。",
+   "corretta": "でしょう",
+   "distrattori": [
+    "つもりです",
+    "ましょう",
+    "ください"
+   ],
+   "perche": "Previsione, spesso con たぶん: 〜でしょう.",
+   "traduzione_it": "Domani probabilmente sarà sereno."
+  },
+  {
+   "grammatica": "grammar-api-N4-18",
+   "frase_con_buco": "まどから 山が ＿＿。",
+   "corretta": "見えます",
+   "distrattori": [
+    "見ます",
+    "見せます",
+    "見ています"
+   ],
+   "perche": "Con が e senza sforzo di chi guarda: 見える, «essere visibile». 見る vorrebbe を.",
+   "traduzione_it": "Dalla finestra si vedono le montagne."
+  },
+  {
+   "grammatica": "grammar-api-N4-66",
+   "frase_con_buco": "あした おきゃくさんが 来るので、今日 飲み物を ＿＿。",
+   "corretta": "買っておきます",
+   "distrattori": [
+    "買っていました",
+    "買ってくれます",
+    "買ってあげます"
+   ],
+   "perche": "Si fa ora qualcosa in preparazione di domani: 〜ておく.",
+   "traduzione_it": "Domani vengono ospiti, quindi oggi compro da bere in anticipo."
+  },
+  {
+   "grammatica": "grammar-api-N4-20",
+   "frase_con_buco": "あとで 使うので、電気は つけて＿＿ ください。",
+   "corretta": "おいて",
+   "distrattori": [
+    "あって",
+    "しまって",
+    "もらって"
+   ],
+   "perche": "Lasciare apposta le cose in quello stato: 〜ておく.",
+   "traduzione_it": "Lo uso dopo, quindi lascia pure la luce accesa."
+  },
+  {
+   "grammatica": "grammar-api-N4-21",
+   "frase_con_buco": "大事な かさを 電車に ＿＿。",
+   "corretta": "わすれてしまいました",
+   "distrattori": [
+    "わすれておきました",
+    "わすれてみました",
+    "わすれてあげました"
+   ],
+   "perche": "Fatto spiacevole e involontario: 〜てしまう.",
+   "traduzione_it": "Ho dimenticato sul treno il mio ombrello preferito."
+  },
+  {
+   "grammatica": "grammar-api-N4-65",
+   "frase_con_buco": "おいしいか どうか わからないので、一度 ＿＿。",
+   "corretta": "食べてみます",
+   "distrattori": [
+    "食べてしまいます",
+    "食べておきます",
+    "食べてあります"
+   ],
+   "perche": "Si prova per vedere come va: 〜てみる.",
+   "traduzione_it": "Non so se è buono, quindi lo assaggio una volta."
+  },
+  {
+   "grammatica": "grammar-api-N4-76",
+   "frase_con_buco": "十一月に なって、だんだん さむく ＿＿。",
+   "corretta": "なってきました",
+   "distrattori": [
+    "なっておきました",
+    "なってみました",
+    "なってあげました"
+   ],
+   "perche": "Cambiamento graduale fino a ora: 〜てくる, spesso con だんだん.",
+   "traduzione_it": "È novembre e sta facendo sempre più freddo."
+  },
+  {
+   "grammatica": "grammar-api-N4-25",
+   "frase_con_buco": "もう 十時ですが、弟は ＿＿ ねて います。",
+   "corretta": "まだ",
+   "distrattori": [
+    "ぜんぜん",
+    "あまり",
+    "少しも"
+   ],
+   "perche": "Azione ancora in corso: まだ + 〜ている. Gli altri tre richiedono un verbo negativo.",
+   "traduzione_it": "Sono già le dieci, ma mio fratello minore dorme ancora."
+  },
+  {
+   "grammatica": "g-n4-teiru",
+   "frase_con_buco": "姉は 今、大学で 英語を ＿＿。",
+   "corretta": "教えています",
+   "distrattori": [
+    "教えたことがあります",
+    "教えてください",
+    "教えましょう"
+   ],
+   "perche": "Attività in corso nel periodo presente, segnalata da 今: 〜ている.",
+   "traduzione_it": "Mia sorella maggiore ora insegna inglese all'università."
+  },
+  {
+   "grammatica": "grammar-api-N5-65",
+   "frase_con_buco": "ドアに 「休み」と 書いた 紙が ＿＿。",
+   "corretta": "はってあります",
+   "distrattori": [
+    "はっています",
+    "はっておきます",
+    "はってみます"
+   ],
+   "perche": "Risultato di un'azione fatta apposta da qualcuno: Nが 〜てある.",
+   "traduzione_it": "Sulla porta è attaccato un foglio con scritto «chiuso»."
+  },
+  {
+   "grammatica": "grammar-api-N4-22",
+   "frase_con_buco": "まどが ＿＿ いますね。だれが 開けましたか。",
+   "corretta": "開いて",
+   "distrattori": [
+    "開けて",
+    "開き",
+    "開く"
+   ],
+   "perche": "Con が serve l'intransitivo in stato risultante: 開いている.",
+   "traduzione_it": "La finestra è aperta. Chi l'ha aperta?"
+  },
+  {
+   "grammatica": "grammar-api-N4-75",
+   "frase_con_buco": "この いすは 木＿＿ できて います。",
+   "corretta": "で",
+   "distrattori": [
+    "を",
+    "へ",
+    "と"
+   ],
+   "perche": "Il materiale che si vede si segna con で: 木で できている.",
+   "traduzione_it": "Questa sedia è fatta di legno."
+  },
+  {
+   "grammatica": "grammar-api-N4-49",
+   "frase_con_buco": "たくさん 勉強した＿＿、テストは 悪かったです。",
+   "corretta": "のに",
+   "distrattori": [
+    "ので",
+    "から",
+    "たら"
+   ],
+   "perche": "Risultato contrario all'attesa, con delusione: のに.",
+   "traduzione_it": "Ho studiato tanto, eppure il test è andato male."
+  },
+  {
+   "grammatica": "grammar-api-N4-69",
+   "frase_con_buco": "この はさみは 紙を 切る＿＿ 使います。",
+   "corretta": "のに",
+   "distrattori": [
+    "ので",
+    "と",
+    "ほど"
+   ],
+   "perche": "Scopo d'uso di un oggetto: forma piana + のに + 使う.",
+   "traduzione_it": "Queste forbici si usano per tagliare la carta."
+  },
+  {
+   "grammatica": "grammar-api-N4-50",
+   "frase_con_buco": "雨が ＿＿、しあいは あります。",
+   "corretta": "ふっても",
+   "distrattori": [
+    "ふったら",
+    "ふるので",
+    "ふれば"
+   ],
+   "perche": "Anche se la condizione si verifica, il risultato non cambia: 〜ても.",
+   "traduzione_it": "Anche se piove, la partita si fa."
+  },
+  {
+   "grammatica": "grammar-api-N4-5",
+   "frase_con_buco": "道が こんで いた＿＿、おくれて すみません。",
+   "corretta": "ので",
+   "distrattori": [
+    "のに",
+    "ても",
+    "ながら"
+   ],
+   "perche": "Motivo presentato con garbo mentre ci si scusa: ので.",
+   "traduzione_it": "Mi scusi per il ritardo, c'era traffico."
+  },
+  {
+   "grammatica": "grammar-api-N4-1",
+   "frase_con_buco": "この 店は 安い＿＿、おいしいし、よく 来ます。",
+   "corretta": "し",
+   "distrattori": [
+    "のに",
+    "ても",
+    "まで"
+   ],
+   "perche": "Si elencano più motivi che vanno nella stessa direzione: 〜し、〜し.",
+   "traduzione_it": "Questo locale è economico, è buono, e ci vengo spesso."
+  },
+  {
+   "grammatica": "grammar-api-N4-4",
+   "frase_con_buco": "バスが なかなか 来ませんでした。＿＿、タクシーで 行く ことに しました。",
+   "corretta": "そこで",
+   "distrattori": [
+    "しかし",
+    "でも",
+    "それに"
+   ],
+   "perche": "Davanti a quella situazione si prende una decisione: そこで.",
+   "traduzione_it": "L'autobus non arrivava. Così ho deciso di andare in taxi."
+  },
+  {
+   "grammatica": "grammar-api-N4-68",
+   "frase_con_buco": "日本で はたらく＿＿、日本語を 勉強して います。",
+   "corretta": "ために",
+   "distrattori": [
+    "ように",
+    "ながら",
+    "ばかり"
+   ],
+   "perche": "Scopo con verbo volitivo (働く): ために. ように vuole verbi non volitivi o potenziali.",
+   "traduzione_it": "Studio giapponese per lavorare in Giappone."
+  },
+  {
+   "grammatica": "grammar-api-N4-67",
+   "frase_con_buco": "わすれない＿＿、メモを します。",
+   "corretta": "ように",
+   "distrattori": [
+    "ながら",
+    "ばかり",
+    "ほど"
+   ],
+   "perche": "Scopo con verbo non volitivo, spesso negativo: 〜ないように.",
+   "traduzione_it": "Prendo appunti per non dimenticare."
+  },
+  {
+   "grammatica": "grammar-api-N4-24",
+   "frase_con_buco": "今から 出かける＿＿です。",
+   "corretta": "ところ",
+   "distrattori": [
+    "ばかり",
+    "ほう",
+    "まで"
+   ],
+   "perche": "Forma in dizionario + ところ: sul punto di fare.",
+   "traduzione_it": "Sto proprio per uscire."
+  },
+  {
+   "grammatica": "grammar-api-N4-26",
+   "frase_con_buco": "さっき 食べた＿＿なので、今は おなかが いっぱいです。",
+   "corretta": "ばかり",
+   "distrattori": [
+    "つもり",
+    "はず",
+    "ほう"
+   ],
+   "perche": "Forma in た + ばかり: appena fatto.",
+   "traduzione_it": "Ho appena mangiato, quindi ora sono pieno."
+  },
+  {
+   "grammatica": "grammar-api-N4-71",
+   "frase_con_buco": "来月から おおさかで はたらく＿＿。会社が きめました。",
+   "corretta": "ことになりました",
+   "distrattori": [
+    "ことにしました",
+    "ようになりました",
+    "つもりです"
+   ],
+   "perche": "La decisione viene da fuori (il dirigente, l'azienda): 〜ことになる. 〜ことにする è una decisione propria.",
+   "traduzione_it": "Dal mese prossimo lavorerò a Osaka. L'ha deciso l'azienda."
+  },
+  {
+   "grammatica": "grammar-api-N4-74",
+   "frase_con_buco": "けんこうの ために、毎日 歩く＿＿。自分で きめました。",
+   "corretta": "ことにしました",
+   "distrattori": [
+    "ことになりました",
+    "ようになりました",
+    "ばかりです"
+   ],
+   "perche": "Decisione presa da sé (自分で): 〜ことにする.",
+   "traduzione_it": "Per la salute ho deciso di camminare ogni giorno. L'ho deciso io."
+  },
+  {
+   "grammatica": "grammar-api-N4-73",
+   "frase_con_buco": "体に 悪いので、あまい ものは 食べない＿＿ います。",
+   "corretta": "ようにして",
+   "distrattori": [
+    "ようになって",
+    "ばかりで",
+    "ために"
+   ],
+   "perche": "Impegno costante per fare o evitare qualcosa: 〜ようにする.",
+   "traduzione_it": "Fa male alla salute, quindi cerco di non mangiare dolci."
+  },
+  {
+   "grammatica": "grammar-api-N4-70",
+   "frase_con_buco": "毎日 れんしゅうして、漢字が 読める＿＿。",
+   "corretta": "ようになりました",
+   "distrattori": [
+    "ことにしました",
+    "つもりでした",
+    "ばかりでした"
+   ],
+   "perche": "Cambiamento di capacità nel tempo: potenziale + ようになる.",
+   "traduzione_it": "Esercitandomi ogni giorno, sono arrivato a saper leggere i kanji."
+  },
+  {
+   "grammatica": "grammar-api-N4-3",
+   "frase_con_buco": "A「どうして おくれたんですか。」B「電車が 止まった＿＿。」",
+   "corretta": "んです",
+   "distrattori": [
+    "つもりです",
+    "ましょう",
+    "ください"
+   ],
+   "perche": "Si risponde spiegando il motivo: 〜んです.",
+   "traduzione_it": "A: «Perché sei in ritardo?» B: «È che si è fermato il treno.»"
+  },
+  {
+   "grammatica": "grammar-api-N4-44",
+   "frase_con_buco": "私は 音楽を 聞く＿＿ すきです。",
+   "corretta": "のが",
+   "distrattori": [
+    "のを",
+    "のに",
+    "ので"
+   ],
+   "perche": "好き regge が: il verbo nominalizzato prende のが.",
+   "traduzione_it": "Mi piace ascoltare la musica."
+  },
+  {
+   "grammatica": "grammar-api-N4-59",
+   "frase_con_buco": "母「もう 九時よ。早く ＿＿。」",
+   "corretta": "ねなさい",
+   "distrattori": [
+    "ねましょうか",
+    "ねたいです",
+    "ねたことがあります"
+   ],
+   "perche": "Un genitore dà un ordine a un figlio: stem + なさい.",
+   "traduzione_it": "Mamma: «Sono già le nove. Vai subito a dormire.»"
+  },
+  {
+   "grammatica": "grammar-api-N4-28",
+   "frase_con_buco": "あしたは 休みだから、早く ＿＿ いいです。",
+   "corretta": "起きなくても",
+   "distrattori": [
+    "起きては",
+    "起きないと",
+    "起きるのに"
+   ],
+   "perche": "Non c'è bisogno di farlo: 〜なくてもいい.",
+   "traduzione_it": "Domani è festa, quindi non serve alzarsi presto."
+  },
+  {
+   "grammatica": "grammar-api-N4-60",
+   "frase_con_buco": "来月 旅行するので、パスポートを ＿＿ いけません。",
+   "corretta": "作らなければ",
+   "distrattori": [
+    "作っては",
+    "作らなくても",
+    "作っても"
+   ],
+   "perche": "Necessità: 〜なければいけない. 作ってはいけない vorrebbe dire che è vietato.",
+   "traduzione_it": "Il mese prossimo parto, quindi devo fare il passaporto."
+  },
+  {
+   "grammatica": "grammar-api-N5-69",
+   "frase_con_buco": "ここは 病院ですから、大きい こえで ＿＿ いけません。",
+   "corretta": "話しては",
+   "distrattori": [
+    "話さなければ",
+    "話しても",
+    "話さなくて"
+   ],
+   "perche": "Divieto: 〜てはいけない.",
+   "traduzione_it": "Qui siamo in ospedale, quindi non si deve parlare ad alta voce."
+  },
+  {
+   "grammatica": "grammar-api-N4-15",
+   "frase_con_buco": "電車の 中で、だれかに 足を ＿＿。",
+   "corretta": "ふまれました",
+   "distrattori": [
+    "ふみました",
+    "ふんであげました",
+    "ふんでおきました"
+   ],
+   "perche": "L'azione subita da me, con chi la compie segnato da に: passivo.",
+   "traduzione_it": "In treno qualcuno mi ha pestato il piede."
+  },
+  {
+   "grammatica": "grammar-api-N4-16",
+   "frase_con_buco": "やさいが きらいな 弟に、母は 毎日 やさいを ＿＿。",
+   "corretta": "食べさせました",
+   "distrattori": [
+    "食べました",
+    "食べたいです",
+    "食べさせられました"
+   ],
+   "perche": "La mamma fa sì che il fratello mangi: causativo, con chi esegue segnato da に.",
+   "traduzione_it": "A mio fratello, che odia la verdura, la mamma la faceva mangiare ogni giorno."
+  },
+  {
+   "grammatica": "grammar-api-N4-17",
+   "frase_con_buco": "子どもの とき、きらいな やさいを 母に ＿＿。",
+   "corretta": "食べさせられました",
+   "distrattori": [
+    "食べさせました",
+    "食べられました",
+    "食べてあげました"
+   ],
+   "perche": "Mi hanno costretto contro voglia: causativo-passivo.",
+   "traduzione_it": "Da bambino la mamma mi costringeva a mangiare le verdure che odiavo."
+  },
+  {
+   "grammatica": "grammar-api-N4-85",
+   "frase_con_buco": "すみません、気分が 悪いので、少し ＿＿ ください。",
+   "corretta": "休ませて",
+   "distrattori": [
+    "休んで",
+    "休まれて",
+    "休めて"
+   ],
+   "perche": "Si chiede il permesso di fare una cosa propria: 〜させてください. 休んでください chiederebbe all'altro di riposare.",
+   "traduzione_it": "Mi scusi, non mi sento bene: mi lasci riposare un po'."
+  },
+  {
+   "grammatica": "grammar-api-N4-82",
+   "frase_con_buco": "社長は 今、かいぎしつに ＿＿。",
+   "corretta": "いらっしゃいます",
+   "distrattori": [
+    "おります",
+    "まいります",
+    "うかがいます"
+   ],
+   "perche": "Azione di un superiore: serve il 尊敬語. おります, まいります e うかがいます sono umili, per sé stessi.",
+   "traduzione_it": "Il presidente ora è nella sala riunioni."
+  },
+  {
+   "grammatica": "grammar-api-N4-81",
+   "frase_con_buco": "先生は 毎朝 パンを ＿＿。",
+   "corretta": "めしあがります",
+   "distrattori": [
+    "いただきます",
+    "さしあげます",
+    "まいります"
+   ],
+   "perche": "Mangiare, detto di un superiore: めしあがる (尊敬語). いただく è la forma umile.",
+   "traduzione_it": "L'insegnante ogni mattina mangia pane."
+  },
+  {
+   "grammatica": "g-n4-o-ni-naru",
+   "frase_con_buco": "先生は この 本を もう ＿＿。",
+   "corretta": "お読みになりました",
+   "distrattori": [
+    "お読みしました",
+    "お読みいたしました",
+    "読んであげました"
+   ],
+   "perche": "Azione del superiore: お + stem + になる. お + stem + する è umile, per le proprie azioni.",
+   "traduzione_it": "L'insegnante ha già letto questo libro."
+  },
+  {
+   "grammatica": "grammar-api-N4-83",
+   "frase_con_buco": "先生、その にもつは 私が ＿＿。",
+   "corretta": "お持ちします",
+   "distrattori": [
+    "お持ちになります",
+    "お持ちください",
+    "持ちなさい"
+   ],
+   "perche": "Azione propria verso un superiore: お + stem + する (謙譲語).",
+   "traduzione_it": "Professore, quel bagaglio lo porto io."
+  },
+  {
+   "grammatica": "g-n4-o-kudasai",
+   "frase_con_buco": "こちらで 少々 ＿＿ ください。",
+   "corretta": "お待ち",
+   "distrattori": [
+    "お待ちして",
+    "お待ちに",
+    "待ち"
+   ],
+   "perche": "Richiesta onorifica: お + stem + ください, senza altro in mezzo.",
+   "traduzione_it": "Attenda un momento qui, per favore."
+  },
+  {
+   "grammatica": "grammar-api-N4-10",
+   "frase_con_buco": "私は 日本語の 新聞が 少し ＿＿。",
+   "corretta": "読めます",
+   "distrattori": [
+    "読みます",
+    "読もう",
+    "読んでいます"
+   ],
+   "perche": "Con が e 少し si parla di capacità: forma potenziale. 読む vorrebbe を.",
+   "traduzione_it": "So leggere un po' i giornali giapponesi."
+  },
+  {
+   "grammatica": "grammar-api-N4-14",
+   "frase_con_buco": "つかれたね。少し ＿＿。",
+   "corretta": "休もう",
+   "distrattori": [
+    "休め",
+    "休むな",
+    "休まれる"
+   ],
+   "perche": "Proposta tra amici in stile piano: forma volitiva.",
+   "traduzione_it": "Che stanchezza. Riposiamoci un po'."
+  },
+  {
+   "grammatica": "grammar-api-N4-62",
+   "frase_con_buco": "来年、日本へ ＿＿と 思って います。",
+   "corretta": "行こう",
+   "distrattori": [
+    "行け",
+    "行った",
+    "行って"
+   ],
+   "perche": "Intenzione di chi parla: volitiva + と思っている.",
+   "traduzione_it": "L'anno prossimo ho intenzione di andare in Giappone."
+  },
+  {
+   "grammatica": "grammar-api-N4-12",
+   "frase_con_buco": "あぶない！ その 水は ＿＿！",
+   "corretta": "飲むな",
+   "distrattori": [
+    "飲め",
+    "飲もう",
+    "飲まれる"
+   ],
+   "perche": "Divieto secco in emergenza: forma in dizionario + な.",
+   "traduzione_it": "Pericolo! Non bere quell'acqua!"
+  },
+  {
+   "grammatica": "grammar-api-N4-11",
+   "frase_con_buco": "サッカーの しあいで、みんなが 「＿＿！」と 言って います。",
+   "corretta": "がんばれ",
+   "distrattori": [
+    "がんばるな",
+    "がんばられる",
+    "がんばりたい"
+   ],
+   "perche": "Il tifo usa spesso l'imperativo piano: がんばれ.",
+   "traduzione_it": "Alla partita di calcio tutti gridano «Forza!»."
+  },
+  {
+   "grammatica": "grammar-api-N4-19",
+   "frase_con_buco": "私は まどを ＿＿。",
+   "corretta": "開けました",
+   "distrattori": [
+    "開きました",
+    "開いています",
+    "開きます"
+   ],
+   "perche": "C'è un agente e c'è を: serve il transitivo 開ける. 開く è intransitivo e vuole が.",
+   "traduzione_it": "Ho aperto la finestra."
+  },
+  {
+   "grammatica": "grammar-api-N4-64",
+   "frase_con_buco": "来年、日本へ 行く＿＿です。",
+   "corretta": "つもり",
+   "distrattori": [
+    "ながら",
+    "ばかり",
+    "ほう"
+   ],
+   "perche": "Intenzione già presa: forma in dizionario + つもりです.",
+   "traduzione_it": "L'anno prossimo ho intenzione di andare in Giappone."
+  },
+  {
+   "grammatica": "grammar-api-N4-34",
+   "frase_con_buco": "手を ＿＿から、ごはんを 食べます。",
+   "corretta": "あらって",
+   "distrattori": [
+    "あらい",
+    "あらえ",
+    "あらわ"
+   ],
+   "perche": "Una cosa e poi l'altra, in ordine: forma in て + から.",
+   "traduzione_it": "Mi lavo le mani e poi mangio."
+  },
+  {
+   "grammatica": "grammar-api-N4-33",
+   "frase_con_buco": "しゅくだいが 終わった＿＿、ゲームを します。",
+   "corretta": "あとで",
+   "distrattori": [
+    "まえに",
+    "ながら",
+    "まで"
+   ],
+   "perche": "Dopo un'azione conclusa: forma in た + あとで. まえに vorrebbe la forma in dizionario.",
+   "traduzione_it": "Dopo aver finito i compiti, gioco ai videogiochi."
+  },
+  {
+   "grammatica": "grammar-api-N4-36",
+   "frase_con_buco": "テレビを 見＿＿ ごはんを 食べないで ください。",
+   "corretta": "ながら",
+   "distrattori": [
+    "たり",
+    "まえに",
+    "ために"
+   ],
+   "perche": "Due azioni contemporanee: stem + ながら.",
+   "traduzione_it": "Non mangiare guardando la TV."
+  },
+  {
+   "grammatica": "grammar-api-N4-35",
+   "frase_con_buco": "金曜日＿＿ レポートを 出して ください。",
+   "corretta": "までに",
+   "distrattori": [
+    "まで",
+    "から",
+    "ほど"
+   ],
+   "perche": "Scadenza entro cui compiere un'azione una volta: までに. まで indica un'azione che continua fino a quel momento.",
+   "traduzione_it": "Consegna la relazione entro venerdì."
+  },
+  {
+   "grammatica": "grammar-api-N4-63",
+   "frase_con_buco": "かいぎは 三時に 始まる＿＿です。",
+   "corretta": "よてい",
+   "distrattori": [
+    "つもり",
+    "ばかり",
+    "ほう"
+   ],
+   "perche": "Programma stabilito: 〜予定です. つもり richiede una persona che ha l'intenzione.",
+   "traduzione_it": "La riunione è in programma per le tre."
+  },
+  {
+   "grammatica": "grammar-api-N4-37",
+   "frase_con_buco": "この カレーは ＿＿すぎて 食べられません。",
+   "corretta": "から",
+   "distrattori": [
+    "からい",
+    "からく",
+    "からくて"
+   ],
+   "perche": "Aggettivo in い: si toglie la い e si aggiunge すぎる.",
+   "traduzione_it": "Questo curry è troppo piccante, non riesco a mangiarlo."
+  },
+  {
+   "grammatica": "grammar-api-N4-27",
+   "frase_con_buco": "ねつが あるなら、今日は 休んだ＿＿ いいですよ。",
+   "corretta": "ほうが",
+   "distrattori": [
+    "より",
+    "まで",
+    "しか"
+   ],
+   "perche": "Consiglio: forma in た + ほうがいい.",
+   "traduzione_it": "Se hai la febbre, oggi faresti meglio a riposare."
+  },
+  {
+   "grammatica": "grammar-api-N4-79",
+   "frase_con_buco": "この 川の ふか＿＿は どのくらいですか。",
+   "corretta": "さ",
+   "distrattori": [
+    "い",
+    "く",
+    "そう"
+   ],
+   "perche": "Da aggettivo a nome: tolta la い si aggiunge さ (深さ, profondità).",
+   "traduzione_it": "Quanto è profondo questo fiume?"
+  },
+  {
+   "grammatica": "grammar-api-N4-32",
+   "frase_con_buco": "この ペンは 書き＿＿です。とても いいですよ。",
+   "corretta": "やすい",
+   "distrattori": [
+    "にくい",
+    "たい",
+    "すぎ"
+   ],
+   "perche": "Lo stem + やすい indica facilità: si capisce da «molto bene». にくい direbbe il contrario.",
+   "traduzione_it": "Con questa penna si scrive facilmente. È molto buona."
+  },
+  {
+   "grammatica": "grammar-api-N4-38",
+   "frase_con_buco": "バスが ないので、歩いて 行く＿＿。",
+   "corretta": "しかありません",
+   "distrattori": [
+    "ばかりです",
+    "ほどです",
+    "のにです"
+   ],
+   "perche": "Non c'è altra scelta: forma in dizionario + しかない.",
+   "traduzione_it": "Non c'è l'autobus, quindi non resta che andare a piedi."
+  },
+  {
+   "grammatica": "grammar-api-N4-2",
+   "frase_con_buco": "おなかが ＿＿、何も 食べられません。",
+   "corretta": "いたくて",
+   "distrattori": [
+    "いたい",
+    "いたいで",
+    "いたければ"
+   ],
+   "perche": "Causa espressa con la forma in て: aggettivo in い + くて.",
+   "traduzione_it": "Ho mal di pancia e non riesco a mangiare niente."
+  },
+  {
+   "grammatica": "grammar-api-N4-77",
+   "frase_con_buco": "つぎの 電車が 何時に 来る＿＿ 知って いますか。",
+   "corretta": "か",
+   "distrattori": [
+    "かどうか",
+    "と",
+    "のに"
+   ],
+   "perche": "Domanda incorporata con parola interrogativa (何時): solo か. かどうか è per «sì o no» senza interrogativo.",
+   "traduzione_it": "Sai a che ora arriva il prossimo treno?"
+  },
+  {
+   "grammatica": "grammar-api-N4-78",
+   "frase_con_buco": "あした 行ける＿＿、まだ わかりません。",
+   "corretta": "かどうか",
+   "distrattori": [
+    "と",
+    "のに",
+    "ので"
+   ],
+   "perche": "Domanda incorporata di tipo sì/no: 〜かどうか.",
+   "traduzione_it": "Non so ancora se domani potrò andare."
+  },
+  {
+   "grammatica": "grammar-api-N4-23",
+   "frase_con_buco": "田中さんは あした 来る＿＿ 言って いました。",
+   "corretta": "と",
+   "distrattori": [
+    "を",
+    "に",
+    "で"
+   ],
+   "perche": "Parole riferite: と + 言う.",
+   "traduzione_it": "Tanaka ha detto che domani viene."
+  },
+  {
+   "grammatica": "grammar-api-N4-56",
+   "frase_con_buco": "この 映画は おもしろい＿＿ 思います。",
+   "corretta": "と",
+   "distrattori": [
+    "を",
+    "が",
+    "に"
+   ],
+   "perche": "Opinione: forma piana + と思う.",
+   "traduzione_it": "Penso che questo film sia interessante."
+  },
+  {
+   "grammatica": "grammar-api-N4-30",
+   "frase_con_buco": "この 字は 「止まれ」＿＿ 意味です。",
+   "corretta": "という",
+   "distrattori": [
+    "と思う",
+    "について",
+    "によって"
+   ],
+   "perche": "Si spiega il significato: 「…」という意味です.",
+   "traduzione_it": "Questo carattere significa «fermati»."
+  },
+  {
+   "grammatica": "grammar-api-N4-31",
+   "frase_con_buco": "今朝は ごはんを ＿＿ 学校へ 来たので、おなかが すきました。",
+   "corretta": "食べないで",
+   "distrattori": [
+    "食べなくて",
+    "食べないと",
+    "食べなければ"
+   ],
+   "perche": "Senza aver fatto una cosa, se ne fa un'altra: 〜ないで.",
+   "traduzione_it": "Stamattina sono venuto a scuola senza mangiare, quindi ho fame."
+  },
+  {
+   "grammatica": "grammar-api-N4-13",
+   "frase_con_buco": "この ボタンを ＿＿、ドアが 開きます。",
+   "corretta": "おせば",
+   "distrattori": [
+    "おすば",
+    "おしば",
+    "おさば"
+   ],
+   "perche": "Forma condizionale dei verbi godan: la sillaba finale passa alla riga え, poi ば (おす → おせば).",
+   "traduzione_it": "Se premi questo pulsante, la porta si apre."
+  },
+  {
+   "grammatica": "g-n5-desu",
+   "frase_con_buco": "わたしは 学生＿＿。",
+   "corretta": "です",
+   "distrattori": [
+    "ます",
+    "ません",
+    "ました"
+   ],
+   "perche": "Nome + です: «essere». ます si attacca solo ai verbi.",
+   "traduzione_it": "Io sono studente."
+  },
+  {
+   "grammatica": "grammar-api-N5-36",
+   "frase_con_buco": "この 町は とても ＿＿ です。",
+   "corretta": "しずか",
+   "distrattori": [
+    "しずかな",
+    "しずかに",
+    "しずかの"
+   ],
+   "perche": "Davanti a です l'aggettivo in な resta senza な: il な serve solo davanti a un nome.",
+   "traduzione_it": "Questa città è molto tranquilla."
+  },
+  {
+   "grammatica": "grammar-api-N5-46",
+   "frase_con_buco": "A「いい 天気です＿＿。」B「そうですね。」",
+   "corretta": "ね",
+   "distrattori": [
+    "を",
+    "に",
+    "で"
+   ],
+   "perche": "Si cerca l'accordo di chi ascolta: ね a fine frase.",
+   "traduzione_it": "A: «Che bel tempo, vero?» B: «Già.»"
+  },
+  {
+   "grammatica": "grammar-api-N5-34",
+   "frase_con_buco": "兄は 学生です。弟＿＿ 学生です。",
+   "corretta": "も",
+   "distrattori": [
+    "を",
+    "に",
+    "で"
+   ],
+   "perche": "«Anche»: も prende il posto di は e di が.",
+   "traduzione_it": "Mio fratello maggiore è studente. Anche quello minore è studente."
+  },
+  {
+   "grammatica": "grammar-api-N4-42",
+   "frase_con_buco": "のどが かわきましたね。お茶＿＿ 飲みませんか。",
+   "corretta": "でも",
+   "distrattori": [
+    "しか",
+    "ほど",
+    "まで"
+   ],
+   "perche": "Proposta non vincolante, «un tè o qualcosa del genere»: でも.",
+   "traduzione_it": "Ho sete. Che ne dici di bere un tè o qualcosa del genere?"
+  }
+ ]
+}

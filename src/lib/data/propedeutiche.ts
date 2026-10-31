@@ -4,6 +4,7 @@
 // registro per il keigo, uso specifico per le particelle, contesto per la
 // forma). Ogni item porta il «perché» mostrato dopo la risposta.
 import raw from './propedeutiche-n5n4.json';
+import rawGrammatica from './grammatica-contesto.json';
 import { KEIGO_SUPPLETIVE_WORDS } from '$lib/core/keigo';
 import type { UsageClozeQuestion } from '$lib/quiz/types';
 
@@ -23,6 +24,46 @@ export interface CuratedItem {
 }
 
 export const CURATED_ITEMS: CuratedItem[] = (raw as { items: CuratedItem[] }).items;
+
+// Forma in contesto per punto grammaticale (grammatica-contesto.json).
+export interface GrammarCuratedItem {
+	grammatica: string;
+	frase_con_buco: string;
+	corretta: string;
+	distrattori: string[];
+	perche: string;
+	traduzione_it: string;
+}
+export const GRAMMAR_CURATED_ITEMS: GrammarCuratedItem[] = (rawGrammatica as { items: GrammarCuratedItem[] }).items;
+
+// Costruzioni (GRAMMAR_FORMS) con forma-contesto già curate, verso i punti del catalogo.
+const GRAM_SLUG_BY_GRAMMAR: Record<string, string> = {
+	'grammar-api-N5-62': 'ta-koto-ga-aru',
+	'grammar-api-N4-64': 'tsumori',
+	'grammar-api-N5-74': 'tsumori',
+	'grammar-api-N5-63': 'tai',
+	'grammar-api-N4-36': 'nagara',
+	'grammar-api-N4-60': 'nakereba',
+	'grammar-api-N5-42': 'nakereba',
+	'g-n4-teiru': 'te-iru',
+	'grammar-api-N5-66': 'te-iru',
+	'grammar-api-N4-27': 'hou-ga-ii',
+	'grammar-api-N5-15': 'hou-ga-ii',
+	'grammar-api-N4-37': 'sugiru',
+	'grammar-api-N5-61': 'sugiru'
+};
+
+// Tutto il curato che allena un punto del catalogo: gli item suoi, le
+// forma-contesto della costruzione corrispondente, le particelle-uso.
+export function curatedForGrammar(grammarId: string, struttura: string): UsageClozeQuestion[] {
+	const own = GRAMMAR_CURATED_ITEMS.filter((i) => i.grammatica === grammarId).map((i) =>
+		curatedToQuestion({ ...i, tipo: 'forma-contesto' })
+	);
+	const slug = GRAM_SLUG_BY_GRAMMAR[grammarId];
+	const byGram = slug ? curatedByGram(slug).map(curatedToQuestion) : [];
+	const byParticle = /^[はがをにへでとも]$/.test(struttura) ? curatedByParticle(struttura).map(curatedToQuestion) : [];
+	return [...own, ...byGram, ...byParticle];
+}
 
 export function curatedByParticle(particle: string): CuratedItem[] {
 	return CURATED_ITEMS.filter((i) => i.tipo === 'particella-uso' && i.corretta === particle);

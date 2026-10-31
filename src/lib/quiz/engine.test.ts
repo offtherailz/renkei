@@ -331,10 +331,51 @@ describe("blankClozeTarget (scelta dell'occorrenza giusta)", () => {
     const context = { locale: "it", wordsById: new Map(), grammarById: new Map() } as never;
     const emptyIndex = { N5: [], N4: [], N3: [], N2: [], N1: [] } as never;
     const q = await createGrammarQuestion({ grammar, example }, emptyIndex, "N4", context, "it");
-    if (q.mode === "cloze") {
+    if (q?.mode === "cloze") {
       expect(q.sentenceWithBlank).toContain("かれが");
       expect(q.sentenceWithBlank).not.toMatch(/^___れが|^＿＿れが/);
     }
+  });
+});
+
+describe("createGrammarQuestion", () => {
+  const mk = (id: string, struttura: string) =>
+    ({ id, struttura, spiegazione: { it: "", en: "" }, livello_jlpt: "N4", frasi_esempio: [], frasi_esempio_parole_linkate: [], updated_at: 0 }) as never;
+  const ex = (testo: string) => ({ testo, traduzione: { it: "trad", en: "tr" } }) as never;
+  const emptyIndex = { N5: [], N4: [], N3: [], N2: [], N1: [] } as never;
+  const grammar = [
+    mk("grammar-api-N4-49", "〜のに"),
+    mk("grammar-api-N4-5", "〜ので"),
+    mk("grammar-api-N5-23", "から"),
+    mk("grammar-api-N4-50", "〜ても"),
+    mk("grammar-api-N5-57", "ので"),
+    mk("grammar-api-N4-16", "使役形"),
+    mk("grammar-api-N4-12", "禁止形")
+  ] as { id: string }[];
+  const context = { locale: "it", wordsById: new Map(), grammarById: new Map(grammar.map((g) => [g.id, g])) } as never;
+
+  it("il buco è sempre sulla forma, mai etichette tra le opzioni", async () => {
+    const { createGrammarQuestion } = await import("./engine");
+    for (let i = 0; i < 30; i += 1) {
+      const q = await createGrammarQuestion({ grammar: grammar[0] as never, example: ex("たくさん 勉強したのに、テストは 悪かったです。") }, emptyIndex, "N4", context, "it");
+      if (q?.mode !== "cloze") continue;
+      expect(q.correctChoice).toBe("のに");
+      expect(q.choices.join()).not.toMatch(/形/);
+    }
+  });
+
+  it("niente forme equivalenti alla risposta tra le opzioni", async () => {
+    const { createGrammarQuestion } = await import("./engine");
+    for (let i = 0; i < 30; i += 1) {
+      const q = await createGrammarQuestion({ grammar: grammar[1] as never, example: ex("道が こんで いたので、おくれました。") }, emptyIndex, "N4", context, "it");
+      if (q?.mode === "cloze") expect(q.choices).not.toContain("から");
+    }
+  });
+
+  it("forma assente dalla frase e riordino impossibile: null, niente buco a caso", async () => {
+    const { createGrammarQuestion } = await import("./engine");
+    const q = await createGrammarQuestion({ grammar: grammar[5] as never, example: ex("母は弟に毎日たくさんの野菜を食べさせました。とても大変でした。") }, emptyIndex, "N4", context, "it");
+    expect(q).toBeNull();
   });
 });
 
