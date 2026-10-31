@@ -237,13 +237,20 @@ export interface AutoMazzo {
 	livello?: string;
 	tag?: string;
 	gruppo?: string; // grammatica per funzione (chiave in grammar-gruppi.json)
+	tutto?: boolean; // parole + kanji + grammatica del livello, prima ciò che manca
 }
 
 export const AUTO_MAZZI: AutoMazzo[] = [
+	{ id: 'tutto-n4', titolo: 'N4 (tutto)', emoji: '🎯', descrizione: 'Parole, kanji e grammatica N4: prima ciò che non hai ancora padroneggiato.', kind: 'word', livello: 'N4', tutto: true },
+	{ id: 'tutto-n5', titolo: 'N5 (tutto)', emoji: '🌱', descrizione: 'Parole, kanji e grammatica N5: prima ciò che non hai ancora padroneggiato.', kind: 'word', livello: 'N5', tutto: true },
+	{ id: 'nomi-n5', titolo: '名詞 N5 (nomi)', emoji: '📦', descrizione: 'Nomi di livello N5.', kind: 'word', tipo: '名詞', livello: 'N5' },
+	{ id: 'nomi-n4', titolo: '名詞 N4 (nomi)', emoji: '📦', descrizione: 'Nomi di livello N4.', kind: 'word', tipo: '名詞', livello: 'N4' },
 	{ id: 'verbi-n5', titolo: '動詞 N5 (verbi)', emoji: '🏃', descrizione: 'Verbi di livello N5.', kind: 'word', tipo: '動詞', livello: 'N5' },
 	{ id: 'verbi-n4', titolo: '動詞 N4 (verbi)', emoji: '🏃', descrizione: 'Verbi di livello N4.', kind: 'word', tipo: '動詞', livello: 'N4' },
 	{ id: 'agg-n5', titolo: '形容詞 N5 (aggettivi)', emoji: '🎨', descrizione: 'Aggettivi い/な di livello N5.', kind: 'word', tipo: '形容詞', livello: 'N5' },
 	{ id: 'agg-n4', titolo: '形容詞 N4 (aggettivi)', emoji: '🎨', descrizione: 'Aggettivi い/な di livello N4.', kind: 'word', tipo: '形容詞', livello: 'N4' },
+	{ id: 'avverbi-n5', titolo: '副詞 N5 (avverbi)', emoji: '⚡', descrizione: 'Avverbi di livello N5.', kind: 'word', tipo: '副詞', livello: 'N5' },
+	{ id: 'avverbi-n4', titolo: '副詞 N4 (avverbi)', emoji: '⚡', descrizione: 'Avverbi di livello N4.', kind: 'word', tipo: '副詞', livello: 'N4' },
 	{ id: 'avverbi', titolo: '副詞 (avverbi)', emoji: '⚡', descrizione: 'Avverbi (tutti i livelli).', kind: 'word', tipo: '副詞' },
 	{ id: 'connettori', titolo: '接続詞 (connettori)', emoji: '🔗', descrizione: 'Connettivi: でも, だから, それから…', kind: 'word', tipo: '接続詞' },
 	{ id: 'modidire', titolo: '慣用表現 (modi di dire)', emoji: '💬', descrizione: 'Espressioni idiomatiche.', kind: 'word', tipo: '慣用表現' },
@@ -269,6 +276,38 @@ export const AUTO_MAZZI: AutoMazzo[] = [
 	{ id: 'g-particelle', titolo: '助詞 (particelle)', emoji: '🔸', descrizione: 'は・が・を・に・へ・で・も…', kind: 'grammar', gruppo: 'particelle' },
 	{ id: 'g-base', titolo: '基礎 (です・形容詞…)', emoji: '🧱', descrizione: 'Copula, aggettivi, 〜になる…', kind: 'grammar', gruppo: 'base' }
 ];
+
+// Dose di un mazzo «tutto»: le voci meno padroneggiate di ogni area, a pari merito
+// a caso, in proporzione 3 parole : 1 kanji : 1 grammatica. Se un'area è esaurita
+// (già tutta ≥ 60), il posto passa alle altre.
+export function pickTuttoLivello(
+	areas: { kind: 'word' | 'kanji' | 'grammar'; ids: string[] }[],
+	mastery: (key: string) => number,
+	limit: number
+): { kind: string; raw: string }[] {
+	const QUOTA: Record<string, number> = { word: 3, kanji: 1, grammar: 1 };
+	const code = areas.map((a) => ({
+		kind: a.kind,
+		todo: a.ids
+			.map((id) => ({ id, m: mastery(`${a.kind}:${id}`), r: Math.random() }))
+			.filter((x) => x.m < 60)
+			.sort((x, y) => x.m - y.m || x.r - y.r)
+	}));
+	const out: { kind: string; raw: string }[] = [];
+	while (out.length < limit && code.some((c) => c.todo.length > 0)) {
+		for (const c of code) {
+			for (let i = 0; i < QUOTA[c.kind]! && c.todo.length > 0 && out.length < limit; i += 1) {
+				out.push({ kind: c.kind, raw: c.todo.shift()!.id });
+			}
+		}
+	}
+	// mescola: niente blocchi di sole parole
+	for (let i = out.length - 1; i > 0; i -= 1) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[out[i], out[j]] = [out[j]!, out[i]!];
+	}
+	return out;
+}
 
 export function findAutoMazzo(id: string): AutoMazzo | null {
 	return AUTO_MAZZI.find((m) => m.id === id) ?? null;

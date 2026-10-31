@@ -340,7 +340,8 @@ export async function loadMazzoWordsRecall(mazzoId: string, limit = 20): Promise
 	const auto = findAutoMazzo(mazzoId);
 	if (auto && auto.kind === 'word') {
 		const q = await loadAutoQueue(mazzoId, limit);
-		for (const { raw } of q) {
+		for (const { kind, raw } of q) {
+			if (kind !== 'word') continue;
 			const w = await db.words.get(raw);
 			if (!w) continue;
 			const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
@@ -432,9 +433,26 @@ export async function loadCollezioneQueue(mazzoId: string): Promise<{ kind: stri
 // Coda per un mazzo AUTO (filtro sul catalogo): parole per tipo/livello/tag, o
 // punti grammaticali per livello. Mescolate e limitate a una dose di sessione.
 export async function loadAutoQueue(id: string, limit = 15): Promise<{ kind: string; raw: string }[]> {
-	const { findAutoMazzo } = await import('$lib/data/mazzi');
+	const { findAutoMazzo, pickTuttoLivello } = await import('$lib/data/mazzi');
 	const m = findAutoMazzo(id);
 	if (!m) return [];
+	if (m.tutto) {
+		const [words, kanji, grammar, srs] = await Promise.all([db.words.toArray(), db.kanji.toArray(), db.grammar.toArray(), db.srs_progress.toArray()]);
+		const byId = new Map(srs.map((r) => [r.id_item, r]));
+		const idsOf = (xs: { id: string; livello_jlpt: string }[]) => xs.filter((x) => x.livello_jlpt === m.livello).map((x) => x.id);
+		return pickTuttoLivello(
+			[
+				{ kind: 'word', ids: idsOf(words) },
+				{ kind: 'kanji', ids: idsOf(kanji) },
+				{ kind: 'grammar', ids: idsOf(grammar.filter((g) => (g.frasi_esempio?.length ?? 0) > 0)) }
+			],
+			(key) => {
+				const r = byId.get(key);
+				return r ? normalizeMastery(r.srs_stage, r.mastery_points) : -1; // -1 = mai vista
+			},
+			limit
+		);
+	}
 	const shuffle = <T>(xs: T[]): T[] => {
 		const a = [...xs];
 		for (let i = a.length - 1; i > 0; i -= 1) {
