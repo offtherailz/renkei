@@ -834,6 +834,11 @@
 
 		<p class="group-title">Conversazione</p>
 		<div class="cat-grid">
+			<a class="cat-card" href="{base}/mani-libere/ascolto">
+				<span class="cat-icon">🎧</span>
+				<span class="cat-label">Solo ascolto</span>
+				<span class="cat-hint">frasi e parole N5/N4 con pausa per ricordare, telefono in tasca</span>
+			</a>
 			<a class="cat-card" href="{base}/mani-libere">
 				<span class="cat-icon">🚗</span>
 				<span class="cat-label">Mani libere <span class="cat-beta">beta</span></span>

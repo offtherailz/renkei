@@ -369,6 +369,7 @@
 				risentire, <strong>「ゆっくり」</strong> per il lento, <strong>「次」</strong> per saltare.
 				Perfetto in auto o mentre fai altro.
 			</p>
+			<a class="to-listen" href="{base}/mani-libere/ascolto">🎧 Solo ascolto: niente microfono, telefono in tasca →</a>
 			{#if canSpeak}
 				<div class="src-seg three" role="group" aria-label="Cosa ripassare">
 					<button class="src-btn" class:on={source === 'mix'} onclick={() => (source = 'mix')}>🗣️ Frasi & ascolto</button>
@@ -497,5 +498,6 @@
 	.look-word { font-size: clamp(2.2rem, 12vw, 3.4rem); font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
 	.look-ask { margin: 0; font-weight: 700; }
 	.look-sol { margin: 0; font-size: 1.1rem; color: var(--ink); overflow-wrap: anywhere; }
+	.to-listen { justify-self: center; font-weight: 700; color: var(--brand); text-decoration: none; text-align: center; }
 	.mazzo-select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.95rem; font-weight: 600; }
 </style>

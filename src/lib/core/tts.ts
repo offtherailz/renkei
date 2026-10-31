@@ -2,6 +2,7 @@ import type { Word } from "../types/models";
 import { stripFuriganaNotation } from "./furigana";
 
 export interface SpeakOptions {
+  waitMs?: number; // tetto all'attesa della fine, per chi deve sapere quando la voce ha finito
   lang?: string;
   rate?: number;
   pitch?: number;
@@ -54,7 +55,7 @@ export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options
     utterance.onend = finish;
     utterance.onerror = finish;
     // Fallback: alcune implementazioni non emettono onend in modo affidabile.
-    setTimeout(finish, Math.min(8000, 1200 + plainText.length * 180));
+    setTimeout(finish, options?.waitMs ?? Math.min(8000, 1200 + plainText.length * 180));
     window.speechSynthesis.speak(utterance);
   });
 }
