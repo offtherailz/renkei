@@ -2,7 +2,8 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
-	import { analyzeSentence, jishoUrl, type WordHit } from '$lib/core/wordLookup';
+	import { analyzeSentence, jishoUrl, tokenFurigana, type WordHit } from '$lib/core/wordLookup';
+	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { saveCardAction } from '$lib/core/cardActions';
@@ -12,8 +13,9 @@
 	import type { SrsProgress } from '$lib/types/models';
 
 	// testo con eventuale notazione furigana base[lettura]; mark = sottostringhe
-	// del testo da evidenziare (es. la frase che conteneva la risposta)
-	const { text, mark = [] }: { text: string; mark?: string[] } = $props();
+	// del testo da evidenziare (es. la frase che conteneva la risposta);
+	// furigana = letture sopra i kanji ricavate dal catalogo (per il dopo-risposta)
+	const { text, mark = [], furigana = false }: { text: string; mark?: string[]; furigana?: boolean } = $props();
 
 	const plain = $derived(stripFuriganaNotation(text));
 	let tokens = $state<string[]>([]);
@@ -140,7 +142,7 @@
 	{:else}
 		{#each tokens as tok, i (i)}
 			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok)}
-				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={(e) => toggle(i, e)}>{tok}</button>
+				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={(e) => toggle(i, e)}><FuriganaText force text={(furigana && tokenFurigana(tok, hits[i] ?? null)) || tok} /></button>
 				{#if open === i && popPos}
 					<span class="tok-pop" style="top:{popPos.top}px; left:{popPos.left}px; width:{POP_WIDTH}px" bind:this={popEl}>
 						{#if hits[i]}

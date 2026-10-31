@@ -49,6 +49,7 @@ export interface SentenceOrderingQuestion {
   prompt: string;
   tokens: string[];
   correctOrder: string[];
+  translation?: string;
 }
 
 // 🧩 Usare: nella frase reale della carta il verbo/aggettivo è oscurato —

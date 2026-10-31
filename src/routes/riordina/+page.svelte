@@ -158,7 +158,7 @@
 			<h1 class="page-title">🧩 Riordina la frase</h1>
 			<p class="hint">
 				I pezzi della frase sono in disordine: toccali nell'ordine giusto. La traduzione ti
-				aiuta. Un errore e la serie riparte.
+				aiuta. Un errore e la serie riparte. Dopo ogni risposta vedi la frase con le letture.
 			</p>
 			{#if loading}
 				<p class="hint">Caricamento…</p>
@@ -172,7 +172,7 @@
 		</article>
 	{:else if scene === 'play' && current}
 		<article class="scene">
-			{#if current.hint}
+			{#if current.hint && !(checked && ok)}
 				<p class="hint">💬 {current.hint}</p>
 			{/if}
 			<TokenCompose
@@ -182,6 +182,10 @@
 				placeholder="Tocca i pezzi qui sotto…"
 				status={checked ? (ok ? 'right' : 'wrong') : null}
 				bankDoneHint />
+			{#if checked && ok}
+				<div class="bubble solution-line"><InteractiveSentence text={correctTokens.join('')} furigana /></div>
+				{#if current.hint}<p class="translation">💬 {current.hint}</p>{/if}
+			{/if}
 			<div class="play-actions">
 				<button class="mini" onclick={undo} disabled={checked || answer.length === 0}>↩︎ Indietro</button>
 				{#if !checked}
@@ -197,9 +201,9 @@
 			<p class="score-big">Serie: {streak}</p>
 			<p class="hint">🏆 Record {level}: {best}</p>
 			<p class="bubble sm">La tua: {composed()}</p>
-			<div class="bubble solution-line"><span>✅</span> <InteractiveSentence text={correctTokens.join('')} /></div>
+			<div class="bubble solution-line"><span>✅</span> <InteractiveSentence text={correctTokens.join('')} furigana /></div>
 			<p class="hint">Tocca le parole che non conoscevi: «📚 Metti in studio» le mette nei tuoi ripassi.</p>
-			{#if current.hint}<p class="hint">💬 {current.hint}</p>{/if}
+			{#if current.hint}<p class="translation">💬 {current.hint}</p>{/if}
 			<div class="play-actions">
 				<a class="mini" href="{base}/detail/{encodeURIComponent(current.detail)}">📖 Scheda</a>
 				<button class="proceed" onclick={() => { streak = 0; nextRound(); }}>🔁 Ricomincia</button>
@@ -220,6 +224,7 @@
 	.hint { margin: 0; text-align: center; font-size: 0.82rem; color: var(--muted); }
 	.bubble { margin: 0; text-align: center; font-size: 1.1rem; font-weight: 600; background: var(--surface-2); border-radius: 12px; padding: 12px; }
 	.bubble.sm { font-size: 0.95rem; }
+	.translation { margin: 0; text-align: center; font-size: 0.95rem; color: var(--ink); }
 
 	.choices { display: grid; gap: 8px; }
 	.choices.plat { grid-template-columns: repeat(2, 1fr); }

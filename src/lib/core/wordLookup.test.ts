@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { lookupToken, mergeAuxTokens, mergeByDictionary, type WordHit } from './wordLookup';
+import { renderFuriganaToHtml } from './furigana';
+import { lookupToken, mergeAuxTokens, mergeByDictionary, tokenFurigana, type WordHit } from './wordLookup';
 
 const hit = (id: string, scrittura: string, lettura: string, tipo = '名詞[めいし]'): WordHit => ({
 	id, scrittura, lettura, tipo_jp: tipo, livello_jlpt: 'N5', significato: id
@@ -195,5 +196,44 @@ describe('lookupToken', () => {
 		expect(mergeByDictionary(['私', 'は'], has)).toEqual(['私', 'は']);
 		// preferisce la forma più lunga nota
 		expect(mergeByDictionary(['一生', '懸命'], (s) => s === '一生懸命' || s === '一生')).toEqual(['一生懸命']);
+	});
+});
+
+describe('tokenFurigana', () => {
+	const hit = (scrittura: string, lettura: string, ambigua = false): WordHit => ({
+		id: scrittura, scrittura, lettura, tipo_jp: '', livello_jlpt: 'N5', significato: '', ambigua
+	});
+
+	it('allinea la lettura alla forma coniugata', () => {
+		expect(tokenFurigana('食べました。', hit('食べる', 'たべる'))).toBe('食[た]べました。');
+		expect(tokenFurigana('分からない。', hit('分かる', 'わかる'))).toBe('分[わ]からない。');
+	});
+	it('nomi con particella e con する', () => {
+		expect(tokenFurigana('駅に', hit('駅', 'えき'))).toBe('駅[えき]に');
+		expect(tokenFurigana('旅行しました。', hit('旅行', 'りょこう'))).toBe('旅行[りょこう]しました。');
+		expect(tokenFurigana('電気コードは', hit('電気', 'でんき'))).toBe('電気[でんき]コードは');
+	});
+	it('来る cambia lettura secondo la forma', () => {
+		const kuru = hit('来る', 'くる');
+		expect(tokenFurigana('来ました。', kuru)).toBe('来[き]ました。');
+		expect(tokenFurigana('来ない', kuru)).toBe('来[こ]ない');
+		expect(tokenFurigana('来るでしょう', kuru)).toBe('来[く]るでしょう');
+	});
+	it('nel dubbio niente furigana', () => {
+		expect(tokenFurigana('話せない。', hit('話', 'はなし'))).toBeNull();
+		expect(tokenFurigana('開きます。', hit('開く', 'あく', true))).toBeNull();
+		expect(tokenFurigana('何が', hit('何', 'なん; なに'))).toBeNull();
+		expect(tokenFurigana('三人は', hit('人', 'ひと'))).toBeNull();
+		expect(tokenFurigana('ねこは', hit('猫', 'ねこ'))).toBeNull();
+		expect(tokenFurigana('駅に', null)).toBeNull();
+	});
+	it('la notazione prodotta diventa ruby solo sul kanji', () => {
+		const n = tokenFurigana('食べました。', hit('食べる', 'たべる'))!;
+		expect(renderFuriganaToHtml(n)).toBe('<ruby>食<rt>た</rt></ruby>べました。');
+		expect(renderFuriganaToHtml(tokenFurigana('駅に', hit('駅', 'えき'))!)).toBe('<ruby>駅<rt>えき</rt></ruby>に');
+	});
+	it('lettura usuale per le parole comuni con più letture', () => {
+		expect(tokenFurigana('私は', hit('私', 'わたし', true))).toBe('私[わたし]は');
+		expect(tokenFurigana('行きたい。', hit('行く', 'いく; ゆく'))).toBe('行[い]きたい。');
 	});
 });

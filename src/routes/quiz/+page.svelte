@@ -46,6 +46,7 @@
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import { curatedByWord, curatedToQuestion } from '$lib/data/propedeutiche';
+	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import { markWeakDoneToday } from '$lib/core/dailyPlan';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import { computeStreak as computeSessionStreak, isMilestone, type Streak } from '$lib/core/celebration';
@@ -1916,7 +1917,8 @@
 					</button>
 				</div>
 			{:else}
-				<div class="solution">{q.correctOrder.join('')}</div>
+				<div class="solution"><InteractiveSentence text={q.correctOrder.join('')} furigana /></div>
+				{#if q.translation}<p class="question-hint">💬 {q.translation}</p>{/if}
 			{/if}
 
 		<!-- composizione: componi la parola coi caratteri (con intrusi) -->

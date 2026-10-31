@@ -11,6 +11,7 @@ export interface WordHit {
 	livello_jlpt: string;
 	significato: string; // primo significato nella lingua utente
 	forma?: string; // se il token era coniugato: etichetta della forma trovata
+	ambigua?: boolean; // stessa scrittura con più letture a catalogo (開く あく/ひらく)
 }
 
 let index: Map<string, WordHit> | null = null;
@@ -22,6 +23,8 @@ export async function ensureWordIndex(locale: 'it' | 'en' = 'it'): Promise<Map<s
 	building = (async () => {
 		const rows = await db.words.toArray();
 		const map = new Map<string, WordHit>();
+		const letture = new Map<string, Set<string>>();
+		for (const w of rows) letture.set(w.scrittura, (letture.get(w.scrittura) ?? new Set()).add(w.lettura));
 		for (const w of rows) {
 			const gloss = (locale === 'it' ? w.significato.it : w.significato.en) ?? w.significato.it ?? [];
 			const hit: WordHit = {
@@ -30,7 +33,8 @@ export async function ensureWordIndex(locale: 'it' | 'en' = 'it'): Promise<Map<s
 				lettura: w.lettura,
 				tipo_jp: w.tipo_jp,
 				livello_jlpt: w.livello_jlpt,
-				significato: gloss[0] ?? ''
+				significato: gloss[0] ?? '',
+				ambigua: (letture.get(w.scrittura)?.size ?? 0) > 1
 			};
 			// la scrittura vince sulla lettura in caso di collisione
 			if (!map.has(w.scrittura)) map.set(w.scrittura, hit);
@@ -308,6 +312,53 @@ export function mergeByDictionary(tokens: string[], known: (s: string) => boolea
 		i += take;
 	}
 	return out;
+}
+
+// Parole comuni con più letture a catalogo, dove una è quella attesa nelle frasi
+// N5/N4. 何, 方, 日, 開く restano fuori: lì dipende davvero dal contesto.
+const LETTURA_USUALE: Record<string, string> = {
+	私: 'わたし', 今日: 'きょう', 明日: 'あした', 日本: 'にほん', 日本語: 'にほんご', 中: 'なか',
+	上: 'うえ', 下: 'した', 間: 'あいだ', 魚: 'さかな', 夜: 'よる', 足: 'あし', 音: 'おと', 空: 'そら',
+	工場: 'こうじょう', 行く: 'いく', 終わる: 'おわる'
+};
+
+// Cosa può seguire una parola senza okurigana (駅に, 上手な, コード): altri kana
+// vogliono dire che il token è un'altra parola (話せない non è 話 はなし).
+const DOPO_NOME = /^(?:$|[はがをにへでとのもやかねよだなァ-ヶ、。，．！？!?…」』）)]|じゃ|さん|さま|たち|まで|から|より|くらい|ぐらい|だけ|しか|ばかり|など|ごろ)/;
+// I nomi con する hanno almeno due kanji: 旅行した sì, 話した no (è 話す).
+const DOPO_NOME_SURU = /^[さしすせ]/;
+
+// Furigana di un token come appare nella frase (notazione base[lettura]): la
+// lettura del catalogo è del dizionario, qui va allineata alla forma coniugata
+// (食べました + 食べる/たべる → 食[た]べました). Nel dubbio null, niente ruby: meglio
+// un kanji scoperto (che resta toccabile) di una lettura sbagliata.
+export function tokenFurigana(token: string, hit: WordHit | null): string | null {
+	if (!hit || !HAS_KANJI.test(token)) return null;
+	const lettura = LETTURA_USUALE[hit.scrittura] ?? (hit.ambigua || /[;；,、/・\s]/.test(hit.lettura) ? null : hit.lettura);
+	if (!lettura) return null;
+	let last = hit.scrittura.length - 1;
+	while (last >= 0 && !HAS_KANJI.test(hit.scrittura[last]!)) last -= 1;
+	if (last < 0) return null;
+	const stem = hit.scrittura.slice(0, last + 1);
+	const tail = hit.scrittura.slice(last + 1);
+	if (!lettura.endsWith(tail)) return null;
+	const at = token.indexOf(stem);
+	if (at < 0) return null;
+	const before = token.slice(0, at);
+	const after = token.slice(at + stem.length);
+	// kanji fuori dalla parola trovata (三人は → 人): la lettura non li copre
+	if (HAS_KANJI.test(before) || HAS_KANJI.test(after)) return null;
+	if (!tail && !DOPO_NOME.test(after) && !(stem.length >= 2 && DOPO_NOME_SURU.test(after))) return null;
+	const reading = stem === '来' ? kuruReading(after) : lettura.slice(0, lettura.length - tail.length);
+	return reading ? `${before}${stem}[${reading}]${after}` : null;
+}
+
+// 来る è l'unico verbo il cui kanji cambia lettura coniugando.
+function kuruReading(after: string): string | null {
+	if (/^[まてた]/.test(after)) return 'き';
+	if (/^[なよ]/.test(after)) return 'こ';
+	if (/^[るれ]/.test(after)) return 'く';
+	return null;
 }
 
 export function jishoUrl(q: string): string {

@@ -400,7 +400,8 @@ export async function createSentenceOrderingQuestion(source: ClozeSource, locale
     grammarId: source.grammar.id,
     prompt: pickLocalizedText(source.grammar.spiegazione, locale),
     tokens: shuffle(plainTokens),
-    correctOrder: plainTokens
+    correctOrder: plainTokens,
+    translation: pickLocalizedText(source.example.traduzione, locale)
   };
 }
 
