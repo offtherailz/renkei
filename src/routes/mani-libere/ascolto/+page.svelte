@@ -164,6 +164,44 @@
 		}
 	}
 
+	// Segnali per orientarsi senza guardare: due note = voce nuova, una nota grave = risposta.
+	let audioCtx: AudioContext | null = null;
+	function primeCues(): void {
+		try {
+			const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+			if (Ctor && !audioCtx) audioCtx = new Ctor();
+			void audioCtx?.resume?.();
+		} catch {
+			/* niente segnali: la voce va comunque */
+		}
+	}
+	async function cue(notes: { f: number; at: number }[], ms: number): Promise<void> {
+		if (!audioCtx) return;
+		try {
+			void audioCtx.resume?.();
+			const now = audioCtx.currentTime;
+			for (const n of notes) {
+				const o = audioCtx.createOscillator();
+				const g = audioCtx.createGain();
+				o.type = 'sine';
+				o.frequency.value = n.f;
+				const t = now + n.at;
+				g.gain.setValueAtTime(0.0001, t);
+				g.gain.exponentialRampToValueAtTime(0.18, t + 0.015);
+				g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+				o.connect(g);
+				g.connect(audioCtx.destination);
+				o.start(t);
+				o.stop(t + 0.25);
+			}
+		} catch {
+			return;
+		}
+		await sleepRaw(ms);
+	}
+	const cueNewItem = () => cue([{ f: 880, at: 0 }, { f: 1175, at: 0.14 }], 550);
+	const cueAnswer = () => cue([{ f: 440, at: 0 }], 350);
+
 	const visible = () => typeof document === 'undefined' || document.visibilityState === 'visible';
 	const alive = () => running && !paused && !stalled && !skipCurrent;
 	const sleepRaw = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -205,6 +243,7 @@
 		const hasRecall = steps.some((s) => s.t === 'recall');
 		phase = 'ask';
 		revealed = !hasRecall;
+		await cueNewItem();
 		for (const step of steps) {
 			if (!alive()) return false;
 			if (step.t === 'recall') phase = 'recall';
@@ -218,6 +257,7 @@
 			if (step.t === 'recall') {
 				phase = 'answer';
 				revealed = true;
+				if (alive()) await cueAnswer();
 			}
 		}
 		await wait(900);
@@ -279,6 +319,7 @@
 		running = true;
 		stalled = false;
 		skipCurrent = false;
+		primeCues();
 		if (continuaBloccato) startKeepAlive(); // qui, sul tocco di avvio: dopo il browser lo rifiuterebbe
 		await acquireWakeLock();
 		document.addEventListener('visibilitychange', onVisibility);
@@ -364,7 +405,7 @@
 		{#if scene === 'intro'}
 			<article class="scene">
 				<h1 class="page-title">🎧 Solo ascolto</h1>
-				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Niente microfono e niente da toccare: va avanti da sola finché non la fermi, anche per ore.</p>
+				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Due note segnano una voce nuova, una nota grave la risposta. Niente microfono e niente da toccare: va avanti da sola finché non la fermi, anche per ore.</p>
 				{#if canSpeak}
 					<p class="lab">Cosa ripassare</p>
 					<div class="seg" role="group" aria-label="Cosa ripassare">
