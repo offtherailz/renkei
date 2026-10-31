@@ -7,8 +7,8 @@
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { SITUATIONS } from '$lib/core/usefulPhrases';
 	import { LISTENING_DIALOGUES, instantiateListening } from '$lib/core/listeningDialogues';
-	import { buildRounds, buildWordRounds, classifyUtterance, judgeAnswer, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
-	import { loadWeakWordsRecall, loadMazzoWordsRecall } from '$lib/db/queries';
+	import { buildFormRounds, buildRounds, buildWordRounds, classifyUtterance, judgeAnswer, judgeMeaning, withLookRounds, HF_COMMANDS, type HFRound, type Command } from '$lib/core/handsFree';
+	import { loadLevelWordsRecall, loadWeakWordsRecall, loadMazzoWordsRecall } from '$lib/db/queries';
 	import { allMazzi, AUTO_MAZZI } from '$lib/data/mazzi';
 
 	type Heard = { tap: Command } | { alts: string[] };
@@ -24,10 +24,21 @@
 
 	type Scene = 'intro' | 'play' | 'done';
 	type Status = 'speaking' | 'listening' | 'ok' | 'ko' | 'paused';
-	type Source = 'mix' | 'deboli' | 'mazzo';
+	type Source = 'mix' | 'parole' | 'deboli' | 'mazzo' | 'forme';
 	let scene = $state<Scene>('intro');
 	let source = $state<Source>('mix');
 	let sourceNote = $state(''); // es. "nessun punto debole: uso frasi e ascolto"
+	// Livelli delle sorgenti che pescano dal catalogo (almeno uno sempre attivo).
+	let livelli = $state<string[]>(['N5', 'N4']);
+	function toggleLivello(l: string): void {
+		if (livelli.includes(l) && livelli.length === 1) return;
+		livelli = livelli.includes(l) ? livelli.filter((x) => x !== l) : [...livelli, l];
+	}
+	const usaLivelli = $derived(source === 'parole' || source === 'deboli' || source === 'forme');
+	// Spenta di default: chi è in auto non deve mai sentirsi chiedere di guardare.
+	let possoGuardare = $state(false);
+	const usaGuarda = $derived(source === 'parole' || source === 'deboli' || source === 'mazzo');
+	let lookDone = $state(false); // risposta data: mostra lettura e significato
 	// Mazzi di parole selezionabili: tematici curati + automatici di parole.
 	const MAZZO_OPZIONI = [
 		...allMazzi().map((m) => ({ id: m.id, label: `${m.emoji} ${m.titolo}` })),
@@ -102,11 +113,11 @@
 	}
 
 	// bip → breve pausa → ascolto (voce o tap), col mic interrompibile.
-	async function listenAfterBeep(): Promise<Heard> {
+	async function listenAfterBeep(lang = 'ja-JP'): Promise<Heard> {
 		beep();
 		await sleep(160);
 		if (!running) return { alts: [] };
-		const { promise, abort } = abortableListen();
+		const { promise, abort } = abortableListen(lang);
 		listening = true;
 		const tapP = new Promise<Command>((res) => { tapResolve = res; });
 		const result = await Promise.race([promise.then((alts) => ({ alts }) as Heard), tapP.then((tap) => ({ tap }) as Heard)]);
@@ -120,8 +131,22 @@
 	// corretta + le sue varianti (per il match); per le frasi, quelle del round
 	// + "quando" (spiegazione uso/registro, letta col comando "Spiegami").
 	async function playPrompt(r: HFRound, slow: boolean): Promise<{ corretta: string; varianti: string[]; quando?: string }> {
+		if (r.kind === 'guarda') {
+			if (r.ask === 'lettura') {
+				await speakIt('Guarda lo schermo. Come si legge?');
+			} else {
+				await speakIt('Guarda lo schermo. Cosa significa?');
+				await speakJp(r.lettura, slow);
+			}
+			return { corretta: r.corretta, varianti: r.varianti };
+		}
 		if (r.kind === 'frase') {
-			await speakIt(`Come si dice: ${r.cueIt}`);
+			if (r.forma) {
+				await speakIt(`${r.forma.label} di:`);
+				await speakJp(r.forma.yomi, slow);
+			} else {
+				await speakIt(`Come si dice: ${r.cueIt}`);
+			}
 			return { corretta: r.jp, varianti: r.varianti, quando: r.quando };
 		}
 		const d = LISTENING_DIALOGUES.find((x) => x.id === r.dialogueId)!;
@@ -153,8 +178,27 @@
 		return true;
 	}
 
+	// La risposta ad alta voce: in italiano per «cosa significa?».
+	async function sayAnswer(prefix: string, corretta: string, r: HFRound): Promise<void> {
+		if (r.kind === 'guarda' && r.ask === 'significato') {
+			await speakIt(`${prefix}: ${corretta}`);
+			return;
+		}
+		await speakIt(`${prefix}:`);
+		await speakJp(corretta, true);
+	}
+	// Lascia il tempo di leggere la soluzione sullo schermo.
+	async function showLook(r: HFRound): Promise<void> {
+		if (r.kind !== 'guarda') return;
+		lookDone = true;
+		await sleep(1500);
+	}
+
 	async function runRound(r: HFRound): Promise<void> {
 		status = 'speaking';
+		lookDone = false;
+		const ansVerb = r.kind === 'guarda' ? (r.ask === 'lettura' ? 'Si legge' : 'Significa') : 'Si dice';
+		const lang = r.kind === 'guarda' && r.ask === 'significato' ? 'it-IT' : 'ja-JP';
 		let { corretta, varianti, quando } = await playPrompt(r, false);
 		// bug segnalato: il timer di silenzio si azzerava SOLO su un riconoscimento
 		// riuscito, mai su una domanda appena posta — con STT che a volte non
@@ -166,7 +210,7 @@
 		lastActivity = Date.now();
 		for (let attempt = 0; attempt < 8 && running; attempt += 1) {
 			status = 'listening';
-			const h = await listenAfterBeep();
+			const h = await listenAfterBeep(lang);
 			if (!running) return;
 
 			let cls: string;
@@ -189,13 +233,20 @@
 				}
 				lastActivity = Date.now();
 				// PRIMA la risposta: una risposta che contiene un comando non viene rubata.
-				if (judgeAnswer(alts, varianti)) {
+				if (r.kind === 'guarda' && r.ask === 'significato' ? judgeMeaning(alts, r.significati) : judgeAnswer(alts, varianti)) {
 					status = 'ok';
 					score += 1;
 					// solo credito POSITIVO sulle giuste (l'audio non penalizza).
 					if (r.kind === 'frase') void recordPractice(r.creditKey ?? ('phrase:' + r.jp), true, 'facet_form_speak');
-					await speakJp('そう！');
-					await speakJp(corretta);
+					if (r.kind === 'guarda') void recordPractice(r.creditKey, true, r.ask === 'lettura' ? 'facet_form_read' : 'facet_meaning_r');
+					lookDone = r.kind === 'guarda';
+					if (lang === 'it-IT') {
+						await speakIt(`Sì. ${corretta}`);
+					} else {
+						await speakJp('そう！');
+						await speakJp(corretta);
+					}
+					await showLook(r);
 					return;
 				}
 				// PRIMA la risposta (già fatto sopra), poi il comando — ma un comando il
@@ -211,9 +262,10 @@
 				// わかりません: dà la risposta e la spiega (non solo ripete la domanda) —
 				// come il ramo finale "quasi, si dice", ma con la spiegazione prima.
 				status = 'ko';
+				lookDone = r.kind === 'guarda';
 				if (quando) await speakIt(quando);
-				await speakIt('Si dice:');
-				await speakJp(corretta, true);
+				await sayAnswer(ansVerb, corretta, r);
+				await showLook(r);
 				return;
 			}
 			if (cls === 'pause') { const resumed = await pauseUntilResume(); if (!resumed || !running) return; ({ corretta, varianti, quando } = await playPrompt(r, false)); lastActivity = Date.now(); continue; }
@@ -221,8 +273,9 @@
 			if (cls === 'skip') return;
 			// solo voce non riconosciuta come risposta → si dice la giusta, niente penalità.
 			status = 'ko';
-			await speakIt('Quasi. Si dice:');
-			await speakJp(corretta, true);
+			lookDone = r.kind === 'guarda';
+			await sayAnswer(`Quasi. ${ansVerb}`, corretta, r);
+			await showLook(r);
 			return;
 		}
 	}
@@ -242,11 +295,12 @@
 	}
 
 	async function start(): Promise<void> {
-		const words = await db.words.toArray(); // scalda il DB; non serve altro
-		void words;
+		const words = await db.words.toArray();
 		sourceNote = '';
 		if (source === 'deboli') {
-			const weak = await loadWeakWordsRecall(ROUNDS);
+			// se ne chiedono di più: il filtro di livello ne scarta una parte
+			const ids = new Map(words.map((w) => [`word:${w.id}`, w.livello_jlpt]));
+			const weak = (await loadWeakWordsRecall(ROUNDS * 10)).filter((w) => livelli.includes(ids.get(w.creditKey) ?? ''));
 			if (weak.length > 0) {
 				rounds = buildWordRounds(weak, ROUNDS);
 			} else {
@@ -262,11 +316,21 @@
 				sourceNote = 'Mazzo vuoto: ripasso frasi e ascolto.';
 				rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
 			}
+		} else if (source === 'parole') {
+			rounds = buildWordRounds(await loadLevelWordsRecall(livelli, ROUNDS), ROUNDS);
+		} else if (source === 'forme') {
+			rounds = buildFormRounds(words.filter((w) => livelli.includes(w.livello_jlpt)), ROUNDS);
 		} else {
 			rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
 		}
+		if (rounds.length === 0) {
+			sourceNote = 'Niente da ripassare qui: ripasso frasi e ascolto.';
+			rounds = buildRounds(SITUATIONS, LISTENING_DIALOGUES, ROUNDS);
+		}
+		if (possoGuardare && usaGuarda) rounds = withLookRounds(rounds);
 		idx = 0;
 		score = 0;
+		lookDone = false;
 		scene = 'play';
 		running = true;
 		lastActivity = Date.now();
@@ -308,6 +372,8 @@
 			{#if canSpeak}
 				<div class="src-seg three" role="group" aria-label="Cosa ripassare">
 					<button class="src-btn" class:on={source === 'mix'} onclick={() => (source = 'mix')}>🗣️ Frasi & ascolto</button>
+					<button class="src-btn" class:on={source === 'parole'} onclick={() => (source = 'parole')}>📚 Parole</button>
+					<button class="src-btn" class:on={source === 'forme'} onclick={() => (source = 'forme')}>🔧 Forme</button>
 					<button class="src-btn" class:on={source === 'deboli'} onclick={() => (source = 'deboli')}>🎯 Punti deboli</button>
 					<button class="src-btn" class:on={source === 'mazzo'} onclick={() => (source = 'mazzo')}>📦 Mazzo</button>
 				</div>
@@ -318,7 +384,20 @@
 						{/each}
 					</select>
 				{/if}
-				<p class="hint small">{source === 'deboli' ? 'Ripassi le tue parole deboli: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : source === 'mazzo' ? 'Ripassi le parole del mazzo scelto: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : 'Mix di frasi utili (italiano → giapponese) e ascolto (dialoghi + domanda).'}</p>
+				{#if usaLivelli}
+					<div class="src-seg" role="group" aria-label="Livelli">
+						{#each ['N5', 'N4'] as l (l)}
+							<button class="src-btn" class:on={livelli.includes(l)} aria-pressed={livelli.includes(l)} onclick={() => toggleLivello(l)}>{l}</button>
+						{/each}
+					</div>
+				{/if}
+				{#if usaGuarda}
+					<label class="look-opt">
+						<input type="checkbox" bind:checked={possoGuardare} />
+						<span>Posso guardare lo schermo brevemente<br /><small>Aggiunge domande con la parola scritta: come si legge, cosa significa (rispondi in italiano). Non usarla alla guida.</small></span>
+					</label>
+				{/if}
+				<p class="hint small">{source === 'forme' ? 'L\'app dice la forma e la parola (Passato piano di: たべる), tu dici la forma giusta. Verbi e aggettivi in い dei livelli scelti.' : source === 'parole' ? 'Prima le parole che non hai ancora padroneggiato: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : source === 'deboli' ? 'Ripassi le tue parole deboli: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : source === 'mazzo' ? 'Ripassi le parole del mazzo scelto: l\'app dice il significato in italiano, tu dici la parola in giapponese.' : 'Mix di frasi utili (italiano → giapponese) e ascolto (dialoghi + domanda).'}</p>
 				<button class="proceed" onclick={start}>▶️ はじめる</button>
 				<p class="hint small">Al primo avvio concedi il permesso al microfono. Lo schermo resta acceso durante la partita (utile mentre corri, col telefono in tasca). Nota: non funziona a schermo spento — mic e voce del browser non girano in background.</p>
 			{:else}
@@ -329,6 +408,16 @@
 		<article class="scene play">
 			<p class="who">{idx + 1} / {rounds.length}</p>
 			<div class="big-status" class:pulse={status === 'listening'}>{STATUS_ICON[status]}</div>
+			{#if rounds[idx]?.kind === 'guarda'}
+				{@const g = rounds[idx] as Extract<HFRound, { kind: 'guarda' }>}
+				<div class="look-word" lang="ja">{g.parola}</div>
+				<p class="look-ask">{g.ask === 'lettura' ? 'Come si legge?' : 'Cosa significa? Rispondi in italiano'}</p>
+				{#if lookDone}
+					<p class="look-sol"><span lang="ja">{g.lettura}</span> · {g.significati.join(', ')}</p>
+				{:else if g.ask === 'significato'}
+					<p class="hint small">In questa domanda i comandi vocali sono in italiano: ripeti, piano, spiegami, avanti, basta.</p>
+				{/if}
+			{/if}
 			<p class="hint">{status === 'listening' ? 'Parla ora…' : status === 'paused' ? 'In pausa — riparla per riprendere' : status === 'speaking' ? 'Ascolta…' : status === 'ok' ? 'Bravo!' : 'Riascolta la versione giusta'}</p>
 			{#if status === 'paused'}
 				<div class="pause-actions">
@@ -402,5 +491,11 @@
 	.src-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; }
 	.src-btn.on { border-color: var(--brand); background: var(--brand); color: #fff; }
 	.src-btn:active { transform: scale(0.98); }
+	.look-opt { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; font-weight: 600; color: var(--ink); cursor: pointer; }
+	.look-opt input { margin-top: 3px; flex-shrink: 0; }
+	.look-opt small { font-weight: 400; color: var(--muted); }
+	.look-word { font-size: clamp(2.2rem, 12vw, 3.4rem); font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
+	.look-ask { margin: 0; font-weight: 700; }
+	.look-sol { margin: 0; font-size: 1.1rem; color: var(--ink); overflow-wrap: anywhere; }
 	.mazzo-select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 0.95rem; font-weight: 600; }
 </style>

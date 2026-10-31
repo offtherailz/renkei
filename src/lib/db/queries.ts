@@ -3,7 +3,7 @@ import { normalizeMastery, normalizePracticeOnlyMastery } from '$lib/core/srs';
 import { CONJ_CLASS_LABELS } from '$lib/core/conjugation';
 import { GRAMMAR_FORMS } from '$lib/data/grammarForms';
 import { findMondai } from '$lib/data/esame-n4';
-import { findMazzo, findAutoMazzo, cardCatalogKeys, type MazzoCard } from '$lib/data/mazzi';
+import { findMazzo, findAutoMazzo, cardCatalogKeys, pickTuttoLivello, type MazzoCard } from '$lib/data/mazzi';
 import type { WeakWord } from '$lib/core/handsFree';
 import type { StudyObjective, SrsProgress, Word } from '$lib/types/models';
 
@@ -304,6 +304,29 @@ export async function loadWeakWordsRecall(limit = 20): Promise<WeakWord[]> {
 		const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
 		if (!it || !w.scrittura) continue;
 		out.push({ it, jp: w.scrittura, yomi: w.lettura, creditKey: `word:${id}` });
+	}
+	return out;
+}
+
+// Parole dei livelli scelti per «Mani libere»: prima quelle non ancora padroneggiate.
+export async function loadLevelWordsRecall(levels: string[], limit = 20): Promise<WeakWord[]> {
+	const [words, srs] = await Promise.all([db.words.toArray(), db.srs_progress.toArray()]);
+	const byKey = new Map(srs.map((r) => [r.id_item, r]));
+	const pool = words.filter((w) => levels.includes(w.livello_jlpt) && w.scrittura && !w.scrittura.includes('〜'));
+	const byId = new Map(pool.map((w) => [w.id, w]));
+	const picked = pickTuttoLivello(
+		[{ kind: 'word', ids: pool.map((w) => w.id) }],
+		(key) => {
+			const r = byKey.get(key);
+			return r ? normalizeMastery(r.srs_stage, r.mastery_points) : -1;
+		},
+		limit
+	);
+	const out: WeakWord[] = [];
+	for (const { raw } of picked) {
+		const w = byId.get(raw)!;
+		const it = Array.isArray(w.significato.it) ? w.significato.it.join(', ') : w.significato.it;
+		if (it) out.push({ it, jp: w.scrittura, yomi: w.lettura.split(/[;；]/)[0]!.trim(), creditKey: `word:${w.id}` });
 	}
 	return out;
 }

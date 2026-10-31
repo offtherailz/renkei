@@ -2,6 +2,8 @@
 // dice (comando o risposta), costruisce il mix di round, e giudica la risposta.
 // Niente DOM/voce qui → testabile. La pagina orchestra TTS/mic con queste funzioni.
 import { normalizeSpeech, phraseVariants, speechMatches, kanaToKanjiWritten } from './speech';
+import { buildAdjectiveTable, buildVerbTable, conjClassKey, detectAdjectiveType, detectVerbClass, type ConjugationForm } from './conjugation';
+import type { Word } from '../types/models';
 import type { Situation } from './usefulPhrases';
 import type { ListeningDialogue } from './listeningDialogues';
 
@@ -31,8 +33,8 @@ export const HF_COMMANDS: { label: string; icon: string; say: string[]; cmd: Com
 
 function anyMatch(alts: string[], keys: string[]): boolean {
 	return alts.some((a) => {
-		const n = normalizeSpeech(a);
-		return keys.some((k) => n.includes(normalizeSpeech(k)));
+		const n = normalizeSpeech(a).toLowerCase();
+		return keys.some((k) => n.includes(normalizeSpeech(k).toLowerCase()));
 	});
 }
 
@@ -67,6 +69,28 @@ export function judgeAnswer(alts: string[], varianti: string[]): boolean {
 	return speechMatches(alts, [varianti]);
 }
 
+// Risposta in italiano a «cosa significa?»: vale un significato qualsiasi tra quelli
+// della parola, parole intere, senza articolo e senza le precisazioni tra parentesi.
+export function judgeMeaning(alts: string[], significati: string[]): boolean {
+	const clean = (s: string) =>
+		s
+			.toLowerCase()
+			.replace(/[(（][^)）]*[)）]/g, ' ')
+			.replace(/[.,;:!?…"«»]/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim();
+	const bare = (s: string) => s.replace(/^(?:il|lo|la|i|gli|le|un|uno|una) /, '').replace(/^(?:l'|un')/, '');
+	const voci = significati
+		.flatMap((s) => s.split(/[,;、/]/))
+		.map((s) => bare(clean(s)))
+		.flatMap((s) => [s, s.replace(/^(?:essere|fare) /, '')])
+		.filter((s) => s.length >= 2);
+	return alts.some((a) => {
+		const detto = ` ${clean(a).replace(/\bl'/g, '')} `;
+		return voci.some((v) => detto.includes(` ${v} `));
+	});
+}
+
 // ── Round ────────────────────────────────────────────────────────────────────
 
 export interface FraseRound {
@@ -76,13 +100,26 @@ export interface FraseRound {
 	varianti: string[]; // per il match vocale
 	quando?: string; // spiegazione (registro/uso), letta col comando "Spiegami"
 	creditKey?: string; // chiave SRS da premiare sulla giusta (default: phrase:<jp>)
+	forma?: { label: string; yomi: string }; // round sulle forme: «Passato piano di: たべる»
+}
+// Round col colpo d'occhio allo schermo: la parola scritta, l'app chiede come si
+// legge (risposta in giapponese) o cosa significa (risposta in italiano).
+export interface GuardaRound {
+	kind: 'guarda';
+	ask: 'lettura' | 'significato';
+	parola: string;
+	lettura: string;
+	significati: string[];
+	corretta: string;
+	varianti: string[];
+	creditKey: string;
 }
 export interface ChoukaiRound {
 	kind: 'choukai';
 	dialogueId: string;
 	questionIdx: number;
 }
-export type HFRound = FraseRound | ChoukaiRound;
+export type HFRound = FraseRound | ChoukaiRound | GuardaRound;
 
 function shuffle<T>(xs: T[], rng: () => number): T[] {
 	const a = [...xs];
@@ -109,6 +146,108 @@ export function buildWordRounds(words: WeakWord[], n: number, rng: () => number 
 		return { kind: 'frase', cueIt: w.it, jp: w.jp, varianti, quando: w.yomi, creditKey: w.creditKey };
 	});
 	return shuffle(rounds, rng).slice(0, n);
+}
+
+// Un round su tre resta a voce, gli altri chiedono lettura e significato. Le parole
+// senza kanji non hanno niente da leggere: solo significato.
+export function withLookRounds(rounds: HFRound[]): HFRound[] {
+	return rounds.map((r, i) => {
+		if (r.kind !== 'frase' || r.forma || !r.creditKey?.startsWith('word:') || !r.quando || i % 3 === 0) return r;
+		const hasKanji = /[一-龯々]/.test(r.jp);
+		const ask = i % 3 === 1 && hasKanji ? 'lettura' : 'significato';
+		const kanji = kanaToKanjiWritten(r.quando);
+		return {
+			kind: 'guarda',
+			ask,
+			parola: r.jp,
+			lettura: r.quando,
+			significati: [r.cueIt],
+			corretta: ask === 'lettura' ? r.quando : r.cueIt,
+			varianti: ask === 'lettura' ? [...new Set([r.quando, r.jp, ...(kanji ? [kanji] : [])])] : [],
+			creditKey: r.creditKey
+		} satisfies GuardaRound;
+	});
+}
+
+// Forme da ripassare a voce. Le etichette sono lette dalla voce italiana.
+const VERB_FORMS: { key: string; label: string }[] = [
+	{ key: 'te', label: 'Forma te' },
+	{ key: 'ta', label: 'Passato piano' },
+	{ key: 'nai', label: 'Negativo piano' },
+	{ key: 'potential', label: 'Potenziale' },
+	{ key: 'volitional', label: 'Volitiva' },
+	{ key: 'ba', label: 'Condizionale in ba' },
+	{ key: 'passive', label: 'Passiva' },
+	{ key: 'causative', label: 'Causativa' }
+];
+const ADJECTIVE_FORMS: { key: string; label: string }[] = [
+	{ key: 'neg', label: 'Negativo' },
+	{ key: 'past', label: 'Passato' },
+	{ key: 'pastneg', label: 'Passato negativo' }
+];
+// Il coniugatore applica la regola, ma queste non la seguono o non hanno tutte le
+// forme (分かれる, くれられる, いらっしゃれ, あらない): dette a voce insegnerebbero errori.
+const NO_FORM_DRILL = new Set([
+	'ある', '有る', 'できる', '出来る', '分かる', 'わかる', '見える', '聞こえる', 'いらっしゃる',
+	'おっしゃる', 'くださる', '下さる', 'なさる', 'ござる', '問う', 'くれる', '呉れる', 'ない', '無い'
+]);
+// Potenziale, volitiva, passiva e causativa suonano naturali solo su azioni volute
+// (われよう, はれさせる no): verbi transitivi, più gli intransitivi di questa lista.
+const INTRANSITIVI_VOLONTARI = new Set([
+	'行く', '来る', '帰る', '歩く', '走る', '泳ぐ', '寝る', '起きる', '働く', '遊ぶ', '休む', '座る', '立つ',
+	'入る', '出る', '乗る', '降りる', '登る', '急ぐ', '笑う', '泣く'
+]);
+const FORME_BASE = new Set(['te', 'ta', 'nai', 'ba']);
+function formaAdatta(w: Word, key: string): boolean {
+	if (!w.tipo_jp.startsWith('動詞') || FORME_BASE.has(key)) return true;
+	// nomi con する: 卒業できる sì, 卒業される o 卒業させよう raramente servono
+	if (w.scrittura !== 'する' && w.scrittura.endsWith('する')) return key === 'potential';
+	return w.transitivita_jp?.startsWith('他動詞') === true || INTRANSITIVI_VOLONTARI.has(w.scrittura);
+}
+
+function formTables(w: Word, yomi: string): { kanji: ConjugationForm[]; kana: ConjugationForm[]; forms: typeof VERB_FORMS } | null {
+	if (w.tipo_jp.startsWith('動詞')) {
+		const cl = detectVerbClass(w);
+		const kanji = cl && buildVerbTable(w.scrittura, cl);
+		const kana = cl && buildVerbTable(yomi, cl);
+		return kanji && kana ? { kanji, kana, forms: VERB_FORMS } : null;
+	}
+	if (w.tipo_jp.startsWith('形容詞') && detectAdjectiveType(w) === 'i') {
+		const kanji = buildAdjectiveTable(w.scrittura, 'i');
+		const kana = buildAdjectiveTable(yomi, 'i');
+		return kanji && kana ? { kanji, kana, forms: ADJECTIVE_FORMS } : null;
+	}
+	return null;
+}
+
+// Round sulle forme: l'app dice forma e parola, l'utente dice la forma coniugata.
+// Una parola per round; la giusta premia la classe di coniugazione (come il quiz).
+export function buildFormRounds(words: Word[], n: number, rng: () => number = Math.random): FraseRound[] {
+	const out: FraseRound[] = [];
+	for (const w of shuffle(words, rng)) {
+		if (out.length >= n) break;
+		const yomi = w.lettura.split(/[;；,、]/)[0]!.trim();
+		if (!yomi || NO_FORM_DRILL.has(w.scrittura) || NO_FORM_DRILL.has(yomi)) continue;
+		const t = formTables(w, yomi);
+		if (!t) continue;
+		const adatte = t.forms.filter((f) => formaAdatta(w, f.key));
+		const form = adatte[Math.floor(rng() * adatte.length)]!;
+		const scritta = t.kanji.find((f) => f.key === form.key)?.value;
+		const parlata = t.kana.find((f) => f.key === form.key)?.value;
+		if (!scritta || !parlata) continue;
+		const kanji = kanaToKanjiWritten(parlata);
+		const it = w.significato.it;
+		out.push({
+			kind: 'frase',
+			cueIt: form.label,
+			jp: parlata, // in kana: la voce non sbaglia la lettura (来れば)
+			varianti: [...new Set([scritta, parlata, ...(kanji ? [kanji] : [])])],
+			quando: Array.isArray(it) ? it.join(', ') : it,
+			creditKey: conjClassKey(w) ?? `word:${w.id}`,
+			forma: { label: form.label, yomi }
+		});
+	}
+	return out;
 }
 
 // Mix deterministico (con rng iniettabile): ~1 choukai ogni 3 frasi.

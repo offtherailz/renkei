@@ -72,13 +72,13 @@ export function listenJapanese(): Promise<string[]> {
 
 // Come listenJapanese, ma ritorna anche un `abort()` per interrompere subito
 // l'ascolto (es. quando l'utente tocca un comando invece di parlare).
-export function abortableListen(): { promise: Promise<string[]>; abort: () => void } {
+export function abortableListen(lang = 'ja-JP'): { promise: Promise<string[]>; abort: () => void } {
 	const Ctor = recognitionCtor();
 	if (!Ctor) return { promise: Promise.resolve([]), abort: () => {} };
 	let rec: Recognition | null = null;
 	const promise = new Promise<string[]>((resolve) => {
 		rec = new Ctor();
-		rec.lang = 'ja-JP';
+		rec.lang = lang;
 		rec.interimResults = false;
 		rec.maxAlternatives = 5;
 		let done = false;
