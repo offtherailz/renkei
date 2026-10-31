@@ -27,6 +27,7 @@
 	let pause = $state<ListenPause>('media');
 	let livelli = $state<string[]>(['N4']);
 	let loading = $state(false);
+	let continuaBloccato = $state(true); // spenta: il blocco schermo mette subito in pausa
 
 	let items = $state<ListenItem[]>([]);
 	let current = $state<ListenItem | null>(null);
@@ -76,7 +77,8 @@
 	const SETTINGS_KEY = 'renkei-ascolto-opzioni-v2';
 	onMount(() => {
 		try {
-			const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? '{}') as { content?: Content; direction?: ListenDirection; pause?: ListenPause; livelli?: string[] };
+			const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? '{}') as { content?: Content; direction?: ListenDirection; pause?: ListenPause; livelli?: string[]; continuaBloccato?: boolean };
+			if (typeof s.continuaBloccato === 'boolean') continuaBloccato = s.continuaBloccato;
 			if (s.content) content = s.content;
 			if (s.direction) direction = s.direction;
 			if (s.pause) pause = s.pause;
@@ -87,7 +89,7 @@
 	});
 	function saveSettings(): void {
 		try {
-			localStorage.setItem(SETTINGS_KEY, JSON.stringify({ content, direction, pause, livelli }));
+			localStorage.setItem(SETTINGS_KEY, JSON.stringify({ content, direction, pause, livelli, continuaBloccato }));
 		} catch {
 			/* pazienza */
 		}
@@ -112,6 +114,8 @@
 			if (running && !wakeLock) void acquireWakeLock();
 		} else {
 			wakeLock = null;
+			// alla riapertura resta in pausa: non riparte a parlare da sola
+			if (running && !continuaBloccato && !paused) togglePause();
 		}
 	}
 
@@ -275,7 +279,7 @@
 		running = true;
 		stalled = false;
 		skipCurrent = false;
-		startKeepAlive(); // qui, sul tocco di avvio: dopo il browser lo rifiuterebbe
+		if (continuaBloccato) startKeepAlive(); // qui, sul tocco di avvio: dopo il browser lo rifiuterebbe
 		await acquireWakeLock();
 		document.addEventListener('visibilitychange', onVisibility);
 		await loop();
@@ -297,7 +301,7 @@
 		} else {
 			void keepAlive?.play().catch(() => {});
 		}
-		if (navigator.mediaSession) navigator.mediaSession.playbackState = paused ? 'paused' : 'playing';
+		if (continuaBloccato && navigator.mediaSession) navigator.mediaSession.playbackState = paused ? 'paused' : 'playing';
 	}
 	onDestroy(() => {
 		running = false;
@@ -389,8 +393,12 @@
 						<button class="opt" class:on={pause === 'media'} onclick={() => (pause = 'media')}>Media</button>
 						<button class="opt" class:on={pause === 'lunga'} onclick={() => (pause = 'lunga')}>Lunga</button>
 					</div>
+					<label class="lock-opt">
+						<input type="checkbox" bind:checked={continuaBloccato} />
+						<span>Continua a schermo bloccato<br /><small>Spenta: bloccando lo schermo si mette subito in pausa, e alla riapertura aspetta te.</small></span>
+					</label>
 					<button class="proceed" disabled={loading} onclick={start}>▶️ はじめる</button>
-					<p class="hint small">Riparte da ciò che non hai ancora ascoltato. Dopo l'avvio puoi bloccare lo schermo e usare i comandi audio del telefono o delle cuffie. Se il tuo telefono ferma comunque la voce, tienilo sbloccato: lo schermo resta nero e i comandi si tengono premuti. Non conta come ripasso nei tuoi progressi, perché non c'è una risposta da verificare.</p>
+					<p class="hint small">Riparte da ciò che non hai ancora ascoltato. Con «Continua a schermo bloccato» puoi bloccarlo e usare i comandi audio del telefono o delle cuffie. Se il tuo telefono ferma comunque la voce, tienilo sbloccato: lo schermo resta nero e i comandi si tengono premuti. Non conta come ripasso nei tuoi progressi, perché non c'è una risposta da verificare.</p>
 				{:else}
 					<p class="hint warn">Questo browser non ha la sintesi vocale.</p>
 				{/if}
@@ -420,6 +428,9 @@
 	.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 	.seg.three { grid-template-columns: repeat(3, 1fr); }
 	.opt { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+	.lock-opt { display: flex; gap: 10px; align-items: flex-start; margin-top: 6px; font-size: 0.9rem; font-weight: 600; color: var(--ink); cursor: pointer; }
+	.lock-opt input { margin-top: 3px; flex-shrink: 0; }
+	.lock-opt small { font-weight: 400; color: var(--muted); }
 	.opt.wide { grid-column: 1 / -1; }
 	.opt.on { border-color: var(--brand); background: var(--brand); color: white; }
 	.proceed { justify-self: center; margin-top: 6px; padding: 12px 26px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: white; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
