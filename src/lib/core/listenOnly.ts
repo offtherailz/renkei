@@ -11,16 +11,31 @@ export interface ListenItem {
 	scritto: string; // come mostrarlo a chi tira fuori il telefono
 	cat?: string; // categoria nel mix «Tutto per l'esame»
 	steps?: ListenStep[]; // sequenza propria; senza, la decide la direzione scelta
+	altSteps?: ListenStep[]; // la stessa voce nella direzione opposta (blocchi del mix)
+	intro?: string; // annuncio del blocco, detto prima di questa voce
 }
 export type ListenStep =
 	| { t: 'ja'; text: string; rate?: number; voice?: 'M' | 'F' }
 	| { t: 'it'; text: string }
 	| { t: 'wait'; ms: number }
+	| { t: 'bip' } // al posto del buco nella frase
 	| { t: 'recall'; ms: number } // pausa per ricordare: dopo si mostra la soluzione
 	| { t: 'esame'; prompt: string } // prova d'ascolto a più voci
 	| { t: 'scelte'; prompt: string; options: string[] }; // battuta e risposte numerate
 export type ListenDirection = 'jp-it' | 'it-jp';
 export type ListenPause = 'breve' | 'media' | 'lunga';
+
+// Testi per la voce: niente precisazioni tra parentesi, etichette di battuta, «fare:».
+export function spokenIt(s: string): string {
+	return s
+		.replace(/[(（][^)）]*[)）]/g, ' ')
+		.replace(/(^|\s)[AB][:：]\s*/g, '$1')
+		.replace(/^fare:\s*/, '')
+		.replace(/\s+([,.;:!?])/g, '$1')
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+export const spokenJa = (s: string): string => s.replace(/(^|\s)[AB][:：]\s*/g, '$1').replace(/\s+/g, ' ').trim();
 
 interface CuratedSentence {
 	grammatica: string;
@@ -33,9 +48,10 @@ interface CuratedSentence {
 export function buildSentenceItems(words: Word[], grammar: Grammar[], curated: CuratedSentence[], levels: string[]): ListenItem[] {
 	const out = new Map<string, ListenItem>();
 	const add = (testo: string, it: string | undefined) => {
-		const jp = stripFuriganaNotation(testo).trim();
-		if (!jp || !it || out.has(jp) || /[〜～＿_]/.test(jp) || isFormEnumeration(jp)) return;
-		out.set(jp, { key: jp, jp, it, scritto: jp });
+		const jp = spokenJa(stripFuriganaNotation(testo));
+		const voce = it ? spokenIt(it) : '';
+		if (!jp || !voce || out.has(jp) || /[〜～＿_]/.test(jp) || /[ぁ-んァ-ヶ一-龯]/.test(voce) || isFormEnumeration(jp)) return;
+		out.set(jp, { key: jp, jp, it: voce, scritto: jp });
 	};
 	for (const x of [...words, ...grammar]) {
 		if (!levels.includes(x.livello_jlpt)) continue;
@@ -48,15 +64,15 @@ export function buildSentenceItems(words: Word[], grammar: Grammar[], curated: C
 	return [...out.values()];
 }
 
-// Parole: la voce dice la lettura, che evita errori sui kanji.
+// Parole: la voce dice la lettura, che evita errori sui kanji, e due significati al massimo.
 export function buildWordItems(words: Word[], levels: string[]): ListenItem[] {
 	const out: ListenItem[] = [];
 	for (const w of words) {
 		if (!levels.includes(w.livello_jlpt) || !w.scrittura || /[〜～]/.test(w.scrittura)) continue;
 		const jp = (w.lettura ?? '').split(/[;；]/)[0]!.trim();
 		const sig = w.significato.it;
-		const it = (Array.isArray(sig) ? sig.slice(0, 3).join(', ') : sig) ?? '';
-		if (jp && it) out.push({ key: w.id, jp, it, scritto: w.scrittura });
+		const it = spokenIt(((Array.isArray(sig) ? sig.join(', ') : sig) ?? '').split(/,\s*/).map(spokenIt).filter(Boolean).slice(0, 2).join(', '));
+		if (jp && it && !/[ぁ-んァ-ヶ一-龯]/.test(it)) out.push({ key: w.id, jp, it, scritto: w.scrittura });
 	}
 	return out;
 }

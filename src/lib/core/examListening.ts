@@ -161,7 +161,7 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 			items.push({ text: l.text, options: opts });
 		}
 	} else {
-		items.push({ text: body, options: female });
+		items.push({ text: body.replace(/[「」]/g, ''), options: female });
 	}
 
 	// pausa prima della domanda ripetuta

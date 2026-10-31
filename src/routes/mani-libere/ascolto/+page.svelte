@@ -201,6 +201,7 @@
 	}
 	const cueNewItem = () => cue([{ f: 880, at: 0 }, { f: 1175, at: 0.14 }], 550);
 	const cueAnswer = () => cue([{ f: 440, at: 0 }], 350);
+	const cueBlank = () => cue([{ f: 1320, at: 0 }, { f: 1320, at: 0.12 }], 700);
 
 	const visible = () => typeof document === 'undefined' || document.visibilityState === 'visible';
 	const alive = () => running && !paused && !stalled && !skipCurrent;
@@ -230,6 +231,8 @@
 			case 'wait':
 			case 'recall':
 				return wait(s.ms);
+			case 'bip':
+				return cueBlank();
 			case 'esame':
 				return speakExamListening(s.prompt);
 			case 'scelte':
@@ -244,6 +247,10 @@
 		phase = 'ask';
 		revealed = !hasRecall;
 		await cueNewItem();
+		if (item.intro && alive()) {
+			await sayIt(item.intro);
+			await wait(600);
+		}
 		for (const step of steps) {
 			if (!alive()) return false;
 			if (step.t === 'recall') phase = 'recall';
@@ -405,7 +412,7 @@
 		{#if scene === 'intro'}
 			<article class="scene">
 				<h1 class="page-title">🎧 Solo ascolto</h1>
-				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Due note segnano una voce nuova, una nota grave la risposta. Niente microfono e niente da toccare: va avanti da sola finché non la fermi, anche per ore.</p>
+				<p class="hint">La voce propone, c'è una pausa per ricordare, poi senti la risposta. Due note segnano una voce nuova, una nota grave la risposta, un doppio bip il buco nella frase. Niente microfono e niente da toccare: va avanti da sola finché non la fermi, anche per ore.</p>
 				{#if canSpeak}
 					<p class="lab">Cosa ripassare</p>
 					<div class="seg" role="group" aria-label="Cosa ripassare">
@@ -420,7 +427,7 @@
 						{/each}
 					</div>
 					{#if content === 'tutto'}
-						<p class="hint small">Prove di ascolto, grammatica, letture, trucchi, forme, frasi e parole, a turno. Le prove d'esame e i trucchi sono sempre N4; i livelli valgono per il resto.</p>
+						<p class="hint small">Prove di ascolto, forme, grammatica, parole, frasi, esempi e letture, a blocchi annunciati dalla voce. Le prove d'esame sono sempre N4; i livelli valgono per il resto.</p>
 					{:else}
 						<p class="lab">Direzione</p>
 						<div class="seg" role="group" aria-label="Direzione">

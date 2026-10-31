@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenItem } from './listenOnly';
+import { buildQueue, buildSentenceItems, buildWordItems, recallMs, spokenIt, spokenJa, type ListenItem } from './listenOnly';
 import type { Grammar, Word } from '../types/models';
 
 const ex = (testo: string, it = 'trad') => ({ testo, traduzione: { it, en: 'x' } });
@@ -29,9 +29,9 @@ describe('buildSentenceItems', () => {
 });
 
 describe('buildWordItems', () => {
-	it('la voce dice la prima lettura, massimo tre significati', () => {
+	it('la voce dice la prima lettura, massimo due significati', () => {
 		const [i] = buildWordItems([word('行く', 'N5', [], { lettura: 'いく; ゆく' })], ['N5']);
-		expect(i).toMatchObject({ jp: 'いく', scritto: '行く', it: 'a, b, c' });
+		expect(i).toMatchObject({ jp: 'いく', scritto: '行く', it: 'a, b' });
 	});
 	it('niente livelli esclusi né voci con segnaposto', () => {
 		expect(buildWordItems([word('〜費', 'N5'), word('x', 'N3')], ['N5'])).toEqual([]);
@@ -57,5 +57,18 @@ describe('recallMs', () => {
 	});
 	it('ha un tetto', () => {
 		expect(recallMs(item(500), 'it-jp', 'lunga')).toBe(16000);
+	});
+});
+
+describe('testi per la voce', () => {
+	it('via parentesi, etichette di battuta e «fare:»', () => {
+		expect(spokenIt('La accompagno io (umile).')).toBe('La accompagno io.');
+		expect(spokenIt('A: Cosa è successo? B: Ho mal di testa.')).toBe('Cosa è successo? Ho mal di testa.');
+		expect(spokenIt('fare: piano, progetto')).toBe('piano, progetto');
+		expect(spokenJa('A: どうしたんですか。 B: 頭がいたいんです。')).toBe('どうしたんですか。 頭がいたいんです。');
+	});
+	it('una parola tra parentesi non resta spezzata nei significati', () => {
+		const [i] = buildWordItems([word('x', 'N5', [], { significato: { it: ['ricevere (umile)', 'mangiare/bere (umile)', 'terzo'], en: [] } })], ['N5']);
+		expect(i!.it).toBe('ricevere, mangiare/bere');
 	});
 });

@@ -1,38 +1,28 @@
 // Il mix «Tutto per l'esame» di Solo ascolto: ogni voce è una sequenza di passi
 // (voce giapponese, voce italiana, pausa per ricordare, prova d'ascolto a più voci).
-// Puro: la pagina esegue i passi.
-import { CURATED_ITEMS, EXAM_N4_HOT_POINTS, type CuratedExamItem } from '../data/esame-n4';
+// Pensato per l'orecchio: a blocchi annunciati, una voce alla volta. Le spiegazioni
+// scritte (mescolano italiano e giapponese) non si leggono: a pezzi non si capiscono.
+import { CURATED_ITEMS, type CuratedExamItem } from '../data/esame-n4';
 import { TRUCCHI } from '../data/esame-n4-trucchi';
 import { stripFuriganaNotation } from './furigana';
 import { buildFormRounds } from './handsFree';
-import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from './listenOnly';
+import { buildQueue, buildSentenceItems, buildWordItems, recallMs, spokenIt, spokenJa, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from './listenOnly';
 import { instantiateListening, type ListeningDialogue } from './listeningDialogues';
 import type { Grammar, Word } from '../types/models';
 
-const JA_RUN = /[ぁ-んァ-ヶー一-龯々〆]/;
-const JA_SPLIT = /([ぁ-んァ-ヶー一-龯々〆][ぁ-んァ-ヶー一-龯々〆〜～・、。！？\s]*)/;
-
-// Le spiegazioni mescolano italiano e giapponese: ogni pezzo alla sua voce, se no la
-// voce italiana storpia il giapponese. Via i simboli che la voce leggerebbe male.
-export function mixedSteps(text: string): ListenStep[] {
-	const clean = stripFuriganaNotation(text).replace(/[«»「」『』【】()（）→≒=＝★①②③④]/g, ' ').replace(/[〜～]|\p{Extended_Pictographic}/gu, '');
-	const out: ListenStep[] = [];
-	for (const part of clean.split(JA_SPLIT)) {
-		const t = part.trim();
-		if (!t) continue;
-		if (JA_RUN.test(t)) out.push({ t: 'ja', text: t });
-		else if (/[A-Za-zÀ-ÿ]/.test(t)) out.push({ t: 'it', text: t.replace(/^[\s:;,.…]+|[\s:;,…]+$/g, '').replace(/\s+/g, ' ') });
-	}
-	return out;
-}
-
+const JA_CHAR = /[ぁ-んァ-ヶ一-龯々]/;
 const JP_BLANK = /＿+|（\s*）/;
 const plain = (s: string) => stripFuriganaNotation(s).trim();
 
 const recallFor = (pause: ListenPause, extra = 0) => ({ t: 'recall', ms: { breve: 3000, media: 5000, lunga: 8000 }[pause] + extra }) as const;
 
-function examAnswer(item: CuratedExamItem): { correct: string; why: ListenStep[] } {
-	return { correct: plain(item.choices[item.correct]!), why: mixedSteps(item.spiegazione.perche_giusta) };
+// Una frase italiana da dire dopo la risposta, solo se è tutta italiana.
+function italianNote(...candidates: (string | undefined)[]): ListenStep[] {
+	for (const c of candidates) {
+		const t = c ? spokenIt(c.replace(/[«»“”]/g, ' ')).replace(/\s+/g, ' ').trim() : '';
+		if (t.length >= 3 && !JA_CHAR.test(t)) return [{ t: 'it', text: t }];
+	}
+	return [];
 }
 
 function shuffled<T>(xs: T[], rng: () => number): T[] {
@@ -44,9 +34,8 @@ function shuffled<T>(xs: T[], rng: () => number): T[] {
 	return a;
 }
 
-// Frase col buco: si sente fino al buco, un attimo di silenzio, il resto; poi la pausa
-// per ricordare e la frase intera.
-function clozeSteps(prompt: string, risposta: string, why: ListenStep[], pause: ListenPause): { steps: ListenStep[]; full: string } | null {
+// Frase col buco: un bip al posto del buco, la pausa per ricordare, la frase intera.
+function clozeSteps(prompt: string, risposta: string, note: ListenStep[], pause: ListenPause): { steps: ListenStep[]; full: string } | null {
 	const p = plain(prompt);
 	const m = p.match(JP_BLANK);
 	if (!m || m.index === undefined) return null;
@@ -55,47 +44,48 @@ function clozeSteps(prompt: string, risposta: string, why: ListenStep[], pause: 
 	const full = `${before}${risposta}${after}`;
 	const steps: ListenStep[] = [];
 	if (before) steps.push({ t: 'ja', text: before });
-	steps.push({ t: 'wait', ms: 1200 });
-	if (after) steps.push({ t: 'ja', text: after });
-	steps.push(recallFor(pause), { t: 'ja', text: full }, ...why);
+	steps.push({ t: 'bip' });
+	if (JA_CHAR.test(after)) steps.push({ t: 'ja', text: after.replace(/^[、。，．\s]+/, '') });
+	steps.push(recallFor(pause), { t: 'ja', text: full }, ...note);
 	return { steps, full };
 }
 
 function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => number): ListenItem | null {
-	const { correct, why } = examAnswer(item);
+	const correct = plain(item.choices[item.correct]!);
+	const note = italianNote(item.traduzione, item.spiegazione.perche_giusta);
 	const base = { key: `esame:${item.id}`, jp: correct, it: item.traduzione ?? item.spiegazione.perche_giusta, scritto: correct };
 	switch (item.mondai) {
 		case 'kadai':
 		case 'point':
-			return { ...base, cat: 'ascolto', steps: [{ t: 'esame', prompt: plain(item.prompt) }, recallFor(pause), { t: 'ja', text: correct }, ...why] };
+			return { ...base, cat: 'ascolto', steps: [{ t: 'esame', prompt: plain(item.prompt) }, recallFor(pause), { t: 'ja', text: correct }, ...note] };
 		case 'hatsuwa':
 		case 'sokuji': {
 			const wrong = shuffled(item.choices.filter((_, i) => i !== item.correct), rng).slice(0, 2);
 			const options = shuffled([item.choices[item.correct]!, ...wrong], rng).map(plain);
 			const n = options.indexOf(correct) + 1;
-			return { ...base, cat: 'ascolto', steps: [{ t: 'scelte', prompt: plain(item.prompt), options }, recallFor(pause), { t: 'ja', text: `${n}ばん。${correct}` }, ...why] };
+			return { ...base, cat: 'ascolto', steps: [{ t: 'scelte', prompt: plain(item.prompt), options }, recallFor(pause), { t: 'ja', text: `${n}ばん。${correct}` }, ...note] };
 		}
 		case 'bunpo1':
 		case 'bunmyaku':
 		case 'bunsho-bunpo': {
-			const c = clozeSteps(item.prompt, correct, why, pause);
+			const c = clozeSteps(item.prompt, correct, note, pause);
 			return c ? { ...base, cat: 'grammatica', scritto: c.full, steps: c.steps } : null;
 		}
 		case 'iikae': {
 			const frase = plain(item.prompt).replace(/\s*≒.*$/, '');
-			return { ...base, cat: 'grammatica', scritto: `${frase} ≒ ${correct}`, steps: [{ t: 'ja', text: frase }, recallFor(pause), { t: 'ja', text: correct }, ...why] };
+			return { ...base, cat: 'grammatica', scritto: `${frase} ≒ ${correct}`, steps: [{ t: 'ja', text: frase }, recallFor(pause), { t: 'ja', text: correct }, ...italianNote(item.spiegazione.perche_giusta)] };
 		}
-		case 'yoho':
-			return { ...base, cat: 'grammatica', steps: [{ t: 'ja', text: correct }, { t: 'wait', ms: 800 }, ...why, { t: 'ja', text: correct }] };
 		case 'kumitate': {
 			const pezzi = plain(item.prompt).split(/語群[:：]/)[1]?.split(/[・、]/).map((s) => s.trim()).filter(Boolean);
 			const full = item.frase_completa ? plain(item.frase_completa).replace(/[【】]/g, '') : '';
 			if (!pezzi?.length || !full) return null;
+			// la traduzione è «Frase completa: giapponese — «italiano»»: serve solo l'italiano
+			const it = item.traduzione?.match(/«([^»]+)»/)?.[1];
 			return {
 				...base,
 				cat: 'grammatica',
 				scritto: full,
-				steps: [{ t: 'it', text: 'Metti in ordine.' }, ...pezzi.flatMap((text): ListenStep[] => [{ t: 'ja', text }, { t: 'wait', ms: 500 }]), recallFor(pause, 3000), { t: 'ja', text: full }, ...why]
+				steps: [{ t: 'it', text: 'Metti in ordine.' }, ...pezzi.flatMap((text): ListenStep[] => [{ t: 'ja', text }, { t: 'wait', ms: 500 }]), recallFor(pause, 3000), { t: 'ja', text: full }, ...italianNote(it)]
 			};
 		}
 		case 'dokkai-tan':
@@ -106,11 +96,11 @@ function fromExamItem(item: CuratedExamItem, pause: ListenPause, rng: () => numb
 			return {
 				...base,
 				cat: 'lettura',
-				steps: [...frasi.map((text): ListenStep => ({ t: 'ja', text })), { t: 'wait', ms: 800 }, { t: 'ja', text: domanda }, recallFor(pause), { t: 'ja', text: correct }, ...why]
+				steps: [...frasi.map((text): ListenStep => ({ t: 'ja', text })), { t: 'wait', ms: 800 }, { t: 'ja', text: domanda }, recallFor(pause), { t: 'ja', text: correct }, ...italianNote(item.spiegazione.perche_giusta)]
 			};
 		}
 		default:
-			return null; // 漢字読み/表記/情報検索: si giocano sulla scrittura, non a orecchio
+			return null; // 漢字読み/表記/情報検索/用法: si giocano sullo scritto, non a orecchio
 	}
 }
 
@@ -123,31 +113,28 @@ function fromDialogue(d: ListeningDialogue, pause: ListenPause): ListenItem | nu
 		key: `dialogo:${d.id}`,
 		cat: 'ascolto',
 		jp: correct,
-		it: q.spiega,
+		it: d.scena,
 		scritto: correct,
 		steps: [
-			{ t: 'it', text: d.scena },
+			...italianNote(d.scena),
 			{ t: 'ja', text: d.domanda },
 			{ t: 'wait', ms: 1200 },
 			...run.lines.map((l): ListenStep => ({ t: 'ja', text: l.text, voice: l.who })),
 			{ t: 'wait', ms: 800 },
 			{ t: 'ja', text: q.q },
 			recallFor(pause),
-			{ t: 'ja', text: correct },
-			...mixedSteps(q.spiega)
+			{ t: 'ja', text: correct }
 		]
 	};
 }
 
+// Solo gli esempi: le spiegazioni dei trucchi vanno riscritte per l'orecchio.
 function fromTrucchi(pause: ListenPause): ListenItem[] {
 	const out: ListenItem[] = [];
-	const label = new Map(EXAM_N4_HOT_POINTS.map((h) => [h.id, h.label]));
 	for (const t of Object.values(TRUCCHI)) {
-		const nome = label.get(t.id) ?? t.id;
-		out.push({ key: `trucco:${t.id}`, cat: 'trucchi', jp: nome, it: t.spiegazione, scritto: nome, steps: [...mixedSteps(nome), ...mixedSteps(t.spiegazione)] });
 		t.esempi.forEach((e, i) => {
-			const jp = plain(e.jp);
-			out.push({ key: `trucco:${t.id}:${i}`, cat: 'trucchi', jp, it: e.it, scritto: jp, steps: [{ t: 'it', text: e.it }, recallFor(pause), { t: 'ja', text: jp }, ...mixedSteps(e.nota)] });
+			const jp = spokenJa(plain(e.jp));
+			out.push({ key: `trucco:${t.id}:${i}`, cat: 'trucchi', jp, it: e.it, scritto: jp, steps: [...italianNote(e.it), recallFor(pause), { t: 'ja', text: jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: jp }] });
 		});
 	}
 	return out;
@@ -173,14 +160,19 @@ function fromForms(words: Word[], pause: ListenPause, rng: () => number): Listen
 	return [...out.values()];
 }
 
-function directed(item: ListenItem, cat: string, direction: ListenDirection, pause: ListenPause): ListenItem {
+function directionSteps(item: ListenItem, direction: ListenDirection, pause: ListenPause): ListenStep[] {
 	const recall: ListenStep = { t: 'recall', ms: recallMs(item, direction, pause) };
-	const steps: ListenStep[] =
-		direction === 'jp-it'
-			? [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp }]
-			: [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.8 }];
-	return { ...item, key: `${cat}:${item.key}`, cat, steps };
+	return direction === 'jp-it'
+		? [{ t: 'ja', text: item.jp }, recall, { t: 'it', text: item.it }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp }]
+		: [{ t: 'it', text: item.it }, recall, { t: 'ja', text: item.jp }, { t: 'wait', ms: 500 }, { t: 'ja', text: item.jp, rate: 0.8 }];
 }
+const withDirections = (item: ListenItem, cat: string, pause: ListenPause): ListenItem => ({
+	...item,
+	key: `${cat}:${item.key}`,
+	cat,
+	steps: directionSteps(item, 'jp-it', pause),
+	altSteps: directionSteps(item, 'it-jp', pause)
+});
 
 export interface ExamMixInput {
 	words: Word[];
@@ -202,28 +194,42 @@ export function buildExamMix(input: ExamMixInput): ListenItem[] {
 		...dialogues.filter((d) => levels.includes(d.livello)).map((d) => fromDialogue(d, pause)).filter((x): x is ListenItem => x !== null),
 		...fromTrucchi(pause),
 		...fromForms(inLevel, pause, rng),
-		// la direzione cambia di giro in giro: orecchio e produzione insieme
-		...buildSentenceItems(words, grammar, curated, levels).map((i) => directed(i, 'frasi', rng() < 0.7 ? 'jp-it' : 'it-jp', pause)),
-		...buildWordItems(words, levels).map((i) => directed(i, 'parole', rng() < 0.5 ? 'jp-it' : 'it-jp', pause))
+		...buildSentenceItems(words, grammar, curated, levels).map((i) => withDirections(i, 'frasi', pause)),
+		...buildWordItems(words, levels).map((i) => withDirections(i, 'parole', pause))
 	];
 }
 
-// Quante voci per giro: ascolto spesso, frasi e parole non devono coprire il resto.
-const MIX_TURNS: [string, number][] = [
-	['ascolto', 2],
-	['forme', 3],
-	['grammatica', 2],
-	['parole', 3],
-	['frasi', 2],
-	['trucchi', 1],
-	['lettura', 1]
+// A blocchi, così si sa sempre cosa si sta ascoltando.
+const MIX_BLOCKS: { cat: string; n: number; titolo: string }[] = [
+	{ cat: 'ascolto', n: 4, titolo: "Prove d'ascolto" },
+	{ cat: 'forme', n: 10, titolo: 'Forme' },
+	{ cat: 'grammatica', n: 5, titolo: 'Grammatica' },
+	{ cat: 'parole', n: 10, titolo: 'Parole' },
+	{ cat: 'frasi', n: 6, titolo: 'Frasi' },
+	{ cat: 'trucchi', n: 4, titolo: 'Esempi dei punti difficili' },
+	{ cat: 'lettura', n: 2, titolo: 'Lettura' }
 ];
+const DIRECTION_SAY: Record<ListenDirection, string> = { 'jp-it': "Dal giapponese all'italiano.", 'it-jp': "Dall'italiano al giapponese." };
 
 export function buildMixQueue(items: ListenItem[], seen: ReadonlySet<string>, rng: () => number = Math.random): ListenItem[] {
-	const code = MIX_TURNS.map(([cat, n]) => ({ n, todo: buildQueue(items.filter((i) => i.cat === cat), seen, rng).filter((i) => !seen.has(i.key)) }));
+	const anyTodo = items.some((i) => !seen.has(i.key));
+	const skip: ReadonlySet<string> = anyTodo ? seen : new Set();
+	const code = MIX_BLOCKS.map((b) => ({ ...b, turn: 0, todo: buildQueue(items.filter((i) => i.cat === b.cat), new Set(), rng).filter((i) => !skip.has(i.key)) }));
 	const out: ListenItem[] = [];
 	while (code.some((c) => c.todo.length > 0)) {
-		for (const c of code) out.push(...c.todo.splice(0, c.n));
+		for (const c of code) {
+			const block = c.todo.splice(0, c.n);
+			if (block.length === 0) continue;
+			// la direzione resta la stessa per tutto il blocco e cambia al giro dopo
+			const direction: ListenDirection = c.turn % 2 === 0 ? 'jp-it' : 'it-jp';
+			c.turn += 1;
+			const quante = block.length === 1 ? 'Una domanda.' : `${block.length} domande.`;
+			block.forEach((item, i) => {
+				const steps = direction === 'it-jp' && item.altSteps ? item.altSteps : item.steps;
+				const verso = item.altSteps ? ` ${DIRECTION_SAY[direction]}` : '';
+				out.push({ ...item, steps, ...(i === 0 ? { intro: `${c.titolo}.${verso} ${quante}` } : {}) });
+			});
+		}
 	}
-	return out.length > 0 ? out : buildQueue(items, new Set(), rng);
+	return out;
 }
