@@ -171,7 +171,7 @@
   },
   {
    "grammatica": "grammar-api-N4-57",
-   "frase_con_buco": "空が くらいですね。午後は 雨が ＿＿。",
+   "frase_con_buco": "空が 暗いですね。午後は 雨が ＿＿。",
    "corretta": "ふるかもしれません",
    "distrattori": [
     "ふるつもりです",
@@ -231,7 +231,7 @@
   },
   {
    "grammatica": "grammar-api-N4-72",
-   "frase_con_buco": "だいどころから いい におい＿＿。",
+   "frase_con_buco": "台所から いい におい＿＿。",
    "corretta": "がします",
    "distrattori": [
     "をします",
@@ -315,7 +315,7 @@
   },
   {
    "grammatica": "grammar-api-N4-76",
-   "frase_con_buco": "十一月に なって、だんだん さむく ＿＿。",
+   "frase_con_buco": "十一月に なって、だんだん 寒く ＿＿。",
    "corretta": "なってきました",
    "distrattori": [
     "なっておきました",
@@ -459,7 +459,7 @@
   },
   {
    "grammatica": "grammar-api-N4-68",
-   "frase_con_buco": "日本で はたらく＿＿、日本語を 勉強して います。",
+   "frase_con_buco": "日本で 働く＿＿、日本語を 勉強して います。",
    "corretta": "ために",
    "distrattori": [
     "ように",
@@ -507,7 +507,7 @@
   },
   {
    "grammatica": "grammar-api-N4-71",
-   "frase_con_buco": "来月から おおさかで はたらく＿＿。会社が きめました。",
+   "frase_con_buco": "来月から おおさかで 働く＿＿。会社が きめました。",
    "corretta": "ことになりました",
    "distrattori": [
     "ことにしました",
@@ -567,7 +567,7 @@
   },
   {
    "grammatica": "grammar-api-N4-44",
-   "frase_con_buco": "私は 音楽を 聞く＿＿ すきです。",
+   "frase_con_buco": "私は 音楽を 聞く＿＿ 好きです。",
    "corretta": "のが",
    "distrattori": [
     "のを",
@@ -615,7 +615,7 @@
   },
   {
    "grammatica": "grammar-api-N5-69",
-   "frase_con_buco": "ここは 病院ですから、大きい こえで ＿＿ いけません。",
+   "frase_con_buco": "ここは 病院ですから、大きい 声で ＿＿ いけません。",
    "corretta": "話しては",
    "distrattori": [
     "話さなければ",
@@ -639,7 +639,7 @@
   },
   {
    "grammatica": "grammar-api-N4-16",
-   "frase_con_buco": "やさいが きらいな 弟に、母は 毎日 やさいを ＿＿。",
+   "frase_con_buco": "野菜が きらいな 弟に、母は 毎日 野菜を ＿＿。",
    "corretta": "食べさせました",
    "distrattori": [
     "食べました",
@@ -651,7 +651,7 @@
   },
   {
    "grammatica": "grammar-api-N4-17",
-   "frase_con_buco": "子どもの とき、きらいな やさいを 母に ＿＿。",
+   "frase_con_buco": "子どもの とき、きらいな 野菜を 母に ＿＿。",
    "corretta": "食べさせられました",
    "distrattori": [
     "食べさせました",
@@ -820,11 +820,11 @@
   {
    "grammatica": "grammar-api-N4-34",
    "frase_con_buco": "手を ＿＿から、ごはんを 食べます。",
-   "corretta": "あらって",
+   "corretta": "洗って",
    "distrattori": [
-    "あらい",
-    "あらえ",
-    "あらわ"
+    "洗い",
+    "洗え",
+    "洗わ"
    ],
    "perche": "Una cosa e poi l'altra, in ordine: forma in て + から.",
    "traduzione_it": "Mi lavo le mani e poi mangio."
@@ -1092,6 +1092,222 @@
    ],
    "perche": "Proposta non vincolante, «un tè o qualcosa del genere»: でも.",
    "traduzione_it": "Ho sete. Che ne dici di bere un tè o qualcosa del genere?"
+  },
+  {
+   "grammatica": "g-n4-hajimeru",
+   "frase_con_buco": "この 本は きのう 読み＿＿ました。まだ 少ししか 読んで いません。",
+   "corretta": "はじめ",
+   "distrattori": [
+    "おわり",
+    "つづけ",
+    "すぎ"
+   ],
+   "perche": "Si è appena cominciato (ancora poco): radice + はじめる.",
+   "traduzione_it": "Ho cominciato a leggere questo libro ieri. Ne ho letto ancora poco."
+  },
+  {
+   "grammatica": "g-n4-dasu",
+   "frase_con_buco": "急に 大きな 犬が 走り＿＿ました。",
+   "corretta": "だし",
+   "distrattori": [
+    "おわり",
+    "おき",
+    "やり"
+   ],
+   "perche": "急に indica un inizio improvviso: radice + だす.",
+   "traduzione_it": "All’improvviso un grosso cane si è messo a correre."
+  },
+  {
+   "grammatica": "g-n4-tsuzukeru",
+   "frase_con_buco": "つかれましたが、駅まで 歩き＿＿ました。",
+   "corretta": "つづけ",
+   "distrattori": [
+    "はじめ",
+    "だし",
+    "すぎ"
+   ],
+   "perche": "Nonostante la stanchezza non si smette: radice + つづける.",
+   "traduzione_it": "Ero stanco, ma ho continuato a camminare fino alla stazione."
+  },
+  {
+   "grammatica": "g-n4-owaru",
+   "frase_con_buco": "手紙を 書き＿＿たら、出しに 行きます。",
+   "corretta": "おわっ",
+   "distrattori": [
+    "はじめ",
+    "つづけ",
+    "だし"
+   ],
+   "perche": "Si va a spedire quando la scrittura è finita: radice + おわる.",
+   "traduzione_it": "Quando finisco di scrivere la lettera, vado a spedirla."
+  },
+  {
+   "grammatica": "g-n4-zuni",
+   "frase_con_buco": "かさを 持た＿＿ 出かけました。",
+   "corretta": "ずに",
+   "distrattori": [
+    "ないと",
+    "なくて",
+    "たら"
+   ],
+   "perche": "Senza aver fatto una cosa, se ne fa un’altra: 〜ずに = 〜ないで.",
+   "traduzione_it": "Sono uscito senza prendere l’ombrello."
+  },
+  {
+   "grammatica": "g-n4-you-to-suru",
+   "frase_con_buco": "家を 出＿＿と した 時、雨が ふって きました。",
+   "corretta": "よう",
+   "distrattori": [
+    "ます",
+    "たい",
+    "れば"
+   ],
+   "perche": "Sul punto di fare: forma volitiva + とする.",
+   "traduzione_it": "Proprio mentre stavo per uscire di casa, si è messo a piovere."
+  },
+  {
+   "grammatica": "g-n4-garu",
+   "frase_con_buco": "弟は 新しい 車を ほし＿＿ います。",
+   "corretta": "がって",
+   "distrattori": [
+    "くて",
+    "そうで",
+    "たくて"
+   ],
+   "perche": "Del desiderio di un altro non si dice ほしい: serve ほしがる, con を.",
+   "traduzione_it": "Mio fratello minore vuole un’auto nuova."
+  },
+  {
+   "grammatica": "g-n4-te-yaru",
+   "frase_con_buco": "花に 水を ＿＿ました。",
+   "corretta": "やり",
+   "distrattori": [
+    "くれ",
+    "いただき",
+    "くださり"
+   ],
+   "perche": "A piante e animali si dà con やる: è il verso «verso il basso».",
+   "traduzione_it": "Ho dato l’acqua ai fiori."
+  },
+  {
+   "grammatica": "g-n4-sashiageru",
+   "frase_con_buco": "私は 社長に お花を ＿＿ました。",
+   "corretta": "さしあげ",
+   "distrattori": [
+    "くださり",
+    "やり",
+    "くれ"
+   ],
+   "perche": "Io do a un superiore: さしあげる. くださる è il superiore che dà a me.",
+   "traduzione_it": "Ho dato dei fiori al presidente."
+  },
+  {
+   "grammatica": "g-n4-te-itadaku",
+   "frase_con_buco": "先生＿＿ 漢字を 教えて いただきました。",
+   "corretta": "に",
+   "distrattori": [
+    "が",
+    "を",
+    "で"
+   ],
+   "perche": "In 〜ていただく il soggetto sono io, e il superiore che fa il favore prende に.",
+   "traduzione_it": "Il professore mi ha gentilmente insegnato i kanji."
+  },
+  {
+   "grammatica": "g-n4-itasu",
+   "frase_con_buco": "その 仕事は 私が ＿＿ます。",
+   "corretta": "いたし",
+   "distrattori": [
+    "なさい",
+    "めしあがり",
+    "いらっしゃい"
+   ],
+   "perche": "Azione propria verso un superiore: いたす, forma umile di する. なさる è per il superiore.",
+   "traduzione_it": "Di quella questione mi occupo io."
+  },
+  {
+   "grammatica": "g-n4-gozaimasu",
+   "frase_con_buco": "店員「お手洗いは あちらに ＿＿。」",
+   "corretta": "ございます",
+   "distrattori": [
+    "おります",
+    "いらっしゃいます",
+    "まいります"
+   ],
+   "perche": "Per cose, in tono molto cortese: ございます. いらっしゃる e おる si riferiscono a persone.",
+   "traduzione_it": "Commesso: «Il bagno è da quella parte.»"
+  },
+  {
+   "grammatica": "g-n4-mama",
+   "frase_con_buco": "電気を つけた ＿＿ 出かけて しまいました。",
+   "corretta": "まま",
+   "distrattori": [
+    "あとで",
+    "まえに",
+    "ながら"
+   ],
+   "perche": "Lo stato resta invariato (luce accesa): forma in た + まま.",
+   "traduzione_it": "Sono uscito lasciando la luce accesa."
+  },
+  {
+   "grammatica": "g-n4-toka",
+   "frase_con_buco": "日本語の 本＿＿ じしょとかを 買いました。",
+   "corretta": "とか",
+   "distrattori": [
+    "から",
+    "まで",
+    "より"
+   ],
+   "perche": "Esempi in elenco: AとかBとか.",
+   "traduzione_it": "Ho comprato libri di giapponese, dizionari e cose così."
+  },
+  {
+   "grammatica": "g-n4-hodo-nai",
+   "frase_con_buco": "東京は おおさか＿＿ 暑くないです。",
+   "corretta": "ほど",
+   "distrattori": [
+    "より",
+    "しか",
+    "だけ"
+   ],
+   "perche": "A non è… quanto B: ほど + negativo.",
+   "traduzione_it": "Tokyo non è calda quanto Osaka."
+  },
+  {
+   "grammatica": "g-n5-nado",
+   "frase_con_buco": "かばんの 中に 本や ノート＿＿が あります。",
+   "corretta": "など",
+   "distrattori": [
+    "しか",
+    "まで",
+    "から"
+   ],
+   "perche": "Chiude un elenco non completo aperto da や.",
+   "traduzione_it": "Nella borsa ci sono libri, quaderni e altre cose."
+  },
+  {
+   "grammatica": "g-n5-gurai",
+   "frase_con_buco": "家から 学校まで 三十分＿＿ かかります。",
+   "corretta": "ぐらい",
+   "distrattori": [
+    "ごろ",
+    "まで",
+    "しか"
+   ],
+   "perche": "Durata approssimativa: ぐらい. ごろ va con un punto nel tempo, come 三時ごろ.",
+   "traduzione_it": "Da casa a scuola ci vogliono circa trenta minuti."
+  },
+  {
+   "grammatica": "g-n5-amari-nai",
+   "frase_con_buco": "今日は ＿＿ 寒くないです。",
+   "corretta": "あまり",
+   "distrattori": [
+    "とても",
+    "たくさん",
+    "もっと"
+   ],
+   "perche": "Con il negativo: あまり. とても e たくさん vanno con l’affermativo.",
+   "traduzione_it": "Oggi non fa molto freddo."
   }
  ]
 }

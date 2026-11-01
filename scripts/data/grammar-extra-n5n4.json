@@ -1,142 +1,550 @@
 [
-  {
-    "id": "g-n4-ba-yokatta",
-    "struttura": "〜ばよかった",
-    "livello": "N4",
-    "spiegazione": {
-      "it": "Rimpianto per ciò che NON si è fatto: forma condizionale in 〜ば + よかった = «avrei dovuto…». Con la negazione (〜なければよかった) è il rimpianto opposto: «non avrei dovuto…». La coniugazione è quella di 〜ば (行く→行けば, 食べる→食べれば, する→すれば, 来る→来れば). Il rovescio positivo — la contentezza per ciò che si è fatto — è 〜てよかった.",
-      "en": "Regret about something you did NOT do: the 〜ば conditional + よかった = “I should have…”. With the negative (〜なければよかった) it is the opposite regret: “I shouldn't have…”. The counterpart, being glad about what you did do, is 〜てよかった."
-    },
-    "esempi": [
-      {
-        "jp": "もっと早く予約すればよかったです。",
-        "it": "Avrei dovuto prenotare prima.",
-        "en": "I should have booked earlier."
-      },
-      {
-        "jp": "傘を持って来ればよかった。",
-        "it": "Avrei dovuto portare l'ombrello.",
-        "en": "I should have brought an umbrella."
-      },
-      {
-        "jp": "あんなことを言わなければよかった。",
-        "it": "Non avrei dovuto dire una cosa simile.",
-        "en": "I shouldn't have said something like that."
-      }
-    ],
-    "study_tags": ["n4", "grammar", "exam-core"],
-    "chapter_tags": ["jlpt-n4-core"]
+ {
+  "id": "g-n4-ba-yokatta",
+  "struttura": "〜ばよかった",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Rimpianto per ciò che NON si è fatto: forma condizionale in 〜ば + よかった = «avrei dovuto…». Con la negazione (〜なければよかった) è il rimpianto opposto: «non avrei dovuto…». La coniugazione è quella di 〜ば (行く→行けば, 食べる→食べれば, する→すれば, 来る→来れば). Il rovescio positivo — la contentezza per ciò che si è fatto — è 〜てよかった.",
+   "en": "Regret about something you did NOT do: the 〜ば conditional + よかった = “I should have…”. With the negative (〜なければよかった) it is the opposite regret: “I shouldn't have…”. The counterpart, being glad about what you did do, is 〜てよかった."
   },
-  {
-    "id": "g-n4-te-yokatta",
-    "struttura": "〜てよかった",
-    "livello": "N4",
-    "spiegazione": {
-      "it": "Sollievo o contentezza per come sono andate le cose: forma in て + よかった = «meno male che…», «sono contento di aver…». Con la negazione, 〜ないでよかった = «meno male che non…». Da non confondere con 〜ばよかった, che è invece il rimpianto per ciò che non si è fatto.",
-      "en": "Relief or gladness about how things turned out: the て-form + よかった = “I'm glad I…”, “it's a good thing that…”. With the negative, 〜ないでよかった = “I'm glad I didn't…”. Not to be confused with 〜ばよかった, which expresses regret for what you did not do."
-    },
-    "esempi": [
-      {
-        "jp": "日本語の勉強をやめないでよかったです。",
-        "it": "Meno male che non ho smesso di studiare giapponese.",
-        "en": "I'm glad I didn't quit studying Japanese."
-      },
-      {
-        "jp": "早く家を出てよかった。電車に間に合った。",
-        "it": "Meno male che sono uscito presto di casa: ho preso il treno.",
-        "en": "Good thing I left home early — I made the train."
-      },
-      {
-        "jp": "敬語を習ってよかったです。",
-        "it": "Sono contento di aver imparato il keigo.",
-        "en": "I'm glad I learned keigo."
-      }
-    ],
-    "study_tags": ["n4", "grammar", "exam-core"],
-    "chapter_tags": ["jlpt-n4-core"]
+  "esempi": [
+   {
+    "jp": "もっと早く予約すればよかったです。",
+    "it": "Avrei dovuto prenotare prima.",
+    "en": "I should have booked earlier."
+   },
+   {
+    "jp": "傘を持って来ればよかった。",
+    "it": "Avrei dovuto portare l'ombrello.",
+    "en": "I should have brought an umbrella."
+   },
+   {
+    "jp": "あんなことを言わなければよかった。",
+    "it": "Non avrei dovuto dire una cosa simile.",
+    "en": "I shouldn't have said something like that."
+   }
+  ],
+  "study_tags": [
+   "n4",
+   "grammar",
+   "exam-core"
+  ],
+  "chapter_tags": [
+   "jlpt-n4-core"
+  ]
+ },
+ {
+  "id": "g-n4-te-yokatta",
+  "struttura": "〜てよかった",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Sollievo o contentezza per come sono andate le cose: forma in て + よかった = «meno male che…», «sono contento di aver…». Con la negazione, 〜ないでよかった = «meno male che non…». Da non confondere con 〜ばよかった, che è invece il rimpianto per ciò che non si è fatto.",
+   "en": "Relief or gladness about how things turned out: the て-form + よかった = “I'm glad I…”, “it's a good thing that…”. With the negative, 〜ないでよかった = “I'm glad I didn't…”. Not to be confused with 〜ばよかった, which expresses regret for what you did not do."
   },
-  {
-    "id": "g-n4-tekurete-arigatou",
-    "struttura": "〜てくれて、ありがとう",
-    "livello": "N4",
-    "spiegazione": {
-      "it": "Ringraziare per un favore ricevuto: forma in て + くれて、ありがとう = «grazie per avermi…». Verso un superiore o un cliente si sale di registro con l'onorifico 〜てくださって、ありがとうございました. Si appoggia ai verbi del dare e ricevere (授受): くれる → くださる.",
-      "en": "Thanking someone for a favour done for you: the て-form + くれて、ありがとう = “thank you for …-ing (for me)”. With a superior or a customer you move up in register with the honorific 〜てくださって、ありがとうございました. It builds on the giving-and-receiving verbs (授受): くれる → くださる."
-    },
-    "esempi": [
-      {
-        "jp": "来てくれて、ありがとう。",
-        "it": "Grazie di essere venuto.",
-        "en": "Thanks for coming."
-      },
-      {
-        "jp": "駅まで送ってくれて、ありがとう。",
-        "it": "Grazie per avermi accompagnato alla stazione.",
-        "en": "Thanks for seeing me to the station."
-      },
-      {
-        "jp": "辞書を貸してくださって、ありがとうございました。",
-        "it": "La ringrazio per avermi prestato il dizionario.",
-        "en": "Thank you for lending me your dictionary."
-      }
-    ],
-    "study_tags": ["n4", "grammar", "exam-core"],
-    "chapter_tags": ["jlpt-n4-core"]
+  "esempi": [
+   {
+    "jp": "日本語の勉強をやめないでよかったです。",
+    "it": "Meno male che non ho smesso di studiare giapponese.",
+    "en": "I'm glad I didn't quit studying Japanese."
+   },
+   {
+    "jp": "早く家を出てよかった。電車に間に合った。",
+    "it": "Meno male che sono uscito presto di casa: ho preso il treno.",
+    "en": "Good thing I left home early — I made the train."
+   },
+   {
+    "jp": "敬語を習ってよかったです。",
+    "it": "Sono contento di aver imparato il keigo.",
+    "en": "I'm glad I learned keigo."
+   }
+  ],
+  "study_tags": [
+   "n4",
+   "grammar",
+   "exam-core"
+  ],
+  "chapter_tags": [
+   "jlpt-n4-core"
+  ]
+ },
+ {
+  "id": "g-n4-tekurete-arigatou",
+  "struttura": "〜てくれて、ありがとう",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Ringraziare per un favore ricevuto: forma in て + くれて、ありがとう = «grazie per avermi…». Verso un superiore o un cliente si sale di registro con l'onorifico 〜てくださって、ありがとうございました. Si appoggia ai verbi del dare e ricevere (授受): くれる → くださる.",
+   "en": "Thanking someone for a favour done for you: the て-form + くれて、ありがとう = “thank you for …-ing (for me)”. With a superior or a customer you move up in register with the honorific 〜てくださって、ありがとうございました. It builds on the giving-and-receiving verbs (授受): くれる → くださる."
   },
-  {
-    "id": "g-n4-o-kudasai",
-    "struttura": "お〜ください／ご〜ください",
-    "livello": "N4",
-    "spiegazione": {
-      "it": "Richiesta onorifica (尊敬語): お + radice del verbo in ます + ください, oppure ご + nome di origine cinese + ください. È più rispettosa di 〜てください, che resta la richiesta cortese normale. I verbi con forma onorifica propria la usano: 召し上がる → お召し上がりください.",
-      "en": "Honorific request (尊敬語): お + the ます-stem of the verb + ください, or ご + a Sino-Japanese noun + ください. It is more respectful than 〜てください, which remains the standard polite request. Verbs with their own honorific form use it: 召し上がる → お召し上がりください."
-    },
-    "esempi": [
-      {
-        "jp": "こちらでお待ちください。",
-        "it": "Attenda qui, per favore.",
-        "en": "Please wait here."
-      },
-      {
-        "jp": "どうぞ、お召し上がりください。",
-        "it": "Si serva pure, prego.",
-        "en": "Please help yourself."
-      },
-      {
-        "jp": "足元にご注意ください。",
-        "it": "Faccia attenzione a dove mette i piedi.",
-        "en": "Please watch your step."
-      }
-    ],
-    "study_tags": ["n4", "grammar", "exam-core"],
-    "chapter_tags": ["jlpt-n4-core"]
+  "esempi": [
+   {
+    "jp": "来てくれて、ありがとう。",
+    "it": "Grazie di essere venuto.",
+    "en": "Thanks for coming."
+   },
+   {
+    "jp": "駅まで送ってくれて、ありがとう。",
+    "it": "Grazie per avermi accompagnato alla stazione.",
+    "en": "Thanks for seeing me to the station."
+   },
+   {
+    "jp": "辞書を貸してくださって、ありがとうございました。",
+    "it": "La ringrazio per avermi prestato il dizionario.",
+    "en": "Thank you for lending me your dictionary."
+   }
+  ],
+  "study_tags": [
+   "n4",
+   "grammar",
+   "exam-core"
+  ],
+  "chapter_tags": [
+   "jlpt-n4-core"
+  ]
+ },
+ {
+  "id": "g-n4-o-kudasai",
+  "struttura": "お〜ください／ご〜ください",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Richiesta onorifica (尊敬語): お + radice del verbo in ます + ください, oppure ご + nome di origine cinese + ください. È più rispettosa di 〜てください, che resta la richiesta cortese normale. I verbi con forma onorifica propria la usano: 召し上がる → お召し上がりください.",
+   "en": "Honorific request (尊敬語): お + the ます-stem of the verb + ください, or ご + a Sino-Japanese noun + ください. It is more respectful than 〜てください, which remains the standard polite request. Verbs with their own honorific form use it: 召し上がる → お召し上がりください."
   },
-  {
-    "id": "g-n4-o-ni-naru",
-    "struttura": "お〜になる",
-    "livello": "N4",
-    "spiegazione": {
-      "it": "Onorifico produttivo (尊敬語): お + radice del verbo in ます + になる eleva l'azione dell'interlocutore o di un superiore. Si usa con i verbi che non hanno una forma onorifica propria; quando c'è, si preferisce quella (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる).",
-      "en": "Productive honorific (尊敬語): お + the ます-stem of the verb + になる raises the action of the listener or of a superior. Use it with verbs that lack a dedicated honorific form; when one exists, that form is preferred (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる)."
-    },
-    "esempi": [
-      {
-        "jp": "社長はもうお帰りになりました。",
-        "it": "Il presidente è già rientrato.",
-        "en": "The president has already gone home."
-      },
-      {
-        "jp": "先生は毎晩本をお読みになります。",
-        "it": "Il professore legge un libro ogni sera.",
-        "en": "The teacher reads a book every evening."
-      },
-      {
-        "jp": "部長は新幹線にお乗りになりました。",
-        "it": "Il capoufficio ha preso lo shinkansen.",
-        "en": "The section chief took the bullet train."
-      }
-    ],
-    "study_tags": ["n4", "grammar", "exam-core"],
-    "chapter_tags": ["jlpt-n4-core"]
-  }
+  "esempi": [
+   {
+    "jp": "こちらでお待ちください。",
+    "it": "Attenda qui, per favore.",
+    "en": "Please wait here."
+   },
+   {
+    "jp": "どうぞ、お召し上がりください。",
+    "it": "Si serva pure, prego.",
+    "en": "Please help yourself."
+   },
+   {
+    "jp": "足元にご注意ください。",
+    "it": "Faccia attenzione a dove mette i piedi.",
+    "en": "Please watch your step."
+   }
+  ],
+  "study_tags": [
+   "n4",
+   "grammar",
+   "exam-core"
+  ],
+  "chapter_tags": [
+   "jlpt-n4-core"
+  ]
+ },
+ {
+  "id": "g-n4-o-ni-naru",
+  "struttura": "お〜になる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Onorifico produttivo (尊敬語): お + radice del verbo in ます + になる eleva l'azione dell'interlocutore o di un superiore. Si usa con i verbi che non hanno una forma onorifica propria; quando c'è, si preferisce quella (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる).",
+   "en": "Productive honorific (尊敬語): お + the ます-stem of the verb + になる raises the action of the listener or of a superior. Use it with verbs that lack a dedicated honorific form; when one exists, that form is preferred (見る → ご覧になる, 食べる・飲む → 召し上がる, 寝る → お休みになる)."
+  },
+  "esempi": [
+   {
+    "jp": "社長はもうお帰りになりました。",
+    "it": "Il presidente è già rientrato.",
+    "en": "The president has already gone home."
+   },
+   {
+    "jp": "先生は毎晩本をお読みになります。",
+    "it": "Il professore legge un libro ogni sera.",
+    "en": "The teacher reads a book every evening."
+   },
+   {
+    "jp": "部長は新幹線にお乗りになりました。",
+    "it": "Il capoufficio ha preso lo shinkansen.",
+    "en": "The section chief took the bullet train."
+   }
+  ],
+  "study_tags": [
+   "n4",
+   "grammar",
+   "exam-core"
+  ],
+  "chapter_tags": [
+   "jlpt-n4-core"
+  ]
+ },
+ {
+  "id": "g-n4-hajimeru",
+  "struttura": "〜はじめる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Cominciare a fare: radice in ます + はじめる (読みはじめる). Dice che un’azione comincia e continuerà.",
+   "en": "To begin doing: ます-stem + はじめる."
+  },
+  "esempi": [
+   {
+    "jp": "雨が 降りはじめました。",
+    "it": "Ha cominciato a piovere.",
+    "en": "It started to rain."
+   },
+   {
+    "jp": "去年から 日本語を 習いはじめました。",
+    "it": "Dall’anno scorso ho cominciato a studiare giapponese.",
+    "en": "I started learning Japanese last year."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-dasu",
+  "struttura": "〜だす",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Mettersi improvvisamente a: radice in ます + だす (泣きだす). L’inizio è brusco e imprevisto, e di solito non volontario.",
+   "en": "To suddenly start: ます-stem + だす."
+  },
+  "esempi": [
+   {
+    "jp": "子どもが 急に 泣きだしました。",
+    "it": "Il bambino si è messo a piangere all’improvviso.",
+    "en": "The child suddenly started crying."
+   },
+   {
+    "jp": "急に 雨が 降りだしました。",
+    "it": "All’improvviso si è messo a piovere.",
+    "en": "It suddenly started raining."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-tsuzukeru",
+  "struttura": "〜つづける",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Continuare a fare: radice in ます + つづける (歩きつづける).",
+   "en": "To keep doing: ます-stem + つづける."
+  },
+  "esempi": [
+   {
+    "jp": "一時間 歩きつづけました。",
+    "it": "Ho continuato a camminare per un’ora.",
+    "en": "I kept walking for an hour."
+   },
+   {
+    "jp": "毎日 日本語を 勉強しつづけて います。",
+    "it": "Continuo a studiare giapponese ogni giorno.",
+    "en": "I keep studying Japanese every day."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-owaru",
+  "struttura": "〜おわる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Finire di fare: radice in ます + おわる (読みおわる).",
+   "en": "To finish doing: ます-stem + おわる."
+  },
+  "esempi": [
+   {
+    "jp": "この 本を 読みおわりました。",
+    "it": "Ho finito di leggere questo libro.",
+    "en": "I finished reading this book."
+   },
+   {
+    "jp": "ごはんを 食べおわったら、出かけましょう。",
+    "it": "Quando abbiamo finito di mangiare, usciamo.",
+    "en": "Let’s go out when we finish eating."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-zuni",
+  "struttura": "〜ずに",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Senza fare: forma in ない senza ない + ずに (食べずに). È come 〜ないで, ma più scritta. する diventa せずに.",
+   "en": "Without doing: ない-stem + ずに; する becomes せずに."
+  },
+  "esempi": [
+   {
+    "jp": "朝ごはんを 食べずに 出かけました。",
+    "it": "Sono uscito senza fare colazione.",
+    "en": "I went out without eating breakfast."
+   },
+   {
+    "jp": "何も 言わずに 帰りました。",
+    "it": "Se n’è andato senza dire niente.",
+    "en": "He left without saying anything."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-you-to-suru",
+  "struttura": "〜(よ)うとする",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Stare per fare, cercare di fare: forma volitiva + とする (出かけようとする).",
+   "en": "To try to do, to be about to do: volitional + とする."
+  },
+  "esempi": [
+   {
+    "jp": "出かけようと した 時、電話が 来ました。",
+    "it": "Proprio mentre stavo per uscire, è arrivata una telefonata.",
+    "en": "The phone rang just as I was about to go out."
+   },
+   {
+    "jp": "毎日 運動しようと して います。",
+    "it": "Cerco di fare esercizio ogni giorno.",
+    "en": "I try to exercise every day."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-garu",
+  "struttura": "〜がる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Mostrare un sentimento, detto di altri: aggettivo senza い o な + がる (ほしがる, こわがる). Di sé stessi si dice ほしい, こわい.",
+   "en": "To show a feeling, said of others: adjective stem + がる."
+  },
+  "esempi": [
+   {
+    "jp": "弟は 新しい ゲームを ほしがって います。",
+    "it": "Mio fratello minore vuole un videogioco nuovo.",
+    "en": "My younger brother wants a new game."
+   },
+   {
+    "jp": "妹は 犬を こわがります。",
+    "it": "Mia sorella minore ha paura dei cani.",
+    "en": "My younger sister is afraid of dogs."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-te-yaru",
+  "struttura": "〜てやる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Fare qualcosa per chi sta sotto (bambini, animali, piante), o come sfida. Più informale di 〜てあげる.",
+   "en": "To do something for a person of lower status, an animal or a plant."
+  },
+  "esempi": [
+   {
+    "jp": "妹に 本を 読んで やりました。",
+    "it": "Ho letto un libro a mia sorella minore.",
+    "en": "I read a book to my younger sister."
+   },
+   {
+    "jp": "毎日 犬に ごはんを やります。",
+    "it": "Ogni giorno do da mangiare al cane.",
+    "en": "I feed the dog every day."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-sashiageru",
+  "struttura": "さしあげる",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Dare a un superiore: forma umile di あげる (先生に 花を さしあげる). Con 〜て: 〜てさしあげる.",
+   "en": "To give to a superior: humble form of あげる."
+  },
+  "esempi": [
+   {
+    "jp": "先生に 花を さしあげました。",
+    "it": "Ho dato dei fiori al professore.",
+    "en": "I gave flowers to my teacher."
+   },
+   {
+    "jp": "お客様に お茶を さしあげます。",
+    "it": "Offro del tè al cliente.",
+    "en": "I serve tea to the customer."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-te-itadaku",
+  "struttura": "〜ていただく",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Ricevere un favore da un superiore: forma umile di 〜てもらう, con chi lo fa segnato da に.",
+   "en": "To receive a favor from a superior: humble form of 〜てもらう."
+  },
+  "esempi": [
+   {
+    "jp": "先生に 作文を 見て いただきました。",
+    "it": "Il professore mi ha gentilmente guardato il tema.",
+    "en": "My teacher kindly checked my essay."
+   },
+   {
+    "jp": "部長に 教えて いただきました。",
+    "it": "Me l’ha gentilmente spiegato il capo reparto.",
+    "en": "The department manager kindly taught me."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-itasu",
+  "struttura": "いたす",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Fare, forma umile di する: お + radice + いたす (お持ちいたします), o nome + いたす (ご案内いたします). Più umile di お〜する.",
+   "en": "To do, humble form of する."
+  },
+  "esempi": [
+   {
+    "jp": "私が ご案内いたします。",
+    "it": "La accompagno io.",
+    "en": "I will show you the way."
+   },
+   {
+    "jp": "お荷物を お持ちいたします。",
+    "it": "Le porto io i bagagli.",
+    "en": "I will carry your luggage."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-gozaimasu",
+  "struttura": "ございます",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Forma molto cortese di あります: お手洗いは あちらに ございます. でございます è la forma cortese di です.",
+   "en": "Very polite form of あります; でございます is the polite form of です."
+  },
+  "esempi": [
+   {
+    "jp": "お手洗いは 二階に ございます。",
+    "it": "Il bagno è al primo piano.",
+    "en": "The restroom is on the second floor."
+   },
+   {
+    "jp": "こちらは 新しい 商品で ございます。",
+    "it": "Questo è un prodotto nuovo.",
+    "en": "This is a new product."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-mama",
+  "struttura": "〜まま",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Lasciando le cose come sono: forma in た + まま (窓を 開けた まま), ない + まま, の + まま.",
+   "en": "Leaving things as they are: た-form + まま."
+  },
+  "esempi": [
+   {
+    "jp": "窓を 開けた まま 寝ました。",
+    "it": "Ho dormito con la finestra aperta.",
+    "en": "I slept with the window open."
+   },
+   {
+    "jp": "くつを はいた まま 入らないで ください。",
+    "it": "Non entrate con le scarpe ai piedi.",
+    "en": "Please do not come in with your shoes on."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-toka",
+  "struttura": "〜とか〜とか",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Esempi non esaustivi: A とか B とか, «A, B e cose così». Più parlato di や.",
+   "en": "Non-exhaustive examples: A, B and so on."
+  },
+  "esempi": [
+   {
+    "jp": "休みの 日は、映画とか 買い物とかに 行きます。",
+    "it": "Nei giorni liberi vado al cinema, a fare spese e così via.",
+    "en": "On my days off I go to movies, shopping and such."
+   },
+   {
+    "jp": "肉とか 魚とかを 買いました。",
+    "it": "Ho comprato carne, pesce e cose così.",
+    "en": "I bought things like meat and fish."
+   }
+  ]
+ },
+ {
+  "id": "g-n4-hodo-nai",
+  "struttura": "〜ほど〜ない",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "A non è… quanto B: A は B ほど + predicato negativo. Con l’affermativo non si usa.",
+   "en": "A is not as … as B: ほど with a negative predicate."
+  },
+  "esempi": [
+   {
+    "jp": "今日は きのうほど 寒く ありません。",
+    "it": "Oggi non fa freddo come ieri.",
+    "en": "Today is not as cold as yesterday."
+   },
+   {
+    "jp": "この 店は あの 店ほど 高くないです。",
+    "it": "Questo negozio non è caro come quello.",
+    "en": "This shop is not as expensive as that one."
+   }
+  ]
+ },
+ {
+  "id": "g-n5-nado",
+  "struttura": "など",
+  "livello": "N5",
+  "spiegazione": {
+   "it": "Eccetera, e altre cose: dopo un nome, spesso in fondo a un elenco con や.",
+   "en": "And so on, etc.: after a noun, often closing a list with や."
+  },
+  "esempi": [
+   {
+    "jp": "りんごや バナナなどを 買いました。",
+    "it": "Ho comprato mele, banane e altro.",
+    "en": "I bought apples, bananas and so on."
+   },
+   {
+    "jp": "本や ノートなどが あります。",
+    "it": "Ci sono libri, quaderni e altre cose.",
+    "en": "There are books, notebooks and so on."
+   }
+  ]
+ },
+ {
+  "id": "g-n5-gurai",
+  "struttura": "ぐらい",
+  "livello": "N5",
+  "spiegazione": {
+   "it": "Circa, per quantità e durate: 一時間ぐらい, 三千円ぐらい. Per un’ora precisa si usa ごろ.",
+   "en": "About, for amounts and durations; ごろ is used for points in time."
+  },
+  "esempi": [
+   {
+    "jp": "駅まで 十分ぐらい かかります。",
+    "it": "Fino alla stazione ci vogliono circa dieci minuti.",
+    "en": "It takes about ten minutes to the station."
+   },
+   {
+    "jp": "毎日 二時間ぐらい 勉強します。",
+    "it": "Studio circa due ore al giorno.",
+    "en": "I study about two hours a day."
+   }
+  ]
+ },
+ {
+  "id": "g-n5-amari-nai",
+  "struttura": "あまり〜ない",
+  "livello": "N5",
+  "spiegazione": {
+   "it": "Non molto: あまり + negativo (あまり 食べません). Con il verbo affermativo non si usa.",
+   "en": "Not very much: あまり with a negative."
+  },
+  "esempi": [
+   {
+    "jp": "この 本は あまり おもしろくないです。",
+    "it": "Questo libro non è molto interessante.",
+    "en": "This book is not very interesting."
+   },
+   {
+    "jp": "お酒は あまり 飲みません。",
+    "it": "Non bevo molto alcol.",
+    "en": "I do not drink much alcohol."
+   }
+  ]
+ }
 ]

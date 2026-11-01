@@ -1957,5 +1957,215 @@
   ],
   "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
   "transitivita_jp": "自動詞[じどうし]"
+ },
+ {
+  "scrittura": "学部",
+  "lettura": "がくぶ",
+  "it": [
+   "facoltà universitaria"
+  ],
+  "en": [
+   "university department"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "兄は 大学の 文学部に います。",
+    "it": "Mio fratello maggiore è alla facoltà di lettere.",
+    "en": "My older brother is in the literature department."
+   }
+  ]
+ },
+ {
+  "scrittura": "スーパー",
+  "lettura": "スーパー",
+  "it": [
+   "supermercato"
+  ],
+  "en": [
+   "supermarket"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "スーパーで 野菜を 買います。",
+    "it": "Compro la verdura al supermercato.",
+    "en": "I buy vegetables at the supermarket."
+   }
+  ]
+ },
+ {
+  "scrittura": "パート",
+  "lettura": "パート",
+  "it": [
+   "lavoro part-time"
+  ],
+  "en": [
+   "part-time job"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "母は パートで 働いて います。",
+    "it": "Mia madre lavora part-time.",
+    "en": "My mother works part-time."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜側",
+  "lettura": "〜がわ",
+  "it": [
+   "lato",
+   "parte"
+  ],
+  "en": [
+   "side"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "右側に 銀行が あります。",
+    "it": "Sul lato destro c’è una banca.",
+    "en": "There is a bank on the right side."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜屋",
+  "lettura": "〜や",
+  "it": [
+   "negozio di…"
+  ],
+  "en": [
+   "… shop"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "本屋で 辞書を 買いました。",
+    "it": "Ho comprato un dizionario in libreria.",
+    "en": "I bought a dictionary at the bookstore."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜ごろ",
+  "lettura": "〜ごろ",
+  "it": [
+   "verso, circa (un momento)"
+  ],
+  "en": [
+   "around (a point in time)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "七時ごろ 起きます。",
+    "it": "Mi alzo verso le sette.",
+    "en": "I get up around seven."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜すぎ",
+  "lettura": "〜すぎ",
+  "it": [
+   "passate, oltre"
+  ],
+  "en": [
+   "past, after"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "今 九時すぎです。",
+    "it": "Sono da poco passate le nove.",
+    "en": "It is just past nine now."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜ずつ",
+  "lettura": "〜ずつ",
+  "it": [
+   "ciascuno, alla volta"
+  ],
+  "en": [
+   "each, at a time"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "一つずつ 取って ください。",
+    "it": "Prendetene uno ciascuno.",
+    "en": "Please take one each."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜たち",
+  "lettura": "〜たち",
+  "it": [
+   "plurale di persone"
+  ],
+  "en": [
+   "plural for people"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "子どもたちが 遊んで います。",
+    "it": "I bambini stanno giocando.",
+    "en": "The children are playing."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜員",
+  "lettura": "〜いん",
+  "it": [
+   "membro, addetto"
+  ],
+  "en": [
+   "member, staff"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "父は 会社員です。",
+    "it": "Mio padre è impiegato.",
+    "en": "My father is an office worker."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜ちゃん",
+  "lettura": "〜ちゃん",
+  "it": [
+   "suffisso affettuoso per i nomi"
+  ],
+  "en": [
+   "familiar name suffix"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "花子ちゃんは 五歳です。",
+    "it": "La piccola Hanako ha cinque anni.",
+    "en": "Little Hanako is five years old."
+   }
+  ]
  }
 ]

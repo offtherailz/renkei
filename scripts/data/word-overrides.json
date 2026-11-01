@@ -11218,7 +11218,7 @@
    }
   ]
  },
- "ラジオカセ": {
+ "ラジカセ": {
   "significato": {
    "it": [
     "radioregistratore"
@@ -11229,14 +11229,14 @@
   },
   "frasi_esempio": [
    {
-    "testo": "ふるい ラジオカセで おんがくを ききます。",
+    "testo": "ふるい ラジカセで おんがくを ききます。",
     "traduzione": {
      "it": "Ascolto la musica con un vecchio radioregistratore.",
      "en": "I listen to music on an old radio cassette player."
     }
    },
    {
-    "testo": "ラジオカセの でんちが なくなりました。",
+    "testo": "ラジカセの でんちが なくなりました。",
     "traduzione": {
      "it": "Le pile del radioregistratore si sono esaurite.",
      "en": "The radio cassette player's batteries have run out."
@@ -43023,7 +43023,8 @@
      "en": "This practice has long since been done away with."
     }
    }
-  ]
+  ],
+  "livello_jlpt": "N4"
  },
  "すっぱい": {
   "significato": {

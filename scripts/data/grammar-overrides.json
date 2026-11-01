@@ -1827,8 +1827,8 @@
  },
  "grammar-api-N4-80": {
   "spiegazione": {
-   "it": "Richieste con comparativo: 「もっと大きく書いてください」 = scriva più in grande.",
-   "en": "Please write a bigger."
+   "it": "Chiedere di più o meglio: もっと + avverbio + 〜てください (もっと大きく書いてください).",
+   "en": "Asking for more: もっと + adverb + 〜てください."
   },
   "frasi_esempio": [
    {
@@ -1850,7 +1850,8 @@
     },
     "parole_linkate": []
    }
-  ]
+  ],
+  "struttura": "もっと〜てください"
  },
  "grammar-api-N4-33": {
   "spiegazione": {
@@ -2055,8 +2056,8 @@
  },
  "grammar-api-N4-39": {
   "spiegazione": {
-   "it": "Limite: espressioni con 一番/最も per il grado massimo.",
-   "en": "showing a limit"
+   "it": "Limite massimo: X以下 = X o meno (三千円以下: tremila yen o meno).",
+   "en": "X or less, up to X."
   },
   "frasi_esempio": [
    {
@@ -2082,7 +2083,8 @@
     },
     "parole_linkate": []
    }
-  ]
+  ],
+  "struttura": "〜以下"
  },
  "grammar-api-N4-10": {
   "spiegazione": {
@@ -2349,7 +2351,8 @@
     },
     "parole_linkate": []
    }
-  ]
+  ],
+  "struttura": "〜やすい／〜にくい"
  },
  "grammar-api-N4-51": {
   "spiegazione": {

@@ -2386,7 +2386,8 @@
   "link_jisho": "https://jisho.org/search/%23kanji%20%E5%9B%9E",
   "link_koohii": "https://kanji.koohii.com/study/kanji/%E5%9B%9E",
   "parole_correlate": [
-   "回る","回す"
+   "回る",
+   "回す"
   ],
   "updated_at": 1783721929446
  },
@@ -14092,5 +14093,47 @@
    "鼻"
   ],
   "updated_at": 1783721929446
+ },
+ {
+  "id": "区",
+  "significato": {
+   "it": "quartiere, distretto",
+   "en": "ward, district"
+  },
+  "study_tags": [
+   "extra"
+  ],
+  "source_name": "KANJIDIC2 (EDRDG)",
+  "source_license": "CC BY-SA 4.0",
+  "source_url": "https://www.edrdg.org/wiki/index.php/KANJIDIC_Project",
+  "letture_on": [
+   "ク"
+  ],
+  "letture_kun": [],
+  "link_jisho": "https://jisho.org/search/%23kanji%20%E5%8C%BA",
+  "link_koohii": "https://kanji.koohii.com/study/kanji/%E5%8C%BA",
+  "parole_correlate": [],
+  "updated_at": 1793569489432
+ },
+ {
+  "id": "県",
+  "significato": {
+   "it": "prefettura",
+   "en": "prefecture"
+  },
+  "study_tags": [
+   "extra"
+  ],
+  "source_name": "KANJIDIC2 (EDRDG)",
+  "source_license": "CC BY-SA 4.0",
+  "source_url": "https://www.edrdg.org/wiki/index.php/KANJIDIC_Project",
+  "letture_on": [
+   "ケン"
+  ],
+  "letture_kun": [],
+  "link_jisho": "https://jisho.org/search/%23kanji%20%E7%9C%8C",
+  "link_koohii": "https://kanji.koohii.com/study/kanji/%E7%9C%8C",
+  "parole_correlate": [],
+  "updated_at": 1793569489432
  }
 ]
