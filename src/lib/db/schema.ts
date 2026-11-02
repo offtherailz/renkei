@@ -1,5 +1,5 @@
 import Dexie, { type Table } from "dexie";
-import type {
+import type { CourseMazzoRow,
   AppSettings,
   Counter,
   CourseLessonMeta,
@@ -36,6 +36,7 @@ export class JapaneseStudyDB extends Dexie {
   dialogues!: Table<Dialogue, string>;
   study_sessions!: Table<StudySessionRecord, string>;
   user_corrections!: Table<UserCorrection, string>;
+  course_mazzi!: Table<CourseMazzoRow, string>;
 
   constructor() {
     // Ambienti di test (deploy:dev /dev, deploy:staging /staging) sullo stesso
@@ -167,6 +168,11 @@ export class JapaneseStudyDB extends Dexie {
 
     this.version(9).stores({
       user_corrections: "&id, kind, updated_at"
+    });
+
+    // Mazzi arrivati da un file corso (privati: mai nel bundle dell'app).
+    this.version(10).stores({
+      course_mazzi: "&id, corso_id, updated_at"
     });
   }
 }

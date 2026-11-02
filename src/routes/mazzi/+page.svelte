@@ -12,6 +12,9 @@
 	<h1 class="page-title">🃏 Mazzi e mini-test</h1>
 	<p class="sub">Studia il lessico per tema o categoria: <strong>flashcard</strong> (flip + pronuncia) e <strong>mini-test</strong> (quiz con tutti i tipi: lettura, ascolto, composizione, kanji… come l’SRS, alimenta i ripassi).</p>
 
+	{#if !curati.length}
+		<p class="sub">I mazzi delle tue lezioni arrivano dal tuo file corso: importalo da <a href="{base}/courses">📚 Corsi</a> e li trovi qui.</p>
+	{/if}
 	{#if curati.length}
 		<h2 class="sec">Mazzi tematici</h2>
 		<div class="grid">

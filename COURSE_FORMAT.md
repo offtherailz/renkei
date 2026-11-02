@@ -17,7 +17,8 @@ Un dataset corso è un **singolo file JSON** con estensione `.renkei-course.json
   "parole_patch": [ ... ],
   "kanji_nuovi": [ ... ],
   "grammatica_nuova": [ ... ],
-  "dialoghi_nuovi": [ ... ]
+  "dialoghi_nuovi": [ ... ],
+  "mazzi": [ ... ]
 }
 ```
 
@@ -460,3 +461,11 @@ Prima di importare, il file viene validato automaticamente dall'app. Gli errori 
 - `risorse` con `tipo` non ammesso, `url` mancante/non valido (es. `javascript:`), o `titolo` mancante
 
 In caso di errore, l'import viene annullato e viene mostrato il messaggio d'errore specifico.
+
+---
+
+## Sezione `mazzi` (opzionale)
+
+Mazzi tematici di flashcard, esercizi e produzione, nello stesso formato di `src/lib/data/mazzi.ts` (`id`, `titolo`, `emoji`, `descrizione`, `carte[{jp, yomi, it, es?, es_it?}]`, `esercizi?`, `produzione?`, `produzioneNota?`). Restano solo sul dispositivo che importa il file: servono per i materiali delle lezioni che non devono stare nell'app pubblica. Un file con soli mazzi può avere `lezioni: []`. Reimportarlo sostituisce i mazzi di quel corso; eliminare il corso li toglie.
+
+Il file dei mazzi delle lezioni dell'utente è `corsi/mazzi-lezioni.renkei-course.json`.

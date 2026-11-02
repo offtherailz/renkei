@@ -396,6 +396,24 @@ export interface CourseDatasetInput {
   kanji_nuovi?: CourseKanjiInput[];
   grammatica_nuova?: CourseGrammarInput[];
   dialoghi_nuovi?: CourseDialogueInput[];
+  /** Mazzi tematici (stessa forma di src/lib/data/mazzi.ts): restano sul dispositivo. */
+  mazzi?: CourseMazzoInput[];
+}
+
+export interface CourseMazzoInput {
+  id: string;
+  titolo: string;
+  emoji: string;
+  descrizione: string;
+  carte: { jp: string; yomi: string; it: string; es?: string; es_it?: string }[];
+  esercizi?: { prompt: string; choices: string[]; spiega: string; traduzione: string }[];
+  produzione?: { consegna: string; pattern: string; risposta: string; spiega: string }[];
+  produzioneNota?: string;
+}
+
+export interface CourseMazzoRow extends CourseMazzoInput {
+  corso_id: string;
+  updated_at: number;
 }
 
 // ── Dialogue types ────────────────────────────────────────────────────────────
