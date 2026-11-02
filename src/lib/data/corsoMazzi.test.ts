@@ -1,9 +1,11 @@
 // Controlla il file dei mazzi delle lezioni (non tipizzato: è JSON da importare).
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { cardCatalogKeys } from './mazzi';
 
-const corso = JSON.parse(readFileSync('corsi/mazzi-lezioni.renkei-course.json', 'utf8'));
+// In chiaro solo in locale (nel repo c'è la versione cifrata): senza, il controllo si salta.
+const PATH = 'corsi/mazzi-lezioni.renkei-course.json';
+const corso = existsSync(PATH) ? JSON.parse(readFileSync(PATH, 'utf8')) : { versione: '1.0', corso: { id: 'vuoto' }, mazzi: [] };
 const seed = JSON.parse(readFileSync('static/seed-n5n4.json', 'utf8')) as { words: { scrittura: string; lettura: string }[] };
 const FURIGANA = /[^\s\[\]]+\[[^\]]*\]/g;
 

@@ -4,6 +4,7 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { appState } from '$lib/stores.svelte';
+	import { decryptCourse, isEncryptedCourse } from '$lib/core/courseCrypto';
 	import { importCourseDataset, listCourses, getLessonsForCourse, deleteCourse, studyOnlyCourse } from '$lib/db/course-import';
 	import { loadObjectiveSummaries, loadObjectiveChildren, type ObjectiveSummary } from '$lib/db/queries';
 	import type { CourseDatasetMeta, CourseLessonMeta } from '$lib/types/models';
@@ -124,6 +125,14 @@
 		focusMsg = `✅ Ora studi solo «${selectedCourse.nome}»: lezione 1 attiva, il resto in pausa. Le prossime lezioni si sbloccano da sole man mano che le completi.`;
 	}
 
+	// File cifrato con password: si chiede qui e si decifra sul dispositivo.
+	async function readCourseText(text: string): Promise<string> {
+		if (!isEncryptedCourse(text)) return text;
+		const password = prompt('Questo file corso è protetto. Password:');
+		if (!password) throw new Error('Import annullato: serve la password.');
+		return decryptCourse(text, password);
+	}
+
 	async function handleFileImport(e: Event): Promise<void> {
 		const input = e.target as HTMLInputElement;
 		const file = input.files?.[0];
@@ -132,7 +141,7 @@
 		importError = '';
 		importSuccess = '';
 		try {
-			const text = await file.text();
+			const text = await readCourseText(await file.text());
 			const result = await importCourseDataset(text);
 			importSuccess = `✅ Importato! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}`;
 			await loadCourses();
@@ -152,7 +161,7 @@
 		try {
 			const resp = await fetch(importUrl.trim());
 			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-			const text = await resp.text();
+			const text = await readCourseText(await resp.text());
 			const result = await importCourseDataset(text);
 			importSuccess = `✅ Importato da URL! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}`;
 			importUrl = '';

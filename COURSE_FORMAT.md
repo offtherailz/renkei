@@ -468,4 +468,12 @@ In caso di errore, l'import viene annullato e viene mostrato il messaggio d'erro
 
 Mazzi tematici di flashcard, esercizi e produzione, nello stesso formato di `src/lib/data/mazzi.ts` (`id`, `titolo`, `emoji`, `descrizione`, `carte[{jp, yomi, it, es?, es_it?}]`, `esercizi?`, `produzione?`, `produzioneNota?`). Restano solo sul dispositivo che importa il file: servono per i materiali delle lezioni che non devono stare nell'app pubblica. Un file con soli mazzi può avere `lezioni: []`. Reimportarlo sostituisce i mazzi di quel corso; eliminare il corso li toglie.
 
-Il file dei mazzi delle lezioni dell'utente è `corsi/mazzi-lezioni.renkei-course.json`.
+Il file dei mazzi delle lezioni dell'utente sta nel repo **cifrato**: `corsi/mazzi-lezioni.renkei-course.cifrato.json` (AES-256-GCM, chiave da password con PBKDF2-SHA256, `src/lib/core/courseCrypto.ts`). L'import in «Corsi» riconosce il file cifrato e chiede la password. La versione in chiaro resta solo in locale (ignorata da Git). Per modificarlo:
+
+```bash
+CORSO_PASSWORD='…' CORSO_AZIONE=decifra npx vitest run src/lib/core/courseCrypto.test.ts   # → file in chiaro
+# modifica corsi/mazzi-lezioni.renkei-course.json
+CORSO_PASSWORD='…' CORSO_AZIONE=cifra npx vitest run src/lib/core/courseCrypto.test.ts     # → file cifrato
+```
+
+La password non va mai nel repo.
