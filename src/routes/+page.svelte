@@ -474,6 +474,10 @@
 			<span class="quick-icon">🎮</span>
 			<span>Giochi</span>
 		</a>
+		<a href="{base}/giorno" class="quick-card">
+			<span class="quick-icon">🗾</span>
+			<span>Un giorno in Giappone <span class="quick-beta">nuovo</span></span>
+		</a>
 		<a href="{base}/avventure" class="quick-card">
 			<span class="quick-icon">🗺️</span>
 			<span>Avventure</span>
