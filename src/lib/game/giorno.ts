@@ -392,48 +392,44 @@ export function signMission(rng: Rng): ChoiceMission {
 }
 
 // ── 課題理解: priorità in ufficio («それより まず…») ──────────────────────────
-const TASKS: Option[] = [
-	{ ja: 'コピーを する', it: 'fare le fotocopie', icon: '🖨️' },
-	{ ja: 'メールを 書く', it: 'scrivere la mail', icon: '💻' },
-	{ ja: 'かいぎしつを じゅんびする', it: 'preparare la sala riunioni', icon: '🪑' },
-	{ ja: 'おきゃくさんに 電話する', it: 'telefonare al cliente', icon: '☎️' },
-	{ ja: 'お茶を 出す', it: 'servire il tè', icon: '🍵' },
-	{ ja: 'しりょうを 読む', it: 'leggere i documenti', icon: '📄' }
-];
-const TASK_VERB: Record<string, { te: string; mas: string }> = {
-	'コピーを する': { te: 'この しりょうを 五まい ずつ コピーして', mas: 'コピーを します' },
-	'メールを 書く': { te: '山田さんに メールを 書いて', mas: 'メールを 書きます' },
-	'かいぎしつを じゅんびする': { te: 'かいぎしつの いすを ならべて', mas: 'かいぎしつを じゅんびします' },
-	'おきゃくさんに 電話する': { te: 'おきゃくさんに 電話して', mas: '電話します' },
-	'お茶を 出す': { te: 'おきゃくさんに お茶を 出して', mas: 'お茶を 出します' },
-	'しりょうを 読む': { te: 'かいぎの 前に しりょうを 読んで', mas: 'しりょうを 読みます' }
-};
-const URGENT = [
-	{ ja: 'おきゃくさんが 十時に 来ますから。', it: 'perché il cliente arriva alle dieci.' },
-	{ ja: 'かいぎが 早く 始まる ことに なりましたから。', it: 'perché la riunione inizierà prima.' },
-	{ ja: 'ぶちょうが すぐ ほしいと 言って いますから。', it: 'perché il capo lo vuole subito.' }
+// Ogni compito ha il suo motivo d'urgenza: un motivo generico («il capo lo
+// vuole subito» per una telefonata) rendeva il dialogo incoerente.
+interface Task extends Option {
+	te: string; // richiesta (forma て)
+	mas: string; // «allora faccio…»
+	imp: string; // richiesta in italiano (imperativo)
+	why: { ja: string; it: string };
+}
+const TASKS: Task[] = [
+	{ ja: 'コピーを する', it: 'fare le fotocopie', icon: '🖨️', te: 'この しりょうを 五まい ずつ コピーして', mas: 'コピーを します', imp: 'fai cinque copie di questi documenti', why: { ja: 'かいぎで すぐ 使いますから。', it: 'perché ci servono subito per la riunione.' } },
+	{ ja: 'メールを 書く', it: 'scrivere la mail', icon: '💻', te: '山田さんに メールを 書いて', mas: 'メールを 書きます', imp: 'scrivi una mail a Yamada', why: { ja: '山田さんが へんじを 待って いますから。', it: 'perché Yamada aspetta la risposta.' } },
+	{ ja: 'かいぎしつを じゅんびする', it: 'preparare la sala riunioni', icon: '🪑', te: 'かいぎしつの いすを ならべて', mas: 'かいぎしつを じゅんびします', imp: 'sistema le sedie della sala riunioni', why: { ja: 'かいぎが 早く 始まる ことに なりましたから。', it: 'perché la riunione inizierà prima.' } },
+	{ ja: 'おきゃくさんに 電話する', it: 'telefonare al cliente', icon: '☎️', te: 'おきゃくさんに 電話して', mas: '電話します', imp: 'telefona al cliente', why: { ja: 'おきゃくさんが 電話を 待って いますから。', it: 'perché il cliente aspetta la chiamata.' } },
+	{ ja: 'お茶を 出す', it: 'servire il tè', icon: '🍵', te: 'おきゃくさんに お茶を 出して', mas: 'お茶を 出します', imp: 'servi il tè all’ospite', why: { ja: 'おきゃくさんが もう 来て いますから。', it: 'perché l’ospite è già arrivato.' } },
+	{ ja: 'しりょうを 読む', it: 'leggere i documenti', icon: '📄', te: 'かいぎの 前に しりょうを 読んで', mas: 'しりょうを 読みます', imp: 'leggi i documenti prima della riunione', why: { ja: 'かいぎで 意見を 聞きますから。', it: 'perché alla riunione ti chiederò un parere.' } }
 ];
 
 export function priorityMission(rng: Rng): ChoiceMission {
 	const [a, b, c, d] = shuffled(rng, TASKS);
-	const u = pick(rng, URGENT);
 	const boss: Who = rng() < 0.5 ? 'M' : 'F';
+	const me: Who = boss === 'M' ? 'F' : 'M'; // chi riceve i compiti: l'altra voce
 	const lines: Line[] = [
-		{ who: 'N', ja: '会社で 上の 人と 話して います。あなたは まず 何を しますか。', it: 'In ufficio parli con il tuo superiore. Cosa fai per prima cosa?' },
-		{ who: boss, ja: `${TASK_VERB[a!.ja]!.te} ください。それから、${TASK_VERB[b!.ja]!.te} くれますか。`, it: `Per favore: ${a!.it}. E poi puoi ${b!.it}?` },
-		{ who: 'N', ja: `はい、わかりました。じゃあ、${TASK_VERB[a!.ja]!.mas}。`, it: `Sì, va bene. Allora ${a!.it}.` },
-		{ who: boss, ja: `あ、ちょっと 待って。それより まず、${TASK_VERB[c!.ja]!.te} ください。${u.ja}`, it: `Ah, aspetta. Prima di tutto ${c!.it}, ${u.it}` },
-		{ who: 'N', ja: 'はい、すぐ します。', it: 'Sì, lo faccio subito.' }
+		{ who: 'N', ja: `会社で ${boss === 'M' ? '男' : '女'}の 人と ${me === 'M' ? '男' : '女'}の 人が 話して います。${me === 'M' ? '男' : '女'}の 人は まず 何を しますか。`, it: `In ufficio parlano ${boss === 'M' ? 'un capo e una impiegata' : 'una capa e un impiegato'}. Cosa fa per prima cosa ${me === 'M' ? 'l’impiegato' : 'l’impiegata'}?` },
+		{ who: boss, ja: `${a!.te} ください。それから、${b!.te} くれますか。`, it: `Per favore, ${a!.imp}. E poi ${b!.imp}, per favore.` },
+		{ who: me, ja: `はい、わかりました。じゃあ、${a!.mas}。`, it: `Sì, va bene. Allora inizio a ${a!.it}.` },
+		{ who: boss, ja: `あ、ちょっと 待って。それより まず、${c!.te} ください。${c!.why.ja}`, it: `Ah, aspetta. Prima di tutto ${c!.imp}, ${c!.why.it}` },
+		{ who: me, ja: 'はい、すぐ します。', it: 'Sì, lo faccio subito.' }
 	];
+	const q = `${me === 'M' ? '男' : '女'}の 人は まず 何を しますか。`;
 	const opts = shuffled(rng, [a!, b!, c!, d!]);
 	return {
 		kind: 'choice',
 		sub: 'priority',
 		title: '🏢 Cosa faccio prima?',
-		intro: 'Il superiore ti dà dei compiti. Ascolta bene: alla fine cosa fai per primo?',
+		intro: 'Un superiore dà dei compiti e poi cambia idea. Ascolta bene: alla fine cosa si fa per primo?',
 		lines,
-		question: { ja: 'あなたは まず 何を しますか。', it: 'Cosa fai per prima cosa?' },
-		options: opts,
+		question: { ja: q, it: 'Cosa fa per prima cosa?' },
+		options: opts.map(({ ja, it, icon }) => ({ ja, it, icon })),
 		answer: opts.indexOf(c!)
 	};
 }

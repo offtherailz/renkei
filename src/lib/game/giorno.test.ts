@@ -66,8 +66,13 @@ describe('missioni', () => {
 	it('priorità: la risposta è il compito detto dopo «それより まず»', () => {
 		const m = priorityMission(seeded(7));
 		const urgent = m.lines.find((l) => l.ja.includes('それより まず'))!;
-		expect(m.options[m.answer]!.it.length).toBeGreaterThan(0);
-		expect(urgent.it).toContain(m.options[m.answer]!.it);
+		for (let s = 1; s <= 30; s += 1) {
+			const mm = priorityMission(seeded(s));
+			const u = mm.lines.find((l) => l.ja.includes('それより まず'))!;
+			const ans = mm.options[mm.answer]!.ja.slice(0, 2);
+			expect(u.ja.split('それより まず')[1]).toContain(ans);
+		}
+		expect(urgent).toBeDefined();
 	});
 
 	it('botta e risposta: round distinti con la risposta giusta', () => {
@@ -124,6 +129,20 @@ describe('pixel art', () => {
 			expect(y).toBeGreaterThanOrEqual(-6);
 			expect(x).toBeLessThan(size);
 			expect(y).toBeLessThan(size);
+		}
+	});
+});
+
+describe('priorità: dialogo coerente', () => {
+	it('chi riceve i compiti ha la voce opposta al capo, e il motivo è del compito urgente', () => {
+		for (let s = 1; s <= 30; s += 1) {
+			const m = priorityMission(seeded(s));
+			const boss = m.lines[1]!.who;
+			expect(m.lines[2]!.who).not.toBe(boss);
+			expect(m.lines[2]!.who).not.toBe('N');
+			const urgent = m.lines.find((l) => l.ja.includes('それより まず'))!;
+			expect(urgent.it).toContain('Prima di tutto');
+			expect(m.question.ja).toMatch(/^(男|女)の 人は まず/);
 		}
 	});
 });

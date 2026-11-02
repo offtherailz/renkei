@@ -557,7 +557,10 @@
 				{/if}
 
 				{#if answered && mission.kind !== 'route' && mission.kind !== 'quick'}
-					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need.includes(s.id)).map((s) => s.it).join(', ') : ''}</p>
+					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need.includes(s.id)).map((s) => s.it).join(', ') : ''}{mission.kind === 'calendar' && !lastOk ? ` Era il ${mission.answer}.` : ''}</p>
+					{#if mission.kind === 'choice' && !lastOk}
+						<p class="ja">✅ {mission.options[mission.answer]!.ja} <span class="tr">{mission.options[mission.answer]!.it}</span></p>
+					{/if}
 					{#if mission.kind === 'choice' && mission.doc}
 						<pre class="tr">{mission.doc.it}</pre>
 					{/if}
