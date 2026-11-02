@@ -1,0 +1,1 @@
+import{d as r}from"./ZeaCdm98.js";import{setPrivateMazzi as a}from"./UFq6bezk.js";async function e(){try{const o=await r.course_mazzi.toArray();a(o.map(({corso_id:i,updated_at:s,...t})=>t))}catch{a([])}}export{e as l};
