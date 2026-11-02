@@ -2167,5 +2167,321 @@
     "en": "Little Hanako is five years old."
    }
   ]
+ },
+ {
+  "scrittura": "行事",
+  "lettura": "ぎょうじ",
+  "it": [
+   "evento",
+   "ricorrenza"
+  ],
+  "en": [
+   "event, observance"
+  ],
+  "livello": "N3",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "学校の 行事に 参加しました。",
+    "it": "Ho partecipato a un evento della scuola.",
+    "en": "I took part in a school event."
+   }
+  ]
+ },
+ {
+  "scrittura": "節分",
+  "lettura": "せつぶん",
+  "it": [
+   "Setsubun",
+   "festa di inizio primavera"
+  ],
+  "en": [
+   "Setsubun"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "節分は 二月三日ごろです。",
+    "it": "Il Setsubun è verso il 3 febbraio.",
+    "en": "Setsubun is around February 3."
+   }
+  ]
+ },
+ {
+  "scrittura": "豆まき",
+  "lettura": "まめまき",
+  "it": [
+   "lancio dei fagioli",
+   "rito del Setsubun"
+  ],
+  "en": [
+   "bean throwing"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "子どもと 豆まきを しました。",
+    "it": "Ho fatto il lancio dei fagioli con i bambini.",
+    "en": "I did the bean throwing with the children."
+   }
+  ]
+ },
+ {
+  "scrittura": "ひな祭り",
+  "lettura": "ひなまつり",
+  "it": [
+   "Hinamatsuri",
+   "festa delle bambine"
+  ],
+  "en": [
+   "Doll Festival"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "三月三日は ひな祭りです。",
+    "it": "Il 3 marzo è la festa delle bambine.",
+    "en": "March 3 is the Doll Festival."
+   }
+  ]
+ },
+ {
+  "scrittura": "ひな人形",
+  "lettura": "ひなにんぎょう",
+  "it": [
+   "bambole hina"
+  ],
+  "en": [
+   "hina dolls"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "家に ひな人形を 飾ります。",
+    "it": "In casa si espongono le bambole hina.",
+    "en": "We display hina dolls at home."
+   }
+  ]
+ },
+ {
+  "scrittura": "もも",
+  "lettura": "もも",
+  "it": [
+   "pesca",
+   "pesco"
+  ],
+  "en": [
+   "peach"
+  ],
+  "livello": "N3",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ももの 花が きれいです。",
+    "it": "I fiori di pesco sono belli.",
+    "en": "The peach blossoms are beautiful."
+   }
+  ]
+ },
+ {
+  "scrittura": "子どもの日",
+  "lettura": "こどものひ",
+  "it": [
+   "Festa dei bambini",
+   "5 maggio"
+  ],
+  "en": [
+   "Children’s Day"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "五月五日は 子どもの日です。",
+    "it": "Il 5 maggio è la Festa dei bambini.",
+    "en": "May 5 is Children’s Day."
+   }
+  ]
+ },
+ {
+  "scrittura": "こいのぼり",
+  "lettura": "こいのぼり",
+  "it": [
+   "koinobori",
+   "bandiere a forma di carpa"
+  ],
+  "en": [
+   "carp streamers"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "空に こいのぼりが 見えます。",
+    "it": "Nel cielo si vedono le carpe di stoffa.",
+    "en": "You can see carp streamers in the sky."
+   }
+  ]
+ },
+ {
+  "scrittura": "七夕",
+  "lettura": "たなばた",
+  "it": [
+   "Tanabata",
+   "festa delle stelle, 7 luglio"
+  ],
+  "en": [
+   "Star Festival"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "七夕は 七月七日です。",
+    "it": "Tanabata è il 7 luglio.",
+    "en": "Tanabata is on July 7."
+   }
+  ]
+ },
+ {
+  "scrittura": "たんざく",
+  "lettura": "たんざく",
+  "it": [
+   "striscia di carta per i desideri"
+  ],
+  "en": [
+   "paper strip for wishes"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "たんざくに 願い事を 書きます。",
+    "it": "Scrivo un desiderio sulla striscia di carta.",
+    "en": "I write a wish on a paper strip."
+   }
+  ]
+ },
+ {
+  "scrittura": "願い事",
+  "lettura": "ねがいごと",
+  "it": [
+   "desiderio",
+   "richiesta da esprimere"
+  ],
+  "en": [
+   "wish"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あなたの 願い事は 何ですか。",
+    "it": "Qual è il tuo desiderio?",
+    "en": "What is your wish?"
+   }
+  ]
+ },
+ {
+  "scrittura": "七五三",
+  "lettura": "しちごさん",
+  "it": [
+   "Shichigosan",
+   "festa dei bambini di 3, 5 e 7 anni"
+  ],
+  "en": [
+   "Shichi-Go-San"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "七五三に 神社へ 行きました。",
+    "it": "Per lo Shichigosan siamo andati al santuario.",
+    "en": "We went to the shrine for Shichi-Go-San."
+   }
+  ]
+ },
+ {
+  "scrittura": "ちとせあめ",
+  "lettura": "ちとせあめ",
+  "it": [
+   "caramella dei mille anni"
+  ],
+  "en": [
+   "thousand-year candy"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "子どもは ちとせあめを もらいます。",
+    "it": "I bambini ricevono le caramelle dei mille anni.",
+    "en": "Children receive thousand-year candy."
+   }
+  ]
+ },
+ {
+  "scrittura": "長生き",
+  "lettura": "ながいき",
+  "it": [
+   "lunga vita",
+   "vivere a lungo"
+  ],
+  "en": [
+   "long life"
+  ],
+  "livello": "N3",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "祖母は 長生きしました。",
+    "it": "Mia nonna è vissuta a lungo.",
+    "en": "My grandmother lived a long life."
+   }
+  ]
+ },
+ {
+  "scrittura": "〜式",
+  "lettura": "〜しき",
+  "it": [
+   "cerimonia di…"
+  ],
+  "en": [
+   "ceremony"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接尾辞[せつびじ]",
+  "esempi": [
+   {
+    "jp": "来月 入学式が あります。",
+    "it": "Il mese prossimo c’è la cerimonia d’ingresso a scuola.",
+    "en": "There is an entrance ceremony next month."
+   }
+  ]
+ },
+ {
+  "scrittura": "結婚式",
+  "lettura": "けっこんしき",
+  "it": [
+   "cerimonia nuziale",
+   "matrimonio"
+  ],
+  "en": [
+   "wedding"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "友だちの 結婚式に 行きます。",
+    "it": "Vado al matrimonio di un amico.",
+    "en": "I am going to a friend’s wedding."
+   }
+  ]
  }
 ]

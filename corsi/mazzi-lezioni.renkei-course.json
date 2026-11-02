@@ -1269,6 +1269,468 @@
      "traduzione": "Il prezzo è di 3300 yen, IVA inclusa."
     }
    ]
+  },
+  {
+   "id": "gyouji",
+   "titolo": "とくべつな日：季節の行事",
+   "emoji": "🎎",
+   "descrizione": "Le feste dell’anno (節分, ひな祭り, 子どもの日, 七夕, 七五三): cosa si fa e perché, 〜ように祈る/願う e 〜ために.",
+   "carte": [
+    {
+     "jp": "行事",
+     "yomi": "ぎょうじ",
+     "it": "evento, ricorrenza",
+     "es": "日本[にほん]には たくさんの 行事[ぎょうじ]が あります。",
+     "es_it": "In Giappone ci sono molte ricorrenze."
+    },
+    {
+     "jp": "季節",
+     "yomi": "きせつ",
+     "it": "stagione",
+     "es": "好[す]きな 季節[きせつ]は 春[はる]です。",
+     "es_it": "La mia stagione preferita è la primavera."
+    },
+    {
+     "jp": "節分",
+     "yomi": "せつぶん",
+     "it": "Setsubun, verso il 3 febbraio",
+     "es": "節分[せつぶん]には 豆[まめ]を まきます。",
+     "es_it": "Al Setsubun si lanciano i fagioli."
+    },
+    {
+     "jp": "豆まき",
+     "yomi": "まめまき",
+     "it": "lancio dei fagioli del Setsubun",
+     "es": "子[こ]どもと 豆[まめ]まきを しました。",
+     "es_it": "Ho fatto il lancio dei fagioli con i bambini."
+    },
+    {
+     "jp": "豆",
+     "yomi": "まめ",
+     "it": "fagiolo, legume",
+     "es": "豆[まめ]を 外[そと]に 投[な]げます。",
+     "es_it": "Si lanciano i fagioli fuori."
+    },
+    {
+     "jp": "鬼",
+     "yomi": "おに",
+     "it": "orco, demone",
+     "es": "「鬼[おに]は 外[そと]、福[ふく]は 内[うち]」と 言[い]います。",
+     "es_it": "Si dice: «Fuori i demoni, dentro la fortuna»."
+    },
+    {
+     "jp": "福",
+     "yomi": "ふく",
+     "it": "fortuna",
+     "es": "福[ふく]が 家[いえ]に 来[く]るように 願[ねが]います。",
+     "es_it": "Si spera che la fortuna entri in casa."
+    },
+    {
+     "jp": "投げる",
+     "yomi": "なげる",
+     "it": "lanciare",
+     "es": "ボールを 投[な]げて ください。",
+     "es_it": "Lancia la palla, per favore."
+    },
+    {
+     "jp": "ひな祭り",
+     "yomi": "ひなまつり",
+     "it": "Hinamatsuri, festa delle bambine (3 marzo)",
+     "es": "ひな祭[まつ]りは 女[おんな]の子[こ]の ための 行事[ぎょうじ]です。",
+     "es_it": "L’Hinamatsuri è una festa per le bambine."
+    },
+    {
+     "jp": "ひな人形",
+     "yomi": "ひなにんぎょう",
+     "it": "bambole hina",
+     "es": "ひな人形[にんぎょう]を 飾[かざ]りました。",
+     "es_it": "Abbiamo esposto le bambole hina."
+    },
+    {
+     "jp": "もも",
+     "yomi": "もも",
+     "it": "pesca; pesco",
+     "es": "ももの 花[はな]を 飾[かざ]ります。",
+     "es_it": "Si espongono i fiori di pesco."
+    },
+    {
+     "jp": "子どもの日",
+     "yomi": "こどものひ",
+     "it": "Festa dei bambini (5 maggio)",
+     "es": "子[こ]どもの日[ひ]は 五月[ごがつ]五日[いつか]です。",
+     "es_it": "La Festa dei bambini è il 5 maggio."
+    },
+    {
+     "jp": "こいのぼり",
+     "yomi": "こいのぼり",
+     "it": "koinobori, bandiere a forma di carpa",
+     "es": "庭[にわ]に こいのぼりを 飾[かざ]ります。",
+     "es_it": "In giardino si espongono le carpe di stoffa."
+    },
+    {
+     "jp": "七夕",
+     "yomi": "たなばた",
+     "it": "Tanabata, festa delle stelle (7 luglio)",
+     "es": "七夕[たなばた]は 夏[なつ]の 行事[ぎょうじ]です。",
+     "es_it": "Tanabata è una festa estiva."
+    },
+    {
+     "jp": "たんざく",
+     "yomi": "たんざく",
+     "it": "striscia di carta per i desideri",
+     "es": "たんざくに 願[ねが]い事[ごと]を 書[か]きます。",
+     "es_it": "Si scrive un desiderio sulla striscia di carta."
+    },
+    {
+     "jp": "願い事",
+     "yomi": "ねがいごと",
+     "it": "desiderio da esprimere",
+     "es": "願[ねが]い事[ごと]は 何[なん]ですか。",
+     "es_it": "Qual è il tuo desiderio?"
+    },
+    {
+     "jp": "七五三",
+     "yomi": "しちごさん",
+     "it": "Shichigosan, festa dei bambini di 3, 5 e 7 anni",
+     "es": "七五三[しちごさん]に 神社[じんじゃ]へ 行[い]きます。",
+     "es_it": "Per lo Shichigosan si va al santuario."
+    },
+    {
+     "jp": "ちとせあめ",
+     "yomi": "ちとせあめ",
+     "it": "caramella dei mille anni",
+     "es": "子[こ]どもは ちとせあめを もらいます。",
+     "es_it": "I bambini ricevono le caramelle dei mille anni."
+    },
+    {
+     "jp": "祈る",
+     "yomi": "いのる",
+     "it": "pregare, augurarsi profondamente",
+     "es": "家族[かぞく]の 健康[けんこう]を 祈[いの]ります。",
+     "es_it": "Prego per la salute della famiglia."
+    },
+    {
+     "jp": "願う",
+     "yomi": "ねがう",
+     "it": "desiderare, augurarsi",
+     "es": "また 会[あ]えるように 願[ねが]って います。",
+     "es_it": "Spero che ci rivedremo."
+    },
+    {
+     "jp": "祝う",
+     "yomi": "いわう",
+     "it": "festeggiare, celebrare",
+     "es": "みんなで 誕生日[たんじょうび]を 祝[いわ]いました。",
+     "es_it": "Abbiamo festeggiato il compleanno tutti insieme."
+    },
+    {
+     "jp": "感謝, 感謝する",
+     "yomi": "かんしゃ",
+     "it": "gratitudine; ringraziare",
+     "es": "先生[せんせい]に 感謝[かんしゃ]して います。",
+     "es_it": "Sono grato al professore."
+    },
+    {
+     "jp": "収穫, 収穫する",
+     "yomi": "しゅうかく",
+     "it": "raccolto; raccogliere",
+     "es": "今年[ことし]は 米[こめ]の 収穫[しゅうかく]が 多[おお]かったです。",
+     "es_it": "Quest’anno il raccolto di riso è stato abbondante."
+    },
+    {
+     "jp": "米",
+     "yomi": "こめ",
+     "it": "riso (crudo)",
+     "es": "この 村[むら]では 米[こめ]を 作[つく]って います。",
+     "es_it": "In questo villaggio si coltiva il riso."
+    },
+    {
+     "jp": "昔",
+     "yomi": "むかし",
+     "it": "un tempo, nel passato",
+     "es": "昔[むかし]は この 町[まち]に 川[かわ]が ありました。",
+     "es_it": "Un tempo in questa città c’era un fiume."
+    },
+    {
+     "jp": "幸せ, 幸せな",
+     "yomi": "しあわせ",
+     "it": "felicità; felice",
+     "es": "家族[かぞく]と いると 幸[しあわ]せです。",
+     "es_it": "Quando sto con la famiglia sono felice."
+    },
+    {
+     "jp": "長生き",
+     "yomi": "ながいき",
+     "it": "lunga vita; vivere a lungo",
+     "es": "おじいさん、長生[ながい]きして くださいね。",
+     "es_it": "Nonno, vivi a lungo!"
+    },
+    {
+     "jp": "健康, 健康な",
+     "yomi": "けんこう",
+     "it": "salute; sano",
+     "es": "健康[けんこう]の ために 野菜[やさい]を 食[た]べます。",
+     "es_it": "Mangio verdura per la salute."
+    },
+    {
+     "jp": "成長, 成長する",
+     "yomi": "せいちょう",
+     "it": "crescita; crescere",
+     "es": "子[こ]どもの 成長[せいちょう]は 早[はや]いです。",
+     "es_it": "I bambini crescono in fretta."
+    },
+    {
+     "jp": "合格, 合格する",
+     "yomi": "ごうかく",
+     "it": "superamento di un esame; essere promosso",
+     "es": "試験[しけん]に 合格[ごうかく]しました。",
+     "es_it": "Ho superato l’esame."
+    },
+    {
+     "jp": "試験",
+     "yomi": "しけん",
+     "it": "esame, prova",
+     "es": "来週[らいしゅう] 日本語[にほんご]の 試験[しけん]が あります。",
+     "es_it": "La settimana prossima ho l’esame di giapponese."
+    },
+    {
+     "jp": "大人",
+     "yomi": "おとな",
+     "it": "adulto",
+     "es": "大人[おとな]に なったら 日本[にほん]に 住[す]みたいです。",
+     "es_it": "Da grande voglio vivere in Giappone."
+    },
+    {
+     "jp": "〜式",
+     "yomi": "〜しき",
+     "it": "cerimonia di…",
+     "es": "卒業式[そつぎょうしき]で 写真[しゃしん]を とりました。",
+     "es_it": "Alla cerimonia di diploma ho fatto delle foto."
+    },
+    {
+     "jp": "結婚式",
+     "yomi": "けっこんしき",
+     "it": "cerimonia nuziale, matrimonio",
+     "es": "来月[らいげつ] 姉[あね]の 結婚式[けっこんしき]が あります。",
+     "es_it": "Il mese prossimo c’è il matrimonio di mia sorella."
+    },
+    {
+     "jp": "〜市",
+     "yomi": "〜し",
+     "it": "città di…",
+     "es": "私[わたし]は さいたま市[し]に 住[す]んで います。",
+     "es_it": "Abito nella città di Saitama."
+    },
+    {
+     "jp": "参加する",
+     "yomi": "さんかする",
+     "it": "partecipare",
+     "es": "お祭[まつ]りに 参加[さんか]しました。",
+     "es_it": "Ho partecipato alla festa."
+    },
+    {
+     "jp": "お祭り",
+     "yomi": "おまつり",
+     "it": "festa, sagra",
+     "es": "夏[なつ]の お祭[まつ]りは にぎやかです。",
+     "es_it": "La festa d’estate è vivace."
+    },
+    {
+     "jp": "〜ように祈る / 願う",
+     "yomi": "〜ようにいのる / ねがう",
+     "it": "augurarsi che…, pregare perché…",
+     "es": "合格[ごうかく]できるように 祈[いの]って います。",
+     "es_it": "Spero proprio che tu riesca a passare."
+    },
+    {
+     "jp": "〜ますように",
+     "yomi": "〜ますように",
+     "it": "che…! (desiderio sulla たんざく)",
+     "es": "いい ことが ありますように。",
+     "es_it": "Che accadano cose belle!"
+    },
+    {
+     "jp": "〜のために",
+     "yomi": "〜のために",
+     "it": "per (una persona o uno scopo)",
+     "es": "母[はは]の ために ケーキを 作[つく]りました。",
+     "es_it": "Ho fatto una torta per mia madre."
+    }
+   ],
+   "esercizi": [
+    {
+     "prompt": "ひな祭[まつ]りは 女[おんな]の子[こ]の ＿＿ 行事[ぎょうじ]です。",
+     "choices": [
+      "ための",
+      "ように",
+      "ために",
+      "から"
+     ],
+     "spiega": "Nome + の ための + nome: «per». ように non si attacca a un nome.",
+     "traduzione": "L’Hinamatsuri è una festa per le bambine."
+    },
+    {
+     "prompt": "子[こ]どもが 元気[げんき]に 成長[せいちょう]する＿＿ 願[ねが]います。",
+     "choices": [
+      "ように",
+      "ために",
+      "のに",
+      "から"
+     ],
+     "spiega": "Crescere non dipende dalla volontà di chi prega: ように. ために vuole un verbo volitivo dello stesso soggetto.",
+     "traduzione": "Si spera che i bambini crescano sani."
+    },
+    {
+     "prompt": "日本[にほん]で 働[はたら]く＿＿、日本語[にほんご]を 勉強[べんきょう]して います。",
+     "choices": [
+      "ために",
+      "ように",
+      "ための",
+      "まで"
+     ],
+     "spiega": "Scopo volontario dello stesso soggetto (io lavoro, io studio): ために.",
+     "traduzione": "Studio giapponese per lavorare in Giappone."
+    },
+    {
+     "prompt": "病気[びょうき]に なら＿＿ように、豆[まめ]を 投[な]げます。",
+     "choices": [
+      "ない",
+      "る",
+      "なく",
+      "た"
+     ],
+     "spiega": "Per non far succedere qualcosa: forma in ない + ように.",
+     "traduzione": "Si lanciano i fagioli per non ammalarsi."
+    },
+    {
+     "prompt": "たんざくに 「試験[しけん]に 合格[ごうかく]でき＿＿」と 書[か]きました。",
+     "choices": [
+      "ますように",
+      "るために",
+      "たように",
+      "ないように"
+     ],
+     "spiega": "Sulla たんざく il desiderio si scrive col verbo cortese: 〜ますように.",
+     "traduzione": "Sulla striscia di carta ho scritto: «Che io passi l’esame!»."
+    },
+    {
+     "prompt": "二月[にがつ]三日[みっか]ごろは ＿＿です。",
+     "choices": [
+      "節分[せつぶん]",
+      "七夕[たなばた]",
+      "七五三[しちごさん]",
+      "子[こ]どもの日[ひ]"
+     ],
+     "spiega": "Setsubun = verso il 3 febbraio; Tanabata = 7 luglio; Shichigosan = 15 novembre; Festa dei bambini = 5 maggio.",
+     "traduzione": "Verso il 3 febbraio c’è il Setsubun."
+    },
+    {
+     "prompt": "子[こ]どもの日[ひ]には ＿＿を 飾[かざ]ります。",
+     "choices": [
+      "こいのぼり",
+      "ひな人形[にんぎょう]",
+      "たんざく",
+      "ちとせあめ"
+     ],
+     "spiega": "Le carpe di stoffa sono della Festa dei bambini; le bambole hina dell’Hinamatsuri.",
+     "traduzione": "Per la Festa dei bambini si espongono le carpe di stoffa."
+    },
+    {
+     "prompt": "七夕[たなばた]には、たんざくに ＿＿を 書[か]きます。",
+     "choices": [
+      "願[ねが]い事[ごと]",
+      "年賀状[ねんがじょう]",
+      "名前[なまえ]だけ",
+      "日記[にっき]"
+     ],
+     "spiega": "Tanabata: si scrive un desiderio sulla たんざく.",
+     "traduzione": "A Tanabata si scrive un desiderio sulla striscia di carta."
+    },
+    {
+     "prompt": "七五三[しちごさん]は 子[こ]どもの ＿＿を 祝[いわ]う 行事[ぎょうじ]です。",
+     "choices": [
+      "成長[せいちょう]",
+      "結婚[けっこん]",
+      "合格[ごうかく]",
+      "収穫[しゅうかく]"
+     ],
+     "spiega": "七五三 festeggia la crescita dei bambini di 3, 5 e 7 anni.",
+     "traduzione": "Lo Shichigosan festeggia la crescita dei bambini."
+    },
+    {
+     "prompt": "お世話[せわ]に なった 人[ひと]に ＿＿の 手紙[てがみ]を 書[か]きました。",
+     "choices": [
+      "感謝[かんしゃ]",
+      "収穫[しゅうかく]",
+      "成長[せいちょう]",
+      "長生[ながい]き"
+     ],
+     "spiega": "感謝 = gratitudine: 感謝の手紙, lettera di ringraziamento.",
+     "traduzione": "Ho scritto una lettera di ringraziamento a chi mi ha aiutato."
+    },
+    {
+     "prompt": "おじいさんが ＿＿できるように 祈[いの]って います。",
+     "choices": [
+      "長生[ながい]き",
+      "合格[ごうかく]",
+      "参加[さんか]",
+      "結婚式[けっこんしき]"
+     ],
+     "spiega": "長生きする = vivere a lungo, augurio tipico per un anziano.",
+     "traduzione": "Prego che il nonno possa vivere a lungo."
+    }
+   ],
+   "produzioneNota": "Per il sakubun sul tuo Paese o città: cos’è, quando, cosa si fa, per chi o per che cosa, cosa ne pensi. Le frasi sono modelli: scrivi le tue, con la festa che vuoi.",
+   "produzione": [
+    {
+     "consegna": "Presenta una festa della tua città: dove e quando si fa.",
+     "pattern": "〜は、〜月〜日に、〜でする 行事です",
+     "risposta": "カーニバルは、二月[にがつ]に ベネチアで する 行事[ぎょうじ]です。",
+     "spiega": "Nome della festa + は, poi quando e dove, e 行事です."
+    },
+    {
+     "consegna": "Di’ che cosa si fa durante la festa.",
+     "pattern": "〜を して、〜を します",
+     "risposta": "マスクを つけて、町[まち]を 歩[ある]きます。",
+     "spiega": "Due azioni collegate con la forma in て."
+    },
+    {
+     "consegna": "Di’ per chi è la festa.",
+     "pattern": "〜の ための 行事です",
+     "risposta": "子[こ]どもの ための 行事[ぎょうじ]です。",
+     "spiega": "Nome + の ための + nome."
+    },
+    {
+     "consegna": "Di’ perché si fa: perché arrivi la primavera.",
+     "pattern": "〜ように 〜します",
+     "risposta": "春[はる]が 来[く]るように、お祭[まつ]りを します。",
+     "spiega": "Scopo non volontario (la primavera arriva da sé): ように."
+    },
+    {
+     "consegna": "Di’ che ci si augura la felicità di tutta la famiglia.",
+     "pattern": "〜を 願います",
+     "risposta": "家族[かぞく]みんなの 幸[しあわ]せを 願[ねが]います。",
+     "spiega": "Nome + を 願う / 祈る."
+    },
+    {
+     "consegna": "Di’ che si prepara un piatto speciale per festeggiare il Natale.",
+     "pattern": "〜を 祝う ために",
+     "risposta": "クリスマスを 祝[いわ]う ために、特別[とくべつ]な 料理[りょうり]を 作[つく]ります。",
+     "spiega": "Scopo volontario dello stesso soggetto: ために."
+    },
+    {
+     "consegna": "Scrivi un desiderio su una たんざく: passare il JLPT.",
+     "pattern": "〜ますように",
+     "risposta": "JLPTに 合格[ごうかく]できますように。",
+     "spiega": "Sulla たんざく: verbo cortese + ように, senza 願う."
+    },
+    {
+     "consegna": "Di’ cosa ne pensi: è una festa allegra e ti piace molto.",
+     "pattern": "〜て、とても 好きです",
+     "risposta": "にぎやかで 楽[たの]しくて、とても 好[す]きです。",
+     "spiega": "Chiudi con la tua opinione: aggettivi collegati con で e くて."
+    }
+   ]
   }
  ]
 }

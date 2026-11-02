@@ -1,4 +1,4 @@
 // Versione unica di app e dati (seed). Bump SEED_REVISION a ogni rigenerazione
 // del seed: l'app la usa per il cache-busting e la mostra nelle Impostazioni.
-export const SEED_REVISION = '2026-11-01-v148-allineamento-liste';
+export const SEED_REVISION = '2026-11-02-v149-lezione-gyouji';
 export const SEED_LOADED_KEY = 'renkei_seed_loaded';
