@@ -103,6 +103,9 @@ export interface CompositionQuestion {
   prompt: string; // significato (IT/EN)
   promptLanguage: LocaleCode;
   reading?: string; // lettura mostrata come aiuto se la parola ha kanji
+  // verso 📖: vedi la parola in kanji (qui) e componi la LETTURA in hiragana
+  // (correctAnswer = lettura, tokens = kana); il significato si vede dopo
+  kanjiShown?: string;
   tokens: string[]; // caratteri della parola + intrusi, da mescolare
   correctAnswer: string; // word.scrittura (o la forma coniugata)
   // composizione di una FORMA coniugata: dizionario + forma richiesta (il prompt resta il significato)

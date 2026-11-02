@@ -22,6 +22,7 @@ export function promptOf(q: QuizQuestion): string {
 	if (q.mode === 'usage-cloze' || q.mode === 'verb-form-cloze') return `Completa: ${q.sentenceWithBlank}`;
 	if (q.mode === 'cloze') return `Completa: ${q.sentenceWithBlank.replace(/<[^>]*>/g, '')}`;
 	if (q.mode === 'reading-choice') return `Come si legge «${q.targetText}»? ${q.plainSentence}`;
+	if (q.mode === 'composition' && q.kanjiShown) return q.kanjiShown;
 	if ('prompt' in q && q.prompt) return q.prompt;
 	return '';
 }

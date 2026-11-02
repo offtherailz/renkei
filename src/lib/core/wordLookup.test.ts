@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { renderFuriganaToHtml } from './furigana';
-import { lookupToken, mergeAuxTokens, mergeByDictionary, tokenFurigana, type WordHit } from './wordLookup';
+import { lookupToken, mergeAuxTokens, mergeByDictionary, splitGrammarTails, tokenFurigana, type WordHit } from './wordLookup';
 
 const hit = (id: string, scrittura: string, lettura: string, tipo = '名詞[めいし]'): WordHit => ({
 	id, scrittura, lettura, tipo_jp: tipo, livello_jlpt: 'N5', significato: id
@@ -235,5 +235,16 @@ describe('tokenFurigana', () => {
 	it('lettura usuale per le parole comuni con più letture', () => {
 		expect(tokenFurigana('私は', hit('私', 'わたし', true))).toBe('私[わたし]は');
 		expect(tokenFurigana('行きたい。', hit('行く', 'いく; ゆく'))).toBe('行[い]きたい。');
+	});
+});
+
+describe('splitGrammarTails', () => {
+	it('stacca わけ/はず dal verbo (いうわけではない → いう | わけではない)', () => {
+		expect(splitGrammarTails(['だと', 'いうわけではない。'])).toEqual(['だと', 'いう', 'わけではない。']);
+		expect(splitGrammarTails(['来るはずです。'])).toEqual(['来る', 'はずです。']);
+	});
+	it('lascia stare 分けて e 言い訳', () => {
+		expect(splitGrammarTails(['分けてください。'])).toEqual(['分けてください。']);
+		expect(splitGrammarTails(['いいわけです'])).toEqual(['いいわけです']);
 	});
 });

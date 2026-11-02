@@ -10,7 +10,7 @@
 	import { PARTICLE_ROLE } from '$lib/data/particleGuide';
 	import { createInitialSrs, applySrsReview, applyPracticeReview, touchReviewDate, normalizeMastery, bumpFacet, type FacetField } from '$lib/core/srs';
 	import { facetOfMode, facetsToTrain } from '$lib/core/facets';
-	import { speakWordReading, speakSentenceJapanese } from '$lib/core/tts';
+	import { speakWordReading, speakSentenceJapanese, speechTextFor } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, phraseVariants } from '$lib/core/speech';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import CardActions from '$lib/components/CardActions.svelte';
@@ -21,6 +21,7 @@
 	import {
 		createFlashcardProductionQuestion,
 		createCompositionQuestion,
+		createReadingCompositionQuestion,
 		createSpokenProductionQuestion,
 		createVerbFormClozeQuestion,
 		createUsageClozeQuestion,
@@ -176,11 +177,11 @@
 	// Le celle senza un modo in questa rosa (Usare → speciali conjugation/
 	// particle-cloze; Dire/Scrivere → modalità future) restano fuori qui.
 	let lastFacetPicked: FacetField | null = null;
-	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'listening-meaning' | 'word-reading' | 'composition' | 'spoken-production';
+	type WordMode = FlashcardQuestion['mode'] | 'multiple-choice' | 'listening' | 'listening-meaning' | 'word-reading' | 'reading-composition' | 'composition' | 'spoken-production';
 	const MODE_BY_FACET: Partial<Record<FacetField, WordMode[]>> = {
 		facet_meaning_r: ['flashcard-recognition', 'multiple-choice'],
 		facet_meaning_p: ['flashcard-production'],
-		facet_form_read: ['flashcard-reading-recognition', 'word-reading'],
+		facet_form_read: ['flashcard-reading-recognition', 'word-reading', 'reading-composition'],
 		facet_form_listen: ['listening', 'listening-meaning'],
 		facet_form_write: ['composition'],
 		facet_form_speak: ['spoken-production']
@@ -316,6 +317,9 @@
 			if (mode === 'word-reading') return createWordReadingQuestion(word, context) ?? createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
 			if (mode === 'listening') return createListeningQuestion(word, distractorIndex, context);
 			if (mode === 'listening-meaning') return createListeningMeaningQuestion(word, locale, context) ?? createListeningQuestion(word, distractorIndex, context);
+			if (mode === 'reading-composition') {
+				return createReadingCompositionQuestion(word, locale, context) ?? createWordReadingQuestion(word, context) ?? createFlashcardReadingRecognitionQuestion(word, locale, distractorIndex, context);
+			}
 			if (mode === 'composition') {
 				const comp = createCompositionQuestion(word, locale, context);
 				if (comp) return comp;
@@ -837,7 +841,9 @@
 			case 'sentence-ordering':
 				return { prompt: q.prompt, correct: q.correctOrder.join('') };
 			case 'composition':
-				return { prompt: `Componi: ${q.prompt}`, correct: q.correctAnswer };
+				return q.kanjiShown
+					? { prompt: `Componi la lettura: ${q.kanjiShown}`, correct: `${q.kanjiShown}（${q.correctAnswer}）` }
+					: { prompt: `Componi: ${q.prompt}`, correct: q.correctAnswer };
 			case 'spoken-production':
 				return { prompt: `Di' a voce: ${q.prompt}`, correct: `${q.expectedWriting}（${q.expectedReading}）` };
 			case 'verb-form-cloze':
@@ -1127,6 +1133,10 @@
 				} else if (q.mode === 'particle-cloze') {
 					// cosa indicherebbe quella particella: così si vede perché qui stona
 					reason = PARTICLE_ROLE[choice] ? `indica ${PARTICLE_ROLE[choice]}` : reason;
+				} else if (q.mode === 'word-reading') {
+					// lettura vera di un'altra parola, o lettura inventata (trappola ゛/piccolo/vocale lunga)
+					const w = allWords.find((x) => x.lettura === choice && x.scrittura !== x.lettura);
+					reason = w ? `si legge così ${w.scrittura} (= ${firstMeaning(w)})` : 'lettura inesistente: occhio a ゛, kana piccoli e vocali lunghe';
 				} else if (q.mode === 'conjugation') {
 					const form = conjTable.find((f) => f.value === choice);
 					reason = form ? `sarebbe la ${form.label}` : 'forma non corretta';
@@ -1398,7 +1408,7 @@
 				if (q.mode === 'particle-cloze' || q.mode === 'transitivity-pair' || q.mode === 'verb-form-cloze' || q.mode === 'usage-cloze') {
 					speakSentenceJapanese((q as ParticleClozeQuestion).fullSentence);
 				} else if (q.mode === 'conjugation' || q.mode === 'counter-reading' || q.mode === 'time-reading') {
-					speakSentenceJapanese((q as ConjugationQuizQuestion).correctChoice);
+					speakSentenceJapanese(speechTextFor((q as ConjugationQuizQuestion).correctChoice, wordForTts));
 				} else if (wordForTts) {
 					speakWordReading(wordForTts);
 				} else if (q.mode === 'sentence-ordering') {
@@ -1932,9 +1942,9 @@
 		<!-- composizione: componi la parola coi caratteri (con intrusi) -->
 		{:else if quiz.question.mode === 'composition'}
 			{@const q = quiz.question as CompositionQuestion}
-			<p class="question-prompt">{q.prompt}</p>
+			<p class="question-prompt">{q.kanjiShown ?? q.prompt}</p>
 			{#if q.reading}<p class="question-hint">Lettura: {q.reading}</p>{/if}
-			<p class="question-hint">✍️ Componi la parola coi caratteri, nell'ordine giusto — attento agli intrusi.</p>
+			<p class="question-hint">{q.kanjiShown ? '✍️ Componi la lettura in hiragana — attento agli intrusi (゛, piccoli, vocali lunghe).' : "✍️ Componi la parola coi caratteri, nell'ordine giusto — attento agli intrusi."}</p>
 			<TokenCompose
 				bind:bank={bankTokens}
 				bind:answer={answerTokens}
@@ -1949,7 +1959,8 @@
 					</button>
 				</div>
 			{:else}
-				<div class="solution">{q.correctAnswer}{q.reading ? `（${q.reading}）` : ''}</div>
+				<div class="solution">{q.kanjiShown ? `${q.kanjiShown}（${q.correctAnswer}）` : q.correctAnswer}{q.reading ? `（${q.reading}）` : ''}</div>
+				{#if q.kanjiShown}<p class="question-hint">💬 {q.prompt}</p>{/if}
 			{/if}
 
 		<!-- spoken-production: pronuncia la parola al microfono -->

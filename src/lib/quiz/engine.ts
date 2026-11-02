@@ -209,6 +209,45 @@ export function createCompositionQuestion(
   };
 }
 
+// Kana che si confondono leggendo un kanji: dakuten/handakuten, piccoli/grandi,
+// vocali lunghe. Sono gli intrusi più utili (げしゅく vs けしゅく, しゅう vs しゅ).
+const KANA_ROWS = ["かが", "きぎ", "くぐ", "けげ", "こご", "さざ", "しじ", "すず", "せぜ", "そぞ", "ただ", "ちぢ", "つづっ", "てで", "とど", "はばぱ", "ひびぴ", "ふぶぷ", "へべぺ", "ほぼぽ", "やゃ", "ゆゅ", "よょ", "おう", "いえ"];
+function confusableKana(c: string): string[] {
+  return KANA_ROWS.filter((row) => row.includes(c)).flatMap((row) => [...row]).filter((x) => x !== c);
+}
+
+// ✍️📖 Lettura da comporre: vedi la parola in kanji (下宿), componi げしゅく
+// coi kana + intrusi confondibili. Solo parole con kanji e lettura in hiragana.
+export function createReadingCompositionQuestion(
+  word: Word,
+  locale: "it" | "en",
+  context: QuizContext
+): CompositionQuestion | null {
+  if (word.kanji_usati.length === 0 || word.scrittura === word.lettura) return null;
+  const chars = [...word.lettura];
+  if (chars.length < 2 || chars.length > 10 || !chars.every((c) => /[ぁ-んー]/u.test(c))) return null;
+  const inWord = new Set(chars);
+  const near = shuffle([...new Set(chars.flatMap(confusableKana))].filter((c) => !inWord.has(c)));
+  const pool: string[] = [];
+  for (const other of context.wordsById.values()) {
+    if (other.id === word.id) continue;
+    for (const c of other.lettura) if (/[ぁ-ん]/u.test(c) && !inWord.has(c)) pool.push(c);
+    if (pool.length > 200) break;
+  }
+  const count = Math.min(4, Math.max(2, chars.length - 1));
+  const intruders = [...new Set([...near.slice(0, count - 1), ...shuffle(pool)])].slice(0, count);
+  if (intruders.length < 2) return null;
+  return {
+    mode: "composition",
+    wordId: word.id,
+    prompt: pickLocalizedArray(word.significato, locale).join(" / "),
+    promptLanguage: locale,
+    kanjiShown: word.scrittura,
+    tokens: shuffle([...chars, ...intruders]),
+    correctAnswer: word.lettura
+  };
+}
+
 export function createFlashcardRecognitionQuestion(
   word: Word,
   locale: "it" | "en",
@@ -323,26 +362,49 @@ export function createWordReadingQuestion(
 ): WordReadingQuestion | null {
   if (word.scrittura === word.lettura) return null; // full-kana: niente da leggere
   const correct = word.lettura;
-  const pool = shuffle([...context.wordsById.values()].filter((w) => w.id !== word.id));
-  const sameLevel = pool.filter((w) => w.livello_jlpt === word.livello_jlpt);
-  const distractors = [
-    ...new Set(
-      [...sameLevel, ...pool]
-        .map((w) => w.lettura)
-        .filter((r) => r && r !== correct)
-    )
-  ]
-    // vicine per lunghezza: più confondibili, meno scartabili a colpo d'occhio
-    .sort((a, b) => Math.abs(a.length - correct.length) - Math.abs(b.length - correct.length))
+  // stile JLPT: letture quasi giuste (しんぶん/しんもん/じんぶん) invece di parole
+  // a caso — それに o まんが accanto a 拾う si scartano senza leggere
+  const fakes = shuffle(misreadingsOf(correct));
+  const others = shuffle([...context.wordsById.values()].filter((w) => w.id !== word.id && w.scrittura !== w.lettura));
+  // letture vere di parole con un kanji in comune, poi stessa lunghezza
+  const sharing = others.filter((w) => w.kanji_usati.some((k) => word.kanji_usati.includes(k))).map((w) => w.lettura);
+  const similar = others
+    .map((w) => w.lettura)
+    .filter((r) => r.length === correct.length && (r[0] === correct[0] || r.at(-1) === correct.at(-1)));
+  const distractors = [...new Set([...fakes.slice(0, 2), ...sharing.slice(0, 1), ...fakes.slice(2), ...similar])]
+    .filter((r) => r && r !== correct)
     .slice(0, 3);
   if (distractors.length < 2) return null;
   return {
     mode: "word-reading",
     wordId: word.id,
     prompt: word.scrittura,
-    choices: shuffle([correct, ...distractors]).slice(0, 4),
+    choices: shuffle([correct, ...distractors]),
     correctChoice: correct
   };
+}
+
+// Letture sbagliate ma plausibili: un solo ritocco (゛ tolto/aggiunto, kana
+// piccolo/grande, vocale lunga aggiunta/tolta, っ in più/in meno).
+export function misreadingsOf(reading: string): string[] {
+  const chars = [...reading];
+  const out = new Set<string>();
+  chars.forEach((c, i) => {
+    for (const alt of confusableKana(c)) {
+      if (i === 0 && /[っゃゅょん]/u.test(alt)) continue;
+      out.add([...chars.slice(0, i), alt, ...chars.slice(i + 1)].join(""));
+    }
+    if (c === "う" && i > 0 && /[おこごそぞとどのほぼぽもよょろゅう]/u.test(chars[i - 1]!)) {
+      out.add([...chars.slice(0, i), ...chars.slice(i + 1)].join("")); // こうこう → こうこ
+    }
+    if (c === "っ") out.add([...chars.slice(0, i), ...chars.slice(i + 1)].join("")); // きって → きて
+  });
+  // vocale lunga in più dopo o/ゅ/ょ (しゅ → しゅう)
+  chars.forEach((c, i) => {
+    if (/[ょゅこそとほもろ]/u.test(c) && chars[i + 1] !== "う") out.add([...chars.slice(0, i + 1), "う", ...chars.slice(i + 1)].join(""));
+  });
+  out.delete(reading);
+  return [...out].filter((r) => !/^[ー]/u.test(r));
 }
 
 // 👂→💡 Ascolto → significato: senti la parola, scegli la traduzione IT.

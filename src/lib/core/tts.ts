@@ -20,6 +20,19 @@ function buildUtterance(text: string, options?: SpeakOptions): SpeechSynthesisUt
   return utterance;
 }
 
+// Testo da far leggere al TTS per una parola o una sua forma: i kanji letti da
+// soli sbagliano (下宿 → «shimajuku»), la lettura del catalogo no. La forma
+// coniugata (下宿した, 食べなかった) riusa la lettura del tema kanji.
+export function speechTextFor(text: string, word: Word | null | undefined): string {
+  if (!word || word.scrittura === word.lettura) return text;
+  if (text === word.scrittura) return word.lettura;
+  const tail = word.scrittura.match(/[ぁ-ん]*$/u)?.[0] ?? "";
+  const stem = word.scrittura.slice(0, word.scrittura.length - tail.length);
+  if (!stem || !word.lettura.endsWith(tail)) return text;
+  const stemReading = word.lettura.slice(0, word.lettura.length - tail.length);
+  return text.startsWith(stem) ? stemReading + text.slice(stem.length) : text;
+}
+
 export function speakWordReading(word: Word, options?: SpeakOptions): void {
   if (typeof window === "undefined" || !window.speechSynthesis) {
     return;

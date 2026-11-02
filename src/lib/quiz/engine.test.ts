@@ -4,6 +4,8 @@ import {
   createFlashcardRecognitionQuestion,
   createListeningMeaningQuestion,
   createWordReadingQuestion,
+  createReadingCompositionQuestion,
+  misreadingsOf,
   createMultipleChoiceQuestion,
   pickReadingTarget,
   shuffle
@@ -451,5 +453,50 @@ describe("createWordReadingQuestion", () => {
     const words = [makeWord("w1", "くれる", "dare"), makeWord("w2", "みず", "acqua"), makeWord("w3", "いぬ", "cane")];
     const { context } = makeContext(words);
     expect(createWordReadingQuestion(words[0]!, context)).toBeNull();
+  });
+
+  it("distrattori = letture quasi giuste, non parole full-kana a caso (拾う ≠ それに)", () => {
+    const words = [makeWord("w1", "拾う", "raccogliere"), makeWord("w2", "それに", "inoltre"), makeWord("w3", "まんが", "manga")];
+    words[0]!.lettura = "ひろう";
+    words[0]!.kanji_usati = ["拾"];
+    const { context } = makeContext(words);
+    const q = createWordReadingQuestion(words[0]!, context)!;
+    expect(q.choices).toHaveLength(4);
+    expect(q.choices).not.toContain("それに");
+    expect(q.choices).not.toContain("まんが");
+    for (const c of q.choices.filter((x) => x !== "ひろう")) expect(c.length).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe("misreadingsOf", () => {
+  it("ritocchi plausibili: ゛, kana piccoli, vocali lunghe", () => {
+    const m = misreadingsOf("げしゅく");
+    expect(m).toContain("けしゅく");
+    expect(m).toContain("げしゅうく");
+    expect(m).toContain("げしゆく");
+    expect(m).not.toContain("げしゅく");
+  });
+});
+
+describe("createReadingCompositionQuestion", () => {
+  it("mostra il kanji, si compone la lettura in kana con intrusi", () => {
+    const words = [makeWord("w1", "下宿", "pensione"), makeWord("w2", "本", "libro"), makeWord("w3", "犬", "cane")];
+    words[0]!.lettura = "げしゅく";
+    words[0]!.kanji_usati = ["下", "宿"];
+    words[1]!.lettura = "ほん";
+    words[2]!.lettura = "いぬ";
+    const { context } = makeContext(words);
+    const q = createReadingCompositionQuestion(words[0]!, "it", context)!;
+    expect(q.kanjiShown).toBe("下宿");
+    expect(q.correctAnswer).toBe("げしゅく");
+    for (const c of "げしゅく") expect(q.tokens).toContain(c);
+    expect(q.tokens.length).toBeGreaterThan(4);
+    expect(q.tokens.every((t) => /^[ぁ-ん]$/u.test(t))).toBe(true);
+  });
+
+  it("null senza kanji", () => {
+    const words = [makeWord("w1", "それに", "inoltre"), makeWord("w2", "まんが", "manga")];
+    const { context } = makeContext(words);
+    expect(createReadingCompositionQuestion(words[0]!, "it", context)).toBeNull();
   });
 });

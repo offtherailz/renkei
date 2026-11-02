@@ -374,7 +374,40 @@ export async function analyzeSentence(
 ): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
 	const { createDefaultTokenizer } = await import('./tokenizer');
 	const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(locale)]);
-	const tokens = mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s));
-	const hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
+	const tokens = splitGrammarTails(mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s)));
+	const hits = tokens.map((t, i) => {
+		if (!/[ぁ-んァ-ヶ一-龯々]/.test(t)) return null;
+		const hit = lookupToken(idx, t, tokens[i - 1]);
+		const forma = hit ? grammarTailLabel(t) : null;
+		return hit && forma ? { ...hit, forma } : hit;
+	});
 	return { tokens, hits };
+}
+
+// BudouX incolla わけ/はず al verbo (いうわけではない → un solo token, letto come
+// 言う e basta): si stacca la coda grammaticale, così ha il suo tocco e la sua
+// spiegazione. Solo se dopo わけ/はず c'è una coda nota (分けて, 言い訳 restano).
+const GRAMMAR_TAIL = /^(わけ|はず)(ではない|ではありません|じゃない|じゃありません|がない|がありません|です|だ|では|でも|に|も|ない)?([。、！？!?]*)$/;
+export function splitGrammarTails(tokens: string[]): string[] {
+	const out: string[] = [];
+	for (const t of tokens) {
+		const at = Math.max(t.lastIndexOf('わけ'), t.lastIndexOf('はず'));
+		const head = at > 0 ? t.slice(0, at) : '';
+		if (head.length >= 2 && !/(いい|言い)$/.test(head) && /[うくぐすつぬぶむるいただな]$/.test(head) && GRAMMAR_TAIL.test(t.slice(at))) {
+			out.push(head, t.slice(at));
+		} else out.push(t);
+	}
+	return out;
+}
+
+const TAIL_LABELS: [RegExp, string][] = [
+	[/^わけ(ではない|ではありません|じゃない|じゃありません)/, '〜わけではない: non è che…'],
+	[/^わけ(がない|がありません)/, '〜わけがない: è impossibile che…'],
+	[/^わけ(だ|です)/, '〜わけだ: ecco perché, significa che…'],
+	[/^はず(がない|がありません)/, '〜はずがない: non può essere che…'],
+	[/^はず(ではない|じゃない)/, '〜はずではない: non doveva…'],
+	[/^はず(だ|です)/, '〜はずだ: dovrebbe (me lo aspetto)']
+];
+function grammarTailLabel(token: string): string | null {
+	return TAIL_LABELS.find(([re]) => re.test(token))?.[1] ?? null;
 }

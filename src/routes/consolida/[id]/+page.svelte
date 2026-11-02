@@ -5,13 +5,14 @@
 	import { db } from '$lib/db/schema';
 	import { createInitialSrs, applyPracticeReview, normalizePracticeOnlyMastery } from '$lib/core/srs';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
-	import { speakWordReading, speakSentenceJapanese, speakSentenceJapaneseAsync } from '$lib/core/tts';
+	import { speakWordReading, speakSentenceJapanese, speakSentenceJapaneseAsync, speechTextFor } from '$lib/core/tts';
 	import { speechAvailable, listenJapanese, speechMatches, sentenceMatchVariants } from '$lib/core/speech';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import HeardDiff from '$lib/components/HeardDiff.svelte';
 	import TokenCompose from '$lib/components/TokenCompose.svelte';
 	import {
 		createCompositionQuestion,
+		createReadingCompositionQuestion,
 		createFlashcardRecognitionQuestion,
 		createFlashcardReadingRecognitionQuestion,
 		createMultipleChoiceQuestion,
@@ -97,7 +98,12 @@
 		revealed = true;
 		score = { ok: score.ok + (correct ? 1 : 0), tot: score.tot + 1 };
 		void recordPractice(correct);
-		speakSentenceJapanese(current.correctAnswer);
+		speakSentenceJapanese(sayable(current.correctAnswer, current.wordId));
+	}
+	// i kanji letti da soli dal TTS sbagliano (下宿 → «shimajuku»): si legge la
+	// lettura della parola della domanda
+	function sayable(text: string, wordId?: string): string {
+		return speechTextFor(text, (wordId && wordsById.get(wordId)) || word);
 	}
 
 	async function build(): Promise<void> {
@@ -286,10 +292,13 @@
 			const withKanji = words.filter((x) => x.kanji_usati.includes(k.id));
 			const qs: QuizQuestion[] = [];
 			for (const x of shuffle(withKanji).slice(0, 8)) {
+				const r = Math.random();
+				const rcomp = r < 0.3 ? createReadingCompositionQuestion(x, locale, context) : null;
 				qs.push(
-					Math.random() < 0.5
-						? createMultipleChoiceQuestion(x, context, distractors)
-						: createFlashcardRecognitionQuestion(x, locale, distractors, context)
+					rcomp ??
+						(r < 0.65
+							? createMultipleChoiceQuestion(x, context, distractors)
+							: createFlashcardRecognitionQuestion(x, locale, distractors, context))
 				);
 			}
 			queue = qs;
@@ -347,6 +356,9 @@
 		// a parola consolidata, stage 4)
 		const comp = createCompositionQuestion(w, locale, context);
 		if (comp) qs.push(comp);
+		// ✍️📖 dai kanji alla lettura: componi げしゅく vedendo 下宿
+		const rcomp = createReadingCompositionQuestion(w, locale, context);
+		if (rcomp) qs.push(rcomp);
 		const usage = usageQuestion(w, context); // prova d'uso: parola oscurata nella sua frase
 		if (usage) qs.push(usage);
 		if (w.kanji_usati.length > 0 && w.scrittura !== w.lettura) {
@@ -486,10 +498,10 @@
 			const say = rs.jp;
 			setTimeout(() => speakSentenceJapanese(say), 150);
 		} else if (m === 'counter-reading' || m === 'conjugation' || m === 'transitivity-pair' || m === 'flashcard-reading-recognition') {
-			speakSentenceJapanese(correctOf(current));
+			speakSentenceJapanese(sayable(correctOf(current), current.wordId));
 		} else if (m === 'flashcard-recognition') {
 			// se la risposta è un significato (contatore, kanji): niente TTS
-			if (hasJapanese(correctOf(current))) speakSentenceJapanese(correctOf(current));
+			if (hasJapanese(correctOf(current))) speakSentenceJapanese(sayable(correctOf(current), current.wordId));
 		} else if (word) {
 			speakWordReading(word);
 		}
@@ -627,17 +639,19 @@
 					<p class="qprompt">{promptOf(current)}</p>
 				{/if}
 				{#if current.mode === 'composition'}
+					{#if current.kanjiShown}<p class="muted" style="text-align:center;">✍️ Componi la lettura in hiragana</p>{/if}
 					{#if current.reading}<p class="muted" style="text-align:center;">Lettura: {current.reading}</p>{/if}
 					<TokenCompose
 						bind:bank={compBank}
 						bind:answer={compAnswer}
 						disabled={revealed}
-						placeholder={current.dictionary ? 'Componi qui la forma…' : 'Componi qui la parola…'}
+						placeholder={current.dictionary ? 'Componi qui la forma…' : current.kanjiShown ? 'Componi qui la lettura…' : 'Componi qui la parola…'}
 						status={revealed ? (picked === current.correctAnswer ? 'right' : 'wrong') : null} />
 					{#if !revealed}
 						<button class="next" onclick={compSubmit} disabled={compAnswer.length === 0}>{current.dictionary ? 'Conferma forma' : 'Conferma parola'}</button>
 					{:else}
-						<p class="muted" style="text-align:center;">{picked === current.correctAnswer ? '✓' : '✗'} {current.correctAnswer}{current.reading ? `（${current.reading}）` : ''}</p>
+						<p class="muted" style="text-align:center;">{picked === current.correctAnswer ? '✓' : '✗'} {current.kanjiShown ? `${current.kanjiShown}（${current.correctAnswer}）` : current.correctAnswer}{current.reading ? `（${current.reading}）` : ''}</p>
+						{#if current.kanjiShown}<p class="explain-it">💬 {current.prompt}</p>{/if}
 					{/if}
 				{:else}
 				<div class="choices">
