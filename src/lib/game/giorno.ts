@@ -875,9 +875,12 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b) };
 	};
 	// pause di ripasso: domande scritte, con un budget di nuove a parte
-	const drillBudget = { left: 8 };
+	// 8 domande per pausa, al massimo 12 nuove al giorno: con centinaia di domande
+	// scritte il ripasso deve avanzare, ma le sbagliate restano in testa
+	const drillBudget = { left: 12 };
 	const drill = (tipi: BankTipo[], title: string, intro: string): DrillMission | null => {
-		const items = tipi.flatMap((t) => pickBank(ctx.bank, t, 5, ctx.prog, ctx.dayNo, used, drillBudget)).slice(0, 5);
+		const items: BankItem[] = [];
+		for (const t of tipi) items.push(...pickBank(ctx.bank, t, 8 - items.length, ctx.prog, ctx.dayNo, used, drillBudget));
 		fromBank += items.length;
 		return items.length ? bankDrill(items, title, intro) : null;
 	};
