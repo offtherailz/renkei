@@ -581,7 +581,8 @@
 			<span>⭐ {rep}</span>
 		</div>
 
-		{#if phase !== 'summary'}
+		<!-- la mappa solo quando serve (camminare, ascoltare le indicazioni): sul telefono ruba troppo spazio -->
+		{#if phase === 'walk' || (phase === 'mission' && mission?.kind === 'route')}
 			<div class="map-wrap">
 				<canvas bind:this={canvas} width={15 * TILE} height={15 * TILE} onclick={onMapTap}></canvas>
 				{#if day}
