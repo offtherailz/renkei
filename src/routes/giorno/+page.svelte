@@ -14,6 +14,11 @@
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
 	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
 	import { artFor, artSrc } from '$lib/game/sceneArt';
+	import { optionHint } from '$lib/game/optionHint';
+	import { ensureWordIndex, type WordHit } from '$lib/core/wordLookup';
+
+	// dizionario dell'app: spiega le opzioni senza traduzione (domande dei libri)
+	let wordIndex = $state<Map<string, WordHit> | null>(null);
 
 	// ── banca di domande d'esame (file corso) e progressi del ripasso ──
 	let bank = $state<BankItem[]>([]);
@@ -530,6 +535,7 @@
 		window.addEventListener('keydown', onKey);
 		loadProgress();
 		void loadBank();
+		ensureWordIndex('it').then((m) => (wordIndex = m)).catch(() => {});
 	});
 	onDestroy(() => {
 		if (loop) clearInterval(loop);
@@ -669,7 +675,10 @@
 							<button class="opt" class:right={answered && i === mission.answer} class:wrong={answered && i === chosen && i !== mission.answer} disabled={answered} onclick={() => choose(i)}>
 								{#if o.icon}<span class="ico">{o.icon}</span>{/if}
 								{#if mission.audioOnly && !answered}<span class="ja">{i + 1}</span>{:else}<span class="ja">{mission.audioOnly ? `${i + 1}. ` : ''}{o.ja}</span>{/if}
-								{#if answered}<span class="tr">{o.it}</span>{/if}
+								{#if answered}
+									{@const h = o.it || optionHint(wordIndex, mission.sub, '', o.ja, i === mission.answer)}
+									{#if h}<span class="tr">{h}</span>{/if}
+								{/if}
 							</button>
 						{/each}
 					</div>
@@ -730,7 +739,10 @@
 							{#each r.options as o, i (i)}
 								<button class="opt" class:right={dPicked !== null && i === r.answer} class:wrong={dPicked === i && i !== r.answer} disabled={dPicked !== null} onclick={() => drillAnswer(i)}>
 									<span class="ja">{i + 1}. {o.ja}</span>
-									{#if dPicked !== null && o.it}<span class="tr">{o.it}</span>{/if}
+									{#if dPicked !== null}
+										{@const h = o.it || optionHint(wordIndex, r.tipo ?? '', r.label, o.ja, i === r.answer)}
+										{#if h}<span class="tr">{i === r.answer ? '✓ ' : '✗ '}{h}</span>{/if}
+									{/if}
 								</button>
 							{/each}
 						</div>

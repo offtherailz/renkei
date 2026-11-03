@@ -368,6 +368,7 @@ export interface RouteMission {
 // 📝 Ripasso in pausa: domande scritte d'esame (文字・語彙・文法), una dopo l'altra
 export interface DrillRound {
 	sourceId: string;
+	tipo?: string; // moji / goi / bunpou: serve per spiegare le opzioni
 	label: string; // istruzione del tipo di domanda
 	frase: string; // con 【parola】 sottolineata o （　） da riempire
 	it: string;
@@ -963,7 +964,7 @@ export function bankDrill(items: BankItem[], title: string, intro: string): Dril
 		title,
 		intro,
 		rounds: items.map((b) => ({
-			sourceId: b.id, label: b.titolo ?? '', frase: b.domanda.ja, it: b.domanda.it,
+			sourceId: b.id, tipo: b.tipo, label: b.titolo ?? '', frase: b.domanda.ja, it: b.domanda.it,
 			options: b.opzioni, answer: b.risposta, spiega: b.spiega, completa: b.completa
 		}))
 	};
