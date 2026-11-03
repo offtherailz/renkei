@@ -398,6 +398,33 @@ export interface CourseDatasetInput {
   dialoghi_nuovi?: CourseDialogueInput[];
   /** Mazzi tematici (stessa forma di src/lib/data/mazzi.ts): restano sul dispositivo. */
   mazzi?: CourseMazzoInput[];
+  /** Situazioni d'esame per «Un giorno in Giappone»: restano sul dispositivo. */
+  giorno?: CourseGiornoInput[];
+}
+
+// Una domanda d'esame (聴解/読解) giocata come situazione nella città.
+// tipo: kadai 課題理解, point ポイント理解, hatsuwa 発話表現, sokuji 即時応答,
+// dokkai 読解. luogo: id del posto in città (src/lib/game/giorno.ts) o «eki».
+export interface CourseGiornoInput {
+  id: string;
+  fonte?: string;
+  tipo: 'kadai' | 'point' | 'hatsuwa' | 'sokuji' | 'dokkai';
+  luogo?: string;
+  titolo?: string;
+  intro?: string; // contesto in italiano
+  scena?: string; // il disegno del foglio d'esame, descritto in italiano
+  testo?: { titolo: string; ja: string; it: string }; // brano da leggere (読解)
+  righe: { who: 'N' | 'F' | 'M'; ja: string; it: string }[];
+  domanda: { ja: string; it: string };
+  opzioni: { ja: string; it: string }[];
+  risposta: number; // indice da 0
+  spiega?: string; // perché (italiano), mostrato dopo
+  voce?: 'F' | 'M'; // 発話表現: chi dice le scelte
+}
+
+export interface CourseGiornoRow extends CourseGiornoInput {
+  corso_id: string;
+  updated_at: number;
 }
 
 export interface CourseMazzoInput {

@@ -464,6 +464,31 @@ In caso di errore, l'import viene annullato e viene mostrato il messaggio d'erro
 
 ---
 
+## Sezione `giorno` (opzionale)
+
+Situazioni d'esame per il gioco 🗾 «Un giorno in Giappone» (`src/routes/giorno`). Restano solo sul dispositivo, come i mazzi: servono per le domande prese dai libri di preparazione, che non possono stare nell'app pubblica. Ogni elemento è una domanda del JLPT giocata in un luogo della città:
+
+```json
+{
+  "id": "bp1-m1-1",
+  "fonte": "Best Practice N4 test 1",
+  "tipo": "kadai",            // kadai 課題理解 · point ポイント理解 · hatsuwa 発話表現 · sokuji 即時応答 · dokkai 読解
+  "luogo": "konbini",         // id di un posto (src/lib/game/giorno.ts, PLACES) o "eki"
+  "scena": "Il disegno del foglio, descritto in italiano",
+  "testo": { "titolo": "…", "ja": "…", "it": "…" },   // solo 読解: il brano da leggere
+  "righe": [{ "who": "N", "ja": "…", "it": "…" }, { "who": "F", "ja": "…", "it": "…" }],
+  "domanda": { "ja": "男の人は何を買いますか。", "it": "Cosa compra l'uomo?" },
+  "opzioni": [{ "ja": "パンと牛乳", "it": "pane e latte" }, …],
+  "risposta": 1,              // indice da 0
+  "spiega": "Perché (italiano), mostrato dopo",
+  "voce": "M"                 // solo hatsuwa: chi dice le scelte
+}
+```
+
+`who`: N narratore, F donna, M uomo. Nel 発話表現 e nel 即時応答 le scelte si sentono soltanto (il testo si vede dopo la risposta); nel ポイント理解 e nel 読解 le scelte si leggono prima. Il gioco ripropone una domanda finché non è giusta due volte di fila in giornate diverse, e fa entrare poche domande nuove per giornata.
+
+I file di partenza sono script privati in `corsi/giorno-*.py` (ignorati da Git) che generano `corsi/giorno-*.json`; vanno uniti nel file dei mazzi in chiaro sotto `giorno` prima di cifrarlo.
+
 ## Sezione `mazzi` (opzionale)
 
 Mazzi tematici di flashcard, esercizi e produzione, nello stesso formato di `src/lib/data/mazzi.ts` (`id`, `titolo`, `emoji`, `descrizione`, `carte[{jp, yomi, it, es?, es_it?}]`, `esercizi?`, `produzione?`, `produzioneNota?`). Restano solo sul dispositivo che importa il file: servono per i materiali delle lezioni che non devono stare nell'app pubblica. Un file con soli mazzi può avere `lezioni: []`. Reimportarlo sostituisce i mazzi di quel corso; eliminare il corso li toglie.

@@ -146,3 +146,32 @@ describe('priorità: dialogo coerente', () => {
 		}
 	});
 });
+
+describe('banca e ripasso progressivo', () => {
+	const item = (id: string, tipo: 'kadai' | 'sokuji' = 'kadai') => ({
+		id, tipo, righe: [{ who: 'F' as const, ja: 'はい。', it: 'Sì.' }], domanda: { ja: '何ですか。', it: '?' },
+		opzioni: [{ ja: 'A', it: 'a' }, { ja: 'B', it: 'b' }, { ja: 'C', it: 'c' }], risposta: 1
+	});
+	const bank = ['a', 'b', 'c', 'd', 'e'].map((x) => item(x));
+
+	it('prima le sbagliate, poi poche nuove; le consolidate tornano solo dopo giorni', async () => {
+		const { pickBank, recordResult } = await import('./giorno');
+		let prog = recordResult({}, 'c', false, 0);
+		prog = recordResult(prog, 'a', true, 0);
+		prog = recordResult(prog, 'a', true, 1); // consolidata
+		const picked = pickBank(bank, 'kadai', 4, prog, 2, new Set(), { left: 2 }).map((b) => b.id);
+		expect(picked[0]).toBe('c');
+		expect(picked).toEqual(['c', 'b', 'd']);
+		const later = pickBank(bank, 'kadai', 4, prog, 6, new Set(), { left: 0 }).map((b) => b.id);
+		expect(later).toEqual(['c', 'a']);
+	});
+
+	it('la giornata usa la banca quando c’è, e conta le nuove', () => {
+		const big = [...bank, ...['s1', 's2', 's3', 's4'].map((x) => item(x, 'sokuji'))];
+		const d = buildDay(3, { bank: big, prog: {}, dayNo: 0 });
+		expect(d.fromBank).toBeGreaterThan(0);
+		expect(d.newToday).toBeLessThanOrEqual(6);
+		const ids = d.steps.flatMap((s) => (s.mission.kind === 'choice' && s.mission.sourceId ? [s.mission.sourceId] : []));
+		expect(new Set(ids).size).toBe(ids.length);
+	});
+});

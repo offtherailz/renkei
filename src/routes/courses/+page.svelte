@@ -143,7 +143,7 @@
 		try {
 			const text = await readCourseText(await file.text());
 			const result = await importCourseDataset(text);
-			importSuccess = `✅ Importato! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}`;
+			importSuccess = `✅ Importato! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}${result.situazioniAggiunte ? ` · ${result.situazioniAggiunte} situazioni per 🗾` : ''}`;
 			await loadCourses();
 		} catch (e) {
 			importError = `Errore: ${String(e)}`;
@@ -163,7 +163,7 @@
 			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 			const text = await readCourseText(await resp.text());
 			const result = await importCourseDataset(text);
-			importSuccess = `✅ Importato da URL! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}`;
+			importSuccess = `✅ Importato da URL! ${result.paroleAggiunte} parole, ${result.kanjiAggiunti} kanji, ${result.grammaticaAggiunta} grammatica in ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}${result.situazioniAggiunte ? ` · ${result.situazioniAggiunte} situazioni per 🗾` : ''}`;
 			importUrl = '';
 			await loadCourses();
 		} catch (e) {
@@ -196,7 +196,7 @@
 			const resp = await fetch(`${base}/${file}`);
 			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 			const result = await importCourseDataset(await resp.text());
-			importSuccess = `✅ ${nome} importato! ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}`;
+			importSuccess = `✅ ${nome} importato! ${result.lezioniFinalizzate} lezioni.${result.mazziAggiunti ? ` · ${result.mazziAggiunti} mazzi` : ''}${result.situazioniAggiunte ? ` · ${result.situazioniAggiunte} situazioni per 🗾` : ''}`;
 			await loadCourses();
 		} catch (e) {
 			importError = `Errore: ${String(e)}`;

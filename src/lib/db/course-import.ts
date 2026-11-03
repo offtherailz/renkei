@@ -34,8 +34,15 @@ function validateDataset(dataset: CourseDatasetInput): void {
   }
 
   // un file con soli mazzi (le lezioni che sto seguendo) non ha lezioni da studiare
-  if (!dataset.lezioni || (dataset.lezioni.length === 0 && !(dataset.mazzi ?? []).length)) {
-    throw new Error("Il dataset deve contenere almeno una lezione o un mazzo.");
+  if (!dataset.lezioni || (dataset.lezioni.length === 0 && !(dataset.mazzi ?? []).length && !(dataset.giorno ?? []).length)) {
+    throw new Error("Il dataset deve contenere almeno una lezione, un mazzo o una situazione.");
+  }
+
+  for (const g of dataset.giorno ?? []) {
+    const ok = g.id && g.tipo && Array.isArray(g.righe) && g.domanda?.ja && Array.isArray(g.opzioni) && g.opzioni.length >= 2;
+    if (!ok || g.risposta < 0 || g.risposta >= g.opzioni.length) {
+      throw new Error(`giorno: la situazione "${g.id ?? "?"}" deve avere id, tipo, righe, domanda, almeno 2 opzioni e una risposta valida.`);
+    }
   }
 
   for (const m of dataset.mazzi ?? []) {
@@ -130,6 +137,7 @@ export interface CourseImportResult {
   dialoghiAggiunti: number;
   lezioniFinalizzate: number;
   mazziAggiunti: number;
+  situazioniAggiunte: number;
   obiettivoCreatoId: string;
 }
 
@@ -349,15 +357,18 @@ export async function importCourseDataset(jsonText: string): Promise<CourseImpor
   };
 
   const mazzi = (dataset.mazzi ?? []).map((m) => ({ ...m, corso_id: corsoId, updated_at: now }));
+  const giorno = (dataset.giorno ?? []).map((g) => ({ ...g, corso_id: corsoId, updated_at: now }));
 
   // ── 7. Write everything in a single transaction ───────────────────────────
   await db.transaction(
     "rw",
-    [db.words, db.kanji, db.grammar, db.dialogues, db.study_objectives, db.course_datasets, db.course_lessons, db.course_mazzi],
+    [db.words, db.kanji, db.grammar, db.dialogues, db.study_objectives, db.course_datasets, db.course_lessons, db.course_mazzi, db.course_giorno],
     async () => {
       // reimportare sostituisce i mazzi del corso, anche quelli tolti dal file
       await db.course_mazzi.where("corso_id").equals(corsoId).delete();
       if (mazzi.length > 0) await db.course_mazzi.bulkPut(mazzi);
+      await db.course_giorno.where("corso_id").equals(corsoId).delete();
+      if (giorno.length > 0) await db.course_giorno.bulkPut(giorno);
       if (newWords.length > 0) await db.words.bulkPut(newWords);
       if (patchedWords.length > 0) await db.words.bulkPut(patchedWords);
       if (newKanji.length > 0) await db.kanji.bulkPut(newKanji);
@@ -382,6 +393,7 @@ export async function importCourseDataset(jsonText: string): Promise<CourseImpor
     dialoghiAggiunti: newDialogues.length,
     lezioniFinalizzate: lessonMetas.length,
     mazziAggiunti: mazzi.length,
+    situazioniAggiunte: giorno.length,
     obiettivoCreatoId: corsoObjectiveId
   };
 }
@@ -469,7 +481,7 @@ export async function deleteCourse(corsoId: string): Promise<void> {
 
   await db.transaction(
     "rw",
-    [db.words, db.kanji, db.grammar, db.dialogues, db.srs_progress, db.study_objectives, db.course_datasets, db.course_lessons, db.course_mazzi],
+    [db.words, db.kanji, db.grammar, db.dialogues, db.srs_progress, db.study_objectives, db.course_datasets, db.course_lessons, db.course_mazzi, db.course_giorno],
     async () => {
       // Remove course-specific content
       await db.words.bulkDelete(courseWordIds);
@@ -490,6 +502,7 @@ export async function deleteCourse(corsoId: string): Promise<void> {
 
       // Remove meta
       await db.course_mazzi.where("corso_id").equals(corsoId).delete();
+      await db.course_giorno.where("corso_id").equals(corsoId).delete();
       await db.course_datasets.delete(corsoId);
       await db.course_lessons.bulkDelete(lessons.map((l) => l.id));
     }

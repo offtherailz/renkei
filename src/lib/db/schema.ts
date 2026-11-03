@@ -1,5 +1,5 @@
 import Dexie, { type Table } from "dexie";
-import type { CourseMazzoRow,
+import type { CourseMazzoRow, CourseGiornoRow,
   AppSettings,
   Counter,
   CourseLessonMeta,
@@ -37,6 +37,7 @@ export class JapaneseStudyDB extends Dexie {
   study_sessions!: Table<StudySessionRecord, string>;
   user_corrections!: Table<UserCorrection, string>;
   course_mazzi!: Table<CourseMazzoRow, string>;
+  course_giorno!: Table<CourseGiornoRow, string>;
 
   constructor() {
     // Ambienti di test (deploy:dev /dev, deploy:staging /staging) sullo stesso
@@ -173,6 +174,11 @@ export class JapaneseStudyDB extends Dexie {
     // Mazzi arrivati da un file corso (privati: mai nel bundle dell'app).
     this.version(10).stores({
       course_mazzi: "&id, corso_id, updated_at"
+    });
+
+    // Situazioni d'esame del gioco «Un giorno in Giappone», da file corso (private).
+    this.version(11).stores({
+      course_giorno: "&id, corso_id, tipo, updated_at"
     });
   }
 }

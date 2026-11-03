@@ -5,10 +5,37 @@
 	import { voiceParams } from '$lib/core/voices';
 	import { isInLevel } from '$lib/data/kanjiN4';
 	import {
-		buildDay, buildingAtDoor, buildingOf, hhmm, isCrossing, isRoad, PLACES, roadPath, SKILL_OF, START,
-		type Building, type Day, type Line, type Mission, type PlaceId, type Pos, type Who
+		buildDay, buildingAtDoor, buildingOf, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
+		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Who
 	} from '$lib/game/giorno';
+	import { db } from '$lib/db/schema';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
+
+	// ── banca di domande d'esame (file corso) e progressi del ripasso ──
+	let bank = $state<BankItem[]>([]);
+	let prog: Progress = {};
+	let dayNo = 0;
+	function loadProgress(): void {
+		try {
+			const raw = JSON.parse(localStorage.getItem('renkei_giorno_prog') ?? 'null') as { prog: Progress; dayNo: number } | null;
+			if (raw) ({ prog, dayNo } = raw);
+		} catch {
+			/* niente storage */
+		}
+	}
+	function saveProgress(): void {
+		try {
+			localStorage.setItem('renkei_giorno_prog', JSON.stringify({ prog, dayNo }));
+		} catch {
+			/* niente storage */
+		}
+	}
+	function noteResult(id: string | undefined, ok: boolean): void {
+		if (!id) return;
+		prog = recordResult(prog, id, ok, dayNo);
+		saveProgress();
+	}
+	const consolidated = $derived(bank.filter((b) => (prog[b.id]?.streak ?? 0) >= 2).length);
 
 	// ── stato della giornata ──
 	let day = $state<Day | null>(null);
@@ -91,6 +118,13 @@
 		stopSpeaking();
 		speaking = null;
 	}
+	// audio della missione: per il 発話表現 anche le scelte, numerate (solo voce)
+	function audioOf(m: Mission): Line[] {
+		if (!('lines' in m)) return [];
+		if (m.kind !== 'choice' || !m.audioOnly) return m.lines;
+		const who = m.optionVoice ?? 'F';
+		return [...m.lines, ...m.options.map((o, i) => ({ who, ja: numbered(i, o.ja), it: o.it }))];
+	}
 	function replay(lines: Line[]): void {
 		if (replays > 0) {
 			clock += 2;
@@ -102,7 +136,7 @@
 
 	// ── inizio / fine giornata ──
 	function startDay(seed = Math.floor(Math.random() * 1e9)): void {
-		day = buildDay(seed);
+		day = buildDay(seed, { bank, prog, dayNo });
 		stepIdx = 0;
 		clock = 8 * 60;
 		energy = 100;
@@ -118,6 +152,7 @@
 	function finishStep(ok: boolean, note: string): void {
 		if (!step || !mission) return;
 		hush();
+		if (mission.kind === 'choice') noteResult(mission.sourceId, ok);
 		log = [...log, { title: mission.title, skill: SKILL_OF(mission), ok, note }];
 		if (mission.kind !== 'quick') {
 			rep = Math.max(0, Math.min(100, rep + (ok ? 6 : -6)));
@@ -172,7 +207,7 @@
 		} else if (mission.kind !== 'choice' || !mission.optionsFirst) {
 			if ('lines' in mission && mission.lines.length) {
 				replays = 1;
-				void playLines(mission.lines);
+				void playLines(audioOf(mission));
 			}
 		}
 	}
@@ -283,7 +318,7 @@
 		qPicked = null;
 		qReady = false;
 		const r = mission.rounds[qRound]!;
-		await playLines([r.line]);
+		await playLines(quickAudio(r));
 		if (phase !== 'mission' || mission.kind !== 'quick' || qPicked !== null) return;
 		qReady = true;
 		qLeft = mission.seconds * 10;
@@ -293,12 +328,18 @@
 			if (qLeft <= 0) quickAnswer(-1);
 		}, 100);
 	}
+	function quickAudio(r: { line: Line; options: Option[]; audioOnly?: boolean }): Line[] {
+		if (!r.audioOnly) return [r.line];
+		const who: Who = r.line.who === 'M' ? 'F' : 'M';
+		return [r.line, ...r.options.map((o, i) => ({ who, ja: numbered(i, o.ja), it: o.it }))];
+	}
 	function quickAnswer(i: number): void {
 		if (!mission || mission.kind !== 'quick' || qPicked !== null) return;
 		if (qTimer) clearInterval(qTimer);
 		qReady = true;
 		qPicked = i;
 		const r = mission.rounds[qRound]!;
+		noteResult(r.sourceId, i === r.answer);
 		if (i >= 0) void playLines([{ who: other(r.line.who), ja: r.options[i]!.ja, it: '' }]);
 		else hush();
 		if (i === r.answer) {
@@ -326,6 +367,8 @@
 	// ── record ──
 	let best = $state<{ rep: number; days: number } | null>(null);
 	function saveRecord(): void {
+		dayNo += 1;
+		saveProgress();
 		try {
 			const prev = JSON.parse(localStorage.getItem('renkei_giorno') ?? 'null') as { rep: number; days: number } | null;
 			best = { rep: Math.max(prev?.rep ?? 0, rep), days: (prev?.days ?? 0) + 1 };
@@ -393,6 +436,11 @@
 	onMount(() => {
 		loop = setInterval(frameLoop, 90);
 		window.addEventListener('keydown', onKey);
+		loadProgress();
+		db.course_giorno
+			.toArray()
+			.then((rows) => (bank = rows.map(({ corso_id: _c, updated_at: _u, ...b }) => b)))
+			.catch(() => (bank = []));
 	});
 	onDestroy(() => {
 		if (loop) clearInterval(loop);
@@ -424,6 +472,11 @@
 				<li>Il testo e la traduzione si vedono <em>dopo</em> la risposta. Riascoltare costa 2 minuti.</li>
 			</ul>
 			<p class="stats-line">⏰ tempo · ⚡ energia · ¥ soldi · ⭐ reputazione — a fine giornata il voto.</p>
+			{#if bank.length}
+				<p class="stats-line">📚 Domande d'esame dal file corso: {bank.length} · consolidate {consolidated}. Le sbagliate tornano finché non le sai due volte di fila; le nuove entrano poche per giornata.</p>
+			{:else}
+				<p class="muted small">Senza file corso giochi con le varianti generate. Importa in «Corsi» il file con le domande d'esame per giocare con quelle vere.</p>
+			{/if}
 			<button class="btn big" onclick={() => startDay()}>▶ Inizia la giornata</button>
 			{#if best}<p class="muted">Record: ⭐ {best.rep} · giornate giocate {best.days}</p>{/if}
 		</section>
@@ -502,15 +555,16 @@
 							<pre class="ja">{mission.doc.ja}</pre>
 						</div>
 					{/if}
+					{#if mission.scena}<p class="scena">🖼️ {mission.scena}</p>{/if}
 					{#if mission.lines.length}
-						<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
+						<button class="btn ghost" onclick={() => replay(audioOf(mission))}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					{/if}
 					<p class="question ja">{mission.question.ja}</p>
 					<div class="options">
 						{#each mission.options as o, i (o.ja)}
 							<button class="opt" class:right={answered && i === mission.answer} class:wrong={answered && i === chosen && i !== mission.answer} disabled={answered} onclick={() => choose(i)}>
 								{#if o.icon}<span class="ico">{o.icon}</span>{/if}
-								<span class="ja">{o.ja}</span>
+								{#if mission.audioOnly && !answered}<span class="ja">{i + 1}</span>{:else}<span class="ja">{mission.audioOnly ? `${i + 1}. ` : ''}{o.ja}</span>{/if}
 								{#if answered}<span class="tr">{o.it}</span>{/if}
 							</button>
 						{/each}
@@ -543,11 +597,11 @@
 					</div>
 					{#if r}
 						{#if qReady && qPicked === null}<div class="timer"><i style="width:{(qLeft / (mission.seconds * 10)) * 100}%"></i></div>{/if}
-						<button class="btn ghost small" onclick={() => playLines([r.line])} disabled={qPicked !== null}>🔊 Ripeti</button>
+						<button class="btn ghost small" onclick={() => playLines(quickAudio(r))} disabled={qPicked !== null}>🔊 Ripeti</button>
 						<div class="options">
 							{#each r.options as o, i (o.ja)}
 								<button class="opt" class:right={qPicked !== null && i === r.answer} class:wrong={qPicked === i && i !== r.answer} disabled={qPicked !== null || !qReady} onclick={() => quickAnswer(i)}>
-									<span class="ja">{o.ja}</span>
+									{#if r.audioOnly && qPicked === null}<span class="ja">{i + 1}</span>{:else}<span class="ja">{o.ja}</span>{/if}
 									{#if qPicked !== null}<span class="tr">{o.it}</span>{/if}
 								</button>
 							{/each}
@@ -566,6 +620,7 @@
 					{#if mission.kind === 'choice' && !lastOk}
 						<p class="ja">✅ {mission.options[mission.answer]!.ja} <span class="tr">{mission.options[mission.answer]!.it}</span></p>
 					{/if}
+					{#if mission.kind === 'choice' && mission.spiega}<p class="tr">💡 {mission.spiega}</p>{/if}
 					{#if mission.kind === 'choice' && mission.doc}
 						<pre class="tr">{mission.doc.it}</pre>
 					{/if}
@@ -587,6 +642,7 @@
 			<section class="panel summary">
 				<h2>🌙 Fine della giornata — voto <span class="grade g{grade}">{grade}</span></h2>
 				<p>Tornato a casa alle {hhmm(clock)}. ⭐ {rep} · ⚡ {Math.round(energy)} · ¥{money}</p>
+				{#if day && day.fromBank}<p class="muted">📚 Domande d'esame oggi: {day.fromBank} ({day.newToday} nuove) · consolidate in tutto {consolidated}/{bank.length}</p>{/if}
 				<div class="skills">
 					{#each bySkill as [k, v] (k)}<span class="chip">{k} {v.ok}/{v.tot}</span>{/each}
 				</div>
@@ -695,6 +751,7 @@
 	.skill { background: #fbf236; color: #222034; padding: 1px 6px; font-size: 0.8rem; border: 2px solid var(--px-line); }
 	.intro-it { margin: 0; font-size: 0.88rem; color: #cbdbfc; }
 	.late { margin: 0; color: #fbf236; }
+	.scena { margin: 0; font-size: 0.85rem; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 6px 8px; }
 	.speaker { display: flex; align-items: center; gap: 8px; }
 	.face { width: 48px; height: 48px; image-rendering: pixelated; border: 2px solid var(--px-line); background: #cbdbfc; }
 	.dots { font-size: 1.4rem; animation: blink 0.8s steps(2) infinite; }

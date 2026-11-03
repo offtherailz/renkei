@@ -7,6 +7,8 @@
 // Testi giapponesi ORIGINALI, scritti a slot. Solo kanji N5/N4 (kanjiN4.ts):
 // le parole con kanji sopra livello sono in kana (しんごう, ゆうびんきょく…).
 
+import type { CourseGiornoInput } from '$lib/types/models';
+
 export type Rng = () => number;
 export type Who = 'N' | 'F' | 'M'; // narratore, donna, uomo
 
@@ -291,7 +293,12 @@ export interface Option {
 // scelta generica: priorità, motivo, frase da dire, avviso da eseguire, cartello
 export interface ChoiceMission {
 	kind: 'choice';
-	sub: 'priority' | 'reason' | 'rpg' | 'read' | 'sign';
+	sub: 'priority' | 'reason' | 'rpg' | 'read' | 'sign' | 'kadai' | 'point' | 'hatsuwa' | 'dokkai';
+	sourceId?: string; // domanda della banca (file corso): conta per il ripasso
+	scena?: string; // il disegno del foglio d'esame, descritto
+	audioOnly?: boolean; // 発話表現: le scelte si sentono soltanto (testo dopo)
+	optionVoice?: Who;
+	spiega?: string;
 	title: string;
 	intro: string; // contesto in italiano
 	lines: Line[]; // audio (può essere vuoto: lettura)
@@ -336,6 +343,8 @@ export interface CalendarMission {
 }
 
 export interface QuickRound {
+	sourceId?: string;
+	audioOnly?: boolean;
 	line: Line;
 	options: Option[];
 	answer: number;
@@ -362,7 +371,10 @@ export type Mission = ChoiceMission | ShopMission | CalendarMission | QuickMissi
 export const SKILL_OF = (m: Mission): string => {
 	if (m.kind === 'route' || m.kind === 'shop' || m.kind === 'calendar') return '課題理解';
 	if (m.kind === 'quick') return '即時応答';
-	return { priority: '課題理解', reason: 'ポイント理解', rpg: '発話表現', read: '読解', sign: '文字' }[m.sub];
+	return {
+		priority: '課題理解', reason: 'ポイント理解', rpg: '発話表現', read: '読解', sign: '文字',
+		kadai: '課題理解', point: 'ポイント理解', hatsuwa: '発話表現', dokkai: '読解'
+	}[m.sub];
 };
 
 // ── 文字: cartelli ──────────────────────────────────────────────────────────
@@ -699,6 +711,89 @@ export function routeMission(rng: Rng, town: Building[], target: PlaceId): Route
 	};
 }
 
+// ── Banca di domande d'esame (file corso) e ripasso progressivo ─────────────
+// Le domande vere tornano finché non sono consolidate (2 risposte giuste di
+// fila, in giornate diverse); le nuove entrano poche per giornata; quando un
+// tipo è tutto consolidato si gioca con le varianti generate.
+export type BankItem = CourseGiornoInput;
+export type BankTipo = BankItem['tipo'];
+export interface ItemProgress {
+	streak: number; // risposte giuste di fila
+	seen: number;
+	last: number; // numero della giornata in cui è uscita l'ultima volta
+}
+export type Progress = Record<string, ItemProgress>;
+export const CONSOLIDATED = 2;
+export const NEW_PER_DAY = 2;
+
+export function recordResult(prog: Progress, id: string, ok: boolean, dayNo: number): Progress {
+	const p = prog[id] ?? { streak: 0, seen: 0, last: -1 };
+	return { ...prog, [id]: { streak: ok ? p.streak + 1 : 0, seen: p.seen + 1, last: dayNo } };
+}
+
+export function pickBank(
+	bank: BankItem[], tipo: BankTipo, n: number, prog: Progress, dayNo: number, used: Set<string>, newBudget: { left: number }
+): BankItem[] {
+	const pool = bank.filter((b) => b.tipo === tipo && !used.has(b.id));
+	const st = (b: BankItem) => prog[b.id];
+	const due = pool
+		.filter((b) => st(b) && st(b)!.streak < CONSOLIDATED && st(b)!.last < dayNo)
+		.sort((a, b) => st(a)!.streak - st(b)!.streak || st(a)!.last - st(b)!.last);
+	const fresh = pool.filter((b) => !st(b));
+	const review = pool
+		.filter((b) => st(b) && st(b)!.streak >= CONSOLIDATED && st(b)!.last <= dayNo - 4)
+		.sort((a, b) => st(a)!.last - st(b)!.last);
+	const out: BankItem[] = [...due.slice(0, n)];
+	while (out.length < n && fresh.length && newBudget.left > 0) {
+		out.push(fresh.shift()!);
+		newBudget.left -= 1;
+	}
+	for (const r of review) if (out.length < n) out.push(r);
+	for (const b of out) used.add(b.id);
+	return out;
+}
+
+const NUM_READ = ['いち', 'に', 'さん', 'よん'];
+export const numbered = (i: number, ja: string): string => `${NUM_READ[i]}、${ja}`;
+
+export function bankMission(b: BankItem): ChoiceMission {
+	const sub = b.tipo === 'sokuji' ? 'hatsuwa' : b.tipo;
+	const voice = b.voce ?? b.righe.find((r) => r.who !== 'N')?.who ?? 'F';
+	const titles: Record<BankTipo, string> = {
+		kadai: '📝 Cosa si fa?', point: '🤔 Il punto', hatsuwa: '💬 Cosa dici?', sokuji: '⚡ Rispondi', dokkai: '📖 Da leggere'
+	};
+	return {
+		kind: 'choice',
+		sub,
+		sourceId: b.id,
+		title: b.titolo ?? titles[b.tipo],
+		intro: b.intro ?? '',
+		scena: b.scena,
+		lines: b.righe,
+		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it },
+		question: b.domanda,
+		options: b.opzioni,
+		answer: b.risposta,
+		optionsFirst: b.tipo === 'point' || b.tipo === 'dokkai',
+		audioOnly: b.tipo === 'hatsuwa',
+		optionVoice: voice,
+		spiega: b.spiega
+	};
+}
+
+export function bankQuick(items: BankItem[], rng: Rng): QuickMission {
+	return {
+		kind: 'quick',
+		title: '⚡ Botta e risposta (esame)',
+		intro: 'Come all’esame: senti una frase e tre risposte, solo a voce. Scegli il numero.',
+		seconds: 8,
+		rounds: items.map((b) => {
+			const line = b.righe[0]!;
+			return { sourceId: b.id, audioOnly: true, line, options: b.opzioni, answer: b.risposta };
+		}).sort(() => rng() - 0.5)
+	};
+}
+
 // ── La giornata ─────────────────────────────────────────────────────────────
 export interface Step {
 	place: PlaceId | 'eki';
@@ -713,26 +808,50 @@ export interface Day {
 	seed: number;
 	town: Building[];
 	steps: Step[];
+	fromBank: number;
+	newToday: number;
 }
 
-export function buildDay(seed: number): Day {
+export interface DayContext {
+	bank: BankItem[];
+	prog: Progress;
+	dayNo: number;
+}
+
+const isPlace = (p: string | undefined): p is PlaceId | 'eki' => !!p && (p === 'eki' || p in PLACES);
+
+export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, dayNo: 0 }): Day {
 	const rng = seeded(seed);
 	const town = buildTown(rng);
 	const errand = pick(rng, ['yuubin', 'ginkou', 'kusuri', 'honya', 'toshokan'] as PlaceId[]);
+	const used = new Set<string>();
+	const budget = { left: NEW_PER_DAY * 3 };
+	let fromBank = 0;
+	// una domanda della banca se c'è (con il suo luogo), altrimenti la variante generata
+	const slot = (tipo: BankTipo, place: PlaceId | 'eki', make: () => Mission): { place: PlaceId | 'eki'; mission: Mission } => {
+		const [b] = pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget);
+		if (!b) return { place, mission: make() };
+		fromBank += 1;
+		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b) };
+	};
+	const quickItems = pickBank(ctx.bank, 'sokuji', 6, ctx.prog, ctx.dayNo, used, budget);
+	fromBank += quickItems.length;
+	const quick = quickItems.length >= 3 ? bankQuick(quickItems, rng) : quickMission(rng);
 	const steps: Step[] = [
 		{ place: 'eki', time: 8 * 60, mission: signMission(rng), cost: 5 },
 		{ place: 'kaisha', time: 8 * 60 + 10, deadline: 9 * 60, mission: routeMission(rng, town, 'kaisha'), cost: 0 },
-		{ place: 'kaisha', time: 9 * 60, mission: priorityMission(rng), cost: 60 },
-		{ place: 'kaisha', time: 10 * 60, mission: calendarMission(rng), cost: 45 },
-		{ place: 'kaisha', time: 11 * 60, mission: readMission(rng), cost: 40 },
-		{ place: 'resutoran', time: 12 * 60, mission: rpgMission(rng, 6), cost: 50, lunch: true },
+		{ ...slot('kadai', 'kaisha', () => priorityMission(rng)), time: 9 * 60, cost: 50 },
+		{ ...slot('kadai', 'kaisha', () => calendarMission(rng)), time: 10 * 60, cost: 40 },
+		{ ...slot('dokkai', 'kaisha', () => readMission(rng)), time: 11 * 60, cost: 40 },
+		{ ...slot('hatsuwa', 'resutoran', () => rpgMission(rng, 6)), time: 12 * 60, cost: 50, lunch: true },
 		{ place: errand, time: 13 * 60 + 30, mission: routeMission(rng, town, errand), cost: 0 },
-		{ place: errand, time: 14 * 60, mission: reasonMission(rng), cost: 30 },
-		{ place: 'kaisha', time: 15 * 60, mission: rpgMission(rng), cost: 120 },
-		{ place: 'konbini', time: 18 * 60, mission: shopMission(rng), cost: 15 },
-		{ place: 'eki', time: 18 * 60 + 30, mission: quickMission(rng), cost: 20 }
+		{ ...slot('point', errand, () => reasonMission(rng)), time: 14 * 60, cost: 30 },
+		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 15 * 60, cost: 40 },
+		{ ...slot('hatsuwa', 'kaisha', () => rpgMission(rng)), time: 16 * 60, cost: 60 },
+		{ ...slot('kadai', 'konbini', () => shopMission(rng)), time: 18 * 60, cost: 15 },
+		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
-	return { seed, town, steps };
+	return { seed, town, steps, fromBank, newToday: NEW_PER_DAY * 3 - budget.left };
 }
 
 // Tutti i testi giapponesi di una missione (per i test sul livello dei kanji)

@@ -15,7 +15,12 @@ const ITERAZIONI = 600_000;
 const enc = new TextEncoder();
 const dec = new TextDecoder();
 
-const toB64 = (b: Uint8Array): string => btoa(String.fromCharCode(...b));
+// a pezzi: lo spread di un file grande (centinaia di KB) sfonda lo stack
+const toB64 = (b: Uint8Array): string => {
+	let s = '';
+	for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000));
+	return btoa(s);
+};
 const fromB64 = (s: string): Uint8Array<ArrayBuffer> => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 
 async function deriveKey(password: string, sale: Uint8Array<ArrayBuffer>, iterazioni: number): Promise<CryptoKey> {
