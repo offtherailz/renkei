@@ -12,6 +12,8 @@
 	import { decryptCourse } from '$lib/core/courseCrypto';
 	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
+	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
+	import { artFor, artSrc } from '$lib/game/sceneArt';
 
 	// ── banca di domande d'esame (file corso) e progressi del ripasso ──
 	let bank = $state<BankItem[]>([]);
@@ -492,6 +494,28 @@
 		return { x: b.x + (door.x > b.x ? 1 : 0), y: b.y };
 	}
 
+	// ── scena PC-98: disegno del luogo (bocca animata) o sfondo in codice ──
+	const sceneTalker = $derived<'F' | 'M' | null>(
+		speaking === 'F' || speaking === 'M'
+			? speaking
+			: ((mission && 'lines' in mission ? mission.lines.find((l) => l.who !== 'N')?.who : null) as 'F' | 'M' | null) ?? null
+	);
+	const art = $derived(step ? artFor(step.place, sceneTalker) : null);
+	const mouthOpen = $derived((speaking === 'F' || speaking === 'M') && artFor(step?.place ?? 'eki', speaking)?.who === speaking && tick % 4 < 2);
+	// precarica le due versioni: senza, al primo cambio di bocca l'immagine sparisce un attimo
+	$effect(() => {
+		if (!art) return;
+		for (const t of [false, true]) new Image().src = artSrc(base, art, t);
+	});
+	function sceneBg(node: HTMLCanvasElement, p: { place: PlaceId | 'eki'; hour: number }) {
+		const draw = (q: typeof p) => {
+			const c = node.getContext('2d');
+			if (c) drawScene(c, q);
+		};
+		draw(p);
+		return { update: draw };
+	}
+
 	function faceAction(node: HTMLCanvasElement, who: Who) {
 		const draw = (w: Who) => {
 			const c = node.getContext('2d');
@@ -607,10 +631,20 @@
 					<span class="skill">{SKILL_OF(mission)}</span>
 				</header>
 				{#if lateNote}<p class="late">{lateNote}</p>{/if}
-				<p class="intro-it">{mission.intro}</p>
-				{#if speaking}
-					<div class="speaker"><canvas class="face" width="16" height="16" use:faceAction={speaking}></canvas><span class="dots">…</span></div>
-				{/if}
+				<div class="scene-wrap">
+					{#if art}
+						<img class="scene" src={artSrc(base, art, mouthOpen)} alt="" />
+					{:else}
+						<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
+					{/if}
+				</div>
+				<div class="dialog">
+					{#if speaking}
+						<p><span class="dname">{speaking === 'N' ? 'アナウンス' : speaking === 'F' ? '女の人' : '男の人'}</span>「……」</p>
+					{:else}
+						<p>{mission.intro}</p>
+					{/if}
+				</div>
 
 				{#if mission.kind === 'route'}
 					<div class="row">
@@ -844,6 +878,20 @@
 	.skill { background: #fbf236; color: #222034; padding: 1px 6px; font-size: 0.8rem; border: 2px solid var(--px-line); }
 	.intro-it { margin: 0; font-size: 0.88rem; color: #cbdbfc; }
 	.late { margin: 0; color: #fbf236; }
+	.scene-wrap { border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; }
+	.scene { width: 100%; height: auto; aspect-ratio: 377 / 190; object-fit: cover; image-rendering: pixelated; display: block; }
+	.dialog {
+		background: #05050a;
+		border: 3px solid #f4f4f4;
+		outline: 3px solid #0e0d1a;
+		box-shadow: inset 0 0 0 2px #05050a, inset 0 0 0 3px #9badb7;
+		margin: 3px;
+		padding: 10px 14px;
+		color: #f4f4f4;
+		min-height: 3.2em;
+	}
+	.dialog p { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+	.dname { color: #fbf236; margin-right: 4px; }
 	.scena { margin: 0; font-size: 0.85rem; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 6px 8px; }
 	.speaker { display: flex; align-items: center; gap: 8px; }
 	.face { width: 48px; height: 48px; image-rendering: pixelated; border: 2px solid var(--px-line); background: #cbdbfc; }
