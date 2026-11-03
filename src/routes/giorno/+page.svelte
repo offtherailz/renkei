@@ -5,7 +5,7 @@
 	import { voiceParams } from '$lib/core/voices';
 	import { isInLevel } from '$lib/data/kanjiN4';
 	import {
-		buildDay, buildingAtDoor, buildingOf, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
+		buildDay, buildingAtDoor, buildingOf, drillSpoken, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
 		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Who
 	} from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
@@ -154,7 +154,7 @@
 		hush();
 		if (mission.kind === 'choice') noteResult(mission.sourceId, ok);
 		log = [...log, { title: mission.title, skill: SKILL_OF(mission), ok, note }];
-		if (mission.kind !== 'quick') {
+		if (mission.kind !== 'quick' && mission.kind !== 'drill') {
 			rep = Math.max(0, Math.min(100, rep + (ok ? 6 : -6)));
 			if (!ok) energy = Math.max(0, energy - 6);
 		}
@@ -204,6 +204,8 @@
 		if (mission.kind === 'quick') {
 			qRound = 0; qCombo = 0; qBest = 0; qScore = 0; qPicked = null;
 			void runQuickRound();
+		} else if (mission.kind === 'drill') {
+			dRound = 0; dScore = 0; dPicked = null;
 		} else if (mission.kind !== 'choice' || !mission.optionsFirst) {
 			if ('lines' in mission && mission.lines.length) {
 				replays = 1;
@@ -363,6 +365,35 @@
 		qRound += 1;
 		void runQuickRound();
 	}
+
+	// ── 📝 ripasso: domande scritte una dopo l'altra ──
+	let dRound = $state(0);
+	let dScore = $state(0);
+	let dPicked = $state<number | null>(null);
+	function drillAnswer(i: number): void {
+		if (!mission || mission.kind !== 'drill' || dPicked !== null) return;
+		const r = mission.rounds[dRound]!;
+		dPicked = i;
+		const ok = i === r.answer;
+		if (ok) dScore += 1;
+		rep = Math.max(0, Math.min(100, rep + (ok ? 1 : -1)));
+		noteResult(r.sourceId, ok);
+		void playLines([{ who: 'N', ja: drillSpoken(r), it: '' }]);
+	}
+	function drillNext(): void {
+		if (!mission || mission.kind !== 'drill') return;
+		if (dRound + 1 >= mission.rounds.length) {
+			hush();
+			const n = mission.rounds.length;
+			energy = Math.max(0, energy - (n - dScore) * 2);
+			finishStep(dScore >= n - 1, `${dScore}/${n}`);
+			return;
+		}
+		dRound += 1;
+		dPicked = null;
+	}
+	// 【parola】 sottolineata
+	const drillParts = (f: string) => f.split(/(【[^】]*】)/).map((p) => ({ u: p.startsWith('【'), t: p.replace(/[【】]/g, '') }));
 
 	// ── record ──
 	let best = $state<{ rep: number; days: number } | null>(null);
@@ -615,7 +646,30 @@
 					{/if}
 				{/if}
 
-				{#if answered && mission.kind !== 'route' && mission.kind !== 'quick'}
+				{#if mission.kind === 'drill'}
+					{@const r = mission.rounds[dRound]}
+					{#if r}
+						<div class="quick-head"><span>{dRound + 1}/{mission.rounds.length}</span><span>✓ {dScore}</span></div>
+						{#if r.label}<p class="intro-it ja">{r.label}</p>{/if}
+						<p class="question ja drill">{#each drillParts(r.frase) as p, k (k)}{#if p.u}<u>{p.t}</u>{:else}{p.t}{/if}{/each}</p>
+						<div class="options">
+							{#each r.options as o, i (i)}
+								<button class="opt" class:right={dPicked !== null && i === r.answer} class:wrong={dPicked === i && i !== r.answer} disabled={dPicked !== null} onclick={() => drillAnswer(i)}>
+									<span class="ja">{i + 1}. {o.ja}</span>
+									{#if dPicked !== null && o.it}<span class="tr">{o.it}</span>{/if}
+								</button>
+							{/each}
+						</div>
+						{#if dPicked !== null}
+							<p class="result {dPicked === r.answer ? 'ok' : 'ko'}">{dPicked === r.answer ? '✓ Giusto!' : `✗ Era la ${r.answer + 1}: ${r.options[r.answer]!.ja}`}</p>
+							{#if r.it}<p class="tr">💬 {r.it}</p>{/if}
+							{#if r.spiega}<p class="tr">💡 {r.spiega}</p>{/if}
+							<button class="btn" onclick={drillNext}>{dRound + 1 >= mission.rounds.length ? 'Fine' : 'Avanti →'}</button>
+						{/if}
+					{/if}
+				{/if}
+
+				{#if answered && mission.kind !== 'route' && mission.kind !== 'quick' && mission.kind !== 'drill'}
 					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need.includes(s.id)).map((s) => s.it).join(', ') : ''}{mission.kind === 'calendar' && !lastOk ? ` Era il ${mission.answer}.` : ''}</p>
 					{#if mission.kind === 'choice' && !lastOk}
 						<p class="ja">✅ {mission.options[mission.answer]!.ja} <span class="tr">{mission.options[mission.answer]!.it}</span></p>
@@ -797,6 +851,8 @@
 	.timer { height: 10px; border: 2px solid var(--px-line); background: #45283c; }
 	.timer i { display: block; height: 100%; background: #fbf236; }
 	.result { margin: 0; font-weight: 700; }
+	.drill { line-height: 1.7; }
+	.drill u { text-decoration-thickness: 2px; text-underline-offset: 4px; }
 	.result.ok { color: var(--px-ok); }
 	.result.ko { color: var(--px-ko); }
 	.script summary { cursor: pointer; }

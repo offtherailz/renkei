@@ -175,3 +175,19 @@ describe('banca e ripasso progressivo', () => {
 		expect(new Set(ids).size).toBe(ids.length);
 	});
 });
+
+describe('ripasso delle domande scritte', () => {
+	it('le domande moji/goi/bunpou diventano pause di ripasso; la frase letta ha il vuoto riempito', async () => {
+		const { drillSpoken } = await import('./giorno');
+		const w = (id: string, tipo: 'moji' | 'bunpou', ja: string) => ({
+			id, tipo, righe: [], domanda: { ja, it: '' }, opzioni: [{ ja: 'を', it: '' }, { ja: 'が', it: '' }, { ja: 'へ', it: '' }, { ja: 'に', it: '' }], risposta: 0
+		});
+		const bank = [w('m1', 'moji', '【料理】が すきです。'), w('b1', 'bunpou', '会社（　）休みました。')];
+		const d = buildDay(9, { bank, prog: {}, dayNo: 0 });
+		const drills = d.steps.filter((s) => s.mission.kind === 'drill');
+		expect(drills.length).toBeGreaterThan(0);
+		expect(d.steps[0]!.mission.kind).toBe('drill');
+		const lunch = drills.find((s) => s.mission.kind === 'drill' && s.mission.rounds.some((r) => r.sourceId === 'b1'))!;
+		expect(lunch.mission.kind === 'drill' && drillSpoken(lunch.mission.rounds[0]!)).toBe('会社を休みました。');
+	});
+});

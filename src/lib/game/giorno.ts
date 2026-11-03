@@ -365,12 +365,30 @@ export interface RouteMission {
 	plan: RoutePlan;
 }
 
-export type Mission = ChoiceMission | ShopMission | CalendarMission | QuickMission | RouteMission;
+// 📝 Ripasso in pausa: domande scritte d'esame (文字・語彙・文法), una dopo l'altra
+export interface DrillRound {
+	sourceId: string;
+	label: string; // istruzione del tipo di domanda
+	frase: string; // con 【parola】 sottolineata o （　） da riempire
+	it: string;
+	options: Option[];
+	answer: number;
+	spiega?: string;
+}
+export interface DrillMission {
+	kind: 'drill';
+	title: string;
+	intro: string;
+	rounds: DrillRound[];
+}
+
+export type Mission = ChoiceMission | ShopMission | CalendarMission | QuickMission | RouteMission | DrillMission;
 
 // Cosa allena ogni missione (per il riepilogo): i tipi del 聴解/読解 N4
 export const SKILL_OF = (m: Mission): string => {
 	if (m.kind === 'route' || m.kind === 'shop' || m.kind === 'calendar') return '課題理解';
 	if (m.kind === 'quick') return '即時応答';
+	if (m.kind === 'drill') return '文字・語彙・文法';
 	return {
 		priority: '課題理解', reason: 'ポイント理解', rpg: '発話表現', read: '読解', sign: '文字',
 		kadai: '課題理解', point: 'ポイント理解', hatsuwa: '発話表現', dokkai: '読解'
@@ -757,10 +775,12 @@ const NUM_READ = ['いち', 'に', 'さん', 'よん'];
 export const numbered = (i: number, ja: string): string => `${NUM_READ[i]}、${ja}`;
 
 export function bankMission(b: BankItem): ChoiceMission {
-	const sub = b.tipo === 'sokuji' ? 'hatsuwa' : b.tipo;
+	// le scritte (moji/goi/bunpou) vanno nei ripassi (bankDrill); qui per sicurezza come lettura
+	const sub = b.tipo === 'sokuji' ? 'hatsuwa' : b.tipo === 'moji' || b.tipo === 'goi' || b.tipo === 'bunpou' ? 'dokkai' : b.tipo;
 	const voice = b.voce ?? b.righe.find((r) => r.who !== 'N')?.who ?? 'F';
 	const titles: Record<BankTipo, string> = {
-		kadai: '📝 Cosa si fa?', point: '🤔 Il punto', hatsuwa: '💬 Cosa dici?', sokuji: '⚡ Rispondi', dokkai: '📖 Da leggere'
+		kadai: '📝 Cosa si fa?', point: '🤔 Il punto', hatsuwa: '💬 Cosa dici?', sokuji: '⚡ Rispondi', dokkai: '📖 Da leggere',
+		moji: '🈁 Kanji', goi: '📚 Parole', bunpou: '🧩 Grammatica'
 	};
 	return {
 		kind: 'choice',
@@ -779,6 +799,24 @@ export function bankMission(b: BankItem): ChoiceMission {
 		optionVoice: voice,
 		spiega: b.spiega
 	};
+}
+
+export function bankDrill(items: BankItem[], title: string, intro: string): DrillMission {
+	return {
+		kind: 'drill',
+		title,
+		intro,
+		rounds: items.map((b) => ({
+			sourceId: b.id, label: b.titolo ?? '', frase: b.domanda.ja, it: b.domanda.it,
+			options: b.opzioni, answer: b.risposta, spiega: b.spiega
+		}))
+	};
+}
+
+// Frase da leggere a voce dopo la risposta: sottolineatura tolta, vuoto riempito
+export function drillSpoken(r: DrillRound): string {
+	const right = r.options[r.answer]!.ja;
+	return r.frase.replace(/[【】]/g, '').replace(/[（(]\s*[　 ]*\s*[)）]/, right).replace(/★/g, '');
 }
 
 export function bankQuick(items: BankItem[], rng: Rng): QuickMission {
@@ -834,6 +872,16 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		fromBank += 1;
 		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b) };
 	};
+	// pause di ripasso: domande scritte, con un budget di nuove a parte
+	const drillBudget = { left: 8 };
+	const drill = (tipi: BankTipo[], title: string, intro: string): DrillMission | null => {
+		const items = tipi.flatMap((t) => pickBank(ctx.bank, t, 5, ctx.prog, ctx.dayNo, used, drillBudget)).slice(0, 5);
+		fromBank += items.length;
+		return items.length ? bankDrill(items, title, intro) : null;
+	};
+	const morning = drill(['moji', 'goi'], '🚃 In treno: kanji e parole', 'Sul treno verso il centro ripassi un po’ di vocabolario, come nel 文字・語彙 dell’esame.');
+	const lunch = drill(['bunpou'], '🍵 Pausa pranzo: grammatica', 'Aspettando il pranzo: qualche domanda di grammatica, come all’esame.');
+	const evening = drill(['goi', 'bunpou', 'moji'], '🚃 Sul treno del ritorno', 'Ultimo ripasso della giornata.');
 	const quickItems = pickBank(ctx.bank, 'sokuji', 6, ctx.prog, ctx.dayNo, used, budget);
 	fromBank += quickItems.length;
 	const quick = quickItems.length >= 3 ? bankQuick(quickItems, rng) : quickMission(rng);
@@ -851,6 +899,9 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		{ ...slot('kadai', 'konbini', () => shopMission(rng)), time: 18 * 60, cost: 15 },
 		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
+	if (morning) steps.unshift({ place: 'eki', time: 7 * 60 + 40, mission: morning, cost: 15 });
+	if (lunch) steps.splice(steps.findIndex((s) => s.lunch), 0, { place: 'resutoran', time: 12 * 60, mission: lunch, cost: 10 });
+	if (evening) steps.push({ place: 'eki', time: 19 * 60, mission: evening, cost: 20 });
 	return { seed, town, steps, fromBank, newToday: NEW_PER_DAY * 3 - budget.left };
 }
 
@@ -866,6 +917,7 @@ export function japaneseOf(m: Mission): string[] {
 	if (m.kind === 'shop') out.push(...m.shelf.map((s) => s.ja));
 	if (m.kind === 'calendar') out.push(m.question.ja);
 	if (m.kind === 'quick') for (const r of m.rounds) out.push(r.line.ja, ...r.options.map((o) => o.ja));
+	if (m.kind === 'drill') for (const r of m.rounds) out.push(r.frase, ...r.options.map((o) => o.ja));
 	return out;
 }
 

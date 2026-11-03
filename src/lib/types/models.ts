@@ -408,7 +408,9 @@ export interface CourseDatasetInput {
 export interface CourseGiornoInput {
   id: string;
   fonte?: string;
-  tipo: 'kadai' | 'point' | 'hatsuwa' | 'sokuji' | 'dokkai';
+  // moji/goi/bunpou: domande scritte (文字・語彙・文法), giocate come ripasso in pausa;
+  // la parola chiesta va tra 【】 in domanda.ja, lo spazio vuoto è （　）
+  tipo: 'kadai' | 'point' | 'hatsuwa' | 'sokuji' | 'dokkai' | 'moji' | 'goi' | 'bunpou';
   luogo?: string;
   titolo?: string;
   intro?: string; // contesto in italiano
