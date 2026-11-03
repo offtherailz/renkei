@@ -5,7 +5,7 @@
 	import { voiceParams } from '$lib/core/voices';
 	import { isInLevel } from '$lib/data/kanjiN4';
 	import {
-		buildDay, buildingAtDoor, buildingOf, drillSpoken, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
+		buildDay, buildingAtDoor, buildingOf, countJa, drillSpoken, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
 		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Who
 	} from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
@@ -95,7 +95,7 @@
 	let lastOk = $state(false);
 	let replays = $state(0);
 	let speaking = $state<Who | null>(null);
-	let basket = $state<string[]>([]);
+	let basket = $state<Record<string, number>>({});
 	let calPick = $state<number | null>(null);
 	let qRound = $state(0);
 	let qCombo = $state(0);
@@ -127,7 +127,9 @@
 	function voiceFor(who: Who): SpeakOptions {
 		if (who === 'M') return voiceParams('maschile');
 		const f = voiceParams('femminile');
-		return who === 'N' ? { ...f, pitch: (f.pitch ?? 1) + 0.3, rate: 0.92 } : f;
+		// annunci: stessa voce femminile, appena più lenta. Alzare il pitch la rendeva
+		// «soffocata» sulle voci di sistema
+		return who === 'N' ? { ...f, pitch: 1, rate: 0.95 } : f;
 	}
 	async function playLines(lines: Line[]): Promise<void> {
 		const tok = ++speakToken;
@@ -219,7 +221,7 @@
 		answered = false;
 		chosen = null;
 		replays = 0;
-		basket = [];
+		basket = {};
 		calPick = null;
 		lateNote = '';
 		clock = Math.max(clock, step.time);
@@ -321,17 +323,24 @@
 	const other = (w: Who): Who => (w === 'M' ? 'F' : 'M');
 	function toggleItem(id: string): void {
 		if (answered) return;
-		basket = basket.includes(id) ? basket.filter((x) => x !== id) : [...basket, id];
+		// ogni tocco aggiunge uno, dopo 4 si torna a zero
+		const n = ((basket[id] ?? 0) + 1) % 5;
+		const next = { ...basket };
+		if (n) next[id] = n;
+		else delete next[id];
+		basket = next;
 	}
-	const basketTotal = $derived(mission?.kind === 'shop' ? mission.shelf.filter((s) => basket.includes(s.id)).reduce((t, s) => t + s.price, 0) : 0);
+	const basketTotal = $derived(mission?.kind === 'shop' ? mission.shelf.reduce((t, s) => t + s.price * (basket[s.id] ?? 0), 0) : 0);
+	const basketCount = $derived(Object.values(basket).reduce((t, n) => t + n, 0));
 	function pay(): void {
 		if (!mission || mission.kind !== 'shop' || answered) return;
 		hush();
 		answered = true;
 		money -= basketTotal;
-		const names = mission.shelf.filter((x) => basket.includes(x.id)).map((x) => x.ja);
+		const names = mission.shelf.filter((x) => basket[x.id]).map((x) => `${x.ja}を ${countJa(x, basket[x.id]!)}`);
 		void playLines([{ who: 'N', ja: `${names.join('と ')}を ください。`, it: '' }]);
-		lastOk = basket.length === mission.need.length && mission.need.every((id) => basket.includes(id));
+		const ids = new Set([...Object.keys(basket), ...Object.keys(mission.need)]);
+		lastOk = [...ids].every((id) => (basket[id] ?? 0) === (mission.need[id] ?? 0));
 	}
 	function pickDay(d: number): void {
 		if (!mission || mission.kind !== 'calendar' || answered) return;
@@ -632,13 +641,14 @@
 					<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 {replays === 0 ? 'Ascolta la telefonata' : 'Riascolta (−2 min)'}</button>
 					<div class="shelf">
 						{#each mission.shelf as it (it.id)}
-							<button class="item" class:inbasket={basket.includes(it.id)} class:right={answered && mission.need.includes(it.id)} class:wrong={answered && basket.includes(it.id) && !mission.need.includes(it.id)} disabled={answered} onclick={() => toggleItem(it.id)}>
+							<button class="item" class:inbasket={!!basket[it.id]} class:right={answered && !!mission.need[it.id] && basket[it.id] === mission.need[it.id]} class:wrong={answered && (basket[it.id] ?? 0) !== (mission.need[it.id] ?? 0)} disabled={answered} onclick={() => toggleItem(it.id)}>
 								<span class="ico">{it.icon}</span><span class="ja">{it.ja}</span><span class="price">¥{it.price}</span>
-								{#if answered}<span class="tr">{it.it}</span>{/if}
+								{#if basket[it.id]}<span class="qty">×{basket[it.id]}</span>{/if}
+								{#if answered}<span class="tr">{it.it}{mission.need[it.id] ? ` · serviva ×${mission.need[it.id]}` : ''}</span>{/if}
 							</button>
 						{/each}
 					</div>
-					{#if !answered}<button class="btn" onclick={pay} disabled={basket.length === 0}>🧺 Paga ¥{basketTotal}</button>{/if}
+					{#if !answered}<button class="btn" onclick={pay} disabled={basketCount === 0}>🧺 Paga ¥{basketTotal}</button>{/if}
 				{:else if mission.kind === 'calendar'}
 					<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					<p class="question ja">{mission.question.ja}</p>
@@ -698,7 +708,7 @@
 				{/if}
 
 				{#if answered && mission.kind !== 'route' && mission.kind !== 'quick' && mission.kind !== 'drill'}
-					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need.includes(s.id)).map((s) => s.it).join(', ') : ''}{mission.kind === 'calendar' && !lastOk ? ` Era il ${mission.answer}.` : ''}</p>
+					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need[s.id]).map((s) => `${mission.need[s.id]} ${s.it}`).join(', ') : ''}{mission.kind === 'calendar' && !lastOk ? ` Era il ${mission.answer}.` : ''}</p>
 					{#if mission.kind === 'choice' && !lastOk}
 						<p class="ja">✅ {mission.options[mission.answer]!.ja} <span class="tr">{mission.options[mission.answer]!.it}</span></p>
 					{/if}
@@ -867,6 +877,7 @@
 	.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
 	.item { flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 6px 4px; }
 	.item.inbasket { background: #fbf236; }
+	.qty { font-weight: 700; font-size: 0.9rem; }
 	.price { font-size: 0.75rem; }
 	.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
 	.wd { text-align: center; font-size: 0.85rem; }

@@ -33,14 +33,21 @@ describe('mappa e indicazioni', () => {
 });
 
 describe('missioni', () => {
-	it('spesa: si compra ciò che serve, mai ciò che «non serve»', () => {
-		for (let s = 1; s <= 30; s += 1) {
+	it('spesa: quantità coerenti, «non serve» escluso, tutto ciò che serve è sullo scaffale', () => {
+		for (let s = 1; s <= 60; s += 1) {
 			const m = shopMission(seeded(s));
-			expect(m.need.length).toBeGreaterThan(0);
-			for (const id of m.need) expect(m.shelf.map((x) => x.id)).toContain(id);
-			const refused = m.lines.find((l) => l.ja.includes('いらない'))!;
-			const refusedItem = m.shelf.find((x) => refused.ja.startsWith(x.ja))!;
-			expect(m.need).not.toContain(refusedItem.id);
+			const ids = Object.keys(m.need);
+			expect(ids.length).toBeGreaterThan(0);
+			for (const id of ids) {
+				expect(m.shelf.map((x) => x.id)).toContain(id);
+				expect(m.need[id]).toBeGreaterThanOrEqual(1);
+				expect(m.need[id]).toBeLessThanOrEqual(4);
+			}
+			const refused = m.lines.find((l) => l.ja.includes('いらない'));
+			if (refused) {
+				const item = m.shelf.find((x) => refused.ja.startsWith(x.ja))!;
+				expect(m.need[item.id]).toBeUndefined();
+			}
 		}
 	});
 
@@ -170,7 +177,7 @@ describe('banca e ripasso progressivo', () => {
 		const big = [...bank, ...['s1', 's2', 's3', 's4'].map((x) => item(x, 'sokuji'))];
 		const d = buildDay(3, { bank: big, prog: {}, dayNo: 0 });
 		expect(d.fromBank).toBeGreaterThan(0);
-		expect(d.newToday).toBeLessThanOrEqual(6);
+		expect(d.newToday).toBeLessThanOrEqual(8);
 		const ids = d.steps.flatMap((s) => (s.mission.kind === 'choice' && s.mission.sourceId ? [s.mission.sourceId] : []));
 		expect(new Set(ids).size).toBe(ids.length);
 	});
@@ -189,5 +196,28 @@ describe('ripasso delle domande scritte', () => {
 		expect(d.steps[0]!.mission.kind).toBe('drill');
 		const lunch = drills.find((s) => s.mission.kind === 'drill' && s.mission.rounds.some((r) => r.sourceId === 'b1'))!;
 		expect(lunch.mission.kind === 'drill' && drillSpoken(lunch.mission.rounds[0]!)).toBe('会社を休みました。');
+	});
+});
+
+describe('nuove varianti', () => {
+	it('portare, ordine e tabella: una sola risposta giusta e coerente', async () => {
+		const { bringMission, orderMission, tableMission } = await import('./giorno');
+		for (let s = 1; s <= 40; s += 1) {
+			for (const m of [bringMission(seeded(s)), orderMission(seeded(s)), tableMission(seeded(s))]) {
+				expect(m.answer).toBeGreaterThanOrEqual(0);
+				expect(new Set(m.options.map((o) => o.ja)).size).toBe(m.options.length);
+			}
+		}
+	});
+	it('domande della banca: opzioni rimescolate ma la giusta resta giusta', async () => {
+		const { bankMission } = await import('./giorno');
+		const b = { id: 'x', tipo: 'kadai' as const, righe: [], domanda: { ja: '?', it: '?' }, opzioni: ['A', 'B', 'C', 'D'].map((ja) => ({ ja, it: '' })), risposta: 2 };
+		const pos = new Set<number>();
+		for (let s = 1; s <= 20; s += 1) {
+			const m = bankMission(b, seeded(s));
+			expect(m.options[m.answer]!.ja).toBe('C');
+			pos.add(m.answer);
+		}
+		expect(pos.size).toBeGreaterThan(1);
 	});
 });

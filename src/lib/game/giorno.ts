@@ -322,8 +322,8 @@ export interface ShopMission {
 	title: string;
 	intro: string;
 	lines: Line[];
-	shelf: ShopItem[];
-	need: string[]; // id da comprare (né più né meno)
+	shelf: ShopItemDef[];
+	need: Record<string, number>; // id → quantità da comprare (né più né meno)
 }
 
 export interface CalDay {
@@ -586,50 +586,202 @@ export function readMission(rng: Rng): ChoiceMission {
 	};
 }
 
-// ── 課題理解: la spesa (trappola いらない / やっぱり) ──────────────────────────
-export const ITEMS: ShopItem[] = [
-	{ id: 'pan', ja: 'パン', it: 'pane', price: 200, icon: '🍞' },
-	{ id: 'gyuunyuu', ja: 'ぎゅうにゅう', it: 'latte', price: 180, icon: '🥛' },
-	{ id: 'tamago', ja: 'たまご', it: 'uova', price: 250, icon: '🥚' },
-	{ id: 'ringo', ja: 'りんご', it: 'mele', price: 300, icon: '🍎' },
-	{ id: 'banana', ja: 'バナナ', it: 'banane', price: 150, icon: '🍌' },
-	{ id: 'ocha', ja: 'お茶', it: 'tè', price: 130, icon: '🍵' },
-	{ id: 'onigiri', ja: 'おにぎり', it: 'onigiri', price: 160, icon: '🍙' },
-	{ id: 'denchi', ja: '電池', it: 'pile', price: 400, icon: '🔋' },
-	{ id: 'nooto', ja: 'ノート', it: 'quaderno', price: 120, icon: '📓' },
-	{ id: 'kasa', ja: 'かさ', it: 'ombrello', price: 500, icon: '☂️' },
-	{ id: 'sakana', ja: '魚', it: 'pesce', price: 450, icon: '🐟' },
-	{ id: 'niku', ja: '肉', it: 'carne', price: 600, icon: '🥩' }
+// ── 課題理解: cosa portare (annuncio dell'insegnante / del capo) ──────────────
+const BRING = [
+	{ ja: '写真', it: 'le foto' }, { ja: 'スリッパ', it: 'le pantofole' }, { ja: 'おべんとう', it: 'il pranzo al sacco' },
+	{ ja: 'じしょ', it: 'il dizionario' }, { ja: 'かさ', it: 'l’ombrello' }, { ja: 'ペン', it: 'la penna' },
+	{ ja: '水', it: 'l’acqua' }, { ja: 'お金', it: 'i soldi' }, { ja: 'ノート', it: 'il quaderno' }, { ja: 'くつ', it: 'le scarpe' }
 ];
-
-export function shopMission(rng: Rng): ShopMission {
-	const [a, b, c, d, e] = shuffled(rng, ITEMS);
-	const variant = Math.floor(rng() * 3);
+const OUTINGS = [
+	{ ja: 'こうじょうの 見学', it: 'la visita alla fabbrica' }, { ja: '山の ハイキング', it: 'l’escursione in montagna' },
+	{ ja: 'びじゅつかんの 見学', it: 'la visita al museo' }, { ja: 'しょうがっこうの こうりゅうかい', it: 'l’incontro con la scuola elementare' }
+];
+export function bringMission(rng: Rng): ChoiceMission {
+	const [a, b, c, d] = shuffled(rng, BRING);
+	const out = pick(rng, OUTINGS);
+	const sp: Who = rng() < 0.5 ? 'M' : 'F';
 	const lines: Line[] = [
-		{ who: 'N', ja: '男の人と 女の人が 電話で 話して います。男の人は 何を 買いますか。', it: 'Un uomo e una donna parlano al telefono. Cosa compra l’uomo?' },
-		{ who: 'F', ja: `帰りに コンビニで ${a!.ja}と ${b!.ja}を 買って きて くれない？`, it: `Al ritorno mi compri ${a!.it} e ${b!.it} al konbini?` },
-		{ who: 'M', ja: `いいよ。${c!.ja}は？ もう ないでしょう。`, it: `Va bene. E ${c!.it}? Sono finiti, no?` },
-		{ who: 'F', ja: `${c!.ja}は きのう 買ったから、いらない。`, it: `${c!.it} li ho comprati ieri, non servono.` }
+		{ who: 'N', ja: `先生が 話して います。学生は 何を 持って 行かなければ なりませんか。`, it: 'L’insegnante parla. Cosa devono portare gli studenti?' },
+		{ who: sp, ja: `来週の ${out.ja}ですが、${a!.ja}を わすれないで ください。${b!.ja}は むこうに あるので、いりません。それから、${c!.ja}も 持って 来て ください。${d!.ja}は 持って 来ても いいですが、なくても だいじょうぶです。`, it: `Per ${out.it} della prossima settimana: non dimenticate ${a!.it}. ${b!.it} c’è già là, non serve. Portate anche ${c!.it}. ${d!.it} potete portarlo, ma non è necessario.` }
 	];
-	let need = [a!.id, b!.id];
-	if (variant === 0) {
-		lines.push({ who: 'F', ja: `あ、それから ${d!.ja}も おねがい。`, it: `Ah, e anche ${d!.it}, per favore.` });
-		need = [a!.id, b!.id, d!.id];
-	} else if (variant === 1) {
-		lines.push({ who: 'F', ja: `あ、やっぱり ${b!.ja}は いいや。まだ 少し あった。`, it: `Ah, anzi ${b!.it} lascia stare: ce n'era ancora un po'.` });
-		need = [a!.id];
-	} else {
-		lines.push({ who: 'M', ja: `${d!.ja}も 買おうか。`, it: `Compro anche ${d!.it}?` });
-		lines.push({ who: 'F', ja: `${d!.ja}は 高いから、今日は いいよ。`, it: `${d!.it} costa troppo, oggi no.` });
+	const right = { ja: `${a!.ja}と ${c!.ja}`, it: `${a!.it} e ${c!.it}` };
+	const opts = shuffled(rng, [right, { ja: `${a!.ja}と ${b!.ja}`, it: `${a!.it} e ${b!.it}` }, { ja: `${a!.ja}と ${c!.ja}と ${d!.ja}`, it: `${a!.it}, ${c!.it} e ${d!.it}` }, { ja: `${b!.ja}と ${c!.ja}`, it: `${b!.it} e ${c!.it}` }]);
+	return {
+		kind: 'choice', sub: 'kadai', title: '🎒 Cosa portare?', intro: 'Ascolta l’annuncio: cosa bisogna portare per forza?', lines,
+		question: { ja: '学生は 何を 持って 行かなければ なりませんか。', it: 'Cosa devono portare per forza?' },
+		options: opts, answer: opts.indexOf(right), spiega: 'いりません = non serve; 持って 来ても いいですが、なくても だいじょうぶ = facoltativo.'
+	};
+}
+
+// ── 課題理解: l'ordine delle cose (まず / それから / さいごに) ────────────────
+const STEPS = [
+	{ ja: '名前を 書く', it: 'scrivere il nome', te: '名前を 書いて' }, { ja: 'お金を はらう', it: 'pagare', te: 'お金を はらって' },
+	{ ja: 'しゃしんを とる', it: 'fare la foto', te: 'しゃしんを とって' }, { ja: 'かみを 出す', it: 'consegnare il modulo', te: 'かみを 出して' },
+	{ ja: 'せつめいを 聞く', it: 'ascoltare la spiegazione', te: 'せつめいを 聞いて' }, { ja: 'カードを もらう', it: 'ritirare la tessera', te: 'カードを もらって' }
+];
+export function orderMission(rng: Rng): ChoiceMission {
+	const [a, b, c, d] = shuffled(rng, STEPS);
+	const askFirst = rng() < 0.5;
+	const place = pick(rng, [{ ja: '図書館の うけつけ', it: 'alla reception della biblioteca' }, { ja: 'スポーツクラブの うけつけ', it: 'alla reception della palestra' }, { ja: 'しやくしょ', it: 'in comune' }]);
+	const lines: Line[] = [
+		{ who: 'N', ja: `${place.ja}で 女の人と 男の人が 話して います。男の人は ${askFirst ? 'まず' : 'さいごに'} 何を しますか。`, it: `${place.it} una donna e un uomo parlano. Cosa fa l’uomo ${askFirst ? 'per prima cosa' : 'per ultima'}?` },
+		{ who: 'F', ja: `では、${a!.te} ください。そのあと ${b!.te}、さいごに ${c!.te} ください。`, it: `Allora: ${a!.it}, poi ${b!.it}, e per ultimo ${c!.it}.` },
+		{ who: 'M', ja: `はい。あの、${d!.ja}のは いつですか。`, it: `Sì. E ${d!.it}, quando?` },
+		{ who: 'F', ja: `それは きょうは いりません。あ、それから、${b!.ja}のは いちばん はじめに おねがいします。`, it: `Quello oggi non serve. Ah, e ${b!.it} lo faccia per primo.` },
+		{ who: 'M', ja: 'わかりました。', it: 'Va bene.' }
+	];
+	// ordine finale: b, a, c
+	const right = askFirst ? b! : c!;
+	const opts = shuffled(rng, [a!, b!, c!, d!]);
+	return {
+		kind: 'choice', sub: 'kadai', title: askFirst ? '🔢 Cosa fa per primo?' : '🔢 Cosa fa per ultimo?', intro: 'La sequenza cambia a metà dialogo: segui l’ordine finale.', lines,
+		question: { ja: `男の人は ${askFirst ? 'まず' : 'さいごに'} 何を しますか。`, it: askFirst ? 'Cosa fa per prima cosa?' : 'Cosa fa per ultima?' },
+		options: opts.map((o) => ({ ja: o.ja, it: o.it })), answer: opts.indexOf(right),
+		spiega: `Ordine finale: ${b!.it} → ${a!.it} → ${c!.it}.`
+	};
+}
+
+// ── 読解: avviso con tabella da consultare (情報検索) ───────────────────────────
+const CENTER_EVENTS = [
+	{ ja: '料理教室', it: 'corso di cucina' }, { ja: '音楽会', it: 'concerto' }, { ja: 'えいがの 会', it: 'proiezione' },
+	{ ja: 'テニス教室', it: 'corso di tennis' }, { ja: 'ハイキング', it: 'escursione' }, { ja: '花見の 会', it: 'hanami' }
+];
+export function tableMission(rng: Rng): ChoiceMission {
+	const days = shuffled(rng, ['月', '火', '水', '木', '金', '土', '日']);
+	const evs = shuffled(rng, CENTER_EVENTS).slice(0, 5).map((e, i) => ({
+		...e, n: i + 1, wd: days[i]!, start: pick(rng, [9, 10, 11, 13, 14, 17, 18]), price: pick(rng, [0, 300, 500, 800, 1000, 1200, 1500])
+	}));
+	const weekend = (wd: string) => wd === '土' || wd === '日';
+	const CIRC = ['', '①', '②', '③', '④', '⑤'];
+	const maxPrice = pick(rng, [500, 800, 1000]);
+	const wantWeekend = rng() < 0.5;
+	const afterNoon = rng() < 0.5;
+	const ok = (e: (typeof evs)[number]) => weekend(e.wd) === wantWeekend && (afterNoon ? e.start >= 12 : e.start < 12) && e.price <= maxPrice;
+	// garantisce almeno una risposta giusta: aggiusta il primo evento
+	if (!evs.some(ok)) Object.assign(evs[0]!, { wd: wantWeekend ? '土' : '水', start: afterNoon ? 14 : 10, price: Math.min(maxPrice, 500) });
+	const good = evs.filter(ok).map((e) => e.n);
+	const body = ['さくら市 市民センター 今月の お知らせ', ...evs.map((e) => `${CIRC[e.n]} ${e.ja}（${e.price ? e.price + '円' : 'むりょう'}）${e.wd}曜日 ${e.start}時から`), 'もうしこみ：電話で どうぞ。'].join('\n');
+	const bodyIt = evs.map((e) => `${CIRC[e.n]} ${e.it}, ${e.price ? e.price + '¥' : 'gratis'}, ${e.wd}, dalle ${e.start}`).join('; ');
+	const label = (ns: number[]) => ns.map((n) => CIRC[n]).join('と');
+	const right = label(good);
+	const others = new Set<string>();
+	for (let i = 0; others.size < 3 && i < 40; i += 1) {
+		const k = 1 + Math.floor(rng() * 2);
+		const cand = shuffled(rng, [1, 2, 3, 4, 5]).slice(0, k).sort();
+		const l = label(cand);
+		if (l !== right) others.add(l);
 	}
-	lines.push({ who: 'M', ja: 'わかった。じゃあ、買って 帰るね。', it: 'Ok. Allora li compro e torno.' });
-	const shelf = shuffled(rng, [a!, b!, c!, d!, e!, ...shuffled(rng, ITEMS.filter((x) => ![a, b, c, d, e].includes(x))).slice(0, 3)]);
+	const opts = shuffled(rng, [right, ...others]);
+	const cond = `${wantWeekend ? '土曜日か 日曜日' : 'へいじつ'}で、${afterNoon ? '午後から' : '午前中に'} 始まって、${maxPrice}円 いかの もの`;
+	return {
+		kind: 'choice', sub: 'dokkai', title: '📋 L’avviso del centro civico', intro: 'Leggi l’avviso e trova gli eventi che vanno bene per la condizione.', lines: [],
+		doc: { title: '市民センターの お知らせ', ja: body, it: bodyIt },
+		question: { ja: `${cond}に 行きたいです。えらべるのは どれですか。`, it: `Vuoi andare a qualcosa ${wantWeekend ? 'nel fine settimana' : 'in un giorno feriale'}, che inizi ${afterNoon ? 'di pomeriggio' : 'di mattina'}, che costi al massimo ${maxPrice} yen.` },
+		options: opts.map((o) => ({ ja: o, it: '' })), answer: opts.indexOf(right)
+	};
+}
+
+// ── 課題理解: la spesa, con quantità e trappole ─────────────────────────────
+// Ogni telefonata combina 3 mosse a caso tra: «non serve, ce n'è ancora»,
+// «anzi, X invece di Y» sulla quantità, «aggiungi anche…», «lascia stare»,
+// «quello che costa meno», «se non c'è A prendi B». Si compra con le quantità.
+type Counter = 'tsu' | 'hon' | 'pakku' | 'satsu';
+export interface ShopItemDef extends ShopItem {
+	counter: Counter;
+}
+export const ITEMS: ShopItemDef[] = [
+	{ id: 'pan', ja: 'パン', it: 'pane', price: 200, icon: '🍞', counter: 'tsu' },
+	{ id: 'gyuunyuu', ja: 'ぎゅうにゅう', it: 'latte', price: 180, icon: '🥛', counter: 'hon' },
+	{ id: 'tamago', ja: 'たまご', it: 'uova', price: 250, icon: '🥚', counter: 'pakku' },
+	{ id: 'ringo', ja: 'りんご', it: 'mele', price: 120, icon: '🍎', counter: 'tsu' },
+	{ id: 'banana', ja: 'バナナ', it: 'banane', price: 150, icon: '🍌', counter: 'tsu' },
+	{ id: 'ocha', ja: 'お茶', it: 'tè', price: 130, icon: '🍵', counter: 'hon' },
+	{ id: 'onigiri', ja: 'おにぎり', it: 'onigiri', price: 160, icon: '🍙', counter: 'tsu' },
+	{ id: 'denchi', ja: '電池', it: 'pile', price: 400, icon: '🔋', counter: 'hon' },
+	{ id: 'nooto', ja: 'ノート', it: 'quaderno', price: 110, icon: '📓', counter: 'satsu' },
+	{ id: 'juusu', ja: 'ジュース', it: 'succo', price: 140, icon: '🧃', counter: 'hon' },
+	{ id: 'sakana', ja: '魚', it: 'pesce', price: 450, icon: '🐟', counter: 'pakku' },
+	{ id: 'niku', ja: '肉', it: 'carne', price: 600, icon: '🥩', counter: 'pakku' },
+	{ id: 'keeki', ja: 'ケーキ', it: 'torta', price: 350, icon: '🍰', counter: 'tsu' },
+	{ id: 'kami', ja: 'ティッシュ', it: 'fazzoletti', price: 230, icon: '🧻', counter: 'tsu' }
+];
+const NUMK = ['', '一', '二', '三', '四'];
+export function countJa(it: ShopItemDef, n: number): string {
+	if (it.counter === 'tsu') return `${NUMK[n]}つ`;
+	if (it.counter === 'hon') return `${NUMK[n]}本`;
+	if (it.counter === 'pakku') return `${NUMK[n]}パック`;
+	return `${NUMK[n]}さつ`;
+}
+const countIt = (it: ShopItemDef, n: number) => `${n} ${it.it}`;
+
+type ShopMove = 'notneed' | 'qty' | 'add' | 'cancel' | 'cheaper' | 'instead' | 'askqty';
+export function shopMission(rng: Rng): ShopMission {
+	const pool = shuffled(rng, ITEMS);
+	const take = () => pool.shift()!;
+	const need: Record<string, number> = {};
+	const onShelf = new Set<ShopItemDef>();
+	const a = take();
+	const b = take();
+	const qa = 1 + Math.floor(rng() * 3);
+	const qb = 1 + Math.floor(rng() * 2);
+	need[a.id] = qa;
+	need[b.id] = qb;
+	onShelf.add(a).add(b);
+	const who: Who = rng() < 0.5 ? 'F' : 'M';
+	const other: Who = who === 'F' ? 'M' : 'F';
+	const lines: Line[] = [
+		{ who: 'N', ja: `${who === 'F' ? '女' : '男'}の人と ${other === 'F' ? '女' : '男'}の人が 電話で 話して います。${other === 'F' ? '女' : '男'}の人は 何を いくつ 買いますか。`, it: 'Due persone parlano al telefono. Cosa compra, e quanto?' },
+		{ who, ja: `帰りに ${a.ja}を ${countJa(a, qa)}と、${b.ja}を ${countJa(b, qb)} 買って きて くれる？`, it: `Al ritorno mi prendi ${countIt(a, qa)} e ${countIt(b, qb)}?` }
+	];
+	const moves = shuffled(rng, ['notneed', 'qty', 'add', 'cancel', 'cheaper', 'instead', 'askqty'] as ShopMove[]).slice(0, 3);
+	for (const mv of moves) {
+		if (mv === 'notneed') {
+			const c = take();
+			onShelf.add(c);
+			lines.push({ who: other, ja: `${c.ja}は？ もう ないでしょう。`, it: `E ${c.it}? Sono finiti, no?` });
+			lines.push({ who, ja: `${c.ja}は まだ ある から、いらない。`, it: `${c.it} ce ne sono ancora, non servono.` });
+		} else if (mv === 'qty') {
+			const n = need[a.id]! === 4 ? 2 : need[a.id]! + 1;
+			lines.push({ who, ja: `あ、${a.ja}は やっぱり ${countJa(a, n)}に して。`, it: `Ah, ${a.it}: anzi, prendine ${n}.` });
+			need[a.id] = n;
+		} else if (mv === 'add') {
+			const d = take();
+			const n = 1 + Math.floor(rng() * 2);
+			onShelf.add(d);
+			need[d.id] = n;
+			lines.push({ who, ja: `それから、${d.ja}も ${countJa(d, n)} おねがい。`, it: `E poi anche ${countIt(d, n)}, per favore.` });
+		} else if (mv === 'cancel') {
+			if (!need[b.id]) continue;
+			lines.push({ who, ja: `ごめん、${b.ja}は いいや。きのう 買って いたの、わすれて いた。`, it: `Scusa, ${b.it} lascia stare: li avevo comprati ieri e me n’ero dimenticato/a.` });
+			delete need[b.id];
+		} else if (mv === 'cheaper') {
+			const [x, y] = [take(), take()];
+			if (x.price === y.price) y.price += 30;
+			const cheap = x.price < y.price ? x : y;
+			onShelf.add(x).add(y);
+			need[cheap.id] = 1;
+			lines.push({ who, ja: `それと、${x.ja}か ${y.ja}、どちらか 一つ。安い ほうで いいよ。`, it: `E uno tra ${x.it} e ${y.it}: quello che costa meno.` });
+		} else if (mv === 'instead') {
+			const [g, h] = [take(), take()];
+			onShelf.add(h); // g esaurito: non è sullo scaffale
+			need[h.id] = 1;
+			lines.push({ who, ja: `あと、${g.ja}を 一つ。もし なかったら、${h.ja}で いいから。`, it: `E un ${g.it}. Se non c’è, va bene ${h.it}.` });
+		} else if (mv === 'askqty') {
+			if (!need[b.id]) continue;
+			const n = need[b.id]! + 1;
+			lines.push({ who: other, ja: `${b.ja}は ${countJa(b, need[b.id]!)}で たりる？ みんな 来るでしょう。`, it: `${b.it}: ne bastano ${need[b.id]}? Vengono tutti, no?` });
+			lines.push({ who, ja: `そうだね。じゃ、${countJa(b, n)}に しよう。`, it: `Giusto. Allora ${n}.` });
+			need[b.id] = n;
+		}
+	}
+	lines.push({ who: other, ja: 'わかった。じゃあ、買って 帰るね。', it: 'Ok, li compro e torno.' });
+	const fill = shuffled(rng, pool).slice(0, Math.max(0, 9 - onShelf.size));
 	return {
 		kind: 'shop',
 		title: '🧺 La spesa al konbini',
-		intro: 'Ti telefonano da casa. Metti nel cestino SOLO quello che serve, poi paga.',
+		intro: 'Ti telefonano da casa. Ascolta bene cosa e QUANTO comprare (tocca più volte un prodotto per aumentare), poi paga.',
 		lines,
-		shelf,
+		shelf: shuffled(rng, [...onShelf, ...fill]),
 		need
 	};
 }
@@ -775,7 +927,9 @@ export function pickBank(
 const NUM_READ = ['いち', 'に', 'さん', 'よん'];
 export const numbered = (i: number, ja: string): string => `${NUM_READ[i]}、${ja}`;
 
-export function bankMission(b: BankItem): ChoiceMission {
+export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
+	// opzioni rimescolate: le domande tornano, la posizione della giusta non si impara
+	const order = rng ? shuffled(rng, b.opzioni.map((_, i) => i)) : b.opzioni.map((_, i) => i);
 	// le scritte (moji/goi/bunpou) vanno nei ripassi (bankDrill); qui per sicurezza come lettura
 	const sub = b.tipo === 'sokuji' ? 'hatsuwa' : b.tipo === 'moji' || b.tipo === 'goi' || b.tipo === 'bunpou' ? 'dokkai' : b.tipo;
 	const voice = b.voce ?? b.righe.find((r) => r.who !== 'N')?.who ?? 'F';
@@ -793,8 +947,8 @@ export function bankMission(b: BankItem): ChoiceMission {
 		lines: b.righe,
 		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it },
 		question: b.domanda,
-		options: b.opzioni,
-		answer: b.risposta,
+		options: order.map((i) => b.opzioni[i]!),
+		answer: order.indexOf(b.risposta),
 		optionsFirst: b.tipo === 'point' || b.tipo === 'dokkai',
 		audioOnly: b.tipo === 'hatsuwa',
 		optionVoice: voice,
@@ -829,7 +983,8 @@ export function bankQuick(items: BankItem[], rng: Rng): QuickMission {
 		seconds: 8,
 		rounds: items.map((b) => {
 			const line = b.righe[0]!;
-			return { sourceId: b.id, audioOnly: true, line, options: b.opzioni, answer: b.risposta };
+			const order = shuffled(rng, b.opzioni.map((_, i) => i));
+			return { sourceId: b.id, audioOnly: true, line, options: order.map((i) => b.opzioni[i]!), answer: order.indexOf(b.risposta) };
 		}).sort(() => rng() - 0.5)
 	};
 }
@@ -865,14 +1020,14 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 	const town = buildTown(rng);
 	const errand = pick(rng, ['yuubin', 'ginkou', 'kusuri', 'honya', 'toshokan'] as PlaceId[]);
 	const used = new Set<string>();
-	const budget = { left: NEW_PER_DAY * 3 };
+	const budget = { left: NEW_PER_DAY * 4 };
 	let fromBank = 0;
 	// una domanda della banca se c'è (con il suo luogo), altrimenti la variante generata
 	const slot = (tipo: BankTipo, place: PlaceId | 'eki', make: () => Mission): { place: PlaceId | 'eki'; mission: Mission } => {
 		const [b] = pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget);
 		if (!b) return { place, mission: make() };
 		fromBank += 1;
-		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b) };
+		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b, rng) };
 	};
 	// pause di ripasso: domande scritte, con un budget di nuove a parte
 	// 8 domande per pausa, al massimo 12 nuove al giorno: con centinaia di domande
@@ -890,24 +1045,33 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 	const quickItems = pickBank(ctx.bank, 'sokuji', 6, ctx.prog, ctx.dayNo, used, budget);
 	fromBank += quickItems.length;
 	const quick = quickItems.length >= 3 ? bankQuick(quickItems, rng) : quickMission(rng);
+	// più ascolti e letture al giorno; se la banca non ha domande di quel tipo,
+	// una variante generata scelta a caso (non sempre la stessa)
+	const gen = (...makers: (() => Mission)[]) => () => pick(rng, makers)();
+	const kadaiGen = gen(() => priorityMission(rng), () => calendarMission(rng), () => bringMission(rng), () => orderMission(rng));
+	const readGen = gen(() => readMission(rng), () => tableMission(rng));
 	const steps: Step[] = [
-		{ place: 'eki', time: 8 * 60, mission: signMission(rng), cost: 5 },
+		{ place: 'eki', time: 8 * 60, mission: signMission(rng), cost: 3 },
+		{ ...slot('dokkai', 'eki', readGen), time: 8 * 60 + 3, cost: 7 },
 		{ place: 'kaisha', time: 8 * 60 + 10, deadline: 9 * 60, mission: routeMission(rng, town, 'kaisha'), cost: 0 },
-		{ ...slot('kadai', 'kaisha', () => priorityMission(rng)), time: 9 * 60, cost: 50 },
-		{ ...slot('kadai', 'kaisha', () => calendarMission(rng)), time: 10 * 60, cost: 40 },
-		{ ...slot('dokkai', 'kaisha', () => readMission(rng)), time: 11 * 60, cost: 40 },
+		{ ...slot('kadai', 'kaisha', kadaiGen), time: 9 * 60, cost: 35 },
+		{ ...slot('kadai', 'kaisha', kadaiGen), time: 9 * 60 + 40, cost: 35 },
+		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 10 * 60 + 20, cost: 30 },
+		{ ...slot('dokkai', 'kaisha', readGen), time: 11 * 60, cost: 40 },
 		{ ...slot('hatsuwa', 'resutoran', () => rpgMission(rng, 6)), time: 12 * 60, cost: 50, lunch: true },
 		{ place: errand, time: 13 * 60 + 30, mission: routeMission(rng, town, errand), cost: 0 },
-		{ ...slot('point', errand, () => reasonMission(rng)), time: 14 * 60, cost: 30 },
-		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 15 * 60, cost: 40 },
-		{ ...slot('hatsuwa', 'kaisha', () => rpgMission(rng)), time: 16 * 60, cost: 60 },
-		{ ...slot('kadai', 'konbini', () => shopMission(rng)), time: 18 * 60, cost: 15 },
+		{ ...slot('point', errand, () => reasonMission(rng)), time: 14 * 60, cost: 20 },
+		{ ...slot('kadai', errand, kadaiGen), time: 14 * 60 + 25, cost: 25 },
+		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 15 * 60, cost: 30 },
+		{ ...slot('hatsuwa', 'kaisha', () => rpgMission(rng)), time: 15 * 60 + 40, cost: 30 },
+		{ ...slot('dokkai', 'kaisha', readGen), time: 16 * 60 + 20, cost: 40 },
+		{ place: 'konbini', time: 18 * 60, mission: shopMission(rng), cost: 15 },
 		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
 	if (morning) steps.unshift({ place: 'eki', time: 7 * 60 + 40, mission: morning, cost: 15 });
 	if (lunch) steps.splice(steps.findIndex((s) => s.lunch), 0, { place: 'resutoran', time: 12 * 60, mission: lunch, cost: 10 });
 	if (evening) steps.push({ place: 'eki', time: 19 * 60, mission: evening, cost: 20 });
-	return { seed, town, steps, fromBank, newToday: NEW_PER_DAY * 3 - budget.left };
+	return { seed, town, steps, fromBank, newToday: NEW_PER_DAY * 4 - budget.left };
 }
 
 // Tutti i testi giapponesi di una missione (per i test sul livello dei kanji)
