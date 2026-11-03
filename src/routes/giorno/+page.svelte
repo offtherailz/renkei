@@ -250,9 +250,11 @@
 		chosen = i;
 		answered = true;
 		lastOk = i === mission.answer;
-		hush();
-		if (lastOk && mission.reaction) void playLines([mission.reaction]);
+		// si sente la risposta data (con la voce di chi risponde), poi la reazione
+		const said: Line = { who: mission.reaction ? other(mission.reaction.who) : 'N', ja: mission.options[i]!.ja, it: '' };
+		void playLines(lastOk && mission.reaction ? [said, mission.reaction] : [said]);
 	}
+	const other = (w: Who): Who => (w === 'M' ? 'F' : 'M');
 	function toggleItem(id: string): void {
 		if (answered) return;
 		basket = basket.includes(id) ? basket.filter((x) => x !== id) : [...basket, id];
@@ -263,14 +265,16 @@
 		hush();
 		answered = true;
 		money -= basketTotal;
+		const names = mission.shelf.filter((x) => basket.includes(x.id)).map((x) => x.ja);
+		void playLines([{ who: 'N', ja: `${names.join('と ')}を ください。`, it: '' }]);
 		lastOk = basket.length === mission.need.length && mission.need.every((id) => basket.includes(id));
 	}
 	function pickDay(d: number): void {
 		if (!mission || mission.kind !== 'calendar' || answered) return;
-		hush();
 		calPick = d;
 		answered = true;
 		lastOk = d === mission.answer;
+		void playLines([{ who: 'N', ja: `${d}日`, it: '' }]);
 	}
 
 	// 即時応答: battuta → timer → scelta (o tempo scaduto)
@@ -292,10 +296,11 @@
 	function quickAnswer(i: number): void {
 		if (!mission || mission.kind !== 'quick' || qPicked !== null) return;
 		if (qTimer) clearInterval(qTimer);
-		hush();
 		qReady = true;
 		qPicked = i;
 		const r = mission.rounds[qRound]!;
+		if (i >= 0) void playLines([{ who: other(r.line.who), ja: r.options[i]!.ja, it: '' }]);
+		else hush();
 		if (i === r.answer) {
 			qCombo += 1;
 			qBest = Math.max(qBest, qCombo);
