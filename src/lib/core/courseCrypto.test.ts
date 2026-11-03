@@ -1,12 +1,13 @@
 // Cifra/decifra anche da riga di comando (la password non va mai nel repo):
 //   CORSO_PASSWORD='…' CORSO_AZIONE=cifra npx vitest run src/lib/core/courseCrypto.test.ts
 //   CORSO_PASSWORD='…' CORSO_AZIONE=decifra npx vitest run src/lib/core/courseCrypto.test.ts
+// Altri file: CORSO_CHIARO=… CORSO_CIFRATO=… (default: i mazzi delle lezioni)
 import { describe, expect, it } from 'vitest';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { decryptCourse, encryptCourse, isEncryptedCourse } from './courseCrypto';
 
-const CHIARO = 'corsi/mazzi-lezioni.renkei-course.json'; // fuori dal repo (.gitignore)
-const CIFRATO = 'corsi/mazzi-lezioni.renkei-course.cifrato.json'; // nel repo
+const CHIARO = process.env.CORSO_CHIARO ?? 'corsi/mazzi-lezioni.renkei-course.json'; // fuori dal repo (.gitignore)
+const CIFRATO = process.env.CORSO_CIFRATO ?? 'corsi/mazzi-lezioni.renkei-course.cifrato.json'; // nel repo
 
 describe('file corso cifrati', () => {
 	it('andata e ritorno con la password giusta', async () => {

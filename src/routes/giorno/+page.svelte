@@ -9,6 +9,8 @@
 		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Who
 	} from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
+	import { decryptCourse } from '$lib/core/courseCrypto';
+	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
 
 	// ── banca di domande d'esame (file corso) e progressi del ripasso ──
@@ -34,6 +36,31 @@
 		if (!id) return;
 		prog = recordResult(prog, id, ok, dayNo);
 		saveProgress();
+	}
+	// Le prove d'esame (materiale dei libri) stanno cifrate tra i file statici:
+	// si scaricano e si importano qui con la password, come un file corso.
+	let loadingExams = $state(false);
+	let examMsg = $state('');
+	async function loadBank(): Promise<void> {
+		const rows = await db.course_giorno.toArray().catch(() => []);
+		bank = rows.map(({ corso_id: _c, updated_at: _u, ...b }) => b);
+	}
+	async function importExams(): Promise<void> {
+		const password = window.prompt('Password delle prove d’esame:');
+		if (!password) return;
+		loadingExams = true;
+		examMsg = '';
+		try {
+			const resp = await fetch(`${base}/prove-esame-n4.cifrato.json`, { cache: 'no-store' });
+			if (!resp.ok) throw new Error(`file non trovato (${resp.status})`);
+			const r = await importCourseDataset(await decryptCourse(await resp.text(), password));
+			await loadBank();
+			examMsg = `✅ ${r.situazioniAggiunte} domande d'esame caricate.`;
+		} catch (e) {
+			examMsg = `❌ ${e instanceof Error ? e.message : String(e)}`;
+		} finally {
+			loadingExams = false;
+		}
 	}
 	const consolidated = $derived(bank.filter((b) => (prog[b.id]?.streak ?? 0) >= 2).length);
 
@@ -468,10 +495,7 @@
 		loop = setInterval(frameLoop, 90);
 		window.addEventListener('keydown', onKey);
 		loadProgress();
-		db.course_giorno
-			.toArray()
-			.then((rows) => (bank = rows.map(({ corso_id: _c, updated_at: _u, ...b }) => b)))
-			.catch(() => (bank = []));
+		void loadBank();
 	});
 	onDestroy(() => {
 		if (loop) clearInterval(loop);
@@ -504,10 +528,14 @@
 			</ul>
 			<p class="stats-line">⏰ tempo · ⚡ energia · ¥ soldi · ⭐ reputazione — a fine giornata il voto.</p>
 			{#if bank.length}
-				<p class="stats-line">📚 Domande d'esame dal file corso: {bank.length} · consolidate {consolidated}. Le sbagliate tornano finché non le sai due volte di fila; le nuove entrano poche per giornata.</p>
+				<p class="stats-line">📚 Domande d'esame: {bank.length} · consolidate {consolidated}. Le sbagliate tornano finché non le sai due volte di fila; le nuove entrano poche per giornata.</p>
+				<button class="btn ghost small" onclick={importExams} disabled={loadingExams}>🔄 Aggiorna le prove d'esame</button>
 			{:else}
-				<p class="muted small">Senza file corso giochi con le varianti generate. Importa in «Corsi» il file con le domande d'esame per giocare con quelle vere.</p>
+				<p class="muted small">Senza le prove d'esame giochi con le varianti generate.</p>
+				<button class="btn ghost" onclick={importExams} disabled={loadingExams}>📥 Carica le prove d'esame (password)</button>
 			{/if}
+			{#if loadingExams}<p class="muted small">Caricamento…</p>{/if}
+			{#if examMsg}<p class="small">{examMsg}</p>{/if}
 			<button class="btn big" onclick={() => startDay()}>▶ Inizia la giornata</button>
 			{#if best}<p class="muted">Record: ⭐ {best.rep} · giornate giocate {best.days}</p>{/if}
 		</section>

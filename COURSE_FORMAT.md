@@ -487,7 +487,7 @@ Situazioni d'esame per il gioco 🗾 «Un giorno in Giappone» (`src/routes/gior
 
 `who`: N narratore, F donna, M uomo. Nel 発話表現 e nel 即時応答 le scelte si sentono soltanto (il testo si vede dopo la risposta); nel ポイント理解 e nel 読解 le scelte si leggono prima. Il gioco ripropone una domanda finché non è giusta due volte di fila in giornate diverse, e fa entrare poche domande nuove per giornata.
 
-I file di partenza sono script privati in `corsi/giorno-*.py` (ignorati da Git) che generano `corsi/giorno-*.json`; vanno uniti nel file dei mazzi in chiaro sotto `giorno` prima di cifrarlo.
+Le prove d'esame sono un corso a sé (`prove-esame-n4`), separato dai mazzi delle lezioni: il file cifrato è `static/prove-esame-n4.cifrato.json`, e il gioco lo scarica e lo importa dal pulsante «Carica le prove d'esame» chiedendo la password. Gli script privati `corsi/giorno-*.py` (ignorati da Git) generano `corsi/giorno-*.json`, uniti in `corsi/prove-esame-n4.renkei-course.json` e cifrati con `CORSO_CHIARO=corsi/prove-esame-n4.renkei-course.json CORSO_CIFRATO=static/prove-esame-n4.cifrato.json CORSO_PASSWORD='…' CORSO_AZIONE=cifra npx vitest run src/lib/core/courseCrypto.test.ts`.
 
 ## Sezione `mazzi` (opzionale)
 
