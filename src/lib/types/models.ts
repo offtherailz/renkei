@@ -422,6 +422,7 @@ export interface CourseGiornoInput {
   risposta: number; // indice da 0
   spiega?: string; // perché (italiano), mostrato dopo
   voce?: 'F' | 'M'; // 発話表現: chi dice le scelte
+  completa?: string; // ★ e brani: la frase intera giusta (letta dopo la risposta)
 }
 
 export interface CourseGiornoRow extends CourseGiornoInput {

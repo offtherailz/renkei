@@ -374,6 +374,7 @@ export interface DrillRound {
 	options: Option[];
 	answer: number;
 	spiega?: string;
+	completa?: string;
 }
 export interface DrillMission {
 	kind: 'drill';
@@ -808,13 +809,14 @@ export function bankDrill(items: BankItem[], title: string, intro: string): Dril
 		intro,
 		rounds: items.map((b) => ({
 			sourceId: b.id, label: b.titolo ?? '', frase: b.domanda.ja, it: b.domanda.it,
-			options: b.opzioni, answer: b.risposta, spiega: b.spiega
+			options: b.opzioni, answer: b.risposta, spiega: b.spiega, completa: b.completa
 		}))
 	};
 }
 
 // Frase da leggere a voce dopo la risposta: sottolineatura tolta, vuoto riempito
 export function drillSpoken(r: DrillRound): string {
+	if (r.completa) return r.completa;
 	const right = r.options[r.answer]!.ja;
 	return r.frase.replace(/[【】]/g, '').replace(/[（(]\s*[　 ]*\s*[)）]/, right).replace(/★/g, '');
 }
