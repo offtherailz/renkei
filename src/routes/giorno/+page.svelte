@@ -165,6 +165,9 @@
 
 	// ── inizio / fine giornata ──
 	function startDay(seed = Math.floor(Math.random() * 1e9)): void {
+		// il giorno conta da quando lo inizi: chi interrompe a metà non rivede le stesse
+		dayNo += 1;
+		saveProgress();
 		day = buildDay(seed, { bank, prog, dayNo });
 		stepIdx = 0;
 		clock = 8 * 60;
@@ -434,8 +437,6 @@
 	// ── record ──
 	let best = $state<{ rep: number; days: number } | null>(null);
 	function saveRecord(): void {
-		dayNo += 1;
-		saveProgress();
 		try {
 			const prev = JSON.parse(localStorage.getItem('renkei_giorno') ?? 'null') as { rep: number; days: number } | null;
 			best = { rep: Math.max(prev?.rep ?? 0, rep), days: (prev?.days ?? 0) + 1 };

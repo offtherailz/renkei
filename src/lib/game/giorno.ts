@@ -903,14 +903,15 @@ export function recordResult(prog: Progress, id: string, ok: boolean, dayNo: num
 }
 
 export function pickBank(
-	bank: BankItem[], tipo: BankTipo, n: number, prog: Progress, dayNo: number, used: Set<string>, newBudget: { left: number }
+	bank: BankItem[], tipo: BankTipo, n: number, prog: Progress, dayNo: number, used: Set<string>, newBudget: { left: number }, rng?: Rng
 ): BankItem[] {
 	const pool = bank.filter((b) => b.tipo === tipo && !used.has(b.id));
 	const st = (b: BankItem) => prog[b.id];
 	const due = pool
 		.filter((b) => st(b) && st(b)!.streak < CONSOLIDATED && st(b)!.last < dayNo)
 		.sort((a, b) => st(a)!.streak - st(b)!.streak || st(a)!.last - st(b)!.last);
-	const fresh = pool.filter((b) => !st(b));
+	// le nuove in ordine casuale: in ordine di file uscivano sempre le stesse
+	const fresh = rng ? shuffled(rng, pool.filter((b) => !st(b))) : pool.filter((b) => !st(b));
 	const review = pool
 		.filter((b) => st(b) && st(b)!.streak >= CONSOLIDATED && st(b)!.last <= dayNo - 4)
 		.sort((a, b) => st(a)!.last - st(b)!.last);
@@ -1024,7 +1025,7 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 	let fromBank = 0;
 	// una domanda della banca se c'è (con il suo luogo), altrimenti la variante generata
 	const slot = (tipo: BankTipo, place: PlaceId | 'eki', make: () => Mission): { place: PlaceId | 'eki'; mission: Mission } => {
-		const [b] = pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget);
+		const [b] = pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget, rng);
 		if (!b) return { place, mission: make() };
 		fromBank += 1;
 		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b, rng) };
@@ -1035,14 +1036,14 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 	const drillBudget = { left: 12 };
 	const drill = (tipi: BankTipo[], title: string, intro: string): DrillMission | null => {
 		const items: BankItem[] = [];
-		for (const t of tipi) items.push(...pickBank(ctx.bank, t, 8 - items.length, ctx.prog, ctx.dayNo, used, drillBudget));
+		for (const t of tipi) items.push(...pickBank(ctx.bank, t, 8 - items.length, ctx.prog, ctx.dayNo, used, drillBudget, rng));
 		fromBank += items.length;
 		return items.length ? bankDrill(items, title, intro) : null;
 	};
 	const morning = drill(['moji', 'goi'], '🚃 In treno: kanji e parole', 'Sul treno verso il centro ripassi un po’ di vocabolario, come nel 文字・語彙 dell’esame.');
 	const lunch = drill(['bunpou'], '🍵 Pausa pranzo: grammatica', 'Aspettando il pranzo: qualche domanda di grammatica, come all’esame.');
 	const evening = drill(['goi', 'bunpou', 'moji'], '🚃 Sul treno del ritorno', 'Ultimo ripasso della giornata.');
-	const quickItems = pickBank(ctx.bank, 'sokuji', 6, ctx.prog, ctx.dayNo, used, budget);
+	const quickItems = pickBank(ctx.bank, 'sokuji', 6, ctx.prog, ctx.dayNo, used, budget, rng);
 	fromBank += quickItems.length;
 	const quick = quickItems.length >= 3 ? bankQuick(quickItems, rng) : quickMission(rng);
 	// più ascolti e letture al giorno; se la banca non ha domande di quel tipo,
