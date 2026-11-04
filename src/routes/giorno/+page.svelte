@@ -370,7 +370,13 @@
 			return;
 		}
 		if (mission.kind === 'route') {
-			finishStep(wrongDoors === 0, wrongDoors === 0 ? 'Arrivato al primo colpo' : `${wrongDoors} porte sbagliate`);
+			// arrivato: prima di andare avanti si vedono testo e traduzione delle indicazioni
+			hush();
+			routeActive = false;
+			showRouteText = false;
+			answered = true;
+			lastOk = wrongDoors === 0;
+			phase = 'mission';
 			return;
 		}
 		openMission();
@@ -379,7 +385,15 @@
 	function startRouteWalk(): void {
 		hush();
 		routeActive = true;
+		showRouteText = false;
 		phase = 'walk';
+	}
+	// persi dopo due porte sbagliate: si può leggere il testo, a caro prezzo
+	let showRouteText = $state(false);
+	function readRouteText(): void {
+		showRouteText = true;
+		clock += 5;
+		say('📝 Leggi le indicazioni: −5 minuti');
 	}
 
 	// ── risposte ──
@@ -706,10 +720,18 @@
 							</button>
 						{/each}
 						{#if atStation && step?.place === 'eki'}<button class="btn" onclick={() => enter('eki')}>🚉 Entra: 駅</button>{/if}
-						{#if routeActive && mission?.kind === 'route'}<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 Riascolta (−2 min)</button>{/if}
+						{#if routeActive && mission?.kind === 'route'}
+							<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 Riascolta (−2 min)</button>
+							{#if wrongDoors >= 2 && !showRouteText}<button class="btn ghost" onclick={readRouteText}>📝 Leggi le indicazioni (−5 min)</button>{/if}
+						{/if}
 						{#if doorsHere.length === 0 && !(atStation && step?.place === 'eki')}<p class="muted small">Tocca la mappa o usa le frecce. Davanti a una porta puoi entrare.</p>{/if}
 					</div>
 				</div>
+				{#if showRouteText && mission?.kind === 'route'}
+					<div class="script">
+						{#each mission.lines as l, i (i)}<p class="ja">{l.ja}</p>{/each}
+					</div>
+				{/if}
 			</div>
 		{:else if phase === 'mission' && mission}
 			<section class="panel mission">
@@ -734,7 +756,7 @@
 					{/if}
 				</div>
 
-				{#if mission.kind === 'route'}
+				{#if mission.kind === 'route' && !answered}
 					<div class="row">
 						<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 						<button class="btn" onclick={startRouteWalk}>🚶 Ho capito, cammino</button>
@@ -838,7 +860,10 @@
 					{/if}
 				{/if}
 
-				{#if answered && mission.kind !== 'route' && mission.kind !== 'quick' && mission.kind !== 'drill'}
+				{#if answered && mission.kind !== 'quick' && mission.kind !== 'drill'}
+					{#if mission.kind === 'route'}
+						<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Arrivato al primo colpo!' : `✓ Arrivato, ma dopo ${wrongDoors} ${wrongDoors === 1 ? 'porta sbagliata' : 'porte sbagliate'}.`}</p>
+					{:else}
 					<p class="result {lastOk ? 'ok' : 'ko'}">{lastOk ? '✓ Giusto!' : '✗ Non era questo.'}{mission.kind === 'shop' && !lastOk ? ' Dovevi comprare: ' + mission.shelf.filter((s) => mission.need[s.id]).map((s) => `${mission.need[s.id]} ${s.it}`).join(', ') : ''}{mission.kind === 'calendar' && !lastOk ? ` Era il ${mission.answer}.` : ''}</p>
 					{#if mission.kind === 'choice' && !lastOk}
 						<p class="ja">✅ {mission.options[mission.answer]!.ja} <span class="tr">{mission.options[mission.answer]!.it}</span></p>
@@ -847,8 +872,9 @@
 					{#if mission.kind === 'choice' && mission.doc}
 						<pre class="tr">{mission.doc.it}</pre>
 					{/if}
+					{/if}
 					{#if 'lines' in mission && mission.lines.length}
-						<details class="script" open={!lastOk}>
+						<details class="script" open={!lastOk || mission.kind === 'route'}>
 							<summary>📝 Testo e traduzione</summary>
 							{#each mission.lines as l, i (i)}
 								<p><span class="who">{l.who === 'M' ? '男' : l.who === 'F' ? '女' : '🔈'}</span> <span class="ja">{l.ja}</span><br /><span class="tr">{l.it}</span></p>
@@ -858,7 +884,7 @@
 					{#if mission.kind === 'choice' && mission.reaction && lastOk}
 						<p><span class="ja">「{mission.reaction.ja}」</span> <span class="tr">{mission.reaction.it}</span></p>
 					{/if}
-					<button class="btn" onclick={() => finishStep(lastOk, lastOk ? 'ok' : 'sbagliato')}>Avanti →</button>
+					<button class="btn" onclick={() => finishStep(lastOk, mission.kind === 'route' ? (lastOk ? 'Arrivato al primo colpo' : `${wrongDoors} porte sbagliate`) : lastOk ? 'ok' : 'sbagliato')}>Avanti →</button>
 				{/if}
 			</section>
 		{:else if phase === 'summary'}

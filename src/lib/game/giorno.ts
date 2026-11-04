@@ -336,12 +336,16 @@ export function directionsLines(plan: RoutePlan, rng: Rng, trap = rng() < 0.5, t
 	} else if (trap && first) {
 		lines.splice(1, 0, {
 			who,
-			ja: `${LR[first.dir === 'R' ? 'L' : 'R']}… じゃ なくて、`,
-			it: `A ${LR_IT[first.dir === 'R' ? 'L' : 'R']}… anzi no,`
+			ja: `ええと、${LR[first.dir === 'R' ? 'L' : 'R']}に… いえ、ちがいます。`,
+			it: `Allora, a ${LR_IT[first.dir === 'R' ? 'L' : 'R']}… no, mi sbaglio.`
 		});
 	}
 	// a volte chi chiede ripete per conferma (come all'esame)
-	if (rng() < 0.4) lines.push({ who: 'N', ja: `${ref ? ref.ja.replace(/です$|に あります$/, '') + 'ですね' : `${side}ですね`}。`, it: 'Ripete per conferma.' });
+	if (rng() < 0.4) {
+		// solo riferimenti che si ripetono bene («Xの となりですね»), altrimenti il lato
+		const conf = ref && ref.ja.endsWith('となりです') ? `${ref.ja}ね` : `${side}ですね`;
+		lines.push({ who: 'N', ja: `${conf}。`, it: `Ripete per conferma: ${ref && ref.ja.endsWith('となりです') ? ref.it : `sulla ${LR_IT[plan.side]}`}.` });
+	}
 	lines.push({ who: 'N', ja: 'どうも ありがとう ございます。', it: 'Grazie mille.' });
 	return lines;
 }
@@ -1026,7 +1030,8 @@ export function routeMission(rng: Rng, town: Building[], target: PlaceId): Route
 	return {
 		kind: 'route',
 		title: `🧭 Verso ${PLACES[target].it}`,
-		intro: 'Non sai la strada: chiedi a un passante. Ascolta le indicazioni e cammina fino alla porta giusta, poi entra.',
+		intro:
+			'Non sai la strada: chiedi a un passante. Ti dirà da che parte girare (ai semafori o all’angolo di un negozio) e su che lato della strada è il posto. Ascolta, poi cammina sulla mappa dall’uscita della stazione ed entra dalla porta giusta. Il testo lo vedi all’arrivo.',
 		lines: directionsLines(plan, rng, rng() < 0.5, town),
 		plan
 	};
