@@ -20,7 +20,7 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	hoteru: { F: ['collega_donna'], M: ['cameriere'] },
 	konbini: { F: ['commessa_konbini'], M: ['passante'] },
 	panya: { F: ['commessa_konbini'], M: ['passante'] },
-	hanaya: { F: ['commessa_konbini'], M: ['passante'] },
+	hanaya: { F: ['fioraia'], M: ['passante'] },
 	resutoran: { F: ['amica'], M: ['cameriere'] },
 	kafe: { F: ['amica'], M: ['cameriere'] },
 	byouin: { F: ['medico'], M: ['passante'] },
