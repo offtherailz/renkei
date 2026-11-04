@@ -221,3 +221,46 @@ describe('nuove varianti', () => {
 		expect(pos.size).toBeGreaterThan(1);
 	});
 });
+
+describe('indicazioni con punti di riferimento', () => {
+	it('accanto, davanti e angoli sono veri sulla mappa', async () => {
+		const { landmarks, directionsLines } = await import('./giorno');
+		let withRef = 0;
+		for (let s = 1; s <= 40; s += 1) {
+			const town = buildTown(seeded(s));
+			for (const id of Object.keys(PLACES) as PlaceId[]) {
+				const plan = planRoute(town, id);
+				const t = buildingOf(town, id);
+				const lm = landmarks(plan, town);
+				if (lm.next) expect(Math.abs(lm.next.x - t.x) + Math.abs(lm.next.y - t.y)).toBe(2);
+				if (lm.front) {
+					// la porta del bersaglio è tra i due edifici
+					const d = t.door;
+					const touches = (b: typeof t) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => d.x + dx! >= b.x && d.x + dx! <= b.x + 1 && d.y + dy! >= b.y && d.y + dy! <= b.y + 1);
+					expect(touches(lm.front)).toBe(true);
+					expect(touches(t)).toBe(true);
+				}
+				for (const c of lm.corner) if (c) expect(c.place).not.toBe(id);
+				const txt = directionsLines(plan, seeded(s * 31), false, town).map((l) => l.ja).join('');
+				if (/となり|前に|かど/.test(txt)) withRef += 1;
+			}
+		}
+		expect(withRef).toBeGreaterThan(200);
+	});
+});
+
+describe('appuntamenti e pagamenti', () => {
+	it('opzioni distinte, una sola giusta; il conto torna con la spiegazione', async () => {
+		const { appointmentMission, paymentMission } = await import('./giorno');
+		for (let s = 1; s <= 60; s += 1) {
+			const a = appointmentMission(seeded(s));
+			expect(new Set(a.options.map((o) => o.ja)).size).toBe(a.options.length);
+			expect(a.options).toHaveLength(4);
+			const p = paymentMission(seeded(s));
+			expect(new Set(p.options.map((o) => o.ja)).size).toBe(p.options.length);
+			const right = Number(p.options[p.answer]!.ja.replace('円', ''));
+			expect(right).toBeGreaterThan(0);
+			expect(p.spiega).toContain(String(right));
+		}
+	});
+});

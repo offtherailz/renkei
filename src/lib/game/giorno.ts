@@ -230,18 +230,72 @@ const LR = { R: '右', L: '左' } as const;
 const LR_IT = { R: 'destra', L: 'sinistra' } as const;
 const NUM_IT = ['', 'primo', 'secondo', 'terzo'];
 
-// Testo delle indicazioni (passante gentile), con una trappola facoltativa:
-// la persona si corregge («…二つ目、あ、ちがいました、一つ目です»).
-export function directionsLines(plan: RoutePlan, rng: Rng, trap = rng() < 0.5): Line[] {
+// ── punti di riferimento sulla mappa (per indicazioni come quelle vere) ──
+const at = (town: Building[], x: number, y: number) => town.find((b) => x >= b.x && x <= b.x + 1 && y >= b.y && y <= b.y + 1) ?? null;
+// verso la strada della porta (dall'edificio): -1/0/+1 su x e y
+function doorDir(b: Building): Dir {
+	if (b.door.x < b.x) return { x: -1, y: 0 };
+	if (b.door.x > b.x + 1) return { x: 1, y: 0 };
+	if (b.door.y < b.y) return { x: 0, y: -1 };
+	return { x: 0, y: 1 };
+}
+export interface Landmarks {
+	corner: (Building | null)[]; // edificio all'angolo di ogni svolta
+	next: Building | null; // accanto, stesso lato della strada
+	front: Building | null; // di fronte, dall'altra parte della strada
+	behind: Building | null; // dietro, nello stesso isolato
+}
+export function landmarks(plan: RoutePlan, town: Building[]): Landmarks {
+	const t = buildingOf(town, plan.target);
+	const dd = doorDir(t);
+	// accanto: l'edificio contiguo che si affaccia sulla stessa strada
+	const side = dd.x ? [{ x: t.x, y: t.y - 2 }, { x: t.x, y: t.y + 2 }] : [{ x: t.x - 2, y: t.y }, { x: t.x + 2, y: t.y }];
+	const next = side.map((p) => town.find((b) => b.x === p.x && b.y === p.y) ?? null).find((b) => b && doorDir(b).x === dd.x && doorDir(b).y === dd.y) ?? null;
+	// di fronte: oltre la strada della porta
+	const front = at(town, t.door.x + dd.x, t.door.y + dd.y);
+	// dietro: dall'altra parte dell'isolato
+	const behind = town.find((b) => b.x === t.x - dd.x * 2 && b.y === t.y - dd.y * 2) ?? null;
+	// angoli delle svolte: rifà il percorso e guarda gli edifici ai quattro angoli dell'incrocio
+	const corner: (Building | null)[] = [];
+	let pos: Pos = { ...START };
+	let h: Dir = { x: 0, y: -1 };
+	for (const turn of plan.turns) {
+		let seen = 0;
+		while (seen < turn.signals) {
+			pos = { x: pos.x + h.x, y: pos.y + h.y };
+			if (isCrossing(pos.x, pos.y)) seen += 1;
+		}
+		const nh = turn.dir === 'R' ? rightOf(h) : leftOf(h);
+		// l'angolo «interno» della svolta: avanti + verso la nuova direzione
+		const cands = [at(town, pos.x + h.x + nh.x, pos.y + h.y + nh.y), at(town, pos.x - h.x + nh.x, pos.y - h.y + nh.y)];
+		corner.push(cands.find((b) => b && b.place !== plan.target) ?? null); // mai la destinazione stessa
+		h = nh;
+	}
+	return { corner, next, front, behind };
+}
+
+// Testo delle indicazioni (passante gentile): a volte coi semafori contati, a
+// volte coi punti di riferimento (all'angolo di…, accanto a…, davanti a…,
+// dietro a…), con una trappola facoltativa: chi spiega si corregge.
+export function directionsLines(plan: RoutePlan, rng: Rng, trap = rng() < 0.5, town?: Building[]): Line[] {
 	const name = SPOKEN[plan.target];
 	const who: Who = rng() < 0.5 ? 'F' : 'M';
+	const lm = town ? landmarks(plan, town) : null;
+	const sp = (b: Building) => SPOKEN[b.place];
 	const lines: Line[] = [
 		{ who: 'N', ja: `すみません、${name}は どこですか。`, it: `Scusi, dov'è ${PLACES[plan.target].it}?` }
 	];
 	const parts: string[] = [];
 	const partsIt: string[] = [];
 	plan.turns.forEach((t, i) => {
-		if (i === 0 && t.signals === 0) {
+		const c = lm?.corner[i];
+		const useCorner = c && rng() < 0.55;
+		if (useCorner) {
+			const pre = i === 0 ? (t.signals === 0 ? '駅を 出て、' : 'まっすぐ 行って、') : 'それから ';
+			const preIt = i === 0 ? (t.signals === 0 ? 'uscito dalla stazione, ' : 'vai dritto e ') : 'poi ';
+			parts.push(`${pre}${sp(c)}の かどを ${LR[t.dir]}に まがって`);
+			partsIt.push(`${preIt}all’angolo di ${PLACES[c.place].it} giri a ${LR_IT[t.dir]}`);
+		} else if (i === 0 && t.signals === 0) {
 			parts.push(`駅を 出て、すぐ ${LR[t.dir]}に まがって`);
 			partsIt.push(`uscito dalla stazione giri subito a ${LR_IT[t.dir]}`);
 		} else if (i === 0) {
@@ -252,14 +306,22 @@ export function directionsLines(plan: RoutePlan, rng: Rng, trap = rng() < 0.5): 
 			partsIt.push(`al semaforo successivo giri a ${LR_IT[t.dir]}`);
 		}
 	});
+	// dove sta: lato della strada e, se c'è, un riferimento vicino
+	const refs: { ja: string; it: string }[] = [];
+	if (lm?.next) refs.push({ ja: `${sp(lm.next)}の となりです`, it: `è accanto a ${PLACES[lm.next.place].it}` });
+	if (lm?.front) refs.push({ ja: `${sp(lm.front)}の 前に あります`, it: `è davanti a ${PLACES[lm.front.place].it} (dall’altra parte della strada)` });
+	if (lm?.behind && rng() < 0.4) refs.push({ ja: `${sp(lm.behind)}の うしろに ある たてものです。入口は 道の ほうです`, it: `è l’edificio dietro a ${PLACES[lm.behind.place].it}; l’ingresso dà sulla strada` });
+	const ref = refs.length && rng() < 0.85 ? pick(rng, refs) : null;
 	const side = `${LR[plan.side]}がわ`;
+	const end = ref ? `${side}で、${ref.ja}よ。` : `${side}に ありますよ。`;
+	const endIt = ref ? `È sulla ${LR_IT[plan.side]}: ${ref.it}.` : `È sulla ${LR_IT[plan.side]}.`;
 	if (parts.length === 0) {
-		lines.push({ who, ja: `この 道を まっすぐ 行って ください。${side}に ありますよ。`, it: `Vada dritto per questa strada. È sulla ${LR_IT[plan.side]}.` });
+		lines.push({ who, ja: `この 道を まっすぐ 行って ください。${end}`, it: `Vada dritto per questa strada. ${endIt}` });
 	} else {
 		lines.push({
 			who,
-			ja: `${parts.join('、それから ')} ください。${side}に ありますよ。`,
-			it: `${partsIt.join(', poi ')}. È sulla ${LR_IT[plan.side]}.`.replace(/^./, (c) => c.toUpperCase())
+			ja: `${parts.join('、それから ').replace('それから それから ', 'それから ')} ください。${end}`,
+			it: `${partsIt.join(', poi ').replace('poi poi ', 'poi ')}. ${endIt}`.replace(/^./, (c) => c.toUpperCase())
 		});
 	}
 	const first = plan.turns[0];
@@ -278,6 +340,8 @@ export function directionsLines(plan: RoutePlan, rng: Rng, trap = rng() < 0.5): 
 			it: `A ${LR_IT[first.dir === 'R' ? 'L' : 'R']}… anzi no,`
 		});
 	}
+	// a volte chi chiede ripete per conferma (come all'esame)
+	if (rng() < 0.4) lines.push({ who: 'N', ja: `${ref ? ref.ja.replace(/です$|に あります$/, '') + 'ですね' : `${side}ですね`}。`, it: 'Ripete per conferma.' });
 	lines.push({ who: 'N', ja: 'どうも ありがとう ございます。', it: 'Grazie mille.' });
 	return lines;
 }
@@ -474,12 +538,17 @@ const REASONS = [
 	{ key: 'kazoku', guessIt: 'È venuta la tua famiglia?', yesIt: 'È venuta mia madre dal mio paese.', guess: 'ご家族が 来たんですか。', deny: '家族は 来週 来ます。', yes: '国から 母が 来たんです。', opt: '家族が 来たから', it: 'perché è venuta la famiglia', denyIt: 'La famiglia viene la prossima settimana.' },
 	{ key: 'ame', guessIt: 'Pioveva troppo?', yesIt: 'Pioveva così forte che non potevo uscire.', guess: '雨が ひどかったからですか。', deny: '雨は もう 止んで いましたよ。', yes: '雨が ひどくて 外に 出られなかったんです。', opt: '雨が ひどかったから', it: 'perché pioveva troppo', denyIt: 'Aveva già smesso di piovere.' },
 	{ key: 'michi', guessIt: 'Non sapevi la strada?', yesIt: 'Mi sono perso.', guess: '道が わからなかったんですか。', deny: '道は 知って いました。', yes: '道が わからなく なって しまったんです。', opt: '道が わからなかったから', it: 'perché si è perso', denyIt: 'La strada la conosceva.' },
+	{ key: 'neboo', guessIt: 'Ti sei svegliato tardi?', yesIt: 'Ho dovuto portare mio figlio dal medico.', guess: 'ねぼうしたんですか。', deny: 'ちゃんと 早く おきましたよ。', yes: '子どもを びょういんに つれて 行ったんです。', opt: '子どもを びょういんに つれて 行ったから', it: 'perché ha portato il figlio dal medico', denyIt: 'Mi sono alzato presto.' },
+	{ key: 'keitai', guessIt: 'Il cellulare era rotto?', yesIt: 'Avevo lasciato il cellulare in ufficio.', guess: 'けいたいが こわれたんですか。', deny: 'けいたいは こわれて いません。', yes: 'けいたいを 会社に わすれて きて しまったんです。', opt: 'けいたいを 会社に わすれたから', it: 'perché ha lasciato il cellulare in ufficio', denyIt: 'Il cellulare non è rotto.' },
 	{ key: 'saifu', guessIt: 'Avevi mal di pancia?', yesIt: 'Ho dimenticato il portafoglio a casa.', guess: 'おなかが いたかったんですか。', deny: 'おなかは だいじょうぶです。', yes: 'さいふを 家に わすれて しまったんです。', opt: 'さいふを わすれたから', it: 'perché ha dimenticato il portafoglio', denyIt: 'La pancia sta bene.' }
 ];
 const EVENTS = [
 	{ ja: 'きのうの パーティーに 来なかった', q: 'パーティーに 来ませんでしたか', it: 'non è venuto alla festa di ieri' },
 	{ ja: 'けさ かいぎに おくれた', q: 'かいぎに おくれましたか', it: 'stamattina è arrivato tardi alla riunione' },
-	{ ja: 'どようびの テニスを 休んだ', q: 'テニスを 休みましたか', it: 'ha saltato il tennis di sabato' }
+	{ ja: 'どようびの テニスを 休んだ', q: 'テニスを 休みましたか', it: 'ha saltato il tennis di sabato' },
+	{ ja: 'きのう 電話に 出なかった', q: '電話に 出ませんでしたか', it: 'ieri non ha risposto al telefono' },
+	{ ja: 'しゅくだいを 出さなかった', q: 'しゅくだいを 出しませんでしたか', it: 'non ha consegnato i compiti' },
+	{ ja: 'ひっこしを 手つだえなかった', q: 'ひっこしを 手つだえませんでしたか', it: 'non ha potuto aiutare nel trasloco' }
 ];
 
 export function reasonMission(rng: Rng): ChoiceMission {
@@ -682,6 +751,86 @@ export function tableMission(rng: Rng): ChoiceMission {
 	};
 }
 
+// ── 課題理解: l'appuntamento (ora e posto che cambiano) ──────────────────────
+const MEET_PLACES = [
+	{ ja: '駅の 東口', it: 'all’uscita est della stazione' }, { ja: '駅の 西口', it: 'all’uscita ovest della stazione' },
+	{ ja: '映画館の 前', it: 'davanti al cinema' }, { ja: '本屋の 前', it: 'davanti alla libreria' },
+	{ ja: 'カフェの 中', it: 'dentro il caffè' }, { ja: 'こうえんの 入口', it: 'all’ingresso del parco' }
+];
+const TIMES = [[5, 0], [5, 30], [6, 0], [6, 30], [7, 0], [7, 30]] as const;
+const tJa = ([h, m]: readonly [number, number]) => `${NUM_KANJI[h]}時${m ? '半' : ''}`;
+const tIt = ([h, m]: readonly [number, number]) => `${h + 12}:${m ? '30' : '00'}`;
+export function appointmentMission(rng: Rng): ChoiceMission {
+	const [p1, p2] = shuffled(rng, MEET_PLACES);
+	const [i1, i2] = shuffled(rng, [0, 1, 2, 3, 4, 5]);
+	const t1 = TIMES[i1!]!, t2 = TIMES[i2!]!;
+	const changeT = rng() < 0.7, changeP = rng() < 0.6 || !changeT;
+	const T = changeT ? t2 : t1, P = changeP ? p2! : p1!;
+	const what = pick(rng, [{ ja: '映画', it: 'il film' }, { ja: 'コンサート', it: 'il concerto' }, { ja: 'しょくじ', it: 'la cena' }]);
+	const voicemail = rng() < 0.5;
+	const lines: Line[] = [];
+	if (voicemail) {
+		lines.push({ who: 'N', ja: 'るすばん電話を 聞いて います。二人は 何時に どこで 会いますか。', it: 'Ascolti la segreteria. A che ora e dove si incontrano?' });
+		lines.push({ who: 'M', ja: `もしもし、山田です。あしたの ${what.ja}ですが、${tJa(t1)}に ${p1!.ja}で 会いませんか。`, it: `Pronto, sono Yamada. Per ${what.it} di domani: ci vediamo alle ${tIt(t1)} ${p1!.it}?` });
+		const fix: string[] = [];
+		const fixIt: string[] = [];
+		if (changeT) { fix.push(`時間は ${tJa(t2)}の ほうが いいかもしれません`); fixIt.push(`forse è meglio alle ${tIt(t2)}`); }
+		if (changeP) { fix.push(`${p1!.ja}は 人が 多いので、${p2!.ja}に しましょう`); fixIt.push(`${p1!.it} c’è troppa gente, facciamo ${p2!.it}`); }
+		lines.push({ who: 'M', ja: `あ、でも、${fix.join('。それから、')}。じゃあ、あした。`, it: `Ah, però ${fixIt.join('; e poi ')}. A domani.` });
+	} else {
+		lines.push({ who: 'N', ja: '女の人と 男の人が 電話で 話して います。二人は 何時に どこで 会いますか。', it: 'Al telefono: a che ora e dove si incontrano?' });
+		lines.push({ who: 'F', ja: `あしたの ${what.ja}、${tJa(t1)}に ${p1!.ja}で どう？`, it: `Per ${what.it} di domani: alle ${tIt(t1)} ${p1!.it}?` });
+		if (changeT) {
+			lines.push({ who: 'M', ja: `${tJa(t1)}は ちょっと…。しごとが おそく 終わるから、${tJa(t2)}は どう？`, it: `Alle ${tIt(t1)} è un po’… finisco tardi: alle ${tIt(t2)}?` });
+			lines.push({ who: 'F', ja: 'いいよ。', it: 'Va bene.' });
+		} else lines.push({ who: 'M', ja: '時間は いいよ。', it: 'L’orario va bene.' });
+		if (changeP) {
+			lines.push({ who: 'M', ja: `でも ${p1!.ja}は わかりにくいから、${p2!.ja}に しない？`, it: `Ma ${p1!.it} è difficile da trovare: facciamo ${p2!.it}?` });
+			lines.push({ who: 'F', ja: 'そうだね。そう しよう。', it: 'Giusto, facciamo così.' });
+		}
+	}
+	const combos = [[T, P], [t1, P], [T, p1!], [t1, p1!]].filter((c, i, a) => a.findIndex((d) => d[0] === c[0] && d[1] === c[1]) === i) as [readonly [number, number], { ja: string; it: string }][];
+	const extra = shuffled(rng, MEET_PLACES.filter((m) => m !== P && m !== p1));
+	while (combos.length < 4) combos.push([pick(rng, [t1, t2]), extra.shift()!]);
+	const right = combos[0]!;
+	const opts = shuffled(rng, combos);
+	return {
+		kind: 'choice', sub: 'kadai', title: '⏰ L’appuntamento', intro: 'Ascolta: ora e luogo possono cambiare a metà. Quali sono quelli finali?', lines,
+		question: { ja: '二人は 何時に どこで 会いますか。', it: 'A che ora e dove si incontrano?' },
+		options: opts.map(([t, p]) => ({ ja: `${tJa(t)}・${p.ja}`, it: `${tIt(t)}, ${p.it}` })), answer: opts.indexOf(right)
+	};
+}
+
+// ── 課題理解: il pagamento (prezzi, sconti, sacchetto, resto) ─────────────────
+export function paymentMission(rng: Rng): ChoiceMission {
+	const [a, b] = shuffled(rng, ITEMS);
+	const qb = rng() < 0.5 ? 2 : 1;
+	const discount = qb === 2 && rng() < 0.7 ? pick(rng, [50, 100]) : 0;
+	const bag = rng() < 0.5;
+	const askChange = rng() < 0.5;
+	const total = a!.price + b!.price * qb - discount + (bag ? 5 : 0);
+	const paid = total <= 1000 ? 1000 : 2000;
+	const lines: Line[] = [
+		{ who: 'N', ja: `店で 店員と 男の人が 話して います。男の人は ${askChange ? `${paid}円 はらいました。おつりは いくらですか` : 'ぜんぶで いくら はらいますか'}。`, it: askChange ? `Al negozio. L’uomo paga con ${paid} yen: quanto resto riceve?` : 'Al negozio: quanto paga in tutto l’uomo?' },
+		{ who: 'M', ja: `すみません、この ${a!.ja}と ${b!.ja}を ください。`, it: `Scusi, vorrei ${a!.it} e ${b!.it}.` },
+		{ who: 'F', ja: `はい。${a!.ja}は ${a!.price}円、${b!.ja}は 一つ ${b!.price}円です。${discount ? `今日は ${b!.ja}を 二つ 買うと、${discount}円 安く なりますよ。` : ''}`, it: `${a!.it} ${a!.price} yen, ${b!.it} ${b!.price} yen l’uno.${discount ? ` Oggi prendendone due, ${discount} yen di sconto.` : ''}` },
+		{ who: 'M', ja: qb === 2 ? `じゃあ、${b!.ja}は 二つ ください。` : `${b!.ja}は 一つで いいです。`, it: qb === 2 ? `Allora due ${b!.it}.` : `Di ${b!.it} ne basta uno.` },
+		{ who: 'F', ja: 'ふくろは いりますか。一まい 5円です。', it: 'Le serve un sacchetto? Costa 5 yen.' },
+		{ who: 'M', ja: bag ? 'はい、おねがいします。' : 'いいえ、けっこうです。', it: bag ? 'Sì, grazie.' : 'No, grazie.' }
+	];
+	const value = askChange ? paid - total : total;
+	const wrongs = [askChange ? paid - (total + discount) : total + discount, askChange ? paid - (total - (bag ? 5 : 0) + (bag ? 0 : 5)) : total - (bag ? 5 : 0) + (bag ? 0 : 5), askChange ? paid - (total - b!.price * (qb - 1) + (qb === 1 ? b!.price : 0)) : total - b!.price * (qb - 1) + (qb === 1 ? b!.price : 0), value + 100, value - 50];
+	const opts = [value];
+	for (const w of wrongs) if (w > 0 && !opts.includes(w) && opts.length < 4) opts.push(w);
+	const shuffledOpts = shuffled(rng, opts);
+	return {
+		kind: 'choice', sub: 'kadai', title: '💴 Alla cassa', intro: 'Ascolta prezzi, sconti e sacchetto, e fai il conto.', lines,
+		question: { ja: askChange ? 'おつりは いくらですか。' : 'ぜんぶで いくら はらいますか。', it: askChange ? 'Quanto resto riceve?' : 'Quanto paga in tutto?' },
+		options: shuffledOpts.map((v) => ({ ja: `${v}円`, it: `${v} yen` })), answer: shuffledOpts.indexOf(value),
+		spiega: `${a!.price} + ${b!.price}×${qb}${discount ? ` − ${discount}` : ''}${bag ? ' + 5' : ''} = ${total} yen${askChange ? `; resto ${paid} − ${total} = ${paid - total}` : ''}.`
+	};
+}
+
 // ── 課題理解: la spesa, con quantità e trappole ─────────────────────────────
 // Ogni telefonata combina 3 mosse a caso tra: «non serve, ce n'è ancora»,
 // «anzi, X invece di Y» sulla quantità, «aggiungi anche…», «lascia stare»,
@@ -878,7 +1027,7 @@ export function routeMission(rng: Rng, town: Building[], target: PlaceId): Route
 		kind: 'route',
 		title: `🧭 Verso ${PLACES[target].it}`,
 		intro: 'Non sai la strada: chiedi a un passante. Ascolta le indicazioni e cammina fino alla porta giusta, poi entra.',
-		lines: directionsLines(plan, rng),
+		lines: directionsLines(plan, rng, rng() < 0.5, town),
 		plan
 	};
 }
@@ -1050,7 +1199,7 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 	// più ascolti e letture al giorno; se la banca non ha domande di quel tipo,
 	// una variante generata scelta a caso (non sempre la stessa)
 	const gen = (...makers: (() => Mission)[]) => () => pick(rng, makers)();
-	const kadaiGen = gen(() => priorityMission(rng), () => calendarMission(rng), () => bringMission(rng), () => orderMission(rng));
+	const kadaiGen = gen(() => priorityMission(rng), () => calendarMission(rng), () => bringMission(rng), () => orderMission(rng), () => appointmentMission(rng), () => paymentMission(rng));
 	const readGen = gen(() => readMission(rng), () => tableMission(rng));
 	const steps: Step[] = [
 		{ place: 'eki', time: 8 * 60, mission: signMission(rng), cost: 3 },
@@ -1064,10 +1213,12 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		{ place: errand, time: 13 * 60 + 30, mission: routeMission(rng, town, errand), cost: 0 },
 		{ ...slot('point', errand, () => reasonMission(rng)), time: 14 * 60, cost: 20 },
 		{ ...slot('kadai', errand, kadaiGen), time: 14 * 60 + 25, cost: 25 },
+		{ ...slot('kadai', errand, () => paymentMission(rng)), time: 14 * 60 + 45, cost: 10 },
 		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 15 * 60, cost: 30 },
 		{ ...slot('hatsuwa', 'kaisha', () => rpgMission(rng)), time: 15 * 60 + 40, cost: 30 },
 		{ ...slot('dokkai', 'kaisha', readGen), time: 16 * 60 + 20, cost: 40 },
 		{ place: 'konbini', time: 18 * 60, mission: shopMission(rng), cost: 15 },
+		{ place: 'kafe', time: 18 * 60 + 20, mission: appointmentMission(rng), cost: 10 },
 		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
 	if (morning) steps.unshift({ place: 'eki', time: 7 * 60 + 40, mission: morning, cost: 15 });
