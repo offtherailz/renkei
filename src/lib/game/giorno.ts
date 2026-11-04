@@ -7,7 +7,7 @@
 // Testi giapponesi ORIGINALI, scritti a slot. Solo kanji N5/N4 (kanjiN4.ts):
 // le parole con kanji sopra livello sono in kana (しんごう, ゆうびんきょく…).
 
-import type { CourseGiornoInput } from '$lib/types/models';
+import type { CourseGiornoInput, TestoFormato } from '$lib/types/models';
 
 export type Rng = () => number;
 export type Who = 'N' | 'F' | 'M'; // narratore, donna, uomo
@@ -68,6 +68,10 @@ export function isCrossing(x: number, y: number): boolean {
 export type PlaceId =
 	| 'kaisha' | 'yuubin' | 'konbini' | 'resutoran' | 'ginkou' | 'byouin' | 'honya' | 'hanaya'
 	| 'kusuri' | 'panya' | 'toshokan' | 'kafe' | 'gakkou' | 'kouen' | 'manshon' | 'eiga';
+
+// dove si svolge un passo della giornata: un posto in città, la stazione, casa
+export type Where = PlaceId | 'eki' | 'ie';
+export const placeIt = (p: Where): string => (p === 'eki' ? 'stazione' : p === 'ie' ? 'casa' : PLACES[p].it);
 
 export interface PlaceInfo {
 	id: PlaceId;
@@ -370,7 +374,7 @@ export interface ChoiceMission {
 	title: string;
 	intro: string; // contesto in italiano
 	lines: Line[]; // audio (può essere vuoto: lettura)
-	doc?: { title: string; ja: string; it: string }; // testo da leggere (読解)
+	doc?: { title: string; ja: string; it: string; formato?: TestoFormato }; // testo da leggere (読解), com'è fatto il foglio
 	question: { ja: string; it: string };
 	options: Option[];
 	answer: number;
@@ -609,6 +613,175 @@ export function rpgMission(rng: Rng, idx?: number): ChoiceMission {
 		options: opts,
 		answer: opts.indexOf(s.right),
 		reaction: s.reaction
+	};
+}
+
+// ── A casa: saluti di famiglia e piccole cose prima di uscire / dopo il ritorno ──
+// Una domanda sola, breve: la giornata comincia e finisce a casa, senza pesare.
+interface HomeScene {
+	intro: string;
+	lines: Line[];
+	q: { ja: string; it: string };
+	options: Option[]; // la prima è la giusta
+	reaction?: Line;
+	spiega: string;
+}
+const HOME: Record<'mattina' | 'sera', HomeScene[]> = {
+	mattina: [
+		{
+			intro: 'Esci di casa per andare al lavoro. Cosa dici alla famiglia?',
+			lines: [{ who: 'N', ja: 'うちを 出る ときに、かぞくに 何と 言いますか。', it: 'Uscendo di casa, cosa dici alla famiglia?' }],
+			q: { ja: '何と 言いますか。', it: 'Cosa dici?' },
+			options: [
+				{ ja: 'いってきます。', it: 'Vado (e torno).' },
+				{ ja: 'いってらっしゃい。', it: 'Vai (e torna): lo dice chi resta.' },
+				{ ja: 'ただいま。', it: 'Sono tornato.' },
+				{ ja: 'おかえりなさい。', it: 'Bentornato.' }
+			],
+			reaction: { who: 'F', ja: 'いってらっしゃい。気を つけてね。', it: 'Vai, stai attento.' },
+			spiega: 'Chi esce dice いってきます; chi resta risponde いってらっしゃい.'
+		},
+		{
+			intro: 'Stai uscendo e saluti. Cosa ti risponde tua madre?',
+			lines: [{ who: 'M', ja: 'じゃあ、いってきます。', it: 'Allora, vado.' }],
+			q: { ja: 'お母さんは 何と 言いますか。', it: 'Cosa dice la mamma?' },
+			options: [
+				{ ja: 'いってらっしゃい。', it: 'Vai e torna.' },
+				{ ja: 'いってきます。', it: 'Vado e torno.' },
+				{ ja: 'いただきます。', it: 'Buon appetito (prima di mangiare).' },
+				{ ja: 'おやすみなさい。', it: 'Buona notte.' }
+			],
+			spiega: 'A いってきます si risponde いってらっしゃい.'
+		},
+		{
+			intro: 'La colazione è in tavola. Prima di cominciare a mangiare cosa si dice?',
+			lines: [{ who: 'F', ja: 'あさごはん、できたよ。どうぞ。', it: 'La colazione è pronta. Prego.' }],
+			q: { ja: '食べる 前に 何と 言いますか。', it: 'Cosa si dice prima di mangiare?' },
+			options: [
+				{ ja: 'いただきます。', it: 'Buon appetito (grazie per il cibo).' },
+				{ ja: 'ごちそうさまでした。', it: 'Grazie del pasto (alla fine).' },
+				{ ja: 'おかえりなさい。', it: 'Bentornato.' },
+				{ ja: 'いってきます。', it: 'Vado e torno.' }
+			],
+			reaction: { who: 'F', ja: 'はい、どうぞ。', it: 'Prego.' },
+			spiega: 'いただきます prima di mangiare, ごちそうさまでした dopo.'
+		},
+		{
+			intro: 'Prima di uscire, tua madre guarda nel frigo. Cosa devi comprare al ritorno?',
+			lines: [
+				{ who: 'F', ja: 'ちょっと れいぞうこを 見て。ぎゅうにゅうは もう ないね。', it: 'Guarda un po’ in frigo. Il latte è finito.' },
+				{ who: 'F', ja: 'たまごは まだ 三つ あるから いいわ。あ、パンも ない。', it: 'Le uova: ce ne sono ancora tre, vanno bene. Ah, manca anche il pane.' },
+				{ who: 'F', ja: '帰りに 買って きて くれる？', it: 'Me li compri tornando?' }
+			],
+			q: { ja: '帰りに 何を 買いますか。', it: 'Cosa compri tornando?' },
+			options: [
+				{ ja: 'ぎゅうにゅうと パン', it: 'latte e pane' },
+				{ ja: 'ぎゅうにゅうと たまご', it: 'latte e uova' },
+				{ ja: 'たまごと パン', it: 'uova e pane' },
+				{ ja: 'たまごだけ', it: 'solo uova' }
+			],
+			spiega: 'Le uova ci sono ancora (まだ 三つ ある): servono latte e pane.'
+		},
+		{
+			intro: 'Stai uscendo. Ascolta la mamma: cosa devi portare?',
+			lines: [
+				{ who: 'F', ja: 'きょうは 午後から 雨が ふるそうよ。', it: 'Oggi dicono che pioverà dal pomeriggio.' },
+				{ who: 'F', ja: 'かさを 持って 行ってね。おべんとうは もう かばんに 入れたから。', it: 'Porta l’ombrello. Il pranzo te l’ho già messo in borsa.' }
+			],
+			q: { ja: '何を 持って 行かなければ なりませんか。', it: 'Cosa devi prendere?' },
+			options: [
+				{ ja: 'かさ', it: 'l’ombrello' },
+				{ ja: 'おべんとう', it: 'il pranzo' },
+				{ ja: 'かさと おべんとう', it: 'ombrello e pranzo' },
+				{ ja: '何も いらない', it: 'niente' }
+			],
+			spiega: 'Il pranzo è già in borsa (もう 入れた): devi prendere solo l’ombrello.'
+		}
+	],
+	sera: [
+		{
+			intro: 'Rientri a casa la sera. Cosa dici entrando?',
+			lines: [{ who: 'N', ja: 'うちに 帰りました。何と 言いますか。', it: 'Sei tornato a casa. Cosa dici?' }],
+			q: { ja: '何と 言いますか。', it: 'Cosa dici?' },
+			options: [
+				{ ja: 'ただいま。', it: 'Sono tornato.' },
+				{ ja: 'おかえりなさい。', it: 'Bentornato: lo dice chi è in casa.' },
+				{ ja: 'いってきます。', it: 'Vado e torno.' },
+				{ ja: 'おじゃまします。', it: 'Permesso (a casa d’altri).' }
+			],
+			reaction: { who: 'F', ja: 'おかえりなさい。つかれたでしょう。', it: 'Bentornato. Sarai stanco.' },
+			spiega: 'Chi rientra dice ただいま; chi è in casa risponde おかえりなさい. おじゃまします è per casa d’altri.'
+		},
+		{
+			intro: 'Sei appena rientrato e hai salutato. Cosa ti risponde la famiglia?',
+			lines: [{ who: 'M', ja: 'ただいま。', it: 'Sono tornato.' }],
+			q: { ja: 'かぞくは 何と 言いますか。', it: 'Cosa risponde la famiglia?' },
+			options: [
+				{ ja: 'おかえりなさい。', it: 'Bentornato.' },
+				{ ja: 'いってらっしゃい。', it: 'Vai e torna.' },
+				{ ja: 'ただいま。', it: 'Sono tornato.' },
+				{ ja: 'ごちそうさまでした。', it: 'Grazie del pasto.' }
+			],
+			spiega: 'A ただいま si risponde おかえりなさい.'
+		},
+		{
+			intro: 'Hai finito la cena. Cosa si dice alla fine del pasto?',
+			lines: [{ who: 'F', ja: 'もう 少し 食べる？', it: 'Ne vuoi ancora un po’?' }],
+			q: { ja: '食べた あとで 何と 言いますか。', it: 'Cosa si dice dopo aver mangiato?' },
+			options: [
+				{ ja: 'いいえ、もう けっこうです。ごちそうさまでした。', it: 'No, basta così. Grazie del pasto.' },
+				{ ja: 'はい、いただきました。', it: 'Sì, ho ricevuto.' },
+				{ ja: 'いいえ、いただきます。', it: 'No, buon appetito.' },
+				{ ja: 'はい、おかえりなさい。', it: 'Sì, bentornato.' }
+			],
+			reaction: { who: 'F', ja: 'はい、おそまつさまでした。', it: 'Prego, è stato poca cosa.' },
+			spiega: 'もう けっこうです = basta così (gentile); ごちそうさまでした alla fine del pasto.'
+		},
+		{
+			intro: 'È tardi e vai a dormire. Cosa dici alla famiglia?',
+			lines: [{ who: 'F', ja: 'あしたも 早いでしょう。もう ねたら？', it: 'Anche domani ti alzi presto, no? Perché non vai a dormire?' }],
+			q: { ja: 'ねる 前に 何と 言いますか。', it: 'Cosa dici prima di dormire?' },
+			options: [
+				{ ja: 'うん、おやすみなさい。', it: 'Sì, buona notte.' },
+				{ ja: 'うん、おはよう。', it: 'Sì, buongiorno.' },
+				{ ja: 'うん、いってきます。', it: 'Sì, vado.' },
+				{ ja: 'うん、こんばんは。', it: 'Sì, buonasera.' }
+			],
+			spiega: 'おやすみなさい prima di dormire; こんばんは è un saluto d’incontro, non di congedo.'
+		},
+		{
+			intro: 'La mamma ti chiede del latte che ti aveva chiesto stamattina.',
+			lines: [
+				{ who: 'F', ja: 'ぎゅうにゅう、買って きて くれた？', it: 'Hai comprato il latte?' },
+				{ who: 'M', ja: 'あ、わすれちゃった。ごめん。あした 買って くるね。', it: 'Ah, l’ho dimenticato. Scusa, lo compro domani.' },
+				{ who: 'F', ja: 'いいわよ。あしたの あさは おちゃに するから。', it: 'Va bene. Domattina allora prendo il tè.' }
+			],
+			q: { ja: 'お母さんは あしたの あさ 何を 飲みますか。', it: 'Cosa berrà la mamma domattina?' },
+			options: [
+				{ ja: 'おちゃ', it: 'tè' },
+				{ ja: 'ぎゅうにゅう', it: 'latte' },
+				{ ja: 'コーヒー', it: 'caffè' },
+				{ ja: 'ジュース', it: 'succo' }
+			],
+			spiega: 'Il latte è stato dimenticato, quindi おちゃに する = prenderò il tè.'
+		}
+	]
+};
+
+export function homeMission(rng: Rng, when: 'mattina' | 'sera'): ChoiceMission {
+	const s = pick(rng, HOME[when]);
+	const order = shuffled(rng, s.options.map((_, i) => i));
+	return {
+		kind: 'choice',
+		sub: 'kadai',
+		title: when === 'mattina' ? '🏠 A casa, prima di uscire' : '🏠 Di nuovo a casa',
+		intro: s.intro,
+		lines: s.lines,
+		question: s.q,
+		options: order.map((i) => s.options[i]!),
+		answer: order.indexOf(0),
+		reaction: s.reaction,
+		spiega: s.spiega
 	};
 }
 
@@ -1050,7 +1223,8 @@ export interface ItemProgress {
 }
 export type Progress = Record<string, ItemProgress>;
 export const CONSOLIDATED = 2;
-export const NEW_PER_DAY = 2;
+// domande nuove al giorno (prima volta che escono), di default; l'utente lo cambia nel gioco
+export const NEW_PER_DAY = 30;
 
 export function recordResult(prog: Progress, id: string, ok: boolean, dayNo: number): Progress {
 	const p = prog[id] ?? { streak: 0, seen: 0, last: -1 };
@@ -1101,7 +1275,7 @@ export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
 		intro: b.intro ?? '',
 		scena: b.scena,
 		lines: b.righe,
-		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it },
+		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it, formato: b.testo.formato },
 		question: b.domanda,
 		options: order.map((i) => b.opzioni[i]!),
 		answer: order.indexOf(b.risposta),
@@ -1147,7 +1321,7 @@ export function bankQuick(items: BankItem[], rng: Rng): QuickMission {
 
 // ── La giornata ─────────────────────────────────────────────────────────────
 export interface Step {
-	place: PlaceId | 'eki';
+	place: Where;
 	time: number; // ora d'inizio prevista (minuti dalla mezzanotte)
 	deadline?: number; // arrivare entro (minuti): dopo, reputazione −
 	mission: Mission;
@@ -1167,31 +1341,36 @@ export interface DayContext {
 	bank: BankItem[];
 	prog: Progress;
 	dayNo: number;
+	newPerDay?: number;
 }
 
-const isPlace = (p: string | undefined): p is PlaceId | 'eki' => !!p && (p === 'eki' || p in PLACES);
+const isPlace = (p: string | undefined): p is Where => !!p && (p === 'eki' || p === 'ie' || p in PLACES);
 
 export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, dayNo: 0 }): Day {
 	const rng = seeded(seed);
 	const town = buildTown(rng);
 	const errand = pick(rng, ['yuubin', 'ginkou', 'kusuri', 'honya', 'toshokan'] as PlaceId[]);
 	const used = new Set<string>();
-	const budget = { left: NEW_PER_DAY * 4 };
+	// le nuove si dividono: 4 su 10 nelle situazioni (ascolto, lettura), il resto nei ripassi scritti
+	const perDay = Math.max(0, ctx.newPerDay ?? NEW_PER_DAY);
+	const slotNew = Math.round(perDay * 0.4);
+	const budget = { left: slotNew };
 	let fromBank = 0;
 	// una domanda della banca se c'è (con il suo luogo), altrimenti la variante generata
-	const slot = (tipo: BankTipo, place: PlaceId | 'eki', make: () => Mission): { place: PlaceId | 'eki'; mission: Mission } => {
+	const slot = (tipo: BankTipo, place: Where, make: () => Mission): { place: Where; mission: Mission } => {
 		const [b] = pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget, rng);
 		if (!b) return { place, mission: make() };
 		fromBank += 1;
 		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b, rng) };
 	};
-	// pause di ripasso: domande scritte, con un budget di nuove a parte
-	// 8 domande per pausa, al massimo 12 nuove al giorno: con centinaia di domande
-	// scritte il ripasso deve avanzare, ma le sbagliate restano in testa
-	const drillBudget = { left: 12 };
+	// pause di ripasso: domande scritte, con un budget di nuove a parte. Ogni
+	// pausa ha almeno 8 domande, di più se le nuove del giorno non ci stanno
+	// (le sbagliate restano in testa)
+	const drillBudget = { left: perDay - slotNew };
+	const perDrill = Math.max(8, Math.ceil(drillBudget.left / 3) + 2);
 	const drill = (tipi: BankTipo[], title: string, intro: string): DrillMission | null => {
 		const items: BankItem[] = [];
-		for (const t of tipi) items.push(...pickBank(ctx.bank, t, 8 - items.length, ctx.prog, ctx.dayNo, used, drillBudget, rng));
+		for (const t of tipi) items.push(...pickBank(ctx.bank, t, perDrill - items.length, ctx.prog, ctx.dayNo, used, drillBudget, rng));
 		fromBank += items.length;
 		return items.length ? bankDrill(items, title, intro) : null;
 	};
@@ -1211,7 +1390,7 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		{ ...slot('dokkai', 'eki', readGen), time: 8 * 60 + 3, cost: 7 },
 		{ place: 'kaisha', time: 8 * 60 + 10, deadline: 9 * 60, mission: routeMission(rng, town, 'kaisha'), cost: 0 },
 		{ ...slot('kadai', 'kaisha', kadaiGen), time: 9 * 60, cost: 35 },
-		{ ...slot('kadai', 'kaisha', kadaiGen), time: 9 * 60 + 40, cost: 35 },
+		{ place: 'kaisha', mission: gen(() => calendarMission(rng), () => priorityMission(rng), () => bringMission(rng), () => orderMission(rng))(), time: 9 * 60 + 40, cost: 35 },
 		{ ...slot('point', 'kaisha', () => reasonMission(rng)), time: 10 * 60 + 20, cost: 30 },
 		{ ...slot('dokkai', 'kaisha', readGen), time: 11 * 60, cost: 40 },
 		{ ...slot('hatsuwa', 'resutoran', () => rpgMission(rng, 6)), time: 12 * 60, cost: 50, lunch: true },
@@ -1227,9 +1406,11 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
 	if (morning) steps.unshift({ place: 'eki', time: 7 * 60 + 40, mission: morning, cost: 15 });
+	steps.unshift({ place: 'ie', time: 7 * 60, mission: homeMission(rng, 'mattina'), cost: 20 });
 	if (lunch) steps.splice(steps.findIndex((s) => s.lunch), 0, { place: 'resutoran', time: 12 * 60, mission: lunch, cost: 10 });
 	if (evening) steps.push({ place: 'eki', time: 19 * 60, mission: evening, cost: 20 });
-	return { seed, town, steps, fromBank, newToday: NEW_PER_DAY * 4 - budget.left };
+	steps.push({ place: 'ie', time: 19 * 60 + 30, mission: homeMission(rng, 'sera'), cost: 10 });
+	return { seed, town, steps, fromBank, newToday: slotNew - budget.left + (perDay - slotNew) - drillBudget.left };
 }
 
 // Tutti i testi giapponesi di una missione (per i test sul livello dei kanji)

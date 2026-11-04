@@ -3,7 +3,7 @@
 // 4×4), come la grafica dei giochi giapponesi anni '90. I personaggi veri sono
 // disegni (src/lib/game/sceneArt.ts): quelli in codice venivano brutti.
 
-import type { PlaceId } from './giorno';
+import type { PlaceId, Where } from './giorno';
 
 export const SCENE_W = 320;
 export const SCENE_H = 200;
@@ -40,7 +40,7 @@ export function quantize(ctx: CanvasRenderingContext2D, w = SCENE_W, h = SCENE_H
 
 // ── sfondi ─────────────────────────────────────────────────────────────────
 type Bg = 'office' | 'shop' | 'station' | 'resto' | 'street' | 'school' | 'clinic' | 'library';
-const BG_OF: Partial<Record<PlaceId | 'eki', Bg>> = {
+const BG_OF: Partial<Record<Where, Bg>> = {
 	kaisha: 'office', ginkou: 'office', yuubin: 'office', konbini: 'shop', panya: 'shop', hanaya: 'shop',
 	honya: 'library', toshokan: 'library', eki: 'station', resutoran: 'resto', kafe: 'resto', gakkou: 'school',
 	byouin: 'clinic', kusuri: 'clinic', manshon: 'street', eiga: 'street', kouen: 'street'
@@ -151,7 +151,7 @@ function drawBg(ctx: CanvasRenderingContext2D, bg: Bg, hour: number) {
 }
 
 export interface SceneState {
-	place: PlaceId | 'eki';
+	place: Where;
 	hour: number;
 }
 

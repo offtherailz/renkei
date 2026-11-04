@@ -5,10 +5,11 @@
 	import { voiceParams } from '$lib/core/voices';
 	import { isInLevel } from '$lib/data/kanjiN4';
 	import {
-		buildDay, buildingAtDoor, buildingOf, countJa, drillSpoken, hhmm, isCrossing, isRoad, numbered, PLACES, recordResult, roadPath, SKILL_OF, START,
-		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Who
+		buildDay, buildingAtDoor, buildingOf, countJa, drillSpoken, hhmm, isCrossing, isRoad, NEW_PER_DAY, numbered, PLACES, placeIt, recordResult, roadPath, SKILL_OF, START,
+		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Where, type Who
 	} from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
+	import type { TestoFormato } from '$lib/types/models';
 	import { decryptCourse } from '$lib/core/courseCrypto';
 	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawTown, lightOf, TILE } from '$lib/game/pixel';
@@ -22,12 +23,30 @@
 
 	// ── banca di domande d'esame (file corso) e progressi del ripasso ──
 	let bank = $state<BankItem[]>([]);
-	let prog: Progress = {};
+	let prog = $state.raw<Progress>({});
 	let dayNo = 0;
 	function loadProgress(): void {
 		try {
 			const raw = JSON.parse(localStorage.getItem('renkei_giorno_prog') ?? 'null') as { prog: Progress; dayNo: number } | null;
 			if (raw) ({ prog, dayNo } = raw);
+		} catch {
+			/* niente storage */
+		}
+	}
+	// quante domande nuove al giorno (si cambia nella schermata iniziale)
+	let newPerDay = $state(NEW_PER_DAY);
+	function loadConfig(): void {
+		try {
+			const n = Number(localStorage.getItem('renkei_giorno_nuove'));
+			if (n > 0) newPerDay = n;
+		} catch {
+			/* niente storage */
+		}
+	}
+	function saveConfig(): void {
+		newPerDay = Math.max(0, Math.min(200, Math.round(newPerDay || 0)));
+		try {
+			localStorage.setItem('renkei_giorno_nuove', String(newPerDay));
 		} catch {
 			/* niente storage */
 		}
@@ -69,6 +88,7 @@
 			loadingExams = false;
 		}
 	}
+	const seenCount = $derived(bank.filter((b) => (prog[b.id]?.seen ?? 0) > 0).length);
 	const consolidated = $derived(bank.filter((b) => (prog[b.id]?.streak ?? 0) >= 2).length);
 
 	// ── stato della giornata ──
@@ -176,7 +196,7 @@
 
 	const step = $derived(day ? day.steps[stepIdx] ?? null : null);
 	const mission = $derived<Mission | null>(step?.mission ?? null);
-	const doorOf = (p: PlaceId | 'eki'): Pos => (p === 'eki' || !day ? { ...START } : buildingOf(day.town, p).door);
+	const doorOf = (p: Where): Pos => (p === 'eki' || p === 'ie' || !day ? { ...START } : buildingOf(day.town, p).door);
 	const targetDoor = $derived(step ? doorOf(step.place) : null);
 	const markerOn = $derived(phase === 'walk' && !!targetDoor && (!routeActive || wrongDoors >= 3));
 	const doorsHere = $derived(day && phase === 'walk' ? buildingAtDoor(day.town, player) : []);
@@ -235,7 +255,7 @@
 		// il giorno conta da quando lo inizi: chi interrompe a metà non rivede le stesse
 		dayNo += 1;
 		saveProgress();
-		day = buildDay(seed, { bank, prog, dayNo });
+		day = buildDay(seed, { bank, prog, dayNo, newPerDay });
 		stepIdx = 0;
 		clock = 8 * 60;
 		energy = 100;
@@ -284,7 +304,7 @@
 			openMission();
 		} else {
 			phase = 'walk';
-			say(`🎯 Vai a: ${next.place === 'eki' ? 'stazione' : PLACES[next.place].it}`);
+			say(`🎯 Vai a: ${placeIt(next.place)}`);
 		}
 	}
 
@@ -570,7 +590,7 @@
 		}
 	}
 	function markerFor(door: Pos): Pos {
-		if (!day || !step || step.place === 'eki') return { x: START.x, y: 13 };
+		if (!day || !step || step.place === 'eki' || step.place === 'ie') return { x: START.x, y: 13 };
 		const b = buildingOf(day.town, step.place);
 		return { x: b.x + (door.x > b.x ? 1 : 0), y: b.y };
 	}
@@ -602,7 +622,7 @@
 			if (look.sprite) new Image().src = spriteSrc(base, look.sprite, t);
 		}
 	});
-	function sceneBg(node: HTMLCanvasElement, p: { place: PlaceId | 'eki'; hour: number }) {
+	function sceneBg(node: HTMLCanvasElement, p: { place: Where; hour: number }) {
 		const draw = (q: typeof p) => {
 			const c = node.getContext('2d');
 			if (c) drawScene(c, q);
@@ -616,6 +636,7 @@
 		loop = setInterval(frameLoop, 90);
 		window.addEventListener('keydown', onKey);
 		loadProgress();
+		loadConfig();
 		void loadBank();
 		resumeRun();
 		ensureWordIndex('it').then((m) => (wordIndex = m)).catch(() => {});
@@ -628,6 +649,8 @@
 	});
 
 	const WD = ['月', '火', '水', '木', '金', '土', '日'];
+	const DOC_ICON: Record<TestoFormato, string> = { email: '📧', messaggio: '💬', memo: '📝', avviso: '📌', volantino: '📄', cartello: '🪧', tema: '📓' };
+	const DOC_LABEL: Record<TestoFormato, string> = { email: 'email', messaggio: 'messaggio', memo: 'biglietto', avviso: 'avviso', volantino: 'volantino', cartello: 'cartello', tema: 'testo' };
 </script>
 
 <svelte:head>
@@ -654,7 +677,12 @@
 			</ul>
 			<p class="stats-line">⏰ tempo · ⚡ energia · ¥ soldi · ⭐ reputazione — a fine giornata il voto.</p>
 			{#if bank.length}
-				<p class="stats-line">📚 Domande d'esame: {bank.length} · consolidate {consolidated}. Le sbagliate tornano finché non le sai due volte di fila; le nuove entrano poche per giornata.</p>
+				<p class="stats-line">📚 Domande d'esame: {bank.length} · viste {seenCount} · consolidate {consolidated}. Le sbagliate tornano finché non le sai due volte di fila.</p>
+				<label class="cfg">Domande nuove al giorno
+					<input type="number" min="0" max="200" step="5" bind:value={newPerDay} onchange={saveConfig} />
+				</label>
+				<p class="muted small">Con {newPerDay} al giorno le {bank.length - seenCount} ancora da vedere escono tutte in circa {newPerDay ? Math.ceil((bank.length - seenCount) / newPerDay) : '∞'} giornate.</p>
+				<a class="btn ghost small" href="{base}/giorno/domande">🗂️ Tutte le domande</a>
 				<button class="btn ghost small" onclick={importExams} disabled={loadingExams}>🔄 Aggiorna le prove d'esame</button>
 			{:else}
 				<p class="muted small">Senza le prove d'esame giochi con le varianti generate.</p>
@@ -695,8 +723,8 @@
 		{#if phase === 'walk'}
 			<div class="panel walk">
 				<p class="goal">
-					{#if routeActive}🧭 Segui le indicazioni fino a {step && step.place !== 'eki' ? PLACES[step.place].it : ''}.{wrongDoors >= 3 ? ' (freccia gialla)' : ''}
-					{:else}🎯 Vai a: <strong>{step?.place === 'eki' ? 'stazione (駅)' : step ? PLACES[step.place].it : ''}</strong> — segui la freccia gialla.{/if}
+					{#if routeActive}🧭 Segui le indicazioni fino a {step ? placeIt(step.place) : ''}.{wrongDoors >= 3 ? ' (freccia gialla)' : ''}
+					{:else}🎯 Vai a: <strong>{step?.place === 'eki' ? 'stazione (駅)' : step ? placeIt(step.place) : ''}</strong> — segui la freccia gialla.{/if}
 				</p>
 				<div class="controls">
 					<div class="pad">
@@ -744,7 +772,7 @@
 					{#if speaking}
 						<p><span class="dname">{speaking === 'N' ? 'アナウンス' : speaking === 'F' ? '女の人' : '男の人'}</span>「……」</p>
 					{:else}
-						<p>{mission.intro}</p>
+						<p>{mission.intro || (mission.kind === 'choice' && mission.doc ? 'Leggi il testo e rispondi alla domanda.' : 'Ascolta e rispondi.')}</p>
 					{/if}
 				</div>
 
@@ -755,9 +783,15 @@
 					</div>
 				{:else if mission.kind === 'choice'}
 					{#if mission.doc}
-						<div class="phone">
-							<p class="phone-title">✉️ {mission.doc.title}</p>
-							<pre class="ja">{mission.doc.ja}</pre>
+						{@const f = mission.doc.formato ?? 'messaggio'}
+						<!-- il foglio come si presenta davvero: email, messaggio, memo, avviso… -->
+						<div class="doc doc-{f}">
+							<p class="doc-head">{DOC_ICON[f]} <span>{DOC_LABEL[f]}</span> {mission.doc.title}</p>
+							{#if f === 'messaggio'}
+								{#each mission.doc.ja.split('\n').filter((r) => r.trim()) as r, i (i)}<p class="bubble ja">{r}</p>{/each}
+							{:else}
+								<pre class="ja">{mission.doc.ja}</pre>
+							{/if}
 						</div>
 					{/if}
 					{#if mission.scena}<p class="scena">🖼️ {mission.scena}</p>{/if}
@@ -1000,6 +1034,8 @@
 		pointer-events: none;
 	}
 	/* altezze fisse: obiettivo su una o due righe, porte o suggerimento */
+	.cfg { display: flex; gap: 8px; align-items: center; font-size: 0.9rem; }
+	.cfg input { width: 5em; font-family: inherit; font-size: 1rem; padding: 2px 4px; }
 	.goal { margin: 0; font-size: 0.9rem; min-height: 2.7em; }
 	.controls { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
 	.pad { display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); }
@@ -1063,8 +1099,18 @@
 	.right { background: var(--px-ok) !important; }
 	.wrong { background: var(--px-ko) !important; color: #fff !important; }
 	.ico { font-size: 1.25rem; }
-	.phone { background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 8px 10px; }
-	.phone-title { margin: 0 0 4px; font-weight: 700; }
+	/* fogli da leggere: ognuno con il suo aspetto */
+	.doc { background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 8px 10px; display: grid; gap: 4px; }
+	.doc-head { margin: 0; font-weight: 700; }
+	.doc-head span { font-weight: 400; font-size: 0.75rem; background: #222034; color: #f4f4f4; padding: 0 4px; margin-right: 4px; }
+	.doc-email { background: #fff; border-top-width: 10px; border-top-color: #5b6ee1; }
+	.doc-messaggio { background: #cbdbfc; border-radius: 14px; }
+	.bubble { margin: 0; background: #fff; padding: 4px 8px; border-radius: 10px; justify-self: start; max-width: 90%; border: 2px solid #9badb7; }
+	.doc-memo { background: #fbf236; transform: rotate(-0.6deg); box-shadow: 3px 3px 0 #0e0d1a55; }
+	.doc-avviso, .doc-cartello { background: #fff8e7; border: 4px double #8f563b; }
+	.doc-cartello { background: #dff5e1; border-color: #37946e; }
+	.doc-volantino { background: #fff; border-style: dashed; }
+	.doc-tema { background: repeating-linear-gradient(#fdfdf6 0 1.55em, #d7dde8 1.55em calc(1.55em + 1px)); line-height: 1.55em; }
 	pre { white-space: pre-wrap; font-family: inherit; margin: 0; }
 	.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
 	.item { flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 6px 4px; }

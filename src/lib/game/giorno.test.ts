@@ -192,7 +192,9 @@ describe('ripasso delle domande scritte', () => {
 		const d = buildDay(9, { bank, prog: {}, dayNo: 0 });
 		const drills = d.steps.filter((s) => s.mission.kind === 'drill');
 		expect(drills.length).toBeGreaterThan(0);
-		expect(d.steps[0]!.mission.kind).toBe('drill');
+		// la giornata comincia a casa, poi il ripasso in treno
+		expect(d.steps[0]!.place).toBe('ie');
+		expect(d.steps[1]!.mission.kind).toBe('drill');
 		const lunch = drills.find((s) => s.mission.kind === 'drill' && s.mission.rounds.some((r) => r.sourceId === 'b1'))!;
 		expect(lunch.mission.kind === 'drill' && drillSpoken(lunch.mission.rounds[0]!)).toBe('会社を休みました。');
 	});
@@ -261,5 +263,26 @@ describe('appuntamenti e pagamenti', () => {
 			expect(right).toBeGreaterThan(0);
 			expect(p.spiega).toContain(String(right));
 		}
+	});
+});
+
+describe('giornata: casa, compito generato, domande nuove', () => {
+	it('comincia e finisce a casa, e ogni giorno ha un compito generato in ufficio', () => {
+		for (const seed of [1, 2, 3, 4, 5]) {
+			const d = buildDay(seed);
+			expect(d.steps[0]!.place).toBe('ie');
+			expect(d.steps.at(-1)!.place).toBe('ie');
+			const office = d.steps.filter((s) => s.place === 'kaisha' && s.mission.kind !== 'route');
+			expect(office.some((s) => s.mission.kind === 'calendar' || (s.mission.kind === 'choice' && !s.mission.sourceId))).toBe(true);
+		}
+	});
+	it('le domande nuove al giorno seguono l’impostazione', () => {
+		const w = (i: number, tipo: 'moji' | 'kadai') => ({ id: `${tipo}${i}`, tipo, righe: [], domanda: { ja: 'x', it: '' }, opzioni: [{ ja: 'a', it: '' }, { ja: 'b', it: '' }], risposta: 0 });
+		const bank = [...Array.from({ length: 80 }, (_, i) => w(i, 'moji')), ...Array.from({ length: 30 }, (_, i) => w(i, 'kadai'))];
+		const few = buildDay(7, { bank, prog: {}, dayNo: 1, newPerDay: 10 });
+		const many = buildDay(7, { bank, prog: {}, dayNo: 1, newPerDay: 30 });
+		expect(few.newToday).toBeLessThanOrEqual(10);
+		expect(many.newToday).toBeGreaterThan(few.newToday);
+		expect(many.newToday).toBeLessThanOrEqual(30);
 	});
 });

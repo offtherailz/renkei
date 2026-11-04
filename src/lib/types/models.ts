@@ -405,6 +405,7 @@ export interface CourseDatasetInput {
 // Una domanda d'esame (聴解/読解) giocata come situazione nella città.
 // tipo: kadai 課題理解, point ポイント理解, hatsuwa 発話表現, sokuji 即時応答,
 // dokkai 読解. luogo: id del posto in città (src/lib/game/giorno.ts) o «eki».
+export type TestoFormato = 'email' | 'messaggio' | 'memo' | 'avviso' | 'volantino' | 'cartello' | 'tema';
 export interface CourseGiornoInput {
   id: string;
   fonte?: string;
@@ -415,7 +416,8 @@ export interface CourseGiornoInput {
   titolo?: string;
   intro?: string; // contesto in italiano
   scena?: string; // il disegno del foglio d'esame, descritto in italiano
-  testo?: { titolo: string; ja: string; it: string }; // brano da leggere (読解)
+  // brano da leggere (読解); formato: com'è fatto il foglio, per mostrarlo così
+  testo?: { titolo: string; ja: string; it: string; formato?: TestoFormato };
   righe: { who: 'N' | 'F' | 'M'; ja: string; it: string }[];
   domanda: { ja: string; it: string };
   opzioni: { ja: string; it: string }[];

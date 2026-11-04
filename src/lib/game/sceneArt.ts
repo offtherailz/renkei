@@ -1,13 +1,13 @@
 // Grafica delle scene di «Un giorno in Giappone» (disegni originali generati
 // con IA, file in static/giorno): personaggi ritagliati in due versioni
 // allineate (bocca chiusa / mentre parla) da sovrapporre allo sfondo del luogo.
-import type { PlaceId } from './giorno';
-
-type Where = PlaceId | 'eki';
+import type { Where } from './giorno';
 
 // chi si incontra in ogni luogo quando parla «il luogo» (personale, clienti)
 const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	kaisha: { F: ['collega_donna'], M: ['collega_uomo'] },
+	// a casa parla la famiglia: per ora la signora anziana (mamma) e lo studente
+	ie: { F: ['signora_anziana'], M: ['studente_uomo'] },
 	ginkou: { F: ['collega_donna'], M: ['capo_uomo'] },
 	yuubin: { F: ['collega_donna'], M: ['capo_uomo'] },
 	konbini: { F: ['commessa_konbini'], M: ['commesso'] },
@@ -28,7 +28,7 @@ const BG: Partial<Record<Where, string>> = {
 	kaisha: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
 	toshokan: 'biblioteca', honya: 'biblioteca', gakkou: 'scuola', byouin: 'ospedale',
 	konbini: 'konbini', eki: 'stazione', panya: 'panetteria', hanaya: 'fioraio', kusuri: 'farmacia',
-	eiga: 'cinema', manshon: 'condominio', kouen: 'parco'
+	eiga: 'cinema', manshon: 'condominio', kouen: 'parco', ie: 'casa'
 };
 // le indicazioni si chiedono per strada, qualunque sia la meta
 const STREET_BG = 'strada';
