@@ -1070,7 +1070,8 @@
 	.pano-side, .pano-front { position: absolute; inset: 0; overflow: hidden; container-type: size; }
 	.pano-front { clip-path: inset(0 0 0 45%); }
 	.pano-side { clip-path: inset(0 55% 0 0); perspective: 220px; perspective-origin: 100% 50%; }
-	.pano-side .panorama { transform-origin: 100% 50%; transform: rotateY(-38deg); animation-duration: 9s; }
+	/* il piano inclinato si accorcia: parte molto più a sinistra perché copra tutti i finestrini */
+	.pano-side .panorama { inset: -20% 0 -20% -300%; transform-origin: 100% 50%; transform: rotateY(-38deg); animation-duration: 9s; }
 	@media (prefers-reduced-motion: reduce) { .panorama { animation-duration: 80s; } }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
 	/* personaggio fuso con lo sfondo: più piccolo, ombra, colori un filo smorzati */
