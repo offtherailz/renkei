@@ -114,6 +114,57 @@
 	let qTimer: ReturnType<typeof setInterval> | null = null;
 	let lateNote = $state('');
 
+	// ── partita in corso salvata: aprendo una parola dalla ricerca si lascia la
+	// pagina, e al ritorno la giornata riprende dal passo in cui eri ──
+	const RUN_DAY = 'renkei_giorno_run_day';
+	const RUN_STATE = 'renkei_giorno_run';
+	type RunState = {
+		stepIdx: number; phase: 'walk' | 'mission'; clock: number; energy: number; money: number; rep: number;
+		log: typeof log; player: Pos; facing: typeof facing; visited: string[];
+	};
+	function saveRunDay(): void {
+		try {
+			if (day) localStorage.setItem(RUN_DAY, JSON.stringify(day));
+		} catch {
+			/* niente storage */
+		}
+	}
+	function clearRun(): void {
+		try {
+			localStorage.removeItem(RUN_DAY);
+			localStorage.removeItem(RUN_STATE);
+		} catch {
+			/* niente storage */
+		}
+	}
+	$effect(() => {
+		if (!day || (phase !== 'walk' && phase !== 'mission')) return;
+		const s: RunState = {
+			stepIdx, phase, clock, energy, money, rep, log: $state.snapshot(log), player: $state.snapshot(player), facing, visited: [...visited]
+		};
+		try {
+			localStorage.setItem(RUN_STATE, JSON.stringify(s));
+		} catch {
+			/* niente storage */
+		}
+	});
+	function resumeRun(): boolean {
+		try {
+			const d = JSON.parse(localStorage.getItem(RUN_DAY) ?? 'null') as Day | null;
+			const s = JSON.parse(localStorage.getItem(RUN_STATE) ?? 'null') as RunState | null;
+			if (!d || !s || !d.steps[s.stepIdx]) return false;
+			day = d;
+			({ stepIdx, clock, energy, money, rep, log, player, facing } = s);
+			visited = new Set(s.visited);
+			// la missione interrotta riparte da capo (si riascolta il dialogo)
+			if (s.phase === 'mission') openMission();
+			else phase = 'walk';
+			return true;
+		} catch {
+			return false;
+		}
+	}
+
 	const step = $derived(day ? day.steps[stepIdx] ?? null : null);
 	const mission = $derived<Mission | null>(step?.mission ?? null);
 	const doorOf = (p: PlaceId | 'eki'): Pos => (p === 'eki' || !day ? { ...START } : buildingOf(day.town, p).door);
@@ -185,6 +236,7 @@
 		player = { ...START };
 		facing = 'n';
 		visited = new Set();
+		saveRunDay();
 		openMission();
 	}
 
@@ -207,6 +259,7 @@
 		if (!day || stepIdx >= day.steps.length) {
 			phase = 'summary';
 			saveRecord();
+			clearRun();
 			return;
 		}
 		const next = day.steps[stepIdx]!;
@@ -550,6 +603,7 @@
 		window.addEventListener('keydown', onKey);
 		loadProgress();
 		void loadBank();
+		resumeRun();
 		ensureWordIndex('it').then((m) => (wordIndex = m)).catch(() => {});
 	});
 	onDestroy(() => {
