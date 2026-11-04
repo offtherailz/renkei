@@ -950,9 +950,26 @@
 	}
 	.sign rt { font-size: 0.55em; }
 	.sign.station { background: #fbf236; font-size: clamp(0.6rem, 3vw, 0.85rem); }
-	.toast { margin: 0; background: #fbf236; color: #222034; border: 3px solid var(--px-line); padding: 6px 10px; font-size: 0.85rem; }
-	.goal { margin: 0; font-size: 0.9rem; }
-	.controls { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; }
+	/* sopra la pagina, non nel flusso: comparendo e sparendo spostava tutto */
+	.toast {
+		position: fixed;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 20;
+		width: max-content;
+		max-width: calc(100vw - 32px);
+		margin: 0;
+		background: #fbf236;
+		color: #222034;
+		border: 3px solid var(--px-line);
+		padding: 6px 10px;
+		font-size: 0.85rem;
+		pointer-events: none;
+	}
+	/* altezze fisse: obiettivo su una o due righe, porte o suggerimento */
+	.goal { margin: 0; font-size: 0.9rem; min-height: 2.7em; }
+	.controls { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
 	.pad { display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); }
 	.k { font-family: inherit; background: #595652; color: #fff; border: 3px solid var(--px-line); font-size: 1rem; cursor: pointer; }
 	.k:active { background: #847e87; }
@@ -960,7 +977,7 @@
 	.kleft { grid-column: 1; grid-row: 2; }
 	.kright { grid-column: 3; grid-row: 2; }
 	.kdown { grid-column: 2; grid-row: 3; }
-	.doors { display: grid; gap: 6px; }
+	.doors { display: grid; gap: 6px; align-content: start; min-height: 126px; }
 	.doors rt { font-size: 0.55em; }
 	.mission header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 	.mission h2 { margin: 0; font-size: 1.1rem; }
