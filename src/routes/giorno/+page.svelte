@@ -13,7 +13,7 @@
 	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
 	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
-	import { artFor, artSrc } from '$lib/game/sceneArt';
+	import { bgSrc, composedSrc, sceneLook, spriteSrc } from '$lib/game/sceneArt';
 	import { optionHint } from '$lib/game/optionHint';
 	import { ensureWordIndex, type WordHit } from '$lib/core/wordLookup';
 
@@ -500,17 +500,20 @@
 	}
 
 	// ── scena PC-98: disegno del luogo (bocca animata) o sfondo in codice ──
-	const sceneTalker = $derived<'F' | 'M' | null>(
+	const sceneTalker = $derived<'F' | 'M'>(
 		speaking === 'F' || speaking === 'M'
 			? speaking
-			: ((mission && 'lines' in mission ? mission.lines.find((l) => l.who !== 'N')?.who : null) as 'F' | 'M' | null) ?? null
+			: ((mission && 'lines' in mission ? mission.lines.find((l) => l.who !== 'N')?.who : null) as 'F' | 'M' | null) ?? 'F'
 	);
-	const art = $derived(step ? artFor(step.place, sceneTalker) : null);
-	const mouthOpen = $derived((speaking === 'F' || speaking === 'M') && artFor(step?.place ?? 'eki', speaking)?.who === speaking && tick % 4 < 2);
+	const look = $derived(step && day ? sceneLook(step.place, sceneTalker, `${day.seed}:${stepIdx}`) : null);
+	const mouthOpen = $derived((speaking === 'F' || speaking === 'M') && speaking === sceneTalker && tick % 4 < 2);
 	// precarica le due versioni: senza, al primo cambio di bocca l'immagine sparisce un attimo
 	$effect(() => {
-		if (!art) return;
-		for (const t of [false, true]) new Image().src = artSrc(base, art, t);
+		if (!look) return;
+		for (const t of [false, true]) {
+			if (look.composed) new Image().src = composedSrc(base, look.composed, t);
+			if (look.sprite) new Image().src = spriteSrc(base, look.sprite, t);
+		}
 	});
 	function sceneBg(node: HTMLCanvasElement, p: { place: PlaceId | 'eki'; hour: number }) {
 		const draw = (q: typeof p) => {
@@ -639,10 +642,15 @@
 				</header>
 				{#if lateNote}<p class="late">{lateNote}</p>{/if}
 				<div class="scene-wrap">
-					{#if art}
-						<img class="scene" src={artSrc(base, art, mouthOpen)} alt="" />
+					{#if look?.composed}
+						<img class="scene" src={composedSrc(base, look.composed, mouthOpen)} alt="" />
 					{:else}
-						<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
+						{#if look?.bg}
+							<img class="scene" src={bgSrc(base, look.bg)} alt="" />
+						{:else}
+							<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
+						{/if}
+						{#if look?.sprite}<img class="sprite" src={spriteSrc(base, look.sprite, mouthOpen)} alt="" />{/if}
 					{/if}
 				</div>
 				<div class="dialog">
@@ -891,8 +899,9 @@
 	.skill { background: #fbf236; color: #222034; padding: 1px 6px; font-size: 0.8rem; border: 2px solid var(--px-line); }
 	.intro-it { margin: 0; font-size: 0.88rem; color: #cbdbfc; }
 	.late { margin: 0; color: #fbf236; }
-	.scene-wrap { border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; }
-	.scene { width: 100%; height: auto; aspect-ratio: 377 / 190; object-fit: cover; image-rendering: pixelated; display: block; }
+	.scene-wrap { position: relative; border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; aspect-ratio: 2 / 1; overflow: hidden; }
+	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
+	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 96%; width: auto; image-rendering: pixelated; }
 	.dialog {
 		background: #05050a;
 		border: 3px solid #f4f4f4;
