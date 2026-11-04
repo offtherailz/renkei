@@ -13,7 +13,7 @@
 	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
 	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
-	import { bgSrc, composedSrc, sceneLook, spriteSrc, type Role } from '$lib/game/sceneArt';
+	import { bgSrc, sceneLook, spriteSrc, type Role } from '$lib/game/sceneArt';
 	import { optionHint } from '$lib/game/optionHint';
 	import { ensureWordIndex, type WordHit } from '$lib/core/wordLookup';
 
@@ -576,7 +576,6 @@
 	$effect(() => {
 		if (!look) return;
 		for (const t of [false, true]) {
-			if (look.composed) new Image().src = composedSrc(base, look.composed, t);
 			if (look.sprite) new Image().src = spriteSrc(base, look.sprite, t);
 		}
 	});
@@ -708,16 +707,12 @@
 				</header>
 				{#if lateNote}<p class="late">{lateNote}</p>{/if}
 				<div class="scene-wrap">
-					{#if look?.composed}
-						<img class="scene" src={composedSrc(base, look.composed, mouthOpen)} alt="" />
+					{#if look?.bg}
+						<img class="scene" src={bgSrc(base, look.bg)} alt="" />
 					{:else}
-						{#if look?.bg}
-							<img class="scene" src={bgSrc(base, look.bg)} alt="" />
-						{:else}
-							<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
-						{/if}
-						{#if look?.sprite}<img class="sprite" src={spriteSrc(base, look.sprite, mouthOpen)} alt="" />{/if}
+						<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
 					{/if}
+					{#if look?.sprite}<img class="sprite" src={spriteSrc(base, look.sprite, mouthOpen)} alt="" />{/if}
 				</div>
 				<div class="dialog">
 					{#if speaking}

@@ -1,16 +1,9 @@
 // Grafica delle scene di «Un giorno in Giappone» (disegni originali generati
 // con IA, file in static/giorno): personaggi ritagliati in due versioni
-// allineate (bocca chiusa / mentre parla) da sovrapporre allo sfondo del luogo;
-// alcune scene sono già composte (personaggio + sfondo nello stesso disegno).
+// allineate (bocca chiusa / mentre parla) da sovrapporre allo sfondo del luogo.
 import type { PlaceId } from './giorno';
 
 type Where = PlaceId | 'eki';
-
-// scene composte: valgono per chi parla del genere indicato
-const COMPOSED: { id: string; who: 'F' | 'M'; places: Where[] }[] = [
-	{ id: 'studentessa-aula', who: 'F', places: ['gakkou'] },
-	{ id: 'studentessa-biblio', who: 'F', places: ['toshokan', 'honya'] }
-];
 
 // chi si incontra in ogni luogo quando parla «il luogo» (personale, clienti)
 const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
@@ -25,9 +18,9 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	kafe: { F: ['amica'], M: ['cameriere'] },
 	byouin: { F: ['medico'], M: ['passante'] },
 	kusuri: { F: ['medico'], M: ['passante'] },
-	gakkou: { F: ['amica'], M: ['insegnante'] },
-	toshokan: { F: ['amica'], M: ['studente_uomo'] },
-	honya: { F: ['amica'], M: ['studente_uomo'] }
+	gakkou: { F: ['studentessa'], M: ['insegnante'] },
+	toshokan: { F: ['studentessa'], M: ['studente_uomo'] },
+	honya: { F: ['studentessa'], M: ['studente_uomo'] }
 };
 const STREET = { F: ['amica', 'signora_anziana'], M: ['passante'] };
 
@@ -40,7 +33,6 @@ const BG: Partial<Record<Where, string>> = {
 const STREET_BG = 'strada';
 
 export interface SceneLook {
-	composed: string | null; // scena già composta
 	bg: string | null; // sfondo disegnato (altrimenti quello in codice)
 	sprite: string | null; // personaggio da sovrapporre
 }
@@ -57,12 +49,12 @@ const ROLE: Record<Exclude<Role, 'luogo'>, { F: string; M: string }> = {
 };
 
 export function sceneLook(place: Where, who: 'F' | 'M', role: Role = 'luogo'): SceneLook {
-	const comp = role === 'luogo' || role === 'amico' ? COMPOSED.find((c) => c.who === who && c.places.includes(place)) : undefined;
-	if (comp) return { composed: comp.id, bg: null, sprite: null };
-	const sprite = role === 'luogo' ? (CAST[place] ?? STREET)[who][0]! : ROLE[role][who];
-	return { composed: null, bg: role === 'passante' ? STREET_BG : (BG[place] ?? null), sprite };
+	// tra scuola e libri l'amica è la studentessa
+	const sprite =
+		role === 'luogo' || (role === 'amico' && who === 'F' && SCHOOL.includes(place)) ? (CAST[place] ?? STREET)[who][0]! : ROLE[role][who];
+	return { bg: role === 'passante' ? STREET_BG : (BG[place] ?? null), sprite };
 }
+const SCHOOL: Where[] = ['gakkou', 'toshokan', 'honya'];
 
-export const composedSrc = (base: string, id: string, talking: boolean) => `${base}/giorno/scene/${id}-${talking ? 'parla' : 'chiusa'}.png`;
 export const spriteSrc = (base: string, id: string, talking: boolean) => `${base}/giorno/ritratti/${id}-${talking ? 'parla' : 'chiusa'}.png`;
 export const bgSrc = (base: string, id: string) => `${base}/giorno/sfondi/${id}.jpg`;
