@@ -148,6 +148,15 @@
 			/* niente storage */
 		}
 	});
+	// si torna all'inizio (per esempio per aggiornare le prove d'esame): la giornata è persa
+	function quitDay(): void {
+		if (!window.confirm('Abbandonare la giornata? Si riparte dall\'inizio (le risposte già date restano nel ripasso).')) return;
+		hush();
+		if (qTimer) clearInterval(qTimer);
+		clearRun();
+		day = null;
+		phase = 'intro';
+	}
 	function resumeRun(): boolean {
 		try {
 			const d = JSON.parse(localStorage.getItem(RUN_DAY) ?? 'null') as Day | null;
@@ -622,7 +631,10 @@
 </svelte:head>
 
 <div class="game">
-	<a class="back" href="{base}/">← Home</a>
+	<div class="topbar">
+		<a class="back" href="{base}/">← Home</a>
+		{#if phase === 'walk' || phase === 'mission'}<button class="quit" onclick={quitDay}>✖ Abbandona la giornata</button>{/if}
+	</div>
 
 	{#if phase === 'intro'}
 		<section class="panel intro">
@@ -884,6 +896,8 @@
 		font-family: 'DotGothic16', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', monospace;
 	}
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; font-family: inherit; }
+	.topbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+	.quit { font-family: inherit; font-size: 0.8rem; background: none; border: 2px solid #ac3232; color: #d95763; padding: 2px 8px; cursor: pointer; }
 	.panel {
 		background: var(--px-bg);
 		color: var(--px-ink);
