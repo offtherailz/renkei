@@ -473,9 +473,9 @@ Situazioni d'esame per il gioco 🗾 «Un giorno in Giappone» (`src/routes/gior
   "id": "bp1-m1-1",
   "fonte": "Best Practice N4 test 1",
   "tipo": "kadai",            // kadai 課題理解 · point ポイント理解 · hatsuwa 発話表現 · sokuji 即時応答 · dokkai 読解
-  "luogo": "konbini",         // id di un posto (src/lib/game/giorno.ts, PLACES) o "eki"
+  "luogo": "konbini",         // id di un posto (src/lib/game/giorno.ts, PLACES), "eki" o "ie" (casa); senza: il posto della giornata
   "scena": "Il disegno del foglio, descritto in italiano",
-  "testo": { "titolo": "…", "ja": "…", "it": "…" },   // solo 読解: il brano da leggere
+  "testo": { "titolo": "…", "ja": "…", "it": "…", "formato": "email" },   // solo 読解: il brano; formato (facoltativo): email, messaggio, memo, avviso, volantino, cartello, tema
   "righe": [{ "who": "N", "ja": "…", "it": "…" }, { "who": "F", "ja": "…", "it": "…" }],
   "domanda": { "ja": "男の人は何を買いますか。", "it": "Cosa compra l'uomo?" },
   "opzioni": [{ "ja": "パンと牛乳", "it": "pane e latte" }, …],
