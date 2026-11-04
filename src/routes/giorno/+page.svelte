@@ -690,6 +690,7 @@
 						<button class="btn ghost" onclick={() => replay(audioOf(mission))}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					{/if}
 					<p class="question ja">{mission.question.ja}</p>
+					{#if answered && mission.question.it}<p class="tr">💬 {mission.question.it}</p>{/if}
 					<div class="options">
 						{#each mission.options as o, i (o.ja)}
 							<button class="opt" class:right={answered && i === mission.answer} class:wrong={answered && i === chosen && i !== mission.answer} disabled={answered} onclick={() => choose(i)}>
@@ -717,6 +718,7 @@
 				{:else if mission.kind === 'calendar'}
 					<button class="btn ghost" onclick={() => replay(mission.lines)}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					<p class="question ja">{mission.question.ja}</p>
+					{#if answered && mission.question.it}<p class="tr">💬 {mission.question.it}</p>{/if}
 					<div class="cal">
 						{#each WD as w, i (w)}<span class="wd" class:we={i >= 5}>{w}</span>{/each}
 						{#each mission.days as d (d.day)}
