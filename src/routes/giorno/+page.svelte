@@ -13,7 +13,7 @@
 	import { importCourseDataset } from '$lib/db/course-import';
 	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
 	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
-	import { bgSrc, composedSrc, sceneLook, spriteSrc } from '$lib/game/sceneArt';
+	import { bgSrc, composedSrc, sceneLook, spriteSrc, type Role } from '$lib/game/sceneArt';
 	import { optionHint } from '$lib/game/optionHint';
 	import { ensureWordIndex, type WordHit } from '$lib/core/wordLookup';
 
@@ -505,7 +505,19 @@
 			? speaking
 			: ((mission && 'lines' in mission ? mission.lines.find((l) => l.who !== 'N')?.who : null) as 'F' | 'M' | null) ?? 'F'
 	);
-	const look = $derived(step && day ? sceneLook(step.place, sceneTalker, `${day.seed}:${stepIdx}`) : null);
+	const sceneRole = $derived.by<Role>(() => {
+		if (!mission) return 'luogo';
+		if (mission.kind === 'route') return 'passante';
+		if (mission.kind === 'shop') return 'amico';
+		if (mission.kind === 'quick' || mission.kind === 'calendar') return 'collega';
+		if (mission.kind === 'choice' && !mission.sourceId) {
+			if (mission.sub === 'priority') return 'capo';
+			if (mission.sub === 'reason' || mission.sub === 'read') return 'collega';
+			if (mission.title.startsWith('🎒')) return 'insegnante';
+		}
+		return 'luogo';
+	});
+	const look = $derived(step ? sceneLook(step.place, sceneTalker, sceneRole) : null);
 	const mouthOpen = $derived((speaking === 'F' || speaking === 'M') && speaking === sceneTalker && tick % 4 < 2);
 	// precarica le due versioni: senza, al primo cambio di bocca l'immagine sparisce un attimo
 	$effect(() => {
@@ -901,7 +913,10 @@
 	.late { margin: 0; color: #fbf236; }
 	.scene-wrap { position: relative; border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; aspect-ratio: 2 / 1; overflow: hidden; }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
-	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 96%; width: auto; image-rendering: pixelated; }
+	/* personaggio fuso con lo sfondo: più piccolo, ombra, colori un filo smorzati */
+	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 88%; width: auto; image-rendering: pixelated; filter: drop-shadow(0 0 1.5px rgba(10, 8, 20, 0.85)) drop-shadow(-4px 2px 6px rgba(10, 8, 20, 0.35)) saturate(0.92) contrast(0.97); }
+	/* vignetta e luce comuni sopra sfondo e personaggio */
+	.scene-wrap::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 38%, rgba(255, 240, 220, 0.06), rgba(10, 8, 30, 0.38) 95%); }
 	.dialog {
 		background: #05050a;
 		border: 3px solid #f4f4f4;

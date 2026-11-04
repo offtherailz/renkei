@@ -12,9 +12,9 @@ const COMPOSED: { id: string; who: 'F' | 'M'; places: Where[] }[] = [
 	{ id: 'studentessa-biblio', who: 'F', places: ['toshokan', 'honya'] }
 ];
 
-// chi si incontra dove (scelto in modo stabile per missione)
+// chi si incontra in ogni luogo quando parla «il luogo» (personale, clienti)
 const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
-	kaisha: { F: ['collega_donna', 'capo_donna'], M: ['collega_uomo', 'capo_uomo'] },
+	kaisha: { F: ['collega_donna'], M: ['collega_uomo'] },
 	ginkou: { F: ['collega_donna'], M: ['capo_uomo'] },
 	yuubin: { F: ['collega_donna'], M: ['capo_uomo'] },
 	hoteru: { F: ['collega_donna'], M: ['cameriere'] },
@@ -35,23 +35,28 @@ const BG: Partial<Record<Where, string>> = {
 	kaisha: 'ufficio', ginkou: 'ufficio', yuubin: 'ufficio', hoteru: 'ufficio', resutoran: 'ristorante', kafe: 'cafe'
 };
 
-function hash(s: string): number {
-	let h = 2166136261;
-	for (let i = 0; i < s.length; i += 1) h = Math.imul(h ^ s.charCodeAt(i), 16777619);
-	return h >>> 0;
-}
-
 export interface SceneLook {
 	composed: string | null; // scena già composta
 	bg: string | null; // sfondo disegnato (altrimenti quello in codice)
 	sprite: string | null; // personaggio da sovrapporre
 }
 
-export function sceneLook(place: Where, who: 'F' | 'M', key: string): SceneLook {
-	const comp = COMPOSED.find((c) => c.who === who && c.places.includes(place));
+// Il ruolo di chi parla viene dalla missione (il capo dà i compiti, il passante
+// le indicazioni…): così il personaggio è quello giusto, non uno a caso del luogo.
+export type Role = 'capo' | 'collega' | 'amico' | 'passante' | 'insegnante' | 'luogo';
+const ROLE: Record<Exclude<Role, 'luogo'>, { F: string; M: string }> = {
+	capo: { F: 'capo_donna', M: 'capo_uomo' },
+	collega: { F: 'collega_donna', M: 'collega_uomo' },
+	amico: { F: 'amica', M: 'passante' },
+	passante: { F: 'signora_anziana', M: 'passante' },
+	insegnante: { F: 'collega_donna', M: 'insegnante' }
+};
+
+export function sceneLook(place: Where, who: 'F' | 'M', role: Role = 'luogo'): SceneLook {
+	const comp = role === 'luogo' || role === 'amico' ? COMPOSED.find((c) => c.who === who && c.places.includes(place)) : undefined;
 	if (comp) return { composed: comp.id, bg: null, sprite: null };
-	const cast = (CAST[place] ?? STREET)[who];
-	return { composed: null, bg: BG[place] ?? null, sprite: cast[hash(key) % cast.length] ?? null };
+	const sprite = role === 'luogo' ? (CAST[place] ?? STREET)[who][0]! : ROLE[role][who];
+	return { composed: null, bg: BG[place] ?? null, sprite };
 }
 
 export const composedSrc = (base: string, id: string, talking: boolean) => `${base}/giorno/scene/${id}-${talking ? 'parla' : 'chiusa'}.png`;
