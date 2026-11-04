@@ -6,8 +6,8 @@ import type { Where } from './giorno';
 // chi si incontra in ogni luogo quando parla «il luogo» (personale, clienti)
 const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	kaisha: { F: ['collega_donna'], M: ['collega_uomo'] },
-	// a casa parla la famiglia: per ora la signora anziana (mamma) e lo studente
-	ie: { F: ['signora_anziana'], M: ['studente_uomo'] },
+	// a casa parla la famiglia
+	ie: { F: ['mamma'], M: ['papa'] },
 	ginkou: { F: ['collega_donna'], M: ['capo_uomo'] },
 	yuubin: { F: ['collega_donna'], M: ['capo_uomo'] },
 	konbini: { F: ['commessa_konbini'], M: ['commesso'] },
@@ -28,7 +28,7 @@ const BG: Partial<Record<Where, string>> = {
 	kaisha: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
 	toshokan: 'biblioteca', honya: 'biblioteca', gakkou: 'scuola', byouin: 'ospedale',
 	konbini: 'konbini', eki: 'stazione', panya: 'panetteria', hanaya: 'fioraio', kusuri: 'farmacia',
-	eiga: 'cinema', manshon: 'condominio', kouen: 'parco', ie: 'casa'
+	eiga: 'cinema', manshon: 'condominio', kouen: 'parco', ie: 'casa', treno: 'treno'
 };
 // le indicazioni si chiedono per strada, qualunque sia la meta
 const STREET_BG = 'strada';
@@ -53,9 +53,12 @@ export function sceneLook(place: Where, who: 'F' | 'M', role: Role = 'luogo'): S
 	// tra scuola e libri l'amica è la studentessa
 	const sprite =
 		role === 'luogo' || (role === 'amico' && who === 'F' && SCHOOL.includes(place)) ? (CAST[place] ?? STREET)[who][0]! : ROLE[role][who];
+	// in treno si ripassa da soli: nessuno parla
+	if (place === 'treno') return { bg: 'treno', sprite: null };
 	return { bg: role === 'passante' ? STREET_BG : (BG[place] ?? null), sprite };
 }
 const SCHOOL: Where[] = ['gakkou', 'toshokan', 'honya'];
 
 export const spriteSrc = (base: string, id: string, talking: boolean) => `${base}/giorno/ritratti/${id}-${talking ? 'parla' : 'chiusa'}.png`;
-export const bgSrc = (base: string, id: string) => `${base}/giorno/sfondi/${id}.jpg`;
+// il treno è un PNG coi finestrini trasparenti: dietro scorre il paesaggio
+export const bgSrc = (base: string, id: string) => `${base}/giorno/sfondi/${id}.${id === 'treno' ? 'png' : 'jpg'}`;

@@ -70,8 +70,8 @@ export type PlaceId =
 	| 'kusuri' | 'panya' | 'toshokan' | 'kafe' | 'gakkou' | 'kouen' | 'manshon' | 'eiga';
 
 // dove si svolge un passo della giornata: un posto in città, la stazione, casa
-export type Where = PlaceId | 'eki' | 'ie';
-export const placeIt = (p: Where): string => (p === 'eki' ? 'stazione' : p === 'ie' ? 'casa' : PLACES[p].it);
+export type Where = PlaceId | 'eki' | 'ie' | 'treno';
+export const placeIt = (p: Where): string => (p === 'eki' ? 'stazione' : p === 'ie' ? 'casa' : p === 'treno' ? 'treno' : PLACES[p].it);
 
 export interface PlaceInfo {
 	id: PlaceId;
@@ -1344,7 +1344,7 @@ export interface DayContext {
 	newPerDay?: number;
 }
 
-const isPlace = (p: string | undefined): p is Where => !!p && (p === 'eki' || p === 'ie' || p in PLACES);
+const isPlace = (p: string | undefined): p is Where => !!p && (p === 'eki' || p === 'ie' || p === 'treno' || p in PLACES);
 
 export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, dayNo: 0 }): Day {
 	const rng = seeded(seed);
@@ -1405,10 +1405,10 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		{ place: 'kafe', time: 18 * 60 + 20, mission: appointmentMission(rng), cost: 10 },
 		{ place: 'eki', time: 18 * 60 + 30, mission: quick, cost: 20 }
 	];
-	if (morning) steps.unshift({ place: 'eki', time: 7 * 60 + 40, mission: morning, cost: 15 });
+	if (morning) steps.unshift({ place: 'treno', time: 7 * 60 + 40, mission: morning, cost: 15 });
 	steps.unshift({ place: 'ie', time: 7 * 60, mission: homeMission(rng, 'mattina'), cost: 20 });
 	if (lunch) steps.splice(steps.findIndex((s) => s.lunch), 0, { place: 'resutoran', time: 12 * 60, mission: lunch, cost: 10 });
-	if (evening) steps.push({ place: 'eki', time: 19 * 60, mission: evening, cost: 20 });
+	if (evening) steps.push({ place: 'treno', time: 19 * 60, mission: evening, cost: 20 });
 	steps.push({ place: 'ie', time: 19 * 60 + 30, mission: homeMission(rng, 'sera'), cost: 10 });
 	return { seed, town, steps, fromBank, newToday: slotNew - budget.left + (perDay - slotNew) - drillBudget.left };
 }

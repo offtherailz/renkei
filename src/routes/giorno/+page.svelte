@@ -196,7 +196,7 @@
 
 	const step = $derived(day ? day.steps[stepIdx] ?? null : null);
 	const mission = $derived<Mission | null>(step?.mission ?? null);
-	const doorOf = (p: Where): Pos => (p === 'eki' || p === 'ie' || !day ? { ...START } : buildingOf(day.town, p).door);
+	const doorOf = (p: Where): Pos => (p === 'eki' || p === 'ie' || p === 'treno' || !day ? { ...START } : buildingOf(day.town, p).door);
 	const targetDoor = $derived(step ? doorOf(step.place) : null);
 	const markerOn = $derived(phase === 'walk' && !!targetDoor && (!routeActive || wrongDoors >= 3));
 	const doorsHere = $derived(day && phase === 'walk' ? buildingAtDoor(day.town, player) : []);
@@ -590,7 +590,7 @@
 		}
 	}
 	function markerFor(door: Pos): Pos {
-		if (!day || !step || step.place === 'eki' || step.place === 'ie') return { x: START.x, y: 13 };
+		if (!day || !step || step.place === 'eki' || step.place === 'ie' || step.place === 'treno') return { x: START.x, y: 13 };
 		const b = buildingOf(day.town, step.place);
 		return { x: b.x + (door.x > b.x ? 1 : 0), y: b.y };
 	}
@@ -761,7 +761,11 @@
 				</header>
 				{#if lateNote}<p class="late">{lateNote}</p>{/if}
 				<div class="scene-wrap">
-					{#if look?.bg}
+					{#if look?.bg === 'treno'}
+						<!-- fuori dai finestrini (trasparenti nel disegno del vagone) scorre il paesaggio -->
+						<div class="window-view"><div class="panorama" style="background-image: url({base}/giorno/sfondi/panorama.jpg)"></div></div>
+						<img class="scene" src={bgSrc(base, look.bg)} alt="" />
+					{:else if look?.bg}
 						<img class="scene" src={bgSrc(base, look.bg)} alt="" />
 					{:else}
 						<canvas class="scene" use:sceneBg={{ place: step?.place ?? 'eki', hour: Math.floor(clock / 60) }} width={SCENE_W} height={SCENE_H}></canvas>
@@ -1054,6 +1058,12 @@
 	.intro-it { margin: 0; font-size: 0.88rem; color: #cbdbfc; }
 	.late { margin: 0; color: #fbf236; }
 	.scene-wrap { position: relative; border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; aspect-ratio: 2 / 1; overflow: hidden; }
+	.window-view { position: absolute; inset: 0; overflow: hidden; }
+	/* la striscia (si ripete senza giunture) scorre di una sua larghezza: 1135×320 → 3.547 altezze */
+	.panorama { position: absolute; inset: 0; background-repeat: repeat-x; background-size: auto 100%; image-rendering: pixelated; animation: scorre 14s linear infinite; }
+	@keyframes scorre { from { background-position-x: 0; } to { background-position-x: calc(-354.7cqh); } }
+	.window-view { container-type: size; }
+	@media (prefers-reduced-motion: reduce) { .panorama { animation-duration: 80s; } }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
 	/* personaggio fuso con lo sfondo: più piccolo, ombra, colori un filo smorzati */
 	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 88%; width: auto; image-rendering: pixelated; filter: drop-shadow(0 0 1.5px rgba(10, 8, 20, 0.85)) drop-shadow(-4px 2px 6px rgba(10, 8, 20, 0.35)) saturate(0.92) contrast(0.97); }
