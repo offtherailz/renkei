@@ -34,7 +34,7 @@ const STREET = { F: ['amica', 'signora_anziana'], M: ['passante'] };
 const BG: Partial<Record<Where, string>> = {
 	kaisha: 'ufficio', hoteru: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
 	toshokan: 'biblioteca', honya: 'biblioteca', gakkou: 'scuola', byouin: 'ospedale',
-	konbini: 'konbini', eki: 'stazione'
+	konbini: 'konbini', eki: 'stazione', panya: 'panetteria'
 };
 // le indicazioni si chiedono per strada, qualunque sia la meta
 const STREET_BG = 'strada';
