@@ -117,8 +117,8 @@ describe('la giornata', () => {
 });
 
 describe('pixel art', () => {
-	it('disegna città, giocatore, freccia e ritratti senza errori e dentro il canvas', async () => {
-		const { drawTown, drawFace, TILE } = await import('./pixel');
+	it('disegna città, giocatore e freccia senza errori e dentro il canvas', async () => {
+		const { drawTown, TILE } = await import('./pixel');
 		const calls: number[][] = [];
 		const ctx = {
 			fillStyle: '',
@@ -128,7 +128,6 @@ describe('pixel art', () => {
 		} as unknown as CanvasRenderingContext2D;
 		const day = buildDay(11);
 		drawTown(ctx, { town: day.town, player: START, facing: 'n', frame: 1, phase: 3, marker: { x: 7, y: 13 }, tick: 5 });
-		for (const w of ['F', 'M', 'N'] as const) drawFace(ctx, w);
 		expect(calls.length).toBeGreaterThan(1000);
 		const size = 15 * TILE;
 		for (const [x, y] of calls) {

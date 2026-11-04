@@ -11,7 +11,7 @@
 	import { db } from '$lib/db/schema';
 	import { decryptCourse } from '$lib/core/courseCrypto';
 	import { importCourseDataset } from '$lib/db/course-import';
-	import { drawFace, drawTown, lightOf, TILE } from '$lib/game/pixel';
+	import { drawTown, lightOf, TILE } from '$lib/game/pixel';
 	import { drawScene, SCENE_H, SCENE_W } from '$lib/game/scene';
 	import { bgSrc, sceneLook, spriteSrc, type Role } from '$lib/game/sceneArt';
 	import { optionHint } from '$lib/game/optionHint';
@@ -611,14 +611,6 @@
 		return { update: draw };
 	}
 
-	function faceAction(node: HTMLCanvasElement, who: Who) {
-		const draw = (w: Who) => {
-			const c = node.getContext('2d');
-			if (c) drawFace(c, w);
-		};
-		draw(who);
-		return { update: draw };
-	}
 
 	onMount(() => {
 		loop = setInterval(frameLoop, 90);
@@ -645,7 +637,7 @@
 </svelte:head>
 
 <div class="game">
-	<div class="topbar">
+	<div class="game-top">
 		<a class="back" href="{base}/">← Home</a>
 		{#if phase === 'walk' || phase === 'mission'}<button class="quit" onclick={quitDay}>✖ Abbandona la giornata</button>{/if}
 	</div>
@@ -676,7 +668,7 @@
 	{:else}
 		<div class="hud">
 			<span>⏰ {hhmm(clock)}</span>
-			<span class="bar" title="energia">⚡<i style="width:{energy}%"></i></span>
+			<span class="bar" title="energia">⚡<b><i style="width:{energy}%"></i></b></span>
 			<span>¥{money}</span>
 			<span>⭐ {rep}</span>
 		</div>
@@ -916,13 +908,16 @@
 		--px-ok: #99e550;
 		--px-ko: #d95763;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 10px;
+		/* larghezza fissa: presa dal contenuto, cambiava coi pulsanti delle porte */
+		width: 100%;
 		max-width: 520px;
 		margin: 0 auto;
 		font-family: 'DotGothic16', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', monospace;
 	}
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; font-family: inherit; }
-	.topbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+	.game-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 	.quit { font-family: inherit; font-size: 0.8rem; background: none; border: 2px solid #ac3232; color: #d95763; padding: 2px 8px; cursor: pointer; }
 	.panel {
 		background: var(--px-bg);
@@ -968,7 +963,9 @@
 	}
 	.bar { display: inline-flex; align-items: center; gap: 4px; }
 	.bar::after { content: ''; display: none; }
-	.bar i { display: inline-block; height: 9px; width: 60px; max-width: 60px; background: #99e550; border: 2px solid var(--px-line); }
+	/* binario fisso, la parte verde è la percentuale di energia */
+	.bar b { display: inline-block; width: 60px; height: 9px; border: 2px solid var(--px-line); background: #45283c; }
+	.bar i { display: block; height: 100%; background: #99e550; }
 	.map-wrap { position: relative; border: 3px solid var(--px-line); line-height: 0; }
 	canvas { width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: manipulation; cursor: pointer; }
 	.sign {
@@ -1012,7 +1009,8 @@
 	.kleft { grid-column: 1; grid-row: 2; }
 	.kright { grid-column: 3; grid-row: 2; }
 	.kdown { grid-column: 2; grid-row: 3; }
-	.doors { display: grid; gap: 6px; align-content: start; min-height: 126px; }
+	/* spazio per tre pulsanti (due porte vicine + riascolta): la pagina non si allunga camminando */
+	.doors { display: grid; gap: 6px; align-content: start; min-height: 156px; }
 	.doors rt { font-size: 0.55em; }
 	.mission header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 	.mission h2 { margin: 0; font-size: 1.1rem; }
@@ -1099,4 +1097,18 @@
 	.log { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 0.88rem; }
 	.log li.ko { color: #f3a0a8; }
 	.log small { color: #9badb7; }
+
+	/* ── desktop: scena (o mappa) a sinistra, dialogo e risposte a destra ── */
+	@media (min-width: 980px) {
+		.game { max-width: 1120px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+		.game > * { grid-column: 1 / -1; }
+		.game:has(.map-wrap) > .map-wrap { grid-column: 1; }
+		.game:has(.map-wrap) > .panel { grid-column: 2; }
+		.game:not(:has(.map-wrap)) .mission { display: block; }
+		.game:not(:has(.map-wrap)) .mission > * { margin: 0 0 10px 58%; }
+		.game:not(:has(.map-wrap)) .mission > header { margin-left: 0; }
+		.game:not(:has(.map-wrap)) .mission > .scene-wrap,
+		.game:not(:has(.map-wrap)) .mission > .dialog { float: left; clear: left; width: 55%; margin: 3px 0 10px; }
+		.game:not(:has(.map-wrap)) .mission::after { content: ''; display: block; clear: both; }
+	}
 </style>

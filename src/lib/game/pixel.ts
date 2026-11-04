@@ -186,37 +186,3 @@ function drawPlayer(ctx: CanvasRenderingContext2D, p: Pos, facing: DrawState['fa
 	rect(ctx, px + 2, py + 11, 2, 2 + step, C.pants);
 	rect(ctx, px + 6, py + 11, 2, 3 - step, C.pants);
 }
-
-// Ritratto 16×16 di chi parla (N = voce narrante: altoparlante)
-const FACES: Record<'F' | 'M' | 'N', string[]> = {
-	F: [
-		'....hhhhhhhh....', '...hhhhhhhhhh...', '..hhhhhhhhhhhh..', '..hhssssssssshh.', '.hhsssssssssshh.',
-		'.hhsseessseesshh', '.hhsssssssssshh.', '.hhssssnssssshh.', '.hhsssmmmmssshh.', '.hhhsssssssshhh.',
-		'.hhhhssssssshhh.', '..hh.cccccc.hh..', '....cccccccc....', '...cccccccccc...', '..cccccccccccc..', '..cccccccccccc..'
-	],
-	M: [
-		'................', '....hhhhhhhh....', '...hhhhhhhhhh...', '..hhhhhhhhhhhh..', '..hsssssssssssh.',
-		'..sseessssseess.', '..ssssssssssss..', '..sssssnssssss..', '..ssssmmmmssss..', '...ssssssssss...',
-		'....ssssssss....', '.....wwwwww.....', '...kkkwttwkkk...', '..kkkkkttkkkkk..', '..kkkkkttkkkkk..', '..kkkkkkkkkkkk..'
-	],
-	N: [
-		'................', '................', '.........yy.....', '........yyy..y..', '...kk..yyyy...y.',
-		'..kkkkyyyyy.y..y', '..kkkkyyyyy..y.y', '..kkkkyyyyy..y.y', '..kkkkyyyyy.y..y', '...kk..yyyy...y.',
-		'........yyy..y..', '.........yy.....', '................', '................', '................', '................'
-	]
-};
-const FACE_PAL: Record<string, string> = {
-	h: '#45283c', s: '#eec39a', e: '#222034', n: '#d9a066', m: '#ac3232', c: '#d77bba', w: '#ffffff',
-	t: '#ac3232', k: '#3f3f74', y: '#fbf236'
-};
-
-export function drawFace(ctx: CanvasRenderingContext2D, who: 'F' | 'M' | 'N', hair?: string): void {
-	ctx.clearRect(0, 0, 16, 16);
-	FACES[who].forEach((row, y) => {
-		[...row].forEach((ch, x) => {
-			if (ch === '.') return;
-			ctx.fillStyle = ch === 'h' && hair ? hair : FACE_PAL[ch]!;
-			ctx.fillRect(x, y, 1, 1);
-		});
-	});
-}

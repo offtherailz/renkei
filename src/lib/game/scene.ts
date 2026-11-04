@@ -41,9 +41,9 @@ export function quantize(ctx: CanvasRenderingContext2D, w = SCENE_W, h = SCENE_H
 // ── sfondi ─────────────────────────────────────────────────────────────────
 type Bg = 'office' | 'shop' | 'station' | 'resto' | 'street' | 'school' | 'clinic' | 'library';
 const BG_OF: Partial<Record<PlaceId | 'eki', Bg>> = {
-	kaisha: 'office', ginkou: 'office', yuubin: 'office', hoteru: 'office', konbini: 'shop', panya: 'shop', hanaya: 'shop',
+	kaisha: 'office', ginkou: 'office', yuubin: 'office', konbini: 'shop', panya: 'shop', hanaya: 'shop',
 	honya: 'library', toshokan: 'library', eki: 'station', resutoran: 'resto', kafe: 'resto', gakkou: 'school',
-	byouin: 'clinic', kusuri: 'clinic', manshon: 'street', eiga: 'street'
+	byouin: 'clinic', kusuri: 'clinic', manshon: 'street', eiga: 'street', kouen: 'street'
 };
 
 function skyGrad(ctx: CanvasRenderingContext2D, y0: number, y1: number, hour: number) {

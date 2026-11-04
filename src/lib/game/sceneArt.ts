@@ -10,14 +10,13 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	kaisha: { F: ['collega_donna'], M: ['collega_uomo'] },
 	ginkou: { F: ['collega_donna'], M: ['capo_uomo'] },
 	yuubin: { F: ['collega_donna'], M: ['capo_uomo'] },
-	hoteru: { F: ['collega_donna'], M: ['cameriere'] },
-	konbini: { F: ['commessa_konbini'], M: ['passante'] },
-	panya: { F: ['commessa_konbini'], M: ['passante'] },
-	hanaya: { F: ['fioraia'], M: ['passante'] },
+	konbini: { F: ['commessa_konbini'], M: ['commesso'] },
+	panya: { F: ['panettiera'], M: ['commesso'] },
+	hanaya: { F: ['fioraia'], M: ['commesso'] },
 	resutoran: { F: ['amica'], M: ['cameriere'] },
 	kafe: { F: ['amica'], M: ['cameriere'] },
-	byouin: { F: ['medico'], M: ['passante'] },
-	kusuri: { F: ['medico'], M: ['passante'] },
+	byouin: { F: ['medico'], M: ['medico_uomo'] },
+	kusuri: { F: ['farmacista'], M: ['medico_uomo'] },
 	// a scuola chi parla è quasi sempre uno studente; l'insegnante solo col suo ruolo
 	gakkou: { F: ['studentessa'], M: ['studente_uomo'] },
 	toshokan: { F: ['studentessa'], M: ['studente_uomo'] },
@@ -26,9 +25,10 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 const STREET = { F: ['amica', 'signora_anziana'], M: ['passante'] };
 
 const BG: Partial<Record<Where, string>> = {
-	kaisha: 'ufficio', hoteru: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
+	kaisha: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
 	toshokan: 'biblioteca', honya: 'biblioteca', gakkou: 'scuola', byouin: 'ospedale',
-	konbini: 'konbini', eki: 'stazione', panya: 'panetteria', hanaya: 'fioraio'
+	konbini: 'konbini', eki: 'stazione', panya: 'panetteria', hanaya: 'fioraio', kusuri: 'farmacia',
+	eiga: 'cinema', manshon: 'condominio', kouen: 'parco'
 };
 // le indicazioni si chiedono per strada, qualunque sia la meta
 const STREET_BG = 'strada';
@@ -46,7 +46,7 @@ const ROLE: Record<Exclude<Role, 'luogo'>, { F: string; M: string }> = {
 	collega: { F: 'collega_donna', M: 'collega_uomo' },
 	amico: { F: 'amica', M: 'studente_uomo' },
 	passante: { F: 'signora_anziana', M: 'passante' },
-	insegnante: { F: 'collega_donna', M: 'insegnante' }
+	insegnante: { F: 'insegnante_donna', M: 'insegnante' }
 };
 
 export function sceneLook(place: Where, who: 'F' | 'M', role: Role = 'luogo'): SceneLook {

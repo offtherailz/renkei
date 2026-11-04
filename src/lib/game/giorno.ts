@@ -67,7 +67,7 @@ export function isCrossing(x: number, y: number): boolean {
 
 export type PlaceId =
 	| 'kaisha' | 'yuubin' | 'konbini' | 'resutoran' | 'ginkou' | 'byouin' | 'honya' | 'hanaya'
-	| 'kusuri' | 'panya' | 'toshokan' | 'kafe' | 'gakkou' | 'hoteru' | 'manshon' | 'eiga';
+	| 'kusuri' | 'panya' | 'toshokan' | 'kafe' | 'gakkou' | 'kouen' | 'manshon' | 'eiga';
 
 export interface PlaceInfo {
 	id: PlaceId;
@@ -91,7 +91,7 @@ export const PLACES: Record<PlaceId, PlaceInfo> = {
 	toshokan: { id: 'toshokan', sign: '図書館', yomi: 'としょかん', it: 'biblioteca', roof: '#45283c' },
 	kafe: { id: 'kafe', sign: 'カフェ', yomi: 'かふぇ', it: 'caffè', roof: '#663931' },
 	gakkou: { id: 'gakkou', sign: '学校', yomi: 'がっこう', it: 'scuola', roof: '#fbf236' },
-	hoteru: { id: 'hoteru', sign: 'ホテル', yomi: 'ほてる', it: 'hotel', roof: '#306082' },
+	kouen: { id: 'kouen', sign: '公園', yomi: 'こうえん', it: 'parco', roof: '#5a9e3a' },
 	manshon: { id: 'manshon', sign: 'マンション', yomi: 'まんしょん', it: 'condominio', roof: '#9badb7' },
 	eiga: { id: 'eiga', sign: '映画館', yomi: 'えいがかん', it: 'cinema', roof: '#ac3232' }
 };
@@ -100,7 +100,7 @@ export const PLACES: Record<PlaceId, PlaceInfo> = {
 const SPOKEN: Record<PlaceId, string> = {
 	kaisha: '会社', yuubin: 'ゆうびんきょく', konbini: 'コンビニ', resutoran: 'レストラン', ginkou: '銀行',
 	byouin: '病院', honya: '本屋', hanaya: '花屋', kusuri: '薬屋', panya: 'パン屋', toshokan: '図書館',
-	kafe: 'カフェ', gakkou: '学校', hoteru: 'ホテル', manshon: 'マンション', eiga: '映画館'
+	kafe: 'カフェ', gakkou: '学校', kouen: 'こうえん', manshon: 'マンション', eiga: '映画館'
 };
 
 export interface Building {
