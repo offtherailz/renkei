@@ -26,14 +26,17 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	byouin: { F: ['medico'], M: ['passante'] },
 	kusuri: { F: ['medico'], M: ['passante'] },
 	gakkou: { F: ['amica'], M: ['insegnante'] },
-	toshokan: { F: ['amica'], M: ['insegnante'] },
-	honya: { F: ['amica'], M: ['insegnante'] }
+	toshokan: { F: ['amica'], M: ['studente_uomo'] },
+	honya: { F: ['amica'], M: ['studente_uomo'] }
 };
 const STREET = { F: ['amica', 'signora_anziana'], M: ['passante'] };
 
 const BG: Partial<Record<Where, string>> = {
-	kaisha: 'ufficio', ginkou: 'ufficio', yuubin: 'ufficio', hoteru: 'ufficio', resutoran: 'ristorante', kafe: 'cafe'
+	kaisha: 'ufficio', hoteru: 'ufficio', ginkou: 'banca', yuubin: 'posta', resutoran: 'ristorante', kafe: 'cafe',
+	toshokan: 'biblioteca', honya: 'biblioteca'
 };
+// le indicazioni si chiedono per strada, qualunque sia la meta
+const STREET_BG = 'strada';
 
 export interface SceneLook {
 	composed: string | null; // scena già composta
@@ -47,7 +50,7 @@ export type Role = 'capo' | 'collega' | 'amico' | 'passante' | 'insegnante' | 'l
 const ROLE: Record<Exclude<Role, 'luogo'>, { F: string; M: string }> = {
 	capo: { F: 'capo_donna', M: 'capo_uomo' },
 	collega: { F: 'collega_donna', M: 'collega_uomo' },
-	amico: { F: 'amica', M: 'passante' },
+	amico: { F: 'amica', M: 'studente_uomo' },
 	passante: { F: 'signora_anziana', M: 'passante' },
 	insegnante: { F: 'collega_donna', M: 'insegnante' }
 };
@@ -56,7 +59,7 @@ export function sceneLook(place: Where, who: 'F' | 'M', role: Role = 'luogo'): S
 	const comp = role === 'luogo' || role === 'amico' ? COMPOSED.find((c) => c.who === who && c.places.includes(place)) : undefined;
 	if (comp) return { composed: comp.id, bg: null, sprite: null };
 	const sprite = role === 'luogo' ? (CAST[place] ?? STREET)[who][0]! : ROLE[role][who];
-	return { composed: null, bg: BG[place] ?? null, sprite };
+	return { composed: null, bg: role === 'passante' ? STREET_BG : (BG[place] ?? null), sprite };
 }
 
 export const composedSrc = (base: string, id: string, talking: boolean) => `${base}/giorno/scene/${id}-${talking ? 'parla' : 'chiusa'}.png`;
