@@ -763,7 +763,11 @@
 				<div class="scene-wrap">
 					{#if look?.bg === 'treno'}
 						<!-- fuori dai finestrini (trasparenti nel disegno del vagone) scorre il paesaggio -->
-						<div class="window-view"><div class="panorama" style="background-image: url({base}/giorno/sfondi/panorama.jpg)"></div></div>
+						<div class="window-view">
+							<!-- a sinistra i finestrini si allontanano: il paesaggio va in prospettiva; a destra è di fronte -->
+							<div class="pano-side"><div class="panorama" style="background-image: url({base}/giorno/sfondi/panorama.jpg)"></div></div>
+							<div class="pano-front"><div class="panorama" style="background-image: url({base}/giorno/sfondi/panorama.jpg)"></div></div>
+						</div>
 						<img class="scene" src={bgSrc(base, look.bg)} alt="" />
 					{:else if look?.bg}
 						<img class="scene" src={bgSrc(base, look.bg)} alt="" />
@@ -1063,6 +1067,10 @@
 	.panorama { position: absolute; inset: 0; background-repeat: repeat-x; background-size: auto 100%; image-rendering: pixelated; animation: scorre 14s linear infinite; }
 	@keyframes scorre { from { background-position-x: 0; } to { background-position-x: calc(-354.7cqh); } }
 	.window-view { container-type: size; }
+	.pano-side, .pano-front { position: absolute; inset: 0; overflow: hidden; container-type: size; }
+	.pano-front { clip-path: inset(0 0 0 45%); }
+	.pano-side { clip-path: inset(0 55% 0 0); perspective: 220px; perspective-origin: 100% 50%; }
+	.pano-side .panorama { transform-origin: 100% 50%; transform: rotateY(-38deg); animation-duration: 9s; }
 	@media (prefers-reduced-motion: reduce) { .panorama { animation-duration: 80s; } }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
 	/* personaggio fuso con lo sfondo: più piccolo, ombra, colori un filo smorzati */
