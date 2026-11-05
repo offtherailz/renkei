@@ -220,4 +220,30 @@ Keep the same PC-98 16-color dithered pixel art style. Do not move, add or remov
 No text, no labels, no letters, no numbers, no frame, no UI.
 ```
 
+**Ampliamento a destra (est)**: nella stessa chat della mappa di giorno, poi la notte. Il primo sesto a sinistra della nuova immagine ripete l'ultimo sesto a destra della vecchia: serve per allinearle e fonderle senza cucitura. File: `mappa_est_giorno.png` e `mappa_est_notte.png`.
+
+```
+Now draw the next part of the same town, to the RIGHT (east) of the day map you just made. Same style, same scale, same isometric angle, same light, same size: ONE single image, landscape 16:9.
+OVERLAP: the left sixth of the new image must repeat exactly the right sixth of the previous map (the convenience store, the houses on the right, the main street and the railway), so the two images can be joined side by side.
+The main street continues horizontally at the same height, the railway continues at the bottom at the same height, the green hills continue along the top edge.
+New buildings, each small and recognizable, spread over the new area:
+- a coffee shop with a small terrace and a striped awning;
+- a family restaurant with a noren curtain and red paper lanterns;
+- a post office with a red mailbox in front;
+- a flower shop with flower buckets on the sidewalk;
+- a small pharmacy with a green cross;
+- a three-story apartment building with balconies and laundry;
+- a public swimming pool building with a big glass roof, near the hills;
+- a small shopping arcade entrance with a decorated gate;
+- a few ordinary houses, a parking lot, vending machines, utility poles, cherry trees.
+No text, no labels, no letters, no numbers, no signs with writing, no legend, no compass, no frame, no UI.
+```
+
+Poi, nella stessa chat:
+
+```
+Exactly the same new part of the map, identical layout and identical buildings in the same positions, but at night, with the same lighting as the night map you made before: dark blue sky with stars, warm yellow windows, glowing street lamps, red lanterns at the restaurant, the coffee shop softly lit, closed shops with dark windows and lowered shutters.
+Do not move, add or remove any building. No text, no labels, no frame, no UI.
+```
+
 Se cambia la disposizione: `Same map, but move the <edificio> to the <posizione>. Keep everything else identical, no text.`
