@@ -6,7 +6,7 @@
 	import { isInLevel } from '$lib/data/kanjiN4';
 	import {
 		buildDay, buildingAtDoor, buildingOf, countJa, drillSpoken, hhmm, isCrossing, isRoad, NEW_PER_DAY, numbered, PLACES, placeIt, recordResult, roadPath, SKILL_OF, START,
-		type BankItem, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Where, type Who
+		type BankItem, type BankTipo, type Building, type Day, type Line, type Mission, type Option, type PlaceId, type Pos, type Progress, type Where, type Who
 	} from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
 	import type { TestoFormato } from '$lib/types/models';
@@ -33,12 +33,27 @@
 			/* niente storage */
 		}
 	}
-	// quante domande nuove al giorno (si cambia nella schermata iniziale)
+	// quante domande nuove al giorno e quali tipi (si cambiano nella schermata iniziale)
 	let newPerDay = $state(NEW_PER_DAY);
+	const TIPI_ALL: { id: BankTipo; label: string }[] = [
+		{ id: 'moji', label: '🈁 Kanji' }, { id: 'goi', label: '📚 Parole' }, { id: 'bunpou', label: '🧩 Grammatica' }, { id: 'dokkai', label: '📖 Lettura' },
+		{ id: 'kadai', label: '📝 Cosa si fa' }, { id: 'point', label: '🤔 Il punto' }, { id: 'hatsuwa', label: '💬 Cosa dici' }, { id: 'sokuji', label: '⚡ Risposta rapida' }
+	];
+	let tipiOn = $state<BankTipo[]>(TIPI_ALL.map((t) => t.id));
+	function toggleTipo(t: BankTipo): void {
+		tipiOn = tipiOn.includes(t) ? tipiOn.filter((x) => x !== t) : [...tipiOn, t];
+		try {
+			localStorage.setItem('renkei_giorno_tipi', JSON.stringify(tipiOn));
+		} catch {
+			/* niente storage */
+		}
+	}
 	function loadConfig(): void {
 		try {
 			const n = Number(localStorage.getItem('renkei_giorno_nuove'));
 			if (n > 0) newPerDay = n;
+			const t = JSON.parse(localStorage.getItem('renkei_giorno_tipi') ?? 'null') as BankTipo[] | null;
+			if (Array.isArray(t)) tipiOn = t.filter((x) => TIPI_ALL.some((a) => a.id === x));
 		} catch {
 			/* niente storage */
 		}
@@ -255,7 +270,7 @@
 		// il giorno conta da quando lo inizi: chi interrompe a metà non rivede le stesse
 		dayNo += 1;
 		saveProgress();
-		day = buildDay(seed, { bank, prog, dayNo, newPerDay });
+		day = buildDay(seed, { bank, prog, dayNo, newPerDay, tipi: tipiOn.length === TIPI_ALL.length ? undefined : tipiOn });
 		stepIdx = 0;
 		clock = 8 * 60;
 		energy = 100;
@@ -682,6 +697,13 @@
 					<input type="number" min="0" max="200" step="5" bind:value={newPerDay} onchange={saveConfig} />
 				</label>
 				<p class="muted small">Con {newPerDay} al giorno le {bank.length - seenCount} ancora da vedere escono tutte in circa {newPerDay ? Math.ceil((bank.length - seenCount) / newPerDay) : '∞'} giornate.</p>
+				<div class="tipi-on">
+					<span class="small">Tipi di domande d'esame:</span>
+					{#each TIPI_ALL as t (t.id)}
+						<label><input type="checkbox" checked={tipiOn.includes(t.id)} onchange={() => toggleTipo(t.id)} /> {t.label}</label>
+					{/each}
+					<span class="muted small">Esclusi: le situazioni restano, ma senza domande del libro di quel tipo.</span>
+				</div>
 				<a class="btn ghost small" href="{base}/giorno/domande">🗂️ Tutte le domande</a>
 				<button class="btn ghost small" onclick={importExams} disabled={loadingExams}>🔄 Aggiorna le prove d'esame</button>
 			{:else}
@@ -1039,6 +1061,8 @@
 	}
 	/* altezze fisse: obiettivo su una o due righe, porte o suggerimento */
 	.exam-pic { width: 100%; max-width: 520px; background: #fff; border: 3px solid var(--px-line); justify-self: center; }
+	.tipi-on { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+	.tipi-on label { display: flex; align-items: center; gap: 4px; font-size: 0.85rem; }
 	.cfg { display: flex; gap: 8px; align-items: center; font-size: 0.9rem; }
 	.cfg input { width: 5em; font-family: inherit; font-size: 1rem; padding: 2px 4px; }
 	.goal { margin: 0; font-size: 0.9rem; min-height: 2.7em; }

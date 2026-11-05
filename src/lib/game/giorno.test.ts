@@ -300,3 +300,15 @@ describe('giornata: casa, compito generato, domande nuove', () => {
 		expect(many.newToday).toBeLessThanOrEqual(30);
 	});
 });
+
+describe('tipi di domande scelti', () => {
+	it('i tipi esclusi non escono', () => {
+		const w = (i: number, tipo: 'moji' | 'kadai') => ({ id: `${tipo}${i}`, tipo, righe: [], domanda: { ja: 'x', it: '' }, opzioni: [{ ja: 'a', it: '' }, { ja: 'b', it: '' }], risposta: 0 });
+		const bank = [...Array.from({ length: 20 }, (_, i) => w(i, 'moji')), ...Array.from({ length: 10 }, (_, i) => w(i, 'kadai'))];
+		const d = buildDay(5, { bank, prog: {}, dayNo: 1, tipi: ['kadai'] });
+		const ids = d.steps.flatMap((s) => (s.mission.kind === 'drill' ? s.mission.rounds.map((r) => r.sourceId) : s.mission.kind === 'choice' && s.mission.sourceId ? [s.mission.sourceId] : []));
+		expect(ids.some((id) => id?.startsWith('kadai'))).toBe(true);
+		expect(ids.some((id) => id?.startsWith('moji'))).toBe(false);
+	});
+});
+
