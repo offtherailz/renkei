@@ -1,0 +1,145 @@
+# Prompt delle immagini (visual novel e «Un giorno in Giappone»)
+
+Le immagini sono generate con Gemini, una chat per immagine, in stile PC-98
+(anni '90). Qui ci sono i prompt usati, per rifarle o aggiungerne di nuove con
+lo stesso aspetto.
+
+## Come si caricano e come si elaborano
+
+- Si caricano nella cartella `ritratti` del workspace, meglio come file immagine
+  (i link di condivisione di Gemini a volte scadono).
+- **Personaggi**: fondo magenta pieno. Lo scontorno toglie il fondo, allinea le
+  due versioni (bocca chiusa / aperta) e copia solo la zona della bocca, così il
+  resto del viso resta identico. Escono in `static/giorno/ritratti/<id>-chiusa.png`
+  e `<id>-parla.png`, alti 360 px.
+- **Sfondi**: tagliati a 2:1 (640×320) dal centro, in `static/giorno/sfondi/`.
+  Le cose importanti vanno nella fascia centrale.
+- **Oggetti**: griglia 4×4 su magenta, tagliati uno per uno con fondo
+  trasparente in `static/giorno/oggetti/`.
+- Il treno è un PNG con i finestrini trasparenti; dietro scorre il panorama.
+
+## Personaggi
+
+Formato che funziona meglio: **due immagini separate** nella stessa chat (prima
+bocca chiusa, poi bocca aperta). Con due pannelli affiancati Gemini tagliava le
+spalle. Nomi dei file: `<nome>_chiusa.jpg` e `<nome>_aperta.jpg`.
+
+Prompt (cambia solo la riga della descrizione):
+
+```
+PC-98 style anime portrait, 1990s Japanese visual novel character sprite, 16-color dithered pixel art, crisp pixels, cel shading, retro anime face.
+<DESCRIZIONE DEL PERSONAGGIO>
+ONE single image, landscape 16:9. The character is centered and occupies only the central third of the image width: upper body from the waist up, both shoulders and both arms completely inside the image, arms relaxed down at the sides, wide empty magenta space on the left, on the right and above the head.
+The body continues down to the bottom edge of the image (cut at the waist by the bottom border), no empty space below.
+Mouth closed. Facing the viewer, eye level.
+Plain flat solid magenta background (#B4318F), no gradient, no pattern. Do not use pink, purple or magenta in the clothes or hair.
+No text, no labels, no frame, no border, no UI.
+```
+
+Seconda richiesta, nella stessa chat:
+
+```
+Exactly the same image, identical in every pixel, but with the mouth clearly open as if talking. Do not move, zoom or change anything else.
+```
+
+Descrizioni usate:
+
+| id | descrizione |
+|---|---|
+| ispettore | 1man, Japanese police detective, about 45 years old, short black hair slightly messy, sharp observant eyes, light stubble, beige trench coat over a white shirt and loose dark tie. |
+| receptionist | 1woman, Japanese hotel receptionist, about 28 years old, black hair in a neat low bun, polite professional smile, dark navy uniform jacket with a small gold name badge and a light blue scarf. |
+| padrone | 1man, Japanese apartment landlord, about 65 years old, bald on top with short gray hair on the sides, round glasses, grumpy suspicious expression, brown knitted vest over a checked shirt. |
+| custode | 1woman, Japanese museum guard, about 40 years old, short dark brown bob haircut, serious tired expression, dark green security uniform, small radio clipped on the shoulder, no hat. |
+| mamma | 1woman, Japanese mother, about 50 years old, short wavy dark brown hair, kind warm smile, light beige cardigan over a pale yellow blouse, simple apron. |
+| papa | 1man, Japanese father, about 55 years old, short black hair with gray at the sides, relaxed friendly expression, dark green knitted sweater over a white collared shirt, casual at home. |
+| farmacista | 1woman, adult Japanese pharmacist, about 30 years old, short neat black hair, kind smile, white pharmacist coat over a light blue blouse, small name badge, no glasses. |
+| commesso | 1boy, young adult Japanese shop clerk, about 22 years old, short dark brown hair, friendly polite smile, plain dark green shop apron over a white shirt, small name tag on the apron. |
+| panettiera | 1girl, Japanese bakery shop assistant, about 25 years old, brown hair tied in a low ponytail, warm smile, cream-colored bakery apron over a light beige shirt, small white bandana cap. |
+| medico_uomo | 1man, Japanese doctor, about 45 years old, short black hair with a little gray at the temples, thin rectangular glasses, calm reassuring expression, white doctor's coat over a light blue shirt and dark tie, stethoscope around the neck. |
+| insegnante_donna | 1woman, Japanese school teacher, about 35 years old, shoulder-length black hair, gentle but serious expression, navy blue cardigan over a white blouse, small brooch. |
+| studente_uomo | 1boy, Japanese high school student, about 17 years old, messy black hair, friendly smile, navy blue school blazer with a small emblem, white shirt, red tie. |
+| amica | 1girl, young Japanese woman, about 24 years old, chin-length dark violet-black hair, bright cheerful smile, mustard yellow casual jacket over a white t-shirt. (fondo verde #2FA84F invece del magenta, per i capelli viola) |
+
+### Espressioni (stesso personaggio)
+
+Allegare il ritratto esistente. `[EMOZIONE]`: `surprised, eyes wide` ·
+`nervous, sweating, eyes looking away` · `angry, frowning`.
+Nome file: `<id>_<emozione>_chiusa.jpg` / `_aperta.jpg`.
+
+```
+Same character as the attached image, same PC-98 1990s visual novel pixel art style, same clothes, same hair, same colors.
+Expression: [EMOZIONE].
+ONE single image, landscape 16:9. The character is centered and occupies only the central third of the image width: upper body from the waist up, both shoulders and both arms completely inside the image, wide empty magenta space on the left, on the right and above the head.
+The body continues down to the bottom edge of the image (cut at the waist by the bottom border), no empty space below.
+Mouth closed. Facing the viewer, eye level.
+Plain flat solid magenta background (#B4318F), no gradient.
+No text, no labels, no frame, no UI.
+```
+
+## Sfondi
+
+Schema comune (cambia la descrizione del luogo e la riga finale su cosa tenere al centro):
+
+```
+PC-98 style background art, 1990s Japanese visual novel, 16-color dithered pixel art, crisp pixels, ordered dithering, soft pastel palette.
+<DESCRIZIONE DEL LUOGO>, seen at eye level, wide 16:9 composition.
+<DETTAGLI>
+Empty scene: no people, no characters, no text overlays, no frame, no UI.
+Keep <COSE IMPORTANTI> in the central horizontal band of the image (top and bottom may be cropped).
+```
+
+| sfondo | luogo e dettagli |
+|---|---|
+| farmacia | Interior of a small Japanese neighborhood pharmacy, from the customer side. Shelves of medicine boxes, vitamins and bandages, a counter with a small cash register and a pharmacist window, a sign "くすり", white walls with light green accents, fluorescent lights. |
+| cinema | Lobby of a small Japanese neighborhood movie theater. Ticket counter with a price board, movie posters (abstract, no readable titles), snack counter with popcorn, a sign "えいがかん", red carpet, a door to the screening room. |
+| condominio | Entrance hall of a Japanese apartment building. Metal mailboxes with room numbers, a notice board with paper notices, an intercom next to a glass auto-lock door, an elevator, a potted plant, evening light. |
+| parco | A Japanese neighborhood park on a sunny afternoon. Gravel path, wooden benches, cherry and zelkova trees, a small fountain, a playground, a public clock on a pole, a vending machine, apartment buildings behind the trees. |
+| casa | Living room of an ordinary Japanese apartment. Low table on tatami with a teapot and two cups, floor cushions, small TV, wall calendar and clock, fusuma sliding door, small kitchen corner with fridge and sink, window with lace curtains, genkan at the edge. |
+| museo | Interior of a quiet Japanese art and history museum room. Paintings and old scrolls (no readable text), a glass display case in the center with an EMPTY velvet stand (something was stolen), red rope barrier, spotlights, a security camera, a doorway. |
+| ufficio_capo | Private office of a Japanese company president (社長室). Large dark wooden desk with leather chair, desk lamp, piles of documents, a small safe with its door slightly open, bookshelf with binders, window with city view and blinds, framed calligraphy, sofa set. |
+| magazzino | Dim storage room in the basement of an office building. Metal shelves with cardboard boxes, old office chairs, mop and bucket, a single hanging bulb, a small high window, footprints in the dust, a back door slightly open. |
+
+### Treno e panorama
+
+Interno del vagone (i finestrini diventano trasparenti):
+
+```
+PC-98 style background art, 1990s Japanese visual novel, 16-color dithered pixel art, crisp pixels, ordered dithering, soft pastel palette.
+Interior of a Japanese commuter train carriage, seen from inside at seated eye level, wide 16:9 composition.
+Long bench seats with blue-green upholstery on both sides, hanging hand straps, metal poles, advertisement posters above the windows (abstract, no readable text), a route map strip above the door, a sliding door with a small window, warm ceiling lights.
+IMPORTANT: every window glass area must be filled with a single plain flat solid magenta color (#FF00FF), no reflections, no scenery, no gradient.
+Empty carriage: no people, no characters, no text overlays, no frame, no UI.
+```
+
+Panorama dal finestrino (striscia che si ripete):
+
+```
+PC-98 style background art, 1990s Japanese visual novel, 16-color dithered pixel art, crisp pixels, ordered dithering, soft pastel palette.
+Very wide horizontal panorama seen from a moving train window, side view, flat 2D layers, ultra-wide 4:1 composition.
+Japanese suburban scenery: rows of low houses with tiled roofs, small apartment blocks, utility poles with wires, a level crossing, rice fields, a river with a small bridge, distant green hills and mountains, blue sky with soft clouds.
+SEAMLESS TILEABLE horizontally: the left edge must continue perfectly into the right edge.
+No train, no window frame, no people, no text, no frame, no UI.
+```
+
+## Oggetti indizio
+
+```
+PC-98 style pixel art item icons, 1990s Japanese adventure game inventory, 16-color dithered pixel art, crisp pixels, soft pastel palette, thin dark outlines.
+A 4x4 grid of 16 separate objects, each centered in its own equal square cell, same size and same light from top-left, slight top-down three-quarter view:
+row 1: a metal door key, a brown leather wallet, a wet folded umbrella with drops, a small paper train ticket;
+row 2: a shop receipt, a broken wristwatch with cracked glass, a coffee cup with a lipstick mark, a pair of work gloves;
+row 3: a sealed envelope letter, a printed photograph, a flip mobile phone, a compact camera;
+row 4: an adhesive bandage, a small cardboard parcel with tape, a post office receipt slip, a box of matches.
+Plain flat solid magenta background (#FF00FF) everywhere around and between the objects, no shadows on the background, generous empty space between cells.
+No text, no labels, no numbers, no frame, no UI.
+```
+
+id nell'ordine della griglia: chiave, portafoglio, ombrello, biglietto,
+scontrino, orologio, tazza, guanti, lettera, foto, cellulare, macchina_foto,
+cerotto, pacco, ricevuta_posta, fiammiferi.
+
+## Correzioni rapide (stessa chat)
+
+- Spalle o braccia tagliate: `Same image, zoom out: show both full shoulders with empty magenta space on the left, right and above the head. Keep everything else identical.`
+- Testa tagliata in alto: `zoom out, more empty space above the head`.
+- Bocca aperta con il viso cambiato: `same image, only change the mouth`.
