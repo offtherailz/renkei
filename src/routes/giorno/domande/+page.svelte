@@ -16,6 +16,7 @@
 	let fonte = $state<string>('tutte');
 	let stato = $state<'tutte' | 'nuove' | 'da rivedere' | 'consolidate'>('tutte');
 	let cerca = $state('');
+	let soloFigure = $state(false);
 	let aperta = $state<string | null>(null);
 	let scelta = $state<Record<string, number>>({});
 	let quante = $state(60);
@@ -36,7 +37,8 @@
 				(tipo === 'tutti' || b.tipo === tipo) &&
 				(fonte === 'tutte' || (b.fonte ?? '—') === fonte) &&
 				(stato === 'tutte' || statoDi(b) === stato) &&
-				(!cerca.trim() || JSON.stringify(b).includes(cerca.trim()))
+				(!soloFigure || !!b.immagine) &&
+				(!cerca.trim() || JSON.stringify({ ...b, immagine: undefined }).includes(cerca.trim()))
 		)
 	);
 	const conta = (t: string) => bank.filter((b) => b.tipo === t).length;
@@ -90,6 +92,7 @@
 				<option value="consolidate">Consolidate</option>
 			</select>
 			<input type="search" placeholder="Cerca (giapponese o italiano)" bind:value={cerca} />
+			<label class="fig"><input type="checkbox" bind:checked={soloFigure} /> 🖼️ Con figura ({bank.filter((b) => b.immagine).length})</label>
 		</div>
 		<p class="muted small">{filtrate.length} trovate</p>
 		<ul class="lista">
@@ -161,6 +164,7 @@
 	.tipi button.on { background: var(--brand); color: #fff; border-color: var(--brand); }
 	.filtri { display: flex; flex-wrap: wrap; gap: 6px; }
 	.filtri select, .filtri input { font-size: 0.9rem; padding: 4px 6px; flex: 1 1 140px; min-width: 0; }
+	.fig { display: flex; align-items: center; gap: 4px; font-size: 0.85rem; white-space: nowrap; }
 	.lista li { min-width: 0; }
 	.lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
 	.riga { width: 100%; display: flex; gap: 8px; align-items: baseline; text-align: left; background: #fff; color: #1d2333; border: 1px solid var(--border, #dde); border-radius: 8px; padding: 6px 8px; cursor: pointer; }
