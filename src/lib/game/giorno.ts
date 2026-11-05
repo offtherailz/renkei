@@ -368,6 +368,7 @@ export interface ChoiceMission {
 	sub: 'priority' | 'reason' | 'rpg' | 'read' | 'sign' | 'kadai' | 'point' | 'hatsuwa' | 'dokkai';
 	sourceId?: string; // domanda della banca (file corso): conta per il ripasso
 	scena?: string; // il disegno del foglio d'esame, descritto
+	immagine?: string; // il disegno vero del foglio d'esame (data URI)
 	audioOnly?: boolean; // 発話表現: le scelte si sentono soltanto (testo dopo)
 	optionVoice?: Who;
 	spiega?: string;
@@ -1282,6 +1283,7 @@ export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
 		title: b.titolo ?? titles[b.tipo],
 		intro: b.intro ?? '',
 		scena: b.scena,
+		immagine: b.immagine,
 		lines: b.righe,
 		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it, formato: b.testo.formato },
 		question: b.domanda,

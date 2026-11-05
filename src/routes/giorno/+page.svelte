@@ -798,7 +798,7 @@
 							{/if}
 						</div>
 					{/if}
-					{#if mission.scena}<p class="scena">🖼️ {mission.scena}</p>{/if}
+					{#if mission.immagine}<img class="exam-pic" src={mission.immagine} alt={mission.scena ?? 'figura della domanda'} />{:else if mission.scena}<p class="scena">🖼️ {mission.scena}</p>{/if}
 					{#if mission.lines.length}
 						<button class="btn ghost" onclick={() => replay(audioOf(mission))}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					{/if}
@@ -1038,6 +1038,7 @@
 		pointer-events: none;
 	}
 	/* altezze fisse: obiettivo su una o due righe, porte o suggerimento */
+	.exam-pic { width: 100%; max-width: 520px; background: #fff; border: 3px solid var(--px-line); justify-self: center; }
 	.cfg { display: flex; gap: 8px; align-items: center; font-size: 0.9rem; }
 	.cfg input { width: 5em; font-family: inherit; font-size: 1rem; padding: 2px 4px; }
 	.goal { margin: 0; font-size: 0.9rem; min-height: 2.7em; }

@@ -106,7 +106,7 @@
 						<div class="card">
 							{#if b.titolo}<p class="muted small">{b.titolo}</p>{/if}
 							{#if b.intro}<p class="small">{b.intro}</p>{/if}
-							{#if b.scena}<p class="small">🖼️ {b.scena}</p>{/if}
+							{#if b.immagine}<img class="pic" src={b.immagine} alt={b.scena ?? ''} />{:else if b.scena}<p class="small">🖼️ {b.scena}</p>{/if}
 							{#if b.testo}
 								<div class="doc"><p class="doc-head">{b.testo.titolo}</p><pre class="ja">{b.testo.ja}</pre></div>
 							{/if}
@@ -173,6 +173,7 @@
 	.doc { background: #fbfaf3; border: 1px solid #d9d4bf; padding: 8px; border-radius: 4px; }
 	.doc-head { margin: 0 0 4px; font-weight: 700; }
 	pre { white-space: pre-wrap; font-family: inherit; margin: 0; }
+	.pic { width: 100%; max-width: 520px; border: 1px solid #ccd; }
 	.q { font-weight: 600; margin: 0; }
 	.opts { display: grid; gap: 6px; }
 	.opt { text-align: left; display: grid; gap: 2px; padding: 8px 10px; border: 1px solid var(--border, #ccd); border-radius: 8px; background: #fff; color: #1d2333; cursor: pointer; font-size: 0.95rem; }

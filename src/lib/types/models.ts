@@ -416,6 +416,7 @@ export interface CourseGiornoInput {
   titolo?: string;
   intro?: string; // contesto in italiano
   scena?: string; // il disegno del foglio d'esame, descritto in italiano
+  immagine?: string; // il disegno vero (data URI), solo nel file cifrato
   // brano da leggere (読解); formato: com'è fatto il foglio, per mostrarlo così
   testo?: { titolo: string; ja: string; it: string; formato?: TestoFormato };
   righe: { who: 'N' | 'F' | 'M'; ja: string; it: string }[];

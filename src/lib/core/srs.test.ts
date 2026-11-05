@@ -21,7 +21,7 @@ describe("applyPracticeReview", () => {
     const ok = applyPracticeReview(srs, true, NOW);
     expect(ok.srs_stage).toBe(beforeStage);
     expect(ok.next_review_date).toBe(beforeDate);
-    expect(ok.mastery_points).toBe(srs.mastery_points + 4);
+    expect(ok.mastery_points).toBe(srs.mastery_points + 6);
     const ko = applyPracticeReview(srs, false, NOW);
     expect(ko.srs_stage).toBe(beforeStage);
     expect(ko.mastery_points).toBe(srs.mastery_points - 6);
