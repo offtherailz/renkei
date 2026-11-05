@@ -143,3 +143,66 @@ cerotto, pacco, ricevuta_posta, fiammiferi.
 - Spalle o braccia tagliate: `Same image, zoom out: show both full shoulders with empty magenta space on the left, right and above the head. Keep everything else identical.`
 - Testa tagliata in alto: `zoom out, more empty space above the head`.
 - Bocca aperta con il viso cambiato: `same image, only change the mouth`.
+
+## 事件: città di 山野市 (missioni 1-3)
+
+### Sfondi nuovi (schema comune degli sfondi)
+
+| sfondo | luogo e dettagli | al centro |
+|---|---|---|
+| koban | Front of a small Japanese neighborhood police box (交番) on a street corner, evening light. Small concrete building with a red round lamp above the door, glass sliding door, a desk with a logbook and a phone visible inside, a notice board with wanted and lost-and-found posters (no readable text), a bicycle parked outside, a map board of the neighborhood. | the door and the desk |
+| jinja | A small Japanese Shinto shrine on a wooded hill at sunset. Stone steps leading up to a red torii gate, stone lanterns, a small wooden shrine hall with a rope and bell, a purification fountain with ladles, tall cedar trees, a pair of stone fox statues, fallen leaves. | the torii and the shrine hall |
+| tera | Courtyard of a quiet Japanese Buddhist temple. Wooden main hall with a large curved tiled roof, a big incense burner with smoke, a bronze bell in a small bell tower, raked gravel, pine trees, stone path, a wooden board with prayer plaques (no readable text). | the main hall and the incense burner |
+| piscina | Indoor Japanese public swimming pool (市民プール). Rectangular pool with lane ropes, blue tiles, a lifeguard chair, a large wall clock, benches, a big window with daylight, a kids' shallow pool at the side. | the pool and the clock |
+| hotel | Lobby of a mid-range Japanese business hotel. Reception counter with a small bell and key cards, a sofa corner with a low table and newspapers, a potted plant, an elevator, a luggage cart, a wall clock, warm lights. | the reception counter |
+
+### ミケ (sprite, schema dei personaggi)
+
+```
+PC-98 style anime sprite, 1990s Japanese visual novel, 16-color dithered pixel art, crisp pixels, cel shading.
+A small calico kitten (white with orange and black patches), big round eyes, sitting and looking at the viewer, one front paw slightly lifted, a red collar with a small gold bell.
+ONE single image, landscape 16:9. The kitten is centered and occupies only the central third of the image width, full body visible, wide empty space all around.
+Plain flat solid green background (#2FA84F), no gradient, no pattern, no shadow on the background.
+No text, no labels, no frame, no border, no UI.
+```
+
+Seconda richiesta, nella stessa chat (bocca aperta, miagola):
+
+```
+Exactly the same image, identical in every pixel, but with the mouth open as if meowing. Do not move, zoom or change anything else.
+```
+
+### Oggetti nuovi (griglia 4×4, schema degli oggetti)
+
+```
+PC-98 style pixel art item icons, 1990s Japanese adventure game inventory, 16-color dithered pixel art, crisp pixels, soft pastel palette, thin dark outlines.
+A 4x4 grid of 16 separate objects, each centered in its own equal square cell, same size and same light from top-left, slight top-down three-quarter view:
+row 1: a red cat collar with a small gold bell, a small metal pet bowl with water, a paper flyer with a simple drawing of a cat (no text), a printed photograph of a calico kitten;
+row 2: a stack of photocopied paper sheets, a blue transparent document folder with papers inside, a white convenience store plastic bag, a small can of cat food;
+row 3: a carton of milk, a small bouquet of flowers wrapped in paper, a brown bakery paper bag with bread, a hotel key card;
+row 4: a business card, a Japanese train IC card, a small red shrine amulet charm (omamori), a bento box.
+Plain flat solid magenta background (#FF00FF) everywhere around and between the objects, no shadows on the background, generous empty space between cells.
+No text, no labels, no numbers, no frame, no UI.
+```
+
+id nell'ordine della griglia: collare, ciotola, volantino_gatto, foto_gatto,
+fotocopie, cartellina, busta_konbini, cibo_gatto, latte, mazzo_fiori,
+sacchetto_pane, chiave_hotel, biglietto_visita, carta_ic, omamori, bento.
+
+### Mappa illustrata di さくら町
+
+Allegare `docs/giallo-mappa.png` come schema. La mappa deve stare **senza
+scritte**: i nomi e i lucchetti li mette l'app sopra, così restano leggibili e
+si possono cambiare. Formato 16:9; poi si rifanno le coordinate dei luoghi
+nell'SVG sopra l'immagine.
+
+```
+Redraw the attached schematic map as a beautiful illustrated Japanese town map, in the style of a hand-drawn Japanese tourist map (観光マップ) mixed with 1990s PC-98 pixel art: 16-color dithered pixel art, crisp pixels, soft pastel palette, slight top-down isometric view of small buildings.
+Keep the SAME LAYOUT as the attached image: green mountains along the top edge, a river running down the left side with a wooden bridge, a main horizontal street across the middle, a shopping street going down the center to a small train station at the bottom, a railway line along the bottom edge, a park on the right.
+Draw each place as a small recognizable building exactly where its box is in the attached image: Japanese company office building (top center right), Japanese family house with tiled roof (left), small apartment building (left, below the house), school (upper left), family restaurant with noren curtain, coffee shop, post office with red mailbox, convenience store, bakery, pharmacy, flower shop, police box with red lamp, cherry blossom park, small train station, a Shinto shrine with red torii on a hill (top right), a Buddhist temple with curved roof (top left), a public swimming pool building (right).
+Add small details: cherry trees in bloom, utility poles with wires, vending machines, bicycles, tiny cars, a level crossing.
+ONE single image, landscape 16:9, no empty margins.
+No text, no labels, no letters, no numbers, no signs with writing, no legend, no compass, no frame, no UI. Leave the lower right corner calm (plain fields) because a small panel will be placed there.
+```
+
+Se cambia la disposizione: `Same map, but move the <edificio> to the <posizione>. Keep everything else identical, no text.`
