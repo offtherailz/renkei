@@ -705,6 +705,7 @@
 					<span class="muted small">Esclusi: le situazioni restano, ma senza domande del libro di quel tipo.</span>
 				</div>
 				<a class="btn ghost small" href="{base}/giorno/domande">🗂️ Tutte le domande</a>
+				<a class="btn ghost small" href="{base}/giorno/esame">⏱️ Modalità esame</a>
 				<button class="btn ghost small" onclick={importExams} disabled={loadingExams}>🔄 Aggiorna le prove d'esame</button>
 			{:else}
 				<p class="muted small">Senza le prove d'esame giochi con le varianti generate.</p>

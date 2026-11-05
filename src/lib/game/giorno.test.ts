@@ -312,3 +312,19 @@ describe('tipi di domande scelti', () => {
 	});
 });
 
+
+describe('modalità esame', () => {
+	it('sceglie prima le scadute, poi le nuove, nella sezione giusta e in ordine d’esame', async () => {
+		const { examSet, recordResult } = await import('./giorno');
+		const w = (id: string, tipo: 'moji' | 'goi' | 'kadai') => ({ id, tipo, righe: [], domanda: { ja: 'x', it: '' }, opzioni: [{ ja: 'a', it: '' }, { ja: 'b', it: '' }], risposta: 0 });
+		const bank = [w('g1', 'goi'), w('m1', 'moji'), w('m2', 'moji'), w('m3', 'moji'), w('k1', 'kadai')];
+		const prog = recordResult({}, 'm3', false, 4);
+		const set = examSet(bank, prog, 5, 'moji', 3, seeded(1));
+		expect(set.map((b) => b.id)).toContain('m3');
+		expect(set.every((b) => b.tipo === 'moji' || b.tipo === 'goi')).toBe(true);
+		expect(set.length).toBe(3);
+		// prima tutte le moji, poi le goi (ordine del foglio)
+		const tipi = set.map((b) => b.tipo).join(',');
+		expect(tipi.replace(/^(moji,)*(goi,?)*$/, '')).toBe('');
+	});
+});

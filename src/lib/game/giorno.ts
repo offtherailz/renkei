@@ -1445,3 +1445,39 @@ export function japaneseOf(m: Mission): string[] {
 }
 
 export const hhmm = (min: number): string => `${Math.floor(min / 60)}:${String(min % 60).padStart(2, '0')}`;
+
+// ── Modalità esame: una sezione alla volta, a tempo, senza città ─────────────
+export type ExamSection = 'moji' | 'bunpou' | 'dokkai' | 'choukai';
+export const EXAM_SECTIONS: Record<ExamSection, { label: string; tipi: BankTipo[] }> = {
+	moji: { label: '文字・語彙 Kanji e parole', tipi: ['moji', 'goi'] },
+	bunpou: { label: '文法 Grammatica', tipi: ['bunpou'] },
+	dokkai: { label: '読解 Lettura', tipi: ['dokkai'] },
+	choukai: { label: '聴解 Ascolto', tipi: ['kadai', 'point', 'hatsuwa', 'sokuji'] }
+};
+// secondi a domanda, circa come all'esame vero (N4: 25 + 55 + 35 minuti)
+export const EXAM_SECONDS: Record<BankTipo, number> = { moji: 35, goi: 45, bunpou: 60, dokkai: 150, kadai: 60, point: 75, hatsuwa: 30, sokuji: 20 };
+
+// Domande per una prova: prima quelle da ripassare (scadute), poi le mai viste,
+// poi le altre dalla più vecchia; in ordine d'esame (per tipo, come sul foglio).
+// Le letture con lo stesso brano restano vicine.
+export function examSet(bank: BankItem[], prog: Progress, dayNo: number, section: ExamSection, n: number, rng: Rng): BankItem[] {
+	const tipi = EXAM_SECTIONS[section].tipi;
+	const pool = bank.filter((b) => tipi.includes(b.tipo));
+	const st = (b: BankItem) => prog[b.id];
+	const wait = (s: number) => (s === 0 ? 1 : s === 1 ? 3 : 10);
+	const due = pool.filter((b) => st(b) && st(b)!.last + wait(st(b)!.streak) <= dayNo).sort((a, b) => st(a)!.streak - st(b)!.streak);
+	const fresh = shuffled(rng, pool.filter((b) => !st(b)));
+	const rest = pool.filter((b) => st(b) && !due.includes(b)).sort((a, b) => st(a)!.last - st(b)!.last);
+	const picked: BankItem[] = [];
+	const seen = new Set<string>();
+	const add = (b: BankItem) => {
+		if (picked.length >= n || seen.has(b.id)) return;
+		// un brano porta con sé le sue altre domande
+		const group = b.testo ? pool.filter((x) => x.testo?.ja === b.testo!.ja) : [b];
+		for (const g of group) if (!seen.has(g.id) && picked.length < n + 3) { seen.add(g.id); picked.push(g); }
+	};
+	for (const b of [...due, ...fresh, ...rest]) add(b);
+	const order = (b: BankItem) => tipi.indexOf(b.tipo);
+	return picked.sort((a, b) => order(a) - order(b) || (a.testo?.ja ?? '').localeCompare(b.testo?.ja ?? '') || a.id.localeCompare(b.id));
+}
+export const examTime = (items: BankItem[]) => items.reduce((t, b) => t + EXAM_SECONDS[b.tipo], 0);
