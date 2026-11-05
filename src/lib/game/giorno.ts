@@ -381,6 +381,7 @@ export interface ChoiceMission {
 	answer: number;
 	optionsFirst?: boolean; // ポイント理解: le scelte si leggono PRIMA dell'audio
 	questionSpoken?: boolean; // ascolto d'esame: la domanda si sente soltanto (testo dopo)
+	pictureOptions?: boolean; // risposte = disegni numerati della figura: solo il numero, testo dopo
 	reaction?: Line; // risposta del personaggio dopo la scelta giusta
 }
 
@@ -1281,9 +1282,14 @@ export function fillGaps(b: BankItem, bank: BankItem[]): string | undefined {
 	});
 }
 
+// 課題理解 con la figura: all'esame si sceglie tra i disegni numerati, il testo è una nostra descrizione
+export const pictureOptions = (b: BankItem) => b.tipo === 'kadai' && !!b.immagine;
+
 export function bankMission(b: BankItem, rng?: Rng, bank?: BankItem[]): ChoiceMission {
 	// opzioni rimescolate: le domande tornano, la posizione della giusta non si impara
-	const order = rng ? shuffled(rng, b.opzioni.map((_, i) => i)) : b.opzioni.map((_, i) => i);
+	// con la figura le risposte sono i disegni 1-4: l'ordine deve restare quello della figura
+	const pics = pictureOptions(b);
+	const order = rng && !pics ? shuffled(rng, b.opzioni.map((_, i) => i)) : b.opzioni.map((_, i) => i);
 	// le scritte (moji/goi/bunpou) vanno nei ripassi (bankDrill); qui per sicurezza come lettura
 	const sub = b.tipo === 'sokuji' ? 'hatsuwa' : b.tipo === 'moji' || b.tipo === 'goi' || b.tipo === 'bunpou' ? 'dokkai' : b.tipo;
 	const voice = b.voce ?? b.righe.find((r) => r.who !== 'N')?.who ?? 'F';
@@ -1305,6 +1311,7 @@ export function bankMission(b: BankItem, rng?: Rng, bank?: BankItem[]): ChoiceMi
 		options: order.map((i) => b.opzioni[i]!),
 		answer: order.indexOf(b.risposta),
 		optionsFirst: b.tipo === 'point' || b.tipo === 'dokkai',
+		pictureOptions: pics,
 		audioOnly: b.tipo === 'hatsuwa',
 		questionSpoken: b.tipo === 'kadai' || b.tipo === 'point' || b.tipo === 'hatsuwa',
 		optionVoice: voice,

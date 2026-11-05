@@ -7,7 +7,7 @@
 	import { voiceParams } from '$lib/core/voices';
 	import { db } from '$lib/db/schema';
 	import {
-		EXAM_SECTIONS, examSet, examTime, recordResult, seeded,
+		EXAM_SECTIONS, examSet, examTime, pictureOptions, recordResult, seeded,
 		type BankItem, type ExamSection, type Progress
 	} from '$lib/game/giorno';
 
@@ -155,7 +155,7 @@
 			<div class="opts">
 				{#each cur.opzioni as o, i (i)}
 					<button class="opt" class:sel={answers[idx] === i} onclick={() => choose(i)}>
-						<span class="ja">{i + 1}.{soloVoce(cur) ? '' : ` ${o.ja}`}</span>
+						<span class="ja">{i + 1}.{soloVoce(cur) || pictureOptions(cur) ? '' : ` ${o.ja}`}</span>
 					</button>
 				{/each}
 			</div>

@@ -6,7 +6,7 @@
 	import { base } from '$app/paths';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
 	import { voiceParams } from '$lib/core/voices';
-	import { fillGaps, type BankItem, type Progress } from '$lib/game/giorno';
+	import { fillGaps, pictureOptions, type BankItem, type Progress } from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
 
 	let bank = $state<BankItem[]>([]);
@@ -45,6 +45,8 @@
 	// 発話表現 e 即時応答 anche le risposte (si sceglie il numero)
 	const ASCOLTO = ['kadai', 'point', 'hatsuwa', 'sokuji'];
 	const soloVoce = (b: BankItem) => b.tipo === 'hatsuwa' || b.tipo === 'sokuji';
+	// risposte che sono i disegni della figura: si vede solo il numero
+	const soloNumero = (b: BankItem) => soloVoce(b) || pictureOptions(b);
 	const NUM = ['いち', 'に', 'さん', 'よん'];
 	const conta = (t: string) => bank.filter((b) => b.tipo === t).length;
 	const anteprima = (b: BankItem) => (b.testo?.titolo ? `「${b.testo.titolo}」 ` : '') + (b.domanda.ja || b.righe[0]?.ja || '').replace(/[【】]/g, '');
@@ -140,7 +142,7 @@
 										disabled={r !== undefined}
 										onclick={() => (scelta = { ...scelta, [b.id]: i })}
 									>
-										<span class="ja">{i + 1}.{soloVoce(b) && r === undefined ? '' : ` ${o.ja}`}</span>
+										<span class="ja">{i + 1}.{soloNumero(b) && r === undefined ? '' : ` ${o.ja}`}</span>
 										{#if r !== undefined && o.it}<span class="tr">{o.it}</span>{/if}
 									</button>
 								{/each}

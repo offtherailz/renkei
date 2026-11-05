@@ -835,7 +835,7 @@
 						{#each mission.options as o, i (o.ja)}
 							<button class="opt" class:right={answered && i === mission.answer} class:wrong={answered && i === chosen && i !== mission.answer} disabled={answered} onclick={() => choose(i)}>
 								{#if o.icon}<span class="ico">{o.icon}</span>{/if}
-								{#if mission.audioOnly && !answered}<span class="ja">{i + 1}</span>{:else}<span class="ja">{mission.audioOnly ? `${i + 1}. ` : ''}{o.ja}</span>{/if}
+								{#if (mission.audioOnly || mission.pictureOptions) && !answered}<span class="ja">{i + 1}</span>{:else}<span class="ja">{mission.audioOnly || mission.pictureOptions ? `${i + 1}. ` : ''}{o.ja}</span>{/if}
 								{#if answered}
 									{@const h = o.it || optionHint(wordIndex, mission.sub, '', o.ja, i === mission.answer)}
 									{#if h}<span class="tr">{h}</span>{/if}
