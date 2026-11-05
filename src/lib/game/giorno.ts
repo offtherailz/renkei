@@ -1267,7 +1267,21 @@ export function pickBank(
 const NUM_READ = ['いち', 'に', 'さん', 'よん'];
 export const numbered = (i: number, ja: string): string => `${NUM_READ[i]}、${ja}`;
 
-export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
+// Brano a spazi (文章の文法): ogni spazio è una domanda a sé. Per giocarne una
+// sola gli altri spazi si riempiono con la risposta giusta e quello chiesto si
+// evidenzia, altrimenti il brano pieno di buchi è più difficile che all'esame.
+export function fillGaps(b: BankItem, bank: BankItem[]): string | undefined {
+	const t = b.testo?.ja;
+	const n = b.domanda.ja.match(/（(\d+)）/)?.[1];
+	if (!t || !n || !t.includes(`（${n}）`)) return t;
+	return t.replace(/（(\d+)）/g, (all, k: string) => {
+		if (k === n) return `【（${k}）】`;
+		const sib = bank.find((x) => x.testo?.ja === t && x.domanda.ja.includes(`（${k}）`));
+		return sib ? `［${sib.opzioni[sib.risposta]!.ja}］` : all;
+	});
+}
+
+export function bankMission(b: BankItem, rng?: Rng, bank?: BankItem[]): ChoiceMission {
 	// opzioni rimescolate: le domande tornano, la posizione della giusta non si impara
 	const order = rng ? shuffled(rng, b.opzioni.map((_, i) => i)) : b.opzioni.map((_, i) => i);
 	// le scritte (moji/goi/bunpou) vanno nei ripassi (bankDrill); qui per sicurezza come lettura
@@ -1286,7 +1300,7 @@ export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
 		scena: b.scena,
 		immagine: b.immagine,
 		lines: b.righe,
-		doc: b.testo && { title: b.testo.titolo, ja: b.testo.ja, it: b.testo.it, formato: b.testo.formato },
+		doc: b.testo && { title: b.testo.titolo, ja: (bank && fillGaps(b, bank)) || b.testo.ja, it: b.testo.it, formato: b.testo.formato },
 		question: b.domanda,
 		options: order.map((i) => b.opzioni[i]!),
 		answer: order.indexOf(b.risposta),
@@ -1376,7 +1390,7 @@ export function buildDay(seed: number, ctx: DayContext = { bank: [], prog: {}, d
 		const [b] = on(tipo) ? pickBank(ctx.bank, tipo, 1, ctx.prog, ctx.dayNo, used, budget, rng) : [];
 		if (!b) return { place, mission: make() };
 		fromBank += 1;
-		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b, rng) };
+		return { place: isPlace(b.luogo) ? b.luogo : place, mission: bankMission(b, rng, ctx.bank) };
 	};
 	// pause di ripasso: domande scritte, con un budget di nuove a parte. Ogni
 	// pausa ha almeno 8 domande, di più se le nuove del giorno non ci stanno

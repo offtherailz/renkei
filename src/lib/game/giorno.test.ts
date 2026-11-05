@@ -328,3 +328,14 @@ describe('modalità esame', () => {
 		expect(tipi.replace(/^(moji,)*(goi,?)*$/, '')).toBe('');
 	});
 });
+
+describe('brano a spazi', () => {
+	it('riempie gli altri spazi con la risposta giusta ed evidenzia quello chiesto', async () => {
+		const { fillGaps } = await import('./giorno');
+		const testo = { titolo: 't', ja: '電車（1）行きます。9時（2）5時まで。', it: '' };
+		const q = (n: number, opts: string[], r: number) => ({ id: `g${n}`, tipo: 'dokkai' as const, righe: [], testo, domanda: { ja: `（${n}）に 何を 入れますか。`, it: '' }, opzioni: opts.map((ja) => ({ ja, it: '' })), risposta: r });
+		const bank = [q(1, ['と', 'で'], 1), q(2, ['に', 'から'], 1)];
+		expect(fillGaps(bank[1]!, bank)).toBe('電車［で］行きます。9時【（2）】5時まで。');
+	});
+});
+

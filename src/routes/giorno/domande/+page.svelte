@@ -6,7 +6,7 @@
 	import { base } from '$app/paths';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
 	import { voiceParams } from '$lib/core/voices';
-	import type { BankItem, Progress } from '$lib/game/giorno';
+	import { fillGaps, type BankItem, type Progress } from '$lib/game/giorno';
 	import { db } from '$lib/db/schema';
 
 	let bank = $state<BankItem[]>([]);
@@ -120,7 +120,7 @@
 							{#if b.intro}<p class="small">{b.intro}</p>{/if}
 							{#if b.immagine}<img class="pic" src={b.immagine} alt={b.scena ?? ''} />{:else if b.scena}<p class="small">🖼️ {b.scena}</p>{/if}
 							{#if b.testo}
-								<div class="doc"><p class="doc-head">{b.testo.titolo}</p><pre class="ja">{b.testo.ja}</pre></div>
+								<div class="doc"><p class="doc-head">{b.testo.titolo}</p><pre class="ja">{fillGaps(b, bank) ?? b.testo.ja}</pre></div>
 							{/if}
 							{#if b.righe.length}
 								<button class="btn ghost small" onclick={() => ascolta(b)}>🔊 Ascolta</button>
