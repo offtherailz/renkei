@@ -8,6 +8,12 @@ lo stesso aspetto.
 
 - Si caricano nella cartella `ritratti` del workspace, meglio come file immagine
   (i link di condivisione di Gemini a volte scadono).
+- Se il file caricato è in realtà la pagina di condivisione di Gemini (inizia con
+  `<!doctype html>`), l'immagine si scarica dal suo link
+  `https://lh3.googleusercontent.com/gg/…`: si toglie il suffisso `=s1024-rj` e si
+  mette `=s0` per avere la dimensione originale.
+- Non ci sono programmi per le immagini installati: scontorno e tagli si fanno con
+  Chromium (canvas) via Playwright, avviato con `--allow-file-access-from-files`.
 - **Personaggi**: fondo magenta pieno. Lo scontorno toglie il fondo, allinea le
   due versioni (bocca chiusa / aperta) e copia solo la zona della bocca, così il
   resto del viso resta identico. Escono in `static/giorno/ritratti/<id>-chiusa.png`
@@ -185,7 +191,7 @@ Plain flat solid magenta background (#FF00FF) everywhere around and between the 
 No text, no labels, no numbers, no frame, no UI.
 ```
 
-id nell'ordine della griglia: collare, ciotola, volantino_gatto, foto_gatto,
+Gemini l'ha fatta 6×3 (18 oggetti, una foto doppia e uno zaino in più). id usati, nell'ordine della griglia 4×4 richiesta: collare, ciotola, volantino_gatto, foto_gatto,
 fotocopie, cartellina, busta_konbini, cibo_gatto, latte, mazzo_fiori,
 sacchetto_pane, chiave_hotel, biglietto_visita, carta_ic, omamori, bento.
 
@@ -205,7 +211,7 @@ ONE single image, landscape 16:9, no empty margins.
 No text, no labels, no letters, no numbers, no signs with writing, no legend, no compass, no frame, no UI. Leave the lower right corner calm (plain fields) because a small panel will be placed there.
 ```
 
-**Versione notturna** (stessa chat, subito dopo quella di giorno, così la disposizione resta identica). L'app usa la notte dalle 18 alle 6. File: `mappa_giorno.png` e `mappa_notte.png`.
+**Versione notturna** (stessa chat, subito dopo quella di giorno, così la disposizione resta identica). L'app usa la notte dalle 18 alle 6. File: `mappa_giorno.png` e `mappa_notte.png`. Nel repo: `static/giorno/mappa/sakura-giorno.jpg` e `sakura-notte.jpg`. La prima versione aveva una legenda in basso a sinistra: è stata coperta con lo stesso angolo della mappa di notte, schiarito.
 
 ```
 Exactly the same map, identical layout and identical buildings in the same positions, but at night.
