@@ -41,12 +41,21 @@
 				(!cerca.trim() || JSON.stringify({ ...b, immagine: undefined }).includes(cerca.trim()))
 		)
 	);
+	// come sul foglio d'esame: negli ascolti la domanda si sente soltanto; in
+	// 発話表現 e 即時応答 anche le risposte (si sceglie il numero)
+	const ASCOLTO = ['kadai', 'point', 'hatsuwa', 'sokuji'];
+	const soloVoce = (b: BankItem) => b.tipo === 'hatsuwa' || b.tipo === 'sokuji';
+	const NUM = ['いち', 'に', 'さん', 'よん'];
 	const conta = (t: string) => bank.filter((b) => b.tipo === t).length;
 	const anteprima = (b: BankItem) => (b.testo?.titolo ? `「${b.testo.titolo}」 ` : '') + (b.domanda.ja || b.righe[0]?.ja || '').replace(/[【】]/g, '');
 
 	async function ascolta(b: BankItem) {
 		stopSpeaking();
-		const righe = b.righe.length ? b.righe : [{ who: b.voce ?? 'F', ja: b.domanda.ja.replace(/[【】]/g, ''), it: '' }];
+		const voce = b.voce ?? (b.righe.find((r) => r.who !== 'N')?.who === 'M' ? 'F' : 'M');
+		const righe = [
+			...(b.righe.length ? b.righe : [{ who: 'F' as const, ja: b.domanda.ja.replace(/[【】]/g, ''), it: '' }]),
+			...(soloVoce(b) ? b.opzioni.map((o, i) => ({ who: voce, ja: `${NUM[i]}、${o.ja}`, it: '' })) : [])
+		];
 		for (const r of righe) await speakSentenceJapaneseAsync(r.ja, { ...voiceParams(r.who === 'M' ? 'maschile' : 'femminile'), waitMs: 20000 });
 	}
 
@@ -121,7 +130,7 @@
 									</div>
 								{/if}
 							{/if}
-							<p class="ja q">{b.domanda.ja}</p>
+							{#if !ASCOLTO.includes(b.tipo) || r !== undefined}<p class="ja q">{b.domanda.ja}</p>{:else}<p class="muted small">🎧 Come all'esame: ascolta{soloVoce(b) ? ' (anche le risposte sono solo a voce)' : ''}, poi scegli.</p>{/if}
 							<div class="opts">
 								{#each b.opzioni as o, i (i)}
 									<button
@@ -131,7 +140,7 @@
 										disabled={r !== undefined}
 										onclick={() => (scelta = { ...scelta, [b.id]: i })}
 									>
-										<span class="ja">{i + 1}. {o.ja}</span>
+										<span class="ja">{i + 1}.{soloVoce(b) && r === undefined ? '' : ` ${o.ja}`}</span>
 										{#if r !== undefined && o.it}<span class="tr">{o.it}</span>{/if}
 									</button>
 								{/each}

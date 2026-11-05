@@ -782,6 +782,8 @@
 					<span class="skill">{SKILL_OF(mission)}</span>
 				</header>
 				{#if lateNote}<p class="late">{lateNote}</p>{/if}
+				<!-- scena e dialogo: su desktop colonna di sinistra -->
+				<div class="stage">
 				<div class="scene-wrap">
 					{#if look?.bg === 'treno'}
 						<!-- fuori dai finestrini (trasparenti nel disegno del vagone) scorre il paesaggio -->
@@ -800,6 +802,7 @@
 					{:else}
 						<p>{mission.intro || (mission.kind === 'choice' && mission.doc ? 'Leggi il testo e rispondi alla domanda.' : 'Ascolta e rispondi.')}</p>
 					{/if}
+				</div>
 				</div>
 
 				{#if mission.kind === 'route' && !answered}
@@ -824,7 +827,8 @@
 					{#if mission.lines.length}
 						<button class="btn ghost" onclick={() => replay(audioOf(mission))}>🔊 {replays === 0 ? 'Ascolta' : 'Riascolta (−2 min)'}</button>
 					{/if}
-					<p class="question ja">{mission.question.ja}</p>
+					<!-- all'esame la domanda d'ascolto non è scritta: si legge dopo aver risposto -->
+					{#if !mission.questionSpoken || answered}<p class="question ja">{mission.question.ja}</p>{/if}
 					{#if answered && mission.question.it}<p class="tr">💬 {mission.question.it}</p>{/if}
 					<div class="options">
 						{#each mission.options as o, i (o.ja)}
@@ -1088,6 +1092,7 @@
 	.panorama { position: absolute; inset: 0; background-repeat: repeat-x; background-size: auto 100%; image-rendering: pixelated; animation: scorre 14s linear infinite; }
 	@keyframes scorre { from { background-position-x: 0; } to { background-position-x: calc(-354.7cqh); } }
 	.window-view { container-type: size; }
+	.stage { display: grid; gap: 10px; align-content: start; min-width: 0; }
 	@media (prefers-reduced-motion: reduce) { .panorama { animation-duration: 80s; } }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; display: block; }
 	/* personaggio fuso con lo sfondo: più piccolo, ombra, colori un filo smorzati */
@@ -1185,11 +1190,11 @@
 		.game > * { grid-column: 1 / -1; }
 		.game:has(.map-wrap) > .map-wrap { grid-column: 1; }
 		.game:has(.map-wrap) > .panel { grid-column: 2; }
-		.game:not(:has(.map-wrap)) .mission { display: block; }
-		.game:not(:has(.map-wrap)) .mission > * { margin: 0 0 10px 58%; }
-		.game:not(:has(.map-wrap)) .mission > header { margin-left: 0; }
-		.game:not(:has(.map-wrap)) .mission > .scene-wrap,
-		.game:not(:has(.map-wrap)) .mission > .dialog { float: left; clear: left; width: 55%; margin: 3px 0 10px; }
-		.game:not(:has(.map-wrap)) .mission::after { content: ''; display: block; clear: both; }
+		/* missione: scena e dialogo a sinistra, tutto il resto a destra (griglia, non float:
+		   con la colonna sinistra più corta il resto finiva sotto) */
+		.game:not(:has(.map-wrap)) .mission { grid-template-columns: 55% minmax(0, 1fr); column-gap: 18px; row-gap: 0; align-items: start; }
+		.game:not(:has(.map-wrap)) .mission > * { grid-column: 2; margin-bottom: 10px; }
+		.game:not(:has(.map-wrap)) .mission > header { grid-column: 1 / -1; }
+		.game:not(:has(.map-wrap)) .mission > .stage { grid-column: 1; grid-row: 2 / span 40; }
 	}
 </style>

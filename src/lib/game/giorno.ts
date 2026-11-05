@@ -380,6 +380,7 @@ export interface ChoiceMission {
 	options: Option[];
 	answer: number;
 	optionsFirst?: boolean; // ポイント理解: le scelte si leggono PRIMA dell'audio
+	questionSpoken?: boolean; // ascolto d'esame: la domanda si sente soltanto (testo dopo)
 	reaction?: Line; // risposta del personaggio dopo la scelta giusta
 }
 
@@ -1291,6 +1292,7 @@ export function bankMission(b: BankItem, rng?: Rng): ChoiceMission {
 		answer: order.indexOf(b.risposta),
 		optionsFirst: b.tipo === 'point' || b.tipo === 'dokkai',
 		audioOnly: b.tipo === 'hatsuwa',
+		questionSpoken: b.tipo === 'kadai' || b.tipo === 'point' || b.tipo === 'hatsuwa',
 		optionVoice: voice,
 		spiega: b.spiega
 	};
