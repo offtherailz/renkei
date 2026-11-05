@@ -205,4 +205,13 @@ ONE single image, landscape 16:9, no empty margins.
 No text, no labels, no letters, no numbers, no signs with writing, no legend, no compass, no frame, no UI. Leave the lower right corner calm (plain fields) because a small panel will be placed there.
 ```
 
+**Versione notturna** (stessa chat, subito dopo quella di giorno, così la disposizione resta identica). L'app usa la notte dalle 18 alle 6. File: `mappa_giorno.png` e `mappa_notte.png`.
+
+```
+Exactly the same map, identical layout and identical buildings in the same positions, but at night.
+Dark blue night sky over the mountains with stars and a crescent moon. Warm yellow light in the windows of houses and shops, glowing street lamps along the streets, the convenience store brightly lit, the police box red lamp glowing, red paper lanterns at the restaurant and at the shrine, lit train station with a train passing with lit windows. Closed shops have dark windows and lowered shutters. Soft moonlight on the river.
+Keep the same PC-98 16-color dithered pixel art style. Do not move, add or remove any building.
+No text, no labels, no letters, no numbers, no frame, no UI.
+```
+
 Se cambia la disposizione: `Same map, but move the <edificio> to the <posizione>. Keep everything else identical, no text.`
