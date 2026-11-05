@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" font-family="IPAPGothic, 'Noto Sans JP', 'Hiragino Sans', sans-serif">
+  <defs>
+    <pattern id="tatami" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#f4ecd8"/>
+      <path d="M0 12h24M12 0v24" stroke="#ece0c4" stroke-width="1"/>
+    </pattern>
+    <filter id="ombra" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#5a4a30" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      .t { font-size: 17px; font-weight: 700; fill: #2d2418; }
+      .s { font-size: 12px; fill: #6b5a40; }
+      .lock { opacity: 0.55; }
+      .card { fill: #fffaf0; stroke: #8a6d45; stroke-width: 2; }
+      .card-m { fill: #fff3d6; stroke: #c0392b; stroke-width: 3; }
+      .road { stroke: #d8c8a8; stroke-linecap: round; fill: none; }
+      .titolo { font-size: 34px; font-weight: 700; fill: #2d2418; }
+    </style>
+  </defs>
+
+  <!-- carta -->
+  <rect width="1400" height="900" fill="url(#tatami)"/>
+
+  <!-- montagne (丹沢 di sfondo) -->
+  <path d="M0 150 L120 60 L220 130 L330 40 L450 140 L560 70 L680 150 L800 55 L930 140 L1040 80 L1150 150 L1260 70 L1400 140 L1400 0 L0 0Z" fill="#7d9b76"/>
+  <path d="M300 62 L330 40 L360 64 L345 60 L330 70 L315 58Z M770 78 L800 55 L830 80 L815 74 L800 84 L785 72Z" fill="#fff"/>
+  <path d="M0 190 L150 120 L300 180 L470 110 L650 185 L820 120 L1000 190 L1180 115 L1400 180 L1400 0 L0 0Z" fill="#9db892" opacity="0.6"/>
+  <text x="700" y="36" text-anchor="middle" class="titolo">山野市（やまのし）・さくら町</text>
+
+  <!-- fiume さくら川 -->
+  <path d="M90 190 C140 300 60 420 130 520 C190 610 120 700 170 900" stroke="#8fc3e0" stroke-width="44" fill="none"/>
+  <path d="M90 190 C140 300 60 420 130 520 C190 610 120 700 170 900" stroke="#b9dcef" stroke-width="20" fill="none"/>
+  <text x="40" y="460" class="s" transform="rotate(-78 40 460)">さくら川</text>
+
+  <!-- strade -->
+  <path class="road" stroke-width="30" d="M100 470 H1300"/>
+  <path class="road" stroke-width="34" d="M700 210 V740"/>
+  <path class="road" stroke-width="22" d="M330 300 V740"/>
+  <path class="road" stroke-width="22" d="M1080 250 V740"/>
+  <path class="road" stroke-width="18" d="M330 300 H1080"/>
+  <text x="712" y="600" class="s" transform="rotate(90 712 600)">さくら通り（商店街）</text>
+  <!-- ponte -->
+  <rect x="88" y="456" width="90" height="28" fill="#c79a5b" stroke="#7b5a2e" stroke-width="2" rx="4"/>
+  <text x="133" y="475" text-anchor="middle" class="s" fill="#fff">橋</text>
+
+  <!-- ferrovia やまの線 -->
+  <path d="M0 790 H1400" stroke="#4a4a4a" stroke-width="10"/>
+  <path d="M0 790 H1400" stroke="#fff" stroke-width="4" stroke-dasharray="22 18"/>
+  <text x="20" y="822" class="s">← 東京・新宿方面</text>
+  <text x="1380" y="822" class="s" text-anchor="end">山野駅（町の中心）・箱根方面 →</text>
+
+  <!-- alberi sparsi -->
+  <g fill="#6f9a5e">
+    <circle cx="420" cy="250" r="14"/><circle cx="440" cy="240" r="11"/>
+    <circle cx="1180" cy="560" r="13"/><circle cx="1200" cy="575" r="10"/>
+    <circle cx="560" cy="690" r="12"/><circle cx="1290" cy="380" r="12"/>
+  </g>
+
+  <!-- ===== LUOGHI ===== -->
+  <!-- macro: card 150x70 -->
+
+  <!-- 駅 -->
+  <g filter="url(#ombra)">
+    <rect x="610" y="740" width="180" height="66" rx="8" class="card"/>
+    <text x="700" y="766" text-anchor="middle" class="t">🚉 さくら町駅</text>
+    <text x="700" y="788" text-anchor="middle" class="s">treno: altri quartieri</text>
+  </g>
+
+  <!-- casa 吉田 -->
+  <g filter="url(#ombra)">
+    <rect x="200" y="520" width="170" height="66" rx="8" class="card"/>
+    <text x="285" y="546" text-anchor="middle" class="t">🏠 吉田さんの家</text>
+    <text x="285" y="568" text-anchor="middle" class="s">dormire, salvare, mattina</text>
+  </g>
+
+  <!-- ufficio -->
+  <g filter="url(#ombra)">
+    <rect x="760" y="210" width="200" height="74" rx="8" class="card-m"/>
+    <text x="860" y="238" text-anchor="middle" class="t">🏢 さくら会社</text>
+    <text x="860" y="260" text-anchor="middle" class="s">base: lavoro e missioni</text>
+    <text x="860" y="277" text-anchor="middle" class="s" fill="#c0392b">★ bacheca missioni</text>
+  </g>
+
+  <!-- konbini -->
+  <g filter="url(#ombra)">
+    <rect x="740" y="500" width="170" height="66" rx="8" class="card"/>
+    <text x="825" y="526" text-anchor="middle" class="t">🏪 ハッピーマート</text>
+    <text x="825" y="548" text-anchor="middle" class="s">コンビニ・24 ore</text>
+  </g>
+
+  <!-- 喫茶 -->
+  <g filter="url(#ombra)">
+    <rect x="510" y="500" width="160" height="66" rx="8" class="card"/>
+    <text x="590" y="526" text-anchor="middle" class="t">☕ 喫茶あおい</text>
+    <text x="590" y="548" text-anchor="middle" class="s">伊藤さん・7-20</text>
+  </g>
+
+  <!-- ristorante -->
+  <g filter="url(#ombra)">
+    <rect x="510" y="380" width="160" height="66" rx="8" class="card"/>
+    <text x="590" y="406" text-anchor="middle" class="t">🍱 ふじ食堂</text>
+    <text x="590" y="428" text-anchor="middle" class="s">pranzo e cena・11-21</text>
+  </g>
+
+  <!-- posta -->
+  <g filter="url(#ombra)">
+    <rect x="740" y="380" width="160" height="66" rx="8" class="card"/>
+    <text x="820" y="406" text-anchor="middle" class="t">〒 郵便局</text>
+    <text x="820" y="428" text-anchor="middle" class="s">pacchi, francobolli・9-17</text>
+  </g>
+
+  <!-- pane / fiori / farmacia:商店街 -->
+  <g filter="url(#ombra)">
+    <rect x="510" y="610" width="160" height="56" rx="8" class="card"/>
+    <text x="590" y="636" text-anchor="middle" class="t">🥐 パン屋</text>
+    <text x="590" y="655" text-anchor="middle" class="s">dalle 7</text>
+  </g>
+  <g filter="url(#ombra)">
+    <rect x="740" y="610" width="160" height="56" rx="8" class="card"/>
+    <text x="820" y="636" text-anchor="middle" class="t">💊 薬局</text>
+    <text x="820" y="655" text-anchor="middle" class="s">farmacia</text>
+  </g>
+  <g filter="url(#ombra)">
+    <rect x="930" y="610" width="140" height="56" rx="8" class="card"/>
+    <text x="1000" y="636" text-anchor="middle" class="t">💐 花屋</text>
+    <text x="1000" y="655" text-anchor="middle" class="s">fioraio</text>
+  </g>
+
+  <!-- 交番 -->
+  <g filter="url(#ombra)">
+    <rect x="860" y="700" width="130" height="56" rx="8" class="card"/>
+    <text x="925" y="726" text-anchor="middle" class="t">👮 交番</text>
+    <text x="925" y="745" text-anchor="middle" class="s">oggetti smarriti</text>
+  </g>
+
+  <!-- parco -->
+  <g filter="url(#ombra)">
+    <rect x="1110" y="420" width="170" height="74" rx="8" class="card"/>
+    <text x="1195" y="448" text-anchor="middle" class="t">🌳 さくら公園</text>
+    <text x="1195" y="470" text-anchor="middle" class="s">ciliegi, panchine</text>
+  </g>
+
+  <!-- scuola serale -->
+  <g filter="url(#ombra)">
+    <rect x="360" y="310" width="140" height="66" rx="8" class="card"/>
+    <text x="430" y="336" text-anchor="middle" class="t">🏫 学校</text>
+    <text x="430" y="358" text-anchor="middle" class="s">giapponese, sera</text>
+  </g>
+
+  <!-- condominio 木村 -->
+  <g filter="url(#ombra)">
+    <rect x="200" y="620" width="170" height="56" rx="8" class="card"/>
+    <text x="285" y="646" text-anchor="middle" class="t">🏢 木村アパート</text>
+    <text x="285" y="665" text-anchor="middle" class="s">vicini</text>
+  </g>
+
+  <!-- ===== BLOCCATI ===== -->
+  <g class="lock" filter="url(#ombra)">
+    <rect x="1090" y="190" width="190" height="66" rx="8" class="card" stroke-dasharray="6 4"/>
+    <text x="1185" y="216" text-anchor="middle" class="t">⛩ 山の神社 🔒</text>
+    <text x="1185" y="238" text-anchor="middle" class="s">in collina・missione 2</text>
+  </g>
+  <g class="lock" filter="url(#ombra)">
+    <rect x="200" y="200" width="160" height="66" rx="8" class="card" stroke-dasharray="6 4"/>
+    <text x="280" y="226" text-anchor="middle" class="t">🛕 お寺 🔒</text>
+    <text x="280" y="248" text-anchor="middle" class="s">tempio buddista</text>
+  </g>
+  <g class="lock" filter="url(#ombra)">
+    <rect x="1110" y="300" width="170" height="60" rx="8" class="card" stroke-dasharray="6 4"/>
+    <text x="1195" y="326" text-anchor="middle" class="t">🏊 市民プール 🔒</text>
+    <text x="1195" y="346" text-anchor="middle" class="s">estate, feste</text>
+  </g>
+
+  <!-- ===== RIQUADRO: la città e oltre ===== -->
+  <g transform="translate(1110 520)" filter="url(#ombra)">
+    <rect width="270" height="190" rx="10" fill="#fffaf0" stroke="#2d2418" stroke-width="2"/>
+    <text x="135" y="24" text-anchor="middle" class="t">🗾 in treno</text>
+    <path d="M30 60 H240" stroke="#4a4a4a" stroke-width="5"/>
+    <circle cx="40" cy="60" r="8" fill="#c0392b"/>
+    <circle cx="135" cy="60" r="8" fill="#fff" stroke="#4a4a4a" stroke-width="3"/>
+    <circle cx="230" cy="60" r="8" fill="#fff" stroke="#4a4a4a" stroke-width="3"/>
+    <text x="40" y="86" text-anchor="middle" class="s">さくら町</text>
+    <text x="135" y="86" text-anchor="middle" class="s">山野駅 🔒</text>
+    <text x="230" y="86" text-anchor="middle" class="s">北山野 🔒</text>
+    <text x="135" y="104" text-anchor="middle" class="s">hotel, ospedale, banca, museo</text>
+    <path d="M30 140 H240" stroke="#2c6fbb" stroke-width="5" stroke-dasharray="10 5"/>
+    <text x="135" y="132" text-anchor="middle" class="s">新幹線 🔒</text>
+    <text x="40" y="164" text-anchor="middle" class="s">東京</text>
+    <text x="135" y="164" text-anchor="middle" class="s">京都</text>
+    <text x="230" y="164" text-anchor="middle" class="s">…</text>
+  </g>
+
+  <!-- legenda -->
+  <g transform="translate(230 840)">
+    <rect width="16" height="12" class="card"/><text x="22" y="11" class="s">aperto</text>
+    <rect x="90" width="16" height="12" class="card" stroke-dasharray="4 3" opacity="0.55"/><text x="112" y="11" class="s">si sblocca con la storia</text>
+    <rect x="290" width="16" height="12" class="card-m"/><text x="312" y="11" class="s">base delle missioni</text>
+  </g>
+</svg>
