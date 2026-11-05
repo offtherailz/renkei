@@ -1236,19 +1236,27 @@ export function pickBank(
 ): BankItem[] {
 	const pool = bank.filter((b) => b.tipo === tipo && !used.has(b.id));
 	const st = (b: BankItem) => prog[b.id];
+	// intervalli crescenti: sbagliata → domani, giusta una volta → fra 3 giorni.
+	// Prima tornavano tutte già il giorno dopo e occupavano ogni posto: si
+	// giocavano sempre le stesse e le nuove non entravano.
+	const wait = (streak: number) => (streak === 0 ? 1 : 3);
 	const due = pool
-		.filter((b) => st(b) && st(b)!.streak < CONSOLIDATED && st(b)!.last < dayNo)
+		.filter((b) => st(b) && st(b)!.streak < CONSOLIDATED && st(b)!.last + wait(st(b)!.streak) <= dayNo)
 		.sort((a, b) => st(a)!.streak - st(b)!.streak || st(a)!.last - st(b)!.last);
 	// le nuove in ordine casuale: in ordine di file uscivano sempre le stesse
 	const fresh = rng ? shuffled(rng, pool.filter((b) => !st(b))) : pool.filter((b) => !st(b));
 	const review = pool
-		.filter((b) => st(b) && st(b)!.streak >= CONSOLIDATED && st(b)!.last <= dayNo - 4)
+		.filter((b) => st(b) && st(b)!.streak >= CONSOLIDATED && st(b)!.last <= dayNo - 10)
 		.sort((a, b) => st(a)!.last - st(b)!.last);
-	const out: BankItem[] = [...due.slice(0, n)];
+	// metà dei posti alle nuove finché ce ne sono (con un posto solo: a sorte)
+	const canNew = fresh.length > 0 && newBudget.left > 0;
+	const dueQuota = !canNew ? n : n > 1 ? Math.ceil(n / 2) : (rng ? rng() : 0.5) < 0.5 ? 1 : 0;
+	const out: BankItem[] = [...due.slice(0, dueQuota)];
 	while (out.length < n && fresh.length && newBudget.left > 0) {
 		out.push(fresh.shift()!);
 		newBudget.left -= 1;
 	}
+	for (const b of due.slice(dueQuota)) if (out.length < n) out.push(b);
 	for (const r of review) if (out.length < n) out.push(r);
 	for (const b of out) used.add(b.id);
 	return out;

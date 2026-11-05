@@ -169,7 +169,21 @@ describe('banca e ripasso progressivo', () => {
 		expect(picked[0]).toBe('c');
 		expect(picked).toEqual(['c', 'b', 'd']);
 		const later = pickBank(bank, 'kadai', 4, prog, 6, new Set(), { left: 0 }).map((b) => b.id);
-		expect(later).toEqual(['c', 'a']);
+		expect(later).toEqual(['c']);
+		const muchLater = pickBank(bank, 'kadai', 4, prog, 11, new Set(), { left: 0 }).map((b) => b.id);
+		expect(muchLater).toEqual(['c', 'a']);
+	});
+
+	it('una giusta torna dopo 3 giorni, e metà posti restano alle nuove', async () => {
+		const { pickBank, recordResult } = await import('./giorno');
+		const prog = recordResult({}, 'a', true, 5);
+		expect(pickBank(bank, 'kadai', 4, prog, 6, new Set(), { left: 0 }).map((b) => b.id)).not.toContain('a');
+		expect(pickBank(bank, 'kadai', 4, prog, 8, new Set(), { left: 0 }).map((b) => b.id)).toContain('a');
+		// tante da ripassare: comunque metà nuove
+		let p = {};
+		for (const id of ['a', 'b', 'c']) p = recordResult(p, id, false, 0);
+		const mix = pickBank(bank, 'kadai', 2, p, 1, new Set(), { left: 5 }).map((b) => b.id);
+		expect(mix).toContain('d');
 	});
 
 	it('la giornata usa la banca quando c’è, e conta le nuove', () => {
