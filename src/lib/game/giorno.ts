@@ -1302,7 +1302,8 @@ export function bankMission(b: BankItem, rng?: Rng, bank?: BankItem[]): ChoiceMi
 		sub,
 		sourceId: b.id,
 		title: b.titolo ?? titles[b.tipo],
-		intro: b.intro ?? '',
+		// contesto: la frase d'apertura del narratore (all'esame si sente prima del dialogo)
+		intro: b.intro ?? (b.righe[0]?.who === 'N' ? b.righe[0].it : ''),
 		scena: b.scena,
 		immagine: b.immagine,
 		lines: b.righe,

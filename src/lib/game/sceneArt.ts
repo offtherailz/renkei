@@ -16,7 +16,8 @@ const CAST: Partial<Record<Where, { F: string[]; M: string[] }>> = {
 	resutoran: { F: ['amica'], M: ['cameriere'] },
 	kafe: { F: ['amica'], M: ['cameriere'] },
 	byouin: { F: ['medico'], M: ['medico_uomo'] },
-	kusuri: { F: ['farmacista'], M: ['medico_uomo'] },
+	// in farmacia l'uomo che parla è di solito il cliente
+	kusuri: { F: ['farmacista'], M: ['passante'] },
 	// a scuola chi parla è quasi sempre uno studente; l'insegnante solo col suo ruolo
 	gakkou: { F: ['studentessa'], M: ['studente_uomo'] },
 	toshokan: { F: ['studentessa'], M: ['studente_uomo'] },
