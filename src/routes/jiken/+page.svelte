@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
-	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import Frase from '$lib/jiken/Frase.svelte';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
 	import { voiceParams } from '$lib/core/voices';
 	import { romajiToHiragana, looksLikeRomaji } from '$lib/core/romaji';
@@ -49,6 +49,7 @@
 	let obAperti = $state(false); // tendina degli obiettivi nella barra in alto
 	let rivelati = $state<number[]>([]); // frasi del taccuino con la traduzione aperta
 	let mostraIt = $state(false); // traduzione della battuta corrente
+	let dividi = $state(false); // battuta corrente divisa in parole da toccare
 	let taccuino = $state(false);
 	let infoLuogo = $state<LuogoId | null>(null);
 	let toast = $state('');
@@ -150,6 +151,7 @@
 		scelto = null;
 		provaEsito = null;
 		mostraIt = false;
+		dividi = false;
 		salva();
 		if (!corrente) {
 			finisciScena();
@@ -325,7 +327,7 @@
 	{#snippet testoUI(t: Testo)}
 		<!-- in giapponese: parole da toccare, traduzione col 🇮🇹 -->
 		{#if lingua === 'ja'}
-			<InteractiveSentence text={testo(t.ja)} spazi />
+			<Frase text={testo(t.ja)} {dividi} />
 		{:else}{testo(L(t))}{/if}
 	{/snippet}
 
@@ -413,29 +415,32 @@
 					{#key corrente}
 					{#if 'dice' in corrente}
 						<p class="dname">{stripFuriganaNotation(PERSONAGGI[corrente.dice]?.nome ?? corrente.dice)}{#if corrente.taccuino}<span class="nota">📓</span>{/if}</p>
-						<p class="ja"><InteractiveSentence text={testo(corrente.ja)} spazi /></p>
+						<p class="ja"><Frase text={testo(corrente.ja)} {dividi} /></p>
 						{#if mostraIt}<p class="it">{testo(corrente.it)}</p>{/if}
 						<div class="row">
 							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
 							<button class="btn ghost small" onclick={riascolta}>🔊</button>
+							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'io' in corrente}
 						<p class="dname io">{stato.nome}</p>
-						<p class="ja"><InteractiveSentence text={testo(corrente.io)} spazi /></p>
+						<p class="ja"><Frase text={testo(corrente.io)} {dividi} /></p>
 						{#if mostraIt && corrente.it}<p class="it">{testo(corrente.it)}</p>{/if}
 						<div class="row">
 							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if !mostraIt && corrente.it}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'narra' in corrente || 'nota' in corrente}
 						{@const t = 'narra' in corrente ? { ja: corrente.narra, it: corrente.it, en: corrente.en } : { ja: corrente.nota, it: corrente.it, en: corrente.en }}
 						<p class="narra" class:nota-gioco={'nota' in corrente}>
-							{'nota' in corrente ? '💡 ' : ''}{#if lingua === 'ja'}<InteractiveSentence text={testo(t.ja)} spazi />{:else}{testo(L(t))}{/if}
+							{'nota' in corrente ? '💡 ' : ''}{#if lingua === 'ja'}<Frase text={testo(t.ja)} {dividi} />{:else}{testo(L(t))}{/if}
 						</p>
 						{#if lingua === 'ja' && mostraIt}<p class="it">{testo(t.it)}</p>{/if}
 						<div class="row">
 							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							{#if lingua === 'ja' && !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if lingua === 'ja' && !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'scelta' in corrente}
@@ -448,11 +453,12 @@
 								</button>
 							{/each}
 						</div>
-						{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+						{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 					{:else if 'domanda' in corrente}
 						{@const g = giustaDomanda()}
 						<p class="dname">{L(UI.domanda)}</p>
-						<p class="ja"><InteractiveSentence text={testo(corrente.domanda.ja)} spazi /></p>
+						<p class="ja"><Frase text={testo(corrente.domanda.ja)} {dividi} /></p>
 						{#if mostraIt}<p class="it">{testo(corrente.domanda.it)}</p>{/if}
 						<div class="scelte">
 							{#each corrente.domanda.opzioni as o, i (i)}
@@ -467,18 +473,20 @@
 							<details class="spiega"><summary>{L(UI.spiega)}</summary>{corrente.domanda.spiega}</details>
 							<div class="row">
 								<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
-								{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+								{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 							</div>
 						{:else}
 							<div class="row">
 								<button class="btn ghost small" onclick={riascolta}>🔊</button>
-								{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+								{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 								<button class="btn ghost small" onclick={() => (taccuino = true)}>📓</button>
 							</div>
 						{/if}
 					{:else if 'prova' in corrente}
 						<p class="dname">{L(UI.prova)}</p>
-						<p class="ja"><InteractiveSentence text={testo(corrente.prova.ja)} spazi /></p>
+						<p class="ja"><Frase text={testo(corrente.prova.ja)} {dividi} /></p>
 						{#if mostraIt}<p class="it">{corrente.prova.it}</p>{/if}
 						{#if provaEsito === null}
 							<div class="oggetti">
@@ -490,6 +498,7 @@
 								{/each}
 								<button class="oggetto" onclick={() => mostra(null)}><span class="nessuno">🤷</span><span>{L(UI.nonSo)}</span></button>
 							</div>
+							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						{:else}
 							<p class="esito" class:giusto={provaEsito}>{provaEsito ? L(UI.provaOk) : L(UI.provaNo)}</p>
@@ -540,7 +549,7 @@
 					{#each [...stato.taccuino].reverse() as a, i (i)}
 						<div class="appunto">
 							<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
-							<p class="ja"><InteractiveSentence text={a.ja} spazi /></p>
+							<p class="ja"><Frase text={a.ja} /></p>
 							{#if rivelati.includes(i)}<p class="it">{a.it}</p>{:else}<button class="mini piccolo" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
 						</div>
 					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}

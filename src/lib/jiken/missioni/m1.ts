@@ -38,7 +38,7 @@ export const M1: Missione = {
 				{ obiettivo: 'ufficio', ja: '9時までに 会社（さくら会社）に 行く。', it: 'Andare in ufficio (さくら会社) entro le 9:00.' },
 				{ dice: 'mamma', ja: 'それから、帰りに ぎゅうにゅうを 買って きて くれない？ コンビニで いいから。', it: 'E poi, al ritorno, mi compreresti il latte? Va bene alla konbini.', taccuino: true },
 				{ obiettivo: 'latte', ja: 'コンビニ（ハッピーマート）で ぎゅうにゅうを 買って、家に 持って 帰る。', it: 'Comprare il latte alla コンビニ (ハッピーマート) e portarlo a casa.' },
-				{ dice: 'mamma', ja: 'いって らっしゃい！', it: 'Buona giornata! (vai e torna)' },
+				{ dice: 'mamma', ja: 'いってらっしゃい！', it: 'Buona giornata! (vai e torna)' },
 				{ io: 'いって きます。', it: 'Vado (e torno).' },
 				{ flag: 'd0.casa' }
 			]

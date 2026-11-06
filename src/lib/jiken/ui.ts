@@ -14,7 +14,7 @@ export const UI = {
 	regole: [
 		{ ja: '🗺️ 地図の たてものを タッチすると、そこへ 行きます（15分）。店には 開いて いる 時間が あります。', it: '🗺️ Tocca un edificio sulla mappa per andarci (15 minuti). I negozi hanno i loro orari.' },
 		{ ja: '❗ は 今 する ことが ある 所です。', it: '❗ indica dove c’è qualcosa della storia da fare adesso.' },
-		{ ja: '💬 ことばを タッチすると、読み方と いみが 見られます。🇮🇹 で ほんやくが 出ます。', it: '💬 Tocca le parole per lettura e significato. 🇮🇹 mostra la traduzione.' },
+		{ ja: '💬 ✂️ か 文を タッチすると、ことばに 分かれて、読み方と いみが 見られます。🇮🇹 で ほんやくが 出ます。', it: '💬 ✂️ (o un tocco sulla frase) la divide in parole: toccale per lettura e significato. 🇮🇹 mostra la traduzione.' },
 		{ ja: '📓 ノートには やる こと、大切な ことば、持ち物、行った 所と 時間が 書いて あります。', it: '📓 Il taccuino tiene obiettivi, frasi importanti, oggetti e dove sei stato a che ora.' },
 		{ ja: '🌙 夜、家で 今日の 問題に 答えて、ねます（自動で セーブ）。', it: '🌙 La sera, a casa: domande d’esame sulla giornata, poi a letto (salvataggio automatico).' }
 	],

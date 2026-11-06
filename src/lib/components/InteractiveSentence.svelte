@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
-	import { analyzeSentence, jishoUrl, tokenFurigana, type WordHit } from '$lib/core/wordLookup';
+	import { analyzeSentence, analyzeSpaced, isCoda, jishoUrl, tokenFurigana, type WordHit } from '$lib/core/wordLookup';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
@@ -105,20 +105,7 @@
 	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
 		// 1) BudouX → 2) riattacca ausiliari (働き+ます) → 3) riunisce parole composte
 		// spezzate se esistono a catalogo (一生懸命 → 一生+懸命).
-		if (!spazi) return analyzeSentence(p, detectUserLocale());
-		const out: { tokens: string[]; hits: (WordHit | null)[] } = { tokens: [], hits: [] };
-		const gruppi = p.split(/([ 　]+)/).filter((g) => g);
-		for (const g of gruppi) {
-			if (/^[ 　]+$/.test(g)) {
-				out.tokens.push(' ');
-				out.hits.push(null);
-				continue;
-			}
-			const r = await analyzeSentence(g, detectUserLocale());
-			out.tokens.push(...r.tokens);
-			out.hits.push(...r.hits);
-		}
-		return out;
+		return spazi ? analyzeSpaced(p, detectUserLocale()) : analyzeSentence(p, detectUserLocale());
 	}
 	$effect(() => {
 		const p = plain;
@@ -168,7 +155,7 @@
 		{plain}
 	{:else}
 		{#each tokens as tok, i (i)}
-			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok)}
+			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok) && !(spazi && isCoda(tok))}
 				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={(e) => toggle(i, e)}><FuriganaText force text={(furigana && tokenFurigana(tok, hits[i] ?? null)) || tok} /></button>
 				{#if open === i && popPos}
 					<span class="tok-pop" style="top:{popPos.top}px; left:{popPos.left}px; width:{POP_WIDTH}px" bind:this={popEl}>

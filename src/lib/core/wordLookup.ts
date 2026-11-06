@@ -25,7 +25,10 @@ export async function ensureWordIndex(locale: 'it' | 'en' = 'it'): Promise<Map<s
 		const map = new Map<string, WordHit>();
 		const letture = new Map<string, Set<string>>();
 		for (const w of rows) letture.set(w.scrittura, (letture.get(w.scrittura) ?? new Set()).add(w.lettura));
-		for (const w of rows) {
+		// a parità di lettura vince il livello più basso (ある: 有る N5, non 或 N3)
+		const LIV: Record<string, number> = { N5: 0, N4: 1, N3: 2 };
+		const ordinate = [...rows].sort((a, b) => (LIV[a.livello_jlpt] ?? 3) - (LIV[b.livello_jlpt] ?? 3));
+		for (const w of ordinate) {
 			const gloss = (locale === 'it' ? w.significato.it : w.significato.en) ?? w.significato.it ?? [];
 			const hit: WordHit = {
 				id: w.id,
@@ -410,4 +413,82 @@ const TAIL_LABELS: [RegExp, string][] = [
 ];
 function grammarTailLabel(token: string): string | null {
 	return TAIL_LABELS.find(([re]) => re.test(token))?.[1] ?? null;
+}
+
+// Divisione di un gruppo già separato dagli spazi (わかち書き, come nei testi
+// scritti da noi): BudouX taglia male le parole in kana (さい|ふ, おねが|いします)
+// e lascia attaccate le particelle (ラーメンを). Qui si divide col dizionario:
+// punteggiatura a parte, poi da sinistra la parola più lunga che si trova
+// (anche coniugata, via lookupToken), particelle in coda staccate; quello che
+// non si trova resta un pezzo unico.
+const PUNTEGGIATURA = /([、。！？!?…「」『』（）()：:〜～・]+)/;
+// code staccabili: particelle, copula, suffissi di persona (dalla più lunga)
+const CODE = ['ませんでした', 'んですか', 'んですが', 'んです', 'でしょう', 'ですか', 'ですね', 'ですよ', 'でした', 'です', 'までに', 'から', 'まで', 'より', 'には', 'では', 'でも', 'とは', 'にも', 'ので', 'のに', 'けど', 'さん', 'くん', 'たち', 'を', 'が', 'は', 'に', 'で', 'と', 'へ', 'も', 'の', 'か', 'ね', 'よ', 'や', 'わ'];
+const CODA = new Set(CODE);
+export const isCoda = (t: string): boolean => CODA.has(t);
+// finali di verbo: se il dizionario non riconosce la forma, la parola resta intera
+const VERBO = /(ます|ません|ました|ませんでした|ましょう|ますか|ますね|ますよ|ませんか|ませんね|たら|だら|たい|たかった|ている|ています|ていました)$/;
+const KATAKANA = /^[ァ-ヶー]+$/;
+const MASU_STEM = /[いきぎしじちにびみりえけげせぜてでねべめれ]$/; // さがし(に行く)
+const NUMERO = /^[0-9０-９]+[^ぁ-んァ-ヶ]*$/; // 9時, 650円
+const KANJI = /^[お御]?[一-龯々]+(ご[一-龯々]+)?$/; // nomi (吉田, 昼ご飯) anche fuori dizionario
+// la parola esiste così com'è, o è la forma coniugata di un verbo/aggettivo
+// (lookupToken invece accetta anche i prefissi: すしを → すし)
+export function parolaEsatta(map: Map<string, WordHit>, t: string): boolean {
+	if (map.has(t)) return true;
+	for (const { candidates, adj } of deconjugate(t)) {
+		for (const c of candidates) {
+			const hit = map.get(c);
+			if (hit && (hit.tipo_jp.startsWith('動詞') || (adj && hit.tipo_jp.startsWith('形容詞')) || c.endsWith('する'))) return true;
+		}
+	}
+	return false;
+}
+function buono(t: string, map: Map<string, WordHit>): boolean {
+	return CODA.has(t) || KATAKANA.test(t) || NUMERO.test(t) || KANJI.test(t) || parolaEsatta(map, t) || (MASU_STEM.test(t) && parolaEsatta(map, t + 'ます'));
+}
+export function segmentaGruppo(gruppo: string, map: Map<string, WordHit>): string[] {
+	const out: string[] = [];
+	for (const pezzo of gruppo.split(PUNTEGGIATURA).filter(Boolean)) {
+		if (PUNTEGGIATURA.test(pezzo) || !/[ぁ-んァ-ヶ一-龯々]/.test(pezzo)) {
+			out.push(pezzo);
+			continue;
+		}
+		out.push(...segmentaParola(pezzo, map));
+	}
+	return out;
+}
+function segmentaParola(s: string, map: Map<string, WordHit>): string[] {
+	if (!s) return [];
+	if (buono(s, map)) return [s];
+	// code in fondo, anche in catena: さっそくですが → さっそく + です + が
+	for (const c of CODE) {
+		if (s.length > c.length && s.endsWith(c)) {
+			const testa = segmentaParola(s.slice(0, -c.length), map);
+			if (testa.every((t) => buono(t, map))) return [...testa, c];
+		}
+	}
+	if (VERBO.test(s)) return [s];
+	// la parola più lunga che si trova da sinistra, poi il resto
+	for (let n = s.length - 1; n >= 2; n--) {
+		const testa = s.slice(0, n);
+		if (parolaEsatta(map, testa)) {
+			const resto = segmentaParola(s.slice(n), map);
+			if (resto.every((t) => buono(t, map))) return [testa, ...resto];
+		}
+	}
+	return [s];
+}
+
+// Come analyzeSentence, ma per testi con gli spazi tra i gruppi: si divide
+// dentro ogni gruppo col dizionario (segmentaGruppo); lo spazio resta un token.
+export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
+	const idx = await ensureWordIndex(locale);
+	const tokens: string[] = [];
+	for (const g of plain.split(/([ 　]+)/).filter(Boolean)) {
+		if (/^[ 　]+$/.test(g)) tokens.push(' ');
+		else tokens.push(...segmentaGruppo(g, idx));
+	}
+	const hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
+	return { tokens, hits };
 }
