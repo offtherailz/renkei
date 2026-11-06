@@ -20,7 +20,6 @@
 	const SALVA = 'renkei_jiken';
 
 	// impostazioni del giocatore: nome, uomo/donna, voce, lingua dell'interfaccia…
-	const LINGUE: Lingua[] = ['ja', 'it'];
 	let imp = $state<Impostazioni>({ ...IMPOSTAZIONI_BASE });
 	let impostazioni = $state(false); // pannello ⚙️
 	let voci = $state<VoceDisponibile[]>([]);
@@ -34,10 +33,7 @@
 			salva();
 		}
 	}
-	function cambiaLingua(): void {
-		imp = { ...imp, lingua: LINGUE[(LINGUE.indexOf(lingua) + 1) % LINGUE.length]! };
-		salvaImpostazioni(imp);
-	}
+
 	// nome di un luogo nella lingua scelta
 	const nomeLuogo = (id: LuogoId): string => (lingua === 'ja' ? stripFuriganaNotation(LUOGO[id].nome) : tr({ ja: LUOGO[id].nome, it: LUOGO[id].it, en: LUOGO[id].en }, lingua));
 
@@ -343,14 +339,13 @@
 
 <div class="game">
 	<div class="game-top">
-		<a class="back" href="{base}/avventure">{L(UI.indietro)}</a>
-		<span class="row">
-			<button class="mini" onclick={cambiaLingua} title="Lingua dell'interfaccia / UI language">{L(UI.lingua)}</button>
-			<button class="mini" onclick={() => (impostazioni = true)} title="Impostazioni">⚙️</button>
+		<a class="back" href="{base}/avventure" title={L(UI.indietro)}>←<span class="largo"> {L(UI.indietro).replace('← ', '')}</span></a>
+		<span class="barra">
+			<button class="mini" onclick={() => (impostazioni = true)} title={L(UI.impostazioni)}>⚙️</button>
 			{#if stato && fase !== 'inizio'}
 				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
 				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
-				<button class="mini" onclick={() => (taccuino = true)}>{L(UI.ノート)}</button>
+				<button class="mini" onclick={() => (taccuino = true)} title={L(UI.ノート)}>📓<span class="largo"> {L(UI.ノート).replace('📓 ', '')}</span></button>
 			{/if}
 		</span>
 	</div>
@@ -667,7 +662,12 @@
 		max-width: 980px;
 		margin: 0 auto;
 	}
-	.game-top { display: flex; justify-content: space-between; align-items: center; }
+	.game-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+	.barra { display: flex; gap: 6px; flex-wrap: nowrap; }
+	.barra .mini { padding: 4px 8px; }
+	.back { font-size: 1.05rem; }
+	.largo { display: none; }
+	@media (min-width: 600px) { .largo { display: inline; } }
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.panel { background: var(--px-bg); color: var(--px-ink); border: 3px solid var(--px-line); box-shadow: inset 0 0 0 2px var(--px-panel); padding: 12px; display: grid; gap: 8px; }
 	.intro h1 { margin: 0; font-size: 1.4rem; }
