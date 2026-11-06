@@ -46,7 +46,8 @@
 	let tick = $state(0);
 	let scelto = $state<number | null>(null); // risposta a una domanda
 	let provaEsito = $state<boolean | null>(null);
-	let traduzioni = $state(false);
+	let obAperti = $state(false); // tendina degli obiettivi nella barra in alto
+	let rivelati = $state<number[]>([]); // frasi del taccuino con la traduzione aperta
 	let mostraIt = $state(false); // traduzione della battuta corrente
 	let taccuino = $state(false);
 	let infoLuogo = $state<LuogoId | null>(null);
@@ -148,7 +149,7 @@
 		corrente = r.mostra;
 		scelto = null;
 		provaEsito = null;
-		mostraIt = traduzioni;
+		mostraIt = false;
 		salva();
 		if (!corrente) {
 			finisciScena();
@@ -309,16 +310,22 @@
 		<span class="row">
 			<button class="mini" onclick={cambiaLingua} title="Lingua dell'interfaccia / UI language">{L(UI.lingua)}</button>
 			{#if stato && fase !== 'inizio'}
+				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
+				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
 				<button class="mini" onclick={() => (taccuino = true)}>{L(UI.ノート)}</button>
 			{/if}
 		</span>
 	</div>
+	{#if obAperti && stato && fase !== 'inizio'}
+		<div class="obiettivo tendina">
+			{#each stato.obiettivi.filter((o) => !o.fatto) as o (o.id)}<p>🎯 {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{:else}<p>{L(UI.nessuno)}</p>{/each}
+		</div>
+	{/if}
 
 	{#snippet testoUI(t: Testo)}
 		<!-- in giapponese: parole da toccare, traduzione col 🇮🇹 -->
 		{#if lingua === 'ja'}
 			<InteractiveSentence text={testo(t.ja)} spazi />
-			{#if traduzioni}<small class="trad">{testo(t.it)}</small>{/if}
 		{:else}{testo(L(t))}{/if}
 	{/snippet}
 
@@ -337,7 +344,6 @@
 					<button class="btn big" onclick={continua}>{L(UI.continua)} ({salvato.nome}, {dataJa(salvato.giorno)} {hhmm(salvato.minuti)})</button>
 				{/if}
 				<button class="btn big" class:ghost={salvato && !salvato.finita} onclick={nuovaPartita}>{L(UI.nuova)}</button>
-				<button class="btn ghost small" class:on={traduzioni} onclick={() => (traduzioni = !traduzioni)}>🇮🇹</button>
 			</div>
 			<p class="muted">{L(UI.missione1)}</p>
 		</section>
@@ -346,14 +352,11 @@
 			<span class="data">📅 {lingua === 'ja' ? dataJa(stato.giorno) : dataIt(stato.giorno)}</span>
 			<span class="ora">{notturna ? '🌙' : '☀️'} {hhmm(stato.minuti)} <small>{lingua === 'ja' ? fascia(stato.minuti) : ''}</small></span>
 			<span class="soldi">¥{stato.oggetti.includes('portafoglio') ? stato.soldi : '—'}</span>
-			<button class="mini" class:on={traduzioni} onclick={() => { traduzioni = !traduzioni; mostraIt = traduzioni; }}>🇮🇹</button>
 		</div>
 
 		{#if fase === 'mappa'}
 			{@const obiettivi = stato.obiettivi.filter((o) => !o.fatto)}
-			{#if obiettivi.length}
-				<div class="obiettivo">{#each obiettivi as o (o.id)}<p>🎯 {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{/each}</div>
-			{/if}
+			<div class="vista-mappa">
 			<div class="mappa-scroll" use:centra={stato.luogo}>
 				<div class="mappa">
 					<img src="{base}/giorno/mappa/sakura-{notturna ? 'notte' : 'giorno'}.jpg" alt="さくら町" />
@@ -373,11 +376,12 @@
 					{/each}
 				</div>
 			</div>
+			<div class="colonna">
 			{#if infoLuogo}
 				{@const l = LUOGO[infoLuogo]}
 				{@const ap = apertura(l, stato)}
 				<div class="panel info">
-					<p><strong>{l.icona} {stripFuriganaNotation(l.nome)}</strong>{#if traduzioni} — {l.it}{/if}</p>
+					<p><strong>{l.icona} {stripFuriganaNotation(l.nome)}</strong></p>
 					<p class="small">🕐 {ap === 'bloccato' && l.perche ? `🔒 ${L(l.perche)}` : L(orarioTesto(l.orario))} · {ap === 'aperto' ? L(UI.aperto) : ap === 'chiuso' ? L(UI.chiusoOra) : ''}</p>
 					<div class="row">
 						{#if ap !== 'bloccato'}
@@ -390,6 +394,12 @@
 			<div class="row">
 				<span class="small">{L(UI.seiA)}{nomeLuogo(stato.luogo)}</span>
 				<button class="btn small ghost" onclick={() => aspetta(30)}>{L(UI.aspetta)}</button>
+			</div>
+			<!-- su desktop gli obiettivi stanno qui, sempre aperti -->
+			{#if obiettivi.length}
+				<div class="obiettivo lato">{#each obiettivi as o (o.id)}<p>🎯 {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{/each}</div>
+			{/if}
+			</div>
 			</div>
 		{:else if fase === 'scena' && corrente}
 			<section class="panel scena">
@@ -434,10 +444,11 @@
 							{#each corrente.scelta as o, i (i)}
 								<button class="opzione" onclick={() => scegli(i)}>
 									<span class="ja">{stripFuriganaNotation(testo(o.ja))}</span>
-									{#if traduzioni && o.it}<small>{testo(o.it)}</small>{/if}
+									{#if mostraIt && o.it}<small>{testo(o.it)}</small>{/if}
 								</button>
 							{/each}
 						</div>
+						{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 					{:else if 'domanda' in corrente}
 						{@const g = giustaDomanda()}
 						<p class="dname">{L(UI.domanda)}</p>
@@ -530,7 +541,7 @@
 						<div class="appunto">
 							<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
 							<p class="ja"><InteractiveSentence text={a.ja} spazi /></p>
-							{#if traduzioni}<p class="it">{a.it}</p>{/if}
+							{#if rivelati.includes(i)}<p class="it">{a.it}</p>{:else}<button class="mini piccolo" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
 						</div>
 					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
 					<h3>{L(UI.domande)}</h3>
@@ -622,14 +633,25 @@
 
 	.paper { --ink: #222034; --line: #9a98b5; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 8px 10px; margin: 0; }
 	ul.paper { padding-left: 1.6rem; display: grid; gap: 4px; }
-	.trad { display: block; color: #555; font-size: 0.78rem; line-height: 1.3; }
-	.obiettivo .trad { color: #444; }
 	.nota-gioco { font-style: normal; background: #fff7c2; padding: 4px 6px; }
 	.spiega { font-size: 0.85rem; }
 	.spiega summary { cursor: pointer; color: #5b6ee1; }
-	.btn.on { background: #fbf236; color: #222034; }
 	.obiettivo { --ink: #222034; --line: #8a7f2a; }
 	.obiettivo :global(.isentence), .paper :global(.isentence) { font-size: 0.95rem; line-height: 1.7; }
+	.mini.piccolo { font-size: 0.7rem; padding: 1px 5px; justify-self: start; }
+	.tendina { position: relative; z-index: 5; }
+	.game > :global(*), .vista-mappa > * { min-width: 0; }
+	.vista-mappa { display: grid; gap: 8px; }
+	.colonna { display: grid; gap: 8px; align-content: start; }
+	.obiettivo.lato { display: none; }
+	@media (min-width: 900px) {
+		.game { max-width: 1240px; }
+		.vista-mappa { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 10px; align-items: start; }
+		.mappa { min-width: 0; }
+		.obiettivo.lato { display: grid; }
+		.scena { grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); align-items: start; }
+		.scena .dialog { min-height: 100%; }
+	}
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }
