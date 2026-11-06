@@ -218,7 +218,6 @@
 		scelto = i;
 		const ok = i === giustaDomanda();
 		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 } };
-		mostraIt = true;
 		salva();
 	}
 	function mostra(oggetto: string | null): void {
@@ -378,7 +377,7 @@
 				{@const l = LUOGO[infoLuogo]}
 				{@const ap = apertura(l, stato)}
 				<div class="panel info">
-					<p><strong>{l.icona} {stripFuriganaNotation(l.nome)}</strong>{#if lingua !== 'ja' || traduzioni} — {tr({ ja: l.nome, it: l.it, en: l.en }, lingua === 'ja' ? 'it' : lingua)}{/if}</p>
+					<p><strong>{l.icona} {stripFuriganaNotation(l.nome)}</strong>{#if traduzioni} — {l.it}{/if}</p>
 					<p class="small">🕐 {ap === 'bloccato' && l.perche ? `🔒 ${L(l.perche)}` : L(orarioTesto(l.orario))} · {ap === 'aperto' ? L(UI.aperto) : ap === 'chiuso' ? L(UI.chiusoOra) : ''}</p>
 					<div class="row">
 						{#if ap !== 'bloccato'}
@@ -448,14 +447,17 @@
 							{#each corrente.domanda.opzioni as o, i (i)}
 								<button class="opzione" class:ok={scelto !== null && i === g} class:ko={scelto === i && i !== g} disabled={scelto !== null} onclick={() => rispondi(i)}>
 									<span class="ja">{i + 1}. {stripFuriganaNotation(testo(o.ja))}</span>
-									{#if traduzioni || (scelto !== null && lingua !== 'ja')}<small>{o.it}</small>{/if}
+									{#if mostraIt}<small>{o.it}</small>{/if}
 								</button>
 							{/each}
 						</div>
 						{#if scelto !== null}
 							<p class="esito" class:giusto={scelto === g}>{scelto === g ? L(UI.giusto) : L(UI.sbagliato)}</p>
-							<details class="spiega" open={lingua !== 'ja' || traduzioni}><summary>{L(UI.spiega)}</summary>{corrente.domanda.spiega}</details>
-							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							<details class="spiega"><summary>{L(UI.spiega)}</summary>{corrente.domanda.spiega}</details>
+							<div class="row">
+								<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+								{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+							</div>
 						{:else}
 							<div class="row">
 								<button class="btn ghost small" onclick={riascolta}>🔊</button>
@@ -528,7 +530,7 @@
 						<div class="appunto">
 							<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
 							<p class="ja"><InteractiveSentence text={a.ja} spazi /></p>
-							{#if lingua !== 'ja' || traduzioni}<p class="it">{a.it}</p>{/if}
+							{#if traduzioni}<p class="it">{a.it}</p>{/if}
 						</div>
 					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
 					<h3>{L(UI.domande)}</h3>
