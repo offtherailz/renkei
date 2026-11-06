@@ -9,13 +9,13 @@ export const UI = {
 	titolo: { ja: 'さくら町の 毎日', it: 'La vita a さくら町' },
 	intro: {
 		ja: 'あなたは さくら町に 来た ばかりです。さくら会社で はたらいて、吉田[よしだ]さんの 家に 住んで います。町を 歩いて、用事を して、いろいろな 人と 話しましょう。ときどき ふしぎな ことが 起きます。よく 見て、よく 聞いて ください。',
-		it: 'Sei appena arrivato a さくら町, un quartiere di 山野市. Lavori alla さくら会社 e vivi presso la famiglia 吉田. Gira per il quartiere, fai le commissioni, parla con la gente: ogni tanto succede qualcosa di strano, e tu osservi bene.'
+		it: 'Sei appena arrivat{o} a さくら町, un quartiere di 山野市. Lavori alla さくら会社 e vivi presso la famiglia 吉田. Gira per il quartiere, fai le commissioni, parla con la gente: ogni tanto succede qualcosa di strano, e tu osservi bene.'
 	},
 	regole: [
 		{ ja: '🗺️ 地図の たてものを タッチすると、そこへ 行きます（15分）。店には 開いて いる 時間が あります。', it: '🗺️ Tocca un edificio sulla mappa per andarci (15 minuti). I negozi hanno i loro orari.' },
 		{ ja: '❗ は 今 する ことが ある 所です。', it: '❗ indica dove c’è qualcosa della storia da fare adesso.' },
 		{ ja: '💬 ✂️ か 文を タッチすると、ことばに 分かれて、読み方と いみが 見られます。🇮🇹 で ほんやくが 出ます。', it: '💬 ✂️ (o un tocco sulla frase) la divide in parole: toccale per lettura e significato. 🇮🇹 mostra la traduzione.' },
-		{ ja: '📓 ノートには やる こと、大切な ことば、持ち物、行った 所と 時間が 書いて あります。', it: '📓 Il taccuino tiene obiettivi, frasi importanti, oggetti e dove sei stato a che ora.' },
+		{ ja: '📓 ノートには やる こと、大切な ことば、持ち物、行った 所と 時間が 書いて あります。', it: '📓 Il taccuino tiene obiettivi, frasi importanti, oggetti e dove sei stat{o} a che ora.' },
 		{ ja: '🌙 夜、家で 今日の 問題に 答えて、ねます（自動で セーブ）。', it: '🌙 La sera, a casa: domande d’esame sulla giornata, poi a letto (salvataggio automatico).' }
 	],
 	nome: { ja: 'あなたの 名前（カタカナ。ローマ字でも いいです：luca → ルカ）', it: 'Il tuo nome (katakana, o in lettere: «luca» → ルカ)' },
@@ -47,7 +47,7 @@ export const UI = {
 	obiettivi: { ja: '🎯 やる こと', it: '🎯 Obiettivi' },
 	nessuno: { ja: 'まだ ありません。', it: 'Ancora niente.' },
 	oggetti: { ja: '🎒 持ち物', it: '🎒 Oggetti' },
-	percorso: { ja: '🕐 行った 所', it: '🕐 Dove sei stato' },
+	percorso: { ja: '🕐 行った 所', it: '🕐 Dove sei stat{o}' },
 	frasi: { ja: '💬 大切な ことば', it: '💬 Frasi importanti' },
 	domande: { ja: '📝 試験の 問題', it: '📝 Domande d’esame' },
 	taccuinoDi: { ja: 'の ノート', it: '' },
@@ -60,5 +60,23 @@ export const UI = {
 	prossima: { ja: 'ミッション2「いなくなった ミケ」は もうすぐです。', it: 'La missione 2 (いなくなった ミケ, il gattino scomparso) arriva presto.' },
 	rileggi: { ja: '📓 ノートを 読む', it: '📓 Rileggi il taccuino' },
 	inizio: { ja: '↺ はじめの ページへ', it: '↺ Torna all’inizio' },
-	tu: { ja: 'あなた', it: 'tu' }
+	tu: { ja: 'あなた', it: 'tu' },
+	impostazioni: { ja: '⚙️ せってい', it: '⚙️ Impostazioni' },
+	sesso: { ja: 'あなたは', it: 'Sei' },
+	uomo: { ja: '男の 人', it: 'un uomo' },
+	donna: { ja: '女の 人', it: 'una donna' },
+	voceTua: { ja: 'あなたの 声', it: 'La tua voce' },
+	predefinita: { ja: 'いつもの 声', it: 'predefinita' },
+	tono: { ja: '声の 高さ', it: 'Tono' },
+	velocita: { ja: '話す はやさ（みんな）', it: 'Velocità delle voci' },
+	autoVoce: { ja: '文を 自動で 読む', it: 'Leggi le frasi da sole' },
+	linguaUI: { ja: 'ゲームの ことば', it: 'Lingua del gioco' },
+	provaVoce: { ja: '🔊 聞いて みる', it: '🔊 Prova' },
+	frasePerProva: { ja: 'はじめまして。{nome}です。どうぞ よろしく。', it: '' },
+	chiudi: { ja: '✖ とじる', it: '✖ Chiudi' },
+	dillo: { ja: '🎤 声で 言う', it: '🎤 Dillo a voce' },
+	ascolto: { ja: '🎤 聞いて います… （もう一度 タッチで やめる）', it: '🎤 Ti ascolto… (tocca di nuovo per smettere)' },
+	nonCapito: { ja: 'どれか わかりませんでした。もう一度 言うか、えらんで ください。', it: 'non ho capito quale. Ripeti o tocca la risposta.' },
+	nonSentito: { ja: '何も 聞こえませんでした。', it: 'Non ho sentito niente.' },
+	pensiero: { ja: '（心の 中で）', it: '(tra sé)' }
 } satisfies Record<string, Testo | Testo[]>;

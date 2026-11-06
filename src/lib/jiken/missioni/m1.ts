@@ -67,6 +67,7 @@ export const M1: Missione = {
 				{ prendi: 'busta', it: 'busta coi documenti' },
 				{ dice: 'suzuki', ja: '今日の 5時までに おねがいします。郵便局[ゆうびんきょく]は 5時に しまりますから。', it: 'Entro le 5 di oggi, per favore. La posta chiude alle 5.', taccuino: true },
 				{ obiettivo: 'posta', ja: '今日の 5時までに 郵便局[ゆうびんきょく]から しょるいを 送る。', it: 'Spedire la busta dal 郵便局 entro le 17:00 (oggi).' },
+				{ pensa: '5時までに 郵便局[ゆうびんきょく]か……。わすれないように しよう。', it: 'Entro le 5 alla posta… Non devo dimenticarlo.' },
 				{ dice: 'suzuki', ja: '昼休みは 12時から 1時までです。', it: 'La pausa pranzo è dalle 12 alle 13.', taccuino: true },
 				{ dice: 'tanaka', ja: '田中です！ {nome}さん、昼ご飯、いっしょに 行きませんか。ふじ食堂は 安くて おいしいですよ。', it: 'Sono Tanaka! {nome}, andiamo a pranzo insieme? La trattoria Fuji è economica e buona.' },
 				{
@@ -105,7 +106,7 @@ export const M1: Missione = {
 		{
 			id: 'd0-posta', luogo: 'posta', quando: { oggetti: ['busta'] },
 			passi: [
-				{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{
 					scelta: [
 						{ ja: 'これを 送りたいんですが。', it: 'Vorrei spedire questo.' },
@@ -130,7 +131,7 @@ export const M1: Missione = {
 					allora: [
 						{ dice: 'suzuki', ja: '{nome}さん、しょるいは もう 送りましたか。', it: '{nome}, ha già spedito i documenti?' },
 						{ io: 'はい、もう 送りました。', it: 'Sì, li ho già spediti.' },
-						{ dice: 'suzuki', ja: 'ありがとう。たすかりました。', it: 'Grazie. Mi è stato d’aiuto.' }
+						{ dice: 'suzuki', ja: 'ありがとう。たすかりました。', it: 'Grazie. Mi è stat{o} d’aiuto.' }
 					],
 					altrimenti: [
 						{ dice: 'suzuki', ja: '{nome}さん、しょるいは もう 送りましたか。', it: '{nome}, ha già spedito i documenti?' },
@@ -149,7 +150,7 @@ export const M1: Missione = {
 		{
 			id: 'd0-konbini', luogo: 'konbini', quando: { giorno: 0, dalle: h(16), nonOggetti: ['latte'], nonFlag: ['d0.konbini'] },
 			passi: [
-				{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ narra: 'れいぞうこから ぎゅうにゅうを とって、レジへ 行きます。', it: 'Prendi il latte dal frigorifero e vai alla cassa.' },
 				{ dice: 'commessa', ja: '200円です。レシートは いりますか。', it: 'Sono 200 yen. Le serve lo scontrino?' },
 				{ soldi: -200 },
@@ -169,7 +170,7 @@ export const M1: Missione = {
 		{
 			id: 'd0-casa-sera', luogo: 'casa', quando: { giorno: 0, dalle: h(17), flag: ['d0.casa'] },
 			passi: [
-				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornato.' },
+				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornat{o}.' },
 				{ io: 'ただいま。', it: 'Sono a casa.' },
 				{
 					se: { oggetti: ['latte'] },
@@ -211,9 +212,10 @@ export const M1: Missione = {
 				{ narra: '4月7日（火）、朝 7時半。出かける 前に、かばんの 中の さいふを さがします……。', it: 'Martedì 7 aprile, ore 7:30. Ti prepari per uscire e cerchi il portafoglio nella borsa…' },
 				{ io: 'あれ？ さいふが ない！', it: 'Eh? Il portafoglio non c’è!' },
 				{ dice: 'mamma', ja: 'えっ、さいふが ないの？ きのう、さいごに どこで つかったの？', it: 'Cosa? Non hai il portafoglio? Ieri dove l’hai usato l’ultima volta?' },
-				{ narra: 'ノートを 見て ください。きのう 何時に どこへ 行ったか、書いて あります。', it: 'Apri il taccuino: nella linea del tempo c’è dove sei stato ieri e a che ora.' },
-				{ dice: 'mamma', ja: 'きのう 行った 店に 聞いて みたら どう？', it: 'Perché non provi a chiedere nei negozi dove sei stato ieri?', taccuino: true },
-				{ obiettivo: 'portafoglio', ja: 'さいふを さがす。きのう 行った 店で 聞いて みる（ノートの 「行った 所」を 見る）。', it: 'Ritrovare il portafoglio: chiedi nei posti dove sei stato ieri (vedi la linea del tempo).' },
+				{ pensa: 'きのう……。昼ご飯の あと、どこに 行ったかな。', it: 'Ieri… Dopo pranzo dove sono andat{o}?' },
+				{ narra: 'ノートを 見て ください。きのう 何時に どこへ 行ったか、書いて あります。', it: 'Apri il taccuino: nella linea del tempo c’è dove sei stat{o} ieri e a che ora.' },
+				{ dice: 'mamma', ja: 'きのう 行った 店に 聞いて みたら どう？', it: 'Perché non provi a chiedere nei negozi dove sei stat{o} ieri?', taccuino: true },
+				{ obiettivo: 'portafoglio', ja: 'さいふを さがす。きのう 行った 店で 聞いて みる（ノートの 「行った 所」を 見る）。', it: 'Ritrovare il portafoglio: chiedi nei posti dove sei stat{o} ieri (vedi la linea del tempo).' },
 				{ dice: 'mamma', ja: 'でも、会社には おくれないでね。', it: 'Ma non fare tardi al lavoro.' },
 				{ flag: 'd1.casa' }
 			]
@@ -248,7 +250,7 @@ export const M1: Missione = {
 		{
 			id: 'd1-shokudo', luogo: 'shokudo', quando: { giorno: 1, nonFlag: ['d1.shokudo'] },
 			passi: [
-				{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ io: 'すみません、きのう ここで さいふを わすれませんでしたか。', it: 'Mi scusi, ieri ho dimenticato qui un portafoglio?' },
 				{ dice: 'oste', ja: 'さいふですか。いいえ、わすれものは ありませんでしたよ。', it: 'Un portafoglio? No, non c’erano oggetti dimenticati.', taccuino: true },
 				{
@@ -262,10 +264,11 @@ export const M1: Missione = {
 		{
 			id: 'd1-konbini', luogo: 'konbini', quando: { giorno: 1, nonFlag: ['d1.konbini'] },
 			passi: [
-				{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ io: 'すみません、きのうの 夜、この 店で さいふを なくしたかも しれません。', it: 'Mi scusi, ieri sera forse ho perso il portafoglio in questo negozio.' },
 				{ dice: 'commessa', ja: 'さいふですか……。店の 中には ありませんでした。', it: 'Un portafoglio… Dentro il negozio non c’era.' },
 				{ dice: 'commessa', ja: 'でも、きのうの 夜、店の 前で 学生が 何か ひろって いましたよ。', it: 'Però ieri sera, davanti al negozio, uno studente ha raccolto qualcosa.', taccuino: true },
+				{ pensa: '学生が ひろった……？ もしかして、わたしの さいふ？', it: 'Uno studente ha raccolto qualcosa…? Che sia il mio portafoglio?' },
 				{ dice: 'commessa', ja: '交番[こうばん]に 持って 行ったかも しれませんね。', it: 'Forse l’ha portato al posto di polizia.', taccuino: true },
 				{ obiettivo: 'koban', ja: '交番[こうばん]へ 行って、さいふの ことを 聞く。', it: 'Andare al 交番 a chiedere del portafoglio.' },
 				{ minuti: 10 },
@@ -312,7 +315,7 @@ export const M1: Missione = {
 				{ dice: 'nakamura', ja: 'とどけて くれたのは 高橋[たかはし]くんと いう 高校生です。夜、日本語学校で 手つだいを して いるそうですよ。', it: 'Chi l’ha portato è un liceale che si chiama Takahashi. Dice che la sera fa da aiutante alla scuola di giapponese.', taccuino: true },
 				{ dice: 'nakamura', ja: '学校は 月曜日と 水曜日と 金曜日の 夜 6時からです。', it: 'La scuola è il lunedì, il mercoledì e il venerdì dalle 6 di sera.', taccuino: true },
 				{ obiettivo: 'grazie', ja: '日本語学校（月・水・金 6時から）で 高橋[たかはし]くんに おれいを 言う。プレゼントも あると いい。', it: 'Ringraziare 高橋くん al 日本語学校 (lun, mer, ven dalle 18). Magari con un regalo.' },
-				{ dice: 'nakamura', ja: 'あなたは よく 見て いますね。じゃ、気を つけて。', it: 'Lei osserva bene le cose. Allora, stia attento.' },
+				{ dice: 'nakamura', ja: 'あなたは よく 見て いますね。じゃ、気を つけて。', it: 'Lei osserva bene le cose. Allora, stia attent{o}.' },
 				{ minuti: 15 },
 				{ flag: 'portafoglio.ok' }
 			]
@@ -330,7 +333,7 @@ export const M1: Missione = {
 		{
 			id: 'd1-casa-sera', luogo: 'casa', quando: { giorno: 1, dalle: h(17), flag: ['d1.casa'] },
 			passi: [
-				{ dice: 'mamma', ja: 'おかえりなさい。さいふは？', it: 'Bentornato. E il portafoglio?' },
+				{ dice: 'mamma', ja: 'おかえりなさい。さいふは？', it: 'Bentornat{o}. E il portafoglio?' },
 				{
 					se: { flag: ['portafoglio.ok'] },
 					allora: [{ io: '交番[こうばん]に ありました！ 学生が とどけて くれました。', it: 'Era al posto di polizia! Uno studente l’ha portato lì.' }, { dice: 'mamma', ja: 'よかったわね！', it: 'Che bello!' }],
@@ -396,7 +399,7 @@ export const M1: Missione = {
 		{
 			id: 'd2-panya', luogo: 'panya', quando: { giorno: 2, flag: ['portafoglio.ok'], nonOggetti: ['sacchetto_pane', 'mazzo_fiori'], nonFlag: ['grazie.ok'] },
 			passi: [
-				{ dice: 'fornaia', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'fornaia', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ io: 'プレゼントに したいんですが、どれが いいですか。', it: 'Vorrei farne un regalo: quale mi consiglia?' },
 				{ dice: 'fornaia', ja: 'この クリームパンが いちばん 人気が ありますよ。三つで 450円です。', it: 'Questo pane alla crema è il più richiesto. Tre a 450 yen.' },
 				{
@@ -411,7 +414,7 @@ export const M1: Missione = {
 		{
 			id: 'd2-hanaya', luogo: 'hanaya', quando: { giorno: 2, flag: ['portafoglio.ok'], nonOggetti: ['sacchetto_pane', 'mazzo_fiori'], nonFlag: ['grazie.ok'] },
 			passi: [
-				{ dice: 'fioraia', ja: 'いらっしゃいませ。', it: 'Benvenuto.' },
+				{ dice: 'fioraia', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ io: 'おれいに 花を あげたいんですが。', it: 'Vorrei regalare dei fiori per ringraziare.' },
 				{ dice: 'fioraia', ja: 'それなら、この 小さい 花たばは どうですか。1000円です。', it: 'Allora, che ne dice di questo mazzolino? 1000 yen.' },
 				{
@@ -461,7 +464,7 @@ export const M1: Missione = {
 		{
 			id: 'd2-casa-sera', luogo: 'casa', quando: { giorno: 2, dalle: h(17), flag: ['d2.casa'] },
 			passi: [
-				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornato.' },
+				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornat{o}.' },
 				{ narra: '夕ご飯の あとで、電話が なりました。中村[なかむら]さんからです。', it: 'Dopo cena squilla il telefono. È l’ispettore Nakamura.' },
 				{ dice: 'nakamuraTel', ja: 'もしもし、{nome}さんですか。交番[こうばん]の 中村[なかむら]です。', it: 'Pronto, parlo con {nome}? Sono Nakamura, del posto di polizia.' },
 				{ dice: 'nakamuraTel', ja: 'じつは、わたしは けいじです。あなたは よく 見て、よく 聞いて いますね。', it: 'In realtà sono un ispettore. Lei osserva e ascolta con attenzione.' },

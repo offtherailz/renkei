@@ -3,8 +3,10 @@
 	import { base } from '$app/paths';
 	import Frase from '$lib/jiken/Frase.svelte';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
-	import { voiceParams } from '$lib/core/voices';
-	import { romajiToHiragana, looksLikeRomaji } from '$lib/core/romaji';
+	import { speechAvailable, abortableListen } from '$lib/core/speech';
+	import { ensureWordIndex } from '$lib/core/wordLookup';
+	import { caricaImpostazioni, declina, IMPOSTAZIONI_BASE, lettureKanji, nomeKatakana, opzioneDetta, salvaImpostazioni, voceGiocatore, vociGiapponesi, vocePersonaggio, type Impostazioni, type VoceDisponibile } from '$lib/jiken/voce';
+	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
 		apertura, avanza, conNome, dataIt, dataJa, fascia, giustaSoldi, hhmm, notte, nuovoStato, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
@@ -16,19 +18,25 @@
 
 	const MISSIONI: Record<string, Missione> = { m1: M1 };
 	const SALVA = 'renkei_jiken';
-	const SALVA_LINGUA = 'renkei_jiken_lingua';
 
-	// lingua dell'interfaccia (i dialoghi restano in giapponese); per ora ja / it
+	// impostazioni del giocatore: nome, uomo/donna, voce, lingua dell'interfaccia…
 	const LINGUE: Lingua[] = ['ja', 'it'];
-	let lingua = $state<Lingua>('ja');
-	const L = (t: Testo): string => tr(t, lingua);
-	function cambiaLingua(): void {
-		lingua = LINGUE[(LINGUE.indexOf(lingua) + 1) % LINGUE.length]!;
-		try {
-			localStorage.setItem(SALVA_LINGUA, lingua);
-		} catch {
-			/* niente storage */
+	let imp = $state<Impostazioni>({ ...IMPOSTAZIONI_BASE });
+	let impostazioni = $state(false); // pannello ⚙️
+	let voci = $state<VoceDisponibile[]>([]);
+	const lingua = $derived(imp.lingua);
+	const L = (t: Testo): string => declina(tr(t, lingua), imp.sesso);
+	function salvaImp(): void {
+		imp = { ...imp, nome: nomeGiusto(imp.nome) };
+		salvaImpostazioni(imp);
+		if (stato && stato.nome !== imp.nome) {
+			stato = { ...stato, nome: imp.nome };
+			salva();
 		}
+	}
+	function cambiaLingua(): void {
+		imp = { ...imp, lingua: LINGUE[(LINGUE.indexOf(lingua) + 1) % LINGUE.length]! };
+		salvaImpostazioni(imp);
 	}
 	// nome di un luogo nella lingua scelta
 	const nomeLuogo = (id: LuogoId): string => (lingua === 'ja' ? stripFuriganaNotation(LUOGO[id].nome) : tr({ ja: LUOGO[id].nome, it: LUOGO[id].it, en: LUOGO[id].en }, lingua));
@@ -36,7 +44,6 @@
 	let stato = $state<Stato | null>(null);
 	let salvato = $state<Stato | null>(null);
 	let fase = $state<'inizio' | 'mappa' | 'scena' | 'fine'>('inizio');
-	let nome = $state('ルカ');
 
 	// scena in corso
 	let coda: Passo[] = [];
@@ -59,7 +66,7 @@
 	const missione = $derived(stato ? MISSIONI[stato.missione]! : M1);
 	const luogoAttuale = $derived(stato ? LUOGO[stato.luogo] : null);
 	const notturna = $derived(stato ? notte(stato.minuti) : false);
-	const testo = (t: string): string => conNome(t, stato?.nome ?? nome);
+	const testo = (t: string): string => declina(conNome(t, stato?.nome ?? imp.nome), imp.sesso);
 
 	function avvisa(t: string): void {
 		toast = t;
@@ -77,21 +84,13 @@
 	}
 
 	// ── nome: katakana o hiragana; il romaji si converte (luca → るか → ルカ)
-	function nomeGiusto(n: string): string {
-		const t = n.trim();
-		if (!t) return 'ルカ';
-		if (looksLikeRomaji(t)) {
-			// nomi italiani: l → r, ca/co/cu → ka…, ce/ci → che/chi (luca → るか)
-			const it = t.toLowerCase().replace(/l/g, 'r').replace(/c([aou])/g, 'k$1').replace(/c([ei])/g, 'ch$1');
-			const hira = romajiToHiragana(it);
-			if (hira) return hira.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
-		}
-		return t;
-	}
+	const nomeGiusto = (n: string): string => nomeKatakana(n, romajiToHiragana);
+
 
 	function nuovaPartita(): void {
 		if (salvato && !confirm(L(UI.sicuro))) return;
-		stato = nuovoStato(nomeGiusto(nome), 'm1');
+		salvaImp();
+		stato = nuovoStato(imp.nome, 'm1');
 		salva();
 		entra('casa');
 	}
@@ -161,8 +160,15 @@
 			const c = PERSONAGGI[corrente.dice];
 			if (c?.sprite) parlante = corrente.dice;
 			if (corrente.taccuino) annota(corrente.dice, corrente.ja, corrente.it);
-			void voce(corrente.ja, c?.voce ?? 'F');
-		} else if ('domanda' in corrente) void voce(corrente.domanda.ja, 'F', false);
+			if (imp.autoVoce) void voce(corrente.ja, c?.voce ?? 'F');
+		} else if ('io' in corrente) {
+			// la tua battuta con la tua voce, se non l'hai già detta tu al microfono
+			if (imp.autoVoce && !corrente.detto) void voceMia(corrente.io);
+		} else if ('pensa' in corrente) {
+			if (imp.autoVoce) void voceMia(corrente.pensa, true);
+		} else if ('domanda' in corrente) {
+			if (imp.autoVoce) void voce(corrente.domanda.ja, 'F', false);
+		}
 		else if ('fine' in corrente) stato = { ...stato, finita: corrente.fine };
 	}
 
@@ -205,11 +211,33 @@
 	}
 
 	// ── interazioni coi passi
-	function scegli(i: number): void {
+	function scegli(i: number, detto = false): void {
 		if (!corrente || !('scelta' in corrente)) return;
 		const o = corrente.scelta[i]!;
-		coda = [{ io: o.ja, it: o.it ?? '' }, ...(o.passi ?? []), ...coda];
+		coda = [{ io: o.ja, it: o.it ?? '', detto }, ...(o.passi ?? []), ...coda];
 		prossimo();
+	}
+	// risposta detta a voce: si riconosce quale opzione hai detto
+	const microfono = typeof window !== 'undefined' && speechAvailable();
+	let ascolto = $state<{ abort: () => void } | null>(null);
+	let letture: Map<string, string> | null = null; // kanji → kana, dal dizionario dell'app
+	async function rispondiAVoce(): Promise<void> {
+		if (!corrente || !('scelta' in corrente)) return;
+		if (ascolto) {
+			ascolto.abort();
+			return;
+		}
+		hush();
+		const opzioni = corrente.scelta.map((o) => testo(o.ja));
+		const l = abortableListen('ja-JP');
+		ascolto = l;
+		if (!letture) letture = lettureKanji((await ensureWordIndex('it')).values());
+		const sentito = await l.promise;
+		ascolto = null;
+		if (!corrente || !('scelta' in corrente)) return;
+		const i = opzioneDetta(sentito, opzioni, letture);
+		if (i === null) avvisa(sentito.length ? `🎤 「${sentito[0]}」 — ${L(UI.nonCapito)}` : `🎤 ${L(UI.nonSentito)}`);
+		else scegli(i, true);
 	}
 	function giustaDomanda(): number {
 		if (!corrente || !('domanda' in corrente) || !stato) return -1;
@@ -239,8 +267,13 @@
 	// ── voce e bocca
 	async function voce(t: string, chi: 'F' | 'M', bocca = true): Promise<void> {
 		parla = bocca;
-		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), voiceParams(chi === 'F' ? 'femminile' : 'maschile'));
+		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), vocePersonaggio(chi, imp));
 		parla = false;
+	}
+	// la tua voce (nei pensieri più piano)
+	async function voceMia(t: string, pensiero = false): Promise<void> {
+		const v = voceGiocatore(imp);
+		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), pensiero ? { ...v, volume: 0.55, rate: (v.rate ?? 1) * 0.92 } : v);
 	}
 	function hush(): void {
 		stopSpeaking();
@@ -249,6 +282,8 @@
 	function riascolta(): void {
 		if (!corrente) return;
 		if ('dice' in corrente) void voce(corrente.ja, PERSONAGGI[corrente.dice]?.voce ?? 'F');
+		else if ('io' in corrente) void voceMia(corrente.io);
+		else if ('pensa' in corrente) void voceMia(corrente.pensa, true);
 		else if ('domanda' in corrente) void voce(corrente.domanda.ja, 'F', false);
 	}
 
@@ -282,21 +317,21 @@
 	onMount(() => {
 		try {
 			const raw = JSON.parse(localStorage.getItem(SALVA) ?? 'null') as Stato | null;
-			const l = localStorage.getItem(SALVA_LINGUA) as Lingua | null;
-			if (l && LINGUE.includes(l)) lingua = l;
-			if (raw?.versione === 1) {
-				salvato = raw;
-				nome = raw.nome;
-			}
+			imp = caricaImpostazioni();
+			if (raw?.versione === 1) salvato = raw;
 		} catch {
 			/* niente storage */
 		}
 		loop = setInterval(() => (tick += 1), 110);
+		// le voci del sistema arrivano anche dopo
+		voci = vociGiapponesi();
+		if (typeof window !== 'undefined' && window.speechSynthesis) window.speechSynthesis.onvoiceschanged = () => (voci = vociGiapponesi());
 	});
 	onDestroy(() => {
 		if (loop) clearInterval(loop);
 		if (toastTimer) clearTimeout(toastTimer);
 		hush();
+		ascolto?.abort();
 	});
 </script>
 
@@ -311,6 +346,7 @@
 		<a class="back" href="{base}/avventure">{L(UI.indietro)}</a>
 		<span class="row">
 			<button class="mini" onclick={cambiaLingua} title="Lingua dell'interfaccia / UI language">{L(UI.lingua)}</button>
+			<button class="mini" onclick={() => (impostazioni = true)} title="Impostazioni">⚙️</button>
 			{#if stato && fase !== 'inizio'}
 				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
 				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
@@ -339,8 +375,14 @@
 				{#each UI.regole as t, i (i)}<li>{@render testoUI(t)}</li>{/each}
 			</ul>
 			<label class="nome">{L(UI.nome)}
-				<input bind:value={nome} maxlength="12" />
+				<input bind:value={imp.nome} maxlength="12" onchange={salvaImp} />
 			</label>
+			<div class="row sesso">
+				<span>{L(UI.sesso)}</span>
+				<button class="btn small" class:ghost={imp.sesso !== 'M'} onclick={() => { imp.sesso = 'M'; salvaImp(); }}>👨 {L(UI.uomo)}</button>
+				<button class="btn small" class:ghost={imp.sesso !== 'F'} onclick={() => { imp.sesso = 'F'; salvaImp(); }}>👩 {L(UI.donna)}</button>
+				<button class="btn small ghost" onclick={() => (impostazioni = true)}>{L(UI.impostazioni)}</button>
+			</div>
 			<div class="row">
 				{#if salvato && !salvato.finita}
 					<button class="btn big" onclick={continua}>{L(UI.continua)} ({salvato.nome}, {dataJa(salvato.giorno)} {hhmm(salvato.minuti)})</button>
@@ -424,17 +466,28 @@
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'io' in corrente}
-						<p class="dname io">{stato.nome}</p>
-						<p class="ja"><Frase text={testo(corrente.io)} {dividi} /></p>
+						<p class="dname io">{stato.nome}{corrente.detto ? ' 🎤' : ''}</p>
+						<p class="ja mia">「<Frase text={testo(corrente.io)} {dividi} />」</p>
 						{#if mostraIt && corrente.it}<p class="it">{testo(corrente.it)}</p>{/if}
 						<div class="row">
 							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							<button class="btn ghost small" onclick={riascolta}>🔊</button>
 							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if !mostraIt && corrente.it}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
+					{:else if 'pensa' in corrente}
+						<p class="dname io">💭 {stato.nome} <small>{L(UI.pensiero)}</small></p>
+						<p class="ja pensiero">（<Frase text={testo(corrente.pensa)} {dividi} />）</p>
+						{#if mostraIt}<p class="it">{testo(corrente.it)}</p>{/if}
+						<div class="row">
+							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							<button class="btn ghost small" onclick={riascolta}>🔊</button>
+							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+						</div>
 					{:else if 'narra' in corrente || 'nota' in corrente}
 						{@const t = 'narra' in corrente ? { ja: corrente.narra, it: corrente.it, en: corrente.en } : { ja: corrente.nota, it: corrente.it, en: corrente.en }}
-						<p class="narra" class:nota-gioco={'nota' in corrente}>
+						<p class="narra" class:didascalia={'narra' in corrente} class:nota-gioco={'nota' in corrente}>
 							{'nota' in corrente ? '💡 ' : ''}{#if lingua === 'ja'}<Frase text={testo(t.ja)} {dividi} />{:else}{testo(L(t))}{/if}
 						</p>
 						{#if lingua === 'ja' && mostraIt}<p class="it">{testo(t.it)}</p>{/if}
@@ -454,7 +507,10 @@
 							{/each}
 						</div>
 						{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+							<div class="row">
+							{#if microfono}<button class="btn small" class:ascolta={ascolto} onclick={rispondiAVoce}>{ascolto ? L(UI.ascolto) : L(UI.dillo)}</button>{/if}
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+						</div>
 					{:else if 'domanda' in corrente}
 						{@const g = giustaDomanda()}
 						<p class="dname">{L(UI.domanda)}</p>
@@ -527,6 +583,42 @@
 	{/if}
 
 	{#if toast}<div class="toast">{toast}</div>{/if}
+
+	{#if impostazioni}
+		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) { salvaImp(); impostazioni = false; } }}>
+			<section class="panel taccuino">
+				<header><h2>{L(UI.impostazioni)}</h2><button class="mini" onclick={() => { salvaImp(); impostazioni = false; }}>✖</button></header>
+				<div class="paper imp">
+					<label>{L(UI.nome)}<input bind:value={imp.nome} maxlength="12" onchange={salvaImp} /></label>
+					<div class="row"><span>{L(UI.sesso)}</span>
+						<button class="btn small" class:ghost={imp.sesso !== 'M'} onclick={() => { imp.sesso = 'M'; imp.voce = null; salvaImp(); }}>👨 {L(UI.uomo)}</button>
+						<button class="btn small" class:ghost={imp.sesso !== 'F'} onclick={() => { imp.sesso = 'F'; imp.voce = null; salvaImp(); }}>👩 {L(UI.donna)}</button>
+					</div>
+					<label>{L(UI.voceTua)}
+						<select bind:value={imp.voce} onchange={salvaImp}>
+							<option value={null}>{L(UI.predefinita)} ({imp.sesso === 'F' ? '👩' : '👨'})</option>
+							{#each [...voci].sort((a, b) => Number(b.sesso === imp.sesso) - Number(a.sesso === imp.sesso)) as v (v.uri)}
+								<option value={v.uri}>{v.sesso === 'F' ? '👩' : v.sesso === 'M' ? '👨' : '🗣️'} {v.nome}</option>
+							{/each}
+						</select>
+					</label>
+					<label>{L(UI.tono)} ({imp.tono.toFixed(2)})<input type="range" min="0.6" max="1.4" step="0.05" bind:value={imp.tono} onchange={salvaImp} /></label>
+					<label>{L(UI.velocita)}
+						<select bind:value={imp.velocita} onchange={salvaImp}>
+							<option value={0.8}>0.8×</option><option value={0.9}>0.9×</option><option value={1}>1×</option><option value={1.1}>1.1×</option>
+						</select>
+					</label>
+					<label class="check"><input type="checkbox" bind:checked={imp.autoVoce} onchange={salvaImp} /> {L(UI.autoVoce)}</label>
+					<label>{L(UI.linguaUI)}
+						<select bind:value={imp.lingua} onchange={salvaImp}>
+							<option value="ja">日本語</option><option value="it">Italiano</option>
+						</select>
+					</label>
+					<button class="btn small" onclick={() => void voceMia(UI.frasePerProva.ja)}>{L(UI.provaVoce)}</button>
+				</div>
+			</section>
+		</div>
+	{/if}
 
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
@@ -661,6 +753,17 @@
 		.scena { grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); align-items: start; }
 		.scena .dialog { min-height: 100%; }
 	}
+	.mia { text-align: right; color: #7a2d55; }
+	.pensiero { color: #6b6890; font-style: italic; }
+	.dname small { font-weight: 400; color: #888; }
+	.narra.didascalia { background: #3f3f74; color: #f4f4f4; --ink: #f4f4f4; --line: #8f8dc0; padding: 8px 10px; border-left: 5px solid #fbf236; font-style: normal; }
+	.btn.ascolta { background: #d95763; animation: pulsa 1s ease-in-out infinite; }
+	@keyframes pulsa { 50% { opacity: 0.7; } }
+	.sesso span { font-size: 0.9rem; }
+	.imp { display: grid; gap: 10px; }
+	.imp label { display: grid; gap: 4px; font-size: 0.88rem; }
+	.imp label.check { display: flex; align-items: center; gap: 6px; }
+	.imp input:not([type]), .imp select { font: inherit; padding: 5px 6px; border: 2px solid var(--px-line); background: #fff; color: #222034; }
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }

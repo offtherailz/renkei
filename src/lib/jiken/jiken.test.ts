@@ -17,6 +17,7 @@ function testiJa(): string[] {
 			else if ('nota' in p) out.push(p.nota);
 			else if ('obiettivo' in p) out.push(p.ja);
 			else if ('io' in p) out.push(p.io);
+			else if ('pensa' in p) out.push(p.pensa);
 			else if ('scelta' in p) p.scelta.forEach((o) => { out.push(o.ja); passi(o.passi ?? []); });
 			else if ('se' in p) { passi(p.allora); passi(p.altrimenti ?? []); }
 			else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); }
@@ -129,5 +130,34 @@ describe('事件: missione 1 si può finire', () => {
 		expect(s.flag).toContain('regalo.dato');
 		expect(s.finita).toBe('はじめての 一週間');
 		expect(s.obiettivi.filter((o) => !o.fatto)).toEqual([]);
+	});
+});
+
+describe('事件: risposte dette a voce', () => {
+	it('riconosce l’opzione anche scritta in kanji dal riconoscitore', async () => {
+		const { opzioneDetta: od, lettureKanji } = await import('./voce');
+		const { readFileSync } = await import('node:fs');
+		const letture = lettureKanji(JSON.parse(readFileSync('static/seed-n5n4.json', 'utf8')).words);
+		const opzioneDetta = (s: string[], o: string[]) => od(s, o, letture);
+		const a = ['はい、よく ねられました。', 'いいえ、あまり ねられませんでした。'];
+		expect(opzioneDetta(['はいよく寝られました'], a)).toBe(0);
+		expect(opzioneDetta(['いいえあまり寝られませんでした'], a)).toBe(1);
+		const b = ['{nome}です。よろしく おねがいします。', 'どうも。'];
+		expect(opzioneDetta(['ルカですよろしくお願いします'], b.map((x) => x.replace('{nome}', 'ルカ')))).toBe(0);
+		const c = ['さいふを なくしました。', 'さいふを ひろいました。'];
+		expect(opzioneDetta(['財布をなくしました'], c)).toBe(0);
+		expect(opzioneDetta(['財布を拾いました'], c)).toBe(1);
+		expect(opzioneDetta(['今日はいい天気ですね'], c)).toBe(null);
+	});
+});
+
+describe('事件: nome in katakana', () => {
+	it.each([
+		['luca', 'ルカ'], ['Giulia', 'ジュリア'], ['chiara', 'キアラ'], ['francesca', 'フランチェスカ'],
+		['marco', 'マルコ'], ['giorgio', 'ジョルジョ'], ['simone', 'シモネ'], ['ルカ', 'ルカ'], ['', 'ルカ']
+	])('%s → %s', async (n, k) => {
+		const { nomeKatakana } = await import('./voce');
+		const { romajiToHiragana } = await import('$lib/core/romaji');
+		expect(nomeKatakana(n, romajiToHiragana)).toBe(k);
 	});
 });

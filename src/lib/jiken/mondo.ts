@@ -18,27 +18,27 @@ export const LUOGHI: Luogo[] = [
 	},
 	{
 		id: 'konbini', nome: 'ハッピーマート', it: 'konbini Happy Mart', icona: '🏪', sfondo: 'konbini', x: 94.1, y: 64.5,
-		ambiente: [{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: 'たなを 見ましたが、買う ものは ありません。', it: 'Dai un’occhiata agli scaffali, ma non ti serve niente.' }]
+		ambiente: [{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: 'たなを 見ましたが、買う ものは ありません。', it: 'Dai un’occhiata agli scaffali, ma non ti serve niente.' }]
 	},
 	{
 		id: 'shokudo', nome: 'ふじ食堂', it: 'trattoria Fuji', icona: '🍱', sfondo: 'ristorante', x: 69.4, y: 65.5,
 		orario: { fasce: [[h(11), h(15)], [h(17), h(21)]] },
-		ambiente: [{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: '今は おなかが すいて いません。', it: 'Non hai fame adesso.' }]
+		ambiente: [{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '今は おなかが すいて いません。', it: 'Non hai fame adesso.' }]
 	},
 	{
 		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '〒', sfondo: 'posta', x: 29.1, y: 73,
 		orario: { giorni: FERIALI, fasce: [[h(9), h(17)]] },
-		ambiente: [{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: '送る ものは ありません。', it: 'Non hai niente da spedire.' }]
+		ambiente: [{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '送る ものは ありません。', it: 'Non hai niente da spedire.' }]
 	},
 	{
 		id: 'panya', nome: 'パン屋', it: 'panetteria', icona: '🥐', sfondo: 'panetteria', x: 77.4, y: 65,
 		orario: { fasce: [[h(7), h(19)]] },
-		ambiente: [{ dice: 'fornaia', ja: 'いらっしゃいませ。やきたての パンが ありますよ。', it: 'Benvenuto. Abbiamo pane appena sfornato.' }]
+		ambiente: [{ dice: 'fornaia', ja: 'いらっしゃいませ。やきたての パンが ありますよ。', it: 'Benvenut{o}. Abbiamo pane appena sfornato.' }]
 	},
 	{
 		id: 'hanaya', nome: '花屋', it: 'fioraio', icona: '💐', sfondo: 'fioraio', x: 85.4, y: 65,
 		orario: { fasce: [[h(10), h(19)]] },
-		ambiente: [{ dice: 'fioraia', ja: 'いらっしゃいませ。きれいな 花が ありますよ。', it: 'Benvenuto. Abbiamo bei fiori.' }]
+		ambiente: [{ dice: 'fioraia', ja: 'いらっしゃいませ。きれいな 花が ありますよ。', it: 'Benvenut{o}. Abbiamo bei fiori.' }]
 	},
 	{
 		id: 'koban', nome: '交番[こうばん]', it: 'posto di polizia', icona: '👮', sfondo: 'koban', x: 42.5, y: 80.7,
@@ -56,7 +56,7 @@ export const LUOGHI: Luogo[] = [
 	{
 		id: 'kissa', nome: '喫茶[きっさ]あおい', it: 'caffè Aoi', icona: '☕', sfondo: 'cafe', x: 96.8, y: 52,
 		orario: { giorni: [0, 1, 3, 4, 5, 6], fasce: [[h(7), h(20)]] },
-		ambiente: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenuto. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'コーヒーを 飲みました（400円）。30分 休みました。', it: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }]
+		ambiente: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenut{o}. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'コーヒーを 飲みました（400円）。30分 休みました。', it: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }]
 	},
 	{
 		id: 'apartment', nome: '木村[きむら]アパート', it: 'condominio Kimura', icona: '🏢', sfondo: 'condominio', x: 87.2, y: 47,
