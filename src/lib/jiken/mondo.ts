@@ -1,0 +1,109 @@
+// 事件 — il mondo: さくら町 (luoghi sulla mappa disegnata, orari), personaggi
+// e oggetti. Kanji solo N5/N4: gli altri in kana o con furigana base[lettura]
+// (nomi di persona e di luogo).
+import type { Luogo, LuogoId, Personaggio } from './tipi';
+
+const h = (ore: number, min = 0): number => ore * 60 + min;
+const FERIALI = [0, 1, 2, 3, 4];
+
+export const LUOGHI: Luogo[] = [
+	{
+		id: 'casa', nome: '吉田[よしだ]さんの 家', it: 'casa della famiglia Yoshida', icona: '🏠', sfondo: 'casa', x: 68.3, y: 36.5,
+		ambiente: [{ dice: 'mamma', ja: 'あら、{nome}さん。どう したの？', it: 'Oh, {nome}. Che succede?' }, { narra: 'A casa per ora non c’è niente da fare. Si torna la sera, per cena e per dormire.' }]
+	},
+	{
+		id: 'ufficio', nome: 'さくら会社', it: 'la ditta Sakura (ufficio)', icona: '🏢', sfondo: 'ufficio', x: 27.3, y: 56.6,
+		orario: { giorni: FERIALI, fasce: [[h(7), h(20)]] }, orarioIt: 'lun-ven 7-20',
+		ambiente: [{ dice: 'suzuki', ja: '{nome}さん、おつかれさまです。', it: 'Buon lavoro, {nome}.' }, { narra: 'In ufficio ognuno è al suo lavoro.' }]
+	},
+	{
+		id: 'konbini', nome: 'ハッピーマート', it: 'konbini Happy Mart', icona: '🏪', sfondo: 'konbini', x: 94.1, y: 64.5, orarioIt: '24 ore',
+		ambiente: [{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: 'Dai un’occhiata agli scaffali, ma non ti serve niente.' }]
+	},
+	{
+		id: 'shokudo', nome: 'ふじ食堂', it: 'trattoria Fuji', icona: '🍱', sfondo: 'ristorante', x: 69.4, y: 65.5,
+		orario: { fasce: [[h(11), h(15)], [h(17), h(21)]] }, orarioIt: '11-15, 17-21',
+		ambiente: [{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: 'Non hai fame adesso.' }]
+	},
+	{
+		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '〒', sfondo: 'posta', x: 29.1, y: 73,
+		orario: { giorni: FERIALI, fasce: [[h(9), h(17)]] }, orarioIt: 'lun-ven 9-17',
+		ambiente: [{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenuto.' }, { narra: 'Non hai niente da spedire.' }]
+	},
+	{
+		id: 'panya', nome: 'パン屋', it: 'panetteria', icona: '🥐', sfondo: 'panetteria', x: 77.4, y: 65,
+		orario: { fasce: [[h(7), h(19)]] }, orarioIt: '7-19',
+		ambiente: [{ dice: 'fornaia', ja: 'いらっしゃいませ。やきたての パンが ありますよ。', it: 'Benvenuto. Abbiamo pane appena sfornato.' }]
+	},
+	{
+		id: 'hanaya', nome: '花屋', it: 'fioraio', icona: '💐', sfondo: 'fioraio', x: 85.4, y: 65,
+		orario: { fasce: [[h(10), h(19)]] }, orarioIt: '10-19',
+		ambiente: [{ dice: 'fioraia', ja: 'いらっしゃいませ。きれいな 花が ありますよ。', it: 'Benvenuto. Abbiamo bei fiori.' }]
+	},
+	{
+		id: 'koban', nome: '交番[こうばん]', it: 'posto di polizia', icona: '👮', sfondo: 'koban', x: 42.5, y: 80.7, orarioIt: 'sempre',
+		ambiente: [{ narra: 'Il poliziotto di turno è fuori in bicicletta. Sulla bacheca ci sono avvisi di oggetti smarriti.' }]
+	},
+	{
+		id: 'parco', nome: 'さくら公園[こうえん]', it: 'parco Sakura', icona: '🌸', sfondo: 'parco', x: 53.8, y: 53.4,
+		ambiente: [{ narra: 'I ciliegi sono in fiore. Qualcuno fa un picnic sotto gli alberi (お花見).' }]
+	},
+	{
+		id: 'gakkou', nome: '日本語学校', it: 'scuola di giapponese (sera)', icona: '🏫', sfondo: 'scuola', x: 39.2, y: 32.5,
+		orario: { giorni: [0, 2, 4], fasce: [[h(18), h(21)]] }, orarioIt: 'lun, mer, ven 18-21',
+		ambiente: [{ narra: 'In classe ci sono gli studenti della sera. La lezione sta per cominciare.' }]
+	},
+	{
+		id: 'kissa', nome: '喫茶[きっさ]あおい', it: 'caffè Aoi', icona: '☕', sfondo: 'cafe', x: 96.8, y: 52,
+		orario: { giorni: [0, 1, 3, 4, 5, 6], fasce: [[h(7), h(20)]] }, orarioIt: '7-20, chiuso il mercoledì',
+		ambiente: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenuto. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }]
+	},
+	{
+		id: 'apartment', nome: '木村[きむら]アパート', it: 'condominio Kimura', icona: '🏢', sfondo: 'condominio', x: 87.2, y: 47,
+		ambiente: [{ narra: 'L’ingresso del condominio. Sulla bacheca, un avviso sulla raccolta dei rifiuti.' }]
+	},
+	{
+		id: 'eki', nome: 'さくら町駅', it: 'stazione di Sakura-chō', icona: '🚉', sfondo: 'stazione', x: 76.3, y: 87.2,
+		ambiente: [{ narra: 'I treni vanno verso il centro di Yamano e verso Tokyo. Per ora non hai motivo di partire: altri quartieri si apriranno con le missioni.' }]
+	},
+	{
+		id: 'jinja', nome: '山の神社[じんじゃ]', it: 'santuario della collina', icona: '⛩', sfondo: 'jinja', x: 64, y: 14.3,
+		bloccato: { nonFlag: ['jinja.aperto'] }, bloccatoIt: 'si apre con una missione'
+	},
+	{
+		id: 'tera', nome: 'お寺[てら]', it: 'tempio buddista', icona: '🛕', sfondo: 'tera', x: 13.8, y: 19.5,
+		bloccato: { nonFlag: ['tera.aperto'] }, bloccatoIt: 'si apre più avanti'
+	}
+];
+export const LUOGO = Object.fromEntries(LUOGHI.map((l) => [l.id, l])) as Record<LuogoId, Luogo>;
+
+export const PERSONAGGI: Record<string, Personaggio> = {
+	mamma: { nome: 'お母さん', sprite: 'mamma', voce: 'F' },
+	papa: { nome: 'お父さん', sprite: 'papa', voce: 'M' },
+	mori: { nome: '森[もり]ぶちょう', sprite: 'capo_donna', voce: 'F' },
+	suzuki: { nome: '鈴木[すずき]さん', sprite: 'collega_donna', voce: 'F' },
+	tanaka: { nome: '田中さん', sprite: 'collega_uomo', voce: 'M' },
+	commessa: { nome: '店員', sprite: 'commessa_konbini', voce: 'F' },
+	oste: { nome: '店の 人', sprite: 'cameriere', voce: 'M' },
+	postino: { nome: '郵便局[ゆうびんきょく]の 人', sprite: 'commesso', voce: 'M' },
+	fornaia: { nome: 'パン屋の 人', sprite: 'panettiera', voce: 'F' },
+	fioraia: { nome: '花屋の 人', sprite: 'fioraia', voce: 'F' },
+	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M' },
+	nakamuraTel: { nome: '中村[なかむら]さん（電話）', sprite: null, voce: 'M' },
+	takahashi: { nome: '高橋[たかはし]くん', sprite: 'studente_uomo', voce: 'M' },
+	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F' },
+	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M' }
+};
+
+export const OGGETTI: Record<string, { it: string; ja: string }> = {
+	portafoglio: { it: 'portafoglio', ja: 'さいふ' },
+	busta: { it: 'busta coi documenti da spedire', ja: 'しょるい' },
+	ricevuta_posta: { it: 'ricevuta della posta', ja: '郵便局[ゆうびんきょく]の レシート' },
+	scontrino: { it: 'scontrino della konbini', ja: 'コンビニの レシート' },
+	latte: { it: 'latte', ja: 'ぎゅうにゅう' },
+	sacchetto_pane: { it: 'pane per regalo', ja: 'パン' },
+	mazzo_fiori: { it: 'mazzo di fiori', ja: '花' }
+};
+// icone degli oggetti (static/giorno/oggetti); quelli senza disegno usano un'emoji
+const ICONA_FILE: Record<string, string> = { busta: 'lettera' };
+export const iconaOggetto = (id: string): string => ICONA_FILE[id] ?? id;

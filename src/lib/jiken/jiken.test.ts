@@ -1,0 +1,128 @@
+import { describe, expect, it } from 'vitest';
+import { existsSync } from 'node:fs';
+import { isInLevel } from '$lib/data/kanjiN4';
+import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, scenaPer, verifica, viaggia } from './motore';
+import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
+import { M1 } from './missioni/m1';
+import type { LuogoId, Passo, Stato } from './tipi';
+
+// tutte le frasi giapponesi di mondo e missioni
+function testiJa(): string[] {
+	const out: string[] = [];
+	const passi = (ps: Passo[]): void => {
+		for (const p of ps) {
+			if ('dice' in p) out.push(p.ja);
+			else if ('io' in p) out.push(p.io);
+			else if ('scelta' in p) p.scelta.forEach((o) => { out.push(o.ja); passi(o.passi ?? []); });
+			else if ('se' in p) { passi(p.allora); passi(p.altrimenti ?? []); }
+			else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); }
+			else if ('prova' in p) { out.push(p.prova.ja); passi(p.prova.ok); passi(p.prova.no); }
+		}
+	};
+	for (const l of LUOGHI) { out.push(l.nome); passi(l.ambiente ?? []); }
+	for (const c of Object.values(PERSONAGGI)) out.push(c.nome);
+	for (const o of Object.values(OGGETTI)) out.push(o.ja);
+	for (const sc of M1.scene) passi(sc.passi);
+	out.push(M1.titolo);
+	return out;
+}
+
+describe('事件: testi', () => {
+	it('kanji solo N5/N4 (gli altri con furigana base[lettura])', () => {
+		const fuori: string[] = [];
+		for (const t of testiJa()) {
+			const senzaRuby = t.replace(/[一-龯々]+\[[^\]]+\]/g, '');
+			for (const ch of senzaRuby) if (/[一-龯]/.test(ch) && !isInLevel(ch)) fuori.push(`${ch} in «${t}»`);
+		}
+		expect(fuori).toEqual([]);
+	});
+	it('personaggi, sfondi e oggetti esistono', () => {
+		const mancano: string[] = [];
+		for (const c of Object.values(PERSONAGGI)) if (c.sprite && !existsSync(`static/giorno/ritratti/${c.sprite}-chiusa.png`)) mancano.push(c.sprite);
+		for (const l of LUOGHI) if (!existsSync(`static/giorno/sfondi/${l.sfondo}.jpg`)) mancano.push(l.sfondo);
+		for (const o of Object.keys(OGGETTI)) if (!existsSync(`static/giorno/oggetti/${iconaOggetto(o)}.png`)) mancano.push(o);
+		expect(mancano).toEqual([]);
+	});
+	it('chi parla è un personaggio conosciuto', () => {
+		const ignoti: string[] = [];
+		const passi = (ps: Passo[]): void => {
+			for (const p of ps) {
+				if ('dice' in p && !PERSONAGGI[p.dice]) ignoti.push(p.dice);
+				if ('scelta' in p) p.scelta.forEach((o) => passi(o.passi ?? []));
+				if ('se' in p) { passi(p.allora); passi(p.altrimenti ?? []); }
+				if ('prova' in p) { passi(p.prova.ok); passi(p.prova.no); }
+			}
+		};
+		for (const l of LUOGHI) passi(l.ambiente ?? []);
+		for (const sc of M1.scene) passi(sc.passi);
+		expect(ignoti).toEqual([]);
+	});
+});
+
+describe('事件: motore', () => {
+	it('date e orari', () => {
+		expect(dataJa(0)).toBe('4月6日（月）');
+		expect(dataJa(2)).toBe('4月8日（水）');
+		const s = nuovoStato('ルカ', 'm1');
+		expect(apertura(LUOGO.posta, { ...s, minuti: 17 * 60 })).toBe('chiuso');
+		expect(apertura(LUOGO.posta, { ...s, minuti: 16 * 60 + 59 })).toBe('aperto');
+		expect(apertura(LUOGO.kissa, { ...s, giorno: 2, minuti: 10 * 60 })).toBe('chiuso'); // mercoledì
+		expect(apertura(LUOGO.jinja, s)).toBe('bloccato');
+		expect(verifica({ giorno: [1, 2], dalle: 600 }, { ...s, giorno: 2, minuti: 600 })).toBe(true);
+	});
+	it('soldi: l’opzione più vicina', () => {
+		expect(giustaSoldi([10000, 5000, 4000, 2000], 4010)).toBe(2);
+		expect(giustaSoldi([10000, 5000, 4000, 2000], 4660)).toBe(1);
+	});
+});
+
+// Giocatore automatico: va nei luoghi indicati, sceglie la prima opzione,
+// risponde giusto alle domande e mostra la prova giusta.
+function gioca(s0: Stato, giro: LuogoId[]): { s: Stato; errori: number } {
+	let s = s0;
+	let errori = 0;
+	for (const dest of giro) {
+		s = viaggia(s, dest);
+		if (apertura(LUOGO[dest], s) !== 'aperto') continue;
+		const sc = scenaPer(dest, s, M1);
+		if (!sc) continue;
+		s = { ...s, fatte: [...s.fatte, sc.id] };
+		let coda: Passo[] = sc.passi;
+		for (;;) {
+			const r = avanza(s, coda);
+			s = r.stato;
+			coda = r.coda;
+			const p = r.mostra;
+			if (!p) break;
+			if ('scelta' in p) coda = [...(p.scelta[0]!.passi ?? []), ...coda];
+			else if ('domanda' in p) {
+				const g = p.domanda.giusta === 'soldi' ? giustaSoldi(p.domanda.opzioni.map((o) => o.valore), s.soldi) : p.domanda.giusta;
+				if (g < 0 || g >= p.domanda.opzioni.length) errori++;
+			} else if ('prova' in p) coda = [...(p.prova.giuste.some((g) => s.oggetti.includes(g)) ? p.prova.ok : p.prova.no), ...coda];
+			else if ('fine' in p) s = { ...s, finita: p.fine };
+		}
+	}
+	return { s, errori };
+}
+
+describe('事件: missione 1 si può finire', () => {
+	it('giro completo in tre giornate', () => {
+		let s = nuovoStato('ルカ', 'm1');
+		let r = gioca(s, ['casa', 'ufficio', 'shokudo', 'posta', 'ufficio', 'konbini', 'casa']);
+		s = r.s;
+		expect(s.giorno).toBe(1);
+		expect(s.oggetti).not.toContain('portafoglio');
+		expect(s.flag).toContain('posta.ok');
+		r = gioca(s, ['casa', 'ufficio', 'shokudo', 'konbini', 'koban', 'ufficio', 'casa']);
+		s = r.s;
+		expect(s.giorno).toBe(2);
+		expect(s.oggetti).toContain('portafoglio');
+		r = gioca(s, ['casa', 'ufficio', 'parco', 'kissa', 'ufficio', 'panya', 'gakkou', 'casa']);
+		s = r.s;
+		expect(r.errori).toBe(0);
+		expect(s.flag).toContain('grazie.ok');
+		expect(s.flag).toContain('regalo.dato');
+		expect(s.finita).toBe('はじめての 一週間');
+		expect(s.obiettivi.filter((o) => !o.fatto)).toEqual([]);
+	});
+});

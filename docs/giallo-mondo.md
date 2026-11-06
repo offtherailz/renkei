@@ -24,7 +24,7 @@ dall'altra, quartieri piccoli con 商店街, un santuario in collina.
 | luogo | nome | cosa ci si fa | orari | sfondo / sprite |
 |---|---|---|---|---|
 | casa | 吉田さんの家 | dormire (fine giornata, salvataggio), colazione, commissioni dalla famiglia | sempre | casa / mamma, papa |
-| ufficio | さくら会社 | lavoro, **bacheca missioni**, colleghi | 9-18 (lun-ven) | ufficio, ufficio_capo, magazzino |
+| ufficio | さくら会社 | lavoro, **bacheca missioni**, colleghi | 7-20 (lun-ven), lavoro 9-17:30 | ufficio, ufficio_capo, magazzino |
 | コンビニ | ハッピーマート | spesa, fotocopie, pagare bollette, ritirare pacchi | 24 ore | konbini / commessa_konbini |
 | 喫茶店 | 喫茶あおい | appuntamenti, voci di quartiere | 7-20, chiuso mer | cafe / cameriere (伊藤さん) |
 | ristorante | ふじ食堂 | pranzo e cena (menù, prezzi, ordinare) | 11-15, 17-21 | ristorante / cameriere |
@@ -34,7 +34,7 @@ dall'altra, quartieri piccoli con 商店街, un santuario in collina.
 | fioraio | 花屋 | regali | 10-19 | fioraio / fioraia |
 | posto di polizia | 交番 | oggetti smarriti, chiedere la strada | sempre | **manca** |
 | parco | さくら公園 | passeggiare, incontri, indizi | sempre | parco |
-| scuola serale | 学校 | lezione di giapponese (リン, 高橋) | 18-21 mar e gio | scuola / insegnante |
+| scuola serale | 日本語学校 | lezione di giapponese (リン, 高橋) | 18-21 lun, mer, ven | scuola / insegnante |
 | condominio | 木村アパート | vicini, padrone di casa | sempre | condominio / padrone |
 | stazione | さくら町駅 | treno verso gli altri quartieri | 5-24 | stazione |
 | 🔒 santuario | 山の神社 | (missione 2) | sempre | **manca** |
@@ -201,6 +201,18 @@ Finale: la riunione col cliente viene spostata alla ホテル みどり vicino a
 - ミケ (sprite).
 - Più avanti: la mappa disegnata (stile mappa turistica giapponese) da mettere
   sotto l'SVG.
+
+## Stato (2026-11-06)
+
+Fatto: motore v0 (`src/lib/jiken/`: tipi, motore, mondo, missioni/m1) e pagina
+`/jiken`; missione 1 completa e giocabile; test in `src/lib/jiken/jiken.test.ts`
+(kanji fuori livello, asset presenti, giocatore automatico che finisce la
+missione). Punti cliccabili posati sulla mappa disegnata (giorno/notte).
+
+Differenze dal piano: la scuola serale è lun-mer-ven (serve il mercoledì);
+l'ufficio è aperto 7-20; nella missione 1 il portafoglio si dimostra tuo
+dicendo quanti soldi c'erano dentro (domanda sui conti della giornata) e
+mostrando una ricevuta.
 
 ## Ordine di lavoro aggiornato
 

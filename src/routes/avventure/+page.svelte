@@ -48,12 +48,12 @@
 			ready: true
 		},
 		{
-			href: '',
+			href: `${base}/jiken`,
 			icon: '🕵️',
 			title: '事件',
 			yomi: 'じけん',
-			desc: 'Un giallo in ufficio: interroga, raccogli indizi, trova la contraddizione. Si risolve capendo le forme.',
-			ready: false
+			desc: 'Vivi a さくら町: lavoro, commissioni e piccoli misteri da risolvere girando per il quartiere. Missione 1: la prima settimana.',
+			ready: true
 		}
 	];
 </script>
