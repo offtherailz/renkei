@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { analyzeSentence, jishoUrl, tokenFurigana, type WordHit } from '$lib/core/wordLookup';
@@ -15,7 +14,9 @@
 	// testo con eventuale notazione furigana base[lettura]; mark = sottostringhe
 	// del testo da evidenziare (es. la frase che conteneva la risposta);
 	// furigana = letture sopra i kanji ricavate dal catalogo (per il dopo-risposta)
-	const { text, mark = [], furigana = false }: { text: string; mark?: string[]; furigana?: boolean } = $props();
+	// spazi = rispetta gli spazi del testo (わかち書き): le parole si cercano solo
+	// dentro ogni gruppo, così il divisore non taglia a cavallo dei gruppi
+	const { text, mark = [], furigana = false, spazi = false }: { text: string; mark?: string[]; furigana?: boolean; spazi?: boolean } = $props();
 
 	const plain = $derived(stripFuriganaNotation(text));
 	let tokens = $state<string[]>([]);
@@ -98,10 +99,36 @@
 		return ranges.some(([a, b]) => o[0] < b && o[1] > a);
 	}
 
-	onMount(async () => {
+	// Si rianalizza a ogni cambio di testo (lo stesso componente può mostrare
+	// frasi diverse una dopo l'altra, come nei dialoghi): conta solo l'ultima.
+	let richiesta = 0;
+	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
 		// 1) BudouX → 2) riattacca ausiliari (働き+ます) → 3) riunisce parole composte
 		// spezzate se esistono a catalogo (一生懸命 → 一生+懸命).
-		({ tokens, hits } = await analyzeSentence(plain, detectUserLocale()));
+		if (!spazi) return analyzeSentence(p, detectUserLocale());
+		const out: { tokens: string[]; hits: (WordHit | null)[] } = { tokens: [], hits: [] };
+		const gruppi = p.split(/([ 　]+)/).filter((g) => g);
+		for (const g of gruppi) {
+			if (/^[ 　]+$/.test(g)) {
+				out.tokens.push(' ');
+				out.hits.push(null);
+				continue;
+			}
+			const r = await analyzeSentence(g, detectUserLocale());
+			out.tokens.push(...r.tokens);
+			out.hits.push(...r.hits);
+		}
+		return out;
+	}
+	$effect(() => {
+		const p = plain;
+		const id = ++richiesta;
+		closePopover();
+		tokens = [];
+		hits = [];
+		void analizza(p).then((r) => {
+			if (id === richiesta) ({ tokens, hits } = r);
+		});
 	});
 
 	function toggle(i: number, e: MouseEvent): void {
@@ -136,7 +163,7 @@
 	}
 </script>
 
-<span class="isentence">
+<span class="isentence" class:spazi>
 	{#if tokens.length === 0}
 		{plain}
 	{:else}
@@ -198,6 +225,9 @@
 	.marked { background: rgba(245, 158, 11, 0.22); border-radius: 4px; }
 	.tok:hover { background: rgba(107, 160, 242, 0.14); border-radius: 4px; }
 	.punct { color: var(--ink); }
+	/* a gruppi: dentro il gruppo le parole stanno attaccate, tra i gruppi lo spazio */
+	.spazi .tok { padding: 1px 0; }
+	.spazi .punct { white-space: pre; }
 
 	.tok-pop {
 		position: fixed;

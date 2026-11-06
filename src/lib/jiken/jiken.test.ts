@@ -4,7 +4,8 @@ import { isInLevel } from '$lib/data/kanjiN4';
 import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, scenaPer, verifica, viaggia } from './motore';
 import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
-import type { LuogoId, Passo, Stato } from './tipi';
+import { UI } from './ui';
+import type { LuogoId, Passo, Stato, Testo } from './tipi';
 
 // tutte le frasi giapponesi di mondo e missioni
 function testiJa(): string[] {
@@ -12,6 +13,9 @@ function testiJa(): string[] {
 	const passi = (ps: Passo[]): void => {
 		for (const p of ps) {
 			if ('dice' in p) out.push(p.ja);
+			else if ('narra' in p) out.push(p.narra);
+			else if ('nota' in p) out.push(p.nota);
+			else if ('obiettivo' in p) out.push(p.ja);
 			else if ('io' in p) out.push(p.io);
 			else if ('scelta' in p) p.scelta.forEach((o) => { out.push(o.ja); passi(o.passi ?? []); });
 			else if ('se' in p) { passi(p.allora); passi(p.altrimenti ?? []); }
@@ -19,7 +23,8 @@ function testiJa(): string[] {
 			else if ('prova' in p) { out.push(p.prova.ja); passi(p.prova.ok); passi(p.prova.no); }
 		}
 	};
-	for (const l of LUOGHI) { out.push(l.nome); passi(l.ambiente ?? []); }
+	for (const l of LUOGHI) { out.push(l.nome); if (l.perche) out.push(l.perche.ja); passi(l.ambiente ?? []); }
+	for (const v of Object.values(UI)) for (const t of [v].flat() as Testo[]) out.push(t.ja);
 	for (const c of Object.values(PERSONAGGI)) out.push(c.nome);
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
 	for (const sc of M1.scene) passi(sc.passi);

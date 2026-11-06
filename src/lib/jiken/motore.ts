@@ -84,10 +84,10 @@ export function dormi(s: Stato): Stato {
 
 // Passi che si vedono e aspettano il giocatore; tutti gli altri il motore li
 // applica da solo.
-export type Visibile = Extract<Passo, { dice: string } | { io: string } | { narra: string } | { scelta: unknown } | { domanda: unknown } | { prova: unknown } | { fine: string }>;
+export type Visibile = Extract<Passo, { dice: string } | { io: string } | { narra: string } | { nota: string } | { scelta: unknown } | { domanda: unknown } | { prova: unknown } | { fine: string }>;
 
 export function visibile(p: Passo): p is Visibile {
-	return 'dice' in p || 'io' in p || 'narra' in p || 'scelta' in p || 'domanda' in p || 'prova' in p || 'fine' in p;
+	return 'dice' in p || 'io' in p || 'narra' in p || 'nota' in p || 'scelta' in p || 'domanda' in p || 'prova' in p || 'fine' in p;
 }
 
 // Applica un passo che non si vede.
@@ -97,7 +97,7 @@ export function applica(s: Stato, p: Passo): Stato {
 	if ('flag' in p) return s.flag.includes(p.flag) ? s : { ...s, flag: [...s.flag, p.flag] };
 	if ('obiettivo' in p) {
 		if (s.obiettivi.some((o) => o.id === p.obiettivo)) return s;
-		return { ...s, obiettivi: [...s.obiettivi, { id: p.obiettivo, it: p.it, fatto: false }] };
+		return { ...s, obiettivi: [...s.obiettivi, { id: p.obiettivo, ja: p.ja, it: p.it, en: p.en, fatto: false }] };
 	}
 	if ('completa' in p) return { ...s, obiettivi: s.obiettivi.map((o) => (o.id === p.completa ? { ...o, fatto: true } : o)) };
 	if ('minuti' in p) return { ...s, minuti: s.minuti + p.minuti };
@@ -136,3 +136,19 @@ export function giustaSoldi(valori: (number | undefined)[], soldi: number): numb
 }
 
 export const conNome = (t: string, nome: string): string => t.replaceAll('{nome}', nome);
+
+// Testo nella lingua scelta (l'inglese, finché manca, ricade sull'italiano).
+export const tr = (t: { ja: string; it: string; en?: string }, l: 'ja' | 'it' | 'en'): string => (l === 'ja' ? t.ja : l === 'en' ? (t.en ?? t.it) : t.it);
+
+// Orario di un luogo scritto per esteso: 「月〜金 9:00〜17:00」 / «lun-ven 9:00-17:00».
+const GJA = ['月', '火', '水', '木', '金', '土', '日'];
+const GIT = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
+export function orarioTesto(o: { giorni?: number[]; fasce: [number, number][] } | undefined): { ja: string; it: string } {
+	if (!o) return { ja: 'いつでも 開いて います', it: 'sempre aperto' };
+	const g = o.giorni;
+	const feriali = g && g.join() === '0,1,2,3,4';
+	const ja = !g ? '毎日' : feriali ? '月〜金' : g.map((i) => GJA[i]).join('・');
+	const it = !g ? 'tutti i giorni' : feriali ? 'lun-ven' : g.map((i) => GIT[i]).join(', ');
+	const f = o.fasce.map(([a, b]) => `${hhmm(a)}〜${hhmm(b)}`).join('、');
+	return { ja: `${ja} ${f}`, it: `${it} ${f.replaceAll('〜', '-').replaceAll('、', ', ')}` };
+}

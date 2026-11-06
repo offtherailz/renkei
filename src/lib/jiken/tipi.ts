@@ -1,6 +1,14 @@
 // 事件 — tipi del motore: luoghi, personaggi, scene e passi sono dati.
 // Una missione nuova = nuove scene; il motore non cambia.
 
+// lingua dell'interfaccia: i dialoghi restano in giapponese, cambia tutto il resto
+export type Lingua = 'ja' | 'it' | 'en';
+export interface Testo {
+	ja: string;
+	it: string;
+	en?: string;
+}
+
 export type LuogoId =
 	| 'casa' | 'ufficio' | 'konbini' | 'shokudo' | 'posta' | 'panya' | 'hanaya'
 	| 'koban' | 'parco' | 'gakkou' | 'kissa' | 'apartment' | 'eki' | 'jinja' | 'tera';
@@ -14,14 +22,14 @@ export interface Luogo {
 	id: LuogoId;
 	nome: string; // con furigana base[lettura] dove serve
 	it: string;
+	en?: string;
 	icona: string;
 	sfondo: string; // file in static/giorno/sfondi
 	x: number; // centro dell'edificio sulla mappa disegnata, in % della larghezza
 	y: number; // … e dell'altezza
 	orario?: Orario; // assente = sempre aperto
-	orarioIt?: string;
 	bloccato?: Condizione; // finché è vera il luogo è chiuso col lucchetto
-	bloccatoIt?: string;
+	perche?: Testo; // perché è bloccato
 	ambiente?: Passo[]; // cosa succede se non c'è una scena della storia
 }
 
@@ -67,7 +75,8 @@ export interface Prova {
 export type Passo =
 	| { dice: string; ja: string; it: string; taccuino?: boolean }
 	| { io: string; it: string } // battuta tua (testo che dici tu)
-	| { narra: string } // narrazione in italiano
+	| { narra: string; it: string; en?: string } // narrazione (giapponese + traduzione)
+	| { nota: string; it: string; en?: string } // spiegazione di lingua o di gioco (💡)
 	| { scelta: Opzione[] }
 	| { se: Condizione; allora: Passo[]; altrimenti?: Passo[] }
 	| { domanda: Domanda }
@@ -75,7 +84,7 @@ export type Passo =
 	| { prendi: string; it: string }
 	| { togli: string }
 	| { flag: string }
-	| { obiettivo: string; it: string } // aggiunge un obiettivo (id + testo per il taccuino)
+	| { obiettivo: string; ja: string; it: string; en?: string } // aggiunge un obiettivo
 	| { completa: string } // segna un obiettivo come fatto
 	| { minuti: number }
 	| { ora: number } // porta l'orologio almeno a quest'ora
@@ -96,12 +105,15 @@ export interface Missione {
 	id: string;
 	titolo: string;
 	it: string;
+	en?: string;
 	scene: Scena[];
 }
 
 export interface Obiettivo {
 	id: string;
+	ja: string;
 	it: string;
+	en?: string;
 	fatto: boolean;
 }
 
