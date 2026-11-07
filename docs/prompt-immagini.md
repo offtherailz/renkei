@@ -272,7 +272,7 @@ Per la missione 3 serve anche lo **sfondo della hall dell'hotel** (prompt in
 
 ## 事件: centro (山野駅前), sala giochi, hotel — prompt completi
 
-Fatti (2026-11-07): `sala_giochi`, `tornelli`, `grande_magazzino`, mappa `ekimae-giorno`.
+Fatti (2026-11-07): `sala_giochi`, `tornelli`, `grande_magazzino`, mappe `ekimae-giorno` e `ekimae-notte` (allineate).
 
 ### Mappa di 山野駅前 di notte (nella stessa chat della mappa di giorno)
 
