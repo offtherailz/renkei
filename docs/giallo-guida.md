@@ -292,6 +292,25 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
 - Ricordarsi: testi giapponesi solo N5/N4 (test dei kanji), interfaccia ja/it in
   `ui.ts`, esploratore aggiornato se cambiano le regole, deploy solo su richiesta.
 
+## 5c. Altre idee proposte (NON ancora decise con l'utente: chiedere prima)
+
+- **Relazioni coi personaggi (好感度)**: scelte gentili/giuste fanno salire la stima
+  di 田中, 鈴木, 高橋…, che apre scene extra (cena, gita, un segreto).
+- **Collezioni**: timbri di templi e santuari (御朱印, icona `goshuin`), raccolta di
+  timbri delle stazioni (スタンプラリー, icona `timbri_stazione`), peluche della sala
+  giochi, specialità locali.
+- **Voto a fine missione** (S/A/B/C) su domande giuste, puntualità, indizi trovati,
+  per invogliare a rigiocarla.
+- **Messaggi sul telefono** stile LINE dai personaggi (lettura breve, risposte).
+- **Stagioni ed eventi**: 梅雨, 七夕, 夏祭り col calendario e il vocabolario della
+  stagione.
+
+Da fare quando si scrivono le missioni nuove:
+- **stipendi**: per ora c'è solo il primo (¥50.000, lunedì della missione 2); quelli
+  successivi vanno aggiunti nelle missioni seguenti;
+- **museo** (`museo`, centro) bloccato dal flag `museo.aperto`: pensato per il caso
+  del museo (美術館の 事件) della lista in `giallo-piano.md`.
+
 ## 6. Cose rimaste aperte
 
 - Pagina «La so / Non la so» (punto 1 del piano): rimandata dall'utente.
@@ -301,7 +320,9 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   sala giochi, commessa `commessa_sg`, 17 oggetti (peluche…), grande magazzino.
 - Script di copertura del vocabolario (`scripts/giallo-copertura.mjs`): non fatto.
 - Inglese: struttura pronta (`en` facoltativo nei testi), testi non scritti.
-- Tutto è pubblicato solo su **dev**; prod non toccata.
+- Pubblicato su dev e su prod (2026-11-08, build prod 1794094229113).
+- **Da verificare sul telefono dall'utente**: le risposte dette al microfono
+  (🎤 声で 言う) sono testate solo con frasi di prova, non con un microfono vero.
 - `src/lib/core/srs.test.ts` ha un test che fallisce per una modifica dell'utente:
   non toccarlo.
 
