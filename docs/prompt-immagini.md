@@ -247,3 +247,25 @@ Do not move, add or remove any building. No text, no labels, no frame, no UI.
 ```
 
 Se cambia la disposizione: `Same map, but move the <edificio> to the <posizione>. Keep everything else identical, no text.`
+
+## 事件: espressioni per le missioni 2 e 3
+
+Schema «Espressioni» qui sopra: si allega il ritratto esistente
+(`static/giorno/ritratti/<id>-chiusa.png`) e si cambia solo `[EMOZIONE]`.
+File: `<id>_<emozione>_chiusa.jpg` e `<id>_<emozione>_aperta.jpg`.
+
+| personaggio | id | emozione (file) | `[EMOZIONE]` | dove serve |
+|---|---|---|---|---|
+| madre di 木村 | signora_anziana | preoccupata | `worried and sad, eyebrows raised in the middle, eyes a little teary` | M2: ミケ è sparita |
+| madre di 木村 | signora_anziana | felice | `very happy and relieved, warm smile, eyes closed in joy` | M2: ミケ torna |
+| 高橋くん | studente_uomo | sorpreso | `surprised, eyes wide, mouth slightly open` | M2: scoperto al santuario |
+| 高橋くん | studente_uomo | imbarazzato | `embarrassed and apologetic, awkward smile, one hand scratching the back of his head` | M2: spiega perché |
+| 田中さん | collega_uomo | nervoso | `nervous, sweating, eyes looking away` | M3: mente sul documento |
+| 田中さん | collega_uomo | imbarazzato | `ashamed and apologetic, head slightly bowed, guilty smile` | M3: confessa |
+| 鈴木さん | collega_donna | arrabbiata | `annoyed and serious, frowning, lips pressed together` | M3: «sul tavolo non c'era niente» |
+| 森部長 | capo_donna | preoccupata | `worried, frowning slightly, hand near the chin` | M3: il documento è sparito |
+| 林さん | receptionist | sorpresa | `surprised, eyes wide` | M3: interrogata |
+| 中村刑事 | ispettore | pensieroso | `thinking hard, eyes narrowed, one hand on the chin` | M2-M3: deduzioni |
+
+Per la missione 3 serve anche lo **sfondo della hall dell'hotel** (prompt in
+«事件: città di 山野市», riga `hotel`).
