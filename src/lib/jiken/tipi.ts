@@ -13,7 +13,11 @@ export type Suono = 'telefono' | 'campanello' | 'stazione' | 'uccellini' | 'gril
 
 export type LuogoId =
 	| 'casa' | 'ufficio' | 'konbini' | 'shokudo' | 'posta' | 'panya' | 'hanaya'
-	| 'koban' | 'parco' | 'gakkou' | 'kissa' | 'apartment' | 'eki' | 'jinja' | 'tera';
+	| 'koban' | 'parco' | 'gakkou' | 'kissa' | 'apartment' | 'eki' | 'jinja' | 'tera'
+	| 'eki2' | 'hotel' | 'ospedale' | 'banca' | 'depa' | 'gamecenter' | 'museo' | 'ramen';
+
+// quartieri: ognuno ha la sua mappa (static/giorno/mappa/<id>-giorno/notte.jpg)
+export type Quartiere = 'sakura' | 'ekimae';
 
 export interface Orario {
 	giorni?: number[]; // giorni della settimana aperti (0 = lunedì … 6 = domenica); assente = tutti
@@ -26,6 +30,7 @@ export interface Luogo {
 	it: string;
 	en?: string;
 	icona: string;
+	quartiere?: Quartiere; // assente = さくら町
 	sfondo: string; // file in static/giorno/sfondi
 	x: number; // centro dell'edificio sulla mappa disegnata, in % della larghezza
 	y: number; // … e dell'altezza

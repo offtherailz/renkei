@@ -9,16 +9,17 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prossimaMissione, TARDI, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
 	import { M2 } from '$lib/jiken/missioni/m2';
+	import { M3 } from '$lib/jiken/missioni/m3';
 	import { UI } from '$lib/jiken/ui';
 	import * as suono from '$lib/jiken/suoni';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
-	const ORDINE: Missione[] = [M1, M2];
+	const ORDINE: Missione[] = [M1, M2, M3];
 	const MISSIONI: Record<string, Missione> = Object.fromEntries(ORDINE.map((m) => [m.id, m]));
 	const dopo = (id: string): Missione | null => ORDINE[ORDINE.findIndex((m) => m.id === id) + 1] ?? null;
 	const SALVA = 'renkei_jiken';
@@ -139,6 +140,25 @@
 	const missione = $derived(stato ? MISSIONI[stato.missione]! : M1);
 	const luogoAttuale = $derived(stato ? LUOGO[stato.luogo] : null);
 	const notturna = $derived(stato ? notte(stato.minuti) : false);
+	// quartiere in cui sei: decide la mappa e i luoghi che si vedono
+	const quartiere = $derived(stato ? (LUOGO[stato.luogo].quartiere ?? 'sakura') : 'sakura');
+	const luoghiQui = $derived(LUOGHI.filter((l) => (l.quartiere ?? 'sakura') === quartiere));
+	const stazioneOpposta = (id: LuogoId): LuogoId | null => (id === STAZIONI.sakura ? STAZIONI.ekimae : id === STAZIONI.ekimae ? STAZIONI.sakura : null);
+	function treno(da: LuogoId): void {
+		if (!stato) return;
+		if (stato.luogo !== da) stato = viaggia(stato, da);
+		const verso = stazioneOpposta(stato.luogo);
+		if (!verso) return;
+		infoLuogo = null;
+		if (stato.soldi < TRENO.prezzo) {
+			avvisa(L({ ja: 'お金が たりません。', it: 'Non hai abbastanza soldi.' }));
+			return;
+		}
+		const prima = stato;
+		stato = prendiTreno(stato, verso);
+		notaCambi(prima, stato);
+		avvia([{ narra: `電車に 乗って、${stripFuriganaNotation(LUOGO[verso].nome)}へ 行きました。（${TRENO.minuti}分・${TRENO.prezzo}円）`, it: `Prendi il treno per ${LUOGO[verso].it} (${TRENO.minuti} minuti, ${TRENO.prezzo} yen).` }]);
+	}
 	const testo = (t: string): string => declina(conNome(t, imp.nome), imp.sesso);
 
 	function avvisa(t: string): void {
@@ -375,6 +395,7 @@
 	}
 	function tornaADormire(): void {
 		if (!stato) return;
+		if ((LUOGO[stato.luogo].quartiere ?? 'sakura') !== 'sakura') stato = prendiTreno(stato, 'eki');
 		if (stato.luogo !== 'casa') stato = viaggia(stato, 'casa');
 		parlante = null;
 		const sc = scenaPer('casa', stato, missione);
@@ -477,7 +498,7 @@
 	const conStoria = $derived.by(() => {
 		const s = stato;
 		if (!s) return new Set<LuogoId>();
-		return new Set(LUOGHI.filter((l) => apertura(l, s) === 'aperto' && scenaPer(l.id, { ...s, minuti: s.minuti + (l.id === s.luogo ? 0 : VIAGGIO) }, missione)).map((l) => l.id));
+		return new Set(luoghiQui.filter((l) => apertura(l, s) === 'aperto' && scenaPer(l.id, { ...s, minuti: s.minuti + (l.id === s.luogo ? 0 : VIAGGIO) }, missione)).map((l) => l.id));
 	});
 	const giorniPercorso = $derived(stato ? [...new Set(stato.percorso.map((t) => t.giorno))] : []);
 
@@ -631,8 +652,8 @@
 			<div class="vista-mappa">
 			<div class="mappa-scroll" use:centra={stato.luogo}>
 				<div class="mappa">
-					<img src="{base}/giorno/mappa/sakura-{notturna ? 'notte' : 'giorno'}.jpg" alt="さくら町" />
-					{#each LUOGHI as l (l.id)}
+					<img src="{base}/giorno/mappa/{quartiere}-{notturna ? 'notte' : 'giorno'}.jpg" alt={quartiere} />
+					{#each luoghiQui as l (l.id)}
 						{@const ap = apertura(l, stato)}
 						<button
 							class="spot"
@@ -659,6 +680,9 @@
 					<div class="row">
 						{#if ap !== 'bloccato'}
 							<button class="btn" onclick={() => vai(l.id)}>{stato.luogo === l.id ? L(UI.entra) : L(UI.vai)}</button>
+						{/if}
+						{#if stazioneOpposta(l.id) && stato.flag.includes('treno.ok')}
+							<button class="btn" onclick={() => treno(l.id)}>🚃 {nomeLuogo(stazioneOpposta(l.id)!)}{lingua === 'ja' ? 'へ' : ''} ({TRENO.minuti}{lingua === 'ja' ? '分' : ' min'}・¥{TRENO.prezzo})</button>
 						{/if}
 						<button class="btn ghost" onclick={() => (infoLuogo = null)}>✖</button>
 					</div>

@@ -210,3 +210,11 @@ export function prossimaMissione(s: Stato, m: { id: string; inizio?: { giorno: n
 		percorso: [...s.percorso, { giorno, minuti: SVEGLIA, luogo: 'casa' }]
 	};
 }
+
+// Treno tra さくら町駅 e 山野駅: 10 minuti, 160 yen dalla carta IC (o dai soldi).
+export const TRENO = { minuti: 10, prezzo: 160 };
+export const STAZIONI: Record<string, LuogoId> = { sakura: 'eki', ekimae: 'eki2' };
+export function prendiTreno(s: Stato, verso: LuogoId): Stato {
+	const minuti = Math.min(s.minuti + TRENO.minuti, FINE_GIORNO);
+	return { ...s, luogo: verso, minuti, soldi: s.soldi - TRENO.prezzo, percorso: [...s.percorso, { giorno: s.giorno, minuti, luogo: verso }] };
+}

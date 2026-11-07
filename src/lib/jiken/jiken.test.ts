@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
 import { isInLevel } from '$lib/data/kanjiN4';
-import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, prossimaMissione, scenaPer, verifica, viaggia } from './motore';
+import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, prendiTreno, prossimaMissione, scenaPer, verifica, viaggia } from './motore';
 import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
-const MISSIONI = [M1, M2];
+import { M3 } from './missioni/m3';
+const MISSIONI = [M1, M2, M3];
 import { UI } from './ui';
 import type { LuogoId, Missione, Passo, Stato, Testo } from './tipi';
 
@@ -106,7 +107,7 @@ describe('事件: motore', () => {
 
 // Giocatore automatico: va nei luoghi indicati, sceglie la prima opzione,
 // risponde giusto alle domande e mostra la prova giusta.
-function gioca(s0: Stato, giro: (LuogoId | number)[], m: Missione = M1): { s: Stato; errori: number } {
+function gioca(s0: Stato, giro: (LuogoId | number | `treno:${LuogoId}`)[], m: Missione = M1, scelte: Record<string, number> = {}): { s: Stato; errori: number } {
 	let s = s0;
 	let errori = 0;
 	for (const dest of giro) {
@@ -114,8 +115,9 @@ function gioca(s0: Stato, giro: (LuogoId | number)[], m: Missione = M1): { s: St
 			s = { ...s, minuti: s.minuti + dest };
 			continue;
 		}
-		s = viaggia(s, dest);
-		if (apertura(LUOGO[dest], s) !== 'aperto') continue;
+		if (dest.startsWith('treno:')) s = prendiTreno(s, dest.slice(6) as LuogoId);
+		else s = viaggia(s, dest as LuogoId);
+		if (apertura(LUOGO[s.luogo], s) !== 'aperto') continue;
 		const sc = scenaPer(s.luogo, s, m);
 		if (!sc) continue;
 		s = { ...s, fatte: [...s.fatte, sc.id] };
@@ -126,7 +128,7 @@ function gioca(s0: Stato, giro: (LuogoId | number)[], m: Missione = M1): { s: St
 			coda = r.coda;
 			const p = r.mostra;
 			if (!p) break;
-			if ('scelta' in p) coda = [...(p.scelta[0]!.passi ?? []), ...coda];
+			if ('scelta' in p) coda = [...(p.scelta[scelte[sc.id] ?? 0]!.passi ?? []), ...coda];
 			else if ('domanda' in p) {
 				const ops = p.domanda.giusta === 'soldi' ? opzioniSoldi(s.soldi) : { opzioni: p.domanda.opzioni, giusta: p.domanda.giusta };
 				if (ops.giusta < 0 || ops.giusta >= ops.opzioni.length) errori++;
@@ -221,5 +223,36 @@ describe('事件: missione 2 si può finire, continuando dalla 1', () => {
 		expect(s.flag).toContain('mike.ok');
 		expect(s.finita).toBe('いなくなった ミケ');
 		expect(s.obiettivi.filter((o) => !o.fatto).map((o) => o.id)).toEqual([]);
+	});
+});
+
+describe('事件: missione 3 si può finire (indagine, carta IC, treno, hotel)', () => {
+	it('tre giornate in ufficio e in centro', () => {
+		let s = nuovoStato('ルカ', 'm3', M3.inizio);
+		s = { ...s, soldi: 40000 };
+		let r = gioca(s, ['casa', 'ufficio', 'shokudo', 'ufficio', 'casa'], M3);
+		s = r.s;
+		expect(s.giorno).toBe(15);
+		// martedì: si interroga una persona per volta (la scelta n.0, poi 1, poi 2), poi magazzino e confronto
+		const giro = (i: number) => gioca(s, ['ufficio'], M3, { 'm3-interroga': i }).s;
+		s = gioca(s, ['casa', 'ufficio'], M3).s; // la scoperta del furto
+		s = gioca(s, ['parco'], M3).s;
+		s = giro(0);
+		s = gioca(s, ['parco', 'ufficio'], M3, { 'm3-interroga': 1 }).s;
+		s = gioca(s, ['parco', 'ufficio'], M3, { 'm3-interroga': 2 }).s;
+		expect(s.flag).toEqual(expect.arrayContaining(['m3.tanaka', 'm3.suzuki', 'm3.hayashi', 'm3.magazzino.hint']));
+		s = gioca(s, ['parco', 'ufficio'], M3).s; // magazzino: lo scontrino
+		expect(s.oggetti).toContain('scontrino_copie');
+		s = gioca(s, ['parco', 'ufficio'], M3, { 'm3-interroga': 3 }).s; // confronto con la prova
+		expect(s.flag).toContain('m3.confessa');
+		r = gioca(s, ['konbini', 'ufficio', 'eki', 480, 'casa'], M3);
+		s = r.s;
+		expect(s.flag).toEqual(expect.arrayContaining(['m3.ritrovato', 'm3.consegnato', 'treno.ok']));
+		expect(s.giorno).toBe(16);
+		r = gioca(s, ['casa', 'eki', 'treno:eki2', 'hotel', 'treno:eki', 'casa', 360, 'casa'], M3);
+		s = r.s;
+		expect(r.errori).toBe(0);
+		expect(s.flag).toContain('m3.riunione');
+		expect(s.finita).toBe('消[き]えた 資料[しりょう]');
 	});
 });

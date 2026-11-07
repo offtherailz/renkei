@@ -105,8 +105,51 @@ export const LUOGHI: Luogo[] = [
 		ambiente: [{ narra: 'アパートの 入り口です。けいじばんに ごみの 出し方の お知らせが あります。', it: 'L’ingresso del condominio. Sulla bacheca, un avviso sulla raccolta dei rifiuti.' }]
 	},
 	{
-		id: 'eki', nome: 'さくら町駅', it: 'stazione di Sakura-chō', icona: '🚉', sfondo: 'stazione', x: 76.3, y: 87.2,
-		ambiente: [{ narra: '電車は 山野の 町の 中と 東京へ 行きます。今は 行く 用事が ありません。ほかの 町には ミッションで 行けるように なります。', it: 'I treni vanno verso il centro di Yamano e verso Tokyo. Per ora non hai motivo di partire: altri quartieri si apriranno con le missioni.' }]
+		id: 'eki', nome: 'さくら町駅', it: 'stazione di Sakura-chō', icona: '🚉', sfondo: 'tornelli', x: 76.3, y: 87.2,
+		ambiente: [{ narra: '電車は 山野駅（町の 中）と 東京へ 行きます。電車に 乗るには ICカードが いります。', it: 'I treni vanno a Yamano (il centro) e verso Tokyo. Per salire serve la carta IC.' }]
+	},
+	// ───── 山野駅前 (centro): si arriva in treno
+	{
+		id: 'eki2', nome: '山野駅', it: 'stazione di Yamano', icona: '🚉', quartiere: 'ekimae', sfondo: 'tornelli', x: 50.1, y: 86,
+		ambiente: [{ narra: '山野駅です。人が たくさん います。ここから さくら町へ 帰れます。', it: 'Stazione di Yamano. C’è tanta gente. Da qui puoi tornare a Sakura-chō.' }]
+	},
+	{
+		id: 'hotel', nome: 'ホテル みどり', it: 'Hotel Midori', icona: '🏨', quartiere: 'ekimae', sfondo: 'hotel', x: 17.1, y: 24.7,
+		ambiente: [{ dice: 'hotelstaff', ja: 'いらっしゃいませ。ごよやくの おきゃくさまですか。', it: 'Benvenut{o}. Ha una prenotazione?' }, { io: 'いいえ、ちょっと 見て いる だけです。', it: 'No, sto solo guardando.' }]
+	},
+	{
+		id: 'gamecenter', nome: 'ゲームセンター', it: 'sala giochi', icona: '🕹️', quartiere: 'ekimae', sfondo: 'sala_giochi', x: 21.8, y: 56,
+		orario: { fasce: [[h(10), h(23)]] },
+		ambiente: [{ dice: 'commessa_sg', ja: 'いらっしゃいませ！ 新しい ゲームは もうすぐ 入りますよ。', it: 'Benvenut{o}! I giochi nuovi arrivano presto.' }, { narra: 'UFOキャッチャーや たいこの ゲームが あります。でも、今は じゅんび中です。', it: 'Ci sono UFO catcher e giochi coi tamburi. Ma per ora sono in allestimento.' }]
+	},
+	{
+		id: 'depa', nome: 'デパート', it: 'grande magazzino', icona: '🏬', quartiere: 'ekimae', sfondo: 'grande_magazzino', x: 58.9, y: 33.9,
+		orario: { fasce: [[h(10), h(20)]] },
+		ambiente: [{ narra: 'デパートの 一かいです。けしょうひんと おみやげの 店が あります。', it: 'Piano terra del grande magazzino: cosmetici e souvenir.' }]
+	},
+	{
+		id: 'banca', nome: '銀行', it: 'banca', icona: '🏦', quartiere: 'ekimae', sfondo: 'banca', x: 33.4, y: 43,
+		orario: { giorni: FERIALI, fasce: [[h(9), h(15)]] },
+		ambiente: [{ narra: '銀行です。今は 用事が ありません。', it: 'La banca. Per ora non hai niente da fare qui.' }]
+	},
+	{
+		id: 'ospedale', nome: '病院', it: 'ospedale', icona: '🏥', quartiere: 'ekimae', sfondo: 'ospedale', x: 30.5, y: 16.9,
+		ambiente: [{ narra: '大きい 病院です。病気では ないので、入りません。', it: 'Un grande ospedale. Non sei malat{o}, quindi non entri.' }]
+	},
+	{
+		id: 'museo', nome: '山野美術館[やまのびじゅつかん]', it: 'museo di Yamano', icona: '🏛️', quartiere: 'ekimae', sfondo: 'museo', x: 69.8, y: 43,
+		bloccato: { nonFlag: ['museo.aperto'] }, perche: { ja: '今は しまって います（工事中）', it: 'per ora è chiuso (lavori)' }
+	},
+	{
+		id: 'ramen', nome: 'ラーメン屋', it: 'ramen-ya', icona: '🍜', quartiere: 'ekimae', sfondo: 'ristorante', x: 80, y: 49.5,
+		orario: { fasce: [[h(11), h(23)]] },
+		ambiente: [
+			{
+				se: { oggetti: ['portafoglio'], soldiMin: 800 },
+				allora: [{ dice: 'oste', ja: 'いらっしゃい！ しょうゆラーメン、800円です。', it: 'Benvenut{o}! Ramen allo shoyu, 800 yen.' }, { soldi: -800 }, { minuti: 30 }, { narra: 'あつい ラーメンを 食べました。', it: 'Hai mangiato un ramen bollente.' }],
+				altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }]
+			}
+		]
 	},
 	{
 		id: 'jinja', nome: '山の神社[じんじゃ]', it: 'santuario della collina', icona: '⛩', sfondo: 'jinja', x: 64, y: 14.3,
@@ -133,6 +176,9 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M' },
 	nakamuraTel: { nome: '中村[なかむら]さん（電話）', sprite: null, voce: 'M' },
 	telefono: { nome: '電話の 人', sprite: null, voce: 'M' },
+	hayashi: { nome: '林[はやし]さん（うけつけ）', sprite: 'receptionist', voce: 'F' },
+	hotelstaff: { nome: 'ホテルの 人', sprite: 'commesso', voce: 'M' },
+	commessa_sg: { nome: 'ゲームセンターの 人', sprite: 'commessa_sg', voce: 'F' },
 	kimura: { nome: '木村[きむら]さん', sprite: 'padrone', voce: 'M' },
 	nonna: { nome: '木村[きむら]さんの お母さん', sprite: 'signora_anziana', voce: 'F' },
 	yamada: { nome: '山田[やまだ]さん（ABC）', sprite: 'passante', voce: 'M' },
@@ -152,8 +198,11 @@ export const OGGETTI: Record<string, { it: string; ja: string }> = {
 	mazzo_fiori: { it: 'mazzo di fiori', ja: '花' },
 	foto_gatto: { it: 'foto di Miké', ja: 'ミケの 写真' },
 	volantino_gatto: { it: 'volantini di Miké', ja: 'ミケの ポスター' },
-	collare: { it: 'collare rosso col campanellino', ja: '赤い くびわ' }
+	collare: { it: 'collare rosso col campanellino', ja: '赤い くびわ' },
+	scontrino_copie: { it: 'scontrino delle fotocopie (konbini, 19:30)', ja: 'コピーの レシート' },
+	cartellina: { it: 'il documento per il cliente', ja: '資料[しりょう]' },
+	carta_ic2: { it: 'carta IC', ja: 'ICカード' }
 };
 // icone degli oggetti (static/giorno/oggetti); quelli senza disegno usano un'emoji
-const ICONA_FILE: Record<string, string> = { busta: 'lettera' };
+const ICONA_FILE: Record<string, string> = { busta: 'lettera', scontrino_copie: 'scontrino' };
 export const iconaOggetto = (id: string): string => ICONA_FILE[id] ?? id;

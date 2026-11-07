@@ -183,11 +183,66 @@ Parte dalla fine della 1 (`prossimaMissione`) o da sola (`inizio`: giorno 7).
 domenica (giorni 12-13) a casa la mamma racconta che l'ha riportata qualcuno che
 ha visto il volantino; flag `mike.ok` e `fine`.
 
+### Missione 3 — 消えた 資料 (giorni 14-16, 20-22 aprile)
+
+Parte dalla fine della 2 o da sola (`inizio`: giorno 14).
+
+**Lunedì 20**
+- Ufficio: 森 lascia il documento per 山田 sulla sua scrivania fino a mercoledì;
+  la fotocopiatrice è rotta (こわれて いる, domanda こわれる/こわす); 森 chiede a
+  田中 10 copie entro domattina.
+- Pomeriggio: 林 (reception) porta il fax di 山田 (riunione 10:00-11:30, domanda).
+
+**Martedì 21**
+- Ufficio: il documento è sparito (森 preoccupata), arriva 中村 (pensieroso) e ti
+  chiede di sentire tutti; obiettivi `tanaka`, `suzuki`, `hayashi`.
+- `m3-interroga` (ufficio, giorni 15-16, 7-18, ripetibile): scegli con chi parlare.
+  田中 (nervoso): «le copie in ufficio alle 7, lasciate sulla scrivania»;
+  鈴木 (arrabbiata): «alle 8 sulla scrivania non c'era niente» (〜て ありません);
+  林 (sorpresa): «alle 7 田中 è uscito con una busta». Sentiti tutti →
+  obiettivo `magazzino`.
+- `m3-magazzino` (sta prima di `m3-interroga` nel file, apposta): nel cestino lo
+  scontrino «Happy Mart, 10 copie, 19:30» (`scontrino_copie`).
+- Di nuovo `m3-interroga`: con lo scontrino, **prova** contro 田中 → confessa
+  (imbarazzato): le copie alla コンビニ, l'originale dimenticato lì
+  (〜て しまう). Flag `m3.confessa`.
+- コンビニ: la commessa l'aveva messo da parte (`cartellina`).
+- Ufficio (entro le 20): consegni a 森; 山田 sposta la riunione alla **ホテル みどり**
+  davanti a 山野駅, alle 10; serve la carta IC. Obiettivi `ic`, `hotel`.
+- さくら町駅 (`m3-eki-ic`): carta IC a 2000 yen (500 di cauzione, 1500 di credito
+  che tornano nei soldi) → flag **`treno.ok`**: da qui il treno è sbloccato.
+
+**Mercoledì 22**
+- Treno per 山野駅 (10 minuti, 160 yen), mappa del centro, **ホテル みどり**: puntuale
+  (prima delle 10:01) o in ritardo (森 preoccupata, ti scusi); 山田 ringrazia
+  (bivio: 「こちらこそ、よろしく おねがいいたします」 o 「どういたしまして」 → nota).
+  Riunione fino alle 11:30, poi giornata libera in centro.
+- Casa: telefonata di 中村, 2 domande, `fine`.
+- Rete di sicurezza `m3-chiusura` (giorni 18-20): la riunione è andata con 森 da
+  sola, `treno.ok` comunque.
+
+### Quartieri e treno
+
+- `Luogo.quartiere`: assente = さくら町 (`sakura`), oppure `ekimae` (山野駅前). La
+  mappa mostra solo i luoghi del quartiere in cui sei
+  (`static/giorno/mappa/<quartiere>-giorno/notte.jpg`).
+- Stazioni: `eki` (さくら町駅) ↔ `eki2` (山野駅). Con il flag `treno.ok`, nella
+  scheda di una stazione compare «🚃 …へ (10分・¥160)» (`prendiTreno`).
+- Luoghi del centro: `eki2`, `hotel`, `gamecenter` (per ora solo ambiente:
+  «giochi in arrivo»), `depa`, `banca`, `ospedale`, `museo` (bloccato, flag
+  `museo.aperto`), `ramen`.
+- Dalle 23 dal centro si torna a casa in treno da soli.
+
+### Soldi
+
+Si parte con ¥5000; ¥50.000 di stipendio il lunedì della missione 2. Gli acquisti
+controllano i soldi (`soldiMin`) e senza abbastanza «お金が たりません».
+
 ## 5. Prossimi capitoli: cosa è già deciso
 
 Solo quello che è già scritto nei documenti, niente di nuovo.
 
-- **Missione 3 — 消えた 資料** (trama in `giallo-mondo.md`): in ufficio sparisce il
+- **Missione 3**: scritta (vedi sopra). Trama originale in `giallo-mondo.md`: in ufficio sparisce il
   documento per il cliente. Sospettati 田中, 鈴木, 林 (receptionist). Verità: la
   fotocopiatrice dell'ufficio era rotta (壊れて いた / 壊した), 田中 ha portato
   il documento alla コンビニ per copiarlo e l'ha dimenticato lì, poi mente
@@ -209,6 +264,10 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
 ## 6. Cose rimaste aperte
 
 - Pagina «La so / Non la so» (punto 1 del piano): rimandata dall'utente.
+- Idee approvate da fare: **sala giochi** (minigiochi a ¥100: UFOキャッチャー, リズム,
+  picchiaduro delle coniugazioni, クイズ, プリクラ), **lavoretto** (アルバイト), **parole
+  deboli nella storia**, **bacheca degli indizi** / interrogatori. Immagini pronte:
+  sala giochi, commessa `commessa_sg`, 17 oggetti (peluche…), grande magazzino.
 - Script di copertura del vocabolario (`scripts/giallo-copertura.mjs`): non fatto.
 - Inglese: struttura pronta (`en` facoltativo nei testi), testi non scritti.
 - Tutto è pubblicato solo su **dev**; prod non toccata.
