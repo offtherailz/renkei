@@ -646,6 +646,16 @@ export const M1: Missione = {
 					[{ fine: 'はじめての 一週間' }]
 				)
 			]
+		},
+		{
+			// rete di sicurezza: se la sera di mercoledì è saltata, da giovedì si chiude a casa
+			id: 'm1-chiusura', luogo: 'casa', quando: { giorno: [3, 4, 5, 6] },
+			passi: [
+				{ narra: 'さくら町での はじめての 一週間が 終わりました。', it: 'La tua prima settimana a さくら町 è finita.' },
+				{ dice: 'mamma', ja: '{nome}さん、この 町にも だいぶ なれたわね。', it: '{nome}, ti sei proprio ambientat{o} in questo quartiere.' },
+				{ dice: 'nakamuraTel', ja: 'もしもし、中村[なかむら]です。今度、少し 手つだって くれませんか。また 電話します。', it: 'Pronto, sono Nakamura. Mi darebbe una mano, prossimamente? La richiamo.', suono: 'telefono' },
+				{ fine: 'はじめての 一週間' }
+			]
 		}
 	]
 };

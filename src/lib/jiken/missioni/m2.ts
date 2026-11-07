@@ -406,6 +406,16 @@ export const M2: Missione = {
 				{ dice: 'mamma', ja: 'ミケ、見つかって よかったね。', it: 'Meno male che Miké si è trovata.' },
 				...cena([], [{ fine: 'いなくなった ミケ' }])
 			]
+		},
+		{
+			// rete di sicurezza: se ミケ non si è trovata entro venerdì, torna da sola grazie ai volantini
+			id: 'm2-chiusura', luogo: 'casa', quando: { giorno: [12, 13], nonFlag: ['mike.ok'] },
+			passi: [
+				{ dice: 'mamma', ja: '{nome}さん、聞いた？ ミケ、ポスターを 見た 人が つれて きて くれたそうよ。', it: '{nome}, hai sentito? Pare che Miké l’abbia riportata qualcuno che ha visto il volantino.' },
+				{ dice: 'mamma', ja: '木村[きむら]さんの お母さん、とても よろこんで いたって。', it: 'Dicono che la madre dei Kimura fosse felicissima.' },
+				{ flag: 'mike.ok' },
+				{ fine: 'いなくなった ミケ' }
+			]
 		}
 	]
 };
