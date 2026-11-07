@@ -241,7 +241,9 @@
 		} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }]);
 	}
 
+	let giornoScena = -1; // giorno in cui è cominciata la scena (per capire se si è dormito)
 	function avvia(passi: Passo[]): void {
+		if (stato) giornoScena = stato.giorno;
 		coda = [...passi];
 		fase = 'scena';
 		prossimo();
@@ -337,6 +339,15 @@
 		if (sc) {
 			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
 			avvia(sc.passi);
+			return;
+		}
+		// ci si è appena svegliati e la storia non ha una scena: risveglio in casa
+		if (stato.giorno !== giornoScena && stato.luogo === 'casa') {
+			avvia([
+				{ narra: '朝です。まどから 日が 入って います。', it: 'È mattina. Il sole entra dalla finestra.' },
+				{ dice: 'mamma', ja: 'おはよう、{nome}さん。朝ご飯、できて いるよ。', it: 'Buongiorno, {nome}. La colazione è pronta.' },
+				{ minuti: 20 }
+			]);
 			return;
 		}
 		// troppo tardi per girare: a casa (la cena se manca, altrimenti a letto)
