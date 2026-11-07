@@ -71,8 +71,9 @@ tutta la storia della chat. Gli altri documenti:
 4. Flag col prefisso della missione (`m3.…`). Obiettivi con id brevi,
    `completa` quando sono fatti.
 5. Evitare i blocchi: niente scena indispensabile con una finestra d'orario
-   impossibile; le scene «chiave» con più giorni possibili (`giorno: [9, 10, 11]`)
-   e una sera di riserva che chiude la missione.
+   impossibile; le scene «chiave» con più giorni possibili (`giorno: [9, 10, 11]`),
+   e in fondo al file una scena di chiusura a casa nei giorni dopo la fine
+   (come `m1-chiusura` / `m2-chiusura`), così la missione si chiude sempre.
 6. Aggiungere al test un giro del giocatore automatico che finisce la missione
    (vedi `missione 2 si può finire`).
 7. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser.
@@ -135,6 +136,9 @@ Personaggi fissi: famiglia 吉田 (mamma, papà), 森ぶちょう (capo), 鈴木
   correzione); se hai il regalo glielo dai (flag `regalo.dato`); flag `grazie.ok`.
 - Casa: telefonata di 中村 (vuole il tuo aiuto), 3 domande, `fine`.
 
+**Rete di sicurezza** (`m1-chiusura`): se la sera di mercoledì è saltata, da giovedì
+(giorni 3-6) tornando a casa la famiglia chiude la settimana, 中村 telefona e c'è `fine`.
+
 ### Missione 2 — いなくなった ミケ (giorni 7-9, 13-15 aprile)
 
 Parte dalla fine della 1 (`prossimaMissione`) o da sola (`inizio`: giorno 7).
@@ -174,6 +178,10 @@ Parte dalla fine della 1 (`prossimaMissione`) o da sola (`inizio`: giorno 7).
 - Casa: se `mike.ok` → telefonata di 中村 («la prossima volta riguarda la tua
   ditta»), 2 domande, `fine`. Altrimenti si riprova giovedì/venerdì sera
   (scena `m2-sera-dopo`).
+
+**Rete di sicurezza** (`m2-chiusura`): se ミケ non si trova entro venerdì, sabato o
+domenica (giorni 12-13) a casa la mamma racconta che l'ha riportata qualcuno che
+ha visto il volantino; flag `mike.ok` e `fine`.
 
 ## 5. Prossimi capitoli: cosa è già deciso
 
