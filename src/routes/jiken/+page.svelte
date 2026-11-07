@@ -406,10 +406,11 @@
 							class:qui={stato.luogo === l.id}
 							class:chiuso={ap === 'chiuso'}
 							class:bloccato={ap === 'bloccato'}
+							class:storia={conStoria.has(l.id)}
 							style="left:{l.x}%; top:{l.y}%"
 							onclick={() => (infoLuogo = infoLuogo === l.id ? null : l.id)}
 						>
-							<span class="pin">{ap === 'bloccato' ? '🔒' : l.icona}{#if conStoria.has(l.id)}<b class="bang">❗</b>{/if}</span>
+							<span class="pin">{ap === 'bloccato' ? '🔒' : l.icona}{#if conStoria.has(l.id)}<b class="bang">!</b>{/if}</span>
 							<span class="etichetta">{nomeLuogo(l.id)}</span>
 						</button>
 					{/each}
@@ -698,9 +699,11 @@
 	.mappa-scroll { overflow-x: auto; border: 3px solid var(--px-line); }
 	.mappa { position: relative; min-width: 720px; line-height: 0; }
 	.mappa img { width: 100%; display: block; image-rendering: pixelated; }
-	.spot { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; padding: 0; line-height: 1; font-family: inherit; }
+	.spot { position: absolute; z-index: 1; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; padding: 0; line-height: 1; font-family: inherit; }
 	.pin { position: relative; color: #222034; font-size: 1.25rem; background: rgba(255, 255, 255, 0.92); border: 2px solid var(--px-line); border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; box-shadow: 0 2px 0 var(--px-line); }
-	.bang { position: absolute; top: -12px; right: -10px; font-size: 0.95rem; animation: salta 0.9s ease-in-out infinite; }
+	/* ❗ grande, sopra tutto: i luoghi con qualcosa da fare stanno davanti agli altri */
+	.spot.storia { z-index: 3; }
+	.bang { position: absolute; top: -14px; right: -12px; width: 22px; height: 22px; border-radius: 50%; background: #d95763; color: #fff; border: 2px solid #fff; box-shadow: 0 1px 0 #0e0d1a; font: 900 0.95rem/18px system-ui, sans-serif; text-align: center; animation: salta 0.9s ease-in-out infinite; }
 	@keyframes salta { 50% { transform: translateY(-4px); } }
 	.etichetta { font-size: 0.7rem; background: rgba(34, 32, 52, 0.85); color: #fff; padding: 2px 5px; white-space: nowrap; }
 	.spot.qui .pin { background: #fbf236; }

@@ -72,7 +72,7 @@ export const LUOGHI: Luogo[] = [
 		ambiente: [{ narra: '夜の クラスの 学生が います。じゅぎょうが もうすぐ 始まります。', it: 'In classe ci sono gli studenti della sera. La lezione sta per cominciare.' }]
 	},
 	{
-		id: 'kissa', nome: '喫茶[きっさ]あおい', it: 'caffè Aoi', icona: '☕', sfondo: 'cafe', x: 96.8, y: 52,
+		id: 'kissa', nome: '喫茶[きっさ]あおい', it: 'caffè Aoi', icona: '☕', sfondo: 'cafe', x: 96.8, y: 46.5,
 		orario: { giorni: [0, 1, 3, 4, 5, 6], fasce: [[h(7), h(20)]] },
 		ambiente: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenut{o}. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'コーヒーを 飲みました（400円）。30分 休みました。', it: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }]
 	},

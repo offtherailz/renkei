@@ -76,6 +76,19 @@ export const M1: Missione = {
 						{ ja: 'すみません、今日は ちょっと……。', it: 'Mi scusi, oggi non posso…', passi: [{ dice: 'tanaka', ja: 'そうですか。じゃ、また 今度。', it: 'Ah, va bene. Allora la prossima volta.' }] }
 					]
 				},
+				{ ora: h(10) },
+				{ dice: 'suzuki', ja: '{nome}さん、会社の 中を あんないしますね。ここは 2かいです。コピーきは この へやの 入り口の 右に あります。', it: '{nome}, le faccio vedere l’ufficio. Qui siamo al 2° piano. La fotocopiatrice è a destra dell’ingresso di questa stanza.' },
+				{ dice: 'suzuki', ja: 'かいぎしつは 3かいです。トイレは 1かいと 3かいに あります。2かいには ありません。', it: 'La sala riunioni è al 3° piano. I bagni sono al 1° e al 3° piano; al 2° non ci sono.', taccuino: true },
+				{
+					domanda: {
+						ja: 'かいぎしつは 何かいですか。トイレは どこですか。', it: 'A che piano è la sala riunioni? E i bagni?',
+						opzioni: [{ ja: 'かいぎしつは 2かい、トイレは 1かい', it: 'sala al 2°, bagni al 1°' }, { ja: 'かいぎしつは 3かい、トイレは 2かい', it: 'sala al 3°, bagni al 2°' }, { ja: 'かいぎしつは 3かい、トイレは 1かいと 3かい', it: 'sala al 3°, bagni al 1° e al 3°' }, { ja: 'かいぎしつは 1かい、トイレは 3かい', it: 'sala al 1°, bagni al 3°' }],
+						giusta: 2, spiega: '「2かいには ありません」: la frase negativa toglie un’opzione. 〜かい = piano (2かい = secondo piano).'
+					}
+				},
+				{ ora: h(11) },
+				{ dice: 'mori', ja: '{nome}さん、この 書き方で 名前と じゅうしょを パソコンに 入れて おいて ください。お昼までで いいです。', it: '{nome}, inserisca nel computer nome e indirizzo in questo formato. Basta entro pranzo.' },
+				{ io: 'はい。お昼までに やって おきます。', it: 'Sì. Lo faccio entro pranzo.' },
 				{ narra: '午前中 ずっと パソコンで 仕事を しました。12時です。昼休みです（12時〜1時）。', it: 'Lavori al computer tutta la mattina. È mezzogiorno: pausa pranzo (12-13).' },
 				{ ora: h(12) },
 				{ flag: 'd0.ufficio' }
@@ -282,13 +295,24 @@ export const M1: Missione = {
 					allora: [{ io: 'はい、食堂で お金を はらいました。', it: 'Sì, alla trattoria ho pagato in contanti.' }, { dice: 'tanaka', ja: 'じゃ、なくしたのは 昼ご飯の あとですね。', it: 'Allora l’ha perso dopo pranzo.', taccuino: true }],
 					altrimenti: [{ io: 'きのうは 昼ご飯を 食べませんでした。', it: 'Ieri non ho pranzato.' }]
 				},
+				{ ora: h(10) },
+				{ dice: 'tanaka', ja: '{nome}さん、来週の 金曜日に おきゃくさんと 会います。カレンダーに 書いて くれませんか。', it: '{nome}, venerdì della settimana prossima vediamo un cliente. Me lo segneresti sul calendario?' },
+				{ narra: '今日は 4月7日（火）です。カレンダーを 見ます。', it: 'Oggi è martedì 7 aprile. Guardi il calendario.' },
+				{
+					domanda: {
+						ja: '来週の 金曜日は 何日ですか。', it: 'Che giorno del mese è venerdì della settimana prossima?',
+						opzioni: [{ ja: '4月10日', it: '10 aprile' }, { ja: '4月14日', it: '14 aprile' }, { ja: '4月17日', it: '17 aprile' }, { ja: '4月24日', it: '24 aprile' }],
+						giusta: 2, spiega: 'Oggi martedì 7: questo venerdì è il 10, il venerdì della settimana prossima (来週) è il 17. とおか = 10, じゅうしちにち = 17.'
+					}
+				},
+				{ dice: 'tanaka', ja: 'ありがとう。じゅうしちにちですね。', it: 'Grazie. Il 17, quindi.' },
 				{ narra: '午前中 仕事を しました。12時から 昼休みです。昼休みに さいふを さがしに 行けます。', it: 'Lavori tutta la mattina. Alle 12 c’è la pausa pranzo: puoi usarla per cercare.' },
 				{ ora: h(12) },
 				{ flag: 'd1.ufficio' }
 			]
 		},
 		{
-			id: 'd1-shokudo', luogo: 'shokudo', quando: { giorno: 1, nonFlag: ['d1.shokudo'] },
+			id: 'd1-shokudo', luogo: 'shokudo', quando: { giorno: 1, nonFlag: ['d1.shokudo', 'portafoglio.ok'] },
 			passi: [
 				{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{ io: 'すみません、きのう ここで さいふを わすれませんでしたか。', it: 'Mi scusi, ieri ho dimenticato qui un portafoglio?' },
@@ -444,6 +468,33 @@ export const M1: Missione = {
 			id: 'd2-ufficio', luogo: 'ufficio', quando: { giorno: 2, nonFlag: ['d2.ufficio'] },
 			passi: [
 				{ dice: 'mori', ja: 'おはようございます。今日は 5時半から かいぎが ありますから、それまでに この 資料[しりょう]を 読んで おいて ください。', it: 'Buongiorno. Oggi alle 17:30 c’è una riunione: entro allora legga questo materiale.', taccuino: true },
+				{ ora: h(11) },
+				{ dice: 'suzuki', ja: '今日は いそがしいので、昼ご飯は おべんとうを たのみます。田中さんは さかな、わたしは にくです。{nome}さんは どっちに しますか。', it: 'Oggi siamo di corsa, quindi a pranzo ordiniamo il bento. Tanaka prende pesce, io carne. {nome}, lei quale prende?' },
+				{
+					scelta: [
+						{ ja: 'さかなに します。', it: 'Prendo il pesce.', passi: [{ flag: 'd2.bento_pesce' }] },
+						{ ja: 'にくに します。', it: 'Prendo la carne.' }
+					]
+				},
+				{ dice: 'suzuki', ja: '一つ 500円です。', it: 'Sono 500 yen l’uno.' },
+				{ soldi: -500 },
+				{
+					se: { flag: ['d2.bento_pesce'] },
+					allora: [{
+						domanda: {
+							ja: '鈴木[すずき]さんは さかなの おべんとうを いくつ たのみますか。', it: 'Quanti bento di pesce ordina Suzuki?',
+							opzioni: [{ ja: '一つ', it: 'uno' }, { ja: '二つ', it: 'due' }, { ja: '三つ', it: 'tre' }, { ja: 'ゼロ', it: 'nessuno' }],
+							giusta: 1, spiega: 'Pesce per Tanaka e per te: ふたつ. Suzuki prende carne.'
+						}
+					}],
+					altrimenti: [{
+						domanda: {
+							ja: '鈴木[すずき]さんは さかなの おべんとうを いくつ たのみますか。', it: 'Quanti bento di pesce ordina Suzuki?',
+							opzioni: [{ ja: '一つ', it: 'uno' }, { ja: '二つ', it: 'due' }, { ja: '三つ', it: 'tre' }, { ja: 'ゼロ', it: 'nessuno' }],
+							giusta: 0, spiega: 'Pesce solo per Tanaka: ひとつ. Suzuki e tu prendete carne.'
+						}
+					}]
+				},
 				{ narra: '午前中、仕事を して、資料[しりょう]を 読みました。', it: 'Lavori e leggi il materiale tutta la mattina.' },
 				{ ora: h(12) },
 				{ flag: 'd2.ufficio' }
