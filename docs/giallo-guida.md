@@ -267,6 +267,31 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   col 新幹線 (vedi `giallo-mondo.md`). La mappa di destra generata con Gemini non
   combaciava: rimandata.
 
+## 5b. Prossimo lavoro: la sala giochi (concordato, non ancora fatto)
+
+- Luogo `gamecenter` (quartiere `ekimae`, 10-23) in `mondo.ts`: oggi ha solo un
+  `ambiente` («i giochi arrivano presto»). Va sostituito con un menù dei giochi.
+- Ogni partita costa **¥100** (controllare `soldi >= 100`, come `soldiMin`); il
+  tempo passa (es. 15 minuti a partita).
+- **UFOキャッチャー**: la voce (TTS) dice una parola; tra 4-6 peluche ognuno ha un
+  cartellino con una parola (N5/N4 del seed); si muove la pinza e si prende quello
+  giusto. Il premio va in una **collezione** (nuovo campo nello stato, da gestire
+  in `migra`), con la sua parola. Premi disponibili in `static/giorno/oggetti/`:
+  tanuki, maneki_neko, shiba, daruma, daruma_blu, peluche_onigiri,
+  peluche_sushi, panda, rana (+ trofeo, medaglie, purikura, regalo).
+- **クイズ**: domande d'esame a tempo, tre vite, punteggio e **classifica** (record
+  salvato). Le domande si possono prendere dal seed (esempi N4) o dalle domande
+  delle missioni.
+- Dopo, se piacciono: picchiaduro delle coniugazioni (attacchi coniugando:
+  て形, potenziale, passivo…), ritmo coi kana stile 太鼓, プリクラ (completare la
+  scritta con la particella giusta → adesivo nel taccuino).
+- Personaggio: `commessa_sg` (ritratto pronto, con bocca). Sfondo `sala_giochi`.
+- Altre idee approvate in coda: lavoretto (アルバイト alla コンビニ/caffè per
+  guadagnare servendo col keigo e dando il resto), parole deboli dell'utente nei
+  dialoghi, bacheca degli indizi / interrogatori stile 異議あり.
+- Ricordarsi: testi giapponesi solo N5/N4 (test dei kanji), interfaccia ja/it in
+  `ui.ts`, esploratore aggiornato se cambiano le regole, deploy solo su richiesta.
+
 ## 6. Cose rimaste aperte
 
 - Pagina «La so / Non la so» (punto 1 del piano): rimandata dall'utente.
