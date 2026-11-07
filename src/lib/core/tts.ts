@@ -60,22 +60,39 @@ export function speakSentenceJapanese(sentenceWithFurigana: string, options?: Sp
 let speechStarts = 0;
 export const speechStartCount = (): number => speechStarts;
 
+// generazione della voce: cambia a ogni nuova frase o stop, e ferma la coda
+let speakGen = 0;
+
 export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options?: SpeakOptions): Promise<void> {
   if (typeof window === "undefined" || !window.speechSynthesis) {
     return Promise.resolve();
   }
   const plainText = stripFuriganaNotation(sentenceWithFurigana);
   window.speechSynthesis.cancel();
+  const gen = ++speakGen;
+  // Testi lunghi frase per frase: un'unica battuta di 20-30 secondi veniva
+  // troncata (Chrome su Android si ferma da solo, e il tetto waitMs scadeva
+  // prima della fine facendo partire la battuta dopo).
+  const chunks = plainText.length > 60 ? plainText.split(/(?<=[。！？!?])/).map((c) => c.trim()).filter(Boolean) : [plainText];
   return new Promise((resolve) => {
-    const utterance = buildUtterance(plainText, options);
-    let done = false;
-    const finish = (): void => { if (!done) { done = true; resolve(); } };
-    utterance.onstart = () => { speechStarts += 1; };
-    utterance.onend = finish;
-    utterance.onerror = finish;
-    // Fallback: alcune implementazioni non emettono onend in modo affidabile.
-    setTimeout(finish, options?.waitMs ?? Math.min(8000, 1200 + plainText.length * 180));
-    window.speechSynthesis.speak(utterance);
+    let i = 0;
+    const next = (): void => {
+      if (i >= chunks.length || gen !== speakGen) { resolve(); return; }
+      const text = chunks[i]!;
+      i += 1;
+      const utterance = buildUtterance(text, options);
+      let done = false;
+      const finish = (): void => { if (!done) { done = true; next(); } };
+      utterance.onstart = () => { speechStarts += 1; };
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      // Fallback: alcune implementazioni non emettono onend in modo affidabile.
+      // Per frase: mai meno del tempo di lettura (≈ 250 ms a carattere).
+      const est = 1500 + text.length * 250;
+      setTimeout(finish, chunks.length > 1 ? Math.max(est, Math.min(options?.waitMs ?? est, est * 2)) : options?.waitMs ?? Math.min(8000, 1200 + text.length * 180));
+      window.speechSynthesis.speak(utterance);
+    };
+    next();
   });
 }
 
@@ -151,6 +168,7 @@ export function speakDialogue(lines: DialogueSpeakLine[], rate = 1): Promise<voi
 }
 
 export function stopSpeaking(): void {
+  speakGen += 1; // ferma anche le frasi in coda di speakSentenceJapaneseAsync
   if (typeof window !== "undefined" && window.speechSynthesis) {
     window.speechSynthesis.cancel();
   }
