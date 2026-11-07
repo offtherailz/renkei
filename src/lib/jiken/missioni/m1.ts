@@ -139,7 +139,47 @@ export const M1: Missione = {
 						{ dice: 'suzuki', ja: '郵便局[ゆうびんきょく]は 5時までですよ。いそいで ください。', it: 'La posta è aperta fino alle 5. Si sbrighi.' }
 					]
 				},
-				{ narra: '夕方まで 仕事を しました。', it: 'Lavori fino a sera.' },
+				{ ora: h(14) },
+				{ narra: '2時です。電話が なって います。まわりに だれも いません。', it: 'Sono le 14. Squilla il telefono e intorno non c’è nessuno.' },
+				{
+					scelta: [
+						{ ja: 'はい、さくら会社です。', it: 'Sì, ditta Sakura.' },
+						{ ja: 'もしもし、{nome}です。', it: 'Pronto, sono {nome}.', passi: [{ nota: '会社の 電話は 自分の 名前では なく、「はい、〇〇会社です」と 出ます。', it: 'Al telefono dell’ufficio non si risponde col proprio nome ma con quello della ditta: 「はい、〇〇会社です」.' }] }
+					]
+				},
+				{ dice: 'telefono', ja: 'ABCの 山田[やまだ]と もうします。森[もり]ぶちょうは いらっしゃいますか。', it: 'Sono Yamada della ABC. C’è la responsabile Mori?' },
+				{ io: 'すみません、森[もり]は 今 かいぎ中です。', it: 'Mi scusi, Mori adesso è in riunione.' },
+				{ dice: 'telefono', ja: 'そうですか。では、3時半ごろ もう一度 お電話します。そう つたえて ください。', it: 'Capisco. Allora richiamo verso le 15:30. Glielo riferisca, per favore.', taccuino: true },
+				{ io: 'はい、わかりました。つたえます。', it: 'Sì, d’accordo. Riferirò.' },
+				{ narra: '森ぶちょうに メモを 書きます。', it: 'Scrivi un biglietto per Mori.' },
+				{
+					domanda: {
+						ja: 'メモには 何と 書きますか。', it: 'Cosa scrivi sul biglietto?',
+						opzioni: [
+							{ ja: '山田さんから 電話。3時半に 電話を ください。', it: 'Ha chiamato Yamada. Lo richiami alle 15:30.' },
+							{ ja: '山田さんから 電話。3時半ごろ また 電話します。', it: 'Ha chiamato Yamada. Richiama lui verso le 15:30.' },
+							{ ja: '山田さんから 電話。3時に 来ます。', it: 'Ha chiamato Yamada. Viene alle 15.' },
+							{ ja: '山田さんから 電話。森ぶちょうに 会いたいです。', it: 'Ha chiamato Yamada. Vuole vedere Mori.' }
+						],
+						giusta: 1, spiega: '「もう一度 お電話します」: richiama LUI (お〜します = umile, chi parla fa l’azione). 〜ごろ = verso, circa.'
+					}
+				},
+				{ ora: h(15) },
+				{ dice: 'suzuki', ja: '{nome}さん、この 資料[しりょう]を 10まい コピーして ください。あしたの 朝 9時半までに 3かいの かいぎしつに おいて おいて ください。', it: '{nome}, faccia 10 copie di questo materiale. Le lasci nella sala riunioni al 3° piano entro domattina alle 9:30.', taccuino: true },
+				{
+					domanda: {
+						ja: '{nome}さんは いつまでに 何を しますか。', it: 'Entro quando e cosa devi fare?',
+						opzioni: [
+							{ ja: '今日の 9時半までに コピーを 3まい', it: '3 copie entro le 9:30 di oggi' },
+							{ ja: 'あしたの 9時半までに コピーを 10まい', it: '10 copie entro domani alle 9:30' },
+							{ ja: 'あしたの 3時までに コピーを 10まい', it: '10 copie entro domani alle 15' },
+							{ ja: 'あしたの 9時半から かいぎしつで コピー', it: 'fotocopie in sala riunioni da domani alle 9:30' }
+						],
+						giusta: 1, spiega: '「あしたの 朝 9時半までに … おいて おいて ください」: 〜までに = entro; 〜て おく = fare in anticipo, preparare.'
+					}
+				},
+				{ narra: 'コピーを して、かいぎしつに おいて おきました。', it: 'Fai le copie e le lasci in sala riunioni.' },
+				{ dice: 'mori', ja: '{nome}さん、メモ ありがとう。山田さんから 電話が ありました。', it: '{nome}, grazie del biglietto. Yamada ha chiamato.' },
 				{ ora: h(16, 30) },
 				{ se: { nonFlag: ['posta.ok'] }, allora: [{ narra: '今 4時半です。今 出れば、郵便局[ゆうびんきょく]が しまる 前に つきます。', it: 'Sono le 16:30: se esci adesso arrivi alla posta prima che chiuda.' }] },
 				{ dice: 'mori', ja: '今日は もう 帰っても いいですよ。おつかれさまでした。', it: 'Per oggi può andare a casa. Buon lavoro.' },
@@ -324,6 +364,31 @@ export const M1: Missione = {
 			id: 'd1-ufficio-pomeriggio', luogo: 'ufficio', quando: { giorno: 1, dalle: h(12, 30), flag: ['d1.ufficio'] },
 			passi: [
 				{ se: { flag: ['portafoglio.ok'] }, allora: [{ dice: 'tanaka', ja: 'さいふ、見つかったんですか。よかったですね！', it: 'Il portafoglio l’ha ritrovato? Meno male!' }], altrimenti: [{ dice: 'tanaka', ja: 'さいふ、まだ 見つかりませんか。仕事の あとで さがして みたら？', it: 'Il portafoglio non l’ha ancora trovato? Perché non lo cerca dopo il lavoro?' }] },
+				{ ora: h(14) },
+				{ dice: 'mori', ja: '{nome}さん、まず この メールを 読んで ください。それから 田中さんと いっしょに 来週の 予定[よてい]を きめて ください。コピーは あとで いいです。', it: '{nome}, prima legga questa email. Poi decida con Tanaka il programma della settimana prossima. Le fotocopie possono aspettare.', taccuino: true },
+				{
+					domanda: {
+						ja: '{nome}さんは さいしょに 何を しますか。', it: 'Cosa fai per prima cosa?',
+						opzioni: [{ ja: 'コピーを する', it: 'le fotocopie' }, { ja: 'メールを 読む', it: 'leggere l’email' }, { ja: '田中さんと 話す', it: 'parlare con Tanaka' }, { ja: '電話を かける', it: 'telefonare' }],
+						giusta: 1, spiega: '「まず … それから … コピーは あとで いい」: まず = prima di tutto; あとで いい = può aspettare.'
+					}
+				},
+				{ narra: 'メールです：「来週の 水曜日、10時に おきゃくさんが 来ます。{nome}さんは 9時50分に 1かいで 待って いて ください。」', it: 'L’email: «Mercoledì prossimo alle 10 viene un cliente. {nome}, lo aspetti al piano terra alle 9:50.»' },
+				{
+					domanda: {
+						ja: '{nome}さんは 来週 何曜日の 何時に、どこで 待ちますか。', it: 'Mercoledì prossimo: a che ora e dove aspetti?',
+						opzioni: [{ ja: '水曜日の 10時に 1かいで', it: 'mercoledì alle 10, piano terra' }, { ja: '水曜日の 9時50分に 1かいで', it: 'mercoledì alle 9:50, piano terra' }, { ja: '木曜日の 9時50分に 1かいで', it: 'giovedì alle 9:50, piano terra' }, { ja: '水曜日の 9時50分に 3かいで', it: 'mercoledì alle 9:50, terzo piano' }],
+						giusta: 1, spiega: 'Il cliente arriva alle 10, ma tu devi essere lì alle 9:50: occhio a chi fa cosa e a che ora.'
+					}
+				},
+				{ dice: 'tanaka', ja: '{nome}さん、来週の 予定[よてい]ですが、ぼくは 月曜日と 火曜日は 出張[しゅっちょう]で いません。', it: '{nome}, per il programma della settimana prossima: lunedì e martedì sono in trasferta.', taccuino: true },
+				{ dice: 'tanaka', ja: 'じゃ、うちあわせは 木曜日の 午後に しましょうか。', it: 'Allora facciamo la riunione giovedì pomeriggio?' },
+				{
+					scelta: [
+						{ ja: 'はい、木曜日の 午後で いいです。', it: 'Sì, giovedì pomeriggio va bene.' },
+						{ ja: 'すみません、木曜日は ちょっと……。金曜日は どうですか。', it: 'Mi scusi, giovedì non posso… Venerdì?', passi: [{ dice: 'tanaka', ja: 'いいですよ。じゃ、金曜日の 午後に しましょう。', it: 'Va bene. Allora venerdì pomeriggio.' }] }
+					]
+				},
 				{ narra: '5時半まで 仕事を しました。', it: 'Lavori fino alle 17:30.' },
 				{ ora: h(17, 30) },
 				{ dice: 'mori', ja: 'おつかれさまでした。', it: 'Buon lavoro (a domani).' },
@@ -387,9 +452,26 @@ export const M1: Missione = {
 		{
 			id: 'd2-ufficio-pomeriggio', luogo: 'ufficio', quando: { giorno: 2, dalle: h(12, 30), flag: ['d2.ufficio'] },
 			passi: [
-				{ narra: '午後も 仕事です。5時半から かいぎです。', it: 'Pomeriggio di lavoro, poi la riunione delle 17:30.' },
+				{ ora: h(14) },
+				{ dice: 'suzuki', ja: '{nome}さん、5時半の かいぎの じゅんびを 手つだって ください。いすを 8つ ならべて おいて ください。お茶は わたしが します。', it: '{nome}, mi aiuti a preparare la riunione delle 17:30. Metta in fila 8 sedie. Il tè lo preparo io.', taccuino: true },
+				{
+					domanda: {
+						ja: '{nome}さんは 何を しますか。', it: 'Cosa devi fare tu?',
+						opzioni: [{ ja: 'いすを 8つ ならべる', it: 'mettere 8 sedie' }, { ja: 'お茶を じゅんびする', it: 'preparare il tè' }, { ja: 'いすを 8つと お茶', it: '8 sedie e il tè' }, { ja: 'しりょうを 8まい コピーする', it: 'fare 8 copie' }],
+						giusta: 0, spiega: '「お茶は わたしが します」: il tè lo fa Suzuki. A te restano le sedie (〜て おく = preparare prima).'
+					}
+				},
+				{ narra: 'かいぎしつに いすを ならべました。そのあと、夕方まで 自分の 仕事を しました。', it: 'Metti le sedie in sala riunioni. Poi lavori alle tue cose fino a sera.' },
 				{ ora: h(17, 30) },
 				{ dice: 'mori', ja: 'では、かいぎを はじめます。', it: 'Allora, cominciamo la riunione.' },
+				{ dice: 'mori', ja: '来月から、会社は 毎週 水曜日、6時までに しまります。ざんぎょうは しないで ください。', it: 'Dal mese prossimo, ogni mercoledì l’ufficio chiude entro le 18. Niente straordinari, per favore.', taccuino: true },
+				{
+					domanda: {
+						ja: '来月から 水曜日は どう なりますか。', it: 'Dal mese prossimo, cosa cambia il mercoledì?',
+						opzioni: [{ ja: '会社が 休みに なる', it: 'l’ufficio è chiuso' }, { ja: '6時までに 帰る', it: 'si va a casa entro le 18' }, { ja: '6時から かいぎが ある', it: 'c’è una riunione alle 18' }, { ja: 'ざんぎょうを する', it: 'si fanno gli straordinari' }],
+						giusta: 1, spiega: '「6時までに しまります」「ざんぎょうは しないで ください」: 〜ないで ください = non fate…'
+					}
+				},
 				{ minuti: 30 },
 				{ dice: 'mori', ja: '今日は ここまで。おつかれさまでした。', it: 'Per oggi è tutto. Buon lavoro.' },
 				{ narra: '6時です。パン屋と 花屋は 7時に しまります。学校は 6時からです。', it: 'Sono le 18:00. La panetteria e il fioraio chiudono alle 19, la scuola apre alle 18.' },

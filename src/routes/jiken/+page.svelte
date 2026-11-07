@@ -662,6 +662,10 @@
 		max-width: 980px;
 		margin: 0 auto;
 	}
+	/* telefono: niente zoom col doppio tocco (つぎへ toccato due volte), niente pagina più larga dello schermo */
+	.game { overflow-x: clip; }
+	.game :global(button), .game :global(a), .spot, .opzione { touch-action: manipulation; }
+	.game input, .game select { font-size: 16px; }
 	.game-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 	.barra { display: flex; gap: 6px; flex-wrap: nowrap; }
 	.barra .mini { padding: 4px 8px; }

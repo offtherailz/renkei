@@ -18,12 +18,30 @@ export const LUOGHI: Luogo[] = [
 	},
 	{
 		id: 'konbini', nome: 'ハッピーマート', it: 'konbini Happy Mart', icona: '🏪', sfondo: 'konbini', x: 94.1, y: 64.5,
-		ambiente: [{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: 'たなを 見ましたが、買う ものは ありません。', it: 'Dai un’occhiata agli scaffali, ma non ti serve niente.' }]
+		ambiente: [
+			{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
+			{
+				scelta: [
+					{ ja: 'おにぎりと お茶を ください。', it: 'Un onigiri e un tè, per favore.', passi: [{ dice: 'commessa', ja: '280円です。あたためますか。', it: 'Sono 280 yen. Lo scaldo?' }, { io: 'いいえ、けっこうです。', it: 'No, grazie.' }, { soldi: -280 }, { minuti: 10 }] },
+					{ ja: 'すみません、見て いる だけです。', it: 'Scusi, sto solo guardando.', passi: [{ minuti: 5 }] }
+				]
+			}
+		]
 	},
 	{
 		id: 'shokudo', nome: 'ふじ食堂', it: 'trattoria Fuji', icona: '🍱', sfondo: 'ristorante', x: 69.4, y: 65.5,
 		orario: { fasce: [[h(11), h(15)], [h(17), h(21)]] },
-		ambiente: [{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '今は おなかが すいて いません。', it: 'Non hai fame adesso.' }]
+		ambiente: [
+			{ dice: 'oste', ja: 'いらっしゃいませ。何に しますか。', it: 'Benvenut{o}. Cosa prende?' },
+			{
+				scelta: [
+					{ ja: 'カレーライスを おねがいします。', it: 'Il riso al curry, per favore.', passi: [{ soldi: -650 }, { minuti: 40 }, { narra: 'カレーを 食べました。おいしかった！', it: 'Hai mangiato il curry. Buonissimo!' }] },
+					{ ja: 'ラーメンを おねがいします。', it: 'Il ramen, per favore.', passi: [{ soldi: -700 }, { minuti: 40 }, { narra: 'ラーメンを 食べました。おなかが いっぱいです。', it: 'Hai mangiato il ramen. Sei sazi{o}.' }] },
+					{ ja: 'すみません、また 来ます。', it: 'Scusi, ripasso.' }
+				]
+			},
+			{ dice: 'oste', ja: 'ありがとうございました。', it: 'Grazie.' }
+		]
 	},
 	{
 		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '🏣', sfondo: 'posta', x: 29.1, y: 73,
@@ -90,6 +108,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	fioraia: { nome: '花屋の 人', sprite: 'fioraia', voce: 'F' },
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M' },
 	nakamuraTel: { nome: '中村[なかむら]さん（電話）', sprite: null, voce: 'M' },
+	telefono: { nome: '電話の 人', sprite: null, voce: 'M' },
 	takahashi: { nome: '高橋[たかはし]くん', sprite: 'studente_uomo', voce: 'M' },
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F' },
 	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M' }
