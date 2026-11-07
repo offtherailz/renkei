@@ -229,7 +229,7 @@ export const M1: Missione = {
 			]
 		},
 		{
-			id: 'd0-casa-sera', luogo: 'casa', quando: { giorno: 0, dalle: h(17), flag: ['d0.casa'] },
+			id: 'd0-casa-sera', luogo: 'casa', quando: { giorno: 0, dalle: h(16, 30), flag: ['d0.casa'] },
 			passi: [
 				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornat{o}.' },
 				{ io: 'ただいま。', it: 'Sono a casa.' },

@@ -9,7 +9,19 @@ const FERIALI = [0, 1, 2, 3, 4];
 export const LUOGHI: Luogo[] = [
 	{
 		id: 'casa', nome: '吉田[よしだ]さんの 家', it: 'casa della famiglia Yoshida', icona: '🏠', sfondo: 'casa', x: 68.3, y: 36.5,
-		ambiente: [{ dice: 'mamma', ja: 'あら、{nome}さん。どう したの？', it: 'Oh, {nome}. Che succede?' }, { narra: '今は 家で する ことが ありません。夜、ご飯を 食べて ねる 時に 帰りましょう。', it: 'A casa per ora non c’è niente da fare. Si torna la sera, per cena e per dormire.' }]
+		ambiente: [
+			{ dice: 'mamma', ja: 'あら、{nome}さん。どう したの？', it: 'Oh, {nome}. Che succede?' },
+			{
+				scelta: [
+					{ ja: 'ちょっと 休みます。', it: 'Mi riposo un po’ (fino a sera).', passi: [{ ora: 18 * 60 }, { narra: '夕方まで 家で 休みました。', it: 'Ti riposi a casa fino a sera.' }] },
+					{
+						ja: 'もう ねます。', it: 'Vado a dormire.',
+						passi: [{ se: { dalle: 20 * 60 }, allora: [{ dice: 'mamma', ja: 'おやすみなさい。', it: 'Buonanotte.' }, { dormi: true }], altrimenti: [{ dice: 'mamma', ja: 'え？ まだ 早いでしょう。', it: 'Eh? È ancora presto, no?' }] }]
+					},
+					{ ja: 'ちょっと 出かけます。', it: 'Esco un attimo.', passi: [{ dice: 'mamma', ja: 'いって らっしゃい。', it: 'Vai pure.' }] }
+				]
+			}
+		]
 	},
 	{
 		id: 'ufficio', nome: 'さくら会社', it: 'la ditta Sakura (ufficio)', icona: '🏢', sfondo: 'ufficio', x: 27.3, y: 56.6,
