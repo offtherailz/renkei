@@ -395,14 +395,19 @@
 	}
 	function tornaADormire(): void {
 		if (!stato) return;
-		if ((LUOGO[stato.luogo].quartiere ?? 'sakura') !== 'sakura') stato = prendiTreno(stato, 'eki');
+		let aPiedi = false;
+		if ((LUOGO[stato.luogo].quartiere ?? 'sakura') !== 'sakura') {
+			aPiedi = stato.soldi < TRENO.prezzo;
+			stato = prendiTreno(stato, 'eki');
+		}
 		if (stato.luogo !== 'casa') stato = viaggia(stato, 'casa');
 		parlante = null;
 		const sc = scenaPer('casa', stato, missione);
+		const piedi: Passo[] = aPiedi ? [{ narra: 'お金が ないので、歩いて 帰りました。', it: 'Non avendo soldi per il treno, torni a piedi.' }] : [];
 		if (sc) {
 			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
-			avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, ...sc.passi]);
-		} else avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, { dice: 'mamma', ja: 'おかえり。もう おそいから、早く ねなさい。', it: 'Bentornat{o}. È tardi, vai a letto.' }, { dormi: true }]);
+			avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, ...piedi, ...sc.passi]);
+		} else avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, ...piedi, { dice: 'mamma', ja: 'おかえり。もう おそいから、早く ねなさい。', it: 'Bentornat{o}. È tardi, vai a letto.' }, { dormi: true }]);
 	}
 
 	// ── interazioni coi passi

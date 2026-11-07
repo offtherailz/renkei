@@ -215,6 +215,8 @@ export function prossimaMissione(s: Stato, m: { id: string; inizio?: { giorno: n
 export const TRENO = { minuti: 10, prezzo: 160 };
 export const STAZIONI: Record<string, LuogoId> = { sakura: 'eki', ekimae: 'eki2' };
 export function prendiTreno(s: Stato, verso: LuogoId): Stato {
-	const minuti = Math.min(s.minuti + TRENO.minuti, FINE_GIORNO);
-	return { ...s, luogo: verso, minuti, soldi: s.soldi - TRENO.prezzo, percorso: [...s.percorso, { giorno: s.giorno, minuti, luogo: verso }] };
+	// senza i soldi del biglietto si torna a piedi: niente spesa, ma più tempo
+	const paga = s.soldi >= TRENO.prezzo;
+	const minuti = Math.min(s.minuti + (paga ? TRENO.minuti : 60), FINE_GIORNO);
+	return { ...s, luogo: verso, minuti, soldi: paga ? s.soldi - TRENO.prezzo : s.soldi, percorso: [...s.percorso, { giorno: s.giorno, minuti, luogo: verso }] };
 }

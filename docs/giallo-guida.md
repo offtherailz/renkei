@@ -76,7 +76,13 @@ tutta la storia della chat. Gli altri documenti:
    (come `m1-chiusura` / `m2-chiusura`), così la missione si chiude sempre.
 6. Aggiungere al test un giro del giocatore automatico che finisce la missione
    (vedi `missione 2 si può finire`).
-7. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser.
+7. Aggiungere la missione all'**esploratore** (`src/lib/jiken/esploratore.test.ts`):
+   gioca 1500 partite a caso (luoghi, attese, scelte, prove, treno) e controlla
+   che la missione finisca sempre entro pochi giorni, senza soldi sotto zero, orologio
+   oltre mezzanotte, scene infinite o domande senza risposta. Riproduce le regole
+   della pagina (scene in catena, ritorno a casa dalle 23): se cambiano lì, vanno
+   cambiate anche qui. Un seme fallito si rigioca uguale.
+8. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser.
 
 Pubblicare su dev (solo quando l'utente lo chiede):
 `npm run build:dev` e poi
