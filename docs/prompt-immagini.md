@@ -269,3 +269,58 @@ File: `<id>_<emozione>_chiusa.jpg` e `<id>_<emozione>_aperta.jpg`.
 
 Per la missione 3 serve anche lo **sfondo della hall dell'hotel** (prompt in
 «事件: città di 山野市», riga `hotel`).
+
+## 事件: centro (山野駅前), sala giochi, hotel — prompt completi
+
+Fatti (2026-11-07): `sala_giochi`, `tornelli`, `grande_magazzino`, mappa `ekimae-giorno`.
+
+### Mappa di 山野駅前 di notte (nella stessa chat della mappa di giorno)
+
+```
+Exactly the same map, identical layout and identical buildings in the same positions, but at night.
+Dark blue night sky with stars and a crescent moon. Warm yellow light in office and hotel windows, glowing street lamps along the streets, the game center glowing with bright pink and purple neon, the department store and the station brightly lit, the ramen shop with red paper lanterns, the hospital red cross lit, the shopping arcade lit inside, buses and taxis with headlights on, a train with lit windows on the tracks. Closed shops have dark windows and lowered shutters. The fountain in the park softly lit.
+Keep the same PC-98 16-color dithered pixel art style. Do not move, add or remove any building.
+No text, no labels, no letters, no numbers, no frame, no UI.
+```
+
+### Hall dell'hotel (missione 3)
+
+```
+PC-98 style background art, 1990s Japanese visual novel, 16-color dithered pixel art, crisp pixels, ordered dithering, soft pastel palette.
+Lobby of a mid-range Japanese business hotel, seen at eye level, wide 16:9 composition.
+Reception counter with a small bell and key cards, a sofa corner with a low table and newspapers, a potted plant, an elevator, a luggage cart, a wall clock, warm lights.
+Empty scene: no people, no characters, no text overlays, no frame, no UI.
+Keep the reception counter in the central horizontal band of the image (top and bottom may be cropped).
+```
+
+### Commesso della sala giochi (personaggio; poi, nella stessa chat, la bocca aperta)
+
+```
+PC-98 style anime portrait, 1990s Japanese visual novel character sprite, 16-color dithered pixel art, crisp pixels, cel shading, retro anime face.
+1boy, young Japanese game center staff, about 23 years old, dyed light brown hair, cheerful grin, red and black staff polo shirt with a small name tag, a coin pouch on the belt.
+ONE single image, landscape 16:9. The character is centered and occupies only the central third of the image width: upper body from the waist up, both shoulders and both arms completely inside the image, arms relaxed down at the sides, wide empty magenta space on the left, on the right and above the head.
+The body continues down to the bottom edge of the image (cut at the waist by the bottom border), no empty space below.
+Mouth closed. Facing the viewer, eye level.
+Plain flat solid magenta background (#B4318F), no gradient, no pattern. Do not use pink, purple or magenta in the clothes or hair.
+No text, no labels, no frame, no border, no UI.
+```
+
+```
+Exactly the same image, identical in every pixel, but with the mouth clearly open as if talking. Do not move, zoom or change anything else.
+```
+
+### Oggetti della sala giochi (griglia 4×4)
+
+```
+PC-98 style pixel art item icons, 1990s Japanese adventure game inventory, 16-color dithered pixel art, crisp pixels, soft pastel palette, thin dark outlines.
+A 4x4 grid of 16 separate objects, each centered in its own equal square cell, same size and same light from top-left, slight top-down three-quarter view:
+row 1: a tanuki plush toy, a maneki-neko lucky cat plush, a shiba inu dog plush, a red daruma plush;
+row 2: an onigiri plush with a face, a sushi plush, a small panda plush, a frog plush;
+row 3: a stack of silver game medals, a 100-yen coin, a purikura sticker sheet (cute frames, no readable text), a gold trophy;
+row 4: a train IC card with a penguin-like mascot (no readable text), a goshuin stamp book, a station stamp card, a gift-wrapped box.
+Plain flat solid magenta background (#FF00FF) everywhere around and between the objects, no shadows on the background, generous empty space between cells.
+No text, no labels, no numbers, no frame, no UI.
+```
+
+id nell'ordine: tanuki, maneki_neko, shiba, daruma, peluche_onigiri, peluche_sushi,
+panda, rana, medaglie, moneta_100, purikura, trofeo, carta_ic2, goshuin, timbri_stazione, regalo.
