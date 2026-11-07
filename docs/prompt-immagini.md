@@ -324,3 +324,5 @@ No text, no labels, no numbers, no frame, no UI.
 
 id nell'ordine: tanuki, maneki_neko, shiba, daruma, peluche_onigiri, peluche_sushi,
 panda, rana, medaglie, moneta_100, purikura, trofeo, carta_ic2, goshuin, timbri_stazione, regalo.
+Gemini l'ha fatta 6×3 (un daruma rosso doppio, scartato, e uno blu in più: `daruma_blu`).
+Tagliata con `elabora.cjs oggetti … 6 3 …`. Fatti anche: sfondo `hotel`.
