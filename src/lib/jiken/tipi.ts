@@ -9,6 +9,8 @@ export interface Testo {
 	en?: string;
 }
 
+export type Suono = 'telefono' | 'campanello' | 'stazione' | 'uccellini' | 'grilli';
+
 export type LuogoId =
 	| 'casa' | 'ufficio' | 'konbini' | 'shokudo' | 'posta' | 'panya' | 'hanaya'
 	| 'koban' | 'parco' | 'gakkou' | 'kissa' | 'apartment' | 'eki' | 'jinja' | 'tera';
@@ -73,10 +75,10 @@ export interface Prova {
 
 // Un passo della scena. Si scrive come oggetto con una sola chiave principale.
 export type Passo =
-	| { dice: string; ja: string; it: string; taccuino?: boolean; faccia?: string } // faccia = espressione (ritratti/<sprite>_<faccia>-chiusa.png)
+	| { dice: string; ja: string; it: string; taccuino?: boolean; faccia?: string; suono?: Suono } // faccia = espressione (ritratti/<sprite>_<faccia>-chiusa.png)
 	| { io: string; it: string; detto?: boolean } // battuta tua (detto = l'hai già pronunciata al microfono)
 	| { pensa: string; it: string } // un tuo pensiero (non lo dici)
-	| { narra: string; it: string; en?: string } // narrazione (giapponese + traduzione)
+	| { narra: string; it: string; en?: string; suono?: Suono } // narrazione (giapponese + traduzione)
 	| { nota: string; it: string; en?: string } // spiegazione di lingua o di gioco (💡)
 	| { scelta: Opzione[] }
 	| { se: Condizione; allora: Passo[]; altrimenti?: Passo[] }

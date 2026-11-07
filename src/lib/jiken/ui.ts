@@ -98,5 +98,8 @@ export const UI = {
 	importaOk: { ja: '✅ よみこみました。', it: '✅ Partita importata.' },
 	importaNo: { ja: '❌ この ファイルは 読めません。', it: '❌ File non valido.' },
 	salvataggi: { ja: 'セーブ', it: 'Salvataggi' },
+	suoniUI: { ja: '🔔 こうか音（電話、店の チャイム…）', it: '🔔 Effetti sonori (telefono, campanelli…)' },
+	ambienteUI: { ja: '🐦 まわりの 音（朝の 鳥、夜の むし）', it: '🐦 Suoni d’ambiente (uccellini, grilli)' },
+	mattino: { ja: '朝に なりました', it: 'È mattina' },
 	tardi: { ja: 'もう 夜 おそいです。つかれたので、家に 帰ります。', it: 'È tardi. Sei stanc{o}: torni a casa.' }
 } satisfies Record<string, Testo | Testo[]>;

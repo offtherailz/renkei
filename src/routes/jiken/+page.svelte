@@ -14,6 +14,7 @@
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
 	import { UI } from '$lib/jiken/ui';
+	import * as suono from '$lib/jiken/suoni';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
 	const MISSIONI: Record<string, Missione> = { m1: M1 };
@@ -222,6 +223,11 @@
 		if (!stato) return;
 		const l = LUOGO[dest];
 		const ap = apertura(l, stato);
+		if (imp.suoni && ap === 'aperto') {
+			if (dest === 'konbini' || dest === 'kissa' || dest === 'panya' || dest === 'hanaya') suono.campanello();
+			else if (dest === 'eki') suono.stazione();
+			else if (dest === 'parco' && !notte(stato.minuti)) suono.uccellini(2);
+		}
 		parlante = null;
 		if (ap !== 'aperto') {
 			const o = orarioTesto(l.orario);
@@ -260,6 +266,7 @@
 			finisciScena();
 			return;
 		}
+		if (imp.suoni && ('dice' in corrente || 'narra' in corrente) && corrente.suono) suono[corrente.suono]();
 		if ('dice' in corrente) {
 			const c = PERSONAGGI[corrente.dice];
 			if (c?.sprite) {
@@ -288,9 +295,23 @@
 		if (ob.length) msg.push(L(UI.nuovoOb));
 		const fatti = b.obiettivi.filter((o) => o.fatto && !a.obiettivi.find((x) => x.id === o.id)?.fatto);
 		if (fatti.length) msg.push(L(UI.obFatto));
-		if (b.giorno !== a.giorno) salvaRipresa(b);
+		if (imp.suoni && (nuovi.length || ob.length)) suono.din();
+		if (b.giorno !== a.giorno) {
+			salvaRipresa(b);
+			mattino(b.giorno);
+		}
 		if (b.giorno !== a.giorno) msg.push(`🌙 ${lingua === 'ja' ? dataJa(b.giorno) : dataIt(b.giorno)}`);
 		if (msg.length) avvisa(msg.join(' · '));
+	}
+
+	// stacco tra la notte e il mattino: la mappa di notte sfuma in quella di giorno
+	let stacco = $state<number | null>(null);
+	let staccoTimer: ReturnType<typeof setTimeout> | null = null;
+	function mattino(giorno: number): void {
+		stacco = giorno;
+		if (imp.suoni) setTimeout(() => suono.uccellini(3), 900);
+		if (staccoTimer) clearTimeout(staccoTimer);
+		staccoTimer = setTimeout(() => (stacco = null), 3200);
 	}
 
 	function annota(chi: string, ja: string, it: string): void {
@@ -444,6 +465,11 @@
 		return { update: go };
 	}
 
+	// ambiente solo sulla mappa: uccellini di giorno, grilli di notte
+	$effect(() => {
+		suono.ambiente(fase === 'mappa' && imp.suoni && imp.ambiente ? (notturna ? 'notte' : 'giorno') : null);
+	});
+
 	onMount(() => {
 		try {
 			const raw = migra(JSON.parse(localStorage.getItem(SALVA) ?? 'null'));
@@ -467,6 +493,8 @@
 		if (toastTimer) clearTimeout(toastTimer);
 		hush();
 		ascolto?.abort();
+		suono.ambiente(null);
+		if (staccoTimer) clearTimeout(staccoTimer);
 	});
 </script>
 
@@ -755,6 +783,14 @@
 		{/if}
 	{/if}
 
+	{#if stacco !== null}
+		<div class="stacco" role="presentation" onclick={() => (stacco = null)}>
+			<img class="notte" src="{base}/giorno/mappa/sakura-notte.jpg" alt="" />
+			<img class="giorno" src="{base}/giorno/mappa/sakura-giorno.jpg" alt="" />
+			<p>☀️ {lingua === 'ja' ? dataJa(stacco) : dataIt(stacco)}<small>{L(UI.mattino)}</small></p>
+		</div>
+	{/if}
+
 	{#if toast}<div class="toast">{toast}</div>{/if}
 
 	{#if impostazioni}
@@ -782,6 +818,8 @@
 						</select>
 					</label>
 					<label class="check"><input type="checkbox" bind:checked={imp.autoVoce} onchange={salvaImp} /> {L(UI.autoVoce)}</label>
+					<label class="check"><input type="checkbox" bind:checked={imp.suoni} onchange={() => { salvaImp(); if (imp.suoni) suono.campanello(); }} /> {L(UI.suoniUI)}</label>
+					<label class="check"><input type="checkbox" bind:checked={imp.ambiente} onchange={() => { salvaImp(); if (imp.ambiente) suono.uccellini(1); }} /> {L(UI.ambienteUI)}</label>
 					<label>{L(UI.linguaUI)}
 						<select bind:value={imp.lingua} onchange={salvaImp}>
 							<option value="ja">日本語</option><option value="it">Italiano</option>
@@ -963,6 +1001,13 @@
 	.riprese summary { cursor: pointer; font-size: 0.9rem; margin: 4px 0; }
 	.file input { display: none; }
 	.imp h3 { margin: 6px 0 0; font-size: 0.95rem; color: #fbf236; }
+	.stacco { position: fixed; inset: 0; z-index: 60; background: #000; display: grid; place-items: center; cursor: pointer; animation: stacco-out 3.2s ease forwards; }
+	.stacco img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+	.stacco .giorno { opacity: 0; animation: alba 2.2s ease 0.6s forwards; }
+	.stacco p { position: relative; margin: 0; padding: 10px 18px; background: rgba(14, 13, 26, 0.75); color: #fff; font-size: 1.4rem; display: grid; justify-items: center; gap: 2px; border: 3px solid #fbf236; }
+	.stacco p small { font-size: 0.85rem; color: #fbf236; }
+	@keyframes alba { to { opacity: 1; } }
+	@keyframes stacco-out { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }

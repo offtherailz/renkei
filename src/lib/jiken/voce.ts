@@ -17,9 +17,11 @@ export interface Impostazioni {
 	autoVoce: boolean; // le battute si leggono da sole
 	lingua: Lingua;
 	completate: string[]; // missioni finite nella partita principale (si possono rigiocare)
+	suoni: boolean; // effetti (telefono, campanelli…)
+	ambiente: boolean; // uccellini di giorno, grilli di notte
 }
 
-export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [] };
+export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [], suoni: true, ambiente: true };
 const CHIAVE = 'renkei_jiken_imp';
 
 export function caricaImpostazioni(): Impostazioni {

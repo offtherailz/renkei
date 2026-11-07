@@ -161,7 +161,7 @@ export const M1: Missione = {
 					]
 				},
 				{ ora: h(14) },
-				{ narra: '2時です。電話が なって います。まわりに だれも いません。', it: 'Sono le 14. Squilla il telefono e intorno non c’è nessuno.' },
+				{ narra: '2時です。電話が なって います。まわりに だれも いません。', it: 'Sono le 14. Squilla il telefono e intorno non c’è nessuno.', suono: 'telefono' },
 				{
 					scelta: [
 						{ ja: 'はい、さくら会社です。', it: 'Sì, ditta Sakura.' },
@@ -604,7 +604,7 @@ export const M1: Missione = {
 			id: 'd2-casa-sera', luogo: 'casa', quando: { giorno: 2, dalle: h(17), flag: ['d2.casa'] },
 			passi: [
 				{ dice: 'mamma', ja: 'おかえりなさい。', it: 'Bentornat{o}.' },
-				{ narra: '夕ご飯の あとで、電話が なりました。中村[なかむら]さんからです。', it: 'Dopo cena squilla il telefono. È l’ispettore Nakamura.' },
+				{ narra: '夕ご飯の あとで、電話が なりました。中村[なかむら]さんからです。', it: 'Dopo cena squilla il telefono. È l’ispettore Nakamura.', suono: 'telefono' },
 				{ dice: 'nakamuraTel', ja: 'もしもし、{nome}さんですか。交番[こうばん]の 中村[なかむら]です。', it: 'Pronto, parlo con {nome}? Sono Nakamura, del posto di polizia.' },
 				{ dice: 'nakamuraTel', ja: 'じつは、わたしは けいじです。あなたは よく 見て、よく 聞いて いますね。', it: 'In realtà sono un ispettore. Lei osserva e ascolta con attenzione.' },
 				{ dice: 'nakamuraTel', ja: 'この 町では ときどき ふしぎな ことが あります。今度、少し 手つだって くれませんか。', it: 'In questo quartiere ogni tanto succedono cose strane. Mi darebbe una mano, la prossima volta?' },
