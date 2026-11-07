@@ -223,7 +223,9 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
 node scripts/immagini/elabora.cjs scarica  <link o pagina> uscita.jpg
 node scripts/immagini/elabora.cjs sfondo   ingresso uscita.jpg          # → static/giorno/sfondi
 node scripts/immagini/elabora.cjs ritratto ingresso uscita-chiusa.png   # → static/giorno/ritratti
-node scripts/immagini/elabora.cjs bocca    x-chiusa.png aperta.jpg x-parla.png
+node scripts/immagini/elabora.cjs ritratto ingresso uscita.png bordi     # se capelli/vestiti hanno rosa o viola
+node scripts/immagini/elabora.cjs affiancata img.jpg sx.png dx.png        # chiusa|aperta nella stessa immagine
+node scripts/immagini/elabora.cjs bocca    x-chiusa.png aperta.jpg x-parla.png [0.4 0.68]  # fascia della bocca se inquadrato da vicino
 node scripts/immagini/elabora.cjs oggetti  griglia.jpg 4 4 static/giorno/oggetti id1 id2 …
 ```
 

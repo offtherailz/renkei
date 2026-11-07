@@ -7,7 +7,11 @@
 //   node scripts/immagini/elabora.cjs scarica  <link-condivisione|pagina.html> <uscita.jpg>
 //   node scripts/immagini/elabora.cjs sfondo   <ingresso> <uscita.jpg>            (640×320, taglio centrale 2:1)
 //   node scripts/immagini/elabora.cjs ritratto <ingresso> <uscita.png>            (fondo magenta via, alto 360)
-//   node scripts/immagini/elabora.cjs bocca    <chiusa.png> <aperta.jpg> <uscita-parla.png>
+//   node scripts/immagini/elabora.cjs ritratto <ingresso> <uscita.png> bordi      (toglie solo il magenta del fondo: per capelli rosa)
+//   node scripts/immagini/elabora.cjs affiancata <ingresso> <sinistra.png> <destra.png>  (divide chiusa|aperta e toglie le bande nere)
+//   node scripts/immagini/elabora.cjs bocca    <chiusa.png> <aperta.jpg> <uscita-parla.png> [da a]
+//        (da/a = fascia verticale dove cercare la bocca, in frazioni dell'altezza; base 0.12 0.45;
+//         per ritratti inquadrati più da vicino, es. 0.4 0.65)
 //   node scripts/immagini/elabora.cjs oggetti  <griglia> <colonne> <righe> <cartella> <id1> <id2> …
 //
 // «scarica»: i file caricati dall'utente spesso sono la PAGINA di condivisione
@@ -45,9 +49,15 @@ async function scarica(sorgente, uscita) {
 	const p = await b.newPage();
 	await p.goto(abs(path.join(__dirname, 'proc.html')));
 	if (cmd === 'sfondo') salva(args[1], await p.evaluate(([a]) => bg(a, 640, 320), [abs(args[0])]));
-	else if (cmd === 'ritratto') salva(args[1], (await p.evaluate(([a]) => ritratto(a, 360), [abs(args[0])])).u);
+	else if (cmd === 'ritratto') salva(args[1], (await p.evaluate(([a, bordi]) => (bordi ? ritrattoBordi(a, 360) : ritratto(a, 360)), [abs(args[0]), args[2] === 'bordi'])).u);
+	else if (cmd === 'affiancata') {
+		const [sx, dx] = await p.evaluate(([a]) => dividi(a), [abs(args[0])]);
+		salva(args[1], sx);
+		salva(args[2], dx);
+	}
 	else if (cmd === 'bocca') {
-		const r = await p.evaluate(([c, a]) => bocca(c, a), [abs(args[0]), abs(args[1])]);
+		const fascia = args[3] ? [Number(args[3]), Number(args[4])] : null;
+		const r = await p.evaluate(([c, a, f]) => bocca(c, a, f), [abs(args[0]), abs(args[1]), fascia]);
 		if (r.err) throw new Error(r.err);
 		salva(args[2], r.u);
 		console.log('bocca', JSON.stringify(r.info));
