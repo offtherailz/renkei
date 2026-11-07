@@ -92,6 +92,8 @@ export const appState = $state({
 	quizMuted: false,
 	// Celebrazione cinture/sblocchi (gameBelts): il layout la mostra e la azzera.
 	beltToast: null as { messages: string[]; at: number } | null,
+	// il service worker ha installato una versione nuova: si mostra l'avviso «ricarica»
+	nuovaVersione: false,
 	// Scheda di presentazione carta nuova aperta: se l'utente va alla scheda
 	// completa (/detail) e torna, il quiz rimostra QUESTA intro, non la domanda.
 	pendingIntroRef: null as ItemRef | null,

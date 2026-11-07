@@ -9,7 +9,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, notte, nuovoStato, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -43,6 +43,74 @@
 	let slot = $state<'main' | 'rigioca'>('main');
 	let salvatoRigioco = $state<Stato | null>(null);
 	const chiaveSlot = (): string => (slot === 'main' ? SALVA : `${SALVA}_rigioca`);
+
+	// riprese: una copia della partita principale a ogni mattina (dopo la notte)
+	const SALVA_RIPRESE = `${SALVA}_riprese`;
+	let riprese = $state<Stato[]>([]);
+	function salvaRipresa(s: Stato): void {
+		if (slot !== 'main') return;
+		const altre = riprese.filter((x) => !(x.missione === s.missione && x.giorno === s.giorno));
+		riprese = [...altre, s].sort((a, b) => a.giorno - b.giorno).slice(-14);
+		try {
+			localStorage.setItem(SALVA_RIPRESE, JSON.stringify(riprese));
+		} catch {
+			/* niente storage */
+		}
+	}
+	function riprendi(r: Stato): void {
+		if (!confirm(L(UI.riprendiSicuro))) return;
+		slot = 'main';
+		stato = structuredClone($state.snapshot(r)) as Stato;
+		// le mattine dopo questa non valgono più
+		riprese = riprese.filter((x) => x.missione !== r.missione || x.giorno <= r.giorno);
+		try {
+			localStorage.setItem(SALVA_RIPRESE, JSON.stringify(riprese));
+		} catch {
+			/* niente storage */
+		}
+		salva();
+		entra(stato.luogo);
+	}
+
+	// esporta / importa: partita, rigioco, riprese e impostazioni in un file
+	function esporta(): void {
+		const dati = { app: 'renkei-jiken', versione: 1, data: new Date().toISOString(), imp, main: slot === 'main' && stato ? stato : salvato, rigioco: salvatoRigioco, riprese };
+		const url = URL.createObjectURL(new Blob([JSON.stringify(dati, null, 1)], { type: 'application/json' }));
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `renkei-jiken-${new Date().toISOString().slice(0, 10)}.json`;
+		a.click();
+		URL.revokeObjectURL(url);
+	}
+	async function importa(e: Event): Promise<void> {
+		const f = (e.currentTarget as HTMLInputElement).files?.[0];
+		(e.currentTarget as HTMLInputElement).value = '';
+		if (!f) return;
+		try {
+			const d = JSON.parse(await f.text()) as { app?: string; imp?: Impostazioni; main?: unknown; rigioco?: unknown; riprese?: unknown[] };
+			if (d.app !== 'renkei-jiken') throw new Error('file');
+			if (!confirm(L(UI.importaSicuro))) return;
+			const main = migra(d.main);
+			const rg = migra(d.rigioco);
+			riprese = (d.riprese ?? []).map(migra).filter((x): x is Stato => x !== null);
+			if (d.imp) imp = { ...IMPOSTAZIONI_BASE, ...d.imp };
+			salvaImpostazioni(imp);
+			localStorage.setItem(SALVA_RIPRESE, JSON.stringify(riprese));
+			if (main) localStorage.setItem(SALVA, JSON.stringify(main));
+			else localStorage.removeItem(SALVA);
+			if (rg) localStorage.setItem(`${SALVA}_rigioca`, JSON.stringify(rg));
+			else localStorage.removeItem(`${SALVA}_rigioca`);
+			salvato = main;
+			salvatoRigioco = rg && !rg.finita ? rg : null;
+			stato = null;
+			slot = 'main';
+			impostazioni = false;
+			fase = 'inizio';
+			avvisa(L(UI.importaOk));
+		} catch {
+			avvisa(L(UI.importaNo));
+		}
+	}
 	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine'>('inizio');
 
 	// scena in corso
@@ -79,6 +147,7 @@
 		if (!stato) return;
 		try {
 			localStorage.setItem(chiaveSlot(), JSON.stringify(stato));
+			if (slot === 'main') salvato = stato;
 		} catch {
 			/* niente storage */
 		}
@@ -96,6 +165,8 @@
 		salvaImp();
 		slot = 'main';
 		stato = nuovoStato(imp.nome, 'm1');
+		riprese = [];
+		salvaRipresa(stato);
 		salva();
 		entra('casa');
 	}
@@ -213,6 +284,7 @@
 		if (ob.length) msg.push(L(UI.nuovoOb));
 		const fatti = b.obiettivi.filter((o) => o.fatto && !a.obiettivi.find((x) => x.id === o.id)?.fatto);
 		if (fatti.length) msg.push(L(UI.obFatto));
+		if (b.giorno !== a.giorno) salvaRipresa(b);
 		if (b.giorno !== a.giorno) msg.push(`🌙 ${lingua === 'ja' ? dataJa(b.giorno) : dataIt(b.giorno)}`);
 		if (msg.length) avvisa(msg.join(' · '));
 	}
@@ -354,11 +426,12 @@
 
 	onMount(() => {
 		try {
-			const raw = JSON.parse(localStorage.getItem(SALVA) ?? 'null') as Stato | null;
+			const raw = migra(JSON.parse(localStorage.getItem(SALVA) ?? 'null'));
 			imp = caricaImpostazioni();
-			if (raw?.versione === 1) salvato = raw;
-			const rg = JSON.parse(localStorage.getItem(`${SALVA}_rigioca`) ?? 'null') as Stato | null;
-			if (rg?.versione === 1 && !rg.finita) salvatoRigioco = rg;
+			if (raw) salvato = raw;
+			const rg = migra(JSON.parse(localStorage.getItem(`${SALVA}_rigioca`) ?? 'null'));
+			if (rg && !rg.finita) salvatoRigioco = rg;
+			riprese = ((JSON.parse(localStorage.getItem(SALVA_RIPRESE) ?? '[]') as unknown[]) ?? []).map(migra).filter((x): x is Stato => x !== null);
 			// partite finite prima che esistesse l'elenco delle missioni
 			if (raw?.finita && !imp.completate.includes(raw.missione)) imp = { ...imp, completate: [...imp.completate, raw.missione] };
 		} catch {
@@ -424,6 +497,16 @@
 				<button class="btn big" class:ghost={salvato && !salvato.finita} onclick={nuovaPartita}>{L(UI.nuova)}</button>
 			</div>
 			<p class="muted">{L(UI.missione1)}</p>
+			{#if riprese.length > 1 && salvato && !salvato.finita}
+				<details class="riprese">
+					<summary>{L(UI.riprese)}</summary>
+					<div class="row">
+						{#each riprese.filter((x) => x.missione === salvato?.missione) as rp (rp.giorno)}
+							<button class="btn small ghost" onclick={() => riprendi(rp)}>{dataJa(rp.giorno)} {L({ ja: '朝', it: 'mattina' })}</button>
+						{/each}
+					</div>
+				</details>
+			{/if}
 			{#if imp.completate.length || salvatoRigioco}
 				<h2 class="sotto">{L(UI.missioni)}</h2>
 				<div class="missioni">
@@ -685,6 +768,11 @@
 						</select>
 					</label>
 					<button class="btn small" onclick={() => void voceMia(UI.frasePerProva.ja)}>{L(UI.provaVoce)}</button>
+					<h3>{L(UI.salvataggi)}</h3>
+					<div class="row">
+						<button class="btn small ghost" onclick={esporta}>{L(UI.esporta)}</button>
+						<label class="btn small ghost file">{L(UI.importa)}<input type="file" accept="application/json,.json" onchange={importa} /></label>
+					</div>
 				</div>
 			</section>
 		</div>
@@ -852,6 +940,9 @@
 	.missione { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #2a2848; color: #f4f4f4; border: 3px solid var(--px-line); padding: 6px 8px; }
 	.missione small { color: #b9b6dc; }
 	.rig { background: #fbf236; color: #222034; padding: 0 6px; font-size: 0.8rem; }
+	.riprese summary { cursor: pointer; font-size: 0.9rem; margin: 4px 0; }
+	.file input { display: none; }
+	.imp h3 { margin: 6px 0 0; font-size: 0.95rem; color: #fbf236; }
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }

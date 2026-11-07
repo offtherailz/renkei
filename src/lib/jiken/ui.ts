@@ -89,5 +89,13 @@ export const UI = {
 	rigioca: { ja: '↺ もう一度 やる', it: '↺ Rigioca' },
 	continuaRigioco: { ja: '▶ もう一度の つづき', it: '▶ Continua il rigioco' },
 	rigiocoNota: { ja: 'もう一度 やる ときは、ミッションの 始めから です。今の ゲームの お金や 持ち物は かわりません。', it: 'Il rigioco riparte dall’inizio della missione, in uno slot a parte: soldi e oggetti della partita principale non cambiano.' },
-	modoRigioco: { ja: '↺ もう一度', it: '↺ Rigioco' }
+	modoRigioco: { ja: '↺ もう一度', it: '↺ Rigioco' },
+	riprese: { ja: '📅 前の 朝から やりなおす', it: '📅 Riprendi da una mattina precedente' },
+	riprendiSicuro: { ja: 'この 朝から やりなおしますか。今の つづきは きえます。', it: 'Ripartire da questa mattina? I progressi successivi si perdono.' },
+	esporta: { ja: '💾 ゲームを ファイルに 書き出す', it: '💾 Esporta la partita' },
+	importa: { ja: '📂 ファイルから よみこむ', it: '📂 Importa una partita' },
+	importaSicuro: { ja: 'ファイルの ゲームで 今の ゲームを かえますか。', it: 'Sostituire la partita attuale con quella del file?' },
+	importaOk: { ja: '✅ よみこみました。', it: '✅ Partita importata.' },
+	importaNo: { ja: '❌ この ファイルは 読めません。', it: '❌ File non valido.' },
+	salvataggi: { ja: 'セーブ', it: 'Salvataggi' }
 } satisfies Record<string, Testo | Testo[]>;

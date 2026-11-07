@@ -84,7 +84,17 @@
 			await Promise.all(keys.filter((k) => k.startsWith('renkei-')).map((k) => caches.delete(k)));
 			return;
 		}
-		await navigator.serviceWorker.register(`${base}/service-worker.js`);
+		// Se c'era già una versione attiva, il cambio di controller vuol dire che ne
+		// è arrivata una nuova: la pagina però ha ancora i file vecchi → avviso.
+		const giaAttivo = !!navigator.serviceWorker.controller;
+		navigator.serviceWorker.addEventListener('controllerchange', () => {
+			if (giaAttivo) appState.nuovaVersione = true;
+		});
+		const reg = await navigator.serviceWorker.register(`${base}/service-worker.js`);
+		// tornando sull'app (dal telefono in tasca) controlla se c'è una versione nuova
+		document.addEventListener('visibilitychange', () => {
+			if (document.visibilityState === 'visible') reg.update().catch(() => {});
+		});
 	}
 
 	onMount(async () => {
@@ -132,6 +142,13 @@
 	{@render children()}
 	<QuickSearch bind:open={appState.quickSearchOpen} />
 
+	{#if appState.nuovaVersione}
+		<div class="nuova-versione" role="status">
+			<span>🔄 Nuova versione di Renkei</span>
+			<button onclick={() => location.reload()}>Ricarica</button>
+		</div>
+	{/if}
+
 	{#if appState.beltToast}
 		<div class="belt-toast" role="status">
 			{#each appState.beltToast.messages as msg (msg)}
@@ -142,6 +159,13 @@
 </div>
 
 <style>
+	.nuova-versione {
+		position: fixed; left: 50%; top: 10px; transform: translateX(-50%); z-index: 100;
+		display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+		background: #184ca7; color: #fff; border-radius: 12px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3); font-size: 0.9rem;
+	}
+	.nuova-versione button { background: #fff; color: #184ca7; border: 0; border-radius: 8px; padding: 5px 10px; font-weight: 700; cursor: pointer; }
+
 	.app-header {
 		display: flex;
 		align-items: baseline;

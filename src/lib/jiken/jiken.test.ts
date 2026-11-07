@@ -182,3 +182,16 @@ describe('事件: nome in katakana', () => {
 		expect(nomeKatakana(n, romajiToHiragana)).toBe(k);
 	});
 });
+
+describe('事件: salvataggi', () => {
+	it('migra completa i salvataggi vecchi e scarta quelli rotti', async () => {
+		const { migra } = await import('./motore');
+		const vecchio = { versione: 1, nome: 'ルカ', missione: 'm1', giorno: 1, minuti: 600, luogo: 'casa', soldi: 4000, flag: ['x'], oggetti: [], fatte: [], obiettivi: [{ id: 'a', it: 'fare', fatto: false }] };
+		const m = migra(vecchio)!;
+		expect(m.obiettivi[0]!.ja).toBe('fare');
+		expect(m.domande).toEqual({ ok: 0, tot: 0 });
+		expect(m.taccuino).toEqual([]);
+		expect(migra(null)).toBeNull();
+		expect(migra({ versione: 2 })).toBeNull();
+	});
+});

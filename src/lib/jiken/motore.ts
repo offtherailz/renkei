@@ -167,3 +167,24 @@ export function opzioniSoldi(soldi: number): { opzioni: { ja: string; it: string
 	const opzioni = valori.map((v) => ({ ja: ja(v), it: `circa ${v.toLocaleString('it-IT')} yen`, valore: v }));
 	return { opzioni, giusta: valori.indexOf(base) };
 }
+
+// Salvataggi di versioni precedenti del gioco: completa i campi mancanti,
+// così una modifica alla struttura non rompe le partite già iniziate.
+export function migra(raw: unknown): Stato | null {
+	if (!raw || typeof raw !== 'object') return null;
+	const r = raw as Partial<Stato>;
+	if (r.versione !== 1 || typeof r.giorno !== 'number' || !r.missione) return null;
+	const base = nuovoStato(r.nome ?? 'ルカ', r.missione);
+	return {
+		...base,
+		...r,
+		versione: 1,
+		flag: r.flag ?? [],
+		oggetti: r.oggetti ?? [],
+		fatte: r.fatte ?? [],
+		obiettivi: (r.obiettivi ?? []).map((o) => ({ ...o, ja: o.ja ?? o.it })),
+		taccuino: r.taccuino ?? [],
+		percorso: r.percorso ?? [],
+		domande: r.domande ?? { ok: 0, tot: 0 }
+	} as Stato;
+}
