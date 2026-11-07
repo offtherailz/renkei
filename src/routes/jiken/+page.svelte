@@ -9,7 +9,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, TARDI, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -210,6 +210,10 @@
 			avvisa(`🔒 ${nomeLuogo(dest)}${l.perche ? ': ' + L(l.perche) : ''}`);
 			return;
 		}
+		if (stato.minuti >= TARDI) {
+			tornaADormire();
+			return;
+		}
 		stato = viaggia(stato, dest);
 		entra(dest);
 	}
@@ -314,8 +318,23 @@
 			avvia(sc.passi);
 			return;
 		}
+		// troppo tardi per girare: a casa (la cena se manca, altrimenti a letto)
+		if (stato.minuti >= TARDI) {
+			tornaADormire();
+			return;
+		}
 		fase = 'mappa';
 		salva();
+	}
+	function tornaADormire(): void {
+		if (!stato) return;
+		if (stato.luogo !== 'casa') stato = viaggia(stato, 'casa');
+		parlante = null;
+		const sc = scenaPer('casa', stato, missione);
+		if (sc) {
+			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
+			avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, ...sc.passi]);
+		} else avvia([{ narra: UI.tardi.ja, it: UI.tardi.it }, { dice: 'mamma', ja: 'おかえり。もう おそいから、早く ねなさい。', it: 'Bentornat{o}. È tardi, vai a letto.' }, { dormi: true }]);
 	}
 
 	// ── interazioni coi passi
@@ -372,6 +391,7 @@
 		if (!stato) return;
 		stato = { ...stato, minuti: Math.min(stato.minuti + min, 23 * 60 + 59) };
 		salva();
+		if (stato.minuti >= TARDI) tornaADormire();
 	}
 
 	// ── voce e bocca

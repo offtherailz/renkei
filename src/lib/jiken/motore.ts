@@ -6,6 +6,8 @@ export const PRIMO_GIORNO = { anno: 2026, mese: 4, giorno: 6 }; // lunedì
 export const SVEGLIA = 7 * 60 + 30;
 export const VIAGGIO = 15; // minuti per andare da un luogo all'altro
 export const SOLDI_INIZIO = 5000;
+export const TARDI = 23 * 60; // da quest'ora si torna a casa a dormire
+const FINE_GIORNO = 23 * 60 + 59;
 const WD = ['月', '火', '水', '木', '金', '土', '日'];
 const WD_IT = ['lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica'];
 
@@ -19,7 +21,7 @@ export function dataIt(giorno: number): string {
 	const d = new Date(PRIMO_GIORNO.anno, PRIMO_GIORNO.mese - 1, PRIMO_GIORNO.giorno + giorno);
 	return `${WD_IT[settimana(giorno)]} ${d.getDate()} aprile`;
 }
-export const hhmm = (m: number): string => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
+export const hhmm = (m: number): string => `${Math.floor(m / 60) % 24}:${String(m % 60).padStart(2, '0')}`;
 export const notte = (m: number): boolean => m >= 18 * 60 || m < 6 * 60;
 export function fascia(m: number): string {
 	if (m < 11 * 60) return '朝';
@@ -73,7 +75,7 @@ export function scenaPer(luogo: LuogoId, s: Stato, m: Missione): Scena | null {
 
 export function viaggia(s: Stato, dest: LuogoId): Stato {
 	if (dest === s.luogo) return s;
-	const minuti = s.minuti + VIAGGIO;
+	const minuti = Math.min(s.minuti + VIAGGIO, FINE_GIORNO);
 	return { ...s, luogo: dest, minuti, percorso: [...s.percorso, { giorno: s.giorno, minuti, luogo: dest }] };
 }
 
@@ -100,8 +102,8 @@ export function applica(s: Stato, p: Passo): Stato {
 		return { ...s, obiettivi: [...s.obiettivi, { id: p.obiettivo, ja: p.ja, it: p.it, en: p.en, fatto: false }] };
 	}
 	if ('completa' in p) return { ...s, obiettivi: s.obiettivi.map((o) => (o.id === p.completa ? { ...o, fatto: true } : o)) };
-	if ('minuti' in p) return { ...s, minuti: s.minuti + p.minuti };
-	if ('ora' in p) return { ...s, minuti: Math.max(s.minuti, p.ora) };
+	if ('minuti' in p) return { ...s, minuti: Math.min(s.minuti + p.minuti, FINE_GIORNO) };
+	if ('ora' in p) return { ...s, minuti: Math.min(Math.max(s.minuti, p.ora), FINE_GIORNO) };
 	if ('soldi' in p) return { ...s, soldi: s.soldi + p.soldi };
 	if ('vai' in p) return viaggia(s, p.vai);
 	if ('dormi' in p) return dormi(s);
@@ -179,6 +181,7 @@ export function migra(raw: unknown): Stato | null {
 		...base,
 		...r,
 		versione: 1,
+		minuti: Math.min(r.minuti ?? SVEGLIA, FINE_GIORNO), // partite rimaste «alle 35»
 		flag: r.flag ?? [],
 		oggetti: r.oggetti ?? [],
 		fatte: r.fatte ?? [],

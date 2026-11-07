@@ -97,5 +97,6 @@ export const UI = {
 	importaSicuro: { ja: 'ファイルの ゲームで 今の ゲームを かえますか。', it: 'Sostituire la partita attuale con quella del file?' },
 	importaOk: { ja: '✅ よみこみました。', it: '✅ Partita importata.' },
 	importaNo: { ja: '❌ この ファイルは 読めません。', it: '❌ File non valido.' },
-	salvataggi: { ja: 'セーブ', it: 'Salvataggi' }
+	salvataggi: { ja: 'セーブ', it: 'Salvataggi' },
+	tardi: { ja: 'もう 夜 おそいです。つかれたので、家に 帰ります。', it: 'È tardi. Sei stanc{o}: torni a casa.' }
 } satisfies Record<string, Testo | Testo[]>;
