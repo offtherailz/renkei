@@ -49,6 +49,7 @@
 	let coda: Passo[] = [];
 	let corrente = $state<Visibile | null>(null);
 	let parlante = $state<string | null>(null); // chi è in scena (resta finché non parla un altro)
+	let faccia = $state<string | null>(null); // espressione di chi è in scena
 	let parla = $state(false);
 	let tick = $state(0);
 	let scelto = $state<number | null>(null); // risposta a una domanda
@@ -186,7 +187,10 @@
 		}
 		if ('dice' in corrente) {
 			const c = PERSONAGGI[corrente.dice];
-			if (c?.sprite) parlante = corrente.dice;
+			if (c?.sprite) {
+				parlante = corrente.dice;
+				faccia = corrente.faccia ?? null;
+			}
 			if (corrente.taccuino) annota(corrente.dice, corrente.ja, corrente.it);
 			if (imp.autoVoce) void voce(corrente.ja, c?.voce ?? 'F');
 		} else if ('io' in corrente) {
@@ -323,7 +327,7 @@
 
 	// ── scena: sfondo del luogo e personaggio
 	const sfondo = $derived(luogoAttuale ? `${base}/giorno/sfondi/${luogoAttuale.sfondo}.jpg` : '');
-	const sprite = $derived(parlante ? PERSONAGGI[parlante]?.sprite : null);
+	const sprite = $derived(parlante && PERSONAGGI[parlante]?.sprite ? `${PERSONAGGI[parlante]!.sprite}${faccia ? `_${faccia}` : ''}` : null);
 	const bocca = $derived(parla && corrente !== null && 'dice' in corrente && corrente.dice === parlante && tick % 4 < 2);
 	$effect(() => {
 		if (!sprite) return;

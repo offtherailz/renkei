@@ -359,7 +359,7 @@ export const M1: Missione = {
 				},
 				{ dice: 'nakamura', ja: '中村[なかむら]です。ちょうど 交番[こうばん]に 来て いました。', it: 'Sono Nakamura (ispettore). Ero giusto passato dal posto di polizia.' },
 				{ dice: 'nakamura', ja: 'さいふですか。きのうの 夜、学生が 一つ とどけて くれましたよ。茶色の さいふです。', it: 'Un portafoglio? Ieri sera uno studente ce ne ha portato uno. Un portafoglio marrone.', taccuino: true },
-				{ dice: 'nakamura', ja: 'でも、あなたのですか。中に お金は いくら 入って いますか。', it: 'Ma è suo? Quanti soldi ci sono dentro?' },
+				{ dice: 'nakamura', faccia: 'pensieroso', ja: 'でも、あなたのですか。中に お金は いくら 入って いますか。', it: 'Ma è suo? Quanti soldi ci sono dentro?' },
 				{
 					domanda: {
 						ja: 'さいふの 中に お金は いくら 入って いますか。', it: 'Quanti soldi ci sono nel portafoglio? (guarda quanto hai speso ieri)',
@@ -382,7 +382,7 @@ export const M1: Missione = {
 				{ dice: 'nakamura', ja: 'とどけて くれたのは 高橋[たかはし]くんと いう 高校生です。夜、日本語学校で 手つだいを して いるそうですよ。', it: 'Chi l’ha portato è un liceale che si chiama Takahashi. Dice che la sera fa da aiutante alla scuola di giapponese.', taccuino: true },
 				{ dice: 'nakamura', ja: '学校は 月曜日と 水曜日と 金曜日の 夜 6時からです。', it: 'La scuola è il lunedì, il mercoledì e il venerdì dalle 6 di sera.', taccuino: true },
 				{ obiettivo: 'grazie', ja: '日本語学校（月・水・金 6時から）で 高橋[たかはし]くんに おれいを 言う。プレゼントも あると いい。', it: 'Ringraziare 高橋くん al 日本語学校 (lun, mer, ven dalle 18). Magari con un regalo.' },
-				{ dice: 'nakamura', ja: 'あなたは よく 見て いますね。じゃ、気を つけて。', it: 'Lei osserva bene le cose. Allora, stia attent{o}.' },
+				{ dice: 'nakamura', faccia: 'pensieroso', ja: 'あなたは よく 見て いますね。じゃ、気を つけて。', it: 'Lei osserva bene le cose. Allora, stia attent{o}.' },
 				{ minuti: 15 },
 				{ flag: 'portafoglio.ok' }
 			]
@@ -571,14 +571,14 @@ export const M1: Missione = {
 				{ dice: 'sensei', ja: 'こんばんは。何か ご用ですか。', it: 'Buonasera. Desidera?' },
 				{ io: '高橋[たかはし]くんに 会いたいんですが。', it: 'Vorrei vedere Takahashi.' },
 				{ dice: 'sensei', ja: 'ああ、高橋[たかはし]くんですね。ちょっと まって ください。', it: 'Ah, Takahashi. Aspetti un momento.' },
-				{ dice: 'takahashi', ja: 'あ、さいふの 人ですか。交番[こうばん]の 人から 聞きました。', it: 'Ah, lei è quello del portafoglio? Me l’hanno detto alla polizia.' },
+				{ dice: 'takahashi', faccia: 'sorpreso', ja: 'あ、さいふの 人ですか。交番[こうばん]の 人から 聞きました。', it: 'Ah, lei è quello del portafoglio? Me l’hanno detto alla polizia.' },
 				{
 					scelta: [
-						{ ja: 'さいふを とどけて くれて、ありがとうございました。', it: 'Grazie per avermi riportato il portafoglio.', passi: [{ dice: 'takahashi', ja: 'いいえ、どういたしまして。', it: 'Di niente.' }] },
+						{ ja: 'さいふを とどけて くれて、ありがとうございました。', it: 'Grazie per avermi riportato il portafoglio.', passi: [{ dice: 'takahashi', faccia: 'imbarazzato', ja: 'いいえ、どういたしまして。', it: 'Di niente.' }] },
 						{
 							ja: 'さいふを とどけて あげて、ありがとう。', it: '(?) Grazie per… averlo riportato a qualcun altro.',
 							passi: [
-								{ dice: 'takahashi', ja: 'え？ ……あ、「とどけて くれて」ですね。', it: 'Eh? …Ah, vuole dire 「とどけて くれて」.' },
+								{ dice: 'takahashi', faccia: 'sorpreso', ja: 'え？ ……あ、「とどけて くれて」ですね。', it: 'Eh? …Ah, vuole dire 「とどけて くれて」.' },
 								{ nota: '高橋[たかはし]くんが あなたに して くれました：「〜て くれる」。「〜て あげる」は あなたが だれかに する ときです。', it: 'Il favore lo ha fatto lui a te: 〜て くれる. 〜て あげる è quando sei tu a fare un favore agli altri.' },
 								{ io: 'あ、すみません。とどけて くれて、ありがとうございました。', it: 'Ah, scusi. Grazie per avermelo riportato.' }
 							]

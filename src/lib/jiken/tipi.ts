@@ -73,7 +73,7 @@ export interface Prova {
 
 // Un passo della scena. Si scrive come oggetto con una sola chiave principale.
 export type Passo =
-	| { dice: string; ja: string; it: string; taccuino?: boolean }
+	| { dice: string; ja: string; it: string; taccuino?: boolean; faccia?: string } // faccia = espressione (ritratti/<sprite>_<faccia>-chiusa.png)
 	| { io: string; it: string; detto?: boolean } // battuta tua (detto = l'hai già pronunciata al microfono)
 	| { pensa: string; it: string } // un tuo pensiero (non lo dici)
 	| { narra: string; it: string; en?: string } // narrazione (giapponese + traduzione)

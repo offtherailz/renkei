@@ -47,6 +47,19 @@ describe('事件: testi', () => {
 		for (const c of Object.values(PERSONAGGI)) if (c.sprite && !existsSync(`static/giorno/ritratti/${c.sprite}-chiusa.png`)) mancano.push(c.sprite);
 		for (const l of LUOGHI) if (!existsSync(`static/giorno/sfondi/${l.sfondo}.jpg`)) mancano.push(l.sfondo);
 		for (const o of Object.keys(OGGETTI)) if (!existsSync(`static/giorno/oggetti/${iconaOggetto(o)}.png`)) mancano.push(o);
+		// espressioni usate nelle scene
+		const facce = (ps: Passo[]): void => {
+			for (const p of ps) {
+				if ('dice' in p && p.faccia) {
+					const f = `static/giorno/ritratti/${PERSONAGGI[p.dice]?.sprite}_${p.faccia}-chiusa.png`;
+					if (!existsSync(f)) mancano.push(f);
+				}
+				if ('scelta' in p) p.scelta.forEach((o) => facce(o.passi ?? []));
+				if ('se' in p) { facce(p.allora); facce(p.altrimenti ?? []); }
+				if ('prova' in p) { facce(p.prova.ok); facce(p.prova.no); }
+			}
+		};
+		for (const sc of M1.scene) facce(sc.passi);
 		expect(mancano).toEqual([]);
 	});
 	it('chi parla è un personaggio conosciuto', () => {
