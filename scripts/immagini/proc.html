@@ -1,0 +1,60 @@
+<body><script>
+async function load(src){const i=new Image();i.src=src;await i.decode();return i}
+function cv(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
+window.bg=async(src,w,h)=>{const i=await load(src);const ch=Math.round(i.width*h/w);const c=cv(w,h);const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(i,0,(i.height-ch)/2,i.width,ch,0,0,w,h);return c.toDataURL('image/jpeg',0.86)}
+window.mappa=async(src,patch)=>{const i=await load(src);const c=cv(i.width,i.height);const x=c.getContext('2d');x.drawImage(i,0,0);
+ if(patch){const [sx,sy,w,h,dx,dy]=patch;x.drawImage(c,sx,sy,w,h,dx,dy,w,h)}return c.toDataURL('image/jpeg',0.88)}
+function keyMask(d,fn){const a=d.data;for(let p=0;p<a.length;p+=4){const k=fn(a[p],a[p+1],a[p+2]);if(k>=1)a[p+3]=0;else if(k>0)a[p+3]=Math.round(255*(1-k))}}
+function bbox(d,W,H,x0=0,y0=0,x1=W,y1=H){let a=d.data,minx=1e9,miny=1e9,maxx=-1,maxy=-1;for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){if(a[(y*W+x)*4+3]>40){if(x<minx)minx=x;if(x>maxx)maxx=x;if(y<miny)miny=y;if(y>maxy)maxy=y}}return maxx<0?null:[minx,miny,maxx-minx+1,maxy-miny+1]}
+const green=(r,g,b)=>{const t=g-Math.max(r,b);return t>70?1:t>35?(t-35)/35:0};
+const magenta=(r,g,b)=>{const t=Math.min(r,b)-g;return (r>140&&b>140&&t>70)?1:(r>120&&b>120&&t>40)?(t-40)/30:0};
+window.gatto=async(srcC,srcA,bocca)=>{const ic=await load(srcC),ia=await load(srcA);const W=ic.width,H=ic.height;
+ const cc=cv(W,H),xc=cc.getContext('2d');xc.drawImage(ic,0,0);const ca=cv(W,H),xa=ca.getContext('2d');xa.drawImage(ia,0,0);
+ const dc=xc.getImageData(0,0,W,H),da=xa.getImageData(0,0,W,H);
+ // differenze (solo dentro il gatto) per trovare la bocca
+ let mx=1e9,my=1e9,Mx=-1,My=-1;for(let y=0;y<H;y++)for(let x=0;x<W;x++){const p=(y*W+x)*4;const a=dc.data,b=da.data;if(green(a[p],a[p+1],a[p+2])>0)continue;const df=Math.abs(a[p]-b[p])+Math.abs(a[p+1]-b[p+1])+Math.abs(a[p+2]-b[p+2]);if(df>90){if(x<mx)mx=x;if(x>Mx)Mx=x;if(y<my)my=y;if(y>My)My=y}}
+ if(bocca){[mx,my,Mx,My]=bocca}
+ keyMask(dc,green);keyMask(da,green);xc.putImageData(dc,0,0);xa.putImageData(da,0,0);
+ const bb=bbox(dc,W,H);const [bx,by,bw,bh]=bb;
+ // bocca: rettangolo intorno alle differenze nella zona del muso
+ const out=[];const pad=bocca?0:6;
+ const o1=cv(bw,bh);o1.getContext('2d').drawImage(cc,bx,by,bw,bh,0,0,bw,bh);
+ const o2=cv(bw,bh);const x2=o2.getContext('2d');x2.drawImage(cc,bx,by,bw,bh,0,0,bw,bh);
+ x2.clearRect(mx-pad-bx,my-pad-by,Mx-mx+2*pad,My-my+2*pad);x2.drawImage(ca,mx-pad,my-pad,Mx-mx+2*pad,My-my+2*pad,mx-pad-bx,my-pad-by,Mx-mx+2*pad,My-my+2*pad);
+ return {info:[bb,[mx,my,Mx,My]],c:o1.toDataURL('image/png'),a:o2.toDataURL('image/png')}}
+window.oggetti=async(src,cols,rows,max)=>{const i=await load(src);const W=i.width,H=i.height;const c=cv(W,H),x=c.getContext('2d');x.drawImage(i,0,0);const d=x.getImageData(0,0,W,H);keyMask(d,magenta);x.putImageData(d,0,0);
+ const res=[];for(let r=0;r<rows;r++)for(let k=0;k<cols;k++){const x0=Math.round(k*W/cols)+4,x1=Math.round((k+1)*W/cols)-4,y0=Math.round(r*H/rows)+4,y1=Math.round((r+1)*H/rows)-4;const bb=bbox(d,W,H,x0,y0,x1,y1);if(!bb){res.push(null);continue}
+  const s=Math.min(1,max/Math.max(bb[2],bb[3]));const o=cv(Math.round(bb[2]*s),Math.round(bb[3]*s));const ox=o.getContext('2d');ox.imageSmoothingQuality='high';ox.drawImage(c,bb[0],bb[1],bb[2],bb[3],0,0,o.width,o.height);res.push(o.toDataURL('image/png'))}
+ return res}
+window.ritratto=async(src,H)=>{const i=await load(src);const W=i.width,Hh=i.height;const c=cv(W,Hh),x=c.getContext('2d');x.drawImage(i,0,0);const d=x.getImageData(0,0,W,Hh);
+ const ma=(r,g,b)=>{const t=Math.min(r,b)-g;return (r>130&&b>100&&t>60)?1:(r>110&&b>80&&t>35)?(t-35)/25:0};keyMask(d,ma);x.putImageData(d,0,0);
+ const bb=bbox(d,W,Hh);const s=H/bb[3];const o=cv(Math.round(bb[2]*s),H);const ox=o.getContext('2d');ox.imageSmoothingQuality='high';ox.drawImage(c,bb[0],bb[1],bb[2],bb[3],0,0,o.width,o.height);return {u:o.toDataURL('image/png'),w:o.width}}
+window.bocca=async(chiusaSrc,apertaSrc)=>{
+ const C=await load(chiusaSrc);const wc=C.width,H=C.height;const cc=cv(wc,H),xc=cc.getContext('2d');xc.drawImage(C,0,0);const dc=xc.getImageData(0,0,wc,H).data;
+ // aperta: scontorno + stessa misura
+ const A=await load(apertaSrc);const ca=cv(A.width,A.height),xa=ca.getContext('2d');xa.drawImage(A,0,0);const da=xa.getImageData(0,0,A.width,A.height);
+ const ma=(r,g,b)=>{const t=Math.min(r,b)-g;return (r>130&&b>100&&t>60)?1:(r>110&&b>80&&t>35)?(t-35)/25:0};keyMask(da,ma);xa.putImageData(da,0,0);
+ const bb=bbox(da,A.width,A.height);const s=H/bb[3];const wo=Math.round(bb[2]*s);const co=cv(wo,H),xo=co.getContext('2d');xo.imageSmoothingQuality='high';xo.drawImage(ca,bb[0],bb[1],bb[2],bb[3],0,0,wo,H);const dO=xo.getImageData(0,0,wo,H).data;
+ const base=Math.round((wc-wo)/2);
+ const px=(d,w,x,y)=>{const i=(y*w+x)*4;return [d[i],d[i+1],d[i+2],d[i+3]]};
+ // allineamento: sposta l'aperta per far combaciare la faccia (zona occhi-fronte, senza bocca)
+ let best=[0,0,1e18];
+ const fx0=Math.round(wc*0.32),fx1=Math.round(wc*0.68),fy0=Math.round(H*0.06),fy1=Math.round(H*0.24);
+ for(let dy=-12;dy<=12;dy++)for(let dx=-16;dx<=16;dx++){let sad=0;for(let y=fy0;y<fy1;y+=2)for(let x=fx0;x<fx1;x+=2){const xo2=x-base-dx,yo=y-dy;if(xo2<0||yo<0||xo2>=wo||yo>=H){sad+=300;continue}const a=px(dc,wc,x,y),o=px(dO,wo,xo2,yo);sad+=Math.abs(a[0]-o[0])+Math.abs(a[1]-o[1])+Math.abs(a[2]-o[2])}if(sad<best[2])best=[dx,dy,sad]}
+ const [dx,dy]=best;
+ // bocca: la finestra grande come una bocca dove le differenze sono più fitte
+ const mx0=Math.round(wc*0.28),mx1=Math.round(wc*0.72),my0=Math.round(H*0.12),my1=Math.round(H*0.45);
+ const ww=Math.round(wc*0.2),wh=Math.round(H*0.07);
+ const diff=new Uint8Array(wc*H);
+ for(let y=my0;y<my1;y++)for(let x=mx0;x<mx1;x++){const xo2=x-base-dx,yo=y-dy;if(xo2<0||yo<0||xo2>=wo||yo>=H)continue;const a=px(dc,wc,x,y),o=px(dO,wo,xo2,yo);if(Math.abs(a[0]-o[0])+Math.abs(a[1]-o[1])+Math.abs(a[2]-o[2])>160)diff[y*wc+x]=1}
+ let bw=[0,0,-1];
+ for(let y=my0;y+wh<=my1;y+=2)for(let x=mx0;x+ww<=mx1;x+=2){let n=0;for(let yy=y;yy<y+wh;yy++)for(let xx2=x;xx2<x+ww;xx2++)n+=diff[yy*wc+xx2];if(n>bw[2])bw=[x,y,n]}
+ if(bw[2]<8)return {err:'bocca non trovata'};
+ // stringe la finestra sui pixel diversi, poi un margine sfumato
+ let x0=1e9,y0=1e9,x1=-1,y1=-1;for(let y=bw[1];y<bw[1]+wh;y++)for(let x=bw[0];x<bw[0]+ww;x++)if(diff[y*wc+x]){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y}
+ const pad=4;x0-=pad;y0-=pad;x1+=pad;y1+=pad;const bw2=x1-x0+1,bh2=y1-y0+1;
+ const patch=cv(bw2,bh2),xp=patch.getContext('2d');xp.drawImage(co,x0-base-dx,y0-dy,bw2,bh2,0,0,bw2,bh2);
+ const pd=xp.getImageData(0,0,bw2,bh2);for(let y=0;y<bh2;y++)for(let x=0;x<bw2;x++){const e=Math.min(x,y,bw2-1-x,bh2-1-y);const f=Math.min(1,e/pad);pd.data[(y*bw2+x)*4+3]*=f}xp.putImageData(pd,0,0);
+ const out=cv(wc,H),xx=out.getContext('2d');xx.drawImage(C,0,0);xx.drawImage(patch,x0,y0);
+ return {u:out.toDataURL('image/png'),info:{dx,dy,box:[x0,y0,bw2,bh2],n:bw[2],wc,wo}}}
+</script></body>
