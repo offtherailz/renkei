@@ -733,6 +733,8 @@
 		font-family: 'DotGothic16', system-ui, sans-serif;
 		display: grid;
 		gap: 10px;
+		/* nella griglia dell'app il margin auto la farebbe stringere al contenuto */
+		width: 100%;
 		max-width: 980px;
 		margin: 0 auto;
 	}
