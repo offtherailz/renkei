@@ -575,7 +575,6 @@
 								</button>
 							{/each}
 						</div>
-						{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							<div class="row">
 							{#if microfono}<button class="btn small" class:ascolta={ascolto} onclick={rispondiAVoce}>{ascolto ? L(UI.ascolto) : L(UI.dillo)}</button>{/if}
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
@@ -623,8 +622,10 @@
 								{/each}
 								<button class="oggetto" onclick={() => mostra(null)}><span class="nessuno">🤷</span><span>{L(UI.nonSo)}</span></button>
 							</div>
-							{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
-							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+							<div class="row">
+								{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
+								{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+							</div>
 						{:else}
 							<p class="esito" class:giusto={provaEsito}>{provaEsito ? L(UI.provaOk) : L(UI.provaNo)}</p>
 							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
@@ -755,20 +756,20 @@
 	.intro p, .intro li { font-size: 0.9rem; line-height: 1.5; }
 	.intro ul { margin: 0; padding-left: 1.2rem; }
 	.nome { display: grid; gap: 4px; font-size: 0.85rem; }
-	.nome input { font: inherit; font-size: 1.1rem; padding: 6px 8px; border: 3px solid var(--px-line); background: #f4f4f4; color: #222034; max-width: 220px; }
+	.nome input { font: inherit; font-size: 1.1rem; padding: 6px 8px; border: 3px solid var(--px-line); background: #353360; color: #f4f4f4; max-width: 220px; }
 	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 	.btn { font-family: inherit; background: #5b6ee1; color: #fff; border: 3px solid var(--px-line); box-shadow: inset -3px -3px 0 #3f3f74, inset 3px 3px 0 #8fa0ff; padding: 8px 14px; font-size: 0.95rem; cursor: pointer; }
 	.btn.big { font-size: 1.05rem; padding: 12px 16px; }
 	.btn.ghost { background: #45283c; box-shadow: inset -3px -3px 0 #2a1824, inset 3px 3px 0 #6e3f5f; }
 	.btn.small { padding: 5px 9px; font-size: 0.8rem; }
-	.mini { font-family: inherit; border: 2px solid var(--px-line); background: #f4f4f4; color: #222034; padding: 3px 8px; cursor: pointer; font-size: 0.85rem; }
-	.mini.on { background: #fbf236; }
+	.mini { font-family: inherit; border: 2px solid var(--px-line); background: #353360; color: #f4f4f4; box-shadow: inset 0 0 0 1px #4f4c8a; padding: 3px 8px; cursor: pointer; font-size: 0.85rem; }
+	.mini.on { background: #fbf236; color: #222034; }
 	.muted, .small { font-size: 0.8rem; opacity: 0.85; margin: 0; }
 
 	.hud { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--px-bg); color: var(--px-ink); border: 3px solid var(--px-line); padding: 6px 10px; font-size: 0.95rem; }
 	.hud small { opacity: 0.75; font-size: 0.75rem; }
 	.hud .soldi { margin-left: auto; color: #fbf236; }
-	.obiettivo { background: #fbf236; color: #222034; border: 3px solid var(--px-line); padding: 6px 10px; font-size: 0.85rem; display: grid; gap: 2px; }
+	.obiettivo { background: #2a2848; color: #f4f4f4; border: 3px solid var(--px-line); border-left: 6px solid #fbf236; padding: 6px 10px; font-size: 0.85rem; display: grid; gap: 2px; }
 	.obiettivo p { margin: 0; }
 
 	.mappa-scroll { overflow-x: auto; border: 3px solid var(--px-line); }
@@ -791,35 +792,35 @@
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
 	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 92%; image-rendering: pixelated; }
 	.luogo-tag { position: absolute; left: 6px; top: 6px; background: rgba(34, 32, 52, 0.85); color: #fff; padding: 3px 6px; font-size: 0.75rem; line-height: 1.2; }
-	.dialog { --ink: #222034; --line: #9a98b5; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 10px 12px; display: grid; gap: 8px; min-height: 120px; align-content: start; }
+	.dialog { --ink: #f4f4f4; --line: #6e6c8f; background: #2a2848; color: #f4f4f4; box-shadow: inset 0 0 0 2px #3f3f74; border: 3px solid var(--px-line); padding: 10px 12px; display: grid; gap: 8px; min-height: 120px; align-content: start; }
 	.dialog p { margin: 0; }
-	.dname { font-size: 0.8rem; font-weight: 700; color: #5b6ee1; }
-	.dname.io { color: #b44d7a; }
+	.dname { font-size: 0.8rem; font-weight: 700; color: #8fa0ff; }
+	.dname.io { color: #ff9ec7; }
 	.nota { margin-left: 6px; }
 	.ja { font-size: 1.15rem; line-height: 1.7; }
-	.it { font-size: 0.85rem; color: #555; }
+	.it { font-size: 0.85rem; color: #b9b6dc; }
 	.narra { font-style: italic; font-size: 0.92rem; }
 	.scelte { display: grid; gap: 6px; }
-	.opzione { font-family: inherit; text-align: left; background: #fff; border: 3px solid var(--px-line); padding: 8px 10px; cursor: pointer; display: grid; gap: 2px; color: #222034; }
+	.opzione { font-family: inherit; text-align: left; background: #353360; border: 3px solid var(--px-line); padding: 8px 10px; cursor: pointer; display: grid; gap: 2px; color: #f4f4f4; box-shadow: inset 0 0 0 1px #4f4c8a; }
 	.opzione .ja { font-size: 1.05rem; }
-	.opzione small { color: #666; font-size: 0.78rem; }
-	.opzione:hover:not(:disabled) { background: #e8ecff; }
-	.opzione.ok { background: #d8f5c0; border-color: #4b8a1f; }
-	.opzione.ko { background: #f8d0d4; border-color: #a83240; }
-	.esito { font-size: 0.88rem; padding: 6px 8px; background: #f8d0d4; }
-	.esito.giusto { background: #d8f5c0; }
+	.opzione small { color: #b9b6dc; font-size: 0.78rem; }
+	.opzione:hover:not(:disabled) { background: #45437a; }
+	.opzione.ok { background: #2f5a24; border-color: #99e550; }
+	.opzione.ko { background: #5e2430; border-color: #d95763; }
+	.esito { font-size: 0.88rem; padding: 6px 8px; background: #5e2430; }
+	.esito.giusto { background: #2f5a24; }
 	.fine { font-size: 1.1rem; }
 	.oggetti { display: flex; flex-wrap: wrap; gap: 8px; }
-	.oggetto { font-family: inherit; display: grid; justify-items: center; gap: 2px; width: 92px; background: #fff; color: #222034; border: 2px solid var(--px-line); padding: 6px 4px; cursor: pointer; font-size: 0.72rem; text-align: center; }
+	.oggetto { font-family: inherit; display: grid; justify-items: center; gap: 2px; width: 92px; background: #353360; color: #f4f4f4; border: 2px solid var(--px-line); padding: 6px 4px; cursor: pointer; font-size: 0.72rem; text-align: center; }
 	.oggetto img { width: 48px; height: 48px; object-fit: contain; image-rendering: pixelated; }
 	.nessuno { font-size: 2rem; line-height: 48px; }
 
-	.paper { --ink: #222034; --line: #9a98b5; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 8px 10px; margin: 0; }
+	.paper { --ink: #f4f4f4; --line: #6e6c8f; background: #2a2848; color: #f4f4f4; border: 3px solid var(--px-line); padding: 8px 10px; margin: 0; }
 	ul.paper { padding-left: 1.6rem; display: grid; gap: 4px; }
-	.nota-gioco { font-style: normal; background: #fff7c2; padding: 4px 6px; }
+	.nota-gioco { font-style: normal; background: #4a4420; color: #fff3b0; --ink: #fff3b0; padding: 4px 6px; }
 	.spiega { font-size: 0.85rem; }
-	.spiega summary { cursor: pointer; color: #5b6ee1; }
-	.obiettivo { --ink: #222034; --line: #8a7f2a; }
+	.spiega summary { cursor: pointer; color: #8fa0ff; }
+	.obiettivo { --ink: #f4f4f4; --line: #8a7f2a; }
 	.obiettivo :global(.isentence), .paper :global(.isentence) { font-size: 0.95rem; line-height: 1.7; }
 	.mini.piccolo { font-size: 0.7rem; padding: 1px 5px; justify-self: start; }
 	.tendina { position: relative; z-index: 5; }
@@ -835,9 +836,9 @@
 		.scena { grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); align-items: start; }
 		.scena .dialog { min-height: 100%; }
 	}
-	.mia { text-align: right; color: #7a2d55; }
-	.pensiero { color: #6b6890; font-style: italic; }
-	.dname small { font-weight: 400; color: #888; }
+	.mia { text-align: right; color: #ffc2dc; }
+	.pensiero { color: #b8b5e0; font-style: italic; }
+	.dname small { font-weight: 400; color: #9a98b5; }
 	.narra.didascalia { background: #3f3f74; color: #f4f4f4; --ink: #f4f4f4; --line: #8f8dc0; padding: 8px 10px; border-left: 5px solid #fbf236; font-style: normal; }
 	.btn.ascolta { background: #d95763; animation: pulsa 1s ease-in-out infinite; }
 	@keyframes pulsa { 50% { opacity: 0.7; } }
@@ -845,19 +846,19 @@
 	.imp { display: grid; gap: 10px; }
 	.imp label { display: grid; gap: 4px; font-size: 0.88rem; }
 	.imp label.check { display: flex; align-items: center; gap: 6px; }
-	.imp input:not([type]), .imp select { font: inherit; padding: 5px 6px; border: 2px solid var(--px-line); background: #fff; color: #222034; }
+	.imp input:not([type]), .imp select { font: inherit; padding: 5px 6px; border: 2px solid var(--px-line); background: #353360; color: #f4f4f4; }
 	.sotto { margin: 6px 0 0; font-size: 1rem; }
 	.missioni { display: grid; gap: 6px; }
-	.missione { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 6px 8px; }
-	.missione small { color: #666; }
+	.missione { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #2a2848; color: #f4f4f4; border: 3px solid var(--px-line); padding: 6px 8px; }
+	.missione small { color: #b9b6dc; }
 	.rig { background: #fbf236; color: #222034; padding: 0 6px; font-size: 0.8rem; }
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }
 	.taccuino header { display: flex; justify-content: space-between; align-items: center; }
 	.taccuino h2 { margin: 0; font-size: 1.1rem; }
-	.taccuino h3 { margin: 8px 0 2px; font-size: 0.95rem; color: #3f3f74; }
-	.taccuino .it { color: #555; }
+	.taccuino h3 { margin: 8px 0 2px; font-size: 0.95rem; color: #fbf236; }
+	.taccuino .it { color: #b9b6dc; }
 	.taccuino .paper { display: grid; gap: 4px; }
 	.taccuino .oggetto { cursor: default; }
 	.ob { margin: 0; font-size: 0.88rem; }
