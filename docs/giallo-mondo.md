@@ -214,6 +214,11 @@ l'ufficio è aperto 7-20; nella missione 1 il portafoglio si dimostra tuo
 dicendo quanti soldi c'erano dentro (domanda sui conti della giornata) e
 mostrando una ricevuta.
 
+Missione 2 scritta (2026-11-07, `src/lib/jiken/missioni/m2.ts`): parte lunedì
+13 aprile (giorno 7) continuando la partita della 1; si può anche rigiocare da
+sola (`inizio`). Oltre al gatto: il cliente 山田 mercoledì alle 9:50 (ripreso
+dall'email della missione 1), keigo con i clienti, espressioni dei personaggi.
+
 ## Ordine di lavoro aggiornato
 
 1. Motore v0: mappa SVG cliccabile, orologio e fasce, lettore delle scene,

@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
 import { isInLevel } from '$lib/data/kanjiN4';
-import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, scenaPer, verifica, viaggia } from './motore';
+import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, prossimaMissione, scenaPer, verifica, viaggia } from './motore';
 import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
+import { M2 } from './missioni/m2';
+const MISSIONI = [M1, M2];
 import { UI } from './ui';
-import type { LuogoId, Passo, Stato, Testo } from './tipi';
+import type { LuogoId, Missione, Passo, Stato, Testo } from './tipi';
 
 // tutte le frasi giapponesi di mondo e missioni
 function testiJa(): string[] {
@@ -28,8 +30,7 @@ function testiJa(): string[] {
 	for (const v of Object.values(UI)) for (const t of [v].flat() as Testo[]) out.push(t.ja);
 	for (const c of Object.values(PERSONAGGI)) out.push(c.nome);
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
-	for (const sc of M1.scene) passi(sc.passi);
-	out.push(M1.titolo);
+	for (const m of MISSIONI) { for (const sc of m.scene) passi(sc.passi); out.push(m.titolo); if (m.epilogo) out.push(m.epilogo.ja); }
 	return out;
 }
 
@@ -59,7 +60,7 @@ describe('事件: testi', () => {
 				if ('prova' in p) { facce(p.prova.ok); facce(p.prova.no); }
 			}
 		};
-		for (const sc of M1.scene) facce(sc.passi);
+		for (const m of MISSIONI) for (const sc of m.scene) facce(sc.passi);
 		expect(mancano).toEqual([]);
 	});
 	it('chi parla è un personaggio conosciuto', () => {
@@ -73,7 +74,7 @@ describe('事件: testi', () => {
 			}
 		};
 		for (const l of LUOGHI) passi(l.ambiente ?? []);
-		for (const sc of M1.scene) passi(sc.passi);
+		for (const m of MISSIONI) for (const sc of m.scene) passi(sc.passi);
 		expect(ignoti).toEqual([]);
 	});
 });
@@ -105,13 +106,17 @@ describe('事件: motore', () => {
 
 // Giocatore automatico: va nei luoghi indicati, sceglie la prima opzione,
 // risponde giusto alle domande e mostra la prova giusta.
-function gioca(s0: Stato, giro: LuogoId[]): { s: Stato; errori: number } {
+function gioca(s0: Stato, giro: (LuogoId | number)[], m: Missione = M1): { s: Stato; errori: number } {
 	let s = s0;
 	let errori = 0;
 	for (const dest of giro) {
+		if (typeof dest === 'number') {
+			s = { ...s, minuti: s.minuti + dest };
+			continue;
+		}
 		s = viaggia(s, dest);
 		if (apertura(LUOGO[dest], s) !== 'aperto') continue;
-		const sc = scenaPer(dest, s, M1);
+		const sc = scenaPer(s.luogo, s, m);
 		if (!sc) continue;
 		s = { ...s, fatte: [...s.fatte, sc.id] };
 		let coda: Passo[] = sc.passi;
@@ -193,5 +198,28 @@ describe('事件: salvataggi', () => {
 		expect(m.taccuino).toEqual([]);
 		expect(migra(null)).toBeNull();
 		expect(migra({ versione: 2 })).toBeNull();
+	});
+});
+
+describe('事件: missione 2 si può finire, continuando dalla 1', () => {
+	it('tre giornate col gatto', () => {
+		let s = prossimaMissione({ ...nuovoStato('ルカ', 'm1'), giorno: 3, flag: ['d0.casa', 'portafoglio.ok', 'grazie.ok'], finita: 'x' }, M2);
+		expect(s.giorno).toBe(7);
+		expect(s.finita).toBeUndefined();
+		let r = gioca(s, ['casa', 'ufficio', 'shokudo', 'ufficio', 'apartment', 'konbini', 'casa'], M2);
+		s = r.s;
+		expect(s.giorno).toBe(8);
+		expect(s.oggetti).toContain('volantino_gatto');
+		r = gioca(s, ['casa', 'ufficio', 'kissa', 'parco', 'jinja', 'ufficio', 'casa'], M2);
+		s = r.s;
+		expect(s.giorno).toBe(9);
+		expect(s.flag).toContain('jinja.aperto');
+		expect(s.flag).toContain('m2.ciotola');
+		r = gioca(s, ['casa', 'ufficio', 'shokudo', 'ufficio', 30, 'jinja', 'casa'], M2);
+		s = r.s;
+		expect(r.errori).toBe(0);
+		expect(s.flag).toContain('mike.ok');
+		expect(s.finita).toBe('いなくなった ミケ');
+		expect(s.obiettivi.filter((o) => !o.fatto).map((o) => o.id)).toEqual([]);
 	});
 });

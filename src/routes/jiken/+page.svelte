@@ -9,15 +9,18 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, TARDI, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prossimaMissione, TARDI, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
+	import { M2 } from '$lib/jiken/missioni/m2';
 	import { UI } from '$lib/jiken/ui';
 	import * as suono from '$lib/jiken/suoni';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
-	const MISSIONI: Record<string, Missione> = { m1: M1 };
+	const ORDINE: Missione[] = [M1, M2];
+	const MISSIONI: Record<string, Missione> = Object.fromEntries(ORDINE.map((m) => [m.id, m]));
+	const dopo = (id: string): Missione | null => ORDINE[ORDINE.findIndex((m) => m.id === id) + 1] ?? null;
 	const SALVA = 'renkei_jiken';
 
 	// impostazioni del giocatore: nome, uomo/donna, voce, lingua dell'interfaccia…
@@ -173,8 +176,20 @@
 	}
 	function rigioca(id: string): void {
 		slot = 'rigioca';
-		stato = nuovoStato(imp.nome, id);
+		stato = nuovoStato(imp.nome, id, MISSIONI[id]?.inizio);
 		salva();
+		entra('casa');
+	}
+	function continuaConProssima(): void {
+		const base = stato && slot === 'main' ? stato : salvato;
+		if (!base) return;
+		const m = dopo(base.missione);
+		if (!m) return;
+		slot = 'main';
+		stato = prossimaMissione($state.snapshot(base) as Stato, m);
+		salva();
+		salvaRipresa(stato);
+		mattino(stato.giorno);
 		entra('casa');
 	}
 	function continuaRigioco(): void {
@@ -550,6 +565,9 @@
 				{#each UI.regole as t, i (i)}<li>{@render testoUI(t)}</li>{/each}
 			</ul>
 			<div class="row">
+				{#if salvato?.finita && dopo(salvato.missione)}
+					<button class="btn big" onclick={continuaConProssima}>{L(UI.vaiProssima)}「{dopo(salvato.missione)!.titolo}」</button>
+				{/if}
 				{#if salvato && !salvato.finita}
 					<button class="btn big" onclick={continua}>{L(UI.continua)} ({salvato.nome}, {dataJa(salvato.giorno)} {hhmm(salvato.minuti)})</button>
 				{/if}
@@ -783,9 +801,13 @@
 		{:else if fase === 'fine'}
 			<section class="panel intro">
 				<h1>🎉 {missione.titolo}</h1>
-				<p class="paper">{@render testoUI(UI.fine)}</p>
+				{#if missione.epilogo}<p class="paper">{@render testoUI(missione.epilogo)}</p>{/if}
 				<p>{L(UI.punti)}<strong>{stato.domande.ok}/{stato.domande.tot}</strong></p>
-				<p class="paper">{@render testoUI(UI.prossima)}</p>
+				{#if slot === 'main' && dopo(missione.id)}
+					<button class="btn big" onclick={continuaConProssima}>{L(UI.vaiProssima)}「{dopo(missione.id)!.titolo}」</button>
+				{:else if !dopo(missione.id)}
+					<p class="paper">{@render testoUI(UI.prossima)}</p>
+				{/if}
 				<div class="row">
 					<button class="btn" onclick={() => (taccuino = true)}>{L(UI.rileggi)}</button>
 					<button class="btn ghost" onclick={() => { if (slot === 'main') salvato = stato; else salvatoRigioco = null; slot = 'main'; fase = 'inizio'; }}>{L(UI.inizio)}</button>

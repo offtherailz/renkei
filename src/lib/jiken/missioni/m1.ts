@@ -19,6 +19,10 @@ export const M1: Missione = {
 	id: 'm1',
 	titolo: 'はじめての 一週間',
 	it: 'La prima settimana',
+	epilogo: {
+		ja: 'さいふが 見つかって、高橋[たかはし]くんに おれいを 言って、中村[なかむら]さんと 知り合いに なりました。',
+		it: 'Hai ritrovato il portafoglio, ringraziato 高橋くん e conosciuto l’ispettore 中村.'
+	},
 	scene: [
 		// ───────── giorno 0: lunedì 6 aprile ─────────
 		{

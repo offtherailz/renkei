@@ -22,7 +22,7 @@ export const UI = {
 	continua: { ja: '▶ つづける', it: '▶ Continua' },
 	nuova: { ja: '✨ 新しく 始める', it: '✨ Nuova partita' },
 	sicuro: { ja: '始めから やりなおしますか。今の セーブは きえます。', it: 'Ricominciare da capo? Il salvataggio attuale si perde.' },
-	missione1: { ja: 'ミッション1：「はじめての 一週間」。三日間（4月6日〜8日）。', it: 'Missione 1: «はじめての 一週間» (la prima settimana). Tre giornate, 6-8 aprile.' },
+	missione1: { ja: 'ミッションは 一つ 三日間です。', it: 'Ogni missione dura tre giornate.' },
 	vai: { ja: '🚶 行く（15分）', it: '🚶 Vai (15 min)' },
 	entra: { ja: '🚪 入る', it: '🚪 Entra' },
 	aspetta: { ja: '⏳ 30分 待つ', it: '⏳ Aspetta 30 min' },
@@ -55,9 +55,10 @@ export const UI = {
 	obFatto: { ja: '✅ やる こと クリア', it: '✅ obiettivo fatto' },
 	fine: {
 		ja: 'ミッション クリア！ さいふが 見つかって、高橋[たかはし]くんに おれいを 言って、中村[なかむら]さんと 知り合いに なりました。',
-		it: 'Missione completata! Hai ritrovato il portafoglio, ringraziato 高橋くん e conosciuto l’ispettore 中村.'
+		it: 'Missione completata! Hai ritrovato il portafoglio, ringraziato 高橋[たかはし]くん e conosciuto l’ispettore 中村.'
 	},
-	prossima: { ja: 'ミッション2「いなくなった ミケ」は もうすぐです。', it: 'La missione 2 (いなくなった ミケ, il gattino scomparso) arriva presto.' },
+	prossima: { ja: 'つぎの ミッションは もうすぐです。', it: 'La prossima missione arriva presto.' },
+	vaiProssima: { ja: '▶ つぎの ミッションへ：', it: '▶ Prossima missione: ' },
 	rileggi: { ja: '📓 ノートを 読む', it: '📓 Rileggi il taccuino' },
 	inizio: { ja: '↺ はじめの ページへ', it: '↺ Torna all’inizio' },
 	tu: { ja: 'あなた', it: 'tu' },

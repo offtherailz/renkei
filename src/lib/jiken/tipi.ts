@@ -109,6 +109,9 @@ export interface Missione {
 	titolo: string;
 	it: string;
 	en?: string;
+	// da dove parte (giorno della storia, flag e oggetti) quando la si gioca da sola
+	inizio?: { giorno: number; flag?: string[]; oggetti?: string[] };
+	epilogo?: Testo; // cosa è successo, nella schermata finale
 	scene: Scena[];
 }
 

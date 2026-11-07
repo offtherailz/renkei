@@ -30,21 +30,22 @@ export function fascia(m: number): string {
 	return '夜';
 }
 
-export function nuovoStato(nome: string, missione: string): Stato {
+export function nuovoStato(nome: string, missione: string, inizio?: { giorno: number; flag?: string[]; oggetti?: string[] }): Stato {
+	const giorno = inizio?.giorno ?? 0;
 	return {
 		versione: 1,
 		nome,
 		missione,
-		giorno: 0,
+		giorno,
 		minuti: SVEGLIA,
 		luogo: 'casa',
 		soldi: SOLDI_INIZIO,
-		flag: [],
-		oggetti: ['portafoglio'],
+		flag: inizio?.flag ?? [],
+		oggetti: inizio?.oggetti ?? ['portafoglio'],
 		fatte: [],
 		obiettivi: [],
 		taccuino: [],
-		percorso: [{ giorno: 0, minuti: SVEGLIA, luogo: 'casa' }],
+		percorso: [{ giorno, minuti: SVEGLIA, luogo: 'casa' }],
 		domande: { ok: 0, tot: 0 }
 	};
 }
@@ -190,4 +191,21 @@ export function migra(raw: unknown): Stato | null {
 		percorso: r.percorso ?? [],
 		domande: r.domande ?? { ok: 0, tot: 0 }
 	} as Stato;
+}
+
+// Missione finita → la successiva nella stessa partita: soldi, oggetti, flag e
+// taccuino restano; si salta al giorno in cui comincia la nuova.
+export function prossimaMissione(s: Stato, m: { id: string; inizio?: { giorno: number; flag?: string[] } }): Stato {
+	const giorno = Math.max(s.giorno, m.inizio?.giorno ?? s.giorno);
+	return {
+		...s,
+		missione: m.id,
+		finita: undefined,
+		giorno,
+		minuti: SVEGLIA,
+		luogo: 'casa',
+		flag: [...new Set([...s.flag, ...(m.inizio?.flag ?? [])])],
+		obiettivi: s.obiettivi.filter((o) => !o.fatto),
+		percorso: [...s.percorso, { giorno, minuti: SVEGLIA, luogo: 'casa' }]
+	};
 }

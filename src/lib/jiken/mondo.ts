@@ -133,6 +133,10 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M' },
 	nakamuraTel: { nome: '中村[なかむら]さん（電話）', sprite: null, voce: 'M' },
 	telefono: { nome: '電話の 人', sprite: null, voce: 'M' },
+	kimura: { nome: '木村[きむら]さん', sprite: 'padrone', voce: 'M' },
+	nonna: { nome: '木村[きむら]さんの お母さん', sprite: 'signora_anziana', voce: 'F' },
+	yamada: { nome: '山田[やまだ]さん（ABC）', sprite: 'passante', voce: 'M' },
+	mike: { nome: 'ミケ', sprite: 'mike', voce: 'F' },
 	takahashi: { nome: '高橋[たかはし]くん', sprite: 'studente_uomo', voce: 'M' },
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F' },
 	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M' }
@@ -145,7 +149,10 @@ export const OGGETTI: Record<string, { it: string; ja: string }> = {
 	scontrino: { it: 'scontrino della konbini', ja: 'コンビニの レシート' },
 	latte: { it: 'latte', ja: 'ぎゅうにゅう' },
 	sacchetto_pane: { it: 'pane per regalo', ja: 'パン' },
-	mazzo_fiori: { it: 'mazzo di fiori', ja: '花' }
+	mazzo_fiori: { it: 'mazzo di fiori', ja: '花' },
+	foto_gatto: { it: 'foto di Miké', ja: 'ミケの 写真' },
+	volantino_gatto: { it: 'volantini di Miké', ja: 'ミケの ポスター' },
+	collare: { it: 'collare rosso col campanellino', ja: '赤い くびわ' }
 };
 // icone degli oggetti (static/giorno/oggetti); quelli senza disegno usano un'emoji
 const ICONA_FILE: Record<string, string> = { busta: 'lettera' };
