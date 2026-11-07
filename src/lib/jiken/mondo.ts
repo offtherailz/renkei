@@ -26,7 +26,7 @@ export const LUOGHI: Luogo[] = [
 		ambiente: [{ dice: 'oste', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '今は おなかが すいて いません。', it: 'Non hai fame adesso.' }]
 	},
 	{
-		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '〒', sfondo: 'posta', x: 29.1, y: 73,
+		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '🏣', sfondo: 'posta', x: 29.1, y: 73,
 		orario: { giorni: FERIALI, fasce: [[h(9), h(17)]] },
 		ambiente: [{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '送る ものは ありません。', it: 'Non hai niente da spedire.' }]
 	},

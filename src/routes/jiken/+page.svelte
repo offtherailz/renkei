@@ -695,7 +695,7 @@
 	.mappa { position: relative; min-width: 720px; line-height: 0; }
 	.mappa img { width: 100%; display: block; image-rendering: pixelated; }
 	.spot { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; padding: 0; line-height: 1; font-family: inherit; }
-	.pin { position: relative; font-size: 1.25rem; background: rgba(255, 255, 255, 0.92); border: 2px solid var(--px-line); border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; box-shadow: 0 2px 0 var(--px-line); }
+	.pin { position: relative; color: #222034; font-size: 1.25rem; background: rgba(255, 255, 255, 0.92); border: 2px solid var(--px-line); border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; box-shadow: 0 2px 0 var(--px-line); }
 	.bang { position: absolute; top: -12px; right: -10px; font-size: 0.95rem; animation: salta 0.9s ease-in-out infinite; }
 	@keyframes salta { 50% { transform: translateY(-4px); } }
 	.etichetta { font-size: 0.7rem; background: rgba(34, 32, 52, 0.85); color: #fff; padding: 2px 5px; white-space: nowrap; }
