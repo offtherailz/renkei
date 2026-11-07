@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
 import { isInLevel } from '$lib/data/kanjiN4';
-import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, scenaPer, verifica, viaggia } from './motore';
+import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, scenaPer, verifica, viaggia } from './motore';
 import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
 import { UI } from './ui';
@@ -76,6 +76,14 @@ describe('事件: motore', () => {
 		expect(apertura(LUOGO.jinja, s)).toBe('bloccato');
 		expect(verifica({ giorno: [1, 2], dalle: 600 }, { ...s, giorno: 2, minuti: 600 })).toBe(true);
 	});
+	it('soldi: opzioni costruite sui soldi veri', () => {
+		expect(opzioniSoldi(4010)).toMatchObject({ giusta: 1, opzioni: [{ ja: '5千円ぐらい' }, { ja: '4千円ぐらい' }, { ja: '3千円ぐらい' }, { ja: '2千円ぐらい' }] });
+		expect(opzioniSoldi(2730).opzioni[opzioniSoldi(2730).giusta]!.ja).toBe('3千円ぐらい');
+		expect(opzioniSoldi(10400).opzioni.map((o) => o.ja)).toEqual(['1万1千円ぐらい', '1万円ぐらい', '9千円ぐらい', '8千円ぐらい']);
+		const poco = opzioniSoldi(600);
+		expect(poco.opzioni).toHaveLength(4);
+		expect(poco.opzioni[poco.giusta]!.valore).toBe(1000);
+	});
 	it('soldi: l’opzione più vicina', () => {
 		expect(giustaSoldi([10000, 5000, 4000, 2000], 4010)).toBe(2);
 		expect(giustaSoldi([10000, 5000, 4000, 2000], 4660)).toBe(1);
@@ -102,8 +110,8 @@ function gioca(s0: Stato, giro: LuogoId[]): { s: Stato; errori: number } {
 			if (!p) break;
 			if ('scelta' in p) coda = [...(p.scelta[0]!.passi ?? []), ...coda];
 			else if ('domanda' in p) {
-				const g = p.domanda.giusta === 'soldi' ? giustaSoldi(p.domanda.opzioni.map((o) => o.valore), s.soldi) : p.domanda.giusta;
-				if (g < 0 || g >= p.domanda.opzioni.length) errori++;
+				const ops = p.domanda.giusta === 'soldi' ? opzioniSoldi(s.soldi) : { opzioni: p.domanda.opzioni, giusta: p.domanda.giusta };
+				if (ops.giusta < 0 || ops.giusta >= ops.opzioni.length) errori++;
 			} else if ('prova' in p) coda = [...(p.prova.giuste.some((g) => s.oggetti.includes(g)) ? p.prova.ok : p.prova.no), ...coda];
 			else if ('fine' in p) s = { ...s, finita: p.fine };
 		}

@@ -82,5 +82,12 @@ export const UI = {
 	esci: { ja: 'ゲームを 出ますか。（ここまでの ことは セーブして あります）', it: 'Uscire dal gioco? (I progressi sono salvati)' },
 	chiSei: { ja: 'あなたは どんな 人ですか。', it: 'Chi sei?' },
 	comincia: { ja: '▶ 始める', it: '▶ Comincia' },
-	annulla: { ja: '← もどる', it: '← Indietro' }
+	annulla: { ja: '← もどる', it: '← Indietro' },
+	missioni: { ja: '🗂️ ミッション', it: '🗂️ Missioni' },
+	fatta: { ja: '✅ クリア', it: '✅ completata' },
+	inCorso: { ja: '▶ 今 やって いる', it: '▶ in corso' },
+	rigioca: { ja: '↺ もう一度 やる', it: '↺ Rigioca' },
+	continuaRigioco: { ja: '▶ もう一度の つづき', it: '▶ Continua il rigioco' },
+	rigiocoNota: { ja: 'もう一度 やる ときは、ミッションの 始めから です。今の ゲームの お金や 持ち物は かわりません。', it: 'Il rigioco riparte dall’inizio della missione, in uno slot a parte: soldi e oggetti della partita principale non cambiano.' },
+	modoRigioco: { ja: '↺ もう一度', it: '↺ Rigioco' }
 } satisfies Record<string, Testo | Testo[]>;

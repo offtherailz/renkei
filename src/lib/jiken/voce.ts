@@ -16,9 +16,10 @@ export interface Impostazioni {
 	velocita: number; // velocità di tutte le voci
 	autoVoce: boolean; // le battute si leggono da sole
 	lingua: Lingua;
+	completate: string[]; // missioni finite nella partita principale (si possono rigiocare)
 }
 
-export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja' };
+export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [] };
 const CHIAVE = 'renkei_jiken_imp';
 
 export function caricaImpostazioni(): Impostazioni {

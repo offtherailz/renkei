@@ -117,7 +117,15 @@ export const M1: Missione = {
 			]
 		},
 		{
-			id: 'd0-posta', luogo: 'posta', quando: { oggetti: ['busta'] },
+			id: 'posta-senza-soldi', luogo: 'posta', ripeti: true, quando: { oggetti: ['busta'], nonOggetti: ['portafoglio'] },
+			passi: [
+				{ dice: 'postino', ja: 'いらっしゃいませ。140円です。', it: 'Benvenut{o}. Sono 140 yen.' },
+				{ pensa: 'あっ、さいふが ない……。お金が はらえない。', it: 'Ah, il portafoglio non c’è… Non posso pagare.' },
+				{ io: 'すみません、また 来ます。', it: 'Mi scusi, ripasso.' }
+			]
+		},
+		{
+			id: 'd0-posta', luogo: 'posta', quando: { oggetti: ['busta', 'portafoglio'] },
 			passi: [
 				{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 				{
@@ -355,13 +363,8 @@ export const M1: Missione = {
 				{
 					domanda: {
 						ja: 'さいふの 中に お金は いくら 入って いますか。', it: 'Quanti soldi ci sono nel portafoglio? (guarda quanto hai speso ieri)',
-						opzioni: [
-							{ ja: '1万円ぐらい', it: 'circa 10.000 yen', valore: 10000 },
-							{ ja: '5千円ぐらい', it: 'circa 5.000 yen', valore: 5000 },
-							{ ja: '4千円ぐらい', it: 'circa 4.000 yen', valore: 4000 },
-							{ ja: '2千円ぐらい', it: 'circa 2.000 yen', valore: 2000 }
-						],
-						giusta: 'soldi', spiega: 'Avevi 5000 yen; ieri hai pagato il pranzo, la posta (140) e il latte (200). Il resto è ancora nel portafoglio: guarda i soldi in alto.'
+						opzioni: [], // generate dai soldi che hai (opzioniSoldi)
+						giusta: 'soldi', spiega: 'Avevi 5000 yen; ieri hai pagato il pranzo, la posta (140) e il latte (200). Il resto è ancora nel portafoglio: quanto ti resta lo vedi in alto (¥).'
 					}
 				},
 				{ dice: 'nakamura', ja: 'ほかに 何か 入って いますか。', it: 'C’è dentro qualcos’altro?' },
@@ -476,8 +479,11 @@ export const M1: Missione = {
 						{ ja: 'にくに します。', it: 'Prendo la carne.' }
 					]
 				},
-				{ dice: 'suzuki', ja: '一つ 500円です。', it: 'Sono 500 yen l’uno.' },
-				{ soldi: -500 },
+				{
+					se: { oggetti: ['portafoglio'] },
+					allora: [{ dice: 'suzuki', ja: '一つ 500円です。', it: 'Sono 500 yen l’uno.' }, { soldi: -500 }],
+					altrimenti: [{ dice: 'suzuki', ja: 'さいふが ないんですか。今日は わたしが はらいますね。', it: 'Non ha il portafoglio? Oggi pago io.' }]
+				},
 				{
 					se: { flag: ['d2.bento_pesce'] },
 					allora: [{

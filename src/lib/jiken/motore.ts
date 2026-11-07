@@ -152,3 +152,18 @@ export function orarioTesto(o: { giorni?: number[]; fasce: [number, number][] } 
 	const f = o.fasce.map(([a, b]) => `${hhmm(a)}〜${hhmm(b)}`).join('、');
 	return { ja: `${ja} ${f}`, it: `${it} ${f.replaceAll('〜', '-').replaceAll('、', ', ')}` };
 }
+
+// Domanda «quanti soldi ci sono?»: le opzioni si costruiscono intorno ai soldi
+// che hai davvero (arrotondati alle migliaia), così il conto torna sempre.
+export function opzioniSoldi(soldi: number): { opzioni: { ja: string; it: string; valore: number }[]; giusta: number } {
+	const base = Math.max(1000, Math.round(soldi / 1000) * 1000);
+	const valori = [base + 1000, base, base - 1000, base - 2000].filter((v) => v > 0);
+	while (valori.length < 4) valori.unshift(valori[0]! + 1000);
+	const ja = (v: number): string => {
+		const man = Math.floor(v / 10000);
+		const sen = (v % 10000) / 1000;
+		return `${man ? `${man}万` : ''}${sen ? `${sen}千` : ''}円ぐらい`;
+	};
+	const opzioni = valori.map((v) => ({ ja: ja(v), it: `circa ${v.toLocaleString('it-IT')} yen`, valore: v }));
+	return { opzioni, giusta: valori.indexOf(base) };
+}

@@ -9,7 +9,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, giustaSoldi, hhmm, notte, nuovoStato, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, notte, nuovoStato, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -39,6 +39,10 @@
 
 	let stato = $state<Stato | null>(null);
 	let salvato = $state<Stato | null>(null);
+	// slot: la partita principale, o il rigioco di una missione già finita (a parte)
+	let slot = $state<'main' | 'rigioca'>('main');
+	let salvatoRigioco = $state<Stato | null>(null);
+	const chiaveSlot = (): string => (slot === 'main' ? SALVA : `${SALVA}_rigioca`);
 	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine'>('inizio');
 
 	// scena in corso
@@ -62,7 +66,7 @@
 	const missione = $derived(stato ? MISSIONI[stato.missione]! : M1);
 	const luogoAttuale = $derived(stato ? LUOGO[stato.luogo] : null);
 	const notturna = $derived(stato ? notte(stato.minuti) : false);
-	const testo = (t: string): string => declina(conNome(t, stato?.nome ?? imp.nome), imp.sesso);
+	const testo = (t: string): string => declina(conNome(t, imp.nome), imp.sesso);
 
 	function avvisa(t: string): void {
 		toast = t;
@@ -73,7 +77,7 @@
 	function salva(): void {
 		if (!stato) return;
 		try {
-			localStorage.setItem(SALVA, JSON.stringify(stato));
+			localStorage.setItem(chiaveSlot(), JSON.stringify(stato));
 		} catch {
 			/* niente storage */
 		}
@@ -89,12 +93,26 @@
 	}
 	function comincia(): void {
 		salvaImp();
+		slot = 'main';
 		stato = nuovoStato(imp.nome, 'm1');
 		salva();
 		entra('casa');
 	}
+	function rigioca(id: string): void {
+		slot = 'rigioca';
+		stato = nuovoStato(imp.nome, id);
+		salva();
+		entra('casa');
+	}
+	function continuaRigioco(): void {
+		if (!salvatoRigioco) return;
+		slot = 'rigioca';
+		stato = salvatoRigioco;
+		entra(stato.luogo);
+	}
 	function continua(): void {
 		if (!salvato) return;
+		slot = 'main';
 		stato = salvato;
 		if (stato.finita) fase = 'fine';
 		else entra(stato.luogo);
@@ -198,13 +216,17 @@
 	function annota(chi: string, ja: string, it: string): void {
 		if (!stato) return;
 		if (stato.taccuino.some((a) => a.ja === ja && a.giorno === stato!.giorno)) return;
-		stato = { ...stato, taccuino: [...stato.taccuino, { giorno: stato.giorno, chi, ja: testo(ja), it: testo(it) }] };
+		stato = { ...stato, taccuino: [...stato.taccuino, { giorno: stato.giorno, chi, ja, it }] };
 	}
 
 	function finisciScena(): void {
 		if (!stato) return;
 		parlante = null;
 		if (stato.finita) {
+			if (slot === 'main' && !imp.completate.includes(stato.missione)) {
+				imp = { ...imp, completate: [...imp.completate, stato.missione] };
+				salvaImpostazioni(imp);
+			}
 			fase = 'fine';
 			return;
 		}
@@ -249,10 +271,12 @@
 		if (i === null) avvisa(sentito.length ? `🎤 「${sentito[0]}」 — ${L(UI.nonCapito)}` : `🎤 ${L(UI.nonSentito)}`);
 		else scegli(i, true);
 	}
+	// opzioni della domanda corrente (quella sui soldi si costruisce dai soldi che hai)
+	const soldiDomanda = $derived(corrente && 'domanda' in corrente && corrente.domanda.giusta === 'soldi' && stato ? opzioniSoldi(stato.soldi) : null);
+	const opzioniDomanda = $derived(corrente && 'domanda' in corrente ? (soldiDomanda?.opzioni ?? corrente.domanda.opzioni) : []);
 	function giustaDomanda(): number {
-		if (!corrente || !('domanda' in corrente) || !stato) return -1;
-		const d = corrente.domanda;
-		return d.giusta === 'soldi' ? giustaSoldi(d.opzioni.map((o) => o.valore), stato.soldi) : d.giusta;
+		if (!corrente || !('domanda' in corrente)) return -1;
+		return soldiDomanda ? soldiDomanda.giusta : (corrente.domanda.giusta as number);
 	}
 	function rispondi(i: number): void {
 		if (!stato || scelto !== null) return;
@@ -329,6 +353,10 @@
 			const raw = JSON.parse(localStorage.getItem(SALVA) ?? 'null') as Stato | null;
 			imp = caricaImpostazioni();
 			if (raw?.versione === 1) salvato = raw;
+			const rg = JSON.parse(localStorage.getItem(`${SALVA}_rigioca`) ?? 'null') as Stato | null;
+			if (rg?.versione === 1 && !rg.finita) salvatoRigioco = rg;
+			// partite finite prima che esistesse l'elenco delle missioni
+			if (raw?.finita && !imp.completate.includes(raw.missione)) imp = { ...imp, completate: [...imp.completate, raw.missione] };
 		} catch {
 			/* niente storage */
 		}
@@ -392,6 +420,20 @@
 				<button class="btn big" class:ghost={salvato && !salvato.finita} onclick={nuovaPartita}>{L(UI.nuova)}</button>
 			</div>
 			<p class="muted">{L(UI.missione1)}</p>
+			{#if imp.completate.length || salvatoRigioco}
+				<h2 class="sotto">{L(UI.missioni)}</h2>
+				<div class="missioni">
+					{#each Object.values(MISSIONI) as m (m.id)}
+						<div class="missione">
+							<span><strong>{m.titolo}</strong> <small>{lingua === 'ja' ? '' : m.it}</small></span>
+							<span class="small">{imp.completate.includes(m.id) ? L(UI.fatta) : L(UI.inCorso)}</span>
+							{#if imp.completate.includes(m.id)}<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.rigioca)}</button>{/if}
+						</div>
+					{/each}
+					{#if salvatoRigioco}<button class="btn small" onclick={continuaRigioco}>{L(UI.continuaRigioco)} ({salvatoRigioco.missione}, {dataJa(salvatoRigioco.giorno)} {hhmm(salvatoRigioco.minuti)})</button>{/if}
+					<p class="small">{L(UI.rigiocoNota)}</p>
+				</div>
+			{/if}
 		</section>
 	{:else if fase === 'crea'}
 		<section class="panel intro">
@@ -416,6 +458,7 @@
 		<div class="hud">
 			<span class="data">📅 {lingua === 'ja' ? dataJa(stato.giorno) : dataIt(stato.giorno)}</span>
 			<span class="ora">{notturna ? '🌙' : '☀️'} {hhmm(stato.minuti)} <small>{lingua === 'ja' ? fascia(stato.minuti) : ''}</small></span>
+			{#if slot === 'rigioca'}<span class="rig">{L(UI.modoRigioco)}</span>{/if}
 			<span class="soldi">¥{stato.oggetti.includes('portafoglio') ? stato.soldi : '—'}</span>
 		</div>
 
@@ -488,7 +531,7 @@
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'io' in corrente}
-						<p class="dname io">{stato.nome}{corrente.detto ? ' 🎤' : ''}</p>
+						<p class="dname io">{imp.nome}{corrente.detto ? ' 🎤' : ''}</p>
 						<p class="ja mia">「<Frase text={testo(corrente.io)} {dividi} />」</p>
 						{#if mostraIt && corrente.it}<p class="it">{testo(corrente.it)}</p>{/if}
 						<div class="row">
@@ -498,7 +541,7 @@
 							{#if !mostraIt && corrente.it}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'pensa' in corrente}
-						<p class="dname io">💭 {stato.nome} <small>{L(UI.pensiero)}</small></p>
+						<p class="dname io">💭 {imp.nome} <small>{L(UI.pensiero)}</small></p>
 						<p class="ja pensiero">（<Frase text={testo(corrente.pensa)} {dividi} />）</p>
 						{#if mostraIt}<p class="it">{testo(corrente.it)}</p>{/if}
 						<div class="row">
@@ -519,7 +562,7 @@
 							{#if lingua === 'ja' && !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
 						</div>
 					{:else if 'scelta' in corrente}
-						<p class="dname io">{stato.nome} {L(UI.cosaDici)}</p>
+						<p class="dname io">{imp.nome} {L(UI.cosaDici)}</p>
 						<div class="scelte">
 							{#each corrente.scelta as o, i (i)}
 								<button class="opzione" onclick={() => scegli(i)}>
@@ -539,7 +582,7 @@
 						<p class="ja"><Frase text={testo(corrente.domanda.ja)} {dividi} /></p>
 						{#if mostraIt}<p class="it">{testo(corrente.domanda.it)}</p>{/if}
 						<div class="scelte">
-							{#each corrente.domanda.opzioni as o, i (i)}
+							{#each opzioniDomanda as o, i (i)}
 								<button class="opzione" class:ok={scelto !== null && i === g} class:ko={scelto === i && i !== g} disabled={scelto !== null} onclick={() => rispondi(i)}>
 									<span class="ja">{i + 1}. {stripFuriganaNotation(testo(o.ja))}</span>
 									{#if mostraIt}<small>{o.it}</small>{/if}
@@ -598,7 +641,7 @@
 				<p class="paper">{@render testoUI(UI.prossima)}</p>
 				<div class="row">
 					<button class="btn" onclick={() => (taccuino = true)}>{L(UI.rileggi)}</button>
-					<button class="btn ghost" onclick={() => { salvato = stato; fase = 'inizio'; }}>{L(UI.inizio)}</button>
+					<button class="btn ghost" onclick={() => { if (slot === 'main') salvato = stato; else salvatoRigioco = null; slot = 'main'; fase = 'inizio'; }}>{L(UI.inizio)}</button>
 				</div>
 			</section>
 		{/if}
@@ -645,7 +688,7 @@
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
 			<section class="panel taccuino">
-				<header><h2>📓 {stato.nome}{L(UI.taccuinoDi)}</h2><button class="mini" onclick={() => (taccuino = false)}>✖</button></header>
+				<header><h2>📓 {imp.nome}{L(UI.taccuinoDi)}</h2><button class="mini" onclick={() => (taccuino = false)}>✖</button></header>
 				<div class="paper">
 					<h3>{L(UI.obiettivi)}</h3>
 					{#each stato.obiettivi as o (o.id)}<p class="ob" class:fatto={o.fatto}>{o.fatto ? '✅' : '⬜'} {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
@@ -663,8 +706,8 @@
 					{#each [...stato.taccuino].reverse() as a, i (i)}
 						<div class="appunto">
 							<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
-							<p class="ja"><Frase text={a.ja} /></p>
-							{#if rivelati.includes(i)}<p class="it">{a.it}</p>{:else}<button class="mini piccolo" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
+							<p class="ja"><Frase text={testo(a.ja)} /></p>
+							{#if rivelati.includes(i)}<p class="it">{testo(a.it)}</p>{:else}<button class="mini piccolo" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
 						</div>
 					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
 					<h3>{L(UI.domande)}</h3>
@@ -797,6 +840,11 @@
 	.imp label { display: grid; gap: 4px; font-size: 0.88rem; }
 	.imp label.check { display: flex; align-items: center; gap: 6px; }
 	.imp input:not([type]), .imp select { font: inherit; padding: 5px 6px; border: 2px solid var(--px-line); background: #fff; color: #222034; }
+	.sotto { margin: 6px 0 0; font-size: 1rem; }
+	.missioni { display: grid; gap: 6px; }
+	.missione { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #f4f4f4; color: #222034; border: 3px solid var(--px-line); padding: 6px 8px; }
+	.missione small { color: #666; }
+	.rig { background: #fbf236; color: #222034; padding: 0 6px; font-size: 0.8rem; }
 	.toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #222034; color: #fff; border: 3px solid #fbf236; padding: 8px 14px; font-size: 0.9rem; z-index: 50; max-width: 90vw; }
 	.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 40; display: grid; place-items: start center; overflow-y: auto; padding: 20px 10px; }
 	.taccuino { width: min(680px, 100%); }

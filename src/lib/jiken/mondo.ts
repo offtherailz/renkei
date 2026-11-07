@@ -19,12 +19,18 @@ export const LUOGHI: Luogo[] = [
 	{
 		id: 'konbini', nome: 'ハッピーマート', it: 'konbini Happy Mart', icona: '🏪', sfondo: 'konbini', x: 94.1, y: 64.5,
 		ambiente: [
-			{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
 			{
-				scelta: [
-					{ ja: 'おにぎりと お茶を ください。', it: 'Un onigiri e un tè, per favore.', passi: [{ dice: 'commessa', ja: '280円です。あたためますか。', it: 'Sono 280 yen. Lo scaldo?' }, { io: 'いいえ、けっこうです。', it: 'No, grazie.' }, { soldi: -280 }, { minuti: 10 }] },
-					{ ja: 'すみません、見て いる だけです。', it: 'Scusi, sto solo guardando.', passi: [{ minuti: 5 }] }
-				]
+				se: { oggetti: ['portafoglio'] },
+				allora: [
+				{ dice: 'commessa', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' },
+				{
+					scelta: [
+						{ ja: 'おにぎりと お茶を ください。', it: 'Un onigiri e un tè, per favore.', passi: [{ dice: 'commessa', ja: '280円です。あたためますか。', it: 'Sono 280 yen. Lo scaldo?' }, { io: 'いいえ、けっこうです。', it: 'No, grazie.' }, { soldi: -280 }, { minuti: 10 }] },
+						{ ja: 'すみません、見て いる だけです。', it: 'Scusi, sto solo guardando.', passi: [{ minuti: 5 }] }
+					]
+				}
+				],
+				altrimenti: [{ narra: 'あっ、さいふが ない！ これでは 何も 買えません。', it: 'Ah, il portafoglio non c’è! Così non puoi comprare niente.' }]
 			}
 		]
 	},
@@ -32,15 +38,21 @@ export const LUOGHI: Luogo[] = [
 		id: 'shokudo', nome: 'ふじ食堂', it: 'trattoria Fuji', icona: '🍱', sfondo: 'ristorante', x: 69.4, y: 65.5,
 		orario: { fasce: [[h(11), h(15)], [h(17), h(21)]] },
 		ambiente: [
-			{ dice: 'oste', ja: 'いらっしゃいませ。何に しますか。', it: 'Benvenut{o}. Cosa prende?' },
 			{
-				scelta: [
-					{ ja: 'カレーライスを おねがいします。', it: 'Il riso al curry, per favore.', passi: [{ soldi: -650 }, { minuti: 40 }, { narra: 'カレーを 食べました。おいしかった！', it: 'Hai mangiato il curry. Buonissimo!' }] },
-					{ ja: 'ラーメンを おねがいします。', it: 'Il ramen, per favore.', passi: [{ soldi: -700 }, { minuti: 40 }, { narra: 'ラーメンを 食べました。おなかが いっぱいです。', it: 'Hai mangiato il ramen. Sei sazi{o}.' }] },
-					{ ja: 'すみません、また 来ます。', it: 'Scusi, ripasso.' }
-				]
-			},
-			{ dice: 'oste', ja: 'ありがとうございました。', it: 'Grazie.' }
+				se: { oggetti: ['portafoglio'] },
+				allora: [
+				{ dice: 'oste', ja: 'いらっしゃいませ。何に しますか。', it: 'Benvenut{o}. Cosa prende?' },
+				{
+					scelta: [
+						{ ja: 'カレーライスを おねがいします。', it: 'Il riso al curry, per favore.', passi: [{ soldi: -650 }, { minuti: 40 }, { narra: 'カレーを 食べました。おいしかった！', it: 'Hai mangiato il curry. Buonissimo!' }] },
+						{ ja: 'ラーメンを おねがいします。', it: 'Il ramen, per favore.', passi: [{ soldi: -700 }, { minuti: 40 }, { narra: 'ラーメンを 食べました。おなかが いっぱいです。', it: 'Hai mangiato il ramen. Sei sazi{o}.' }] },
+						{ ja: 'すみません、また 来ます。', it: 'Scusi, ripasso.' }
+					]
+				},
+				{ dice: 'oste', ja: 'ありがとうございました。', it: 'Grazie.' }
+				],
+				altrimenti: [{ narra: 'あっ、さいふが ない！ これでは 何も 買えません。', it: 'Ah, il portafoglio non c’è! Così non puoi comprare niente.' }]
+			}
 		]
 	},
 	{
@@ -74,7 +86,7 @@ export const LUOGHI: Luogo[] = [
 	{
 		id: 'kissa', nome: '喫茶[きっさ]あおい', it: 'caffè Aoi', icona: '☕', sfondo: 'cafe', x: 96.8, y: 46.5,
 		orario: { giorni: [0, 1, 3, 4, 5, 6], fasce: [[h(7), h(20)]] },
-		ambiente: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenut{o}. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'コーヒーを 飲みました（400円）。30分 休みました。', it: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }]
+		ambiente: [{ se: { oggetti: ['portafoglio'] }, allora: [{ dice: 'ito', ja: 'いらっしゃいませ。コーヒーで いいですか。', it: 'Benvenut{o}. Un caffè va bene?' }, { minuti: 30 }, { soldi: -400 }, { narra: 'コーヒーを 飲みました（400円）。30分 休みました。', it: 'Bevi un caffè (400 yen). Mezz’ora di pausa.' }], altrimenti: [{ narra: 'あっ、さいふが ない！ これでは 何も 買えません。', it: 'Ah, il portafoglio non c’è! Così non puoi comprare niente.' }] }]
 	},
 	{
 		id: 'apartment', nome: '木村[きむら]アパート', it: 'condominio Kimura', icona: '🏢', sfondo: 'condominio', x: 87.2, y: 47,
