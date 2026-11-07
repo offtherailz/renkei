@@ -40,6 +40,10 @@ export const M2: Missione = {
 		{
 			id: 'm2-d7-ufficio', luogo: 'ufficio', quando: { giorno: 7, nonFlag: ['m2.d7.ufficio'] },
 			passi: [
+				{ dice: 'mori', ja: '{nome}さん、これ、はじめての きゅうりょうです。おつかれさま。', it: '{nome}, questo è il suo primo stipendio. Buon lavoro.' },
+				{ soldi: 50000 },
+				{ narra: 'きゅうりょうを もらいました（5万円）。', it: 'Hai ricevuto lo stipendio (50.000 yen).' },
+				{ nota: 'もらう = ricevere. 「きゅうりょうを もらいました」: lo stipendio l’hai ricevuto tu (da qualcuno).', it: 'もらう = ricevere: 「きゅうりょうを もらいました」.' },
 				{ dice: 'mori', ja: 'おはようございます。今週の 予定[よてい]です。水曜日の 10時に ABCの 山田[やまだ]さんが 来ます。', it: 'Buongiorno. Il programma della settimana: mercoledì alle 10 viene Yamada della ABC.', taccuino: true },
 				{ dice: 'mori', ja: '{nome}さんは 9時50分に 1かいで 待って いて ください。先週の メールに 書いて ありましたね。', it: '{nome}, lei lo aspetti al piano terra alle 9:50. Era scritto nell’email della settimana scorsa.' },
 				{
@@ -106,7 +110,7 @@ export const M2: Missione = {
 				{
 					scelta: [
 						{ ja: '20まい コピーします。', it: 'Ne faccio 20 copie.', passi: [{ soldi: -200 }] },
-						{ ja: '50まい コピーします。', it: 'Ne faccio 50 copie.', passi: [{ soldi: -500 }, { flag: 'm2.poster50' }] }
+						{ ja: '50まい コピーします。', it: 'Ne faccio 50 copie.', passi: [{ se: { soldiMin: 500 }, allora: [{ soldi: -500 }, { flag: 'm2.poster50' }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] }
 					]
 				},
 				{ prendi: 'volantino_gatto', it: 'volantini di Miké' },

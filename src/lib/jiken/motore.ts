@@ -58,6 +58,7 @@ export function verifica(c: Condizione, s: Stato): boolean {
 	if (c.nonFlag && c.nonFlag.some((f) => s.flag.includes(f))) return false;
 	if (c.oggetti && !c.oggetti.every((o) => s.oggetti.includes(o))) return false;
 	if (c.nonOggetti && c.nonOggetti.some((o) => s.oggetti.includes(o))) return false;
+	if (c.soldiMin !== undefined && s.soldi < c.soldiMin) return false;
 	return true;
 }
 

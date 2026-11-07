@@ -106,9 +106,9 @@ export const M1: Missione = {
 				{ narra: 'かべの メニュー：カレーライス 650円・ラーメン 700円・すし 900円。', it: 'Sul muro, il menù: カレーライス 650円 · ラーメン 700円 · すし 900円.' },
 				{
 					scelta: [
-						{ ja: 'カレーライスを おねがいします。', it: 'Il riso al curry, per favore.', passi: [{ soldi: -650 }] },
-						{ ja: 'ラーメンを おねがいします。', it: 'Il ramen, per favore.', passi: [{ soldi: -700 }] },
-						{ ja: 'すしを おねがいします。', it: 'Il sushi, per favore.', passi: [{ soldi: -900 }] }
+						{ ja: 'カレーライスを おねがいします。', it: 'Il riso al curry, per favore.', passi: [{ se: { soldiMin: 650 }, allora: [{ soldi: -650 }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] },
+						{ ja: 'ラーメンを おねがいします。', it: 'Il ramen, per favore.', passi: [{ se: { soldiMin: 700 }, allora: [{ soldi: -700 }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] },
+						{ ja: 'すしを おねがいします。', it: 'Il sushi, per favore.', passi: [{ se: { soldiMin: 900 }, allora: [{ soldi: -900 }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] }
 					]
 				},
 				{ se: { flag: ['d0.pranzo_tanaka'] }, allora: [{ dice: 'tanaka', ja: 'ぼくは カレーに します。ここの カレーは ほんとうに おいしいですよ。', it: 'Io prendo il curry. Qui il curry è davvero buono.' }] },
@@ -547,7 +547,7 @@ export const M1: Missione = {
 				{ dice: 'fornaia', ja: 'この クリームパンが いちばん 人気が ありますよ。三つで 450円です。', it: 'Questo pane alla crema è il più richiesto. Tre a 450 yen.' },
 				{
 					scelta: [
-						{ ja: 'じゃ、それを 三つ ください。', it: 'Allora me ne dia tre.', passi: [{ soldi: -450 }, { prendi: 'sacchetto_pane', it: 'pane alla crema (regalo)' }, { completa: 'regalo' }, { dice: 'fornaia', ja: 'ありがとうございました。', it: 'Grazie.' }] },
+						{ ja: 'じゃ、それを 三つ ください。', it: 'Allora me ne dia tre.', passi: [{ se: { soldiMin: 450 }, allora: [{ soldi: -450 }, { prendi: 'sacchetto_pane', it: 'pane alla crema (regalo)' }, { completa: 'regalo' }, { dice: 'fornaia', ja: 'ありがとうございました。', it: 'Grazie.' }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] },
 						{ ja: 'すみません、また 来ます。', it: 'Scusi, ripasso.' }
 					]
 				},
@@ -562,7 +562,7 @@ export const M1: Missione = {
 				{ dice: 'fioraia', ja: 'それなら、この 小さい 花たばは どうですか。1000円です。', it: 'Allora, che ne dice di questo mazzolino? 1000 yen.' },
 				{
 					scelta: [
-						{ ja: 'じゃ、それに します。', it: 'Allora prendo quello.', passi: [{ soldi: -1000 }, { prendi: 'mazzo_fiori', it: 'mazzo di fiori (regalo)' }, { completa: 'regalo' }, { dice: 'fioraia', ja: 'ありがとうございました。', it: 'Grazie.' }] },
+						{ ja: 'じゃ、それに します。', it: 'Allora prendo quello.', passi: [{ se: { soldiMin: 1000 }, allora: [{ soldi: -1000 }, { prendi: 'mazzo_fiori', it: 'mazzo di fiori (regalo)' }, { completa: 'regalo' }, { dice: 'fioraia', ja: 'ありがとうございました。', it: 'Grazie.' }], altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }] }] },
 						{ ja: 'ちょっと 高いですね。また 来ます。', it: 'È un po’ caro. Ripasso.' }
 					]
 				},

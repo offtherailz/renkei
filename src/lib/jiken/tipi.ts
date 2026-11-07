@@ -49,6 +49,7 @@ export interface Condizione {
 	nonFlag?: string[]; // nessuno presente
 	oggetti?: string[];
 	nonOggetti?: string[];
+	soldiMin?: number; // almeno questi soldi
 }
 
 export interface Opzione {
