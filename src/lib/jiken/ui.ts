@@ -78,5 +78,9 @@ export const UI = {
 	ascolto: { ja: '🎤 聞いて います… （もう一度 タッチで やめる）', it: '🎤 Ti ascolto… (tocca di nuovo per smettere)' },
 	nonCapito: { ja: 'どれか わかりませんでした。もう一度 言うか、えらんで ください。', it: 'non ho capito quale. Ripeti o tocca la risposta.' },
 	nonSentito: { ja: '何も 聞こえませんでした。', it: 'Non ho sentito niente.' },
-	pensiero: { ja: '（心の 中で）', it: '(tra sé)' }
+	pensiero: { ja: '（心の 中で）', it: '(tra sé)' },
+	esci: { ja: 'ゲームを 出ますか。（ここまでの ことは セーブして あります）', it: 'Uscire dal gioco? (I progressi sono salvati)' },
+	chiSei: { ja: 'あなたは どんな 人ですか。', it: 'Chi sei?' },
+	comincia: { ja: '▶ 始める', it: '▶ Comincia' },
+	annulla: { ja: '← もどる', it: '← Indietro' }
 } satisfies Record<string, Testo | Testo[]>;

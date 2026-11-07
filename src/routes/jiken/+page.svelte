@@ -39,7 +39,7 @@
 
 	let stato = $state<Stato | null>(null);
 	let salvato = $state<Stato | null>(null);
-	let fase = $state<'inizio' | 'mappa' | 'scena' | 'fine'>('inizio');
+	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine'>('inizio');
 
 	// scena in corso
 	let coda: Passo[] = [];
@@ -84,7 +84,10 @@
 
 
 	function nuovaPartita(): void {
-		if (salvato && !confirm(L(UI.sicuro))) return;
+		if (salvato && !salvato.finita && !confirm(L(UI.sicuro))) return;
+		fase = 'crea';
+	}
+	function comincia(): void {
 		salvaImp();
 		stato = nuovoStato(imp.nome, 'm1');
 		salva();
@@ -95,6 +98,17 @@
 		stato = salvato;
 		if (stato.finita) fase = 'fine';
 		else entra(stato.luogo);
+	}
+
+	// ── uscire: conferma se sei in partita
+	const inPartita = $derived(fase === 'mappa' || fase === 'scena');
+	function esci(e: MouseEvent): void {
+		if (inPartita && !confirm(L(UI.esci))) e.preventDefault();
+	}
+	function primaDiChiudere(e: BeforeUnloadEvent): void {
+		if (!inPartita) return;
+		e.preventDefault();
+		e.returnValue = '';
 	}
 
 	// ── spostamenti
@@ -331,6 +345,8 @@
 	});
 </script>
 
+<svelte:window onbeforeunload={primaDiChiudere} />
+
 <svelte:head>
 	<title>事件 — さくら町</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -339,7 +355,7 @@
 
 <div class="game">
 	<div class="game-top">
-		<a class="back" href="{base}/avventure" title={L(UI.indietro)}>←<span class="largo"> {L(UI.indietro).replace('← ', '')}</span></a>
+		<a class="back" href="{base}/avventure" title={L(UI.indietro)} onclick={esci}>←<span class="largo"> {L(UI.indietro).replace('← ', '')}</span></a>
 		<span class="barra">
 			<button class="mini" onclick={() => (impostazioni = true)} title={L(UI.impostazioni)}>⚙️</button>
 			{#if stato && fase !== 'inizio'}
@@ -369,15 +385,6 @@
 			<ul class="paper">
 				{#each UI.regole as t, i (i)}<li>{@render testoUI(t)}</li>{/each}
 			</ul>
-			<label class="nome">{L(UI.nome)}
-				<input bind:value={imp.nome} maxlength="12" onchange={salvaImp} />
-			</label>
-			<div class="row sesso">
-				<span>{L(UI.sesso)}</span>
-				<button class="btn small" class:ghost={imp.sesso !== 'M'} onclick={() => { imp.sesso = 'M'; salvaImp(); }}>👨 {L(UI.uomo)}</button>
-				<button class="btn small" class:ghost={imp.sesso !== 'F'} onclick={() => { imp.sesso = 'F'; salvaImp(); }}>👩 {L(UI.donna)}</button>
-				<button class="btn small ghost" onclick={() => (impostazioni = true)}>{L(UI.impostazioni)}</button>
-			</div>
 			<div class="row">
 				{#if salvato && !salvato.finita}
 					<button class="btn big" onclick={continua}>{L(UI.continua)} ({salvato.nome}, {dataJa(salvato.giorno)} {hhmm(salvato.minuti)})</button>
@@ -385,6 +392,25 @@
 				<button class="btn big" class:ghost={salvato && !salvato.finita} onclick={nuovaPartita}>{L(UI.nuova)}</button>
 			</div>
 			<p class="muted">{L(UI.missione1)}</p>
+		</section>
+	{:else if fase === 'crea'}
+		<section class="panel intro">
+			<h1>🕵️ {L(UI.chiSei)}</h1>
+			<label class="nome">{L(UI.nome)}
+				<input bind:value={imp.nome} maxlength="12" onchange={salvaImp} />
+			</label>
+			<div class="row sesso">
+				<span>{L(UI.sesso)}</span>
+				<button class="btn small" class:ghost={imp.sesso !== 'M'} onclick={() => { imp.sesso = 'M'; salvaImp(); }}>👨 {L(UI.uomo)}</button>
+				<button class="btn small" class:ghost={imp.sesso !== 'F'} onclick={() => { imp.sesso = 'F'; salvaImp(); }}>👩 {L(UI.donna)}</button>
+			</div>
+			<div class="row">
+				<button class="btn small ghost" onclick={() => (impostazioni = true)}>{L(UI.impostazioni)} — {L(UI.voceTua)}</button>
+			</div>
+			<div class="row">
+				<button class="btn big" onclick={comincia}>{L(UI.comincia)}</button>
+				<button class="btn ghost" onclick={() => (fase = 'inizio')}>{L(UI.annulla)}</button>
+			</div>
 		</section>
 	{:else if stato}
 		<div class="hud">
