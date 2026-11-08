@@ -112,6 +112,7 @@ export const M3: Missione = {
 			passi: [
 				{ narra: '会社の おくの そうこを しらべます……。ごみばこの 中に、くしゃくしゃの レシートが 入って います。', it: 'Esamini il magazzino in fondo all’ufficio… Nel cestino c’è uno scontrino accartocciato.' },
 				{ narra: 'レシート：「ハッピーマート　コピー（白黒）10まい　100円　4月20日　19:30」', it: 'Scontrino: «Happy Mart — fotocopie (b/n) ×10 — 100 yen — 20 aprile, 19:30».' },
+				{ minuti: 20 },
 				{ prendi: 'scontrino_copie', it: 'scontrino delle fotocopie' },
 				{ pensa: 'コンビニで コピーした？ 田中さんの 話と ちがう。', it: 'Le copie alla konbini? Non torna con quello che dice Tanaka.' },
 				{ dice: 'nakamura', faccia: 'pensieroso', ja: 'いい しょうこですね。もう 一度 田中さんと 話して みたら どうですか。', it: 'Ottima prova. Perché non riparla con Tanaka?' }
@@ -129,6 +130,7 @@ export const M3: Missione = {
 								{ dice: 'tanaka', faccia: 'nervoso', ja: 'え、ぼくですか？ きのうは 7時ごろ コピーを して、ぶちょうの つくえの 上に おいて おきましたよ。', it: 'Eh, io? Ieri verso le 7 ho fatto le copie e le ho lasciate sulla scrivania della responsabile.', taccuino: true },
 								{ io: 'コピーは どこで しましたか。', it: 'Dove ha fatto le copie?' },
 								{ dice: 'tanaka', faccia: 'nervoso', ja: 'え……会社で ですよ。もちろん。', it: 'Eh… In ufficio, ovvio.', taccuino: true },
+								{ minuti: 20 },
 								{ completa: 'tanaka' },
 								{ flag: 'm3.tanaka' }
 							]
@@ -138,6 +140,7 @@ export const M3: Missione = {
 							passi: [
 								{ dice: 'suzuki', faccia: 'arrabbiata', ja: '8時までです。わたしが さいごでした。', it: 'Fino alle 8. Sono stata l’ultima.' },
 								{ dice: 'suzuki', ja: '帰る とき、ぶちょうの つくえを 見ましたが、上には 何も おいて ありませんでしたよ。', it: 'Andando via ho guardato la scrivania della responsabile: sopra non c’era niente.', taccuino: true },
+								{ minuti: 20 },
 								{ completa: 'suzuki' },
 								{ flag: 'm3.suzuki' }
 							]
@@ -147,6 +150,7 @@ export const M3: Missione = {
 							passi: [
 								{ dice: 'hayashi', faccia: 'sorpresa', ja: 'え？ そう いえば、7時ごろ 田中さんが 大きい ふうとうを 持って 出て 行きました。', it: 'Eh? A pensarci, verso le 7 Tanaka è uscito con una grande busta.', taccuino: true },
 								{ dice: 'hayashi', ja: '「すぐ もどります」と 言って いましたが、もどって こなかった ようです。', it: 'Ha detto «torno subito», ma sembra che non sia tornato.', taccuino: true },
+								{ minuti: 20 },
 								{ completa: 'hayashi' },
 								{ flag: 'm3.hayashi' }
 							]
@@ -175,6 +179,7 @@ export const M3: Missione = {
 									{ dice: 'tanaka', faccia: 'imbarazzato', ja: '……すみません。コピーきが こわれて いたので、コンビニで コピーしたんです。', it: '…Mi scusi. Siccome la fotocopiatrice era rotta, le ho fatte alla konbini.' },
 									{ dice: 'tanaka', faccia: 'imbarazzato', ja: 'それで、もとの 資料[しりょう]を コピーきの 中に わすれて しまって……。言えなかったんです。', it: 'E ho dimenticato l’originale nella fotocopiatrice… Non riuscivo a dirlo.', taccuino: true },
 									{ nota: '「わすれて しまった」: 〜て しまう = fare qualcosa senza volerlo (e dispiacersene).', it: '「わすれて しまった」: 〜て しまう = è successo, purtroppo.' },
+									{ minuti: 15 },
 									{ completa: 'magazzino' },
 									{ obiettivo: 'konbini3', ja: 'ハッピーマートへ 行って、資料[しりょう]が ないか 聞く。', it: 'Andare all’Happy Mart a chiedere del documento.' },
 									{ flag: 'm3.confessa' }
@@ -212,7 +217,38 @@ export const M3: Missione = {
 				{ completa: 'mori3' },
 				{ obiettivo: 'ic', ja: 'さくら町駅で ICカードを 買う。', it: 'Comprare la carta IC alla stazione di Sakura-chō.' },
 				{ obiettivo: 'hotel', ja: 'あしたの 10時までに ホテル みどり（山野駅[やまのえき]の 前）へ 行く。', it: 'Domani entro le 10, andare all’Hotel Midori (davanti alla stazione di Yamano).' },
-				{ flag: 'm3.consegnato' }
+				{ flag: 'm3.consegnato' },
+				// la giornata di lavoro continua: niente pomeriggio libero alle 9 del mattino
+				{ dice: 'mori', ja: 'さあ、しごとに もどりましょう。ICカードは 昼休みか、しごとの あとで 買って ください。', it: 'Su, torniamo al lavoro. La carta IC la compri in pausa pranzo o dopo il lavoro.' },
+				{
+					se: { alle: h(12) },
+					allora: [{ narra: '昼まで、たまって いた しごとを しました。', it: 'Fino a mezzogiorno sbrighi il lavoro arretrato.' }, { ora: h(12) }]
+				}
+			]
+		},
+		{
+			id: 'm3-d15-pomeriggio', luogo: 'ufficio', quando: { giorno: 15, dalle: h(12, 30), flag: ['m3.consegnato'], nonFlag: ['m3.d15.pomeriggio'] },
+			passi: [
+				{ flag: 'm3.d15.pomeriggio' },
+				{ dice: 'mori', ja: '{nome}さん、あしたの よていを もう一度 かくにんしましょう。', it: '{nome}, ricontrolliamo il programma di domani.' },
+				{
+					domanda: {
+						ja: 'あした、何時に どこで 山田さんに 会いますか。', it: 'Domani, a che ora e dove incontrate Yamada?',
+						opzioni: [
+							{ ja: '10時に ホテルの ロビーで', it: 'alle 10 nella hall dell’hotel' },
+							{ ja: '10時に 会社の 一かいで', it: 'alle 10 al piano terra della ditta' },
+							{ ja: '9時50分に 山野駅[やまのえき]で', it: 'alle 9:50 alla stazione di Yamano' },
+							{ ja: '11時半に ホテルの 前で', it: 'alle 11:30 davanti all’hotel' }
+						],
+						giusta: 0, spiega: 'Mori: 「10時に ホテルの ロビーで 会いましょう」. Le 11:30 sono la fine della riunione; il piano terra della ditta era il posto della settimana scorsa.'
+					}
+				},
+				{ dice: 'tanaka', faccia: 'imbarazzato', ja: '{nome}さん、けさは ありがとう。コピーきが なおるまで、コピーは ぼくが コンビニで して おきます。', it: '{nome}, grazie per stamattina. Finché non riparano la fotocopiatrice, le copie le faccio io alla konbini.' },
+				{ nota: '「して おきます」: 〜て おく は、あとの ために 前に して おく こと。', it: '「して おきます」: 〜て おく = fare qualcosa in anticipo, per prepararsi.' },
+				{ narra: 'ごごは コピーを ファイルに 入れて、かいぎの じゅんびを しました。', it: 'Il pomeriggio metti le copie nelle cartelline e prepari la riunione.' },
+				{ ora: h(17, 30) },
+				{ dice: 'mori', ja: 'おつかれさまでした。あしたは 10時に ホテルで。おくれないでね。', it: 'Buon lavoro. Domani alle 10 all’hotel. Non fare tardi.' },
+				{ se: { nonFlag: ['treno.ok'] }, allora: [{ pensa: '帰りに さくら町駅で ICカードを 買おう。', it: 'Tornando passo alla stazione di Sakura-chō a comprare la carta IC.' }] }
 			]
 		},
 		{

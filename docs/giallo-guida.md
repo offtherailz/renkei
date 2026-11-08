@@ -227,8 +227,11 @@ Parte dalla fine della 2 o da sola (`inizio`: giorno 14).
   (imbarazzato): le copie alla コンビニ, l'originale dimenticato lì
   (〜て しまう). Flag `m3.confessa`.
 - コンビニ: la commessa l'aveva messo da parte (`cartellina`).
+- Ogni interrogatorio e il magazzino costano 20 minuti, la confessione 15.
 - Ufficio (entro le 20): consegni a 森; 山田 sposta la riunione alla **ホテル みどり**
-  davanti a 山野駅, alle 10; serve la carta IC. Obiettivi `ic`, `hotel`.
+  davanti a 山野駅, alle 10; serve la carta IC. Obiettivi `ic`, `hotel`. Poi si torna al lavoro (fino alle 12 se è
+  presto); pomeriggio `m3-d15-pomeriggio`: programma di domani (domanda), 田中 si
+  scusa (〜て おきます), fine alle 17:30.
 - さくら町駅 (`m3-eki-ic`): carta IC a 2000 yen (500 di cauzione, 1500 di credito
   che tornano nei soldi) → flag **`treno.ok`**: da qui il treno è sbloccato.
 
