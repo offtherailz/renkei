@@ -1402,11 +1402,12 @@
 	.ob.fatto { opacity: 0.55; text-decoration: line-through; }
 	.giro { font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px !important; }
 	.pagina .oggetto { cursor: default; background: rgba(255, 255, 255, 0.55); color: var(--inchiostro); border: 2px dashed #8a8799; }
-	.battuta { display: grid; grid-template-columns: 40px 1fr auto; gap: 8px; align-items: start; padding: 3px 0; }
+	.battuta { display: grid; grid-template-columns: 52px 1fr auto; gap: 8px; align-items: start; padding: 3px 0; }
 	.battuta.narrata .ja { font-size: 0.9rem; font-style: italic; opacity: 0.85; }
-	.faccina { width: 40px; height: 40px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); display: grid; place-items: center; font-size: 1.2rem; }
+	/* ritaglio più alto che largo: si vede tutta la faccia, dai capelli al mento */
+	.faccina { width: 52px; height: 66px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); display: grid; place-items: center; font-size: 1.2rem; }
 	/* il ritratto è a mezzo busto: si mostra solo la testa */
-	.faccina img { width: 170%; max-width: none; align-self: start; margin-top: -2px; image-rendering: pixelated; }
+	.faccina img { width: 150%; max-width: none; align-self: start; justify-self: center; image-rendering: pixelated; }
 	.battuta .testo { display: grid; gap: 1px; min-width: 0; }
 	.battuta .chi { font-size: 0.72rem; color: #3f5aa8; }
 	.battuta.mia .chi { color: #3d7a24; }
@@ -1415,9 +1416,9 @@
 	.battuta.mia .ja { color: #2f5d1c; }
 	.battuta .ja { font-size: 1rem; line-height: 1.6; }
 	.battuta .tasti { display: flex; gap: 4px; }
-	.persona { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: start; padding: 6px 0; border-bottom: 1px dashed #c9c3b0; }
-	.persona .ritratto { width: 64px; height: 64px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); }
-	.persona .ritratto img { width: 170%; max-width: none; margin-left: -35%; margin-top: -2px; image-rendering: pixelated; }
+	.persona { display: grid; grid-template-columns: 84px 1fr; gap: 10px; align-items: start; padding: 6px 0; border-bottom: 1px dashed #c9c3b0; }
+	.persona .ritratto { width: 84px; height: 108px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); display: grid; }
+	.persona .ritratto img { width: 140%; max-width: none; justify-self: center; image-rendering: pixelated; }
 	.persona .testo { display: grid; gap: 2px; justify-items: start; min-width: 0; }
 	.nome-p { font-size: 1.05rem; font-weight: bold; }
 	.nome-p small { font-weight: normal; font-size: 0.8rem; color: #5a5870; margin: 0 4px; }
@@ -1426,8 +1427,8 @@
 	@media (max-width: 600px) {
 		.pagina { padding-left: 46px; background-image: linear-gradient(90deg, transparent 34px, #e39a9a 34px, #e39a9a 36px, transparent 36px), repeating-linear-gradient(var(--carta) 0 27px, var(--riga) 27px 28px); }
 		.segnalibri { padding-left: 40px; }
-		.battuta { grid-template-columns: 34px 1fr auto; gap: 6px; }
-		.faccina { width: 34px; height: 34px; }
+		.battuta { grid-template-columns: 44px 1fr auto; gap: 6px; }
+		.faccina { width: 44px; height: 56px; }
 		.battuta .tasti { flex-direction: column; gap: 2px; }
 		.tasto { padding: 1px 4px; font-size: 0.75rem; }
 	}
