@@ -1020,7 +1020,7 @@
 
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
-			<section class="quaderno">
+			<section class="quaderno" style="--attiva: {['#d95763', '#5b6ee1', '#6abe30', '#df7126', '#76428a'][SCHEDE.findIndex((x) => x.id === scheda)]}">
 				<nav class="segnalibri">
 					{#each SCHEDE as sc, n (sc.id)}
 						<button class="segnalibro s{n}" class:attivo={scheda === sc.id} onclick={() => apriTaccuino(sc.id)}>
@@ -1260,13 +1260,14 @@
 		border: 1px solid rgba(0, 0, 0, 0.3); border-bottom: 0; border-radius: 7px 7px 0 0;
 		padding: 6px 11px 9px;
 		box-shadow: 2px -1px 3px rgba(0, 0, 0, 0.2);
-		transform: translateY(6px); filter: brightness(0.9);
+		transform: translateY(9px); filter: saturate(0.55) brightness(0.8);
 		transition: transform 0.12s, filter 0.12s;
 	}
 	.segnalibro:nth-child(odd) { rotate: -0.6deg; }
 	.segnalibro:nth-child(even) { rotate: 0.5deg; }
-	.segnalibro:hover { transform: translateY(3px); filter: none; }
-	.segnalibro.attivo { transform: translateY(2px); filter: none; padding-bottom: 12px; position: relative; z-index: 2; rotate: 0deg; font-weight: bold; }
+	.segnalibro:hover { transform: translateY(5px); filter: saturate(0.8) brightness(0.92); }
+	/* quella scelta: piena, più alta, attaccata alla fascia colorata in cima alla pagina */
+	.segnalibro.attivo { transform: translateY(9px); filter: none; padding: 15px 14px 10px; border-radius: 7px 7px 0 0; position: relative; z-index: 2; rotate: 0deg; font-weight: bold; font-size: 0.95rem; box-shadow: 3px -2px 5px rgba(0, 0, 0, 0.3); }
 	.segnalibro.s0 { --c: #d95763; }
 	.segnalibro.s1 { --c: #5b6ee1; }
 	.segnalibro.s2 { --c: #6abe30; }
@@ -1282,6 +1283,7 @@
 		background-attachment: local;
 		color: var(--inchiostro);
 		border: 3px solid #2b2a3a;
+		border-top: 8px solid var(--attiva, #2b2a3a);
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35), inset -6px 0 0 #ece4cf;
 		padding: 10px 14px 18px 54px;
 		display: grid; gap: 4px; align-content: start;
