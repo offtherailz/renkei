@@ -98,7 +98,7 @@ Le parole difficili per te entrano per prime nei primi casi.
 
 ## Copertura: come si misura
 
-Script `scripts/giallo-copertura.mjs` (da fare):
+Fatto: `npm run jiken:copertura` → `docs/giallo-copertura.md` (era previsto come `scripts/giallo-copertura.mjs`):
 - legge i testi dei casi;
 - trova le parole del vocabolario (stesso indice del dizionario dell'app) e le forme;
 - per ogni caso: N4 nuove, N4 già viste, N5, fuori livello (errore), kanji fuori livello (errore);

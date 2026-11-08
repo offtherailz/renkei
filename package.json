@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
+    "jiken:copertura": "COPERTURA=1 vitest run src/lib/jiken/copertura.report.test.ts",
     "test:e2e": "playwright test",
     "sync:open-seed": "node scripts/sync-open-source-seed.mjs",
     "validate:seed": "node scripts/validate-seed.mjs",

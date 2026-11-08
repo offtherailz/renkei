@@ -86,7 +86,8 @@ tutta la storia della chat. Gli altri documenti:
    oltre mezzanotte, scene infinite o domande senza risposta. Riproduce le regole
    della pagina (scene in catena, ritorno a casa dalle 23): se cambiano lì, vanno
    cambiate anche qui. Un seme fallito si rigioca uguale.
-8. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser.
+8. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser;
+   `npm run jiken:copertura` per vedere quante N4 nuove porta la missione.
 
 Pubblicare su dev (solo quando l'utente lo chiede):
 `npm run build:dev` e poi
@@ -305,7 +306,11 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   picchiaduro delle coniugazioni, クイズ, プリクラ), **lavoretto** (アルバイト), **parole
   deboli nella storia**, **bacheca degli indizi** / interrogatori. Immagini pronte:
   sala giochi, commessa `commessa_sg`, 17 oggetti (peluche…), grande magazzino.
-- Script di copertura del vocabolario (`scripts/giallo-copertura.mjs`): non fatto.
+- Copertura del vocabolario: `npm run jiken:copertura` (report in
+  `src/lib/jiken/copertura.report.test.ts`, salta nei test normali) scrive
+  `docs/giallo-copertura.md`: N5/N4 coperte, N4 nuove per missione, forme
+  coniugate, parole N3 usate, token non riconosciuti, elenco delle mancanti per
+  tipo. Usarlo quando si scrive una missione nuova per scegliere le parole.
 - Inglese: struttura pronta (`en` facoltativo nei testi), testi non scritti.
 - Pubblicato su dev e su prod (2026-11-08, build prod 1794094229113).
 - **Da verificare sul telefono dall'utente**: le risposte dette al microfono

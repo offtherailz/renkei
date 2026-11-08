@@ -21,32 +21,48 @@ export async function ensureWordIndex(locale: 'it' | 'en' = 'it'): Promise<Map<s
 	if (index) return index;
 	if (building) return building;
 	building = (async () => {
-		const rows = await db.words.toArray();
-		const map = new Map<string, WordHit>();
-		const letture = new Map<string, Set<string>>();
-		for (const w of rows) letture.set(w.scrittura, (letture.get(w.scrittura) ?? new Set()).add(w.lettura));
-		// a parità di lettura vince il livello più basso (ある: 有る N5, non 或 N3)
-		const LIV: Record<string, number> = { N5: 0, N4: 1, N3: 2 };
-		const ordinate = [...rows].sort((a, b) => (LIV[a.livello_jlpt] ?? 3) - (LIV[b.livello_jlpt] ?? 3));
-		for (const w of ordinate) {
-			const gloss = (locale === 'it' ? w.significato.it : w.significato.en) ?? w.significato.it ?? [];
-			const hit: WordHit = {
-				id: w.id,
-				scrittura: w.scrittura,
-				lettura: w.lettura,
-				tipo_jp: w.tipo_jp,
-				livello_jlpt: w.livello_jlpt,
-				significato: gloss[0] ?? '',
-				ambigua: (letture.get(w.scrittura)?.size ?? 0) > 1
-			};
-			// la scrittura vince sulla lettura in caso di collisione
-			if (!map.has(w.scrittura)) map.set(w.scrittura, hit);
-			if (!map.has(w.lettura)) map.set(w.lettura, hit);
-		}
-		index = map;
-		return map;
+		index = buildWordIndex(await db.words.toArray(), locale);
+		return index;
 	})();
 	return building;
+}
+
+// L'indice scrittura/lettura → parola, da un elenco di parole qualsiasi (Dexie
+// nell'app, il seed nei report di node).
+export interface WordRow {
+	id: string;
+	scrittura: string;
+	lettura: string;
+	tipo_jp: string;
+	livello_jlpt: string;
+	significato: { it?: string[]; en?: string[] };
+}
+export function buildWordIndex(rows: WordRow[], locale: 'it' | 'en' = 'it'): Map<string, WordHit> {
+	const map = new Map<string, WordHit>();
+	const letture = new Map<string, Set<string>>();
+	for (const w of rows) letture.set(w.scrittura, (letture.get(w.scrittura) ?? new Set()).add(w.lettura));
+	// a parità di lettura vince il livello più basso (ある: 有る N5, non 或 N3)
+	const LIV: Record<string, number> = { N5: 0, N4: 1, N3: 2 };
+	const ordinate = [...rows].sort((a, b) => (LIV[a.livello_jlpt] ?? 3) - (LIV[b.livello_jlpt] ?? 3));
+	for (const w of ordinate) {
+		const gloss = (locale === 'it' ? w.significato.it : w.significato.en) ?? w.significato.it ?? [];
+		const hit: WordHit = {
+			id: w.id,
+			scrittura: w.scrittura,
+			lettura: w.lettura,
+			tipo_jp: w.tipo_jp,
+			livello_jlpt: w.livello_jlpt,
+			significato: gloss[0] ?? '',
+			ambigua: (letture.get(w.scrittura)?.size ?? 0) > 1
+		};
+		// la scrittura vince sulla lettura in caso di collisione; le voci con
+		// varianti («いい; よい», «じゃ; じゃあ») si trovano con ognuna
+		const chiavi = [w.scrittura, w.lettura, ...w.scrittura.split(/;\s*/), ...w.lettura.split(/;\s*/)];
+		// 御 scritto in kana come nei testi di oggi: 御飯 → ご飯, 御茶 → お茶
+		if (w.scrittura.startsWith('御') && /^[ごお]/.test(w.lettura)) chiavi.push(w.lettura[0] + w.scrittura.slice(1));
+		for (const k of chiavi) if (k && !map.has(k)) map.set(k, hit);
+	}
+	return map;
 }
 
 const HAS_KANJI = /[一-龯々]/;
