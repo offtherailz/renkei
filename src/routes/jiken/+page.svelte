@@ -18,11 +18,12 @@
 	import { M1 } from '$lib/jiken/missioni/m1';
 	import { M2 } from '$lib/jiken/missioni/m2';
 	import { M3 } from '$lib/jiken/missioni/m3';
+	import { M4 } from '$lib/jiken/missioni/m4';
 	import { UI } from '$lib/jiken/ui';
 	import * as suono from '$lib/jiken/suoni';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
-	const ORDINE: Missione[] = [M1, M2, M3];
+	const ORDINE: Missione[] = [M1, M2, M3, M4];
 	const MISSIONI: Record<string, Missione> = Object.fromEntries(ORDINE.map((m) => [m.id, m]));
 	const dopo = (id: string): Missione | null => ORDINE[ORDINE.findIndex((m) => m.id === id) + 1] ?? null;
 	const SALVA = 'renkei_jiken';
@@ -477,7 +478,11 @@
 		} else if ('narra' in corrente) {
 			registra({ chi: null, tipo: 'narra', sprite: null, ja: corrente.narra, it: corrente.it });
 		} else if ('domanda' in corrente) {
-			if (imp.autoVoce) void voce(corrente.domanda.ja, 'F', false);
+			// d'ascolto: prima l'annuncio (sempre, è la domanda), poi la domanda
+			if (corrente.domanda.ascolto) void ascoltaDomanda(false);
+			else if (imp.autoVoce) void voce(corrente.domanda.ja, 'F', false);
+		} else if ('avviso' in corrente) {
+			registra({ chi: null, tipo: 'narra', sprite: null, ja: `${corrente.avviso.titolo}：${corrente.avviso.righe.join(' ／ ')}`, it: corrente.avviso.it });
 		}
 		else if ('fine' in corrente) stato = { ...stato, finita: corrente.fine };
 	}
@@ -664,6 +669,16 @@
 	function hush(): void {
 		stopSpeaking();
 		parla = false;
+	}
+	// domanda d'ascolto: annuncio (più piano col 🐢) e poi la domanda
+	async function ascoltaDomanda(lento: boolean): Promise<void> {
+		if (!corrente || !('domanda' in corrente) || !corrente.domanda.ascolto) return;
+		const d = corrente.domanda;
+		hush();
+		const v = vocePersonaggio(d.ascolto!.chi ?? 'F', imp);
+		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(d.ascolto!.ja)), lento ? { ...v, rate: 0.7 } : v);
+		if (corrente === null || !('domanda' in corrente) || corrente.domanda !== d) return;
+		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(d.ja)), vocePersonaggio('F', imp));
 	}
 	function riascolta(): void {
 		if (!corrente) return;
@@ -955,7 +970,18 @@
 						</div>
 					{:else if 'domanda' in corrente}
 						{@const g = giustaDomanda()}
-						<p class="dname">{L(UI.domanda)}</p>
+						<p class="dname">{L(UI.domanda)}{corrente.domanda.ascolto ? ' 👂' : ''}</p>
+						{#if corrente.domanda.ascolto}
+							<!-- 聴解: il testo dell'annuncio si vede solo dopo la risposta -->
+							<div class="row">
+								<button class="btn small" onclick={() => ascoltaDomanda(false)}>{L(UI.ascoltaAncora)}</button>
+								<button class="btn ghost small" onclick={() => ascoltaDomanda(true)}>{L(UI.ascoltaPiano)}</button>
+							</div>
+							{#if scelto !== null}
+								<p class="trascritto"><Frase text={testo(corrente.domanda.ascolto.ja)} /></p>
+								{#if mostraIt}<p class="it">{testo(corrente.domanda.ascolto.it)}</p>{/if}
+							{/if}
+						{/if}
 						<p class="ja"><Frase text={testo(corrente.domanda.ja)} {dividi} /></p>
 						{#if mostraIt}<p class="it">{testo(corrente.domanda.it)}</p>{/if}
 						<div class="scelte">
@@ -982,6 +1008,31 @@
 								<button class="btn ghost small" onclick={() => apriTaccuino('frasi')}>📓</button>
 							</div>
 						{/if}
+					{:else if 'avviso' in corrente}
+						{@const av = corrente.avviso}
+						<div class="foglio" class:biglietto={av.tipo === 'biglietto' || av.tipo === 'lettera'}>
+							<p class="f-titolo"><Frase text={testo(av.titolo)} {dividi} /></p>
+							{#if av.righe.some((r) => r.includes('｜'))}
+								<table>
+									<tbody>
+										{#each av.righe as r, i (i)}
+											{#if r.includes('｜')}
+												<tr><th><Frase text={testo(r.split('｜')[0]!)} /></th><td><Frase text={testo(r.split('｜').slice(1).join('｜'))} /></td></tr>
+											{:else}
+												<tr><td colspan="2"><Frase text={testo(r)} /></td></tr>
+											{/if}
+										{/each}
+									</tbody>
+								</table>
+							{:else}
+								{#each av.righe as r, i (i)}<p><Frase text={testo(r)} {dividi} /></p>{/each}
+							{/if}
+						</div>
+						{#if mostraIt}<p class="it">{testo(av.it)}</p>{/if}
+						<div class="row">
+							<button class="btn" onclick={prossimo}>{L(UI.avanti)}</button>
+							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
+						</div>
 					{:else if 'prova' in corrente}
 						<p class="dname">{L(UI.prova)}</p>
 						<p class="ja"><Frase text={testo(corrente.prova.ja)} {dividi} /></p>
@@ -1422,6 +1473,15 @@
 	.persona .testo { display: grid; gap: 2px; justify-items: start; min-width: 0; }
 	.nome-p { font-size: 1.05rem; font-weight: bold; }
 	.nome-p small { font-weight: normal; font-size: 0.8rem; color: #5a5870; margin: 0 4px; }
+	/* fogli da leggere (avvisi, volantini, biglietti) come all'esame */
+	.foglio { --ink: #2b2a3a; --muted: #5a5870; --line: #c9c3b0; --brand: #1b5fd1; --surface: #fffdf6; background: #fbf6e9; color: #2b2a3a; border: 2px solid #2b2a3a; box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35); padding: 10px 14px; display: grid; gap: 4px; font-size: 1rem; line-height: 1.6; }
+	.foglio.biglietto { background: #fff7c2; rotate: -0.8deg; font-style: italic; }
+	.foglio p { margin: 0; }
+	.f-titolo { font-weight: bold; font-size: 1.1rem; text-align: center; border-bottom: 2px solid #2b2a3a; padding-bottom: 2px; }
+	.foglio table { border-collapse: collapse; width: 100%; }
+	.foglio th, .foglio td { border-bottom: 1px dashed #b9b3a0; padding: 3px 6px; text-align: left; vertical-align: top; }
+	.foglio th { white-space: nowrap; color: #b23a48; font-weight: normal; }
+	.trascritto { background: #353360; padding: 6px 8px; border-left: 4px solid #fbf236; }
 	.appunto { border-left: 3px solid #df7126; padding-left: 8px; display: grid; gap: 2px; justify-items: start; margin-bottom: 4px; }
 	.appunto .ja { font-size: 1rem; }
 	@media (max-width: 600px) {

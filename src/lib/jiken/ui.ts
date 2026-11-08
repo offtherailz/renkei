@@ -107,6 +107,8 @@ export const UI = {
 	ambienteUI: { ja: '🐦 まわりの 音（朝の 鳥、夜の むし）', it: '🐦 Suoni d’ambiente (uccellini, grilli)' },
 	mattino: { ja: '朝に なりました', it: 'È mattina' },
 	tardi: { ja: 'もう 夜 おそいです。つかれたので、家に 帰ります。', it: 'È tardi. Sei stanc{o}: torni a casa.' },
+	ascoltaAncora: { ja: '🔊 もう一度', it: '🔊 Riascolta' },
+	ascoltaPiano: { ja: '🐢 ゆっくり', it: '🐢 Piano' },
 	// ── treno
 	trenoDomanda: { ja: '🚃 電車の 中で：★に 入る ものは？', it: '🚃 In treno: cosa va nella ★?' },
 	trenoSalta: { ja: '⏩ 問題を しないで 着く', it: '⏩ Arriva senza domande' },

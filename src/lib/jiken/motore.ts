@@ -93,10 +93,10 @@ export function dormi(s: Stato): Stato {
 
 // Passi che si vedono e aspettano il giocatore; tutti gli altri il motore li
 // applica da solo.
-export type Visibile = Extract<Passo, { dice: string } | { io: string } | { pensa: string } | { narra: string } | { nota: string } | { scelta: unknown } | { domanda: unknown } | { prova: unknown } | { fine: string }>;
+export type Visibile = Extract<Passo, { dice: string } | { io: string } | { pensa: string } | { narra: string } | { nota: string } | { scelta: unknown } | { domanda: unknown } | { avviso: unknown } | { prova: unknown } | { fine: string }>;
 
 export function visibile(p: Passo): p is Visibile {
-	return 'dice' in p || 'io' in p || 'pensa' in p || 'narra' in p || 'nota' in p || 'scelta' in p || 'domanda' in p || 'prova' in p || 'fine' in p;
+	return 'dice' in p || 'io' in p || 'pensa' in p || 'narra' in p || 'nota' in p || 'scelta' in p || 'domanda' in p || 'avviso' in p || 'prova' in p || 'fine' in p;
 }
 
 // Applica un passo che non si vede.

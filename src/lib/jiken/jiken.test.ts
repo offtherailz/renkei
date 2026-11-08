@@ -6,7 +6,8 @@ import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
-const MISSIONI = [M1, M2, M3];
+import { M4 } from './missioni/m4';
+const MISSIONI = [M1, M2, M3, M4];
 import { UI } from './ui';
 import { PREMI } from './giochi';
 import type { LuogoId, Missione, Passo, Stato, Testo } from './tipi';
@@ -24,7 +25,8 @@ function testiJa(): string[] {
 			else if ('pensa' in p) out.push(p.pensa);
 			else if ('scelta' in p) p.scelta.forEach((o) => { out.push(o.ja); passi(o.passi ?? []); });
 			else if ('se' in p) { passi(p.allora); passi(p.altrimenti ?? []); }
-			else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); }
+			else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); if (p.domanda.ascolto) out.push(p.domanda.ascolto.ja); }
+			else if ('avviso' in p) out.push(p.avviso.titolo, ...p.avviso.righe);
 			else if ('prova' in p) { out.push(p.prova.ja); passi(p.prova.ok); passi(p.prova.no); }
 		}
 	};

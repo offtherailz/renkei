@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
+	import { db } from '$lib/db/schema';
 	import ExamPrompt from '$lib/components/ExamPrompt.svelte';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { CURATED_ITEMS, type CuratedExamItem } from '$lib/data/esame-n4';
@@ -22,27 +24,50 @@
 		arrivo: () => void;
 	} = $props();
 
-	const DOMANDE = 2;
-	const RECENTI = 'renkei_jiken_kumitate';
-	// le domande ruotano: prima quelle fatte meno di recente
-	function scegli(): CuratedExamItem[] {
-		const tutte = CURATED_ITEMS.filter((q) => q.mondai === 'kumitate');
-		let recenti: string[] = [];
-		try {
-			recenti = JSON.parse(localStorage.getItem(RECENTI) ?? '[]') as string[];
-		} catch {
-			/* niente storage */
-		}
-		const peso = (q: CuratedExamItem): number => recenti.indexOf(q.id); // -1 = mai fatta
-		const scelte = [...tutte].sort(() => Math.random() - 0.5).sort((a, b) => peso(a) - peso(b)).slice(0, DOMANDE);
-		try {
-			localStorage.setItem(RECENTI, JSON.stringify([...recenti.filter((id) => !scelte.some((q) => q.id === id)), ...scelte.map((q) => q.id)]));
-		} catch {
-			/* niente storage */
-		}
-		return scelte;
+	// una domanda, comunque venga: ★ dell'app (CURATED_ITEMS) o delle prove
+	// d'esame dei libri (caricate in «Un giorno»: db.course_giorno, restano sul dispositivo)
+	interface DomandaTreno {
+		id: string;
+		prompt: string;
+		choices: string[];
+		correct: number;
+		frase?: string;
+		spiega?: string;
 	}
-	const domande = scegli();
+	const RECENTI = 'renkei_jiken_kumitate';
+	const recenti = (): string[] => {
+		try {
+			return JSON.parse(localStorage.getItem(RECENTI) ?? '[]') as string[];
+		} catch {
+			return [];
+		}
+	};
+	// la meno recente (le mai fatte prima), a parità a caso
+	function menoRecente<T extends { id: string }>(xs: T[]): T | null {
+		const r = recenti();
+		return [...xs].sort(() => Math.random() - 0.5).sort((a, b) => r.indexOf(a.id) - r.indexOf(b.id))[0] ?? null;
+	}
+	function segna(ids: string[]): void {
+		try {
+			localStorage.setItem(RECENTI, JSON.stringify([...recenti().filter((id) => !ids.includes(id)), ...ids].slice(-1500)));
+		} catch {
+			/* niente storage */
+		}
+	}
+	const daCurata = (q: CuratedExamItem): DomandaTreno => ({ id: q.id, prompt: q.prompt, choices: q.choices, correct: q.correct, frase: q.frase_completa?.replace(/[【】]/g, ''), spiega: q.spiegazione.perche_giusta });
+	const stelle = CURATED_ITEMS.filter((q) => q.mondai === 'kumitate');
+	const prima = menoRecente(stelle)!;
+	const seconda = menoRecente(stelle.filter((q) => q.id !== prima.id))!;
+	segna([prima.id, seconda.id]);
+	let domande = $state<DomandaTreno[]>([daCurata(prima), daCurata(seconda)]);
+	// con le prove caricate, la seconda domanda viene da lì (文法・文字・語彙)
+	onMount(async () => {
+		const prove = await db.course_giorno.where('tipo').anyOf(['bunpou', 'moji', 'goi']).toArray().catch(() => []);
+		const p = menoRecente(prove);
+		if (!p || n > 0) return;
+		domande = [domande[0]!, { id: p.id, prompt: p.domanda.ja, choices: p.opzioni.map((o) => o.ja), correct: p.risposta, frase: p.completa, spiega: p.spiega }];
+		segna([p.id]);
+	});
 	let n = $state(0);
 	let scelto = $state<number | null>(null);
 	const q = $derived(domande[n] ?? null);
@@ -80,8 +105,8 @@
 			</div>
 			{#if scelto !== null}
 				<p class="esito" class:giusto={scelto === q.correct}>{scelto === q.correct ? L(UI.giusto) : L(UI.sbagliato)}</p>
-				{#if q.frase_completa}<p class="frase"><FuriganaText text={q.frase_completa.replace(/[【】]/g, '')} /></p>{/if}
-				<p class="spiega">{q.spiegazione.perche_giusta}</p>
+				{#if q.frase}<p class="frase"><FuriganaText text={q.frase} /></p>{/if}
+				{#if q.spiega}<p class="spiega">{q.spiega}</p>{/if}
 				<div class="row"><button class="btn" onclick={avanti}>{L(UI.avanti)}</button></div>
 			{:else}
 				<div class="row"><button class="btn ghost small" onclick={arrivo}>{L(UI.trenoSalta)}</button></div>

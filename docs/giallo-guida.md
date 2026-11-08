@@ -42,7 +42,10 @@ tutta la storia della chat. Gli altri documenti:
 - **Passi visibili** (aspettano il giocatore): `dice` (con `faccia`, `taccuino`,
   `suono`), `io` (tua battuta), `pensa` (pensiero), `narra` (didascalia),
   `nota` (💡 spiegazione), `scelta`, `domanda` (d'esame; `giusta: 'soldi'` = opzioni
-  generate dai soldi veri), `prova` (mostrare un oggetto), `fine`.
+  generate dai soldi veri; `ascolto` = 聴解: la voce legge l'annuncio, testo nascosto
+  fino alla risposta), `avviso` (foglio da leggere, 情報検索/読解: `titolo`, `righe`,
+  righe «voce｜valore» = tabella, `tipo` volantino/cartello/biglietto/lettera),
+  `prova` (mostrare un oggetto), `fine`.
 - **Passi invisibili**: `prendi`, `togli`, `flag`, `obiettivo` (id + ja + it),
   `completa`, `minuti`, `ora` (porta l'orologio almeno lì), `soldi`, `vai`,
   `dormi`, e `se` (condizione → `allora`/`altrimenti`).
@@ -272,6 +275,25 @@ Parte dalla fine della 2 o da sola (`inizio`: giorno 14).
 Si parte con ¥5000; ¥50.000 di stipendio il lunedì della missione 2. Gli acquisti
 controllano i soldi (`soldiMin`) e senza abbastanza «お金が たりません».
 
+### Missione 4 — 美術館の じけん (giorni 21-23, 27-29 aprile; il 29 è 昭和の日)
+
+Nessun colpevole: due biglietti mai letti. Forme: passivo (ぬすまれた / はこばれた /
+かくされて いた), 〜て しまう. Prove: 3 fogli + 1 lettera (情報検索/読解), 1 annuncio (聴解).
+- **Lunedì 27**: la ditta sponsorizza la mostra di 青木; sei il referente (かかり).
+  Volantino (prezzi: 800 + 500 = 1300; lunedì chiuso ma aperto se festivo → domanda
+  di 鈴木 sul 4 maggio). Flag `m4.museo` (apre il museo, chiuso il lunedì, 9:30-17).
+- **Martedì 28**: dalle 12 ti mandano al museo (`m4-museo-prep`): 小林 sommerso dalla
+  posta («tre giorni senza leggere lettere»), 青木 preoccupata per gli occhi del
+  gatto, regolamento (きそく, cosa si può fare), l'addetto: «domani alle 7 lavo i
+  pavimenti». Poi, da solo, caffè あおい: 伊藤 riferisce (〜と 言って いました).
+- **Mercoledì 29**: il quadro non c'è (「ぬすまれました！」), annuncio da ascoltare,
+  中村 invitato. `m4-indaga` (ripetibile): guardia (arrivata alle 9), addetto (il
+  cartello davanti alla parete), 小林 (posta). `m4-cartello`: dietro il cartello il
+  biglietto di 青木 (`memo_aoki`); `m4-lettera`: la lettera chiusa sulla scrivania.
+  `m4-ritorno` (basta il biglietto): 青木 torna col quadro, 「はこばれて いた」,
+  `museo.aperto`. Sera: 中村 al telefono, `fine`.
+- Rete di sicurezza `m4-chiusura` (giorni 24-27): il giornale racconta tutto.
+
 ## 5. Prossimi capitoli: cosa è già deciso
 
 Solo quello che è già scritto nei documenti, niente di nuovo.
@@ -288,7 +310,7 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   Espressioni pronte: 田中 nervoso/imbarazzato, 鈴木 arrabbiata/preoccupata,
   森 preoccupata, 林 sorpresa, 中村 pensieroso. **Manca lo sfondo della hall
   dell'hotel** (prompt `hotel` in `prompt-immagini.md`).
-- **Casi 4-10**: solo titoli, luoghi e forme nella tabella di `giallo-piano.md`
+- **Casi 5-10** (il caso 2 del piano è diventato M4): solo titoli, luoghi e forme nella tabella di `giallo-piano.md`
   (hotel, ospedale, scuola, matrimonio, viaggio in treno, festa, il segreto del
   presidente). Nessuna trama scritta: da inventare quando si arriva lì.
 - Città: 山野駅 (centro: hotel, ospedale, banca, museo), 北山野, poi 東京/京都

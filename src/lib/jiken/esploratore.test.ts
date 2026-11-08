@@ -9,6 +9,7 @@ import { LUOGO_GIOCHI, pagaPartita } from './giochi';
 import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
+import { M4 } from './missioni/m4';
 import type { LuogoId, Missione, Passo, Stato } from './tipi';
 
 // generatore pseudo-casuale con seme (le partite fallite si possono rigiocare)
@@ -126,7 +127,7 @@ function partita(m: Missione, seme: number, maxPassi = 4000): Esito {
 }
 
 describe('事件: esploratore (partite a caso)', () => {
-	for (const m of [M1, M2, M3]) {
+	for (const m of [M1, M2, M3, M4]) {
 		it(`${m.id}: 1500 partite a caso finiscono senza problemi`, () => {
 			const falliti: string[] = [];
 			for (let seme = 1; seme <= 1500 && falliti.length < 5; seme++) {

@@ -138,7 +138,10 @@ export const LUOGHI: Luogo[] = [
 	},
 	{
 		id: 'museo', nome: '山野美術館[やまのびじゅつかん]', it: 'museo di Yamano', icona: '🏛️', quartiere: 'ekimae', sfondo: 'museo', x: 69.8, y: 43,
-		bloccato: { nonFlag: ['museo.aperto'] }, perche: { ja: '今は しまって います（工事中）', it: 'per ora è chiuso (lavori)' }
+		// si apre con la missione 4 (m4.museo), poi resta aperto (museo.aperto); chiuso il lunedì
+		orario: { giorni: [1, 2, 3, 4, 5, 6], fasce: [[h(9, 30), h(17)]] },
+		bloccato: { nonFlag: ['museo.aperto', 'm4.museo'] }, perche: { ja: '今は しまって います（工事中）', it: 'per ora è chiuso (lavori)' },
+		ambiente: [{ narra: '美術館[びじゅつかん]です。青木[あおき]さんの てんらんかい「さくらと ねこ」を やって います。', it: 'Il museo. C’è la mostra «Sakura e gatto» di Aoki.' }]
 	},
 	{
 		id: 'ramen', nome: 'ラーメン屋', it: 'ramen-ya', icona: '🍜', quartiere: 'ekimae', sfondo: 'ristorante', x: 80, y: 49.5,
@@ -206,8 +209,9 @@ export const OGGETTI: Record<string, { it: string; ja: string }> = {
 	collare: { it: 'collare rosso col campanellino', ja: '赤い くびわ' },
 	scontrino_copie: { it: 'scontrino delle fotocopie (konbini, 19:30)', ja: 'コピーの レシート' },
 	cartellina: { it: 'il documento per il cliente', ja: '資料[しりょう]' },
-	carta_ic2: { it: 'carta IC', ja: 'ICカード' }
+	carta_ic2: { it: 'carta IC', ja: 'ICカード' },
+	memo_aoki: { it: 'il biglietto di Aoki (dietro il cartello)', ja: '青木[あおき]さんの メモ' }
 };
 // icone degli oggetti (static/giorno/oggetti); quelli senza disegno usano un'emoji
-const ICONA_FILE: Record<string, string> = { busta: 'lettera', scontrino_copie: 'scontrino' };
+const ICONA_FILE: Record<string, string> = { busta: 'lettera', scontrino_copie: 'scontrino', memo_aoki: 'lettera' };
 export const iconaOggetto = (id: string): string => ICONA_FILE[id] ?? id;

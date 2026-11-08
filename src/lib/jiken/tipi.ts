@@ -69,9 +69,21 @@ export interface Opzione {
 export interface Domanda {
 	ja: string; // la domanda (letta dalla voce narrante)
 	it: string;
+	// domanda d'ascolto (聴解): questo testo lo legge la voce e si vede solo dopo
+	// la risposta; chi = voce dell'annuncio o di chi parla
+	ascolto?: { ja: string; it: string; chi?: 'F' | 'M' };
 	opzioni: { ja: string; it: string; valore?: number }[];
 	giusta: number | 'soldi'; // 'soldi' = l'opzione col valore più vicino ai soldi che hai
 	spiega: string;
+}
+
+// un foglio da leggere (volantino, orari, regolamento, biglietto…), come il
+// 情報検索 / 読解 dell'esame. Righe «voce｜valore» diventano una tabella.
+export interface Avviso {
+	titolo: string;
+	righe: string[];
+	it: string; // la traduzione (col 🇮🇹)
+	tipo?: 'volantino' | 'cartello' | 'biglietto' | 'lettera';
 }
 
 export interface Prova {
@@ -92,6 +104,7 @@ export type Passo =
 	| { scelta: Opzione[] }
 	| { se: Condizione; allora: Passo[]; altrimenti?: Passo[] }
 	| { domanda: Domanda }
+	| { avviso: Avviso }
 	| { prova: Prova }
 	| { prendi: string; it: string }
 	| { togli: string }
