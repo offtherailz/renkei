@@ -1020,7 +1020,7 @@
 
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
-			<section class="quaderno">
+			<section class="quaderno" style="--attiva: {['#d95763', '#5b6ee1', '#6abe30', '#df7126', '#76428a'][SCHEDE.findIndex((x) => x.id === scheda)]}">
 				<nav class="segnalibri">
 					{#each SCHEDE as sc, n (sc.id)}
 						<button class="segnalibro s{n}" class:attivo={scheda === sc.id} onclick={() => apriTaccuino(sc.id)}>
@@ -1285,6 +1285,8 @@
 		background-attachment: local;
 		color: var(--inchiostro);
 		border: 3px solid #2b2a3a;
+		/* fascia in cima col colore del segnalibro scelto */
+		border-top: 8px solid var(--attiva, #2b2a3a);
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35), inset -6px 0 0 #ece4cf;
 		padding: 10px 14px 18px 54px;
 		display: grid; gap: 4px; align-content: start;
