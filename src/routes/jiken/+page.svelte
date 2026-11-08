@@ -1250,28 +1250,28 @@
 	/* ── il quaderno: pagina a righe col margine rosso, segnalibri che sporgono in alto */
 	.quaderno { width: min(720px, 100%); display: grid; }
 	.segnalibri { display: flex; gap: 3px; padding: 0 10px 0 52px; overflow-x: auto; scrollbar-width: none; }
-	/* segnalibri di carta colorata: tinte pastello, bordo sottile a matita, fibra appena visibile */
+	/* segnalibri di carta colorata: bordo sottile, angoli tondi, fibra appena visibile */
 	.segnalibro {
-		--c: #b9c8f0;
+		--c: #5b6ee1;
 		font-family: inherit; flex: none; cursor: pointer;
 		background-color: var(--c);
-		background-image: repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.1) 0 2px, transparent 2px 6px), linear-gradient(rgba(255, 255, 255, 0.35), transparent 60%);
-		color: #2b2a3a; font-size: 0.85rem;
-		border: 1.5px solid rgba(43, 42, 58, 0.55); border-bottom: 0; border-radius: 7px 7px 0 0;
+		background-image: repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 6px), linear-gradient(rgba(255, 255, 255, 0.22), transparent 60%);
+		color: #fff; font-size: 0.85rem; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+		border: 1px solid rgba(0, 0, 0, 0.3); border-bottom: 0; border-radius: 7px 7px 0 0;
 		padding: 6px 11px 9px;
-		box-shadow: 2px -1px 3px rgba(0, 0, 0, 0.18);
-		transform: translateY(6px); filter: saturate(0.85) brightness(0.94);
+		box-shadow: 2px -1px 3px rgba(0, 0, 0, 0.2);
+		transform: translateY(6px); filter: brightness(0.9);
 		transition: transform 0.12s, filter 0.12s;
 	}
 	.segnalibro:nth-child(odd) { rotate: -0.6deg; }
 	.segnalibro:nth-child(even) { rotate: 0.5deg; }
 	.segnalibro:hover { transform: translateY(3px); filter: none; }
 	.segnalibro.attivo { transform: translateY(2px); filter: none; padding-bottom: 12px; position: relative; z-index: 2; rotate: 0deg; font-weight: bold; }
-	.segnalibro.s0 { --c: #f2b8b5; }
-	.segnalibro.s1 { --c: #b9c8f0; }
-	.segnalibro.s2 { --c: #c4e3b0; }
-	.segnalibro.s3 { --c: #f5cf9f; }
-	.segnalibro.s4 { --c: #d5bde6; }
+	.segnalibro.s0 { --c: #d95763; }
+	.segnalibro.s1 { --c: #5b6ee1; }
+	.segnalibro.s2 { --c: #6abe30; }
+	.segnalibro.s3 { --c: #df7126; }
+	.segnalibro.s4 { --c: #76428a; }
 	.pagina {
 		--carta: #fbf6e9;
 		--riga: #c9d6ea;
