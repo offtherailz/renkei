@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import Frase from '$lib/jiken/Frase.svelte';
 	import SalaGiochi from '$lib/jiken/SalaGiochi.svelte';
+	import ViaggioTreno from '$lib/jiken/ViaggioTreno.svelte';
 	import { LUOGO_GIOCHI } from '$lib/jiken/giochi';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
 	import { speechAvailable, abortableListen } from '$lib/core/speech';
@@ -124,7 +125,7 @@
 			avvisa(L(UI.importaNo));
 		}
 	}
-	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine' | 'giochi'>('inizio');
+	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine' | 'giochi' | 'treno'>('inizio');
 
 	// scena in corso
 	let coda: Passo[] = [];
@@ -238,9 +239,23 @@
 			return;
 		}
 		const prima = stato;
+		viaggio = { da: stripFuriganaNotation(LUOGO[stato.luogo].nome), verso: stripFuriganaNotation(LUOGO[verso].nome) };
 		stato = prendiTreno(stato, verso);
 		notaCambi(prima, stato);
-		avvia([{ narra: `電車に 乗って、${stripFuriganaNotation(LUOGO[verso].nome)}へ 行きました。（${TRENO.minuti}分・${TRENO.prezzo}円）`, it: `Prendi il treno per ${LUOGO[verso].it} (${TRENO.minuti} minuti, ${TRENO.prezzo} yen).` }]);
+		salva();
+		fase = 'treno';
+	}
+	// in treno: domande ★ che contano come domande d'esame; all'arrivo si entra in stazione
+	let viaggio = $state<{ da: string; verso: string } | null>(null);
+	function rispostaTreno(ok: boolean): void {
+		if (!stato) return;
+		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 } };
+		salva();
+	}
+	function arrivoTreno(): void {
+		if (!stato) return;
+		viaggio = null;
+		entra(stato.luogo);
 	}
 	const testo = (t: string): string => declina(conNome(t, imp.nome), imp.sesso);
 
@@ -331,7 +346,7 @@
 	}
 
 	// ── uscire: conferma se sei in partita
-	const inPartita = $derived(fase === 'mappa' || fase === 'scena' || fase === 'giochi');
+	const inPartita = $derived(fase === 'mappa' || fase === 'scena' || fase === 'giochi' || fase === 'treno');
 	function esci(e: MouseEvent): void {
 		if (inPartita && !confirm(L(UI.esci))) e.preventDefault();
 	}
@@ -976,6 +991,8 @@
 					{/key}
 				</div>
 			</section>
+		{:else if fase === 'treno' && viaggio}
+			<ViaggioTreno da={viaggio.da} verso={viaggio.verso} minuti={TRENO.minuti} prezzo={TRENO.prezzo} {L} suoni={imp.suoni} risposta={rispostaTreno} arrivo={arrivoTreno} />
 		{:else if fase === 'giochi'}
 			<SalaGiochi {stato} {L} {lingua} suoni={imp.suoni} aggiorna={aggiornaGiochi} esci={esciGiochi} parla={voceLenta} {avvisa} />
 		{:else if fase === 'fine'}

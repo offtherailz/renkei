@@ -110,7 +110,7 @@ export const LUOGHI: Luogo[] = [
 	},
 	// ───── 山野駅前 (centro): si arriva in treno
 	{
-		id: 'eki2', nome: '山野駅', it: 'stazione di Yamano', icona: '🚉', quartiere: 'ekimae', sfondo: 'tornelli', x: 50.1, y: 86,
+		id: 'eki2', nome: '山野駅', it: 'stazione di Yamano', icona: '🚉', quartiere: 'ekimae', sfondo: 'stazione', x: 50.1, y: 86,
 		ambiente: [{ narra: '山野駅です。人が たくさん います。ここから さくら町へ 帰れます。', it: 'Stazione di Yamano. C’è tanta gente. Da qui puoi tornare a Sakura-chō.' }]
 	},
 	{

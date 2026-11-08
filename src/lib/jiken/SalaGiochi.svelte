@@ -252,7 +252,7 @@
 						{#if preso && fase !== 'scende'}<img class="appeso" src="{base}/giorno/oggetti/{ufo.posti[pinza]!.premio}.png" alt="" />{/if}
 					</span>
 				</div>
-				<div class="fila" style="grid-template-columns: repeat({ufo.posti.length}, 1fr)">
+				<div class="fila" style="grid-template-columns: repeat({ufo.posti.length}, minmax(0, 1fr))">
 					{#each ufo.posti as p, i (i)}
 						<div class="posto" class:sotto={pinza === i && fase === 'muovi'}>
 							<img class:sparito={preso && pinza === i && fase !== 'scende'} src="{base}/giorno/oggetti/{p.premio}.png" alt="" />
@@ -372,12 +372,14 @@
 	.pinza.giu .braccio::after { transform: rotate(-35deg); }
 	.appeso { width: 56px; height: 56px; object-fit: contain; image-rendering: pixelated; margin-top: -4px; }
 	.fila { position: absolute; bottom: 6px; left: 0; right: 0; display: grid; gap: 4px; padding: 0 4px; }
+	/* le colonne non si allargano oltre lo schermo per un cartellino lungo */
+	.posto { min-width: 0; }
 	.posto { display: grid; justify-items: center; gap: 3px; text-align: center; }
-	.posto img { width: min(70px, 16vw); height: min(70px, 16vw); object-fit: contain; image-rendering: pixelated; }
+	.posto img { width: min(70px, 100%); height: auto; aspect-ratio: 1; object-fit: contain; image-rendering: pixelated; }
 	.posto img.sparito { visibility: hidden; }
 	.posto.sotto .cartellino { outline: 3px solid #fbf236; }
 	.posto small { font-size: 0.65rem; color: #f4f4f4; line-height: 1.2; }
-	.posto .cartellino { font-size: clamp(0.8rem, 3.5vw, 1.15rem); white-space: normal; }
+	.posto .cartellino { font-size: clamp(0.75rem, 3.4vw, 1.15rem); white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
 	.comandi { justify-content: center; }
 	.esito { color: var(--px-ko); }
 	.esito.giusto { color: var(--px-ok); }

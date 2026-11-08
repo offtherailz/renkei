@@ -255,7 +255,10 @@ Parte dalla fine della 2 o da sola (`inizio`: giorno 14).
 - `Luogo.quartiere`: assente = さくら町 (`sakura`), oppure `ekimae` (山野駅前). La
   mappa mostra solo i luoghi del quartiere in cui sei
   (`static/giorno/mappa/<quartiere>-giorno/notte.jpg`).
-- Stazioni: `eki` (さくら町駅) ↔ `eki2` (山野駅). Con il flag `treno.ok`, nella
+- Stazioni: `eki` (さくら町駅) ↔ `eki2` (山野駅). Sfondi diversi: さくら町 `tornelli`, 山野 `stazione` (binario grande).
+  Il viaggio (`ViaggioTreno.svelte`) mostra il vagone di «Un giorno» col paesaggio
+  che scorre e 2 domande ★ 文の組み立て (`CURATED_ITEMS`, a rotazione,
+  `renkei_jiken_kumitate`) che contano come domande d'esame; «⏩» le salta. Con il flag `treno.ok`, nella
   scheda di una stazione compare «🚃 …へ (10分・¥160)» (`prendiTreno`).
 - Luoghi del centro: `eki2`, `hotel`, `gamecenter` (per ora solo ambiente:
   «giochi in arrivo»), `depa`, `banca`, `ospedale`, `museo` (bloccato, flag
