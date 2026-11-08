@@ -99,6 +99,7 @@
 		<p>Trovato un errore in una scheda? «✏️ Correggi questa voce»: la modifica vale subito e sopravvive agli aggiornamenti. In <a href="{base}/correzioni">Le mie correzioni</a> le gestisci (rimozione = ripristino) e le esporti per farle entrare nell'app pubblicata. Il badge ⚠️ segnala quando un aggiornamento ha cambiato il dato sotto una tua correzione.</p>
 		<p>Da Impostazioni puoi esportare il <strong>bundle completo</strong> (progressi inclusi) e reimportarlo su un altro dispositivo. Sempre lì trovi <strong>🐛 Segnala un problema</strong> per gli errori dell'app: le segnalazioni restano sul dispositivo e si esportano in un file da mandare, come le correzioni (per gli errori nei dati usa invece ✏️ Correggi nelle schede).</p>
 		<p>Sempre in Impostazioni, <strong>«Mostra i furigana»</strong> accende/spegne la lettura sopra i kanji nei dialoghi e negli esempi di grammatica: spenta, i testi restano ma tocca a te leggere i kanji (utile per allenarsi).</p>
+		<p><strong>Tema</strong> (Impostazioni): chiaro, scuro o «sistema», che segue il telefono. Vale solo sul dispositivo dove lo scegli.</p>
 	</section>
 
 	<section class="g-card">

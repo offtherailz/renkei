@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { recordPracticeMiss } from '$lib/core/practiceMiss';
+	import { recordPractice } from '$lib/core/practiceMiss';
 	import { TARDI } from './motore';
 	import {
 		domandaQuiz, PREMI, SECONDI_QUIZ, VITE_QUIZ, pagaPartita, paroleGioco, puntiRisposta, puoiGiocare, registraPunti, turnoUfo, vinciPremio,
@@ -88,10 +88,12 @@
 			timer = setTimeout(() => {
 				fase = 'fatto';
 				if (!ufo) return;
+				// pratica sulla parola detta: 👂 riconoscerla all'ascolto
+				void recordPractice(`word:${giusta!.parola.id}`, ok, 'facet_form_listen');
 				if (ok) {
 					aggiorna(vinciPremio(stato, ufo.posti[pinza]!));
 					if (suoni) suono.din();
-				} else void recordPracticeMiss(`word:${giusta!.parola.id}`);
+				}
 				void parla(giusta!.parola.lettura, 'F');
 			}, 900);
 		}, 800);
@@ -146,13 +148,12 @@
 		ferma();
 		risposta = i;
 		const ok = i === domanda.giusta;
+		// pratica: 📖 lettura dei kanji o 💡 significato riconosciuto
+		void recordPractice(`word:${domanda.parola.id}`, ok, domanda.tipo === 'lettura' ? 'facet_form_read' : 'facet_meaning_r');
 		if (ok) {
 			punti += puntiRisposta(resto);
 			if (suoni) suono.din();
-		} else {
-			vite -= 1;
-			void recordPracticeMiss(`word:${domanda.parola.id}`);
-		}
+		} else vite -= 1;
 		void parla(domanda.parola.lettura, 'F');
 		// giusta: si va avanti da soli; sbagliata: si legge la soluzione e si tocca ▶
 		if (ok) timer = setTimeout(prossimaDomanda, 1100);

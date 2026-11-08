@@ -289,10 +289,11 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   si preferiscono quelle coi kanji.
 - **UFOキャッチャー**: 5 peluche (`PREMI`) con cartellino; la voce dice la lettura
   (🔊 もう一度, 🐢 ゆっくり); ◀ ▶ ⬇ o frecce/spazio. Preso → `stato.collezione`
-  (peluche + parola, visibile anche nel taccuino); sbagliato →
-  `recordPracticeMiss('word:…')`.
+  (peluche + parola, visibile anche nel taccuino). Ogni presa registra la pratica
+  (`recordPractice`, giusta o sbagliata) sull'asse 👂.
 - **クイズ**: lettura (parole coi kanji) o significato, 4 opzioni, 10 secondi,
-  tre vite; 10 punti + secondi rimasti. Errori → punti deboli. Classifica
+  tre vite; 10 punti + secondi rimasti. Ogni risposta registra la pratica
+  (📖 lettura o 💡 significato). Classifica
   `stato.classifica` (5 migliori).
 - `migra` aggiunge `collezione`/`classifica` ai salvataggi vecchi; l'esploratore
   fa qualche partita a caso quando entra in sala giochi.
