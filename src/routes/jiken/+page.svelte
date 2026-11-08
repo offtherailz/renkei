@@ -278,6 +278,22 @@
 		salva();
 		entra('casa');
 	}
+	// una missione mai finita, ma con la precedente completata: si comincia da lì
+	// nella partita principale (es. dopo aver perso il salvataggio)
+	const iniziabile = (id: string): boolean => {
+		const i = ORDINE.findIndex((m) => m.id === id);
+		return i > 0 && !imp.completate.includes(id) && imp.completate.includes(ORDINE[i - 1]!.id) && salvato?.missione !== id;
+	};
+	function iniziaDa(id: string): void {
+		if (salvato && !salvato.finita && !confirm(L(UI.iniziaSicuro))) return;
+		slot = 'main';
+		azzeraStorico();
+		stato = nuovoStato(imp.nome, id, MISSIONI[id]?.inizio);
+		riprese = [];
+		salvaRipresa(stato);
+		salva();
+		entra('casa');
+	}
 	function rigioca(id: string): void {
 		slot = 'rigioca';
 		azzeraStorico();
@@ -748,8 +764,9 @@
 					{#each Object.values(MISSIONI) as m (m.id)}
 						<div class="missione">
 							<span><strong>{m.titolo}</strong> <small>{lingua === 'ja' ? '' : m.it}</small></span>
-							<span class="small">{imp.completate.includes(m.id) ? L(UI.fatta) : L(UI.inCorso)}</span>
-							{#if imp.completate.includes(m.id)}<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.rigioca)}</button>{/if}
+							<span class="small">{imp.completate.includes(m.id) ? L(UI.fatta) : salvato?.missione === m.id ? L(UI.inCorso) : ''}</span>
+							{#if imp.completate.includes(m.id)}<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.rigioca)}</button>
+							{:else if iniziabile(m.id)}<button class="btn small" onclick={() => iniziaDa(m.id)}>{L(UI.iniziaQui)}</button>{/if}
 						</div>
 					{/each}
 					{#if salvatoRigioco}<button class="btn small" onclick={continuaRigioco}>{L(UI.continuaRigioco)} ({salvatoRigioco.missione}, {dataJa(salvatoRigioco.giorno)} {hhmm(salvatoRigioco.minuti)})</button>{/if}
