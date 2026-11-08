@@ -68,6 +68,7 @@
 		if (!confirm(L(UI.riprendiSicuro))) return;
 		slot = 'main';
 		stato = structuredClone($state.snapshot(r)) as Stato;
+		caricaStorico(r.giorno);
 		// le mattine dopo questa non valgono più
 		riprese = riprese.filter((x) => x.missione !== r.missione || x.giorno <= r.giorno);
 		try {
@@ -103,6 +104,9 @@
 			if (d.imp) imp = { ...IMPOSTAZIONI_BASE, ...d.imp };
 			salvaImpostazioni(imp);
 			localStorage.setItem(SALVA_RIPRESE, JSON.stringify(riprese));
+			// lo storico dei dialoghi non è nel file: quello vecchio non vale più
+			localStorage.removeItem(`${SALVA}_storico`);
+			localStorage.removeItem(`${SALVA}_rigioca_storico`);
 			if (main) localStorage.setItem(SALVA, JSON.stringify(main));
 			else localStorage.removeItem(SALVA);
 			if (rg) localStorage.setItem(`${SALVA}_rigioca`, JSON.stringify(rg));
@@ -146,13 +150,36 @@
 		luogo: LuogoId;
 	}
 	let storico = $state<Battuta[]>([]);
-	let storicoAperto = $state(false);
 	let storicoIt = $state<number[]>([]); // battute con la traduzione aperta
+	// lo storico si salva a parte (non nella partita: le riprese ne farebbero 14 copie)
+	const chiaveStorico = (): string => `${chiaveSlot()}_storico`;
+	function salvaStorico(): void {
+		try {
+			localStorage.setItem(chiaveStorico(), JSON.stringify(storico));
+		} catch {
+			/* niente storage */
+		}
+	}
+	// riprende lo storico dello slot; fino = solo i giorni prima di questo (riprese)
+	function caricaStorico(fino?: number): void {
+		try {
+			const tutto = (JSON.parse(localStorage.getItem(chiaveStorico()) ?? '[]') as Battuta[]) ?? [];
+			storico = fino === undefined ? tutto : tutto.filter((b) => b.giorno < fino);
+		} catch {
+			storico = [];
+		}
+		if (fino !== undefined) salvaStorico();
+	}
+	function azzeraStorico(): void {
+		storico = [];
+		salvaStorico();
+	}
 	function registra(b: Omit<Battuta, 'giorno' | 'minuti' | 'luogo'>): void {
 		if (!stato) return;
 		const ultima = storico.at(-1);
-		if (ultima && ultima.ja === b.ja && ultima.chi === b.chi) return;
-		storico = [...storico, { ...b, giorno: stato.giorno, minuti: stato.minuti, luogo: stato.luogo }].slice(-300);
+		if (ultima && ultima.ja === b.ja && ultima.chi === b.chi && ultima.giorno === stato.giorno) return;
+		storico = [...storico, { ...b, giorno: stato.giorno, minuti: stato.minuti, luogo: stato.luogo }].slice(-2000);
+		salvaStorico();
 	}
 	function riascoltaBattuta(b: Battuta): void {
 		hush();
@@ -161,9 +188,26 @@
 		else if (b.tipo === 'pensa') void voceMia(b.ja, true);
 		else void speakSentenceJapaneseAsync(stripFuriganaNotation(testo(b.ja)), vocePersonaggio('F', imp));
 	}
-	function apriStorico(): void {
+	// il quaderno: una pagina con i segnalibri
+	type Scheda = 'conversa' | 'obiettivi' | 'oggetti' | 'frasi' | 'percorso';
+	const SCHEDE: { id: Scheda; t: Testo }[] = [
+		{ id: 'conversa', t: UI.storico },
+		{ id: 'obiettivi', t: UI.obiettivi },
+		{ id: 'oggetti', t: UI.oggetti },
+		{ id: 'frasi', t: UI.frasi },
+		{ id: 'percorso', t: UI.percorso }
+	];
+	let scheda = $state<Scheda>('obiettivi');
+	let giornoStorico = $state(0); // giorno mostrato nella scheda dei dialoghi
+	const giorniStorico = $derived([...new Set(storico.map((b) => b.giorno))]);
+	const battuteGiorno = $derived(storico.map((b, i) => ({ b, i })).filter((x) => x.b.giorno === giornoStorico));
+	function apriTaccuino(s: Scheda): void {
+		scheda = s;
 		storicoIt = [];
-		storicoAperto = true;
+		// i dialoghi si aprono sul giorno di oggi (o l'ultimo con dialoghi)
+		const oggi = stato?.giorno ?? 0;
+		giornoStorico = giorniStorico.includes(oggi) ? oggi : (giorniStorico.at(-1) ?? oggi);
+		taccuino = true;
 	}
 	// lo storico si apre in fondo, sull'ultima battuta
 	function inFondo(node: HTMLElement): void {
@@ -225,7 +269,7 @@
 	function comincia(): void {
 		salvaImp();
 		slot = 'main';
-		storico = [];
+		azzeraStorico();
 		stato = nuovoStato(imp.nome, 'm1');
 		riprese = [];
 		salvaRipresa(stato);
@@ -234,7 +278,7 @@
 	}
 	function rigioca(id: string): void {
 		slot = 'rigioca';
-		storico = [];
+		azzeraStorico();
 		stato = nuovoStato(imp.nome, id, MISSIONI[id]?.inizio);
 		salva();
 		entra('casa');
@@ -245,6 +289,7 @@
 		const m = dopo(base.missione);
 		if (!m) return;
 		slot = 'main';
+		caricaStorico();
 		stato = prossimaMissione($state.snapshot(base) as Stato, m);
 		salva();
 		salvaRipresa(stato);
@@ -254,12 +299,14 @@
 	function continuaRigioco(): void {
 		if (!salvatoRigioco) return;
 		slot = 'rigioca';
+		caricaStorico();
 		stato = salvatoRigioco;
 		entra(stato.luogo);
 	}
 	function continua(): void {
 		if (!salvato) return;
 		slot = 'main';
+		caricaStorico();
 		stato = salvato;
 		if (stato.finita) fase = 'fine';
 		else entra(stato.luogo);
@@ -636,8 +683,8 @@
 			{#if stato && fase !== 'inizio'}
 				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
 				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
-				<button class="mini" onclick={apriStorico} title={L(UI.storico)}>📜<span class="largo"> {L(UI.storico).replace('📜 ', '')}</span></button>
-				<button class="mini" onclick={() => (taccuino = true)} title={L(UI.ノート)}>📓<span class="largo"> {L(UI.ノート).replace('📓 ', '')}</span></button>
+				<button class="mini" onclick={() => apriTaccuino('conversa')} title={L(UI.storico)}>📜<span class="largo"> {L(UI.storico).replace('📜 ', '')}</span></button>
+				<button class="mini" onclick={() => apriTaccuino('obiettivi')} title={L(UI.ノート)}>📓<span class="largo"> {L(UI.ノート).replace('📓 ', '')}</span></button>
 			{/if}
 		</span>
 	</div>
@@ -865,7 +912,7 @@
 								<button class="btn ghost small" onclick={riascolta}>🔊</button>
 								{#if !dividi}<button class="btn ghost small" title="dividi in parole" onclick={() => (dividi = true)}>✂️</button>{/if}
 							{#if !mostraIt}<button class="btn ghost small" onclick={() => (mostraIt = true)}>🇮🇹</button>{/if}
-								<button class="btn ghost small" onclick={() => (taccuino = true)}>📓</button>
+								<button class="btn ghost small" onclick={() => apriTaccuino('frasi')}>📓</button>
 							</div>
 						{/if}
 					{:else if 'prova' in corrente}
@@ -911,7 +958,7 @@
 					<p class="paper">{@render testoUI(UI.prossima)}</p>
 				{/if}
 				<div class="row">
-					<button class="btn" onclick={() => (taccuino = true)}>{L(UI.rileggi)}</button>
+					<button class="btn" onclick={() => apriTaccuino('conversa')}>{L(UI.rileggi)}</button>
 					<button class="btn ghost" onclick={() => { if (slot === 'main') salvato = stato; else salvatoRigioco = null; slot = 'main'; fase = 'inizio'; }}>{L(UI.inizio)}</button>
 				</div>
 			</section>
@@ -971,71 +1018,82 @@
 		</div>
 	{/if}
 
-	{#if storicoAperto}
-		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) storicoAperto = false; }}>
-			<section class="panel taccuino storico">
-				<header><h2>{L(UI.storico)}</h2><button class="mini" onclick={() => (storicoAperto = false)}>✖</button></header>
-				<div class="paper">
-					{#each storico as b, i (i)}
-						{#if i === 0 || storico[i - 1]!.giorno !== b.giorno || storico[i - 1]!.luogo !== b.luogo}
-							<p class="small quando">{lingua === 'ja' ? dataJa(b.giorno) : dataIt(b.giorno)} {hhmm(b.minuti)} · {LUOGO[b.luogo].icona} {nomeLuogo(b.luogo)}</p>
-						{/if}
-						<div class="battuta" class:mia={b.tipo === 'io' || b.tipo === 'pensa'} class:narrata={b.tipo === 'narra'}>
-							<span class="faccina">
-								{#if b.sprite}<img src="{base}/giorno/ritratti/{b.sprite}-chiusa.png" alt="" />
-								{:else}{b.tipo === 'narra' ? '📖' : b.tipo === 'pensa' ? '💭' : b.chi ? '📞' : '🙂'}{/if}
-							</span>
-							<div class="testo">
-								<p class="chi">{b.tipo === 'narra' ? '' : b.chi ? stripFuriganaNotation(PERSONAGGI[b.chi]?.nome ?? b.chi) : imp.nome}</p>
-								<p class="ja">{b.tipo === 'io' ? '「' : b.tipo === 'pensa' ? '（' : ''}<Frase text={testo(b.ja)} />{b.tipo === 'io' ? '」' : b.tipo === 'pensa' ? '）' : ''}</p>
-								{#if storicoIt.includes(i) && b.it}<p class="it">{testo(b.it)}</p>{/if}
-							</div>
-							<span class="tasti">
-								<button class="mini" title="🔊" onclick={() => riascoltaBattuta(b)}>🔊</button>
-								{#if b.it && !storicoIt.includes(i)}<button class="mini" onclick={() => (storicoIt = [...storicoIt, i])}>🇮🇹</button>{/if}
-							</span>
-						</div>
-					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
-					<span use:inFondo></span>
-				</div>
-			</section>
-		</div>
-	{/if}
-
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
-			<section class="panel taccuino">
-				<header><h2>📓 {imp.nome}{L(UI.taccuinoDi)}</h2><button class="mini" onclick={() => (taccuino = false)}>✖</button></header>
-				<div class="paper">
-					<h3>{L(UI.obiettivi)}</h3>
-					{#each stato.obiettivi as o (o.id)}<p class="ob" class:fatto={o.fatto}>{o.fatto ? '✅' : '⬜'} {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
-					<h3>{L(UI.oggetti)}</h3>
-					<div class="oggetti">
-						{#each stato.oggetti as o (o)}
-							<span class="oggetto"><img src="{base}/giorno/oggetti/{iconaOggetto(o)}.png" alt="" /><span>{OGGETTI[o] ? stripFuriganaNotation(L(OGGETTI[o])) : o}</span></span>
-						{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
-					</div>
-					<h3>{L(UI.percorso)}</h3>
-					{#each giorniPercorso as g (g)}
-						<p class="small"><strong>{lingua === 'ja' ? dataJa(g) : dataIt(g)}</strong> {stato.percorso.filter((t) => t.giorno === g).map((t) => `${hhmm(t.minuti)} ${nomeLuogo(t.luogo)}`).join(' → ')}</p>
+			<section class="quaderno">
+				<nav class="segnalibri">
+					{#each SCHEDE as sc, n (sc.id)}
+						<button class="segnalibro s{n}" class:attivo={scheda === sc.id} onclick={() => apriTaccuino(sc.id)}>
+							{L(sc.t).split(' ')[0]}<span class="largo"> {L(sc.t).split(' ').slice(1).join(' ')}</span>
+						</button>
 					{/each}
-					<h3>{L(UI.frasi)}</h3>
-					{#each [...stato.taccuino].reverse() as a, i (i)}
-						<div class="appunto">
-							<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
-							<p class="ja"><Frase text={testo(a.ja)} /></p>
-							{#if rivelati.includes(i)}<p class="it">{testo(a.it)}</p>{:else}<button class="mini piccolo" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
-						</div>
-					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
-					<h3>{L(UI.domande)}</h3>
-					<p class="small">{stato.domande.ok}/{stato.domande.tot}</p>
-					{#if stato.collezione.length}
-						<h3>{L(UI.sgCollezione)}</h3>
+				</nav>
+				<div class="pagina">
+					<header>
+						<h2>{L(SCHEDE.find((x) => x.id === scheda)!.t)} <small>— {imp.nome}{L(UI.taccuinoDi)}</small></h2>
+						<button class="chiudi" onclick={() => (taccuino = false)}>✖</button>
+					</header>
+					{#if scheda === 'conversa'}
+						{#if giorniStorico.length > 1}
+							<div class="giorni">
+								{#each giorniStorico as g (g)}
+									<button class="giorno-tab" class:attivo={g === giornoStorico} onclick={() => { giornoStorico = g; storicoIt = []; }}>{dataJa(g).replace(/^\d+月/, '')}</button>
+								{/each}
+							</div>
+						{/if}
+						{#key giornoStorico}
+							{#each battuteGiorno as { b, i }, n (i)}
+								{#if n === 0 || battuteGiorno[n - 1]!.b.luogo !== b.luogo}
+									<p class="quando">{hhmm(b.minuti)} · {LUOGO[b.luogo].icona} {nomeLuogo(b.luogo)}</p>
+								{/if}
+								<div class="battuta" class:mia={b.tipo === 'io' || b.tipo === 'pensa'} class:narrata={b.tipo === 'narra'}>
+									<span class="faccina">
+										{#if b.sprite}<img src="{base}/giorno/ritratti/{b.sprite}-chiusa.png" alt="" />
+										{:else}{b.tipo === 'narra' ? '📖' : b.tipo === 'pensa' ? '💭' : b.chi ? '📞' : '🙂'}{/if}
+									</span>
+									<div class="testo">
+										{#if b.tipo !== 'narra'}<p class="chi">{b.chi ? stripFuriganaNotation(PERSONAGGI[b.chi]?.nome ?? b.chi) : imp.nome}</p>{/if}
+										<p class="ja">{b.tipo === 'io' ? '「' : b.tipo === 'pensa' ? '（' : ''}<Frase text={testo(b.ja)} />{b.tipo === 'io' ? '」' : b.tipo === 'pensa' ? '）' : ''}</p>
+										{#if storicoIt.includes(i) && b.it}<p class="it">{testo(b.it)}</p>{/if}
+									</div>
+									<span class="tasti">
+										<button class="tasto" title="🔊" onclick={() => riascoltaBattuta(b)}>🔊</button>
+										{#if b.it && !storicoIt.includes(i)}<button class="tasto" onclick={() => (storicoIt = [...storicoIt, i])}>🇮🇹</button>{/if}
+									</span>
+								</div>
+							{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+							<span use:inFondo></span>
+						{/key}
+					{:else if scheda === 'obiettivi'}
+						{#each stato.obiettivi as o (o.id)}<p class="ob" class:fatto={o.fatto}>{o.fatto ? '☑' : '☐'} {@render testoUI({ ja: o.ja ?? o.it, it: o.it, en: o.en })}</p>{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+						<h3>{L(UI.domande)}</h3>
+						<p>{stato.domande.ok}/{stato.domande.tot} {L(UI.giuste)}</p>
+					{:else if scheda === 'oggetti'}
 						<div class="oggetti">
-							{#each stato.collezione as p, i (i)}
-								<span class="oggetto"><img src="{base}/giorno/oggetti/{p.premio}.png" alt="" /><span>{p.ja}{p.lettura !== p.ja ? `（${p.lettura}）` : ''} {p.it}</span></span>
-							{/each}
+							{#each stato.oggetti as o (o)}
+								<span class="oggetto"><img src="{base}/giorno/oggetti/{iconaOggetto(o)}.png" alt="" /><span>{OGGETTI[o] ? stripFuriganaNotation(L(OGGETTI[o])) : o}</span></span>
+							{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
 						</div>
+						{#if stato.collezione.length}
+							<h3>{L(UI.sgCollezione)}</h3>
+							<div class="oggetti">
+								{#each stato.collezione as p, i (i)}
+									<span class="oggetto"><img src="{base}/giorno/oggetti/{p.premio}.png" alt="" /><span>{p.ja}{p.lettura !== p.ja ? `（${p.lettura}）` : ''} {p.it}</span></span>
+								{/each}
+							</div>
+						{/if}
+					{:else if scheda === 'frasi'}
+						{#each [...stato.taccuino].reverse() as a, i (i)}
+							<div class="appunto">
+								<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
+								<p class="ja"><Frase text={testo(a.ja)} /></p>
+								{#if rivelati.includes(i)}<p class="it">{testo(a.it)}</p>{:else}<button class="tasto" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
+							</div>
+						{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+					{:else if scheda === 'percorso'}
+						{#each giorniPercorso as g (g)}
+							<p class="giro"><strong>{lingua === 'ja' ? dataJa(g) : dataIt(g)}</strong><br />{stato.percorso.filter((t) => t.giorno === g).map((t) => `${hhmm(t.minuti)} ${nomeLuogo(t.luogo)}`).join(' → ')}</p>
+						{/each}
 					{/if}
 				</div>
 			</section>
@@ -1188,26 +1246,72 @@
 	.taccuino header { display: flex; justify-content: space-between; align-items: center; }
 	.taccuino h2 { margin: 0; font-size: 1.1rem; }
 	.taccuino h3 { margin: 8px 0 2px; font-size: 0.95rem; color: #fbf236; }
-	.taccuino .it { color: #b9b6dc; }
-	.taccuino .paper { display: grid; gap: 4px; }
-	.taccuino .oggetto { cursor: default; }
-	.ob { margin: 0; font-size: 0.88rem; }
-	.ob.fatto { opacity: 0.6; text-decoration: line-through; }
-	.storico .paper { gap: 6px; }
-	.storico .quando { color: #fbf236; margin-top: 6px; }
-	.battuta { display: grid; grid-template-columns: 44px 1fr auto; gap: 8px; align-items: start; border-left: 3px solid #5b6ee1; padding: 2px 0 2px 6px; }
-	.battuta.mia { border-left-color: #99e550; }
-	.battuta.narrata { border-left-color: #6e6c8f; }
-	.battuta.narrata .ja { font-size: 0.92rem; opacity: 0.9; }
-	.faccina { width: 44px; height: 44px; overflow: hidden; background: #353360; border: 2px solid var(--px-line); display: grid; place-items: center; font-size: 1.3rem; }
+
+	/* ── il quaderno: pagina a righe col margine rosso, segnalibri che sporgono in alto */
+	.quaderno { width: min(720px, 100%); display: grid; }
+	.segnalibri { display: flex; gap: 3px; padding: 0 10px 0 52px; overflow-x: auto; scrollbar-width: none; }
+	.segnalibro { --c: #5b6ee1; font-family: inherit; flex: none; border: 2px solid #2b2a3a; border-bottom: 0; background: var(--c); color: #fff; padding: 6px 10px 8px; font-size: 0.85rem; cursor: pointer; transform: translateY(5px); transition: transform 0.12s; box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.25); }
+	.segnalibro:hover { transform: translateY(2px); }
+	.segnalibro.attivo { transform: translateY(2px); padding-bottom: 11px; position: relative; z-index: 2; }
+	.segnalibro.s0 { --c: #d95763; }
+	.segnalibro.s1 { --c: #5b6ee1; }
+	.segnalibro.s2 { --c: #6abe30; }
+	.segnalibro.s3 { --c: #df7126; }
+	.segnalibro.s4 { --c: #76428a; }
+	.pagina {
+		--carta: #fbf6e9;
+		--riga: #c9d6ea;
+		--inchiostro: #2b2a3a;
+		position: relative; z-index: 1;
+		background-color: var(--carta);
+		background-image: linear-gradient(90deg, transparent 40px, #e39a9a 40px, #e39a9a 42px, transparent 42px), repeating-linear-gradient(var(--carta) 0 27px, var(--riga) 27px 28px);
+		background-attachment: local;
+		color: var(--inchiostro);
+		border: 3px solid #2b2a3a;
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35), inset -6px 0 0 #ece4cf;
+		padding: 10px 14px 18px 54px;
+		display: grid; gap: 4px; align-content: start;
+		min-height: 60vh; max-height: calc(100vh - 90px); overflow-y: auto;
+	}
+	.pagina header { display: flex; justify-content: space-between; align-items: center; gap: 8px; position: sticky; top: -10px; background: var(--carta); padding: 4px 0; z-index: 3; border-bottom: 2px solid var(--inchiostro); }
+	.pagina h2 { margin: 0; font-size: 1.1rem; }
+	.pagina h2 small { font-size: 0.75rem; opacity: 0.6; }
+	.pagina h3 { margin: 10px 0 2px; font-size: 0.95rem; color: #b23a48; }
+	.pagina p { margin: 0; }
+	.pagina .it { color: #6a6880; font-size: 0.85rem; }
+	.pagina .small { font-size: 0.78rem; opacity: 0.7; }
+	.pagina .vuoto { opacity: 0.6; font-size: 0.9rem; }
+	.chiudi, .tasto, .giorno-tab { min-height: 0; line-height: 1.3; align-self: start; font-family: inherit; border: 2px solid var(--inchiostro); background: rgba(255, 255, 255, 0.6); color: var(--inchiostro); cursor: pointer; padding: 2px 7px; font-size: 0.85rem; }
+	.chiudi:hover, .tasto:hover, .giorno-tab:hover { background: #fff; }
+	.giorni { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; }
+	.giorno-tab { font-size: 0.78rem; border-radius: 0; }
+	.giorno-tab.attivo { background: #fbf236; }
+	.quando { font-size: 0.78rem; color: #b23a48; margin-top: 8px !important; }
+	.ob { font-size: 0.92rem; line-height: 1.8; }
+	.ob.fatto { opacity: 0.55; text-decoration: line-through; }
+	.giro { font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px !important; }
+	.pagina .oggetto { cursor: default; background: rgba(255, 255, 255, 0.55); color: var(--inchiostro); border: 2px dashed #8a8799; }
+	.battuta { display: grid; grid-template-columns: 40px 1fr auto; gap: 8px; align-items: start; padding: 3px 0; }
+	.battuta.narrata .ja { font-size: 0.9rem; font-style: italic; opacity: 0.85; }
+	.faccina { width: 40px; height: 40px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); display: grid; place-items: center; font-size: 1.2rem; }
 	/* il ritratto è a mezzo busto: si mostra solo la testa */
 	.faccina img { width: 170%; max-width: none; align-self: start; margin-top: -2px; image-rendering: pixelated; }
 	.battuta .testo { display: grid; gap: 1px; min-width: 0; }
-	.battuta .chi { margin: 0; font-size: 0.75rem; color: #fbf236; }
-	.battuta .ja { margin: 0; font-size: 1rem; line-height: 1.5; }
-	.battuta .it { margin: 0; }
+	.battuta .chi { font-size: 0.72rem; color: #3f5aa8; }
+	.battuta.mia .chi { color: #3d7a24; }
+	/* le tue battute: stesso inchiostro, allineate a sinistra come le altre */
+	.battuta.mia { text-align: left; color: var(--inchiostro); }
+	.battuta.mia .ja { color: #2f5d1c; }
+	.battuta .ja { font-size: 1rem; line-height: 1.6; }
 	.battuta .tasti { display: flex; gap: 4px; }
-	.appunto { border-left: 3px solid #5b6ee1; padding-left: 8px; display: grid; gap: 2px; }
-	.appunto p { margin: 0; }
+	.appunto { border-left: 3px solid #df7126; padding-left: 8px; display: grid; gap: 2px; justify-items: start; margin-bottom: 4px; }
 	.appunto .ja { font-size: 1rem; }
+	@media (max-width: 600px) {
+		.pagina { padding-left: 46px; background-image: linear-gradient(90deg, transparent 34px, #e39a9a 34px, #e39a9a 36px, transparent 36px), repeating-linear-gradient(var(--carta) 0 27px, var(--riga) 27px 28px); }
+		.segnalibri { padding-left: 40px; }
+		.battuta { grid-template-columns: 34px 1fr auto; gap: 6px; }
+		.faccina { width: 34px; height: 34px; }
+		.battuta .tasti { flex-direction: column; gap: 2px; }
+		.tasto { padding: 1px 4px; font-size: 0.75rem; }
+	}
 </style>

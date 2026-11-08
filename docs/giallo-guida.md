@@ -53,12 +53,15 @@ tutta la storia della chat. Gli altri documenti:
   altri in kana, o con lettura `漢字[かな]` per nomi di persona e di luogo. Il test
   dei kanji controlla mondo, missioni e interfaccia. `{nome}` = nome del
   giocatore; `{o}` nei testi italiani = o/a secondo uomo/donna.
-- **Storico dei dialoghi** (📜 nella barra in alto): tutte le battute della sessione
-  (`dice`, `io`, `pensa`, `narra`) con faccina del ritratto, nome, 🔊 per riascoltare e
-  🇮🇹; non si salva (riparte vuoto ricaricando la pagina).
+- **Quaderno** (📓 / 📜 nella barra in alto): pagina a righe con segnalibri —
+  📜 会話 (storico dei dialoghi per giorno: faccina, nome, 🔊, 🇮🇹; si apre sul
+  giorno di oggi in fondo), 🎯 やる こと (+ punteggio domande), 🎒 持ち物 (+ peluche),
+  💬 大切な ことば, 🕐 行った 所. Lo storico si salva a parte
+  (`renkei_jiken[_rigioca]_storico`, ultime 2000 battute); riprendendo da una
+  mattina si tengono solo i giorni prima.
 - **Salvataggi** (`localStorage`): `renkei_jiken` (partita principale),
   `renkei_jiken_rigioca` (rigioco di una missione finita), `renkei_jiken_riprese`
-  (copia a ogni risveglio), `renkei_jiken_imp` (impostazioni, missioni completate).
+  (copia a ogni risveglio), `renkei_jiken_imp` (impostazioni, missioni completate), `…_storico` (dialoghi).
   Tutto passa da `migra()`; esporta/importa in ⚙️.
 
 ## 3. Come si scrive una missione
