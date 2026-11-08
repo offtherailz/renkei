@@ -179,7 +179,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	hayashi: { nome: '林[はやし]さん（うけつけ）', sprite: 'receptionist', voce: 'F' },
 	hotelstaff: { nome: 'ホテルの 人', sprite: 'commesso', voce: 'M' },
 	commessa_sg: { nome: 'ゲームセンターの 人', sprite: 'commessa_sg', voce: 'F' },
-	kimura: { nome: '木村[きむら]さん', sprite: 'padrone', voce: 'M' },
+	kimura: { nome: '木村[きむら]さん', sprite: 'capo_uomo', voce: 'M' },
 	nonna: { nome: '木村[きむら]さんの お母さん', sprite: 'signora_anziana', voce: 'F' },
 	yamada: { nome: '山田[やまだ]さん（ABC）', sprite: 'passante', voce: 'M' },
 	mike: { nome: 'ミケ', sprite: 'mike', voce: 'F' },

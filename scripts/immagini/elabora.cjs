@@ -12,6 +12,7 @@
 //   node scripts/immagini/elabora.cjs bocca    <chiusa.png> <aperta.jpg> <uscita-parla.png> [da a]
 //        (da/a = fascia verticale dove cercare la bocca, in frazioni dell'altezza; base 0.12 0.45;
 //         per ritratti inquadrati più da vicino, es. 0.4 0.65)
+//   node scripts/immagini/elabora.cjs pieno    <ritratto.png> [uscita.png]           (rende opache le parti semi-trasparenti dentro la figura)
 //   node scripts/immagini/elabora.cjs oggetti  <griglia> <colonne> <righe> <cartella> <id1> <id2> …
 //
 // «scarica»: i file caricati dall'utente spesso sono la PAGINA di condivisione
@@ -61,13 +62,17 @@ async function scarica(sorgente, uscita) {
 		if (r.err) throw new Error(r.err);
 		salva(args[2], r.u);
 		console.log('bocca', JSON.stringify(r.info));
+	} else if (cmd === 'pieno') {
+		const r = await p.evaluate(([a]) => pieno(a), [abs(args[0])]);
+		salva(args[1] ?? args[0], r.u);
+		console.log('pieno', args[0], r.n, 'pixel resi opachi');
 	} else if (cmd === 'oggetti') {
 		const [img, col, righe, cartella, ...ids] = args;
 		const out = await p.evaluate(([a, c, r]) => oggetti(a, c, r, 128), [abs(img), Number(col), Number(righe)]);
 		out.forEach((u, i) => {
 			if (u && ids[i]) salva(path.join(cartella, `${ids[i]}.png`), u);
 		});
-	} else console.log('comandi: scarica | sfondo | ritratto | bocca | oggetti (vedi in testa al file)');
+	} else console.log('comandi: scarica | sfondo | ritratto | bocca | pieno | oggetti (vedi in testa al file)');
 	await b.close();
 })().catch((e) => {
 	console.error(e.message);

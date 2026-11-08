@@ -52,6 +52,9 @@ tutta la storia della chat. Gli altri documenti:
   altri in kana, o con lettura `漢字[かな]` per nomi di persona e di luogo. Il test
   dei kanji controlla mondo, missioni e interfaccia. `{nome}` = nome del
   giocatore; `{o}` nei testi italiani = o/a secondo uomo/donna.
+- **Storico dei dialoghi** (📜 nella barra in alto): tutte le battute della sessione
+  (`dice`, `io`, `pensa`, `narra`) con faccina del ritratto, nome, 🔊 per riascoltare e
+  🇮🇹; non si salva (riparte vuoto ricaricando la pagina).
 - **Salvataggi** (`localStorage`): `renkei_jiken` (partita principale),
   `renkei_jiken_rigioca` (rigioco di una missione finita), `renkei_jiken_riprese`
   (copia a ogni risveglio), `renkei_jiken_imp` (impostazioni, missioni completate).
@@ -91,6 +94,9 @@ Controllo: `https://offtherailz.github.io/renkei/dev/_app/version.json`. A volte
 deploy di GitHub Pages va in timeout: si rifà la build e si ripubblica.
 
 ## 4. La storia finora
+
+Ritratti: 木村さん usa `capo_uomo` (sui 55 anni; il vecchio `padrone` sembrava
+coetaneo della madre). Un ritratto suo dedicato si può generare più avanti.
 
 Personaggi fissi: famiglia 吉田 (mamma, papà), 森ぶちょう (capo), 鈴木 e 田中
 (colleghi), 中村 (ispettore), 高橋くん (liceale, aiuta alla scuola serale),
@@ -337,6 +343,7 @@ node scripts/immagini/elabora.cjs ritratto ingresso uscita-chiusa.png   # → st
 node scripts/immagini/elabora.cjs ritratto ingresso uscita.png bordi     # se capelli/vestiti hanno rosa o viola
 node scripts/immagini/elabora.cjs affiancata img.jpg sx.png dx.png        # chiusa|aperta nella stessa immagine
 node scripts/immagini/elabora.cjs bocca    x-chiusa.png aperta.jpg x-parla.png [0.4 0.68]  # fascia della bocca se inquadrato da vicino
+node scripts/immagini/elabora.cjs pieno    ritratto.png [uscita.png]                 # vestiti viola/rosa rimasti semi-trasparenti → opachi
 node scripts/immagini/elabora.cjs oggetti  griglia.jpg 4 4 static/giorno/oggetti id1 id2 …
 ```
 

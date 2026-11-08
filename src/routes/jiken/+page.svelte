@@ -132,6 +132,41 @@
 	let mostraIt = $state(false); // traduzione della battuta corrente
 	let dividi = $state(false); // battuta corrente divisa in parole da toccare
 	let taccuino = $state(false);
+	// storico dei dialoghi della sessione: chi ha parlato, con che faccia, per riascoltare
+	interface Battuta {
+		chi: string | null; // personaggio; null = tu
+		tipo: 'dice' | 'io' | 'pensa' | 'narra';
+		sprite: string | null;
+		ja: string;
+		it: string;
+		giorno: number;
+		minuti: number;
+		luogo: LuogoId;
+	}
+	let storico = $state<Battuta[]>([]);
+	let storicoAperto = $state(false);
+	let storicoIt = $state<number[]>([]); // battute con la traduzione aperta
+	function registra(b: Omit<Battuta, 'giorno' | 'minuti' | 'luogo'>): void {
+		if (!stato) return;
+		const ultima = storico.at(-1);
+		if (ultima && ultima.ja === b.ja && ultima.chi === b.chi) return;
+		storico = [...storico, { ...b, giorno: stato.giorno, minuti: stato.minuti, luogo: stato.luogo }].slice(-300);
+	}
+	function riascoltaBattuta(b: Battuta): void {
+		hush();
+		if (b.tipo === 'dice') void voce(b.ja, PERSONAGGI[b.chi ?? '']?.voce ?? 'F', false);
+		else if (b.tipo === 'io') void voceMia(b.ja);
+		else if (b.tipo === 'pensa') void voceMia(b.ja, true);
+		else void speakSentenceJapaneseAsync(stripFuriganaNotation(testo(b.ja)), vocePersonaggio('F', imp));
+	}
+	function apriStorico(): void {
+		storicoIt = [];
+		storicoAperto = true;
+	}
+	// lo storico si apre in fondo, sull'ultima battuta
+	function inFondo(node: HTMLElement): void {
+		requestAnimationFrame(() => node.scrollIntoView({ block: 'end' }));
+	}
 	let infoLuogo = $state<LuogoId | null>(null);
 	let toast = $state('');
 	let toastTimer: ReturnType<typeof setTimeout> | null = null;
@@ -188,6 +223,7 @@
 	function comincia(): void {
 		salvaImp();
 		slot = 'main';
+		storico = [];
 		stato = nuovoStato(imp.nome, 'm1');
 		riprese = [];
 		salvaRipresa(stato);
@@ -196,6 +232,7 @@
 	}
 	function rigioca(id: string): void {
 		slot = 'rigioca';
+		storico = [];
 		stato = nuovoStato(imp.nome, id, MISSIONI[id]?.inizio);
 		salva();
 		entra('casa');
@@ -311,12 +348,17 @@
 				faccia = corrente.faccia ?? null;
 			}
 			if (corrente.taccuino) annota(corrente.dice, corrente.ja, corrente.it);
+			registra({ chi: corrente.dice, tipo: 'dice', sprite: c?.sprite ? `${c.sprite}${corrente.faccia ? `_${corrente.faccia}` : ''}` : null, ja: corrente.ja, it: corrente.it });
 			if (imp.autoVoce) void voce(corrente.ja, c?.voce ?? 'F');
 		} else if ('io' in corrente) {
+			registra({ chi: null, tipo: 'io', sprite: null, ja: corrente.io, it: corrente.it });
 			// la tua battuta con la tua voce, se non l'hai già detta tu al microfono
 			if (imp.autoVoce && !corrente.detto) void voceMia(corrente.io);
 		} else if ('pensa' in corrente) {
+			registra({ chi: null, tipo: 'pensa', sprite: null, ja: corrente.pensa, it: corrente.it });
 			if (imp.autoVoce) void voceMia(corrente.pensa, true);
+		} else if ('narra' in corrente) {
+			registra({ chi: null, tipo: 'narra', sprite: null, ja: corrente.narra, it: corrente.it });
 		} else if ('domanda' in corrente) {
 			if (imp.autoVoce) void voce(corrente.domanda.ja, 'F', false);
 		}
@@ -566,6 +608,7 @@
 			{#if stato && fase !== 'inizio'}
 				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
 				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
+				<button class="mini" onclick={apriStorico} title={L(UI.storico)}>📜<span class="largo"> {L(UI.storico).replace('📜 ', '')}</span></button>
 				<button class="mini" onclick={() => (taccuino = true)} title={L(UI.ノート)}>📓<span class="largo"> {L(UI.ノート).replace('📓 ', '')}</span></button>
 			{/if}
 		</span>
@@ -898,6 +941,37 @@
 		</div>
 	{/if}
 
+	{#if storicoAperto}
+		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) storicoAperto = false; }}>
+			<section class="panel taccuino storico">
+				<header><h2>{L(UI.storico)}</h2><button class="mini" onclick={() => (storicoAperto = false)}>✖</button></header>
+				<div class="paper">
+					{#each storico as b, i (i)}
+						{#if i === 0 || storico[i - 1]!.giorno !== b.giorno || storico[i - 1]!.luogo !== b.luogo}
+							<p class="small quando">{lingua === 'ja' ? dataJa(b.giorno) : dataIt(b.giorno)} {hhmm(b.minuti)} · {LUOGO[b.luogo].icona} {nomeLuogo(b.luogo)}</p>
+						{/if}
+						<div class="battuta" class:mia={b.tipo === 'io' || b.tipo === 'pensa'} class:narrata={b.tipo === 'narra'}>
+							<span class="faccina">
+								{#if b.sprite}<img src="{base}/giorno/ritratti/{b.sprite}-chiusa.png" alt="" />
+								{:else}{b.tipo === 'narra' ? '📖' : b.tipo === 'pensa' ? '💭' : b.chi ? '📞' : '🙂'}{/if}
+							</span>
+							<div class="testo">
+								<p class="chi">{b.tipo === 'narra' ? '' : b.chi ? stripFuriganaNotation(PERSONAGGI[b.chi]?.nome ?? b.chi) : imp.nome}</p>
+								<p class="ja">{b.tipo === 'io' ? '「' : b.tipo === 'pensa' ? '（' : ''}<Frase text={testo(b.ja)} />{b.tipo === 'io' ? '」' : b.tipo === 'pensa' ? '）' : ''}</p>
+								{#if storicoIt.includes(i) && b.it}<p class="it">{testo(b.it)}</p>{/if}
+							</div>
+							<span class="tasti">
+								<button class="mini" title="🔊" onclick={() => riascoltaBattuta(b)}>🔊</button>
+								{#if b.it && !storicoIt.includes(i)}<button class="mini" onclick={() => (storicoIt = [...storicoIt, i])}>🇮🇹</button>{/if}
+							</span>
+						</div>
+					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
+					<span use:inFondo></span>
+				</div>
+			</section>
+		</div>
+	{/if}
+
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
 			<section class="panel taccuino">
@@ -1081,6 +1155,20 @@
 	.taccuino .oggetto { cursor: default; }
 	.ob { margin: 0; font-size: 0.88rem; }
 	.ob.fatto { opacity: 0.6; text-decoration: line-through; }
+	.storico .paper { gap: 6px; }
+	.storico .quando { color: #fbf236; margin-top: 6px; }
+	.battuta { display: grid; grid-template-columns: 44px 1fr auto; gap: 8px; align-items: start; border-left: 3px solid #5b6ee1; padding: 2px 0 2px 6px; }
+	.battuta.mia { border-left-color: #99e550; }
+	.battuta.narrata { border-left-color: #6e6c8f; }
+	.battuta.narrata .ja { font-size: 0.92rem; opacity: 0.9; }
+	.faccina { width: 44px; height: 44px; overflow: hidden; background: #353360; border: 2px solid var(--px-line); display: grid; place-items: center; font-size: 1.3rem; }
+	/* il ritratto è a mezzo busto: si mostra solo la testa */
+	.faccina img { width: 170%; max-width: none; align-self: start; margin-top: -2px; image-rendering: pixelated; }
+	.battuta .testo { display: grid; gap: 1px; min-width: 0; }
+	.battuta .chi { margin: 0; font-size: 0.75rem; color: #fbf236; }
+	.battuta .ja { margin: 0; font-size: 1rem; line-height: 1.5; }
+	.battuta .it { margin: 0; }
+	.battuta .tasti { display: flex; gap: 4px; }
 	.appunto { border-left: 3px solid #5b6ee1; padding-left: 8px; display: grid; gap: 2px; }
 	.appunto p { margin: 0; }
 	.appunto .ja { font-size: 1rem; }

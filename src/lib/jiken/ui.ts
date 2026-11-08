@@ -5,6 +5,7 @@ import type { Testo } from './tipi';
 export const UI = {
 	indietro: { ja: '← アドベンチャー', it: '← Avventure' },
 	ノート: { ja: '📓 ノート', it: '📓 Taccuino' },
+	storico: { ja: '📜 会話', it: '📜 Dialoghi' },
 	lingua: { ja: '🌐 日本語', it: '🌐 Italiano' },
 	titolo: { ja: 'さくら町の 毎日', it: 'La vita a さくら町' },
 	intro: {

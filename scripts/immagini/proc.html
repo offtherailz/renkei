@@ -1,4 +1,10 @@
 <body><script>
+// «pieno»: ritratto già scontornato ma con parti semi-trasparenti (vestiti viola o rosa
+// presi per fondo magenta). Il fondo vero è quello trasparente collegato ai bordi
+// (riempimento a partire dai pixel con alfa < 16 sul bordo); tutto il resto torna
+// opaco, salvo una fascia di 1 pixel lungo il contorno che tiene la sfumatura.
+async function pieno(src){const i=await load(src),W=i.naturalWidth,H=i.naturalHeight,c=cv(W,H),x=c.getContext('2d');x.drawImage(i,0,0);const d=x.getImageData(0,0,W,H),a=d.data;const fuori=new Uint8Array(W*H),st=[];const vuoto=q=>a[q*4+3]<16;for(let X=0;X<W;X++){st.push(X,(H-1)*W+X)}for(let Y=0;Y<H;Y++){st.push(Y*W,Y*W+W-1)}while(st.length){const q=st.pop();if(fuori[q]||!vuoto(q))continue;fuori[q]=1;const X=q%W,Y=(q/W)|0;if(X>0)st.push(q-1);if(X<W-1)st.push(q+1);if(Y>0)st.push(q-W);if(Y<H-1)st.push(q+W)}let n=0;for(let q=0;q<W*H;q++){if(fuori[q])continue;const X=q%W,Y=(q/W)|0;const bordo=(X>0&&fuori[q-1])||(X<W-1&&fuori[q+1])||(Y>0&&fuori[q-W])||(Y<H-1&&fuori[q+W]);if(!bordo&&a[q*4+3]<255){a[q*4+3]=255;n++}}x.putImageData(d,0,0);return{u:c.toDataURL('image/png'),n}}
+
 async function load(src){const i=new Image();i.src=src;await i.decode();return i}
 function cv(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
 window.bg=async(src,w,h)=>{const i=await load(src);const ch=Math.round(i.width*h/w);const c=cv(w,h);const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(i,0,(i.height-ch)/2,i.width,ch,0,0,w,h);return c.toDataURL('image/jpeg',0.86)}
