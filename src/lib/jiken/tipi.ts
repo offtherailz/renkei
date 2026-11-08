@@ -157,5 +157,15 @@ export interface Stato {
 	taccuino: Appunto[];
 	percorso: Tappa[];
 	domande: { ok: number; tot: number };
+	collezione: Premio[]; // peluche vinti alla sala giochi
+	classifica: { punti: number; giorno: number }[]; // i migliori punteggi della クイズ
 	finita?: string;
+}
+
+export interface Premio {
+	premio: string; // id del peluche (static/giorno/oggetti)
+	ja: string; // la parola del cartellino
+	lettura: string;
+	it: string;
+	giorno: number;
 }

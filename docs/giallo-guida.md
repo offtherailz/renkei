@@ -15,6 +15,7 @@ tutta la storia della chat. Gli altri documenti:
 | `src/lib/jiken/motore.ts` | logica pura: date, orari, `verifica`, `scenaPer`, `avanza`, `viaggia`, `dormi`, soldi, `migra`, `prossimaMissione` |
 | `src/lib/jiken/mondo.ts` | luoghi (con punti sulla mappa, orari, scene «di ambiente»), personaggi, oggetti |
 | `src/lib/jiken/missioni/m1.ts`, `m2.ts` | le missioni (solo dati) |
+| `src/lib/jiken/giochi.ts`, `SalaGiochi.svelte` | sala giochi: parole dei giochi, UFOキャッチャー, クイズ, collezione, classifica |
 | `src/lib/jiken/ui.ts` | testi dell'interfaccia giapponese/italiano |
 | `src/lib/jiken/voce.ts` | impostazioni del giocatore, voce, nome in katakana, risposte dette a voce |
 | `src/lib/jiken/suoni.ts` | suoni sintetizzati (telefono, campanello, stazione, uccellini, grilli) |
@@ -273,49 +274,29 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   col 新幹線 (vedi `giallo-mondo.md`). La mappa di destra generata con Gemini non
   combaciava: rimandata.
 
-## 5b. Prossimo lavoro: la sala giochi (concordato, non ancora fatto)
+## 5b. Sala giochi (fatta: UFOキャッチャー e クイズ)
 
-- Luogo `gamecenter` (quartiere `ekimae`, 10-23) in `mondo.ts`: oggi ha solo un
-  `ambiente` («i giochi arrivano presto»). Va sostituito con un menù dei giochi.
-- Ogni partita costa **¥100** (controllare `soldi >= 100`, come `soldiMin`); il
-  tempo passa (es. 15 minuti a partita).
-- **UFOキャッチャー**: la voce (TTS) dice una parola; tra 4-6 peluche ognuno ha un
-  cartellino con una parola (N5/N4 del seed); si muove la pinza e si prende quello
-  giusto. Il premio va in una **collezione** (nuovo campo nello stato, da gestire
-  in `migra`), con la sua parola. Premi disponibili in `static/giorno/oggetti/`:
-  tanuki, maneki_neko, shiba, daruma, daruma_blu, peluche_onigiri,
-  peluche_sushi, panda, rana (+ trofeo, medaglie, purikura, regalo).
-- **クイズ**: domande d'esame a tempo, tre vite, punteggio e **classifica** (record
-  salvato). Le domande si possono prendere dal seed (esempi N4) o dalle domande
-  delle missioni.
-- Dopo, se piacciono: picchiaduro delle coniugazioni (attacchi coniugando:
-  て形, potenziale, passivo…), ritmo coi kana stile 太鼓, プリクラ (completare la
-  scritta con la particella giusta → adesivo nel taccuino).
-- Personaggio: `commessa_sg` (ritratto pronto, con bocca). Sfondo `sala_giochi`.
+- Entrando in `gamecenter` (山野駅前, 10-23) senza scene della storia si apre il
+  menù (`fase = 'giochi'`, componente `SalaGiochi.svelte`); la commessa
+  `commessa_sg` saluta. 「外に 出る」 torna alla mappa (o a casa se sono le 23).
+- Ogni partita: `pagaPartita` → ¥100 e 15 minuti; serve il portafoglio.
+- Parole: `paroleGioco` dal vocabolario (Dexie, o il seed se il DB è vuoto): nomi
+  N5/N4 con kanji del livello, niente doppioni di scrittura/lettura/significato;
+  si preferiscono quelle coi kanji.
+- **UFOキャッチャー**: 5 peluche (`PREMI`) con cartellino; la voce dice la lettura
+  (🔊 もう一度, 🐢 ゆっくり); ◀ ▶ ⬇ o frecce/spazio. Preso → `stato.collezione`
+  (peluche + parola, visibile anche nel taccuino); sbagliato →
+  `recordPracticeMiss('word:…')`.
+- **クイズ**: lettura (parole coi kanji) o significato, 4 opzioni, 10 secondi,
+  tre vite; 10 punti + secondi rimasti. Errori → punti deboli. Classifica
+  `stato.classifica` (5 migliori).
+- `migra` aggiunge `collezione`/`classifica` ai salvataggi vecchi; l'esploratore
+  fa qualche partita a caso quando entra in sala giochi.
+- Da fare se piacciono: picchiaduro delle coniugazioni (て形, potenziale,
+  passivo…), ritmo coi kana stile 太鼓, プリクラ (particella giusta → adesivo).
 - Altre idee approvate in coda: lavoretto (アルバイト alla コンビニ/caffè per
   guadagnare servendo col keigo e dando il resto), parole deboli dell'utente nei
   dialoghi, bacheca degli indizi / interrogatori stile 異議あり.
-- Ricordarsi: testi giapponesi solo N5/N4 (test dei kanji), interfaccia ja/it in
-  `ui.ts`, esploratore aggiornato se cambiano le regole, deploy solo su richiesta.
-
-## 5c. Altre idee proposte (NON ancora decise con l'utente: chiedere prima)
-
-- **Relazioni coi personaggi (好感度)**: scelte gentili/giuste fanno salire la stima
-  di 田中, 鈴木, 高橋…, che apre scene extra (cena, gita, un segreto).
-- **Collezioni**: timbri di templi e santuari (御朱印, icona `goshuin`), raccolta di
-  timbri delle stazioni (スタンプラリー, icona `timbri_stazione`), peluche della sala
-  giochi, specialità locali.
-- **Voto a fine missione** (S/A/B/C) su domande giuste, puntualità, indizi trovati,
-  per invogliare a rigiocarla.
-- **Messaggi sul telefono** stile LINE dai personaggi (lettura breve, risposte).
-- **Stagioni ed eventi**: 梅雨, 七夕, 夏祭り col calendario e il vocabolario della
-  stagione.
-
-Da fare quando si scrivono le missioni nuove:
-- **stipendi**: per ora c'è solo il primo (¥50.000, lunedì della missione 2); quelli
-  successivi vanno aggiunti nelle missioni seguenti;
-- **museo** (`museo`, centro) bloccato dal flag `museo.aperto`: pensato per il caso
-  del museo (美術館の 事件) della lista in `giallo-piano.md`.
 
 ## 6. Cose rimaste aperte
 

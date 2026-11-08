@@ -8,6 +8,7 @@ import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
 const MISSIONI = [M1, M2, M3];
 import { UI } from './ui';
+import { PREMI } from './giochi';
 import type { LuogoId, Missione, Passo, Stato, Testo } from './tipi';
 
 // tutte le frasi giapponesi di mondo e missioni
@@ -31,6 +32,7 @@ function testiJa(): string[] {
 	for (const v of Object.values(UI)) for (const t of [v].flat() as Testo[]) out.push(t.ja);
 	for (const c of Object.values(PERSONAGGI)) out.push(c.nome);
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
+	for (const o of Object.values(PREMI)) out.push(o.ja);
 	for (const m of MISSIONI) { for (const sc of m.scene) passi(sc.passi); out.push(m.titolo); if (m.epilogo) out.push(m.epilogo.ja); }
 	return out;
 }
@@ -49,6 +51,7 @@ describe('事件: testi', () => {
 		for (const c of Object.values(PERSONAGGI)) if (c.sprite && !existsSync(`static/giorno/ritratti/${c.sprite}-chiusa.png`)) mancano.push(c.sprite);
 		for (const l of LUOGHI) if (!existsSync(`static/giorno/sfondi/${l.sfondo}.jpg`)) mancano.push(l.sfondo);
 		for (const o of Object.keys(OGGETTI)) if (!existsSync(`static/giorno/oggetti/${iconaOggetto(o)}.png`)) mancano.push(o);
+		for (const o of Object.keys(PREMI)) if (!existsSync(`static/giorno/oggetti/${o}.png`)) mancano.push(o);
 		// espressioni usate nelle scene
 		const facce = (ps: Passo[]): void => {
 			for (const p of ps) {

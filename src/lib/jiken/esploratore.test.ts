@@ -5,6 +5,7 @@
 import { describe, expect, it } from 'vitest';
 import { apertura, avanza, prendiTreno, nuovoStato, opzioniSoldi, scenaPer, STAZIONI, TARDI, viaggia } from './motore';
 import { LUOGHI, LUOGO } from './mondo';
+import { LUOGO_GIOCHI, pagaPartita } from './giochi';
 import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
@@ -67,6 +68,9 @@ function partita(m: Missione, seme: number, maxPassi = 4000): Esito {
 		if (sc) {
 			s = { ...s, fatte: [...s.fatte, sc.id] };
 			gioca(sc.passi);
+		} else if (dest === LUOGO_GIOCHI) {
+			// sala giochi: qualche partita a 100 yen (come il menù: solo se si può pagare)
+			for (let k = Math.floor(r() * 6); k > 0 && s.minuti < TARDI; k--) s = pagaPartita(s) ?? s;
 		} else gioca(l.ambiente ?? []);
 		for (let k = 0; k < 6 && !s.finita; k++) {
 			const altra = apertura(LUOGO[s.luogo], s) === 'aperto' ? scenaPer(s.luogo, s, m) : null;

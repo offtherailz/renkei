@@ -46,7 +46,9 @@ export function nuovoStato(nome: string, missione: string, inizio?: { giorno: nu
 		obiettivi: [],
 		taccuino: [],
 		percorso: [{ giorno, minuti: SVEGLIA, luogo: 'casa' }],
-		domande: { ok: 0, tot: 0 }
+		domande: { ok: 0, tot: 0 },
+		collezione: [],
+		classifica: []
 	};
 }
 
@@ -190,7 +192,9 @@ export function migra(raw: unknown): Stato | null {
 		obiettivi: (r.obiettivi ?? []).map((o) => ({ ...o, ja: o.ja ?? o.it })),
 		taccuino: r.taccuino ?? [],
 		percorso: r.percorso ?? [],
-		domande: r.domande ?? { ok: 0, tot: 0 }
+		domande: r.domande ?? { ok: 0, tot: 0 },
+		collezione: r.collezione ?? [],
+		classifica: r.classifica ?? []
 	} as Stato;
 }
 

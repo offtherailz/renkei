@@ -120,7 +120,7 @@ export const LUOGHI: Luogo[] = [
 	{
 		id: 'gamecenter', nome: 'ゲームセンター', it: 'sala giochi', icona: '🕹️', quartiere: 'ekimae', sfondo: 'sala_giochi', x: 21.8, y: 56,
 		orario: { fasce: [[h(10), h(23)]] },
-		ambiente: [{ dice: 'commessa_sg', ja: 'いらっしゃいませ！ 新しい ゲームは もうすぐ 入りますよ。', it: 'Benvenut{o}! I giochi nuovi arrivano presto.' }, { narra: 'UFOキャッチャーや たいこの ゲームが あります。でも、今は じゅんび中です。', it: 'Ci sono UFO catcher e giochi coi tamburi. Ma per ora sono in allestimento.' }]
+		// niente ambiente: senza scene della storia si apre il menù dei giochi (SalaGiochi.svelte)
 	},
 	{
 		id: 'depa', nome: 'デパート', it: 'grande magazzino', icona: '🏬', quartiere: 'ekimae', sfondo: 'grande_magazzino', x: 58.9, y: 33.9,

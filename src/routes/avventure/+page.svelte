@@ -52,7 +52,7 @@
 			icon: '🕵️',
 			title: '事件',
 			yomi: 'じけん',
-			desc: 'Vivi a さくら町: lavoro, commissioni e piccoli misteri da risolvere girando per il quartiere. Missione 1: la prima settimana.',
+			desc: 'Vivi a さくら町: lavoro, commissioni e piccoli misteri da risolvere girando per il quartiere. Tre missioni, il treno per il centro e una sala giochi (UFOキャッチャー e quiz).',
 			ready: true
 		}
 	];

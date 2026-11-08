@@ -2,6 +2,8 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import Frase from '$lib/jiken/Frase.svelte';
+	import SalaGiochi from '$lib/jiken/SalaGiochi.svelte';
+	import { LUOGO_GIOCHI } from '$lib/jiken/giochi';
 	import { speakSentenceJapaneseAsync, stopSpeaking } from '$lib/core/tts';
 	import { speechAvailable, abortableListen } from '$lib/core/speech';
 	import { ensureWordIndex } from '$lib/core/wordLookup';
@@ -116,7 +118,7 @@
 			avvisa(L(UI.importaNo));
 		}
 	}
-	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine'>('inizio');
+	let fase = $state<'inizio' | 'crea' | 'mappa' | 'scena' | 'fine' | 'giochi'>('inizio');
 
 	// scena in corso
 	let coda: Passo[] = [];
@@ -264,7 +266,7 @@
 	}
 
 	// ── uscire: conferma se sei in partita
-	const inPartita = $derived(fase === 'mappa' || fase === 'scena');
+	const inPartita = $derived(fase === 'mappa' || fase === 'scena' || fase === 'giochi');
 	function esci(e: MouseEvent): void {
 		if (inPartita && !confirm(L(UI.esci))) e.preventDefault();
 	}
@@ -310,7 +312,28 @@
 		if (sc) {
 			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
 			avvia(sc.passi);
+		} else if (dest === LUOGO_GIOCHI) {
+			fase = 'giochi';
+			salva();
 		} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }]);
+	}
+
+	// ── sala giochi: le partite cambiano lo stato (soldi, tempo, premi, classifica)
+	function aggiornaGiochi(s: Stato): void {
+		if (!stato) return;
+		const prima = stato;
+		stato = s;
+		notaCambi(prima, s);
+		salva();
+	}
+	function esciGiochi(): void {
+		if (!stato) return;
+		hush();
+		if (stato.minuti >= TARDI) tornaADormire();
+		else {
+			fase = 'mappa';
+			salva();
+		}
 	}
 
 	let giornoScena = -1; // giorno in cui è cominciata la scena (per capire se si è dormito)
@@ -514,6 +537,11 @@
 		parla = bocca;
 		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), vocePersonaggio(chi, imp));
 		parla = false;
+	}
+	// voce di un personaggio senza bocca che si muove; lento = 🐢
+	async function voceLenta(t: string, chi: 'F' | 'M', lento = false): Promise<void> {
+		const v = vocePersonaggio(chi, imp);
+		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), lento ? { ...v, rate: 0.6 } : v);
 	}
 	// la tua voce (nei pensieri più piano)
 	async function voceMia(t: string, pensiero = false): Promise<void> {
@@ -870,6 +898,8 @@
 					{/key}
 				</div>
 			</section>
+		{:else if fase === 'giochi'}
+			<SalaGiochi {stato} {L} {lingua} suoni={imp.suoni} aggiorna={aggiornaGiochi} esci={esciGiochi} parla={voceLenta} {avvisa} />
 		{:else if fase === 'fine'}
 			<section class="panel intro">
 				<h1>🎉 {missione.titolo}</h1>
@@ -999,6 +1029,14 @@
 					{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
 					<h3>{L(UI.domande)}</h3>
 					<p class="small">{stato.domande.ok}/{stato.domande.tot}</p>
+					{#if stato.collezione.length}
+						<h3>{L(UI.sgCollezione)}</h3>
+						<div class="oggetti">
+							{#each stato.collezione as p, i (i)}
+								<span class="oggetto"><img src="{base}/giorno/oggetti/{p.premio}.png" alt="" /><span>{p.ja}{p.lettura !== p.ja ? `（${p.lettura}）` : ''} {p.it}</span></span>
+							{/each}
+						</div>
+					{/if}
 				</div>
 			</section>
 		</div>
