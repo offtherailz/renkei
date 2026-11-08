@@ -1279,6 +1279,16 @@
 		--carta: #fbf6e9;
 		--riga: #c9d6ea;
 		--inchiostro: #2b2a3a;
+		/* la carta è chiara anche col tema scuro: frasi spezzate e popup delle parole coi colori del tema chiaro */
+		--ink: #2b2a3a;
+		--muted: #5a5870;
+		--line: #c9c3b0;
+		--brand: #1b5fd1;
+		--surface: #fffdf6;
+		--success: #0f8f56;
+		--warn-bg: #fffbeb;
+		--warn-border: #fbbf24;
+		--warn-ink: #92400e;
 		position: relative; z-index: 1;
 		background-color: var(--carta);
 		background-image: linear-gradient(90deg, transparent 40px, #e39a9a 40px, #e39a9a 42px, transparent 42px), repeating-linear-gradient(var(--carta) 0 27px, var(--riga) 27px 28px);
