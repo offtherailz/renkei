@@ -56,6 +56,8 @@
 	let riprese = $state<Stato[]>([]);
 	function salvaRipresa(s: Stato): void {
 		if (slot !== 'main') return;
+		// la mattina riparte da casa, non dal resto della scena della sera prima
+		s = { ...s, scena: undefined };
 		const altre = riprese.filter((x) => !(x.missione === s.missione && x.giorno === s.giorno));
 		riprese = [...altre, s].sort((a, b) => a.giorno - b.giorno).slice(-14);
 		try {
@@ -301,7 +303,7 @@
 		slot = 'rigioca';
 		caricaStorico();
 		stato = pulisciObiettivi(salvatoRigioco, MISSIONI[salvatoRigioco.missione] ?? M1);
-		entra(stato.luogo);
+		riparti();
 	}
 	function continua(): void {
 		if (!salvato) return;
@@ -309,7 +311,7 @@
 		caricaStorico();
 		stato = pulisciObiettivi(salvato, MISSIONI[salvato.missione] ?? M1);
 		if (stato.finita) fase = 'fine';
-		else entra(stato.luogo);
+		else riparti();
 	}
 
 	// ── uscire: conferma se sei in partita
@@ -338,6 +340,15 @@
 		}
 		stato = viaggia(stato, dest);
 		entra(dest);
+	}
+
+	// riapertura della partita: se una scena era a metà si riprende da lì,
+	// altrimenti si entra nel luogo come sempre
+	function riparti(): void {
+		if (!stato) return;
+		const resto = stato.scena;
+		if (resto?.length) avvia(resto);
+		else entra(stato.luogo);
 	}
 
 	function entra(dest: LuogoId): void {
@@ -401,6 +412,8 @@
 		stato = r.stato;
 		notaCambi(prima, stato);
 		corrente = r.mostra;
+		// si salva anche il resto della scena: chiudendo la pagina qui, si riprende da questo passo
+		stato = { ...stato, scena: corrente ? [corrente, ...coda] : undefined };
 		scelto = null;
 		provaEsito = null;
 		mostraIt = false;
@@ -562,7 +575,8 @@
 		if (!stato || scelto !== null) return;
 		scelto = i;
 		const ok = i === giustaDomanda();
-		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 } };
+		// già contata: riaprendo la pagina non deve tornare la stessa domanda
+		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 }, scena: coda.length ? [...coda] : undefined };
 		salva();
 	}
 	function mostra(oggetto: string | null): void {

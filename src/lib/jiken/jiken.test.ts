@@ -261,6 +261,7 @@ describe('事件: missione 3 si può finire (indagine, carta IC, treno, hotel)',
 	it('gli obiettivi rimasti aperti non passano alla missione dopo', () => {
 		const s = { ...nuovoStato('テスト', 'm2', M2.inizio), obiettivi: [{ id: 'parco', ja: 'x', it: 'x', fatto: false }] };
 		expect(prossimaMissione(s, M3).obiettivi).toEqual([]);
+		expect(prossimaMissione({ ...s, scena: [{ fine: 'x' }] }, M3).scena).toBeUndefined();
 		// salvataggi vecchi: via quelli che la missione in corso non dà
 		const vecchio = { ...nuovoStato('テスト', 'm3', M3.inizio), obiettivi: [{ id: 'parco', ja: 'x', it: 'x', fatto: false }, { id: 'konbini3', ja: 'y', it: 'y', fatto: false }] };
 		expect(pulisciObiettivi(vecchio, M3).obiettivi.map((o) => o.id)).toEqual(['konbini3']);

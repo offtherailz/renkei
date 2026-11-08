@@ -159,6 +159,9 @@ export interface Stato {
 	domande: { ok: number; tot: number };
 	collezione: Premio[]; // peluche vinti alla sala giochi
 	classifica: { punti: number; giorno: number }[]; // i migliori punteggi della クイズ
+	// scena interrotta (pagina chiusa a metà dialogo): il passo mostrato e quelli
+	// dopo, per riprendere da lì invece di perderli
+	scena?: Passo[];
 	finita?: string;
 }
 

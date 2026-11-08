@@ -59,6 +59,9 @@ tutta la storia della chat. Gli altri documenti:
   💬 大切な ことば, 🕐 行った 所. Lo storico si salva a parte
   (`renkei_jiken[_rigioca]_storico`, ultime 2000 battute); riprendendo da una
   mattina si tengono solo i giorni prima.
+- **Scena interrotta**: a ogni passo si salva in `stato.scena` il passo mostrato e
+  quelli dopo; riaprendo la partita (`riparti`) si riprende da lì. Le riprese del
+  mattino la tolgono; una domanda già risposta non si ripete.
 - **Salvataggi** (`localStorage`): `renkei_jiken` (partita principale),
   `renkei_jiken_rigioca` (rigioco di una missione finita), `renkei_jiken_riprese`
   (copia a ogni risveglio), `renkei_jiken_imp` (impostazioni, missioni completate), `…_storico` (dialoghi).

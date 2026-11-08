@@ -206,6 +206,7 @@ export function prossimaMissione(s: Stato, m: { id: string; inizio?: { giorno: n
 		...s,
 		missione: m.id,
 		finita: undefined,
+		scena: undefined,
 		giorno,
 		minuti: SVEGLIA,
 		luogo: 'casa',
