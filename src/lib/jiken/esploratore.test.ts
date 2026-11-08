@@ -73,7 +73,7 @@ function partita(m: Missione, seme: number, maxPassi = 4000): Esito {
 			for (let k = Math.floor(r() * 6); k > 0 && s.minuti < TARDI; k--) s = pagaPartita(s) ?? s;
 		} else gioca(l.ambiente ?? []);
 		for (let k = 0; k < 6 && !s.finita; k++) {
-			const altra = apertura(LUOGO[s.luogo], s) === 'aperto' ? scenaPer(s.luogo, s, m) : null;
+			const altra = apertura(LUOGO[s.luogo], s) === 'aperto' ? scenaPer(s.luogo, s, m, true) : null;
 			if (!altra) break;
 			s = { ...s, fatte: [...s.fatte, altra.id] };
 			gioca(altra.passi);

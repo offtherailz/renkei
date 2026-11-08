@@ -4,6 +4,7 @@
 // (il collare «messo lì», non «caduto»), 〜て あげる / くれる / もらう,
 // 〜そう (aspetto), saluti cortesi a un cliente.
 import type { Missione, Passo } from '../tipi';
+import { arrivo, rientro } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -34,12 +35,14 @@ export const M2: Missione = {
 				{ dice: 'mamma', ja: 'とても しんぱいして いるらしいの。仕事の あとで 木村アパートに 行って みたら？', it: 'Pare che sia molto preoccupata. Perché non passi al condominio Kimura dopo il lavoro?' },
 				{ nota: '「〜そうよ」「〜らしい」: お母さんは 自分で 見て いません。ほかの 人から 聞いた ことです。', it: '「〜そうだ」 (si dice che) e 「〜らしい」 (pare che): la mamma non l’ha visto, l’ha sentito da altri.' },
 				{ obiettivo: 'kimura', ja: '仕事の あとで 木村[きむら]アパートへ 行って、おばあさんの 話を 聞く。', it: 'Dopo il lavoro, andare al condominio Kimura e sentire la signora.' },
-				{ flag: 'm2.d7.casa' }
+				{ flag: 'm2.d7.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
 			id: 'm2-d7-ufficio', luogo: 'ufficio', quando: { giorno: 7, nonFlag: ['m2.d7.ufficio'] },
 			passi: [
+				arrivo(),
 				{ dice: 'mori', ja: '{nome}さん、これ、はじめての きゅうりょうです。おつかれさま。', it: '{nome}, questo è il suo primo stipendio. Buon lavoro.' },
 				{ soldi: 50000 },
 				{ narra: 'きゅうりょうを もらいました（5万円）。', it: 'Hai ricevuto lo stipendio (50.000 yen).' },
@@ -69,6 +72,7 @@ export const M2: Missione = {
 		{
 			id: 'm2-d7-pomeriggio', luogo: 'ufficio', quando: { giorno: 7, dalle: h(12, 30), flag: ['m2.d7.ufficio'] },
 			passi: [
+				rientro(),
 				{ dice: 'tanaka', ja: '{nome}さん、木村さんの ねこの 話、聞きましたか。神社[じんじゃ]の 方へ 行った らしいですよ。', it: '{nome}, ha sentito del gatto dei Kimura? Pare che sia andato verso il santuario.', taccuino: true },
 				{ io: 'だれが 見たんですか。', it: 'Chi l’ha visto?' },
 				{ dice: 'tanaka', faccia: 'imbarazzato', ja: 'さあ……。ぼくも だれかから 聞いただけです。', it: 'Mah… L’ho solo sentito da qualcuno anch’io.' },
@@ -159,12 +163,14 @@ export const M2: Missione = {
 			passi: [
 				{ narra: '4月14日（火）、朝 7時半。', it: 'Martedì 14 aprile, ore 7:30.' },
 				{ dice: 'papa', ja: 'ポスター、店に はって もらったら どう？ 喫茶[きっさ]あおいの 伊藤[いとう]さんは しんせつだよ。', it: 'Perché non chiedi ai negozi di appendere i volantini? Itō del caffè Aoi è gentile.' },
-				{ flag: 'm2.d8.casa' }
+				{ flag: 'm2.d8.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
 			id: 'm2-d8-ufficio', luogo: 'ufficio', quando: { giorno: 8, nonFlag: ['m2.d8.ufficio'] },
 			passi: [
+				arrivo(),
 				{ dice: 'mori', faccia: 'preoccupata', ja: '{nome}さん、あしたの 山田[やまだ]さんの こと、ちょっと しんぱいです。山田さんは とても 時間に きびしい 人なんです。', it: '{nome}, per domani con Yamada sono un po’ in pensiero. È una persona molto puntuale.' },
 				{ dice: 'mori', ja: 'おくれないように、早めに 1かいで 待って いて くださいね。', it: 'Per non fare tardi, lo aspetti al piano terra con un po’ di anticipo.', taccuino: true },
 				{ io: 'はい、わかりました。', it: 'Sì, ho capito.' },
@@ -206,7 +212,8 @@ export const M2: Missione = {
 				{ completa: 'parco' },
 				{ obiettivo: 'jinja', ja: '山の 神社[じんじゃ]へ 行って みる。', it: 'Andare a vedere al santuario sulla collina.' },
 				{ flag: 'jinja.aperto' },
-				{ flag: 'm2.collare' }
+				{ flag: 'm2.collare' },
+				{ minuti: 15 }, // guardare intorno alla panchina
 			]
 		},
 		{
@@ -231,6 +238,7 @@ export const M2: Missione = {
 		{
 			id: 'm2-d8-pomeriggio', luogo: 'ufficio', quando: { giorno: 8, dalle: h(12, 30), flag: ['m2.d8.ufficio'] },
 			passi: [
+				rientro(),
 				{ ora: h(15) },
 				{ dice: 'suzuki', ja: '{nome}さん、あしたの しりょう、5まい コピーして、かいぎしつの つくえの 上に ならべて おいて ください。', it: '{nome}, faccia 5 copie del materiale di domani e le disponga sul tavolo della sala riunioni.' },
 				{
@@ -275,7 +283,8 @@ export const M2: Missione = {
 			passi: [
 				{ narra: '4月15日（水）、朝 7時半。今日は 山田[やまだ]さんが 会社に 来ます。', it: 'Mercoledì 15 aprile, ore 7:30. Oggi in ditta viene Yamada.' },
 				{ pensa: '9時50分に 1かい。わすれないように しよう。', it: 'Alle 9:50 al piano terra. Non devo dimenticarlo.' },
-				{ flag: 'm2.d9.casa' }
+				{ flag: 'm2.d9.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
@@ -311,6 +320,7 @@ export const M2: Missione = {
 		{
 			id: 'm2-d9-pomeriggio', luogo: 'ufficio', quando: { giorno: 9, dalle: h(12, 30), flag: ['m2.d9.ufficio'] },
 			passi: [
+				rientro(),
 				{ dice: 'tanaka', ja: 'ねこ、見つかりましたか。', it: 'Il gatto, l’ha trovato?' },
 				{
 					se: { flag: ['m2.ciotola'] },

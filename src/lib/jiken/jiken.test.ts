@@ -268,3 +268,77 @@ describe('事件: missione 3 si può finire (indagine, carta IC, treno, hotel)',
 		expect(obiettiviDi(M2).has('parco')).toBe(true);
 	});
 });
+
+// ── tempi: l'orologio della storia deve essere coerente
+describe('事件: tempi', () => {
+	const h = (o: number, m = 0): number => o * 60 + m;
+	const figli = (p: Passo): Passo[][] => ('scelta' in p ? p.scelta.map((o) => o.passi ?? []) : 'se' in p ? [p.allora, p.altrimenti ?? []] : 'prova' in p ? [p.prova.ok, p.prova.no] : []);
+	const tutti = (ps: Passo[]): Passo[] => ps.flatMap((p) => [p, ...figli(p).flatMap(tutti)]);
+	const righe = (ps: Passo[]): number => tutti(ps).filter((p) => 'dice' in p || 'io' in p || 'narra' in p || 'pensa' in p).length;
+	const passaTempo = (ps: Passo[]): boolean => tutti(ps).some((p) => 'minuti' in p || 'ora' in p || 'dormi' in p || 'fine' in p);
+	const giorniDi = (m: Missione): number[] => [...new Set(m.scene.flatMap((s) => [s.quando.giorno ?? []].flat()))];
+
+	it('le scene della storia fuori casa fanno passare il tempo', () => {
+		const ferme: string[] = [];
+		for (const m of MISSIONI) for (const sc of m.scene) if (sc.luogo !== 'casa' && righe(sc.passi) >= 3 && !passaTempo(sc.passi)) ferme.push(sc.id);
+		expect(ferme).toEqual([]);
+	});
+
+	it('le finestre d’orario delle scene combaciano con gli orari dei luoghi', () => {
+		const impossibili: string[] = [];
+		for (const m of MISSIONI) {
+			for (const sc of m.scene) {
+				const l = LUOGO[sc.luogo];
+				const giorni = sc.quando.giorno === undefined ? giorniDi(m) : [sc.quando.giorno].flat();
+				const ok = giorni.some((g) => {
+					for (let min = sc.quando.dalle ?? 0; min < (sc.quando.alle ?? 24 * 60); min += 15) {
+						const s = { ...nuovoStato('テスト', m.id), giorno: g, minuti: min };
+						if (apertura({ ...l, bloccato: undefined }, s) === 'aperto') return true;
+					}
+					return false;
+				});
+				if (!ok) impossibili.push(sc.id);
+			}
+		}
+		expect(impossibili).toEqual([]);
+	});
+
+	it('ogni mattina feriale in ufficio il ritardo si nota, e anche il rientro tardi dal pranzo', () => {
+		const senza: string[] = [];
+		for (const m of MISSIONI) {
+			for (const g of giorniDi(m).filter((g) => g % 7 < 5)) {
+				// solo le scene fissate a quel giorno (quelle su più giorni sono riserve)
+				const uff = m.scene.filter((s) => s.luogo === 'ufficio' && s.quando.giorno === g);
+				if (!uff.length) continue;
+				const mattina = uff.some((s) => (s.quando.alle !== undefined && s.quando.alle <= h(10)) || tutti(s.passi).some((p) => 'se' in p && p.se.alle !== undefined && p.se.alle <= h(9, 51)));
+				if (!mattina) senza.push(`${m.id} giorno ${g}: mattina`);
+				for (const s of uff.filter((s) => s.quando.dalle === h(12, 30))) if (!tutti(s.passi).some((p) => 'se' in p && p.se.dalle === h(13, 31))) senza.push(`${s.id}: rientro dal pranzo`);
+			}
+		}
+		expect(senza).toEqual([]);
+	});
+
+	it('un appuntamento con l’ora di fine non può cominciare dopo la fine', () => {
+		const dopo: string[] = [];
+		for (const m of MISSIONI) {
+			for (const sc of m.scene) {
+				if (sc.luogo === 'ufficio') continue; // in ufficio il ritardo ha le sue battute
+				for (const p of sc.passi) if ('ora' in p && (sc.quando.alle ?? 24 * 60) > p.ora) dopo.push(`${sc.id} (ora ${p.ora})`);
+			}
+		}
+		expect(dopo).toEqual([]);
+	});
+
+	it('la riunione all’hotel: puntuale, in ritardo, o già finita', () => {
+		const base = { ...nuovoStato('テスト', 'm3', M3.inizio), giorno: 16, luogo: 'hotel' as LuogoId, flag: [...(M3.inizio?.flag ?? []), 'm3.consegnato'] };
+		expect(scenaPer('hotel', { ...base, minuti: h(9, 55) }, M3)?.id).toBe('m3-hotel');
+		expect(scenaPer('hotel', { ...base, minuti: h(10, 30) }, M3)?.id).toBe('m3-hotel');
+		expect(scenaPer('hotel', { ...base, minuti: h(14) }, M3)?.id).toBe('m3-hotel-tardi');
+	});
+
+	it('una scena ripetibile non riparte in catena (si può uscire da «con chi parli?»)', () => {
+		const s = { ...nuovoStato('テスト', 'm3', M3.inizio), giorno: 15, minuti: h(9), luogo: 'ufficio' as LuogoId, flag: [...(M3.inizio?.flag ?? []), 'm3.sparito', 'm3.d15.casa'], fatte: ['m3-d15-ufficio'] };
+		expect(scenaPer('ufficio', s, M3)?.id).toBe('m3-interroga');
+		expect(scenaPer('ufficio', s, M3, true)).toBeNull();
+	});
+});

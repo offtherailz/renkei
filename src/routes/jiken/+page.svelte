@@ -511,7 +511,7 @@
 		}
 		// dopo una scena (o una notte) può essercene subito un'altra nello stesso luogo
 		const l = LUOGO[stato.luogo];
-		const sc = apertura(l, stato) === 'aperto' ? scenaPer(stato.luogo, stato, missione) : null;
+		const sc = apertura(l, stato) === 'aperto' ? scenaPer(stato.luogo, stato, missione, true) : null;
 		if (sc) {
 			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
 			avvia(sc.passi);

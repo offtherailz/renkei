@@ -73,8 +73,10 @@ export function apertura(l: Luogo, s: Stato): Apertura {
 }
 
 // La prima scena della missione, in quel luogo, che si può giocare adesso.
-export function scenaPer(luogo: LuogoId, s: Stato, m: Missione): Scena | null {
-	return m.scene.find((sc) => sc.luogo === luogo && (sc.ripeti || !s.fatte.includes(sc.id)) && verifica(sc.quando, s)) ?? null;
+// inCatena: subito dopo un'altra scena nello stesso luogo; le scene ripetibili
+// (es. «con chi parli?») lì non ripartono, se no non si uscirebbe più.
+export function scenaPer(luogo: LuogoId, s: Stato, m: Missione, inCatena = false): Scena | null {
+	return m.scene.find((sc) => sc.luogo === luogo && (sc.ripeti ? !inCatena : !s.fatte.includes(sc.id)) && verifica(sc.quando, s)) ?? null;
 }
 
 export function viaggia(s: Stato, dest: LuogoId): Stato {

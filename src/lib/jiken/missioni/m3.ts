@@ -4,6 +4,7 @@
 // c'era davvero). Finale: la riunione si sposta alla ホテル みどり → carta IC,
 // treno, secondo quartiere (山野駅前).
 import type { Missione, Passo } from '../tipi';
+import { arrivo, rientro } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -31,12 +32,14 @@ export const M3: Missione = {
 			passi: [
 				{ narra: '4月20日（月）、朝 7時半。', it: 'Lunedì 20 aprile, ore 7:30.' },
 				{ dice: 'papa', ja: '今週は 会社で 大切な かいぎが あるんだって？ がんばってね。', it: 'Ho sentito che questa settimana in ditta c’è una riunione importante. Forza!' },
-				{ flag: 'm3.d14.casa' }
+				{ flag: 'm3.d14.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
 			id: 'm3-d14-ufficio', luogo: 'ufficio', quando: { giorno: 14, nonFlag: ['m3.d14.ufficio'] },
 			passi: [
+				arrivo(),
 				{ dice: 'mori', ja: 'おはようございます。水曜日の 10時に、ABCの 山田[やまだ]さんと 大切な かいぎが あります。', it: 'Buongiorno. Mercoledì alle 10 c’è una riunione importante con Yamada della ABC.' },
 				{ dice: 'mori', ja: 'この 資料[しりょう]は とても 大切です。水曜日まで、わたしの つくえの 上に おいて おきますね。', it: 'Questo documento è molto importante. Fino a mercoledì lo lascio sulla mia scrivania.', taccuino: true },
 				{ dice: 'suzuki', ja: 'あ、ぶちょう。コピーきが けさから こわれて いるんです。なおるのは 水曜日の 午後だ そうです。', it: 'Ah, responsabile: la fotocopiatrice è rotta da stamattina. Dicono che la aggiustano mercoledì pomeriggio.', taccuino: true },
@@ -56,6 +59,7 @@ export const M3: Missione = {
 		{
 			id: 'm3-d14-pomeriggio', luogo: 'ufficio', quando: { giorno: 14, dalle: h(12, 30), flag: ['m3.d14.ufficio'] },
 			passi: [
+				rientro(),
 				{ dice: 'hayashi', ja: '{nome}さん、うけつけの 林[はやし]です。山田さんから ファックスが とどいて いますよ。', it: '{nome}, sono Hayashi della reception. È arrivato un fax da Yamada.' },
 				{ narra: 'ファックス：「水曜日の かいぎは 10時から 11時半まで。しりょうは 10まい おねがいします。」', it: 'Il fax: «La riunione di mercoledì è dalle 10 alle 11:30. Servono 10 copie del materiale.»' },
 				{
@@ -91,12 +95,14 @@ export const M3: Missione = {
 			id: 'm3-d15-casa', luogo: 'casa', quando: { giorno: 15, nonFlag: ['m3.d15.casa'] },
 			passi: [
 				{ narra: '4月21日（火）、朝 7時半。', it: 'Martedì 21 aprile, ore 7:30.' },
-				{ flag: 'm3.d15.casa' }
+				{ flag: 'm3.d15.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
 			id: 'm3-d15-ufficio', luogo: 'ufficio', quando: { giorno: 15, nonFlag: ['m3.sparito'] },
 			passi: [
+				arrivo(),
 				{ dice: 'mori', faccia: 'preoccupata', ja: 'たいへん！ つくえの 上に おいて あった 資料[しりょう]が ありません！', it: 'Che disastro! Il documento che era sulla mia scrivania non c’è più!', taccuino: true },
 				{ dice: 'nakamura', faccia: 'pensieroso', ja: 'おはようございます。ちょうど 近くに いたので、よって みました。……なるほど、資料[しりょう]が なくなったんですね。', it: 'Buongiorno. Ero qui vicino e sono passato. …Capisco, è sparito un documento.' },
 				{ dice: 'nakamura', ja: '{nome}さん、みんなの 話を 聞いて みて ください。わたしは 外で 待って います。', it: '{nome}, provi a sentire tutti. Io aspetto fuori.' },
@@ -104,7 +110,8 @@ export const M3: Missione = {
 				{ obiettivo: 'tanaka', ja: '田中さんの 話を 聞く。', it: 'Sentire Tanaka.' },
 				{ obiettivo: 'suzuki', ja: '鈴木[すずき]さんの 話を 聞く。', it: 'Sentire Suzuki.' },
 				{ obiettivo: 'hayashi', ja: 'うけつけの 林[はやし]さんの 話を 聞く。', it: 'Sentire Hayashi alla reception.' },
-				{ flag: 'm3.sparito' }
+				{ flag: 'm3.sparito' },
+				{ minuti: 10 }, // 森 e 中村: il documento sparito
 			]
 		},
 		{
@@ -200,7 +207,8 @@ export const M3: Missione = {
 				{ prendi: 'cartellina', it: 'il documento per il cliente' },
 				{ completa: 'konbini3' },
 				{ obiettivo: 'mori3', ja: '会社へ もどって、森[もり]ぶちょうに 資料[しりょう]を わたす。', it: 'Tornare in ufficio e consegnare il documento a Mori.' },
-				{ flag: 'm3.ritrovato' }
+				{ flag: 'm3.ritrovato' },
+				{ minuti: 10 },
 			]
 		},
 		{
@@ -229,6 +237,7 @@ export const M3: Missione = {
 		{
 			id: 'm3-d15-pomeriggio', luogo: 'ufficio', quando: { giorno: 15, dalle: h(12, 30), flag: ['m3.consegnato'], nonFlag: ['m3.d15.pomeriggio'] },
 			passi: [
+				rientro(),
 				{ flag: 'm3.d15.pomeriggio' },
 				{ dice: 'mori', ja: '{nome}さん、あしたの よていを もう一度 かくにんしましょう。', it: '{nome}, ricontrolliamo il programma di domani.' },
 				{
@@ -261,6 +270,7 @@ export const M3: Missione = {
 					allora: [
 						{ soldi: -2000 },
 						{ prendi: 'carta_ic2', it: 'carta IC' },
+						{ minuti: 5 },
 						{ soldi: 1500 },
 						{ narra: 'ICカードを 買いました。これで 電車に 乗れます。かいさつで タッチするだけです。', it: 'Hai comprato la carta IC. Ora puoi prendere il treno: basta appoggiarla ai tornelli.' },
 						{ nota: 'Nel gioco il credito della carta e i soldi sono la stessa cosa (¥ in alto): ogni corsa costa 160 yen.', it: 'Nel gioco il credito della carta e i soldi sono la stessa cosa (¥ in alto): ogni corsa costa 160 yen.' },
@@ -304,11 +314,26 @@ export const M3: Missione = {
 					allora: [{ pensa: 'ICカードは ある。さくら町駅から 電車で 山野駅[やまのえき]へ 行こう。', it: 'La carta IC ce l’ho. Dalla stazione di Sakura-chō prendo il treno per Yamano.' }],
 					altrimenti: [{ pensa: 'まず、えきで ICカードを 買わなければ。', it: 'Prima devo comprare la carta IC in stazione.' }]
 				},
-				{ flag: 'm3.d16.casa' }
+				{ flag: 'm3.d16.casa' },
+				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
 		{
-			id: 'm3-hotel', luogo: 'hotel', quando: { giorno: [16, 17], flag: ['m3.consegnato'], nonFlag: ['m3.riunione'] },
+			// la riunione è dalle 10 alle 11:30: dopo, è già finita
+			id: 'm3-hotel-tardi', luogo: 'hotel', quando: { giorno: [16, 17], dalle: h(11, 30), flag: ['m3.consegnato'], nonFlag: ['m3.riunione'] },
+			passi: [
+				{ dice: 'hotelstaff', ja: 'いらっしゃいませ。山田さまの かいぎは 11時半に 終わりました。', it: 'Benvenut{o}. La riunione del signor Yamada è finita alle 11:30.' },
+				{ pensa: 'しまった！ まにあわなかった……。', it: 'Accidenti! Non ho fatto in tempo…' },
+				{ dice: 'mori', faccia: 'preoccupata', ja: '{nome}さん、どうしたんですか。かいぎは わたし 一人で しましたよ。', it: '{nome}, cos’è successo? La riunione l’ho fatta da sola.' },
+				{ io: 'もうしわけ ありません。', it: 'Mi dispiace molto.' },
+				{ minuti: 10 },
+				{ dice: 'mori', ja: 'でも、山田さんは 資料[しりょう]を よろこんで いました。つぎは 時間を まもって くださいね。', it: 'Però Yamada era contento del documento. La prossima volta sia puntuale.' },
+				{ completa: 'hotel' },
+				{ flag: 'm3.riunione' }
+			]
+		},
+		{
+			id: 'm3-hotel', luogo: 'hotel', quando: { giorno: [16, 17], alle: h(11, 30), flag: ['m3.consegnato'], nonFlag: ['m3.riunione'] },
 			passi: [
 				{
 					se: { alle: h(10, 1) },

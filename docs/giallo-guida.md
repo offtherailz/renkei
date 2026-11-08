@@ -92,7 +92,13 @@ tutta la storia della chat. Gli altri documenti:
    oltre mezzanotte, scene infinite o domande senza risposta. Riproduce le regole
    della pagina (scene in catena, ritorno a casa dalle 23): se cambiano lì, vanno
    cambiate anche qui. Un seme fallito si rigioca uguale.
-8. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser;
+8. Tempi: ogni giorno feriale in ufficio comincia con `arrivo()` e ogni pomeriggio con
+   `rientro()` (`missioni/comune.ts`); le scene fuori casa fanno passare minuti; un
+   appuntamento con l'ora di fine ha `alle`. Lo controllano i test «tempi» in
+   `jiken.test.ts` e `giornata.test.ts` (giocatore diligente; `TEMPI=1` stampa la
+   giornata ora per ora). Le scene `ripeti` partono solo entrando nel luogo, mai in
+   catena.
+9. `npx vitest run src/lib/jiken` e `npx svelte-check`, poi provare nel browser;
    `npm run jiken:copertura` per vedere quante N4 nuove porta la missione.
 
 Pubblicare su dev (solo quando l'utente lo chiede):
