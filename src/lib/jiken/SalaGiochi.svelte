@@ -32,12 +32,23 @@
 	const pronte = $derived(parole.length >= 12);
 
 	onMount(async () => {
+		// il saluto subito, senza aspettare il vocabolario
+		void saluta();
 		let words = await db.words.where('livello_jlpt').anyOf(['N5', 'N4']).toArray().catch(() => []);
 		// vocabolario non ancora caricato nel database: si legge il seed
 		if (words.length < 50) words = ((await fetch(`${base}/seed-n5n4.json`).then((r) => r.json()).catch(() => ({ words: [] }))) as { words: typeof words }).words;
 		parole = paroleGioco(words);
-		void parla(UI.sgBenvenuto.ja, 'F');
 	});
+
+	// la commessa muove la bocca mentre parla (come i ritratti delle scene)
+	let parlando = $state(false);
+	let tick = $state(0);
+	const bocca = setInterval(() => (tick += 1), 110);
+	async function saluta(): Promise<void> {
+		parlando = true;
+		await parla(UI.sgBenvenuto.ja, 'F');
+		parlando = false;
+	}
 
 	// prova a pagare una partita: se non si può, dice perché
 	function paga(): boolean {
@@ -174,6 +185,7 @@
 		ufo = null;
 	}
 	onDestroy(() => {
+		clearInterval(bocca);
 		ferma();
 		if (timer) clearTimeout(timer);
 	});
@@ -191,11 +203,11 @@
 	{#if gioco === 'menu'}
 		<div class="scene-wrap">
 			<img class="scene" src="{base}/giorno/sfondi/sala_giochi.jpg" alt="" />
-			<img class="sprite" src="{base}/giorno/ritratti/commessa_sg-chiusa.png" alt="" />
+			<img class="sprite" src="{base}/giorno/ritratti/commessa_sg-{parlando && tick % 4 < 2 ? 'parla' : 'chiusa'}.png" alt="" />
 		</div>
 		<div class="dialog">
 			<p class="dname">ゲームセンターの 人</p>
-			<p class="ja">{UI.sgBenvenuto.ja}</p>
+			<p class="ja">{UI.sgBenvenuto.ja} <button class="btn ghost small" onclick={saluta}>🔊</button></p>
 			{#if lingua !== 'ja'}<p class="it">{L(UI.sgBenvenuto)}</p>{/if}
 		</div>
 		<div class="giochi">
