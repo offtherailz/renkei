@@ -185,7 +185,12 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	mike: { nome: 'ミケ', sprite: 'mike', voce: 'F' },
 	takahashi: { nome: '高橋[たかはし]くん', sprite: 'studente_uomo', voce: 'M' },
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F' },
-	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M' }
+	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M' },
+	// missione 4 (美術館の 事件)
+	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F' },
+	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M' },
+	guardia: { nome: 'けいびの 人', sprite: 'custode', voce: 'F' },
+	pulizie: { nome: 'そうじの 人', sprite: 'padrone', voce: 'M' }
 };
 
 export const OGGETTI: Record<string, { it: string; ja: string }> = {
