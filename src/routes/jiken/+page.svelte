@@ -1020,7 +1020,7 @@
 
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
-			<section class="quaderno" style="--attiva: {['#d95763', '#5b6ee1', '#6abe30', '#df7126', '#76428a'][SCHEDE.findIndex((x) => x.id === scheda)]}">
+			<section class="quaderno">
 				<nav class="segnalibri">
 					{#each SCHEDE as sc, n (sc.id)}
 						<button class="segnalibro s{n}" class:attivo={scheda === sc.id} onclick={() => apriTaccuino(sc.id)}>
@@ -1249,7 +1249,8 @@
 
 	/* ── il quaderno: pagina a righe col margine rosso, segnalibri che sporgono in alto */
 	.quaderno { width: min(720px, 100%); display: grid; }
-	.segnalibri { display: flex; gap: 3px; padding: 0 10px 0 52px; overflow-x: auto; scrollbar-width: none; }
+	/* in basso allineati e attaccati alla pagina; spazio sopra perché lo scorrimento orizzontale non tagli gli angoli */
+	.segnalibri { display: flex; align-items: flex-end; gap: 3px; padding: 10px 10px 0 52px; margin-bottom: -2px; overflow-x: auto; scrollbar-width: none; position: relative; z-index: 2; }
 	/* segnalibri di carta colorata: bordo sottile, angoli tondi, fibra appena visibile */
 	.segnalibro {
 		--c: #5b6ee1;
@@ -1260,14 +1261,15 @@
 		border: 1px solid rgba(0, 0, 0, 0.3); border-bottom: 0; border-radius: 7px 7px 0 0;
 		padding: 6px 11px 9px;
 		box-shadow: 2px -1px 3px rgba(0, 0, 0, 0.2);
-		transform: translateY(9px); filter: saturate(0.55) brightness(0.8);
-		transition: transform 0.12s, filter 0.12s;
+		transform-origin: bottom center; filter: saturate(0.6) brightness(0.82);
+		transition: padding 0.12s, filter 0.12s;
 	}
 	.segnalibro:nth-child(odd) { rotate: -0.6deg; }
 	.segnalibro:nth-child(even) { rotate: 0.5deg; }
-	.segnalibro:hover { transform: translateY(5px); filter: saturate(0.8) brightness(0.92); }
+	.segnalibro:hover { filter: saturate(0.85) brightness(0.93); padding-top: 8px; }
 	/* quella scelta: piena, più alta, attaccata alla fascia colorata in cima alla pagina */
-	.segnalibro.attivo { transform: translateY(9px); filter: none; padding: 15px 14px 10px; border-radius: 7px 7px 0 0; position: relative; z-index: 2; rotate: 0deg; font-weight: bold; font-size: 0.95rem; box-shadow: 3px -2px 5px rgba(0, 0, 0, 0.3); }
+	/* quella scelta: colore pieno, un po' più alta, davanti alle altre */
+	.segnalibro.attivo { filter: none; padding-top: 11px; z-index: 3; rotate: 0deg; font-weight: bold; box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.35); }
 	.segnalibro.s0 { --c: #d95763; }
 	.segnalibro.s1 { --c: #5b6ee1; }
 	.segnalibro.s2 { --c: #6abe30; }
@@ -1283,7 +1285,6 @@
 		background-attachment: local;
 		color: var(--inchiostro);
 		border: 3px solid #2b2a3a;
-		border-top: 8px solid var(--attiva, #2b2a3a);
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35), inset -6px 0 0 #ece4cf;
 		padding: 10px 14px 18px 54px;
 		display: grid; gap: 4px; align-content: start;
