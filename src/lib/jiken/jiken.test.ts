@@ -30,7 +30,7 @@ function testiJa(): string[] {
 	};
 	for (const l of LUOGHI) { out.push(l.nome); if (l.perche) out.push(l.perche.ja); passi(l.ambiente ?? []); }
 	for (const v of Object.values(UI)) for (const t of [v].flat() as Testo[]) out.push(t.ja);
-	for (const c of Object.values(PERSONAGGI)) out.push(c.nome);
+	for (const c of Object.values(PERSONAGGI)) { out.push(c.nome); if (c.chi) out.push(c.chi.ja); }
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
 	for (const o of Object.values(PREMI)) out.push(o.ja);
 	for (const m of MISSIONI) { for (const sc of m.scene) passi(sc.passi); out.push(m.titolo); if (m.epilogo) out.push(m.epilogo.ja); }

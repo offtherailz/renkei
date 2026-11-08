@@ -56,7 +56,9 @@ tutta la storia della chat. Gli altri documenti:
 - **Quaderno** (📓 / 📜 nella barra in alto): pagina a righe con segnalibri —
   📜 会話 (storico dei dialoghi per giorno: faccina, nome, 🔊, 🇮🇹; si apre sul
   giorno di oggi in fondo), 🎯 やる こと (+ punteggio domande), 🎒 持ち物 (+ peluche),
-  💬 大切な ことば, 🕐 行った 所. Lo storico si salva a parte
+  💬 大切な ことば, 👥 会った 人 (schede dei personaggi incontrati: ritratto, nome,
+  lettura `yomi`, 🔊, chi è `chi`; in `stato.incontrati`, ricostruito da storico e
+  taccuino per le partite vecchie), 🕐 行った 所. Un personaggio nuovo vuole `yomi` e `chi`. Lo storico si salva a parte
   (`renkei_jiken[_rigioca]_storico`, ultime 2000 battute); riprendendo da una
   mattina si tengono solo i giorni prima.
 - **Scena interrotta**: a ogni passo si salva in `stato.scena` il passo mostrato e

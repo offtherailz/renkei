@@ -48,6 +48,7 @@ export function nuovoStato(nome: string, missione: string, inizio?: { giorno: nu
 		percorso: [{ giorno, minuti: SVEGLIA, luogo: 'casa' }],
 		domande: { ok: 0, tot: 0 },
 		collezione: [],
+		incontrati: [],
 		classifica: []
 	};
 }
@@ -196,6 +197,7 @@ export function migra(raw: unknown): Stato | null {
 		percorso: r.percorso ?? [],
 		domande: r.domande ?? { ok: 0, tot: 0 },
 		collezione: r.collezione ?? [],
+		incontrati: r.incontrati ?? [],
 		classifica: r.classifica ?? []
 	} as Stato;
 }

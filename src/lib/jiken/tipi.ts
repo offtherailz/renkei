@@ -44,6 +44,9 @@ export interface Personaggio {
 	nome: string; // come appare nel dialogo
 	sprite: string | null; // ritratto in static/giorno/ritratti (null = te stesso, o voce al telefono)
 	voce: 'F' | 'M';
+	yomi?: string; // lettura del nome in kana (scheda del taccuino)
+	chi?: Testo; // chi è (scheda del taccuino); senza, non ha una scheda
+	stesso?: string; // è lo stesso personaggio di un altro (es. 中村 al telefono)
 }
 
 export interface Condizione {
@@ -158,6 +161,7 @@ export interface Stato {
 	percorso: Tappa[];
 	domande: { ok: number; tot: number };
 	collezione: Premio[]; // peluche vinti alla sala giochi
+	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)
 	classifica: { punti: number; giorno: number }[]; // i migliori punteggi della クイズ
 	// scena interrotta (pagina chiusa a metà dialogo): il passo mostrato e quelli
 	// dopo, per riprendere da lì invece di perderli

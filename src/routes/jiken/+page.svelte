@@ -138,6 +138,7 @@
 	let provaEsito = $state<boolean | null>(null);
 	let obAperti = $state(false); // tendina degli obiettivi nella barra in alto
 	let rivelati = $state<number[]>([]); // frasi del taccuino con la traduzione aperta
+	let rivelatiP = $state<string[]>([]); // schede dei personaggi con la traduzione aperta
 	let mostraIt = $state(false); // traduzione della battuta corrente
 	let dividi = $state(false); // battuta corrente divisa in parole da toccare
 	let taccuino = $state(false);
@@ -192,12 +193,13 @@
 		else void speakSentenceJapaneseAsync(stripFuriganaNotation(testo(b.ja)), vocePersonaggio('F', imp));
 	}
 	// il quaderno: una pagina con i segnalibri
-	type Scheda = 'conversa' | 'obiettivi' | 'oggetti' | 'frasi' | 'percorso';
+	type Scheda = 'conversa' | 'obiettivi' | 'oggetti' | 'frasi' | 'persone' | 'percorso';
 	const SCHEDE: { id: Scheda; t: Testo }[] = [
 		{ id: 'conversa', t: UI.storico },
 		{ id: 'obiettivi', t: UI.obiettivi },
 		{ id: 'oggetti', t: UI.oggetti },
 		{ id: 'frasi', t: UI.frasi },
+		{ id: 'persone', t: UI.persone },
 		{ id: 'percorso', t: UI.percorso }
 	];
 	let scheda = $state<Scheda>('obiettivi');
@@ -333,14 +335,14 @@
 		if (!salvatoRigioco) return;
 		slot = 'rigioca';
 		caricaStorico();
-		stato = pulisciObiettivi(salvatoRigioco, MISSIONI[salvatoRigioco.missione] ?? M1);
+		stato = ricostruisciIncontrati(pulisciObiettivi(salvatoRigioco, MISSIONI[salvatoRigioco.missione] ?? M1));
 		riparti();
 	}
 	function continua(): void {
 		if (!salvato) return;
 		slot = 'main';
 		caricaStorico();
-		stato = pulisciObiettivi(salvato, MISSIONI[salvato.missione] ?? M1);
+		stato = ricostruisciIncontrati(pulisciObiettivi(salvato, MISSIONI[salvato.missione] ?? M1));
 		if (stato.finita) fase = 'fine';
 		else riparti();
 	}
@@ -462,6 +464,7 @@
 				faccia = corrente.faccia ?? null;
 			}
 			if (corrente.taccuino) annota(corrente.dice, corrente.ja, corrente.it);
+			conosci(corrente.dice);
 			registra({ chi: corrente.dice, tipo: 'dice', sprite: c?.sprite ? `${c.sprite}${corrente.faccia ? `_${corrente.faccia}` : ''}` : null, ja: corrente.ja, it: corrente.it });
 			if (imp.autoVoce) void voce(corrente.ja, c?.voce ?? 'F');
 		} else if ('io' in corrente) {
@@ -505,6 +508,24 @@
 		if (imp.suoni) setTimeout(() => suono.uccellini(3), 900);
 		if (staccoTimer) clearTimeout(staccoTimer);
 		staccoTimer = setTimeout(() => (stacco = null), 3200);
+	}
+
+	// personaggi conosciuti (schede del taccuino): chi ha parlato, in ordine
+	const scheda1 = (id: string): string | null => {
+		const p = PERSONAGGI[id];
+		const vero = p?.stesso ?? id;
+		return PERSONAGGI[vero]?.chi ? vero : null;
+	};
+	function conosci(id: string): void {
+		const v = scheda1(id);
+		if (!stato || !v || stato.incontrati.includes(v)) return;
+		stato = { ...stato, incontrati: [...stato.incontrati, v] };
+	}
+	// partite di prima delle schede: si ricostruiscono da storico e taccuino
+	function ricostruisciIncontrati(s: Stato): Stato {
+		if (s.incontrati.length) return s;
+		const ids = [...storico.map((b) => b.chi ?? ''), ...s.taccuino.map((a) => a.chi)].map(scheda1).filter((x): x is string => !!x);
+		return { ...s, incontrati: [...new Set(ids)] };
 	}
 
 	function annota(chi: string, ja: string, it: string): void {
@@ -1068,7 +1089,7 @@
 
 	{#if taccuino && stato}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) taccuino = false; }}>
-			<section class="quaderno" style="--attiva: {['#d95763', '#5b6ee1', '#6abe30', '#df7126', '#76428a'][SCHEDE.findIndex((x) => x.id === scheda)]}">
+			<section class="quaderno" style="--attiva: {['#d95763', '#5b6ee1', '#6abe30', '#df7126', '#37946e', '#76428a'][SCHEDE.findIndex((x) => x.id === scheda)]}">
 				<nav class="segnalibri">
 					{#each SCHEDE as sc, n (sc.id)}
 						<button class="segnalibro s{n}" class:attivo={scheda === sc.id} onclick={() => apriTaccuino(sc.id)}>
@@ -1136,6 +1157,18 @@
 								<p class="small">{dataJa(a.giorno)} · {stripFuriganaNotation(PERSONAGGI[a.chi]?.nome ?? a.chi)}</p>
 								<p class="ja"><Frase text={testo(a.ja)} /></p>
 								{#if rivelati.includes(i)}<p class="it">{testo(a.it)}</p>{:else}<button class="tasto" onclick={() => (rivelati = [...rivelati, i])}>🇮🇹</button>{/if}
+							</div>
+						{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+					{:else if scheda === 'persone'}
+						{#each stato.incontrati as id (id)}
+							{@const p = PERSONAGGI[id]!}
+							<div class="persona">
+								<span class="ritratto">{#if p.sprite}<img src="{base}/giorno/ritratti/{p.sprite}-chiusa.png" alt="" />{/if}</span>
+								<div class="testo">
+									<p class="nome-p">{stripFuriganaNotation(p.nome)} <small>{p.yomi}</small> <button class="tasto" title="🔊" onclick={() => void voce(p.yomi ?? p.nome, p.voce, false)}>🔊</button></p>
+									<p class="ja"><Frase text={testo(p.chi!.ja)} /></p>
+									{#if rivelatiP.includes(id)}<p class="it">{testo(L(p.chi!))}</p>{:else}<button class="tasto" onclick={() => (rivelatiP = [...rivelatiP, id])}>🇮🇹</button>{/if}
+								</div>
 							</div>
 						{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
 					{:else if scheda === 'percorso'}
@@ -1322,7 +1355,8 @@
 	.segnalibro.s1 { --c: #5b6ee1; }
 	.segnalibro.s2 { --c: #6abe30; }
 	.segnalibro.s3 { --c: #df7126; }
-	.segnalibro.s4 { --c: #76428a; }
+	.segnalibro.s4 { --c: #37946e; }
+	.segnalibro.s5 { --c: #76428a; }
 	.pagina {
 		--carta: #fbf6e9;
 		--riga: #c9d6ea;
@@ -1381,6 +1415,12 @@
 	.battuta.mia .ja { color: #2f5d1c; }
 	.battuta .ja { font-size: 1rem; line-height: 1.6; }
 	.battuta .tasti { display: flex; gap: 4px; }
+	.persona { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: start; padding: 6px 0; border-bottom: 1px dashed #c9c3b0; }
+	.persona .ritratto { width: 64px; height: 64px; overflow: hidden; background: #e8e0cc; border: 2px solid var(--inchiostro); }
+	.persona .ritratto img { width: 170%; max-width: none; margin-left: -35%; margin-top: -2px; image-rendering: pixelated; }
+	.persona .testo { display: grid; gap: 2px; justify-items: start; min-width: 0; }
+	.nome-p { font-size: 1.05rem; font-weight: bold; }
+	.nome-p small { font-weight: normal; font-size: 0.8rem; color: #5a5870; margin: 0 4px; }
 	.appunto { border-left: 3px solid #df7126; padding-left: 8px; display: grid; gap: 2px; justify-items: start; margin-bottom: 4px; }
 	.appunto .ja { font-size: 1rem; }
 	@media (max-width: 600px) {

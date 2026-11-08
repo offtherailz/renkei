@@ -49,6 +49,7 @@ export const UI = {
 	nessuno: { ja: 'まだ ありません。', it: 'Ancora niente.' },
 	oggetti: { ja: '🎒 持ち物', it: '🎒 Oggetti' },
 	percorso: { ja: '🕐 行った 所', it: '🕐 Dove sei stat{o}' },
+	persone: { ja: '👥 会った 人', it: '👥 Personaggi' },
 	frasi: { ja: '💬 大切な ことば', it: '💬 Frasi importanti' },
 	domande: { ja: '📝 試験の 問題', it: '📝 Domande d’esame' },
 	taccuinoDi: { ja: 'の ノート', it: '' },
