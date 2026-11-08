@@ -11,7 +11,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, conNome, pulisciObiettivi, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -67,7 +67,7 @@
 	function riprendi(r: Stato): void {
 		if (!confirm(L(UI.riprendiSicuro))) return;
 		slot = 'main';
-		stato = structuredClone($state.snapshot(r)) as Stato;
+		stato = pulisciObiettivi(structuredClone($state.snapshot(r)) as Stato, MISSIONI[r.missione] ?? M1);
 		caricaStorico(r.giorno);
 		// le mattine dopo questa non valgono più
 		riprese = riprese.filter((x) => x.missione !== r.missione || x.giorno <= r.giorno);
@@ -300,14 +300,14 @@
 		if (!salvatoRigioco) return;
 		slot = 'rigioca';
 		caricaStorico();
-		stato = salvatoRigioco;
+		stato = pulisciObiettivi(salvatoRigioco, MISSIONI[salvatoRigioco.missione] ?? M1);
 		entra(stato.luogo);
 	}
 	function continua(): void {
 		if (!salvato) return;
 		slot = 'main';
 		caricaStorico();
-		stato = salvato;
+		stato = pulisciObiettivi(salvato, MISSIONI[salvato.missione] ?? M1);
 		if (stato.finita) fase = 'fine';
 		else entra(stato.luogo);
 	}
@@ -1250,7 +1250,7 @@
 	/* ── il quaderno: pagina a righe col margine rosso, segnalibri che sporgono in alto */
 	.quaderno { width: min(720px, 100%); display: grid; }
 	/* in basso allineati e attaccati alla pagina; spazio sopra perché lo scorrimento orizzontale non tagli gli angoli */
-	.segnalibri { display: flex; align-items: flex-end; gap: 3px; padding: 10px 10px 0 52px; margin-bottom: -2px; overflow-x: auto; scrollbar-width: none; position: relative; z-index: 2; }
+	.segnalibri { display: flex; align-items: flex-end; gap: 3px; padding: 10px 10px 0 52px; margin-bottom: -6px; overflow-x: auto; scrollbar-width: none; position: relative; z-index: 0; }
 	/* segnalibri di carta colorata: bordo sottile, angoli tondi, fibra appena visibile */
 	.segnalibro {
 		--c: #5b6ee1;
@@ -1269,7 +1269,7 @@
 	.segnalibro:hover { filter: saturate(0.85) brightness(0.93); padding-top: 8px; }
 	/* quella scelta: piena, più alta, attaccata alla fascia colorata in cima alla pagina */
 	/* quella scelta: colore pieno, un po' più alta, davanti alle altre */
-	.segnalibro.attivo { filter: none; padding-top: 11px; z-index: 3; rotate: 0deg; font-weight: bold; box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.35); }
+	.segnalibro.attivo { filter: none; padding-top: 11px; z-index: 1; rotate: 0deg; font-weight: bold; box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.35); }
 	.segnalibro.s0 { --c: #d95763; }
 	.segnalibro.s1 { --c: #5b6ee1; }
 	.segnalibro.s2 { --c: #6abe30; }

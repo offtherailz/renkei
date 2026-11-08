@@ -45,8 +45,10 @@
   color-scheme: light;
 }
 
+/* Tema scuro: segue il sistema (data-tema assente o «sistema»), oppure
+   è forzato da Impostazioni → Tema (data-tema="scuro" / "chiaro" su <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema="chiaro"]) {
     --bg: #0f1622;
     --surface: #1a2332;
     --surface-2: #212c3e;
@@ -81,6 +83,40 @@
   }
 }
 
+:root[data-tema="scuro"] {
+  --bg: #0f1622;
+  --surface: #1a2332;
+  --surface-2: #212c3e;
+  --ink: #e7edf7;
+  --muted: #93a3bb;
+  --line: #33415a;
+  --brand: #6ba0f2;
+  --brand-2: #9db8e8;
+  --accent: #2fbdb7;
+  --danger: #ef6b6b;
+  --success: #34c98a;
+  --warn-bg: rgba(251, 191, 36, 0.12);
+  --warn-border: rgba(251, 191, 36, 0.45);
+  --warn-ink: #fcd34d;
+  --info-bg: rgba(107, 160, 242, 0.14);
+  --info-border: rgba(107, 160, 242, 0.4);
+  --info-ink: #bcd4fb;
+  --ok-bg: rgba(52, 201, 138, 0.16);
+  --ok-ink: #6fe3ae;
+  --gold-bg: rgba(198, 161, 91, 0.15);
+  --gold-border: rgba(198, 161, 91, 0.55);
+  --gold-ink: #e5c988;
+  --n2-bg: rgba(251, 146, 60, 0.16);
+  --n2-ink: #fdba74;
+  --danger-bg: rgba(239, 107, 107, 0.16);
+  --belt-bianca: #e9e9e2;
+  --belt-nera: #050505;
+  --belt-rossa: #dc2626;
+  --belt-gold: #e5c988;
+  --belt-edge: rgba(231, 237, 247, 0.4);
+  color-scheme: dark;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -96,7 +132,7 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  :root:not([data-tema="chiaro"]) body {
     background:
       radial-gradient(circle at 5% 15%, rgba(80, 133, 226, 0.18), transparent 30%),
       radial-gradient(circle at 95% 0%, rgba(20, 148, 143, 0.12), transparent 30%),
@@ -105,49 +141,100 @@ body {
 
   /* I componenti usano alcuni fondi chiari cablati (hover, token, chip):
      in dark diventano un velo di brand traslucido, leggibile con --ink chiaro. */
-  .choice-btn:hover:not(:disabled),
-  .token,
-  .token:hover:not(:disabled),
-  .listen-btn,
-  .detail-link:hover,
-  .error-row:hover,
-  .word-chip:hover,
-  .toc-chip:hover,
-  .related-chip:hover,
-  .quick-card:hover,
-  .course-card:hover,
-  .course-card.selected,
-  .grammar-row:hover,
-  .kanji-chip:hover {
+  :root:not([data-tema="chiaro"]) .choice-btn:hover:not(:disabled),
+  :root:not([data-tema="chiaro"]) .token,
+  :root:not([data-tema="chiaro"]) .token:hover:not(:disabled),
+  :root:not([data-tema="chiaro"]) .listen-btn,
+  :root:not([data-tema="chiaro"]) .detail-link:hover,
+  :root:not([data-tema="chiaro"]) .error-row:hover,
+  :root:not([data-tema="chiaro"]) .word-chip:hover,
+  :root:not([data-tema="chiaro"]) .toc-chip:hover,
+  :root:not([data-tema="chiaro"]) .related-chip:hover,
+  :root:not([data-tema="chiaro"]) .quick-card:hover,
+  :root:not([data-tema="chiaro"]) .course-card:hover,
+  :root:not([data-tema="chiaro"]) .course-card.selected,
+  :root:not([data-tema="chiaro"]) .grammar-row:hover,
+  :root:not([data-tema="chiaro"]) .kanji-chip:hover {
     background: rgba(107, 160, 242, 0.16) !important;
   }
 
-  .solution {
+  :root:not([data-tema="chiaro"]) .solution {
     background: rgba(52, 201, 138, 0.14) !important;
     border-color: rgba(52, 201, 138, 0.4) !important;
   }
 
-  .file-btn:hover,
-  .btn-outline {
+  :root:not([data-tema="chiaro"]) .file-btn:hover,
+  :root:not([data-tema="chiaro"]) .btn-outline {
     background: rgba(107, 160, 242, 0.16) !important;
   }
 
-  .session-live,
-  .due-banner {
+  :root:not([data-tema="chiaro"]) .session-live,
+  :root:not([data-tema="chiaro"]) .due-banner {
     background: rgba(251, 191, 36, 0.12) !important;
     color: var(--ink) !important;
   }
 
-  .danger-zone,
-  .btn-danger {
+  :root:not([data-tema="chiaro"]) .danger-zone,
+  :root:not([data-tema="chiaro"]) .btn-danger {
     background: rgba(239, 107, 107, 0.12) !important;
     border-color: rgba(239, 107, 107, 0.4) !important;
   }
 
-  .listen-btn:hover {
+  :root:not([data-tema="chiaro"]) .listen-btn:hover {
     background: var(--brand) !important;
     color: #0f1622 !important;
   }
+}
+
+:root[data-tema="scuro"] body {
+  background:
+    radial-gradient(circle at 5% 15%, rgba(80, 133, 226, 0.18), transparent 30%),
+    radial-gradient(circle at 95% 0%, rgba(20, 148, 143, 0.12), transparent 30%),
+    linear-gradient(160deg, var(--bg), #131c2c);
+}
+
+:root[data-tema="scuro"] .choice-btn:hover:not(:disabled),
+:root[data-tema="scuro"] .token,
+:root[data-tema="scuro"] .token:hover:not(:disabled),
+:root[data-tema="scuro"] .listen-btn,
+:root[data-tema="scuro"] .detail-link:hover,
+:root[data-tema="scuro"] .error-row:hover,
+:root[data-tema="scuro"] .word-chip:hover,
+:root[data-tema="scuro"] .toc-chip:hover,
+:root[data-tema="scuro"] .related-chip:hover,
+:root[data-tema="scuro"] .quick-card:hover,
+:root[data-tema="scuro"] .course-card:hover,
+:root[data-tema="scuro"] .course-card.selected,
+:root[data-tema="scuro"] .grammar-row:hover,
+:root[data-tema="scuro"] .kanji-chip:hover {
+  background: rgba(107, 160, 242, 0.16) !important;
+}
+
+:root[data-tema="scuro"] .solution {
+  background: rgba(52, 201, 138, 0.14) !important;
+  border-color: rgba(52, 201, 138, 0.4) !important;
+}
+
+:root[data-tema="scuro"] .file-btn:hover,
+:root[data-tema="scuro"] .btn-outline {
+  background: rgba(107, 160, 242, 0.16) !important;
+}
+
+:root[data-tema="scuro"] .session-live,
+:root[data-tema="scuro"] .due-banner {
+  background: rgba(251, 191, 36, 0.12) !important;
+  color: var(--ink) !important;
+}
+
+:root[data-tema="scuro"] .danger-zone,
+:root[data-tema="scuro"] .btn-danger {
+  background: rgba(239, 107, 107, 0.12) !important;
+  border-color: rgba(239, 107, 107, 0.4) !important;
+}
+
+:root[data-tema="scuro"] .listen-btn:hover {
+  background: var(--brand) !important;
+  color: #0f1622 !important;
 }
 
 .app-shell {

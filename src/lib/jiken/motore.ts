@@ -210,9 +210,31 @@ export function prossimaMissione(s: Stato, m: { id: string; inizio?: { giorno: n
 		minuti: SVEGLIA,
 		luogo: 'casa',
 		flag: [...new Set([...s.flag, ...(m.inizio?.flag ?? [])])],
-		obiettivi: s.obiettivi.filter((o) => !o.fatto),
+		// gli obiettivi sono della missione: quelli rimasti aperti non si chiuderebbero più
+		obiettivi: [],
 		percorso: [...s.percorso, { giorno, minuti: SVEGLIA, luogo: 'casa' }]
 	};
+}
+
+// Obiettivi che una missione può dare (per ripulire salvataggi con obiettivi
+// rimasti da una missione precedente, che non si chiuderebbero mai).
+export function obiettiviDi(m: Missione): Set<string> {
+	const ids = new Set<string>();
+	const giro = (ps: Passo[]): void => {
+		for (const p of ps) {
+			if ('obiettivo' in p) ids.add(p.obiettivo);
+			else if ('scelta' in p) p.scelta.forEach((o) => giro(o.passi ?? []));
+			else if ('se' in p) { giro(p.allora); giro(p.altrimenti ?? []); }
+			else if ('prova' in p) { giro(p.prova.ok); giro(p.prova.no); }
+		}
+	};
+	m.scene.forEach((sc) => giro(sc.passi));
+	return ids;
+}
+export function pulisciObiettivi(s: Stato, m: Missione): Stato {
+	const ids = obiettiviDi(m);
+	const ok = s.obiettivi.filter((o) => ids.has(o.id));
+	return ok.length === s.obiettivi.length ? s : { ...s, obiettivi: ok };
 }
 
 // Treno tra さくら町駅 e 山野駅: 10 minuti, 160 yen dalla carta IC (o dai soldi).

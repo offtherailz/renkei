@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
 import { isInLevel } from '$lib/data/kanjiN4';
-import { apertura, avanza, dataJa, giustaSoldi, nuovoStato, opzioniSoldi, prendiTreno, prossimaMissione, scenaPer, verifica, viaggia } from './motore';
+import { apertura, avanza, dataJa, obiettiviDi, pulisciObiettivi, giustaSoldi, nuovoStato, opzioniSoldi, prendiTreno, prossimaMissione, scenaPer, verifica, viaggia } from './motore';
 import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from './mondo';
 import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
@@ -257,5 +257,13 @@ describe('事件: missione 3 si può finire (indagine, carta IC, treno, hotel)',
 		expect(r.errori).toBe(0);
 		expect(s.flag).toContain('m3.riunione');
 		expect(s.finita).toBe('消[き]えた 資料[しりょう]');
+	});
+	it('gli obiettivi rimasti aperti non passano alla missione dopo', () => {
+		const s = { ...nuovoStato('テスト', 'm2', M2.inizio), obiettivi: [{ id: 'parco', ja: 'x', it: 'x', fatto: false }] };
+		expect(prossimaMissione(s, M3).obiettivi).toEqual([]);
+		// salvataggi vecchi: via quelli che la missione in corso non dà
+		const vecchio = { ...nuovoStato('テスト', 'm3', M3.inizio), obiettivi: [{ id: 'parco', ja: 'x', it: 'x', fatto: false }, { id: 'konbini3', ja: 'y', it: 'y', fatto: false }] };
+		expect(pulisciObiettivi(vecchio, M3).obiettivi.map((o) => o.id)).toEqual(['konbini3']);
+		expect(obiettiviDi(M2).has('parco')).toBe(true);
 	});
 });

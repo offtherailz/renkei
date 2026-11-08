@@ -11,8 +11,11 @@
 	import { DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { advanceDays, devToolsEnabled } from '$lib/db/devTools';
 	import { listBugReports, addBugReport, removeBugReport, exportBugReports, type BugReport } from '$lib/core/bugReports';
+	import { impostaTema, leggiTema, type Tema } from '$lib/core/tema';
 
 	let saving = $state(false);
+	let tema = $state<Tema>('sistema');
+	onMount(() => (tema = leggiTema()));
 	let saved = $state(false);
 	let devTools = $state(false);
 	let advancing = $state(false);
@@ -183,6 +186,15 @@
 	<label class="setting-row">
 		<span>Il timer di sessione continua in "Approfondisci"</span>
 		<input type="checkbox" bind:checked={appState.settings.session_timer_runs_in_detail} />
+	</label>
+
+	<label class="setting-row">
+		<span>Tema<br /><small class="hint-text">Chiaro o scuro; «sistema» segue l'impostazione del telefono. Vale solo su questo dispositivo.</small></span>
+		<select class="num-input" value={tema} onchange={(e) => { tema = (e.currentTarget as HTMLSelectElement).value as Tema; impostaTema(tema); }}>
+			<option value="sistema">Sistema</option>
+			<option value="chiaro">Chiaro</option>
+			<option value="scuro">Scuro</option>
+		</select>
 	</label>
 
 	<label class="setting-row">
