@@ -12,7 +12,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, conNome, pulisciObiettivi, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, chiacchieraPer, conNome, pulisciObiettivi, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -407,7 +407,14 @@
 		} else if (dest === LUOGO_GIOCHI) {
 			fase = 'giochi';
 			salva();
-		} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }]);
+		} else {
+			// una chiacchiera nuova del luogo, se c'è; se no l'ambiente di sempre
+			const ch = chiacchieraPer(l, stato);
+			if (ch) {
+				stato = { ...stato, sentite: [...stato.sentite, ch.id] };
+				avvia(ch.passi);
+			} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }]);
+		}
 	}
 
 	// ── sala giochi: le partite cambiano lo stato (soldi, tempo, premi, classifica)
@@ -623,10 +630,25 @@
 	}
 	// opzioni della domanda corrente (quella sui soldi si costruisce dai soldi che hai)
 	const soldiDomanda = $derived(corrente && 'domanda' in corrente && corrente.domanda.giusta === 'soldi' && stato ? opzioniSoldi(stato.soldi) : null);
-	const opzioniDomanda = $derived(corrente && 'domanda' in corrente ? (soldiDomanda?.opzioni ?? corrente.domanda.opzioni) : []);
+	// le opzioni si mescolano a ogni domanda: la giusta non sta sempre allo stesso posto
+	// (le domande sui soldi hanno già un ordine sensato, dal più al meno)
+	const ordineDomanda = $derived.by(() => {
+		if (!corrente || !('domanda' in corrente) || soldiDomanda) return null;
+		const idx = corrente.domanda.opzioni.map((_, i) => i);
+		for (let i = idx.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[idx[i], idx[j]] = [idx[j]!, idx[i]!];
+		}
+		return idx;
+	});
+	const opzioniDomanda = $derived.by(() => {
+		const c = corrente;
+		if (!c || !('domanda' in c)) return [];
+		return soldiDomanda?.opzioni ?? (ordineDomanda ?? []).map((i) => c.domanda.opzioni[i]!);
+	});
 	function giustaDomanda(): number {
 		if (!corrente || !('domanda' in corrente)) return -1;
-		return soldiDomanda ? soldiDomanda.giusta : (corrente.domanda.giusta as number);
+		return soldiDomanda ? soldiDomanda.giusta : (ordineDomanda ?? []).indexOf(corrente.domanda.giusta as number);
 	}
 	function rispondi(i: number): void {
 		if (!stato || scelto !== null) return;

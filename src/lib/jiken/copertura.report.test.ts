@@ -26,7 +26,8 @@ function testiPassi(ps: Passo[], out: string[]): void {
 		else if ('obiettivo' in p) out.push(p.ja);
 		else if ('scelta' in p) p.scelta.forEach((o) => { out.push(o.ja); testiPassi(o.passi ?? [], out); });
 		else if ('se' in p) { testiPassi(p.allora, out); testiPassi(p.altrimenti ?? [], out); }
-		else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); }
+		else if ('domanda' in p) { out.push(p.domanda.ja); p.domanda.opzioni.forEach((o) => out.push(o.ja)); if (p.domanda.ascolto) out.push(p.domanda.ascolto.ja); }
+		else if ('avviso' in p) out.push(p.avviso.titolo, ...p.avviso.righe);
 		else if ('prova' in p) { out.push(p.prova.ja); testiPassi(p.prova.ok, out); testiPassi(p.prova.no, out); }
 	}
 }
@@ -39,8 +40,11 @@ function fonti(): { nome: string; testi: string[] }[] {
 	for (const c of Object.values(PERSONAGGI)) mondo.push(c.nome);
 	for (const o of Object.values(OGGETTI)) mondo.push(o.ja);
 	for (const o of Object.values(PREMI)) mondo.push(o.ja);
+	const chiacchiere: string[] = [];
+	for (const l of LUOGHI) for (const c of l.chiacchiere ?? []) testiPassi(c.passi, chiacchiere);
 	return [
 		{ nome: 'mondo e interfaccia', testi: mondo },
+		{ nome: 'chiacchiere dei luoghi', testi: chiacchiere },
 		...MISSIONI.map((m) => {
 			const t: string[] = [m.titolo];
 			if (m.epilogo) t.push(m.epilogo.ja);

@@ -3,7 +3,7 @@
 // regole della pagina di gioco: scena o ambiente all'ingresso, scene in catena
 // nello stesso luogo, ritorno a casa dalle 23, risveglio.
 import { describe, expect, it } from 'vitest';
-import { apertura, avanza, prendiTreno, nuovoStato, opzioniSoldi, scenaPer, STAZIONI, TARDI, viaggia } from './motore';
+import { apertura, avanza, chiacchieraPer, prendiTreno, nuovoStato, opzioniSoldi, scenaPer, STAZIONI, TARDI, viaggia } from './motore';
 import { LUOGHI, LUOGO } from './mondo';
 import { LUOGO_GIOCHI, pagaPartita } from './giochi';
 import { M1 } from './missioni/m1';
@@ -72,7 +72,13 @@ function partita(m: Missione, seme: number, maxPassi = 4000): Esito {
 		} else if (dest === LUOGO_GIOCHI) {
 			// sala giochi: qualche partita a 100 yen (come il menù: solo se si può pagare)
 			for (let k = Math.floor(r() * 6); k > 0 && s.minuti < TARDI; k--) s = pagaPartita(s) ?? s;
-		} else gioca(l.ambiente ?? []);
+		} else {
+			const ch = chiacchieraPer(l, s);
+			if (ch) {
+				s = { ...s, sentite: [...s.sentite, ch.id] };
+				gioca(ch.passi);
+			} else gioca(l.ambiente ?? []);
+		}
 		for (let k = 0; k < 6 && !s.finita; k++) {
 			const altra = apertura(LUOGO[s.luogo], s) === 'aperto' ? scenaPer(s.luogo, s, m, true) : null;
 			if (!altra) break;

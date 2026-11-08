@@ -36,6 +36,16 @@ tutta la storia della chat. Gli altri documenti:
   condizione è vera e che non è già in `fatte` (salvo `ripeti: true`). Se non ce
   n'è nessuna parte l'`ambiente` del luogo. Finita una scena, se nello stesso
   luogo ce n'è subito un'altra (es. dopo la notte) parte quella.
+- **Chiacchiere dei luoghi** (`chiacchiere.ts`, `Luogo.chiacchiere`): entrando in un
+  luogo senza scene della storia parte la prima chiacchiera non ancora sentita
+  (`stato.sentite`, `chiacchieraPer`), poi l'ambiente di sempre. Brevi (2-5 battute,
+  `minuti`), spesso con una domanda; scritte partendo dalle N4 mancanti del report
+  di copertura. Abitanti: 佐藤さん (vicina), あやさん (studentessa), お医者さん, 銀行の 人.
+- **La sera** (`serata()` in `missioni/comune.ts`, dentro ogni `cena`): per ogni sera
+  di missione due-tre battute di famiglia e il meteo di domani alla TV come domanda
+  d'ascolto. Una sera nuova = una voce in `SERE`.
+- **Opzioni mescolate**: la pagina mescola le opzioni di ogni domanda (tranne quelle
+  sui soldi), quindi nei dati la giusta può stare sempre al primo posto.
 - **Condizione**: `giorno` (numero o lista), `dalle`/`alle` (minuti, `alle`
   escluso), `flag`/`nonFlag`, `oggetti`/`nonOggetti`. Tutte in AND (per un OR si
   scrivono due scene).

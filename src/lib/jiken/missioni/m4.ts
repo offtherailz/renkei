@@ -6,11 +6,12 @@
 // in cui lei lo avvisava. Forme: 受身形 (ぬすまれた / はこばれた / かくされた),
 // 〜て しまう. Prove d'esame: fogli da leggere (情報検索) e un annuncio (聴解).
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro } from './comune';
+import { arrivo, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
 const cena = (domande: Passo[], dopo: Passo[] = []): Passo[] => [
+	...serata(),
 	{ narra: 'ねる 前に、今日の ことを 思い出します。ノートも 見て ください。', it: 'Prima di dormire ripensi alla giornata. Il taccuino ti aiuta.' },
 	...domande,
 	...dopo,

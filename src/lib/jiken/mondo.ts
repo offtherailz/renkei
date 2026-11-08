@@ -1,6 +1,7 @@
 // 事件 — il mondo: さくら町 (luoghi sulla mappa disegnata, orari), personaggi
 // e oggetti. Kanji solo N5/N4: gli altri in kana o con furigana base[lettura]
 // (nomi di persona e di luogo).
+import { CHIACCHIERE } from './chiacchiere';
 import type { Luogo, LuogoId, Personaggio } from './tipi';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
@@ -163,6 +164,8 @@ export const LUOGHI: Luogo[] = [
 		bloccato: { nonFlag: ['tera.aperto'] }, perche: { ja: 'あとで 行けるように なります', it: 'si apre più avanti' }
 	}
 ];
+// chiacchiere dei luoghi (src/lib/jiken/chiacchiere.ts)
+for (const l of LUOGHI) l.chiacchiere = CHIACCHIERE[l.id];
 export const LUOGO = Object.fromEntries(LUOGHI.map((l) => [l.id, l])) as Record<LuogoId, Luogo>;
 
 export const PERSONAGGI: Record<string, Personaggio> = {
@@ -189,6 +192,11 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	takahashi: { nome: '高橋[たかはし]くん', sprite: 'studente_uomo', voce: 'M', yomi: 'たかはしくん', chi: { ja: '高校生。日本語学校で 手つだいを して います。{nome}さんの さいふを ひろって くれました。', it: 'Liceale, aiuta alla scuola di giapponese. Ha trovato il tuo portafoglio.' } },
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F', yomi: 'やまだせんせい', chi: { ja: '日本語学校の 先生。', it: 'L’insegnante della scuola di giapponese.' } },
 	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M', yomi: 'いとうさん', chi: { ja: '喫茶[きっさ]あおいの 店の 人。町の うわさを よく 知って います。', it: 'Il gestore del caffè あおい. Conosce tutte le voci del quartiere.' } },
+	// abitanti del quartiere (chiacchiere dei luoghi)
+	bancario: { nome: '銀行の 人', sprite: 'commesso', voce: 'M', yomi: 'ぎんこうの ひと', chi: { ja: '山野[やまの]の 銀行の まどぐちの 人。', it: 'L’impiegato allo sportello della banca di Yamano.' } },
+	sato: { nome: '佐藤[さとう]さん', sprite: 'amica', voce: 'F', yomi: 'さとうさん', chi: { ja: '吉田[よしだ]さんの 家の 近所に 住んで いる 人。よく 話しかけて きます。', it: 'Vicina di casa degli Yoshida. Attacca sempre bottone.' } },
+	aya: { nome: 'あやさん', sprite: 'studentessa', voce: 'F', yomi: 'あやさん', chi: { ja: '大学生。日本語学校で 高橋[たかはし]くんと いっしょに 手つだいを して います。', it: 'Studentessa universitaria. Aiuta alla scuola di giapponese con Takahashi.' } },
+	dottoressa: { nome: 'お医者さん', sprite: 'medico', voce: 'F', yomi: 'おいしゃさん', chi: { ja: '山野[やまの]の 病院の お医者さん。', it: 'La dottoressa dell’ospedale di Yamano.' } },
 	// missione 4 (美術館の 事件)
 	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F', yomi: 'あおきさん', chi: { ja: 'えを かく 人。「さくらと ねこ」の えを かきました。', it: 'Pittrice: ha dipinto il quadro «Sakura e gatto».' } },
 	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M', yomi: 'こばやしさん', chi: { ja: '美術館[びじゅつかん]の かかりの 人。いつも いそがしいです。', it: 'Il curatore del museo. Sempre indaffarato.' } },

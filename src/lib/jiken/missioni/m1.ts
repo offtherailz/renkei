@@ -3,12 +3,13 @@
 // Forme: 〜て おく, 〜までに, 〜て から / 〜あとで, 〜て くれる / あげる / もらう,
 // 〜かもしれない, 〜たら どう.
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro } from './comune';
+import { arrivo, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
 // la sera a casa: domande d'esame sulla giornata, poi a letto
 const cena = (domande: Passo[], dopo: Passo[] = []): Passo[] => [
+	...serata(),
 	{ narra: 'ねる 前に、今日の ことを 思い出します。ノートも 見て ください。', it: 'Prima di dormire ripensi alla giornata. Il taccuino ti aiuta.' },
 	...domande,
 	...dopo,

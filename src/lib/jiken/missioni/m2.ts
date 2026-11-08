@@ -4,11 +4,12 @@
 // (il collare «messo lì», non «caduto»), 〜て あげる / くれる / もらう,
 // 〜そう (aspetto), saluti cortesi a un cliente.
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro } from './comune';
+import { arrivo, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
 const cena = (domande: Passo[], dopo: Passo[] = []): Passo[] => [
+	...serata(),
 	{ narra: 'ねる 前に、今日の ことを 思い出します。ノートも 見て ください。', it: 'Prima di dormire ripensi alla giornata. Il taccuino ti aiuta.' },
 	...domande,
 	...dopo,

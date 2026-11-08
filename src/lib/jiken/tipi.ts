@@ -38,6 +38,15 @@ export interface Luogo {
 	bloccato?: Condizione; // finché è vera il luogo è chiuso col lucchetto
 	perche?: Testo; // perché è bloccato
 	ambiente?: Passo[]; // cosa succede se non c'è una scena della storia
+	chiacchiere?: Chiacchiera[]; // prima dell'ambiente: una alla volta, mai ripetute
+}
+
+// Chiacchiera di un luogo (vocabolario fuori dalla trama): parte entrando in un
+// luogo senza scene della storia, se non l'hai ancora sentita.
+export interface Chiacchiera {
+	id: string;
+	quando?: Condizione;
+	passi: Passo[];
 }
 
 export interface Personaggio {
@@ -175,6 +184,7 @@ export interface Stato {
 	domande: { ok: number; tot: number };
 	collezione: Premio[]; // peluche vinti alla sala giochi
 	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)
+	sentite: string[]; // chiacchiere dei luoghi già sentite
 	classifica: { punti: number; giorno: number }[]; // i migliori punteggi della クイズ
 	// scena interrotta (pagina chiusa a metà dialogo): il passo mostrato e quelli
 	// dopo, per riprendere da lì invece di perderli

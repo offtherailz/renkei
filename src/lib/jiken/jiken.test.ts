@@ -30,7 +30,7 @@ function testiJa(): string[] {
 			else if ('prova' in p) { out.push(p.prova.ja); passi(p.prova.ok); passi(p.prova.no); }
 		}
 	};
-	for (const l of LUOGHI) { out.push(l.nome); if (l.perche) out.push(l.perche.ja); passi(l.ambiente ?? []); }
+	for (const l of LUOGHI) { out.push(l.nome); if (l.perche) out.push(l.perche.ja); passi(l.ambiente ?? []); for (const c of l.chiacchiere ?? []) passi(c.passi); }
 	for (const v of Object.values(UI)) for (const t of [v].flat() as Testo[]) out.push(t.ja);
 	for (const c of Object.values(PERSONAGGI)) { out.push(c.nome); if (c.chi) out.push(c.chi.ja); }
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
@@ -283,6 +283,7 @@ describe('事件: tempi', () => {
 	it('le scene della storia fuori casa fanno passare il tempo', () => {
 		const ferme: string[] = [];
 		for (const m of MISSIONI) for (const sc of m.scene) if (sc.luogo !== 'casa' && righe(sc.passi) >= 3 && !passaTempo(sc.passi)) ferme.push(sc.id);
+		for (const l of LUOGHI) for (const c of l.chiacchiere ?? []) if (!passaTempo(c.passi)) ferme.push(c.id);
 		expect(ferme).toEqual([]);
 	});
 
@@ -342,5 +343,17 @@ describe('事件: tempi', () => {
 		const s = { ...nuovoStato('テスト', 'm3', M3.inizio), giorno: 15, minuti: h(9), luogo: 'ufficio' as LuogoId, flag: [...(M3.inizio?.flag ?? []), 'm3.sparito', 'm3.d15.casa'], fatte: ['m3-d15-ufficio'] };
 		expect(scenaPer('ufficio', s, M3)?.id).toBe('m3-interroga');
 		expect(scenaPer('ufficio', s, M3, true)).toBeNull();
+	});
+	it('le chiacchiere: id unici, chi parla è conosciuto, partono una volta sola', async () => {
+		const { chiacchieraPer } = await import('./motore');
+		const ids = LUOGHI.flatMap((l) => (l.chiacchiere ?? []).map((c) => c.id));
+		expect(new Set(ids).size).toBe(ids.length);
+		const k = LUOGO.konbini;
+		let s = { ...nuovoStato('テスト', 'm4', M4.inizio), minuti: h(10) };
+		const prima = chiacchieraPer(k, s)!;
+		s = { ...s, sentite: [...s.sentite, prima.id] };
+		expect(chiacchieraPer(k, s)?.id).not.toBe(prima.id);
+		s = { ...s, sentite: (k.chiacchiere ?? []).map((c) => c.id) };
+		expect(chiacchieraPer(k, s)).toBeNull();
 	});
 });

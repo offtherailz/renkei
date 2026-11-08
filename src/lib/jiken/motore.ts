@@ -1,6 +1,6 @@
 // 事件 — il motore: stato del gioco, tempo, orari, condizioni e lettore delle
 // scene. Tutto puro (niente DOM), così si prova con vitest.
-import type { Condizione, Luogo, LuogoId, Missione, Passo, Scena, Stato } from './tipi';
+import type { Chiacchiera, Condizione, Luogo, LuogoId, Missione, Passo, Scena, Stato } from './tipi';
 
 export const PRIMO_GIORNO = { anno: 2026, mese: 4, giorno: 6 }; // lunedì
 export const SVEGLIA = 7 * 60 + 30;
@@ -49,6 +49,7 @@ export function nuovoStato(nome: string, missione: string, inizio?: { giorno: nu
 		domande: { ok: 0, tot: 0 },
 		collezione: [],
 		incontrati: [],
+		sentite: [],
 		classifica: []
 	};
 }
@@ -63,6 +64,11 @@ export function verifica(c: Condizione, s: Stato): boolean {
 	if (c.nonOggetti && c.nonOggetti.some((o) => s.oggetti.includes(o))) return false;
 	if (c.soldiMin !== undefined && s.soldi < c.soldiMin) return false;
 	return true;
+}
+
+// La prima chiacchiera del luogo che non hai ancora sentito (e che vale adesso).
+export function chiacchieraPer(l: Luogo, s: Stato): Chiacchiera | null {
+	return l.chiacchiere?.find((c) => !s.sentite.includes(c.id) && (!c.quando || verifica(c.quando, s))) ?? null;
 }
 
 export type Apertura = 'aperto' | 'chiuso' | 'bloccato';
@@ -198,6 +204,7 @@ export function migra(raw: unknown): Stato | null {
 		domande: r.domande ?? { ok: 0, tot: 0 },
 		collezione: r.collezione ?? [],
 		incontrati: r.incontrati ?? [],
+		sentite: r.sentite ?? [],
 		classifica: r.classifica ?? []
 	} as Stato;
 }
