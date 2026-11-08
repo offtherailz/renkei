@@ -6,43 +6,50 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#eef2f8" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#0f1622" media="(prefers-color-scheme: dark)" />
+		<!-- tema forzato da Impostazioni (src/lib/core/tema.ts): prima del primo disegno -->
+		<script>
+			try {
+				var t = localStorage.getItem('renkei_tema');
+				if (t === 'chiaro' || t === 'scuro') document.documentElement.dataset.tema = t;
+			} catch (e) {}
+		</script>
 		<link rel="manifest" href="/renkei/manifest.webmanifest" />
-		<link href="/renkei/_app/immutable/entry/start.DHQpudxH.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/B1sokyq-.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/BndJiG03.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/QVjX2qik.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/entry/app.CfoyH8hJ.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/entry/start.B5UdqPPA.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/CY4-B8so.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/BWJyO0Z5.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/CzHG1EVm.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/entry/app.D6LEddZy.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/Dp1pzeXC.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/Bzak7iHL.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/BuIQ502h.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/DM1Ejxwo.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/B0l-9aWN.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/DQmOnzyU.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/nodes/0.B5K1TNUB.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/CquTrHLS.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/lfRzmPFs.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/DdYitVaI.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/DEJhzn62.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/nodes/0.CaYFY5LZ.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/Dy7vPDv3.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/AfcrKG7y.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/UFq6bezk.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/CRJtRxTH.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/D7AZI3Ot.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/DSQWhBPr.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/Djz2zlh5.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/JgwyZ3Hs.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/de7pMoU5.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/DEvDryog.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/Caae3TEl.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/pwf4VADR.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/CKIKpavZ.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/CZMW8sDZ.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/CRYjjfnQ.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/Dv3Zyqa-.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/DIVNkLRI.js" rel="modulepreload">
-		<link href="/renkei/_app/immutable/chunks/gHtwZpEW.js" rel="modulepreload">
+		<link href="/renkei/_app/immutable/chunks/EfcdEKbQ.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/0FfSISGX.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/YJQ_tvuP.js" rel="modulepreload">
 		<link href="/renkei/_app/immutable/chunks/Bq5BoGNt.js" rel="modulepreload">
 		
-		<link href="/renkei/_app/immutable/assets/0.BPOLDLma.css" rel="stylesheet">
+		<link href="/renkei/_app/immutable/assets/0.BFmKvnbc.css" rel="stylesheet">
 	</head>
 	<body data-sveltekit-preload-data="off">
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_1a64od1 = {
+					__sveltekit_1j8k7ef = {
 						base: "/renkei",
 						assets: "/renkei"
 					};
@@ -50,8 +57,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/renkei/_app/immutable/entry/start.DHQpudxH.js"),
-						import("/renkei/_app/immutable/entry/app.CfoyH8hJ.js")
+						import("/renkei/_app/immutable/entry/start.B5UdqPPA.js"),
+						import("/renkei/_app/immutable/entry/app.D6LEddZy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
