@@ -44,6 +44,9 @@ tutta la storia della chat. Gli altri documenti:
 - **La sera** (`serata()` in `missioni/comune.ts`, dentro ogni `cena`): per ogni sera
   di missione due-tre battute di famiglia e il meteo di domani alla TV come domanda
   d'ascolto. Una sera nuova = una voce in `SERE`.
+- **La mattina** (`mattino()` in `missioni/comune.ts`, dentro le scene del mattino
+  a casa) e il **telegiornale** dopo il meteo (`NOTIZIE`, voce `tv`): famiglia, casa,
+  vestiti, società e attualità.
 - **Opzioni mescolate**: la pagina mescola le opzioni di ogni domanda (tranne quelle
   sui soldi), quindi nei dati la giusta può stare sempre al primo posto.
 - **Condizione**: `giorno` (numero o lista), `dalle`/`alle` (minuti, `alle`

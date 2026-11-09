@@ -182,6 +182,8 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M', yomi: 'なかむらさん', chi: { ja: 'けいさつの 人。町の ふしぎな じけんを しらべて いて、{nome}さんに 手つだいを たのみます。', it: 'Ispettore di polizia. Indaga sui piccoli misteri del quartiere e chiede il tuo aiuto.' } },
 	nakamuraTel: { nome: '中村[なかむら]さん（電話）', sprite: null, voce: 'M', stesso: 'nakamura' },
 	telefono: { nome: '電話の 人', sprite: null, voce: 'M' },
+	// televisione: sprite `televisione` quando c'è l'immagine (prompt in docs/prompt-immagini.md)
+	tv: { nome: 'テレビ', sprite: null, voce: 'F' },
 	hayashi: { nome: '林[はやし]さん（うけつけ）', sprite: 'receptionist', voce: 'F', yomi: 'はやしさん', chi: { ja: '会社の うけつけの 人。だれが 来て、だれが 出たか よく おぼえて います。', it: 'La receptionist della ditta. Ricorda bene chi entra e chi esce.' } },
 	hotelstaff: { nome: 'ホテルの 人', sprite: 'commesso', voce: 'M', yomi: 'ホテルの ひと', chi: { ja: 'ホテル みどりの 人。', it: 'L’addetto dell’Hotel Midori.' } },
 	commessa_sg: { nome: 'ゲームセンターの 人', sprite: 'commessa_sg', voce: 'F', yomi: 'ゲームセンターの ひと', chi: { ja: '山野駅[やまのえき]の 前の ゲームセンターの 店員さん。', it: 'La commessa della sala giochi davanti alla stazione di Yamano.' } },

@@ -3,7 +3,7 @@
 // Forme: 〜て おく, 〜までに, 〜て から / 〜あとで, 〜て くれる / あげる / もらう,
 // 〜かもしれない, 〜たら どう.
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro, serata } from './comune';
+import { arrivo, mattino, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -47,6 +47,7 @@ export const M1: Missione = {
 				{ dice: 'mamma', ja: 'いってらっしゃい！', it: 'Buona giornata! (vai e torna)' },
 				{ io: 'いって きます。', it: 'Vado (e torno).' },
 				{ flag: 'd0.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -290,6 +291,7 @@ export const M1: Missione = {
 				{ obiettivo: 'portafoglio', ja: 'さいふを さがす。きのう 行った 店で 聞いて みる（ノートの 「行った 所」を 見る）。', it: 'Ritrovare il portafoglio: chiedi nei posti dove sei stat{o} ieri (vedi la linea del tempo).' },
 				{ dice: 'mamma', ja: 'でも、会社には おくれないでね。', it: 'Ma non fare tardi al lavoro.' },
 				{ flag: 'd1.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -478,6 +480,7 @@ export const M1: Missione = {
 				},
 				{ dice: 'papa', ja: '今日は 水曜日だから、喫茶[きっさ]あおいは 休みだよ。', it: 'Oggi è mercoledì, quindi il caffè Aoi è chiuso.' },
 				{ flag: 'd2.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},

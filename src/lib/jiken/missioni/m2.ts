@@ -4,7 +4,7 @@
 // (il collare «messo lì», non «caduto»), 〜て あげる / くれる / もらう,
 // 〜そう (aspetto), saluti cortesi a un cliente.
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro, serata } from './comune';
+import { arrivo, mattino, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -37,6 +37,7 @@ export const M2: Missione = {
 				{ nota: '「〜そうよ」「〜らしい」: お母さんは 自分で 見て いません。ほかの 人から 聞いた ことです。', it: '「〜そうだ」 (si dice che) e 「〜らしい」 (pare che): la mamma non l’ha visto, l’ha sentito da altri.' },
 				{ obiettivo: 'kimura', ja: '仕事の あとで 木村[きむら]アパートへ 行って、おばあさんの 話を 聞く。', it: 'Dopo il lavoro, andare al condominio Kimura e sentire la signora.' },
 				{ flag: 'm2.d7.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -165,6 +166,7 @@ export const M2: Missione = {
 				{ narra: '4月14日（火）、朝 7時半。', it: 'Martedì 14 aprile, ore 7:30.' },
 				{ dice: 'papa', ja: 'ポスター、店に はって もらったら どう？ 喫茶[きっさ]あおいの 伊藤[いとう]さんは しんせつだよ。', it: 'Perché non chiedi ai negozi di appendere i volantini? Itō del caffè Aoi è gentile.' },
 				{ flag: 'm2.d8.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -285,6 +287,7 @@ export const M2: Missione = {
 				{ narra: '4月15日（水）、朝 7時半。今日は 山田[やまだ]さんが 会社に 来ます。', it: 'Mercoledì 15 aprile, ore 7:30. Oggi in ditta viene Yamada.' },
 				{ pensa: '9時50分に 1かい。わすれないように しよう。', it: 'Alle 9:50 al piano terra. Non devo dimenticarlo.' },
 				{ flag: 'm2.d9.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},

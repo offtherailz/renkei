@@ -4,7 +4,7 @@
 // c'era davvero). Finale: la riunione si sposta alla ホテル みどり → carta IC,
 // treno, secondo quartiere (山野駅前).
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro, serata } from './comune';
+import { arrivo, mattino, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -34,6 +34,7 @@ export const M3: Missione = {
 				{ narra: '4月20日（月）、朝 7時半。', it: 'Lunedì 20 aprile, ore 7:30.' },
 				{ dice: 'papa', ja: '今週は 会社で 大切な かいぎが あるんだって？ がんばってね。', it: 'Ho sentito che questa settimana in ditta c’è una riunione importante. Forza!' },
 				{ flag: 'm3.d14.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -97,6 +98,7 @@ export const M3: Missione = {
 			passi: [
 				{ narra: '4月21日（火）、朝 7時半。', it: 'Martedì 21 aprile, ore 7:30.' },
 				{ flag: 'm3.d15.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -316,6 +318,7 @@ export const M3: Missione = {
 					altrimenti: [{ pensa: 'まず、えきで ICカードを 買わなければ。', it: 'Prima devo comprare la carta IC in stazione.' }]
 				},
 				{ flag: 'm3.d16.casa' },
+				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
 			]
 		},

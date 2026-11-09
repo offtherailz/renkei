@@ -6,7 +6,7 @@
 // in cui lei lo avvisava. Forme: 受身形 (ぬすまれた / はこばれた / かくされた),
 // 〜て しまう. Prove d'esame: fogli da leggere (情報検索) e un annuncio (聴解).
 import type { Missione, Passo } from '../tipi';
-import { arrivo, rientro, serata } from './comune';
+import { arrivo, mattino, rientro, serata } from './comune';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
 
@@ -54,6 +54,7 @@ export const M4: Missione = {
 				{ dice: 'mamma', ja: 'あさっての 29日は 昭和[しょうわ]の日で、お休みね。ゴールデンウィークの 始まりよ。', it: 'Dopodomani, il 29, è lo Shōwa no hi: giorno di festa. Comincia la Golden Week.' },
 				{ nota: 'ゴールデンウィーク: dal 29 aprile ai primi di maggio in Giappone ci sono quattro feste vicine. Molti prendono le ferie e i treni si riempiono.', it: 'Golden Week: tra fine aprile e inizio maggio cadono quattro feste.' },
 				{ flag: 'm4.d21.casa' },
+				...mattino(),
 				{ minuti: 20 } // colazione e preparativi: si esce verso le 7:50
 			]
 		},
@@ -128,6 +129,7 @@ export const M4: Missione = {
 				{ narra: '4月28日（火）、朝 7時半。', it: 'Martedì 28 aprile, ore 7:30.' },
 				{ dice: 'papa', ja: 'きょうは 美術館[びじゅつかん]か。いい えを 見て おいでよ。', it: 'Oggi museo, eh? Guarda bei quadri.' },
 				{ flag: 'm4.d22.casa' },
+				...mattino(),
 				{ minuti: 20 }
 			]
 		},
@@ -222,6 +224,7 @@ export const M4: Missione = {
 				{ io: 'はい。美術館[びじゅつかん]の オープニングです。', it: 'Sì. C’è l’apertura del museo.' },
 				{ obiettivo: 'open4', ja: '9時半すぎに 美術館[びじゅつかん]へ 行く（10時から オープニング）。', it: 'Andare al museo dopo le 9:30 (apertura alle 10).' },
 				{ flag: 'm4.d23.casa' },
+				...mattino(),
 				{ minuti: 20 }
 			]
 		},

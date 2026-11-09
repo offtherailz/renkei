@@ -346,3 +346,24 @@ Espressioni (schema «Espressioni», allegando il ritratto appena fatto):
 | 小林さん | curatore | occupato | `flustered and busy, eyebrows raised, holding a stack of papers and envelopes` | M4: posta mai aperta |
 | 小林さん | curatore | sorpreso | `shocked, eyes wide, mouth slightly open` | M4: il quadro non c’è |
 | addetto pulizie | padrone | imbarazzato | `embarrassed and apologetic, awkward smile, bowing his head slightly` | M4: il cartello copriva il biglietto |
+
+## 事件: televisione (telegiornale e meteo della sera)
+
+Uno «sprite» come i ritratti (fondo magenta, scontornato), id `televisione`. Due
+immagini nella stessa chat: annunciatrice a bocca chiusa, poi a bocca aperta.
+File: `televisione_chiusa.jpg` / `televisione_aperta.jpg`.
+
+```
+PC-98 style pixel art, 1990s Japanese visual novel sprite, 16-color dithered pixel art, crisp pixels.
+A boxy 1990s Japanese CRT television set on a short wooden TV stand, seen from the front at eye level. On the screen: a Japanese female news announcer, about 30 years old, neat short black hair, navy blue jacket and white blouse, upper body behind a news desk, looking at the viewer, polite neutral expression, a small blue news graphic in the corner of the screen without readable text.
+ONE single image, landscape 16:9. The TV and its stand are centered and occupy about the central third of the image width, the stand touches the bottom edge of the image, wide empty magenta space on the left, on the right and above.
+Mouth of the announcer closed.
+Plain flat solid magenta background (#B4318F), no gradient, no pattern. Do not use pink, purple or magenta on the TV or on the announcer.
+No text, no labels, no letters, no frame, no border, no UI.
+```
+
+Seconda richiesta:
+
+```
+Exactly the same image, identical in every pixel, but the announcer on the screen has her mouth clearly open as if talking. Do not move, zoom or change anything else.
+```

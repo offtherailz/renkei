@@ -12,6 +12,7 @@ import { M3 } from './missioni/m3';
 import { M4 } from './missioni/m4';
 import { UI } from './ui';
 import { PREMI, paroleGioco } from './giochi';
+import { inKana, lettureKanji } from './voce';
 import type { Passo, Testo } from './tipi';
 
 const MISSIONI = [M1, M2, M3, M4];
@@ -64,25 +65,50 @@ interface Analisi {
 const CODE = /^(です|でした|でしょう|ん|だけ|まで|ます|ませ|でも|ましょ)/;
 // map: solo N5/N4 (così un token in kana non finisce su una parola N3 omofona);
 // tutto: il vocabolario intero, per riconoscere le parole sopra il livello
-function analizza(testi: string[], map: Map<string, WordHit>, tutto: Map<string, WordHit>): Analisi {
+// katakana → hiragana (でんしレンジ → でんしれんじ, come le letture del seed)
+const hira = (t: string): string => t.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+// Ricerca con i ripieghi per come scriviamo noi i testi: parole metà kanji e metà
+// kana (手つだって, 天気よほう) si riprovano tutte in kana; gli avverbi con する
+// attaccato (はっきりして) si riprovano senza.
+function cerca(map: Map<string, WordHit>, letture: Map<string, string>, tok: string, prima?: string): WordHit | null {
+	const prove = [tok];
+	const senzaSuru = tok.replace(/(して|した|する|します|しました|しない)$/, '');
+	if (senzaSuru.length >= 2 && senzaSuru !== tok) prove.push(senzaSuru);
+	for (const t of prove) {
+		const hit = lookupToken(map, t, prima) ?? lookupToken(map, hira(inKana(t, letture)), prima);
+		if (hit) return hit;
+	}
+	return null;
+}
+function analizza(testi: string[], map: Map<string, WordHit>, tutto: Map<string, WordHit>, letture: Map<string, string>): Analisi {
 	const a: Analisi = { parole: new Map(), forme: new Map(), ignoti: new Map(), sopra: new Map() };
 	for (const t of testi) {
 		// via il furigana (漢字[かな] → 漢字) e i segnaposto ({nome})
 		const pulito = t.replace(/\[[^\]]*\]/g, '').replace(/\{[a-z]+\}/g, '');
-		for (const g of pulito.split(/[ 　]+/).filter(Boolean)) {
+		// secondo passaggio: lo stesso gruppo tutto in kana (手つだって → てつだって)
+		const gruppi = pulito.split(/[ 　]+/).filter(Boolean);
+		const kana = gruppi.map((g) => hira(inKana(g, letture))).filter((k, i) => k !== gruppi[i]);
+		for (const [n, g] of [...gruppi, ...kana].entries()) {
+			const secondo = n >= gruppi.length;
 			const tokens = segmentaGruppo(g, map);
 			tokens.forEach((tok, i) => {
 				if (!/[ぁ-んァ-ヶ一-龯々]/.test(tok)) return;
-				let hit = lookupToken(map, tok, tokens[i - 1]);
+				let hit = cerca(map, letture, tok, tokens[i - 1]);
 				// il ripiego «sottostringa coi kanji» trova un kanji solo dentro un nome
 				// (吉田 → 田): conta solo se la parola copre tutti i kanji del token
 				if (hit && /[一-龯々]/.test(tok) && !hit.forma && [...tok].filter((c) => /[一-龯々]/.test(c)).some((c) => !hit!.scrittura.includes(c))) hit = null;
+				if (!hit && secondo) return;
 				if (!hit) {
 					const su = /[一-龯々]/.test(tok) ? tutto.get(tok) : undefined;
 					if (su && su.livello_jlpt !== 'N5' && su.livello_jlpt !== 'N4') a.sopra.set(tok, su.livello_jlpt);
 					else if (/[一-龯々]|^[ァ-ヶー]{2,}$|^[ぁ-ん]{4,}$/.test(tok) && !CODE.test(tok) && !/\d/.test(tok)) a.ignoti.set(tok, (a.ignoti.get(tok) ?? 0) + 1);
 					return;
 				}
+				// はっきりして / べんきょうして: conta anche la parola prima di する
+				const prima = tok.replace(/(して|した|する|します|しました|しない)$/, '');
+				const extra = prima.length >= 2 && prima !== tok ? map.get(prima) : undefined;
+				if (extra && !a.parole.has(extra.id)) a.parole.set(extra.id, { hit: extra, volte: 1 });
+				if (secondo && a.parole.has(hit.id)) return;
 				const x = a.parole.get(hit.id) ?? { hit, volte: 0 };
 				x.volte += 1;
 				a.parole.set(hit.id, x);
@@ -106,6 +132,7 @@ it.skipIf(!process.env.COPERTURA)('copertura del vocabolario', () => {
 	const seed = JSON.parse(readFileSync('static/seed-n5n4.json', 'utf8')).words as WordRow[];
 	const map = buildWordIndex(seed.filter((w) => w.livello_jlpt === 'N5' || w.livello_jlpt === 'N4'));
 	const tutto = buildWordIndex(seed);
+	const letture = lettureKanji(seed.filter((w) => w.livello_jlpt === 'N5' || w.livello_jlpt === 'N4'));
 	const livello = (lv: string): WordRow[] => seed.filter((w) => w.livello_jlpt === lv);
 	const N5 = livello('N5');
 	const N4 = livello('N4');
@@ -117,7 +144,7 @@ it.skipIf(!process.env.COPERTURA)('copertura del vocabolario', () => {
 	const tuttiIgnoti = new Map<string, number>();
 
 	for (const f of fonti()) {
-		const a = analizza(f.testi, map, tutto);
+		const a = analizza(f.testi, map, tutto, letture);
 		const ids = [...a.parole.values()];
 		const n5 = ids.filter((x) => x.hit.livello_jlpt === 'N5');
 		const n4 = ids.filter((x) => x.hit.livello_jlpt === 'N4');
