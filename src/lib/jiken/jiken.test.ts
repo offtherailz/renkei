@@ -356,4 +356,14 @@ describe('事件: tempi', () => {
 		s = { ...s, sentite: (k.chiacchiere ?? []).map((c) => c.id) };
 		expect(chiacchieraPer(k, s)).toBeNull();
 	});
+	it('il tempo segue le previsioni della TV: ogni sera di meteo ha il suo giorno dopo', async () => {
+		const { SERE_CON_METEO } = await import('./missioni/comune');
+		const { GIORNI_METEO, tempo } = await import('./meteo');
+		const mancano = SERE_CON_METEO.filter((g) => !GIORNI_METEO[g + 1]);
+		expect(mancano).toEqual([]);
+		expect(tempo(1, h(19))).toBe('pioggia'); // «夜は 雨»
+		expect(tempo(9, h(8))).toBe('pioggia'); // «9時ごろ やむ»
+		expect(tempo(9, h(10))).toBe('nuvoloso');
+		expect(tempo(5, h(12))).toBe('sereno');
+	});
 });

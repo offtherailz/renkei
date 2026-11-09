@@ -20,6 +20,7 @@
 	import { M3 } from '$lib/jiken/missioni/m3';
 	import { M4 } from '$lib/jiken/missioni/m4';
 	import { UI } from '$lib/jiken/ui';
+	import { ICONA_TEMPO, tempo } from '$lib/jiken/meteo';
 	import * as suono from '$lib/jiken/suoni';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
@@ -227,6 +228,8 @@
 	const missione = $derived(stato ? MISSIONI[stato.missione]! : M1);
 	const luogoAttuale = $derived(stato ? LUOGO[stato.luogo] : null);
 	const notturna = $derived(stato ? notte(stato.minuti) : false);
+	// il tempo che fa (quello previsto dalla TV la sera prima): livello animato sulla mappa
+	const tempoOra = $derived(stato ? tempo(stato.giorno, stato.minuti) : 'sereno');
 	// quartiere in cui sei: decide la mappa e i luoghi che si vedono
 	const quartiere = $derived(stato ? (LUOGO[stato.luogo].quartiere ?? 'sakura') : 'sakura');
 	const luoghiQui = $derived(LUOGHI.filter((l) => (l.quartiere ?? 'sakura') === quartiere));
@@ -739,7 +742,7 @@
 
 	// ambiente solo sulla mappa: uccellini di giorno, grilli di notte
 	$effect(() => {
-		suono.ambiente(fase === 'mappa' && imp.suoni && imp.ambiente ? (notturna ? 'notte' : 'giorno') : null);
+		suono.ambiente(fase === 'mappa' && imp.suoni && imp.ambiente ? (tempoOra === 'pioggia' ? 'pioggia' : notturna ? 'notte' : 'giorno') : null);
 	});
 
 	onMount(() => {
@@ -869,7 +872,7 @@
 	{:else if stato}
 		<div class="hud">
 			<span class="data">📅 {lingua === 'ja' ? dataJa(stato.giorno) : dataIt(stato.giorno)}</span>
-			<span class="ora">{notturna ? '🌙' : '☀️'} {hhmm(stato.minuti)} <small>{lingua === 'ja' ? fascia(stato.minuti) : ''}</small></span>
+			<span class="ora">{tempoOra !== 'sereno' ? ICONA_TEMPO[tempoOra] : notturna ? '🌙' : '☀️'} {hhmm(stato.minuti)} <small>{lingua === 'ja' ? fascia(stato.minuti) : ''}</small></span>
 			{#if slot === 'rigioca'}<span class="rig">{L(UI.modoRigioco)}</span>{/if}
 			<span class="soldi">¥{stato.oggetti.includes('portafoglio') ? stato.soldi : '—'}</span>
 		</div>
@@ -880,6 +883,7 @@
 			<div class="mappa-scroll" use:centra={stato.luogo}>
 				<div class="mappa">
 					<img src="{base}/giorno/mappa/{quartiere}-{notturna ? 'notte' : 'giorno'}.jpg" alt={quartiere} />
+					{#if tempoOra !== 'sereno'}<div class="cielo {tempoOra}" class:notte={notturna}></div>{/if}
 					{#each luoghiQui as l (l.id)}
 						{@const ap = apertura(l, stato)}
 						<button
@@ -1313,6 +1317,23 @@
 	.mappa-scroll { overflow-x: auto; border: 3px solid var(--px-line); }
 	.mappa { position: relative; min-width: 720px; line-height: 0; }
 	.mappa img { width: 100%; display: block; image-rendering: pixelated; }
+	/* il tempo sulla mappa: velo e pioggia/vento animati, sotto i pin (che vengono dopo nel DOM) */
+	.cielo { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+	.cielo.nuvoloso { background: rgba(70, 74, 100, 0.28); }
+	.cielo.nebbia { background: rgba(232, 234, 242, 0.5); }
+	.cielo.pioggia {
+		background-color: rgba(40, 52, 86, 0.32);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg stroke='%23cfe0ff' stroke-width='1.5' stroke-opacity='.75'%3E%3Cpath d='M8 2 l-3 9'/%3E%3Cpath d='M27 14 l-3 9'/%3E%3Cpath d='M17 27 l-3 9'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg stroke='%23ffffff' stroke-width='1' stroke-opacity='.55'%3E%3Cpath d='M12 6 l-2 6'/%3E%3Cpath d='M44 22 l-2 6'/%3E%3Cpath d='M30 44 l-2 6'/%3E%3Cpath d='M56 54 l-2 6'/%3E%3C/g%3E%3C/svg%3E");
+		animation: piove 0.45s linear infinite;
+	}
+	.cielo.pioggia.notte { background-color: rgba(10, 14, 30, 0.25); }
+	.cielo.vento {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cg stroke='%23ffffff' stroke-width='1.5' stroke-opacity='.5' fill='none'%3E%3Cpath d='M10 12 q15 -4 30 0'/%3E%3Cpath d='M70 40 q15 -4 30 0'/%3E%3C/g%3E%3C/svg%3E");
+		animation: vento 1.2s linear infinite;
+	}
+	@keyframes piove { to { background-position: -13px 40px, -6px 64px; } }
+	@keyframes vento { to { background-position: -120px 0; } }
+	@media (prefers-reduced-motion: reduce) { .cielo { animation: none !important; } }
 	.spot { position: absolute; z-index: 1; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; padding: 0; line-height: 1; font-family: inherit; }
 	.pin { position: relative; color: #222034; font-size: 1.25rem; background: rgba(255, 255, 255, 0.92); border: 2px solid var(--px-line); border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; box-shadow: 0 2px 0 var(--px-line); }
 	/* ❗ grande, sopra tutto: i luoghi con qualcosa da fare stanno davanti agli altri */

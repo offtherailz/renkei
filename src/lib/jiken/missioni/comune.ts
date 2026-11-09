@@ -126,6 +126,9 @@ const SERE: Record<number, Sera> = {
 	}
 };
 
+// le sere con le previsioni (il tempo del giorno dopo sta in meteo.ts)
+export const SERE_CON_METEO = Object.keys(SERE).map(Number);
+
 export const serata = (): Passo[] =>
 	Object.entries(SERE).map(([g, s]) => ({
 		se: { giorno: Number(g) },

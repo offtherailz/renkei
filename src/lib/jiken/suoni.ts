@@ -91,9 +91,50 @@ export function din(): void {
 
 // ── ambiente: uccellini di giorno, grilli di notte, ogni tanto
 let timer: ReturnType<typeof setTimeout> | null = null;
-export function ambiente(quale: 'giorno' | 'notte' | null): void {
+// pioggia: rumore filtrato continuo, che entra e sfuma piano
+let pioggia: { src: AudioBufferSourceNode; gain: GainNode } | null = null;
+function pioggiaOn(): void {
+	if (pioggia) return;
+	const a = audio();
+	if (!a) return;
+	const len = a.ac.sampleRate * 2;
+	const buf = a.ac.createBuffer(1, len, a.ac.sampleRate);
+	const d = buf.getChannelData(0);
+	let last = 0;
+	for (let i = 0; i < len; i++) {
+		last = (last + 0.04 * (Math.random() * 2 - 1)) / 1.04; // rumore «marrone»: più cupo del bianco
+		d[i] = last * 3;
+	}
+	const src = a.ac.createBufferSource();
+	src.buffer = buf;
+	src.loop = true;
+	const filtro = a.ac.createBiquadFilter();
+	filtro.type = 'bandpass';
+	filtro.frequency.value = 1400;
+	filtro.Q.value = 0.6;
+	const gain = a.ac.createGain();
+	gain.gain.value = 0;
+	gain.gain.linearRampToValueAtTime(0.35, a.ac.currentTime + 1.5);
+	src.connect(filtro).connect(gain).connect(a.out);
+	src.start();
+	pioggia = { src, gain };
+}
+function pioggiaOff(): void {
+	if (!pioggia || !ac) return;
+	const p = pioggia;
+	pioggia = null;
+	p.gain.gain.linearRampToValueAtTime(0, ac.currentTime + 1);
+	setTimeout(() => p.src.stop(), 1100);
+}
+
+export function ambiente(quale: 'giorno' | 'notte' | 'pioggia' | null): void {
 	if (timer) clearTimeout(timer);
 	timer = null;
+	if (quale === 'pioggia') {
+		pioggiaOn();
+		return;
+	}
+	pioggiaOff();
 	if (!quale) return;
 	const giro = (): void => {
 		if (quale === 'giorno') uccellini(1 + Math.floor(Math.random() * 2));

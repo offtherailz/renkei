@@ -47,6 +47,10 @@ tutta la storia della chat. Gli altri documenti:
 - **La mattina** (`mattino()` in `missioni/comune.ts`, dentro le scene del mattino
   a casa) e il **telegiornale** dopo il meteo (`NOTIZIE`, voce `tv`): famiglia, casa,
   vestiti, società e attualità.
+- **Il tempo** (`meteo.ts`): per giorno e fascia oraria, ricavato dalle previsioni della
+  TV della sera prima (`SERE`); sulla mappa un velo animato (pioggia, nuvole, nebbia,
+  vento), icona accanto all'ora, suono della pioggia. Cambiando una previsione va
+  cambiato anche qui (lo controlla un test).
 - **Opzioni mescolate**: la pagina mescola le opzioni di ogni domanda (tranne quelle
   sui soldi), quindi nei dati la giusta può stare sempre al primo posto.
 - **Condizione**: `giorno` (numero o lista), `dalle`/`alle` (minuti, `alle`
