@@ -132,7 +132,7 @@ export const serata = (): Passo[] =>
 		allora: [
 			...s.famiglia,
 			{ narra: 'テレビで 天気よほうを やって います。', it: 'In TV c’è il meteo.' },
-			{ dice: 'tv', ja: 'あしたの 天気です。', it: 'Il meteo di domani.' },
+			{ dice: 'tv', faccia: 'meteo', ja: 'あしたの 天気です。', it: 'Il meteo di domani.' },
 			{
 				domanda: {
 					ja: s.meteo.domanda,
