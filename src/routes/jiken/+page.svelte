@@ -928,8 +928,14 @@
 		{:else if fase === 'scena' && corrente}
 			<section class="panel scena">
 				<div class="scene-wrap">
-					<img class="scene" src={sfondo} alt="" />
-					{#if sprite}<img class="sprite" src="{base}/giorno/ritratti/{sprite}-{bocca ? 'parla' : 'chiusa'}.png" alt="" />{/if}
+					{#if parlante && PERSONAGGI[parlante]?.schermo}
+						<!-- la TV del salotto: dietro lo schermo trasparente, chi parla in TV -->
+						<img class="in-tv" src="{base}/giorno/ritratti/{sprite}-{bocca ? 'parla' : 'chiusa'}.png" alt="" />
+						<img class="scene" src="{base}/giorno/sfondi/tv_salotto.png" alt="" />
+					{:else}
+						<img class="scene" src={sfondo} alt="" />
+						{#if sprite}<img class="sprite" src="{base}/giorno/ritratti/{sprite}-{bocca ? 'parla' : 'chiusa'}.png" alt="" />{/if}
+					{/if}
 					<span class="luogo-tag">{luogoAttuale?.icona} {nomeLuogo(stato.luogo)}</span>
 				</div>
 
@@ -1322,6 +1328,8 @@
 
 	.scene-wrap { position: relative; border: 3px solid #f4f4f4; outline: 3px solid #0e0d1a; line-height: 0; margin: 3px; background: #000; aspect-ratio: 2 / 1; overflow: hidden; }
 	.scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+	/* posizione dello schermo in tv_salotto.png (elabora.cjs schermo), un filo più grande per coprire gli angoli */
+	.in-tv { position: absolute; left: 32.9%; top: 18.6%; width: 34.1%; height: 53.2%; object-fit: cover; image-rendering: pixelated; }
 	.sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 92%; image-rendering: pixelated; }
 	.luogo-tag { position: absolute; left: 6px; top: 6px; background: rgba(34, 32, 52, 0.85); color: #fff; padding: 3px 6px; font-size: 0.75rem; line-height: 1.2; }
 	.dialog { --ink: #f4f4f4; --line: #6e6c8f; background: #2a2848; color: #f4f4f4; box-shadow: inset 0 0 0 2px #3f3f74; border: 3px solid var(--px-line); padding: 10px 12px; display: grid; gap: 8px; min-height: 120px; align-content: start; }

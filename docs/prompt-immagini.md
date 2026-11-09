@@ -347,23 +347,16 @@ Espressioni (schema «Espressioni», allegando il ritratto appena fatto):
 | 小林さん | curatore | sorpreso | `shocked, eyes wide, mouth slightly open` | M4: il quadro non c’è |
 | addetto pulizie | padrone | imbarazzato | `embarrassed and apologetic, awkward smile, bowing his head slightly` | M4: il cartello copriva il biglietto |
 
-## 事件: televisione (telegiornale e meteo della sera)
+## 事件: la TV del salotto (telegiornale e meteo)
 
-Uno «sprite» come i ritratti (fondo magenta, scontornato), id `televisione`. Due
-immagini nella stessa chat: annunciatrice a bocca chiusa, poi a bocca aperta.
-File: `televisione_chiusa.jpg` / `televisione_aperta.jpg`.
+Come i finestrini del treno: lo sfondo `tv_salotto.png` è il salotto inquadrato sul
+televisore con lo schermo trasparente (`elabora.cjs schermo`), e dietro si mette chi
+parla in TV (`ritratti/annunciatrice-chiusa/parla.png`, 4:3, `elabora.cjs scala` 400×300
+e `bocca … 0.3 0.5`). Il personaggio `tv` ha `schermo: true`.
 
-```
-PC-98 style pixel art, 1990s Japanese visual novel sprite, 16-color dithered pixel art, crisp pixels.
-A boxy 1990s Japanese CRT television set on a short wooden TV stand, seen from the front at eye level. On the screen: a Japanese female news announcer, about 30 years old, neat short black hair, navy blue jacket and white blouse, upper body behind a news desk, looking at the viewer, polite neutral expression, a small blue news graphic in the corner of the screen without readable text.
-ONE single image, landscape 16:9. The TV and its stand are centered and occupy about the central third of the image width, the stand touches the bottom edge of the image, wide empty magenta space on the left, on the right and above.
-Mouth of the announcer closed.
-Plain flat solid magenta background (#B4318F), no gradient, no pattern. Do not use pink, purple or magenta on the TV or on the announcer.
-No text, no labels, no letters, no frame, no border, no UI.
-```
-
-Seconda richiesta:
-
-```
-Exactly the same image, identical in every pixel, but the announcer on the screen has her mouth clearly open as if talking. Do not move, zoom or change anything else.
-```
+1. Salotto (allegando `sfondi/casa.jpg`): «Same living room as the attached image… Close-up
+   view of the same CRT television… The TV screen is a flat, perfectly uniform solid
+   magenta rectangle (#B4318F)… Landscape 16:9…».
+2. Annunciatrice: «A Japanese TV news broadcast seen full screen: a female news announcer…
+   Image aspect ratio 4:3. Mouth closed.» e poi la bocca aperta.
+3. Meteo (`annunciatrice_meteo`): vedi sotto.

@@ -56,6 +56,7 @@ export interface Personaggio {
 	yomi?: string; // lettura del nome in kana (scheda del taccuino)
 	chi?: Testo; // chi è (scheda del taccuino); senza, non ha una scheda
 	stesso?: string; // è lo stesso personaggio di un altro (es. 中村 al telefono)
+	schermo?: boolean; // parla dalla TV: sfondo tv_salotto con lo sprite dietro lo schermo
 }
 
 export interface Condizione {

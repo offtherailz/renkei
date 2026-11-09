@@ -74,4 +74,11 @@ window.ritrattoBordi=async(src,H)=>{const i=await load(src);const W=i.width,Hh=i
  const vis=new Uint8Array(W*Hh);const coda=[];for(let xx=0;xx<W;xx++){coda.push(xx,(Hh-1)*W+xx)}for(let y=0;y<Hh;y++){coda.push(y*W,y*W+W-1)}
  while(coda.length){const k=coda.pop();if(vis[k])continue;const mm=m(k*4);if(mm<=0)continue;vis[k]=1;a[k*4+3]=Math.round(255*(1-mm));const xx=k%W,y=(k-xx)/W;if(xx>0)coda.push(k-1);if(xx<W-1)coda.push(k+1);if(y>0)coda.push(k-W);if(y<Hh-1)coda.push(k+W)}
  x.putImageData(d,0,0);const bb=bbox(d,W,Hh);const s=H/bb[3];const o=cv(Math.round(bb[2]*s),H);const ox=o.getContext('2d');ox.imageSmoothingQuality='high';ox.drawImage(c,bb[0],bb[1],bb[2],bb[3],0,0,o.width,o.height);return {u:o.toDataURL('image/png'),w:o.width}}
+
+// «schermo»: sfondo 2:1 (640×320) con lo schermo magenta reso trasparente (il buco
+// dietro cui si mette un'altra immagine, come i finestrini del treno). Torna anche
+// il riquadro del buco, in % dello sfondo.
+window.schermo=async(src)=>{const i=await load(src);const w=640,h=320;const ch=Math.round(i.width*h/w);const c=cv(w,h);const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(i,0,(i.height-ch)/2,i.width,ch,0,0,w,h);const d=x.getImageData(0,0,w,h);keyMask(d,magenta);{const q=d.data;for(let k=3;k<q.length;k+=4)if(q[k]<255)q[k]=0}let a=d.data,mx=1e9,my=1e9,Mx=-1,My=-1;for(let Y=0;Y<h;Y++)for(let X=0;X<w;X++){if(a[(Y*w+X)*4+3]<128){if(X<mx)mx=X;if(X>Mx)Mx=X;if(Y<my)my=Y;if(Y>My)My=Y}}{const m=4;for(let Y=Math.max(0,my-m);Y<=Math.min(h-1,My+m);Y++)for(let X=Math.max(0,mx-m);X<=Math.min(w-1,Mx+m);X++){const k=(Y*w+X)*4,r=a[k],g=a[k+1],b=a[k+2];if(r-g>35&&b-g>25&&r>70)a[k+3]=0}}x.putImageData(d,0,0);return{u:c.toDataURL('image/png'),box:[mx/w*100,my/h*100,(Mx-mx+1)/w*100,(My-my+1)/h*100].map(v=>Math.round(v*10)/10)}};
+// «scala»: ridimensiona (riempiendo e tagliando al centro) a w×h, in PNG
+window.scala=async(src,w,h)=>{const i=await load(src);const r=Math.max(w/i.width,h/i.height);const c=cv(w,h);const x=c.getContext('2d');x.imageSmoothingQuality='high';const dw=i.width*r,dh=i.height*r;x.drawImage(i,(w-dw)/2,(h-dh)/2,dw,dh);return c.toDataURL('image/png')};
 </script></body>
