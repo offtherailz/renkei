@@ -22,6 +22,8 @@
 	import { UI } from '$lib/jiken/ui';
 	import { ICONA_TEMPO, tempo } from '$lib/jiken/meteo';
 	import * as suono from '$lib/jiken/suoni';
+	import Hanko from '$lib/jiken/Hanko.svelte';
+	import { livelli, nuoviTimbri, percento, registraRisposta, stelle, timbri, valore, livello, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
 	const ORDINE: Missione[] = [M1, M2, M3, M4];
@@ -195,14 +197,15 @@
 		else void speakSentenceJapaneseAsync(stripFuriganaNotation(testo(b.ja)), vocePersonaggio('F', imp));
 	}
 	// il quaderno: una pagina con i segnalibri
-	type Scheda = 'conversa' | 'obiettivi' | 'oggetti' | 'frasi' | 'persone' | 'percorso';
+	type Scheda = 'conversa' | 'obiettivi' | 'oggetti' | 'frasi' | 'persone' | 'percorso' | 'timbri';
 	const SCHEDE: { id: Scheda; t: Testo }[] = [
 		{ id: 'conversa', t: UI.storico },
 		{ id: 'obiettivi', t: UI.obiettivi },
 		{ id: 'oggetti', t: UI.oggetti },
 		{ id: 'frasi', t: UI.frasi },
 		{ id: 'persone', t: UI.persone },
-		{ id: 'percorso', t: UI.percorso }
+		{ id: 'percorso', t: UI.percorso },
+		{ id: 'timbri', t: UI.timbri }
 	];
 	let scheda = $state<Scheda>('obiettivi');
 	let giornoStorico = $state(0); // giorno mostrato nella scheda dei dialoghi
@@ -255,7 +258,7 @@
 	let viaggio = $state<{ da: string; verso: string } | null>(null);
 	function rispostaTreno(ok: boolean): void {
 		if (!stato) return;
-		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 } };
+		stato = registraRisposta(stato, ok, { treno: true });
 		salva();
 	}
 	function arrivoTreno(): void {
@@ -269,6 +272,45 @@
 		toast = t;
 		if (toastTimer) clearTimeout(toastTimer);
 		toastTimer = setTimeout(() => (toast = ''), 2600);
+	}
+
+	// ── timbri: quando uno sale di livello cade sul quaderno, con il suo suono
+	const TOTALI_BASE = {
+		chiacchiere: LUOGHI.reduce((n, l) => n + (l.chiacchiere?.length ?? 0), 0),
+		persone: new Set(Object.entries(PERSONAGGI).filter(([, p]) => p.chi).map(([id, p]) => p.stesso ?? id)).size,
+		missioni: ORDINE.length
+	};
+	const totali = $derived<Totali>({ ...TOTALI_BASE, stelleTre: ORDINE.filter((m) => stelle(imp.migliori?.[m.id]) === 3).length });
+	const TIMBRI = $derived(timbri(totali));
+	const voto = $derived(stato?.punteggi[missione.id]);
+	const top = $derived(imp.migliori?.[missione.id]);
+	let timbroNuovo = $state<{ kanji: string; ja: string; it: string; livello: number } | null>(null);
+	let timbroTimer: ReturnType<typeof setTimeout> | null = null;
+	$effect(() => {
+		if (!stato) return;
+		const ora = livelli(stato, totali);
+		const visti = stato.timbri;
+		// partita di prima dei timbri: quelli già meritati si segnano senza festa
+		if (!visti) {
+			stato = { ...stato, timbri: ora };
+			return;
+		}
+		const nuovi = nuoviTimbri(visti, ora);
+		if (!nuovi.length) return;
+		stato = { ...stato, timbri: { ...visti, ...ora } };
+		salva();
+		const vuota = !timbriInCoda.length && !timbroNuovo;
+		timbriInCoda = [...timbriInCoda, ...nuovi.map((id) => { const tb = TIMBRI.find((t) => t.id === id)!; return { kanji: tb.kanji, ja: tb.ja, it: tb.it, livello: ora[id] ?? 1 }; })];
+		if (vuota) prossimoTimbro();
+	});
+	// più timbri insieme: uno dopo l'altro
+	let timbriInCoda: NonNullable<typeof timbroNuovo>[] = [];
+	function prossimoTimbro(): void {
+		if (timbroTimer) clearTimeout(timbroTimer);
+		timbroNuovo = timbriInCoda.shift() ?? null;
+		if (!timbroNuovo) return;
+		if (imp.suoni) setTimeout(suono.timbro, 250);
+		timbroTimer = setTimeout(prossimoTimbro, 2400);
 	}
 
 	function salva(): void {
@@ -415,8 +457,8 @@
 			const ch = chiacchieraPer(l, stato);
 			if (ch) {
 				stato = { ...stato, sentite: [...stato.sentite, ch.id] };
-				avvia(ch.passi);
-			} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }]);
+				avvia(ch.passi, true);
+			} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }], true);
 		}
 	}
 
@@ -439,8 +481,12 @@
 	}
 
 	let giornoScena = -1; // giorno in cui è cominciata la scena (per capire se si è dormito)
-	function avvia(passi: Passo[]): void {
-		if (stato) giornoScena = stato.giorno;
+	// libera: chiacchiera o ambiente di un luogo, fuori dal voto della missione
+	function avvia(passi: Passo[], libera = false): void {
+		if (stato) {
+			giornoScena = stato.giorno;
+			stato = { ...stato, libera: libera || undefined };
+		}
 		coda = [...passi];
 		fase = 'scena';
 		prossimo();
@@ -553,10 +599,12 @@
 		if (!stato) return;
 		parlante = null;
 		if (stato.finita) {
-			if (slot === 'main' && !imp.completate.includes(stato.missione)) {
-				imp = { ...imp, completate: [...imp.completate, stato.missione] };
-				salvaImpostazioni(imp);
-			}
+			if (slot === 'main' && !imp.completate.includes(stato.missione)) imp = { ...imp, completate: [...imp.completate, stato.missione] };
+			// il miglior risultato resta (anche dai rigiochi)
+			const voto = stato.punteggi[stato.missione];
+			const prima = imp.migliori?.[stato.missione];
+			if (voto?.tot && (!prima || percento(voto) > percento(prima))) imp = { ...imp, migliori: { ...imp.migliori, [stato.missione]: voto } };
+			salvaImpostazioni(imp);
 			fase = 'fine';
 			return;
 		}
@@ -657,8 +705,10 @@
 		if (!stato || scelto !== null) return;
 		scelto = i;
 		const ok = i === giustaDomanda();
+		if (imp.suoni) (ok ? suono.giusto : suono.sbagliato)();
 		// già contata: riaprendo la pagina non deve tornare la stessa domanda
-		stato = { ...stato, domande: { ok: stato.domande.ok + (ok ? 1 : 0), tot: stato.domande.tot + 1 }, scena: coda.length ? [...coda] : undefined };
+		const d = 'domanda' in corrente! ? corrente.domanda : undefined;
+		stato = { ...registraRisposta(stato, ok, { domanda: d, libera: stato.libera }), scena: coda.length ? [...coda] : undefined };
 		salva();
 	}
 	function mostra(oggetto: string | null): void {
@@ -1103,7 +1153,12 @@
 			<section class="panel intro">
 				<h1>🎉 {missione.titolo}</h1>
 				{#if missione.epilogo}<p class="paper">{@render testoUI(missione.epilogo)}</p>{/if}
-				<p>{L(UI.punti)}<strong>{stato.domande.ok}/{stato.domande.tot}</strong></p>
+				{#if voto?.tot}
+					<p class="voto"><span class="stelle">{'★'.repeat(stelle(voto))}<span class="spente">{'★'.repeat(3 - stelle(voto))}</span></span> {L(UI.missioniVoti)}: <strong>{voto.ok}/{voto.tot}</strong>（{percento(voto)}%）</p>
+					{#if top && percento(top) > percento(voto)}<p class="small">{L(UI.migliore)}{'★'.repeat(stelle(top))} {percento(top)}%</p>{/if}
+				{:else}
+					<p>{L(UI.punti)}<strong>{stato.domande.ok}/{stato.domande.tot}</strong></p>
+				{/if}
 				{#if slot === 'main' && dopo(missione.id)}
 					<button class="btn big" onclick={continuaConProssima}>{L(UI.vaiProssima)}「{dopo(missione.id)!.titolo}」</button>
 				{:else if !dopo(missione.id)}
@@ -1126,6 +1181,14 @@
 	{/if}
 
 	{#if toast}<div class="toast">{toast}</div>{/if}
+	{#if timbroNuovo}
+		{#key timbroNuovo}
+		<div class="timbro-nuovo" role="presentation" onclick={prossimoTimbro}>
+			<div class="cade"><Hanko kanji={timbroNuovo.kanji} livello={timbroNuovo.livello} grande /></div>
+			<p><strong>{L(UI.nuovoTimbro)}</strong><br /><Frase text={timbroNuovo.ja} />{lingua !== 'ja' ? ` — ${timbroNuovo.it}` : ''} {'●'.repeat(timbroNuovo.livello)}{'○'.repeat(3 - timbroNuovo.livello)}</p>
+		</div>
+		{/key}
+	{/if}
 
 	{#if impostazioni}
 		<div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) { salvaImp(); impostazioni = false; } }}>
@@ -1254,6 +1317,25 @@
 								</div>
 							</div>
 						{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+					{:else if scheda === 'timbri'}
+						<h3>{L(UI.missioniVoti)}</h3>
+						{#each ORDINE.filter((m) => stato!.punteggi[m.id]?.tot || imp.migliori?.[m.id]) as m (m.id)}
+							{@const v = stato.punteggi[m.id]}
+							{@const top = imp.migliori?.[m.id]}
+							<p class="voto-riga"><span class="stelle">{'★'.repeat(stelle(top ?? v))}<span class="spente">{'★'.repeat(3 - stelle(top ?? v))}</span></span> <Frase text={m.titolo} /> <small>{v ? `${v.ok}/${v.tot}（${percento(v)}%）` : ''}{top && v !== top ? ` · ${L(UI.migliore)}${percento(top)}%` : ''}</small></p>
+						{:else}<p class="vuoto">{L(UI.nessuno)}</p>{/each}
+						{#if stato.ripasso.tot}<p class="small">{L(UI.ripasso)}: {stato.ripasso.ok}/{stato.ripasso.tot}（{percento(stato.ripasso)}%）</p>{/if}
+						<h3>{L(UI.timbri)}</h3>
+						<div class="timbri">
+							{#each TIMBRI as tb (tb.id)}
+								{@const v = valore(tb.id, stato, totali)}
+								{@const lv = livello(tb, v)}
+								<div class="timbro-riga">
+									<div class="tre">{#each [1, 2, 3] as k (k)}<Hanko kanji={tb.kanji} livello={lv >= k ? k : 0} />{/each}</div>
+									<p><strong><Frase text={tb.ja} /></strong><br /><small>{tb.it} · {lv >= 3 ? L(UI.timbroMax) : `${L(UI.prossimoTimbro)}${Math.min(v, tb.soglie[lv]!)}/${tb.soglie[lv]}`}</small></p>
+								</div>
+							{/each}
+						</div>
 					{:else if scheda === 'percorso'}
 						{#each giorniPercorso as g (g)}
 							<p class="giro"><strong>{lingua === 'ja' ? dataJa(g) : dataIt(g)}</strong><br />{stato.percorso.filter((t) => t.giorno === g).map((t) => `${hhmm(t.minuti)} ${nomeLuogo(t.luogo)}`).join(' → ')}</p>
@@ -1459,6 +1541,20 @@
 	.segnalibro.s3 { --c: #df7126; }
 	.segnalibro.s4 { --c: #37946e; }
 	.segnalibro.s5 { --c: #76428a; }
+	.segnalibro.s6 { --c: #c8102e; }
+	.timbri { display: grid; gap: 4px; }
+	.timbro-riga { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px dashed #c9c3b0; }
+	.timbro-riga p { margin: 0; }
+	.timbro-riga .tre { display: flex; gap: 6px; }
+	.stelle { color: #d9a520; letter-spacing: 1px; }
+	.stelle .spente { color: #c9c3b0; }
+	.voto { font-size: 1.1rem; }
+	.voto .stelle { font-size: 1.4rem; }
+	.voto-riga { margin: 4px 0; }
+	.timbro-nuovo { position: fixed; inset: 0; z-index: 60; display: grid; place-content: center; justify-items: center; gap: 14px; background: rgba(14, 13, 26, 0.55); }
+	.timbro-nuovo .cade { background: #fbf5e6; padding: 22px; border: 3px solid #0e0d1a; animation: cade 0.45s cubic-bezier(0.3, 1.6, 0.6, 1) both; }
+	.timbro-nuovo p { background: #fbf5e6; color: #2a2620; border: 3px solid #0e0d1a; padding: 8px 14px; text-align: center; margin: 0; }
+	@keyframes cade { from { transform: scale(2.4) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } to { transform: scale(1) rotate(0); } }
 	.pagina {
 		--carta: #fbf6e9;
 		--riga: #c9d6ea;

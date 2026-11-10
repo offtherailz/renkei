@@ -85,6 +85,7 @@ export interface Domanda {
 	opzioni: { ja: string; it: string; valore?: number }[];
 	giusta: number | 'soldi'; // 'soldi' = l'opzione col valore più vicino ai soldi che hai
 	spiega: string;
+	tipo?: 'meteo' | 'notizia'; // per i timbri (天気の 人, 物知り)
 }
 
 // un foglio da leggere (volantino, orari, regolamento, biglietto…), come il
@@ -126,6 +127,7 @@ export type Passo =
 	| { soldi: number } // + entrate, − spese
 	| { vai: LuogoId }
 	| { dormi: true }
+	| { conta: string } // sale un contatore dei timbri (es. 'puntuale')
 	| { fine: string }; // missione conclusa (titolo)
 
 export interface Scena {
@@ -182,7 +184,12 @@ export interface Stato {
 	obiettivi: Obiettivo[];
 	taccuino: Appunto[];
 	percorso: Tappa[];
-	domande: { ok: number; tot: number };
+	domande: { ok: number; tot: number }; // tutte le risposte
+	punteggi: Record<string, { ok: number; tot: number }>; // per missione: solo le domande della storia
+	ripasso: { ok: number; tot: number }; // chiacchiere, treno: fuori dal voto della missione
+	contatori: Record<string, number>; // per i timbri (meteo, ascolto, puntuale…)
+	timbri?: Record<string, number>; // livelli dei timbri già mostrati
+	libera?: boolean; // la scena in corso è una chiacchiera (le domande vanno nel ripasso)
 	collezione: Premio[]; // peluche vinti alla sala giochi
 	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)
 	sentite: string[]; // chiacchiere dei luoghi già sentite

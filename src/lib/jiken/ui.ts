@@ -141,5 +141,12 @@ export const UI = {
 	sgFine: { ja: 'ゲーム オーバー', it: 'Game over' },
 	sgRecord: { ja: '🎉 新しい きろく！', it: '🎉 Nuovo record!' },
 	sgPosto: { ja: 'ばん', it: '° posto' },
-	sgCarica: { ja: 'じゅんび中…', it: 'Preparazione…' }
+	sgCarica: { ja: 'じゅんび中…', it: 'Preparazione…' },
+	timbri: { ja: '🏅 はんこ', it: '🏅 Timbri' },
+	missioniVoti: { ja: 'ミッションの 問題', it: 'Domande delle missioni' },
+	ripasso: { ja: 'ふくしゅう（話・電車）', it: 'Ripasso (chiacchiere, treno)' },
+	migliore: { ja: 'いちばん いい：', it: 'migliore: ' },
+	nuovoTimbro: { ja: 'はんこを もらいました！', it: 'Nuovo timbro!' },
+	prossimoTimbro: { ja: 'つぎ：', it: 'prossimo: ' },
+	timbroMax: { ja: 'ぜんぶ もらいました', it: 'completo' }
 } satisfies Record<string, Testo | Testo[]>;

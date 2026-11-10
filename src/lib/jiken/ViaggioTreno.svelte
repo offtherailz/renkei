@@ -76,7 +76,7 @@
 		if (!q || scelto !== null) return;
 		scelto = i;
 		const ok = i === q.correct;
-		if (ok && suoni) suono.din();
+		if (suoni) (ok ? suono.giusto : suono.sbagliato)();
 		risposta(ok);
 	}
 	function avanti(): void {

@@ -78,9 +78,20 @@ tutta la storia della chat. Gli altri documenti:
   giorno di oggi in fondo), 🎯 やる こと (+ punteggio domande), 🎒 持ち物 (+ peluche),
   💬 大切な ことば, 👥 会った 人 (schede dei personaggi incontrati: ritratto, nome,
   lettura `yomi`, 🔊, chi è `chi`; in `stato.incontrati`, ricostruito da storico e
-  taccuino per le partite vecchie), 🕐 行った 所. Un personaggio nuovo vuole `yomi` e `chi`. Lo storico si salva a parte
+  taccuino per le partite vecchie), 🕐 行った 所, 🏅 はんこ (voti e timbri). Un personaggio nuovo vuole `yomi` e `chi`. Lo storico si salva a parte
   (`renkei_jiken[_rigioca]_storico`, ultime 2000 battute); riprendendo da una
   mattina si tengono solo i giorni prima.
+- **Punteggio e timbri** (`punteggio.ts`, `Hanko.svelte`): `registraRisposta()`
+  manda le domande della storia in `stato.punteggi[missione]` (voto: ★★★ ≥90%,
+  ★★ ≥70%) e quelle di chiacchiere/ambiente (`stato.libera`) e treno in
+  `stato.ripasso`. A fine missione il migliore resta in `imp.migliori` (anche dai
+  rigiochi). I timbri はんこ hanno tre livelli per tipo (soglie in `timbri()`),
+  dai contatori `stato.contatori` (giuste, meteo, ascolto, notizia, treno,
+  puntuale) o dallo stato (chiacchiere, persone, premi, record クイズ, missioni ★★★).
+  Domanda con `tipo: 'meteo' | 'notizia'` → il suo contatore; il passo
+  `{ conta: 'puntuale' }` sta in `arrivo()`. `stato.timbri` = livelli già mostrati:
+  quando uno sale cade sul quaderno con il suono `timbro()` (in coda se sono più).
+  Scheda 🏅 はんこ del quaderno. Risposte: suono `giusto()` / `sbagliato()`.
 - **Scena interrotta**: a ogni passo si salva in `stato.scena` il passo mostrato e
   quelli dopo; riaprendo la partita (`riparti`) si riprende da lì. Le riprese del
   mattino la tolgono; una domanda già risposta non si ripete.

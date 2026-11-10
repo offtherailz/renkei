@@ -9,7 +9,7 @@ const h = (ore: number, min = 0): number => ore * 60 + min;
 // la mattina: puntuale entro le 9; dopo, 森 lo fa notare (e a mezzogiorno di più)
 export const arrivo = (): Passo => ({
 	se: { alle: h(9, 1) },
-	allora: [],
+	allora: [{ conta: 'puntuale' }],
 	altrimenti: [
 		{
 			se: { alle: h(12) },
@@ -143,10 +143,11 @@ export const serata = (): Passo[] =>
 					ascolto: { ja: s.meteo.ja, it: s.meteo.it, chi: 'F' },
 					opzioni: s.meteo.opzioni.map(([ja, it]) => ({ ja, it })),
 					giusta: s.meteo.giusta,
-					spiega: s.meteo.spiega
+					spiega: s.meteo.spiega,
+					tipo: 'meteo'
 				}
 			},
-			...(NOTIZIE[Number(g)] ? [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' } as Passo, ...NOTIZIE[Number(g)]!] : [])
+			...(NOTIZIE[Number(g)] ? [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' } as Passo, ...tg(NOTIZIE[Number(g)]!)] : [])
 		]
 	}));
 
@@ -205,6 +206,9 @@ const MATTINE: Record<number, Passo[]> = {
 };
 export const mattino = (): Passo[] => Object.entries(MATTINE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: passi }));
 
+// le domande del TG valgono per il timbro 物知り
+const tg = (ps: Passo[]): Passo[] => ps.map((p) => ('domanda' in p ? { domanda: { ...p.domanda, tipo: 'notizia' as const } } : p));
+
 // ── il telegiornale della sera, dopo il meteo: società e attualità (N4)
 const NOTIZIE: Record<number, Passo[]> = {
 	0: [{ dice: 'tv', ja: 'つぎの ニュースです。市の 新しい 図書館[としょかん]が らいげつ オープンします。市民は だれでも むりょうで りようできます。', it: 'Prossima notizia. La nuova biblioteca comunale apre il mese prossimo. Tutti i cittadini potranno usarla gratis.' }],
@@ -238,4 +242,4 @@ const NOTIZIE: Record<number, Passo[]> = {
 		{ io: 'あ、うちの じけんだ！', it: 'Ah, è il nostro caso!' }
 	]
 };
-export const notizie = (): Passo[] => Object.entries(NOTIZIE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' }, ...passi] }));
+export const notizie = (): Passo[] => Object.entries(NOTIZIE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' }, ...tg(passi)] }));

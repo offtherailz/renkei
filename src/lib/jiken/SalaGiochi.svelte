@@ -103,8 +103,8 @@
 				void recordPractice(`word:${giusta!.parola.id}`, ok, 'facet_form_listen');
 				if (ok) {
 					aggiorna(vinciPremio(stato, ufo.posti[pinza]!));
-					if (suoni) suono.din();
-				}
+					if (suoni) suono.giusto();
+				} else if (suoni) suono.sbagliato();
 				void parla(giusta!.parola.lettura, 'F');
 			}, 900);
 		}, 800);
@@ -163,8 +163,11 @@
 		void recordPractice(`word:${domanda.parola.id}`, ok, domanda.tipo === 'lettura' ? 'facet_form_read' : 'facet_meaning_r');
 		if (ok) {
 			punti += puntiRisposta(resto);
-			if (suoni) suono.din();
-		} else vite -= 1;
+			if (suoni) suono.giusto();
+		} else {
+			vite -= 1;
+			if (suoni) suono.sbagliato();
+		}
 		void parla(domanda.parola.lettura, 'F');
 		// giusta: si va avanti da soli; sbagliata: si legge la soluzione e si tocca ▶
 		if (ok) timer = setTimeout(prossimaDomanda, 1100);

@@ -47,6 +47,9 @@ export function nuovoStato(nome: string, missione: string, inizio?: { giorno: nu
 		taccuino: [],
 		percorso: [{ giorno, minuti: SVEGLIA, luogo: 'casa' }],
 		domande: { ok: 0, tot: 0 },
+		punteggi: {},
+		ripasso: { ok: 0, tot: 0 },
+		contatori: {},
 		collezione: [],
 		incontrati: [],
 		sentite: [],
@@ -120,6 +123,7 @@ export function applica(s: Stato, p: Passo): Stato {
 	if ('soldi' in p) return { ...s, soldi: s.soldi + p.soldi };
 	if ('vai' in p) return viaggia(s, p.vai);
 	if ('dormi' in p) return dormi(s);
+	if ('conta' in p) return { ...s, contatori: { ...s.contatori, [p.conta]: (s.contatori[p.conta] ?? 0) + 1 } };
 	return s;
 }
 
@@ -202,6 +206,9 @@ export function migra(raw: unknown): Stato | null {
 		taccuino: r.taccuino ?? [],
 		percorso: r.percorso ?? [],
 		domande: r.domande ?? { ok: 0, tot: 0 },
+		punteggi: r.punteggi ?? {},
+		ripasso: r.ripasso ?? { ok: 0, tot: 0 },
+		contatori: r.contatori ?? {},
 		collezione: r.collezione ?? [],
 		incontrati: r.incontrati ?? [],
 		sentite: r.sentite ?? [],

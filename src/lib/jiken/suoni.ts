@@ -89,6 +89,25 @@ export function din(): void {
 	nota(1568, 0.09, 0.3, 0.05);
 }
 
+// risposta giusta: arpeggio che sale, con un luccichio
+export function giusto(): void {
+	[784, 987.8, 1318.5].forEach((f, i) => nota(f, i * 0.08, 0.22, 0.07, 'triangle'));
+	nota(2637, 0.24, 0.35, 0.025);
+}
+
+// risposta sbagliata: due note morbide che scendono («あれ?»), non una punizione
+export function sbagliato(): void {
+	nota(392, 0, 0.2, 0.07, 'triangle');
+	nota(311.1, 0.18, 0.38, 0.07, 'triangle', 293.7);
+}
+
+// un timbro sul quaderno: colpo sordo «ぽん» e un piccolo din
+export function timbro(): void {
+	nota(140, 0, 0.12, 0.2, 'sine', 60);
+	nota(1318.5, 0.18, 0.25, 0.05);
+	nota(1760, 0.28, 0.4, 0.05);
+}
+
 // ── ambiente: uccellini di giorno, grilli di notte, ogni tanto
 let timer: ReturnType<typeof setTimeout> | null = null;
 // pioggia: rumore filtrato continuo, che entra e sfuma piano

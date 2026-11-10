@@ -19,9 +19,10 @@ export interface Impostazioni {
 	completate: string[]; // missioni finite nella partita principale (si possono rigiocare)
 	suoni: boolean; // effetti (telefono, campanelli…)
 	ambiente: boolean; // uccellini di giorno, grilli di notte
+	migliori: Record<string, { ok: number; tot: number }>; // miglior punteggio di ogni missione finita
 }
 
-export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [], suoni: true, ambiente: true };
+export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [], suoni: true, ambiente: true, migliori: {} };
 const CHIAVE = 'renkei_jiken_imp';
 
 export function caricaImpostazioni(): Impostazioni {
