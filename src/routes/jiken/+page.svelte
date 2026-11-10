@@ -456,11 +456,17 @@
 			salva();
 		} else {
 			// una chiacchiera nuova del luogo, se c'è; se no l'ambiente di sempre
+			// le chiacchiere non partono da sole: c'è qualcuno, e scegli tu se parlarci
 			const ch = chiacchieraPer(l, stato);
+			const ambiente = l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }];
 			if (ch) {
-				stato = { ...stato, sentite: [...stato.sentite, ch.id] };
-				avvia(ch.passi, true);
-			} else avvia(l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }], true);
+				const chi = ch.passi.find((p): p is Extract<Passo, { dice: string }> => 'dice' in p)?.dice;
+				const nome = chi ? (PERSONAGGI[chi]?.nome ?? chi) : null;
+				avvia([...ambiente, { scelta: [
+					{ ja: nome ? `（${nome}と 話す）` : '（まわりを 見る）', it: nome ? `(Parla con ${stripFuriganaNotation(nome)})` : '(Guardati intorno)', passi: [{ sente: ch.id }, ...ch.passi] },
+					{ ja: '（もう 行く）', it: '(Vai via)' }
+				] }], true);
+			} else avvia(ambiente, true);
 		}
 	}
 
@@ -794,6 +800,12 @@
 		if (!s) return new Set<LuogoId>();
 		return new Set(luoghiQui.filter((l) => apertura(l, s) === 'aperto' && scenaPer(l.id, { ...s, minuti: s.minuti + (l.id === s.luogo ? 0 : VIAGGIO) }, missione)).map((l) => l.id));
 	});
+	// luoghi dove c'è qualcuno con cui parlare (💬 piccolo, il ripasso)
+	const conChiacchiera = $derived.by(() => {
+		const s = stato;
+		if (!s) return new Set<LuogoId>();
+		return new Set(luoghiQui.filter((l) => !conStoria.has(l.id) && apertura(l, s) === 'aperto' && chiacchieraPer(l, s)).map((l) => l.id));
+	});
 	const giorniPercorso = $derived(stato ? [...new Set(stato.percorso.map((t) => t.giorno))] : []);
 
 	// sul telefono la mappa scorre: centrala sul luogo dove sei
@@ -977,7 +989,7 @@
 							style="left:{l.x}%; top:{l.y}%"
 							onclick={() => (infoLuogo = infoLuogo === l.id ? null : l.id)}
 						>
-							<span class="pin">{ap === 'bloccato' ? '🔒' : l.icona}{#if conStoria.has(l.id)}<b class="bang">!</b>{/if}</span>
+							<span class="pin">{ap === 'bloccato' ? '🔒' : l.icona}{#if conStoria.has(l.id)}<b class="bang">!</b>{:else if conChiacchiera.has(l.id)}<b class="fumetto">💬</b>{/if}</span>
 							<span class="etichetta">{nomeLuogo(l.id)}</span>
 						</button>
 					{/each}
@@ -1455,6 +1467,7 @@
 	.spot.storia { z-index: 3; }
 	.bang { position: absolute; top: -14px; right: -12px; width: 22px; height: 22px; border-radius: 50%; background: #d95763; color: #fff; border: 2px solid #fff; box-shadow: 0 1px 0 #0e0d1a; font: 900 0.95rem/18px system-ui, sans-serif; text-align: center; animation: salta 0.9s ease-in-out infinite; }
 	@keyframes salta { 50% { transform: translateY(-4px); } }
+	.fumetto { position: absolute; top: -10px; right: -10px; font-size: 0.8rem; line-height: 1; filter: drop-shadow(0 1px 0 #0e0d1a); }
 	.etichetta { font-size: 0.7rem; background: rgba(34, 32, 52, 0.85); color: #fff; padding: 2px 5px; white-space: nowrap; }
 	.spot.qui .pin { background: #fbf236; }
 	.spot.chiuso .pin { opacity: 0.6; filter: grayscale(1); }

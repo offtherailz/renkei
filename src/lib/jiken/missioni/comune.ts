@@ -134,22 +134,32 @@ export const serata = (): Passo[] =>
 		se: { giorno: Number(g) },
 		allora: [
 			...s.famiglia,
-			{ narra: 'テレビで 天気よほうを やって います。', it: 'In TV c’è il meteo.' },
-			{ dice: 'tv', faccia: 'meteo', ja: 'あしたの 天気です。', it: 'Il meteo di domani.' },
+			// la TV è una scelta: meteo e telegiornale (con le loro domande) se la guardi
 			{
-				domanda: {
-					ja: s.meteo.domanda,
-					it: s.meteo.domandaIt,
-					ascolto: { ja: s.meteo.ja, it: s.meteo.it, chi: 'F' },
-					opzioni: s.meteo.opzioni.map(([ja, it]) => ({ ja, it })),
-					giusta: s.meteo.giusta,
-					spiega: s.meteo.spiega,
-					tipo: 'meteo'
-				}
-			},
-			...(NOTIZIE[Number(g)] ? [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' } as Passo, ...tg(NOTIZIE[Number(g)]!)] : [])
+				scelta: [
+					{ ja: '（テレビを 見る）', it: '(Guarda la TV)', passi: tv(s, Number(g)) },
+					{ ja: '（テレビは 見ない）', it: '(Niente TV stasera)' }
+				]
+			}
 		]
 	}));
+// meteo (domanda d'ascolto) e telegiornale della sera
+const tv = (s: Sera, g: number): Passo[] => [
+	{ narra: 'テレビで 天気よほうを やって います。', it: 'In TV c’è il meteo.' },
+	{ dice: 'tv', faccia: 'meteo', ja: 'あしたの 天気です。', it: 'Il meteo di domani.' },
+	{
+		domanda: {
+			ja: s.meteo.domanda,
+			it: s.meteo.domandaIt,
+			ascolto: { ja: s.meteo.ja, it: s.meteo.it, chi: 'F' },
+			opzioni: s.meteo.opzioni.map(([ja, it]) => ({ ja, it })),
+			giusta: s.meteo.giusta,
+			spiega: s.meteo.spiega,
+			tipo: 'meteo'
+		}
+	},
+	...(NOTIZIE[g] ? [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' } as Passo, ...tg(NOTIZIE[g]!)] : [])
+];
 
 // ── la mattina a casa: due battute in famiglia (casa, vestiti, famiglia: N5 e N4
 // che la storia non usa). Una voce per ogni mattina di missione.

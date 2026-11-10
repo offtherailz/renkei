@@ -42,6 +42,7 @@ describe('事件: punteggio e timbri', () => {
 			for (const p of ps) {
 				if ('domanda' in p && p.domanda.tipo) tipi.push(p.domanda.tipo);
 				if ('se' in p) { giro(p.allora); giro(p.altrimenti ?? []); }
+				if ('scelta' in p) p.scelta.forEach((o) => giro(o.passi ?? []));
 			}
 		};
 		giro(serata());

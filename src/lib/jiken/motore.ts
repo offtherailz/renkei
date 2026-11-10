@@ -123,6 +123,7 @@ export function applica(s: Stato, p: Passo): Stato {
 	if ('soldi' in p) return { ...s, soldi: s.soldi + p.soldi };
 	if ('vai' in p) return viaggia(s, p.vai);
 	if ('dormi' in p) return dormi(s);
+	if ('sente' in p) return s.sentite.includes(p.sente) ? s : { ...s, sentite: [...s.sentite, p.sente] };
 	if ('conta' in p) return { ...s, contatori: { ...s.contatori, [p.conta]: (s.contatori[p.conta] ?? 0) + 1 } };
 	return s;
 }

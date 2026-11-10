@@ -128,6 +128,7 @@ export type Passo =
 	| { vai: LuogoId }
 	| { dormi: true }
 	| { conta: string } // sale un contatore dei timbri (es. 'puntuale')
+	| { sente: string } // chiacchiera ascoltata (non torna più)
 	| { fine: string }; // missione conclusa (titolo)
 
 export interface Scena {
