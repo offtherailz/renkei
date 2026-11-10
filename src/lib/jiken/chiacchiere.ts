@@ -69,6 +69,24 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	parco: [
 		{
+			id: 'pa-kiken',
+			passi: [
+				{ narra: 'いけの 前に かんばんが あります。', it: 'Davanti allo stagno c’è un cartello.' },
+				{ avviso: { tipo: 'cartello', titolo: '⚠ きけん', righe: ['いけに 入らないで ください。', 'ふかい ところが あります。', '子どもだけで あそばないで ください。'], it: 'PERICOLO — Non entrate nello stagno. Ci sono punti profondi. I bambini non giochino da soli.' } },
+				{ dice: 'sato', ja: 'この いけ、見た ことより ふかいんだって。子どもには きけんね。', it: 'Dicono che questo stagno sia più profondo di quanto sembri. Pericoloso per i bambini.' },
+				{ io: 'むこうの ひろばの ほうが あんぜんですね。', it: 'Il piazzale di là è più sicuro.' },
+				{ dice: 'sato', ja: 'うん。それに、わたし 夜の こうえんは ちょっと こわいな。', it: 'Sì. E poi il parco di sera mi fa un po’ paura.' },
+				{
+					domanda: {
+						ja: 'くらい 道を 一人で 歩くのは（　　）です。', it: 'Camminare da soli per una strada buia è (    ).',
+						opzioni: [{ ja: 'きけん', it: 'pericoloso' }, { ja: 'あんぜん', it: 'sicuro' }, { ja: 'じゆう', it: 'libero' }, { ja: 'けっこう', it: 'va bene / abbastanza' }],
+						giusta: 0, spiega: 'きけん (危険[きけん]) = pericoloso ↔ あんぜん (安全[あんぜん]) = sicuro. じゆう (自由) = libero; けっこう (結構[けっこう]) = va bene, abbastanza.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'p-hanami',
 			passi: [
 				{ narra: '公園[こうえん]の さくらの 下で、人が たくさん お花見を して います。', it: 'Sotto i ciliegi del parco tanta gente fa hanami.' },
@@ -129,6 +147,34 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	eki: [
 		{
+			id: 'ek-chikoku',
+			passi: [
+				{ dice: 'sato', ja: 'あ、{nome}さん！ 8時の 電車に のりおくれちゃった。会社に ちこくしそう……。', it: 'Ah, {nome}! Ho perso il treno delle 8. Rischio di arrivare tardi al lavoro…' },
+				{ io: 'ねぼうしたんですか。', it: 'Si è svegliata tardi?' },
+				{ dice: 'sato', ja: 'うん、ねぼう……。目ざまし時計が 止まって いたの。', it: 'Sì, troppo tardi… La sveglia si era fermata.' },
+				{
+					domanda: {
+						ja: '「ちこく」の つかいかたが 正しい 文は どれですか。', it: 'In quale frase «ちこく» è usato bene?',
+						opzioni: [
+							{ ja: 'じゅぎょうに ちこくして、先生に しかられました。', it: 'Sono arrivato tardi a lezione e il professore mi ha sgridato.' },
+							{ ja: 'あの 時計は 5分 ちこくして います。', it: '(sbagliata: orologio indietro → おくれて いる)' },
+							{ ja: '8時の 電車に ちこくして しまいました。', it: '(sbagliata: perdere il treno → のりおくれる)' },
+							{ ja: 'へんじが ちこくして すみません。', it: '(sbagliata: → おそく なって)' }
+						],
+						giusta: 0, spiega: 'ちこく (遅刻[ちこく]) = arrivare tardi a un impegno (scuola, lavoro, appuntamento). Orologio → おくれる; treno perso → のりおくれる.'
+					}
+				},
+				{
+					domanda: {
+						ja: '「きのうは ねぼうしました。」と だいたい 同じ いみの 文は どれですか。', it: '«Ieri ねぼう» vuol dire più o meno…',
+						opzioni: [{ ja: 'きのうは おきるのが おそく なりました。', it: 'Ieri mi sono alzato tardi.' }, { ja: 'きのうは ねるのが おそく なりました。', it: 'Ieri sono andato a letto tardi.' }, { ja: 'きのうは はやく ねました。', it: 'Ieri sono andato a letto presto.' }, { ja: 'きのうは はやく おきました。', it: 'Ieri mi sono alzato presto.' }],
+						giusta: 0, spiega: 'ねぼう (寝坊[ねぼう]) = svegliarsi tardi (troppo sonno), non «andare a letto tardi».'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'e-annuncio',
 			passi: [
 				{ narra: 'ホームに アナウンスが ながれます。', it: 'Sul binario si sente un annuncio.' },
@@ -182,6 +228,27 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	kissa: [
 		{
+			id: 'ki-nigai',
+			passi: [
+				{ dice: 'ito', ja: 'きょうの コーヒーは あたらしい まめです。少し にがいですよ。', it: 'Il caffè di oggi è di chicchi nuovi. È un po’ amaro.' },
+				{ io: 'にがい コーヒーは 好きです。さとうは いりません。', it: 'Il caffè amaro mi piace. Niente zucchero.' },
+				{ dice: 'ito', ja: 'くすりの にがさは いやですけど、コーヒーの にがさは おいしいですよね。', it: 'L’amaro delle medicine è odioso, ma quello del caffè è buono, vero?' },
+				{
+					domanda: {
+						ja: '「にがい」の つかいかたが 正しい 文は どれですか。', it: 'In quale frase «にがい» è usato bene?',
+						opzioni: [
+							{ ja: 'この チョコレートは 少し にがいですね。', it: 'Questo cioccolato è un po’ amaro.' },
+							{ ja: 'あたまが にがくて、くすりを のみました。', it: '(sbagliata: mal di testa → いたい)' },
+							{ ja: '夜 一人で 帰るのは にがいです。', it: '(sbagliata: paura → こわい)' },
+							{ ja: 'かぜを ひいて、こえが にがいです。', it: '(sbagliata)' }
+						],
+						giusta: 0, spiega: 'にがい (苦[にが]い) = amaro, solo per il gusto. Dolore → いたい; paura → こわい. Al 問題5 le frasi sbagliate usano la parola al posto di un’altra.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'c-shumi',
 			passi: [
 				{ dice: 'ito', ja: '{nome}さん、しゅみは 何ですか。', it: '{nome}, che hobby ha?' },
@@ -223,6 +290,26 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	posta: [
 		{
+			id: 'po-rusu',
+			passi: [
+				{ dice: 'postino', ja: 'きのう、こづつみを とどけに 行ったら、るすの 家が 多くて……。', it: 'Ieri sono andato a consegnare dei pacchi e tante case erano vuote…' },
+				{ dice: 'postino', ja: 'るすの ときは、ポストに 紙を 入れて おきます。電話を くれれば、もう 一度 とどけますよ。', it: 'Se non c’è nessuno, lascio un avviso nella buca. Con una telefonata riconsegniamo.' },
+				{
+					domanda: {
+						ja: '「るす」の つかいかたが 正しい 文は どれですか。', it: 'In quale frase «るす» è usato bene?',
+						opzioni: [
+							{ ja: '友だちの 家に 行ったら、るすでした。', it: 'Sono andato a casa di un amico e non c’era nessuno.' },
+							{ ja: 'あの デパートは きょう るすです。', it: '(sbagliata: negozio chiuso → 休み)' },
+							{ ja: 'この 電車には るすの せきが ありません。', it: '(sbagliata: posto libero → あいて いる せき)' },
+							{ ja: 'いそがしくて、しごとが るすに なりません。', it: '(sbagliata)' }
+						],
+						giusta: 0, spiega: 'るす (留守[るす]) = assenza da casa (o dall’ufficio). Negozio chiuso → 休み; posto libero → あいて いる.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'y-kozutsumi',
 			passi: [
 				{ io: 'この にもつを イタリアへ おくりたいんですが。', it: 'Vorrei spedire questo pacco in Italia.' },
@@ -260,6 +347,29 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	shokudo: [
 		{
+			id: 'sh-sara',
+			passi: [
+				{ narra: 'ガチャン！ 店の 人が おさらを おとしました。', it: 'Crash! Il cameriere ha fatto cadere un piatto.' },
+				{ dice: 'oste', ja: 'あっ、しつれいしました！ おさらを わって しまいました。おけがは ありませんか。', it: 'Ah, mi scusi! Ho rotto un piatto. Si è fatto male?' },
+				{ io: 'だいじょうぶです。', it: 'Tutto bene.' },
+				{ dice: 'oste', ja: 'われた おさらは あぶないので、さわらないで くださいね。すぐ かたづけます。', it: 'I cocci sono pericolosi, non li tocchi. Metto subito a posto.' },
+				{ nota: 'わる (割[わ]る) = rompere (io rompo il piatto); われる (割[わ]れる) = rompersi (il piatto si rompe). Come あける/あく.', it: 'Coppia transitivo/intransitivo.' },
+				{
+					domanda: {
+						ja: '「わる」の つかいかたが 正しい 文は どれですか。', it: 'In quale frase «わる» è usato bene?',
+						opzioni: [
+							{ ja: 'コップを おとして、わって しまいました。', it: 'Ho fatto cadere il bicchiere e l’ho rotto.' },
+							{ ja: 'しんぶんを わって、かばんに 入れました。', it: '(sbagliata: piegare → たたむ)' },
+							{ ja: 'シャツを わって、母に しかられました。', it: '(sbagliata: strappare → やぶる)' },
+							{ ja: 'ジュースを 二つの コップに わって ください。', it: '(sbagliata: dividere → わける)' }
+						],
+						giusta: 0, spiega: 'わる = rompere cose dure e fragili (piatti, bicchieri, vetro). Dividere → わける; strappare → やぶる; piegare → たたむ.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 's-shatei',
 			passi: [
 				{ dice: 'oste', ja: 'いらっしゃい！ きょうの ていしょくは ハンバーグと サラダです。', it: 'Benvenuto! Il menù del giorno è hamburger e insalata.' },
@@ -290,6 +400,30 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		}
 	],
 	hanaya: [
+		{
+			id: 'ha-soudan',
+			passi: [
+				{ io: 'すみません、母の たんじょうびの 花を えらびたいんですが。', it: 'Scusi, vorrei scegliere dei fiori per il compleanno di mia madre.' },
+				{ dice: 'fioraia', ja: 'はい、ごそうだんに のりますよ。お母さまは どんな 色が お好きですか。', it: 'Certo, la consiglio io. Che colore piace a sua madre?' },
+				{ io: 'きのう 父と そうだんして、ピンクに きめました。', it: 'Ieri ne ho parlato con mio padre e abbiamo deciso: rosa.' },
+				{ dice: 'fioraia', ja: 'すてきですね。では、あしたの 朝までに 用意して おきます。', it: 'Che bello. Allora glieli preparo per domattina.' },
+				{
+					domanda: {
+						ja: 'あねと（　　）して、父に あげる プレゼントを きめました。', it: 'Mi sono (    ) con mia sorella e abbiamo scelto il regalo per papà.',
+						opzioni: [{ ja: 'そうだん', it: 'consultare' }, { ja: 'さんせい', it: 'approvare' }, { ja: 'あいさつ', it: 'salutare' }, { ja: 'へんじ', it: 'rispondere' }],
+						giusta: 0, spiega: '〜と そうだんする (相談[そうだん]) = consultarsi con… さんせい (賛成[さんせい]) = essere d’accordo; あいさつ = saluto; へんじ (返事[へんじ]) = risposta.'
+					}
+				},
+				{
+					domanda: {
+						ja: 'りょこうの にもつは もう（　　）が できましたか。', it: 'I bagagli del viaggio sono già (    )?',
+						opzioni: [{ ja: 'ようい', it: 'pronti (preparativi)' }, { ja: 'やくそく', it: 'promessa' }, { ja: 'りよう', it: 'uso' }, { ja: 'せわ', it: 'cura' }],
+						giusta: 0, spiega: '用意[ようい]が できる = essere pronto. やくそく (約束) = promessa; りよう (利用) = utilizzo; せわ (世話[せわ]) = cura (せわを する = accudire).'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
 		{
 			id: 'h-sodateru',
 			passi: [
@@ -337,6 +471,22 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	eki2: [
 		{
+			id: 'e2-shuppatsu',
+			passi: [
+				{ dice: 'aya', ja: 'きょうは おばあちゃんを むかえに 来たの。でも、バスが もう しゅっぱつしちゃった。', it: 'Oggi sono venuta a prendere la nonna. Ma l’autobus è già partito.' },
+				{ io: 'つぎの バスは？', it: 'Il prossimo?' },
+				{ dice: 'aya', ja: '20分後。おばあちゃんが つくまで、ここで まって いるよ。', it: 'Tra 20 minuti. Aspetto qui finché arriva la nonna.' },
+				{
+					domanda: {
+						ja: '「バスが しゅっぱつしました。」と だいたい 同じ いみの 文は どれですか。', it: '«L’autobus しゅっぱつ» vuol dire più o meno…',
+						opzioni: [{ ja: 'バスが 出ました。', it: 'L’autobus è partito.' }, { ja: 'バスが とまりました。', it: 'L’autobus si è fermato.' }, { ja: 'バスが つきました。', it: 'L’autobus è arrivato.' }, { ja: 'バスが まがりました。', it: 'L’autobus ha svoltato.' }],
+						giusta: 0, spiega: 'しゅっぱつする (出発[しゅっぱつ]) = partire = 出る (per i mezzi). つく = arrivare; とまる = fermarsi; まがる = svoltare. むかえに 行く/来る (迎[むか]える) = andare/venire a prendere qualcuno.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'e2-kaisatsu',
 			passi: [
 				{ narra: 'かいさつの 前に、たくさんの 人が あつまって います。', it: 'Davanti ai tornelli si è radunata tanta gente.' },
@@ -363,6 +513,23 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		}
 	],
 	depa: [
+		{
+			id: 'de-hakobu',
+			passi: [
+				{ dice: 'aya', ja: 'あ、{nome}さん！ 買いすぎちゃった。この にもつ、いっしょに はこんで くれない？', it: 'Ah, {nome}! Ho comprato troppo. Mi aiuti a portare questi pacchi?' },
+				{ io: 'いいよ。どこまで はこぶ？', it: 'Certo. Fin dove li porto?' },
+				{ dice: 'aya', ja: 'えきまで。お父さんが 車で むかえに 来るって。……あ、でも 入口の 前は だめだって。', it: 'Fino alla stazione. Papà viene a prendermi in macchina. …Ah, ma davanti all’ingresso non si può.' },
+				{ avviso: { tipo: 'cartello', titolo: 'おねがい', righe: ['入口の 前に 車を 止めないで ください。', '自転車は 右の ちゅうりんじょうへ どうぞ。'], it: 'Avviso — Non fermate le auto davanti all’ingresso. Biciclette: nel parcheggio a destra.' } },
+				{
+					domanda: {
+						ja: 'デパートの 入口の 前に 車を（　　）ください。', it: 'Non (    ) l’auto davanti all’ingresso del grande magazzino.',
+						opzioni: [{ ja: 'とめないで', it: 'fermare/parcheggiare' }, { ja: 'やめないで', it: 'smettere' }, { ja: 'しめないで', it: 'chiudere' }, { ja: 'きめないで', it: 'decidere' }],
+						giusta: 0, spiega: '車を 止[と]める = fermare/parcheggiare l’auto. やめる = smettere; しめる (閉める) = chiudere; きめる (決める) = decidere. Tutte finiscono in 〜める: occhio alla prima sillaba.'
+					}
+				},
+				{ minuti: 20 }
+			]
+		},
 		{
 			id: 'd-goran',
 			passi: [
@@ -404,6 +571,26 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	ospedale: [
 		{
+			id: 'os-shinsetsu',
+			passi: [
+				{ dice: 'sato', ja: 'ここの お医者さんは とても しんせつですよ。ゆっくり せつめいして くれるの。', it: 'Qui la dottoressa è gentilissima. Ti spiega tutto con calma.' },
+				{ dice: 'dottoressa', ja: 'この くすりは 少し にがいですが、ごはんの 後で のんで くださいね。', it: 'Questa medicina è un po’ amara, la prenda dopo i pasti.' },
+				{
+					domanda: {
+						ja: '「しんせつ」の つかいかたが 正しい 文は どれですか。', it: 'In quale frase «しんせつ» è usato bene?',
+						opzioni: [
+							{ ja: 'えきの 人が しんせつに 道を おしえて くれました。', it: 'Il personale della stazione mi ha indicato la strada con gentilezza.' },
+							{ ja: 'この りょうりは 体に しんせつです。', it: '(sbagliata: → 体に いい)' },
+							{ ja: 'コンビニは 何でも 買えて しんせつです。', it: '(sbagliata: → べんり)' },
+							{ ja: '母は にわの 花に しんせつです。', it: '(sbagliata: → 花を 大切に して いる)' }
+						],
+						giusta: 0, spiega: 'しんせつ (親切) = gentile, solo per persone e il loro comportamento. Comodo → べんり; fa bene → 体に いい; avere cura → 大切に する.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
+		{
 			id: 'o-omimai',
 			passi: [
 				{ narra: 'びょういんの 前で、佐藤[さとう]さんに 会いました。', it: 'Davanti all’ospedale incontri Sato.' },
@@ -430,6 +617,30 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		}
 	],
 	ramen: [
+		{
+			id: 'ra-umai',
+			passi: [
+				{ io: 'この ラーメン、うまい！', it: 'Questo ramen è buonissimo!' },
+				{ dice: 'oste', ja: 'ありがとう。むすこが 作ったんだよ。むすこは りょうりが うまいんだ。', it: 'Grazie. L’ha fatto mio figlio. È bravo a cucinare.' },
+				{ dice: 'oste', ja: 'でも、字は へたでね。メニューを もっと ていねいに 書けって いつも 言って いるんだ。', it: 'Però scrive malissimo. Gli dico sempre di scrivere il menù con più cura.' },
+				{ dice: 'oste', ja: 'おきゃくさんに ほめられると、むすこも よろこぶよ。', it: 'Quando i clienti lo lodano, mio figlio è contento.' },
+				{
+					domanda: {
+						ja: '「あには えが うまいです。」と だいたい 同じ いみの 文は どれですか。', it: '«Mio fratello è うまい a disegnare» vuol dire più o meno…',
+						opzioni: [{ ja: 'あには えが じょうずです。', it: 'È bravo a disegnare.' }, { ja: 'あには えが へたです。', it: 'Disegna male.' }, { ja: 'あには えが すきです。', it: 'Gli piace disegnare.' }, { ja: 'あには えが きらいです。', it: 'Odia disegnare.' }],
+						giusta: 0, spiega: 'うまい = bravo (= じょうず, più colloquiale); detto del cibo = buonissimo (= おいしい).'
+					}
+				},
+				{
+					domanda: {
+						ja: '「田中さんは 先生に ほめられました。」 先生は 何と 言いましたか。', it: '«Tanaka è stato ほめられた dal professore». Cosa ha detto il professore?',
+						opzioni: [{ ja: '「とても よかったですよ。」', it: '«È andato benissimo.»' }, { ja: '「気を つけてね。」', it: '«Stai attento.»' }, { ja: '「ちょっと 休みましょう。」', it: '«Riposiamoci un po’.»' }, { ja: '「たいへんですね。」', it: '«Che fatica, eh.»' }],
+						giusta: 0, spiega: 'ほめる (褒[ほ]める) = lodare; ほめられる = essere lodato (passivo). ていねいに = con cura ≈ きれいに.'
+					}
+				},
+				{ minuti: 20 }
+			]
+		},
 		{
 			id: 'r-kaeru',
 			passi: [

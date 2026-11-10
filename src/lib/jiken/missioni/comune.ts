@@ -13,7 +13,7 @@ export const arrivo = (): Passo => ({
 	altrimenti: [
 		{
 			se: { alle: h(12) },
-			allora: [{ dice: 'mori', ja: '{nome}さん、9時を すぎて いますよ。あしたは おくれないで くださいね。', it: '{nome}, sono passate le 9. Domani non faccia tardi, per favore.' }],
+			allora: [{ dice: 'mori', ja: '{nome}さん、9時を すぎて いますよ。ちこくです。あしたは ねぼうしないで くださいね。', it: '{nome}, sono passate le 9: è in ritardo. Domani non dorma troppo, per favore.' }],
 			altrimenti: [
 				{ dice: 'mori', faccia: 'preoccupata', ja: '{nome}さん、もう 昼ですよ！ 何を して いたんですか。', it: '{nome}, è già mezzogiorno! Che cosa stava facendo?' },
 				{ io: 'おそく なって、すみません。', it: 'Scusi il ritardo.' }
