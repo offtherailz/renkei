@@ -389,7 +389,7 @@ export const M3: Missione = {
 		},
 		{
 			// rete di sicurezza: dal giovedì (giorno 17) la riunione è comunque passata
-			id: 'm3-chiusura', luogo: 'casa', quando: { giorno: [18, 19, 20], nonFlag: ['m3.riunione'] },
+			id: 'm3-chiusura', luogo: 'casa', ripiego: true, quando: { giorno: [18, 19, 20], nonFlag: ['m3.riunione'] },
 			passi: [
 				{ dice: 'mamma', ja: '{nome}さん、森[もり]さんから 電話が あったわよ。かいぎは 森さん 一人で 行ったけど、うまく いったって。', it: '{nome}, ha chiamato Mori. È andata da sola alla riunione, ma è andata bene.' },
 				{ flag: 'treno.ok' },

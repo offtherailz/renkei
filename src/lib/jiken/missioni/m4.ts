@@ -259,6 +259,7 @@ export const M4: Missione = {
 			// dietro il cartello del pavimento bagnato: il biglietto di 青木 (prima di «indaga» nel file, apposta)
 			id: 'm4-cartello', luogo: 'museo', quando: { giorno: 23, flag: ['m4.pulizie'], nonFlag: ['m4.memo'] },
 			passi: [
+				{ completa: 'kanban4' },
 				{ narra: 'かべの 前の 「ゆかが ぬれて います」の かんばんを うごかすと……かべに 小さい メモが はって あります！', it: 'Sposti il cartello «pavimento bagnato» davanti alla parete… e sulla parete c’è un biglietto attaccato!' },
 				{
 					avviso: {
@@ -286,6 +287,7 @@ export const M4: Missione = {
 			// la lettera mai aperta, tra la posta di 小林
 			id: 'm4-lettera', luogo: 'museo', quando: { giorno: 23, flag: ['m4.kobayashi'], nonFlag: ['m4.tegami'] },
 			passi: [
+				{ completa: 'posta4' },
 				{ narra: '小林さんの つくえの 上に、手紙が たくさん あります。まだ あけて いない ふうとうの 中に……青木さんの 名前が！', it: 'Sulla scrivania di Kobayashi ci sono tante lettere. Tra le buste ancora chiuse… il nome di Aoki!' },
 				{
 					avviso: {
@@ -403,7 +405,7 @@ export const M4: Missione = {
 		},
 		{
 			// rete di sicurezza: dal giovedì la storia si chiude comunque
-			id: 'm4-chiusura', luogo: 'casa', quando: { giorno: [24, 25, 26, 27], nonFlag: ['m4.risolto'] },
+			id: 'm4-chiusura', luogo: 'casa', ripiego: true, quando: { giorno: [24, 25, 26, 27], nonFlag: ['m4.risolto'] },
 			passi: [
 				{ dice: 'mamma', ja: '{nome}さん、しんぶんに 美術館[びじゅつかん]の ことが 出て いるわよ。えは ぬすまれたのでは なくて、えを かいた 人が なおして いたんだって。', it: '{nome}, il giornale parla del museo. Il quadro non era stato rubato: la pittrice lo stava ritoccando.' },
 				{ flag: 'museo.aperto' },

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { nuovoStato, avanza } from './motore';
+import { nuovoStato, avanza, obiettiviDi } from './motore';
 import { arrivo, serata } from './missioni/comune';
-import { livelli, nuoviTimbri, registraRisposta, stelle, timbri } from './punteggio';
-import type { Domanda } from './tipi';
+import { livelli, manca, nuoviTimbri, registraRisposta, stelle, timbri, unisci } from './punteggio';
+import type { Domanda, Missione, Passo } from './tipi';
 
 const T = { chiacchiere: 39, persone: 20, missioni: 4, stelleTre: 0 };
 const d = (extra: Partial<Domanda> = {}): Domanda => ({ ja: '?', it: '?', opzioni: [], giusta: 0, spiega: '', ...extra });
@@ -57,5 +57,46 @@ describe('事件: punteggio e timbri', () => {
 
 	it('ogni timbro ha tre soglie crescenti', () => {
 		for (const t of timbri(T)) expect(t.soglie[0] < t.soglie[1] && t.soglie[1] < t.soglie[2]).toBe(true);
+	});
+});
+
+describe('事件: risultato delle missioni', () => {
+	it('ogni obiettivo di una missione si può completare (ha il suo «completa»)', async () => {
+		const { M1 } = await import('./missioni/m1');
+		const { M2 } = await import('./missioni/m2');
+		const { M3 } = await import('./missioni/m3');
+		const { M4 } = await import('./missioni/m4');
+		const mai: string[] = [];
+		for (const m of [M1, M2, M3, M4]) {
+			const fatti = new Set<string>();
+			const giro = (ps: Passo[]): void => {
+				for (const p of ps) {
+					if ('completa' in p) fatti.add(p.completa);
+					else if ('scelta' in p) p.scelta.forEach((o) => giro(o.passi ?? []));
+					else if ('se' in p) { giro(p.allora); giro(p.altrimenti ?? []); }
+					else if ('prova' in p) { giro(p.prova.ok); giro(p.prova.no); }
+				}
+			};
+			for (const sc of m.scene) giro(sc.passi);
+			for (const id of obiettiviDi(m)) if (!fatti.has(id)) mai.push(`${m.id}: ${id}`);
+		}
+		expect(mai).toEqual([]);
+	});
+
+	it('ogni missione ha la sua rete di sicurezza (ripiego) per «risolto da altri»', async () => {
+		for (const f of ['m1', 'm2', 'm3', 'm4']) {
+			const mod = (await import(`./missioni/${f}.ts`)) as Record<string, Missione>;
+			const m = Object.values(mod)[0]!;
+			expect(m.scene.filter((sc) => sc.ripiego).length, m.id).toBe(1);
+		}
+	});
+
+	it('il migliore si tiene voce per voce; manca dice cosa resta', () => {
+		const a = unisci(undefined, { ok: 9, tot: 10, obiettivi: 3, risolto: false });
+		const b = unisci(a, { ok: 6, tot: 10, obiettivi: 5, risolto: true });
+		expect(b).toEqual({ ok: 9, tot: 10, obiettivi: 5, risolto: true });
+		const m: Missione = { id: 'x', titolo: 'x', it: 'x', scene: [{ id: 's', luogo: 'casa', quando: {}, passi: [{ obiettivo: 'o1', ja: '', it: '' }, { obiettivo: 'o2', ja: '', it: '' }] }] };
+		expect(manca({ ok: 9, tot: 10, obiettivi: 2, risolto: true }, m)).toEqual({ stelle: false, obiettivi: 0, risolto: false, fatto: 100 });
+		expect(manca({ ok: 5, tot: 10, obiettivi: 1, risolto: false }, m).fatto).toBeLessThan(50);
 	});
 });

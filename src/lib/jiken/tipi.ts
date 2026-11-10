@@ -135,6 +135,7 @@ export interface Scena {
 	luogo: LuogoId;
 	quando: Condizione;
 	ripeti?: boolean; // di norma una scena si gioca una volta sola
+	ripiego?: boolean; // rete di sicurezza: la missione si chiude senza che il caso l'abbia risolto il giocatore
 	passi: Passo[];
 }
 

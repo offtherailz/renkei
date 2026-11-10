@@ -23,7 +23,7 @@
 	import { ICONA_TEMPO, tempo } from '$lib/jiken/meteo';
 	import * as suono from '$lib/jiken/suoni';
 	import Hanko from '$lib/jiken/Hanko.svelte';
-	import { livelli, nuoviTimbri, percento, registraRisposta, stelle, timbri, valore, livello, type Totali } from '$lib/jiken/punteggio';
+	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
 	const ORDINE: Missione[] = [M1, M2, M3, M4];
@@ -297,7 +297,8 @@
 		}
 		const nuovi = nuoviTimbri(visti, ora);
 		if (!nuovi.length) return;
-		stato = { ...stato, timbri: { ...visti, ...ora } };
+		// un timbro preso resta (anche se con nuove missioni il traguardo «tutte» si sposta)
+		stato = { ...stato, timbri: { ...visti, ...Object.fromEntries(nuovi.map((k) => [k, ora[k]!])) } };
 		salva();
 		const vuota = !timbriInCoda.length && !timbroNuovo;
 		timbriInCoda = [...timbriInCoda, ...nuovi.map((id) => { const tb = TIMBRI.find((t) => t.id === id)!; return { kanji: tb.kanji, ja: tb.ja, it: tb.it, livello: ora[id] ?? 1 }; })];
@@ -601,9 +602,7 @@
 		if (stato.finita) {
 			if (slot === 'main' && !imp.completate.includes(stato.missione)) imp = { ...imp, completate: [...imp.completate, stato.missione] };
 			// il miglior risultato resta (anche dai rigiochi)
-			const voto = stato.punteggi[stato.missione];
-			const prima = imp.migliori?.[stato.missione];
-			if (voto?.tot && (!prima || percento(voto) > percento(prima))) imp = { ...imp, migliori: { ...imp.migliori, [stato.missione]: voto } };
+			imp = { ...imp, migliori: { ...imp.migliori, [stato.missione]: unisci(imp.migliori?.[stato.missione], risultato(stato, missione)) } };
 			salvaImpostazioni(imp);
 			fase = 'fine';
 			return;
@@ -850,7 +849,18 @@
 		</div>
 	{/if}
 
-	{#snippet testoUI(t: Testo)}
+{#snippet riepilogo(r: Risultato, m: Missione)}
+	{@const x = manca(r, m)}
+	<div class="riepilogo">
+		<span class="barra"><span style="width: {x.fatto}%"></span></span>
+		<span class="small"><b>{x.fatto}%</b> · <span class="stelle">{'★'.repeat(stelle(r))}<span class="spente">{'★'.repeat(3 - stelle(r))}</span></span> {percento(r)}% · 🎯 {r.obiettivi ?? 0}/{(r.obiettivi ?? 0) + x.obiettivi}{r.risolto === undefined ? '' : ` · ${r.risolto ? L(UI.risolto) : L(UI.nonRisolto)}`}</span>
+		{#if x.fatto < 100}
+			<span class="small manca">{L(UI.manca)}{[x.stelle ? '★★★ (90%)' : '', x.obiettivi ? `🎯 ${x.obiettivi} ${L(UI.mancaOb)}` : '', x.risolto ? `🕵️ ${L(UI.mancaRisolto)}` : ''].filter(Boolean).join(' · ')}</span>
+		{:else}<span class="small">{L(UI.perfetta)}</span>{/if}
+	</div>
+{/snippet}
+
+{#snippet testoUI(t: Testo)}
 		<!-- in giapponese: parole da toccare, traduzione col 🇮🇹 -->
 		{#if lingua === 'ja'}
 			<Frase text={testo(t.ja)} {dividi} />
@@ -888,9 +898,11 @@
 				<h2 class="sotto">{L(UI.missioni)}</h2>
 				<div class="missioni">
 					{#each Object.values(MISSIONI) as m (m.id)}
+						{@const r = imp.migliori?.[m.id] ?? (salvato && salvato.missione === m.id && !salvato.finita ? { ...risultato(salvato, m), risolto: undefined } : null)}
 						<div class="missione">
-							<span><strong>{m.titolo}</strong> <small>{lingua === 'ja' ? '' : m.it}</small></span>
+							<span><strong><Frase text={m.titolo} /></strong> <small>{lingua === 'ja' ? '' : m.it}</small></span>
 							<span class="small">{imp.completate.includes(m.id) ? L(UI.fatta) : salvato?.missione === m.id ? L(UI.inCorso) : ''}</span>
+							{#if r}{@render riepilogo(r, m)}{:else if imp.completate.includes(m.id)}<span class="small riepilogo">{L(UI.senzaDati)}</span>{/if}
 							{#if imp.completate.includes(m.id)}<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.rigioca)}</button>
 							{:else if iniziabile(m.id)}<button class="btn small" onclick={() => iniziaDa(m.id)}>{L(UI.iniziaQui)}</button>{/if}
 						</div>
@@ -1153,6 +1165,7 @@
 			<section class="panel intro">
 				<h1>🎉 {missione.titolo}</h1>
 				{#if missione.epilogo}<p class="paper">{@render testoUI(missione.epilogo)}</p>{/if}
+				{#if top}{@render riepilogo(top, missione)}{/if}
 				{#if voto?.tot}
 					<p class="voto"><span class="stelle">{'★'.repeat(stelle(voto))}<span class="spente">{'★'.repeat(3 - stelle(voto))}</span></span> {L(UI.missioniVoti)}: <strong>{voto.ok}/{voto.tot}</strong>（{percento(voto)}%）</p>
 					{#if top && percento(top) > percento(voto)}<p class="small">{L(UI.migliore)}{'★'.repeat(stelle(top))} {percento(top)}%</p>{/if}
@@ -1329,7 +1342,7 @@
 						<div class="timbri">
 							{#each TIMBRI as tb (tb.id)}
 								{@const v = valore(tb.id, stato, totali)}
-								{@const lv = livello(tb, v)}
+								{@const lv = Math.max(livello(tb, v), stato.timbri?.[tb.id] ?? 0)}
 								<div class="timbro-riga">
 									<div class="tre">{#each [1, 2, 3] as k (k)}<Hanko kanji={tb.kanji} livello={lv >= k ? k : 0} />{/each}</div>
 									<p><strong><Frase text={tb.ja} /></strong><br /><small>{tb.it} · {lv >= 3 ? L(UI.timbroMax) : `${L(UI.prossimoTimbro)}${Math.min(v, tb.soglie[lv]!)}/${tb.soglie[lv]}`}</small></p>
@@ -1543,6 +1556,10 @@
 	.segnalibro.s5 { --c: #76428a; }
 	.segnalibro.s6 { --c: #c8102e; }
 	.timbri { display: grid; gap: 4px; }
+	.riepilogo { display: grid; gap: 2px; grid-column: 1 / -1; }
+	.riepilogo .barra { height: 8px; background: #e8e0cc; border: 2px solid #0e0d1a; display: block; }
+	.riepilogo .barra span { display: block; height: 100%; background: #6abe30; }
+	.riepilogo .manca { color: #f2a7b0; }
 	.timbro-riga { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px dashed #c9c3b0; }
 	.timbro-riga p { margin: 0; }
 	.timbro-riga .tre { display: flex; gap: 6px; }

@@ -148,5 +148,12 @@ export const UI = {
 	migliore: { ja: 'いちばん いい：', it: 'migliore: ' },
 	nuovoTimbro: { ja: 'はんこを もらいました！', it: 'Nuovo timbro!' },
 	prossimoTimbro: { ja: 'つぎ：', it: 'prossimo: ' },
-	timbroMax: { ja: 'ぜんぶ もらいました', it: 'completo' }
+	timbroMax: { ja: 'ぜんぶ もらいました', it: 'completo' },
+	risolto: { ja: '🕵️ 自分で かいけつ', it: '🕵️ risolto da te' },
+	nonRisolto: { ja: '🕵️ ほかの 人が かいけつ', it: '🕵️ risolto da altri' },
+	manca: { ja: 'あと：', it: 'manca: ' },
+	mancaOb: { ja: 'やる こと', it: 'obiettivi' },
+	mancaRisolto: { ja: '自分で かいけつ', it: 'risolverlo da te' },
+	senzaDati: { ja: '（てんすうの 前に クリア：もう 一度 あそぶと 出ます）', it: '(finita prima dei punteggi: rigiocala per vederli)' },
+	perfetta: { ja: '🎉 パーフェクト！', it: '🎉 completa al 100%!' }
 } satisfies Record<string, Testo | Testo[]>;

@@ -2,8 +2,9 @@
 // Il voto della missione conta solo le domande della storia (sempre le stesse,
 // quindi confrontabili se la rigiochi); chiacchiere e treno vanno nel «ripasso».
 // I timbri sono traguardi a tre livelli per tipo, calcolati dallo stato.
-import type { Domanda, Stato } from './tipi';
+import type { Domanda, Missione, Stato } from './tipi';
 import { PREMI } from './giochi';
+import { obiettiviDi } from './motore';
 
 export type Conta = { ok: number; tot: number };
 
@@ -21,6 +22,36 @@ const conta = (s: Stato, chiavi: string[]): Record<string, number> => {
 	for (const k of chiavi) out[k] = (out[k] ?? 0) + 1;
 	return out;
 };
+
+// ── risultato di una missione: voto, obiettivi fatti, caso risolto da te
+// (non dalla scena di ripiego). Tutto ricavato dai dati della missione, così
+// vale da solo anche per quelle nuove.
+export interface Risultato extends Conta {
+	obiettivi?: number;
+	risolto?: boolean;
+}
+export function risultato(s: Stato, m: Missione): Risultato {
+	const ids = obiettiviDi(m);
+	return {
+		...(s.punteggi[m.id] ?? { ok: 0, tot: 0 }),
+		obiettivi: s.obiettivi.filter((o) => o.fatto && ids.has(o.id)).length,
+		risolto: !m.scene.some((sc) => sc.ripiego && s.fatte.includes(sc.id))
+	};
+}
+// il migliore tra due partite, voce per voce
+export function unisci(a: Risultato | undefined, b: Risultato): Risultato {
+	if (!a) return b;
+	const voto = percento(b) > percento(a) || (!a.tot && b.tot) ? b : a;
+	return { ok: voto.ok, tot: voto.tot, obiettivi: Math.max(a.obiettivi ?? 0, b.obiettivi ?? 0), risolto: !!(a.risolto || b.risolto) };
+}
+// cosa manca al 100%: ★★★, obiettivi, caso risolto da te; e quanto è fatto (0-100)
+export function manca(r: Risultato | undefined, m: Missione): { stelle: boolean; obiettivi: number; risolto: boolean; fatto: number } {
+	const tot = obiettiviDi(m).size;
+	const ob = Math.min(r?.obiettivi ?? 0, tot);
+	const st = stelle(r);
+	const fatto = Math.round(((st / 3) * 40 + (tot ? ob / tot : 1) * 40 + (r?.risolto ? 20 : 0)));
+	return { stelle: st < 3, obiettivi: tot - ob, risolto: !r?.risolto, fatto };
+}
 
 // Una risposta: dove va (storia della missione o ripasso) e quali contatori sale.
 export function registraRisposta(s: Stato, ok: boolean, d: { domanda?: Domanda; libera?: boolean; treno?: boolean }): Stato {

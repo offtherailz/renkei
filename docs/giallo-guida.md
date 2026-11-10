@@ -92,6 +92,13 @@ tutta la storia della chat. Gli altri documenti:
   `{ conta: 'puntuale' }` sta in `arrivo()`. `stato.timbri` = livelli già mostrati:
   quando uno sale cade sul quaderno con il suono `timbro()` (in coda se sono più).
   Scheda 🏅 はんこ del quaderno. Risposte: suono `giusto()` / `sbagliato()`.
+  **Risultato di missione** (`risultato()`/`unisci()`/`manca()`): voto ★, obiettivi
+  fatti su `obiettiviDi(m)`, e «risolto da te» = non è passata la scena con
+  `ripiego: true` (la rete di sicurezza che chiude il caso). Il meglio di ogni voce
+  sta in `imp.migliori`; la home mostra barra % (★ 40, obiettivi 40, risolto 20) e
+  cosa manca. **Missione nuova**: ogni `obiettivo` deve avere il suo `completa`, e
+  una sola scena `ripiego` (i test lo controllano); il resto si calcola da solo. I
+  timbri «tutte» seguono i totali; un livello preso non si perde.
 - **Scena interrotta**: a ogni passo si salva in `stato.scena` il passo mostrato e
   quelli dopo; riaprendo la partita (`riparti`) si riprende da lì. Le riprese del
   mattino la tolgono; una domanda già risposta non si ripete.

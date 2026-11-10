@@ -19,7 +19,7 @@ export interface Impostazioni {
 	completate: string[]; // missioni finite nella partita principale (si possono rigiocare)
 	suoni: boolean; // effetti (telefono, campanelli…)
 	ambiente: boolean; // uccellini di giorno, grilli di notte
-	migliori: Record<string, { ok: number; tot: number }>; // miglior punteggio di ogni missione finita
+	migliori: Record<string, { ok: number; tot: number; obiettivi?: number; risolto?: boolean }>; // il meglio di ogni missione finita (voto, obiettivi, risolto)
 }
 
 export const IMPOSTAZIONI_BASE: Impostazioni = { nome: 'ルカ', sesso: 'M', voce: null, tono: 1, velocita: 1, autoVoce: true, lingua: 'ja', completate: [], suoni: true, ambiente: true, migliori: {} };
