@@ -91,6 +91,7 @@ export const UI = {
 	inCorso: { ja: '▶ 今 やって いる', it: '▶ in corso' },
 	rigioca: { ja: '↺ もう一度 やる', it: '↺ Rigioca' },
 	iniziaQui: { ja: '▶ ここから 始める', it: '▶ Comincia da qui' },
+	aParte: { ja: '↺ べつに あそぶ', it: '↺ Gioca a parte' },
 	iniziaSicuro: { ja: 'この ミッションから 始めますか。今の ゲームは きえます。', it: 'Cominciare da questa missione? La partita principale attuale si perde.' },
 	continuaRigioco: { ja: '▶ もう一度の つづき', it: '▶ Continua il rigioco' },
 	rigiocoNota: { ja: 'もう一度 やる ときは、ミッションの 始めから です。今の ゲームの お金や 持ち物は かわりません。', it: 'Il rigioco riparte dall’inizio della missione, in uno slot a parte: soldi e oggetti della partita principale non cambiano.' },

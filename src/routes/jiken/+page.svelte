@@ -600,7 +600,8 @@
 		if (!stato) return;
 		parlante = null;
 		if (stato.finita) {
-			if (slot === 'main' && !imp.completate.includes(stato.missione)) imp = { ...imp, completate: [...imp.completate, stato.missione] };
+			// anche finita a parte conta: la missione dopo si può cominciare
+			if (!imp.completate.includes(stato.missione)) imp = { ...imp, completate: [...imp.completate, stato.missione] };
 			// il miglior risultato resta (anche dai rigiochi)
 			imp = { ...imp, migliori: { ...imp.migliori, [stato.missione]: unisci(imp.migliori?.[stato.missione], risultato(stato, missione)) } };
 			salvaImpostazioni(imp);
@@ -904,7 +905,10 @@
 							<span class="small">{imp.completate.includes(m.id) ? L(UI.fatta) : salvato?.missione === m.id ? L(UI.inCorso) : ''}</span>
 							{#if r}{@render riepilogo(r, m)}{:else if imp.completate.includes(m.id)}<span class="small riepilogo">{L(UI.senzaDati)}</span>{/if}
 							{#if imp.completate.includes(m.id)}<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.rigioca)}</button>
-							{:else if iniziabile(m.id)}<button class="btn small" onclick={() => iniziaDa(m.id)}>{L(UI.iniziaQui)}</button>{/if}
+							{:else if iniziabile(m.id)}
+								<button class="btn small" onclick={() => iniziaDa(m.id)}>{L(UI.iniziaQui)}</button>
+								<button class="btn small ghost" onclick={() => rigioca(m.id)}>{L(UI.aParte)}</button>
+							{/if}
 						</div>
 					{/each}
 					{#if salvatoRigioco}<button class="btn small" onclick={continuaRigioco}>{L(UI.continuaRigioco)} ({salvatoRigioco.missione}, {dataJa(salvatoRigioco.giorno)} {hhmm(salvatoRigioco.minuti)})</button>{/if}
