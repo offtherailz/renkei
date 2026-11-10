@@ -24,7 +24,7 @@
 	import * as suono from '$lib/jiken/suoni';
 	import Hanko from '$lib/jiken/Hanko.svelte';
 	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
-	import type { Lingua, LuogoId, Missione, Passo, Stato, Testo } from '$lib/jiken/tipi';
+	import type { Lingua, LuogoId, Missione, Opzione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
 	const ORDINE: Missione[] = [M1, M2, M3, M4];
 	const MISSIONI: Record<string, Missione> = Object.fromEntries(ORDINE.map((m) => [m.id, m]));
@@ -264,7 +264,7 @@
 	function arrivoTreno(): void {
 		if (!stato) return;
 		viaggio = null;
-		entra(stato.luogo);
+		entra(stato.luogo, true);
 	}
 	const testo = (t: string): string => declina(conNome(t, imp.nome), imp.sesso);
 
@@ -431,7 +431,7 @@
 		else entra(stato.luogo);
 	}
 
-	function entra(dest: LuogoId): void {
+	function entra(dest: LuogoId, daTreno = false): void {
 		if (!stato) return;
 		const l = LUOGO[dest];
 		const ap = apertura(l, stato);
@@ -459,14 +459,17 @@
 			// le chiacchiere non partono da sole: c'è qualcuno, e scegli tu se parlarci
 			const ch = chiacchieraPer(l, stato);
 			const ambiente = l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }];
+			// in stazione: il treno si prende da qui
+			const verso = daTreno ? null : stazioneOpposta(dest);
+			const opzioni: Opzione[] = [];
 			if (ch) {
 				const chi = ch.passi.find((p): p is Extract<Passo, { dice: string }> => 'dice' in p)?.dice;
 				const nome = chi ? (PERSONAGGI[chi]?.nome ?? chi) : null;
-				avvia([...ambiente, { scelta: [
-					{ ja: nome ? `（${nome}と 話す）` : '（まわりを 見る）', it: nome ? `(Parla con ${stripFuriganaNotation(nome)})` : '(Guardati intorno)', passi: [{ sente: ch.id }, ...ch.passi] },
-					{ ja: '（もう 行く）', it: '(Vai via)' }
-				] }], true);
-			} else avvia(ambiente, true);
+				opzioni.push({ ja: nome ? `（${nome}と 話す）` : '（まわりを 見る）', it: nome ? `(Parla con ${stripFuriganaNotation(nome)})` : '(Guardati intorno)', passi: [{ sente: ch.id }, ...ch.passi] });
+			}
+			if (verso) opzioni.push({ ja: `（🚃 電車で ${LUOGO[verso].nome}へ　${TRENO.prezzo}円）`, it: `(🚃 In treno a ${stripFuriganaNotation(LUOGO[verso].nome)}, ¥${TRENO.prezzo})`, azione: 'treno' });
+			if (opzioni.length) avvia([...ambiente, { scelta: [...opzioni, { ja: '（もう 行く）', it: '(Vai via)' }] }], true);
+			else avvia(ambiente, true);
 		}
 	}
 
@@ -675,6 +678,15 @@
 	function scegli(i: number, detto = false): void {
 		if (!corrente || !('scelta' in corrente)) return;
 		const o = corrente.scelta[i]!;
+		if (o.azione === 'treno' && stato) {
+			coda = [];
+			corrente = null;
+			parlante = null;
+			stato = { ...stato, scena: undefined };
+			treno(stato.luogo);
+			if (fase !== 'treno') fase = 'mappa'; // senza soldi: resta in stazione, sulla mappa
+			return;
+		}
 		if (giro) giro.ancora = !!o.passi?.length;
 		coda = [{ io: o.ja, it: o.it ?? '', detto }, ...(o.passi ?? []), ...coda];
 		prossimo();

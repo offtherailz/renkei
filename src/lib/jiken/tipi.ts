@@ -74,6 +74,7 @@ export interface Opzione {
 	ja: string;
 	it?: string;
 	passi?: Passo[];
+	azione?: 'treno'; // la pagina fa partire il treno (stazioni)
 }
 
 export interface Domanda {

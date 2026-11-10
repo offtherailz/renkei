@@ -203,6 +203,11 @@
 <svelte:window onkeydown={tasti} />
 
 <section class="sg">
+	<!-- uscita sempre in alto: sul telefono in fondo non si vede -->
+	<div class="barra-su">
+		{#if gioco === 'menu'}<button class="btn ghost small" onclick={esci}>{L(UI.sgEsci)}</button>
+		{:else}<button class="btn ghost small" onclick={menu}>{L(UI.sgMenu)}</button>{/if}
+	</div>
 	{#if gioco === 'menu'}
 		<div class="scene-wrap">
 			<img class="scene" src="{base}/giorno/sfondi/sala_giochi.jpg" alt="" />
@@ -244,7 +249,6 @@
 				<p class="small">{i + 1}{lingua === 'ja' ? UI.sgPosto.ja : UI.sgPosto.it} — <strong>{c.punti}</strong> {L(UI.sgPunti)} · {giornoJa(c.giorno)}</p>
 			{:else}<p class="small">{L(UI.nessuno)}</p>{/each}
 		</div>
-		<div class="row"><button class="btn ghost" onclick={esci}>{L(UI.sgEsci)}</button></div>
 	{:else if gioco === 'ufo' && ufo}
 		<div class="macchina">
 			<div class="vetro">
@@ -325,7 +329,6 @@
 				{/if}
 			{/if}
 		</div>
-		{#if !finito}<div class="row"><button class="btn ghost small" onclick={menu}>{L(UI.sgMenu)}</button></div>{/if}
 	{/if}
 </section>
 
@@ -335,6 +338,7 @@
 	.sg p { margin: 0; }
 	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 	.btn { font-family: inherit; background: #5b6ee1; color: #fff; border: 3px solid var(--px-line); box-shadow: inset -3px -3px 0 #3f3f74, inset 3px 3px 0 #8fa0ff; padding: 8px 14px; font-size: 0.95rem; cursor: pointer; touch-action: manipulation; }
+	.barra-su { position: sticky; top: 0; z-index: 3; display: flex; justify-content: flex-end; margin-bottom: -4px; }
 	.btn:disabled { opacity: 0.5; cursor: default; }
 	.btn.big { font-size: 1.05rem; padding: 12px 16px; }
 	.btn.ghost { background: #45283c; box-shadow: inset -3px -3px 0 #2a1824, inset 3px 3px 0 #6e3f5f; }
