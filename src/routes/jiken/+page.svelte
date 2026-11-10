@@ -450,6 +450,7 @@
 		if (sc) {
 			stato = { ...stato, fatte: [...stato.fatte, sc.id] };
 			avvia(sc.passi);
+			if (sc.ripeti) giro = { id: sc.id, ancora: false };
 		} else if (dest === LUOGO_GIOCHI) {
 			fase = 'giochi';
 			salva();
@@ -483,7 +484,11 @@
 
 	let giornoScena = -1; // giorno in cui è cominciata la scena (per capire se si è dormito)
 	// libera: chiacchiera o ambiente di un luogo, fuori dal voto della missione
+	// scena ripetibile «con chi parli?»: finita una risposta si torna alla domanda,
+	// finché non scegli l'opzione per andare via (quella senza passi)
+	let giro: { id: string; ancora: boolean } | null = null;
 	function avvia(passi: Passo[], libera = false): void {
+		giro = null;
 		if (stato) {
 			giornoScena = stato.giorno;
 			stato = { ...stato, libera: libera || undefined };
@@ -616,6 +621,16 @@
 			avvia(sc.passi);
 			return;
 		}
+		// «con chi parli?»: si resta lì e si sceglie qualcun altro
+		if (giro?.ancora && stato.minuti < TARDI && apertura(l, stato) === 'aperto') {
+			const id = giro.id;
+			const r = scenaPer(stato.luogo, stato, missione);
+			if (r?.id === id) {
+				avvia(r.passi);
+				giro = { id, ancora: false };
+				return;
+			}
+		}
 		// ci si è appena svegliati e la storia non ha una scena: risveglio in casa
 		if (stato.giorno !== giornoScena && stato.luogo === 'casa') {
 			avvia([
@@ -654,6 +669,7 @@
 	function scegli(i: number, detto = false): void {
 		if (!corrente || !('scelta' in corrente)) return;
 		const o = corrente.scelta[i]!;
+		if (giro) giro.ancora = !!o.passi?.length;
 		coda = [{ io: o.ja, it: o.it ?? '', detto }, ...(o.passi ?? []), ...coda];
 		prossimo();
 	}
