@@ -69,7 +69,7 @@ export const LUOGHI: Luogo[] = [
 		]
 	},
 	{
-		id: 'posta', nome: '郵便局[ゆうびんきょく]', it: 'ufficio postale', icona: '🏣', sfondo: 'posta', x: 29.1, y: 73,
+		id: 'posta', nome: 'ゆうびんきょく', it: 'ufficio postale', icona: '🏣', sfondo: 'posta', x: 29.1, y: 73,
 		orario: { giorni: FERIALI, fasce: [[h(9), h(17)]] },
 		ambiente: [{ dice: 'postino', ja: 'いらっしゃいませ。', it: 'Benvenut{o}.' }, { narra: '送る ものは ありません。', it: 'Non hai niente da spedire.' }]
 	},
@@ -138,11 +138,11 @@ export const LUOGHI: Luogo[] = [
 		ambiente: [{ narra: '大きい 病院です。病気では ないので、入りません。', it: 'Un grande ospedale. Non sei malat{o}, quindi non entri.' }]
 	},
 	{
-		id: 'museo', nome: '山野美術館[やまのびじゅつかん]', it: 'museo di Yamano', icona: '🏛️', quartiere: 'ekimae', sfondo: 'museo', x: 69.8, y: 43,
+		id: 'museo', nome: '山野びじゅつかん[やまのびじゅつかん]', it: 'museo di Yamano', icona: '🏛️', quartiere: 'ekimae', sfondo: 'museo', x: 69.8, y: 43,
 		// si apre con la missione 4 (m4.museo), poi resta aperto (museo.aperto); chiuso il lunedì
 		orario: { giorni: [1, 2, 3, 4, 5, 6], fasce: [[h(9, 30), h(17)]] },
 		bloccato: { nonFlag: ['museo.aperto', 'm4.museo'] }, perche: { ja: '今は しまって います（工事中）', it: 'per ora è chiuso (lavori)' },
-		ambiente: [{ narra: '美術館[びじゅつかん]です。青木[あおき]さんの てんらんかい「さくらと ねこ」を やって います。', it: 'Il museo. C’è la mostra «Sakura e gatto» di Aoki.' }]
+		ambiente: [{ narra: 'びじゅつかんです。青木[あおき]さんの てんらんかい「さくらと ねこ」を やって います。', it: 'Il museo. C’è la mostra «Sakura e gatto» di Aoki.' }]
 	},
 	{
 		id: 'ramen', nome: 'ラーメン屋', it: 'ramen-ya', icona: '🍜', quartiere: 'ekimae', sfondo: 'ristorante', x: 80, y: 49.5,
@@ -171,12 +171,12 @@ export const LUOGO = Object.fromEntries(LUOGHI.map((l) => [l.id, l])) as Record<
 export const PERSONAGGI: Record<string, Personaggio> = {
 	mamma: { nome: 'お母さん', sprite: 'mamma', voce: 'F', yomi: 'おかあさん', chi: { ja: '吉田[よしだ]さんの 家の お母さん。やさしくて、りょうりが 上手です。', it: 'La mamma della famiglia Yoshida, che ti ospita. Gentile, e cucina benissimo.' } },
 	papa: { nome: 'お父さん', sprite: 'papa', voce: 'M', yomi: 'おとうさん', chi: { ja: '吉田[よしだ]さんの 家の お父さん。町の 地図を くれました。', it: 'Il papà Yoshida. Ti ha dato la piantina del quartiere.' } },
-	mori: { nome: '森[もり]ぶちょう', sprite: 'capo_donna', voce: 'F', yomi: 'もりぶちょう', chi: { ja: 'さくら会社の ぶちょう。きびしいですが、しごとを よく 見て います。', it: 'La tua responsabile alla さくら会社. Esigente, ma attenta a come lavori.' } },
-	suzuki: { nome: '鈴木[すずき]さん', sprite: 'collega_donna', voce: 'F', yomi: 'すずきさん', chi: { ja: '会社の せんぱい。しごとが 早くて、ちょっと きびしいです。', it: 'Collega più esperta: veloce sul lavoro, un po’ severa.' } },
+	mori: { nome: '森[もり]ぶちょう', sprite: 'capo_donna', voce: 'F', yomi: 'もりぶちょう', chi: { ja: 'さくら会社の ぶちょう。きびしいですが、仕事を よく 見て います。', it: 'La tua responsabile alla さくら会社. Esigente, ma attenta a come lavori.' } },
+	suzuki: { nome: '鈴木[すずき]さん', sprite: 'collega_donna', voce: 'F', yomi: 'すずきさん', chi: { ja: '会社の せんぱい。仕事が 早くて、ちょっと きびしいです。', it: 'Collega più esperta: veloce sul lavoro, un po’ severa.' } },
 	tanaka: { nome: '田中さん', sprite: 'collega_uomo', voce: 'M', yomi: 'たなかさん', chi: { ja: '会社の どうりょう。明るい 人ですが、ときどき わすれものを します。', it: 'Collega allegro, ma ogni tanto dimentica le cose.' } },
 	commessa: { nome: '店員', sprite: 'commessa_konbini', voce: 'F', yomi: 'てんいん', chi: { ja: 'コンビニ「ハッピーマート」の 店員さん。何でも よく 見て います。', it: 'La commessa della konbini Happy Mart. Nota tutto.' } },
 	oste: { nome: '店の 人', sprite: 'cameriere', voce: 'M', yomi: 'みせの ひと', chi: { ja: 'ふじ食堂と ラーメン屋の 店の 人。', it: 'Il gestore di ふじ食堂 e del ramen-ya.' } },
-	postino: { nome: '郵便局[ゆうびんきょく]の 人', sprite: 'commesso', voce: 'M', yomi: 'ゆうびんきょくの ひと', chi: { ja: '郵便局[ゆうびんきょく]の まどぐちの 人。', it: 'L’impiegato allo sportello della posta.' } },
+	postino: { nome: 'ゆうびんきょくの 人', sprite: 'commesso', voce: 'M', yomi: 'ゆうびんきょくの ひと', chi: { ja: 'ゆうびんきょくの まどぐちの 人。', it: 'L’impiegato allo sportello della posta.' } },
 	fornaia: { nome: 'パン屋の 人', sprite: 'panettiera', voce: 'F', yomi: 'パンやの ひと', chi: { ja: 'パン屋の 店員さん。', it: 'La ragazza della panetteria.' } },
 	fioraia: { nome: '花屋の 人', sprite: 'fioraia', voce: 'F', yomi: 'はなやの ひと', chi: { ja: '花屋の 店員さん。', it: 'La fioraia.' } },
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M', yomi: 'なかむらさん', chi: { ja: 'けいさつの 人。町の ふしぎな じけんを しらべて いて、{nome}さんに 手つだいを たのみます。', it: 'Ispettore di polizia. Indaga sui piccoli misteri del quartiere e chiede il tuo aiuto.' } },
@@ -202,15 +202,15 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	dottoressa: { nome: 'お医者さん', sprite: 'medico', voce: 'F', yomi: 'おいしゃさん', chi: { ja: '山野[やまの]の 病院の お医者さん。', it: 'La dottoressa dell’ospedale di Yamano.' } },
 	// missione 4 (美術館の 事件)
 	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F', yomi: 'あおきさん', chi: { ja: 'えを かく 人。「さくらと ねこ」の えを かきました。', it: 'Pittrice: ha dipinto il quadro «Sakura e gatto».' } },
-	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M', yomi: 'こばやしさん', chi: { ja: '美術館[びじゅつかん]の かかりの 人。いつも いそがしいです。', it: 'Il curatore del museo. Sempre indaffarato.' } },
-	guardia: { nome: 'けいびの 人', sprite: 'custode', voce: 'F', yomi: 'けいびの ひと', chi: { ja: '美術館[びじゅつかん]の けいびの 人。', it: 'La guardia del museo.' } },
-	pulizie: { nome: 'そうじの 人', sprite: 'padrone', voce: 'M', yomi: 'そうじの ひと', chi: { ja: '美術館[びじゅつかん]を そうじする 人。', it: 'L’addetto alle pulizie del museo.' } }
+	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M', yomi: 'こばやしさん', chi: { ja: 'びじゅつかんの かかりの 人。いつも いそがしいです。', it: 'Il curatore del museo. Sempre indaffarato.' } },
+	guardia: { nome: 'けいびの 人', sprite: 'custode', voce: 'F', yomi: 'けいびの ひと', chi: { ja: 'びじゅつかんの けいびの 人。', it: 'La guardia del museo.' } },
+	pulizie: { nome: 'そうじの 人', sprite: 'padrone', voce: 'M', yomi: 'そうじの ひと', chi: { ja: 'びじゅつかんを そうじする 人。', it: 'L’addetto alle pulizie del museo.' } }
 };
 
 export const OGGETTI: Record<string, { it: string; ja: string }> = {
 	portafoglio: { it: 'portafoglio', ja: 'さいふ' },
 	busta: { it: 'busta coi documenti da spedire', ja: 'しょるい' },
-	ricevuta_posta: { it: 'ricevuta della posta', ja: '郵便局[ゆうびんきょく]の レシート' },
+	ricevuta_posta: { it: 'ricevuta della posta', ja: 'ゆうびんきょくの レシート' },
 	scontrino: { it: 'scontrino della konbini', ja: 'コンビニの レシート' },
 	latte: { it: 'latte', ja: 'ぎゅうにゅう' },
 	sacchetto_pane: { it: 'pane per regalo', ja: 'パン' },

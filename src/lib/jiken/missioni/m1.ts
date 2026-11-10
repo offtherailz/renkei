@@ -30,7 +30,7 @@ export const M1: Missione = {
 		{
 			id: 'd0-casa-mattina', luogo: 'casa', quando: { giorno: 0, nonFlag: ['d0.casa'] },
 			passi: [
-				{ narra: '4月6日（月）、朝 7時半。さくら町での 一日目です。あなたは 吉田[よしだ]さんの 家に 住んで いて、今日から さくら会社で はたらきます。', it: 'Lunedì 6 aprile, ore 7:30. È il tuo primo giorno a さくら町: vivi presso la famiglia Yoshida e oggi cominci a lavorare alla さくら会社.' },
+				{ narra: '4月6日（月）、朝 7時半。さくら町での 一日目です。あなたは 吉田[よしだ]さんの 家に 住んで いて、今日から さくら会社で 働きます。', it: 'Lunedì 6 aprile, ore 7:30. È il tuo primo giorno a さくら町: vivi presso la famiglia Yoshida e oggi cominci a lavorare alla さくら会社.' },
 				{ dice: 'mamma', ja: 'おはよう、{nome}さん。よく ねられましたか。', it: 'Buongiorno, {nome}. Hai dormito bene?' },
 				{
 					scelta: [
@@ -71,11 +71,11 @@ export const M1: Missione = {
 					]
 				},
 				{ dice: 'mori', ja: 'わからない ことが あったら、鈴木[すずき]さんに 聞いて くださいね。', it: 'Se c’è qualcosa che non sa, chieda a Suzuki.' },
-				{ dice: 'suzuki', ja: '鈴木[すずき]です。よろしく。さっそくですが、この しょるいを 郵便局[ゆうびんきょく]から 送って おいて ください。', it: 'Sono Suzuki, piacere. Subito un compito: spedisca questi documenti dalla posta, per favore.' },
+				{ dice: 'suzuki', ja: '鈴木[すずき]です。よろしく。さっそくですが、この しょるいを ゆうびんきょくから 送って おいて ください。', it: 'Sono Suzuki, piacere. Subito un compito: spedisca questi documenti dalla posta, per favore.' },
 				{ prendi: 'busta', it: 'busta coi documenti' },
-				{ dice: 'suzuki', ja: '今日の 5時までに おねがいします。郵便局[ゆうびんきょく]は 5時に しまりますから。', it: 'Entro le 5 di oggi, per favore. La posta chiude alle 5.', taccuino: true },
-				{ obiettivo: 'posta', ja: '今日の 5時までに 郵便局[ゆうびんきょく]から しょるいを 送る。', it: 'Spedire la busta dal 郵便局 entro le 17:00 (oggi).' },
-				{ pensa: '5時までに 郵便局[ゆうびんきょく]か……。わすれないように しよう。', it: 'Entro le 5 alla posta… Non devo dimenticarlo.' },
+				{ dice: 'suzuki', ja: '今日の 5時までに おねがいします。ゆうびんきょくは 5時に しまりますから。', it: 'Entro le 5 di oggi, per favore. La posta chiude alle 5.', taccuino: true },
+				{ obiettivo: 'posta', ja: '今日の 5時までに ゆうびんきょくから しょるいを 送る。', it: 'Spedire la busta dal 郵便局 entro le 17:00 (oggi).' },
+				{ pensa: '5時までに ゆうびんきょくか……。わすれないように しよう。', it: 'Entro le 5 alla posta… Non devo dimenticarlo.' },
 				{ dice: 'suzuki', ja: '昼休みは 12時から 1時までです。', it: 'La pausa pranzo è dalle 12 alle 13.', taccuino: true },
 				{ dice: 'tanaka', ja: '田中です！ {nome}さん、昼ご飯、いっしょに 行きませんか。ふじ食堂は 安くて おいしいですよ。', it: 'Sono Tanaka! {nome}, andiamo a pranzo insieme? La trattoria Fuji è economica e buona.' },
 				{
@@ -168,7 +168,7 @@ export const M1: Missione = {
 					altrimenti: [
 						{ dice: 'suzuki', ja: '{nome}さん、しょるいは もう 送りましたか。', it: '{nome}, ha già spedito i documenti?' },
 						{ io: 'あっ、まだです！', it: 'Ah, non ancora!' },
-						{ dice: 'suzuki', ja: '郵便局[ゆうびんきょく]は 5時までですよ。いそいで ください。', it: 'La posta è aperta fino alle 5. Si sbrighi.' }
+						{ dice: 'suzuki', ja: 'ゆうびんきょくは 5時までですよ。いそいで ください。', it: 'La posta è aperta fino alle 5. Si sbrighi.' }
 					]
 				},
 				{ ora: h(14) },
@@ -213,7 +213,7 @@ export const M1: Missione = {
 				{ narra: 'コピーを して、かいぎしつに おいて おきました。', it: 'Fai le copie e le lasci in sala riunioni.' },
 				{ dice: 'mori', ja: '{nome}さん、メモ ありがとう。山田さんから 電話が ありました。', it: '{nome}, grazie del biglietto. Yamada ha chiamato.' },
 				{ ora: h(16, 30) },
-				{ se: { nonFlag: ['posta.ok'] }, allora: [{ narra: '今 4時半です。今 出れば、郵便局[ゆうびんきょく]が しまる 前に つきます。', it: 'Sono le 16:30: se esci adesso arrivi alla posta prima che chiuda.' }] },
+				{ se: { nonFlag: ['posta.ok'] }, allora: [{ narra: '今 4時半です。今 出れば、ゆうびんきょくが しまる 前に つきます。', it: 'Sono le 16:30: se esci adesso arrivi alla posta prima che chiuda.' }] },
 				{ dice: 'mori', ja: '今日は もう 帰っても いいですよ。おつかれさまでした。', it: 'Per oggi può andare a casa. Buon lavoro.' },
 				{ io: 'おさきに しつれいします。', it: 'Mi congedo prima di voi.' },
 				{ flag: 'd0.lavoro' }
@@ -251,7 +251,7 @@ export const M1: Missione = {
 					altrimenti: [{ dice: 'mamma', ja: 'あれ、ぎゅうにゅうは？ ……まあ、いいわ。明日 わたしが 買うから。', it: 'Ehi, e il latte? …Va be’, lo compro io domani.' }]
 				},
 				{ dice: 'papa', ja: '会社は どうだった？', it: 'Com’è andata in ditta?' },
-				{ io: 'みんな しんせつでした。', it: 'Erano tutti gentili.' },
+				{ io: 'みんな 親切でした。', it: 'Erano tutti gentili.' },
 				...cena([
 					{
 						domanda: {
@@ -307,7 +307,7 @@ export const M1: Missione = {
 					se: { nonFlag: ['posta.ok'] },
 					allora: [
 						{ dice: 'suzuki', ja: 'きのうの しょるい、まだ 送って いませんね。今日 かならず 送って ください。', it: 'I documenti di ieri non li ha ancora spediti. Oggi li spedisca senza fallo.', taccuino: true },
-						{ obiettivo: 'posta', ja: '郵便局[ゆうびんきょく]から しょるいを 送る（9時〜5時）。', it: 'Spedire la busta dal 郵便局 (9-17).' }
+						{ obiettivo: 'posta', ja: 'ゆうびんきょくから しょるいを 送る（9時〜5時）。', it: 'Spedire la busta dal 郵便局 (9-17).' }
 					]
 				},
 				{ dice: 'tanaka', ja: 'えっ、さいふを なくしたんですか。それは たいへんですね。', it: 'Cosa, ha perso il portafoglio? Che guaio.' },
@@ -612,7 +612,7 @@ export const M1: Missione = {
 					se: { oggetti: ['mazzo_fiori'] },
 					allora: [{ io: 'これ、少しですが、どうぞ。', it: 'Ecco, è poca cosa, ma prego.' }, { togli: 'mazzo_fiori' }, { dice: 'takahashi', ja: 'えっ、花ですか。母が よろこびます。ありがとうございます！', it: 'Oh, dei fiori? Mia madre ne sarà contenta. Grazie!' }, { flag: 'regalo.dato' }]
 				},
-				{ dice: 'takahashi', ja: 'ぼくは 高校生ですが、夜は ここで 手つだいを して います。{nome}さんも 日本語を べんきょうしに 来ませんか。', it: 'Sono un liceale, ma la sera do una mano qui. Perché non viene anche lei a studiare giapponese?' },
+				{ dice: 'takahashi', ja: 'ぼくは 高校生ですが、夜は ここで 手つだいを して います。{nome}さんも 日本語を 勉強しに 来ませんか。', it: 'Sono un liceale, ma la sera do una mano qui. Perché non viene anche lei a studiare giapponese?' },
 				{ io: 'はい、ぜひ。', it: 'Sì, volentieri.' },
 				{ completa: 'grazie' },
 				{ minuti: 30 },
@@ -653,7 +653,7 @@ export const M1: Missione = {
 						{
 							domanda: {
 								ja: '中村[なかむら]さんは {nome}さんに 何を たのみましたか。', it: 'Cosa ti ha chiesto Nakamura?',
-								opzioni: [{ ja: '学校で べんきょうする こと', it: 'studiare a scuola' }, { ja: '時々 しごとを 手つだう こと', it: 'aiutarlo ogni tanto' }, { ja: 'さいふを さがす こと', it: 'cercare un portafoglio' }, { ja: '電話を かける こと', it: 'telefonargli' }],
+								opzioni: [{ ja: '学校で 勉強する こと', it: 'studiare a scuola' }, { ja: '時々 仕事を 手つだう こと', it: 'aiutarlo ogni tanto' }, { ja: 'さいふを さがす こと', it: 'cercare un portafoglio' }, { ja: '電話を かける こと', it: 'telefonargli' }],
 								giusta: 1, spiega: '「今度、少し 手つだって くれませんか」: 〜て くれませんか = mi farebbe il favore di…?'
 							}
 						}

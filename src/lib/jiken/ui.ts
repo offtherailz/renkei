@@ -9,7 +9,7 @@ export const UI = {
 	lingua: { ja: '🌐 日本語', it: '🌐 Italiano' },
 	titolo: { ja: 'さくら町の 毎日', it: 'La vita a さくら町' },
 	intro: {
-		ja: 'あなたは さくら町に 来た ばかりです。さくら会社で はたらいて、吉田[よしだ]さんの 家に 住んで います。町を 歩いて、用事を して、いろいろな 人と 話しましょう。ときどき ふしぎな ことが 起きます。よく 見て、よく 聞いて ください。',
+		ja: 'あなたは さくら町に 来た ばかりです。さくら会社で 働いて、吉田[よしだ]さんの 家に 住んで います。町を 歩いて、用事を して、いろいろな 人と 話しましょう。ときどき ふしぎな ことが 起きます。よく 見て、よく 聞いて ください。',
 		it: 'Sei appena arrivat{o} a さくら町, un quartiere di 山野市. Lavori alla さくら会社 e vivi presso la famiglia 吉田. Gira per il quartiere, fai le commissioni, parla con la gente: ogni tanto succede qualcosa di strano, e tu osservi bene.'
 	},
 	regole: [
@@ -37,7 +37,7 @@ export const UI = {
 	domanda: { ja: '📝 試験の 問題', it: '📝 Domanda d’esame' },
 	giusto: { ja: '⭕ 正しい！', it: '⭕ Giusto!' },
 	sbagliato: { ja: '❌ ちがいます。', it: '❌ No.' },
-	spiega: { ja: '💡 せつめい', it: '💡 Spiegazione' },
+	spiega: { ja: '💡 説明', it: '💡 Spiegazione' },
 	prova: { ja: '🔎 しょうこを 見せる', it: '🔎 Mostra una prova' },
 	nonSo: { ja: 'わからない', it: 'non so' },
 	provaOk: { ja: '⭕ それです！', it: '⭕ Prova giusta!' },

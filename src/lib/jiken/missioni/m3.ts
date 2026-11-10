@@ -230,10 +230,10 @@ export const M3: Missione = {
 				{ obiettivo: 'hotel', ja: 'あしたの 10時までに ホテル みどり（山野駅[やまのえき]の 前）へ 行く。', it: 'Domani entro le 10, andare all’Hotel Midori (davanti alla stazione di Yamano).' },
 				{ flag: 'm3.consegnato' },
 				// la giornata di lavoro continua: niente pomeriggio libero alle 9 del mattino
-				{ dice: 'mori', ja: 'さあ、しごとに もどりましょう。ICカードは 昼休みか、しごとの あとで 買って ください。', it: 'Su, torniamo al lavoro. La carta IC la compri in pausa pranzo o dopo il lavoro.' },
+				{ dice: 'mori', ja: 'さあ、仕事に もどりましょう。ICカードは 昼休みか、仕事の あとで 買って ください。', it: 'Su, torniamo al lavoro. La carta IC la compri in pausa pranzo o dopo il lavoro.' },
 				{
 					se: { alle: h(12) },
-					allora: [{ narra: '昼まで、たまって いた しごとを しました。', it: 'Fino a mezzogiorno sbrighi il lavoro arretrato.' }, { ora: h(12) }]
+					allora: [{ narra: '昼まで、たまって いた 仕事を しました。', it: 'Fino a mezzogiorno sbrighi il lavoro arretrato.' }, { ora: h(12) }]
 				}
 			]
 		},
@@ -299,7 +299,7 @@ export const M3: Missione = {
 					{
 						domanda: {
 							ja: '田中さんは どこで コピーを しましたか。', it: 'Dove ha fatto davvero le copie Tanaka?',
-							opzioni: [{ ja: '会社', it: 'in ufficio' }, { ja: 'コンビニ', it: 'alla konbini' }, { ja: '郵便局[ゆうびんきょく]', it: 'alla posta' }, { ja: '家', it: 'a casa' }],
+							opzioni: [{ ja: '会社', it: 'in ufficio' }, { ja: 'コンビニ', it: 'alla konbini' }, { ja: 'ゆうびんきょく', it: 'alla posta' }, { ja: '家', it: 'a casa' }],
 							giusta: 1, spiega: 'Lo scontrino delle 19:30 e la fotocopiatrice rotta (「こわれて いた」): le copie le ha fatte alla コンビニ.'
 						}
 					}
@@ -352,7 +352,7 @@ export const M3: Missione = {
 						{ ja: 'どういたしまして。', it: 'Prego (di niente).', passi: [{ nota: '「どういたしまして」 risponde a un grazie per un favore. Qui, a un cliente che ringrazia della visita: 「こちらこそ、よろしく おねがいいたします」.', it: '「どういたしまして」 risponde a un grazie per un favore. Qui, a un cliente che ringrazia della visita: 「こちらこそ、よろしく おねがいいたします」.' }] }
 					]
 				},
-				{ narra: '森ぶちょうが 資料[しりょう]を 見せながら せつめいしました。かいぎは 11時半に 終わりました。', it: 'Mori spiega mostrando il documento. La riunione finisce alle 11:30.' },
+				{ narra: '森ぶちょうが 資料[しりょう]を 見せながら 説明しました。かいぎは 11時半に 終わりました。', it: 'Mori spiega mostrando il documento. La riunione finisce alle 11:30.' },
 				{ ora: h(11, 30) },
 				{ dice: 'yamada', ja: 'いい 資料[しりょう]ですね。来月から いっしょに 仕事を しましょう。', it: 'Ottimo documento. Dal mese prossimo lavoriamo insieme.' },
 				{ dice: 'mori', ja: '{nome}さん、今日は もう 会社に もどらなくて いいですよ。この 町を 見て 帰ったら どうですか。', it: '{nome}, oggi non serve che torni in ufficio. Perché non fai un giro in centro prima di tornare?' },

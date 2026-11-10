@@ -164,7 +164,7 @@ export const M2: Missione = {
 			id: 'm2-d8-casa', luogo: 'casa', quando: { giorno: 8, nonFlag: ['m2.d8.casa'] },
 			passi: [
 				{ narra: '4月14日（火）、朝 7時半。', it: 'Martedì 14 aprile, ore 7:30.' },
-				{ dice: 'papa', ja: 'ポスター、店に はって もらったら どう？ 喫茶[きっさ]あおいの 伊藤[いとう]さんは しんせつだよ。', it: 'Perché non chiedi ai negozi di appendere i volantini? Itō del caffè Aoi è gentile.' },
+				{ dice: 'papa', ja: 'ポスター、店に はって もらったら どう？ 喫茶[きっさ]あおいの 伊藤[いとう]さんは 親切だよ。', it: 'Perché non chiedi ai negozi di appendere i volantini? Itō del caffè Aoi è gentile.' },
 				{ flag: 'm2.d8.casa' },
 				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50

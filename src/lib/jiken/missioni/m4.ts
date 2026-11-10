@@ -23,7 +23,7 @@ const cena = (domande: Passo[], dopo: Passo[] = []): Passo[] => [
 const VOLANTINO: Passo = {
 	avviso: {
 		tipo: 'volantino',
-		titolo: '山野美術館[やまのびじゅつかん]　リニューアル オープン',
+		titolo: '山野びじゅつかん[やまのびじゅつかん]　リニューアル オープン',
 		righe: [
 			'てんらんかい｜「さくらと ねこ」　青木[あおき] みどり',
 			'きかん｜4月29日（水・しゅくじつ）〜 6月7日（日）',
@@ -38,10 +38,10 @@ const VOLANTINO: Passo = {
 
 export const M4: Missione = {
 	id: 'm4',
-	titolo: '美術館[びじゅつかん]の じけん',
+	titolo: 'びじゅつかんの じけん',
 	it: 'Il caso del museo',
 	epilogo: {
-		ja: 'えは ぬすまれたのでは なく、青木[あおき]さんが はこんで いました。メモも 手紙も、だれにも 読まれて いなかったのです。美術館[びじゅつかん]は ぶじに オープンしました。',
+		ja: 'えは ぬすまれたのでは なく、青木[あおき]さんが 運んで いました。メモも 手紙も、だれにも 読まれて いなかったのです。びじゅつかんは ぶじに オープンしました。',
 		it: 'Il quadro non era stato rubato: l’aveva portato via Aoki. Il biglietto e la lettera non li aveva letti nessuno. Il museo ha riaperto senza problemi.'
 	},
 	inizio: { giorno: 21, flag: ['d0.casa', 'portafoglio.ok', 'grazie.ok', 'mike.ok', 'jinja.aperto', 'treno.ok', 'm3.riunione'], oggetti: ['portafoglio', 'carta_ic2'] },
@@ -62,8 +62,8 @@ export const M4: Missione = {
 			id: 'm4-d21-ufficio', luogo: 'ufficio', quando: { giorno: 21, nonFlag: ['m4.d21.ufficio'] },
 			passi: [
 				arrivo(),
-				{ dice: 'mori', ja: 'みなさん、おしらせです。さくら会社は 山野美術館[やまのびじゅつかん]の てんらんかいの スポンサーに なりました。', it: 'Attenzione, un annuncio. La さくら会社 è diventata sponsor di una mostra al museo di Yamano.', taccuino: true },
-				{ dice: 'mori', ja: '{nome}さん、会社の かかりを おねがいします。あしたの ごご、美術館[びじゅつかん]へ 行って、じゅんびを 手つだって ください。', it: '{nome}, faccia lei da referente della ditta. Domani pomeriggio vada al museo ad aiutare con i preparativi.', taccuino: true },
+				{ dice: 'mori', ja: 'みなさん、おしらせです。さくら会社は 山野びじゅつかん[やまのびじゅつかん]の てんらんかいの スポンサーに なりました。', it: 'Attenzione, un annuncio. La さくら会社 è diventata sponsor di una mostra al museo di Yamano.', taccuino: true },
+				{ dice: 'mori', ja: '{nome}さん、会社の かかりを おねがいします。あしたの ごご、びじゅつかんへ 行って、じゅんびを 手つだって ください。', it: '{nome}, faccia lei da referente della ditta. Domani pomeriggio vada al museo ad aiutare con i preparativi.', taccuino: true },
 				{ dice: 'mori', ja: 'これが てんらんかいの ちらしです。よく 読んで おいて くださいね。', it: 'Questo è il volantino della mostra. Lo legga bene.' },
 				VOLANTINO,
 				{
@@ -74,7 +74,7 @@ export const M4: Missione = {
 					}
 				},
 				{ flag: 'm4.museo' },
-				{ obiettivo: 'museo4', ja: 'あしたの ごご、美術館[びじゅつかん]へ じゅんびの 手つだいに 行く。', it: 'Domani pomeriggio, andare al museo ad aiutare coi preparativi.' },
+				{ obiettivo: 'museo4', ja: 'あしたの ごご、びじゅつかんへ じゅんびの 手つだいに 行く。', it: 'Domani pomeriggio, andare al museo ad aiutare coi preparativi.' },
 				{ flag: 'm4.d21.ufficio' },
 				{ ora: h(12) }
 			]
@@ -83,11 +83,11 @@ export const M4: Missione = {
 			id: 'm4-d21-pomeriggio', luogo: 'ufficio', quando: { giorno: 21, dalle: h(12, 30), flag: ['m4.d21.ufficio'], nonFlag: ['m4.d21.pomeriggio'] },
 			passi: [
 				rientro(),
-				{ dice: 'suzuki', ja: '{nome}さん、わたしも 5月4日に 美術館[びじゅつかん]へ 行きたいんです。でも、その日は 月曜日ですよね。', it: '{nome}, anch’io vorrei andare al museo il 4 maggio. Ma quel giorno è lunedì, vero?' },
+				{ dice: 'suzuki', ja: '{nome}さん、わたしも 5月4日に びじゅつかんへ 行きたいんです。でも、その日は 月曜日ですよね。', it: '{nome}, anch’io vorrei andare al museo il 4 maggio. Ma quel giorno è lunedì, vero?' },
 				{ dice: 'suzuki', ja: '5月4日は みどりの日で、しゅくじつです。', it: 'Il 4 maggio è la Festa del Verde: è festivo.' },
 				{
 					domanda: {
-						ja: '5月4日（月・しゅくじつ）、鈴木[すずき]さんは 美術館[びじゅつかん]に 入れますか。', it: 'Il 4 maggio (lunedì, festivo) Suzuki può entrare al museo?',
+						ja: '5月4日（月・しゅくじつ）、鈴木[すずき]さんは びじゅつかんに 入れますか。', it: 'Il 4 maggio (lunedì, festivo) Suzuki può entrare al museo?',
 						opzioni: [{ ja: '入れる', it: 'sì' }, { ja: '月曜日だから 入れない', it: 'no, è lunedì' }, { ja: '午前だけ 入れる', it: 'solo la mattina' }, { ja: '学生だけ 入れる', it: 'solo gli studenti' }],
 						giusta: 0, spiega: '「休み｜月曜日（しゅくじつの ときは 開いて います）」: il lunedì è chiuso, ma se è festivo apre. Le eccezioni tra parentesi sono una trappola classica del 情報検索.'
 					}
@@ -102,11 +102,11 @@ export const M4: Missione = {
 		{
 			id: 'm4-d21-casa-sera', luogo: 'casa', quando: { giorno: 21, dalle: h(17), flag: ['m4.d21.casa'] },
 			passi: [
-				{ dice: 'mamma', ja: 'おかえりなさい。美術館[びじゅつかん]の しごと？ すてきね。', it: 'Bentornat{o}. Un lavoro al museo? Che bello.' },
+				{ dice: 'mamma', ja: 'おかえりなさい。びじゅつかんの 仕事？ すてきね。', it: 'Bentornat{o}. Un lavoro al museo? Che bello.' },
 				...cena([
 					{
 						domanda: {
-							ja: '美術館[びじゅつかん]に 入れるのは 何時までですか。', it: 'Fino a che ora si può entrare al museo?',
+							ja: 'びじゅつかんに 入れるのは 何時までですか。', it: 'Fino a che ora si può entrare al museo?',
 							opzioni: [{ ja: '4時半', it: '16:30' }, { ja: '5時', it: '17:00' }, { ja: '9時半', it: '9:30' }, { ja: '10時', it: '10:00' }],
 							giusta: 0, spiega: '「9時半 〜 5時（入るのは 4時半まで）」: si chiude alle 5, ma si entra solo fino alle 4 e mezza.'
 						}
@@ -114,7 +114,7 @@ export const M4: Missione = {
 					{
 						domanda: {
 							ja: '森[もり]ぶちょうは {nome}さんに 何を たのみましたか。', it: 'Che cosa ti ha chiesto Mori?',
-							opzioni: [{ ja: '美術館[びじゅつかん]の じゅんびを 手つだう こと', it: 'aiutare a preparare il museo' }, { ja: 'えを かう こと', it: 'comprare un quadro' }, { ja: 'ちらしを 作る こと', it: 'fare il volantino' }, { ja: 'きっぷを 売る こと', it: 'vendere i biglietti' }],
+							opzioni: [{ ja: 'びじゅつかんの じゅんびを 手つだう こと', it: 'aiutare a preparare il museo' }, { ja: 'えを かう こと', it: 'comprare un quadro' }, { ja: 'ちらしを 作る こと', it: 'fare il volantino' }, { ja: 'きっぷを 売る こと', it: 'vendere i biglietti' }],
 							giusta: 0, spiega: '「美術館へ 行って、じゅんびを 手つだって ください」: 〜て ください = richiesta.'
 						}
 					}
@@ -127,7 +127,7 @@ export const M4: Missione = {
 			id: 'm4-d22-casa', luogo: 'casa', quando: { giorno: 22, nonFlag: ['m4.d22.casa'] },
 			passi: [
 				{ narra: '4月28日（火）、朝 7時半。', it: 'Martedì 28 aprile, ore 7:30.' },
-				{ dice: 'papa', ja: 'きょうは 美術館[びじゅつかん]か。いい えを 見て おいでよ。', it: 'Oggi museo, eh? Guarda bei quadri.' },
+				{ dice: 'papa', ja: 'きょうは びじゅつかんか。いい えを 見て おいでよ。', it: 'Oggi museo, eh? Guarda bei quadri.' },
 				{ flag: 'm4.d22.casa' },
 				...mattino(),
 				{ minuti: 20 }
@@ -137,7 +137,7 @@ export const M4: Missione = {
 			id: 'm4-d22-ufficio', luogo: 'ufficio', quando: { giorno: 22, nonFlag: ['m4.d22.ufficio'] },
 			passi: [
 				arrivo(),
-				{ dice: 'mori', ja: '{nome}さん、ごごは 美術館[びじゅつかん]です。小林[こばやし]さんと いう 人が 待って います。', it: '{nome}, il pomeriggio è al museo. L’aspetta un certo Kobayashi.', taccuino: true },
+				{ dice: 'mori', ja: '{nome}さん、ごごは びじゅつかんです。小林[こばやし]さんと いう 人が 待って います。', it: '{nome}, il pomeriggio è al museo. L’aspetta un certo Kobayashi.', taccuino: true },
 				{ dice: 'tanaka', ja: 'いいなあ。ぼくも えを 見に 行きたいですよ。', it: 'Che fortuna. Anch’io vorrei andare a vedere i quadri.' },
 				{ narra: '午前中は メールの へんじを 書きました。', it: 'In mattinata rispondi alle email.' },
 				{ flag: 'm4.d22.ufficio' },
@@ -152,20 +152,20 @@ export const M4: Missione = {
 				{ dice: 'kobayashi', faccia: 'occupato', ja: 'この 三日間、手紙も メールも ぜんぜん 読んで いないんです。', it: 'In questi tre giorni non ho letto né lettere né email.', taccuino: true },
 				{ narra: '「さくらと ねこ」の 大きな えが、特別な へやの まん中に かけて あります。', it: 'Il grande quadro «Sakura e gatto» è appeso al centro di una sala speciale.' },
 				{ dice: 'aoki', faccia: 'preoccupata', ja: 'はじめまして、青木[あおき]です。……この ライトだと、ねこの 目が くらく 見えて しまうんです。', it: 'Piacere, sono Aoki. …Con questa luce gli occhi del gatto sembrano scuri.', taccuino: true },
-				{ dice: 'aoki', faccia: 'preoccupata', ja: 'オープニングの 前に、すこし なおしたいです。小林さんに 手紙を 出したんですけど……。', it: 'Prima dell’apertura vorrei ritoccarlo un po’. Ho mandato una lettera a Kobayashi, ma…', taccuino: true },
+				{ dice: 'aoki', faccia: 'preoccupata', ja: 'オープニングの 前に、少し なおしたいです。小林さんに 手紙を 出したんですけど……。', it: 'Prima dell’apertura vorrei ritoccarlo un po’. Ho mandato una lettera a Kobayashi, ma…', taccuino: true },
 				{ dice: 'kobayashi', faccia: 'occupato', ja: 'あっ、電話だ！ しつれいします！', it: 'Ah, il telefono! Mi scusi!' },
-				{ narra: 'けいびの 人が 美術館[びじゅつかん]の きそくを 見せて くれました。', it: 'La guardia ti mostra il regolamento del museo.' },
+				{ narra: 'けいびの 人が びじゅつかんの きそくを 見せて くれました。', it: 'La guardia ti mostra il regolamento del museo.' },
 				{
 					avviso: {
 						tipo: 'cartello',
-						titolo: '美術館[びじゅつかん]の きそく',
+						titolo: 'びじゅつかんの きそく',
 						righe: ['しゃしんを とっては いけません。', '中で 食べたり 飲んだり しないで ください。', 'さくひんに さわらないで ください。', '大きい にもつは ロッカーへ（100円。あとで もどります）。', '小学生は 大人と いっしょに 入って ください。'],
 						it: 'Regolamento del museo: vietato fotografare; non mangiare né bere all’interno; non toccare le opere; i bagagli grandi negli armadietti (100 yen, restituiti dopo); i bambini delle elementari entrano con un adulto.'
 					}
 				},
 				{
 					domanda: {
-						ja: '美術館[びじゅつかん]の 中で、しても いい ことは どれですか。', it: 'Che cosa si può fare dentro il museo?',
+						ja: 'びじゅつかんの 中で、しても いい ことは どれですか。', it: 'Che cosa si può fare dentro il museo?',
 						opzioni: [{ ja: '大きい にもつを ロッカーに 入れる', it: 'mettere i bagagli negli armadietti' }, { ja: 'えの しゃしんを とる', it: 'fotografare i quadri' }, { ja: 'ジュースを 飲む', it: 'bere un succo' }, { ja: 'えに さわる', it: 'toccare i quadri' }],
 						giusta: 0, spiega: '〜ては いけません / 〜ないで ください = divieti. Gli armadietti sono l’unica cosa permessa (e i 100 yen tornano).'
 					}
@@ -183,7 +183,7 @@ export const M4: Missione = {
 		{
 			id: 'm4-kissa', luogo: 'kissa', quando: { giorno: 22, flag: ['m4.prep'], nonFlag: ['m4.kissa'] },
 			passi: [
-				{ dice: 'ito', ja: 'いらっしゃい。美術館[びじゅつかん]の 帰りですか。', it: 'Benvenut{o}. Di ritorno dal museo?' },
+				{ dice: 'ito', ja: 'いらっしゃい。びじゅつかんの 帰りですか。', it: 'Benvenut{o}. Di ritorno dal museo?' },
 				{ dice: 'ito', ja: '青木[あおき]さんなら、きのう ここに 来ましたよ。「あさっての 朝 早く、ねこの 目を なおしに 行く」と 言って いました。', it: 'Aoki? È stata qui ieri. Ha detto: «dopodomani mattina presto vado a ritoccare gli occhi del gatto».', taccuino: true },
 				{ dice: 'ito', ja: 'まじめな 人ですね。えの ことしか 考えて いないようです。', it: 'Una persona seria. Sembra che pensi solo ai suoi quadri.' },
 				{ nota: '「〜と 言って いました」 riporta le parole di qualcun altro; 「〜ようです」 = sembra (da quello che si vede).', it: 'Discorso riportato e ようです.' },
@@ -195,7 +195,7 @@ export const M4: Missione = {
 		{
 			id: 'm4-d22-casa-sera', luogo: 'casa', quando: { giorno: 22, dalle: h(17), flag: ['m4.d22.casa'] },
 			passi: [
-				{ dice: 'mamma', ja: 'おかえりなさい。美術館[びじゅつかん]は どうだった？', it: 'Bentornat{o}. Com’era il museo?' },
+				{ dice: 'mamma', ja: 'おかえりなさい。びじゅつかんは どうだった？', it: 'Bentornat{o}. Com’era il museo?' },
 				...cena([
 					{
 						domanda: {
@@ -206,7 +206,7 @@ export const M4: Missione = {
 					},
 					{
 						domanda: {
-							ja: 'あしたの 朝 7時に、だれが 美術館[びじゅつかん]で 何を しますか。', it: 'Domani alle 7, chi fa cosa al museo?',
+							ja: 'あしたの 朝 7時に、だれが びじゅつかんで 何を しますか。', it: 'Domani alle 7, chi fa cosa al museo?',
 							opzioni: [{ ja: 'そうじの 人が ゆかを そうじする', it: 'l’addetto lava i pavimenti' }, { ja: '小林さんが 手紙を 読む', it: 'Kobayashi legge le lettere' }, { ja: 'けいびの 人が ライトを かえる', it: 'la guardia cambia le luci' }, { ja: '森[もり]ぶちょうが しょるいを 持って 来る', it: 'Mori porta i documenti' }],
 							giusta: 0, spiega: '「朝 7時から ゆかを そうじしますよ」 — l’ha detto l’addetto alle pulizie.'
 						}
@@ -220,9 +220,9 @@ export const M4: Missione = {
 			id: 'm4-d23-casa', luogo: 'casa', quando: { giorno: 23, nonFlag: ['m4.d23.casa'] },
 			passi: [
 				{ narra: '4月29日（水・昭和[しょうわ]の日）、朝 7時半。', it: 'Mercoledì 29 aprile, Shōwa no hi (festa), ore 7:30.' },
-				{ dice: 'mamma', ja: '今日は しゅくじつなのに、しごと？', it: 'Oggi è festa e lavori?' },
-				{ io: 'はい。美術館[びじゅつかん]の オープニングです。', it: 'Sì. C’è l’apertura del museo.' },
-				{ obiettivo: 'open4', ja: '9時半すぎに 美術館[びじゅつかん]へ 行く（10時から オープニング）。', it: 'Andare al museo dopo le 9:30 (apertura alle 10).' },
+				{ dice: 'mamma', ja: '今日は しゅくじつなのに、仕事？', it: 'Oggi è festa e lavori?' },
+				{ io: 'はい。びじゅつかんの オープニングです。', it: 'Sì. C’è l’apertura del museo.' },
+				{ obiettivo: 'open4', ja: '9時半すぎに びじゅつかんへ 行く（10時から オープニング）。', it: 'Andare al museo dopo le 9:30 (apertura alle 10).' },
 				{ flag: 'm4.d23.casa' },
 				...mattino(),
 				{ minuti: 20 }
@@ -233,7 +233,7 @@ export const M4: Missione = {
 			passi: [
 				{
 					se: { alle: h(10, 30) },
-					allora: [{ narra: '美術館[びじゅつかん]の 前に、人が たくさん います。でも、中が さわがしいです。', it: 'Davanti al museo c’è tanta gente. Ma dentro c’è agitazione.' }],
+					allora: [{ narra: 'びじゅつかんの 前に、人が たくさん います。でも、中が さわがしいです。', it: 'Davanti al museo c’è tanta gente. Ma dentro c’è agitazione.' }],
 					altrimenti: [{ dice: 'mori', faccia: 'preoccupata', ja: '{nome}さん、おそいですよ！ たいへんな ことに なって います！', it: '{nome}, è in ritardo! È successo un guaio!' }]
 				},
 				{ dice: 'kobayashi', faccia: 'sorpreso', ja: 'た、たいへんです！ 「さくらと ねこ」の えが ありません！ ぬすまれました！', it: 'È… è terribile! Il quadro «Sakura e gatto» non c’è! L’hanno rubato!', taccuino: true },
@@ -242,7 +242,7 @@ export const M4: Missione = {
 					domanda: {
 						ja: 'アナウンスを 聞いて ください。おきゃくさんは 今 どこに 入れませんか。', it: 'Ascolta l’annuncio. Dove non possono entrare adesso i visitatori?',
 						ascolto: { ja: 'おきゃくさまに ごあんない いたします。ただいま、二かいの てんじしつには 入れません。一かいの おみやげの 店と きっさてんは ごりよう いただけます。もうしわけ ございません。', it: 'Avviso ai visitatori. Al momento non si può entrare nella sala espositiva del primo piano. Il negozio di souvenir e il caffè al piano terra sono aperti. Ci scusiamo.', chi: 'F' },
-						opzioni: [{ ja: '二かいの てんじしつ', it: 'la sala espositiva al 1° piano' }, { ja: '一かいの おみやげの 店', it: 'il negozio di souvenir' }, { ja: '一かいの きっさてん', it: 'il caffè al piano terra' }, { ja: '美術館[びじゅつかん]の 入り口', it: 'l’ingresso del museo' }],
+						opzioni: [{ ja: '二かいの てんじしつ', it: 'la sala espositiva al 1° piano' }, { ja: '一かいの おみやげの 店', it: 'il negozio di souvenir' }, { ja: '一かいの きっさてん', it: 'il caffè al piano terra' }, { ja: 'びじゅつかんの 入り口', it: 'l’ingresso del museo' }],
 						giusta: 0, spiega: '「二かいの てんじしつには 入れません」. Al 聴解 spesso si nominano più posti: la domanda chiede quello «dove non si può».'
 					}
 				},
@@ -265,14 +265,14 @@ export const M4: Missione = {
 					avviso: {
 						tipo: 'biglietto',
 						titolo: '小林[こばやし]さんへ',
-						righe: ['朝 7時に 来ました。', 'ねこの 目を すこし なおします。', 'えは アトリエへ はこんで いきます。', '10時までに もどします。', '青木[あおき]'],
+						righe: ['朝 7時に 来ました。', 'ねこの 目を 少し なおします。', 'えは アトリエへ 運んで いきます。', '10時までに もどします。', '青木[あおき]'],
 						it: 'Per Kobayashi. Sono venuta alle 7. Ritocco un po’ gli occhi del gatto. Porto il quadro in laboratorio. Lo riporto entro le 10. Aoki'
 					}
 				},
 				{
 					domanda: {
 						ja: '青木[あおき]さんは えを どう しましたか。', it: 'Che cosa ha fatto Aoki col quadro?',
-						opzioni: [{ ja: 'アトリエへ はこんだ', it: 'l’ha portato in laboratorio' }, { ja: 'だれかに ぬすまれた', it: 'gliel’hanno rubato' }, { ja: 'こわして しまった', it: 'l’ha rotto' }, { ja: '売って しまった', it: 'l’ha venduto' }],
+						opzioni: [{ ja: 'アトリエへ 運んだ', it: 'l’ha portato in laboratorio' }, { ja: 'だれかに ぬすまれた', it: 'gliel’hanno rubato' }, { ja: 'こわして しまった', it: 'l’ha rotto' }, { ja: '売って しまった', it: 'l’ha venduto' }],
 						giusta: 0, spiega: '「えは アトリエへ はこんで いきます」: non rubato, portato via (はこぶ) da chi l’ha dipinto.'
 					}
 				},
@@ -288,12 +288,12 @@ export const M4: Missione = {
 			id: 'm4-lettera', luogo: 'museo', quando: { giorno: 23, flag: ['m4.kobayashi'], nonFlag: ['m4.tegami'] },
 			passi: [
 				{ completa: 'posta4' },
-				{ narra: '小林さんの つくえの 上に、手紙が たくさん あります。まだ あけて いない ふうとうの 中に……青木さんの 名前が！', it: 'Sulla scrivania di Kobayashi ci sono tante lettere. Tra le buste ancora chiuse… il nome di Aoki!' },
+				{ narra: '小林さんの つくえの 上に、手紙が たくさん あります。まだ 開けて いない ふうとうの 中に……青木さんの 名前が！', it: 'Sulla scrivania di Kobayashi ci sono tante lettere. Tra le buste ancora chiuse… il nome di Aoki!' },
 				{
 					avviso: {
 						tipo: 'lettera',
 						titolo: '小林[こばやし]さま',
-						righe: ['29日の 朝 7時に 美術館[びじゅつかん]へ 行きます。', 'ねこの 目を なおしたいので、えを すこし かります。', 'オープニングまでには もどします。', '4月27日　青木[あおき] みどり'],
+						righe: ['29日の 朝 7時に びじゅつかんへ 行きます。', 'ねこの 目を なおしたいので、えを 少し かります。', 'オープニングまでには もどします。', '4月27日　青木[あおき] みどり'],
 						it: 'Gentile Kobayashi, il 29 mattina alle 7 vengo al museo. Vorrei ritoccare gli occhi del gatto, quindi prendo in prestito il quadro per un po’. Lo riporto prima dell’apertura. 27 aprile, Aoki Midori'
 					}
 				},
@@ -319,10 +319,10 @@ export const M4: Missione = {
 					se: { nonFlag: ['m4.tegami'] },
 					allora: [
 						{ dice: 'aoki', ja: '小林さんに 手紙で 知らせたんですけど……。', it: 'L’avevo scritto a Kobayashi in una lettera…' },
-						{ dice: 'kobayashi', faccia: 'occupato', ja: 'えっ……あっ、ここに ありました。まだ あけて いませんでした。もうしわけ ありません。', it: 'Eh?… Ah, eccola qui. Non l’avevo ancora aperta. Mi scusi molto.' }
+						{ dice: 'kobayashi', faccia: 'occupato', ja: 'えっ……あっ、ここに ありました。まだ 開けて いませんでした。もうしわけ ありません。', it: 'Eh?… Ah, eccola qui. Non l’avevo ancora aperta. Mi scusi molto.' }
 					]
 				},
-				{ dice: 'nakamura', ja: 'なるほど。えは ぬすまれたのでは なくて、はこばれて いたんですね。', it: 'Capisco. Il quadro non era stato rubato: era stato portato via.', taccuino: true },
+				{ dice: 'nakamura', ja: 'なるほど。えは ぬすまれたのでは なくて、運ばれて いたんですね。', it: 'Capisco. Il quadro non era stato rubato: era stato portato via.', taccuino: true },
 				{ nota: 'ぬすまれた (rubato) e はこばれた (portato) sono tutti e due passivi: dicono cosa è successo al quadro, non chi l’ha fatto. Qui chi l’ha fatto era la pittrice stessa.', it: 'Due passivi a confronto.' },
 				{ dice: 'mori', ja: 'ああ、安心しました。{nome}さん、ありがとう。', it: 'Ah, che sollievo. {nome}, grazie.' },
 				{ narra: '少し おくれて、オープニングが 始まりました。ねこの 目は きらきら 光って います。', it: 'Con un po’ di ritardo comincia l’apertura. Gli occhi del gatto brillano.' },
@@ -399,7 +399,7 @@ export const M4: Missione = {
 							}
 						}
 					],
-					[{ fine: '美術館[びじゅつかん]の じけん' }]
+					[{ fine: 'びじゅつかんの じけん' }]
 				)
 			]
 		},
@@ -407,10 +407,10 @@ export const M4: Missione = {
 			// rete di sicurezza: dal giovedì la storia si chiude comunque
 			id: 'm4-chiusura', luogo: 'casa', ripiego: true, quando: { giorno: [24, 25, 26, 27], nonFlag: ['m4.risolto'] },
 			passi: [
-				{ dice: 'mamma', ja: '{nome}さん、しんぶんに 美術館[びじゅつかん]の ことが 出て いるわよ。えは ぬすまれたのでは なくて、えを かいた 人が なおして いたんだって。', it: '{nome}, il giornale parla del museo. Il quadro non era stato rubato: la pittrice lo stava ritoccando.' },
+				{ dice: 'mamma', ja: '{nome}さん、しんぶんに びじゅつかんの ことが 出て いるわよ。えは ぬすまれたのでは なくて、えを かいた 人が なおして いたんだって。', it: '{nome}, il giornale parla del museo. Il quadro non era stato rubato: la pittrice lo stava ritoccando.' },
 				{ flag: 'museo.aperto' },
 				{ flag: 'm4.risolto' },
-				{ fine: '美術館[びじゅつかん]の じけん' }
+				{ fine: 'びじゅつかんの じけん' }
 			]
 		}
 	]

@@ -73,6 +73,12 @@ tutta la storia della chat. Gli altri documenti:
   altri in kana, o con lettura `漢字[かな]` per nomi di persona e di luogo. Il test
   dei kanji controlla mondo, missioni e interfaccia. `{nome}` = nome del
   giocatore; `{o}` nei testi italiani = o/a secondo uomo/donna.
+  **Kanji N4 sì, quando l'esame li usa**: le parole che nelle prove (ufficiali,
+  Best Practice, 直前対策) sono stampate in kanji del livello si scrivono in kanji
+  (勉強, 仕事, 少し, 同じ, 使う, 運ぶ, 寒い, 強い, 来月, 説明, 親切…); il test
+  «non tornano in kana» le controlla. Restano in kana gli usi grammaticali
+  (〜ところ, 〜もの, ほか) e le parole che l'esame scrive in kana
+  (びじゅつかん, ゆうびんきょく, あいさつ…).
 - **Quaderno** (📓 / 📜 nella barra in alto): pagina a righe con segnalibri —
   📜 会話 (storico dei dialoghi per giorno: faccina, nome, 🔊, 🇮🇹; si apre sul
   giorno di oggi in fondo), 🎯 やる こと (+ punteggio domande), 🎒 持ち物 (+ peluche),

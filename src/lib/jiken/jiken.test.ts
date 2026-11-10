@@ -42,6 +42,19 @@ function testiJa(): string[] {
 }
 
 describe('事件: testi', () => {
+	// parole che all'esame N4 sono scritte in kanji (kanji del livello): nel gioco
+	// vanno scritte così anche qui, per abituarsi a leggerle (vedi la guida, «Testi»)
+	it('le parole che l\'esame scrive in kanji non tornano in kana', () => {
+		const B = '(?:^|(?<=[\\s　、。「」『』（）！？…・〜]))';
+		const parole = ['べんきょう', 'しごと', 'すこし', 'おなじ', 'らいげつ', 'らいしゅう', 'せかい', 'えいご', 'こうじょう', 'うんてん', 'せつめい', 'しんせつ', 'じてんしゃ', 'きもの', 'きもち', 'つよい', 'さむい', 'ふるい', 'はこぶ', 'はこんで', 'あつまって', 'はたらく', 'つかう', 'つかって'];
+		const re = new RegExp(B + '(' + parole.join('|') + ')');
+		const trovate = testiJa().map((t) => t.replace(/\[[^\]]*\]/g, '')).filter((t) => re.test(t));
+		expect(trovate).toEqual([]);
+	});
+	it('びじゅつかん e ゆうびんきょく in kana, come all\'esame', () => {
+		expect(testiJa().filter((t) => t.includes('美術館') || t.includes('郵便局'))).toEqual([]);
+	});
+
 	it('kanji solo N5/N4 (gli altri con furigana base[lettura])', () => {
 		const fuori: string[] = [];
 		for (const t of testiJa()) {

@@ -38,7 +38,7 @@ interface Sera {
 const SERE: Record<number, Sera> = {
 	0: {
 		famiglia: [
-			{ dice: 'papa', ja: '{nome}さん、はじめての しごとは どうだった？ つかれただろう。', it: '{nome}, com’è andato il primo giorno? Sarai stanc{o}.' },
+			{ dice: 'papa', ja: '{nome}さん、はじめての 仕事は どうだった？ つかれただろう。', it: '{nome}, com’è andato il primo giorno? Sarai stanc{o}.' },
 			{ dice: 'mamma', ja: 'おふろが わいて いるわよ。今日は ゆっくり やすんでね。', it: 'Il bagno è pronto. Stasera riposati.' },
 			{ nota: 'わく (沸[わ]く) = l’acqua bolle / il bagno è pronto; わかす = far bollire.', it: 'Coppia di verbi.' }
 		],
@@ -47,29 +47,29 @@ const SERE: Record<number, Sera> = {
 	1: {
 		famiglia: [
 			{ dice: 'papa', ja: 'あしたから しばらく 車で 会社へ 行く ことに なったよ。電車が こんで いて ね。', it: 'Da domani per un po’ vado al lavoro in macchina. I treni sono troppo pieni.' },
-			{ dice: 'mamma', ja: 'うんてんには 気を つけてね。この 間も じこが あったでしょう。', it: 'Attento a guidare. Anche l’altro giorno c’è stato un incidente.' }
+			{ dice: 'mamma', ja: '運転には 気を つけてね。この 間も じこが あったでしょう。', it: 'Attento a guidare. Anche l’altro giorno c’è stato un incidente.' }
 		],
-		meteo: { ja: 'あしたは 一日中 くもりです。きおんは きょうより 5度 ひくく、すこし さむく なります。', it: 'Domani nuvoloso tutto il giorno. Temperature 5 gradi più basse di oggi: un po’ più freddo.', domanda: 'あしたは きょうと くらべて どうですか。', domandaIt: 'Domani rispetto a oggi?', opzioni: [['さむい', 'più freddo'], ['あつい', 'più caldo'], ['おなじ', 'uguale'], ['雨が ふる', 'piove']], giusta: 0, spiega: '「5度 ひくく、さむく なります」: きおん (きおん) = temperatura; 〜と くらべて = rispetto a.' }
+		meteo: { ja: 'あしたは 一日中 くもりです。きおんは きょうより 5度 ひくく、少し 寒く なります。', it: 'Domani nuvoloso tutto il giorno. Temperature 5 gradi più basse di oggi: un po’ più freddo.', domanda: 'あしたは きょうと くらべて どうですか。', domandaIt: 'Domani rispetto a oggi?', opzioni: [['寒い', 'più freddo'], ['あつい', 'più caldo'], ['同じ', 'uguale'], ['雨が ふる', 'piove']], giusta: 0, spiega: '「5度 ひくく、さむく なります」: きおん (きおん) = temperatura; 〜と くらべて = rispetto a.' }
 	},
 	2: {
 		famiglia: [
-			{ dice: 'mamma', ja: 'せんたくきが こしょうして しまったの。あした、でんきやさんが 来るわ。', it: 'Si è rotta la lavatrice. Domani viene il tecnico.' },
+			{ dice: 'mamma', ja: 'せんたくきが こしょうして しまったの。あした、電気やさんが 来るわ。', it: 'Si è rotta la lavatrice. Domani viene il tecnico.' },
 			{ dice: 'papa', ja: 'もう 15年も つかったからなあ。そろそろ 新しいのを かおうか。', it: 'L’abbiamo usata 15 anni. Forse è ora di comprarne una nuova.' }
 		],
-		meteo: { ja: 'あしたは はれて、あたたかく なります。でも、夕方から 風が つよく なるので、気を つけて ください。', it: 'Domani sereno e mite. Ma dal tardo pomeriggio il vento si rinforza: attenzione.', domanda: 'あしたの 夕方は 何に 気を つけますか。', domandaIt: 'A cosa fare attenzione domani verso sera?', opzioni: [['風', 'il vento'], ['雨', 'la pioggia'], ['ゆき', 'la neve'], ['あつさ', 'il caldo']], giusta: 0, spiega: '「夕方から 風が つよく なる」. Al 聴解 la risposta è spesso dopo でも (il «però»).' }
+		meteo: { ja: 'あしたは はれて、あたたかく なります。でも、夕方から 風が 強く なるので、気を つけて ください。', it: 'Domani sereno e mite. Ma dal tardo pomeriggio il vento si rinforza: attenzione.', domanda: 'あしたの 夕方は 何に 気を つけますか。', domandaIt: 'A cosa fare attenzione domani verso sera?', opzioni: [['風', 'il vento'], ['雨', 'la pioggia'], ['ゆき', 'la neve'], ['あつさ', 'il caldo']], giusta: 0, spiega: '「夕方から 風が つよく なる」. Al 聴解 la risposta è spesso dopo でも (il «però»).' }
 	},
 	7: {
 		famiglia: [
-			{ dice: 'papa', ja: 'らいしゅうの 土曜日、いなかの そふと そぼが あそびに 来るんだ。', it: 'Sabato prossimo vengono a trovarci i nonni dalla campagna.' },
+			{ dice: 'papa', ja: '来週の 土曜日、いなかの そふと そぼが あそびに 来るんだ。', it: 'Sabato prossimo vengono a trovarci i nonni dalla campagna.' },
 			{ dice: 'mamma', ja: 'じゃあ、おしいれから おきゃくさん用の ふとんを 出して おかないと。', it: 'Allora devo tirare fuori dall’armadio i futon per gli ospiti.' },
 			{ nota: 'おしいれ (押[お]し入れ) = l’armadio a muro dove si ripongono i ふとん (布団[ふとん]). 〜ないと = devo…', it: 'Casa giapponese.' }
 		],
-		meteo: { ja: 'あしたの 朝は きりが 出て、とおくが 見えにくい ところが あります。昼からは はれるでしょう。', it: 'Domattina nebbia, in alcune zone si vedrà poco lontano. Dal pomeriggio sereno.', domanda: 'あしたの 朝は どうですか。', domandaIt: 'Com’è domattina?', opzioni: [['きりで とおくが 見えにくい', 'nebbia, si vede poco'], ['はれて いる', 'sereno'], ['つよい 雨', 'pioggia forte'], ['とても あつい', 'caldissimo']], giusta: 0, spiega: 'きり = nebbia; 見えにくい = difficile da vedere (〜にくい). とおく (遠く) = lontano.' }
+		meteo: { ja: 'あしたの 朝は きりが 出て、遠くが 見えにくい ところが あります。昼からは はれるでしょう。', it: 'Domattina nebbia, in alcune zone si vedrà poco lontano. Dal pomeriggio sereno.', domanda: 'あしたの 朝は どうですか。', domandaIt: 'Com’è domattina?', opzioni: [['きりで 遠くが 見えにくい', 'nebbia, si vede poco'], ['はれて いる', 'sereno'], ['強い 雨', 'pioggia forte'], ['とても あつい', 'caldissimo']], giusta: 0, spiega: 'きり = nebbia; 見えにくい = difficile da vedere (〜にくい). とおく (遠く) = lontano.' }
 	},
 	8: {
 		famiglia: [
 			{ dice: 'mamma', ja: 'テレビの ばんぐみで、日本の しゅうかんを しょうかいして いたわよ。{nome}さんも 見たら？', it: 'In TV c’era un programma sulle usanze giapponesi. Perché non lo guardi?' },
-			{ dice: 'papa', ja: 'アナウンサーの 話し方が はっきりして いて、べんきょうに なるよ。', it: 'L’annunciatore parla chiaro, è utile per studiare.' }
+			{ dice: 'papa', ja: 'アナウンサーの 話し方が はっきりして いて、勉強に なるよ。', it: 'L’annunciatore parla chiaro, è utile per studiare.' }
 		],
 		meteo: { ja: 'あしたは 雨の あと くもりです。雨は 朝 9時ごろ やむでしょう。', it: 'Domani pioggia, poi nuvoloso. La pioggia smetterà verso le 9.', domanda: '雨は 何時ごろ やみますか。', domandaIt: 'Verso che ora smette di piovere?', opzioni: [['9時ごろ', 'verso le 9'], ['午後', 'nel pomeriggio'], ['夜', 'di sera'], ['やまない', 'non smette']], giusta: 0, spiega: 'やむ (止む) = smettere (pioggia, vento).' }
 	},
@@ -84,13 +84,13 @@ const SERE: Record<number, Sera> = {
 		famiglia: [
 			{ dice: 'mamma', ja: 'さいきん、{nome}さんの 日本語、とても 上手に なったわね。', it: 'Ultimamente il tuo giapponese è migliorato tanto.' },
 			{ io: 'ありがとうございます。まいにち ふくしゅうして いるんです。', it: 'Grazie. Ripasso ogni giorno.' },
-			{ dice: 'papa', ja: 'えらいなあ。わたしも わかい ころ、えいごを 一生けんめい べんきょうしたよ。', it: 'Bravo. Anch’io da giovane studiavo inglese con tutto l’impegno.' }
+			{ dice: 'papa', ja: 'えらいなあ。わたしも わかい ころ、英語を 一生けんめい 勉強したよ。', it: 'Bravo. Anch’io da giovane studiavo inglese con tutto l’impegno.' }
 		],
 		meteo: { ja: 'あしたは くもりで、ときどき 雨が ふります。出かける ときは かさを わすれないで ください。', it: 'Domani nuvoloso con pioggia a tratti. Non dimenticate l’ombrello.', domanda: 'あした 出かける とき、何を もって 行きますか。', domandaIt: 'Domani, cosa porti uscendo?', opzioni: [['かさ', 'l’ombrello'], ['ぼうし', 'il cappello'], ['てぶくろ', 'i guanti'], ['水', 'l’acqua']], giusta: 0, spiega: 'ときどき = a tratti. 〜ないで ください = non… (consiglio).' }
 	},
 	15: {
 		famiglia: [
-			{ dice: 'papa', ja: 'かいしゃで 何か あったのかい？ かおに 「たいへんでした」と 書いて あるよ。', it: 'È successo qualcosa al lavoro? Hai «che giornata» scritto in faccia.' },
+			{ dice: 'papa', ja: 'かいしゃで 何か あったのかい？ 顔に 「たいへんでした」と 書いて あるよ。', it: 'È successo qualcosa al lavoro? Hai «che giornata» scritto in faccia.' },
 			{ io: 'しりょうが なくなって、みんなで さがしたんです。', it: 'È sparito un documento e l’abbiamo cercato tutti.' },
 			{ dice: 'mamma', ja: 'まあ。でも、見つかって よかったわね。', it: 'Oh. Ma meno male che si è trovato.' }
 		],
@@ -99,7 +99,7 @@ const SERE: Record<number, Sera> = {
 	16: {
 		famiglia: [
 			{ dice: 'papa', ja: 'ホテルで かいぎ？ すごいなあ。こんどは 東京[とうきょう]へ しゅっちょうかな。', it: 'Una riunione in hotel? Accidenti. La prossima volta una trasferta a Tokyo?' },
-			{ dice: 'mamma', ja: 'お父さんは わかい ころ、ぼうえきの 会社で せかいじゅうへ 行ったのよ。', it: 'Papà da giovane lavorava in una ditta di commercio estero e girava il mondo.' }
+			{ dice: 'mamma', ja: 'お父さんは わかい ころ、ぼうえきの 会社で 世界じゅうへ 行ったのよ。', it: 'Papà da giovane lavorava in una ditta di commercio estero e girava il mondo.' }
 		],
 		meteo: { ja: 'あしたの 朝は ひえて、5度ぐらいに なります。あたたかい ふくを きて ください。昼は 15度ぐらいです。', it: 'Domattina freddo, circa 5 gradi. Vestitevi pesante. A mezzogiorno circa 15.', domanda: 'あしたの 朝は 何度ぐらいですか。', domandaIt: 'Domattina quanti gradi?', opzioni: [['5度', '5 gradi'], ['15度', '15 gradi'], ['10度', '10 gradi'], ['0度', '0 gradi']], giusta: 0, spiega: 'Il 聴解 dà due numeri (mattina 5, mezzogiorno 15): la domanda chiede la mattina. ひえる (冷える) = raffreddarsi.' }
 	},
@@ -115,11 +115,11 @@ const SERE: Record<number, Sera> = {
 			{ dice: 'papa', ja: '{nome}さん、えの しゅみは ある？ わたしは わかい ころ、えを かいて いたんだよ。', it: '{nome}, ti piace dipingere? Io da giovane dipingevo.' },
 			{ dice: 'mamma', ja: 'お父さんの え、おしいれに まだ あるわよ。こんど 見せて あげたら？', it: 'I quadri di papà sono ancora nell’armadio. Perché non glieli fai vedere?' }
 		],
-		meteo: { ja: 'あしたは きょうと おなじく はれて、すずしい 一日に なります。お出かけには ちょうど いいでしょう。', it: 'Domani sereno come oggi, una giornata fresca. Perfetta per uscire.', domanda: 'あしたは どんな 一日ですか。', domandaIt: 'Che giornata sarà domani?', opzioni: [['はれて すずしい', 'sereno e fresco'], ['雨で さむい', 'pioggia e freddo'], ['くもりで あつい', 'nuvoloso e caldo'], ['風が つよい', 'vento forte']], giusta: 0, spiega: 'すずしい (涼しい) = fresco, piacevole; ちょうど いい = proprio adatto.' }
+		meteo: { ja: 'あしたは きょうと 同じく はれて、すずしい 一日に なります。お出かけには ちょうど いいでしょう。', it: 'Domani sereno come oggi, una giornata fresca. Perfetta per uscire.', domanda: 'あしたは どんな 一日ですか。', domandaIt: 'Che giornata sarà domani?', opzioni: [['はれて すずしい', 'sereno e fresco'], ['雨で 寒い', 'pioggia e freddo'], ['くもりで あつい', 'nuvoloso e caldo'], ['風が 強い', 'vento forte']], giusta: 0, spiega: 'すずしい (涼しい) = fresco, piacevole; ちょうど いい = proprio adatto.' }
 	},
 	23: {
 		famiglia: [
-			{ dice: 'mamma', ja: 'しゅくじつなのに、しごと おつかれさま。ばんごはんは ステーキよ！', it: 'Grazie del lavoro anche nel giorno di festa. Stasera bistecca!' },
+			{ dice: 'mamma', ja: 'しゅくじつなのに、仕事 おつかれさま。ばんごはんは ステーキよ！', it: 'Grazie del lavoro anche nel giorno di festa. Stasera bistecca!' },
 			{ dice: 'papa', ja: 'あしたからは しばらく 休みだろう？ ゆっくり ねぼうしても いいよ。', it: 'Da domani sei in vacanza per un po’, no? Puoi dormire quanto vuoi.' }
 		],
 		meteo: { ja: 'ゴールデンウィークの 天気です。あしたから 三日間は はれ、そのあと 雨の 日が つづくでしょう。', it: 'Il meteo della Golden Week. Da domani tre giorni sereni, poi diversi giorni di pioggia.', domanda: 'あしたから 何日間 はれますか。', domandaIt: 'Da domani, per quanti giorni sereno?', opzioni: [['三日間', 'tre giorni'], ['一日', 'un giorno'], ['一週間', 'una settimana'], ['はれない', 'non sarà sereno']], giusta: 0, spiega: '「三日間は はれ、そのあと 雨の 日が つづく」: つづく = continuare.' }
@@ -159,7 +159,7 @@ const MATTINE: Record<number, Passo[]> = {
 		{ dice: 'papa', ja: 'はじめての 日は だれでも きんちょうする ものだよ。', it: 'Il primo giorno tutti sono un po’ tesi.' }
 	],
 	1: [
-		{ dice: 'mamma', ja: '{nome}さん、ゆうべは よく ねむれた？ ふとんは さむくなかった？', it: '{nome}, hai dormito bene stanotte? Col futon non avevi freddo?' },
+		{ dice: 'mamma', ja: '{nome}さん、ゆうべは よく ねむれた？ ふとんは 寒くなかった？', it: '{nome}, hai dormito bene stanotte? Col futon non avevi freddo?' },
 		{ io: 'だいじょうぶです。たたみの へやは しずかで いいですね。', it: 'Tutto bene. La stanza col tatami è silenziosa, mi piace.' }
 	],
 	2: [
@@ -180,12 +180,12 @@ const MATTINE: Record<number, Passo[]> = {
 		{ dice: 'mamma', ja: 'えらいわね。うちの むすこより ずっと しっかりして いるわ。', it: 'Bravo. Molto più in gamba di nostro figlio.' }
 	],
 	14: [
-		{ dice: 'mamma', ja: 'うちの むすめから 手紙が 来たの。らいげつ 赤ちゃんが 生まれるんですって。', it: 'Ci ha scritto nostra figlia. Il mese prossimo nasce il bambino.' },
+		{ dice: 'mamma', ja: 'うちの むすめから 手紙が 来たの。来月 赤ちゃんが 生まれるんですって。', it: 'Ci ha scritto nostra figlia. Il mese prossimo nasce il bambino.' },
 		{ io: 'おめでとうございます！ おばあさんに なりますね。', it: 'Congratulazioni! Diventerà nonna.' }
 	],
 	15: [
 		{ dice: 'papa', ja: 'やねの 上で 何か 音が するね。ねこかな、鳥かな。', it: 'Si sente un rumore sul tetto. Un gatto o un uccello?' },
-		{ dice: 'mamma', ja: 'カーテンを あけたら、からすが いたわよ。', it: 'Ho aperto le tende: c’era un corvo.' }
+		{ dice: 'mamma', ja: 'カーテンを 開けたら、からすが いたわよ。', it: 'Ho aperto le tende: c’era un corvo.' }
 	],
 	16: [
 		{ dice: 'mamma', ja: 'ホテルに 行くなら、いちばん いい スーツを きて いきなさい。', it: 'Se vai in hotel, metti il tuo completo migliore.' },
@@ -200,8 +200,8 @@ const MATTINE: Record<number, Passo[]> = {
 		{ io: 'はい、けしました。水道も しめました。', it: 'Sì, spento. Ho chiuso anche l’acqua.' }
 	],
 	23: [
-		{ dice: 'papa', ja: '今日は しゅくじつだから、町は きものを きた 人が 多いかも しれないね。', it: 'Oggi è festa, in città forse ci sarà tanta gente in kimono.' },
-		{ dice: 'mamma', ja: 'わたしも わかい ころは よく きものを きたのよ。', it: 'Anch’io da giovane mettevo spesso il kimono.' }
+		{ dice: 'papa', ja: '今日は しゅくじつだから、町は 着物を きた 人が 多いかも しれないね。', it: 'Oggi è festa, in città forse ci sarà tanta gente in kimono.' },
+		{ dice: 'mamma', ja: 'わたしも わかい ころは よく 着物を きたのよ。', it: 'Anch’io da giovane mettevo spesso il kimono.' }
 	]
 };
 export const mattino = (): Passo[] => Object.entries(MATTINE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: passi }));
@@ -211,7 +211,7 @@ const tg = (ps: Passo[]): Passo[] => ps.map((p) => ('domanda' in p ? { domanda: 
 
 // ── il telegiornale della sera, dopo il meteo: società e attualità (N4)
 const NOTIZIE: Record<number, Passo[]> = {
-	0: [{ dice: 'tv', ja: 'つぎの ニュースです。市の 新しい 図書館[としょかん]が らいげつ オープンします。市民は だれでも むりょうで りようできます。', it: 'Prossima notizia. La nuova biblioteca comunale apre il mese prossimo. Tutti i cittadini potranno usarla gratis.' }],
+	0: [{ dice: 'tv', ja: 'つぎの ニュースです。市の 新しい 図書館[としょかん]が 来月 オープンします。市民は だれでも むりょうで りようできます。', it: 'Prossima notizia. La nuova biblioteca comunale apre il mese prossimo. Tutti i cittadini potranno usarla gratis.' }],
 	1: [
 		{ dice: 'tv', ja: 'けいざいの ニュースです。日本の 車の ゆしゅつが ふえて います。とくに アジアと アメリカへの ゆしゅつが 多いです。', it: 'Economia. Aumentano le esportazioni di auto giapponesi, soprattutto verso Asia e America.' },
 		{ domanda: { ja: '日本の 車は とくに どこへ たくさん ゆしゅつされて いますか。', it: 'Verso dove si esportano soprattutto le auto giapponesi?', opzioni: [{ ja: 'アジアと アメリカ', it: 'Asia e America' }, { ja: 'アフリカ', it: 'Africa' }, { ja: 'ヨーロッパだけ', it: 'solo Europa' }, { ja: '日本の 中', it: 'in Giappone' }], giusta: 0, spiega: 'ゆしゅつ (輸出) = esportazione ↔ ゆにゅう (輸入). とくに (特に) = soprattutto.' } }
@@ -221,12 +221,12 @@ const NOTIZIE: Record<number, Passo[]> = {
 		{ dice: 'tv', ja: 'こうつうの ニュースです。えきの 前の しんごうが こわれて、じこが ありました。けいさつが しらべて います。', it: 'Traffico. Davanti alla stazione si è rotto un semaforo e c’è stato un incidente. La polizia indaga.' },
 		{ domanda: { ja: 'じこの げんいんは 何ですか。', it: 'Qual è la causa dell’incidente?', opzioni: [{ ja: 'しんごうが こわれた', it: 'il semaforo rotto' }, { ja: '雨', it: 'la pioggia' }, { ja: 'じしん', it: 'il terremoto' }, { ja: 'でんしゃが おくれた', it: 'il treno in ritardo' }], giusta: 0, spiega: 'しんごう (信号) = semaforo; げんいん (原因) = causa; こうつう (交通) = traffico.' } }
 	],
-	8: [{ dice: 'tv', ja: 'きょうの ぶんかの ニュースです。むかしの きものの てんらんかいが はじまりました。日本の れきしが よく わかります。', it: 'Cultura. È cominciata una mostra di kimono antichi: si capisce bene la storia del Giappone.' }],
+	8: [{ dice: 'tv', ja: 'きょうの ぶんかの ニュースです。むかしの 着物の てんらんかいが はじまりました。日本の れきしが よく わかります。', it: 'Cultura. È cominciata una mostra di kimono antichi: si capisce bene la storia del Giappone.' }],
 	9: [
-		{ dice: 'tv', ja: 'こくさいの ニュースです。せかいの 小学校の 先生が 日本に あつまって、きょういくに ついて 話し合いました。', it: 'Esteri. Maestri di scuola elementare di tutto il mondo si sono riuniti in Giappone per discutere di istruzione.' },
+		{ dice: 'tv', ja: 'こくさいの ニュースです。世界の 小学校の 先生が 日本に 集まって、きょういくに ついて 話し合いました。', it: 'Esteri. Maestri di scuola elementare di tutto il mondo si sono riuniti in Giappone per discutere di istruzione.' },
 		{ domanda: { ja: '先生たちは 何に ついて 話し合いましたか。', it: 'Di che cosa hanno discusso gli insegnanti?', opzioni: [{ ja: 'きょういく', it: 'istruzione' }, { ja: 'せいじ', it: 'politica' }, { ja: 'けいざい', it: 'economia' }, { ja: 'てんき', it: 'meteo' }], giusta: 0, spiega: 'きょういく (教育) = istruzione; 〜に ついて = riguardo a; こくさい (国際) = internazionale.' } }
 	],
-	14: [{ dice: 'tv', ja: 'きょうの こうじょうの ニュースです。さんぎょうの ロボットを 作る 会社が、じょせいの ぎじゅつしゃを たくさん うけいれて います。', it: 'Industria. Un’azienda che costruisce robot industriali sta assumendo molte ingegnere donne.' }],
+	14: [{ dice: 'tv', ja: 'きょうの 工場の ニュースです。さんぎょうの ロボットを 作る 会社が、じょせいの ぎじゅつしゃを たくさん うけいれて います。', it: 'Industria. Un’azienda che costruisce robot industriali sta assumendo molte ingegnere donne.' }],
 	15: [
 		{ dice: 'tv', ja: 'あたらしい ほうりつで、らいねんから 電車の 中で 電話を かけては いけない ことに なります。', it: 'Con una nuova legge, dall’anno prossimo sarà vietato telefonare in treno.' },
 		{ domanda: { ja: 'らいねんから、電車の 中で 何を しては いけませんか。', it: 'Dall’anno prossimo, cosa sarà vietato in treno?', opzioni: [{ ja: '電話を かける', it: 'telefonare' }, { ja: 'すわる', it: 'sedersi' }, { ja: '本を 読む', it: 'leggere' }, { ja: 'ねる', it: 'dormire' }], giusta: 0, spiega: 'ほうりつ (法律) = legge; 〜ては いけない ことに なる = diventerà vietato (deciso da altri).' } }
@@ -236,9 +236,9 @@ const NOTIZIE: Record<number, Passo[]> = {
 		{ dice: 'tv', ja: 'ゴールデンウィークの こうつうです。こうそくどうろは 5月2日と 3日が いちばん こむと 思われます。', it: 'Traffico della Golden Week. In autostrada i giorni peggiori saranno il 2 e il 3 maggio.' },
 		{ domanda: { ja: 'こうそくどうろが いちばん こむのは いつですか。', it: 'Quando c’è più traffico in autostrada?', opzioni: [{ ja: '5月2日と 3日', it: 'il 2 e il 3 maggio' }, { ja: '4月29日', it: 'il 29 aprile' }, { ja: '5月5日', it: 'il 5 maggio' }, { ja: '毎日', it: 'tutti i giorni' }], giusta: 0, spiega: 'こむ (込む) = essere affollato. 思われます = «si ritiene» (passivo di 思う, tipico dei notiziari).' } }
 	],
-	22: [{ dice: 'tv', ja: '山野[やまの]の 美術館[びじゅつかん]が あした、一年ぶりに オープンします。さくら会社も スポンサーです。', it: 'Il museo di Yamano riapre domani dopo un anno. Tra gli sponsor c’è la さくら会社.' }],
+	22: [{ dice: 'tv', ja: '山野[やまの]の びじゅつかんが あした、一年ぶりに オープンします。さくら会社も スポンサーです。', it: 'Il museo di Yamano riapre domani dopo un anno. Tra gli sponsor c’è la さくら会社.' }],
 	23: [
-		{ dice: 'tv', ja: '美術館[びじゅつかん]で きょう、「えが ぬすまれた」と さわぎに なりましたが、じつは かいた 人が はこんで いた ことが わかりました。', it: 'Oggi al museo c’è stato scompiglio per un «quadro rubato», ma si è scoperto che l’aveva portato via la pittrice stessa.' },
+		{ dice: 'tv', ja: 'びじゅつかんで きょう、「えが ぬすまれた」と さわぎに なりましたが、じつは かいた 人が 運んで いた ことが わかりました。', it: 'Oggi al museo c’è stato scompiglio per un «quadro rubato», ma si è scoperto che l’aveva portato via la pittrice stessa.' },
 		{ io: 'あ、うちの じけんだ！', it: 'Ah, è il nostro caso!' }
 	]
 };
