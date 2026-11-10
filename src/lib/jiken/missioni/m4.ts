@@ -1,7 +1,7 @@
 // Missione 4 — 美術館[びじゅつかん]の じけん. Tre giornate: 4/27-4/29 (il 29 è
 // 昭和の日, festa: inizio della Golden Week). Nessun colpevole: due biglietti che
 // nessuno ha letto. La pittrice 青木 è venuta alle 7 a ritoccare il quadro e ha
-// lasciato un biglietto sulla parete; l'addetto alle pulizie ci ha messo davanti
+// lasciato un biglietto sulla parete; l'addetta alle pulizie ci ha messo davanti
 // il cartello del pavimento bagnato. Il curatore 小林 non ha mai aperto la lettera
 // in cui lei lo avvisava. Forme: 受身形 (ぬすまれた / はこばれた / かくされた),
 // 〜て しまう. Prove d'esame: fogli da leggere (情報検索) e un annuncio (聴解).
@@ -221,8 +221,8 @@ export const M4: Missione = {
 					{
 						domanda: {
 							ja: 'あしたの 朝 7時に、だれが びじゅつかんで 何を しますか。', it: 'Domani alle 7, chi fa cosa al museo?',
-							opzioni: [{ ja: 'そうじの 人が ゆかを そうじする', it: 'l’addetto lava i pavimenti' }, { ja: '小林さんが 手紙を 読む', it: 'Kobayashi legge le lettere' }, { ja: 'けいびの 人が ライトを かえる', it: 'la guardia cambia le luci' }, { ja: '森[もり]ぶちょうが しょるいを 持って 来る', it: 'Mori porta i documenti' }],
-							giusta: 0, spiega: '「朝 7時から ゆかを そうじしますよ」 — l’ha detto l’addetto alle pulizie.'
+							opzioni: [{ ja: 'そうじの 人が ゆかを そうじする', it: 'l’addetta lava i pavimenti' }, { ja: '小林さんが 手紙を 読む', it: 'Kobayashi legge le lettere' }, { ja: 'けいびの 人が ライトを かえる', it: 'la guardia cambia le luci' }, { ja: '森[もり]ぶちょうが しょるいを 持って 来る', it: 'Mori porta i documenti' }],
+							giusta: 0, spiega: '「朝 7時から ゆかを そうじしますよ」 — l’ha detto l’addetta alle pulizie.'
 						}
 					}
 				])
@@ -262,7 +262,7 @@ export const M4: Missione = {
 				},
 				{ dice: 'nakamura', ja: 'おはようございます。今日は きゃくとして 来たんですが……。{nome}さん、いっしょに しらべましょう。', it: 'Buongiorno. Oggi ero venuto da invitato, ma… {nome}, indaghiamo insieme.' },
 				{ obiettivo: 'guardia4', ja: 'けいびの 人の 話を 聞く。', it: 'Sentire la guardia.' },
-				{ obiettivo: 'pulizie4', ja: 'そうじの 人の 話を 聞く。', it: 'Sentire l’addetto alle pulizie.' },
+				{ obiettivo: 'pulizie4', ja: 'そうじの 人の 話を 聞く。', it: 'Sentire l’addetta alle pulizie.' },
 				{ obiettivo: 'kobayashi4', ja: '小林[こばやし]さんの 話を 聞く。', it: 'Sentire Kobayashi.' },
 				{ completa: 'open4' },
 				{ minuti: 10 },
@@ -365,10 +365,10 @@ export const M4: Missione = {
 							]
 						},
 						{
-							ja: 'そうじの 方、朝 何を しましたか。', it: 'Signore delle pulizie, cosa ha fatto stamattina?',
+							ja: 'そうじの 方、朝 何を しましたか。', it: 'Signorina delle pulizie, cosa ha fatto stamattina?',
 							passi: [
 								{ dice: 'pulizie', ja: '7時に ゆかを そうじしました。かべの 前に 「ゆかが ぬれて います」の かんばんを おきましたよ。', it: 'Alle 7 ho lavato il pavimento. Davanti alla parete ho messo il cartello «pavimento bagnato».', taccuino: true },
-								{ dice: 'pulizie', ja: 'えですか？ ……いや、ゆかばかり 見て いて、よく 見て いませんでした。', it: 'Il quadro? …No, guardavo solo il pavimento, non ci ho fatto caso.' },
+								{ dice: 'pulizie', ja: 'えですか？ ……いいえ、ゆかばかり 見て いて、よく 見て いませんでした。', it: 'Il quadro? …No, guardavo solo il pavimento, non ci ho fatto caso.' },
 								{ minuti: 15 },
 								{ completa: 'pulizie4' },
 								{ obiettivo: 'kanban4', ja: 'かべの 前の かんばんを しらべる。', it: 'Controllare il cartello davanti alla parete.' },
@@ -401,7 +401,7 @@ export const M4: Missione = {
 						{
 							domanda: {
 								ja: 'メモは どうして だれにも 見られなかったんですか。', it: 'Perché nessuno ha visto il biglietto?',
-								opzioni: [{ ja: 'かんばんで かくされて いたから', it: 'era coperto dal cartello' }, { ja: '青木さんが 持って 帰ったから', it: 'Aoki se l’era portato via' }, { ja: 'かぜで とんで いったから', it: 'l’aveva portato via il vento' }, { ja: 'そうじの 人が すてたから', it: 'l’addetto l’aveva buttato' }],
+								opzioni: [{ ja: 'かんばんで かくされて いたから', it: 'era coperto dal cartello' }, { ja: '青木さんが 持って 帰ったから', it: 'Aoki se l’era portato via' }, { ja: 'かぜで とんで いったから', it: 'l’aveva portato via il vento' }, { ja: 'そうじの 人が すてたから', it: 'l’addetta l’aveva buttato' }],
 								giusta: 0, spiega: '「かくされて いた」: passivo + 〜て いた = era (rimasto) nascosto. 見られなかった: passivo negativo.'
 							}
 						},

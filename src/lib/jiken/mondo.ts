@@ -204,7 +204,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F', yomi: 'あおきさん', chi: { ja: 'えを かく 人。「さくらと ねこ」の えを かきました。', it: 'Pittrice: ha dipinto il quadro «Sakura e gatto».' } },
 	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M', yomi: 'こばやしさん', chi: { ja: 'びじゅつかんの かかりの 人。いつも いそがしいです。', it: 'Il curatore del museo. Sempre indaffarato.' } },
 	guardia: { nome: 'けいびの 人', sprite: 'custode', voce: 'F', yomi: 'けいびの ひと', chi: { ja: 'びじゅつかんの けいびの 人。', it: 'La guardia del museo.' } },
-	pulizie: { nome: 'そうじの 人', sprite: 'padrone', voce: 'M', yomi: 'そうじの ひと', chi: { ja: 'びじゅつかんを そうじする 人。', it: 'L’addetto alle pulizie del museo.' } }
+	pulizie: { nome: 'そうじの 人', sprite: 'addetta_pulizie', voce: 'F', yomi: 'そうじの ひと', chi: { ja: 'びじゅつかんを そうじする わかい 女の 人。いつも 元気です。', it: 'La giovane addetta alle pulizie del museo. Sempre allegra.' } }
 };
 
 export const OGGETTI: Record<string, { it: string; ja: string }> = {

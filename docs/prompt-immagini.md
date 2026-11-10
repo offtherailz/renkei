@@ -335,6 +335,7 @@ bocca chiusa, poi bocca aperta). File: `<id>_chiusa.jpg` / `<id>_aperta.jpg`.
 | id | descrizione |
 |---|---|
 | pittrice | 1woman, Japanese painter, about 32 years old, black hair tied up loosely in a messy bun with a pencil stuck in it, gentle but determined expression, beige canvas apron with small blue and yellow paint stains over a white shirt with rolled-up sleeves. |
+| addetta_pulizie | 1girl, young Japanese cleaning staff woman, about 24 years old, very pretty, long glossy black hair in a high ponytail with a few loose strands framing her face, big bright eyes, light natural makeup, confident playful smile, light blue fitted short-sleeved work uniform dress with white collar, white half apron tied at the waist, white bandana headband, small museum staff name badge. (fatto: M4 そうじの 人) |
 | curatore | 1man, Japanese museum curator, about 50 years old, neat short gray hair, thin silver-rimmed glasses, busy slightly tired expression, charcoal gray suit, dark green tie, museum staff ID card on a lanyard. |
 
 Espressioni (schema «Espressioni», allegando il ritratto appena fatto):
@@ -345,7 +346,7 @@ Espressioni (schema «Espressioni», allegando il ritratto appena fatto):
 | 青木さん | pittrice | sollevata | `relieved and a little embarrassed, soft smile, one hand on her chest` | M4: torna col quadro |
 | 小林さん | curatore | occupato | `flustered and busy, eyebrows raised, holding a stack of papers and envelopes` | M4: posta mai aperta |
 | 小林さん | curatore | sorpreso | `shocked, eyes wide, mouth slightly open` | M4: il quadro non c’è |
-| addetto pulizie | padrone | imbarazzato | `embarrassed and apologetic, awkward smile, bowing his head slightly` | M4: il cartello copriva il biglietto |
+| addetta pulizie | addetta_pulizie | imbarazzato | `embarrassed and apologetic, awkward smile, cheeks slightly red, one hand touching the back of her head` | M4: il cartello copriva il biglietto (fatto) |
 
 ## 事件: la TV del salotto (telegiornale e meteo)
 
