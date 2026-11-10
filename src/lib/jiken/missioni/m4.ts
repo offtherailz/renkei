@@ -74,7 +74,7 @@ export const M4: Missione = {
 					}
 				},
 				{ flag: 'm4.museo' },
-				{ obiettivo: 'museo4', ja: 'あしたの ごご、びじゅつかんへ じゅんびの 手つだいに 行く。', it: 'Domani pomeriggio, andare al museo ad aiutare coi preparativi.' },
+				{ obiettivo: 'museo4', ja: '4月28日（火）の ごご、びじゅつかんへ じゅんびの 手つだいに 行く。', it: 'Martedì 28 aprile, il pomeriggio: andare al museo ad aiutare coi preparativi.' },
 				{ flag: 'm4.d21.ufficio' },
 				{ ora: h(12) }
 			]
@@ -178,6 +178,20 @@ export const M4: Missione = {
 				{ pensa: '青木さん、しんぱいそうだった。喫茶[きっさ]あおいの 伊藤[いとう]さんなら、何か 知って いるかも しれない。', it: 'Aoki sembrava preoccupata. Forse Ito del caffè あおい sa qualcosa.' },
 				{ obiettivo: 'aoi4', ja: '喫茶[きっさ]あおいで 伊藤[いとう]さんの 話を 聞く。', it: 'Sentire Ito al caffè あおい.' },
 				{ flag: 'm4.prep' }
+			]
+		},
+		{
+			// al museo troppo presto (il 21, o il 22 prima delle 12): la guardia dice quando tornare
+			id: 'm4-presto', luogo: 'museo', ripeti: true, quando: { giorno: [21, 22], flag: ['m4.museo'], nonFlag: ['m4.prep'] },
+			passi: [
+				{ dice: 'guardia', ja: 'さくら会社の 方ですか。じゅんびの 手つだいですね。', it: 'Lei è della さくら会社? Per l’aiuto coi preparativi, vero?' },
+				{
+					se: { giorno: 21 },
+					allora: [{ dice: 'guardia', ja: 'じゅんびは あしたの ごごからですよ。小林[こばやし]さんは あした 12時すぎに 来ます。', it: 'I preparativi sono domani pomeriggio. Kobayashi arriva domani dopo mezzogiorno.' }],
+					altrimenti: [{ dice: 'guardia', ja: 'じゅんびは ごごからですよ。小林[こばやし]さんは 12時すぎに 来ます。まず 会社へ 行って ください。', it: 'I preparativi sono nel pomeriggio. Kobayashi arriva dopo mezzogiorno. Prima vada in ditta.' }]
+				},
+				{ io: 'わかりました。また 来ます。', it: 'Va bene. Torno più tardi.' },
+				{ minuti: 10 }
 			]
 		},
 		{
