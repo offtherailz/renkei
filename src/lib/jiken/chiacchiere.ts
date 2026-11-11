@@ -621,9 +621,10 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			id: 'ra-umai',
 			passi: [
 				{ io: 'この ラーメン、うまい！', it: 'Questo ramen è buonissimo!' },
-				{ dice: 'oste', ja: 'ありがとう。むすこが 作ったんだよ。むすこは りょうりが うまいんだ。', it: 'Grazie. L’ha fatto mio figlio. È bravo a cucinare.' },
-				{ dice: 'oste', ja: 'でも、字は へたでね。メニューを もっと ていねいに 書けって いつも 言って いるんだ。', it: 'Però scrive malissimo. Gli dico sempre di scrivere il menù con più cura.' },
-				{ dice: 'oste', ja: 'おきゃくさんに ほめられると、むすこも よろこぶよ。', it: 'Quando i clienti lo lodano, mio figlio è contento.' },
+				{ dice: 'ramen', ja: 'ありがとうございます！ ぼくが 作ったんです。先月 この 店を 開いた ばかりなんですよ。', it: 'Grazie! L’ho fatto io. Ho aperto questo locale solo il mese scorso.' },
+				{ dice: 'ramen', ja: 'ちちは さくら町の ふじ食堂を やって います。ちちは りょうりが うまいけど、ぼくの ラーメンは まだ ほめて くれないんです。', it: 'Mio padre ha la ふじ食堂 a さくら町. Cucina benissimo, ma il mio ramen non l’ha ancora lodato.' },
+				{ dice: 'ramen', ja: 'メニューの 字も 「もっと ていねいに 書け」って、いつも 言われます。', it: 'E del menù mi dice sempre «scrivilo con più cura».' },
+				{ io: 'わたしが おとうさんに 話して おきますよ。', it: 'Glielo dico io, a suo padre.' },
 				{
 					domanda: {
 						ja: '「あには えが うまいです。」と だいたい 同じ いみの 文は どれですか。', it: '«Mio fratello è うまい a disegnare» vuol dire più o meno…',
@@ -644,8 +645,8 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		{
 			id: 'r-kaeru',
 			passi: [
-				{ dice: 'oste', ja: 'うちの ラーメンは スープが じまんです。ぶたの ほねを 一日 にて 作るんですよ。', it: 'Il nostro vanto è il brodo: ossa di maiale bollite un giorno intero.' },
-				{ dice: 'oste', ja: 'めんは かためと やわらかめ、どちらに しますか。', it: 'Spaghetti al dente o morbidi?' },
+				{ dice: 'ramen', ja: 'うちの ラーメンは スープが じまんです。ぶたの ほねを 一日 にて 作るんですよ。', it: 'Il nostro vanto è il brodo: ossa di maiale bollite un giorno intero.' },
+				{ dice: 'ramen', ja: 'めんは かためと やわらかめ、どちらに しますか。', it: 'Spaghetti al dente o morbidi?' },
 				{ io: 'かためで おねがいします。', it: 'Al dente, grazie.' },
 				{ minuti: 20 }
 			]

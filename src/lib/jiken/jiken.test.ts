@@ -41,6 +41,14 @@ function testiJa(): string[] {
 	return out;
 }
 
+describe('事件: personaggi', () => {
+	it('un ritratto per persona (lo stesso disegno non fa due ruoli)', () => {
+		const chi: Record<string, string[]> = {};
+		for (const [id, p] of Object.entries(PERSONAGGI)) if (p.sprite && !p.stesso) (chi[p.sprite] ??= []).push(id);
+		expect(Object.entries(chi).filter(([, ids]) => ids.length > 1)).toEqual([]);
+	});
+});
+
 describe('事件: testi', () => {
 	// parole che all'esame N4 sono scritte in kanji (kanji del livello): nel gioco
 	// vanno scritte così anche qui, per abituarsi a leggerle (vedi la guida, «Testi»)

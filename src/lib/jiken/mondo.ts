@@ -150,7 +150,7 @@ export const LUOGHI: Luogo[] = [
 		ambiente: [
 			{
 				se: { oggetti: ['portafoglio'], soldiMin: 800 },
-				allora: [{ dice: 'oste', ja: 'いらっしゃい！ しょうゆラーメン、800円です。', it: 'Benvenut{o}! Ramen allo shoyu, 800 yen.' }, { soldi: -800 }, { minuti: 30 }, { narra: 'あつい ラーメンを 食べました。', it: 'Hai mangiato un ramen bollente.' }],
+				allora: [{ dice: 'ramen', ja: 'いらっしゃい！ しょうゆラーメン、800円です。', it: 'Benvenut{o}! Ramen allo shoyu, 800 yen.' }, { soldi: -800 }, { minuti: 30 }, { narra: 'あつい ラーメンを 食べました。', it: 'Hai mangiato un ramen bollente.' }],
 				altrimenti: [{ narra: 'お金が たりません……。', it: 'Non hai abbastanza soldi…' }]
 			}
 		]
@@ -175,8 +175,9 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	suzuki: { nome: '鈴木[すずき]さん', sprite: 'collega_donna', voce: 'F', yomi: 'すずきさん', chi: { ja: '会社の せんぱい。仕事が 早くて、ちょっと きびしいです。', it: 'Collega più esperta: veloce sul lavoro, un po’ severa.' } },
 	tanaka: { nome: '田中さん', sprite: 'collega_uomo', voce: 'M', yomi: 'たなかさん', chi: { ja: '会社の どうりょう。明るい 人ですが、ときどき わすれものを します。', it: 'Collega allegro, ma ogni tanto dimentica le cose.' } },
 	commessa: { nome: '店員', sprite: 'commessa_konbini', voce: 'F', yomi: 'てんいん', chi: { ja: 'コンビニ「ハッピーマート」の 店員さん。何でも よく 見て います。', it: 'La commessa della konbini Happy Mart. Nota tutto.' } },
-	oste: { nome: '店の 人', sprite: 'cameriere', voce: 'M', yomi: 'みせの ひと', chi: { ja: 'ふじ食堂と ラーメン屋の 店の 人。', it: 'Il gestore di ふじ食堂 e del ramen-ya.' } },
-	postino: { nome: 'ゆうびんきょくの 人', sprite: 'commesso', voce: 'M', yomi: 'ゆうびんきょくの ひと', chi: { ja: 'ゆうびんきょくの まどぐちの 人。', it: 'L’impiegato allo sportello della posta.' } },
+	oste: { nome: 'ふじ食堂の 主人', sprite: 'cuoco_anziano', voce: 'M', yomi: 'ふじしょくどうの しゅじん', chi: { ja: 'ふじ食堂の 主人。りょうりは うまいが、口は わるい。むすこは 山野で ラーメン屋を やって いる。', it: 'Il padrone di ふじ食堂. Cucina benissimo, ma ha la lingua tagliente. Il figlio ha un ramen-ya a Yamano.' } },
+	ramen: { nome: 'ラーメン屋の 主人', sprite: 'cuoco_ramen', voce: 'M', yomi: 'ラーメンやの しゅじん', chi: { ja: 'ふじ食堂の 主人の むすこ。じぶんの ラーメン屋を 開いた ばかり。', it: 'Il figlio del padrone di ふじ食堂: ha appena aperto il suo ramen-ya.' } },
+	postino: { nome: 'ゆうびんきょくの 人', sprite: 'postino', voce: 'M', yomi: 'ゆうびんきょくの ひと', chi: { ja: 'ゆうびんきょくの まどぐちの 人。', it: 'L’impiegato allo sportello della posta.' } },
 	fornaia: { nome: 'パン屋の 人', sprite: 'panettiera', voce: 'F', yomi: 'パンやの ひと', chi: { ja: 'パン屋の 店員さん。', it: 'La ragazza della panetteria.' } },
 	fioraia: { nome: '花屋の 人', sprite: 'fioraia', voce: 'F', yomi: 'はなやの ひと', chi: { ja: '花屋の 店員さん。', it: 'La fioraia.' } },
 	nakamura: { nome: '中村[なかむら]さん', sprite: 'ispettore', voce: 'M', yomi: 'なかむらさん', chi: { ja: 'けいさつの 人。町の ふしぎな じけんを しらべて いて、{nome}さんに 手つだいを たのみます。', it: 'Ispettore di polizia. Indaga sui piccoli misteri del quartiere e chiede il tuo aiuto.' } },
@@ -186,7 +187,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	// trasparente) con l'annunciatrice dietro lo schermo (ritratti/annunciatrice-*.png)
 	tv: { nome: 'テレビ', sprite: 'annunciatrice', voce: 'F', schermo: true },
 	hayashi: { nome: '林[はやし]さん（うけつけ）', sprite: 'receptionist', voce: 'F', yomi: 'はやしさん', chi: { ja: '会社の うけつけの 人。だれが 来て、だれが 出たか よく おぼえて います。', it: 'La receptionist della ditta. Ricorda bene chi entra e chi esce.' } },
-	hotelstaff: { nome: 'ホテルの 人', sprite: 'commesso', voce: 'M', yomi: 'ホテルの ひと', chi: { ja: 'ホテル みどりの 人。', it: 'L’addetto dell’Hotel Midori.' } },
+	hotelstaff: { nome: 'ホテルの 人', sprite: 'addetta_hotel', voce: 'F', yomi: 'ホテルの ひと', chi: { ja: 'ホテル みどりの フロントの 人。', it: 'L’addetta alla reception dell’Hotel Midori.' } },
 	commessa_sg: { nome: 'ゲームセンターの 人', sprite: 'commessa_sg', voce: 'F', yomi: 'ゲームセンターの ひと', chi: { ja: '山野駅[やまのえき]の 前の ゲームセンターの 店員さん。', it: 'La commessa della sala giochi davanti alla stazione di Yamano.' } },
 	kimura: { nome: '木村[きむら]さん', sprite: 'capo_uomo', voce: 'M', yomi: 'きむらさん', chi: { ja: 'アパートの 大家さん。お母さんと いっしょに 住んで います。', it: 'Il padrone del condominio. Vive con sua madre.' } },
 	nonna: { nome: '木村[きむら]さんの お母さん', sprite: 'signora_anziana', voce: 'F', yomi: 'きむらさんの おかあさん', chi: { ja: 'ねこの ミケを とても かわいがって います。', it: 'Adora la sua gatta Miké.' } },
@@ -196,7 +197,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F', yomi: 'やまだせんせい', chi: { ja: '日本語学校の 先生。', it: 'L’insegnante della scuola di giapponese.' } },
 	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M', yomi: 'いとうさん', chi: { ja: '喫茶[きっさ]あおいの 店の 人。町の うわさを よく 知って います。', it: 'Il gestore del caffè あおい. Conosce tutte le voci del quartiere.' } },
 	// abitanti del quartiere (chiacchiere dei luoghi)
-	bancario: { nome: '銀行の 人', sprite: 'commesso', voce: 'M', yomi: 'ぎんこうの ひと', chi: { ja: '山野[やまの]の 銀行の まどぐちの 人。', it: 'L’impiegato allo sportello della banca di Yamano.' } },
+	bancario: { nome: '銀行の 人', sprite: 'bancario', voce: 'M', yomi: 'ぎんこうの ひと', chi: { ja: '山野[やまの]の 銀行の まどぐちの 人。', it: 'L’impiegato allo sportello della banca di Yamano.' } },
 	sato: { nome: '佐藤[さとう]さん', sprite: 'amica', voce: 'F', yomi: 'さとうさん', chi: { ja: '吉田[よしだ]さんの 家の 近所に 住んで いる 人。よく 話しかけて きます。', it: 'Vicina di casa degli Yoshida. Attacca sempre bottone.' } },
 	aya: { nome: 'あやさん', sprite: 'studentessa', voce: 'F', yomi: 'あやさん', chi: { ja: '大学生。日本語学校で 高橋[たかはし]くんと いっしょに 手つだいを して います。', it: 'Studentessa universitaria. Aiuta alla scuola di giapponese con Takahashi.' } },
 	dottoressa: { nome: 'お医者さん', sprite: 'medico', voce: 'F', yomi: 'おいしゃさん', chi: { ja: '山野[やまの]の 病院の お医者さん。', it: 'La dottoressa dell’ospedale di Yamano.' } },

@@ -336,6 +336,12 @@ bocca chiusa, poi bocca aperta). File: `<id>_chiusa.jpg` / `<id>_aperta.jpg`.
 |---|---|
 | pittrice | 1woman, Japanese painter, about 32 years old, black hair tied up loosely in a messy bun with a pencil stuck in it, gentle but determined expression, beige canvas apron with small blue and yellow paint stains over a white shirt with rolled-up sleeves. |
 | addetta_pulizie | 1girl, young Japanese cleaning staff woman, about 24 years old, very pretty, long glossy black hair in a high ponytail with a few loose strands framing her face, big bright eyes, light natural makeup, confident playful smile, light blue fitted short-sleeved work uniform dress with white collar, white half apron tied at the waist, white bandana headband, small museum staff name badge. (fatto: M4 そうじの 人) |
+| postino | 1man, Japanese post office clerk, about 50 years old, short neat salt-and-pepper hair, kind round face, small smile, light gray uniform shirt with a dark green post office vest, green cap on the head, name badge on the chest. (fatto) |
+| bancario | 1man, Japanese bank teller, about 30 years old, short neat black hair parted on the side, polite formal smile, navy blue suit with a white shirt and a dark blue tie, small silver bank badge on the lapel. (fatto) |
+| addetta_hotel | come «hotel front desk clerk» ma donna: dark green hotel uniform jacket with gold buttons, light green tie, long black hair. (fatto) |
+| cuoco_anziano | 1man, Japanese diner owner and cook, about 65 years old, very short gray hair, thick gray eyebrows, gruff but warm expression, white cook's jacket with rolled-up sleeves, dark blue Japanese cotton apron, white towel tied around the head as a headband. (fatto: ふじ食堂の 主人) |
+| cuoco_ramen | 1man, young Japanese ramen chef, about 30 years old, short black hair, confident proud grin, strong arms, black t-shirt under a dark red sleeveless cook's vest, black towel tied around the head. (fatto: il figlio, ラーメン屋) |
+| commessa_depa | 1woman, Japanese department store saleswoman, about 27 years old, black hair in a neat low bun, elegant polite smile, dark navy uniform jacket and vest over a white blouse, small light blue neck scarf, gold name badge. (da fare) |
 | curatore | 1man, Japanese museum curator, about 50 years old, neat short gray hair, thin silver-rimmed glasses, busy slightly tired expression, charcoal gray suit, dark green tie, museum staff ID card on a lanyard. |
 
 Espressioni (schema «Espressioni», allegando il ritratto appena fatto):
