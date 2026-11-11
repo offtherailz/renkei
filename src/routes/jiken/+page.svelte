@@ -760,10 +760,13 @@
 	}
 
 	// ── voce e bocca
+	// la fine di una battuta vecchia non deve fermare la bocca di quella nuova
+	let turnoVoce = 0;
 	async function voce(t: string, chi: 'F' | 'M', bocca = true): Promise<void> {
+		const mio = ++turnoVoce;
 		parla = bocca;
 		await speakSentenceJapaneseAsync(stripFuriganaNotation(testo(t)), vocePersonaggio(chi, imp));
-		parla = false;
+		if (mio === turnoVoce) parla = false;
 	}
 	// voce di un personaggio senza bocca che si muove; lento = 🐢
 	async function voceLenta(t: string, chi: 'F' | 'M', lento = false): Promise<void> {

@@ -63,12 +63,20 @@ export const speechStartCount = (): number => speechStarts;
 // generazione della voce: cambia a ogni nuova frase o stop, e ferma la coda
 let speakGen = 0;
 
+let ultimoCancel = 0;
+const inVita = new Set<SpeechSynthesisUtterance>();
+
 export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options?: SpeakOptions): Promise<void> {
   if (typeof window === "undefined" || !window.speechSynthesis) {
     return Promise.resolve();
   }
   const plainText = stripFuriganaNotation(sentenceWithFurigana);
+  // Chrome: uno speak() subito dopo cancel() su una voce che stava parlando a
+  // volte viene scartato in silenzio (la battuta non si sente). Se c'era qualcosa
+  // in corso, si aspetta un attimo prima di parlare.
+  const occupato = window.speechSynthesis.speaking || window.speechSynthesis.pending || Date.now() - ultimoCancel < 150;
   window.speechSynthesis.cancel();
+  ultimoCancel = Date.now();
   const gen = ++speakGen;
   // Testi lunghi frase per frase: un'unica battuta di 20-30 secondi veniva
   // troncata (Chrome su Android si ferma da solo, e il tetto waitMs scadeva
@@ -90,9 +98,14 @@ export function speakSentenceJapaneseAsync(sentenceWithFurigana: string, options
       // Per frase: mai meno del tempo di lettura (≈ 250 ms a carattere).
       const est = 1500 + text.length * 250;
       setTimeout(finish, chunks.length > 1 ? Math.max(est, Math.min(options?.waitMs ?? est, est * 2)) : options?.waitMs ?? Math.min(8000, 1200 + text.length * 180));
+      // tenuta in vita fino alla fine: se Chrome la raccoglie, onend non arriva
+      inVita.add(utterance);
+      utterance.addEventListener("end", () => inVita.delete(utterance));
+      utterance.addEventListener("error", () => inVita.delete(utterance));
       window.speechSynthesis.speak(utterance);
     };
-    next();
+    if (occupato) setTimeout(() => { if (gen === speakGen) next(); else resolve(); }, 120);
+    else next();
   });
 }
 
@@ -171,5 +184,6 @@ export function stopSpeaking(): void {
   speakGen += 1; // ferma anche le frasi in coda di speakSentenceJapaneseAsync
   if (typeof window !== "undefined" && window.speechSynthesis) {
     window.speechSynthesis.cancel();
+    ultimoCancel = Date.now();
   }
 }
