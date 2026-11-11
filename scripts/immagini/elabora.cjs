@@ -15,6 +15,7 @@
 //   node scripts/immagini/elabora.cjs pieno    <ritratto.png> [uscita.png]           (rende opache le parti semi-trasparenti dentro la figura)
 //   node scripts/immagini/elabora.cjs schermo  <ingresso> <uscita.png>          (sfondo 2:1 con lo schermo magenta trasparente; stampa il riquadro in %)
 //   node scripts/immagini/elabora.cjs scala    <ingresso> <uscita.png> <w> <h>  (ridimensiona riempiendo, in PNG)
+//   node scripts/immagini/elabora.cjs bande    <chiusa> <aperta> <cartella>      (toglie le bande nere ai lati, stesso taglio: immagini di ChatGPT)
 //   node scripts/immagini/elabora.cjs oggetti  <griglia> <colonne> <righe> <cartella> <id1> <id2> …
 //
 // «scarica»: i file caricati dall'utente spesso sono la PAGINA di condivisione
@@ -72,6 +73,12 @@ async function scarica(sorgente, uscita) {
 		const r = await p.evaluate(([a]) => schermo(a), [abs(args[0])]);
 		salva(args[1], r.u);
 		console.log('schermo', JSON.stringify(r.box));
+	} else if (cmd === 'bande') {
+		const dati = args.slice(0, 2).map((f) => 'data:image/png;base64,' + fs.readFileSync(f).toString('base64'));
+		const r = await p.evaluate((srcs) => bande(srcs), dati);
+		console.log('bande', JSON.stringify(r.taglio));
+		salva(path.join(args[2], 'chiusa.png'), r.img[0]);
+		salva(path.join(args[2], 'aperta.png'), r.img[1]);
 	} else if (cmd === 'scala') {
 		salva(args[1], await p.evaluate(([a, w, h]) => scala(a, w, h), [abs(args[0]), Number(args[2]), Number(args[3])]));
 	} else if (cmd === 'oggetti') {

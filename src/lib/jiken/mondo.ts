@@ -197,6 +197,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	sensei: { nome: '山田先生', sprite: 'insegnante_donna', voce: 'F', yomi: 'やまだせんせい', chi: { ja: '日本語学校の 先生。', it: 'L’insegnante della scuola di giapponese.' } },
 	ito: { nome: '伊藤[いとう]さん', sprite: 'cameriere', voce: 'M', yomi: 'いとうさん', chi: { ja: '喫茶[きっさ]あおいの 店の 人。町の うわさを よく 知って います。', it: 'Il gestore del caffè あおい. Conosce tutte le voci del quartiere.' } },
 	// abitanti del quartiere (chiacchiere dei luoghi)
+	depa: { nome: 'デパートの 店員', sprite: 'commessa_depa', voce: 'F', yomi: 'デパートの てんいん', chi: { ja: 'デパートの ふくの うりばの 店員。けいごが とても 上手です。', it: 'La commessa del reparto abbigliamento del grande magazzino. Un keigo impeccabile.' } },
 	bancario: { nome: '銀行の 人', sprite: 'bancario', voce: 'M', yomi: 'ぎんこうの ひと', chi: { ja: '山野[やまの]の 銀行の まどぐちの 人。', it: 'L’impiegato allo sportello della banca di Yamano.' } },
 	sato: { nome: '佐藤[さとう]さん', sprite: 'amica', voce: 'F', yomi: 'さとうさん', chi: { ja: '吉田[よしだ]さんの 家の 近所に 住んで いる 人。よく 話しかけて きます。', it: 'Vicina di casa degli Yoshida. Attacca sempre bottone.' } },
 	aya: { nome: 'あやさん', sprite: 'studentessa', voce: 'F', yomi: 'あやさん', chi: { ja: '大学生。日本語学校で 高橋[たかはし]くんと いっしょに 手つだいを して います。', it: 'Studentessa universitaria. Aiuta alla scuola di giapponese con Takahashi.' } },

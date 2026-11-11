@@ -544,8 +544,8 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			id: 'd-size',
 			passi: [
 				{ io: 'この スーツの もう 少し 大きい サイズは ありますか。', it: 'Di questo completo c’è una taglia un po’ più grande?' },
-				{ dice: 'aya', ja: 'しょうしょう おまち ください。……もうしわけ ございません。この いろは うりきれて しまいました。', it: 'Attenda un attimo. …Mi dispiace molto, questo colore è esaurito.' },
-				{ dice: 'aya', ja: 'こちらの こい 青なら ございます。いかがですか。', it: 'In blu scuro invece c’è. Che ne dice?' },
+				{ dice: 'depa', ja: 'しょうしょう おまち ください。……もうしわけ ございません。この いろは うりきれて しまいました。', it: 'Attenda un attimo. …Mi dispiace molto, questo colore è esaurito.' },
+				{ dice: 'depa', ja: 'こちらの こい 青なら ございます。いかがですか。', it: 'In blu scuro invece c’è. Che ne dice?' },
 				{
 					domanda: {
 						ja: 'あやさんは 何と 言いましたか。', it: 'Cosa ha detto Aya?',
