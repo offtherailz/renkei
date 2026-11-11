@@ -1,6 +1,6 @@
 // 事件 — il motore: stato del gioco, tempo, orari, condizioni e lettore delle
 // scene. Tutto puro (niente DOM), così si prova con vitest.
-import type { Chiacchiera, Condizione, Luogo, LuogoId, Missione, Passo, Scena, Stato } from './tipi';
+import type { Chiacchiera, Condizione, Luogo, LuogoId, Missione, Passo, Quando, Scena, Stato } from './tipi';
 
 export const PRIMO_GIORNO = { anno: 2026, mese: 4, giorno: 6 }; // lunedì
 export const SVEGLIA = 7 * 60 + 30;
@@ -9,6 +9,7 @@ export const SOLDI_INIZIO = 5000;
 export const TARDI = 23 * 60; // da quest'ora si torna a casa a dormire
 const FINE_GIORNO = 23 * 60 + 59;
 const WD = ['月', '火', '水', '木', '金', '土', '日'];
+const MESI_IT = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
 const WD_IT = ['lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica'];
 
 export const settimana = (giorno: number): number => giorno % 7; // 0 = lunedì
@@ -19,7 +20,7 @@ export function dataJa(giorno: number): string {
 }
 export function dataIt(giorno: number): string {
 	const d = new Date(PRIMO_GIORNO.anno, PRIMO_GIORNO.mese - 1, PRIMO_GIORNO.giorno + giorno);
-	return `${WD_IT[settimana(giorno)]} ${d.getDate()} aprile`;
+	return `${WD_IT[settimana(giorno)]} ${d.getDate()} ${MESI_IT[d.getMonth()]}`;
 }
 export const hhmm = (m: number): string => `${Math.floor(m / 60) % 24}:${String(m % 60).padStart(2, '0')}`;
 export const notte = (m: number): boolean => m >= 18 * 60 || m < 6 * 60;
@@ -115,7 +116,8 @@ export function applica(s: Stato, p: Passo): Stato {
 	if ('flag' in p) return s.flag.includes(p.flag) ? s : { ...s, flag: [...s.flag, p.flag] };
 	if ('obiettivo' in p) {
 		if (s.obiettivi.some((o) => o.id === p.obiettivo)) return s;
-		return { ...s, obiettivi: [...s.obiettivi, { id: p.obiettivo, ja: p.ja, it: p.it, en: p.en, fatto: false }] };
+		const quando: Quando | undefined = p.quando ? { giorno: s.giorno + (p.quando.dopo ?? 0), ...(p.quando.dalle !== undefined ? { dalle: p.quando.dalle } : {}), ...(p.quando.alle !== undefined ? { alle: p.quando.alle } : {}) } : undefined;
+		return { ...s, obiettivi: [...s.obiettivi, { id: p.obiettivo, ja: p.ja, it: p.it, en: p.en, fatto: false, ...(quando ? { quando } : {}) }] };
 	}
 	if ('completa' in p) return { ...s, obiettivi: s.obiettivi.map((o) => (o.id === p.completa ? { ...o, fatto: true } : o)) };
 	if ('minuti' in p) return { ...s, minuti: Math.min(s.minuti + p.minuti, FINE_GIORNO) };

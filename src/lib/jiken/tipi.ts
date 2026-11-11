@@ -121,7 +121,7 @@ export type Passo =
 	| { prendi: string; it: string }
 	| { togli: string }
 	| { flag: string }
-	| { obiettivo: string; ja: string; it: string; en?: string } // aggiunge un obiettivo
+	| { obiettivo: string; ja: string; it: string; en?: string; quando?: { dopo?: number; dalle?: number; alle?: number } } // aggiunge un obiettivo (quando: appuntamento, dopo = fra quanti giorni)
 	| { completa: string } // segna un obiettivo come fatto
 	| { minuti: number }
 	| { ora: number } // porta l'orologio almeno a quest'ora
@@ -158,6 +158,13 @@ export interface Obiettivo {
 	it: string;
 	en?: string;
 	fatto: boolean;
+	quando?: Quando; // appuntamento: compare nel calendario
+}
+// giorno della storia e fascia oraria (minuti) di un appuntamento
+export interface Quando {
+	giorno: number;
+	dalle?: number;
+	alle?: number;
 }
 
 export interface Appunto {
@@ -192,6 +199,7 @@ export interface Stato {
 	ripasso: { ok: number; tot: number }; // chiacchiere, treno: fuori dal voto della missione
 	contatori: Record<string, number>; // per i timbri (meteo, ascolto, puntuale…)
 	timbri?: Record<string, number>; // livelli dei timbri già mostrati
+	note?: Record<number, string>; // note del giocatore nel calendario, per giorno
 	libera?: boolean; // la scena in corso è una chiacchiera (le domande vanno nel ripasso)
 	collezione: Premio[]; // peluche vinti alla sala giochi
 	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)

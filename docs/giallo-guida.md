@@ -105,6 +105,14 @@ tutta la storia della chat. Gli altri documenti:
   cosa manca. **Missione nuova**: ogni `obiettivo` deve avere il suo `completa`, e
   una sola scena `ripiego` (i test lo controllano); il resto si calcola da solo. I
   timbri «tutte» seguono i totali; un livello preso non si perde.
+- **Calendario** (`calendario.ts`, `Calendario.svelte`): si apre toccando la data
+  nella barra, e da solo riprendendo una partita («Bentornato», dove sei, il
+  prossimo appuntamento). Mese con feste (`FESTIVI`), giorni delle missioni
+  (`giorniMissione`: scene a giorno fisso, senza ripiego), ● appuntamenti; sotto,
+  l'agenda del giorno (giornata d'ufficio + appuntamenti), cosa c'è da fare, dove
+  sei stato e le note del giocatore (`stato.note`). Un appuntamento è un
+  `obiettivo` con `quando: { dopo?, dalle?, alle? }` (dopo = fra quanti giorni:
+  «あした» = 1); il motore lo salva col giorno vero.
 - **Scena interrotta**: a ogni passo si salva in `stato.scena` il passo mostrato e
   quelli dopo; riaprendo la partita (`riparti`) si riprende da lì. Le riprese del
   mattino la tolgono; una domanda già risposta non si ripete.

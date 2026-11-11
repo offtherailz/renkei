@@ -227,7 +227,7 @@ export const M3: Missione = {
 				{ dice: 'mori', ja: '10時に ホテルの ロビーで 会いましょう。電車で 行くので、ICカードが いりますよ。', it: 'Ci vediamo alle 10 nella hall dell’hotel. Si va in treno, quindi serve la carta IC.' },
 				{ completa: 'mori3' },
 				{ obiettivo: 'ic', ja: 'さくら町駅で ICカードを 買う。', it: 'Comprare la carta IC alla stazione di Sakura-chō.' },
-				{ obiettivo: 'hotel', ja: 'あしたの 10時までに ホテル みどり（山野駅[やまのえき]の 前）へ 行く。', it: 'Domani entro le 10, andare all’Hotel Midori (davanti alla stazione di Yamano).' },
+				{ obiettivo: 'hotel', ja: 'あしたの 10時までに ホテル みどり（山野駅[やまのえき]の 前）へ 行く。', it: 'Domani entro le 10, andare all’Hotel Midori (davanti alla stazione di Yamano).', quando: { dopo: 1, alle: h(10) } },
 				{ flag: 'm3.consegnato' },
 				// la giornata di lavoro continua: niente pomeriggio libero alle 9 del mattino
 				{ dice: 'mori', ja: 'さあ、仕事に もどりましょう。ICカードは 昼休みか、仕事の あとで 買って ください。', it: 'Su, torniamo al lavoro. La carta IC la compri in pausa pranzo o dopo il lavoro.' },

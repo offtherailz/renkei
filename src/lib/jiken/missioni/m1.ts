@@ -41,7 +41,7 @@ export const M1: Missione = {
 				{ dice: 'papa', ja: 'これ、町の 地図だよ。会社は 川の 近くに あるよ。', it: 'Questa è la piantina del quartiere. La ditta è vicino al fiume.' },
 				{ nota: '地図を もらいました。地図の たてものを タッチすると、そこへ 行きます。一回 15分 かかります。', it: 'Ricevi la piantina: tocca un edificio sulla mappa per andarci. Ogni spostamento costa 15 minuti.' },
 				{ dice: 'mamma', ja: '会社は 9時からでしょう？ おくれないでね。', it: 'Il lavoro comincia alle 9, vero? Non fare tardi.', taccuino: true },
-				{ obiettivo: 'ufficio', ja: '9時までに 会社（さくら会社）に 行く。', it: 'Andare in ufficio (さくら会社) entro le 9:00.' },
+				{ obiettivo: 'ufficio', ja: '9時までに 会社（さくら会社）に 行く。', it: 'Andare in ufficio (さくら会社) entro le 9:00.', quando: { alle: h(9) } },
 				{ dice: 'mamma', ja: 'それから、帰りに ぎゅうにゅうを 買って きて くれない？ コンビニで いいから。', it: 'E poi, al ritorno, mi compreresti il latte? Va bene alla konbini.', taccuino: true },
 				{ obiettivo: 'latte', ja: 'コンビニ（ハッピーマート）で ぎゅうにゅうを 買って、家に 持って 帰る。', it: 'Comprare il latte alla コンビニ (ハッピーマート) e portarlo a casa.' },
 				{ dice: 'mamma', ja: 'いってらっしゃい！', it: 'Buona giornata! (vai e torna)' },
@@ -74,7 +74,7 @@ export const M1: Missione = {
 				{ dice: 'suzuki', ja: '鈴木[すずき]です。よろしく。さっそくですが、この しょるいを ゆうびんきょくから 送って おいて ください。', it: 'Sono Suzuki, piacere. Subito un compito: spedisca questi documenti dalla posta, per favore.' },
 				{ prendi: 'busta', it: 'busta coi documenti' },
 				{ dice: 'suzuki', ja: '今日の 5時までに おねがいします。ゆうびんきょくは 5時に しまりますから。', it: 'Entro le 5 di oggi, per favore. La posta chiude alle 5.', taccuino: true },
-				{ obiettivo: 'posta', ja: '今日の 5時までに ゆうびんきょくから しょるいを 送る。', it: 'Spedire la busta dal 郵便局 entro le 17:00 (oggi).' },
+				{ obiettivo: 'posta', ja: '今日の 5時までに ゆうびんきょくから しょるいを 送る。', it: 'Spedire la busta dal 郵便局 entro le 17:00 (oggi).', quando: { alle: h(17) } },
 				{ pensa: '5時までに ゆうびんきょくか……。わすれないように しよう。', it: 'Entro le 5 alla posta… Non devo dimenticarlo.' },
 				{ dice: 'suzuki', ja: '昼休みは 12時から 1時までです。', it: 'La pausa pranzo è dalle 12 alle 13.', taccuino: true },
 				{ dice: 'tanaka', ja: '田中です！ {nome}さん、昼ご飯、いっしょに 行きませんか。ふじ食堂は 安くて おいしいですよ。', it: 'Sono Tanaka! {nome}, andiamo a pranzo insieme? La trattoria Fuji è economica e buona.' },
@@ -307,7 +307,7 @@ export const M1: Missione = {
 					se: { nonFlag: ['posta.ok'] },
 					allora: [
 						{ dice: 'suzuki', ja: 'きのうの しょるい、まだ 送って いませんね。今日 かならず 送って ください。', it: 'I documenti di ieri non li ha ancora spediti. Oggi li spedisca senza fallo.', taccuino: true },
-						{ obiettivo: 'posta', ja: 'ゆうびんきょくから しょるいを 送る（9時〜5時）。', it: 'Spedire la busta dal 郵便局 (9-17).' }
+						{ obiettivo: 'posta', ja: 'ゆうびんきょくから しょるいを 送る（9時〜5時）。', it: 'Spedire la busta dal 郵便局 (9-17).', quando: { dalle: h(9), alle: h(17) } }
 					]
 				},
 				{ dice: 'tanaka', ja: 'えっ、さいふを なくしたんですか。それは たいへんですね。', it: 'Cosa, ha perso il portafoglio? Che guaio.' },

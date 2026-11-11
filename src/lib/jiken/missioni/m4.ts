@@ -74,7 +74,7 @@ export const M4: Missione = {
 					}
 				},
 				{ flag: 'm4.museo' },
-				{ obiettivo: 'museo4', ja: '4月28日（火）の ごご、びじゅつかんへ じゅんびの 手つだいに 行く。', it: 'Martedì 28 aprile, il pomeriggio: andare al museo ad aiutare coi preparativi.' },
+				{ obiettivo: 'museo4', ja: '4月28日（火）の ごご、びじゅつかんへ じゅんびの 手つだいに 行く。', it: 'Martedì 28 aprile, il pomeriggio: andare al museo ad aiutare coi preparativi.', quando: { dopo: 1, dalle: h(12) } },
 				{ flag: 'm4.d21.ufficio' },
 				{ ora: h(12) }
 			]
@@ -236,7 +236,7 @@ export const M4: Missione = {
 				{ narra: '4月29日（水・昭和[しょうわ]の日）、朝 7時半。', it: 'Mercoledì 29 aprile, Shōwa no hi (festa), ore 7:30.' },
 				{ dice: 'mamma', ja: '今日は しゅくじつなのに、仕事？', it: 'Oggi è festa e lavori?' },
 				{ io: 'はい。びじゅつかんの オープニングです。', it: 'Sì. C’è l’apertura del museo.' },
-				{ obiettivo: 'open4', ja: '9時半すぎに びじゅつかんへ 行く（10時から オープニング）。', it: 'Andare al museo dopo le 9:30 (apertura alle 10).' },
+				{ obiettivo: 'open4', ja: '9時半すぎに びじゅつかんへ 行く（10時から オープニング）。', it: 'Andare al museo dopo le 9:30 (apertura alle 10).', quando: { dalle: h(9, 30), alle: h(10) } },
 				{ flag: 'm4.d23.casa' },
 				...mattino(),
 				{ minuti: 20 }

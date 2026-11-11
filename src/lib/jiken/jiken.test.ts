@@ -10,6 +10,7 @@ import { M4 } from './missioni/m4';
 const MISSIONI = [M1, M2, M3, M4];
 import { UI } from './ui';
 import { timbri } from './punteggio';
+import { FESTIVI, routine } from './calendario';
 import { PREMI } from './giochi';
 import type { LuogoId, Missione, Passo, Stato, Testo } from './tipi';
 
@@ -37,6 +38,8 @@ function testiJa(): string[] {
 	for (const o of Object.values(OGGETTI)) out.push(o.ja);
 	for (const o of Object.values(PREMI)) out.push(o.ja);
 	for (const t of timbri({ chiacchiere: 0, persone: 0, missioni: 0, stelleTre: 0 })) out.push(t.kanji, t.ja);
+	for (const f of Object.values(FESTIVI)) out.push(f.ja);
+	for (const g of [0, 5]) for (const v of routine(g)) out.push(v.ja);
 	for (const m of MISSIONI) { for (const sc of m.scene) passi(sc.passi); out.push(m.titolo); if (m.epilogo) out.push(m.epilogo.ja); }
 	return out;
 }

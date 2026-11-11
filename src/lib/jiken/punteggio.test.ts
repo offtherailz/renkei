@@ -101,3 +101,32 @@ describe('事件: risultato delle missioni', () => {
 		expect(manca({ ok: 5, tot: 10, obiettivi: 1, risolto: false }, m).fatto).toBeLessThan(50);
 	});
 });
+
+describe('事件: calendario', () => {
+	it('date, feste e mesi', async () => {
+		const { dataDi, festivo, giornoDi, mese } = await import('./calendario');
+		const { dataIt } = await import('./motore');
+		expect(dataDi(23).getDate()).toBe(29); // 昭和の日
+		expect(festivo(23)).toBe(true);
+		expect(festivo(22)).toBe(false);
+		expect(giornoDi(new Date(2026, 4, 1))).toBe(25);
+		expect(dataIt(25)).toBe('venerdì 1 maggio');
+		const m = mese(0);
+		expect(m.mese).toBe(4);
+		expect(m.settimane[0]![0]).toBeNull(); // aprile 2026 comincia di mercoledì
+		expect(m.settimane.flat().filter((g) => g !== null)).toHaveLength(30);
+	});
+	it('gli appuntamenti prendono il giorno giusto («あした» = giorno dopo)', async () => {
+		const { avanza } = await import('./motore');
+		const s = { ...nuovoStato('ルカ', 'm4'), giorno: 21 };
+		const r = avanza(s, [{ obiettivo: 'x', ja: 'あした', it: 'domani', quando: { dopo: 1, dalle: 720 } }]);
+		expect(r.stato.obiettivi[0]!.quando).toEqual({ giorno: 22, dalle: 720 });
+	});
+	it('ogni missione ha i suoi giorni', async () => {
+		const { giorniMissione } = await import('./calendario');
+		const { M1 } = await import('./missioni/m1');
+		const { M4 } = await import('./missioni/m4');
+		expect(giorniMissione(M1)).toEqual([0, 2]);
+		expect(giorniMissione(M4)).toEqual([21, 23]);
+	});
+});

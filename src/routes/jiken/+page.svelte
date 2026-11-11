@@ -23,6 +23,7 @@
 	import { ICONA_TEMPO, tempo } from '$lib/jiken/meteo';
 	import * as suono from '$lib/jiken/suoni';
 	import Hanko from '$lib/jiken/Hanko.svelte';
+	import Calendario from '$lib/jiken/Calendario.svelte';
 	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Opzione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
@@ -385,8 +386,19 @@
 		stato = ricostruisciIncontrati(pulisciObiettivi(salvatoRigioco, MISSIONI[salvatoRigioco.missione] ?? M1));
 		riparti();
 	}
+	// il calendario: toccando la data, e da solo riaprendo una partita (dove eri rimasto)
+	let calendario = $state<{ saluto: string | null } | null>(null);
+	function nota(g: number, t: string): void {
+		if (!stato) return;
+		const note = { ...stato.note };
+		if (t.trim()) note[g] = t;
+		else delete note[g];
+		stato = { ...stato, note };
+		salva();
+	}
 	function continua(): void {
 		if (!salvato) return;
+		calendario = { saluto: lingua === 'ja' ? 'おかえりなさい！' : testo('Bentornat{o}!') };
 		slot = 'main';
 		caricaStorico();
 		stato = ricostruisciIncontrati(pulisciObiettivi(salvato, MISSIONI[salvato.missione] ?? M1));
@@ -980,7 +992,7 @@
 		</section>
 	{:else if stato}
 		<div class="hud">
-			<span class="data">📅 {lingua === 'ja' ? dataJa(stato.giorno) : dataIt(stato.giorno)}</span>
+			<button class="data" onclick={() => (calendario = { saluto: null })} title="📅">📅 {lingua === 'ja' ? dataJa(stato.giorno) : dataIt(stato.giorno)}</button>
 			<span class="ora">{tempoOra !== 'sereno' ? ICONA_TEMPO[tempoOra] : notturna ? '🌙' : '☀️'} {hhmm(stato.minuti)} <small>{lingua === 'ja' ? fascia(stato.minuti) : ''}</small></span>
 			{#if slot === 'rigioca'}<span class="rig">{L(UI.modoRigioco)}</span>{/if}
 			<span class="soldi">¥{stato.oggetti.includes('portafoglio') ? stato.soldi : '—'}</span>
@@ -1241,6 +1253,9 @@
 	{/if}
 
 	{#if toast}<div class="toast">{toast}</div>{/if}
+	{#if calendario && stato}
+		<Calendario {stato} {lingua} missioni={ORDINE} saluto={calendario.saluto} chiudi={() => (calendario = null)} {nota} />
+	{/if}
 	{#if timbroNuovo}
 		{#key timbroNuovo}
 		<div class="timbro-nuovo" role="presentation" onclick={prossimoTimbro}>
@@ -1452,6 +1467,7 @@
 
 	.hud { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--px-bg); color: var(--px-ink); border: 3px solid var(--px-line); padding: 6px 10px; font-size: 0.95rem; }
 	.hud small { opacity: 0.75; font-size: 0.75rem; }
+	.hud .data { font: inherit; color: inherit; background: none; border: 0; border-bottom: 2px dotted currentColor; padding: 0; cursor: pointer; }
 	.hud .soldi { margin-left: auto; color: #fbf236; }
 	.obiettivo { background: #2a2848; color: #f4f4f4; border: 3px solid var(--px-line); border-left: 6px solid #fbf236; padding: 6px 10px; font-size: 0.85rem; display: grid; gap: 2px; }
 	.obiettivo p { margin: 0; }

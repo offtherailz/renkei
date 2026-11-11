@@ -35,7 +35,7 @@ export const M2: Missione = {
 				{ dice: 'mamma', ja: 'おはよう、{nome}さん。ねえ、聞いた？ 木村[きむら]さんの お母さんの ねこが いなくなったそうよ。', it: 'Buongiorno, {nome}. Hai sentito? Dicono che sia sparito il gatto della madre del signor Kimura.', taccuino: true },
 				{ dice: 'mamma', ja: 'とても しんぱいして いるらしいの。仕事の あとで 木村アパートに 行って みたら？', it: 'Pare che sia molto preoccupata. Perché non passi al condominio Kimura dopo il lavoro?' },
 				{ nota: '「〜そうよ」「〜らしい」: お母さんは 自分で 見て いません。ほかの 人から 聞いた ことです。', it: '「〜そうだ」 (si dice che) e 「〜らしい」 (pare che): la mamma non l’ha visto, l’ha sentito da altri.' },
-				{ obiettivo: 'kimura', ja: '仕事の あとで 木村[きむら]アパートへ 行って、おばあさんの 話を 聞く。', it: 'Dopo il lavoro, andare al condominio Kimura e sentire la signora.' },
+				{ obiettivo: 'kimura', ja: '仕事の あとで 木村[きむら]アパートへ 行って、おばあさんの 話を 聞く。', it: 'Dopo il lavoro, andare al condominio Kimura e sentire la signora.', quando: { dalle: h(17, 30) } },
 				{ flag: 'm2.d7.casa' },
 				...mattino(),
 				{ minuti: 20 }, // colazione e preparativi: si esce verso le 7:50
@@ -233,7 +233,7 @@ export const M2: Missione = {
 					}
 				},
 				{ completa: 'jinja' },
-				{ obiettivo: 'sera', ja: 'あしたの 夜 7時ごろ、神社[じんじゃ]で 待って みる。', it: 'Domani sera verso le 7, aspettare al santuario.' },
+				{ obiettivo: 'sera', ja: 'あしたの 夜 7時ごろ、神社[じんじゃ]で 待って みる。', it: 'Domani sera verso le 7, aspettare al santuario.', quando: { dopo: 1, dalle: h(19) } },
 				{ minuti: 20 },
 				{ flag: 'm2.ciotola' }
 			]
