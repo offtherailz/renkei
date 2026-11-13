@@ -174,8 +174,8 @@ Object.assign(DOVE, {
 	sato: { parco: { dalle: h(7), alle: h(11) }, ospedale: { dalle: h(12), alle: h(17) } }, // passeggiata; visita il marito (dall'ora di pranzo)
 	kimura: { parco: { dalle: h(6), alle: h(9) } }, // ginnastica all'alba
 	nonna: { parco: { dalle: h(9), alle: h(16) } },
-	takahashi: { eki: { dalle: h(7), alle: h(9) }, parco: { dalle: h(16), alle: h(18, 30) } }, // va a scuola; tennis dopo scuola
-	aya: { eki2: {}, konbini: { dalGiorno: 21, dalle: h(16) } }, // dall'università; dalla M4 alla cassa la sera
+	takahashi: { eki: { dalle: h(7), alle: h(9) }, parco: { dalle: h(16), alle: h(18, 30) }, gakkou: { dalle: h(18) } }, // va a scuola; tennis; la sera aiuta al 日本語学校
+	aya: { eki2: {}, gakkou: { dalle: h(18) }, konbini: { dalGiorno: 21, dalle: h(16) } }, // dall'università; dalla M4 alla cassa la sera
 	commessa: { konbini: { alGiorno: 20 } }, // poi va a lavorare alla ditta ABC
 	tanaka: { shokudo: { dalle: h(11, 30), alle: h(14) } },
 	ito: { kissa: {} },
@@ -186,7 +186,9 @@ Object.assign(DOVE, {
 	fornaia: { panya: {} },
 	bancario: { banca: {} },
 	dottoressa: { ospedale: {} },
-	depa: { depa: {} }
+	depa: { depa: {} },
+	hotelstaff: { hotel: {} },
+	sensei: { gakkou: {} }
 });
 export const LUOGO = Object.fromEntries(LUOGHI.map((l) => [l.id, l])) as Record<LuogoId, Luogo>;
 
