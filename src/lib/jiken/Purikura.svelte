@@ -4,7 +4,7 @@
 	import FotoPuri from './FotoPuri.svelte';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { TARDI } from './motore';
-	import { CORNICI, pagaPuri, puoiPuri, salvaFoto, turnoPuri, PURIKURA, type TurnoPuri } from './giochi';
+	import { CORNICI, STRISCE, pagaPuri, puoiPuri, salvaFoto, turnoPuri, PURIKURA, type TurnoPuri } from './giochi';
 	import { dataPuntini } from './calendario';
 	import { UI } from './ui';
 	import * as suono from './suoni';
@@ -25,8 +25,9 @@
 		avvisa: (t: string) => void;
 	} = $props();
 
-	let fase = $state<'intro' | 'posa' | 'scatto' | 'scritta' | 'cornice' | 'foto'>('intro');
+	let fase = $state<'intro' | 'posa' | 'scatto' | 'scritta' | 'cornice' | 'striscia' | 'foto'>('intro');
 	let cornice = $state('sakura');
+	let striscia = $state('lucida');
 	let turno = $state<TurnoPuri | null>(null);
 	let i = $state(0);
 	let scelta = $state<string | null>(null);
@@ -79,10 +80,10 @@
 		if (ok) giuste += 1;
 		if (suoni) (ok ? suono.giusto : suono.sbagliato)();
 	}
-	function finisci(c: string): void {
+	function finisci(st: string): void {
 		if (!turno) return;
-		cornice = c;
-		aggiorna(salvaFoto(stato, turno.pose.map((p) => p.giusta.id), turno.scritta.s.giusta, c));
+		striscia = st;
+		aggiorna(salvaFoto(stato, turno.pose.map((p) => p.giusta.id), turno.scritta.s.giusta, cornice, st));
 		fase = 'foto';
 		avvisa(L(UI.sgPuriFatta));
 		void parla(giuste === PURIKURA.scatti + 1 ? 'かんぺき！ いい 思い出に なったね。' : 'たのしかった！ また とろうね。', 'F');
@@ -91,7 +92,10 @@
 
 <div class="puri">
 	{#if fase === 'foto' && turno}
-		<FotoPuri pose={turno.pose.map((p) => p.giusta.id)} scritta={turno.scritta.s.giusta} {cornice} data={dataPuntini(stato.giorno)} nomi="あや＆{stato.nome}" />
+		<div class="esce">
+			<FotoPuri pose={turno.pose.map((p) => p.giusta.id)} scritta={turno.scritta.s.giusta} {cornice} data={dataPuntini(stato.giorno)} nomi="あや＆{stato.nome}" />
+			<FotoPuri pose={turno.pose.map((p) => p.giusta.id)} scritta={turno.scritta.s.giusta} {cornice} {striscia} data={dataPuntini(stato.giorno)} nomi="あや＆{stato.nome}" />
+		</div>
 		<p class="esito">{giuste}/{PURIKURA.scatti + 1} ⭐</p>
 		<div class="row">
 			<button class="btn" disabled={!puoiPuri(stato)} onclick={inizia}>{L(UI.sgGioca)} <small>({L(UI.sgPuriPrezzo)})</small></button>
@@ -141,15 +145,22 @@
 		{:else if fase === 'cornice'}
 			<p class="ja">🖼️ {L(UI.sgPuriCornice)}</p>
 			<div class="scelte">
-				{#each CORNICI as c (c.id)}<button class="opzione" onclick={() => finisci(c.id)}>{c.ja}</button>{/each}
+				{#each CORNICI as c (c.id)}<button class="opzione" onclick={() => { cornice = c.id; fase = 'striscia'; }}>{c.ja}</button>{/each}
 			</div>
 			{#if lingua !== 'ja'}<p class="small">わく (枠[わく]) = cornice · {CORNICI.map((c) => `${c.ja} = ${c.it}`).join(' · ')}</p>{/if}
+		{:else if fase === 'striscia'}
+			<p class="ja">🎞️ {L(UI.sgPuriStriscia)}</p>
+			<div class="scelte">
+				{#each STRISCE as x (x.id)}<button class="opzione" onclick={() => finisci(x.id)}>{x.ja}</button>{/each}
+			</div>
+			{#if lingua !== 'ja'}<p class="small">{STRISCE.map((x) => `${x.ja} = ${x.it}`).join(' · ')}</p>{/if}
 		{/if}
 	{/if}
 </div>
 
 <style>
 	.puri { display: grid; gap: 8px; }
+	.esce { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
 	.cabina { position: relative; aspect-ratio: 2 / 1; background-size: cover; background-position: center; border: 3px solid #0e0d1a; overflow: hidden; }
 	.aya { position: absolute; left: 50%; bottom: 0; height: 96%; transform: translateX(-50%); image-rendering: pixelated; }
 	.conta { position: absolute; top: 6px; left: 8px; background: rgba(255, 95, 162, 0.9); color: #fff; padding: 2px 8px; font-weight: 700; }

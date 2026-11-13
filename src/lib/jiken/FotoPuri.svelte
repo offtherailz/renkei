@@ -4,8 +4,10 @@
 	// copie di misure diverse (3 grandi, 4 medie, 12 piccole), la data e i nomi in
 	// alto; ogni foto-adesivo ha la cornice scelta.
 	const {
-		pose, scritta, cornice = null, data = '', nomi = '', piccola = false
-	}: { pose: string[]; scritta: string; cornice?: string | null; data?: string; nomi?: string; piccola?: boolean } = $props();
+		pose, scritta, cornice = null, data = '', nomi = '', piccola = false, striscia = null
+	}: { pose: string[]; scritta: string; cornice?: string | null; data?: string; nomi?: string; piccola?: boolean; striscia?: string | null } = $props();
+	// striscia: lo stile della striscia dell'album (lucida, pellicola, pois); assente = il foglio intero
+	const stile = $derived(striscia ?? 'lucida');
 	const STICKER = [['✨', '💖'], ['⭐', '🎀'], ['🌸', '💫']];
 	const n = $derived(pose.length);
 	const medie = $derived([0, 1, 2, 0].map((i) => i % n));
@@ -21,6 +23,12 @@
 	</div>
 {/snippet}
 
+{#if striscia}
+	<div class="striscia {stile}">
+		{#each pose as _, i (i)}{@render scatto(i, i === n - 1)}{/each}
+		<div class="piede"><span>♡ {data}</span><span>{nomi}</span></div>
+	</div>
+{:else}
 <div class="cornice" class:piccola>
 	<div class="foglio">
 		<div class="testa"><span>♡ {data} ♡</span><b>{nomi}</b></div>
@@ -30,6 +38,7 @@
 		<div class="firma">PURI★KURA 山野駅前</div>
 	</div>
 </div>
+{/if}
 
 <style>
 	.cornice { width: 100%; max-width: 380px; }
@@ -62,4 +71,20 @@
 	.piccola .scritta { font-size: 0.55rem; -webkit-text-stroke: 2px #fff; }
 	.piccola .st, .piccola .firma { display: none; }
 	.piccola .scatto { border-radius: 3px; }
+	/* strisce dell'album */
+	.striscia { position: relative; width: 120px; display: grid; gap: 6px; padding: 7px; box-sizing: border-box; }
+	.striscia .scritta { font-size: 0.85rem; -webkit-text-stroke: 3px #fff; }
+	.striscia .st { font-size: 0.6rem; }
+	.piede { display: flex; justify-content: space-between; gap: 4px; color: #ff5fa2; font: 900 0.5rem sans-serif; white-space: nowrap; }
+	.lucida { background: linear-gradient(160deg, #fff, #fbeef6); border-radius: 5px; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25); }
+	.lucida::after { content: ''; position: absolute; inset: 0; border-radius: 5px; background: linear-gradient(115deg, rgba(255, 255, 255, 0.55), transparent 35%, transparent 65%, rgba(255, 255, 255, 0.2) 78%, transparent 90%); pointer-events: none; }
+	.lucida .scatto { border-radius: 4px; }
+	.pellicola { width: 136px; background: #1d1a24; padding: 9px 16px; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3); }
+	.pellicola::before, .pellicola::after { content: ''; position: absolute; top: 0; bottom: 0; width: 7px; background: repeating-linear-gradient(#1d1a24 0 5px, #f2eee6 5px 12px, #1d1a24 12px 17px); }
+	.pellicola::before { left: 4px; }
+	.pellicola::after { right: 4px; }
+	.pellicola .scatto { border-radius: 0; box-shadow: 0 0 0 2px #fff; }
+	.pellicola .piede { color: #f2c94c; }
+	.pois { border-radius: 7px; background: #fff radial-gradient(#ffd3e6 1.5px, transparent 2px) 0 0 / 9px 9px; box-shadow: 0 0 0 4px #ff9cc6, 0 4px 0 4px rgba(0, 0, 0, 0.2); }
+	.pois .scatto { border-radius: 4px; box-shadow: 0 0 0 2px #fff; }
 </style>

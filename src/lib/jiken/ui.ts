@@ -152,6 +152,7 @@ export const UI = {
 	sgPuriScrivi: { ja: 'らくがき：「{r}」は どう 書きますか。', it: 'Scritta: come si scrive «{r}»?' },
 	sgPuriFatta: { ja: '📸 できた！ ノートの 持ち物に 入れました。', it: '📸 Fatto! L’ho messa tra gli oggetti del quaderno.' },
 	sgPuriCornice: { ja: 'わくを えらんで ください。', it: 'Scegli la cornice.' },
+	sgPuriStriscia: { ja: 'アルバムの シールは どれに しますか。', it: 'Che striscia tieni per l’album?' },
 	sgAlbum: { ja: '📸 プリクラ', it: '📸 Purikura' },
 	timbri: { ja: '🏅 はんこ', it: '🏅 Timbri' },
 	missioniVoti: { ja: 'ミッションの 問題', it: 'Domande delle missioni' },

@@ -195,8 +195,14 @@ export const CORNICI = [
 	{ id: 'hoshi', ja: 'ほし', it: 'stelle' },
 	{ id: 'heart', ja: 'ハート', it: 'cuori' }
 ];
-// il foglio finito: le pose fatte (quelle giuste se hai sbagliato), la scritta e la cornice
-export const salvaFoto = (s: Stato, pose: string[], scritta: string, cornice?: string): Stato => ({
+// lo stile della striscia che resta nell'album
+export const STRISCE = [
+	{ id: 'lucida', ja: 'つやつや', it: 'carta lucida' },
+	{ id: 'pellicola', ja: 'フィルム', it: 'pellicola' },
+	{ id: 'pois', ja: 'みずたま', it: 'a pois' }
+];
+// il foglio finito: le pose fatte (quelle giuste se hai sbagliato), la scritta, la cornice e la striscia
+export const salvaFoto = (s: Stato, pose: string[], scritta: string, cornice?: string, striscia?: string): Stato => ({
 	...s,
-	foto: [...(s.foto ?? []), { pose, scritta, giorno: s.giorno, ...(cornice ? { cornice } : {}) }]
+	foto: [...(s.foto ?? []), { pose, scritta, giorno: s.giorno, ...(cornice ? { cornice } : {}), ...(striscia ? { striscia } : {}) }]
 });

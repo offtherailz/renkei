@@ -1385,7 +1385,7 @@
 						{#if stato.foto?.length}
 							<h3>{L(UI.sgAlbum)}</h3>
 							<div class="album">
-								{#each [...stato.foto].reverse() as f, i (i)}<FotoPuri pose={f.pose} scritta={f.scritta} cornice={f.cornice} data={dataPuntini(f.giorno)} nomi="あや＆{stato.nome}" piccola />{/each}
+								{#each [...stato.foto].reverse() as f, i (i)}<FotoPuri pose={f.pose} scritta={f.scritta} cornice={f.cornice} data={dataPuntini(f.giorno)} nomi="あや＆{stato.nome}" striscia={f.striscia ?? 'lucida'} />{/each}
 							</div>
 						{/if}
 					{:else if scheda === 'frasi'}
