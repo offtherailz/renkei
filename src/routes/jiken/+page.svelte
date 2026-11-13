@@ -896,6 +896,7 @@
 				{@const aperti = stato.obiettivi.filter((o) => !o.fatto).length}
 				<button class="mini" class:on={obAperti} onclick={() => (obAperti = !obAperti)}>🎯 {aperti}</button>
 				<button class="mini" onclick={() => apriTaccuino('conversa')} title={L(UI.storico)}>📜<span class="largo"> {L(UI.storico).replace('📜 ', '')}</span></button>
+				<button class="mini" onclick={() => (calendario = { saluto: null })} title="📅">📅</button>
 				<button class="mini" onclick={() => apriTaccuino('obiettivi')} title={L(UI.ノート)}>📓<span class="largo"> {L(UI.ノート).replace('📓 ', '')}</span></button>
 			{/if}
 		</span>
@@ -1643,7 +1644,7 @@
 	.voto-riga { margin: 4px 0; }
 	.timbro-nuovo { position: fixed; inset: 0; z-index: 60; display: grid; place-content: center; justify-items: center; gap: 14px; background: rgba(14, 13, 26, 0.55); }
 	.timbro-nuovo .cade { background: #fbf5e6; padding: 22px; border: 3px solid #0e0d1a; animation: cade 0.45s cubic-bezier(0.3, 1.6, 0.6, 1) both; }
-	.timbro-nuovo p { background: #fbf5e6; color: #2a2620; border: 3px solid #0e0d1a; padding: 8px 14px; text-align: center; margin: 0; }
+	.timbro-nuovo p { --ink: #2b2a3a; --muted: #5a5870; --line: #c9c3b0; --brand: #1b5fd1; --surface: #fffdf6; --success: #0f8f56; --warn-bg: #fffbeb; --warn-border: #fbbf24; --warn-ink: #92400e; background: #fbf5e6; color: #2a2620; border: 3px solid #0e0d1a; padding: 8px 14px; text-align: center; margin: 0; }
 	@keyframes cade { from { transform: scale(2.4) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } to { transform: scale(1) rotate(0); } }
 	.pagina {
 		--carta: #fbf6e9;

@@ -116,6 +116,8 @@
 
 <style>
 	.velo { position: fixed; inset: 0; z-index: 55; background: rgba(14, 13, 26, 0.6); overflow-y: auto; padding: 12px 8px; }
+	/* la carta è chiara anche col tema scuro: parole spezzate e popup coi colori del tema chiaro */
+	.cal { --ink: #2b2a3a; --muted: #5a5870; --line: #c9c3b0; --brand: #1b5fd1; --surface: #fffdf6; --success: #0f8f56; --warn-bg: #fffbeb; --warn-border: #fbbf24; --warn-ink: #92400e; --info-ink: #1e3a8a; --info-bg: #eef4ff; }
 	.cal { --carta: #fbf5e6; --inchiostro: #2a2620; position: relative; box-sizing: border-box; width: 100%; max-width: 560px; margin: 0 auto; min-width: 0; background: var(--carta); color: var(--inchiostro); border: 3px solid #0e0d1a; box-shadow: 0 4px 0 #0e0d1a; padding: 12px; display: grid; gap: 10px; }
 	.x { position: absolute; top: 6px; right: 6px; background: none; border: 2px solid var(--inchiostro); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; color: var(--inchiostro); }
 	.bentornato p, .giornata { min-width: 0; overflow-wrap: anywhere; }
