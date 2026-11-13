@@ -473,7 +473,7 @@
 			const ch = chiacchieraPer(l, stato);
 			const ambiente = l.ambiente ?? [{ narra: UI.niente.ja, it: UI.niente.it }];
 			// in stazione: il treno si prende da qui
-			const verso = daTreno ? null : stazioneOpposta(dest);
+			const verso = daTreno || !stato.flag.includes('treno.ok') ? null : stazioneOpposta(dest);
 			const opzioni: Opzione[] = [];
 			if (ch) {
 				const chi = chiDi(ch);

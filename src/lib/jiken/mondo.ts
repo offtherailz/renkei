@@ -171,7 +171,7 @@ for (const l of LUOGHI) l.chiacchiere = CHIACCHIERE[l.id];
 // Dove e a che ora si trovano le persone del quartiere (per le chiacchiere: ognuno
 // al suo posto, docs/giallo-personaggi.md). Chi non è in tabella sta ovunque parli.
 Object.assign(DOVE, {
-	sato: { parco: { dalle: h(7), alle: h(11) }, ospedale: { dalle: h(13), alle: h(17) } }, // passeggiata; visita il marito
+	sato: { parco: { dalle: h(7), alle: h(11) }, ospedale: { dalle: h(12), alle: h(17) } }, // passeggiata; visita il marito (dall'ora di pranzo)
 	kimura: { parco: { dalle: h(6), alle: h(9) } }, // ginnastica all'alba
 	nonna: { parco: { dalle: h(9), alle: h(16) } },
 	takahashi: { eki: { dalle: h(7), alle: h(9) }, parco: { dalle: h(16), alle: h(18, 30) } }, // va a scuola; tennis dopo scuola

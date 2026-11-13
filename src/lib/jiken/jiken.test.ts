@@ -410,6 +410,30 @@ describe('事件: tempi', () => {
 		const domani = (p.chiacchiere ?? []).find((c) => chiDi(c) === 'sato' && c.id !== prima.id && !c.quando?.dalGiorno);
 		expect(chiacchieraPer(p, { ...dopo, giorno: 1, sentite: (p.chiacchiere ?? []).filter((c) => chiDi(c) !== 'sato' || c.id === prima.id).map((c) => c.id) })?.id).toBe(domani?.id);
 	});
+	it('ogni chiacchiera si può sentire in una partita (fuori dall’orario d’ufficio)', async () => {
+		const { apertura, chiDi, DOVE, verifica, settimana } = await import('./motore');
+		const GIORNI = [0, 1, 2, 7, 8, 9, 14, 15, 16, 21, 22, 23]; // i giorni delle missioni
+		// libero: prima delle 9, in pausa pranzo, dopo le 17:30, e nei festivi (il 23)
+		const libero = (g: number, m: number): boolean => g === 23 || settimana(g) >= 5 || m < h(9) || (m >= h(12) && m < h(13, 30)) || m >= h(17, 30);
+		const mai: string[] = [];
+		for (const l of LUOGHI)
+			for (const c of l.chiacchiere ?? []) {
+				const chi = chiDi(c);
+				const si = GIORNI.some((g) => {
+					if ((l.quartiere ?? 'sakura') !== 'sakura' && g < 14) return false; // a 山野 col treno dalla M3
+					for (let m = h(7); m < h(23); m += 15) {
+						const s = { ...nuovoStato('テスト', 'm1'), giorno: g, minuti: m, sentite: c.quando?.sentite ?? [] };
+						if (apertura(l, s) !== 'aperto' || !libero(g, m)) continue;
+						if (c.quando && !verifica(c.quando, s)) continue;
+						if (chi && DOVE[chi] && !verifica(DOVE[chi]![l.id] ?? { giorno: -1 }, s)) continue;
+						return true;
+					}
+					return false;
+				});
+				if (!si) mai.push(`${l.id}/${c.id}`);
+			}
+		expect(mai).toEqual([]);
+	});
 	it('le tappe delle sotto-trame: la figlia di 伊藤 si sposa, poi se ne parla al passato', async () => {
 		const { chiacchieraPer } = await import('./motore');
 		const k = LUOGO.kissa;
