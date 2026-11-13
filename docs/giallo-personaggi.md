@@ -1,4 +1,8 @@
-# 事件 — personaggi, luoghi e sotto-trame (proposta)
+# 事件 — personaggi, luoghi e sotto-trame
+
+Stato (2026-11-13): motore fatto (DOVE, tappe, una al giorno); sotto-trame scritte:
+佐藤 e il marito, matrimonio della figlia di 伊藤, commessa → ABC e あや alla cassa,
+padre e figlio cuochi, 高橋 (ritardo, tennis, secondo posto), あや e l'Italia.
 
 Obiettivo: il quartiere deve sembrare abitato da persone vere, sempre nello
 stesso posto alle stesse ore, con una piccola storia che va avanti di missione

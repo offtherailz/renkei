@@ -3,7 +3,7 @@
 // regole della pagina di gioco: scena o ambiente all'ingresso, scene in catena
 // nello stesso luogo, ritorno a casa dalle 23, risveglio.
 import { describe, expect, it } from 'vitest';
-import { apertura, avanza, chiacchieraPer, prendiTreno, nuovoStato, opzioniSoldi, scenaPer, STAZIONI, TARDI, viaggia } from './motore';
+import { apertura, avanza, chiacchieraPer, chiDi, prendiTreno, nuovoStato, opzioniSoldi, scenaPer, STAZIONI, TARDI, viaggia } from './motore';
 import { LUOGHI, LUOGO } from './mondo';
 import { LUOGO_GIOCHI, pagaPartita } from './giochi';
 import { M1 } from './missioni/m1';
@@ -75,7 +75,7 @@ function partita(m: Missione, seme: number, maxPassi = 4000): Esito {
 		} else {
 			const ch = chiacchieraPer(l, s);
 			if (ch) {
-				s = { ...s, sentite: [...s.sentite, ch.id] };
+				s = avanza(s, [{ sente: ch.id, ...(chiDi(ch) ? { chi: chiDi(ch)! } : {}) }]).stato;
 				gioca(ch.passi);
 			} else gioca(l.ambiente ?? []);
 		}

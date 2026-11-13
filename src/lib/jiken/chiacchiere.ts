@@ -7,7 +7,25 @@ import type { Chiacchiera, LuogoId } from './tipi';
 export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	konbini: [
 		{
-			id: 'k-otsuri',
+			id: 'k-aya', quando: { dalGiorno: 21 },
+			passi: [
+				{ dice: 'aya', ja: 'いらっしゃいませ！ ……あ、{nome}さん！ びっくりした？', it: 'Benvenut{o}! …Ah, {nome}! Sorpres{o}?' },
+				{ io: 'あやさん！ ここで 働いて いるんですか。', it: 'Aya! Lavori qui?' },
+				{ dice: 'aya', ja: 'うん。前の 店員さん、ABCの 会社に 入ったの。それで、わたしが かわりに 入ったんだ。', it: 'Sì. La commessa di prima è entrata alla ditta ABC, e io ho preso il suo posto.' },
+				{ dice: 'aya', ja: 'イタリアに りゅうがくしたいから、お金を ためて いるの。……あ、おべんとう、あたためますか？', it: 'Voglio studiare in Italia, quindi metto da parte i soldi. …Ah, il bentō te lo scaldo?' },
+				{ io: 'はい、おねがいします。', it: 'Sì, grazie.' },
+				{
+					domanda: {
+						ja: 'あやさんは どうして コンビニで 働いて いますか。', it: 'Perché Aya lavora alla konbini?',
+						opzioni: [{ ja: 'りゅうがくの お金を ためたいから', it: 'per mettere da parte i soldi per l’Italia' }, { ja: '会社に 入れなかったから', it: 'perché non l’hanno presa in ditta' }, { ja: 'コンビニの 仕事が 好きだから', it: 'perché le piace il lavoro' }, { ja: '家が 近いから', it: 'perché è vicino a casa' }],
+						giusta: 0, spiega: '〜から = perché. お金を ためる = mettere da parte soldi; りゅうがく (留学[りゅうがく]) = studiare all’estero; かわりに = al posto di.'
+					}
+				},
+				{ minuti: 10 }
+			]
+		},
+		{
+			id: 'k-otsuri', quando: { alGiorno: 20 },
 			passi: [
 				{ dice: 'commessa', ja: 'おべんとうと お茶で、680円です。あたためますか。', it: 'Bentō e tè, 680 yen. Glielo scaldo?' },
 				{ io: 'はい、おねがいします。1000円で。', it: 'Sì, grazie. Pago con 1000 yen.' },
@@ -23,7 +41,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'k-denchi',
+			id: 'k-denchi', quando: { alGiorno: 20 },
 			passi: [
 				{ io: 'すみません、でんちは どこに ありますか。', it: 'Scusi, dove sono le pile?' },
 				{ dice: 'commessa', ja: 'でんちは あちらの たなの 下の だんです。いちばん すみの ほうです。', it: 'Le pile sono sul ripiano basso di quello scaffale. Proprio nell’angolo.' },
@@ -33,16 +51,32 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'k-arubaito',
+			id: 'k-arubaito', quando: { alGiorno: 13 },
 			passi: [
-				{ dice: 'commessa', ja: 'じつは わたし、アルバイトなんです。昼間は 大学で けいざいを 勉強して います。', it: 'In realtà faccio un lavoretto qui. Di giorno all’università studio economia.' },
+				{ dice: 'commessa', ja: 'じつは わたし、大学生なんです。大学が ない 日に ここで アルバイトを して います。けいざいを 勉強して いるんですよ。', it: 'In realtà sono una studentessa universitaria. Nei giorni senza lezione lavoro qui. Studio economia.' },
 				{ io: 'たいへんですね。', it: 'Che fatica.' },
 				{ dice: 'commessa', ja: 'しょうらいは ぼうえきの 会社で 働きたいんです。ゆしゅつや ゆにゅうの 仕事です。', it: 'In futuro vorrei lavorare in una ditta di commercio estero: export e import.' },
 				{ minuti: 10 }
 			]
 		},
 		{
-			id: 'k-dorobo',
+			id: 'k-mensetsu', quando: { dalGiorno: 14, alGiorno: 20 },
+			passi: [
+				{ dice: 'commessa', ja: '{nome}さん、聞いて ください！ あした、ABCと いう 会社の めんせつが あるんです。', it: '{nome}, senta! Domani ho un colloquio in una ditta che si chiama ABC.' },
+				{ dice: 'commessa', ja: 'けいごの れんしゅうを して いるんですが……「社長が 来ます」は 何と 言いますか。', it: 'Sto ripassando il keigo… «Viene il presidente» come si dice?' },
+				{
+					domanda: {
+						ja: '「社長が 来ます」を ていねいに 言うと、どれですか。', it: '«Viene il presidente», in forma di rispetto?',
+						opzioni: [{ ja: '社長が いらっしゃいます。', it: 'il presidente viene (rispetto)' }, { ja: '社長が まいります。', it: '(umile: per sé stessi)' }, { ja: '社長が うかがいます。', it: '(umile: per sé stessi)' }, { ja: '社長が おります。', it: '(umile di いる)' }],
+						giusta: 0, spiega: 'いらっしゃる = 来る / 行く / いる detto con rispetto (尊敬語[そんけいご]) di un altro. まいる, うかがう, おる sono umili (謙譲語[けんじょうご]): si usano per sé stessi.'
+					}
+				},
+				{ dice: 'commessa', ja: 'そうか、いらっしゃる！ ありがとうございます。がんばります！', it: 'Ecco, いらっしゃる! Grazie mille. Ce la metterò tutta!' },
+				{ minuti: 15 }
+			]
+		},
+		{
+			id: 'k-dorobo', quando: { alGiorno: 20 },
 			passi: [
 				{ dice: 'commessa', ja: 'きのうの 夜、えきの 近くで どろぼうが つかまったそうですよ。', it: 'Pare che ieri sera abbiano preso un ladro vicino alla stazione.' },
 				{ dice: 'commessa', ja: '自転車を ぬすんで、にげる とちゅうで ころんだんですって。', it: 'Aveva rubato una bici e cadendo mentre scappava l’hanno preso.' },
@@ -58,7 +92,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'k-denshi',
+			id: 'k-denshi', quando: { alGiorno: 20 },
 			passi: [
 				{ dice: 'commessa', ja: 'おきゃくさん、この おにぎりは でんしレンジで 30びょう あたためると おいしいですよ。', it: 'Questo onigiri, se lo scalda 30 secondi nel microonde, è buonissimo.' },
 				{ io: 'うちの でんしレンジは こしょうして いるんです。', it: 'Il mio microonde è guasto.' },
@@ -68,6 +102,33 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		}
 	],
 	parco: [
+		{
+			id: 'p-nyuin', quando: { dalGiorno: 7, alGiorno: 13 },
+			passi: [
+				{ dice: 'sato', ja: '{nome}さん、おはよう。じつは きのうから 主人が にゅういんして いるの。', it: '{nome}, buongiorno. Sai, da ieri mio marito è ricoverato.' },
+				{ dice: 'sato', ja: '自転車で ころんで、足の ほねを おって しまったのよ。山野の びょういんに いるの。', it: 'È caduto in bicicletta e si è rotto una gamba. È all’ospedale di Yamano.' },
+				{ io: 'たいへんですね。おだいじに。', it: 'Che guaio. Auguri di pronta guarigione.' },
+				{ nota: 'おだいじに (お大事[だいじ]に) = auguri di guarigione. にゅういん (入院[にゅういん]) = ricovero; ほねを おる (骨[ほね]を 折[お]る) = rompersi un osso.', it: 'Parole dell’ospedale.' },
+				{ minuti: 15 }
+			]
+		},
+		{
+			id: 'p-ryokou', quando: { dalGiorno: 21 },
+			passi: [
+				{ dice: 'sato', ja: 'あら、{nome}さん。主人、たいいんしたのよ。おかげさまで もう 元気。', it: 'Oh, {nome}. Mio marito è uscito dall’ospedale. Grazie al cielo, sta già bene.' },
+				{ dice: 'sato', ja: 'それで、こんどの しゅうまつに 二人で りょかんへ とまりに 行くの。', it: 'Così il prossimo weekend andiamo in due a dormire in un ryokan.' },
+				{ dice: 'sato', ja: 'みずうみの 近くで、けしきが すばらしいそうです。しゅっぱつは 土曜日の 朝 8時です。', it: 'È vicino a un lago, dicono che il panorama sia splendido. Partiamo sabato alle 8.' },
+				{ io: 'いいですね。たのしんで きて ください。', it: 'Che bello. Divertitevi.' },
+				{
+					domanda: {
+						ja: '佐藤[さとう]さんは いつ しゅっぱつしますか。', it: 'Quando parte Sato?',
+						opzioni: [{ ja: '土曜日の 朝 8時', it: 'sabato alle 8' }, { ja: '日曜日の 朝 8時', it: 'domenica alle 8' }, { ja: '金曜日の 夜', it: 'venerdì sera' }, { ja: '今日', it: 'oggi' }],
+						giusta: 0, spiega: 'しゅっぱつ (出発) = partenza. しゅうまつ (しゅうまつ) = fine settimana.'
+					}
+				},
+				{ minuti: 10 }
+			]
+		},
 		{
 			id: 'pa-kiken',
 			passi: [
@@ -87,7 +148,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'p-hanami',
+			id: 'p-hanami', quando: { alGiorno: 6 },
 			passi: [
 				{ narra: '公園[こうえん]の さくらの 下で、人が たくさん お花見を して います。', it: 'Sotto i ciliegi del parco tanta gente fa hanami.' },
 				{ dice: 'sato', ja: 'あら、{nome}さん！ いっしょに 花見しませんか。おべんとうを たくさん 作って きたんです。', it: 'Oh, {nome}! Facciamo hanami insieme? Ho preparato tanti bentō.' },
@@ -111,10 +172,10 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			id: 'p-kodomo',
 			passi: [
 				{ narra: '小さい 男の子が ないて います。', it: 'Un bambino piccolo sta piangendo.' },
-				{ dice: 'aya', ja: 'どう したの？ ……ころんで、ひざから ちが 出たのね。', it: 'Che succede? …Sei caduto e ti sanguina il ginocchio.' },
-				{ dice: 'aya', ja: '{nome}さん、すみません、水を もって きて くれませんか。', it: '{nome}, mi scusi, mi porterebbe dell’acqua?' },
+				{ dice: 'sato', ja: 'どう したの？ ……ころんで、ひざから ちが 出たのね。', it: 'Che succede? …Sei caduto e ti sanguina il ginocchio.' },
+				{ dice: 'sato', ja: '{nome}さん、すみません、水を もって きて くれませんか。', it: '{nome}, mi scusi, mi porterebbe dell’acqua?' },
 				{ io: 'はい！ すぐ もって きます。', it: 'Sì! La porto subito.' },
-				{ dice: 'aya', ja: 'ありがとうございます。きずが よごれて いたので、あらいました。もう だいじょうぶよ。', it: 'Grazie. La ferita era sporca, l’ho lavata. Ora va tutto bene.' },
+				{ dice: 'sato', ja: 'ありがとうございます。きずが よごれて いたので、あらいました。もう だいじょうぶよ。', it: 'Grazie. La ferita era sporca, l’ho lavata. Ora va tutto bene.' },
 				{ minuti: 15 }
 			]
 		},
@@ -135,7 +196,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'p-tenisu',
+			id: 'p-tenisu', quando: { dalGiorno: 14, alGiorno: 20 },
 			passi: [
 				{ dice: 'takahashi', ja: '{nome}さん！ ぼく、土曜日に テニスの しあいが あるんです。', it: '{nome}! Sabato ho una partita di tennis.' },
 				{ dice: 'takahashi', ja: 'あいては とても 強いので、かてるか どうか わかりません。でも、いっしょうけんめい やります。', it: 'L’avversario è fortissimo, non so se vinco. Ma ce la metterò tutta.' },
@@ -143,15 +204,31 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 				{ nota: 'かつ (勝[か]つ) ↔ まける (負[ま]ける). 〜か どうか = se… o no. いっしょうけんめい = con tutto l’impegno.', it: 'Forme utili.' },
 				{ minuti: 15 }
 			]
-		}
+		},
+		{
+			id: 'p-tenisu2', quando: { dalGiorno: 21 },
+			passi: [
+				{ dice: 'takahashi', ja: 'あ、{nome}さん！ 土曜日の しあい、2位[い]でした！', it: 'Ah, {nome}! Alla partita di sabato sono arrivato secondo!' },
+				{ dice: 'takahashi', ja: 'ゆうしょうは できなかったけど、先生に ほめられました。でも 来週から しけんなので、テニスより 勉強を がんばらないと……。', it: 'Non ho vinto il torneo, ma l’allenatore mi ha lodato. Però da settimana prossima ho gli esami: devo impegnarmi più nello studio che nel tennis…' },
+				{ io: 'おめでとう！ しけんも がんばって。', it: 'Complimenti! In bocca al lupo anche per gli esami.' },
+				{
+					domanda: {
+						ja: '高橋[たかはし]くんは 来週から 何を しますか。', it: 'Cosa fa Takahashi da settimana prossima?',
+						opzioni: [{ ja: 'しけんの 勉強', it: 'studia per gli esami' }, { ja: 'テニスの しあい', it: 'una partita di tennis' }, { ja: 'りょこう', it: 'un viaggio' }, { ja: 'アルバイト', it: 'un lavoretto' }],
+						giusta: 0, spiega: 'ゆうしょう (優勝[ゆうしょう]) = vincere il torneo. 〜ないと (いけない) = devo… ほめられる = essere lodato.'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
 	],
 	eki: [
 		{
-			id: 'ek-chikoku',
+			id: 'ek-chikoku', quando: { dalGiorno: 7, alGiorno: 13 },
 			passi: [
-				{ dice: 'sato', ja: 'あ、{nome}さん！ 8時の 電車に のりおくれちゃった。会社に ちこくしそう……。', it: 'Ah, {nome}! Ho perso il treno delle 8. Rischio di arrivare tardi al lavoro…' },
-				{ io: 'ねぼうしたんですか。', it: 'Si è svegliata tardi?' },
-				{ dice: 'sato', ja: 'うん、ねぼう……。目ざまし時計が 止まって いたの。', it: 'Sì, troppo tardi… La sveglia si era fermata.' },
+				{ dice: 'takahashi', ja: 'あ、{nome}さん！ 7時半の 電車に のりおくれちゃった。学校に ちこくしそう……。', it: 'Ah, {nome}! Ho perso il treno delle 7:30. Rischio di arrivare tardi a scuola…' },
+				{ io: 'ねぼうしたの？', it: 'Ti sei svegliato tardi?' },
+				{ dice: 'takahashi', ja: 'はい、ねぼう……。目ざまし時計が 止まって いたんです。', it: 'Sì, troppo tardi… La sveglia si era fermata.' },
 				{
 					domanda: {
 						ja: '「ちこく」の 使い方が 正しい 文は どれですか。', it: 'In quale frase «ちこく» è usato bene?',
@@ -192,25 +269,11 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		{
 			id: 'e-wasuremono',
 			passi: [
-				{ dice: 'postino', ja: 'すみません、わすれものの かかりは どこですか。', it: 'Scusi, dov’è l’ufficio oggetti smarriti?' },
-				{ io: 'あ、ゆうびんきょくの 方ですね。かいさつの そばの まどぐちですよ。', it: 'Ah, lei è quello della posta. È lo sportello vicino ai tornelli.' },
-				{ dice: 'postino', ja: 'けさ 電車に てぶくろを おとして しまったんです。見つかると いいんですが……。', it: 'Stamattina ho perso i guanti in treno. Spero li trovino…' },
-				{ minuti: 10 }
-			]
-		},
-		{
-			id: 'e-ryokou',
-			passi: [
-				{ dice: 'sato', ja: 'あら、{nome}さん。わたし、こんど の しゅうまつに 主人と りょかんへ とまりに 行くんです。', it: 'Oh, {nome}. Il prossimo weekend vado con mio marito a dormire in un ryokan.' },
-				{ dice: 'sato', ja: 'みずうみの 近くで、けしきが すばらしいそうです。しゅっぱつは 土曜日の 朝 8時です。', it: 'È vicino a un lago, dicono che il panorama sia splendido. Partiamo sabato alle 8.' },
-				{ io: 'いいですね。たのしんで きて ください。', it: 'Che bello. Divertitevi.' },
-				{
-					domanda: {
-						ja: '佐藤[さとう]さんは いつ しゅっぱつしますか。', it: 'Quando parte Sato?',
-						opzioni: [{ ja: '土曜日の 朝 8時', it: 'sabato alle 8' }, { ja: '日曜日の 朝 8時', it: 'domenica alle 8' }, { ja: '金曜日の 夜', it: 'venerdì sera' }, { ja: '今日', it: 'oggi' }],
-						giusta: 0, spiega: 'しゅっぱつ (出発) = partenza. しゅうまつ (しゅうまつ) = fine settimana.'
-					}
-				},
+				{ narra: 'わすれものの まどぐちに 来ました。', it: 'Sei allo sportello degli oggetti smarriti.' },
+				{ io: 'すみません、けさ 電車に かさを わすれて しまったんですが……。', it: 'Scusi, stamattina ho dimenticato l’ombrello in treno…' },
+				{ narra: '駅員[えきいん]さんが しらべて くれました。……ありました！ 青い かさです。', it: 'L’addetto controlla… Eccolo! Un ombrello blu.' },
+				{ io: 'よかった！ ありがとうございます。', it: 'Meno male! Grazie mille.' },
+				{ nota: 'わすれもの (忘[わす]れ物) = oggetto dimenticato; 〜て くれました = (qualcuno) ha fatto per me.', it: 'Alla stazione.' },
 				{ minuti: 10 }
 			]
 		},
@@ -269,11 +332,43 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'c-kekkon',
+			id: 'c-kekkon', quando: { alGiorno: 6 },
 			passi: [
-				{ dice: 'ito', ja: 'じつは わたしの むすめが 来月 けっこんするんです。', it: 'In realtà mia figlia si sposa il mese prossimo.' },
+				{ dice: 'ito', ja: 'じつは わたしの むすめが 今月の 19日に けっこんするんです。', it: 'Sa, mia figlia si sposa il 19 di questo mese.' },
 				{ io: 'おめでとうございます！ けっこんしきは どこで？', it: 'Congratulazioni! Dove sarà il matrimonio?' },
 				{ dice: 'ito', ja: 'きょうかいで します。おいわいに 何を おくったら いいか、まだ きめて いないんですよ。', it: 'In chiesa. Non ho ancora deciso che regalo farle.' },
+				{ minuti: 20 }
+			]
+		},
+		{
+			id: 'c-kekkon2', quando: { dalGiorno: 7, alGiorno: 13 },
+			passi: [
+				{ dice: 'ito', ja: '{nome}さん、こまって いるんです。むすめの けっこんしきで、わたしが あいさつを するんですよ。', it: '{nome}, sono in difficoltà. Al matrimonio di mia figlia il discorso lo faccio io.' },
+				{ dice: 'ito', ja: 'おきゃくさまに 「来て くれて ありがとう」と 言いたいんですが、ていねいに 言うと……？', it: 'Agli ospiti voglio dire «grazie di essere venuti», ma in modo formale…?' },
+				{
+					domanda: {
+						ja: 'けっこんしきの あいさつで、いちばん ていねいなのは どれですか。', it: 'Nel discorso di nozze, qual è la forma più cortese?',
+						opzioni: [{ ja: '来て いただいて、ありがとうございます。', it: 'grazie di essere venuti (molto cortese)' }, { ja: '来て くれて、ありがとう。', it: '(familiare)' }, { ja: '来て あげて、ありがとう。', it: '(sbagliato)' }, { ja: '来させて、ありがとう。', it: '(sbagliato)' }],
+						giusta: 0, spiega: '〜て いただく = forma umile di 〜て もらう: si ringrazia qualcuno di riguardo. 〜て くれる va bene tra amici; 〜て あげる è il favore che faccio io.'
+					}
+				},
+				{ dice: 'ito', ja: '「来て いただいて」……。よし、これで だいじょうぶです。', it: '«来て いただいて»… Bene, così va.' },
+				{ minuti: 20 }
+			]
+		},
+		{
+			id: 'c-kekkon3', quando: { dalGiorno: 14 },
+			passi: [
+				{ dice: 'ito', ja: 'むすめの けっこんしき、ぶじに 終わりました。みなさんが しゃしんを たくさん とって くれたんですよ。', it: 'Il matrimonio di mia figlia è andato bene. Gli invitati hanno fatto tantissime foto.' },
+				{ io: 'きれいな はなよめさんですね！', it: 'Che bella sposa!' },
+				{ dice: 'ito', ja: 'ありがとう。むすめが {nome}さんに よろしくって 言って いましたよ。', it: 'Grazie. Mia figlia la saluta.' },
+				{
+					domanda: {
+						ja: 'しゃしんを たくさん とったのは だれですか。', it: 'Chi ha fatto tante foto?',
+						opzioni: [{ ja: 'しきに 来た 人たち', it: 'gli invitati' }, { ja: '伊藤[いとう]さん', it: 'Ito' }, { ja: 'むすめさん', it: 'la figlia' }, { ja: '{nome}さん', it: 'tu' }],
+						giusta: 0, spiega: 'みなさんが とって くれた: 〜て くれる = qualcuno (qui gli invitati) fa qualcosa per noi. はなよめ (花嫁[はなよめ]) = sposa.'
+					}
+				},
 				{ minuti: 20 }
 			]
 		},
@@ -346,6 +441,33 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 		}
 	],
 	shokudo: [
+		{
+			id: 'sh-musuko', quando: { dalGiorno: 7 },
+			passi: [
+				{ dice: 'oste', ja: 'むすこの やつ、山野で ラーメン屋を 始めたんだ。わしの 店を つがないで……。', it: 'Quel figlio mio ha aperto un ramen-ya a Yamano. Invece di prendere il mio locale…' },
+				{ dice: 'oste', ja: 'まあ、どんな ラーメンか、一度 食べて みたいけどな。', it: 'Be’, che ramen faccia, mi piacerebbe assaggiarlo una volta.' },
+				{ io: '今度 わたしが 行って みます。', it: 'La prossima volta ci vado io.' },
+				{ nota: 'わし = io (uomo anziano, molto colloquiale). つぐ (継[つ]ぐ) = ereditare, prendere il posto di. 〜て みたい = vorrei provare a…', it: 'Parlata del vecchio cuoco.' },
+				{ minuti: 10 }
+			]
+		},
+		{
+			id: 'sh-musuko2', quando: { sentite: ['ra-umai'] },
+			passi: [
+				{ dice: 'oste', ja: '{nome}さん。むすこから 聞いたよ。わしの ことを 話して くれたんだって？', it: '{nome}. Me l’ha detto mio figlio: gli ha parlato di me?' },
+				{ dice: 'oste', ja: 'きのう、ないしょで 食べに 行った。……うまかったよ。むすこには 言うなよ。', it: 'Ieri ci sono andato di nascosto. …Era buonissimo. Non dirlo a mio figlio.' },
+				{ io: 'えっ、ほめて あげれば いいのに！', it: 'Ma come, potrebbe lodarlo!' },
+				{ dice: 'oste', ja: 'ははは。じゃあ、今度 ほめて やるか。', it: 'Ahahah. Allora la prossima volta lo lodo.' },
+				{
+					domanda: {
+						ja: '店の 主人は むすこの ラーメンを どう 思いましたか。', it: 'Cosa pensa il padrone del ramen del figlio?',
+						opzioni: [{ ja: 'おいしかった', it: 'era buono' }, { ja: 'まずかった', it: 'era cattivo' }, { ja: 'まだ 食べて いない', it: 'non l’ha ancora assaggiato' }, { ja: 'からかった', it: 'era piccante' }],
+						giusta: 0, spiega: 'うまい = おいしい (colloquiale). 〜な (言うなよ) = divieto familiare. 〜て やる = fare qualcosa per qualcuno «sotto» di te (il figlio).'
+					}
+				},
+				{ minuti: 15 }
+			]
+		},
 		{
 			id: 'sh-sara',
 			passi: [
@@ -471,7 +593,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	eki2: [
 		{
-			id: 'e2-shuppatsu',
+			id: 'e2-shuppatsu', quando: { dalGiorno: 21 },
 			passi: [
 				{ dice: 'aya', ja: 'きょうは おばあちゃんを むかえに 来たの。でも、バスが もう しゅっぱつしちゃった。', it: 'Oggi sono venuta a prendere la nonna. Ma l’autobus è già partito.' },
 				{ io: 'つぎの バスは？', it: 'Il prossimo?' },
@@ -484,6 +606,23 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 					}
 				},
 				{ minuti: 15 }
+			]
+		},
+		{
+			id: 'e2-hakobu', quando: { dalGiorno: 21, sentite: ['e2-shuppatsu'] },
+			passi: [
+				{ dice: 'aya', ja: '{nome}さん、また 会ったね！ おばあちゃん、にもつが 多くて……。いっしょに 運んで くれない？', it: '{nome}, ci rivediamo! La nonna ha un sacco di bagagli… Mi aiuti a portarli?' },
+				{ io: 'いいよ。どこまで 運ぶ？', it: 'Certo. Fin dove li porto?' },
+				{ dice: 'aya', ja: 'タクシーまで。……あ、でも 駅の 入口の 前には 止められないって。', it: 'Fino al taxi. …Ah, ma davanti all’ingresso della stazione non si può fermare.' },
+				{ avviso: { tipo: 'cartello', titolo: 'おねがい', righe: ['駅の 入口の 前に 車を 止めないで ください。', 'タクシーは 右の のりばへ どうぞ。'], it: 'Avviso — Non fermate le auto davanti all’ingresso della stazione. Taxi: alla fermata a destra.' } },
+				{
+					domanda: {
+						ja: '駅の 入口の 前に 車を（　　）ください。', it: 'Non (    ) l’auto davanti all’ingresso della stazione.',
+						opzioni: [{ ja: 'とめないで', it: 'fermare/parcheggiare' }, { ja: 'やめないで', it: 'smettere' }, { ja: 'しめないで', it: 'chiudere' }, { ja: 'きめないで', it: 'decidere' }],
+						giusta: 0, spiega: '車を 止[と]める = fermare/parcheggiare l’auto. やめる = smettere; しめる (閉める) = chiudere; きめる (決める) = decidere. Tutte finiscono in 〜める: occhio alla prima sillaba.'
+					}
+				},
+				{ minuti: 20 }
 			]
 		},
 		{
@@ -503,40 +642,31 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'e2-depa',
+			id: 'e2-italia', quando: { dalGiorno: 14, alGiorno: 20 },
 			passi: [
-				{ dice: 'aya', ja: 'あ、{nome}さん！ 今から デパートで アルバイトなんです。', it: 'Ah, {nome}! Ora vado a lavorare al grande magazzino.' },
-				{ dice: 'aya', ja: 'おきゃくさまには けいごを 使うので、まだ きんちょうします。「いらっしゃいませ」「かしこまりました」……。', it: 'Con i clienti si usa il keigo, sono ancora tesa. «Benvenuti», «Certamente»…' },
-				{ io: 'あやさんなら、きっと 上手に できますよ。', it: 'Lei ci riuscirà di sicuro.' },
+				{ dice: 'aya', ja: 'あ、{nome}さん！ 大学の 帰りなの。', it: 'Ah, {nome}! Torno dall’università.' },
+				{ dice: 'aya', ja: 'わたし、いつか イタリアに りゅうがくしたいんだ。{nome}さんの 国だよね！ それで アルバイトを さがして いるの。家の 近くで、いい 所 ないかなあ。', it: 'Un giorno voglio studiare in Italia. È il tuo paese! Per questo cerco un lavoretto. Ci sarà qualcosa vicino a casa?' },
+				{ io: 'ハッピーマートで 人を さがして いるかも しれないよ。', it: 'Forse all’Happy Mart cercano qualcuno.' },
+				{ dice: 'aya', ja: 'ほんとう？ 聞いて みる！ ありがとう。', it: 'Davvero? Provo a chiedere! Grazie.' },
+				{
+					domanda: {
+						ja: 'あやさんは 何を さがして いますか。', it: 'Che cosa cerca Aya?',
+						opzioni: [{ ja: 'アルバイト', it: 'un lavoretto' }, { ja: 'りゅうがくの 学校', it: 'una scuola all’estero' }, { ja: 'イタリアの 本', it: 'un libro sull’Italia' }, { ja: '新しい 家', it: 'una casa nuova' }],
+						giusta: 0, spiega: '〜かも しれない = forse. 〜て みる = provare a fare. いい 所 ないかなあ = chissà se c’è un bel posto (〜かなあ = mi chiedo).'
+					}
+				},
 				{ minuti: 10 }
 			]
-		}
+		},
 	],
 	depa: [
 		{
-			id: 'de-hakobu',
-			passi: [
-				{ dice: 'aya', ja: 'あ、{nome}さん！ 買いすぎちゃった。この にもつ、いっしょに 運んで くれない？', it: 'Ah, {nome}! Ho comprato troppo. Mi aiuti a portare questi pacchi?' },
-				{ io: 'いいよ。どこまで 運ぶ？', it: 'Certo. Fin dove li porto?' },
-				{ dice: 'aya', ja: 'えきまで。お父さんが 車で むかえに 来るって。……あ、でも 入口の 前は だめだって。', it: 'Fino alla stazione. Papà viene a prendermi in macchina. …Ah, ma davanti all’ingresso non si può.' },
-				{ avviso: { tipo: 'cartello', titolo: 'おねがい', righe: ['入口の 前に 車を 止めないで ください。', '自転車は 右の ちゅうりんじょうへ どうぞ。'], it: 'Avviso — Non fermate le auto davanti all’ingresso. Biciclette: nel parcheggio a destra.' } },
-				{
-					domanda: {
-						ja: 'デパートの 入口の 前に 車を（　　）ください。', it: 'Non (    ) l’auto davanti all’ingresso del grande magazzino.',
-						opzioni: [{ ja: 'とめないで', it: 'fermare/parcheggiare' }, { ja: 'やめないで', it: 'smettere' }, { ja: 'しめないで', it: 'chiudere' }, { ja: 'きめないで', it: 'decidere' }],
-						giusta: 0, spiega: '車を 止[と]める = fermare/parcheggiare l’auto. やめる = smettere; しめる (閉める) = chiudere; きめる (決める) = decidere. Tutte finiscono in 〜める: occhio alla prima sillaba.'
-					}
-				},
-				{ minuti: 20 }
-			]
-		},
-		{
 			id: 'd-goran',
 			passi: [
-				{ dice: 'aya', ja: 'いらっしゃいませ。どうぞ ごらんください。', it: 'Benvenut{o}. Prego, guardi pure.' },
-				{ io: 'あ、あやさん！ アルバイト中ですね。', it: 'Ah, Aya! Sei al lavoro.' },
-				{ dice: 'aya', ja: 'はい。（小さい 声で）おきゃくさまが 何か なさる ときは、「なさる」を 使うんです。むずかしいですね。', it: 'Sì. (a bassa voce) Quando un cliente fa qualcosa si usa «nasaru». Difficile.' },
-				{ nota: 'ごらんください (ご覧[らん]ください) = guardi pure; なさる = する in 尊敬語[そんけいご] (rispetto per l’altro).', it: 'Keigo di rispetto.' },
+				{ dice: 'depa', ja: 'いらっしゃいませ。どうぞ ごらんください。', it: 'Benvenut{o}. Prego, guardi pure.' },
+				{ io: 'ちょっと 見て いる だけです。', it: 'Sto solo guardando.' },
+				{ dice: 'depa', ja: 'はい、ごゆっくり どうぞ。何か ございましたら、お声を おかけ ください。', it: 'Certo, faccia con calma. Per qualsiasi cosa, mi chiami pure.' },
+				{ nota: 'ごらんください (ご覧[らん]ください) = 見て ください (rispetto); ございます = あります (cortese); お〜ください = forma cortese di richiesta.', it: 'Keigo del negozio.' },
 				{ minuti: 15 }
 			]
 		},
@@ -571,7 +701,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 	],
 	ospedale: [
 		{
-			id: 'os-shinsetsu',
+			id: 'os-shinsetsu', quando: { dalGiorno: 14, alGiorno: 20 },
 			passi: [
 				{ dice: 'sato', ja: 'ここの お医者さんは とても 親切ですよ。ゆっくり 説明して くれるの。', it: 'Qui la dottoressa è gentilissima. Ti spiega tutto con calma.' },
 				{ dice: 'dottoressa', ja: 'この くすりは 少し にがいですが、ごはんの 後で のんで くださいね。', it: 'Questa medicina è un po’ amara, la prenda dopo i pasti.' },
@@ -591,7 +721,7 @@ export const CHIACCHIERE: Partial<Record<LuogoId, Chiacchiera[]>> = {
 			]
 		},
 		{
-			id: 'o-omimai',
+			id: 'o-omimai', quando: { dalGiorno: 14, alGiorno: 20 },
 			passi: [
 				{ narra: 'びょういんの 前で、佐藤[さとう]さんに 会いました。', it: 'Davanti all’ospedale incontri Sato.' },
 				{ dice: 'sato', ja: '主人の おみまいなんです。先週 じこで けがを して、にゅういんして いるんです。', it: 'Sono venuta a trovare mio marito. La settimana scorsa si è fatto male in un incidente ed è ricoverato.' },

@@ -12,7 +12,7 @@
 	import { romajiToHiragana } from '$lib/core/romaji';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import {
-		apertura, avanza, chiacchieraPer, conNome, pulisciObiettivi, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
+		apertura, avanza, chiacchieraPer, chiDi, conNome, pulisciObiettivi, dataIt, dataJa, fascia, hhmm, migra, notte, nuovoStato, prendiTreno, prossimaMissione, STAZIONI, TARDI, TRENO, opzioniSoldi, orarioTesto, scenaPer, tr, viaggia, VIAGGIO, type Visibile
 	} from '$lib/jiken/motore';
 	import { LUOGHI, LUOGO, OGGETTI, PERSONAGGI, iconaOggetto } from '$lib/jiken/mondo';
 	import { M1 } from '$lib/jiken/missioni/m1';
@@ -475,9 +475,9 @@
 			const verso = daTreno ? null : stazioneOpposta(dest);
 			const opzioni: Opzione[] = [];
 			if (ch) {
-				const chi = ch.passi.find((p): p is Extract<Passo, { dice: string }> => 'dice' in p)?.dice;
+				const chi = chiDi(ch);
 				const nome = chi ? (PERSONAGGI[chi]?.nome ?? chi) : null;
-				opzioni.push({ ja: nome ? `（${nome}と 話す）` : '（まわりを 見る）', it: nome ? `(Parla con ${stripFuriganaNotation(nome)})` : '(Guardati intorno)', passi: [{ sente: ch.id }, ...ch.passi] });
+				opzioni.push({ ja: nome ? `（${nome}と 話す）` : '（まわりを 見る）', it: nome ? `(Parla con ${stripFuriganaNotation(nome)})` : '(Guardati intorno)', passi: [{ sente: ch.id, ...(chi ? { chi } : {}) }, ...ch.passi] });
 			}
 			if (verso) opzioni.push({ ja: `（🚃 電車で ${LUOGO[verso].nome}へ　${TRENO.prezzo}円）`, it: `(🚃 In treno a ${stripFuriganaNotation(LUOGO[verso].nome)}, ¥${TRENO.prezzo})`, azione: 'treno' });
 			if (opzioni.length) avvia([...ambiente, { scelta: [...opzioni, { ja: '（もう 行く）', it: '(Vai via)' }] }], true);

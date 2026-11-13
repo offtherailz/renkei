@@ -105,6 +105,12 @@ tutta la storia della chat. Gli altri documenti:
   cosa manca. **Missione nuova**: ogni `obiettivo` deve avere il suo `completa`, e
   una sola scena `ripiego` (i test lo controllano); il resto si calcola da solo. I
   timbri «tutte» seguono i totali; un livello preso non si perde.
+- **Chiacchiere e persone** (`docs/giallo-personaggi.md`): si scelgono («〜と 話す»),
+  💬 sulla mappa. Chi parla (`chi`, o il primo `dice`) deve stare in quel luogo a
+  quell'ora: tabella `DOVE` in `mondo.ts` (il test lo controlla). Una chiacchiera
+  per persona al giorno (`stato.oggi`). Le tappe delle sotto-trame usano
+  `quando: { dalGiorno, alGiorno }` (M1 0-6, M2 7-13, M3 14-20, M4 21+) e
+  `sentite: [...]` per il seguito di un'altra chiacchiera.
 - **Calendario** (`calendario.ts`, `Calendario.svelte`): si apre toccando la data
   nella barra, e da solo riprendendo una partita («Bentornato», dove sei, il
   prossimo appuntamento). Mese con feste (`FESTIVI`), giorni delle missioni

@@ -375,12 +375,57 @@ describe('事件: tempi', () => {
 		const ids = LUOGHI.flatMap((l) => (l.chiacchiere ?? []).map((c) => c.id));
 		expect(new Set(ids).size).toBe(ids.length);
 		const k = LUOGO.konbini;
-		let s = { ...nuovoStato('テスト', 'm4', M4.inizio), minuti: h(10) };
+		let s = { ...nuovoStato('テスト', 'm1'), minuti: h(10) };
 		const prima = chiacchieraPer(k, s)!;
 		s = { ...s, sentite: [...s.sentite, prima.id] };
 		expect(chiacchieraPer(k, s)?.id).not.toBe(prima.id);
 		s = { ...s, sentite: (k.chiacchiere ?? []).map((c) => c.id) };
 		expect(chiacchieraPer(k, s)).toBeNull();
+	});
+	it('ognuno al suo posto: chi parla in una chiacchiera ci sta davvero (DOVE)', async () => {
+		const { DOVE, chiDi } = await import('./motore');
+		const fuori: string[] = [];
+		for (const l of LUOGHI)
+			for (const c of l.chiacchiere ?? []) {
+				const chi = chiDi(c);
+				if (chi && !DOVE[chi]?.[l.id]) fuori.push(`${c.id}: ${chi} non sta a ${l.id}`);
+			}
+		expect(fuori).toEqual([]);
+	});
+	it('le persone hanno le loro ore e parlano una volta al giorno', async () => {
+		const { chiacchieraPer, avanza, chiDi } = await import('./motore');
+		const p = LUOGO.parco;
+		// 佐藤 passeggia al parco la mattina: alle 8 c'è, alle 14 no
+		const mattina = { ...nuovoStato('テスト', 'm1'), minuti: h(8) };
+		const ch = chiacchieraPer(p, mattina);
+		expect(ch && chiDi(ch)).toBeTruthy();
+		const sato = (p.chiacchiere ?? []).filter((c) => chiDi(c) === 'sato');
+		const pomeriggio = { ...mattina, minuti: h(14) };
+		expect(sato.map((c) => c.id)).not.toContain(chiacchieraPer(p, pomeriggio)?.id);
+		// dopo una chiacchiera con 佐藤, oggi non ne fa un'altra; domani sì
+		const prima = sato[0]!;
+		const dopo = avanza(mattina, [{ sente: prima.id, chi: 'sato' }]).stato;
+		const oggi = chiacchieraPer(p, dopo);
+		expect(oggi === null || chiDi(oggi) !== 'sato').toBe(true);
+		const domani = (p.chiacchiere ?? []).find((c) => chiDi(c) === 'sato' && c.id !== prima.id && !c.quando?.dalGiorno);
+		expect(chiacchieraPer(p, { ...dopo, giorno: 1, sentite: (p.chiacchiere ?? []).filter((c) => chiDi(c) !== 'sato' || c.id === prima.id).map((c) => c.id) })?.id).toBe(domani?.id);
+	});
+	it('le tappe delle sotto-trame: la figlia di 伊藤 si sposa, poi se ne parla al passato', async () => {
+		const { chiacchieraPer } = await import('./motore');
+		const k = LUOGO.kissa;
+		const ids = (g: number): string[] => {
+			const out: string[] = [];
+			let s = { ...nuovoStato('テスト', 'm1'), giorno: g, minuti: h(10) };
+			for (let c = chiacchieraPer(k, s); c; c = chiacchieraPer(k, s)) {
+				out.push(c.id);
+				s = { ...s, sentite: [...s.sentite, c.id] };
+			}
+			return out;
+		};
+		expect(ids(0)).toContain('c-kekkon');
+		expect(ids(0)).not.toContain('c-kekkon3');
+		expect(ids(15)).toContain('c-kekkon3');
+		expect(ids(15)).not.toContain('c-kekkon');
 	});
 	it('il tempo segue le previsioni della TV: ogni sera di meteo ha il suo giorno dopo', async () => {
 		const { SERE_CON_METEO } = await import('./missioni/comune');

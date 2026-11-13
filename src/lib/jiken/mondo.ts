@@ -2,6 +2,7 @@
 // e oggetti. Kanji solo N5/N4: gli altri in kana o con furigana base[lettura]
 // (nomi di persona e di luogo).
 import { CHIACCHIERE } from './chiacchiere';
+import { DOVE } from './motore';
 import type { Luogo, LuogoId, Personaggio } from './tipi';
 
 const h = (ore: number, min = 0): number => ore * 60 + min;
@@ -166,6 +167,27 @@ export const LUOGHI: Luogo[] = [
 ];
 // chiacchiere dei luoghi (src/lib/jiken/chiacchiere.ts)
 for (const l of LUOGHI) l.chiacchiere = CHIACCHIERE[l.id];
+
+// Dove e a che ora si trovano le persone del quartiere (per le chiacchiere: ognuno
+// al suo posto, docs/giallo-personaggi.md). Chi non è in tabella sta ovunque parli.
+Object.assign(DOVE, {
+	sato: { parco: { dalle: h(7), alle: h(11) }, ospedale: { dalle: h(13), alle: h(17) } }, // passeggiata; visita il marito
+	kimura: { parco: { dalle: h(6), alle: h(9) } }, // ginnastica all'alba
+	nonna: { parco: { dalle: h(9), alle: h(16) } },
+	takahashi: { eki: { dalle: h(7), alle: h(9) }, parco: { dalle: h(16), alle: h(18, 30) } }, // va a scuola; tennis dopo scuola
+	aya: { eki2: {}, konbini: { dalGiorno: 21, dalle: h(16) } }, // dall'università; dalla M4 alla cassa la sera
+	commessa: { konbini: { alGiorno: 20 } }, // poi va a lavorare alla ditta ABC
+	tanaka: { shokudo: { dalle: h(11, 30), alle: h(14) } },
+	ito: { kissa: {} },
+	oste: { shokudo: {} },
+	ramen: { ramen: {} },
+	postino: { posta: {} },
+	fioraia: { hanaya: {} },
+	fornaia: { panya: {} },
+	bancario: { banca: {} },
+	dottoressa: { ospedale: {} },
+	depa: { depa: {} }
+});
 export const LUOGO = Object.fromEntries(LUOGHI.map((l) => [l.id, l])) as Record<LuogoId, Luogo>;
 
 export const PERSONAGGI: Record<string, Personaggio> = {

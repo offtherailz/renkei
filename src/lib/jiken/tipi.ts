@@ -47,6 +47,9 @@ export interface Chiacchiera {
 	id: string;
 	quando?: Condizione;
 	passi: Passo[];
+	// chi parla (di norma il primo «dice»): deve essere lì in quel momento (DOVE in
+	// mondo.ts) e fa al massimo una chiacchiera al giorno
+	chi?: string;
 }
 
 export interface Personaggio {
@@ -61,6 +64,9 @@ export interface Personaggio {
 
 export interface Condizione {
 	giorno?: number | number[]; // giorno della storia (0 = primo)
+	dalGiorno?: number; // da questo giorno in poi (tappe delle sotto-trame)
+	alGiorno?: number; // fino a questo giorno compreso
+	sentite?: string[]; // chiacchiere già sentite (il seguito di una sotto-trama)
 	dalle?: number; // minuti
 	alle?: number; // minuti, escluso
 	flag?: string[]; // tutti presenti
@@ -129,7 +135,7 @@ export type Passo =
 	| { vai: LuogoId }
 	| { dormi: true }
 	| { conta: string } // sale un contatore dei timbri (es. 'puntuale')
-	| { sente: string } // chiacchiera ascoltata (non torna più)
+	| { sente: string; chi?: string } // chiacchiera ascoltata (non torna più; chi = ha già parlato oggi)
 	| { fine: string }; // missione conclusa (titolo)
 
 export interface Scena {
@@ -204,6 +210,7 @@ export interface Stato {
 	collezione: Premio[]; // peluche vinti alla sala giochi
 	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)
 	sentite: string[]; // chiacchiere dei luoghi già sentite
+	oggi?: { giorno: number; persone: string[] }; // chi ti ha già fatto una chiacchiera oggi
 	classifica: { punti: number; giorno: number }[]; // i migliori punteggi della クイズ
 	// scena interrotta (pagina chiusa a metà dialogo): il passo mostrato e quelli
 	// dopo, per riprendere da lì invece di perderli

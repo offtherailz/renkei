@@ -60,6 +60,9 @@ export function nuovoStato(nome: string, missione: string, inizio?: { giorno: nu
 
 export function verifica(c: Condizione, s: Stato): boolean {
 	if (c.giorno !== undefined && !(Array.isArray(c.giorno) ? c.giorno.includes(s.giorno) : c.giorno === s.giorno)) return false;
+	if (c.dalGiorno !== undefined && s.giorno < c.dalGiorno) return false;
+	if (c.alGiorno !== undefined && s.giorno > c.alGiorno) return false;
+	if (c.sentite && !c.sentite.every((id) => s.sentite.includes(id))) return false;
 	if (c.dalle !== undefined && s.minuti < c.dalle) return false;
 	if (c.alle !== undefined && s.minuti >= c.alle) return false;
 	if (c.flag && !c.flag.every((f) => s.flag.includes(f))) return false;
@@ -70,9 +73,26 @@ export function verifica(c: Condizione, s: Stato): boolean {
 	return true;
 }
 
-// La prima chiacchiera del luogo che non hai ancora sentito (e che vale adesso).
+// Chi parla in una chiacchiera: dichiarato, o il primo che dice qualcosa.
+export function chiDi(c: Chiacchiera): string | null {
+	return c.chi ?? c.passi.find((p): p is Extract<Passo, { dice: string }> => 'dice' in p)?.dice ?? null;
+}
+// Dove e quando si trovano le persone del quartiere (mondo.ts riempie la tabella).
+export const DOVE: Record<string, Partial<Record<LuogoId, Condizione>>> = {};
+export const giaParlato = (s: Stato, chi: string): boolean => s.oggi?.giorno === s.giorno && s.oggi.persone.includes(chi);
+
+// La prima chiacchiera del luogo che non hai ancora sentito e che vale adesso:
+// la sua tappa (giorni), la persona è lì a quell'ora e oggi non ti ha già parlato.
 export function chiacchieraPer(l: Luogo, s: Stato): Chiacchiera | null {
-	return l.chiacchiere?.find((c) => !s.sentite.includes(c.id) && (!c.quando || verifica(c.quando, s))) ?? null;
+	return (
+		l.chiacchiere?.find((c) => {
+			if (s.sentite.includes(c.id) || (c.quando && !verifica(c.quando, s))) return false;
+			const chi = chiDi(c);
+			if (!chi) return true;
+			const qui = DOVE[chi]?.[l.id];
+			return (!DOVE[chi] || (qui !== undefined && verifica(qui, s))) && !giaParlato(s, chi);
+		}) ?? null
+	);
 }
 
 export type Apertura = 'aperto' | 'chiuso' | 'bloccato';
@@ -125,7 +145,14 @@ export function applica(s: Stato, p: Passo): Stato {
 	if ('soldi' in p) return { ...s, soldi: s.soldi + p.soldi };
 	if ('vai' in p) return viaggia(s, p.vai);
 	if ('dormi' in p) return dormi(s);
-	if ('sente' in p) return s.sentite.includes(p.sente) ? s : { ...s, sentite: [...s.sentite, p.sente] };
+	if ('sente' in p) {
+		const persone = s.oggi?.giorno === s.giorno ? s.oggi.persone : [];
+		return {
+			...s,
+			sentite: s.sentite.includes(p.sente) ? s.sentite : [...s.sentite, p.sente],
+			oggi: p.chi ? { giorno: s.giorno, persone: [...persone, p.chi] } : s.oggi
+		};
+	}
 	if ('conta' in p) return { ...s, contatori: { ...s.contatori, [p.conta]: (s.contatori[p.conta] ?? 0) + 1 } };
 	return s;
 }
