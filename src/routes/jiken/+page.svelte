@@ -25,6 +25,7 @@
 	import Hanko from '$lib/jiken/Hanko.svelte';
 	import Calendario from '$lib/jiken/Calendario.svelte';
 	import FotoPuri from '$lib/jiken/FotoPuri.svelte';
+	import { dataPuntini } from '$lib/jiken/calendario';
 	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Opzione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
@@ -815,6 +816,13 @@
 
 	// ── scena: sfondo del luogo e personaggio
 	const sfondo = $derived(luogoAttuale ? `${base}/giorno/sfondi/${luogoAttuale.sfondo}.jpg` : '');
+	// nello storico il ritratto di oggi (un personaggio può aver cambiato aspetto), con l'espressione di allora
+	const ritrattoBattuta = (b: { chi: string | null; sprite: string | null }): string | null => {
+		const oggi = b.chi ? PERSONAGGI[b.chi]?.sprite : null;
+		if (!oggi || !b.sprite) return b.sprite;
+		const faccia = /_(preoccupat[ao]|sollevat[ao]|occupat[ao]|sorpres[ao]|imbarazzat[ao]|nervos[ao]|arrabbiat[ao]|felice|pensieros[ao]|meteo)$/.exec(b.sprite)?.[1];
+		return faccia ? `${oggi}_${faccia}` : oggi;
+	};
 	const sprite = $derived(parlante && PERSONAGGI[parlante]?.sprite ? `${PERSONAGGI[parlante]!.sprite}${faccia ? `_${faccia}` : ''}` : null);
 	const bocca = $derived(parla && corrente !== null && 'dice' in corrente && corrente.dice === parlante && tick % 4 < 2);
 	$effect(() => {
@@ -1340,7 +1348,7 @@
 								{/if}
 								<div class="battuta" class:mia={b.tipo === 'io' || b.tipo === 'pensa'} class:narrata={b.tipo === 'narra'}>
 									<span class="faccina">
-										{#if b.sprite}<img src="{base}/giorno/ritratti/{b.sprite}-chiusa.png" alt="" />
+										{#if b.sprite}<img src="{base}/giorno/ritratti/{ritrattoBattuta(b)}-chiusa.png" alt="" />
 										{:else}{b.tipo === 'narra' ? '📖' : b.tipo === 'pensa' ? '💭' : b.chi ? '📞' : '🙂'}{/if}
 									</span>
 									<div class="testo">
@@ -1377,7 +1385,7 @@
 						{#if stato.foto?.length}
 							<h3>{L(UI.sgAlbum)}</h3>
 							<div class="album">
-								{#each [...stato.foto].reverse() as f, i (i)}<div><FotoPuri pose={f.pose} scritta={f.scritta} piccola /><small>{lingua === 'ja' ? dataJa(f.giorno) : dataIt(f.giorno)}</small></div>{/each}
+								{#each [...stato.foto].reverse() as f, i (i)}<FotoPuri pose={f.pose} scritta={f.scritta} cornice={f.cornice} data={dataPuntini(f.giorno)} nomi="あや＆{stato.nome}" piccola />{/each}
 							</div>
 						{/if}
 					{:else if scheda === 'frasi'}

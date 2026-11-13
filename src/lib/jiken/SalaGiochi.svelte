@@ -11,6 +11,7 @@
 	import { UI } from './ui';
 	import Purikura from './Purikura.svelte';
 	import FotoPuri from './FotoPuri.svelte';
+	import { dataPuntini } from './calendario';
 	import * as suono from './suoni';
 	import type { Lingua, Stato, Testo } from './tipi';
 
@@ -240,7 +241,7 @@
 		{#if stato.foto?.length}
 			<div class="carta">
 				<h3>{L(UI.sgAlbum)} <small>({stato.foto.length})</small></h3>
-				<FotoPuri pose={stato.foto.at(-1)!.pose} scritta={stato.foto.at(-1)!.scritta} piccola />
+				<FotoPuri pose={stato.foto.at(-1)!.pose} scritta={stato.foto.at(-1)!.scritta} cornice={stato.foto.at(-1)!.cornice} data={dataPuntini(stato.foto.at(-1)!.giorno)} nomi="あや＆{stato.nome}" piccola />
 			</div>
 		{/if}
 		{#if !puoiGiocare(stato)}<p class="small avviso">{L(stato.oggetti.includes('portafoglio') ? UI.sgSoldi : UI.sgPortafoglio)}</p>{/if}

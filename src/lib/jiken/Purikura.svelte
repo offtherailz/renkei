@@ -4,7 +4,8 @@
 	import FotoPuri from './FotoPuri.svelte';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { TARDI } from './motore';
-	import { pagaPuri, puoiPuri, salvaFoto, turnoPuri, PURIKURA, type TurnoPuri } from './giochi';
+	import { CORNICI, pagaPuri, puoiPuri, salvaFoto, turnoPuri, PURIKURA, type TurnoPuri } from './giochi';
+	import { dataPuntini } from './calendario';
 	import { UI } from './ui';
 	import * as suono from './suoni';
 	import type { Lingua, Stato, Testo } from './tipi';
@@ -24,7 +25,8 @@
 		avvisa: (t: string) => void;
 	} = $props();
 
-	let fase = $state<'intro' | 'posa' | 'scatto' | 'scritta' | 'foto'>('intro');
+	let fase = $state<'intro' | 'posa' | 'scatto' | 'scritta' | 'cornice' | 'foto'>('intro');
+	let cornice = $state('sakura');
 	let turno = $state<TurnoPuri | null>(null);
 	let i = $state(0);
 	let scelta = $state<string | null>(null);
@@ -77,9 +79,10 @@
 		if (ok) giuste += 1;
 		if (suoni) (ok ? suono.giusto : suono.sbagliato)();
 	}
-	function finisci(): void {
+	function finisci(c: string): void {
 		if (!turno) return;
-		aggiorna(salvaFoto(stato, turno.pose.map((p) => p.giusta.id), turno.scritta.s.giusta));
+		cornice = c;
+		aggiorna(salvaFoto(stato, turno.pose.map((p) => p.giusta.id), turno.scritta.s.giusta, c));
 		fase = 'foto';
 		avvisa(L(UI.sgPuriFatta));
 		void parla(giuste === PURIKURA.scatti + 1 ? 'かんぺき！ いい 思い出に なったね。' : 'たのしかった！ また とろうね。', 'F');
@@ -88,7 +91,7 @@
 
 <div class="puri">
 	{#if fase === 'foto' && turno}
-		<FotoPuri pose={turno.pose.map((p) => p.giusta.id)} scritta={turno.scritta.s.giusta} />
+		<FotoPuri pose={turno.pose.map((p) => p.giusta.id)} scritta={turno.scritta.s.giusta} {cornice} data={dataPuntini(stato.giorno)} nomi="あや＆{stato.nome}" />
 		<p class="esito">{giuste}/{PURIKURA.scatti + 1} ⭐</p>
 		<div class="row">
 			<button class="btn" disabled={!puoiPuri(stato)} onclick={inizia}>{L(UI.sgGioca)} <small>({L(UI.sgPuriPrezzo)})</small></button>
@@ -133,8 +136,14 @@
 			</div>
 			{#if scelta}
 				<p class="small">{turno.scritta.s.giusta}（{turno.scritta.s.lettura}）= {turno.scritta.s.it}</p>
-				<div class="row"><button class="btn" onclick={finisci}>{L(UI.avanti)}</button></div>
+				<div class="row"><button class="btn" onclick={() => (fase = 'cornice')}>{L(UI.avanti)}</button></div>
 			{/if}
+		{:else if fase === 'cornice'}
+			<p class="ja">🖼️ {L(UI.sgPuriCornice)}</p>
+			<div class="scelte">
+				{#each CORNICI as c (c.id)}<button class="opzione" onclick={() => finisci(c.id)}>{c.ja}</button>{/each}
+			</div>
+			{#if lingua !== 'ja'}<p class="small">わく (枠[わく]) = cornice · {CORNICI.map((c) => `${c.ja} = ${c.it}`).join(' · ')}</p>{/if}
 		{/if}
 	{/if}
 </div>

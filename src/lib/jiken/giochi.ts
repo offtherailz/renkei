@@ -189,5 +189,14 @@ export function pagaPuri(s: Stato): Stato | null {
 	if (!puoiPuri(s)) return null;
 	return { ...s, soldi: s.soldi - PURIKURA.prezzo, minuti: Math.min(s.minuti + PURIKURA.minuti, FINE_GIORNO) };
 }
-// la striscia finita: le pose fatte (quelle giuste se hai sbagliato) e la scritta scelta
-export const salvaFoto = (s: Stato, pose: string[], scritta: string): Stato => ({ ...s, foto: [...(s.foto ?? []), { pose, scritta, giorno: s.giorno }] });
+// la cornice del foglio (static/giorno/cornici/<id>.png): si sceglie leggendo la parola
+export const CORNICI = [
+	{ id: 'sakura', ja: 'さくら', it: 'ciliegi' },
+	{ id: 'hoshi', ja: 'ほし', it: 'stelle' },
+	{ id: 'heart', ja: 'ハート', it: 'cuori' }
+];
+// il foglio finito: le pose fatte (quelle giuste se hai sbagliato), la scritta e la cornice
+export const salvaFoto = (s: Stato, pose: string[], scritta: string, cornice?: string): Stato => ({
+	...s,
+	foto: [...(s.foto ?? []), { pose, scritta, giorno: s.giorno, ...(cornice ? { cornice } : {}) }]
+});

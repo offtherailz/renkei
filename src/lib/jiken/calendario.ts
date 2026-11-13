@@ -10,6 +10,9 @@ export const UN_GIORNO = 86_400_000;
 export const dataDi = (g: number): Date => new Date(PRIMO_GIORNO.anno, PRIMO_GIORNO.mese - 1, PRIMO_GIORNO.giorno + g);
 export const giornoDi = (d: Date): number => Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() - dataDi(0).getTime()) / UN_GIORNO);
 
+// la data come la stampa la プリクラ: 2026.4.30
+export const dataPuntini = (g: number): string => { const d = dataDi(g); return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`; };
+
 // feste nazionali (Golden Week)
 export const FESTIVI: Record<number, Testo> = {
 	23: { ja: '昭和[しょうわ]の日', it: 'Festa di Shōwa' },
