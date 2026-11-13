@@ -143,3 +143,51 @@ export function registraPunti(s: Stato, punti: number): { stato: Stato; posto: n
 	const tutte = [...s.classifica, voce].sort((a, b) => b.punti - a.punti).slice(0, MAX_CLASSIFICA);
 	return { stato: { ...s, classifica: tutte }, posto: tutte.indexOf(voce) };
 }
+
+// ── プリクラ con あや: la macchina dice la posa (ascolto), poi la scritta da
+// scegliere (kanji giusti). Tre scatti; la striscia va nell'album (stato.foto).
+export const PURIKURA = { prezzo: 400, minuti: 20, scatti: 3 };
+export interface Posa {
+	id: string; // ritratti/studentessa_rossa_<id>-chiusa.png
+	ja: string; // quello che dice la macchina
+	it: string;
+}
+export const POSE: Posa[] = [
+	{ id: 'pace', ja: 'ピースして ください！', it: 'Fate il segno di pace!' },
+	{ id: 'cuore', ja: 'りょう手で ハートを 作って ください！', it: 'Fate un cuore con le mani!' },
+	{ id: 'sorpresa', ja: 'びっくりした 顔を して ください！', it: 'Fate una faccia sorpresa!' },
+	{ id: 'gatto', ja: 'ねこの まねを して ください！', it: 'Fate il gatto!' },
+	{ id: 'pollice', ja: 'おやゆびを 立てて ください！', it: 'Pollice in su!' }
+];
+// le scritte (らくがき): la lettura e il modo giusto di scriverla, con trabocchetti
+export interface Scritta {
+	lettura: string;
+	giusta: string;
+	sbagliate: string[];
+	it: string;
+}
+export const SCRITTE: Scritta[] = [
+	{ lettura: 'おもいで', giusta: '思い出', sbagliate: ['思い手', '重い出', '思い山'], it: 'ricordo' },
+	{ lettura: 'ともだち', giusta: '友だち', sbagliate: ['左だち', '右だち', '友たち'], it: 'amici' },
+	{ lettura: 'たのしい', giusta: '楽しい', sbagliate: ['薬しい', '楽い', '楽のしい'], it: 'divertente' },
+	{ lettura: 'だいすき', giusta: '大好き', sbagliate: ['太好き', '犬好き', '大好'], it: 'adoro' },
+	{ lettura: 'げんき', giusta: '元気', sbagliate: ['元木', '天気', '電気'], it: 'in forma' }
+];
+export interface TurnoPuri {
+	pose: { giusta: Posa; opzioni: Posa[] }[];
+	scritta: { s: Scritta; opzioni: string[] };
+}
+export function turnoPuri(r: Caso = Math.random): TurnoPuri {
+	const pose = mescola(POSE, r)
+		.slice(0, PURIKURA.scatti)
+		.map((giusta) => ({ giusta, opzioni: mescola([giusta, ...mescola(POSE.filter((p) => p.id !== giusta.id), r).slice(0, 3)], r) }));
+	const s = mescola(SCRITTE, r)[0]!;
+	return { pose, scritta: { s, opzioni: mescola([s.giusta, ...s.sbagliate], r) } };
+}
+export const puoiPuri = (s: Stato): boolean => s.oggetti.includes('portafoglio') && s.soldi >= PURIKURA.prezzo;
+export function pagaPuri(s: Stato): Stato | null {
+	if (!puoiPuri(s)) return null;
+	return { ...s, soldi: s.soldi - PURIKURA.prezzo, minuti: Math.min(s.minuti + PURIKURA.minuti, FINE_GIORNO) };
+}
+// la striscia finita: le pose fatte (quelle giuste se hai sbagliato) e la scritta scelta
+export const salvaFoto = (s: Stato, pose: string[], scritta: string): Stato => ({ ...s, foto: [...(s.foto ?? []), { pose, scritta, giorno: s.giorno }] });

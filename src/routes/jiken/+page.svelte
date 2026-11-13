@@ -24,6 +24,7 @@
 	import * as suono from '$lib/jiken/suoni';
 	import Hanko from '$lib/jiken/Hanko.svelte';
 	import Calendario from '$lib/jiken/Calendario.svelte';
+	import FotoPuri from '$lib/jiken/FotoPuri.svelte';
 	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Opzione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
@@ -1372,6 +1373,12 @@
 								{/each}
 							</div>
 						{/if}
+						{#if stato.foto?.length}
+							<h3>{L(UI.sgAlbum)}</h3>
+							<div class="album">
+								{#each [...stato.foto].reverse() as f, i (i)}<div><FotoPuri pose={f.pose} scritta={f.scritta} piccola /><small>{lingua === 'ja' ? dataJa(f.giorno) : dataIt(f.giorno)}</small></div>{/each}
+							</div>
+						{/if}
 					{:else if scheda === 'frasi'}
 						{#each [...stato.taccuino].reverse() as a, i (i)}
 							<div class="appunto">
@@ -1620,6 +1627,8 @@
 	.segnalibro.s5 { --c: #76428a; }
 	.segnalibro.s6 { --c: #c8102e; }
 	.timbri { display: grid; gap: 4px; }
+	.album { display: flex; flex-wrap: wrap; gap: 10px; }
+	.album > div { display: grid; gap: 2px; }
 	.riepilogo { display: grid; gap: 2px; grid-column: 1 / -1; }
 	.riepilogo .barra { height: 8px; background: #e8e0cc; border: 2px solid #0e0d1a; display: block; }
 	.riepilogo .barra span { display: block; height: 100%; background: #6abe30; }

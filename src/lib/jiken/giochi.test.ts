@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { isInLevel } from '$lib/data/kanjiN4';
 import { conKanji, domandaQuiz, MAX_CLASSIFICA, PARTITA, pagaPartita, paroleGioco, puntiRisposta, registraPunti, turnoUfo, vinciPremio } from './giochi';
 import { migra, nuovoStato } from './motore';
@@ -81,5 +81,31 @@ describe('事件: sala giochi', () => {
 		const m = migra(vecchio)!;
 		expect(m.collezione).toEqual([]);
 		expect(m.classifica).toEqual([]);
+	});
+});
+
+describe('事件: プリクラ', () => {
+	it('tre scatti con quattro pose diverse (una giusta), una scritta con quattro scelte', async () => {
+		const { turnoPuri, POSE, SCRITTE, PURIKURA } = await import('./giochi');
+		const t = turnoPuri();
+		expect(t.pose).toHaveLength(PURIKURA.scatti);
+		for (const p of t.pose) {
+			expect(new Set(p.opzioni.map((o) => o.id)).size).toBe(4);
+			expect(p.opzioni.map((o) => o.id)).toContain(p.giusta.id);
+		}
+		expect(new Set(t.pose.map((p) => p.giusta.id)).size).toBe(PURIKURA.scatti);
+		expect(t.scritta.opzioni).toContain(t.scritta.s.giusta);
+		expect(new Set(t.scritta.opzioni).size).toBe(4);
+		for (const p of POSE) expect(existsSync(`static/giorno/ritratti/studentessa_rossa_${p.id}-chiusa.png`)).toBe(true);
+		expect(SCRITTE.every((x) => !x.sbagliate.includes(x.giusta))).toBe(true);
+	});
+	it('costa 400 yen e 20 minuti; la striscia va nell’album', async () => {
+		const { pagaPuri, salvaFoto } = await import('./giochi');
+		const s = nuovoStato('テスト', 'm4');
+		const p = pagaPuri(s)!;
+		expect(p.soldi).toBe(s.soldi - 400);
+		expect(p.minuti).toBe(s.minuti + 20);
+		expect(pagaPuri({ ...s, soldi: 300 })).toBeNull();
+		expect(salvaFoto(p, ['pace', 'cuore', 'gatto'], '思い出').foto).toEqual([{ pose: ['pace', 'cuore', 'gatto'], scritta: '思い出', giorno: s.giorno }]);
 	});
 });

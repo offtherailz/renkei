@@ -372,7 +372,13 @@ Solo quello che è già scritto nei documenti, niente di nuovo.
   col 新幹線 (vedi `giallo-mondo.md`). La mappa di destra generata con Gemini non
   combaciava: rimandata.
 
-## 5b. Sala giochi (fatta: UFOキャッチャー e クイズ)
+## 5b. Sala giochi (fatta: UFOキャッチャー, クイズ e プリクラ)
+
+**プリクラ** (`Purikura.svelte`, `FotoPuri.svelte`, `turnoPuri` in `giochi.ts`): con あや,
+400 yen e 20 minuti. Tre scatti: la macchina dice la posa a voce (ascolto: il testo
+si vede dopo) e si sceglie tra quattro pose (`ritratti/studentessa_rossa_<posa>`);
+poi la scritta (らくがき) da scegliere tra quattro grafie (`SCRITTE`). La striscia va
+in `stato.foto` (album nel quaderno, scheda oggetti, e in sala giochi). Sfondo `purikura.jpg`.
 
 - Entrando in `gamecenter` (山野駅前, 10-23) senza scene della storia si apre il
   menù (`fase = 'giochi'`, componente `SalaGiochi.svelte`); la commessa

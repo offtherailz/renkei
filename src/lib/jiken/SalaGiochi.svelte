@@ -9,6 +9,8 @@
 		type DomandaQuiz, type ParolaGioco, type TurnoUfo
 	} from './giochi';
 	import { UI } from './ui';
+	import Purikura from './Purikura.svelte';
+	import FotoPuri from './FotoPuri.svelte';
 	import * as suono from './suoni';
 	import type { Lingua, Stato, Testo } from './tipi';
 
@@ -27,7 +29,7 @@
 		avvisa: (t: string) => void;
 	} = $props();
 
-	let gioco = $state<'menu' | 'ufo' | 'quiz'>('menu');
+	let gioco = $state<'menu' | 'ufo' | 'quiz' | 'puri'>('menu');
 	let parole = $state<ParolaGioco[]>([]);
 	const pronte = $derived(parole.length >= 12);
 
@@ -229,7 +231,18 @@
 				<p class="small">{L(UI.sgQuizCome)}</p>
 				<button class="btn" disabled={!pronte || !puoiGiocare(stato)} onclick={nuovoQuiz}>{pronte ? L(UI.sgGioca) : L(UI.sgCarica)} <small>({L(UI.sgPrezzo)})</small></button>
 			</div>
+			<div class="carta">
+				<h3>{L(UI.sgPuri)}</h3>
+				<p class="small">{L(UI.sgPuriDesc)}</p>
+				<button class="btn" onclick={() => (gioco = 'puri')}>{L(UI.sgGioca)} <small>({L(UI.sgPuriPrezzo)})</small></button>
+			</div>
 		</div>
+		{#if stato.foto?.length}
+			<div class="carta">
+				<h3>{L(UI.sgAlbum)} <small>({stato.foto.length})</small></h3>
+				<FotoPuri pose={stato.foto.at(-1)!.pose} scritta={stato.foto.at(-1)!.scritta} piccola />
+			</div>
+		{/if}
 		{#if !puoiGiocare(stato)}<p class="small avviso">{L(stato.oggetti.includes('portafoglio') ? UI.sgSoldi : UI.sgPortafoglio)}</p>{/if}
 		<div class="carta">
 			<h3>{L(UI.sgCollezione)} <small>({stato.collezione.length})</small></h3>
@@ -294,6 +307,8 @@
 				</div>
 			{/if}
 		</div>
+	{:else if gioco === 'puri'}
+		<Purikura {stato} {L} {lingua} {suoni} {aggiorna} {menu} {parla} {avvisa} />
 	{:else if gioco === 'quiz'}
 		<div class="dialog quiz">
 			<div class="row testa">

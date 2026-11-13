@@ -208,6 +208,7 @@ export interface Stato {
 	note?: Record<number, string>; // note del giocatore nel calendario, per giorno
 	libera?: boolean; // la scena in corso è una chiacchiera (le domande vanno nel ripasso)
 	collezione: Premio[]; // peluche vinti alla sala giochi
+	foto?: { pose: string[]; scritta: string; giorno: number }[]; // strisce di プリクラ con あや
 	incontrati: string[]; // personaggi conosciuti, in ordine (schede del taccuino)
 	sentite: string[]; // chiacchiere dei luoghi già sentite
 	oggi?: { giorno: number; persone: string[] }; // chi ti ha già fatto una chiacchiera oggi

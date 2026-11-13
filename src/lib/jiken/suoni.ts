@@ -108,6 +108,13 @@ export function timbro(): void {
 	nota(1760, 0.28, 0.4, 0.05);
 }
 
+// scatto della プリクラ: «pi pi pi… shà»
+export function scatto(): void {
+	[0, 0.5, 1].forEach((t) => nota(1760, t, 0.08, 0.06, 'square'));
+	nota(3000, 1.5, 0.06, 0.08, 'square', 800);
+	nota(1200, 1.56, 0.12, 0.05, 'triangle', 400);
+}
+
 // ── ambiente: uccellini di giorno, grilli di notte, ogni tanto
 let timer: ReturnType<typeof setTimeout> | null = null;
 // pioggia: rumore filtrato continuo, che entra e sfuma piano
