@@ -222,7 +222,7 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	depa: { nome: 'デパートの 店員', sprite: 'commessa_depa', voce: 'F', yomi: 'デパートの てんいん', chi: { ja: 'デパートの ふくの うりばの 店員。けいごが とても 上手です。', it: 'La commessa del reparto abbigliamento del grande magazzino. Un keigo impeccabile.' } },
 	bancario: { nome: '銀行の 人', sprite: 'bancario', voce: 'M', yomi: 'ぎんこうの ひと', chi: { ja: '山野[やまの]の 銀行の まどぐちの 人。', it: 'L’impiegato allo sportello della banca di Yamano.' } },
 	sato: { nome: '佐藤[さとう]さん', sprite: 'amica', voce: 'F', yomi: 'さとうさん', chi: { ja: '吉田[よしだ]さんの 家の 近所に 住んで いる 人。よく 話しかけて きます。', it: 'Vicina di casa degli Yoshida. Attacca sempre bottone.' } },
-	aya: { nome: 'あやさん', sprite: 'studentessa', voce: 'F', yomi: 'あやさん', chi: { ja: '大学生。日本語学校で 高橋[たかはし]くんと いっしょに 手つだいを して います。', it: 'Studentessa universitaria. Aiuta alla scuola di giapponese con Takahashi.' } },
+	aya: { nome: 'あやさん', sprite: 'studentessa_rossa', voce: 'F', yomi: 'あやさん', chi: { ja: '大学生。日本語学校で 高橋[たかはし]くんと いっしょに 手つだいを して います。', it: 'Studentessa universitaria. Aiuta alla scuola di giapponese con Takahashi.' } },
 	dottoressa: { nome: 'お医者さん', sprite: 'medico', voce: 'F', yomi: 'おいしゃさん', chi: { ja: '山野[やまの]の 病院の お医者さん。', it: 'La dottoressa dell’ospedale di Yamano.' } },
 	// missione 4 (美術館の 事件)
 	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F', yomi: 'あおきさん', chi: { ja: 'えを かく 人。「さくらと ねこ」の えを かきました。', it: 'Pittrice: ha dipinto il quadro «Sakura e gatto».' } },
