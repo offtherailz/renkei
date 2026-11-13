@@ -119,9 +119,10 @@
 	/* la carta è chiara anche col tema scuro: parole spezzate e popup coi colori del tema chiaro */
 	.cal { --ink: #2b2a3a; --muted: #5a5870; --line: #c9c3b0; --brand: #1b5fd1; --surface: #fffdf6; --success: #0f8f56; --warn-bg: #fffbeb; --warn-border: #fbbf24; --warn-ink: #92400e; --info-ink: #1e3a8a; --info-bg: #eef4ff; }
 	.cal { --carta: #fbf5e6; --inchiostro: #2a2620; position: relative; box-sizing: border-box; width: 100%; max-width: 560px; margin: 0 auto; min-width: 0; background: var(--carta); color: var(--inchiostro); border: 3px solid #0e0d1a; box-shadow: 0 4px 0 #0e0d1a; padding: 12px; display: grid; gap: 10px; }
-	.x { position: absolute; top: 6px; right: 6px; background: none; border: 2px solid var(--inchiostro); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; color: var(--inchiostro); }
+	.x { position: sticky; top: 0; justify-self: end; z-index: 2; margin: -4px -4px -40px 0; background: var(--carta); border: 3px solid var(--inchiostro); border-radius: 50%; width: 44px; height: 44px; padding: 0; display: grid; place-items: center; line-height: 1; font-size: 1.1rem; cursor: pointer; color: var(--inchiostro); touch-action: manipulation; }
+	.cal > * { min-width: 0; }
 	.bentornato p, .giornata { min-width: 0; overflow-wrap: anywhere; }
-	.bentornato { margin-right: 30px; background: #fff6c8; border: 2px dashed #d9a520; padding: 8px 10px; display: grid; gap: 2px; }
+	.bentornato { margin-right: 46px; background: #fff6c8; border: 2px dashed #d9a520; padding: 8px 10px; display: grid; gap: 2px; }
 	.bentornato p { margin: 0; }
 	.bentornato .titolo { font-weight: 700; font-size: 1.1rem; }
 	.testa { display: flex; align-items: center; justify-content: center; gap: 14px; font-weight: 700; font-size: 1.1rem; }
@@ -129,7 +130,7 @@
 	.griglia { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
 	.wd { text-align: center; font-size: 0.8rem; color: #6b6458; }
 	.fe { color: #c8102e; }
-	.giorno { position: relative; min-width: 0; aspect-ratio: 1 / 0.85; border: 1px solid #d8cfb8; background: #fffdf6; cursor: pointer; font-family: inherit; color: var(--inchiostro); display: grid; place-items: center; padding: 0; }
+	.giorno { position: relative; min-width: 0; width: 100%; height: 44px; box-sizing: border-box; border: 1px solid #d8cfb8; background: #fffdf6; cursor: pointer; font-family: inherit; color: var(--inchiostro); display: grid; place-items: center; padding: 0; }
 	.giorno.fe { color: #c8102e; }
 	.giorno.mi { box-shadow: inset 0 -5px 0 var(--mi); }
 	.giorno.passato { opacity: 0.55; }
