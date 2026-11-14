@@ -349,6 +349,18 @@ Nessun colpevole: due biglietti mai letti. Forme: passivo (ぬすまれた / は
   `museo.aperto`. Sera: 中村 al telefono, `fine`.
 - Rete di sicurezza `m4-chiusura` (giorni 24-27): il giornale racconta tutto.
 
+### Missione 5 — ゴールデンウィークの すり (giorni 28-30, 4-6 maggio, tutti festivi)
+
+Niente ufficio. 中村 telefona (domanda d'ascolto: «non alle 9:30, alle 10»): a 山野駅
+tre borseggi, sempre sul 急行 delle 10:12, carrozza 3; una vittima è il marito di
+佐藤. Alla 交番 della stazione: cartello della polizia e orario dei treni (情報検索,
+l'orario è l'oggetto `jikokuhyo`). Tre testimonianze: la commessa della デパート
+(keigo), あや alla konbini dalle 16 (valigia «重そう» ma leggera), 佐藤 a casa la sera
+(ascolto: cappello, sandali, niente occhiali). Con tutte e tre: il piano con 中村
+(prova = l'orario; ascolto: dove aspetti), poi sul binario tra le 9:30 e le 10:20 del
+29 o del 30 lo si prende (ascolto: binario 2). Ripiego: dal 7 maggio lo arresta la
+polizia (TV). Il ladro è `suri` (ritratto `padrone`). Sere: famiglia, meteo, TG.
+
 ## 5. Prossimi capitoli: cosa è già deciso
 
 Solo quello che è già scritto nei documenti, niente di nuovo.

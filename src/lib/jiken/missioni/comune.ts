@@ -123,6 +123,27 @@ const SERE: Record<number, Sera> = {
 			{ dice: 'papa', ja: 'あしたからは しばらく 休みだろう？ ゆっくり ねぼうしても いいよ。', it: 'Da domani sei in vacanza per un po’, no? Puoi dormire quanto vuoi.' }
 		],
 		meteo: { ja: 'ゴールデンウィークの 天気です。あしたから 三日間は はれ、そのあと 雨の 日が つづくでしょう。', it: 'Il meteo della Golden Week. Da domani tre giorni sereni, poi diversi giorni di pioggia.', domanda: 'あしたから 何日間 はれますか。', domandaIt: 'Da domani, per quanti giorni sereno?', opzioni: [['三日間', 'tre giorni'], ['一日', 'un giorno'], ['一週間', 'una settimana'], ['はれない', 'non sarà sereno']], giusta: 0, spiega: '「三日間は はれ、そのあと 雨の 日が つづく」: つづく = continuare.' }
+	},
+	28: {
+		famiglia: [
+			{ dice: 'papa', ja: '雨の 日は 道が すべるから、気を つけるんだよ。', it: 'Coi giorni di pioggia la strada scivola: fai attenzione.' },
+			{ dice: 'mamma', ja: 'すりなんて こわいわね。わたしも かばんは いつも 前に 持つ ように して いるの。', it: 'I borseggiatori fanno paura. Anch’io tengo sempre la borsa davanti.' }
+		],
+		meteo: { ja: 'あしたの こどもの日は、雨が やんで はれるでしょう。風が 少し あるので、こいのぼりが よく およぐでしょう。', it: 'Domani, Festa dei bambini, smetterà di piovere e sarà sereno. C’è un po’ di vento: le carpe di stoffa nuoteranno bene.', domanda: 'あしたの 天気は どうですか。', domandaIt: 'Che tempo farà domani?', opzioni: [['はれて、少し 風が ある', 'sereno, un po’ di vento'], ['一日中 雨', 'pioggia tutto il giorno'], ['風が とても 強い', 'vento fortissimo'], ['くもりで 寒い', 'nuvoloso e freddo']], giusta: 0, spiega: 'やむ = smettere (pioggia); 風が 少し ある = c’è un po’ di vento: «つよい» sarebbe una trappola.' }
+	},
+	29: {
+		famiglia: [
+			{ dice: 'mamma', ja: 'かしわもち、おいしかった？ 来年も 作るわね。', it: 'Buoni i kashiwa-mochi? Li rifaccio l’anno prossimo.' },
+			{ dice: 'papa', ja: 'あしたで ゴールデンウィークも 終わりか。早いなあ。', it: 'Domani finisce anche la Golden Week. Come vola il tempo.' }
+		],
+		meteo: { ja: 'あしたは くもりですが、雨は ふらないでしょう。夜から 少し 寒く なります。', it: 'Domani nuvoloso, ma non dovrebbe piovere. Dalla sera un po’ più freddo.', domanda: 'あしたの 夜は どう なりますか。', domandaIt: 'Domani sera come sarà?', opzioni: [['少し 寒く なる', 'un po’ più freddo'], ['雨が ふる', 'pioverà'], ['あつく なる', 'farà caldo'], ['はれる', 'sereno']], giusta: 0, spiega: '「雨は ふらないでしょう」 esclude la pioggia; 「夜から 少し 寒く なります」 risponde.' }
+	},
+	30: {
+		famiglia: [
+			{ dice: 'mamma', ja: 'あしたから また 会社ね。おべんとう、作って おくわ。', it: 'Da domani di nuovo in ufficio. Ti preparo il bentō.' },
+			{ dice: 'papa', ja: '休みの あとは ねむいけど、がんばろう。', it: 'Dopo le vacanze si ha sonno, ma diamoci da fare.' }
+		],
+		meteo: { ja: 'あしたは はれて、あたたかい 一日に なるでしょう。会社や 学校が 始まる 人も、いい 天気で 出かけられそうです。', it: 'Domani sereno, una giornata mite. Chi riprende lavoro o scuola uscirà col bel tempo.', domanda: 'あしたは どんな 一日ですか。', domandaIt: 'Che giornata sarà domani?', opzioni: [['はれて あたたかい', 'sereno e mite'], ['雨で 寒い', 'pioggia e freddo'], ['くもりで 風が 強い', 'nuvoloso e ventoso'], ['ゆき', 'neve']], giusta: 0, spiega: '〜られそう = sembra che si potrà (potenziale + そう). あたたかい = mite.' }
 	}
 };
 
@@ -212,6 +233,15 @@ const MATTINE: Record<number, Passo[]> = {
 	23: [
 		{ dice: 'papa', ja: '今日は しゅくじつだから、町は 着物を きた 人が 多いかも しれないね。', it: 'Oggi è festa, in città forse ci sarà tanta gente in kimono.' },
 		{ dice: 'mamma', ja: 'わたしも わかい ころは よく 着物を きたのよ。', it: 'Anch’io da giovane mettevo spesso il kimono.' }
+	],
+	28: [
+		{ dice: 'mamma', ja: '{nome}さん、かさを 持って 行きなさい。くつが ぬれないように、ながぐつも あるわよ。', it: '{nome}, prendi l’ombrello. Ci sono anche gli stivali di gomma, così non ti bagni le scarpe.' }
+	],
+	29: [
+		{ dice: 'papa', ja: 'わたしが 子どもの ころは、こいのぼりを 自分で 作ったんだよ。', it: 'Da bambino le carpe di stoffa me le facevo da solo.' }
+	],
+	30: [
+		{ dice: 'mamma', ja: 'きのうの かしわもち、まだ のこって いるわよ。朝ごはんに 食べる？', it: 'Sono rimasti dei kashiwa-mochi di ieri. Li mangi a colazione?' }
 	]
 };
 export const mattino = (): Passo[] => Object.entries(MATTINE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: passi }));
@@ -250,6 +280,13 @@ const NOTIZIE: Record<number, Passo[]> = {
 	23: [
 		{ dice: 'tv', ja: 'びじゅつかんで きょう、「えが ぬすまれた」と さわぎに なりましたが、じつは かいた 人が 運んで いた ことが わかりました。', it: 'Oggi al museo c’è stato scompiglio per un «quadro rubato», ma si è scoperto che l’aveva portato via la pittrice stessa.' },
 		{ io: 'あ、うちの じけんだ！', it: 'Ah, è il nostro caso!' }
+	],
+	28: [
+		{ dice: 'tv', ja: 'ゴールデンウィークの 間、山野駅で すりが つづいて います。けいさつは 「こんで いる 電車では、かばんを 前に 持って ください」と 言って います。', it: 'Durante la Golden Week continuano i borseggi alla stazione di Yamano. La polizia raccomanda: «Sui treni affollati tenete la borsa davanti».' },
+		{ domanda: { ja: 'けいさつは 何を するように 言って いますか。', it: 'Cosa raccomanda la polizia?', opzioni: [{ ja: 'かばんを 前に 持つ', it: 'tenere la borsa davanti' }, { ja: '電車に 乗らない', it: 'non prendere il treno' }, { ja: 'さいふを 家に おく', it: 'lasciare il portafoglio a casa' }, { ja: '駅に 電話する', it: 'telefonare alla stazione' }], giusta: 0, spiega: '〜ように 言う = dire di fare (richiesta riportata). つづく = continuare.' } }
+	],
+	30: [
+		{ dice: 'tv', ja: 'ゴールデンウィークの さいごの 日、こうそくどうろは 東京へ 帰る 車で こんで います。あしたの 朝まで こむでしょう。', it: 'Ultimo giorno della Golden Week: l’autostrada è piena di auto che rientrano a Tokyo. Traffico fino a domattina.' }
 	]
 };
 export const notizie = (): Passo[] => Object.entries(NOTIZIE).map(([g, passi]) => ({ se: { giorno: Number(g) }, allora: [{ narra: 'つづいて、ニュースです。', it: 'Segue il telegiornale.' }, ...tg(passi)] }));

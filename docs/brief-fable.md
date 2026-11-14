@@ -22,34 +22,13 @@ Prima di tutto leggere: `CLAUDE.md` (regole del progetto), `docs/giallo-guida.md
 
 ---
 
-## A. Missione 5
+## A. Missione 6
 
-**Obiettivo**: scrivere la M5 del giallo, dopo 「美術館の じけん」 (M4, giorni 21-23).
-Le missioni durano tre giorni, una a settimana (M1 giorni 0-2, M2 7-9, M3 14-16, M4
-21-23): la M5 cadrebbe nei giorni 28-30, cioè 4-6 maggio, tutti festivi (Golden Week:
-`FESTIVI` in `src/lib/jiken/calendario.ts`). Si può usare (una gita, niente ufficio)
-o spostarla alla settimana dopo (giorni 35-37): deciderlo con Lorenzo.
-
-**Prima**: proporre a Lorenzo la trama (5-10 righe: il caso, chi è coinvolto, gli
-indizi, la soluzione) e aspettare l'ok. Idee e vincoli in `docs/giallo-guida.md`,
-sezione 5 «Prossimi capitoli».
-
-**Come**:
-- File nuovo `src/lib/jiken/missioni/m5.ts` sul modello di `m4.ts`; registrarla in
-  `ORDINE` (`src/routes/jiken/+page.svelte`) e nelle liste dei test.
-- Ogni `obiettivo` deve avere il suo `completa`; una sola scena `ripiego: true`
-  (la rete di sicurezza: il caso si chiude senza il giocatore). I test lo controllano.
-- Appuntamenti: `obiettivo` con `quando: { dopo, dalle, alle }` (compare nel calendario).
-- Sere: `...serata()` in testa alla cena; mattine: `...mattino()` (in `missioni/comune.ts`;
-  aggiungere le voci per i giorni nuovi: famiglia, meteo con domanda d'ascolto, TG).
-- Usare i personaggi secondari **dove stanno** (tabella `DOVE` in `mondo.ts`) e far
-  avanzare le loro sotto-trame (stato in `docs/giallo-personaggi.md`).
-- Domande d'esame nel testo (`domanda`), con `spiega`; almeno un `avviso` (情報検索).
-- **Copertura**: inserire parole N4 ancora mancanti (`npm run jiken:copertura`, poi
-  `docs/giallo-copertura.md`, sezione «N4 mancanti»). Rigenerare il report alla fine.
-- Ritratti nuovi: dare a Lorenzo i prompt (schema in `docs/prompt-immagini.md`); le
-  immagini si elaborano con `scripts/immagini/elabora.cjs` (`scarica`, `ritratto`, `bocca`).
-- L'esploratore (`esploratore.test.ts`) gioca migliaia di partite a caso: deve passare.
+(La M5 «ゴールデンウィークの すり» è fatta: giorni 28-30, vedi `docs/giallo-guida.md`.)
+Per la M6 vale tutto quello scritto per le missioni nella guida: proporre prima la trama a
+Lorenzo; giorni 35-37 (settimana normale, con l'ufficio); stesse regole (obiettivi col
+loro `completa`, una scena `ripiego`, `serata()`/`mattino()`, personaggi dove stanno, parole
+N4 mancanti, esploratore verde).
 
 ---
 

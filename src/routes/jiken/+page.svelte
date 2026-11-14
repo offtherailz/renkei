@@ -19,6 +19,7 @@
 	import { M2 } from '$lib/jiken/missioni/m2';
 	import { M3 } from '$lib/jiken/missioni/m3';
 	import { M4 } from '$lib/jiken/missioni/m4';
+	import { M5 } from '$lib/jiken/missioni/m5';
 	import { UI } from '$lib/jiken/ui';
 	import { ICONA_TEMPO, tempo } from '$lib/jiken/meteo';
 	import * as suono from '$lib/jiken/suoni';
@@ -29,7 +30,7 @@
 	import { livelli, manca, nuoviTimbri, percento, registraRisposta, risultato, stelle, timbri, unisci, valore, livello, type Risultato, type Totali } from '$lib/jiken/punteggio';
 	import type { Lingua, LuogoId, Missione, Opzione, Passo, Stato, Testo } from '$lib/jiken/tipi';
 
-	const ORDINE: Missione[] = [M1, M2, M3, M4];
+	const ORDINE: Missione[] = [M1, M2, M3, M4, M5];
 	const MISSIONI: Record<string, Missione> = Object.fromEntries(ORDINE.map((m) => [m.id, m]));
 	const dopo = (id: string): Missione | null => ORDINE[ORDINE.findIndex((m) => m.id === id) + 1] ?? null;
 	const SALVA = 'renkei_jiken';

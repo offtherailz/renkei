@@ -10,12 +10,13 @@ import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
 import { M4 } from './missioni/m4';
+import { M5 } from './missioni/m5';
 import { UI } from './ui';
 import { PREMI, paroleGioco } from './giochi';
 import { inKana, lettureKanji } from './voce';
 import type { Passo, Testo } from './tipi';
 
-const MISSIONI = [M1, M2, M3, M4];
+const MISSIONI = [M1, M2, M3, M4, M5];
 
 function testiPassi(ps: Passo[], out: string[]): void {
 	for (const p of ps) {

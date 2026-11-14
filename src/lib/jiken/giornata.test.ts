@@ -8,6 +8,7 @@ import { M1 } from './missioni/m1';
 import { M2 } from './missioni/m2';
 import { M3 } from './missioni/m3';
 import { M4 } from './missioni/m4';
+import { M5 } from './missioni/m5';
 import { apertura, avanza, hhmm, nuovoStato, opzioniSoldi, prendiTreno, scenaPer, STAZIONI, TARDI, viaggia, VIAGGIO } from './motore';
 import type { LuogoId, Missione, Passo, Stato } from './tipi';
 
@@ -62,7 +63,7 @@ function gioca(m: Missione, scegli: number): { log: string[]; tappe: Tappa[]; fi
 
 const h = (o: number, mi = 0): number => o * 60 + mi;
 describe('事件: la giornata di un giocatore diligente', () => {
-	for (const m of [M1, M2, M3, M4]) {
+	for (const m of [M1, M2, M3, M4, M5]) {
 		it(`${m.id}: giornate credibili`, () => {
 			const { log, tappe, finita } = gioca(m, 0);
 			if (process.env.TEMPI) console.log(`\n=== ${m.id}\n${log.join('\n')}`);

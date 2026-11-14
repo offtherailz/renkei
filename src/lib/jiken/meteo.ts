@@ -21,7 +21,10 @@ export const GIORNI_METEO: Record<number, [number, Tempo][]> = {
 	25: [[0, 'sereno']],
 	26: [[0, 'sereno']],
 	27: [[0, 'pioggia']], // «そのあと 雨の 日が つづく»
-	28: [[0, 'pioggia']]
+	28: [[0, 'pioggia']],
+	29: [[0, 'sereno'], [h(14), 'vento']], // «雨が やんで はれる。風が 少し»
+	30: [[0, 'nuvoloso']], // «くもりですが、雨は ふらない»
+	31: [[0, 'sereno']] // «はれて、あたたかい»
 };
 
 export function tempo(giorno: number, minuti: number): Tempo {

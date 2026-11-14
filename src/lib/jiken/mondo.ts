@@ -230,7 +230,9 @@ export const PERSONAGGI: Record<string, Personaggio> = {
 	aoki: { nome: '青木[あおき]さん', sprite: 'pittrice', voce: 'F', yomi: 'あおきさん', chi: { ja: 'えを かく 人。「さくらと ねこ」の えを かきました。', it: 'Pittrice: ha dipinto il quadro «Sakura e gatto».' } },
 	kobayashi: { nome: '小林[こばやし]さん', sprite: 'curatore', voce: 'M', yomi: 'こばやしさん', chi: { ja: 'びじゅつかんの かかりの 人。いつも いそがしいです。', it: 'Il curatore del museo. Sempre indaffarato.' } },
 	guardia: { nome: 'けいびの 人', sprite: 'custode', voce: 'F', yomi: 'けいびの ひと', chi: { ja: 'びじゅつかんの けいびの 人。', it: 'La guardia del museo.' } },
-	pulizie: { nome: 'そうじの 人', sprite: 'addetta_pulizie', voce: 'F', yomi: 'そうじの ひと', chi: { ja: 'びじゅつかんを そうじする わかい 女の 人。いつも 元気です。', it: 'La giovane addetta alle pulizie del museo. Sempre allegra.' } }
+	pulizie: { nome: 'そうじの 人', sprite: 'addetta_pulizie', voce: 'F', yomi: 'そうじの ひと', chi: { ja: 'びじゅつかんを そうじする わかい 女の 人。いつも 元気です。', it: 'La giovane addetta alle pulizie del museo. Sempre allegra.' } },
+	// missione 5 (ゴールデンウィークの すり)
+	suri: { nome: 'スーツケースの 男', sprite: 'padrone', voce: 'M', yomi: 'スーツケースの おとこ', chi: { ja: 'ゴールデンウィークに 山野駅で すりを して いた おじいさん。', it: 'Il signore anziano che durante la Golden Week borseggiava alla stazione di Yamano.' } }
 };
 
 export const OGGETTI: Record<string, { it: string; ja: string }> = {
@@ -247,8 +249,9 @@ export const OGGETTI: Record<string, { it: string; ja: string }> = {
 	scontrino_copie: { it: 'scontrino delle fotocopie (konbini, 19:30)', ja: 'コピーの レシート' },
 	cartellina: { it: 'il documento per il cliente', ja: '資料[しりょう]' },
 	carta_ic2: { it: 'carta IC', ja: 'ICカード' },
-	memo_aoki: { it: 'il biglietto di Aoki (dietro il cartello)', ja: '青木[あおき]さんの メモ' }
+	memo_aoki: { it: 'il biglietto di Aoki (dietro il cartello)', ja: '青木[あおき]さんの メモ' },
+	jikokuhyo: { it: 'l’orario dei treni di Yamano', ja: '山野駅の 時こくひょう' }
 };
 // icone degli oggetti (static/giorno/oggetti); quelli senza disegno usano un'emoji
-const ICONA_FILE: Record<string, string> = { busta: 'lettera', scontrino_copie: 'scontrino', memo_aoki: 'lettera' };
+const ICONA_FILE: Record<string, string> = { busta: 'lettera', scontrino_copie: 'scontrino', memo_aoki: 'lettera', jikokuhyo: 'lettera' };
 export const iconaOggetto = (id: string): string => ICONA_FILE[id] ?? id;

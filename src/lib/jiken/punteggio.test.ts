@@ -67,8 +67,9 @@ describe('事件: risultato delle missioni', () => {
 		const { M2 } = await import('./missioni/m2');
 		const { M3 } = await import('./missioni/m3');
 		const { M4 } = await import('./missioni/m4');
+		const { M5 } = await import('./missioni/m5');
 		const mai: string[] = [];
-		for (const m of [M1, M2, M3, M4]) {
+		for (const m of [M1, M2, M3, M4, M5]) {
 			const fatti = new Set<string>();
 			const giro = (ps: Passo[]): void => {
 				for (const p of ps) {
@@ -85,7 +86,7 @@ describe('事件: risultato delle missioni', () => {
 	});
 
 	it('ogni missione ha la sua rete di sicurezza (ripiego) per «risolto da altri»', async () => {
-		for (const f of ['m1', 'm2', 'm3', 'm4']) {
+		for (const f of ['m1', 'm2', 'm3', 'm4', 'm5']) {
 			const mod = (await import(`./missioni/${f}.ts`)) as Record<string, Missione>;
 			const m = Object.values(mod)[0]!;
 			expect(m.scene.filter((sc) => sc.ripiego).length, m.id).toBe(1);
