@@ -8,7 +8,8 @@ Prima di tutto leggere: `CLAUDE.md` (regole del progetto), `docs/giallo-guida.md
 
 - **Commit** solo con `--author="Lorenzo Natali <offtherailz@gmail.com>"`, senza
   Co-Authored-By né attribuzioni. **Deploy solo se Lorenzo lo chiede.**
-- **Non toccare** `src/lib/core/srs.test.ts` (test che fallisce per una modifica di Lorenzo).
+- **Non toccare** `src/lib/core/srs.test.ts`: ha 1 fallimento atteso, spiegato in `CLAUDE.md`
+  («Test noti che falliscono»). Non è una regressione.
 - **Password delle prove d'esame**: mai scritta in file, commit o memoria. Si usa
   solo in una variabile d'ambiente nel comando che cifra (`CORSO_PASSWORD=… bash corsi/prepara-prove.sh`).
   I file in `corsi/` sono privati (gitignored): niente del loro contenuto nel repo.

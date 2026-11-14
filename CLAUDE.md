@@ -13,6 +13,14 @@ App di studio giapponese N5/N4 (SvelteKit 2 + Svelte 5 runes, Dexie, adapter-sta
    - Ogni ambiente ha DB IndexedDB isolato (`_dev`/`_staging`/prod) e base-path proprio: dev/staging non toccano lo studio reale.
    - Dopo prod: verificare `gh run list` → conclusion `success` (se Pages fallisce in modo transitorio: `npm run deploy` di nuovo).
 
+## Test noti che falliscono (non correggerli senza chiedere)
+
+- `src/lib/core/srs.test.ts` › «applyPracticeReview › muove solo il mastery, non stage né data di ripasso»:
+  `expected 17 to be 19`. In `src/lib/core/srs.ts` la pratica dà **+4** per una risposta giusta
+  (−6 per una sbagliata, scelta di Lorenzo), mentre il test si aspetta ancora **+6**. Il codice è
+  quello voluto; il test va allineato (+4) **solo se Lorenzo lo conferma**. Fino ad allora `npx vitest run`
+  completo ha questo 1 fallimento atteso: non è una regressione, e non va «sistemato» cambiando il codice.
+
 ## Non dimenticare quando aggiungi una FEATURE
 
 - [ ] **Link di ingresso**: home (gruppo giusto: Studia / Attività / Cataloghi / Altro) e/o `/giochi` (gruppo giusto) e/o `/avventure`.
