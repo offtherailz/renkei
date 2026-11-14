@@ -16,6 +16,7 @@ import type { Word } from '$lib/types/models';
 import type { PoolItem } from './esame-n4-prova';
 import { isInLevel } from './kanjiN4';
 import iikaeRaw from '../../../scripts/data/iikae-n5n4.json';
+import { proveLibri } from './esame-n4-libri';
 
 interface IikaeItem { livello: string; frase: string; marcata: string; parola: string; opzioni: string[]; traduzione?: string }
 
@@ -118,8 +119,18 @@ function similarWritings(writing: string, pool: string[], similarKanji: (c: stri
 	return [...out];
 }
 
-// Genera domande dal catalogo. Cache in memoria (una volta per sessione).
+// Domande in più per la sezione JLPT: quelle generate dal dizionario e le prove
+// scritte dei libri (se caricate sul dispositivo: db.course_giorno).
 export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
+	const out: Record<string, PoolItem[]> = {};
+	for (const [k, v] of Object.entries(await dalDizionario())) out[k] = [...v];
+	const righe = await db.course_giorno.where('tipo').anyOf(['moji', 'goi', 'bunpou']).toArray().catch(() => []);
+	for (const [k, v] of Object.entries(proveLibri(righe))) out[k] = [...(out[k] ?? []), ...v];
+	return out;
+}
+
+// Genera domande dal catalogo. Cache in memoria (una volta per sessione).
+async function dalDizionario(): Promise<Record<string, PoolItem[]>> {
 	if (cache) return cache;
 	const out: Record<string, PoolItem[]> = { bunmyaku: [], hyoki: [], 'kanji-yomi': [], iikae: [], yoho: [] };
 	try {

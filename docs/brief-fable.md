@@ -83,17 +83,4 @@ perché la risposta è giusta e cosa vogliono dire le opzioni sbagliate.
 `static/prove-esame-n4.cifrato.json`. Cominciare dalle 15 domande `jlpt-12-v-20…34`
 (Lorenzo ha una trascrizione con le spiegazioni di tutte le opzioni).
 
----
-
-## D. Prove dei libri nella sezione JLPT
-
-**Obiettivo**: le domande scritte delle prove (caricate sul dispositivo in
-`db.course_giorno`) anche negli esercizi per 問題 della sezione JLPT (`/esame/[slug]`).
-
-**Come**: in `src/lib/data/esame-n4-genera.ts` c'è già `generaDaCatalogo()` che
-restituisce domande extra per slug; aggiungere una funzione che legge
-`db.course_giorno` e mappa per consegna (`titolo`): 「ひらがなで どう かきますか」 →
-`kanji-yomi`, 「どう かきますか」 → `hyoki`, 「（　）に なにを いれますか」 → `bunmyaku`
-(tipo goi) o `bunpou` (tipo bunpou), 「おなじ いみ」 → `iikae`, 「つかいかた」 → `yoho`,
-★ → `kumitate`. Niente ascolto e lettura per ora. Se le prove non sono caricate, nulla
-cambia. Test vitest sulla mappatura.
+(Il lavoro «prove dei libri nella sezione JLPT» è già fatto: `src/lib/data/esame-n4-libri.ts`.)
