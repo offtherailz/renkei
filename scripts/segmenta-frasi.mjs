@@ -182,6 +182,20 @@ export async function creaSegmentatore() {
 	function ricomposti(pezzo, profondita = 0) {
 		const a = grezzi(pezzo);
 		if (profondita > 6) return a;
+		// inizio pezzo con un kana solo (る|す|の, じ|ぶん|で): se il pezzo comincia con
+		// una parola del catalogo seguita da particella/copula/fine, è quella parola
+		if (a.length > 1 && a[0].s.length === 1 && KANA.test(a[0].s)) {
+			for (let len = Math.min(LUNGHEZZA_MAX, pezzo.length); len >= 2; len -= 1) {
+				const parola = pezzo.slice(0, len);
+				if (!perLunghezza.get(len)?.has(parola)) continue;
+				const resto = pezzo.slice(len);
+				if (resto && !/^([はがをにでとのもへや][はもの]?|です.*|でし.*|だ.*|から|まで|より|じゃ.*|さん.*|くん.*|ちゃん.*|たち.*)?[、。！？!?…」』）)]*$/.test(resto)) continue;
+				return [
+					{ s: parola, pos: '名詞', pos_detail_1: '一般', basic_form: parola, conjugated_form: '*', unito: true },
+					...(resto ? ricomposti(resto, profondita + 1).map((x, k) => (k === 0 && /^[はがをにでとのもへや]$/.test(x.s) ? { ...x, pos: '助詞', pos_detail_1: '格助詞' } : x)) : [])
+				];
+			}
+		}
 		for (let i = 0; i < a.length; i += 1) {
 			const t = a[i];
 			if (!sospetto(t, i)) continue;
@@ -272,12 +286,15 @@ export async function creaSegmentatore() {
 
 	function gruppi(testo) {
 		const out = [];
-		for (const pezzo of testo.split(/[\s　]+/).filter(Boolean)) {
+		// dopo la punteggiatura comincia sempre un pezzo nuovo: si analizza a parte,
+		// così le regole di «inizio pezzo» valgono anche dopo una virgola
+		for (const pezzo of testo.split(/[\s　]+|(?<=[、。！？!?…]+)(?![、。！？!?…」』）)])/).filter(Boolean)) {
 			let prev = null;
 			let cur = null;
 			const ms = morfemi(pezzo);
 			// «あね が»: un pezzo tra spazi fatto solo di particelle sta con la parola prima
-			if (out.length && PARTICELLA.test(ms[0].pos) && ms.slice(1).every((t) => CHIUDE.test(t.s))) {
+			const prima = out[out.length - 1];
+			if (prima && !CHIUDE.test(prima[prima.length - 1].s) && PARTICELLA.test(ms[0].pos) && ms.slice(1).every((t) => CHIUDE.test(t.s))) {
 				out[out.length - 1].push(...ms);
 				continue;
 			}
@@ -438,6 +455,38 @@ export function frasiDelSeed(seed) {
 	return [...out];
 }
 
+// Frasi scritte nel codice (avventure, esame, giochi, pagine): ogni stringa
+// giapponese dei sorgenti, intera, così come arriva alle frasi cliccabili.
+const CARTELLE_CODICE = ['src/lib', 'src/routes'];
+function file(dir) {
+	return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+		const p = path.join(dir, e.name);
+		if (e.isDirectory()) return file(p);
+		return /\.(ts|svelte|json)$/.test(e.name) && !/\.test\.ts$/.test(e.name) ? [p] : [];
+	});
+}
+export function frasiDelCodice() {
+	const out = new Set();
+	for (const dir of CARTELLE_CODICE) {
+		for (const f of file(path.join(ROOT, dir))) {
+			const txt = fs.readFileSync(f, 'utf8');
+			for (const m of txt.matchAll(/(["'`])((?:\\.|(?!\1)[^\\\n])*)\1/g)) {
+				let lit = m[2];
+				if (m[1] === '`' && lit.includes('${')) continue;
+				lit = lit.replace(/\\(['"`])/g, '$1');
+				if (lit.includes('\\') || /[|·<>{}]/.test(lit)) continue;
+				const plain = senzaFurigana(lit).trim();
+				if (plain.length > 200 || !/[ぁ-ん]/.test(plain)) continue;
+				const jp = (plain.match(/[ぁ-んァ-ヶ一-龯々]/g) || []).length;
+				// almeno un pezzo di frase: fuori le parole singole e il testo misto italiano
+				if (jp < 5 || jp / plain.length < 0.6) continue;
+				out.add(plain);
+			}
+		}
+	}
+	return [...out];
+}
+
 const compatta = (s) => s.replace(/[\s　|·]+/g, '');
 
 async function main() {
@@ -445,7 +494,11 @@ async function main() {
 	const seg = await creaSegmentatore();
 	const seed = JSON.parse(fs.readFileSync(SEED, 'utf8'));
 	const correzioni = fs.existsSync(CORREZIONI) ? JSON.parse(fs.readFileSync(CORREZIONI, 'utf8')) : {};
-	const frasi = frasiDelSeed(seed);
+	const delSeed = frasiDelSeed(seed);
+	const giaViste = new Set(delSeed.map(compatta));
+	// stessa frase con spazi diversi: basta una voce (l'app confronta senza spazi)
+	const delCodice = frasiDelCodice().filter((f) => !giaViste.has(compatta(f)) && giaViste.add(compatta(f)));
+	const frasi = [...delSeed, ...delCodice];
 	const out = {};
 	const daRivedere = [];
 	let corrette = 0;
@@ -470,7 +523,7 @@ async function main() {
 	const orfane = Object.keys(correzioni).filter((k) => !usate.has(k));
 	const righe = Object.entries(out).map(([k, v]) => `${JSON.stringify(k)}:${JSON.stringify(v)}`);
 	fs.writeFileSync(OUT, `{"versione":1,"etichette":${JSON.stringify(ETICHETTE)},"frasi":{\n${righe.join(',\n')}\n}}\n`);
-	console.log(`frasi ${frasi.length}, corrette a mano ${corrette}, dubbie ${daRivedere.length}, correzioni orfane ${orfane.length}`);
+	console.log(`frasi ${frasi.length} (seed ${delSeed.length}, codice ${delCodice.length}), corrette a mano ${corrette}, dubbie ${daRivedere.length}, correzioni orfane ${orfane.length}`);
 	console.log(`scritto ${path.relative(ROOT, OUT)} (${(fs.statSync(OUT).size / 1024).toFixed(0)} KB)`);
 	if (rivedi) {
 		fs.writeFileSync(DA_RIVEDERE, daRivedere.join('\n') + '\n');
