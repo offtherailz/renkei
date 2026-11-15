@@ -2,6 +2,7 @@
 // frasi interattive. Caricato una volta da Dexie, cache in memoria.
 
 import { db } from '../db/schema';
+import { formePerToken, type FormaLink } from './formeLink';
 
 export interface WordHit {
 	id: string;
@@ -111,6 +112,18 @@ const GODAN_POT_BACK: Record<string, string> = {
 // candidato è un aggettivo (accettato anche se non è un verbo).
 function deconjugate(t: string): { candidates: string[]; forma: string; adj?: boolean }[] {
 	const out: { candidates: string[]; forma: string; adj?: boolean }[] = [];
+	// forme costruite sulla forma in た/て: 行ったら → 行った, 見たり → 見た,
+	// 降っても → 降って (la coda si toglie e si deconiuga il resto)
+	const sopraTeTa: [RegExp, string, string][] = [
+		[/([ただ])ら$/, '$1', 'condizionale (〜たら)'],
+		[/([ただ])り$/, '$1', 'elenco di azioni (〜たり)'],
+		[/([てで])も$/, '$1', 'anche se (〜ても)'],
+		[/([てで])から$/, '$1', 'dopo aver (〜てから)']
+	];
+	for (const [re, resto, forma] of sopraTeTa) {
+		if (!re.test(t) || t.length < 3) continue;
+		for (const d of deconjugate(t.replace(re, resto))) out.push({ ...d, forma });
+	}
 	// aggettivi in い: 速く→速い, 高かった→高い, 寒くない→寒い, 安くて→安い
 	const adjForms: [string, string][] = [
 		['くなかった', 'negativa passata (〜くなかった)'],
@@ -203,6 +216,8 @@ function deconjugate(t: string): { candidates: string[]; forma: string; adj?: bo
 	} else if ((t.endsWith('て') || t.endsWith('た')) && t.length >= 2) {
 		out.push({ candidates: [t.slice(0, -1) + 'る'], forma: FORMA_TETA }); // ichidan
 	}
+	// radice da sola, ultima spiaggia: とどけ に 行く → とどける, 買い に 行く → 買う
+	if (t.length >= 2 && out.length === 0) out.push({ candidates: fromMasuStem(t), forma: 'radice (forma ます senza ます)' });
 	return out;
 }
 
@@ -390,9 +405,9 @@ export function jishoUrl(q: string): string {
 export async function analyzeSentence(
 	plain: string,
 	locale: 'it' | 'en' = 'it'
-): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
-	const { createDefaultTokenizer } = await import('./tokenizer');
-	const [tok, idx] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(locale)]);
+): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
+	const { createDefaultTokenizer, segmentiDellaFrase } = await import('./tokenizer');
+	const [tok, idx, seg] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(locale), segmentiDellaFrase(plain)]);
 	const tokens = splitGrammarTails(mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s)));
 	const hits = tokens.map((t, i) => {
 		if (!/[ぁ-んァ-ヶ一-龯々]/.test(t)) return null;
@@ -400,7 +415,7 @@ export async function analyzeSentence(
 		const forma = hit ? grammarTailLabel(t) : null;
 		return hit && forma ? { ...hit, forma } : hit;
 	});
-	return { tokens, hits };
+	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette) };
 }
 
 // BudouX incolla わけ/はず al verbo (いうわけではない → un solo token, letto come
@@ -498,13 +513,14 @@ function segmentaParola(s: string, map: Map<string, WordHit>): string[] {
 
 // Come analyzeSentence, ma per testi con gli spazi tra i gruppi: si divide
 // dentro ogni gruppo col dizionario (segmentaGruppo); lo spazio resta un token.
-export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
-	const idx = await ensureWordIndex(locale);
+export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
+	const { segmentiDellaFrase } = await import('./tokenizer');
+	const [idx, seg] = await Promise.all([ensureWordIndex(locale), segmentiDellaFrase(plain)]);
 	const tokens: string[] = [];
 	for (const g of plain.split(/([ 　]+)/).filter(Boolean)) {
 		if (/^[ 　]+$/.test(g)) tokens.push(' ');
 		else tokens.push(...segmentaGruppo(g, idx));
 	}
 	const hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
-	return { tokens, hits };
+	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette, (t) => /[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t)) };
 }

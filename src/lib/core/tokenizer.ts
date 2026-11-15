@@ -57,20 +57,35 @@ export class FallbackJapaneseTokenizer implements JapaneseTokenizer {
 // L'URL lo imposta il layout (qui niente $app/paths: il modulo resta puro);
 // senza URL, o se il file non si carica, si usa solo BudouX.
 
-type SegmentiFile = { frasi: Record<string, [string, ...unknown[]]> };
+type SegmentiFile = {
+  etichette?: Record<string, string>;
+  frasi: Record<string, [string, Record<string, string[]>?]>;
+};
+
+// pezzi di una frase a catalogo e, pezzo per pezzo, i codici delle forme
+// grammaticali riconosciute (te-iru, masen, passivo… vedi core/formeLink.ts)
+export interface FraseSegmentata {
+  pezzi: string[];
+  forme: string[][];
+}
+export interface Segmenti {
+  frasi: Map<string, FraseSegmentata>;
+  etichette: Record<string, string>;
+}
 
 const compatta = (s: string): string => s.replace(/[\s\u3000\u200B]+/g, "");
 
-export function parseSegmenti(file: SegmentiFile): Map<string, string[]> {
-  const map = new Map<string, string[]>();
-  for (const [frase, [seg]] of Object.entries(file.frasi)) {
-    map.set(compatta(frase), seg.replace(/·/g, "").split("|"));
+export function parseSegmenti(file: SegmentiFile): Segmenti {
+  const frasi = new Map<string, FraseSegmentata>();
+  for (const [frase, [seg, forme]] of Object.entries(file.frasi)) {
+    const pezzi = seg.replace(/·/g, "").split("|");
+    frasi.set(compatta(frase), { pezzi, forme: pezzi.map((_p, i) => forme?.[i] ?? []) });
   }
-  return map;
+  return { frasi, etichette: file.etichette ?? {} };
 }
 
 let segmentiUrl: string | null = null;
-let segmentiPromise: Promise<Map<string, string[]> | null> | null = null;
+let segmentiPromise: Promise<Segmenti | null> | null = null;
 
 export function configureSegmenti(url: string | null): void {
   if (url === segmentiUrl) return;
@@ -78,7 +93,7 @@ export function configureSegmenti(url: string | null): void {
   segmentiPromise = null;
 }
 
-function loadSegmenti(): Promise<Map<string, string[]> | null> {
+export function loadSegmenti(): Promise<Segmenti | null> {
   if (!segmentiUrl) return Promise.resolve(null);
   const url = segmentiUrl;
   segmentiPromise ??= fetch(url)
@@ -92,15 +107,30 @@ function loadSegmenti(): Promise<Map<string, string[]> | null> {
   return segmentiPromise;
 }
 
+// La frase segmentata (pezzi + forme) se è a catalogo, con le etichette delle forme.
+export async function segmentiDellaFrase(text: string): Promise<{ frase: FraseSegmentata | null; etichette: Record<string, string> }> {
+  const segmenti = await loadSegmenti();
+  return { frase: segmenti?.frasi.get(compatta(text)) ?? null, etichette: segmenti?.etichette ?? {} };
+}
+
 export class SegmentedJapaneseTokenizer implements JapaneseTokenizer {
   constructor(
-    private readonly segmenti: Map<string, string[]>,
+    private readonly segmenti: Segmenti,
     private readonly fallback: JapaneseTokenizer
   ) {}
 
   tokenize(text: string): string[] {
-    const pezzi = this.segmenti.get(compatta(text));
-    return pezzi ? [...pezzi] : this.fallback.tokenize(text);
+    const frase = this.segmenti.frasi.get(compatta(text));
+    return frase ? [...frase.pezzi] : this.fallback.tokenize(text);
+  }
+
+  // forme grammaticali della frase, se è a catalogo
+  frase(text: string): FraseSegmentata | null {
+    return this.segmenti.frasi.get(compatta(text)) ?? null;
+  }
+
+  get etichette(): Record<string, string> {
+    return this.segmenti.etichette;
   }
 }
 

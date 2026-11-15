@@ -248,3 +248,37 @@ describe('splitGrammarTails', () => {
 		expect(splitGrammarTails(['いいわけです'])).toEqual(['いいわけです']);
 	});
 });
+
+describe('lookupToken: forme sopra て/た e radice da sola', () => {
+	const map = mapOf([
+		hit('行く', '行く', 'いく', '動詞[どうし]'),
+		hit('食べる', '食べる', 'たべる', '動詞[どうし]'),
+		hit('読む', '読む', 'よむ', '動詞[どうし]'),
+		hit('降る', '降る', 'ふる', '動詞[どうし]'),
+		hit('届ける', '届ける', 'とどける', '動詞[どうし]'),
+		hit('買う', '買う', 'かう', '動詞[どうし]'),
+		hit('話', '話', 'はなし')
+	]);
+
+	it('行ったら → 行く, condizionale (bug: «行ったら» restava fuori catalogo)', () => {
+		const r = lookupToken(map, '行ったら');
+		expect(r?.id).toBe('行く');
+		expect(r?.forma).toBe('condizionale (〜たら)');
+	});
+
+	it('たり, ても, てから su verbi godan e ichidan', () => {
+		expect(lookupToken(map, '読んだり')).toMatchObject({ id: '読む', forma: 'elenco di azioni (〜たり)' });
+		expect(lookupToken(map, '食べたら')).toMatchObject({ id: '食べる', forma: 'condizionale (〜たら)' });
+		expect(lookupToken(map, '降っても')).toMatchObject({ id: '降る', forma: 'anche se (〜ても)' });
+		expect(lookupToken(map, '食べてから')).toMatchObject({ id: '食べる', forma: 'dopo aver (〜てから)' });
+	});
+
+	it('radice da sola (とどけ に 行く, 買い に 行く) trova il verbo', () => {
+		expect(lookupToken(map, 'とどけ')).toMatchObject({ id: '届ける', forma: 'radice (forma ます senza ます)' });
+		expect(lookupToken(map, '買い')).toMatchObject({ id: '買う' });
+	});
+
+	it('un nome che è già a catalogo non diventa un verbo', () => {
+		expect(lookupToken(map, 'はなし')?.id).toBe('話');
+	});
+});

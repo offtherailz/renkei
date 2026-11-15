@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
 	import { analyzeSentence, analyzeSpaced, isCoda, jishoUrl, tokenFurigana, type WordHit } from '$lib/core/wordLookup';
+	import type { FormaLink } from '$lib/core/formeLink';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
@@ -21,6 +22,8 @@
 	const plain = $derived(stripFuriganaNotation(text));
 	let tokens = $state<string[]>([]);
 	let hits = $state<(WordHit | null)[]>([]);
+	// forme grammaticali del token (ている, ません, passivo…) con link alla scheda, se c'è
+	let forme = $state<FormaLink[][]>([]);
 	let open = $state<number | null>(null);
 
 	// Popover flottante: non spinge il testo, si posiziona sotto il token
@@ -102,7 +105,7 @@
 	// Si rianalizza a ogni cambio di testo (lo stesso componente può mostrare
 	// frasi diverse una dopo l'altra, come nei dialoghi): conta solo l'ultima.
 	let richiesta = 0;
-	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[] }> {
+	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
 		// 1) BudouX → 2) riattacca ausiliari (働き+ます) → 3) riunisce parole composte
 		// spezzate se esistono a catalogo (一生懸命 → 一生+懸命).
 		return spazi ? analyzeSpaced(p, detectUserLocale()) : analyzeSentence(p, detectUserLocale());
@@ -113,8 +116,9 @@
 		closePopover();
 		tokens = [];
 		hits = [];
+		forme = [];
 		void analizza(p).then((r) => {
-			if (id === richiesta) ({ tokens, hits } = r);
+			if (id === richiesta) ({ tokens, hits, forme } = r);
 		});
 	});
 
@@ -187,6 +191,19 @@
 								<a href={jishoUrl(tok)} target="_blank" rel="noopener">Cerca su Jisho ↗</a>
 							</span>
 						{/if}
+						{#if forme[i]?.length}
+							<span class="pop-forme">
+								{#each forme[i]! as f (f.codice)}
+									{#if f.percorsi.length}
+										{#each f.percorsi as percorso, k (percorso)}
+											<a class="pop-form" href="{base}/{percorso}">{k === 0 ? f.etichetta : 'vedi anche'} →</a>
+										{/each}
+									{:else}
+										<span class="pop-form">{f.etichetta}</span>
+									{/if}
+								{/each}
+							</span>
+						{/if}
 						<button class="pop-tts" onclick={() => speakSentenceJapanese(tok)}>🔊</button>
 					</span>
 				{/if}
@@ -231,6 +248,8 @@
 		z-index: 200;
 	}
 	.pop-reading { color: var(--brand); font-weight: 700; }
+	.pop-forme { display: flex; flex-wrap: wrap; gap: 4px; }
+	a.pop-form { text-decoration: none; }
 	.pop-form { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 1px 6px; font-size: 0.72rem; }
 	.pop-gloss { color: var(--muted); }
 	.pop-srs { flex-basis: 100%; font-size: 0.72rem; color: var(--muted); }
