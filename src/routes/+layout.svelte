@@ -18,6 +18,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import QuickSearch from '$lib/components/QuickSearch.svelte';
 	import { SEED_REVISION, SEED_LOADED_KEY } from '$lib/version';
+	import { configureSegmenti } from '$lib/core/tokenizer';
 	import type { DatabaseSeed } from '$lib/types/models';
 
 	const { children } = $props();
@@ -33,6 +34,8 @@
 	});
 
 	const SEED_DATA_REVISION = SEED_REVISION;
+	// frasi del catalogo già divise in pezzi (scripts/segmenta-frasi.mjs): il tokenizer le preferisce a BudouX
+	configureSegmenti(`${base}/segmenti-n5n4.json`);
 
 	const isHome = $derived($page.url.pathname === `${base}/` || $page.url.pathname === `${base}`);
 	const hideHeader = $derived(

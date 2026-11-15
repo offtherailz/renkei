@@ -41,7 +41,7 @@ src/
       furigana.ts       # Parsing furigana[lettura] → HTML ruby
       i18n.ts           # Scelta testo localizzato it/en
       srs.ts            # Algoritmo SRS (stage 0-7, mastery points)
-      tokenizer.ts      # Tokenizer giapponese (BudouX)
+      tokenizer.ts      # Tokenizer giapponese: segmenti precalcolati per le frasi a catalogo, BudouX per il resto
       tts.ts            # Text-to-speech Web API
     db/
       schema.ts         # Definizioni Dexie e migrazioni
@@ -894,3 +894,13 @@ mette solo in una lista troppo alta si corregge in `scripts/data/kanji-level-ove
 pulizie tornano la scrittura (`collapseUniqueDisambiguatedIds`, es. 運転). I suffissi (〜代・〜料・
 〜費) hanno tipo `接尾辞[せつびじ]`. Carta di mazzo → parola: `cardCatalogKeys` /
 `findMazzoCardWord` (な finale, varianti «A, B», lettura).
+
+## Segmentazione delle frasi (pezzi e forme)
+
+BudouX sbagliava circa una frase su cinque (parole in kana spezzate, pezzi non separati). Le frasi del seed sono ora segmentate **a build-time** da `scripts/segmenta-frasi.mjs` con kuromoji (dizionario IPADIC, 18 MB: solo devDependency, non entra nell'app) e salvate in `static/segmenti-n5n4.json`.
+
+- Formato: `"frase": ["くすり·を|飲む·の·を|わすれ·ない·で|ください·。", { "2": ["nai", "te"] }]` — `|` confine di pezzo (parola + particelle/ausiliari), `·` confine di parola, poi le forme grammaticali per indice di pezzo (codici; le etichette italiane sono in `etichette` nello stesso file).
+- Correzioni a mano: `scripts/data/segmenti-correzioni.json` (frase → pezzi). Vincono sempre sul calcolo; lo script fallisce se una correzione non ricompone la frase.
+- Rigenerare dopo ogni modifica alle frasi del seed: `node scripts/segmenta-frasi.mjs` (`--rivedi` scrive l'elenco dei casi dubbi in `scripts/data/segmenti-da-rivedere.txt`).
+- A runtime `createDefaultTokenizer()` usa i pezzi salvati se la frase è a catalogo (confronto senza spazi), altrimenti BudouX. L'URL del file lo imposta `+layout.svelte` con `configureSegmenti`.
+- Non ancora usati dall'app: i confini di parola (`·`) e le forme. Non ancora segmentate: avventure, `src/lib/data`, testi nelle routes.
