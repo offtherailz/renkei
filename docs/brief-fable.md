@@ -62,4 +62,4 @@ perché la risposta è giusta e cosa vogliono dire le opzioni sbagliate.
 `static/prove-esame-n4.cifrato.json`. Cominciare dalle 15 domande `jlpt-12-v-20…34`
 (Lorenzo ha una trascrizione con le spiegazioni di tutte le opzioni).
 
-(Il lavoro «prove dei libri nella sezione JLPT» è già fatto: `src/lib/data/esame-n4-libri.ts`.)
+(Il lavoro «prove dei libri nella sezione JLPT» è già fatto, ascolto con disegni e lettura compresi: `src/lib/data/esame-n4-libri.ts`.)

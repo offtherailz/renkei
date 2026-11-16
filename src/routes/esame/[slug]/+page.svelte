@@ -182,11 +182,11 @@
 				{/if}
 			</div>
 			{#if CONSEGNE[slug]}<p class="consegna">{CONSEGNE[slug]}</p>{/if}
+			{#if q.immagine}
+				<img class="hatsuwa-img" src={q.immagine.startsWith('data:') ? q.immagine : `${base}/esame/hatsuwa/${q.immagine}`} alt="disegno della domanda" onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')} />
+			{/if}
 			{#if isListening && !revealText}
 				<div class="prompt listen">
-					{#if slug === 'hatsuwa' && q.immagine}
-						<img class="hatsuwa-img" src="{base}/esame/hatsuwa/{q.immagine}" alt="situazione" onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')} />
-					{/if}
 					<span class="listen-hint">{slug === 'sokuji' ? '👂 Ascolta la battuta: scegli la RISPOSTA adatta' : slug === 'hatsuwa' ? '👂 Nella situazione, scegli COSA DIRE' : '🎧 Ascolta e rispondi alla domanda'}</span>
 					<div class="listen-btns">
 						<button class="lbtn" onclick={() => playFor(q)}>🔊 もう一度</button>
@@ -301,7 +301,7 @@
 	.qtimer.over { color: var(--warn-ink); background: var(--warn-bg); border-color: var(--warn-bg); font-weight: 600; }
 	.prompt { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 14px; }
 	.prompt.listen { flex-direction: column; align-items: stretch; gap: 10px; }
-	.hatsuwa-img { max-width: 100%; max-height: 220px; border-radius: 12px; align-self: center; }
+	.hatsuwa-img { display: block; max-width: 100%; max-height: 320px; margin: 0 auto 8px; border-radius: 12px; background: #fff; }
 	.opt.audio { display: flex; align-items: center; justify-content: center; gap: 12px; }
 	.opt-num { display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); font-weight: 800; }
 	.opt-play { font-size: 1.1rem; cursor: pointer; }

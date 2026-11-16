@@ -120,11 +120,11 @@ function similarWritings(writing: string, pool: string[], similarKanji: (c: stri
 }
 
 // Domande in più per la sezione JLPT: quelle generate dal dizionario e le prove
-// scritte dei libri (se caricate sul dispositivo: db.course_giorno).
+// dei libri, anche ascolto e lettura (se caricate sul dispositivo: db.course_giorno).
 export async function generaDaCatalogo(): Promise<Record<string, PoolItem[]>> {
 	const out: Record<string, PoolItem[]> = {};
 	for (const [k, v] of Object.entries(await dalDizionario())) out[k] = [...v];
-	const righe = await db.course_giorno.where('tipo').anyOf(['moji', 'goi', 'bunpou']).toArray().catch(() => []);
+	const righe = await db.course_giorno.toArray().catch(() => []);
 	for (const [k, v] of Object.entries(proveLibri(righe))) out[k] = [...(out[k] ?? []), ...v];
 	return out;
 }

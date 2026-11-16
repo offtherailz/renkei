@@ -113,9 +113,9 @@
 		</p>
 	{:else if p.body}
 		<div class="ep-body">
-			{#each bodyLines as line (line)}
+			{#each bodyLines as line, li (li)}
 				<p class="ep-line">
-					{#each segs(line) as seg (seg.t + seg.target)}
+					{#each segs(line) as seg, si (si)}
 						{#if seg.target}<span class="ep-target">{@render piece(seg.t)}</span>{:else}{@render piece(seg.t)}{/if}
 					{/each}
 				</p>
@@ -124,7 +124,7 @@
 	{/if}
 	{#if p.question}
 		<p class="ep-q">
-			❓ {#each segs(p.question) as seg (seg.t + seg.target)}{#if seg.target}<span class="ep-target">{@render piece(seg.t)}</span>{:else}{@render piece(seg.t)}{/if}{/each}
+			❓ {#each segs(p.question) as seg, si (si)}{#if seg.target}<span class="ep-target">{@render piece(seg.t)}</span>{:else}{@render piece(seg.t)}{/if}{/each}
 		</p>
 	{/if}
 </div>
