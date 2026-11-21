@@ -2483,5 +2483,2606 @@
     "en": "I am going to a friend’s wedding."
    }
   ]
+ },
+ {
+  "scrittura": "日本語",
+  "lettura": "にほんご",
+  "it": [
+   "lingua giapponese",
+   "giapponese"
+  ],
+  "en": [
+   "Japanese (language)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "日本語を べんきょうして います。",
+    "it": "Sto studiando il giapponese.",
+    "en": "I am studying Japanese."
+   },
+   {
+    "jp": "日本語で 話しましょう。",
+    "it": "Parliamo in giapponese.",
+    "en": "Let’s talk in Japanese."
+   }
+  ]
+ },
+ {
+  "scrittura": "日本人",
+  "lettura": "にほんじん",
+  "it": [
+   "giapponese (persona)"
+  ],
+  "en": [
+   "Japanese person"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あの 人は 日本人です。",
+    "it": "Quella persona è giapponese.",
+    "en": "That person is Japanese."
+   },
+   {
+    "jp": "クラスに 日本人の 友だちが います。",
+    "it": "In classe ho un amico giapponese.",
+    "en": "I have a Japanese friend in my class."
+   }
+  ]
+ },
+ {
+  "scrittura": "いい",
+  "lettura": "いい",
+  "it": [
+   "buono",
+   "bello",
+   "va bene"
+  ],
+  "en": [
+   "good",
+   "fine",
+   "OK"
+  ],
+  "livello": "N5",
+  "tipo_jp": "形容詞[けいようし]",
+  "tipo_aggettivo_jp": "い形容詞[いけいようし]",
+  "sinonimi": [
+   "良い"
+  ],
+  "esempi": [
+   {
+    "jp": "きょうは いい 天気ですね。",
+    "it": "Oggi è una bella giornata, eh.",
+    "en": "Nice weather today, isn’t it?"
+   },
+   {
+    "jp": "この 本は とても いいです。",
+    "it": "Questo libro è molto bello.",
+    "en": "This book is very good."
+   }
+  ]
+ },
+ {
+  "scrittura": "すみません",
+  "lettura": "すみません",
+  "it": [
+   "mi scusi",
+   "permesso",
+   "grazie (per il disturbo)"
+  ],
+  "en": [
+   "excuse me",
+   "I’m sorry",
+   "thank you (for the trouble)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "sinonimi": [
+   "すいません"
+  ],
+  "esempi": [
+   {
+    "jp": "すみません、えきは どこですか。",
+    "it": "Mi scusi, dov’è la stazione?",
+    "en": "Excuse me, where is the station?"
+   },
+   {
+    "jp": "おそく なって すみません。",
+    "it": "Scusa il ritardo.",
+    "en": "Sorry I’m late."
+   }
+  ]
+ },
+ {
+  "scrittura": "すいません",
+  "lettura": "すいません",
+  "it": [
+   "scusi (parlato)"
+  ],
+  "en": [
+   "excuse me (casual)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "sinonimi": [
+   "すみません"
+  ],
+  "esempi": [
+   {
+    "jp": "すいません、これ ください。",
+    "it": "Scusi, mi dia questo.",
+    "en": "Excuse me, I’ll take this."
+   }
+  ]
+ },
+ {
+  "scrittura": "すぐ",
+  "lettura": "すぐ",
+  "it": [
+   "subito",
+   "presto",
+   "vicinissimo"
+  ],
+  "en": [
+   "immediately",
+   "soon",
+   "right (near)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "副詞[ふくし]",
+  "sinonimi": [
+   "すぐに"
+  ],
+  "esempi": [
+   {
+    "jp": "すぐ 行きます。",
+    "it": "Vengo subito.",
+    "en": "I’ll go right away."
+   },
+   {
+    "jp": "えきは すぐ そこです。",
+    "it": "La stazione è proprio lì.",
+    "en": "The station is right there."
+   }
+  ]
+ },
+ {
+  "scrittura": "ゆっくり",
+  "lettura": "ゆっくり",
+  "it": [
+   "piano",
+   "lentamente",
+   "con calma"
+  ],
+  "en": [
+   "slowly",
+   "leisurely"
+  ],
+  "livello": "N5",
+  "tipo_jp": "副詞[ふくし]",
+  "sinonimi": [
+   "ゆっくりと"
+  ],
+  "esempi": [
+   {
+    "jp": "もう 少し ゆっくり 話して ください。",
+    "it": "Parli un po’ più piano, per favore.",
+    "en": "Please speak a little more slowly."
+   },
+   {
+    "jp": "日よう日は うちで ゆっくり します。",
+    "it": "La domenica me la prendo con calma a casa.",
+    "en": "On Sunday I relax at home."
+   }
+  ]
+ },
+ {
+  "scrittura": "じゃあ",
+  "lettura": "じゃあ",
+  "it": [
+   "allora",
+   "bene, allora"
+  ],
+  "en": [
+   "well then",
+   "so"
+  ],
+  "livello": "N5",
+  "tipo_jp": "接続詞[せつぞくし]",
+  "sinonimi": [
+   "では"
+  ],
+  "esempi": [
+   {
+    "jp": "じゃあ、また あした。",
+    "it": "Allora, a domani.",
+    "en": "Well then, see you tomorrow."
+   },
+   {
+    "jp": "じゃあ、これに します。",
+    "it": "Allora prendo questo.",
+    "en": "Then I’ll take this one."
+   }
+  ]
+ },
+ {
+  "scrittura": "ごめん",
+  "lettura": "ごめん",
+  "it": [
+   "scusa (tra amici)"
+  ],
+  "en": [
+   "sorry (casual)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "感動詞[かんどうし]",
+  "sinonimi": [
+   "ごめんなさい"
+  ],
+  "esempi": [
+   {
+    "jp": "おそく なって ごめん。",
+    "it": "Scusa per il ritardo.",
+    "en": "Sorry I’m late."
+   },
+   {
+    "jp": "ごめんね、きょうは 行けない。",
+    "it": "Scusa, oggi non posso venire.",
+    "en": "Sorry, I can’t go today."
+   }
+  ]
+ },
+ {
+  "scrittura": "おはよう",
+  "lettura": "おはよう",
+  "it": [
+   "buongiorno (al mattino, informale)"
+  ],
+  "en": [
+   "good morning (casual)"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "sinonimi": [
+   "おはようございます"
+  ],
+  "esempi": [
+   {
+    "jp": "おはよう。きょうは はやいね。",
+    "it": "Buongiorno. Oggi sei mattiniero.",
+    "en": "Morning. You’re early today."
+   }
+  ]
+ },
+ {
+  "scrittura": "よろしく",
+  "lettura": "よろしく",
+  "it": [
+   "piacere (di conoscerti)",
+   "mi raccomando",
+   "saluti a"
+  ],
+  "en": [
+   "nice to meet you",
+   "please (treat me well)",
+   "regards"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "はじめまして。どうぞ よろしく。",
+    "it": "Piacere. Molto lieto.",
+    "en": "Nice to meet you."
+   },
+   {
+    "jp": "おかあさんに よろしく。",
+    "it": "Saluta tua madre da parte mia.",
+    "en": "Say hello to your mother for me."
+   }
+  ]
+ },
+ {
+  "scrittura": "お願い",
+  "lettura": "おねがい",
+  "it": [
+   "richiesta",
+   "favore",
+   "per favore"
+  ],
+  "en": [
+   "request",
+   "favor",
+   "please"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "id_verbo_suru": "お願いする",
+  "esempi": [
+   {
+    "jp": "お願いが あります。",
+    "it": "Ho un favore da chiederti.",
+    "en": "I have a favor to ask."
+   },
+   {
+    "jp": "コーヒーを お願いします。",
+    "it": "Un caffè, per favore.",
+    "en": "A coffee, please."
+   }
+  ]
+ },
+ {
+  "scrittura": "本当に",
+  "lettura": "ほんとうに",
+  "it": [
+   "davvero",
+   "veramente"
+  ],
+  "en": [
+   "really",
+   "truly"
+  ],
+  "livello": "N5",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "本当に ありがとう ございました。",
+    "it": "Grazie davvero.",
+    "en": "Thank you very much indeed."
+   },
+   {
+    "jp": "きのうは 本当に さむかったです。",
+    "it": "Ieri faceva davvero freddo.",
+    "en": "It was really cold yesterday."
+   }
+  ]
+ },
+ {
+  "scrittura": "本屋",
+  "lettura": "ほんや",
+  "it": [
+   "libreria"
+  ],
+  "en": [
+   "bookstore"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "えきの 前に 本屋が あります。",
+    "it": "Davanti alla stazione c’è una libreria.",
+    "en": "There is a bookstore in front of the station."
+   },
+   {
+    "jp": "本屋で じしょを 買いました。",
+    "it": "Ho comprato un dizionario in libreria.",
+    "en": "I bought a dictionary at the bookstore."
+   }
+  ]
+ },
+ {
+  "scrittura": "冬休み",
+  "lettura": "ふゆやすみ",
+  "it": [
+   "vacanze invernali"
+  ],
+  "en": [
+   "winter vacation"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "冬休みに 北海道へ 行きます。",
+    "it": "Nelle vacanze invernali vado in Hokkaidō.",
+    "en": "I’m going to Hokkaido for winter vacation."
+   },
+   {
+    "jp": "冬休みは いつから ですか。",
+    "it": "Da quando iniziano le vacanze invernali?",
+    "en": "When does winter vacation start?"
+   }
+  ]
+ },
+ {
+  "scrittura": "時",
+  "lettura": "とき",
+  "it": [
+   "quando",
+   "momento",
+   "tempo"
+  ],
+  "en": [
+   "time",
+   "when"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ひまな 時、本を 読みます。",
+    "it": "Quando ho tempo libero leggo.",
+    "en": "I read when I have free time."
+   },
+   {
+    "jp": "子どもの 時、よく 川で あそびました。",
+    "it": "Da bambino giocavo spesso al fiume.",
+    "en": "As a child I often played by the river."
+   }
+  ]
+ },
+ {
+  "scrittura": "後で",
+  "lettura": "あとで",
+  "it": [
+   "dopo",
+   "più tardi"
+  ],
+  "en": [
+   "later",
+   "afterwards"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "後で 電話します。",
+    "it": "Ti chiamo dopo.",
+    "en": "I’ll call you later."
+   },
+   {
+    "jp": "しゅくだいは 後で します。",
+    "it": "I compiti li faccio più tardi.",
+    "en": "I’ll do my homework later."
+   }
+  ]
+ },
+ {
+  "scrittura": "もう少し",
+  "lettura": "もうすこし",
+  "it": [
+   "ancora un po’",
+   "un po’ più"
+  ],
+  "en": [
+   "a little more"
+  ],
+  "livello": "N5",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "もう少し まって ください。",
+    "it": "Aspetti ancora un po’, per favore.",
+    "en": "Please wait a little longer."
+   },
+   {
+    "jp": "もう少し 大きいのは ありますか。",
+    "it": "Ce n’è uno un po’ più grande?",
+    "en": "Do you have a slightly bigger one?"
+   }
+  ]
+ },
+ {
+  "scrittura": "木曜",
+  "lettura": "もくよう",
+  "it": [
+   "giovedì"
+  ],
+  "en": [
+   "Thursday"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "木曜日"
+  ],
+  "esempi": [
+   {
+    "jp": "木曜は じゅぎょうが ありません。",
+    "it": "Il giovedì non ho lezione.",
+    "en": "I have no classes on Thursday."
+   }
+  ]
+ },
+ {
+  "scrittura": "りんご",
+  "lettura": "りんご",
+  "it": [
+   "mela"
+  ],
+  "en": [
+   "apple"
+  ],
+  "livello": "N5",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "りんごを 二つ 買いました。",
+    "it": "Ho comprato due mele.",
+    "en": "I bought two apples."
+   },
+   {
+    "jp": "この りんごは あまいです。",
+    "it": "Questa mela è dolce.",
+    "en": "This apple is sweet."
+   }
+  ]
+ },
+ {
+  "scrittura": "茶色い",
+  "lettura": "ちゃいろい",
+  "it": [
+   "marrone"
+  ],
+  "en": [
+   "brown"
+  ],
+  "livello": "N5",
+  "tipo_jp": "形容詞[けいようし]",
+  "tipo_aggettivo_jp": "い形容詞[いけいようし]",
+  "sinonimi": [
+   "茶色"
+  ],
+  "esempi": [
+   {
+    "jp": "茶色い かばんを 買いました。",
+    "it": "Ho comprato una borsa marrone.",
+    "en": "I bought a brown bag."
+   }
+  ]
+ },
+ {
+  "scrittura": "お客様",
+  "lettura": "おきゃくさま",
+  "it": [
+   "cliente (cortese)",
+   "ospite"
+  ],
+  "en": [
+   "customer (polite)",
+   "guest"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "客"
+  ],
+  "esempi": [
+   {
+    "jp": "お客様、こちらへ どうぞ。",
+    "it": "Signore, prego da questa parte.",
+    "en": "This way, please, sir/madam."
+   },
+   {
+    "jp": "お客様が いらっしゃいました。",
+    "it": "È arrivato un cliente.",
+    "en": "A customer has arrived."
+   }
+  ]
+ },
+ {
+  "scrittura": "見学",
+  "lettura": "けんがく",
+  "it": [
+   "visita (di studio)",
+   "visita guidata"
+  ],
+  "en": [
+   "tour (for study)",
+   "field trip"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "id_verbo_suru": "見学する",
+  "esempi": [
+   {
+    "jp": "来週、クラスで 工場見学に 行きます。",
+    "it": "La settimana prossima andiamo con la classe a visitare una fabbrica.",
+    "en": "Next week our class is going on a factory tour."
+   },
+   {
+    "jp": "見学の 時間は 一時間です。",
+    "it": "La visita dura un’ora.",
+    "en": "The tour lasts one hour."
+   }
+  ]
+ },
+ {
+  "scrittura": "見学する",
+  "lettura": "けんがくする",
+  "it": [
+   "visitare (per vedere e imparare)"
+  ],
+  "en": [
+   "to tour",
+   "to visit (to observe)"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "id_nome_origine": "見学",
+  "esempi": [
+   {
+    "jp": "先生や 友だちと 工場を 見学しました。",
+    "it": "Ho visitato una fabbrica con il professore e i compagni.",
+    "en": "I toured a factory with my teacher and friends."
+   },
+   {
+    "jp": "大学を 見学したいです。",
+    "it": "Vorrei visitare l’università.",
+    "en": "I’d like to visit the university."
+   }
+  ]
+ },
+ {
+  "scrittura": "お願いする",
+  "lettura": "おねがいする",
+  "it": [
+   "chiedere (un favore, cortese)",
+   "pregare"
+  ],
+  "en": [
+   "to ask (a favor, politely)",
+   "to request"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "id_nome_origine": "お願い",
+  "esempi": [
+   {
+    "jp": "先生に すいせんじょうを お願いしました。",
+    "it": "Ho chiesto al professore una lettera di presentazione.",
+    "en": "I asked my teacher for a recommendation letter."
+   },
+   {
+    "jp": "よろしく お願いします。",
+    "it": "La prego di trattarmi bene. / Conto su di lei.",
+    "en": "I look forward to working with you."
+   }
+  ]
+ },
+ {
+  "scrittura": "ございます",
+  "lettura": "ございます",
+  "it": [
+   "c’è / è (molto cortese)"
+  ],
+  "en": [
+   "to be, to have (very polite)"
+  ],
+  "livello": "N4",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "トイレは 二かいに ございます。",
+    "it": "I bagni sono al secondo piano.",
+    "en": "The restrooms are on the second floor."
+   },
+   {
+    "jp": "ありがとう ございます。",
+    "it": "Grazie mille.",
+    "en": "Thank you very much."
+   }
+  ]
+ },
+ {
+  "scrittura": "お正月",
+  "lettura": "おしょうがつ",
+  "it": [
+   "Capodanno",
+   "primi giorni dell’anno"
+  ],
+  "en": [
+   "New Year"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "正月"
+  ],
+  "esempi": [
+   {
+    "jp": "お正月は 家族と すごします。",
+    "it": "A Capodanno sto con la famiglia.",
+    "en": "I spend New Year with my family."
+   },
+   {
+    "jp": "お正月に おもちを 食べました。",
+    "it": "A Capodanno ho mangiato i mochi.",
+    "en": "I ate mochi at New Year."
+   }
+  ]
+ },
+ {
+  "scrittura": "高校",
+  "lettura": "こうこう",
+  "it": [
+   "liceo",
+   "scuola superiore"
+  ],
+  "en": [
+   "high school"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あには 高校で 先生を して います。",
+    "it": "Mio fratello insegna al liceo.",
+    "en": "My older brother teaches at a high school."
+   },
+   {
+    "jp": "高校の 時、サッカーを して いました。",
+    "it": "Al liceo giocavo a calcio.",
+    "en": "I played soccer in high school."
+   }
+  ]
+ },
+ {
+  "scrittura": "中学生",
+  "lettura": "ちゅうがくせい",
+  "it": [
+   "studente delle medie"
+  ],
+  "en": [
+   "junior high school student"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "弟は 中学生です。",
+    "it": "Mio fratello minore va alle medie.",
+    "en": "My younger brother is in junior high."
+   }
+  ]
+ },
+ {
+  "scrittura": "小学生",
+  "lettura": "しょうがくせい",
+  "it": [
+   "scolaro delle elementari"
+  ],
+  "en": [
+   "elementary school student"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "小学生の 子どもが 二人 います。",
+    "it": "Ho due figli alle elementari.",
+    "en": "I have two children in elementary school."
+   }
+  ]
+ },
+ {
+  "scrittura": "野球",
+  "lettura": "やきゅう",
+  "it": [
+   "baseball"
+  ],
+  "en": [
+   "baseball"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "日よう日に 公園で 野球を しました。",
+    "it": "Domenica ho giocato a baseball al parco.",
+    "en": "I played baseball in the park on Sunday."
+   },
+   {
+    "jp": "野球の しあいを 見に 行きます。",
+    "it": "Vado a vedere una partita di baseball.",
+    "en": "I’m going to watch a baseball game."
+   }
+  ]
+ },
+ {
+  "scrittura": "駅前",
+  "lettura": "えきまえ",
+  "it": [
+   "davanti alla stazione"
+  ],
+  "en": [
+   "in front of the station"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "駅前の きっさてんで 会いましょう。",
+    "it": "Vediamoci al bar davanti alla stazione.",
+    "en": "Let’s meet at the café in front of the station."
+   }
+  ]
+ },
+ {
+  "scrittura": "花屋",
+  "lettura": "はなや",
+  "it": [
+   "fioraio",
+   "negozio di fiori"
+  ],
+  "en": [
+   "florist",
+   "flower shop"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "花屋で 母に 花を 買いました。",
+    "it": "Dal fioraio ho comprato dei fiori per mia madre.",
+    "en": "I bought flowers for my mother at the florist."
+   }
+  ]
+ },
+ {
+  "scrittura": "ごみ箱",
+  "lettura": "ごみばこ",
+  "it": [
+   "cestino (dei rifiuti)"
+  ],
+  "en": [
+   "trash can"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ごみは ごみ箱に すてて ください。",
+    "it": "Butta i rifiuti nel cestino, per favore.",
+    "en": "Please throw the trash in the bin."
+   }
+  ]
+ },
+ {
+  "scrittura": "読み方",
+  "lettura": "よみかた",
+  "it": [
+   "lettura (di un kanji)",
+   "modo di leggere"
+  ],
+  "en": [
+   "reading",
+   "way of reading"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "この 漢字の 読み方を 教えて ください。",
+    "it": "Mi insegni come si legge questo kanji, per favore.",
+    "en": "Please tell me how to read this kanji."
+   }
+  ]
+ },
+ {
+  "scrittura": "やり方",
+  "lettura": "やりかた",
+  "it": [
+   "modo di fare",
+   "metodo"
+  ],
+  "en": [
+   "way of doing",
+   "method"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "この ゲームの やり方が わかりません。",
+    "it": "Non so come si gioca a questo gioco.",
+    "en": "I don’t know how to play this game."
+   }
+  ]
+ },
+ {
+  "scrittura": "使い方",
+  "lettura": "つかいかた",
+  "it": [
+   "modo d’uso",
+   "istruzioni"
+  ],
+  "en": [
+   "how to use"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "この きかいの 使い方を 説明します。",
+    "it": "Spiego come si usa questa macchina.",
+    "en": "I’ll explain how to use this machine."
+   }
+  ]
+ },
+ {
+  "scrittura": "選び方",
+  "lettura": "えらびかた",
+  "it": [
+   "modo di scegliere"
+  ],
+  "en": [
+   "way of choosing"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "くつの 選び方を 店の 人に 聞きました。",
+    "it": "Ho chiesto al commesso come scegliere le scarpe.",
+    "en": "I asked the clerk how to choose shoes."
+   }
+  ]
+ },
+ {
+  "scrittura": "次に",
+  "lettura": "つぎに",
+  "it": [
+   "poi",
+   "in seguito",
+   "dopo"
+  ],
+  "en": [
+   "next",
+   "then"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接続詞[せつぞくし]",
+  "esempi": [
+   {
+    "jp": "まず 手を あらって、次に ごはんを 食べます。",
+    "it": "Prima mi lavo le mani, poi mangio.",
+    "en": "First I wash my hands, then I eat."
+   }
+  ]
+ },
+ {
+  "scrittura": "半年",
+  "lettura": "はんとし",
+  "it": [
+   "sei mesi",
+   "mezzo anno"
+  ],
+  "en": [
+   "half a year",
+   "six months"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "日本に 来て 半年に なります。",
+    "it": "Sono in Giappone da sei mesi.",
+    "en": "It’s been six months since I came to Japan."
+   }
+  ]
+ },
+ {
+  "scrittura": "一日中",
+  "lettura": "いちにちじゅう",
+  "it": [
+   "tutto il giorno"
+  ],
+  "en": [
+   "all day long"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "きのうは 一日中 雨でした。",
+    "it": "Ieri ha piovuto tutto il giorno.",
+    "en": "It rained all day yesterday."
+   }
+  ]
+ },
+ {
+  "scrittura": "左側",
+  "lettura": "ひだりがわ",
+  "it": [
+   "lato sinistro",
+   "a sinistra"
+  ],
+  "en": [
+   "left side"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "contrari": [
+   "右側"
+  ],
+  "esempi": [
+   {
+    "jp": "ゆうびんきょくは 道の 左側に あります。",
+    "it": "L’ufficio postale è sul lato sinistro della strada.",
+    "en": "The post office is on the left side of the road."
+   }
+  ]
+ },
+ {
+  "scrittura": "右側",
+  "lettura": "みぎがわ",
+  "it": [
+   "lato destro",
+   "a destra"
+  ],
+  "en": [
+   "right side"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "contrari": [
+   "左側"
+  ],
+  "esempi": [
+   {
+    "jp": "駅を 出て、右側に 本屋が あります。",
+    "it": "Uscendo dalla stazione, a destra c’è una libreria.",
+    "en": "When you leave the station, there’s a bookstore on the right."
+   }
+  ]
+ },
+ {
+  "scrittura": "新幹線",
+  "lettura": "しんかんせん",
+  "it": [
+   "Shinkansen (treno superveloce)"
+  ],
+  "en": [
+   "Shinkansen",
+   "bullet train"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "新幹線で 大阪へ 行きました。",
+    "it": "Sono andato a Ōsaka in Shinkansen.",
+    "en": "I went to Osaka by Shinkansen."
+   }
+  ]
+ },
+ {
+  "scrittura": "昼寝",
+  "lettura": "ひるね",
+  "it": [
+   "pisolino",
+   "siesta"
+  ],
+  "en": [
+   "nap"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ごはんの 後で 少し 昼寝を しました。",
+    "it": "Dopo pranzo ho fatto un pisolino.",
+    "en": "I took a short nap after lunch."
+   }
+  ]
+ },
+ {
+  "scrittura": "お世話",
+  "lettura": "おせわ",
+  "it": [
+   "cura",
+   "aiuto",
+   "assistenza"
+  ],
+  "en": [
+   "care",
+   "help",
+   "assistance"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "世話"
+  ],
+  "esempi": [
+   {
+    "jp": "いろいろ お世話に なりました。",
+    "it": "Grazie per tutto l’aiuto che mi ha dato.",
+    "en": "Thank you for everything you’ve done for me."
+   }
+  ]
+ },
+ {
+  "scrittura": "腕時計",
+  "lettura": "うでどけい",
+  "it": [
+   "orologio da polso"
+  ],
+  "en": [
+   "wristwatch"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "父に 腕時計を もらいました。",
+    "it": "Mio padre mi ha regalato un orologio da polso.",
+    "en": "I got a wristwatch from my father."
+   }
+  ]
+ },
+ {
+  "scrittura": "警察官",
+  "lettura": "けいさつかん",
+  "it": [
+   "agente di polizia",
+   "poliziotto"
+  ],
+  "en": [
+   "police officer"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "しょうらい 警察官に なりたいです。",
+    "it": "Da grande voglio fare il poliziotto.",
+    "en": "I want to become a police officer in the future."
+   }
+  ]
+ },
+ {
+  "scrittura": "皆様",
+  "lettura": "みなさま",
+  "it": [
+   "signore e signori",
+   "tutti voi (cortese)"
+  ],
+  "en": [
+   "everyone (polite)",
+   "ladies and gentlemen"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "皆さん"
+  ],
+  "esempi": [
+   {
+    "jp": "皆様、ありがとう ございました。",
+    "it": "Grazie a tutti voi.",
+    "en": "Thank you, everyone."
+   }
+  ]
+ },
+ {
+  "scrittura": "お知らせ",
+  "lettura": "おしらせ",
+  "it": [
+   "avviso",
+   "comunicazione"
+  ],
+  "en": [
+   "notice",
+   "announcement"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "学校から お知らせが ありました。",
+    "it": "È arrivato un avviso dalla scuola.",
+    "en": "There was a notice from the school."
+   }
+  ]
+ },
+ {
+  "scrittura": "昔話",
+  "lettura": "むかしばなし",
+  "it": [
+   "fiaba (antica)",
+   "racconto di una volta"
+  ],
+  "en": [
+   "folk tale",
+   "old story"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "おばあさんが 昔話を して くれました。",
+    "it": "La nonna mi ha raccontato una fiaba.",
+    "en": "My grandmother told me an old folk tale."
+   }
+  ]
+ },
+ {
+  "scrittura": "レポート",
+  "lettura": "レポート",
+  "it": [
+   "relazione",
+   "tesina",
+   "rapporto"
+  ],
+  "en": [
+   "report",
+   "paper"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あしたまでに レポートを 書かなければ なりません。",
+    "it": "Devo scrivere la relazione entro domani.",
+    "en": "I have to write the report by tomorrow."
+   }
+  ]
+ },
+ {
+  "scrittura": "コンピューター",
+  "lettura": "コンピューター",
+  "it": [
+   "computer"
+  ],
+  "en": [
+   "computer"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "パソコン"
+  ],
+  "esempi": [
+   {
+    "jp": "大学の コンピューターを 使いました。",
+    "it": "Ho usato il computer dell’università.",
+    "en": "I used the university’s computer."
+   }
+  ]
+ },
+ {
+  "scrittura": "メール",
+  "lettura": "メール",
+  "it": [
+   "e-mail",
+   "messaggio"
+  ],
+  "en": [
+   "e-mail",
+   "message"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "先生に メールを 送りました。",
+    "it": "Ho mandato un’e-mail al professore.",
+    "en": "I sent an e-mail to my teacher."
+   }
+  ]
+ },
+ {
+  "scrittura": "エアコン",
+  "lettura": "エアコン",
+  "it": [
+   "condizionatore"
+  ],
+  "en": [
+   "air conditioner"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あついので エアコンを つけました。",
+    "it": "Faceva caldo, così ho acceso il condizionatore.",
+    "en": "It was hot, so I turned on the air conditioner."
+   }
+  ]
+ },
+ {
+  "scrittura": "サッカー",
+  "lettura": "サッカー",
+  "it": [
+   "calcio (sport)"
+  ],
+  "en": [
+   "soccer",
+   "football"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "週末に 友だちと サッカーを します。",
+    "it": "Nel fine settimana gioco a calcio con gli amici.",
+    "en": "I play soccer with friends on weekends."
+   }
+  ]
+ },
+ {
+  "scrittura": "やっぱり",
+  "lettura": "やっぱり",
+  "it": [
+   "come pensavo",
+   "alla fine",
+   "in fondo"
+  ],
+  "en": [
+   "as expected",
+   "after all"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "sinonimi": [
+   "やはり"
+  ],
+  "esempi": [
+   {
+    "jp": "やっぱり 赤い ほうに します。",
+    "it": "Alla fine prendo quello rosso.",
+    "en": "I’ll go with the red one after all."
+   }
+  ]
+ },
+ {
+  "scrittura": "けれども",
+  "lettura": "けれども",
+  "it": [
+   "però",
+   "tuttavia"
+  ],
+  "en": [
+   "however",
+   "but"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接続詞[せつぞくし]",
+  "sinonimi": [
+   "けれど",
+   "でも"
+  ],
+  "esempi": [
+   {
+    "jp": "雨でした。けれども、出かけました。",
+    "it": "Pioveva. Però sono uscito.",
+    "en": "It was raining. However, I went out."
+   }
+  ]
+ },
+ {
+  "scrittura": "それなら",
+  "lettura": "それなら",
+  "it": [
+   "allora",
+   "in tal caso"
+  ],
+  "en": [
+   "in that case",
+   "then"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接続詞[せつぞくし]",
+  "esempi": [
+   {
+    "jp": "「頭が いたいです。」「それなら、早く 帰って ください。」",
+    "it": "«Ho mal di testa.» «Allora torna a casa presto.»",
+    "en": "“I have a headache.” “In that case, please go home early.”"
+   }
+  ]
+ },
+ {
+  "scrittura": "そうしたら",
+  "lettura": "そうしたら",
+  "it": [
+   "e allora",
+   "e così",
+   "dopodiché"
+  ],
+  "en": [
+   "and then",
+   "if so"
+  ],
+  "livello": "N4",
+  "tipo_jp": "接続詞[せつぞくし]",
+  "esempi": [
+   {
+    "jp": "ボタンを おして ください。そうしたら、きっぷが 出ます。",
+    "it": "Premi il pulsante. Così esce il biglietto.",
+    "en": "Press the button. Then the ticket comes out."
+   }
+  ]
+ },
+ {
+  "scrittura": "なので",
+  "lettura": "なので",
+  "it": [
+   "quindi",
+   "perciò (parlato)"
+  ],
+  "en": [
+   "so",
+   "therefore"
+  ],
+  "livello": "N4",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "あしたは 休みです。なので、ゆっくり ねます。",
+    "it": "Domani è festa. Quindi dormo con calma.",
+    "en": "Tomorrow is a day off, so I’ll sleep in."
+   }
+  ]
+ },
+ {
+  "scrittura": "工事",
+  "lettura": "こうじ",
+  "it": [
+   "lavori (edili, stradali)",
+   "cantiere"
+  ],
+  "en": [
+   "construction work"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "家の 前で 道の 工事を して います。",
+    "it": "Davanti a casa ci sono lavori stradali.",
+    "en": "There is road construction in front of my house."
+   }
+  ]
+ },
+ {
+  "scrittura": "美容院",
+  "lettura": "びよういん",
+  "it": [
+   "parrucchiere",
+   "salone di bellezza"
+  ],
+  "en": [
+   "hair salon",
+   "beauty parlor"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "美容院で かみを 切りました。",
+    "it": "Mi sono tagliata i capelli dal parrucchiere.",
+    "en": "I got my hair cut at the salon."
+   }
+  ]
+ },
+ {
+  "scrittura": "おじ",
+  "lettura": "おじ",
+  "it": [
+   "zio"
+  ],
+  "en": [
+   "uncle"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "contrari": [
+   "おば"
+  ],
+  "esempi": [
+   {
+    "jp": "おじは 大阪に すんで います。",
+    "it": "Mio zio vive a Ōsaka.",
+    "en": "My uncle lives in Osaka."
+   }
+  ]
+ },
+ {
+  "scrittura": "おば",
+  "lettura": "おば",
+  "it": [
+   "zia"
+  ],
+  "en": [
+   "aunt"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "contrari": [
+   "おじ"
+  ],
+  "esempi": [
+   {
+    "jp": "おばに 手紙を 書きました。",
+    "it": "Ho scritto una lettera a mia zia.",
+    "en": "I wrote a letter to my aunt."
+   }
+  ]
+ },
+ {
+  "scrittura": "ラーメン",
+  "lettura": "ラーメン",
+  "it": [
+   "ramen"
+  ],
+  "en": [
+   "ramen"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "駅前の 店で ラーメンを 食べました。",
+    "it": "Ho mangiato il ramen nel locale davanti alla stazione.",
+    "en": "I ate ramen at the shop in front of the station."
+   }
+  ]
+ },
+ {
+  "scrittura": "コンビニ",
+  "lettura": "コンビニ",
+  "it": [
+   "minimarket (aperto 24 ore)"
+  ],
+  "en": [
+   "convenience store"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "コンビニで おにぎりを 買いました。",
+    "it": "Al minimarket ho comprato un onigiri.",
+    "en": "I bought a rice ball at the convenience store."
+   }
+  ]
+ },
+ {
+  "scrittura": "バス停",
+  "lettura": "ばすてい",
+  "it": [
+   "fermata dell’autobus"
+  ],
+  "en": [
+   "bus stop"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "バス停で バスを まって います。",
+    "it": "Aspetto l’autobus alla fermata.",
+    "en": "I’m waiting for the bus at the bus stop."
+   }
+  ]
+ },
+ {
+  "scrittura": "かっこいい",
+  "lettura": "かっこいい",
+  "it": [
+   "figo",
+   "bello (di aspetto)"
+  ],
+  "en": [
+   "cool",
+   "good-looking"
+  ],
+  "livello": "N4",
+  "tipo_jp": "形容詞[けいようし]",
+  "tipo_aggettivo_jp": "い形容詞[いけいようし]",
+  "esempi": [
+   {
+    "jp": "その くつ、かっこいいですね。",
+    "it": "Belle quelle scarpe!",
+    "en": "Those shoes are cool."
+   }
+  ]
+ },
+ {
+  "scrittura": "別々",
+  "lettura": "べつべつ",
+  "it": [
+   "separato",
+   "ognuno per conto suo"
+  ],
+  "en": [
+   "separate"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "お会計は 別々に お願いします。",
+    "it": "Conti separati, per favore.",
+    "en": "Separate checks, please."
+   }
+  ]
+ },
+ {
+  "scrittura": "留守番",
+  "lettura": "るすばん",
+  "it": [
+   "badare alla casa (quando gli altri sono fuori)"
+  ],
+  "en": [
+   "looking after the house"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "留守"
+  ],
+  "esempi": [
+   {
+    "jp": "母が 出かけたので、留守番を しました。",
+    "it": "Mia madre è uscita e io sono rimasto a badare alla casa.",
+    "en": "My mother went out, so I stayed home to look after the house."
+   }
+  ]
+ },
+ {
+  "scrittura": "待ち合わせ",
+  "lettura": "まちあわせ",
+  "it": [
+   "appuntamento (incontro)"
+  ],
+  "en": [
+   "meeting (appointment)"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "待ち合わせの 時間に おくれました。",
+    "it": "Sono arrivato in ritardo all’appuntamento.",
+    "en": "I was late for our meeting."
+   }
+  ]
+ },
+ {
+  "scrittura": "お疲れ様",
+  "lettura": "おつかれさま",
+  "it": [
+   "buon lavoro",
+   "grazie per la fatica"
+  ],
+  "en": [
+   "thank you for your hard work"
+  ],
+  "livello": "N4",
+  "tipo_jp": "慣用表現[かんようひょうげん]",
+  "esempi": [
+   {
+    "jp": "きょうも お疲れ様でした。",
+    "it": "Grazie per il lavoro di oggi.",
+    "en": "Thanks for your hard work today."
+   }
+  ]
+ },
+ {
+  "scrittura": "薬局",
+  "lettura": "やっきょく",
+  "it": [
+   "farmacia"
+  ],
+  "en": [
+   "pharmacy"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "薬局で かぜの 薬を 買いました。",
+    "it": "In farmacia ho comprato una medicina per il raffreddore.",
+    "en": "I bought cold medicine at the pharmacy."
+   }
+  ]
+ },
+ {
+  "scrittura": "資料",
+  "lettura": "しりょう",
+  "it": [
+   "materiale",
+   "documenti",
+   "dati"
+  ],
+  "en": [
+   "materials",
+   "documents",
+   "data"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "会議の 資料を コピーして ください。",
+    "it": "Fotocopia il materiale della riunione, per favore.",
+    "en": "Please copy the meeting materials."
+   }
+  ]
+ },
+ {
+  "scrittura": "社員",
+  "lettura": "しゃいん",
+  "it": [
+   "impiegato (di un’azienda)",
+   "dipendente"
+  ],
+  "en": [
+   "employee",
+   "company staff"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あの 会社には 社員が 百人 います。",
+    "it": "In quell’azienda ci sono cento dipendenti.",
+    "en": "That company has a hundred employees."
+   }
+  ]
+ },
+ {
+  "scrittura": "出張",
+  "lettura": "しゅっちょう",
+  "it": [
+   "viaggio di lavoro",
+   "trasferta"
+  ],
+  "en": [
+   "business trip"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "id_verbo_suru": "出張する",
+  "esempi": [
+   {
+    "jp": "来週、出張で 東京へ 行きます。",
+    "it": "La settimana prossima vado a Tōkyō in trasferta.",
+    "en": "Next week I’m going to Tokyo on a business trip."
+   }
+  ]
+ },
+ {
+  "scrittura": "出張する",
+  "lettura": "しゅっちょうする",
+  "it": [
+   "andare in trasferta"
+  ],
+  "en": [
+   "to go on a business trip"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "id_nome_origine": "出張",
+  "esempi": [
+   {
+    "jp": "父は よく 大阪に 出張します。",
+    "it": "Mio padre va spesso in trasferta a Ōsaka.",
+    "en": "My father often goes to Osaka on business."
+   }
+  ]
+ },
+ {
+  "scrittura": "店長",
+  "lettura": "てんちょう",
+  "it": [
+   "direttore del negozio",
+   "gestore"
+  ],
+  "en": [
+   "store manager"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "店長に 休みの ことを 話しました。",
+    "it": "Ho parlato al direttore del negozio dei giorni di ferie.",
+    "en": "I talked to the store manager about my days off."
+   }
+  ]
+ },
+ {
+  "scrittura": "市役所",
+  "lettura": "しやくしょ",
+  "it": [
+   "municipio"
+  ],
+  "en": [
+   "city hall"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "市役所で 書類を 出しました。",
+    "it": "Ho consegnato i documenti in municipio.",
+    "en": "I submitted the documents at city hall."
+   }
+  ]
+ },
+ {
+  "scrittura": "人数",
+  "lettura": "にんずう",
+  "it": [
+   "numero di persone"
+  ],
+  "en": [
+   "number of people"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "パーティーに 来る 人数を 教えて ください。",
+    "it": "Mi dica quante persone vengono alla festa.",
+    "en": "Please tell me how many people are coming to the party."
+   }
+  ]
+ },
+ {
+  "scrittura": "配る",
+  "lettura": "くばる",
+  "it": [
+   "distribuire",
+   "consegnare (a molti)"
+  ],
+  "en": [
+   "to distribute",
+   "to hand out"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "五段動詞[ごだんどうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "esempi": [
+   {
+    "jp": "先生が テストを 配りました。",
+    "it": "Il professore ha distribuito il compito.",
+    "en": "The teacher handed out the test."
+   }
+  ]
+ },
+ {
+  "scrittura": "体育館",
+  "lettura": "たいいくかん",
+  "it": [
+   "palestra"
+  ],
+  "en": [
+   "gym",
+   "gymnasium"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "雨の 日は 体育館で バスケットボールを します。",
+    "it": "Nei giorni di pioggia giochiamo a basket in palestra.",
+    "en": "On rainy days we play basketball in the gym."
+   }
+  ]
+ },
+ {
+  "scrittura": "体験",
+  "lettura": "たいけん",
+  "it": [
+   "esperienza (diretta)"
+  ],
+  "en": [
+   "experience (firsthand)"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "id_verbo_suru": "体験する",
+  "esempi": [
+   {
+    "jp": "日本で いい 体験を しました。",
+    "it": "In Giappone ho fatto una bella esperienza.",
+    "en": "I had a good experience in Japan."
+   }
+  ]
+ },
+ {
+  "scrittura": "体験する",
+  "lettura": "たいけんする",
+  "it": [
+   "provare di persona",
+   "fare esperienza di"
+  ],
+  "en": [
+   "to experience"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "不規則動詞[ふきそくどうし]",
+  "transitivita_jp": "他動詞[たどうし]",
+  "id_nome_origine": "体験",
+  "esempi": [
+   {
+    "jp": "きのう、じしんを 体験しました。",
+    "it": "Ieri ho provato un terremoto (simulato).",
+    "en": "Yesterday I experienced an earthquake."
+   }
+  ]
+ },
+ {
+  "scrittura": "以降",
+  "lettura": "いこう",
+  "it": [
+   "da… in poi",
+   "dopo"
+  ],
+  "en": [
+   "from… on",
+   "after"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "十時 以降は 電話しないで ください。",
+    "it": "Non telefonare dopo le dieci, per favore.",
+    "en": "Please don’t call after ten o’clock."
+   }
+  ]
+ },
+ {
+  "scrittura": "親子",
+  "lettura": "おやこ",
+  "it": [
+   "genitore e figlio"
+  ],
+  "en": [
+   "parent and child"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "公園で 親子が あそんで います。",
+    "it": "Al parco genitori e figli stanno giocando.",
+    "en": "Parents and children are playing in the park."
+   }
+  ]
+ },
+ {
+  "scrittura": "お先に",
+  "lettura": "おさきに",
+  "it": [
+   "prima (di lei)",
+   "vado prima"
+  ],
+  "en": [
+   "before you",
+   "excuse me for leaving first"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "お先に しつれいします。",
+    "it": "Scusate, io vado (prima di voi).",
+    "en": "Excuse me for leaving before you."
+   }
+  ]
+ },
+ {
+  "scrittura": "どういう",
+  "lettura": "どういう",
+  "it": [
+   "che tipo di",
+   "come"
+  ],
+  "en": [
+   "what kind of",
+   "how"
+  ],
+  "livello": "N4",
+  "tipo_jp": "連体詞[れんたいし]",
+  "esempi": [
+   {
+    "jp": "これは どういう いみですか。",
+    "it": "Che significato ha questo?",
+    "en": "What does this mean?"
+   }
+  ]
+ },
+ {
+  "scrittura": "なんだか",
+  "lettura": "なんだか",
+  "it": [
+   "in qualche modo",
+   "non so perché"
+  ],
+  "en": [
+   "somehow",
+   "for some reason"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "きょうは なんだか つかれました。",
+    "it": "Oggi, non so perché, sono stanco.",
+    "en": "Somehow I’m tired today."
+   }
+  ]
+ },
+ {
+  "scrittura": "かえって",
+  "lettura": "かえって",
+  "it": [
+   "al contrario",
+   "invece"
+  ],
+  "en": [
+   "on the contrary",
+   "rather"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "くすりを 飲んだら、かえって 悪く なりました。",
+    "it": "Dopo la medicina sono stato addirittura peggio.",
+    "en": "After taking the medicine I actually got worse."
+   }
+  ]
+ },
+ {
+  "scrittura": "ほんの",
+  "lettura": "ほんの",
+  "it": [
+   "solo un/una",
+   "appena"
+  ],
+  "en": [
+   "just",
+   "mere"
+  ],
+  "livello": "N4",
+  "tipo_jp": "連体詞[れんたいし]",
+  "esempi": [
+   {
+    "jp": "これは ほんの 気持ちです。",
+    "it": "È solo un pensierino.",
+    "en": "This is just a small token of my gratitude."
+   }
+  ]
+ },
+ {
+  "scrittura": "どきどき",
+  "lettura": "どきどき",
+  "it": [
+   "batticuore",
+   "emozione"
+  ],
+  "en": [
+   "heart pounding",
+   "nervous"
+  ],
+  "livello": "N4",
+  "tipo_jp": "副詞[ふくし]",
+  "esempi": [
+   {
+    "jp": "しけんの 前は どきどき します。",
+    "it": "Prima dell’esame ho il batticuore.",
+    "en": "My heart pounds before exams."
+   }
+  ]
+ },
+ {
+  "scrittura": "まちがう",
+  "lettura": "まちがう",
+  "it": [
+   "sbagliare",
+   "essere sbagliato"
+  ],
+  "en": [
+   "to be mistaken",
+   "to be wrong"
+  ],
+  "livello": "N4",
+  "tipo_jp": "動詞[どうし]",
+  "classe_verbo_jp": "五段動詞[ごだんどうし]",
+  "transitivita_jp": "自動詞[じどうし]",
+  "id_verbo_corrispondente": "間違える",
+  "esempi": [
+   {
+    "jp": "この 答えは まちがって います。",
+    "it": "Questa risposta è sbagliata.",
+    "en": "This answer is wrong."
+   }
+  ]
+ },
+ {
+  "scrittura": "保育園",
+  "lettura": "ほいくえん",
+  "it": [
+   "asilo nido"
+  ],
+  "en": [
+   "nursery school",
+   "daycare"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "毎朝 子どもを 保育園に つれて 行きます。",
+    "it": "Ogni mattina porto il bambino all’asilo nido.",
+    "en": "Every morning I take my child to daycare."
+   }
+  ]
+ },
+ {
+  "scrittura": "絵本",
+  "lettura": "えほん",
+  "it": [
+   "libro illustrato (per bambini)"
+  ],
+  "en": [
+   "picture book"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ねる 前に 子どもに 絵本を 読みます。",
+    "it": "Prima di dormire leggo un libro illustrato al bambino.",
+    "en": "I read a picture book to my child before bed."
+   }
+  ]
+ },
+ {
+  "scrittura": "看護",
+  "lettura": "かんご",
+  "it": [
+   "assistenza infermieristica",
+   "cura dei malati"
+  ],
+  "en": [
+   "nursing (care)"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "母は びょういんで 看護の 仕事を して います。",
+    "it": "Mia madre fa l’infermiera in ospedale.",
+    "en": "My mother works as a nurse at the hospital."
+   }
+  ]
+ },
+ {
+  "scrittura": "土日",
+  "lettura": "どにち",
+  "it": [
+   "sabato e domenica",
+   "fine settimana"
+  ],
+  "en": [
+   "Saturday and Sunday",
+   "weekend"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "土日は 店が こみます。",
+    "it": "Il sabato e la domenica il negozio è affollato.",
+    "en": "The store is crowded on weekends."
+   }
+  ]
+ },
+ {
+  "scrittura": "一員",
+  "lettura": "いちいん",
+  "it": [
+   "membro (di un gruppo)"
+  ],
+  "en": [
+   "member (of a group)"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "ポチも 家族の 一員です。",
+    "it": "Anche Pochi è un membro della famiglia.",
+    "en": "Pochi is also a member of the family."
+   }
+  ]
+ },
+ {
+  "scrittura": "オープン",
+  "lettura": "オープン",
+  "it": [
+   "apertura (di un negozio)",
+   "inaugurazione"
+  ],
+  "en": [
+   "opening (of a store)"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "あたらしい 店が 駅前に オープンしました。",
+    "it": "Davanti alla stazione ha aperto un nuovo negozio.",
+    "en": "A new store opened in front of the station."
+   }
+  ]
+ },
+ {
+  "scrittura": "ジョギング",
+  "lettura": "ジョギング",
+  "it": [
+   "jogging",
+   "corsa"
+  ],
+  "en": [
+   "jogging"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "毎朝 公園で ジョギングを します。",
+    "it": "Ogni mattina faccio jogging al parco.",
+    "en": "I jog in the park every morning."
+   }
+  ]
+ },
+ {
+  "scrittura": "バスケットボール",
+  "lettura": "バスケットボール",
+  "it": [
+   "pallacanestro",
+   "basket"
+  ],
+  "en": [
+   "basketball"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "体育館で バスケットボールを しました。",
+    "it": "Abbiamo giocato a basket in palestra.",
+    "en": "We played basketball in the gym."
+   }
+  ]
+ },
+ {
+  "scrittura": "卓球",
+  "lettura": "たっきゅう",
+  "it": [
+   "ping-pong",
+   "tennis da tavolo"
+  ],
+  "en": [
+   "table tennis"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "休み時間に 卓球を します。",
+    "it": "Durante la pausa gioco a ping-pong.",
+    "en": "I play table tennis during breaks."
+   }
+  ]
+ },
+ {
+  "scrittura": "折り紙",
+  "lettura": "おりがみ",
+  "it": [
+   "origami",
+   "carta piegata"
+  ],
+  "en": [
+   "origami",
+   "paper folding"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "折り紙で つるを 作りました。",
+    "it": "Ho fatto una gru con l’origami.",
+    "en": "I made a crane out of origami."
+   }
+  ]
+ },
+ {
+  "scrittura": "シャンプー",
+  "lettura": "シャンプー",
+  "it": [
+   "shampoo"
+  ],
+  "en": [
+   "shampoo"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "シャンプーが なくなったので、買いに 行きます。",
+    "it": "Lo shampoo è finito, vado a comprarlo.",
+    "en": "I ran out of shampoo, so I’m going to buy some."
+   }
+  ]
+ },
+ {
+  "scrittura": "カラオケ",
+  "lettura": "カラオケ",
+  "it": [
+   "karaoke"
+  ],
+  "en": [
+   "karaoke"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "週末、友だちと カラオケに 行きました。",
+    "it": "Nel fine settimana sono andato al karaoke con gli amici.",
+    "en": "I went to karaoke with friends on the weekend."
+   }
+  ]
+ },
+ {
+  "scrittura": "カフェ",
+  "lettura": "カフェ",
+  "it": [
+   "caffè (locale)",
+   "bar"
+  ],
+  "en": [
+   "café"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "sinonimi": [
+   "きっさてん"
+  ],
+  "esempi": [
+   {
+    "jp": "駅の 近くに おしゃれな カフェが あります。",
+    "it": "Vicino alla stazione c’è un caffè carino.",
+    "en": "There’s a stylish café near the station."
+   }
+  ]
+ },
+ {
+  "scrittura": "マンション",
+  "lettura": "マンション",
+  "it": [
+   "condominio",
+   "appartamento"
+  ],
+  "en": [
+   "apartment building",
+   "condominium"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "駅の 近くの マンションに すんで います。",
+    "it": "Abito in un condominio vicino alla stazione.",
+    "en": "I live in an apartment near the station."
+   }
+  ]
+ },
+ {
+  "scrittura": "レシート",
+  "lettura": "レシート",
+  "it": [
+   "scontrino"
+  ],
+  "en": [
+   "receipt"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "レシートは いりません。",
+    "it": "Lo scontrino non mi serve.",
+    "en": "I don’t need the receipt."
+   }
+  ]
+ },
+ {
+  "scrittura": "ホームページ",
+  "lettura": "ホームページ",
+  "it": [
+   "sito web",
+   "pagina web"
+  ],
+  "en": [
+   "website",
+   "home page"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "くわしい ことは ホームページを 見て ください。",
+    "it": "Per i dettagli guardate il sito web.",
+    "en": "Please see the website for details."
+   }
+  ]
+ },
+ {
+  "scrittura": "バナナ",
+  "lettura": "バナナ",
+  "it": [
+   "banana"
+  ],
+  "en": [
+   "banana"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "朝ごはんに バナナを 食べました。",
+    "it": "A colazione ho mangiato una banana.",
+    "en": "I ate a banana for breakfast."
+   }
+  ]
+ },
+ {
+  "scrittura": "おにぎり",
+  "lettura": "おにぎり",
+  "it": [
+   "onigiri (polpetta di riso)"
+  ],
+  "en": [
+   "rice ball"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "母が おにぎりを 作って くれました。",
+    "it": "La mamma mi ha preparato degli onigiri.",
+    "en": "My mother made me rice balls."
+   }
+  ]
+ },
+ {
+  "scrittura": "いちご",
+  "lettura": "いちご",
+  "it": [
+   "fragola"
+  ],
+  "en": [
+   "strawberry"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "いちごの ケーキが 好きです。",
+    "it": "Mi piace la torta alle fragole.",
+    "en": "I like strawberry cake."
+   }
+  ]
+ },
+ {
+  "scrittura": "すいか",
+  "lettura": "すいか",
+  "it": [
+   "anguria",
+   "cocomero"
+  ],
+  "en": [
+   "watermelon"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "夏は すいかが おいしいです。",
+    "it": "D’estate l’anguria è buonissima.",
+    "en": "Watermelon is delicious in summer."
+   }
+  ]
+ },
+ {
+  "scrittura": "ゆかた",
+  "lettura": "ゆかた",
+  "it": [
+   "yukata (kimono estivo di cotone)"
+  ],
+  "en": [
+   "yukata (summer kimono)"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "夏祭りに ゆかたを 着て 行きました。",
+    "it": "Sono andata alla festa estiva in yukata.",
+    "en": "I wore a yukata to the summer festival."
+   }
+  ]
+ },
+ {
+  "scrittura": "アイディア",
+  "lettura": "アイディア",
+  "it": [
+   "idea"
+  ],
+  "en": [
+   "idea"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "それは いい アイディアですね。",
+    "it": "È una bella idea.",
+    "en": "That’s a good idea."
+   }
+  ]
+ },
+ {
+  "scrittura": "フランス語",
+  "lettura": "ふらんすご",
+  "it": [
+   "francese (lingua)"
+  ],
+  "en": [
+   "French (language)"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "大学で フランス語を ならいました。",
+    "it": "All’università ho studiato il francese.",
+    "en": "I learned French at university."
+   }
+  ]
+ },
+ {
+  "scrittura": "遊び場",
+  "lettura": "あそびば",
+  "it": [
+   "area giochi"
+  ],
+  "en": [
+   "playground",
+   "play area"
+  ],
+  "livello": "EXTRA",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "この 公園には 子どもの 遊び場が あります。",
+    "it": "In questo parco c’è un’area giochi per bambini.",
+    "en": "This park has a play area for children."
+   }
+  ]
  }
 ]

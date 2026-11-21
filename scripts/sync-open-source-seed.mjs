@@ -135,7 +135,7 @@ async function mergeCuratedWords(words, { filePath, label, tagPrefix, defaultTip
     // il merge gira DOPO l'arricchimento JMdict: i metadati verbo e le
     // relazioni delle voci curate vanno dichiarati nel file, non inferiti
     const curatedFields = {};
-    for (const f of ["classe_verbo_jp", "transitivita_jp", "id_verbo_corrispondente", "sinonimi", "contrari", "omofoni", "correlati"]) {
+    for (const f of ["classe_verbo_jp", "transitivita_jp", "tipo_aggettivo_jp", "id_verbo_corrispondente", "id_verbo_suru", "id_nome_origine", "sinonimi", "contrari", "omofoni", "correlati"]) {
       if (entry[f] !== undefined) curatedFields[f] = entry[f];
     }
     const existing = byWriting.get(entry.scrittura);

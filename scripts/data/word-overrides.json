@@ -4078,14 +4078,14 @@
  "終る": {
   "frasi_esempio": [
    {
-    "testo": "じゅぎょうは三時に終る。",
+    "testo": "じゅぎょうは三時に終わる。",
     "traduzione": {
      "it": "La lezione finisce alle tre.",
      "en": "Class ends at three."
     }
    },
    {
-    "testo": "しごとが 終ったら、でんわします。",
+    "testo": "しごとが 終わったら、でんわします。",
     "traduzione": {
      "it": "Quando finisce il lavoro ti chiamo.",
      "en": "I'll call you when work is over."
@@ -4106,7 +4106,8 @@
   "contrari": [
    "始まる"
   ],
-  "correlati": []
+  "correlati": [],
+  "scrittura": "終わる"
  },
  "住む": {
   "frasi_esempio": [
@@ -12767,7 +12768,8 @@
      "en": "The tree bent in the wind."
     }
    }
-  ]
+  ],
+  "scrittura": "曲がる"
  },
  "近い": {
   "significato": {
