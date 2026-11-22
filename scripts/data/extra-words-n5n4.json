@@ -3137,9 +3137,9 @@
   "id_nome_origine": "お願い",
   "esempi": [
    {
-    "jp": "先生に すいせんじょうを お願いしました。",
-    "it": "Ho chiesto al professore una lettera di presentazione.",
-    "en": "I asked my teacher for a recommendation letter."
+    "jp": "友だちに ねこの せわを お願いしました。",
+    "it": "Ho chiesto a un amico di badare al gatto.",
+    "en": "I asked a friend to look after my cat."
    },
    {
     "jp": "よろしく お願いします。",
@@ -3300,7 +3300,7 @@
   "tipo_jp": "名詞[めいし]",
   "esempi": [
    {
-    "jp": "駅前の きっさてんで 会いましょう。",
+    "jp": "駅前の 喫茶店で 会いましょう。",
     "it": "Vediamoci al bar davanti alla stazione.",
     "en": "Let’s meet at the café in front of the station."
    }
@@ -3897,7 +3897,7 @@
   "tipo_jp": "接続詞[せつぞくし]",
   "esempi": [
    {
-    "jp": "ボタンを おして ください。そうしたら、きっぷが 出ます。",
+    "jp": "ボタンを 押して ください。そうしたら、きっぷが 出ます。",
     "it": "Premi il pulsante. Così esce il biglietto.",
     "en": "Press the button. Then the ticket comes out."
    }
@@ -3981,7 +3981,7 @@
   ],
   "esempi": [
    {
-    "jp": "おじは 大阪に すんで います。",
+    "jp": "おじは 大阪に 住んで います。",
     "it": "Mio zio vive a Ōsaka.",
     "en": "My uncle lives in Osaka."
    }
@@ -4474,7 +4474,7 @@
   "tipo_jp": "副詞[ふくし]",
   "esempi": [
    {
-    "jp": "お先に しつれいします。",
+    "jp": "お先に 失礼します。",
     "it": "Scusate, io vado (prima di voi).",
     "en": "Excuse me for leaving before you."
    }
@@ -4579,7 +4579,7 @@
   "tipo_jp": "副詞[ふくし]",
   "esempi": [
    {
-    "jp": "しけんの 前は どきどき します。",
+    "jp": "テストの 前は どきどき します。",
     "it": "Prima dell’esame ho il batticuore.",
     "en": "My heart pounds before exams."
    }
@@ -4885,7 +4885,7 @@
   "tipo_jp": "名詞[めいし]",
   "esempi": [
    {
-    "jp": "駅の 近くの マンションに すんで います。",
+    "jp": "駅の 近くの マンションに 住んで います。",
     "it": "Abito in un condominio vicino alla stazione.",
     "en": "I live in an apartment near the station."
    }
