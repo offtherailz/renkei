@@ -183,7 +183,15 @@
      "en": "Please marry me."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sposarsi"
+   ],
+   "en": [
+    "to get married"
+   ]
+  }
  },
  "大使館": {
   "frasi_esempio": [
@@ -1084,7 +1092,17 @@
      "en": "I washed the sheets."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare il bucato",
+    "lavare (i panni)"
+   ],
+   "en": [
+    "to do the laundry",
+    "to wash"
+   ]
+  }
  },
  "全部": {
   "frasi_esempio": [
@@ -1458,7 +1476,17 @@
      "en": "We are testing the new machine."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "testare",
+    "provare",
+    "fare una verifica"
+   ],
+   "en": [
+    "to test"
+   ]
+  }
  },
  "私::わたし": {
   "frasi_esempio": [
@@ -2500,7 +2528,17 @@
      "en": "I'll call you when I get to the station."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "telefonare",
+    "chiamare"
+   ],
+   "en": [
+    "to phone",
+    "to call"
+   ]
+  }
  },
  "二": {
   "frasi_esempio": [
@@ -2755,7 +2793,15 @@
      "en": "Sometimes I work even on Sundays."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lavorare"
+   ],
+   "en": [
+    "to work"
+   ]
+  }
  },
  "エレベーター": {
   "frasi_esempio": [
@@ -4044,7 +4090,16 @@
      "en": "I didn't understand the meaning, so I asked a question."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare una domanda",
+    "chiedere"
+   ],
+   "en": [
+    "to ask a question"
+   ]
+  }
  },
  "秋": {
   "frasi_esempio": [
@@ -7926,7 +7981,16 @@
      "en": "I wrote an essay about my winter vacation memories."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scrivere un tema",
+    "comporre"
+   ],
+   "en": [
+    "to write (a composition)"
+   ]
+  }
  },
  "昨夜": {
   "frasi_esempio": [
@@ -8054,7 +8118,16 @@
      "en": "I took a leisurely walk in the park."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "passeggiare",
+    "fare una passeggiata"
+   ],
+   "en": [
+    "to take a walk"
+   ]
+  }
  },
  "始まる": {
   "frasi_esempio": [
@@ -9173,7 +9246,16 @@
      "en": "I clean my room every week."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pulire",
+    "fare le pulizie"
+   ],
+   "en": [
+    "to clean"
+   ]
+  }
  },
  "早い": {
   "frasi_esempio": [
@@ -38208,7 +38290,17 @@
      "en": "I promised to help tomorrow."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "promettere",
+    "prendere un appuntamento"
+   ],
+   "en": [
+    "to promise",
+    "to make an appointment"
+   ]
+  }
  },
  "相談する": {
   "frasi_esempio": [
@@ -38226,7 +38318,17 @@
      "en": "I'll reply after consulting my family."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "consultarsi",
+    "chiedere consiglio"
+   ],
+   "en": [
+    "to consult",
+    "to ask for advice"
+   ]
+  }
  },
  "注射する": {
   "frasi_esempio": [
@@ -38244,7 +38346,16 @@
      "en": "The doctor injected the medicine."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare un’iniezione"
+   ],
+   "en": [
+    "to inject",
+    "to give a shot"
+   ]
+  }
  },
  "案内する": {
   "frasi_esempio": [
@@ -38262,7 +38373,18 @@
      "en": "I showed them around Kyoto for a day."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "accompagnare",
+    "fare da guida",
+    "mostrare la strada"
+   ],
+   "en": [
+    "to guide",
+    "to show around"
+   ]
+  }
  },
  "会話する": {
   "frasi_esempio": [
@@ -38280,7 +38402,17 @@
      "en": "I converse with my Japanese friends every day."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "conversare",
+    "parlare insieme"
+   ],
+   "en": [
+    "to converse",
+    "to talk"
+   ]
+  }
  },
  "見物する": {
   "frasi_esempio": [
@@ -38298,7 +38430,17 @@
      "en": "In the afternoon we went sightseeing in the old town."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "visitare (da turista)",
+    "andare a vedere"
+   ],
+   "en": [
+    "to go sightseeing",
+    "to watch"
+   ]
+  }
  },
  "食事する": {
   "frasi_esempio": [
@@ -38316,7 +38458,17 @@
      "en": "Shall we have a meal together next time?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "mangiare",
+    "pranzare / cenare"
+   ],
+   "en": [
+    "to have a meal",
+    "to eat"
+   ]
+  }
  },
  "入院する": {
   "frasi_esempio": [
@@ -38334,7 +38486,15 @@
      "en": "My grandfather was suddenly hospitalized."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere ricoverato (in ospedale)"
+   ],
+   "en": [
+    "to be hospitalized"
+   ]
+  }
  },
  "ごちそうする": {
   "frasi_esempio": [
@@ -38352,7 +38512,16 @@
      "en": "My senior treated me to lunch."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "offrire (da mangiare o da bere)",
+    "invitare a pranzo/cena"
+   ],
+   "en": [
+    "to treat (someone to a meal)"
+   ]
+  }
  },
  "運動する": {
   "frasi_esempio": [
@@ -38370,7 +38539,16 @@
      "en": "I exercise three times a week."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare esercizio fisico",
+    "fare sport"
+   ],
+   "en": [
+    "to exercise"
+   ]
+  }
  },
  "会議する": {
   "frasi_esempio": [
@@ -38388,7 +38566,16 @@
      "en": "From the afternoon we will meet about the new plan."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare una riunione",
+    "discutere in riunione"
+   ],
+   "en": [
+    "to hold a meeting"
+   ]
+  }
  },
  "教育する": {
   "frasi_esempio": [
@@ -38406,7 +38593,16 @@
      "en": "The company trains new employees."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "educare",
+    "istruire"
+   ],
+   "en": [
+    "to educate"
+   ]
+  }
  },
  "計画する": {
   "frasi_esempio": [
@@ -38428,7 +38624,16 @@
   "sinonimi": [],
   "correlati": [
    "予定する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pianificare",
+    "progettare"
+   ],
+   "en": [
+    "to plan"
+   ]
+  }
  },
  "出席する": {
   "frasi_esempio": [
@@ -38449,7 +38654,17 @@
   ],
   "contrari": [
    "欠席する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere presente",
+    "partecipare"
+   ],
+   "en": [
+    "to attend",
+    "to be present"
+   ]
+  }
  },
  "世話する": {
   "frasi_esempio": [
@@ -38467,7 +38682,17 @@
      "en": "While I travel, my neighbor takes care of the flowers."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prendersi cura di",
+    "badare a"
+   ],
+   "en": [
+    "to look after",
+    "to take care of"
+   ]
+  }
  },
  "生活する": {
   "frasi_esempio": [
@@ -38485,7 +38710,17 @@
      "en": "I live on little money."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vivere",
+    "condurre la propria vita"
+   ],
+   "en": [
+    "to live",
+    "to make a living"
+   ]
+  }
  },
  "説明する": {
   "frasi_esempio": [
@@ -38503,7 +38738,15 @@
      "en": "I explained the way using a map."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "spiegare"
+   ],
+   "en": [
+    "to explain"
+   ]
+  }
  },
  "戦争する": {
   "frasi_esempio": [
@@ -38521,25 +38764,17 @@
      "en": "The two countries fought a war long ago."
     }
    }
-  ]
- },
- "暖房する": {
-  "frasi_esempio": [
-   {
-    "testo": "この部屋は暖房してあります。",
-    "traduzione": {
-     "it": "Questa stanza è riscaldata.",
-     "en": "This room is heated."
-    }
-   },
-   {
-    "testo": "へやを 暖房して おきました。",
-    "traduzione": {
-     "it": "Ho lasciato la stanza riscaldata.",
-     "en": "I kept the room heated."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare la guerra",
+    "combattere"
+   ],
+   "en": [
+    "to wage war",
+    "to go to war"
+   ]
+  }
  },
  "輸出する": {
   "frasi_esempio": [
@@ -38557,7 +38792,15 @@
      "en": "This factory exports cars all over the world."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esportare"
+   ],
+   "en": [
+    "to export"
+   ]
+  }
  },
  "輸入する": {
   "frasi_esempio": [
@@ -38575,7 +38818,15 @@
      "en": "This country imports oil."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "importare"
+   ],
+   "en": [
+    "to import"
+   ]
+  }
  },
  "予定する": {
   "frasi_esempio": [
@@ -38597,25 +38848,17 @@
   "sinonimi": [],
   "correlati": [
    "計画する"
-  ]
- },
- "留守する": {
-  "frasi_esempio": [
-   {
-    "testo": "週末は家を留守する。",
-    "traduzione": {
-     "it": "Nel fine settimana non sarò a casa.",
-     "en": "I'll be away from home this weekend."
-    }
-   },
-   {
-    "testo": "旅行で 一週間 家を 留守します。",
-    "traduzione": {
-     "it": "Per il viaggio sarò via di casa una settimana.",
-     "en": "I will be away from home for a week on a trip."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "programmare",
+    "prevedere"
+   ],
+   "en": [
+    "to plan",
+    "to schedule"
+   ]
+  }
  },
  "競争する": {
   "frasi_esempio": [
@@ -38633,7 +38876,16 @@
      "en": "The two companies are competing on price."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "gareggiare",
+    "competere"
+   ],
+   "en": [
+    "to compete"
+   ]
+  }
  },
  "遠慮する": {
   "frasi_esempio": [
@@ -38651,7 +38903,18 @@
      "en": "Please refrain from taking photos here."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trattenersi",
+    "astenersi",
+    "fare complimenti"
+   ],
+   "en": [
+    "to hold back",
+    "to refrain"
+   ]
+  }
  },
  "下宿する": {
   "frasi_esempio": [
@@ -38669,7 +38932,17 @@
      "en": "From next month I will board near the school."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stare a pensione",
+    "alloggiare in affitto (da privati)"
+   ],
+   "en": [
+    "to board",
+    "to lodge"
+   ]
+  }
  },
  "急行する": {
   "frasi_esempio": [
@@ -38688,7 +38961,17 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "correre (sul posto)",
+    "precipitarsi"
+   ],
+   "en": [
+    "to rush to",
+    "to hurry to"
+   ]
+  }
  },
  "研究する": {
   "frasi_esempio": [
@@ -38706,25 +38989,17 @@
      "en": "I research the history of words."
     }
    }
-  ]
- },
- "原因する": {
-  "frasi_esempio": [
-   {
-    "testo": "ねぶそくに原因する頭痛です。",
-    "traduzione": {
-     "it": "È un mal di testa causato dal poco sonno.",
-     "en": "It's a headache caused by lack of sleep."
-    }
-   },
-   {
-    "testo": "その 火事は たばこの 火に 原因して いました。",
-    "traduzione": {
-     "it": "Quell'incendio era stato causato da una sigaretta.",
-     "en": "That fire was caused by a cigarette."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare ricerca",
+    "studiare (a fondo)"
+   ],
+   "en": [
+    "to research",
+    "to study"
+   ]
+  }
  },
  "故障する": {
   "frasi_esempio": [
@@ -38742,25 +39017,16 @@
      "en": "The washing machine broke down."
     }
    }
-  ]
- },
- "交通する": {
-  "frasi_esempio": [
-   {
-    "testo": "バスで交通する人が多いです。",
-    "traduzione": {
-     "it": "Molti si spostano in autobus.",
-     "en": "Many people get around by bus."
-    }
-   },
-   {
-    "testo": "この 島とは 船で 交通して います。",
-    "traduzione": {
-     "it": "Con quest'isola si comunica via nave.",
-     "en": "This island is connected by boat."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "guastarsi",
+    "rompersi"
+   ],
+   "en": [
+    "to break down"
+   ]
+  }
  },
  "紹介する": {
   "frasi_esempio": [
@@ -38778,7 +39044,16 @@
      "en": "I introduced a good book to my friend."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "presentare (qualcuno)",
+    "far conoscere"
+   ],
+   "en": [
+    "to introduce"
+   ]
+  }
  },
  "退院する": {
   "frasi_esempio": [
@@ -38796,7 +39071,16 @@
      "en": "My mother got well and left the hospital."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere dimesso (dall’ospedale)",
+    "uscire dall’ospedale"
+   ],
+   "en": [
+    "to leave hospital"
+   ]
+  }
  },
  "注意する": {
   "frasi_esempio": [
@@ -38814,7 +39098,18 @@
      "en": "I drive paying attention to my speed."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare attenzione",
+    "avvertire",
+    "richiamare"
+   ],
+   "en": [
+    "to be careful",
+    "to warn"
+   ]
+  }
  },
  "入学する": {
   "frasi_esempio": [
@@ -38832,7 +39127,17 @@
      "en": "My daughter enters elementary school in April."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "entrare a scuola",
+    "iscriversi (a scuola/università)"
+   ],
+   "en": [
+    "to enter a school",
+    "to enrol"
+   ]
+  }
  },
  "復習する": {
   "frasi_esempio": [
@@ -38850,7 +39155,15 @@
      "en": "I reviewed yesterday's lesson."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ripassare"
+   ],
+   "en": [
+    "to review (lessons)"
+   ]
+  }
  },
  "貿易する": {
   "frasi_esempio": [
@@ -38868,7 +39181,15 @@
      "en": "Our company trades with many countries."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "commerciare (con l’estero)"
+   ],
+   "en": [
+    "to trade"
+   ]
+  }
  },
  "翻訳する": {
   "frasi_esempio": [
@@ -38886,7 +39207,15 @@
      "en": "Please translate this sentence into English."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "tradurre"
+   ],
+   "en": [
+    "to translate"
+   ]
+  }
  },
  "予習する": {
   "frasi_esempio": [
@@ -38904,7 +39233,16 @@
      "en": "Please prepare tomorrow's pages in advance."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "preparare la lezione (prima)",
+    "studiare in anticipo"
+   ],
+   "en": [
+    "to prepare lessons"
+   ]
+  }
  },
  "用意する": {
   "frasi_esempio": [
@@ -38929,7 +39267,17 @@
    "支度する",
    "準備する"
   ],
-  "contrari": []
+  "contrari": [],
+  "significato": {
+   "it": [
+    "preparare",
+    "tenere pronto"
+   ],
+   "en": [
+    "to prepare",
+    "to get ready"
+   ]
+  }
  },
  "利用する": {
   "frasi_esempio": [
@@ -38947,25 +39295,18 @@
      "en": "I often use this library."
     }
    }
-  ]
- },
- "冷房する": {
-  "frasi_esempio": [
-   {
-    "testo": "会場を冷房する。",
-    "traduzione": {
-     "it": "Climatizziamo la sala.",
-     "en": "We air-condition the venue."
-    }
-   },
-   {
-    "testo": "この ビルは 二十四時間 冷房して います。",
-    "traduzione": {
-     "it": "Questo palazzo è climatizzato ventiquattr'ore su ventiquattro.",
-     "en": "This building is air-conditioned twenty-four hours a day."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "usare",
+    "utilizzare",
+    "servirsi di"
+   ],
+   "en": [
+    "to use",
+    "to make use of"
+   ]
+  }
  },
  "連絡する": {
   "frasi_esempio": [
@@ -38983,7 +39324,18 @@
      "en": "When you are absent, please contact the school."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "contattare",
+    "mettersi in contatto",
+    "avvisare"
+   ],
+   "en": [
+    "to contact",
+    "to get in touch"
+   ]
+  }
  },
  "予約する": {
   "frasi_esempio": [
@@ -39001,7 +39353,16 @@
      "en": "I reserved a seat on the plane."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prenotare"
+   ],
+   "en": [
+    "to reserve",
+    "to book"
+   ]
+  }
  },
  "卒業する": {
   "frasi_esempio": [
@@ -39019,43 +39380,17 @@
      "en": "I plan to graduate from university next year."
     }
    }
-  ]
- },
- "いっぱいする": {
-  "frasi_esempio": [
-   {
-    "testo": "できる ことを 精いっぱいしました。",
-    "traduzione": {
-     "it": "Ho fatto tutto il possibile, al massimo delle forze.",
-     "en": "I did my very best."
-    }
-   },
-   {
-    "testo": "今日は 練習を 目いっぱいしました。",
-    "traduzione": {
-     "it": "Oggi mi sono allenato al massimo.",
-     "en": "Today I practiced as much as I possibly could."
-    }
-   }
-  ]
- },
- "かっこうする": {
-  "frasi_esempio": [
-   {
-    "testo": "変な かっこうして 歩かないで ください。",
-    "traduzione": {
-     "it": "Non andare in giro conciato in modo strano.",
-     "en": "Please don't walk around dressed so strangely."
-    }
-   },
-   {
-    "testo": "うさぎの かっこうして パーティーに 行きました。",
-    "traduzione": {
-     "it": "Sono andato alla festa vestito da coniglio.",
-     "en": "I went to the party dressed as a rabbit."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "diplomarsi",
+    "laurearsi",
+    "finire la scuola"
+   ],
+   "en": [
+    "to graduate"
+   ]
+  }
  },
  "勉強する": {
   "frasi_esempio": [
@@ -39077,7 +39412,15 @@
   "sinonimi": [],
   "correlati": [
    "研究する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "studiare"
+   ],
+   "en": [
+    "to study"
+   ]
+  }
  },
  "いただきます": {
   "frasi_esempio": [
@@ -39344,7 +39687,17 @@
      "en": "Please tell me the meaning of this kanji."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "significare",
+    "voler dire"
+   ],
+   "en": [
+    "to mean",
+    "to signify"
+   ]
+  }
  },
  "授業する": {
   "frasi_esempio": [
@@ -39362,7 +39715,16 @@
      "en": "Please don't be late for class."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare lezione",
+    "insegnare"
+   ],
+   "en": [
+    "to teach a class"
+   ]
+  }
  },
  "料理する": {
   "frasi_esempio": [
@@ -39380,7 +39742,15 @@
      "en": "What do you like in Japanese cuisine?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "cucinare"
+   ],
+   "en": [
+    "to cook"
+   ]
+  }
  },
  "旅行する": {
   "frasi_esempio": [
@@ -39398,7 +39768,17 @@
      "en": "We took a hot-spring trip as a family."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "viaggiare",
+    "fare un viaggio"
+   ],
+   "en": [
+    "to travel",
+    "to take a trip"
+   ]
+  }
  },
  "気をつけて": {
   "frasi_esempio": [
@@ -39436,7 +39816,17 @@
      "en": "Before the recital, practice increases."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esercitarsi",
+    "allenarsi"
+   ],
+   "en": [
+    "to practise",
+    "to practice"
+   ]
+  }
  },
  "買い物する": {
   "frasi_esempio": [
@@ -39454,7 +39844,16 @@
      "en": "I do my shopping at the supermarket by the station."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare la spesa",
+    "fare acquisti"
+   ],
+   "en": [
+    "to go shopping"
+   ]
+  }
  },
  "頑張って": {
   "frasi_esempio": [
@@ -39492,7 +39891,16 @@
      "en": "I work part-time at a convenience store."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare un lavoretto",
+    "lavorare part-time"
+   ],
+   "en": [
+    "to work part-time"
+   ]
+  }
  },
  "お先に失礼します": {
   "frasi_esempio": [
@@ -39553,7 +39961,15 @@
      "en": "I sent the map by fax."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "mandare un fax"
+   ],
+   "en": [
+    "to fax"
+   ]
+  }
  },
  "プレゼントする": {
   "frasi_esempio": [
@@ -39571,7 +39987,16 @@
      "en": "I am choosing a present for Mother's Day."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "regalare",
+    "fare un regalo"
+   ],
+   "en": [
+    "to give (as a present)"
+   ]
+  }
  },
  "仕方がない": {
   "frasi_esempio": [
@@ -39610,7 +40035,16 @@
   ],
   "correlati": [
    "出る"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "partire"
+   ],
+   "en": [
+    "to depart",
+    "to leave"
+   ]
+  }
  },
  "失敗する": {
   "frasi_esempio": [
@@ -39632,7 +40066,18 @@
   "tipo_jp": "動詞[どうし]",
   "transitivita_jp": "自動詞[じどうし]",
   "sinonimi": [],
-  "contrari": []
+  "contrari": [],
+  "significato": {
+   "it": [
+    "fallire",
+    "sbagliare",
+    "non riuscire"
+   ],
+   "en": [
+    "to fail",
+    "to make a mistake"
+   ]
+  }
  },
  "招待する": {
   "frasi_esempio": [
@@ -39650,7 +40095,15 @@
      "en": "The wedding invitation arrived."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "invitare"
+   ],
+   "en": [
+    "to invite"
+   ]
+  }
  },
  "拝見する": {
   "frasi_esempio": [
@@ -39672,7 +40125,17 @@
   "sinonimi": [],
   "correlati": [
    "見る"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vedere",
+    "guardare (umile)"
+   ],
+   "en": [
+    "to see",
+    "to look at (humble)"
+   ]
+  }
  },
  "支度する": {
   "frasi_esempio": [
@@ -39690,7 +40153,17 @@
      "en": "Dinner preparations are done."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prepararsi",
+    "fare i preparativi"
+   ],
+   "en": [
+    "to get ready",
+    "to prepare"
+   ]
+  }
  },
  "放送する": {
   "frasi_esempio": [
@@ -39708,7 +40181,16 @@
      "en": "I watched that game live on TV."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trasmettere",
+    "mandare in onda"
+   ],
+   "en": [
+    "to broadcast"
+   ]
+  }
  },
  "気に入る": {
   "frasi_esempio": [
@@ -39750,7 +40232,15 @@
      "en": "I take swimming lessons twice a week."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "nuotare"
+   ],
+   "en": [
+    "to swim"
+   ]
+  }
  },
  "準備する": {
   "frasi_esempio": [
@@ -39774,7 +40264,16 @@
   "sinonimi": [
    "用意する"
   ],
-  "contrari": []
+  "contrari": [],
+  "significato": {
+   "it": [
+    "preparare",
+    "prepararsi"
+   ],
+   "en": [
+    "to prepare"
+   ]
+  }
  },
  "生産する": {
   "frasi_esempio": [
@@ -39792,7 +40291,15 @@
      "en": "This car is produced in Japan."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "produrre"
+   ],
+   "en": [
+    "to produce"
+   ]
+  }
  },
  "発音する": {
   "frasi_esempio": [
@@ -39810,7 +40317,15 @@
      "en": "Japanese pronunciation is not difficult."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pronunciare"
+   ],
+   "en": [
+    "to pronounce"
+   ]
+  }
  },
  "経験する": {
   "frasi_esempio": [
@@ -39828,7 +40343,17 @@
      "en": "I have experience working abroad."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sperimentare",
+    "provare (per esperienza)",
+    "vivere (un’esperienza)"
+   ],
+   "en": [
+    "to experience"
+   ]
+  }
  },
  "試合する": {
   "frasi_esempio": [
@@ -39846,7 +40371,16 @@
      "en": "Tomorrow's match will be held even in the rain."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "disputare una partita",
+    "giocare un incontro"
+   ],
+   "en": [
+    "to play a match"
+   ]
+  }
  },
  "試験する": {
   "frasi_esempio": [
@@ -39864,7 +40398,18 @@
      "en": "The exam results will be known next week."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esaminare",
+    "mettere alla prova",
+    "collaudare"
+   ],
+   "en": [
+    "to test",
+    "to examine"
+   ]
+  }
  },
  "講義する": {
   "frasi_esempio": [
@@ -39882,7 +40427,15 @@
      "en": "Please lend me your lecture notes."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "tenere una lezione (universitaria)"
+   ],
+   "en": [
+    "to lecture"
+   ]
+  }
  },
  "返事する": {
   "frasi_esempio": [
@@ -39900,7 +40453,16 @@
      "en": "I wrote a reply to the letter."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rispondere"
+   ],
+   "en": [
+    "to reply",
+    "to answer"
+   ]
+  }
  },
  "間に合う": {
   "frasi_esempio": [
@@ -39936,7 +40498,18 @@
      "en": "The two met through work."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere legato a",
+    "riguardare",
+    "avere a che fare con"
+   ],
+   "en": [
+    "to be related to",
+    "to concern"
+   ]
+  }
  },
  "回る": {
   "significato": {
@@ -40087,7 +40660,16 @@
      "en": "I will leave Japan next Monday."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "uscire dal paese",
+    "partire per l’estero"
+   ],
+   "en": [
+    "to leave the country"
+   ]
+  }
  },
  "入国する": {
   "tipo_jp": "動詞[どうし]",
@@ -40111,7 +40693,16 @@
      "en": "I entered Japan for the first time."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "entrare nel paese",
+    "arrivare dall’estero"
+   ],
+   "en": [
+    "to enter a country"
+   ]
+  }
  },
  "落ちる": {
   "significato": {
@@ -40783,7 +41374,17 @@
    "suru-verb",
    "n4"
   ],
-  "id_nome_origine": "運転"
+  "id_nome_origine": "運転",
+  "significato": {
+   "it": [
+    "guidare (un veicolo)",
+    "azionare (una macchina)"
+   ],
+   "en": [
+    "to drive",
+    "to operate"
+   ]
+  }
  },
  "花見する": {
   "frasi_esempio": [
@@ -40801,7 +41402,15 @@
      "en": "I can't wait for spring to come so we can sit under the cherry trees."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare a vedere i ciliegi in fiore"
+   ],
+   "en": [
+    "to view cherry blossoms"
+   ]
+  }
  },
  "失礼する": {
   "frasi_esempio": [
@@ -40819,7 +41428,19 @@
      "en": "\"Excuse me,\" Ann broke in."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "congedarsi",
+    "chiedere permesso",
+    "essere scortese"
+   ],
+   "en": [
+    "to excuse oneself",
+    "to leave",
+    "to be rude"
+   ]
+  }
  },
  "邪魔する": {
   "frasi_esempio": [
@@ -40837,7 +41458,19 @@
      "en": "Please don't disturb my work."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "disturbare",
+    "intralciare",
+    "fare visita (お邪魔します)"
+   ],
+   "en": [
+    "to disturb",
+    "to get in the way",
+    "to visit"
+   ]
+  }
  },
  "心配する": {
   "frasi_esempio": [
@@ -40855,7 +41488,16 @@
      "en": "I'm so lucky to have someone who cares."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "preoccuparsi",
+    "stare in pensiero"
+   ],
+   "en": [
+    "to worry"
+   ]
+  }
  },
  "承知する": {
   "frasi_esempio": [
@@ -40873,7 +41515,19 @@
      "en": "All right. I'll accept your offer."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sapere",
+    "acconsentire",
+    "capire (formale)"
+   ],
+   "en": [
+    "to know",
+    "to agree",
+    "to understand (formal)"
+   ]
+  }
  },
  "アイスクリーム": {
   "significato": {
@@ -91647,5 +92301,51 @@
     }
    }
   ]
+ },
+ "安心する": {
+  "significato": {
+   "it": [
+    "tranquillizzarsi",
+    "sentirsi sollevato"
+   ],
+   "en": [
+    "to feel relieved",
+    "to be reassured"
+   ]
+  }
+ },
+ "検索する": {
+  "significato": {
+   "it": [
+    "cercare (online)",
+    "fare una ricerca"
+   ],
+   "en": [
+    "to search (online)"
+   ]
+  }
+ },
+ "寝坊する": {
+  "significato": {
+   "it": [
+    "dormire troppo",
+    "svegliarsi tardi"
+   ],
+   "en": [
+    "to oversleep"
+   ]
+  }
+ },
+ "反対する": {
+  "significato": {
+   "it": [
+    "opporsi",
+    "essere contrario"
+   ],
+   "en": [
+    "to oppose",
+    "to be against"
+   ]
+  }
  }
 }

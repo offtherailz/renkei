@@ -1027,7 +1027,9 @@ function fixSuruReadings(words, jmdictIndex) {
 // Nomi per cui JMdict marca (per un uso gergale o raro) il primo senso come
 // "vs", generando verbi in -する che nell'uso comune non esistono.
 const SURU_VERB_EXCLUDE = new Set([
-  "信号" // 信号する non esiste: 信号 è "segnale/semaforo", mai "fare segnale"
+  "信号", // 信号する non esiste: 信号 è "segnale/semaforo", mai "fare segnale"
+  // nomi senza un verbo in -する d'uso comune (si dice 留守にする, 暖房をつける…)
+  "いっぱい", "かっこう", "交通", "原因", "留守", "暖房", "冷房"
 ]);
 
 // I nomi che JMdict marca "vs" generano la voce verbale in -する come entry

@@ -21,7 +21,16 @@ const RENAMED_WORDS: Record<string, string> = {
 	レポート: 'レポート; リポート',
 	コンピューター: 'コンピュータ; コンピューター',
 	やっぱり: 'やはり; やっぱり',
-	けれども: 'けれど; けれども'
+	けれども: 'けれど; けれども',
+	// verbi in -する generati per errore da nomi che non lo vogliono: il
+	// progresso passa al nome
+	いっぱいする: 'いっぱい',
+	かっこうする: 'かっこう',
+	交通する: '交通',
+	原因する: '原因',
+	留守する: '留守',
+	暖房する: '暖房',
+	冷房する: '冷房'
 };
 
 // Voci eliminate senza successore: le 11 frasi-domanda dell'aeroporto che
