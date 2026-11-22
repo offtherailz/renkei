@@ -12,7 +12,16 @@ const RENAMED_WORDS: Record<string, string> = {
 	落す: '落とす',
 	楽む: '楽しむ',
 	うかがう: '伺う',
-	'回る、回す': '回る'
+	'回る、回す': '回る',
+	// copie aggiunte per errore con le parole delle prove N4 (v150): la voce
+	// esisteva già con la grafia doppia «A; B»
+	いい: 'いい; よい',
+	じゃあ: 'じゃ; じゃあ',
+	高校: '高校; 高等学校',
+	レポート: 'レポート; リポート',
+	コンピューター: 'コンピュータ; コンピューター',
+	やっぱり: 'やはり; やっぱり',
+	けれども: 'けれど; けれども'
 };
 
 // Voci eliminate senza successore: le 11 frasi-domanda dell'aeroporto che

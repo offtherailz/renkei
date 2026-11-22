@@ -2534,38 +2534,6 @@
   ]
  },
  {
-  "scrittura": "いい",
-  "lettura": "いい",
-  "it": [
-   "buono",
-   "bello",
-   "va bene"
-  ],
-  "en": [
-   "good",
-   "fine",
-   "OK"
-  ],
-  "livello": "N5",
-  "tipo_jp": "形容詞[けいようし]",
-  "tipo_aggettivo_jp": "い形容詞[いけいようし]",
-  "sinonimi": [
-   "良い"
-  ],
-  "esempi": [
-   {
-    "jp": "きょうは いい 天気ですね。",
-    "it": "Oggi è una bella giornata, eh.",
-    "en": "Nice weather today, isn’t it?"
-   },
-   {
-    "jp": "この 本は とても いいです。",
-    "it": "Questo libro è molto bello.",
-    "en": "This book is very good."
-   }
-  ]
- },
- {
   "scrittura": "すみません",
   "lettura": "すみません",
   "it": [
@@ -2676,35 +2644,6 @@
     "jp": "日よう日は うちで ゆっくり します。",
     "it": "La domenica me la prendo con calma a casa.",
     "en": "On Sunday I relax at home."
-   }
-  ]
- },
- {
-  "scrittura": "じゃあ",
-  "lettura": "じゃあ",
-  "it": [
-   "allora",
-   "bene, allora"
-  ],
-  "en": [
-   "well then",
-   "so"
-  ],
-  "livello": "N5",
-  "tipo_jp": "接続詞[せつぞくし]",
-  "sinonimi": [
-   "では"
-  ],
-  "esempi": [
-   {
-    "jp": "じゃあ、また あした。",
-    "it": "Allora, a domani.",
-    "en": "Well then, see you tomorrow."
-   },
-   {
-    "jp": "じゃあ、これに します。",
-    "it": "Allora prendo questo.",
-    "en": "Then I’ll take this one."
    }
   ]
  },
@@ -3201,31 +3140,6 @@
   ]
  },
  {
-  "scrittura": "高校",
-  "lettura": "こうこう",
-  "it": [
-   "liceo",
-   "scuola superiore"
-  ],
-  "en": [
-   "high school"
-  ],
-  "livello": "N4",
-  "tipo_jp": "名詞[めいし]",
-  "esempi": [
-   {
-    "jp": "あには 高校で 先生を して います。",
-    "it": "Mio fratello insegna al liceo.",
-    "en": "My older brother teaches at a high school."
-   },
-   {
-    "jp": "高校の 時、サッカーを して いました。",
-    "it": "Al liceo giocavo a calcio.",
-    "en": "I played soccer in high school."
-   }
-  ]
- },
- {
   "scrittura": "中学生",
   "lettura": "ちゅうがくせい",
   "it": [
@@ -3707,50 +3621,6 @@
   ]
  },
  {
-  "scrittura": "レポート",
-  "lettura": "レポート",
-  "it": [
-   "relazione",
-   "tesina",
-   "rapporto"
-  ],
-  "en": [
-   "report",
-   "paper"
-  ],
-  "livello": "N4",
-  "tipo_jp": "名詞[めいし]",
-  "esempi": [
-   {
-    "jp": "あしたまでに レポートを 書かなければ なりません。",
-    "it": "Devo scrivere la relazione entro domani.",
-    "en": "I have to write the report by tomorrow."
-   }
-  ]
- },
- {
-  "scrittura": "コンピューター",
-  "lettura": "コンピューター",
-  "it": [
-   "computer"
-  ],
-  "en": [
-   "computer"
-  ],
-  "livello": "N4",
-  "tipo_jp": "名詞[めいし]",
-  "sinonimi": [
-   "パソコン"
-  ],
-  "esempi": [
-   {
-    "jp": "大学の コンピューターを 使いました。",
-    "it": "Ho usato il computer dell’università.",
-    "en": "I used the university’s computer."
-   }
-  ]
- },
- {
   "scrittura": "メール",
   "lettura": "メール",
   "it": [
@@ -3807,56 +3677,6 @@
     "jp": "週末に 友だちと サッカーを します。",
     "it": "Nel fine settimana gioco a calcio con gli amici.",
     "en": "I play soccer with friends on weekends."
-   }
-  ]
- },
- {
-  "scrittura": "やっぱり",
-  "lettura": "やっぱり",
-  "it": [
-   "come pensavo",
-   "alla fine",
-   "in fondo"
-  ],
-  "en": [
-   "as expected",
-   "after all"
-  ],
-  "livello": "N4",
-  "tipo_jp": "副詞[ふくし]",
-  "sinonimi": [
-   "やはり"
-  ],
-  "esempi": [
-   {
-    "jp": "やっぱり 赤い ほうに します。",
-    "it": "Alla fine prendo quello rosso.",
-    "en": "I’ll go with the red one after all."
-   }
-  ]
- },
- {
-  "scrittura": "けれども",
-  "lettura": "けれども",
-  "it": [
-   "però",
-   "tuttavia"
-  ],
-  "en": [
-   "however",
-   "but"
-  ],
-  "livello": "N4",
-  "tipo_jp": "接続詞[せつぞくし]",
-  "sinonimi": [
-   "けれど",
-   "でも"
-  ],
-  "esempi": [
-   {
-    "jp": "雨でした。けれども、出かけました。",
-    "it": "Pioveva. Però sono uscito.",
-    "en": "It was raining. However, I went out."
    }
   ]
  },
