@@ -257,6 +257,12 @@ export function lookupToken(map: Map<string, WordHit>, token: string, prevToken?
 		const stripped = f.replace(/(でしょう|でした|です)$/, '');
 		if (stripped.length >= 1 && stripped !== f) forms.push(stripped);
 	}
+	// forma spiegativa 〜んです/〜のです/〜んだ (持って こなかったんですか): senza
+	// staccarla, こなかったん non si deconiuga e vince il prefisso こな (粉).
+	for (const f of [...forms]) {
+		const stripped = f.replace(/[んの](?:ですか|です|でしょう|だった|だ)$/, '');
+		if (stripped.length >= 2 && stripped !== f) forms.push(stripped);
+	}
 	// BudouX a volte incolla un nome/nominalizzatore alla forma verbale
 	// (呼びたいとき, 読むこと, 行くため): stacca il nome così la parte verbale
 	// resta deconiugabile (呼びたい→呼ぶ) e il nome può risolversi da sé.

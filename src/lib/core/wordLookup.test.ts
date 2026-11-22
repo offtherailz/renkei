@@ -60,6 +60,13 @@ describe('lookupToken', () => {
 		expect(r?.forma).toContain('なかった');
 	});
 
+	it('こなかったんですか trova 来る (non 粉): via la coda 〜んです', () => {
+		const m = mapOf([hit('来る', '来る', 'くる', '動詞[どうし]'), hit('粉', '粉', 'こな')]);
+		const r = lookupToken(m, 'こなかったんですか');
+		expect(r?.id).toBe('来る');
+		expect(r?.forma).toContain('なかった');
+	});
+
 	it('飲みたい trova 飲む; 食べない trova 食べる', () => {
 		expect(lookupToken(map2, '飲みたい')?.id).toBe('飲む');
 		expect(lookupToken(map2, '食べない')?.id).toBe('食べる');
