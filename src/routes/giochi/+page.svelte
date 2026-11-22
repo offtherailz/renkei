@@ -1114,7 +1114,7 @@
 						<span class="appt-section-label">Mese</span>
 						<div class="appt-btn-grid appt-btn-grid-month">
 							{#each Array.from({ length: 12 }, (_, i) => i + 1) as m (m)}
-								<button type="button" class="appt-btn" class:selected={apptIn.month === String(m)} disabled={checked} onclick={() => (apptIn.month = String(m))}>{m}</button>
+								<button type="button" class="appt-btn" class:selected={apptIn.month === String(m)} class:right={checked && appt.month === m} class:wrong={checked && apptIn.month === String(m) && appt.month !== m} disabled={checked} onclick={() => (apptIn.month = String(m))}>{m}</button>
 							{/each}
 						</div>
 					</div>
@@ -1122,7 +1122,7 @@
 						<span class="appt-section-label">Giorno</span>
 						<div class="appt-btn-grid appt-btn-grid-day">
 							{#each Array.from({ length: 31 }, (_, i) => i + 1) as d (d)}
-								<button type="button" class="appt-btn appt-btn-day" class:selected={apptIn.day === String(d)} disabled={checked} onclick={() => (apptIn.day = String(d))}>{d}</button>
+								<button type="button" class="appt-btn appt-btn-day" class:selected={apptIn.day === String(d)} class:right={checked && appt.day === d} class:wrong={checked && apptIn.day === String(d) && appt.day !== d} disabled={checked} onclick={() => (apptIn.day = String(d))}>{d}</button>
 							{/each}
 						</div>
 					</div>
@@ -1132,7 +1132,7 @@
 						<span class="appt-section-label">Ora</span>
 						<div class="appt-btn-grid appt-btn-grid-hour">
 							{#each Array.from({ length: 12 }, (_, i) => i + 1) as h (h)}
-								<button type="button" class="appt-btn" class:selected={apptIn.hour === String(h)} disabled={checked} onclick={() => (apptIn.hour = String(h))}>{h}</button>
+								<button type="button" class="appt-btn" class:selected={apptIn.hour === String(h)} class:right={checked && appt.hour === h} class:wrong={checked && apptIn.hour === String(h) && appt.hour !== h} disabled={checked} onclick={() => (apptIn.hour = String(h))}>{h}</button>
 							{/each}
 						</div>
 					</div>
@@ -1140,7 +1140,7 @@
 						<span class="appt-section-label">Minuti</span>
 						<div class="appt-btn-grid appt-btn-grid-minute">
 							{#each APPT_MINUTES as min (min)}
-								<button type="button" class="appt-btn" class:selected={apptIn.minute === String(min)} disabled={checked} onclick={() => (apptIn.minute = String(min))}>{String(min).padStart(2, '0')}</button>
+								<button type="button" class="appt-btn" class:selected={apptIn.minute === String(min)} class:right={checked && appt.minute === min} class:wrong={checked && apptIn.minute === String(min) && appt.minute !== min} disabled={checked} onclick={() => (apptIn.minute = String(min))}>{String(min).padStart(2, '0')}</button>
 							{/each}
 						</div>
 					</div>
@@ -1365,6 +1365,10 @@
 	.appt-btn:hover:not(:disabled) { border-color: var(--brand); }
 	.appt-btn:disabled { cursor: default; opacity: 0.6; }
 	.appt-btn.selected { border-color: var(--brand); background: var(--brand); color: var(--surface); }
+	/* dopo «Controlla»: la soluzione in verde, la scelta sbagliata in rosso */
+	.appt-btn.right, .appt-btn.wrong { opacity: 1; color: var(--ink); }
+	.appt-btn.right { border-color: var(--success); background: var(--ok-bg); color: var(--ok-ink); box-shadow: 0 0 0 2px var(--success); }
+	.appt-btn.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--danger); text-decoration: line-through; }
 
 	.shop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 	.shop-list li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
