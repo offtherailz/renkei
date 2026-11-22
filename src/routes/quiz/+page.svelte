@@ -2216,8 +2216,10 @@
 			</div>
 			{#if answeredRecap}
 				<div class="answer-recap">
-					<span class="recap-jp">{answeredRecap.jp}</span>
-					{#if 'level' in answeredRecap && answeredRecap.level}<JlptBadge level={answeredRecap.level} />{/if}
+					<span class="recap-head">
+						<span class="recap-jp">{answeredRecap.jp}</span>
+						{#if 'level' in answeredRecap && answeredRecap.level}<JlptBadge level={answeredRecap.level} />{/if}
+					</span>
 					{#if answeredRecap.reading}<span class="recap-reading">{answeredRecap.reading}</span>{/if}
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>
@@ -2607,6 +2609,7 @@
 	}
 
 	.recap-jp { font-size: 1.5rem; font-weight: 700; }
+	.recap-head { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
 
 	.recap-reading { font-size: 0.95rem; color: var(--brand); }
 
