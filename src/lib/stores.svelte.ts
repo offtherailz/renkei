@@ -131,6 +131,7 @@ export interface DeepDivePayload {
 	title: string;
 	reading?: string;
 	meaning?: string;
+	level?: string; // JLPT dell'elemento principale
 	question?: string; // riassunto della domanda
 	correctReason?: string; // perché la risposta corretta è giusta
 	// La frase della domanda (o l'esempio della parola): testo piano,

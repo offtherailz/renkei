@@ -44,6 +44,7 @@
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS, buildConjugationTable, conjClassKey, CONSTRUCTION_BY_FORM_KEY } from '$lib/core/conjugation';
 	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
+	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
 	import { curatedByWord, curatedForGrammar, curatedToQuestion } from '$lib/data/propedeutiche';
@@ -882,13 +883,14 @@
 			return {
 				jp: w.scrittura,
 				reading: w.lettura !== w.scrittura ? w.lettura : '',
-				text: pickLocalizedArray(w.significato, locale).join(' / ')
+				text: pickLocalizedArray(w.significato, locale).join(' / '),
+				level: w.livello_jlpt
 			};
 		}
 		if (quiz.itemRef.kind === 'grammar') {
 			const g = context?.grammarById.get(rawId);
 			if (!g) return null;
-			return { jp: g.struttura, reading: '', text: pickLocalizedText(g.spiegazione, locale) };
+			return { jp: g.struttura, reading: '', text: pickLocalizedText(g.spiegazione, locale), level: g.livello_jlpt };
 		}
 		if (quiz.itemRef.kind === 'kanji') {
 			const k = kanjiRows.find((row) => row.id === rawId);
@@ -896,7 +898,8 @@
 			return {
 				jp: k.id,
 				reading: [...k.letture_kun, ...k.letture_on].slice(0, 3).join('、'),
-				text: locale === 'it' ? k.significato.it : k.significato.en
+				text: locale === 'it' ? k.significato.it : k.significato.en,
+				level: k.livello_jlpt
 			};
 		}
 		if (quiz.itemRef.kind === 'counter') {
@@ -908,6 +911,18 @@
 	});
 
 	// ── Approfondimenti post-risposta: argomento principale + elementi della frase ──
+	function kanjiItem(id: string, primary = false): DeepDiveItem {
+		const k = kanjiById.get(id);
+		return {
+			label: id,
+			href: `${base}/detail/${encodeURIComponent(`kanji:${id}`)}`,
+			consolidaHref: k ? `${base}/consolida/${encodeURIComponent(id)}` : undefined,
+			level: k?.livello_jlpt,
+			meaning: k ? (locale === 'it' ? k.significato.it : k.significato.en) : undefined,
+			kanji: !primary,
+			primary
+		};
+	}
 	function wordItem(w: Word, primary = false): DeepDiveItem {
 		return {
 			label: w.scrittura,
@@ -1000,6 +1015,7 @@
 			dives.push({
 				label: grammar?.struttura ?? 'Grammatica',
 				href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}`,
+				level: grammar?.livello_jlpt,
 				primary: true
 			});
 			const sentence =
@@ -1012,11 +1028,7 @@
 							: '';
 			if (sentence) dives.push(...(await wordsInSentence(sentence)));
 		} else if (quiz.itemRef.kind === 'kanji') {
-			dives.push({
-				label: rawId,
-				href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}`,
-				primary: true
-			});
+			dives.push({ ...kanjiItem(rawId, true), href: `${base}/detail/${encodeURIComponent(quiz.itemRef.key)}` });
 			const wordsWithKanji = [...(context?.wordsById.values() ?? [])].filter((w) =>
 				w.kanji_usati?.includes(rawId)
 			);
@@ -1030,25 +1042,14 @@
 						(k) => (locale === 'it' ? k.significato.it : k.significato.en) === choice
 					);
 					if (wrongKanji) {
-						dives.push({
-							label: wrongKanji.id,
-							href: `${base}/detail/${encodeURIComponent(`kanji:${wrongKanji.id}`)}`,
-							kanji: true
-						});
+						dives.push({ ...kanjiItem(wrongKanji.id), consolidaHref: undefined });
 					}
 				}
 			}
 		} else {
 			// modalità parola classiche: la parola stessa + i suoi kanji
 			if (wordLink) dives.push({ ...wordLink, primary: true });
-			for (const k of word?.kanji_usati ?? []) {
-				dives.push({
-					label: k,
-					href: `${base}/detail/${encodeURIComponent(`kanji:${k}`)}`,
-					consolidaHref: `${base}/consolida/${encodeURIComponent(k)}`,
-					kanji: true
-				});
-			}
+			for (const k of word?.kanji_usati ?? []) dives.push({ ...kanjiItem(k), consolidaHref: `${base}/consolida/${encodeURIComponent(k)}` });
 			// usage-cloze/verb-form-cloze hanno una frase intera come particle-cloze
 			// e transitivity-pair, ma non pescavano le ALTRE parole della frase
 			// (es. 去年 in «二人は去年別れたそうです»): bug segnalato dall'utente.
@@ -1269,6 +1270,7 @@
 			title: recap?.jp ?? '',
 			reading: recap?.reading,
 			meaning: recap?.text,
+			level: recap && 'level' in recap ? recap.level : undefined,
 			question: summary.question,
 			correctReason: summary.correctReason,
 			sentence: await buildDiveSentence().catch(() => undefined),
@@ -2215,6 +2217,7 @@
 			{#if answeredRecap}
 				<div class="answer-recap">
 					<span class="recap-jp">{answeredRecap.jp}</span>
+					{#if 'level' in answeredRecap && answeredRecap.level}<JlptBadge level={answeredRecap.level} />{/if}
 					{#if answeredRecap.reading}<span class="recap-reading">{answeredRecap.reading}</span>{/if}
 					<span class="recap-meaning">{answeredRecap.text}</span>
 				</div>

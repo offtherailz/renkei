@@ -2,6 +2,7 @@
 	import { appState } from '$lib/stores.svelte';
 	import { base } from '$app/paths';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
+	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import { renderFuriganaToHtml } from '$lib/core/furigana';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 
@@ -37,6 +38,7 @@
 			{#if dive.title}
 				<p class="focus">
 					<span class="f-jp">{dive.title}</span>
+					{#if dive.level}<JlptBadge level={dive.level} />{/if}
 					{#if dive.reading}<span class="f-read">{dive.reading}</span>{/if}
 					{#if dive.meaning}<span class="f-mean">{dive.meaning}</span>{/if}
 				</p>

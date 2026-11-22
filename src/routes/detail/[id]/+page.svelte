@@ -608,7 +608,7 @@
 			<p class="card-title">Verbo correlato ({word.transitivita_jp === '他動詞[たどうし]' ? 'intransitivo' : 'transitivo'})</p>
 			<div class="chip-row">
 				<a href="{base}/detail/word:{verbPair.id}" class="word-chip">
-					<span class="chip-writing">{verbPair.scrittura}</span>
+					<span class="chip-writing">{verbPair.scrittura}<span class="chip-lv lv-{verbPair.livello_jlpt}">{verbPair.livello_jlpt === 'EXTRA' ? 'EX' : verbPair.livello_jlpt}</span></span>
 					<span class="chip-meaning">{verbPair.lettura} — {pickLocalizedArray(verbPair.significato, locale)[0] ?? ''}</span>
 				</a>
 			</div>
@@ -624,7 +624,7 @@
 						<span class="keigo-tag">forma piana</span>
 						{#if keigoPlainWord}
 							<a href="{base}/detail/word:{keigoPlainWord.id}" class="word-chip">
-								<span class="chip-writing">{keigoPlainWord.scrittura}</span>
+								<span class="chip-writing">{keigoPlainWord.scrittura}<span class="chip-lv lv-{keigoPlainWord.livello_jlpt}">{keigoPlainWord.livello_jlpt === 'EXTRA' ? 'EX' : keigoPlainWord.livello_jlpt}</span></span>
 								<span class="chip-meaning">{keigoPlainWord.lettura} — {pickLocalizedArray(keigoPlainWord.significato, locale)[0] ?? ''}</span>
 							</a>
 						{:else}
@@ -638,7 +638,7 @@
 						<span class="keigo-tag-note">(azioni altrui)</span>
 						{#if keigoSonkeigoWord}
 							<a href="{base}/detail/word:{keigoSonkeigoWord.id}" class="word-chip">
-								<span class="chip-writing">{keigoSonkeigoWord.scrittura}</span>
+								<span class="chip-writing">{keigoSonkeigoWord.scrittura}<span class="chip-lv lv-{keigoSonkeigoWord.livello_jlpt}">{keigoSonkeigoWord.livello_jlpt === 'EXTRA' ? 'EX' : keigoSonkeigoWord.livello_jlpt}</span></span>
 								<span class="chip-meaning">{keigoSonkeigoWord.lettura}</span>
 							</a>
 						{:else}
@@ -652,7 +652,7 @@
 						<span class="keigo-tag-note">(le tue azioni)</span>
 						{#if keigoKenjougoWord}
 							<a href="{base}/detail/word:{keigoKenjougoWord.id}" class="word-chip">
-								<span class="chip-writing">{keigoKenjougoWord.scrittura}</span>
+								<span class="chip-writing">{keigoKenjougoWord.scrittura}<span class="chip-lv lv-{keigoKenjougoWord.livello_jlpt}">{keigoKenjougoWord.livello_jlpt === 'EXTRA' ? 'EX' : keigoKenjougoWord.livello_jlpt}</span></span>
 								<span class="chip-meaning">{keigoKenjougoWord.lettura}</span>
 							</a>
 						{:else}
@@ -712,7 +712,7 @@
 			<div class="chip-row">
 				{#each wordsUsingKanji.slice(0, 20) as w}
 					<a href="{base}/detail/word:{w.id}" class="word-chip">
-						<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}</span>
+						<span class="chip-writing">{w.scrittura}{#if w.lettura !== w.scrittura}<span class="chip-reading">（{w.lettura}）</span>{/if}<span class="chip-lv lv-{w.livello_jlpt}">{w.livello_jlpt === 'EXTRA' ? 'EX' : w.livello_jlpt}</span></span>
 						<span class="chip-meaning">{pickLocalizedArray(w.significato, locale)[0] ?? ''}</span>
 					</a>
 				{/each}
