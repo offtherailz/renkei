@@ -3748,6 +3748,7 @@
   "scrittura": "工事",
   "lettura": "こうじ",
   "it": [
+   "lavori in corso",
    "lavori (edili, stradali)",
    "cantiere"
   ],
@@ -4902,6 +4903,73 @@
     "jp": "この 公園には 子どもの 遊び場が あります。",
     "it": "In questo parco c’è un’area giochi per bambini.",
     "en": "This park has a play area for children."
+   }
+  ]
+ },
+ {
+  "scrittura": "センチ",
+  "lettura": "センチ",
+  "it": [
+   "centimetro"
+  ],
+  "en": [
+   "centimetre",
+   "centimeter"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "むすこは 一年で 五センチ せが 高く なりました。",
+    "it": "In un anno mio figlio è cresciuto di cinque centimetri.",
+    "en": "My son grew five centimetres in a year."
+   }
+  ]
+ },
+ {
+  "scrittura": "けが",
+  "lettura": "けが",
+  "it": [
+   "ferita",
+   "infortunio"
+  ],
+  "en": [
+   "injury",
+   "wound"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "id_verbo_suru": "けがする",
+  "esempi": [
+   {
+    "jp": "サッカーの しあいで 足に けがを しました。",
+    "it": "Durante la partita di calcio mi sono fatto male alla gamba.",
+    "en": "I hurt my leg in the soccer match."
+   },
+   {
+    "jp": "けがは 大丈夫ですか。",
+    "it": "La ferita va meglio? / Ti sei fatto male?",
+    "en": "Is your injury all right?"
+   }
+  ]
+ },
+ {
+  "scrittura": "洗濯物",
+  "lettura": "せんたくもの",
+  "it": [
+   "bucato",
+   "panni da lavare / lavati"
+  ],
+  "en": [
+   "laundry"
+  ],
+  "livello": "N4",
+  "tipo_jp": "名詞[めいし]",
+  "esempi": [
+   {
+    "jp": "雨なので、洗濯物は 家の 中に 干します。",
+    "it": "Piove, quindi stendo il bucato in casa.",
+    "en": "It’s raining, so I’ll hang the laundry inside."
    }
   ]
  }

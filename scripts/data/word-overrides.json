@@ -19814,6 +19814,9 @@
      "en": "I tidied the room up nicely."
     }
    }
+  ],
+  "sinonimi": [
+   "美しい"
   ]
  },
  "あ": {
@@ -21285,7 +21288,8 @@
      "en": "Please be careful not to get hurt."
     }
    }
-  ]
+  ],
+  "id_nome_origine": "けが"
  },
  "けれど; けれども": {
   "significato": {
@@ -35594,6 +35598,9 @@
      "en": "From the mountaintop we saw beautiful stars."
     }
    }
+  ],
+  "sinonimi": [
+   "綺麗"
   ]
  },
  "美術館": {
@@ -42308,6 +42315,11 @@
      "en": "Every child bowed to the teacher."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "お前": {
@@ -44642,6 +44654,11 @@
      "en": "Andy is never late for a date."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "kana-only"
   ]
  },
  "できれば": {
@@ -50347,6 +50364,11 @@
   ],
   "correlati": [
    "歌"
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "歌謡": {
@@ -53337,6 +53359,11 @@
   ],
   "correlati": [
    "装置"
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "機関": {
@@ -62217,6 +62244,11 @@
      "en": "That'll make for a memorable time."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "思い付く": {
@@ -69124,6 +69156,11 @@
      "en": "That child can count to twenty."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "数字": {
@@ -74844,6 +74881,11 @@
      "en": "Work on the road was suspended because of the storm."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "中心": {
@@ -75307,6 +75349,11 @@
    "具合",
    "状態",
    "節::ふし"
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "超える": {
@@ -85493,6 +85540,11 @@
   ],
   "sinonimi": [
    "勧める"
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "郵便": {
@@ -87905,6 +87957,12 @@
      "en": "Every child bowed to the teacher."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji",
+   "suru-verb"
   ]
  },
  "お喋りする": {
@@ -88062,6 +88120,12 @@
      "en": "Andy is never late for a date."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "kana-only",
+   "suru-verb"
   ]
  },
  "デザインする": {
@@ -91142,6 +91206,12 @@
      "en": "Work on the road was suspended because of the storm."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji",
+   "suru-verb"
   ]
  },
  "注する": {
