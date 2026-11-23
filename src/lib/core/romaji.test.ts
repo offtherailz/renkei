@@ -39,6 +39,11 @@ describe("kanaSearchKey", () => {
     expect(kanaSearchKey("コーヒー")).toBe("こひ");
     expect(kanaSearchKey("すうがく")).toBe("すがく");
   });
+
+  it("づ/ぢ uguali a ず/じ: katazukeru trova かたづける", () => {
+    expect(romajiQueryKey("katazukeru")).toBe(kanaSearchKey("かたづける"));
+    expect(romajiQueryKey("hanaji")).toBe(kanaSearchKey("はなぢ"));
+  });
 });
 
 describe("romajiQueryKey", () => {

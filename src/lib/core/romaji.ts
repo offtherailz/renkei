@@ -107,11 +107,16 @@ const E_ROW = new Set('えけげせぜてでねへべぺめれ'.split(''));
 const I_ROW = new Set('いきぎしじちぢにひびぴみり'.split(''));
 const A_ROW = new Set('あかがさざただなはばぱまやらわゃ'.split(''));
 
-// Chiave di ricerca tollerante: katakana → hiragana, via ー e le vocali
+// Chiave di ricerca tollerante: katakana → hiragana, づ/ぢ = ず/じ, via ー e le vocali
 // lunghe (おう/おお/うう/えい/いい/ああ → vocale breve), così benkyou, benkyoo e
 // benkyo trovano tutte べんきょう.
 export function kanaSearchKey(kana: string): string {
-	const hira = kana.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60)).replace(/ー/g, '');
+	// づ/ぢ si scrivono «zu»/«ji» in romaji come ず/じ: katazukeru → かたづける
+	const hira = kana
+		.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60))
+		.replace(/ー/g, '')
+		.replace(/づ/g, 'ず')
+		.replace(/ぢ/g, 'じ');
 	let out = '';
 	for (const ch of hira) {
 		const prev = out[out.length - 1];
