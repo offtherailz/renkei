@@ -71,7 +71,8 @@ export function buildWordItems(words: Word[], levels: string[]): ListenItem[] {
 		if (!levels.includes(w.livello_jlpt) || !w.scrittura || /[〜～]/.test(w.scrittura)) continue;
 		const jp = (w.lettura ?? '').split(/[;；]/)[0]!.trim();
 		const sig = w.significato.it;
-		const it = spokenIt(((Array.isArray(sig) ? sig.join(', ') : sig) ?? '').split(/,\s*/).map(spokenIt).filter(Boolean).slice(0, 2).join(', '));
+		// via le parentesi PRIMA di dividere: «lavori (edili, stradali)» ha una virgola dentro
+		const it = spokenIt(spokenIt((Array.isArray(sig) ? sig.join(', ') : sig) ?? '').split(/,\s*/).map(spokenIt).filter(Boolean).slice(0, 2).join(', '));
 		if (jp && it && !/[ぁ-んァ-ヶ一-龯]/.test(it)) out.push({ key: w.id, jp, it, scritto: w.scrittura });
 	}
 	return out;
