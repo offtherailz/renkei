@@ -58,9 +58,10 @@ function promptAscoltoLettura(slug: string, r: Riga): string | null {
 	if (slug === 'kadai' || slug === 'point') return righe.length ? copione(r) : null;
 	if (!r.testo) return null;
 	if (slug === 'bunsho-bunpo') {
-		// lo spazio chiesto diventa ＿＿, gli altri restano numerati
+		// lo spazio chiesto resta numerato ma evidenziato (【（3）＿＿】): con
+		// gli altri （1）（2）… si deve capire QUALE buco è la domanda
 		const n = r.domanda.ja.match(/[（(](\d+)[）)]/)?.[1];
-		return n ? r.testo.ja.replace(new RegExp(`[（(]${n}[）)]`), '＿＿') : null;
+		return n ? r.testo.ja.replace(new RegExp(`[（(]${n}[）)]`), `【（${n}）＿＿】`) : null;
 	}
 	return `〔${r.testo.titolo}〕${r.testo.ja}　問: ${r.domanda.ja.trim()}`;
 }

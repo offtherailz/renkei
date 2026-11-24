@@ -546,5 +546,31 @@
     "en": "I do not drink much alcohol."
    }
   ]
+ },
+ {
+  "id": "g-n4-koto-ni-suru",
+  "struttura": "〜ことにする",
+  "livello": "N4",
+  "spiegazione": {
+   "it": "Decidere di fare qualcosa, per scelta propria: forma piana + ことにする (毎日 歩く ことにした = ho deciso di camminare ogni giorno). Al passato (ことにした) è la decisione appena presa; ことにしている è un’abitudine che ci si è imposti. Diverso da 〜ことになる, dove la decisione viene da fuori (azienda, regole, circostanze).",
+   "en": "To decide to do something (your own decision): plain form + ことにする. ことにしている = a rule you keep. Compare 〜ことになる (decided by others or by circumstances)."
+  },
+  "esempi": [
+   {
+    "jp": "けんこうの ために、毎日 歩く ことに しました。",
+    "it": "Per la salute ho deciso di camminare ogni giorno.",
+    "en": "For my health, I decided to walk every day."
+   },
+   {
+    "jp": "今年の 夏休みは 日本へ 行く ことに しました。",
+    "it": "Ho deciso di andare in Giappone per le vacanze estive di quest’anno.",
+    "en": "I decided to go to Japan this summer vacation."
+   },
+   {
+    "jp": "ねる 前は スマホを 見ない ことに して います。",
+    "it": "Mi sono imposto di non guardare lo smartphone prima di dormire.",
+    "en": "I make it a rule not to look at my phone before bed."
+   }
+  ]
  }
 ]

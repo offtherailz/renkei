@@ -22,6 +22,11 @@
 		domanda: string;
 		corretta: string;
 		perche: string;
+		// coppie di GRAMMATICA (ことになる/ようになる…): id dei punti grammaticali
+		// [a, b], frase giapponese col buco e la stessa frase completa
+		grammatica?: [string, string];
+		frase?: string;
+		piena?: string;
 	}
 	const ITEMS = (raw as { items: Item[] }).items;
 	const ROUNDS_PER_GAME = 8;
@@ -75,6 +80,15 @@
 		const r = cur();
 		const ok = choice === r.item.corretta;
 		if (ok) score += 1;
+		const g = r.item.grammatica;
+		if (g) {
+			// coppia di grammatica: credito e schede dei due punti grammaticali
+			if (ok) for (const id of g) await recordPractice(`grammar:${id}`, true);
+			detailA = `${base}/detail/${encodeURIComponent(`grammar:${g[0]}`)}`;
+			detailB = `${base}/detail/${encodeURIComponent(`grammar:${g[1]}`)}`;
+			speakSentenceJapanese(r.item.piena ?? label(r.item.corretta));
+			return;
+		}
 		// doppio incremento: distinguere la coppia allena ENTRAMBE le parole
 		if (ok) {
 			await recordPractice(`word:${r.item.a}`, true, 'facet_use');
@@ -133,8 +147,9 @@
 		<article class="scene">
 			<h1 class="page-title">🔀 Coppie difficili <span class="beta-chip">beta</span></h1>
 			<p class="hint">
-				妻 o 奥さん? 切符 o 切手? 熱い o 暑い? Parole legate ma NON interscambiabili:
-				il contesto ne forza una sola. Dopo la risposta, il perché della differenza.
+				妻 o 奥さん? 切符 o 切手? 熱い o 暑い? 〜ことになる o 〜ようになる? Parole e forme
+				legate ma NON interscambiabili: il contesto ne forza una sola. Dopo la risposta,
+				il perché della differenza.
 			</p>
 			<button class="proceed" onclick={start}>はじめる</button>
 		</article>
@@ -143,6 +158,9 @@
 		{@const r = cur()}
 		<article class="scene">
 			<p class="who">{idx + 1} / {rounds.length} — punti: {score}</p>
+			{#if r.item.frase}
+				<p class="frase-jp">{r.item.frase}</p>
+			{/if}
 			<p class="prompt">{r.item.domanda}</p>
 			<div class="choices two">
 				{#each r.scelte as c, i (i)}
@@ -156,6 +174,12 @@
 				{/each}
 			</div>
 			{#if picked !== null}
+				{#if r.item.piena}
+					<div class="pair-example">
+						<InteractiveSentence text={r.item.piena} />
+						<button class="listen" onclick={() => speakSentenceJapanese(r.item.piena!)}>🔊</button>
+					</div>
+				{/if}
 				<p class="nota">💡 {r.item.perche}</p>
 				{#if pairExampleA && pairExampleB}
 					<div class="pair-examples">
@@ -193,6 +217,7 @@
 	.coppie { display: grid; gap: 14px; }
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.25rem; text-align: center; }
+	.frase-jp { margin: 0; font-size: 1.15rem; text-align: center; line-height: 1.6; }
 	.beta-chip {
 		font-size: 0.6rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
 		color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-border);

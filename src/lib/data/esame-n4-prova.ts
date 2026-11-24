@@ -157,7 +157,8 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 	// 1b) 文章の文法 (問題3): ogni brano → un item per buco (formato reale).
 	for (const p of BUNSHO_PASSAGES) {
 		for (const b of p.buchi) {
-			const prompt = p.testo.replace(/【(\d+)】/g, (_m, k) => (Number(k) === b.n ? '＿＿' : `（${k}）`));
+			// il buco chiesto resta numerato ed evidenziato: si capisce quale dei （1）…（5）
+			const prompt = p.testo.replace(/【(\d+)】/g, (_m, k) => (Number(k) === b.n ? `【（${k}）＿＿】` : `（${k}）`));
 			push('bunsho-bunpo', {
 				mondaiSlug: 'bunsho-bunpo',
 				prompt,

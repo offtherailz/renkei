@@ -59,7 +59,7 @@ describe('prove dei libri nella sezione JLPT', () => {
 			testo: { titolo: 'T', ja: 'A（21）B（22）C', it: '', formato },
 			domanda: { ja: domanda, it: '' }, opzioni: [{ ja: 'a', it: '' }, { ja: 'b', it: '' }], risposta: 0
 		});
-		expect(daProva(brano('tema', '文章の文法'))!.item.prompt).toBe('A＿＿B（22）C');
+		expect(daProva(brano('tema', '文章の文法'))!.item.prompt).toBe('A【（21）＿＿】B（22）C');
 		expect(daProva(brano('tema'), 1)!.slug).toBe('dokkai-tan');
 		expect(daProva(brano('tema'), 4)!.slug).toBe('dokkai-chu');
 		expect(daProva(brano('volantino'))!.slug).toBe('joho');
