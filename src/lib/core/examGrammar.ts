@@ -3,6 +3,7 @@
 // usata» in ogni domanda, senza doverla taggare a mano item per item.
 
 import { stripFuriganaNotation } from './furigana';
+import { formPath } from '$lib/data/grammarForms';
 
 export interface GrammarHit {
 	label: string;
@@ -33,10 +34,30 @@ const RULES: Rule[] = [
 	{ re: /つもり|(よ)?うと 思|意向/, label: '🧩 Intenzione (〜つもり・意向形)', href: 'forme-composte' }
 ];
 
-export function detectGrammar(texts: string[], max = 3): GrammarHit[] {
+// Condizionali: oltre al gioco generico, la scheda della forma della risposta
+// GIUSTA (辞書なら → 〜なら), così la domanda porta alla grammatica precisa.
+const CONDIZIONALI: [RegExp, string, string][] = [
+	[/なら$/, '〜なら', 'nara'],
+	[/(た|だ)ら$/, '〜たら', 'tara'],
+	[/(れ|け|え|せ|て|ね|べ|め|げ)ば$/, '〜ば', 'ba'],
+	[/^.{0,4}と$/, '〜と (condizionale)', 'to-cond']
+];
+export function formaCondizionale(corretta: string): GrammarHit | null {
+	const t = stripFuriganaNotation(corretta).replace(/[\s　。、]/g, '');
+	for (const [re, label, slug] of CONDIZIONALI) if (re.test(t)) return { label: `📐 ${label}`, href: formPath(slug) };
+	return null;
+}
+
+// corretta: la risposta giusta, per il link alla forma precisa (condizionali)
+export function detectGrammar(texts: string[], max = 3, corretta?: string): GrammarHit[] {
 	const hay = stripFuriganaNotation(texts.join(' ')).replace(/[\s　]/g, '');
 	const out: GrammarHit[] = [];
 	const seen = new Set<string>();
+	const cond = corretta && /たら|なら|えば|ければ|んだら/.test(hay) ? formaCondizionale(corretta) : null;
+	if (cond) {
+		out.push(cond);
+		seen.add(cond.href);
+	}
 	for (const r of RULES) {
 		if (out.length >= max) break;
 		if (r.re.test(hay) && !seen.has(r.href)) {

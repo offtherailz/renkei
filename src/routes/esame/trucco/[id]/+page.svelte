@@ -4,10 +4,14 @@
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import { speakSentenceJapanese, stopSpeaking } from '$lib/core/tts';
 	import { stripFuriganaNotation } from '$lib/core/furigana';
+	import { detectGrammar } from '$lib/core/examGrammar';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { getTrucco, type TruccoQuiz } from '$lib/data/esame-n4-trucchi';
 	import { EXAM_N4_HOT_POINTS, mondaiKey } from '$lib/data/esame-n4';
 	import { shuffleChoices } from '$lib/data/esame-n4-prova';
+
+	// grammatica della domanda, con la scheda della forma della risposta giusta
+	const gramOf = (q: TruccoQuiz) => detectGrammar([q.prompt, ...q.choices], 3, q.choices[q.correct]);
 
 	const id = $derived($page.params.id ?? '');
 	const trucco = $derived(getTrucco(id));
@@ -165,6 +169,9 @@
 							<p class="fb-line">✔️ {currentQ.perche_giusta}</p>
 							{#if picked !== currentQ.correct}
 								<p class="fb-line muted">La tua scelta «{stripFuriganaNotation(currentQ.choices[picked] ?? '')}»: {wrongNote(currentQ, picked)}</p>
+							{/if}
+							{#if gramOf(currentQ).length}
+								<p class="fb-line">📐 {#each gramOf(currentQ) as g, gi (g.href)}{gi ? ' · ' : ''}<a href="{base}/{g.href}">{g.label}</a>{/each}</p>
 							{/if}
 							<button class="lnk primary" onclick={next}>
 								{qIndex + 1 >= quiz.length ? 'Vedi risultato' : 'Prossima →'}

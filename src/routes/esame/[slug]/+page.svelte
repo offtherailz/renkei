@@ -229,7 +229,7 @@
 			</div>
 
 			{#if picked !== null}
-				{@const gram = detectGrammar([q.prompt, ...q.choices])}
+				{@const gram = detectGrammar([q.prompt, ...q.choices], 3, q.choices[q.correct])}
 				<div class="feedback" class:ok={picked === q.correct}>
 					<p class="fb"><strong>{picked === q.correct ? '✅ Giusto!' : picked === -1 ? '🤷 Vediamola insieme.' : '❌ Non proprio.'}</strong></p>
 					<div class="fb-jp">

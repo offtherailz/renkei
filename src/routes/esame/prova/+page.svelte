@@ -590,7 +590,7 @@
 		const counts = new Map<string, { label: string; href: string; n: number }>();
 		for (const a of list) {
 			if (a.correct) continue;
-			for (const g of detectGrammar([a.q.prompt, ...a.q.choices])) {
+			for (const g of detectGrammar([a.q.prompt, ...a.q.choices], 3, a.q.choices[a.q.correct])) {
 				const e = counts.get(g.href) ?? { label: g.label, href: g.href, n: 0 };
 				e.n += 1;
 				counts.set(g.href, e);
@@ -866,7 +866,7 @@
 
 		{#if picked !== null}
 			{#if mode === 'renshu'}
-				{@const gram = detectGrammar([q.prompt, ...q.choices])}
+				{@const gram = detectGrammar([q.prompt, ...q.choices], 3, q.choices[q.correct])}
 				<div class="feedback" class:ok={picked === q.correct}>
 					<p class="fb"><strong>{picked === q.correct ? '✅ Giusto!' : picked === -1 ? '🤷 Vediamola insieme.' : '❌ Non proprio.'}</strong></p>
 					<div class="fb-jp">
