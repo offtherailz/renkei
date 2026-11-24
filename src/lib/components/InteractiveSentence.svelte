@@ -168,7 +168,7 @@
 	// logica di «🔁 Non la ricordavo» (core/cardActions).
 	let flagged = $state<Set<string>>(new Set());
 	async function flagUnknown(hit: WordHit): Promise<void> {
-		await saveCardAction('forgot', 'word:' + hit.id);
+		await saveCardAction('forgot', 'word:' + hit.id, undefined, { personale: true });
 		noteSessionCardAction('word:' + hit.id, hit.scrittura, 'forgot');
 		flagged = new Set([...flagged, hit.id]);
 		void loadPopSrs(hit);

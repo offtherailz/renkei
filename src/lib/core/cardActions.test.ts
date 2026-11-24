@@ -42,3 +42,22 @@ describe("computeCardAction", () => {
     expect(computeCardAction("bury", "word:a", current, null, NOW)!.buried).toBe(true);
   });
 });
+
+describe("saveCardAction personale (📌 Le mie parole)", () => {
+  it("Metti in studio marca la carta come personale e conserva la data della prima volta", async () => {
+    const { db } = await import("$lib/db/schema");
+    const { saveCardAction } = await import("./cardActions");
+    const store = new Map<string, unknown>();
+    (db as unknown as Record<string, unknown>).srs_progress = {
+      get: async (k: string) => store.get(k),
+      put: async (r: { id_item: string }) => void store.set(r.id_item, r)
+    };
+    const a = await saveCardAction("forgot", "word:x", undefined, { personale: true });
+    expect(a?.personale).toBeTypeOf("number");
+    const first = a!.personale;
+    const b = await saveCardAction("forgot", "word:x", undefined, { personale: true });
+    expect(b?.personale).toBe(first);
+    const c = await saveCardAction("forgot", "word:y");
+    expect(c?.personale).toBeUndefined();
+  });
+});

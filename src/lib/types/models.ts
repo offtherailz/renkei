@@ -186,6 +186,10 @@ export interface SrsProgress extends BaseEntity {
   // Seppellita dall'utente ("non assillarmi"): fuori da rotazione quiz, conteggi
   // e punti deboli finché non viene riesumata dalla scheda.
   buried?: boolean;
+  // Messa in studio dall'utente («📚 Metti in studio», timestamp): entra nei
+  // ripassi anche se è fuori dagli obiettivi/livello, e nella sessione
+  // «📌 Le mie parole» (/quiz?mie=1).
+  personale?: number;
 }
 
 export interface UserPersonalization extends BaseEntity {

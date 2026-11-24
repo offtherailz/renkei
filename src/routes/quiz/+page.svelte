@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto, beforeNavigate } from '$app/navigation';
 	import { db } from '$lib/db/schema';
-	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadAutoQueue, loadGrammarDiagnosticaQueue, type N4ReviewArea } from '$lib/db/queries';
+	import { loadWeakItems, loadN4ReviewQueue, loadCollezioneQueue, loadPersonaliQueue, loadAutoQueue, loadGrammarDiagnosticaQueue, type N4ReviewArea } from '$lib/db/queries';
 	import { appState, emptySkillCounts, type SkillKey } from '$lib/stores.svelte';
 	import { detectUserLocale, pickLocalizedArray, pickLocalizedText } from '$lib/core/i18n';
 	import { analyzeSentence } from '$lib/core/wordLookup';
@@ -248,7 +248,17 @@
 			.map((c): ItemRef => ({ key: `counter:${c.id}`, kind: 'counter' }))
 			.filter((ref) => srsMap.has(ref.key));
 
-		return [...fromObjectives, ...dueCounters];
+		// 📌 messe in studio a mano: entrano nei ripassi anche fuori obiettivi/livello
+		const inPool = new Set(fromObjectives.map((r) => r.key));
+		const personali: ItemRef[] = [...srsMap.values()]
+			.filter((r) => r.personale && !r.buried && !inPool.has(r.id_item))
+			.map((r): ItemRef | null => {
+				const kind = r.id_item.split(':')[0];
+				return kind === 'word' || kind === 'kanji' || kind === 'grammar' ? { key: r.id_item, kind } : null;
+			})
+			.filter((x): x is ItemRef => x !== null);
+
+		return [...fromObjectives, ...dueCounters, ...personali];
 	}
 
 	async function generateQuestion(ref: ItemRef): Promise<QuizQuestion | null> {
@@ -1592,7 +1602,9 @@
 			// auto (categoria/livello/grammatica) da filtro catalogo: ?auto=<id>.
 			const collezioneId = params.get('collezione');
 			const autoId = params.get('auto');
-			const wantWeak = params.has('deboli') || n4Area !== null || collezioneId !== null || autoId !== null;
+			// 📌 Le mie parole: ?mie=1, le carte messe in studio a mano
+			const mie = params.has('mie');
+			const wantWeak = params.has('deboli') || mie || n4Area !== null || collezioneId !== null || autoId !== null;
 
 			// Riprende una sessione ancora in corso (es. ritorno da "Approfondisci"),
 			// recuperando il tempo di pausa se il timer era fermo nel dettaglio.
@@ -1634,7 +1646,9 @@
 			// Dose del giorno: solo i 12 più deboli (la lista intera resterebbe
 			// scoraggiante); il resto aspetta in /punti-deboli e la lista si svuota
 			// da sola man mano che i ripassi graduano l'SRS.
-			const weakQueue = autoId === 'gram-diagnostica'
+			const weakQueue = mie
+				? await loadPersonaliQueue(20)
+				: autoId === 'gram-diagnostica'
 				? await loadGrammarDiagnosticaQueue(1)
 				: autoId
 				? await loadAutoQueue(autoId)

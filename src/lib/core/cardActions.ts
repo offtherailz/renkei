@@ -33,10 +33,13 @@ export function computeCardAction(
 export async function saveCardAction(
 	action: CardAction,
 	key: string,
-	before?: SrsProgress | null
+	before?: SrsProgress | null,
+	opts: { personale?: boolean } = {}
 ): Promise<SrsProgress | null> {
 	const current = await db.srs_progress.get(key);
-	const updated = computeCardAction(action, key, current, before);
+	const computed = computeCardAction(action, key, current, before);
+	// «Metti in studio» dall'utente: la carta entra nella lista personale
+	const updated = computed && opts.personale ? { ...computed, personale: current?.personale ?? Date.now() } : computed;
 	if (updated) await db.srs_progress.put(updated);
 	return updated;
 }

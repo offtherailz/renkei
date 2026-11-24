@@ -429,6 +429,27 @@ export async function loadN4ReviewQueue(area: N4ReviewArea, limit = 12): Promise
 	return scored.slice(0, limit).map((x) => ({ kind: area, raw: x.id }));
 }
 
+// 📌 Le mie parole: le carte messe in studio a mano («📚 Metti in studio»),
+// anche fuori livello. Prima quelle dovute, poi dalla padronanza più bassa;
+// quelle ormai consolidate (stage ≥ 5) escono dalla sessione.
+export async function loadPersonaliQueue(limit = 20): Promise<{ kind: string; raw: string }[]> {
+	const now = Date.now();
+	const rows = (await db.srs_progress.toArray()).filter((r) => r.personale && !r.buried && r.srs_stage < 5);
+	return rows
+		.map((r) => ({ r, due: r.next_review_date <= now ? 0 : 1, m: normalizeMastery(r.srs_stage, r.mastery_points) }))
+		.sort((a, b) => a.due - b.due || a.m - b.m)
+		.slice(0, limit)
+		.map(({ r }) => {
+			const [kind, ...rest] = r.id_item.split(':');
+			return { kind: kind!, raw: rest.join(':') };
+		})
+		.filter((x) => x.kind === 'word' || x.kind === 'kanji' || x.kind === 'grammar');
+}
+
+export async function countPersonali(): Promise<number> {
+	return (await db.srs_progress.toArray()).filter((r) => r.personale && !r.buried && r.srs_stage < 5).length;
+}
+
 // Coda di ripasso per una COLLEZIONE tematica (mazzo): le parole del mazzo che
 // esistono a catalogo diventano item del quiz, che ci genera sopra TUTTI i tipi
 // di domanda (lettura/ascolto/composizione/kanji…). Le voci non a catalogo

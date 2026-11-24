@@ -336,8 +336,10 @@
 	async function studyWord(): Promise<void> {
 		if (!word) return;
 		const key = `word:${word.id}`;
-		const updated = computeCardAction('forgot', key, wordSrs ?? undefined);
-		if (!updated) return;
+		const computed = computeCardAction('forgot', key, wordSrs ?? undefined);
+		if (!computed) return;
+		// messa in studio a mano: nella lista personale (📌 Le mie parole)
+		const updated = { ...computed, personale: wordSrs?.personale ?? Date.now() };
 		studyUndo = wordSrs;
 		await saveWordSrs(updated);
 		noteSessionCardAction(key, word.scrittura, 'forgot');

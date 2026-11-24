@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { appState } from '$lib/stores.svelte';
-	import { loadObjectiveSummaries, countDueCards, countUnseenActive, loadCompletedObjectives, loadWeakItems, type ObjectiveSummary, type WeakItem } from '$lib/db/queries';
+	import { loadObjectiveSummaries, countDueCards, countUnseenActive, loadCompletedObjectives, loadWeakItems, countPersonali, type ObjectiveSummary, type WeakItem } from '$lib/db/queries';
 	import { canIntroduceNewCard, newCardsUsedToday, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { db } from '$lib/db/schema';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
@@ -24,6 +24,8 @@
 
 	// ── Piano di oggi ──
 	let weakest = $state<WeakItem[]>([]);
+	// 📌 carte messe in studio a mano, non ancora consolidate
+	let personali = $state(0);
 	// completamento delle voci del piano (spunte giornaliere, localStorage)
 	let activityDone = $state(false);
 	// attività a rotazione giornaliera (varietà senza dover scegliere)
@@ -39,6 +41,7 @@
 
 	async function loadWeakest(): Promise<void> {
 		weakest = await loadWeakItems(3);
+		personali = await countPersonali();
 	}
 
 	// 0 ripassi dovuti ≠ "tutto fatto": se negli obiettivi attivi ci sono carte
@@ -442,6 +445,10 @@
 		<a href="{base}/punti-deboli" class="quick-card">
 			<span class="quick-icon">💪</span>
 			<span>Punti deboli — ripassa sempre</span>
+		</a>
+		<a href="{base}/quiz?mie=1" class="quick-card">
+			<span class="quick-icon">📌</span>
+			<span>Le mie parole{personali ? ` (${personali})` : ''}</span>
 		</a>
 		<a href="{base}/esame" class="quick-card">
 			<span class="quick-icon">🎯</span>
