@@ -206,6 +206,16 @@
 	</label>
 
 	<label class="setting-row">
+		<span>Il mio livello<br /><small class="hint-text">Nelle frasi cliccabili i kanji oltre questo livello hanno la lettura sopra (furigana) e le parole oltre il livello sono sottolineate a puntini: toccale per il significato. «Tutti» = nessun aiuto.</small></span>
+		<select class="num-input" value={appState.settings.livello_kanji ?? 'N4'} onchange={(e) => (appState.settings.livello_kanji = (e.target as HTMLSelectElement).value as 'N5' | 'N4' | 'N3' | 'tutti')}>
+			<option value="N5">Solo N5</option>
+			<option value="N4">N5 + N4</option>
+			<option value="N3">Fino a N3</option>
+			<option value="tutti">Tutti</option>
+		</select>
+	</label>
+
+	<label class="setting-row">
 		<span>Furigana per kanji avanzati<br /><small class="hint-text">Nel quiz "produci la parola", se la parola contiene un kanji di livello più alto del suo, mostra la lettura in aiuto.</small></span>
 		<input type="checkbox" bind:checked={appState.settings.furigana_kanji_avanzati} />
 	</label>

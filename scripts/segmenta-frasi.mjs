@@ -31,6 +31,21 @@ const FURIGANA = /([^\[\]\s​]+)\[([^\[\]]+)\]/g;
 export const senzaFurigana = (s) => s.replace(FURIGANA, (_m, base) => base);
 
 const KANA = /^[ぁ-んー]+$/;
+const KANJI = /[一-龯々〆]/;
+const aHira = (s) => s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+// 落ち着い + おちつい → 落ち着[おちつ]い: via i kana uguali in testa e in coda,
+// la lettura copre il resto (dal primo all'ultimo kanji)
+export function allinea(superficie, lettura) {
+	let a = 0;
+	while (a < superficie.length && !KANJI.test(superficie[a]) && aHira(superficie[a]) === lettura[a]) a += 1;
+	if (a < superficie.length && !KANJI.test(superficie[a])) return null;
+	let z = 0;
+	while (z < superficie.length - a && !KANJI.test(superficie[superficie.length - 1 - z]) && aHira(superficie[superficie.length - 1 - z]) === lettura[lettura.length - 1 - z]) z += 1;
+	const base = superficie.slice(a, superficie.length - z);
+	const yomi = lettura.slice(a, lettura.length - z);
+	if (!base || !yomi || !/^[ぁ-んー]+$/.test(yomi)) return null;
+	return `${superficie.slice(0, a)}\u200B${base}[${yomi}]${superficie.slice(superficie.length - z)}`;
+}
 const CHIUDE = /^[、。！？!?」』）)…・〜~，．,.]+$/;
 const APRE = /^[「『（(]+$/;
 const VUOTO = /^[＿_]+$/;
@@ -401,6 +416,25 @@ export async function creaSegmentatore() {
 		return fs_;
 	}
 
+	// Furigana del pezzo (notazione 漢字[よみ]) dalle letture di kuromoji: serve
+	// all'app quando il catalogo non conosce la parola (手続き, 調理…). Solo se
+	// ogni morfema con kanji ha una lettura affidabile, altrimenti null.
+	function furiganaGruppo(g) {
+		if (!g.some((t) => KANJI.test(t.s))) return null;
+		let out = '';
+		for (const t of g) {
+			if (!KANJI.test(t.s)) {
+				out += t.s;
+				continue;
+			}
+			if (t.unito || !t.reading || t.reading === '*') return null;
+			const r = allinea(t.s, aHira(t.reading));
+			if (!r) return null;
+			out += r;
+		}
+		return out;
+	}
+
 	// segnali di errore probabile, per la revisione a mano
 	function dubbi(gs) {
 		const motivi = new Set();
@@ -426,6 +460,7 @@ export async function creaSegmentatore() {
 			return {
 				seg: gs.map((g) => g.map((t) => t.s).join('·')).join('|'),
 				forme: formeDi(gs),
+				furi: gs.map(furiganaGruppo),
 				dubbi: dubbi(gs)
 			};
 		},
@@ -436,6 +471,7 @@ export async function creaSegmentatore() {
 			return {
 				seg: pezzi.map((pz, i) => (pz.includes('·') ? pz : gs[i].map((t) => t.s).join('·'))).join('|'),
 				forme: formeDi(gs),
+				furi: gs.map(furiganaGruppo),
 				dubbi: []
 			};
 		}
@@ -493,6 +529,7 @@ async function main() {
 	const rivedi = process.argv.includes('--rivedi');
 	const seg = await creaSegmentatore();
 	const seed = JSON.parse(fs.readFileSync(SEED, 'utf8'));
+	const livelliKanji = new Map((seed.kanji ?? []).map((k) => [k.id, k.livello_jlpt]));
 	const correzioni = fs.existsSync(CORREZIONI) ? JSON.parse(fs.readFileSync(CORREZIONI, 'utf8')) : {};
 	const delSeed = frasiDelSeed(seed);
 	const giaViste = new Set(delSeed.map(compatta));
@@ -517,7 +554,13 @@ async function main() {
 		r.forme.forEach((fs_, i) => {
 			if (fs_.length) forme[i] = fs_;
 		});
-		out[f] = Object.keys(forme).length ? [r.seg, forme] : [r.seg];
+		// furigana solo dei pezzi con kanji oltre N5 (chi studia tutto non ne ha bisogno)
+		const furi = {};
+		r.furi.forEach((fu, i) => {
+			if (fu && [...fu.replace(/\[[^\]]*\]/g, '')].some((ch) => KANJI.test(ch) && livelliKanji.get(ch) !== 'N5')) furi[i] = fu;
+		});
+		const haFuri = Object.keys(furi).length > 0;
+		out[f] = haFuri ? [r.seg, forme, furi] : Object.keys(forme).length ? [r.seg, forme] : [r.seg];
 		if (r.dubbi.length) daRivedere.push(`${f}\t${r.seg.replace(/·/g, '')}\t${r.dubbi.join(', ')}`);
 	}
 	const orfane = Object.keys(correzioni).filter((k) => !usate.has(k));

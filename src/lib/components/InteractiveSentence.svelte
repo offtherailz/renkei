@@ -7,7 +7,10 @@
 	import { detectUserLocale } from '$lib/core/i18n';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { saveCardAction } from '$lib/core/cardActions';
-	import { noteSessionCardAction } from '$lib/stores.svelte';
+	import { appState, noteSessionCardAction } from '$lib/stores.svelte';
+	import { haKanjiOltre, parolaOltre } from '$lib/core/kanjiLevel';
+	import { caricaLivelliKanji } from '$lib/core/kanjiLevels';
+	import type { JLPTLevel } from '$lib/types/models';
 	import { formatReviewIn } from '$lib/core/srs';
 	import { db } from '$lib/db/schema';
 	import type { SrsProgress } from '$lib/types/models';
@@ -24,7 +27,24 @@
 	let hits = $state<(WordHit | null)[]>([]);
 	// forme grammaticali del token (ている, ません, passivo…) con link alla scheda, se c'è
 	let forme = $state<FormaLink[][]>([]);
+	// furigana precalcolato del pezzo (segmenti), ripiego per le parole fuori catalogo
+	let furiSeg = $state<(string | null)[]>([]);
 	let open = $state<number | null>(null);
+
+	// Furigana per livello: i pezzi con kanji oltre il livello scelto
+	// (impostazione livello_kanji, default N4) ricevono la lettura dal catalogo.
+	let livelliKanji = $state<Map<string, JLPTLevel> | null>(null);
+	$effect(() => {
+		void caricaLivelliKanji().then((m) => (livelliKanji = m));
+	});
+	function conFurigana(tok: string): boolean {
+		if (furigana) return true;
+		if (!livelliKanji) return false;
+		return haKanjiOltre(tok, (k) => livelliKanji!.get(k), appState.settings.livello_kanji ?? 'N4');
+	}
+	function oltreLivello(hit: WordHit | null): boolean {
+		return !!hit && parolaOltre(hit.livello_jlpt as JLPTLevel, appState.settings.livello_kanji ?? 'N4');
+	}
 
 	// Popover flottante: non spinge il testo, si posiziona sotto il token
 	// cliccato (con clamp ai bordi dello schermo) e si chiude cliccando fuori,
@@ -105,7 +125,7 @@
 	// Si rianalizza a ogni cambio di testo (lo stesso componente può mostrare
 	// frasi diverse una dopo l'altra, come nei dialoghi): conta solo l'ultima.
 	let richiesta = 0;
-	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
+	async function analizza(p: string): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][]; furi: (string | null)[] }> {
 		// 1) BudouX → 2) riattacca ausiliari (働き+ます) → 3) riunisce parole composte
 		// spezzate se esistono a catalogo (一生懸命 → 一生+懸命).
 		return spazi ? analyzeSpaced(p, detectUserLocale()) : analyzeSentence(p, detectUserLocale());
@@ -117,8 +137,9 @@
 		tokens = [];
 		hits = [];
 		forme = [];
+		furiSeg = [];
 		void analizza(p).then((r) => {
-			if (id === richiesta) ({ tokens, hits, forme } = r);
+			if (id === richiesta) ({ tokens, hits, forme, furi: furiSeg } = r);
 		});
 	});
 
@@ -160,7 +181,7 @@
 	{:else}
 		{#each tokens as tok, i (i)}
 			{#if /[ぁ-んァ-ヶ一-龯々]/.test(tok) && !(spazi && isCoda(tok))}
-				<button class="tok" class:known={hits[i]} class:marked={marked(i)} onclick={(e) => toggle(i, e)}><FuriganaText force text={(furigana && tokenFurigana(tok, hits[i] ?? null)) || tok} /></button>
+				<button class="tok" class:known={hits[i]} class:oltre={oltreLivello(hits[i] ?? null)} class:marked={marked(i)} onclick={(e) => toggle(i, e)}><FuriganaText force text={(conFurigana(tok) && (tokenFurigana(tok, hits[i] ?? null) || furiSeg[i])) || tok} /></button>
 				{#if open === i && popPos}
 					<span class="tok-pop" style="top:{popPos.top}px; left:{popPos.left}px; width:{POP_WIDTH}px" bind:this={popEl}>
 						{#if hits[i]}
@@ -226,6 +247,8 @@
 		border-bottom: 2px dotted var(--line);
 	}
 	.tok.known { border-bottom-color: var(--brand); }
+	/* parola oltre il livello scelto (impostazione «Il mio livello») */
+	.tok.known.oltre { border-bottom-color: var(--gold-ink); }
 	.marked { background: rgba(245, 158, 11, 0.22); border-radius: 4px; }
 	.tok:hover { background: rgba(107, 160, 242, 0.14); border-radius: 4px; }
 	.punct { color: var(--ink); }

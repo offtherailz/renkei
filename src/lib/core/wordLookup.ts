@@ -411,7 +411,7 @@ export function jishoUrl(q: string): string {
 export async function analyzeSentence(
 	plain: string,
 	locale: 'it' | 'en' = 'it'
-): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
+): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][]; furi: (string | null)[] }> {
 	const { createDefaultTokenizer, segmentiDellaFrase } = await import('./tokenizer');
 	const [tok, idx, seg] = await Promise.all([createDefaultTokenizer(), ensureWordIndex(locale), segmentiDellaFrase(plain)]);
 	const tokens = splitGrammarTails(mergeByDictionary(mergeAuxTokens(tok.tokenize(plain)), (s) => idx.has(s)));
@@ -421,7 +421,19 @@ export async function analyzeSentence(
 		const forma = hit ? grammarTailLabel(t) : null;
 		return hit && forma ? { ...hit, forma } : hit;
 	});
-	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette) };
+	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette), furi: furiPerToken(tokens, seg.frase) };
+}
+
+// Furigana precalcolato del pezzo (segmenti), per i token che coincidono con
+// un pezzo: ripiego quando tokenFurigana (dal catalogo) non trova la lettura.
+export function furiPerToken(tokens: string[], frase: { pezzi: string[]; furi?: (string | null)[] } | null): (string | null)[] {
+	if (!frase?.furi) return tokens.map(() => null);
+	const perPezzo = new Map<string, string>();
+	frase.pezzi.forEach((p, i) => {
+		const f = frase.furi![i];
+		if (f) perPezzo.set(p.replace(/\s+/g, ''), f);
+	});
+	return tokens.map((t) => perPezzo.get(t.replace(/\s+/g, '')) ?? null);
 }
 
 // BudouX incolla わけ/はず al verbo (いうわけではない → un solo token, letto come
@@ -519,7 +531,7 @@ function segmentaParola(s: string, map: Map<string, WordHit>): string[] {
 
 // Come analyzeSentence, ma per testi con gli spazi tra i gruppi: si divide
 // dentro ogni gruppo col dizionario (segmentaGruppo); lo spazio resta un token.
-export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][] }> {
+export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): Promise<{ tokens: string[]; hits: (WordHit | null)[]; forme: FormaLink[][]; furi: (string | null)[] }> {
 	const { segmentiDellaFrase } = await import('./tokenizer');
 	const [idx, seg] = await Promise.all([ensureWordIndex(locale), segmentiDellaFrase(plain)]);
 	const tokens: string[] = [];
@@ -528,5 +540,5 @@ export async function analyzeSpaced(plain: string, locale: 'it' | 'en' = 'it'): 
 		else tokens.push(...segmentaGruppo(g, idx));
 	}
 	const hits = tokens.map((t, i) => (/[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t) ? lookupToken(idx, t, tokens[i - 1]) : null));
-	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette, (t) => /[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t)) };
+	return { tokens, hits, forme: formePerToken(tokens, seg.frase, seg.etichette, (t) => /[ぁ-んァ-ヶ一-龯々]/.test(t) && !CODA.has(t)), furi: furiPerToken(tokens, seg.frase) };
 }

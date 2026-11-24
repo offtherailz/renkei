@@ -246,6 +246,9 @@ export interface AppSettings extends BaseEntity {
   lingua_contenuti?: "auto" | "it" | "en";
   voce_utente?: "maschile" | "femminile";
   furigana_kanji_avanzati?: boolean;
+  // Livello dell'utente: nelle frasi cliccabili i kanji OLTRE questo livello
+  // ricevono il furigana e le parole oltre il livello una sottolineatura. Default 'N4'; 'tutti' = nessun aiuto.
+  livello_kanji?: "N5" | "N4" | "N3" | "tutti";
   // Furigana visibili nei testi che portano la notazione 漢字[よみ] (dialoghi,
   // esempi grammatica). Default true; spegnerli per allenare la lettura.
   furigana_visibile?: boolean;

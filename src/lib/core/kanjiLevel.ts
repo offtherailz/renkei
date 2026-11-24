@@ -12,3 +12,24 @@ export function wordHasAdvancedKanji(word: Pick<Word, 'kanji_usati' | 'livello_j
 		return k ? RANK[k.livello_jlpt] > wordRank : false;
 	});
 }
+
+// Livello kanji scelto dall'utente (impostazione livello_kanji): un kanji è
+// «oltre» se il suo livello JLPT supera quello scelto. Kanji assenti dal
+// catalogo (N2/N1 o rari) contano come oltre. 'tutti' = mai oltre.
+export type LivelloKanji = 'N5' | 'N4' | 'N3' | 'tutti';
+export const TETTO_LIVELLO: Record<LivelloKanji, number> = { N5: 1, N4: 2, N3: 3, tutti: 99 };
+const TETTO = TETTO_LIVELLO;
+export function haKanjiOltre(testo: string, livelloOf: (kanji: string) => JLPTLevel | undefined, livello: LivelloKanji): boolean {
+	if (livello === 'tutti') return false;
+	for (const ch of testo) {
+		if (!/[一-龯々]/.test(ch) || ch === '々') continue;
+		const l = livelloOf(ch);
+		if ((l ? RANK[l] : 99) > TETTO[livello]) return true;
+	}
+	return false;
+}
+
+// Una parola del catalogo è oltre il livello scelto? (EXTRA conta come N4)
+export function parolaOltre(livelloParola: JLPTLevel, livello: LivelloKanji): boolean {
+	return RANK[livelloParola] > TETTO[livello];
+}

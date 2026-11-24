@@ -59,7 +59,7 @@ export class FallbackJapaneseTokenizer implements JapaneseTokenizer {
 
 type SegmentiFile = {
   etichette?: Record<string, string>;
-  frasi: Record<string, [string, Record<string, string[]>?]>;
+  frasi: Record<string, [string, Record<string, string[]>?, Record<string, string>?]>;
 };
 
 // pezzi di una frase a catalogo e, pezzo per pezzo, i codici delle forme
@@ -67,6 +67,9 @@ type SegmentiFile = {
 export interface FraseSegmentata {
   pezzi: string[];
   forme: string[][];
+  // furigana del pezzo (漢字[よみ], letture di kuromoji) per i pezzi con kanji
+  // oltre N5: ripiego quando il catalogo non conosce la parola
+  furi: (string | null)[];
 }
 export interface Segmenti {
   frasi: Map<string, FraseSegmentata>;
@@ -77,9 +80,9 @@ const compatta = (s: string): string => s.replace(/[\s\u3000\u200B]+/g, "");
 
 export function parseSegmenti(file: SegmentiFile): Segmenti {
   const frasi = new Map<string, FraseSegmentata>();
-  for (const [frase, [seg, forme]] of Object.entries(file.frasi)) {
+  for (const [frase, [seg, forme, furi]] of Object.entries(file.frasi)) {
     const pezzi = seg.replace(/·/g, "").split("|");
-    frasi.set(compatta(frase), { pezzi, forme: pezzi.map((_p, i) => forme?.[i] ?? []) });
+    frasi.set(compatta(frase), { pezzi, forme: pezzi.map((_p, i) => forme?.[i] ?? []), furi: pezzi.map((_p, i) => furi?.[i] ?? null) });
   }
   return { frasi, etichette: file.etichette ?? {} };
 }
