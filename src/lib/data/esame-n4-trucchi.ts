@@ -645,7 +645,7 @@ export const TRUCCHI: Record<string, Trucco> = {
 				]
 			}
 		],
-		grammatica: [{ label: 'Avverbi', href: 'avverbi' }],
+		grammatica: [{ label: 'Avverbi', href: 'avverbi' }, { label: '🔗 Connettivi', href: 'connettivi' }],
 		drill: { label: '🎚️ Avverbi', href: 'avverbi' }
 	},
 

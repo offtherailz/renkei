@@ -80,7 +80,7 @@
 	// "dentro /giochi" (numeri/tempo, saluti, spesa…) non hanno una pagina
 	// propria: portano tutti alla schermata /giochi, non a un URL specifico.
 	const STANDALONE_ROUTES = new Set([
-		'riordina', 'coppie', 'transitivi', 'dettato', 'avverbi', 'catena', 'contrazioni',
+		'riordina', 'coppie', 'transitivi', 'dettato', 'avverbi', 'connettivi', 'catena', 'contrazioni',
 		'comparazioni', 'certezza', 'iikae', 'choukai', 'leggi-a-voce', 'di-la-data',
 		'shadowing', 'appuntamento', 'relazioni', 'keigo'
 	]);

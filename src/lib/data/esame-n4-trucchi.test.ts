@@ -42,7 +42,7 @@ describe('trucchi N4', () => {
 	it('i link drill/grammatica dei trucchi puntano a rotte note', () => {
 		// prime segmento della href (senza hash/param) fra le rotte esistenti
 		const known = new Set([
-			'transitivi', 'coppie', 'keigo', 'forme-composte', 'certezza', 'avverbi',
+			'transitivi', 'coppie', 'keigo', 'forme-composte', 'certezza', 'avverbi', 'connettivi',
 			'particelle', 'comparazioni', 'iikae', 'esame'
 		]);
 		for (const t of Object.values(TRUCCHI)) {

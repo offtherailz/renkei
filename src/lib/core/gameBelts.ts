@@ -51,6 +51,7 @@ export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
 	{ id: 'transitivi', label: 'Transitivo o intransitivo?', icon: '↔️' },
 	{ id: 'dettato', label: 'Dettato', icon: '✍️' },
 	{ id: 'avverbi', label: 'Avverbi', icon: '🎚️' },
+	{ id: 'connettivi', label: 'Connettivi', icon: '🔗' },
 	{ id: 'catena', label: 'Catena di forme', icon: '🧬' },
 	{ id: 'contrazioni', label: 'Contrazioni', icon: '✂️' },
 	{ id: 'comparazioni', label: 'Comparazioni', icon: '⚖️' },

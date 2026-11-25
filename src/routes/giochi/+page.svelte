@@ -924,6 +924,12 @@
 				<span class="cat-hint">そろそろ, きっと, なかなか…: scegli l'avverbio giusto dal contesto</span>
 				{@render beltChip('avverbi')}
 			</a>
+			<a class="cat-card" href="{base}/connettivi">
+				<span class="cat-icon">🔗</span>
+				<span class="cat-label">Connettivi <span class="cat-beta">beta</span></span>
+				<span class="cat-hint">それで o それでも? それに o それから? il rapporto fra due frasi</span>
+				{@render beltChip('connettivi')}
+			</a>
 			<a class="cat-card" href="{base}/contrazioni">
 				<span class="cat-icon">✂️</span>
 				<span class="cat-label">Contrazioni <span class="cat-beta">beta</span></span>
