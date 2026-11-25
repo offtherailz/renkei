@@ -27,7 +27,9 @@
 
 <style>
 	/* lettura più lunga del kanji (慣習 かんしゅう): il kanji resta compatto e la
-	   lettura si centra sopra, invece di distanziare i caratteri (慣　習) */
+	   lettura si centra sopra (Safari, Firefox). Chromium ignora ruby-align e
+	   distanzia i caratteri: i margini negativi su rt peggiorano le letture corte
+	   e quelle vicine, quindi lì resta il comportamento standard. */
 	span :global(ruby) {
 		ruby-align: center;
 	}
