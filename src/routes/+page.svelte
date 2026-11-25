@@ -446,7 +446,7 @@
 			<span class="quick-icon">💪</span>
 			<span>Punti deboli — ripassa sempre</span>
 		</a>
-		<a href="{base}/quiz?mie=1" class="quick-card">
+		<a href="{base}/mie-parole" class="quick-card">
 			<span class="quick-icon">📌</span>
 			<span>Le mie parole{personali ? ` (${personali})` : ''}</span>
 		</a>
