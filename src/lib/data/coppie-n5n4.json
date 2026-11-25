@@ -436,6 +436,13 @@
    "domanda": "Ho studiato tantissimo, quindi il test è andato bene.",
    "corretta": "〜ので",
    "perche": "Causa → effetto atteso: ので (= から, più cortese). のに si usa quando l’effetto è contrario alle attese."
+  },
+  {
+   "a": "面白い",
+   "b": "楽しい",
+   "domanda": "Sei stato a una festa con gli amici e ti sei divertito molto: dici che la festa è stata…",
+   "corretta": "楽しい",
+   "perche": "楽しい = io mi diverto, è un’esperienza piacevole (パーティーは楽しかった). 面白い = la cosa è interessante o fa ridere (この本は面白い): descrive l’oggetto, non come ti senti tu."
   }
  ]
 }
