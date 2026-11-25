@@ -32959,7 +32959,8 @@
    }
   ],
   "sinonimi": [],
-  "correlati": []
+  "correlati": [],
+  "tipo_jp": "副詞[ふくし]"
  },
  "大分": {
   "significato": {
@@ -54351,6 +54352,11 @@
      "en": "He changed his attitude suddenly."
     }
    }
+  ],
+  "livello_jlpt": "N4",
+  "study_tags": [
+   "n4",
+   "contains-kanji"
   ]
  },
  "急激": {
