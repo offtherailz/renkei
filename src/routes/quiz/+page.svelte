@@ -43,7 +43,7 @@
 		shuffle
 	} from '$lib/quiz/engine';
 	import { DEFAULT_KNOWN_FORMS, buildConjugationTable, conjClassKey, CONSTRUCTION_BY_FORM_KEY } from '$lib/core/conjugation';
-	import { wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
+	import { haKanjiOltre, wordHasAdvancedKanji } from '$lib/core/kanjiLevel';
 	import JlptBadge from '$lib/components/JlptBadge.svelte';
 	import { canIntroduceNewCard, recordNewCardIntroduced, DEFAULT_NEW_CARDS_PER_DAY } from '$lib/core/dailyNewCards';
 	import { isTimeTriggerWord } from '$lib/core/timeReadings';
@@ -188,8 +188,17 @@
 		facet_form_speak: ['spoken-production']
 	};
 
+	// Parola con kanji oltre «Il mio livello» (impostazione livello_kanji): quei
+	// kanji non li stai studiando, quindi niente «come si legge?» né composizione
+	// coi kanji — restano significato (nei due sensi), ascolto, parlato e uso,
+	// col furigana sopra la parola.
+	function kanjiFuoriLivello(word: Word): boolean {
+		return haKanjiOltre(word.scrittura, (k) => kanjiById.get(k)?.livello_jlpt, appState.settings.livello_kanji ?? 'N4');
+	}
+
 	function pickWordMode(stage: number, word: Word): WordMode {
 		const row = getSrs(`word:${word.id}`);
+		const fuoriLivello = kanjiFuoriLivello(word);
 		let candidates = facetsToTrain(word, stage, row ?? {}).filter((f) => {
 			const modes = MODE_BY_FACET[f];
 			if (!modes) return false;
@@ -199,6 +208,7 @@
 			// reading-recognition tautologica senza kanji (それほど→それほど) — già
 			// esclusa da applicableFacets (full-kana), doppia guardia qui.
 			if (f === 'facet_form_read' && word.kanji_usati.length === 0) return false;
+			if (fuoriLivello && (f === 'facet_form_read' || f === 'facet_form_write')) return false;
 			return true;
 		});
 		if (candidates.length > 1 && lastFacetPicked) {
@@ -1743,7 +1753,10 @@
 		return context?.wordsById.get(quiz.itemRef.key.replace('word:', '')) ?? null;
 	});
 	const showAdvancedFurigana = $derived(
-		Boolean(appState.settings.furigana_kanji_avanzati && currentQuizWord && wordHasAdvancedKanji(currentQuizWord, kanjiById))
+		Boolean(
+			currentQuizWord &&
+				((appState.settings.furigana_kanji_avanzati && wordHasAdvancedKanji(currentQuizWord, kanjiById)) || kanjiFuoriLivello(currentQuizWord))
+		)
 	);
 
 	const timeLeftLabel = $derived.by(() => {
@@ -1917,7 +1930,13 @@
 		<!-- multiple-choice -->
 		{:else if quiz.question.mode === 'multiple-choice'}
 			{@const q = quiz.question as MultipleChoiceQuestion}
-			<p class="question-prompt ja-text">{q.prompt}</p>
+			<p class="question-prompt ja-text">
+				{#if showAdvancedFurigana && currentQuizWord && q.prompt === currentQuizWord.scrittura}
+					<ruby>{q.prompt}<rt class="advanced-furigana">{currentQuizWord.lettura}</rt></ruby>
+				{:else}
+					{q.prompt}
+				{/if}
+			</p>
 			<p class="question-hint">Scegli il significato corretto</p>
 			<div class="choices">
 				{#each q.choices as choice, i}
