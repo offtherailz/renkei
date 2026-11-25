@@ -75,8 +75,8 @@ async function runSequence(items: Seg[], token: number): Promise<void> {
 	}
 }
 
-const MALE_ROLES = new Set(['男', '男の人', '男の子', '父', '先生', '客', '店長']);
-const FEMALE_ROLES = new Set(['女', '女の人', '女の子', '母', '店員', '学生']);
+const MALE_ROLES = new Set(['男', '男の人', '男の子', '父', '先生', '客', '店長', '部長', '課長', '社長', '駅員', '医者', '兄', '弟', 'お父さん', 'おじいさん']);
+const FEMALE_ROLES = new Set(['女', '女の人', '女の子', '母', '店員', '学生', '姉', '妹', 'お母さん', 'おばあさん']);
 const NARRATOR_ROLES = new Set(['アナウンス', 'ニュース', '天気', '天気予報', '放送']);
 
 function genderFor(role: string): Gender {
@@ -84,16 +84,36 @@ function genderFor(role: string): Gender {
 	return 'femminile'; // 女/母/店員/… e default
 }
 
+// Voci per tutti i ruoli del dialogo: noti dalla lista, gli sconosciuti (田中,
+// 受付…) con la voce OPPOSTA a quella degli altri, così due personaggi non
+// parlano mai con la stessa voce.
+function genderMap(roles: string[]): Map<string, Gender> {
+	const out = new Map<string, Gender>();
+	const noti = roles.filter((r) => MALE_ROLES.has(r) || FEMALE_ROLES.has(r));
+	for (const r of noti) out.set(r, genderFor(r));
+	let prossimo: Gender = noti.some((r) => genderFor(r) === 'maschile') ? 'femminile' : 'maschile';
+	for (const r of roles) {
+		if (out.has(r)) continue;
+		out.set(r, prossimo);
+		prossimo = prossimo === 'maschile' ? 'femminile' : 'maschile';
+	}
+	return out;
+}
+
 // Estrae le battute «役:「…」» dal corpo del dialogo.
 interface Line {
-	role: string;
+	role: string; // senza furigana (部長)
+	label: string; // come scritto (部長[ぶちょう]), per il narratore
 	text: string;
 }
+// Qualsiasi nome breve prima di «:「» è un personaggio (女, 部長, 田中さん…),
+// anche col furigana nell'etichetta (女[おんな]:「…」).
+export const BATTUTA_RE = /((?:[^\s「」『』：:。、！？!?〔〕\[\]]|\[[^\]]*\]){1,12}?)\s*[：:]\s*「([^」]*)」/g;
 function parseLines(body: string): Line[] {
 	const out: Line[] = [];
-	const re = /(女の人|男の人|女の子|男の子|アナウンス|ニュース|天気予報|店員|先生|学生|子ども|客|母|父|子|女|男)\s*[：:]\s*「([^」]*)」/g;
+	const re = new RegExp(BATTUTA_RE.source, 'g');
 	let m: RegExpExecArray | null;
-	while ((m = re.exec(body)) !== null) out.push({ role: m[1]!, text: m[2]! });
+	while ((m = re.exec(body)) !== null) out.push({ role: m[1]!.replace(/\[[^\]]*\]/g, ''), label: m[1]!, text: m[2]! });
 	return out;
 }
 
@@ -147,8 +167,9 @@ export function examListeningSegments(prompt: string, rate = 1, leadPauseMs = 25
 	} else {
 		const roles = [...new Set(lines.filter((l) => !NARRATOR_ROLES.has(l.role)).map((l) => l.role))];
 		if (roles.length >= 2) {
-			const a = ROLE_NAME[roles[0]!] ?? roles[0]!;
-			const b = ROLE_NAME[roles[1]!] ?? roles[1]!;
+			const etichetta = (r: string) => ROLE_NAME[r] ?? lines.find((l) => l.role === r)?.label ?? r;
+			const a = etichetta(roles[0]!);
+			const b = etichetta(roles[1]!);
 			items.push({ text: `${a}と ${b}が 話[はな]して います。`, options: narrator });
 		} else if (lines.some((l) => NARRATOR_ROLES.has(l.role))) {
 			items.push({ text: 'アナウンスを 聞[き]いて ください。', options: narrator });
@@ -161,8 +182,9 @@ export function examListeningSegments(prompt: string, rate = 1, leadPauseMs = 25
 
 	// 2) dialogo a voci alternate
 	if (lines.length > 0) {
+		const voci = genderMap([...new Set(lines.filter((l) => !NARRATOR_ROLES.has(l.role)).map((l) => l.role))]);
 		for (const l of lines) {
-			const opts = NARRATOR_ROLES.has(l.role) ? narrator : genderFor(l.role) === 'maschile' ? male : female;
+			const opts = NARRATOR_ROLES.has(l.role) ? narrator : voci.get(l.role) === 'maschile' ? male : female;
 			items.push({ text: l.text, options: opts });
 		}
 	} else {

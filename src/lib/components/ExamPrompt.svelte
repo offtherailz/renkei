@@ -5,6 +5,7 @@
 	import InteractiveSentence from './InteractiveSentence.svelte';
 	import FuriganaText from './FuriganaText.svelte';
 	import { examStrip } from '$lib/data/kanjiN4';
+	import { BATTUTA_RE } from '$lib/core/examListening';
 
 	const {
 		text,
@@ -84,8 +85,8 @@
 	}
 	// Righe del corpo: se è un dialogo (役:「…」) → una battuta per riga;
 	// altrimenti (lettura) → una frase per riga. Non spezzare dentro 「…」.
-	const DLG_RE =
-		/(女の人|男の人|女の子|男の子|アナウンス|ニュース|天気予報|店員|先生|学生|子ども|客|母|父|子|女|男)\s*[：:]\s*「[^」]*」/g;
+	// qualsiasi personaggio (女, 部長, 田中さん…), anche col furigana nell'etichetta
+	const DLG_RE = new RegExp(BATTUTA_RE.source, 'g');
 	const bodyLines = $derived.by(() => {
 		const dlg = p.body.match(DLG_RE);
 		if (dlg && dlg.length > 0) return dlg.map((x) => x.trim());
