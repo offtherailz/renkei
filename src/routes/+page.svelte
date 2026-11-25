@@ -361,6 +361,13 @@
 			</span>
 			<span class="plan-go">→</span>
 		</a>
+		<div class="plan-row static">
+			<span class="plan-icon">📌</span>
+			<span class="plan-body">
+				<span class="plan-label">Le mie parole{personali ? ` (${personali})` : ''} {#if personali}<a class="weak-all" href="{base}/quiz?mie=1">🔁 ripassale</a>{/if} <a class="weak-all" href="{base}/mie-parole">{personali ? 'vedi tutte →' : 'apri →'}</a></span>
+				<span class="plan-hint">{personali ? 'le parole che hai messo in studio tu, anche fuori livello' : 'vuota: aggiungi parole con 📌 o con «📚 Metti in studio» toccandole in una frase'}</span>
+			</span>
+		</div>
 		{#if weakest.length > 0}
 			<div class="plan-row static weak-teaser">
 				<span class="plan-icon">💪</span>
@@ -441,10 +448,6 @@
 		<a href="{base}/punti-deboli" class="quick-card">
 			<span class="quick-icon">💪</span>
 			<span>Punti deboli — ripassa sempre</span>
-		</a>
-		<a href="{base}/mie-parole" class="quick-card">
-			<span class="quick-icon">📌</span>
-			<span>Le mie parole{personali ? ` (${personali})` : ''}</span>
 		</a>
 		<a href="{base}/esame" class="quick-card">
 			<span class="quick-icon">🎯</span>
