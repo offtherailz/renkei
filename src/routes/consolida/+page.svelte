@@ -165,7 +165,7 @@
 </script>
 
 <div class="consolida-index">
-	<h1 class="page-title">Vocabolario</h1>
+	<h1 class="page-title">📕 Dizionario</h1>
 	<p class="page-sub">Cerca o filtra, apri la 📖 scheda per approfondire o avvia il 💪 drill libero (senza penalità).</p>
 
 	<div class="triage-row">

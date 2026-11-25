@@ -438,10 +438,6 @@
 <section class="section-card quick-links">
 	<h2 class="section-title">🧠 Studia</h2>
 	<div class="quick-grid">
-		<a href="{base}/quiz" class="quick-card">
-			<span class="quick-icon">📋</span>
-			<span>Sessione quiz</span>
-		</a>
 		<a href="{base}/punti-deboli" class="quick-card">
 			<span class="quick-icon">💪</span>
 			<span>Punti deboli — ripassa sempre</span>
@@ -457,14 +453,6 @@
 		<a href="{base}/mazzi" class="quick-card">
 			<span class="quick-icon">🃏</span>
 			<span>Mazzi e mini-test</span>
-		</a>
-		<a href="{base}/forme" class="quick-card">
-			<span class="quick-icon">📖</span>
-			<span>Grammatica (forme)</span>
-		</a>
-		<a href="{base}/consolida" class="quick-card">
-			<span class="quick-icon">📝</span>
-			<span>Consolida</span>
 		</a>
 		<!-- Corsi temporaneamente nascosto (allineamento) -->
 		{#if false}
@@ -506,8 +494,8 @@
 	<h2 class="section-title group">📖 Cataloghi</h2>
 	<div class="quick-grid">
 		<a href="{base}/consolida" class="quick-card">
-			<span class="quick-icon">💪</span>
-			<span>Vocabolario</span>
+			<span class="quick-icon">📕</span>
+			<span>Dizionario</span>
 		</a>
 		<a href="{base}/forme" class="quick-card">
 			<span class="quick-icon">📖</span>
