@@ -24,3 +24,11 @@
 {:else}
 	<span class={cls}>{plain}</span>
 {/if}
+
+<style>
+	/* lettura più lunga del kanji (慣習 かんしゅう): il kanji resta compatto e la
+	   lettura si centra sopra, invece di distanziare i caratteri (慣　習) */
+	span :global(ruby) {
+		ruby-align: center;
+	}
+</style>
