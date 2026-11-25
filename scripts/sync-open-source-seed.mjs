@@ -1029,7 +1029,8 @@ function fixSuruReadings(words, jmdictIndex) {
 const SURU_VERB_EXCLUDE = new Set([
   "信号", // 信号する non esiste: 信号 è "segnale/semaforo", mai "fare segnale"
   // nomi senza un verbo in -する d'uso comune (si dice 留守にする, 暖房をつける…)
-  "いっぱい", "かっこう", "交通", "原因", "留守", "暖房", "冷房"
+  "いっぱい", "かっこう", "交通", "原因", "留守", "暖房", "冷房",
+  "あちこち", "バランス", "マイナス", "一言", "学問", "感覚", "私用", "障害", "申し訳", "水洗", "設備", "声明", "装置", "損害", "注", "便り", "免許", "予算", "恐怖", "会合"
 ]);
 
 // I nomi che JMdict marca "vs" generano la voce verbale in -する come entry

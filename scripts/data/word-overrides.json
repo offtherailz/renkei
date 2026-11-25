@@ -87910,17 +87910,6 @@
    "理由"
   ]
  },
- "あちこちする": {
-  "frasi_esempio": [
-   {
-    "testo": "本が部屋のあちこちに散らばっていた。",
-    "traduzione": {
-     "it": "I libri erano sparsi qua e là per la stanza.",
-     "en": "There were books lying about the room."
-    }
-   }
-  ]
- },
  "アップする": {
   "frasi_esempio": [
    {
@@ -87930,7 +87919,17 @@
      "en": "Tom got time and a half when he worked beyond his usual quitting time."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aumentare",
+    "alzare"
+   ],
+   "en": [
+    "to raise",
+    "to go up"
+   ]
+  }
  },
  "いたずらする": {
   "frasi_esempio": [
@@ -87948,7 +87947,16 @@
      "en": "I cannot be tolerant of naughty children."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare scherzi",
+    "combinare marachelle"
+   ],
+   "en": [
+    "to play a prank"
+   ]
+  }
  },
  "イメージする": {
   "frasi_esempio": [
@@ -87959,7 +87967,17 @@
      "en": "He makes a bad impression."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "immaginare",
+    "figurarsi"
+   ],
+   "en": [
+    "to imagine",
+    "to picture"
+   ]
+  }
  },
  "いらいらする": {
   "frasi_esempio": [
@@ -87970,7 +87988,16 @@
      "en": "Bill is nervous about the exam."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "innervosirsi",
+    "spazientirsi"
+   ],
+   "en": [
+    "to get irritated"
+   ]
+  }
  },
  "インタビューする": {
   "frasi_esempio": [
@@ -87982,7 +88009,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "intervistare"
+   ],
+   "en": [
+    "to interview"
+   ]
+  }
  },
  "お辞儀する": {
   "frasi_esempio": [
@@ -87999,7 +88034,15 @@
    "n4",
    "contains-kanji",
    "suru-verb"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "inchinarsi"
+   ],
+   "en": [
+    "to bow"
+   ]
+  }
  },
  "お喋りする": {
   "frasi_esempio": [
@@ -88010,7 +88053,15 @@
      "en": "They chatted about the weather."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "chiacchierare"
+   ],
+   "en": [
+    "to chat"
+   ]
+  }
  },
  "キャンプする": {
   "frasi_esempio": [
@@ -88021,7 +88072,16 @@
      "en": "I went camping with my family."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "campeggiare",
+    "andare in campeggio"
+   ],
+   "en": [
+    "to camp"
+   ]
+  }
  },
  "コーチする": {
   "frasi_esempio": [
@@ -88032,7 +88092,15 @@
      "en": "The coach gave me some advice."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "allenare (una squadra)"
+   ],
+   "en": [
+    "to coach"
+   ]
+  }
  },
  "ゴールする": {
   "frasi_esempio": [
@@ -88050,7 +88118,17 @@
      "en": "She was the last to cross the finishing line."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arrivare al traguardo",
+    "segnare"
+   ],
+   "en": [
+    "to reach the goal",
+    "to score"
+   ]
+  }
  },
  "サービスする": {
   "frasi_esempio": [
@@ -88068,7 +88146,17 @@
      "en": "This service is temporarily out of order."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "offrire (in omaggio)",
+    "servire il cliente"
+   ],
+   "en": [
+    "to give for free",
+    "to serve"
+   ]
+  }
  },
  "サインする": {
   "frasi_esempio": [
@@ -88086,7 +88174,16 @@
      "en": "You are asked to refrain from smoking until the sign is switched off."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "firmare",
+    "fare un autografo"
+   ],
+   "en": [
+    "to sign"
+   ]
+  }
  },
  "スケートする": {
   "frasi_esempio": [
@@ -88097,7 +88194,15 @@
      "en": "It's so cold that we can skate."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pattinare"
+   ],
+   "en": [
+    "to skate"
+   ]
+  }
  },
  "ダウンする": {
   "frasi_esempio": [
@@ -88115,7 +88220,18 @@
      "en": "She came down with a cold."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "calare",
+    "crollare",
+    "ammalarsi"
+   ],
+   "en": [
+    "to go down",
+    "to collapse"
+   ]
+  }
  },
  "ダンスする": {
   "frasi_esempio": [
@@ -88126,7 +88242,15 @@
      "en": "Dancing is good for the figure."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ballare"
+   ],
+   "en": [
+    "to dance"
+   ]
+  }
  },
  "ちょうだいする": {
   "frasi_esempio": [
@@ -88145,7 +88269,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "ricevere (umile)"
+   ],
+   "en": [
+    "to receive (humble)"
+   ]
+  }
  },
  "デートする": {
   "frasi_esempio": [
@@ -88162,7 +88294,16 @@
    "n4",
    "kana-only",
    "suru-verb"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "uscire insieme",
+    "avere un appuntamento"
+   ],
+   "en": [
+    "to go on a date"
+   ]
+  }
  },
  "デザインする": {
   "frasi_esempio": [
@@ -88173,7 +88314,16 @@
      "en": "His designs are highly original."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "progettare",
+    "disegnare (design)"
+   ],
+   "en": [
+    "to design"
+   ]
+  }
  },
  "トレーニングする": {
   "frasi_esempio": [
@@ -88191,7 +88341,16 @@
      "en": "He has been working out to develop his muscles."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "allenarsi"
+   ],
+   "en": [
+    "to train",
+    "to work out"
+   ]
+  }
  },
  "ノックする": {
   "frasi_esempio": [
@@ -88202,7 +88361,15 @@
      "en": "Someone knocked on the door."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "bussare"
+   ],
+   "en": [
+    "to knock"
+   ]
+  }
  },
  "ハイキングする": {
   "frasi_esempio": [
@@ -88213,7 +88380,15 @@
      "en": "We had better cancel the hike."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare un'escursione"
+   ],
+   "en": [
+    "to go hiking"
+   ]
+  }
  },
  "パスする": {
   "frasi_esempio": [
@@ -88231,18 +88406,16 @@
      "en": "Pass the ball quickly to a person behind you."
     }
    }
-  ]
- },
- "バランスする": {
-  "frasi_esempio": [
-   {
-    "testo": "鞍馬は、力よりもバランス感覚が必要です。",
-    "traduzione": {
-     "it": "Il cavallo con maniglie richiede più equilibrio che forza.",
-     "en": "The pommel horse requires more balance than strength."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "superare (un esame)",
+    "passare (la palla)"
+   ],
+   "en": [
+    "to pass"
+   ]
+  }
  },
  "プラスする": {
   "frasi_esempio": [
@@ -88253,25 +88426,16 @@
      "en": "If you do that, it will help you."
     }
    }
-  ]
- },
- "マイナスする": {
-  "frasi_esempio": [
-   {
-    "testo": "彼のまじめさがかえってマイナスになった。",
-    "traduzione": {
-     "it": "La sua serietà si è rivelata, al contrario, uno svantaggio.",
-     "en": "His diligence turned out a disadvantage after all."
-    }
-   },
-   {
-    "testo": "昨夜、温度計はマイナス１０度を示した。",
-    "traduzione": {
-     "it": "Ieri notte il termometro segnava meno dieci gradi.",
-     "en": "The thermometer registered minus ten last night."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aggiungere",
+    "sommare"
+   ],
+   "en": [
+    "to add"
+   ]
+  }
  },
  "マスターする": {
   "frasi_esempio": [
@@ -88282,7 +88446,16 @@
      "en": "It is hard to master it in a year or two."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "padroneggiare",
+    "imparare bene"
+   ],
+   "en": [
+    "to master"
+   ]
+  }
  },
  "ミスする": {
   "frasi_esempio": [
@@ -88293,7 +88466,15 @@
      "en": "Mistakes in the printing should be pointed out at once."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sbagliare"
+   ],
+   "en": [
+    "to make a mistake"
+   ]
+  }
  },
  "メモする": {
   "frasi_esempio": [
@@ -88304,7 +88485,16 @@
      "en": "Did you note down my phone number?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "annotare",
+    "prendere appunti"
+   ],
+   "en": [
+    "to take notes"
+   ]
+  }
  },
  "握手する": {
   "frasi_esempio": [
@@ -88315,7 +88505,15 @@
      "en": "He shook hands with his friend."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stringersi la mano"
+   ],
+   "en": [
+    "to shake hands"
+   ]
+  }
  },
  "安定する": {
   "frasi_esempio": [
@@ -88326,7 +88524,16 @@
      "en": "The current political situation is not very stable."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stabilizzarsi",
+    "essere stabile"
+   ],
+   "en": [
+    "to become stable"
+   ]
+  }
  },
  "暗記する": {
   "frasi_esempio": [
@@ -88337,7 +88544,15 @@
      "en": "Let's learn this poem by heart."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "imparare a memoria"
+   ],
+   "en": [
+    "to memorize"
+   ]
+  }
  },
  "位置する": {
   "frasi_esempio": [
@@ -88355,7 +88570,16 @@
      "en": "His office is located in the center of the town."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trovarsi",
+    "essere situato"
+   ],
+   "en": [
+    "to be located"
+   ]
+  }
  },
  "依頼する": {
   "frasi_esempio": [
@@ -88366,7 +88590,17 @@
      "en": "I asked the solicitor to make out my will."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "chiedere",
+    "incaricare"
+   ],
+   "en": [
+    "to request",
+    "to commission"
+   ]
+  }
  },
  "意識する": {
   "frasi_esempio": [
@@ -88377,7 +88611,16 @@
      "en": "This cuisine is seasoned to evoke the esprit of Paris."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere consapevole",
+    "fare caso a"
+   ],
+   "en": [
+    "to be conscious of"
+   ]
+  }
  },
  "移動する": {
   "frasi_esempio": [
@@ -88388,7 +88631,16 @@
      "en": "They moved to a new place."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "spostarsi",
+    "muoversi"
+   ],
+   "en": [
+    "to move"
+   ]
+  }
  },
  "維持する": {
   "frasi_esempio": [
@@ -88399,7 +88651,15 @@
      "en": "It is expensive running this car."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "mantenere"
+   ],
+   "en": [
+    "to maintain"
+   ]
+  }
  },
  "違反する": {
   "frasi_esempio": [
@@ -88410,18 +88670,16 @@
      "en": "Despite their own scandals, the police continue to make arrests as though nothing had happened at all."
     }
    }
-  ]
- },
- "一言する": {
-  "frasi_esempio": [
-   {
-    "testo": "一言で言えば、彼は馬鹿だと思います。",
-    "traduzione": {
-     "it": "In una parola, penso che sia uno stupido.",
-     "en": "In a word, I think he's a fool."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "violare",
+    "trasgredire"
+   ],
+   "en": [
+    "to violate"
+   ]
+  }
  },
  "一致する": {
   "frasi_esempio": [
@@ -88432,7 +88690,17 @@
      "en": "Let's close ranks and do something new."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "coincidere",
+    "essere d'accordo"
+   ],
+   "en": [
+    "to agree",
+    "to match"
+   ]
+  }
  },
  "印刷する": {
   "frasi_esempio": [
@@ -88443,7 +88711,15 @@
      "en": "The news was rushed into print."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stampare"
+   ],
+   "en": [
+    "to print"
+   ]
+  }
  },
  "引越しする": {
   "frasi_esempio": [
@@ -88454,7 +88730,15 @@
      "en": "I'm busy with moving preparations."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "traslocare"
+   ],
+   "en": [
+    "to move house"
+   ]
+  }
  },
  "引退する": {
   "frasi_esempio": [
@@ -88465,7 +88749,15 @@
      "en": "He sold his business and retired."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ritirarsi (dall'attività)"
+   ],
+   "en": [
+    "to retire"
+   ]
+  }
  },
  "引用する": {
   "frasi_esempio": [
@@ -88476,7 +88768,15 @@
      "en": "Can you quote a line of Hamlet?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "citare"
+   ],
+   "en": [
+    "to quote"
+   ]
+  }
  },
  "噂する": {
   "frasi_esempio": [
@@ -88487,7 +88787,16 @@
      "en": "The rumor spread far and wide."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "spettegolare",
+    "parlare di qualcuno"
+   ],
+   "en": [
+    "to gossip"
+   ]
+  }
  },
  "営業する": {
   "frasi_esempio": [
@@ -88501,7 +88810,17 @@
   ],
   "sinonimi": [
    "商売する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere aperto",
+    "fare affari"
+   ],
+   "en": [
+    "to do business",
+    "to be open"
+   ]
+  }
  },
  "影響する": {
   "frasi_esempio": [
@@ -88512,7 +88831,16 @@
      "en": "Many TV programs have a bad influence on children."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "influire",
+    "influenzare"
+   ],
+   "en": [
+    "to influence"
+   ]
+  }
  },
  "延期する": {
   "frasi_esempio": [
@@ -88523,7 +88851,15 @@
      "en": "We had to put off the meeting."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rinviare"
+   ],
+   "en": [
+    "to postpone"
+   ]
+  }
  },
  "援助する": {
   "frasi_esempio": [
@@ -88534,7 +88870,16 @@
      "en": "Sam helps whoever asks him to."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aiutare",
+    "sostenere (economicamente)"
+   ],
+   "en": [
+    "to aid"
+   ]
+  }
  },
  "演技する": {
   "frasi_esempio": [
@@ -88545,7 +88890,15 @@
      "en": "Nothing could hinder Kate from using all her energy to polish her performances."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "recitare"
+   ],
+   "en": [
+    "to act"
+   ]
+  }
  },
  "演説する": {
   "frasi_esempio": [
@@ -88556,7 +88909,15 @@
      "en": "We called upon him for a speech."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "tenere un discorso"
+   ],
+   "en": [
+    "to make a speech"
+   ]
+  }
  },
  "演奏する": {
   "frasi_esempio": [
@@ -88567,7 +88928,15 @@
      "en": "The performance was almost over."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "suonare (in concerto)"
+   ],
+   "en": [
+    "to perform music"
+   ]
+  }
  },
  "汚染する": {
   "frasi_esempio": [
@@ -88578,7 +88947,15 @@
      "en": "Pollution is damaging our earth."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "inquinare"
+   ],
+   "en": [
+    "to pollute"
+   ]
+  }
  },
  "応援する": {
   "frasi_esempio": [
@@ -88596,7 +88973,17 @@
      "en": "She cheered for her favorite horse."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare il tifo",
+    "sostenere"
+   ],
+   "en": [
+    "to cheer",
+    "to support"
+   ]
+  }
  },
  "横断する": {
   "frasi_esempio": [
@@ -88614,7 +89001,15 @@
      "en": "He crossed the Pacific Ocean in a sailboat."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "attraversare"
+   ],
+   "en": [
+    "to cross"
+   ]
+  }
  },
  "化粧する": {
   "frasi_esempio": [
@@ -88625,7 +89020,15 @@
      "en": "A face with too much make up looks strange."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "truccarsi"
+   ],
+   "en": [
+    "to put on makeup"
+   ]
+  }
  },
  "仮定する": {
   "frasi_esempio": [
@@ -88636,7 +89039,16 @@
      "en": "Let's suppose that she is here."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "supporre",
+    "ipotizzare"
+   ],
+   "en": [
+    "to assume"
+   ]
+  }
  },
  "我慢する": {
   "frasi_esempio": [
@@ -88647,7 +89059,17 @@
      "en": "I can't put up with this cold."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sopportare",
+    "resistere"
+   ],
+   "en": [
+    "to endure",
+    "to put up with"
+   ]
+  }
  },
  "会計する": {
   "frasi_esempio": [
@@ -88665,18 +89087,15 @@
      "en": "I'd like to check out. Do you have my bill?"
     }
    }
-  ]
- },
- "会合する": {
-  "frasi_esempio": [
-   {
-    "testo": "これはとても大切な会合だ。",
-    "traduzione": {
-     "it": "Questo è un incontro molto importante.",
-     "en": "This is a very important meeting."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pagare il conto"
+   ],
+   "en": [
+    "to pay the bill"
+   ]
+  }
  },
  "解決する": {
   "frasi_esempio": [
@@ -88687,7 +89106,15 @@
      "en": "The problem is not settled yet."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "risolvere"
+   ],
+   "en": [
+    "to solve"
+   ]
+  }
  },
  "解釈する": {
   "frasi_esempio": [
@@ -88698,7 +89125,15 @@
      "en": "That reads two different ways."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "interpretare"
+   ],
+   "en": [
+    "to interpret"
+   ]
+  }
  },
  "回復する": {
   "frasi_esempio": [
@@ -88709,7 +89144,16 @@
      "en": "Recovery was almost impossible."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "riprendersi",
+    "guarire"
+   ],
+   "en": [
+    "to recover"
+   ]
+  }
  },
  "改善する": {
   "frasi_esempio": [
@@ -88720,7 +89164,15 @@
      "en": "The trade imbalance between two nations should be improved."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "migliorare"
+   ],
+   "en": [
+    "to improve"
+   ]
+  }
  },
  "開始する": {
   "frasi_esempio": [
@@ -88731,7 +89183,15 @@
      "en": "What time does boarding begin?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "iniziare"
+   ],
+   "en": [
+    "to start"
+   ]
+  }
  },
  "外出する": {
   "frasi_esempio": [
@@ -88742,7 +89202,15 @@
      "en": "I went out with the heater on."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "uscire (di casa)"
+   ],
+   "en": [
+    "to go out"
+   ]
+  }
  },
  "拡大する": {
   "frasi_esempio": [
@@ -88753,7 +89221,17 @@
      "en": "The business has expanded by 50% this year."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ingrandire",
+    "espandersi"
+   ],
+   "en": [
+    "to expand",
+    "to enlarge"
+   ]
+  }
  },
  "確認する": {
   "frasi_esempio": [
@@ -88764,7 +89242,17 @@
      "en": "I have a confirmed reservation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "verificare",
+    "confermare"
+   ],
+   "en": [
+    "to confirm",
+    "to check"
+   ]
+  }
  },
  "覚悟する": {
   "frasi_esempio": [
@@ -88775,7 +89263,16 @@
      "en": "The soldiers were ready to die for their country."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prepararsi (al peggio)",
+    "rassegnarsi"
+   ],
+   "en": [
+    "to be prepared for"
+   ]
+  }
  },
  "学習する": {
   "frasi_esempio": [
@@ -88786,25 +89283,16 @@
      "en": "I don't think this is a good approach to biology."
     }
    }
-  ]
- },
- "学問する": {
-  "frasi_esempio": [
-   {
-    "testo": "心理学は心を科学研究する学問である。",
-    "traduzione": {
-     "it": "La psicologia è la disciplina che studia scientificamente la mente.",
-     "en": "Psychology is the scientific study of the mind."
-    }
-   },
-   {
-    "testo": "少しばかりの学問は危険なもの。",
-    "traduzione": {
-     "it": "Un po' di sapere è cosa pericolosa.",
-     "en": "A little learning is a dangerous thing."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "studiare",
+    "imparare"
+   ],
+   "en": [
+    "to learn"
+   ]
+  }
  },
  "活動する": {
   "frasi_esempio": [
@@ -88815,7 +89303,16 @@
      "en": "Watching TV is a passive activity."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere attivo",
+    "svolgere attività"
+   ],
+   "en": [
+    "to be active"
+   ]
+  }
  },
  "活躍する": {
   "frasi_esempio": [
@@ -88833,7 +89330,16 @@
      "en": "I see you're doing very well in your business."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "distinguersi",
+    "essere protagonista"
+   ],
+   "en": [
+    "to play an active role"
+   ]
+  }
  },
  "活用する": {
   "frasi_esempio": [
@@ -88844,7 +89350,15 @@
      "en": "As a politician, he makes utmost use of his acting ability."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sfruttare; coniugare (grammatica)"
+   ],
+   "en": [
+    "to make use of; to conjugate"
+   ]
+  }
  },
  "乾燥する": {
   "frasi_esempio": [
@@ -88855,7 +89369,16 @@
      "en": "We keep shiitake mushrooms dry."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "seccarsi",
+    "essiccare"
+   ],
+   "en": [
+    "to dry"
+   ]
+  }
  },
  "勘定する": {
   "frasi_esempio": [
@@ -88866,7 +89389,17 @@
      "en": "The bill amounts to 500 dollars."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "contare",
+    "fare il conto"
+   ],
+   "en": [
+    "to count",
+    "to calculate"
+   ]
+  }
  },
  "完成する": {
   "frasi_esempio": [
@@ -88877,7 +89410,16 @@
      "en": "The new railway is not completed yet."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "completare",
+    "essere completato"
+   ],
+   "en": [
+    "to complete"
+   ]
+  }
  },
  "完了する": {
   "frasi_esempio": [
@@ -88888,18 +89430,16 @@
      "en": "The house with the damaged roof has been repaired."
     }
    }
-  ]
- },
- "感覚する": {
-  "frasi_esempio": [
-   {
-    "testo": "私は指に感覚が無かった。",
-    "traduzione": {
-     "it": "Non sentivo le dita.",
-     "en": "I had no feeling in my fingers."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "concludere",
+    "finire"
+   ],
+   "en": [
+    "to finish"
+   ]
+  }
  },
  "感謝する": {
   "frasi_esempio": [
@@ -88910,7 +89450,16 @@
      "en": "I appreciate your cooperation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ringraziare",
+    "essere grato"
+   ],
+   "en": [
+    "to thank"
+   ]
+  }
  },
  "感心する": {
   "frasi_esempio": [
@@ -88921,7 +89470,16 @@
      "en": "We admire her for her bravery."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ammirare",
+    "rimanere colpito"
+   ],
+   "en": [
+    "to be impressed"
+   ]
+  }
  },
  "感動する": {
   "frasi_esempio": [
@@ -88932,7 +89490,15 @@
      "en": "I was deeply moved by that novel."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "commuoversi"
+   ],
+   "en": [
+    "to be moved"
+   ]
+  }
  },
  "歓迎する": {
   "frasi_esempio": [
@@ -88943,7 +89509,16 @@
      "en": "You are welcomed in our class."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "accogliere",
+    "dare il benvenuto"
+   ],
+   "en": [
+    "to welcome"
+   ]
+  }
  },
  "監督する": {
   "frasi_esempio": [
@@ -88954,7 +89529,17 @@
      "en": "The Representative Director supervises Directors' performance of duties."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dirigere",
+    "sorvegliare"
+   ],
+   "en": [
+    "to direct",
+    "to supervise"
+   ]
+  }
  },
  "管理する": {
   "frasi_esempio": [
@@ -88966,7 +89551,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "gestire",
+    "amministrare"
+   ],
+   "en": [
+    "to manage"
+   ]
+  }
  },
  "観光する": {
   "frasi_esempio": [
@@ -88977,7 +89571,15 @@
      "en": "Is there a tour guide available?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare turismo"
+   ],
+   "en": [
+    "to go sightseeing"
+   ]
+  }
  },
  "観察する": {
   "frasi_esempio": [
@@ -88988,7 +89590,15 @@
      "en": "Science rests upon observation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "osservare"
+   ],
+   "en": [
+    "to observe"
+   ]
+  }
  },
  "関連する": {
   "frasi_esempio": [
@@ -88999,7 +89609,15 @@
      "en": "These facts are mutually related."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere collegato a"
+   ],
+   "en": [
+    "to be related"
+   ]
+  }
  },
  "寄付する": {
   "frasi_esempio": [
@@ -89010,7 +89628,15 @@
      "en": "She contributed to the Red Cross."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "donare"
+   ],
+   "en": [
+    "to donate"
+   ]
+  }
  },
  "希望する": {
   "frasi_esempio": [
@@ -89021,7 +89647,17 @@
      "en": "This was his one and only hope."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "desiderare",
+    "sperare"
+   ],
+   "en": [
+    "to wish",
+    "to hope"
+   ]
+  }
  },
  "期待する": {
   "frasi_esempio": [
@@ -89032,7 +89668,16 @@
      "en": "Let's hope for the best anyway."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aspettarsi",
+    "contare su"
+   ],
+   "en": [
+    "to expect"
+   ]
+  }
  },
  "機能する": {
   "frasi_esempio": [
@@ -89043,7 +89688,15 @@
      "en": "What did they add this needless function for?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "funzionare"
+   ],
+   "en": [
+    "to function"
+   ]
+  }
  },
  "帰宅する": {
   "frasi_esempio": [
@@ -89054,7 +89707,15 @@
      "en": "What tempted him to come home?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rientrare a casa"
+   ],
+   "en": [
+    "to return home"
+   ]
+  }
  },
  "協力する": {
   "frasi_esempio": [
@@ -89065,7 +89726,15 @@
      "en": "I appreciate your cooperation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "collaborare"
+   ],
+   "en": [
+    "to cooperate"
+   ]
+  }
  },
  "興奮する": {
   "frasi_esempio": [
@@ -89076,7 +89745,16 @@
      "en": "His home run excited the crowd."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "eccitarsi",
+    "agitarsi"
+   ],
+   "en": [
+    "to get excited"
+   ]
+  }
  },
  "規制する": {
   "frasi_esempio": [
@@ -89087,7 +89765,16 @@
      "en": "We should obey the traffic rules."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "regolamentare",
+    "limitare"
+   ],
+   "en": [
+    "to regulate"
+   ]
+  }
  },
  "記憶する": {
   "frasi_esempio": [
@@ -89098,7 +89785,16 @@
      "en": "I tried to call on my memories of that day."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ricordare",
+    "memorizzare"
+   ],
+   "en": [
+    "to remember"
+   ]
+  }
  },
  "記入する": {
   "frasi_esempio": [
@@ -89109,7 +89805,16 @@
      "en": "Please help me fill out this form."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "compilare",
+    "scrivere (in un modulo)"
+   ],
+   "en": [
+    "to fill in"
+   ]
+  }
  },
  "記念する": {
   "frasi_esempio": [
@@ -89127,7 +89832,16 @@
      "en": "Today's ceremony marks the 100th anniversary of our school."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "commemorare",
+    "festeggiare (un anniversario)"
+   ],
+   "en": [
+    "to commemorate"
+   ]
+  }
  },
  "記録する": {
   "frasi_esempio": [
@@ -89145,7 +89859,16 @@
      "en": "No silence was ever written down."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "registrare",
+    "annotare"
+   ],
+   "en": [
+    "to record"
+   ]
+  }
  },
  "議論する": {
   "frasi_esempio": [
@@ -89156,7 +89879,16 @@
      "en": "The argument is full of holes."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "discutere",
+    "dibattere"
+   ],
+   "en": [
+    "to discuss"
+   ]
+  }
  },
  "休憩する": {
   "frasi_esempio": [
@@ -89167,7 +89899,15 @@
      "en": "Let's take a break for coffee."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare una pausa"
+   ],
+   "en": [
+    "to take a break"
+   ]
+  }
  },
  "休息する": {
   "frasi_esempio": [
@@ -89178,7 +89918,15 @@
      "en": "We work by day and rest by night."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "riposarsi"
+   ],
+   "en": [
+    "to rest"
+   ]
+  }
  },
  "吸収する": {
   "frasi_esempio": [
@@ -89189,7 +89937,15 @@
      "en": "This cloth absorbs water well."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "assorbire"
+   ],
+   "en": [
+    "to absorb"
+   ]
+  }
  },
  "救助する": {
   "frasi_esempio": [
@@ -89200,7 +89956,16 @@
      "en": "He rescued a boy from drowning."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "soccorrere",
+    "salvare"
+   ],
+   "en": [
+    "to rescue"
+   ]
+  }
  },
  "居眠りする": {
   "frasi_esempio": [
@@ -89211,7 +89976,15 @@
      "en": "I do not allow sleeping in class."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "appisolarsi"
+   ],
+   "en": [
+    "to doze off"
+   ]
+  }
  },
  "許可する": {
   "frasi_esempio": [
@@ -89222,7 +89995,16 @@
      "en": "Smoking is not permitted here."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "permettere",
+    "autorizzare"
+   ],
+   "en": [
+    "to permit"
+   ]
+  }
  },
  "享受する": {
   "frasi_esempio": [
@@ -89233,7 +90015,15 @@
      "en": "He is enjoying happiness."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "godere di"
+   ],
+   "en": [
+    "to enjoy"
+   ]
+  }
  },
  "供する": {
   "frasi_esempio": [
@@ -89244,7 +90034,17 @@
      "en": "I will accompany you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "offrire",
+    "mettere a disposizione"
+   ],
+   "en": [
+    "to offer",
+    "to serve"
+   ]
+  }
  },
  "供給する": {
   "frasi_esempio": [
@@ -89255,7 +90055,16 @@
      "en": "Water was supplied from outside."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fornire",
+    "rifornire"
+   ],
+   "en": [
+    "to supply"
+   ]
+  }
  },
  "競技する": {
   "frasi_esempio": [
@@ -89266,7 +90075,15 @@
      "en": "Did you take part in the game?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "gareggiare"
+   ],
+   "en": [
+    "to compete"
+   ]
+  }
  },
  "共同する": {
   "frasi_esempio": [
@@ -89284,7 +90101,16 @@
      "en": "We run the store jointly."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "collaborare",
+    "fare insieme"
+   ],
+   "en": [
+    "to cooperate"
+   ]
+  }
  },
  "協議する": {
   "frasi_esempio": [
@@ -89295,7 +90121,16 @@
      "en": "We consulted them about the problem."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "consultarsi",
+    "trattare"
+   ],
+   "en": [
+    "to confer"
+   ]
+  }
  },
  "協調する": {
   "frasi_esempio": [
@@ -89306,7 +90141,16 @@
      "en": "They worked cooperatively."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "cooperare",
+    "armonizzarsi"
+   ],
+   "en": [
+    "to cooperate"
+   ]
+  }
  },
  "強調する": {
   "frasi_esempio": [
@@ -89317,18 +90161,16 @@
      "en": "The teacher stressed the importance of daily practice."
     }
    }
-  ]
- },
- "恐怖する": {
-  "frasi_esempio": [
-   {
-    "testo": "私は恐怖で気も狂わんばかりだった。",
-    "traduzione": {
-     "it": "Ero quasi impazzito dalla paura.",
-     "en": "I almost went crazy with fear."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sottolineare",
+    "mettere in risalto"
+   ],
+   "en": [
+    "to emphasize"
+   ]
+  }
  },
  "参加する": {
   "frasi_esempio": [
@@ -89339,7 +90181,15 @@
      "en": "Did you take part in the game?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "partecipare"
+   ],
+   "en": [
+    "to participate"
+   ]
+  }
  },
  "禁煙する": {
   "frasi_esempio": [
@@ -89350,7 +90200,15 @@
      "en": "When will they turn off the no-smoking sign?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "smettere di fumare"
+   ],
+   "en": [
+    "to quit smoking"
+   ]
+  }
  },
  "禁止する": {
   "frasi_esempio": [
@@ -89361,7 +90219,15 @@
      "en": "Smoking is strictly prohibited."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vietare"
+   ],
+   "en": [
+    "to prohibit"
+   ]
+  }
  },
  "緊張する": {
   "frasi_esempio": [
@@ -89372,7 +90238,16 @@
      "en": "Cold-war tension has mounted."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere nervoso",
+    "tendersi"
+   ],
+   "en": [
+    "to get nervous"
+   ]
+  }
  },
  "区別する": {
   "frasi_esempio": [
@@ -89383,7 +90258,15 @@
      "en": "I couldn't tell her from her sister."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "distinguere"
+   ],
+   "en": [
+    "to distinguish"
+   ]
+  }
  },
  "苦労する": {
   "frasi_esempio": [
@@ -89394,7 +90277,17 @@
      "en": "All my pains went for nothing."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "faticare",
+    "penare"
+   ],
+   "en": [
+    "to struggle",
+    "to have a hard time"
+   ]
+  }
  },
  "訓練する": {
   "frasi_esempio": [
@@ -89406,7 +90299,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "addestrare",
+    "esercitare"
+   ],
+   "en": [
+    "to train"
+   ]
+  }
  },
  "契約する": {
   "frasi_esempio": [
@@ -89417,7 +90319,15 @@
      "en": "The contract was rather loose."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stipulare un contratto"
+   ],
+   "en": [
+    "to sign a contract"
+   ]
+  }
  },
  "掲示する": {
   "frasi_esempio": [
@@ -89429,7 +90339,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "affiggere (un avviso)"
+   ],
+   "en": [
+    "to post (a notice)"
+   ]
+  }
  },
  "携帯する": {
   "frasi_esempio": [
@@ -89447,7 +90365,15 @@
      "en": "Americans have the right to bear arms."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "portare con sé"
+   ],
+   "en": [
+    "to carry"
+   ]
+  }
  },
  "経営する": {
   "frasi_esempio": [
@@ -89459,7 +90385,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "gestire (un'attività)"
+   ],
+   "en": [
+    "to run (a business)"
+   ]
+  }
  },
  "経由する": {
   "frasi_esempio": [
@@ -89470,7 +90404,16 @@
      "en": "He came back by way of Honolulu."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "passare per",
+    "fare scalo a"
+   ],
+   "en": [
+    "to go via"
+   ]
+  }
  },
  "計算する": {
   "frasi_esempio": [
@@ -89488,7 +90431,15 @@
      "en": "He calculated the consequences of his action."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "calcolare"
+   ],
+   "en": [
+    "to calculate"
+   ]
+  }
  },
  "警告する": {
   "frasi_esempio": [
@@ -89499,7 +90450,16 @@
      "en": "He paid no attention to my warning."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "avvertire",
+    "mettere in guardia"
+   ],
+   "en": [
+    "to warn"
+   ]
+  }
  },
  "欠席する": {
   "frasi_esempio": [
@@ -89514,7 +90474,15 @@
   "sinonimi": [],
   "contrari": [
    "出席する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere assente"
+   ],
+   "en": [
+    "to be absent"
+   ]
+  }
  },
  "決行する": {
   "frasi_esempio": [
@@ -89525,7 +90493,15 @@
      "en": "Workers at the company went on a strike."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "attuare (nonostante tutto)"
+   ],
+   "en": [
+    "to carry out (as planned)"
+   ]
+  }
  },
  "決心する": {
   "frasi_esempio": [
@@ -89536,7 +90512,16 @@
      "en": "Try to make up your mind soon."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "decidersi",
+    "prendere una decisione"
+   ],
+   "en": [
+    "to make up one's mind"
+   ]
+  }
  },
  "決定する": {
   "frasi_esempio": [
@@ -89547,7 +90532,16 @@
      "en": "We've made a final decision."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "decidere",
+    "stabilire"
+   ],
+   "en": [
+    "to decide"
+   ]
+  }
  },
  "発達する": {
   "frasi_esempio": [
@@ -89558,7 +90552,15 @@
      "en": "Swimming develops our muscles."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "svilupparsi"
+   ],
+   "en": [
+    "to develop"
+   ]
+  }
  },
  "結論する": {
   "frasi_esempio": [
@@ -89569,7 +90571,16 @@
      "en": "The two came to the same conclusion."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "concludere",
+    "trarre una conclusione"
+   ],
+   "en": [
+    "to conclude"
+   ]
+  }
  },
  "建設する": {
   "frasi_esempio": [
@@ -89580,7 +90591,15 @@
      "en": "The money was appropriated for building the gymnasium."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "costruire"
+   ],
+   "en": [
+    "to construct"
+   ]
+  }
  },
  "建築する": {
   "frasi_esempio": [
@@ -89591,7 +90610,15 @@
      "en": "They set about building a house."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "costruire (edifici)"
+   ],
+   "en": [
+    "to build"
+   ]
+  }
  },
  "検査する": {
   "frasi_esempio": [
@@ -89602,7 +90629,16 @@
      "en": "I'd like to have a Pap smear done."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ispezionare",
+    "esaminare"
+   ],
+   "en": [
+    "to inspect"
+   ]
+  }
  },
  "検討する": {
   "frasi_esempio": [
@@ -89613,7 +90649,17 @@
      "en": "We debated the matter at length."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "valutare",
+    "prendere in esame"
+   ],
+   "en": [
+    "to consider",
+    "to examine"
+   ]
+  }
  },
  "減少する": {
   "frasi_esempio": [
@@ -89624,7 +90670,15 @@
      "en": "When you rely on the team too much, it may reduce your individual competitive instincts."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "diminuire"
+   ],
+   "en": [
+    "to decrease"
+   ]
+  }
  },
  "呼吸する": {
   "frasi_esempio": [
@@ -89635,7 +90689,15 @@
      "en": "I still can't get the knack of English pronunciation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "respirare"
+   ],
+   "en": [
+    "to breathe"
+   ]
+  }
  },
  "後悔する": {
   "frasi_esempio": [
@@ -89646,7 +90708,16 @@
      "en": "It's no use regretting it now."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pentirsi",
+    "rimpiangere"
+   ],
+   "en": [
+    "to regret"
+   ]
+  }
  },
  "誤解する": {
   "frasi_esempio": [
@@ -89657,7 +90728,15 @@
      "en": "I'm sorry I misunderstood you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fraintendere"
+   ],
+   "en": [
+    "to misunderstand"
+   ]
+  }
  },
  "交換する": {
   "frasi_esempio": [
@@ -89668,7 +90747,16 @@
      "en": "Let me exchange seats with you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scambiare",
+    "sostituire"
+   ],
+   "en": [
+    "to exchange"
+   ]
+  }
  },
  "交際する": {
   "frasi_esempio": [
@@ -89679,7 +90767,17 @@
      "en": "The man took up with his wife."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "frequentarsi",
+    "avere una relazione"
+   ],
+   "en": [
+    "to associate with",
+    "to date"
+   ]
+  }
  },
  "公演する": {
   "frasi_esempio": [
@@ -89690,7 +90788,15 @@
      "en": "The evening performance at the Royal Theater had ended, and the audience had gone home."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esibirsi (in pubblico)"
+   ],
+   "en": [
+    "to perform"
+   ]
+  }
  },
  "広告する": {
   "frasi_esempio": [
@@ -89701,7 +90807,15 @@
      "en": "The goods were advertised on TV."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pubblicizzare"
+   ],
+   "en": [
+    "to advertise"
+   ]
+  }
  },
  "拘束する": {
   "frasi_esempio": [
@@ -89712,7 +90826,16 @@
      "en": "This decision is not binding on all of you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trattenere",
+    "vincolare"
+   ],
+   "en": [
+    "to restrain"
+   ]
+  }
  },
  "攻撃する": {
   "frasi_esempio": [
@@ -89724,7 +90847,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "attaccare"
+   ],
+   "en": [
+    "to attack"
+   ]
+  }
  },
  "構成する": {
   "frasi_esempio": [
@@ -89735,7 +90866,16 @@
      "en": "Our yacht club has ten members."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "comporre",
+    "costituire"
+   ],
+   "en": [
+    "to compose"
+   ]
+  }
  },
  "考慮する": {
   "frasi_esempio": [
@@ -89746,7 +90886,16 @@
      "en": "I'm considering going with them."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "tenere conto",
+    "considerare"
+   ],
+   "en": [
+    "to consider"
+   ]
+  }
  },
  "航海する": {
   "frasi_esempio": [
@@ -89757,7 +90906,15 @@
      "en": "The yacht is under smooth sail."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "navigare"
+   ],
+   "en": [
+    "to sail"
+   ]
+  }
  },
  "荒廃する": {
   "frasi_esempio": [
@@ -89768,7 +90925,15 @@
      "en": "The country was wasted by war."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare in rovina"
+   ],
+   "en": [
+    "to fall into ruin"
+   ]
+  }
  },
  "行動する": {
   "frasi_esempio": [
@@ -89779,7 +90944,16 @@
      "en": "He resented his friend's action."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "agire",
+    "comportarsi"
+   ],
+   "en": [
+    "to act"
+   ]
+  }
  },
  "講演する": {
   "frasi_esempio": [
@@ -89790,7 +90964,15 @@
      "en": "Who is going to speak tonight?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "tenere una conferenza"
+   ],
+   "en": [
+    "to give a lecture"
+   ]
+  }
  },
  "貢献する": {
   "frasi_esempio": [
@@ -89801,7 +90983,15 @@
      "en": "He was awarded a knighthood in acknowledgement of his services to the nation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "contribuire"
+   ],
+   "en": [
+    "to contribute"
+   ]
+  }
  },
  "降伏する": {
   "frasi_esempio": [
@@ -89812,7 +91002,15 @@
      "en": "I would rather die than yield."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arrendersi"
+   ],
+   "en": [
+    "to surrender"
+   ]
+  }
  },
  "合格する": {
   "frasi_esempio": [
@@ -89830,7 +91028,16 @@
      "en": "The new car underwent its tests successfully."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere promosso",
+    "superare (un esame)"
+   ],
+   "en": [
+    "to pass (an exam)"
+   ]
+  }
  },
  "合計する": {
   "frasi_esempio": [
@@ -89841,7 +91048,16 @@
      "en": "Add up this column of figures."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sommare",
+    "fare il totale"
+   ],
+   "en": [
+    "to total"
+   ]
+  }
  },
  "合図する": {
   "frasi_esempio": [
@@ -89852,7 +91068,16 @@
      "en": "Give us the sign to go soon."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare segno",
+    "dare un segnale"
+   ],
+   "en": [
+    "to signal"
+   ]
+  }
  },
  "克服する": {
   "frasi_esempio": [
@@ -89863,7 +91088,15 @@
      "en": "He has overcome many obstacles."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "superare (una difficoltà)"
+   ],
+   "en": [
+    "to overcome"
+   ]
+  }
  },
  "骨折する": {
   "frasi_esempio": [
@@ -89874,7 +91107,15 @@
      "en": "I think my right arm is broken."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fratturarsi (un osso)"
+   ],
+   "en": [
+    "to break a bone"
+   ]
+  }
  },
  "婚約する": {
   "frasi_esempio": [
@@ -89885,7 +91126,15 @@
      "en": "Finally, my sister got engaged."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fidanzarsi"
+   ],
+   "en": [
+    "to get engaged"
+   ]
+  }
  },
  "混雑する": {
   "frasi_esempio": [
@@ -89896,7 +91145,15 @@
      "en": "The roads are jammed with cars."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere affollato"
+   ],
+   "en": [
+    "to be crowded"
+   ]
+  }
  },
  "混乱する": {
   "frasi_esempio": [
@@ -89907,7 +91164,16 @@
      "en": "The Diet broke up in confusion."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "confondersi",
+    "essere nel caos"
+   ],
+   "en": [
+    "to be confused"
+   ]
+  }
  },
  "差別する": {
   "frasi_esempio": [
@@ -89918,7 +91184,15 @@
      "en": "That week had nothing to do with discrimination."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "discriminare"
+   ],
+   "en": [
+    "to discriminate"
+   ]
+  }
  },
  "採集する": {
   "frasi_esempio": [
@@ -89929,7 +91203,15 @@
      "en": "I'll show you how to separate gold from sand."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "raccogliere (per collezione)"
+   ],
+   "en": [
+    "to collect"
+   ]
+  }
  },
  "裁判する": {
   "frasi_esempio": [
@@ -89940,7 +91222,16 @@
      "en": "Judgment requires impartiality."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "processare",
+    "giudicare"
+   ],
+   "en": [
+    "to try (in court)"
+   ]
+  }
  },
  "製造する": {
   "frasi_esempio": [
@@ -89951,7 +91242,16 @@
      "en": "The factory manufactures toys."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "produrre",
+    "fabbricare"
+   ],
+   "en": [
+    "to manufacture"
+   ]
+  }
  },
  "作業する": {
   "frasi_esempio": [
@@ -89962,7 +91262,16 @@
      "en": "Carry on working while I'm away."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lavorare (a un compito)"
+   ],
+   "en": [
+    "to work",
+    "to operate"
+   ]
+  }
  },
  "作曲する": {
   "frasi_esempio": [
@@ -89973,7 +91282,15 @@
      "en": "This music was composed by Bach."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "comporre (musica)"
+   ],
+   "en": [
+    "to compose"
+   ]
+  }
  },
  "賛成する": {
   "frasi_esempio": [
@@ -89984,7 +91301,16 @@
      "en": "Are you agreeable to our plan?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere d'accordo",
+    "approvare"
+   ],
+   "en": [
+    "to agree"
+   ]
+  }
  },
  "酸化する": {
   "frasi_esempio": [
@@ -89995,7 +91321,15 @@
      "en": "Chocolate acts to prevent LDL oxidisation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ossidarsi"
+   ],
+   "en": [
+    "to oxidize"
+   ]
+  }
  },
  "使用する": {
   "frasi_esempio": [
@@ -90006,7 +91340,16 @@
      "en": "Shake the bottle before using."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "usare",
+    "utilizzare"
+   ],
+   "en": [
+    "to use"
+   ]
+  }
  },
  "刺激する": {
   "frasi_esempio": [
@@ -90024,7 +91367,15 @@
      "en": "Light is the stimulus that causes a flower to open."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "stimolare"
+   ],
+   "en": [
+    "to stimulate"
+   ]
+  }
  },
  "志望する": {
   "frasi_esempio": [
@@ -90035,7 +91386,16 @@
      "en": "That university was my first choice."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aspirare a",
+    "desiderare"
+   ],
+   "en": [
+    "to aspire to"
+   ]
+  }
  },
  "指揮する": {
   "frasi_esempio": [
@@ -90053,7 +91413,17 @@
      "en": "She directed the planning of the project."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dirigere",
+    "comandare"
+   ],
+   "en": [
+    "to command",
+    "to conduct"
+   ]
+  }
  },
  "指導する": {
   "frasi_esempio": [
@@ -90064,7 +91434,17 @@
      "en": "She has consented to take the leadership of the party."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "guidare",
+    "insegnare"
+   ],
+   "en": [
+    "to guide",
+    "to coach"
+   ]
+  }
  },
  "支給する": {
   "frasi_esempio": [
@@ -90075,7 +91455,17 @@
      "en": "We were supplied with uniforms."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "erogare",
+    "fornire"
+   ],
+   "en": [
+    "to provide",
+    "to pay"
+   ]
+  }
  },
  "支出する": {
   "frasi_esempio": [
@@ -90086,7 +91476,15 @@
      "en": "She pared down her expenditures."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "spendere"
+   ],
+   "en": [
+    "to spend"
+   ]
+  }
  },
  "支配する": {
   "frasi_esempio": [
@@ -90097,7 +91495,16 @@
      "en": "Silence reigned in the forest."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dominare",
+    "controllare"
+   ],
+   "en": [
+    "to rule"
+   ]
+  }
  },
  "死亡する": {
   "frasi_esempio": [
@@ -90108,18 +91515,16 @@
      "en": "We were shocked at the news of his death."
     }
    }
-  ]
- },
- "私用する": {
-  "frasi_esempio": [
-   {
-    "testo": "上司は会社の電話で私用の電話をかけたといって私をひどく叱った。",
-    "traduzione": {
-     "it": "Il mio capo mi ha sgridato duramente per aver fatto telefonate personali con il telefono dell'ufficio.",
-     "en": "My boss called me down for making private calls on the office phone."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "morire",
+    "decedere"
+   ],
+   "en": [
+    "to die"
+   ]
+  }
  },
  "治療する": {
   "frasi_esempio": [
@@ -90130,7 +91535,15 @@
      "en": "Prevention is better than cure."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "curare"
+   ],
+   "en": [
+    "to treat (medically)"
+   ]
+  }
  },
  "自殺する": {
   "frasi_esempio": [
@@ -90141,7 +91554,15 @@
      "en": "He tried to kill himself but it ended in failure."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "suicidarsi"
+   ],
+   "en": [
+    "to commit suicide"
+   ]
+  }
  },
  "自慢する": {
   "frasi_esempio": [
@@ -90152,7 +91573,15 @@
      "en": "We took pride in our strength."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vantarsi"
+   ],
+   "en": [
+    "to boast"
+   ]
+  }
  },
  "辞退する": {
   "frasi_esempio": [
@@ -90163,7 +91592,16 @@
      "en": "I would like to excuse myself from receiving the Akutagawa Prize."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "declinare",
+    "rinunciare"
+   ],
+   "en": [
+    "to decline"
+   ]
+  }
  },
  "失望する": {
   "frasi_esempio": [
@@ -90174,7 +91612,15 @@
      "en": "I was disappointed at the results."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rimanere deluso"
+   ],
+   "en": [
+    "to be disappointed"
+   ]
+  }
  },
  "実験する": {
   "frasi_esempio": [
@@ -90185,7 +91631,15 @@
      "en": "The experiment was successful."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare un esperimento"
+   ],
+   "en": [
+    "to experiment"
+   ]
+  }
  },
  "実現する": {
   "frasi_esempio": [
@@ -90196,7 +91650,17 @@
      "en": "May all your dreams come true!"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "realizzare",
+    "avverarsi"
+   ],
+   "en": [
+    "to realize",
+    "to come true"
+   ]
+  }
  },
  "実行する": {
   "frasi_esempio": [
@@ -90208,7 +91672,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "mettere in pratica",
+    "eseguire"
+   ],
+   "en": [
+    "to carry out"
+   ]
+  }
  },
  "実施する": {
   "frasi_esempio": [
@@ -90219,7 +91692,16 @@
      "en": "The plan was put into operation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "attuare",
+    "mettere in atto"
+   ],
+   "en": [
+    "to implement"
+   ]
+  }
  },
  "借金する": {
   "frasi_esempio": [
@@ -90230,7 +91712,16 @@
      "en": "You should pay your debts."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "indebitarsi",
+    "prendere in prestito denaro"
+   ],
+   "en": [
+    "to borrow money"
+   ]
+  }
  },
  "主張する": {
   "frasi_esempio": [
@@ -90242,7 +91733,17 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "sostenere",
+    "affermare"
+   ],
+   "en": [
+    "to insist",
+    "to claim"
+   ]
+  }
  },
  "手術する": {
   "frasi_esempio": [
@@ -90253,7 +91754,15 @@
      "en": "You have to have an operation."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "operare (chirurgicamente)"
+   ],
+   "en": [
+    "to operate"
+   ]
+  }
  },
  "収穫する": {
   "frasi_esempio": [
@@ -90264,7 +91773,15 @@
      "en": "We all helped with the harvest."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "raccogliere (il raccolto)"
+   ],
+   "en": [
+    "to harvest"
+   ]
+  }
  },
  "就職する": {
   "frasi_esempio": [
@@ -90275,7 +91792,16 @@
      "en": "Why was I turned down for the job?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trovare lavoro",
+    "essere assunto"
+   ],
+   "en": [
+    "to get a job"
+   ]
+  }
  },
  "修飾する": {
   "frasi_esempio": [
@@ -90286,7 +91812,17 @@
      "en": "Things that modify nouns are adjectives or equivalent to adjectives."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "modificare (in grammatica)",
+    "decorare"
+   ],
+   "en": [
+    "to modify",
+    "to decorate"
+   ]
+  }
  },
  "修正する": {
   "frasi_esempio": [
@@ -90297,7 +91833,15 @@
      "en": "I beg to modify your proposal."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "correggere"
+   ],
+   "en": [
+    "to correct"
+   ]
+  }
  },
  "修理する": {
   "frasi_esempio": [
@@ -90308,7 +91852,15 @@
      "en": "The car isn't worth repairing."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "riparare"
+   ],
+   "en": [
+    "to repair"
+   ]
+  }
  },
  "集中する": {
   "frasi_esempio": [
@@ -90326,7 +91878,15 @@
      "en": "I was concentrating on reading."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "concentrarsi"
+   ],
+   "en": [
+    "to concentrate"
+   ]
+  }
  },
  "予防する": {
   "frasi_esempio": [
@@ -90337,7 +91897,15 @@
      "en": "Prevention is better than cure."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prevenire"
+   ],
+   "en": [
+    "to prevent"
+   ]
+  }
  },
  "渋滞する": {
   "frasi_esempio": [
@@ -90348,7 +91916,15 @@
      "en": "I was delayed by a traffic jam."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere congestionato (traffico)"
+   ],
+   "en": [
+    "to be jammed"
+   ]
+  }
  },
  "重視する": {
   "frasi_esempio": [
@@ -90359,7 +91935,15 @@
      "en": "Some people place a lot more emphasis on the importance of money in life."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dare importanza a"
+   ],
+   "en": [
+    "to attach importance to"
+   ]
+  }
  },
  "宿泊する": {
   "frasi_esempio": [
@@ -90371,7 +91955,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "pernottare",
+    "alloggiare"
+   ],
+   "en": [
+    "to stay overnight"
+   ]
+  }
  },
  "出場する": {
   "frasi_esempio": [
@@ -90382,7 +91975,15 @@
      "en": "Twenty teams entered the tournament."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "partecipare (a una gara)"
+   ],
+   "en": [
+    "to take part"
+   ]
+  }
  },
  "出版する": {
   "frasi_esempio": [
@@ -90393,7 +91994,15 @@
      "en": "We finally published the book."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "pubblicare"
+   ],
+   "en": [
+    "to publish"
+   ]
+  }
  },
  "処理する": {
   "frasi_esempio": [
@@ -90404,7 +92013,17 @@
      "en": "What did you do with that car?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trattare",
+    "sbrigare"
+   ],
+   "en": [
+    "to process",
+    "to deal with"
+   ]
+  }
  },
  "署名する": {
   "frasi_esempio": [
@@ -90415,7 +92034,15 @@
      "en": "This letter bears no signature."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "firmare"
+   ],
+   "en": [
+    "to sign"
+   ]
+  }
  },
  "商売する": {
   "frasi_esempio": [
@@ -90426,7 +92053,15 @@
      "en": "Local shops do good business with tourists."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "commerciare"
+   ],
+   "en": [
+    "to do business"
+   ]
+  }
  },
  "承認する": {
   "frasi_esempio": [
@@ -90437,7 +92072,15 @@
      "en": "Could you approve my proposal?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "approvare"
+   ],
+   "en": [
+    "to approve"
+   ]
+  }
  },
  "消費する": {
   "frasi_esempio": [
@@ -90448,7 +92091,15 @@
      "en": "The car consumes a lot of fuel."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "consumare"
+   ],
+   "en": [
+    "to consume"
+   ]
+  }
  },
  "照明する": {
   "frasi_esempio": [
@@ -90459,7 +92110,15 @@
      "en": "We danced in the subdued lighting."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "illuminare"
+   ],
+   "en": [
+    "to illuminate"
+   ]
+  }
  },
  "省略する": {
   "frasi_esempio": [
@@ -90470,7 +92129,16 @@
      "en": "You can omit the preposition in this phrase."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "omettere",
+    "abbreviare"
+   ],
+   "en": [
+    "to omit"
+   ]
+  }
  },
  "衝突する": {
   "frasi_esempio": [
@@ -90488,7 +92156,15 @@
      "en": "The car collided with a truck."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scontrarsi"
+   ],
+   "en": [
+    "to collide"
+   ]
+  }
  },
  "証明する": {
   "frasi_esempio": [
@@ -90499,18 +92175,16 @@
      "en": "I'll show you that I am right."
     }
    }
-  ]
- },
- "障害する": {
-  "frasi_esempio": [
-   {
-    "testo": "先駆者達は一連の障害を克服してきた。",
-    "traduzione": {
-     "it": "I pionieri hanno superato una serie di ostacoli.",
-     "en": "The pioneers have overcome a series of obstacles."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dimostrare",
+    "provare"
+   ],
+   "en": [
+    "to prove"
+   ]
+  }
  },
  "上京する": {
   "frasi_esempio": [
@@ -90521,7 +92195,15 @@
      "en": "He came up to Tokyo on business."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "trasferirsi (o andare) a Tokyo"
+   ],
+   "en": [
+    "to go to Tokyo"
+   ]
+  }
  },
  "提案する": {
   "frasi_esempio": [
@@ -90532,7 +92214,15 @@
      "en": "Could you approve my proposal?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "proporre"
+   ],
+   "en": [
+    "to propose"
+   ]
+  }
  },
  "上達する": {
   "frasi_esempio": [
@@ -90543,7 +92233,15 @@
      "en": "Your English is improving."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "migliorare (in un'abilità)"
+   ],
+   "en": [
+    "to improve"
+   ]
+  }
  },
  "信仰する": {
   "frasi_esempio": [
@@ -90554,7 +92252,15 @@
      "en": "Do you believe in Christianity?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "credere (in una religione)"
+   ],
+   "en": [
+    "to believe in"
+   ]
+  }
  },
  "信用する": {
   "frasi_esempio": [
@@ -90572,7 +92278,15 @@
      "en": "Unless you have good credit, buying a house is impossible."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fidarsi"
+   ],
+   "en": [
+    "to trust"
+   ]
+  }
  },
  "信頼する": {
   "frasi_esempio": [
@@ -90583,7 +92297,16 @@
      "en": "You can certainly rely on him."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fidarsi",
+    "contare su"
+   ],
+   "en": [
+    "to rely on"
+   ]
+  }
  },
  "審判する": {
   "frasi_esempio": [
@@ -90601,7 +92324,16 @@
      "en": "The public interest was directed at his judgement."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arbitrare",
+    "giudicare"
+   ],
+   "en": [
+    "to referee"
+   ]
+  }
  },
  "振興する": {
   "frasi_esempio": [
@@ -90612,7 +92344,16 @@
      "en": "The government started a program to promote industry."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "promuovere",
+    "incentivare"
+   ],
+   "en": [
+    "to promote"
+   ]
+  }
  },
  "申告する": {
   "frasi_esempio": [
@@ -90623,7 +92364,16 @@
      "en": "What forms do we need to file?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "dichiarare (al fisco",
+    "alla dogana)"
+   ],
+   "en": [
+    "to declare"
+   ]
+  }
  },
  "真似する": {
   "frasi_esempio": [
@@ -90634,7 +92384,15 @@
      "en": "The boy made a fool of himself."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "imitare"
+   ],
+   "en": [
+    "to imitate"
+   ]
+  }
  },
  "診察する": {
   "frasi_esempio": [
@@ -90645,7 +92403,15 @@
      "en": "The doctor examined my throat."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "visitare (un paziente)"
+   ],
+   "en": [
+    "to examine (a patient)"
+   ]
+  }
  },
  "進学する": {
   "frasi_esempio": [
@@ -90656,7 +92422,15 @@
      "en": "He won't go on to graduate school."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "proseguire gli studi"
+   ],
+   "en": [
+    "to go on to higher education"
+   ]
+  }
  },
  "進行する": {
   "frasi_esempio": [
@@ -90674,7 +92448,16 @@
      "en": "The work is now in progress."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "procedere",
+    "avanzare"
+   ],
+   "en": [
+    "to progress"
+   ]
+  }
  },
  "進歩する": {
   "frasi_esempio": [
@@ -90685,7 +92468,15 @@
      "en": "Advance in science is continuous."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "progredire"
+   ],
+   "en": [
+    "to progress"
+   ]
+  }
  },
  "不足する": {
   "frasi_esempio": [
@@ -90696,7 +92487,16 @@
      "en": "Food has been in short supply."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "mancare",
+    "scarseggiare"
+   ],
+   "en": [
+    "to be lacking"
+   ]
+  }
  },
  "推薦する": {
   "frasi_esempio": [
@@ -90707,7 +92507,15 @@
      "en": "We recommended him as chairman."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "raccomandare"
+   ],
+   "en": [
+    "to recommend"
+   ]
+  }
  },
  "制限する": {
   "frasi_esempio": [
@@ -90718,7 +92526,15 @@
      "en": "Don't go beyond the speed limit."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "limitare"
+   ],
+   "en": [
+    "to limit"
+   ]
+  }
  },
  "成功する": {
   "frasi_esempio": [
@@ -90737,7 +92553,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "avere successo",
+    "riuscire"
+   ],
+   "en": [
+    "to succeed"
+   ]
+  }
  },
  "成長する": {
   "frasi_esempio": [
@@ -90748,7 +92573,15 @@
      "en": "Jane grew up to be a fine lady."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "crescere"
+   ],
+   "en": [
+    "to grow"
+   ]
+  }
  },
  "整理する": {
   "frasi_esempio": [
@@ -90759,7 +92592,16 @@
      "en": "You should set your room in order."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "mettere in ordine",
+    "riordinare"
+   ],
+   "en": [
+    "to sort out"
+   ]
+  }
  },
  "生長する": {
   "frasi_esempio": [
@@ -90770,7 +92612,15 @@
      "en": "Plants grow with light."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "crescere (piante)"
+   ],
+   "en": [
+    "to grow (plants)"
+   ]
+  }
  },
  "精算する": {
   "frasi_esempio": [
@@ -90781,18 +92631,16 @@
      "en": "He checked out of the hotel."
     }
    }
-  ]
- },
- "声明する": {
-  "frasi_esempio": [
-   {
-    "testo": "彼の声明は疑いの余地がない。",
-    "traduzione": {
-     "it": "La sua dichiarazione non lascia spazio a dubbi.",
-     "en": "His statement admits of no doubt."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "saldare",
+    "fare il conguaglio"
+   ],
+   "en": [
+    "to settle (an account)"
+   ]
+  }
  },
  "請求する": {
   "frasi_esempio": [
@@ -90806,7 +92654,16 @@
   ],
   "sinonimi": [
    "要求する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "richiedere (un pagamento)"
+   ],
+   "en": [
+    "to bill",
+    "to claim"
+   ]
+  }
  },
  "誕生する": {
   "frasi_esempio": [
@@ -90817,7 +92674,15 @@
      "en": "When did life come into being?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "nascere"
+   ],
+   "en": [
+    "to be born"
+   ]
+  }
  },
  "設計する": {
   "frasi_esempio": [
@@ -90828,18 +92693,15 @@
      "en": "I had it made after my own plan."
     }
    }
-  ]
- },
- "設備する": {
-  "frasi_esempio": [
-   {
-    "testo": "諸設備の費用は払っていただきます。",
-    "traduzione": {
-     "it": "Dovrà pagare i costi delle utenze.",
-     "en": "You have to pay for utilities."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "progettare"
+   ],
+   "en": [
+    "to design"
+   ]
+  }
  },
  "節約する": {
   "frasi_esempio": [
@@ -90850,7 +92712,16 @@
      "en": "This highway saves us a lot of time."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "risparmiare"
+   ],
+   "en": [
+    "to save",
+    "to economize"
+   ]
+  }
  },
  "絶滅する": {
   "frasi_esempio": [
@@ -90861,7 +92732,15 @@
      "en": "Extinction is part of evolution."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "estinguersi"
+   ],
+   "en": [
+    "to become extinct"
+   ]
+  }
  },
  "先行する": {
   "frasi_esempio": [
@@ -90872,7 +92751,15 @@
      "en": "The flash of lightning precedes the sound of thunder."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "precedere"
+   ],
+   "en": [
+    "to precede"
+   ]
+  }
  },
  "宣伝する": {
   "frasi_esempio": [
@@ -90883,7 +92770,15 @@
      "en": "The goods are advertised on TV."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare pubblicità"
+   ],
+   "en": [
+    "to advertise"
+   ]
+  }
  },
  "専攻する": {
   "frasi_esempio": [
@@ -90894,7 +92789,15 @@
      "en": "I am going to major in French."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "specializzarsi in (all'università)"
+   ],
+   "en": [
+    "to major in"
+   ]
+  }
  },
  "選挙する": {
   "frasi_esempio": [
@@ -90905,7 +92808,15 @@
      "en": "The prefectural governor got the upper hand in the July elections."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "eleggere"
+   ],
+   "en": [
+    "to elect"
+   ]
+  }
  },
  "選考する": {
   "frasi_esempio": [
@@ -90916,7 +92827,16 @@
      "en": "Rules in connection with staff selection are set as follows."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "selezionare"
+   ],
+   "en": [
+    "to screen",
+    "to select"
+   ]
+  }
  },
  "選択する": {
   "frasi_esempio": [
@@ -90927,7 +92847,15 @@
      "en": "The choice is all up to you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scegliere"
+   ],
+   "en": [
+    "to choose"
+   ]
+  }
  },
  "前進する": {
   "frasi_esempio": [
@@ -90938,7 +92866,15 @@
      "en": "The army advanced up the hill."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "avanzare"
+   ],
+   "en": [
+    "to advance"
+   ]
+  }
  },
  "組織する": {
   "frasi_esempio": [
@@ -90949,7 +92885,15 @@
      "en": "The next discussion concerns the transplantation of prenatal tissues."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "organizzare"
+   ],
+   "en": [
+    "to organize"
+   ]
+  }
  },
  "創造する": {
   "frasi_esempio": [
@@ -90960,7 +92904,15 @@
      "en": "God created man in his own image."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "creare"
+   ],
+   "en": [
+    "to create"
+   ]
+  }
  },
  "想像する": {
   "frasi_esempio": [
@@ -90971,7 +92923,15 @@
      "en": "You can't imagine it, can you?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "immaginare"
+   ],
+   "en": [
+    "to imagine"
+   ]
+  }
  },
  "捜査する": {
   "frasi_esempio": [
@@ -90982,7 +92942,15 @@
      "en": "The police looked into that incident."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "indagare"
+   ],
+   "en": [
+    "to investigate"
+   ]
+  }
  },
  "操作する": {
   "frasi_esempio": [
@@ -91000,7 +92968,16 @@
      "en": "I don't know how to operate this CD player."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "azionare",
+    "manovrare"
+   ],
+   "en": [
+    "to operate"
+   ]
+  }
  },
  "操縦する": {
   "frasi_esempio": [
@@ -91012,7 +92989,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "pilotare",
+    "guidare"
+   ],
+   "en": [
+    "to pilot"
+   ]
+  }
  },
  "相続する": {
   "frasi_esempio": [
@@ -91023,7 +93009,15 @@
      "en": "John inherited a large fortune."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ereditare"
+   ],
+   "en": [
+    "to inherit"
+   ]
+  }
  },
  "相当する": {
   "frasi_esempio": [
@@ -91041,18 +93035,16 @@
      "en": "Ten years is a long time."
     }
    }
-  ]
- },
- "装置する": {
-  "frasi_esempio": [
-   {
-    "testo": "この暖房装置は石油を燃料とする。",
-    "traduzione": {
-     "it": "Questo impianto di riscaldamento usa petrolio come combustibile.",
-     "en": "This heating system burns oil."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "corrispondere a",
+    "equivalere"
+   ],
+   "en": [
+    "to correspond to"
+   ]
+  }
  },
  "増加する": {
   "frasi_esempio": [
@@ -91063,7 +93055,15 @@
      "en": "The crime rate is rising steadily."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "aumentare"
+   ],
+   "en": [
+    "to increase"
+   ]
+  }
  },
  "存在する": {
   "frasi_esempio": [
@@ -91074,7 +93074,15 @@
      "en": "Do you believe that God exists?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esistere"
+   ],
+   "en": [
+    "to exist"
+   ]
+  }
  },
  "尊敬する": {
   "frasi_esempio": [
@@ -91085,7 +93093,16 @@
      "en": "You're respected by everybody."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rispettare",
+    "stimare"
+   ],
+   "en": [
+    "to respect"
+   ]
+  }
  },
  "尊重する": {
   "frasi_esempio": [
@@ -91096,7 +93113,17 @@
      "en": "I defer to your judgement."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rispettare",
+    "tenere in considerazione"
+   ],
+   "en": [
+    "to value",
+    "to respect"
+   ]
+  }
  },
  "損する": {
   "frasi_esempio": [
@@ -91107,18 +93134,16 @@
      "en": "You may go farther and fare worse."
     }
    }
-  ]
- },
- "損害する": {
-  "frasi_esempio": [
-   {
-    "testo": "その暴風雨は大損害をもたらした。",
-    "traduzione": {
-     "it": "La tempesta ha causato gravi danni.",
-     "en": "The storm brought heavy losses."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "perderci",
+    "rimetterci"
+   ],
+   "en": [
+    "to lose (out)"
+   ]
+  }
  },
  "対照する": {
   "frasi_esempio": [
@@ -91129,7 +93154,15 @@
      "en": "To compare old and new photos."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "confrontare"
+   ],
+   "en": [
+    "to contrast"
+   ]
+  }
  },
  "滞在する": {
   "frasi_esempio": [
@@ -91140,7 +93173,15 @@
      "en": "I'm now staying at my uncle's."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "soggiornare"
+   ],
+   "en": [
+    "to stay"
+   ]
+  }
  },
  "退学する": {
   "frasi_esempio": [
@@ -91151,7 +93192,15 @@
      "en": "He left high school at seventeen."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lasciare la scuola"
+   ],
+   "en": [
+    "to drop out of school"
+   ]
+  }
  },
  "逮捕する": {
   "frasi_esempio": [
@@ -91162,7 +93211,15 @@
      "en": "The man was arrested as a spy."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arrestare"
+   ],
+   "en": [
+    "to arrest"
+   ]
+  }
  },
  "代表する": {
   "frasi_esempio": [
@@ -91173,7 +93230,15 @@
      "en": "On behalf of my classmates, let me say a few words of thanks to you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "rappresentare"
+   ],
+   "en": [
+    "to represent"
+   ]
+  }
  },
  "代理する": {
   "frasi_esempio": [
@@ -91191,7 +93256,16 @@
      "en": "I'm engaged tomorrow, so I've arranged for someone else to take my place."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare le veci di",
+    "sostituire"
+   ],
+   "en": [
+    "to act on behalf of"
+   ]
+  }
  },
  "担当する": {
   "frasi_esempio": [
@@ -91202,7 +93276,16 @@
      "en": "John covers the Kanto area and Taro covers the Kansai area."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere responsabile di",
+    "occuparsi di"
+   ],
+   "en": [
+    "to be in charge of"
+   ]
+  }
  },
  "判断する": {
   "frasi_esempio": [
@@ -91213,7 +93296,16 @@
      "en": "I defer to your judgement."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "giudicare",
+    "valutare"
+   ],
+   "en": [
+    "to judge"
+   ]
+  }
  },
  "遅刻する": {
   "frasi_esempio": [
@@ -91224,7 +93316,15 @@
      "en": "I was afraid I might be late."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arrivare in ritardo"
+   ],
+   "en": [
+    "to be late"
+   ]
+  }
  },
  "中止する": {
   "frasi_esempio": [
@@ -91248,18 +93348,17 @@
    "n4",
    "contains-kanji",
    "suru-verb"
-  ]
- },
- "注する": {
-  "frasi_esempio": [
-   {
-    "testo": "注はページの下欄についている。",
-    "traduzione": {
-     "it": "Le note si trovano in fondo alla pagina.",
-     "en": "The notes are at the bottom of the page."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sospendere",
+    "annullare"
+   ],
+   "en": [
+    "to cancel",
+    "to call off"
+   ]
+  }
  },
  "注文する": {
   "frasi_esempio": [
@@ -91271,7 +93370,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "ordinare"
+   ],
+   "en": [
+    "to order"
+   ]
+  }
  },
  "注目する": {
   "frasi_esempio": [
@@ -91283,7 +93390,16 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "notare",
+    "prestare attenzione"
+   ],
+   "en": [
+    "to pay attention to"
+   ]
+  }
  },
  "駐車する": {
   "frasi_esempio": [
@@ -91294,7 +93410,15 @@
      "en": "Ask him where he parked his car."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "parcheggiare"
+   ],
+   "en": [
+    "to park"
+   ]
+  }
  },
  "貯金する": {
   "frasi_esempio": [
@@ -91305,7 +93429,15 @@
      "en": "She put aside a lot of money."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "risparmiare (soldi)"
+   ],
+   "en": [
+    "to save money"
+   ]
+  }
  },
  "挑戦する": {
   "frasi_esempio": [
@@ -91316,7 +93448,17 @@
      "en": "I'd like to try out skydiving."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sfidare",
+    "cimentarsi"
+   ],
+   "en": [
+    "to challenge",
+    "to try"
+   ]
+  }
  },
  "調査する": {
   "frasi_esempio": [
@@ -91327,7 +93469,16 @@
      "en": "The investigation is under way."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "indagare",
+    "fare un'indagine"
+   ],
+   "en": [
+    "to investigate"
+   ]
+  }
  },
  "通過する": {
   "frasi_esempio": [
@@ -91345,7 +93496,16 @@
      "en": "Watch out for passing cars."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "passare",
+    "transitare"
+   ],
+   "en": [
+    "to pass through"
+   ]
+  }
  },
  "通学する": {
   "frasi_esempio": [
@@ -91356,7 +93516,15 @@
      "en": "I usually go to school by bus."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare a scuola (abitualmente)"
+   ],
+   "en": [
+    "to commute to school"
+   ]
+  }
  },
  "通勤する": {
   "frasi_esempio": [
@@ -91367,7 +93535,15 @@
      "en": "I commute to work for an hour."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare al lavoro (fare il pendolare)"
+   ],
+   "en": [
+    "to commute to work"
+   ]
+  }
  },
  "通行する": {
   "frasi_esempio": [
@@ -91378,7 +93554,17 @@
      "en": "There is no passage for big vehicles here."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "passare",
+    "transitare"
+   ],
+   "en": [
+    "to pass",
+    "to go through"
+   ]
+  }
  },
  "通信する": {
   "frasi_esempio": [
@@ -91389,7 +93575,15 @@
      "en": "He sent a message by wireless."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "comunicare"
+   ],
+   "en": [
+    "to communicate"
+   ]
+  }
  },
  "通訳する": {
   "frasi_esempio": [
@@ -91400,7 +93594,15 @@
      "en": "He engaged her as an interpreter."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare da interprete"
+   ],
+   "en": [
+    "to interpret"
+   ]
+  }
  },
  "停電する": {
   "frasi_esempio": [
@@ -91411,7 +93613,15 @@
      "en": "There was no electricity for two days in the aftermath of the typhoon."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare via la corrente"
+   ],
+   "en": [
+    "to have a blackout"
+   ]
+  }
  },
  "抵抗する": {
   "frasi_esempio": [
@@ -91422,7 +93632,16 @@
      "en": "It's useless to try and resist."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "resistere",
+    "opporsi"
+   ],
+   "en": [
+    "to resist"
+   ]
+  }
  },
  "提出する": {
   "frasi_esempio": [
@@ -91433,7 +93652,16 @@
      "en": "I submit this plan for your consideration."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "consegnare",
+    "presentare (documenti)"
+   ],
+   "en": [
+    "to submit"
+   ]
+  }
  },
  "適用する": {
   "frasi_esempio": [
@@ -91444,7 +93672,15 @@
      "en": "This law applies to everybody."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "applicare"
+   ],
+   "en": [
+    "to apply"
+   ]
+  }
  },
  "徹底する": {
   "frasi_esempio": [
@@ -91455,7 +93691,16 @@
      "en": "Production improves by becoming more automatic."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere rigoroso",
+    "andare fino in fondo"
+   ],
+   "en": [
+    "to be thorough"
+   ]
+  }
  },
  "徹夜する": {
   "frasi_esempio": [
@@ -91466,7 +93711,15 @@
      "en": "I often stay up all night."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "passare la notte in bianco"
+   ],
+   "en": [
+    "to stay up all night"
+   ]
+  }
  },
  "転校する": {
   "frasi_esempio": [
@@ -91477,7 +93730,15 @@
      "en": "You say you changed schools."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "cambiare scuola"
+   ],
+   "en": [
+    "to change schools"
+   ]
+  }
  },
  "伝言する": {
   "frasi_esempio": [
@@ -91488,7 +93749,15 @@
      "en": "Are there any messages for me?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lasciare un messaggio"
+   ],
+   "en": [
+    "to leave a message"
+   ]
+  }
  },
  "登山する": {
   "frasi_esempio": [
@@ -91499,7 +93768,15 @@
      "en": "Those shoes won't do for climbing."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scalare una montagna"
+   ],
+   "en": [
+    "to climb a mountain"
+   ]
+  }
  },
  "努力する": {
   "frasi_esempio": [
@@ -91510,7 +93787,16 @@
      "en": "I gotta try to do my best."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "sforzarsi",
+    "impegnarsi"
+   ],
+   "en": [
+    "to make an effort"
+   ]
+  }
  },
  "倒産する": {
   "frasi_esempio": [
@@ -91521,7 +93807,15 @@
      "en": "The company will soon go bankrupt."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fallire (azienda)"
+   ],
+   "en": [
+    "to go bankrupt"
+   ]
+  }
  },
  "投票する": {
   "frasi_esempio": [
@@ -91532,7 +93826,15 @@
      "en": "If I were twenty, I could vote."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "votare"
+   ],
+   "en": [
+    "to vote"
+   ]
+  }
  },
  "到着する": {
   "frasi_esempio": [
@@ -91543,7 +93845,15 @@
      "en": "The train arrived on schedule."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "arrivare"
+   ],
+   "en": [
+    "to arrive"
+   ]
+  }
  },
  "動揺する": {
   "frasi_esempio": [
@@ -91554,7 +93864,16 @@
      "en": "I was profoundly disturbed by this news."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "turbarsi",
+    "scuotersi"
+   ],
+   "en": [
+    "to be shaken"
+   ]
+  }
  },
  "独立する": {
   "frasi_esempio": [
@@ -91572,7 +93891,15 @@
      "en": "She is independent of her parents."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "diventare indipendente"
+   ],
+   "en": [
+    "to become independent"
+   ]
+  }
  },
  "読書する": {
   "frasi_esempio": [
@@ -91583,7 +93910,15 @@
      "en": "I have no leisure for reading."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "leggere (libri)"
+   ],
+   "en": [
+    "to read (books)"
+   ]
+  }
  },
  "入場する": {
   "frasi_esempio": [
@@ -91594,7 +93929,15 @@
      "en": "This ticket admits two persons."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "entrare"
+   ],
+   "en": [
+    "to enter"
+   ]
+  }
  },
  "変化する": {
   "frasi_esempio": [
@@ -91615,7 +93958,15 @@
   ],
   "sinonimi": [
    "変更する"
-  ]
+  ],
+  "significato": {
+   "it": [
+    "cambiare"
+   ],
+   "en": [
+    "to change"
+   ]
+  }
  },
  "熱中する": {
   "frasi_esempio": [
@@ -91626,7 +93977,15 @@
      "en": "Nowadays she is lost in tennis."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "appassionarsi"
+   ],
+   "en": [
+    "to be absorbed in"
+   ]
+  }
  },
  "納得する": {
   "frasi_esempio": [
@@ -91637,7 +93996,16 @@
      "en": "\"Well, OK,\" Willie finally agreed."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "convincersi",
+    "accettare"
+   ],
+   "en": [
+    "to be convinced"
+   ]
+  }
  },
  "破産する": {
   "frasi_esempio": [
@@ -91648,7 +94016,15 @@
      "en": "Gambling brought about his ruin."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "andare in bancarotta"
+   ],
+   "en": [
+    "to go bankrupt"
+   ]
+  }
  },
  "配達する": {
   "frasi_esempio": [
@@ -91659,7 +94035,15 @@
      "en": "How soon can they be delivered?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "consegnare"
+   ],
+   "en": [
+    "to deliver"
+   ]
+  }
  },
  "拍手する": {
   "frasi_esempio": [
@@ -91670,7 +94054,15 @@
      "en": "The performance was received with applause."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "applaudire"
+   ],
+   "en": [
+    "to applaud"
+   ]
+  }
  },
  "爆発する": {
   "frasi_esempio": [
@@ -91688,7 +94080,15 @@
      "en": "The roof was blown off by the explosion."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esplodere"
+   ],
+   "en": [
+    "to explode"
+   ]
+  }
  },
  "発見する": {
   "frasi_esempio": [
@@ -91699,7 +94099,15 @@
      "en": "This is a surprising discovery."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "scoprire"
+   ],
+   "en": [
+    "to discover"
+   ]
+  }
  },
  "発行する": {
   "frasi_esempio": [
@@ -91717,7 +94125,17 @@
      "en": "New stamps will be issued next month."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "emettere",
+    "pubblicare"
+   ],
+   "en": [
+    "to issue",
+    "to publish"
+   ]
+  }
  },
  "発射する": {
   "frasi_esempio": [
@@ -91728,7 +94146,17 @@
      "en": "The cannon went off by accident."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lanciare",
+    "sparare"
+   ],
+   "en": [
+    "to launch",
+    "to fire"
+   ]
+  }
  },
  "発車する": {
   "frasi_esempio": [
@@ -91739,7 +94167,15 @@
      "en": "The bus leaves in five minutes."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "partire (veicolo)"
+   ],
+   "en": [
+    "to depart (vehicle)"
+   ]
+  }
  },
  "発展する": {
   "frasi_esempio": [
@@ -91757,7 +94193,17 @@
      "en": "They will contribute greatly to the growth of the town."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "svilupparsi",
+    "progredire"
+   ],
+   "en": [
+    "to develop",
+    "to expand"
+   ]
+  }
  },
  "発表する": {
   "frasi_esempio": [
@@ -91768,7 +94214,17 @@
      "en": "He dare not express his opinion."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "annunciare",
+    "presentare"
+   ],
+   "en": [
+    "to announce",
+    "to present"
+   ]
+  }
  },
  "発明する": {
   "frasi_esempio": [
@@ -91779,7 +94235,15 @@
      "en": "Edison invented the light bulb."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "inventare"
+   ],
+   "en": [
+    "to invent"
+   ]
+  }
  },
  "反抗する": {
   "frasi_esempio": [
@@ -91790,7 +94254,15 @@
      "en": "They defied the laws of the king."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ribellarsi"
+   ],
+   "en": [
+    "to rebel"
+   ]
+  }
  },
  "反省する": {
   "frasi_esempio": [
@@ -91808,7 +94280,15 @@
      "en": "He reflected on his own thoughts."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "riflettere sui propri errori"
+   ],
+   "en": [
+    "to reflect on oneself"
+   ]
+  }
  },
  "販売する": {
   "frasi_esempio": [
@@ -91819,7 +94299,15 @@
      "en": "This shop sells shoes."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vendere"
+   ],
+   "en": [
+    "to sell"
+   ]
+  }
  },
  "否定する": {
   "frasi_esempio": [
@@ -91830,7 +94318,15 @@
      "en": "It is not to be denied but that the news was a great shock to her."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "negare"
+   ],
+   "en": [
+    "to deny"
+   ]
+  }
  },
  "批判する": {
   "frasi_esempio": [
@@ -91841,7 +94337,15 @@
      "en": "His criticisms were very severe."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "criticare"
+   ],
+   "en": [
+    "to criticize"
+   ]
+  }
  },
  "批評する": {
   "frasi_esempio": [
@@ -91852,7 +94356,17 @@
      "en": "Musicians are usually sensitive to criticism."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "recensire",
+    "commentare"
+   ],
+   "en": [
+    "to review",
+    "to critique"
+   ]
+  }
  },
  "比較する": {
   "frasi_esempio": [
@@ -91863,7 +94377,15 @@
      "en": "Compare your answer with Tom's."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "confrontare"
+   ],
+   "en": [
+    "to compare"
+   ]
+  }
  },
  "飛行する": {
   "frasi_esempio": [
@@ -91874,7 +94396,15 @@
      "en": "She was quite nervous about her first flight."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "volare"
+   ],
+   "en": [
+    "to fly"
+   ]
+  }
  },
  "表現する": {
   "frasi_esempio": [
@@ -91885,7 +94415,15 @@
      "en": "He's not good at expressing his emotions."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esprimere"
+   ],
+   "en": [
+    "to express"
+   ]
+  }
  },
  "評価する": {
   "frasi_esempio": [
@@ -91903,7 +94441,16 @@
      "en": "How do you assess your students?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "valutare",
+    "apprezzare"
+   ],
+   "en": [
+    "to evaluate"
+   ]
+  }
  },
  "不自由する": {
   "frasi_esempio": [
@@ -91921,7 +94468,16 @@
      "en": "Deaf people can talk in sign language."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere in difficoltà",
+    "mancare di"
+   ],
+   "en": [
+    "to be in want of"
+   ]
+  }
  },
  "分析する": {
   "frasi_esempio": [
@@ -91932,7 +94488,15 @@
      "en": "He's a financial analyst with a pretty good reputation for his analysis of economic trends."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "analizzare"
+   ],
+   "en": [
+    "to analyze"
+   ]
+  }
  },
  "平均する": {
   "frasi_esempio": [
@@ -91943,7 +94507,15 @@
      "en": "The temperature is above average this winter."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare la media"
+   ],
+   "en": [
+    "to average"
+   ]
+  }
  },
  "変更する": {
   "frasi_esempio": [
@@ -91957,18 +94529,15 @@
   ],
   "sinonimi": [
    "変化する"
-  ]
- },
- "便りする": {
-  "frasi_esempio": [
-   {
-    "testo": "それ以来、彼からは何の便りもありません。",
-    "traduzione": {
-     "it": "Da allora non ho più avuto sue notizie.",
-     "en": "I have never heard from him since."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "modificare"
+   ],
+   "en": [
+    "to modify"
+   ]
+  }
  },
  "保護する": {
   "frasi_esempio": [
@@ -91980,7 +94549,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "proteggere"
+   ],
+   "en": [
+    "to protect"
+   ]
+  }
  },
  "保証する": {
   "frasi_esempio": [
@@ -91991,7 +94568,15 @@
      "en": "You have my word on her sincerity."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "garantire"
+   ],
+   "en": [
+    "to guarantee"
+   ]
+  }
  },
  "保障する": {
   "frasi_esempio": [
@@ -92002,7 +94587,16 @@
      "en": "To receive social security."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "garantire (sicurezza",
+    "diritti)"
+   ],
+   "en": [
+    "to secure"
+   ]
+  }
  },
  "保存する": {
   "frasi_esempio": [
@@ -92020,7 +94614,17 @@
      "en": "We should preserve the beauties of the countryside."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "conservare",
+    "salvare"
+   ],
+   "en": [
+    "to preserve",
+    "to save"
+   ]
+  }
  },
  "補償する": {
   "frasi_esempio": [
@@ -92031,7 +94635,15 @@
      "en": "The government had to make up for the loss."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "risarcire"
+   ],
+   "en": [
+    "to compensate"
+   ]
+  }
  },
  "包装する": {
   "frasi_esempio": [
@@ -92042,7 +94654,15 @@
      "en": "Food packaging reduces spoilage."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "impacchettare"
+   ],
+   "en": [
+    "to wrap"
+   ]
+  }
  },
  "報告する": {
   "frasi_esempio": [
@@ -92053,7 +94673,16 @@
      "en": "His report does not sound true."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "riferire",
+    "fare rapporto"
+   ],
+   "en": [
+    "to report"
+   ]
+  }
  },
  "訪問する": {
   "frasi_esempio": [
@@ -92064,7 +94693,15 @@
      "en": "I meant to have called on you."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "visitare"
+   ],
+   "en": [
+    "to visit"
+   ]
+  }
  },
  "冒険する": {
   "frasi_esempio": [
@@ -92075,7 +94712,15 @@
      "en": "Nothing ventured, nothing gained."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "avventurarsi"
+   ],
+   "en": [
+    "to venture"
+   ]
+  }
  },
  "満足する": {
   "frasi_esempio": [
@@ -92114,7 +94759,15 @@
      "en": "He took no notice of my advice."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ignorare"
+   ],
+   "en": [
+    "to ignore"
+   ]
+  }
  },
  "命令する": {
   "frasi_esempio": [
@@ -92125,18 +94778,16 @@
      "en": "Ken told his dog to wait there."
     }
    }
-  ]
- },
- "免許する": {
-  "frasi_esempio": [
-   {
-    "testo": "やっと免許が取れました。",
-    "traduzione": {
-     "it": "Finalmente ho preso la patente.",
-     "en": "I got a driver's license at last."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "ordinare",
+    "comandare"
+   ],
+   "en": [
+    "to command"
+   ]
+  }
  },
  "面接する": {
   "frasi_esempio": [
@@ -92147,7 +94798,15 @@
      "en": "In order to qualify for the homestay you must have an interview with the sponsors."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "fare un colloquio"
+   ],
+   "en": [
+    "to interview"
+   ]
+  }
  },
  "優勝する": {
   "frasi_esempio": [
@@ -92158,7 +94817,15 @@
      "en": "Tom got first prize, didn't he?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "vincere (il campionato)"
+   ],
+   "en": [
+    "to win the championship"
+   ]
+  }
  },
  "予期する": {
   "frasi_esempio": [
@@ -92169,18 +94836,16 @@
      "en": "I little expected to see you here."
     }
    }
-  ]
- },
- "予算する": {
-  "frasi_esempio": [
-   {
-    "testo": "委員会は予算を承認した。",
-    "traduzione": {
-     "it": "Il comitato ha approvato il bilancio.",
-     "en": "The committee approved the budget."
-    }
-   }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prevedere",
+    "aspettarsi"
+   ],
+   "en": [
+    "to anticipate"
+   ]
+  }
  },
  "予想する": {
   "frasi_esempio": [
@@ -92191,7 +94856,17 @@
      "en": "What results do you anticipate?"
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prevedere",
+    "immaginare"
+   ],
+   "en": [
+    "to expect",
+    "to predict"
+   ]
+  }
  },
  "予測する": {
   "frasi_esempio": [
@@ -92202,7 +94877,16 @@
      "en": "We cannot predict what will happen."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prevedere",
+    "stimare"
+   ],
+   "en": [
+    "to forecast"
+   ]
+  }
  },
  "予報する": {
   "frasi_esempio": [
@@ -92213,7 +94897,15 @@
      "en": "Rain is forecast for this evening."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "prevedere (il tempo)"
+   ],
+   "en": [
+    "to forecast"
+   ]
+  }
  },
  "用心する": {
   "frasi_esempio": [
@@ -92225,7 +94917,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "stare attento"
+   ],
+   "en": [
+    "to be careful"
+   ]
+  }
  },
  "要求する": {
   "frasi_esempio": [
@@ -92236,7 +94936,16 @@
      "en": "I claimed damages against him."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "esigere",
+    "richiedere"
+   ],
+   "en": [
+    "to demand"
+   ]
+  }
  },
  "理解する": {
   "frasi_esempio": [
@@ -92247,7 +94956,15 @@
      "en": "I can understand what you are saying."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "capire"
+   ],
+   "en": [
+    "to understand"
+   ]
+  }
  },
  "離婚する": {
   "frasi_esempio": [
@@ -92258,7 +94975,15 @@
      "en": "I will consent to the divorce."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "divorziare"
+   ],
+   "en": [
+    "to divorce"
+   ]
+  }
  },
  "流行する": {
   "frasi_esempio": [
@@ -92269,7 +94994,17 @@
      "en": "That kind of dress is now in fashion."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "essere di moda",
+    "diffondersi"
+   ],
+   "en": [
+    "to be in fashion",
+    "to spread"
+   ]
+  }
  },
  "留学する": {
   "frasi_esempio": [
@@ -92280,7 +95015,15 @@
      "en": "I will study abroad on my own."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "studiare all'estero"
+   ],
+   "en": [
+    "to study abroad"
+   ]
+  }
  },
  "両替する": {
   "frasi_esempio": [
@@ -92292,7 +95035,15 @@
     }
    }
   ],
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "cambiare (valuta)"
+   ],
+   "en": [
+    "to exchange (money)"
+   ]
+  }
  },
  "連想する": {
   "frasi_esempio": [
@@ -92303,7 +95054,15 @@
      "en": "Green is associated with grass."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "associare (idee)"
+   ],
+   "en": [
+    "to associate"
+   ]
+  }
  },
  "連続する": {
   "frasi_esempio": [
@@ -92314,7 +95073,16 @@
      "en": "Some wise man has said life consists of one disappointment after another."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "susseguirsi",
+    "continuare"
+   ],
+   "en": [
+    "to continue in a row"
+   ]
+  }
  },
  "労働する": {
   "frasi_esempio": [
@@ -92325,7 +95093,16 @@
      "en": "I can't do the hard day's work I used to."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "lavorare (lavoro manuale)"
+   ],
+   "en": [
+    "to work",
+    "to labor"
+   ]
+  }
  },
  "論争する": {
   "frasi_esempio": [
@@ -92336,10 +95113,27 @@
      "en": "He will cast me a bone to pick."
     }
    }
-  ]
+  ],
+  "significato": {
+   "it": [
+    "polemizzare",
+    "disputare"
+   ],
+   "en": [
+    "to argue"
+   ]
+  }
  },
  "異動する": {
-  "sinonimi": []
+  "sinonimi": [],
+  "significato": {
+   "it": [
+    "essere trasferito (di ruolo)"
+   ],
+   "en": [
+    "to be transferred"
+   ]
+  }
  },
  "信号": {
   "correlati": [
@@ -92451,6 +95245,46 @@
    "en": [
     "to oppose",
     "to be against"
+   ]
+  }
+ },
+ "うがいする": {
+  "significato": {
+   "it": [
+    "fare i gargarismi"
+   ],
+   "en": [
+    "to gargle"
+   ]
+  }
+ },
+ "マッサージする": {
+  "significato": {
+   "it": [
+    "massaggiare"
+   ],
+   "en": [
+    "to massage"
+   ]
+  }
+ },
+ "加味する": {
+  "significato": {
+   "it": [
+    "tenere conto di"
+   ],
+   "en": [
+    "to take into account"
+   ]
+  }
+ },
+ "刊行する": {
+  "significato": {
+   "it": [
+    "pubblicare"
+   ],
+   "en": [
+    "to publish"
    ]
   }
  }
