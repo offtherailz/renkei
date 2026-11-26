@@ -58,6 +58,7 @@ export const BELT_GAMES: { id: string; label: string; icon: string }[] = [
 	{ id: 'certezza', label: 'Quanto sei sicuro?', icon: '🎲' },
 	{ id: 'iikae', label: 'Dillo in un altro modo', icon: '🎯' },
 	{ id: 'choukai', label: 'Choukai', icon: '👂' },
+	{ id: 'contesto', label: 'Contesto al volo', icon: '🎯' },
 	{ id: 'leggi-a-voce', label: 'Leggi a voce', icon: '📢' },
 	{ id: 'di-la-data', label: 'Dì la data', icon: '🗣️' },
 	{ id: 'shadowing', label: 'Shadowing', icon: '🎤' },

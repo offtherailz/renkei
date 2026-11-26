@@ -33,6 +33,7 @@
 		{ href: 'avventure', icon: '🗺️', label: "Un'avventura", hint: 'kaimono, ristorante o treno' },
 		{ href: 'lettura', icon: '⚡', label: 'Lettura veloce', hint: 'un testo a tempo' },
 		{ href: 'choukai', icon: '👂', label: '聴解 trappola', hint: 'un dialogo solo audio' },
+		{ href: 'esame/contesto', icon: '🎯', label: 'Contesto al volo', hint: 'cogli la domanda al primo ascolto' },
 		{ href: 'skimming', icon: '🔎', label: 'Skimming', hint: "trova l'informazione" },
 		{ href: 'riordina', icon: '🧩', label: 'Riordina la frase', hint: 'sintassi a tocchi' }
 	];

@@ -46,6 +46,7 @@
 	<a class="back" href="{base}/esame">← Esame N4</a>
 	<h1 class="page-title">🎧 Trucchi per l’ascolto</h1>
 	<p class="sub">Le parole da riconoscere nella domanda e nel dialogo, e le trappole tipiche. L’audio è a voci alternate come all’esame.</p>
+	<a class="drill-cta" href="{base}/esame/contesto">🎯 Allenati: Contesto al volo — cogli la domanda dall’apertura, poi un solo ascolto</a>
 
 	<section class="block">
 		<h2>問題1 課題理解 — «cosa fa DOPO»</h2>
@@ -123,6 +124,7 @@
 	.back { font-size: 0.85rem; color: var(--brand); text-decoration: none; font-weight: 600; }
 	.page-title { margin: 0; font-size: 1.3rem; }
 	.sub { margin: 0; font-size: 0.85rem; color: var(--muted); }
+	.drill-cta { display: block; border: 1px solid var(--info-border); background: var(--info-bg); color: var(--info-ink); border-radius: 12px; padding: 10px 12px; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
 	.block { display: grid; gap: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 12px; }
 	.block h2 { margin: 0 0 2px; font-size: 1.02rem; }
 	.lbl { margin: 4px 0 0; font-size: 0.78rem; font-weight: 700; color: var(--muted); }

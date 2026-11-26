@@ -133,6 +133,18 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 	return runSequence(examListeningSegments(prompt, rate, leadPauseMs), token);
 }
 
+// Solo una parte della lettura d'esame (🎯 Contesto al volo): 'apertura' = suono +
+// chi parla + domanda; 'dialogo' = le battute + la domanda ripetuta. Il confine è
+// la prima pausa (quella tra domanda e dialogo).
+export function speakExamPart(prompt: string, part: 'apertura' | 'dialogo', rate = 1): Promise<void> {
+	const token = ++playToken;
+	stopSpeaking();
+	const segs = examListeningSegments(prompt, rate, 0);
+	const cut = segs.findIndex((s) => s.pause !== undefined);
+	const sel = cut < 0 ? segs : part === 'apertura' ? segs.slice(0, cut) : [{ chime: true }, ...segs.slice(cut + 1)];
+	return runSequence(sel, token);
+}
+
 export function examListeningSegments(prompt: string, rate = 1, leadPauseMs = 2500): ExamSegment[] {
 	// Voci nettamente diverse: narratrice = femminile con pitch/tempo distinti,
 	// 女 = femminile normale, 男 = maschile. Così si capisce chi parla.

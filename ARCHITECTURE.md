@@ -907,3 +907,20 @@ BudouX sbagliava circa una frase su cinque (parole in kana spezzate, pezzi non s
 - Oltre al seed, lo script segmenta ogni stringa giapponese scritta nei sorgenti (`src/lib`, `src/routes`: avventure, esame, giochi), intera, così come arriva alle frasi cliccabili. Lì i pezzi servono soprattutto per le forme: le correzioni a mano finora coprono solo il seed.
 - Terzo elemento (opzionale): furigana per pezzo, `{ "1": "\u200B手続[てつづ]きを" }`, solo per i pezzi con kanji oltre N5, letture di kuromoji allineate al testo (`allinea`). Ripiego dell'impostazione **«Il mio livello»** (`settings.livello_kanji`, N5/N4/N3/tutti, default N4): nelle frasi cliccabili `InteractiveSentence` mette il furigana sui pezzi con kanji oltre il livello (`core/kanjiLevel.ts` → `haKanjiOltre`, livelli da `core/kanjiLevels.ts`), prima dal catalogo (`tokenFurigana`) poi da qui (`furiPerToken`), e sottolinea in oro le parole di catalogo oltre il livello (`parolaOltre`).
 - Non ancora usati dall'app: i confini di parola (`·`).
+
+## 🎯 Contesto al volo (`/esame/contesto`, 2026-11-27)
+
+Drill per il 聴解 a un solo ascolto: il problema dichiarato è perdere il contesto
+perché l'audio passa una volta. Usa gli item 課題理解/ポイント理解 di `mondaiPool`
+(solo quelli con `問:` e ≥ 2 battute, `adattoAlContesto`). Tre tempi per giro:
+1. `speakExamPart(prompt, 'apertura')` (examListening.ts): suono + «AとBが話しています» +
+   domanda, cioè i segmenti fino alla prima pausa di `examListeningSegments`. L'utente
+   indovina il tipo di domanda (`classificaDomanda`: prima/azione/perché/quando/dove/chi/
+   come/prezzo/quanti/cosa) e il soggetto (`soggettoDomanda`, normalizzato sui ruoli
+   del copione: 女の人→女, 二人→«tutti e due»; null se non è una persona).
+2. `speakExamPart(prompt, 'dialogo')`: battute + domanda ripetuta. 本番 = 1 ascolto,
+   練習 = 2 (+ 🐢). Le opzioni sono visibili (all'esame sono stampate).
+3. Revisione: copione `InteractiveSentence`, `segnaliIn` (でも/じゃあ/やっぱり/もう/だけ…),
+   `TIPO_CONSIGLIO` per il tipo. Logica pura in `src/lib/core/contestoAscolto.ts` (+ test).
+Cintura `contesto`: pulita = max 1 risposta sbagliata; impresa = tutto giusto
+(contesto e risposte) in 本番. Le risposte alimentano `mondai:kadai|point`.
