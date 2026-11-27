@@ -3,7 +3,7 @@
 // con il budget per domanda del mondai (EXAM_N4_SECTIONS.tempo_medio_sec).
 // Logica pura (test in letturaVolo.test.ts).
 
-import { stripFurigana } from './contestoAscolto';
+import { stripFurigana, classificaDomanda, TIPO_LABEL, type TipoDomanda } from './contestoAscolto';
 
 export interface TestoDiviso {
 	scena: string; // 〔メール〕 → 'メール' ('' se assente)
@@ -102,3 +102,86 @@ export const TECNICA: Record<MondaiLettura, { nome: string; jp: string; tip: str
 		tip: 'NON leggere tutto: dalla domanda prendi le condizioni (giorno, ora, età, prezzo) e cercale nel volantino. Occhio a ※ e alle eccezioni.'
 	}
 };
+
+// ── 🎯 Cosa cogliere (spiegazione sempre visibile, anche se indovini) ────────
+
+
+export const CONSIGLIO_LETTURA: Record<TipoDomanda, string> = {
+	prima: 'Segui l’ordine: まず / 最初に / 〜てから / 〜前に.',
+	azione: 'Cosa si deve fare: cerca 〜てください / 〜なければなりません / 〜こと, e le condizioni (〜とき / 〜場合).',
+	perche: 'Cerca la causa: 〜から / 〜ので / 〜ため / 〜て, spesso vicino a でも / しかし.',
+	quando: 'Cerca date e orari, e i cambi: 変更 / 〜に変わりました / 予定でしたが.',
+	dove: 'Cerca i luoghi (〜で / 〜に) e se il posto cambia.',
+	chi: 'Cerca le persone e cosa fa ciascuna: chi scrive, chi riceve, chi può.',
+	come: 'Cerca il mezzo o il modo: 〜で / 〜て / 方法.',
+	prezzo: 'Fai il conto: prezzo base, sconti (〜引き), condizioni (学生 / ※).',
+	quanti: 'Conta: numeri e limiti (〜まで / 〜以上 / 〜以内).',
+	cosa: 'Trova la frase con la parola della domanda; leggi quella e la successiva. Scarta ciò che non è detto o è negato.'
+};
+
+export const SEGNALI_LETTURA: { jp: string; it: string; re: RegExp }[] = [
+	{ jp: 'でも / しかし / けれど', it: 'svolta: il punto viene dopo', re: /でも|しかし|けれど|けど/ },
+	{ jp: 'ただ / ただし', it: 'eccezione o limite', re: /ただし|ただ、|ただ /},
+	{ jp: '〜から / 〜ので / 〜ため', it: 'causa', re: /から|ので|ため/ },
+	{ jp: 'だから / それで', it: 'conseguenza', re: /だから|それで/ },
+	{ jp: '※', it: 'nota: regola speciale', re: /※/ },
+	{ jp: '変更 / 変わり / 予定でした', it: 'cambio di programma', re: /変更|変わ|予定でした|予定だった/ },
+	{ jp: '〜まで / 〜以内 / 〜以上', it: 'limite', re: /まで|以内|以上/ },
+	{ jp: '〜だけ / 〜しか', it: 'solo', re: /だけ|しか/ },
+	{ jp: '〜てください / 〜こと', it: 'istruzione', re: /てください|でください|こと。/ },
+	{ jp: '今は / 今では / 最初は', it: 'prima ≠ adesso', re: /今は|今では|最初は|前は/ }
+];
+
+export interface NotaOpzione {
+	scelta: string;
+	nota: string;
+	nelTesto: boolean; // la scelta compare nel testo (= trappola tipica)
+}
+
+const pulito = (t: string) => stripFurigana(t).replace(/[\s　、。]/g, '');
+
+// Le opzioni sbagliate con la loro nota. `perche_sbagliate` è allineato alle
+// opzioni non giuste nell'ordine in cui compaiono; se la nota manca, si dice se
+// l'opzione compare nel testo (trappola) o no.
+export function noteAltre(choices: string[], correct: number, perche: string[], testo: string): NotaOpzione[] {
+	const t = pulito(testo);
+	const out: NotaOpzione[] = [];
+	let k = 0;
+	choices.forEach((c, i) => {
+		if (i === correct) return;
+		const scritta = (perche[k++] ?? '').trim();
+		const p = pulito(c);
+		const nelTesto = p.length >= 2 && t.includes(p);
+		const nota = scritta || (nelTesto ? 'compare nel testo, ma non risponde alla domanda: è la trappola' : 'non compare nel testo');
+		out.push({ scelta: c, nota, nelTesto });
+	});
+	return out;
+}
+
+export interface Spiegazione {
+	tipo: TipoDomanda;
+	tipoLabel: string;
+	consiglio: string;
+	chiave: number; // indice della frase chiave in frasi(corpo), -1 se non trovata
+	altre: NotaOpzione[];
+	segnali: { jp: string; it: string }[];
+}
+
+export function spiegaLettura(corpo: string, domanda: string, choices: string[], correct: number, percheGiusta: string, percheSbagliate: string[]): Spiegazione {
+	const tipo = classificaDomanda(domanda);
+	let chiave = frasePerProva(corpo, percheGiusta);
+	// senza citazione: la frase che contiene la risposta giusta
+	if (chiave < 0) {
+		const r = pulito(choices[correct] ?? '');
+		if (r.length >= 2) chiave = frasi(corpo).findIndex((f) => pulito(f).includes(r));
+	}
+	const testo = stripFurigana(corpo);
+	return {
+		tipo,
+		tipoLabel: TIPO_LABEL[tipo],
+		consiglio: CONSIGLIO_LETTURA[tipo],
+		chiave,
+		altre: noteAltre(choices, correct, percheSbagliate, corpo),
+		segnali: SEGNALI_LETTURA.filter((s) => s.re.test(testo)).map(({ jp, it }) => ({ jp, it }))
+	};
+}

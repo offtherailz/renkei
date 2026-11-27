@@ -976,3 +976,9 @@ comodità). Cintura `lettura-al-volo`: pulita ≤ 1 errore, impresa tutto giusto
 
 **聴解 extra +15** (cv-41…cv-55): dialoghi con chiacchiere fuori tema (calcio, vestiti, viaggi…)
 e l'informazione chiave in mezzo, spesso dopo ところで / あ、そうだ / それより.
+
+**🎯 Cosa cogliere** (Lettura al volo, sempre visibile): `spiegaLettura` → tipo di domanda
+(`classificaDomanda`) + `CONSIGLIO_LETTURA`, frase chiave (citazione di `perche_giusta`, altrimenti
+la frase che contiene la risposta giusta), `noteAltre` (nota scritta in `perche_sbagliate`, allineata
+alle opzioni non giuste nell'ordine; se vuota: «compare nel testo → trappola» / «non compare»),
+`SEGNALI_LETTURA`. `noteAltre` è usata anche nella revisione di Contesto al volo (sul copione).

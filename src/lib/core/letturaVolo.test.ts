@@ -45,3 +45,33 @@ describe('letturaVolo', () => {
 		expect(trovate / pool.length).toBeGreaterThan(0.3);
 	});
 });
+
+describe('cosa cogliere', async () => {
+	const { noteAltre, spiegaLettura } = await import('./letturaVolo');
+	it('note delle altre: scritte se ci sono, altrimenti dal testo', () => {
+		const n = noteAltre(['赤', '青', '白', '黒'], 0, ['', 'nota scritta', ''], '青は ありますが、赤は 売り切れです。');
+		expect(n.map((x) => x.scelta)).toEqual(['青', '白', '黒']);
+		expect(n[0]!.nelTesto).toBe(false); // un solo carattere: non si giudica
+		expect(n[1]!.nota).toBe('nota scritta');
+		expect(n[2]!.nota).toBe('non compare nel testo');
+		const m = noteAltre(['電車', 'バス'], 0, [], 'バスは 遅れて います。電車で 行きます。');
+		expect(m[0]!.nelTesto).toBe(true);
+		expect(m[0]!.nota).toMatch(/trappola/);
+	});
+	it('spiega: tipo, frase chiave anche senza citazione, segnali', () => {
+		const corpo = '会議は 月曜日の 予定でしたが、水曜日に 変わりました。場所は 二階です。';
+		const s = spiegaLettura(corpo, '会議は いつですか。', ['水曜日', '月曜日', '火曜日', '金曜日'], 0, 'Spostata.', []);
+		expect(s.tipo).toBe('quando');
+		expect(s.chiave).toBe(0);
+		expect(s.altre[0]!.nelTesto).toBe(true); // 月曜日: detto ma cambiato
+		expect(s.segnali.map((x) => x.jp)).toContain('変更 / 変わり / 予定でした');
+	});
+	it('sul pool reale la frase chiave si trova nella maggior parte dei testi', () => {
+		const pool = ['dokkai-tan', 'dokkai-chu', 'joho'].flatMap((sl) => mondaiPool(sl, { shuffle: false }));
+		const trovate = pool.filter((q) => {
+			const d = dividiTesto(q.prompt);
+			return spiegaLettura(d.corpo, d.domanda, q.choices, q.correct, q.perche_giusta, q.perche_sbagliate).chiave >= 0;
+		}).length;
+		expect(trovate / pool.length).toBeGreaterThan(0.6);
+	});
+});

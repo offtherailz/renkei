@@ -10,6 +10,7 @@
 	import { mondaiKey } from '$lib/data/esame-n4';
 	import { examStrip } from '$lib/data/kanjiN4';
 	import { mondaiPool, type ProvaQuestion, type PoolItem } from '$lib/data/esame-n4-prova';
+	import { noteAltre } from '$lib/core/letturaVolo';
 	import { generaDaCatalogo } from '$lib/data/esame-n4-genera';
 	import {
 		TIPO_LABEL,
@@ -290,6 +291,12 @@
 			<p class="ans">✅ <FuriganaText text={examStrip(giro.q.choices[giro.q.correct] ?? '')} force={true} /></p>
 			{#if !ok && giro.risposta !== null}<p class="ans bad">✗ la tua: <FuriganaText text={examStrip(giro.q.choices[giro.risposta] ?? '')} force={true} /></p>{/if}
 			<p class="why">{giro.q.perche_giusta}</p>
+			<p class="lbl">Le altre opzioni</p>
+			<ul class="altre">
+				{#each noteAltre(giro.q.choices, giro.q.correct, giro.q.perche_sbagliate, giro.battute.map((b) => b.text).join('。')) as a, i (i)}
+					<li class:mine={giro.risposta !== null && giro.q.choices[giro.risposta] === a.scelta}>✗ <FuriganaText text={examStrip(a.scelta)} force={true} /> — {a.nota.replace('nel testo', 'nel dialogo')}</li>
+				{/each}
+			</ul>
 			{#if giro.r.segnali.length > 0}
 				<p class="lbl">Segnali di svolta nel dialogo</p>
 				<div class="chips">
@@ -368,6 +375,8 @@
 	.ans { font-size: 1.05rem; color: var(--success); }
 	.ans.bad { color: var(--danger); }
 	.why { font-size: 0.88rem; }
+	.altre { margin: 0; padding-left: 4px; list-style: none; display: grid; gap: 3px; font-size: 0.88rem; }
+	.altre li.mine { font-weight: 700; }
 	.chips { display: flex; flex-wrap: wrap; gap: 6px; }
 	.sig { font-size: 0.8rem; background: var(--warn-bg); color: var(--warn-ink); border-radius: 999px; padding: 3px 10px; }
 	.script-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }

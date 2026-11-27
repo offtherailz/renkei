@@ -18,7 +18,7 @@
 		cpm,
 		dividiTesto,
 		frasi,
-		frasePerProva,
+		spiegaLettura,
 		type MondaiLettura
 	} from '$lib/core/letturaVolo';
 
@@ -229,18 +229,48 @@
 		</article>
 	{:else if giro && testo && fase === 'revisione'}
 		{@const ok = giro.scelta === giro.q.correct}
-		{@const prova = frasePerProva(testo.corpo, giro.q.perche_giusta)}
+		{@const sp = spiegaLettura(testo.corpo, testo.domanda, giro.q.choices, giro.q.correct, giro.q.perche_giusta, giro.q.perche_sbagliate)}
+		{@const fs = frasi(testo.corpo)}
 		{@const v = cpm(caratteri(testo.corpo), giro.secondi)}
 		<article class="scene">
-			<p class="who">{ok ? '✅ Giusto' : '❌ Sbagliato'} · {Math.round(giro.secondi)}s{giro.budget > 0 ? ` / ${giro.budget}s` : ''} {giro.budget > 0 ? (inTempo(giro) ? '· in tempo' : '· ⏰ fuori tempo') : ''}</p>
-			<p class="hint">Velocità: {v} caratteri/minuto</p>
+			<p class="who">{ok ? '✅ Giusto' : '❌ Sbagliato'} · {Math.round(giro.secondi)}s{giro.budget > 0 ? ` / ${giro.budget}s` : ''} {giro.budget > 0 ? (inTempo(giro) ? '· in tempo' : '· ⏰ fuori tempo') : ''} · {v} car/min</p>
 			<p class="ans">✅ <FuriganaText text={examStrip(giro.q.choices[giro.q.correct] ?? '')} force={true} /></p>
 			{#if !ok && giro.scelta !== null}<p class="ans bad">✗ la tua: <FuriganaText text={examStrip(giro.q.choices[giro.scelta] ?? '')} force={true} /></p>{/if}
-			{#if giro.q.perche_giusta}<p class="why">{giro.q.perche_giusta}</p>{/if}
-			<p class="lbl">📄 Il testo {prova >= 0 ? '— in giallo dove sta la risposta' : ''} (tocca le parole)</p>
+
+			<section class="cogli">
+				<p class="cogli-t">🎯 Cosa cogliere</p>
+				<p><strong>1. La domanda chiede:</strong> {sp.tipoLabel}. <span class="muted">{sp.consiglio}</span></p>
+				<div>
+					<p><strong>2. La frase chiave:</strong></p>
+					{#if sp.chiave >= 0}
+						<div class="key"><InteractiveSentence text={fs[sp.chiave] ?? ''} /></div>
+					{:else}
+						<p class="muted">non individuata in automatico: guarda la spiegazione qui sotto.</p>
+					{/if}
+				</div>
+				<p><strong>3. Perché è giusta:</strong> {giro.q.perche_giusta || '—'}</p>
+				<div>
+					<p><strong>4. Le altre opzioni:</strong></p>
+					<ul class="altre">
+						{#each sp.altre as a, i (i)}
+							<li class:mine={giro.scelta !== null && giro.q.choices[giro.scelta] === a.scelta}>
+								✗ <FuriganaText text={examStrip(a.scelta)} force={true} /> — {a.nota}{a.nelTesto && !a.nota.includes('trappola') ? ' (compare nel testo: trappola)' : ''}
+							</li>
+						{/each}
+					</ul>
+				</div>
+				{#if sp.segnali.length > 0}
+					<div>
+						<p><strong>5. Segnali nel testo:</strong></p>
+						<div class="chips">{#each sp.segnali as sg (sg.jp)}<span class="sig"><strong>{sg.jp}</strong> {sg.it}</span>{/each}</div>
+					</div>
+				{/if}
+			</section>
+
+			<p class="lbl">📄 Il testo {sp.chiave >= 0 ? '— in giallo la frase chiave' : ''} (tocca le parole)</p>
 			<div class="text">
 				{#if testo.scena}<p class="scena">〔{testo.scena}〕</p>{/if}
-				{#each frasi(testo.corpo) as f, i (i)}<span class="f" class:prova={i === prova}><InteractiveSentence text={f} /></span>{/each}
+				{#each fs as f, i (i)}<span class="f" class:prova={i === sp.chiave}><InteractiveSentence text={f} /></span>{/each}
 			</div>
 			{#if giro.q.traduzione}<p class="tr">🇮🇹 {giro.q.traduzione}</p>{/if}
 			<button class="proceed" onclick={avanti}>{idx < giri.length - 1 ? 'Prossimo →' : 'Risultato →'}</button>
@@ -292,13 +322,21 @@
 	.tip { font-size: 0.85rem; background: var(--info-bg); color: var(--info-ink); border-radius: 8px; padding: 7px 10px; }
 	.text { font-size: 1.08rem; line-height: 2; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
 	.scena { font-size: 0.8rem; color: var(--muted); }
+	.cogli { display: grid; gap: 8px; border: 1px solid var(--info-border); background: var(--info-bg); color: var(--info-ink); border-radius: 12px; padding: 12px; font-size: 0.88rem; }
+	.cogli p { margin: 0; }
+	.cogli-t { font-weight: 800; font-size: 0.95rem; }
+	.cogli .muted { color: inherit; opacity: 0.85; }
+	.key { background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 6px 10px; font-size: 1.05rem; margin-top: 4px; }
+	.altre { margin: 4px 0 0; padding-left: 4px; list-style: none; display: grid; gap: 3px; }
+	.altre li.mine { font-weight: 700; }
+	.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+	.sig { font-size: 0.78rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; }
 	.f.prova { background: var(--warn-bg); color: var(--warn-ink); border-radius: 4px; }
 	.choices { display: grid; gap: 8px; }
 	.choice { padding: 11px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); color: var(--ink); font-size: 1rem; cursor: pointer; text-align: left; }
 	.choice:hover { border-color: var(--brand); }
 	.ans { font-size: 1.05rem; color: var(--success); }
 	.ans.bad { color: var(--danger); }
-	.why { font-size: 0.88rem; }
 	.tr { font-size: 0.85rem; color: var(--muted); }
 	.scores { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
 	.scores div { display: grid; text-align: center; }
