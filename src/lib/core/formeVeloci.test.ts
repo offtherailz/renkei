@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FORME, FORMA, costruisciRoundFV, costruisciSessioneFV, formaParlata, type VerboFV } from './formeVeloci';
+import { FORME, FORMA, costruisciRoundFV, costruisciSessioneFV, formaParlata, formaTe, teTipo, verbiConfondibili, type VerboFV } from './formeVeloci';
 
 describe('formaParlata', () => {
 	const casi: [string, 'godan' | 'ichidan' | 'irregular', string, string][] = [
@@ -52,5 +52,47 @@ describe('sessione', () => {
 		const s = costruisciSessioneFV(verbi, 10);
 		expect(s).toHaveLength(10);
 		expect(new Set(s.map((r) => r.forma)).size).toBe(10);
+	});
+});
+
+describe('risalire al verbo', () => {
+	const V = (scrittura: string, lettura: string, cls: 'godan' | 'ichidan' | 'irregular', it: string): VerboFV => ({ scrittura, lettura, cls, it });
+	const pool = [
+		V('飲む', 'のむ', 'godan', 'bere'), V('呼ぶ', 'よぶ', 'godan', 'chiamare'), V('読む', 'よむ', 'godan', 'leggere'),
+		V('遊ぶ', 'あそぶ', 'godan', 'giocare'), V('乗る', 'のる', 'godan', 'salire'), V('食べる', 'たべる', 'ichidan', 'mangiare'),
+		V('書く', 'かく', 'godan', 'scrivere'), V('泳ぐ', 'およぐ', 'godan', 'nuotare'), V('話す', 'はなす', 'godan', 'parlare'),
+		V('来る', 'くる', 'irregular', 'venire'), V('勉強する', 'べんきょうする', 'irregular', 'studiare')
+	];
+	it('teTipo', () => {
+		expect(teTipo('のむ', 'godan')).toBe('nde');
+		expect(teTipo('かう', 'godan')).toBe('tte');
+		expect(teTipo('いく', 'godan')).toBe('tte');
+		expect(teTipo('かく', 'godan')).toBe('ite');
+		expect(teTipo('およぐ', 'godan')).toBe('ide');
+		expect(teTipo('はなす', 'godan')).toBe('shite');
+		expect(teTipo('たべる', 'ichidan')).toBe('ichidan');
+		expect(teTipo('くる', 'irregular')).toBe('kuru');
+		expect(teTipo('べんきょうする', 'irregular')).toBe('shite');
+	});
+	it('formaTe', () => {
+		expect(formaTe('のむ', 'godan')).toBe('のんで');
+		expect(formaTe('たべる', 'ichidan')).toBe('たべて');
+	});
+	it('i verbi confondibili: 4, unici, col bersaglio, e preferiscono la stessa forma て', () => {
+		const target = pool[0]!; // のむ (んで)
+		let stessaTe = 0;
+		for (let i = 0; i < 30; i++) {
+			const ops = verbiConfondibili(target, pool);
+			expect(ops).toHaveLength(4);
+			expect(new Set(ops.map((v) => v.lettura)).size).toBe(4);
+			expect(ops).toContain(target);
+			stessaTe += ops.filter((v) => v !== target && teTipo(v.lettura, v.cls) === 'nde').length;
+		}
+		expect(stessaTe / 30).toBeGreaterThanOrEqual(2); // よぶ, よむ, あそぶ quasi sempre
+	});
+	it('il round porta verbi e forma て', () => {
+		const r = costruisciRoundFV(pool[0]!, 'chatta', Math.random, pool)!;
+		expect(r.te).toBe('のんで');
+		expect(r.verbiOpzioni).toContain(pool[0]);
 	});
 });

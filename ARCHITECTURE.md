@@ -946,3 +946,9 @@ sentono le due forme a confronto. Verbi: seed N5/N4 con classe, lettura tutta hi
 Selettore di fonte 📚 libri / ✏️ app / tutte (default libri se ≥ 8). Ammessi anche i monologhi
 (≥ 1 battuta). Per le prove reali la domanda «di chi?» usa `personeDaScena` (XとYが… / XがYに…)
 e il soggetto grezzo della domanda (店の人, 母親…), non i ruoli 男/女 del copione.
+
+**Forme al volo — prima il verbo** (2026-11-27): domanda ① «quale verbo?» prima della forma
+(toggle, default on). `verbiConfondibili` sceglie 3 verbi per somiglianza a orecchio
+(`teTipo` uguale +3: っ/ん/い/いで/して/ichidan/来る; stessa prima mora +2; lunghezza ±1 +1;
+stessa terminazione +1), significati diversi. Revisione: catena dizionario → `formaTe` →
+forma parlata con 🔊 Scomponi (`speakSequence`, 0.8x) e `TE_INDIZIO` per il tipo di て.

@@ -82,6 +82,8 @@ export interface RoundFV {
 	audio: string; // in kana, per il TTS
 	scritta: string; // con i kanji, per la revisione
 	opzioni: FormaId[]; // 4, con dentro `forma`
+	verbiOpzioni: VerboFV[]; // 4 verbi confondibili, con dentro `verbo`
+	te: string; // forma て in kana (catena dizionario → て → parlata)
 }
 
 function shuffle<T>(arr: T[], rnd: () => number): T[] {
@@ -94,12 +96,14 @@ function shuffle<T>(arr: T[], rnd: () => number): T[] {
 }
 
 // Un giro: la forma da riconoscere + le 3 forme con cui si confonde.
-export function costruisciRoundFV(verbo: VerboFV, forma: FormaId, rnd: () => number = Math.random): RoundFV | null {
+export function costruisciRoundFV(verbo: VerboFV, forma: FormaId, rnd: () => number = Math.random, pool: VerboFV[] = []): RoundFV | null {
 	const audio = formaParlata(verbo.lettura, verbo.cls, forma);
 	const scritta = formaParlata(verbo.scrittura, verbo.cls, forma);
-	if (!audio || !scritta) return null;
+	const te = formaTe(verbo.lettura, verbo.cls);
+	if (!audio || !scritta || !te) return null;
 	const opzioni = shuffle([forma, ...FORMA[forma].confusa], rnd);
-	return { verbo, forma, audio, scritta, opzioni };
+	const verbiOpzioni = verbiConfondibili(verbo, pool, rnd);
+	return { verbo, forma, audio, scritta, opzioni, verbiOpzioni, te };
 }
 
 // Sessione: forme bilanciate (ognuna almeno una volta se n ≥ 10), verbi diversi.
@@ -112,9 +116,71 @@ export function costruisciSessioneFV(verbi: VerboFV[], n: number, rnd: () => num
 	for (const f of forme.slice(0, n)) {
 		for (let tent = 0; tent < pool.length; tent++) {
 			const v = pool[vi++ % pool.length]!;
-			const r = costruisciRoundFV(v, f, rnd);
+			const r = costruisciRoundFV(v, f, rnd, verbi);
 			if (r) { out.push(r); break; }
 		}
 	}
 	return out;
+}
+
+// ── Risalire al verbo ────────────────────────────────────────────────────
+// All'orecchio la forma て nasconde la terminazione del dizionario: んで può
+// venire da む/ぶ/ぬ, って da う/つ/る. È la chiave per «acchiappare» il verbo.
+export type TeTipo = 'tte' | 'nde' | 'ite' | 'ide' | 'shite' | 'ichidan' | 'kuru';
+
+export function teTipo(lettura: string, cls: VerbClass): TeTipo {
+	if (cls === 'irregular') return lettura.endsWith('する') ? 'shite' : 'kuru';
+	if (cls === 'ichidan') return 'ichidan';
+	if (lettura.endsWith('いく')) return 'tte';
+	const last = lettura.slice(-1);
+	if ('うつる'.includes(last)) return 'tte';
+	if ('むぶぬ'.includes(last)) return 'nde';
+	if (last === 'く') return 'ite';
+	if (last === 'ぐ') return 'ide';
+	return 'shite'; // す
+}
+
+export const TE_INDIZIO: Record<TeTipo, string> = {
+	tte: '〜って / っちゃ / っと → il verbo finisce in う, つ o る (o è 行く)',
+	nde: '〜んで / んじゃ / んど → il verbo finisce in む, ぶ o ぬ',
+	ite: '〜いて / いちゃ / いと → il verbo finisce in く',
+	ide: '〜いで / いじゃ / いど → il verbo finisce in ぐ',
+	shite: '〜して / しちゃ / しと → il verbo finisce in す (o è 〜する)',
+	ichidan: '〜て / ちゃ / と attaccato alla radice → verbo in 〜る (gruppo 2): togli る',
+	kuru: 'きて / きちゃ / こない → è 来る (くる)'
+};
+
+// La forma て in kana (per la catena «dizionario → て → parlata»).
+export function formaTe(lettura: string, cls: VerbClass): string | null {
+	return conjugateVerb(lettura, cls)?.find((f) => f.key === 'te')?.value ?? null;
+}
+
+// Somiglianza a orecchio tra due verbi: stessa forma て (stessa trappola), stessa
+// prima mora, lunghezza simile. Più alto = più confondibile.
+function somiglianza(a: VerboFV, b: VerboFV): number {
+	let s = 0;
+	if (teTipo(a.lettura, a.cls) === teTipo(b.lettura, b.cls)) s += 3;
+	if (a.lettura[0] === b.lettura[0]) s += 2;
+	if (Math.abs(a.lettura.length - b.lettura.length) <= 1) s += 1;
+	if (a.lettura.slice(-1) === b.lettura.slice(-1)) s += 1;
+	return s;
+}
+
+// 3 verbi confondibili col bersaglio (significati italiani diversi), poi mescolati.
+export function verbiConfondibili(target: VerboFV, pool: VerboFV[], rnd: () => number = Math.random): VerboFV[] {
+	const visti = new Set([target.lettura]);
+	const sign = new Set([target.it]);
+	const candidati = shuffle(pool, rnd)
+		.filter((v) => !visti.has(v.lettura))
+		.map((v) => ({ v, s: somiglianza(target, v) + rnd() * 0.5 }))
+		.sort((x, y) => y.s - x.s);
+	const scelti: VerboFV[] = [];
+	for (const { v } of candidati) {
+		if (scelti.length === 3) break;
+		if (visti.has(v.lettura) || sign.has(v.it)) continue;
+		visti.add(v.lettura);
+		sign.add(v.it);
+		scelti.push(v);
+	}
+	return shuffle([target, ...scelti], rnd);
 }

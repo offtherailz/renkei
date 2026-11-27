@@ -2,12 +2,14 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
-	import { speakSentenceJapanese } from '$lib/core/tts';
+	import { speakSentenceJapanese, speakSequence } from '$lib/core/tts';
 	import { detectVerbClass } from '$lib/core/conjugation';
 	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import {
 		FORMA,
+		TE_INDIZIO,
+		teTipo,
 		costruisciSessioneFV,
 		formaParlata,
 		type FormaId,
@@ -29,6 +31,10 @@
 	let score = $state(0);
 	let riascolti = $state(0);
 	let errori = $state<RoundFV[]>([]);
+	// Prima domanda del giro: quale verbo? (si può spegnere)
+	let conVerbo = $state(true);
+	let verboPick = $state<string | null>(null);
+	let verbiGiusti = $state(0);
 	let registrato = false;
 
 	const r = $derived(rounds[idx]);
@@ -61,6 +67,8 @@
 		riascolti = 0;
 		errori = [];
 		picked = null;
+		verboPick = null;
+		verbiGiusti = 0;
 		registrato = false;
 		fase = 'gioco';
 		ascolta();
@@ -75,8 +83,22 @@
 		ascolta(lento);
 	}
 
+	function scegliVerbo(lettura: string): void {
+		if (!r || verboPick !== null) return;
+		verboPick = lettura;
+		if (lettura === r.verbo.lettura) verbiGiusti += 1;
+	}
+	const verboFatto = $derived(!conVerbo || verboPick !== null);
+
+	// 🔊 Scomponi: dizionario → forma て → forma parlata, lenta.
+	function scomponi(): void {
+		if (!r) return;
+		const o = { rate: 0.8 };
+		speakSequence([{ text: r.verbo.lettura, options: o }, { text: r.te, options: o }, { text: r.audio, options: o }]);
+	}
+
 	function scegli(f: FormaId): void {
-		if (!r || picked !== null) return;
+		if (!r || picked !== null || !verboFatto) return;
 		picked = f;
 		if (f === r.forma) score += 1;
 		else errori = [...errori, r];
@@ -94,6 +116,7 @@
 		if (idx < rounds.length - 1) {
 			idx += 1;
 			picked = null;
+			verboPick = null;
 			ascolta();
 		} else {
 			fase = 'fine';
@@ -127,6 +150,7 @@
 			<h1 class="page-title">👂 Forme al volo</h1>
 			<p>Nei dialoghi la risposta cambia per una forma detta in fretta: <strong>行かなきゃ</strong> (devo andare) o <strong>行かなくてもいい</strong> (non serve)? <strong>食べてもいい</strong> o <strong>食べちゃだめ</strong>?</p>
 			<p>Senti <strong>solo la forma</strong>, senza testo, e scegli cosa vuol dire. Le opzioni sono le forme con cui si confonde. Quando sbagli puoi sentire le due forme una dopo l’altra.</p>
+			<label class="toggle"><input type="checkbox" bind:checked={conVerbo} /> 🔎 Prima riconosci il verbo</label>
 			<label class="toggle"><input type="checkbox" bind:checked={veloce} /> ⚡ Velocità parlata (1.2x)</label>
 			<button class="proceed" disabled={!pronto} onclick={start}>{pronto ? '▶️ Inizia (10 forme)' : 'Carico i verbi…'}</button>
 		</article>
@@ -137,16 +161,36 @@
 				<button class="mini" onclick={() => riascolta()}>🔁 もう一度</button>
 				<button class="mini" onclick={() => riascolta(true)}>🐢 ゆっくり</button>
 			</div>
-			<p class="lbl">Cosa vuol dire?</p>
+			{#if conVerbo}
+				<p class="lbl">① Quale verbo?</p>
+				<div class="choices two">
+					{#each r.verbiOpzioni as v (v.lettura)}
+						<button class="choice verb" class:right={verboPick !== null && v.lettura === r.verbo.lettura} class:wrong={verboPick === v.lettura && v.lettura !== r.verbo.lettura} disabled={verboPick !== null} onclick={() => scegliVerbo(v.lettura)}>
+							<span>{v.scrittura}</span>
+							<small>{v.lettura} · {v.it}</small>
+						</button>
+					{/each}
+				</div>
+				{#if verboPick !== null}
+					<p class="tip">🔎 {TE_INDIZIO[teTipo(r.verbo.lettura, r.verbo.cls)]}</p>
+				{/if}
+			{/if}
+			{#if verboFatto}
+			<p class="lbl">{conVerbo ? '② ' : ''}Cosa vuol dire la forma?</p>
 			<div class="choices">
 				{#each r.opzioni as f (f)}
 					<button class="choice" class:right={picked !== null && f === r.forma} class:wrong={picked === f && f !== r.forma} disabled={picked !== null} onclick={() => scegli(f)}>{FORMA[f].it}</button>
 				{/each}
 			</div>
+			{/if}
 			{#if picked !== null}
 				<div class="reveal">
 					<p class="big-jp"><FuriganaText text={r.scritta} force={true} /> <button class="tts" onclick={() => ascolta()}>🔊</button></p>
 					<p><strong>{FORMA[r.forma].nome}</strong> = {FORMA[r.forma].estesa} · <em>{r.verbo.it}</em> → {FORMA[r.forma].it}</p>
+					<div class="chain">
+						<span>{r.verbo.lettura}</span><span class="arr">→</span><span>{r.te}</span><span class="arr">→</span><strong>{r.audio}</strong>
+						<button class="mini" onclick={scomponi}>🔊 Scomponi</button>
+					</div>
 					{#if picked !== r.forma}
 						<div class="contrast">
 							<p class="lbl">Confronta a orecchio</p>
@@ -162,7 +206,7 @@
 		<article class="scene">
 			<p class="who">{errori.length === 0 ? '🎉 Orecchio veloce!' : '📝 Risultato'}</p>
 			<p class="score">{score} / {rounds.length}</p>
-			<p class="hint">Riascolti: {riascolti}</p>
+			<p class="hint">Riascolti: {riascolti}{conVerbo ? ` · verbi riconosciuti: ${verbiGiusti}/${rounds.length}` : ''}</p>
 			{#if errori.length > 0}
 				<p class="lbl">Da ripassare</p>
 				{#each errori as e (e.scritta)}
@@ -202,6 +246,12 @@
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); }
+	.choices.two { grid-template-columns: 1fr 1fr; }
+	.choice.verb { display: grid; gap: 2px; font-size: 1.05rem; }
+	.choice.verb small { font-size: 0.75rem; color: var(--muted); }
+	.tip { font-size: 0.85rem; background: var(--info-bg); color: var(--info-ink); border-radius: 8px; padding: 7px 10px; }
+	.chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; font-size: 1.05rem; }
+	.chain .arr { color: var(--muted); }
 	.reveal { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 0.9rem; }
 	.big-jp { font-size: 1.4rem; text-align: center; }
 	.contrast { display: grid; gap: 6px; background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 8px 10px; }
