@@ -26,6 +26,7 @@ describe('classificaDomanda', () => {
 		['客は いくら 払[はら]いますか。', 'prezzo'],
 		['客は お弁当を いくつ 買いますか。', 'quanti'],
 		['女の人は 駅から どうやって 帰りますか。', 'come'],
+		['二人は何で旅行に行きますか。', 'come'],
 		['男の人は 何[なに]を 買[か]いますか。', 'cosa'],
 		['客は 何色[なにいろ]の かばんを 買[か]いますか。', 'cosa'],
 		['机[つくえ]の 上[うえ]に 置[お]いて いいのは 何[なん]ですか。', 'cosa'],
@@ -89,5 +90,37 @@ describe('pool reale (課題理解 + ポイント理解)', () => {
 	it('la maggior parte delle domande riguarda una persona del dialogo', () => {
 		const conChi = pool.filter((q) => costruisciRound(q.prompt).chi !== null).length;
 		expect(conChi / pool.length).toBeGreaterThan(0.5);
+	});
+});
+
+describe('聴解 extra (40 dialoghi con scena)', async () => {
+	const { ASCOLTO_EXTRA } = await import('$lib/data/esame-n4-ascolto-extra');
+	it('sono 40, id unici, tutti adatti, 4 opzioni', () => {
+		expect(ASCOLTO_EXTRA).toHaveLength(40);
+		expect(new Set(ASCOLTO_EXTRA.map((i) => i.id)).size).toBe(40);
+		for (const i of ASCOLTO_EXTRA) {
+			expect(adattoAlContesto(i.prompt), i.id).toBe(true);
+			expect(i.choices, i.id).toHaveLength(4);
+			expect(new Set(i.choices).size, i.id).toBe(4);
+		}
+	});
+	it('ogni battuta è letta (nessun 「」 perso)', () => {
+		for (const i of ASCOLTO_EXTRA) {
+			const n = (i.prompt.match(/「/g) ?? []).length;
+			expect(dividiPrompt(i.prompt).battute.length, i.id).toBe(n);
+		}
+	});
+	it('se la domanda parla di una persona della scena, «di chi?» la trova', () => {
+		let conChi = 0;
+		for (const i of ASCOLTO_EXTRA) {
+			const r = costruisciRound(i.prompt);
+			const persone = personeDaScena(dividiPrompt(i.prompt).scena);
+			const sogg = r.domanda.replace(/\[[^\]]*\]/g, '').match(/^([^\sはが、]{1,8})は/)?.[1];
+			if (sogg && (persone.includes(sogg) || sogg === '二人')) {
+				expect(r.chi, i.id).not.toBeNull();
+				conChi++;
+			}
+		}
+		expect(conChi).toBeGreaterThanOrEqual(25);
 	});
 });

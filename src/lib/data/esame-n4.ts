@@ -11,6 +11,7 @@
 // (trucchi/strategia) e — per gli item curati — la spiegazione della risposta.
 
 import type { QuizMode } from '../quiz/types';
+import { ASCOLTO_EXTRA } from './esame-n4-ascolto-extra';
 
 // Come il runner produce le domande di un mondai:
 // - un QuizMode esistente → riusa gli engine di src/lib/quiz/engine.ts
@@ -1234,7 +1235,9 @@ export const CURATED_ITEMS: CuratedExamItem[] = [
 		spiegazione: { perche_giusta: 'Offerta di aiuto → si accetta ringraziando.', perche_sbagliate: ['nega il peso ma non risponde all’offerta', 'non risponde all’offerta'] } },
 	{ id: 'sq-10', mondai: 'sokuji', livello_jlpt: 'N4', prompt: '「あれ? かさを 持[も]って こなかったんですか。」', choices: ['ええ、朝[あさ]は 晴[は]れて いたので。', 'はい、かさを 買[か]いました。', 'いいえ、雨[あめ]が 好[す]きです。'], correct: 0,
 		traduzione: '«Ehi? Non hai portato l’ombrello?»',
-		spiegazione: { perche_giusta: 'Spiega il perché: la mattina era sereno.', perche_sbagliate: ['non risponde alla domanda', 'fuori tema'] } }
+		spiegazione: { perche_giusta: 'Spiega il perché: la mattina era sereno.', perche_sbagliate: ['non risponde alla domanda', 'fuori tema'] } },
+	// 聴解 extra: 40 dialoghi originali con scena del narratore (esame-n4-ascolto-extra.ts)
+	...ASCOLTO_EXTRA
 ];
 
 // --- Prove d'autore (Set numerati fissi, ripetibili) ------------------------

@@ -952,3 +952,11 @@ e il soggetto grezzo della domanda (店の人, 母親…), non i ruoli 男/女 d
 (`teTipo` uguale +3: っ/ん/い/いで/して/ichidan/来る; stessa prima mora +2; lunghezza ±1 +1;
 stessa terminazione +1), significati diversi. Revisione: catena dizionario → `formaTe` →
 forma parlata con 🔊 Scomponi (`speakSequence`, 0.8x) e `TE_INDIZIO` per il tipo di て.
+
+**聴解 extra** (2026-11-27): `src/lib/data/esame-n4-ascolto-extra.ts`, 40 dialoghi ORIGINALI
+課題/ポイント理解 (cv-1…cv-40) con scena del narratore in stile esame (〔…で AとBが話しています。〕),
+trappole tipiche e forme del parlato veloce; spread in coda a `CURATED_ITEMS`. Fix nello stesso
+giro: i dialoghi di LISTENING_DIALOGUES entravano nel pool d'esame come `女: testo` senza 「」, così
+examListening li leggeva come blocco unico (etichette comprese) e Contesto al volo li scartava:
+ora `女:「…」`. Annunci senza personaggio (〔アナウンス〕「…」) letti come battuta 'アナウンス'.
+Totale Contesto al volo: 101 dialoghi dell'app + le prove dei libri sul dispositivo (49).

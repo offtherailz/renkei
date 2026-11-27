@@ -235,7 +235,9 @@ function poolByMondai(extra?: Record<string, PoolItem[]>): Record<string, PoolIt
 		if (d.livello !== 'N4') continue;
 		const slug = classifyListening(d);
 		const run = instantiateListening(d);
-		const copione = run.lines.map((l) => `${l.who === 'F' ? '女' : '男'}: ${l.text}`).join(' ');
+		// battute nel formato 女:「…」 letto da examListening (voci alternate): senza
+		// virgolette il dialogo veniva letto come un blocco unico, etichette comprese
+		const copione = run.lines.map((l) => `${l.who === 'F' ? '女' : '男'}:「${l.text.replace(/「/g, '『').replace(/」/g, '』')}」`).join(' ');
 		for (const rq of run.questions) {
 			push(slug, {
 				mondaiSlug: slug,

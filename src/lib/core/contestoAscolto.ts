@@ -60,7 +60,7 @@ export function classificaDomanda(domanda: string): TipoDomanda {
 	if (/何時|いつ|何曜|何日/.test(q)) return 'quando';
 	if (/どこ/.test(q)) return 'dove';
 	if (/だれ|誰/.test(q)) return 'chi';
-	if (/どうやって|何で 行/.test(q)) return 'come';
+	if (/どうやって|何で(?!す)/.test(q)) return 'come';
 	if (/何色|どれ|何が|何を ?(買|持|借|食|飲)|何です/.test(q)) return 'cosa';
 	if (/しますか|すれば|しなければ|これから|この ?あと/.test(q)) return 'azione';
 	return 'cosa';
@@ -112,6 +112,8 @@ export function dividiPrompt(prompt: string): PromptDiviso {
 	}
 	const battute: Battuta[] = [];
 	for (const m of body.matchAll(new RegExp(BATTUTA.source, 'g'))) battute.push({ who: stripFurigana(m[1]!), text: m[2]! });
+	// annunci/meteo senza personaggio: 〔アナウンス〕「…」
+	if (battute.length === 0) for (const m of body.matchAll(/「([^」]+)」/g)) battute.push({ who: 'アナウンス', text: m[1]! });
 	return { scena, battute, domanda };
 }
 
