@@ -960,3 +960,19 @@ giro: i dialoghi di LISTENING_DIALOGUES entravano nel pool d'esame come `女: te
 examListening li leggeva come blocco unico (etichette comprese) e Contesto al volo li scartava:
 ora `女:「…」`. Annunci senza personaggio (〔アナウンス〕「…」) letti come battuta 'アナウンス'.
 Totale Contesto al volo: 101 dialoghi dell'app + le prove dei libri sul dispositivo (49).
+
+## 📖 Lettura al volo (`/esame/lettura-al-volo`, 2026-11-27)
+
+Velocità sul 読解 N4 d'esame: pool `mondaiPool('dokkai-tan'|'dokkai-chu'|'joho', { extra })`
+(app + prove dei libri via `generaDaCatalogo`, selettore di fonte come Contesto al volo).
+Giro: fase «domanda» (domanda + opzioni, testo nascosto) → «testo» (frasi + bottoni) →
+revisione. Il cronometro parte all'apertura del giro; budget = `budgetTesto`: 15 s + testo a
+150 car/min, tra 25 s e `tempo_medio_sec` del mondai (il ritmo ufficiale per domanda è largo per
+un testo con una domanda sola), × 1 (Esame) / 0.75 (Veloce) / nessuno (Libero). Revisione: `frasePerProva` evidenzia la frase
+che contiene la citazione «…» di `perche_giusta` (confronto senza furigana/spazi, prime 8
+lettere); velocità = `caratteri(corpo)` / secondi → car/min, record in localStorage (solo
+comodità). Cintura `lettura-al-volo`: pulita ≤ 1 errore, impresa tutto giusto e in tempo
+(Esame/Veloce). Logica in `src/lib/core/letturaVolo.ts` (+ test).
+
+**聴解 extra +15** (cv-41…cv-55): dialoghi con chiacchiere fuori tema (calcio, vestiti, viaggi…)
+e l'informazione chiave in mezzo, spesso dopo ところで / あ、そうだ / それより.

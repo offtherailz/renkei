@@ -35,6 +35,7 @@
 		{ href: 'choukai', icon: '👂', label: '聴解 trappola', hint: 'un dialogo solo audio' },
 		{ href: 'esame/contesto', icon: '🎯', label: 'Contesto al volo', hint: 'cogli la domanda al primo ascolto' },
 		{ href: 'esame/forme-al-volo', icon: '👂', label: 'Forme al volo', hint: 'なきゃ o なくてもいい? a orecchio' },
+		{ href: 'esame/lettura-al-volo', icon: '📖', label: 'Lettura al volo', hint: '読解 N4 a tempo, prima la domanda' },
 		{ href: 'skimming', icon: '🔎', label: 'Skimming', hint: "trova l'informazione" },
 		{ href: 'riordina', icon: '🧩', label: 'Riordina la frase', hint: 'sintassi a tocchi' }
 	];
