@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
@@ -9,7 +9,8 @@
 	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
 	import { mondaiKey } from '$lib/data/esame-n4';
 	import { examStrip } from '$lib/data/kanjiN4';
-	import { mondaiPool, type ProvaQuestion } from '$lib/data/esame-n4-prova';
+	import { mondaiPool, type ProvaQuestion, type PoolItem } from '$lib/data/esame-n4-prova';
+	import { generaDaCatalogo } from '$lib/data/esame-n4-genera';
 	import {
 		TIPO_LABEL,
 		TIPO_CONSIGLIO,
@@ -46,9 +47,30 @@
 	const maxAscolti = $derived(modo === 'esame' ? 1 : 2);
 	const giro = $derived(giri[idx]);
 
+	// Fonti: le prove dei libri caricate sul dispositivo (prove ufficiali, 直前対策,
+	// MIGII, Best Practice: db.course_giorno via generaDaCatalogo) e i dialoghi
+	// scritti per l'app. Se ci sono abbastanza prove dei libri, si parte da quelle.
+	type Fonte = 'libri' | 'app' | 'tutte';
+	let fonte = $state<Fonte>('tutte');
+	let extra: Record<string, PoolItem[]> = {};
+	let promptLibri = new Set<string>();
+	let nLibri = $state(0);
+	let nApp = $state(0);
+	onMount(async () => {
+		extra = await generaDaCatalogo().catch(() => ({}));
+		promptLibri = new Set([...(extra.kadai ?? []), ...(extra.point ?? [])].map((q) => q.prompt));
+		const tutte = poolCompleto();
+		nLibri = tutte.filter((q) => promptLibri.has(q.prompt)).length;
+		nApp = tutte.length - nLibri;
+		if (nLibri >= ROUNDS) fonte = 'libri';
+	});
+	function poolCompleto(): ProvaQuestion[] {
+		return [...mondaiPool('kadai', { extra }), ...mondaiPool('point', { extra })].filter((q) => adattoAlContesto(q.prompt));
+	}
+
 	function start(m: Modo): void {
 		modo = m;
-		const pool = [...mondaiPool('kadai'), ...mondaiPool('point')].filter((q) => adattoAlContesto(q.prompt));
+		const pool = poolCompleto().filter((q) => fonte === 'tutte' || (fonte === 'libri') === promptLibri.has(q.prompt));
 		const scelti = pool.sort(() => Math.random() - 0.5).slice(0, ROUNDS);
 		giri = scelti.map((q) => ({ q, r: costruisciRound(q.prompt), battute: dividiPrompt(q.prompt).battute, tipoPick: null, chiPick: null, risposta: null }));
 		idx = 0;
@@ -172,6 +194,13 @@
 				<li>Senti il dialogo e rispondi.</li>
 				<li>Rivedi il copione con i <strong>segnali di svolta</strong> (でも, じゃあ, やっぱり…).</li>
 			</ol>
+			{#if nLibri > 0}
+				<div class="fonti" role="group" aria-label="Fonte dei dialoghi">
+					<button class:on={fonte === 'libri'} onclick={() => (fonte = 'libri')}>📚 Prove dei libri ({nLibri})</button>
+					<button class:on={fonte === 'app'} onclick={() => (fonte = 'app')}>✏️ App ({nApp})</button>
+					<button class:on={fonte === 'tutte'} onclick={() => (fonte = 'tutte')}>Tutte</button>
+				</div>
+			{/if}
 			<div class="modes">
 				<button class="mode" onclick={() => start('esame')}><strong>本番 Esame</strong><small>1 ascolto, come il giorno dell’esame</small></button>
 				<button class="mode" onclick={() => start('allenamento')}><strong>練習 Allenamento</strong><small>2 ascolti, anche 🐢 lento</small></button>
@@ -309,6 +338,9 @@
 	.scene { background: var(--surface); border-radius: 16px; padding: 18px; box-shadow: 0 2px 10px rgba(14, 29, 51, 0.07); display: grid; gap: 12px; }
 	.scene p { margin: 0; }
 	.steps { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 0.92rem; }
+	.fonti { display: flex; flex-wrap: wrap; gap: 6px; }
+	.fonti button { border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; }
+	.fonti button.on { border-color: var(--brand); background: var(--brand); color: #fff; }
 	.modes { display: grid; gap: 8px; }
 	.mode { display: grid; gap: 2px; text-align: left; border: 2px solid var(--line); border-radius: 12px; background: var(--surface-2); color: var(--ink); padding: 12px; cursor: pointer; }
 	.mode small { color: var(--muted); }

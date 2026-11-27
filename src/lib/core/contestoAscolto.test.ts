@@ -5,6 +5,7 @@ import {
 	classificaDomanda,
 	costruisciRound,
 	dividiPrompt,
+	personeDaScena,
 	segnaliIn,
 	soggettoDomanda
 } from './contestoAscolto';
@@ -49,6 +50,26 @@ describe('soggetto e battute', () => {
 	it('trova i segnali di svolta', () => {
 		const jp = segnaliIn([{ who: '女', text: 'でも、その前に お皿を 洗う。' }, { who: '男', text: 'じゃあ 卵 だけ。' }]).map((s) => s.jp);
 		expect(jp).toEqual(expect.arrayContaining(['でも', 'じゃあ', 'その前に / 先に', '〜だけ']));
+	});
+});
+
+describe('prove reali: persone dalla scena', () => {
+	it('XとYが / XがYに', () => {
+		expect(personeDaScena('本屋で店の人と女の人が話しています。')).toEqual(['店の人', '女の人']);
+		expect(personeDaScena('会社で女の人と男の人が新入社員の歓迎会のことを話しています。')).toEqual(['女の人', '男の人']);
+		expect(personeDaScena('男の人が女の人に電話をしています。')).toEqual(['男の人', '女の人']);
+		expect(personeDaScena('電話で息子と母親が話しています。')).toEqual(['息子', '母親']);
+		expect(personeDaScena('会話')).toEqual([]);
+	});
+	it('il soggetto della domanda è una delle persone della scena', () => {
+		const r = costruisciRound('〔本屋で店の人と女の人が話しています。〕女:「これ、プレゼントです。」 男:「では 紙で 包みます。」　問: 店の人は何を使って絵本を包みますか。');
+		expect(r.chi).toBe('店の人');
+		expect(r.chiOpzioni).toEqual(['店の人', '女の人', ENTRAMBI]);
+	});
+	it('monologo: adatto, senza domanda sulla persona', () => {
+		const p = '〔先生が来週の試験のことを話しています。〕男:「80ページまでにします。」　問: 試験の問題はどこから出ますか。';
+		expect(adattoAlContesto(p)).toBe(true);
+		expect(costruisciRound(p).chi).toBeNull();
 	});
 });
 

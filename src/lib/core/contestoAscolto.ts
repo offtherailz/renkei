@@ -160,11 +160,28 @@ export interface ContestoRound {
 	segnali: { jp: string; it: string }[];
 }
 
-// Una domanda d'ascolto è adatta se ha domanda e almeno due battute.
+// Una domanda d'ascolto è adatta se ha la domanda e almeno una battuta (anche i
+// monologhi delle prove reali: «先生が話しています»).
 export function adattoAlContesto(prompt: string): boolean {
 	const d = dividiPrompt(prompt);
-	return d.domanda !== '' && d.battute.length >= 2;
+	return d.domanda !== '' && d.battute.length >= 1;
 }
+
+// Le due persone nominate dalla scena delle prove reali, come le dice il
+// narratore: «本屋で店の人と女の人が話しています» → [店の人, 女の人];
+// «男の人が女の人に電話をしています» → [男の人, 女の人]. [] se non si trovano.
+export function personeDaScena(scena: string): string[] {
+	const s = stripFurigana(scena);
+	const pulisci = (x: string) => x.split(/[でにはも]/).pop()!.trim();
+	const m = s.match(/([^\s、。]+?)と([^\s、。]+?)が/) ?? s.match(/([^\s、。]+?)が([^\s、。]+?)に/);
+	if (!m) return [];
+	const a = pulisci(m[1]!);
+	const b = m[2]!.trim();
+	return a && b && a !== b && a.length <= 8 && b.length <= 8 ? [a, b] : [];
+}
+
+const soggettoGrezzo = (domanda: string): string | null =>
+	stripFurigana(domanda).trim().match(/^([^\sはが、]{1,8})は/)?.[1] ?? null;
 
 export function costruisciRound(prompt: string, rnd: () => number = Math.random): ContestoRound {
 	const d = dividiPrompt(prompt);
@@ -172,12 +189,22 @@ export function costruisciRound(prompt: string, rnd: () => number = Math.random)
 	const altri = shuffle(ORDINE_TIPI.filter((t) => t !== tipo), rnd).slice(0, 3);
 	const tipoOpzioni = shuffle([tipo, ...altri], rnd);
 	const ruoli = [...new Set(d.battute.map((b) => normRuolo(b.who)))];
-	const chi = ruoli.length >= 2 ? soggettoDomanda(d.domanda, ruoli) : null;
+	let chi: string | null = null;
 	let chiOpzioni: string[] = [];
 	let chiCorretta = '';
-	if (chi) {
-		chiCorretta = chi === ENTRAMBI ? ENTRAMBI : ruoloIt(chi);
-		chiOpzioni = [...new Set([...ruoli.map(ruoloIt), ENTRAMBI])];
+	// Prove reali: le persone sono quelle dette dal narratore nella scena.
+	const persone = personeDaScena(d.scena);
+	const sogg = soggettoGrezzo(d.domanda);
+	if (persone.length === 2 && sogg && (persone.includes(sogg) || sogg === '二人')) {
+		chi = sogg === '二人' ? ENTRAMBI : sogg;
+		chiCorretta = chi;
+		chiOpzioni = [...persone, ENTRAMBI];
+	} else if (ruoli.length >= 2) {
+		chi = soggettoDomanda(d.domanda, ruoli);
+		if (chi) {
+			chiCorretta = chi === ENTRAMBI ? ENTRAMBI : ruoloIt(chi);
+			chiOpzioni = [...new Set([...ruoli.map(ruoloIt), ENTRAMBI])];
+		}
 	}
 	return { domanda: d.domanda, tipo, tipoOpzioni, ruoli, chi, chiOpzioni, chiCorretta, segnali: segnaliIn(d.battute) };
 }

@@ -940,3 +940,9 @@ sono le 3 forme `confusa` di ogni pattern (なきゃ⇄なくてもいい, て�
 sentono le due forme a confronto. Verbi: seed N5/N4 con classe, lettura tutta hiragana, esclusi
 ある e gli onorifici in -さる/-しゃる. Sessione 10 giri bilanciati (tutte le forme). Cintura
 `forme-al-volo`: pulita ≤ 1 errore, impresa zero errori e zero riascolti.
+
+**Contesto al volo — prove dei libri** (2026-11-27): il pool usa anche `generaDaCatalogo()`
+(le prove caricate in `db.course_giorno`, copione `〔scena〕男:「…」 問:` da esame-n4-libri.ts).
+Selettore di fonte 📚 libri / ✏️ app / tutte (default libri se ≥ 8). Ammessi anche i monologhi
+(≥ 1 battuta). Per le prove reali la domanda «di chi?» usa `personeDaScena` (XとYが… / XがYに…)
+e il soggetto grezzo della domanda (店の人, 母親…), non i ruoli 男/女 del copione.
