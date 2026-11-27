@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import InteractiveSentence from '$lib/components/InteractiveSentence.svelte';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
-	import { speakExamPart, stopExamListening } from '$lib/core/examListening';
+	import { speakExamPart, speakExamLine, examDialogueLineCount, stopExamListening } from '$lib/core/examListening';
 	import { speakSentenceJapanese } from '$lib/core/tts';
 	import { recordPractice } from '$lib/core/practiceMiss';
 	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
@@ -60,6 +60,7 @@
 		stopExamListening();
 		ascoltiApertura = 0;
 		ascoltiDialogo = 0;
+		passo = -1;
 		fase = 'apertura';
 	}
 
@@ -93,6 +94,24 @@
 		ascoltiDialogo += 1;
 		await play('dialogo', rate);
 		fase = 'risposta';
+	}
+
+	// 練習: una battuta alla volta, per seguire i cambi di piano passo passo.
+	// passo = indice dell'ultima battuta sentita (-1 = modalità non attiva).
+	let passo = $state(-1);
+	const nBattute = $derived(giro ? examDialogueLineCount(giro.q.prompt) : 0);
+	async function battuta(i: number): Promise<void> {
+		if (!giro || playing) return;
+		if (passo < 0) {
+			if (ascoltiDialogo >= maxAscolti) return;
+			ascoltiDialogo += 1;
+		}
+		passo = i;
+		fase = 'dialogo';
+		playing = true;
+		await speakExamLine(giro.q.prompt, i);
+		playing = false;
+		if (i >= nBattute - 1) fase = 'risposta';
 	}
 
 	function rispondi(i: number): void {
@@ -207,13 +226,28 @@
 					<button class="choice jp" disabled={playing || ascoltiDialogo === 0} onclick={() => rispondi(i)}><FuriganaText text={examStrip(c)} force={true} /></button>
 				{/each}
 			</div>
-			{#if playing}
+			{#if passo >= 0}
+				<div class="step">
+					<p class="lbl">Battuta {passo + 1} di {nBattute} — cosa è cambiato? cosa farà ora?</p>
+					<div class="row">
+						<button class="mini" disabled={playing} onclick={() => battuta(passo)}>🔁 Ripeti la battuta</button>
+						{#if passo < nBattute - 1}
+							<button class="proceed" disabled={playing} onclick={() => battuta(passo + 1)}>▶️ Battuta successiva</button>
+						{:else}
+							<p class="hint">Fine del dialogo: scegli la risposta.</p>
+						{/if}
+					</div>
+				</div>
+			{:else if playing}
 				<p class="ear playing">👂</p>
 			{:else}
 				<div class="row">
 					{#if ascoltiDialogo < maxAscolti}
 						<button class={ascoltiDialogo === 0 ? 'proceed' : 'mini'} onclick={() => ascoltaDialogo()}>{ascoltiDialogo === 0 ? '▶️ Ascolta il dialogo' : '🔁 もう一度'}</button>
-						{#if modo === 'allenamento'}<button class="mini" onclick={() => ascoltaDialogo(0.7)}>🐢 ゆっくり</button>{/if}
+						{#if modo === 'allenamento'}
+							<button class="mini" onclick={() => ascoltaDialogo(0.7)}>🐢 ゆっくり</button>
+							<button class="mini" onclick={() => battuta(0)}>⏯ Una battuta alla volta</button>
+						{/if}
 					{:else}
 						<p class="hint">Ascolto finito: scegli la risposta.</p>
 					{/if}
@@ -293,6 +327,7 @@
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg, var(--surface-2)); }
 	.choice.wrong { border-color: var(--danger); }
+	.step { display: grid; gap: 8px; background: var(--info-bg); color: var(--info-ink); border-radius: 10px; padding: 10px; }
 	.reveal { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
 	.q-jp { font-size: 1.1rem; text-align: center; }
 	.tip { font-size: 0.85rem; background: var(--info-bg, var(--surface-2)); color: var(--info-ink, var(--ink)); border-radius: 8px; padding: 7px 10px; }

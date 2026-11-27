@@ -102,6 +102,7 @@
 		<a class="cta ghost" href="{base}/esame/pronto">📊 Pronto per l'N4?</a>
 		<a class="cta ghost" href="{base}/esame/ascolto">🎧 Trucchi ascolto</a>
 		<a class="cta ghost" href="{base}/esame/contesto">🎯 Contesto al volo</a>
+		<a class="cta ghost" href="{base}/esame/forme-al-volo">👂 Forme al volo</a>
 		<a class="cta ghost" href="{base}/punti-deboli?kind=mondai">💪 Punti deboli d'esame</a>
 	</div>
 	<p class="page-sub">Nella prova scegli in alto <strong>modalità</strong> e <strong>difficoltà</strong>, poi tocca una prova (Esami completi · Mini · Continua · Punti deboli): parte subito.</p>

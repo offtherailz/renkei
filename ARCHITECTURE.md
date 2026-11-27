@@ -924,3 +924,19 @@ perché l'audio passa una volta. Usa gli item 課題理解/ポイント理解 di
    `TIPO_CONSIGLIO` per il tipo. Logica pura in `src/lib/core/contestoAscolto.ts` (+ test).
 Cintura `contesto`: pulita = max 1 risposta sbagliata; impresa = tutto giusto
 (contesto e risposte) in 本番. Le risposte alimentano `mondai:kadai|point`.
+
+**Una battuta alla volta** (solo 練習): `speakExamLine(prompt, i)` / `examDialogueLineCount`
+(examListening.ts) leggono una sola battuta del dialogo con la voce del suo personaggio
+(i segmenti tra le due pause di `examListeningSegments`). Conta come un ascolto all'avvio;
+i ripeti della battuta no.
+
+## 👂 Forme al volo (`/esame/forme-al-volo`, 2026-11-27)
+
+Riconoscere a orecchio le forme parlate che ribaltano la risposta del 聴解. `formeVeloci.ts`
+genera la forma (`formaParlata`) da `conjugateVerb` su 10 pattern: ちゃった, なきゃ, てる, てた,
+とく, ないで, たら, なくてもいい, てもいい, ちゃだめ (て→ちゃ/で→じゃ, て→と/で→ど). L'audio usa la
+LETTURA in kana (niente letture sbagliate dei kanji), la revisione la scrittura. I distrattori
+sono le 3 forme `confusa` di ogni pattern (なきゃ⇄なくてもいい, てもいい⇄ちゃだめ…); se sbagli si
+sentono le due forme a confronto. Verbi: seed N5/N4 con classe, lettura tutta hiragana, esclusi
+ある e gli onorifici in -さる/-しゃる. Sessione 10 giri bilanciati (tutte le forme). Cintura
+`forme-al-volo`: pulita ≤ 1 errore, impresa zero errori e zero riascolti.

@@ -47,6 +47,7 @@
 	<h1 class="page-title">🎧 Trucchi per l’ascolto</h1>
 	<p class="sub">Le parole da riconoscere nella domanda e nel dialogo, e le trappole tipiche. L’audio è a voci alternate come all’esame.</p>
 	<a class="drill-cta" href="{base}/esame/contesto">🎯 Allenati: Contesto al volo — cogli la domanda dall’apertura, poi un solo ascolto</a>
+	<a class="drill-cta" href="{base}/esame/forme-al-volo">👂 Allenati: Forme al volo — 〜ちゃった, 〜なきゃ, 〜てもいい… riconosciute a orecchio</a>
 
 	<section class="block">
 		<h2>問題1 課題理解 — «cosa fa DOPO»</h2>

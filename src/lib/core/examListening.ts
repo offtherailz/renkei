@@ -145,6 +145,25 @@ export function speakExamPart(prompt: string, part: 'apertura' | 'dialogo', rate
 	return runSequence(sel, token);
 }
 
+// Le sole battute del dialogo (con la voce del loro personaggio), per l'ascolto
+// «una battuta alla volta» del 練習.
+function dialogueLineSegments(prompt: string, rate: number): ExamSegment[] {
+	const segs = examListeningSegments(prompt, rate, 0);
+	const cut = segs.findIndex((s) => s.pause !== undefined);
+	const rest = segs.slice(cut + 1);
+	const end = rest.findIndex((s) => s.pause !== undefined);
+	return (end < 0 ? rest : rest.slice(0, end)).filter((s) => s.text);
+}
+export function examDialogueLineCount(prompt: string): number {
+	return dialogueLineSegments(prompt, 1).length;
+}
+export function speakExamLine(prompt: string, i: number, rate = 1): Promise<void> {
+	const token = ++playToken;
+	stopSpeaking();
+	const seg = dialogueLineSegments(prompt, rate)[i];
+	return seg ? runSequence([seg], token) : Promise.resolve();
+}
+
 export function examListeningSegments(prompt: string, rate = 1, leadPauseMs = 2500): ExamSegment[] {
 	// Voci nettamente diverse: narratrice = femminile con pitch/tempo distinti,
 	// 女 = femminile normale, 男 = maschile. Così si capisce chi parla.
