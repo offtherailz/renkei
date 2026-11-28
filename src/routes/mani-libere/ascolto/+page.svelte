@@ -3,12 +3,16 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapaneseAsync, speechStartCount } from '$lib/core/tts';
-	import { speakExamChoices, speakExamListening, stopExamListening } from '$lib/core/examListening';
+	import { speakExamChoices, speakExamListening, speakExamPart, stopExamListening } from '$lib/core/examListening';
 	import { voiceParams } from '$lib/core/voices';
 	import { cueAnswer, cueBlank, cueNewItem, primeCues } from '$lib/core/audioCues';
 	import { GRAMMAR_CURATED_ITEMS } from '$lib/data/propedeutiche';
 	import { LISTENING_DIALOGUES } from '$lib/core/listeningDialogues';
 	import { buildExamMix, buildMixQueue } from '$lib/core/listenExam';
+	import { buildAlVolo, buildAlVoloQueue } from '$lib/core/listenAlVolo';
+	import { verbiDaParole } from '$lib/core/formeVeloci';
+	import { mondaiPool } from '$lib/data/esame-n4-prova';
+	import { generaDaCatalogo } from '$lib/data/esame-n4-genera';
 	import { buildQueue, buildSentenceItems, buildWordItems, recallMs, type ListenDirection, type ListenItem, type ListenPause, type ListenStep } from '$lib/core/listenOnly';
 
 	// 🎧 Solo ascolto: niente microfono né tocchi. La voce propone, pausa per il
@@ -21,7 +25,7 @@
 	const SEEN_MAX_CHARS = 1_000_000;
 
 	type Scene = 'intro' | 'play' | 'done';
-	type Content = 'tutto' | 'frasi' | 'parole';
+	type Content = 'volo' | 'tutto' | 'frasi' | 'parole';
 	let scene = $state<Scene>('intro');
 	let content = $state<Content>('tutto');
 	let direction = $state<ListenDirection>('jp-it');
@@ -196,7 +200,7 @@
 			case 'bip':
 				return cueBlank();
 			case 'esame':
-				return speakExamListening(s.prompt);
+				return s.part ? speakExamPart(s.prompt, s.part) : speakExamListening(s.prompt);
 			case 'scelte':
 				return speakExamChoices(s.prompt, s.options, 'sokuji');
 		}
@@ -234,7 +238,7 @@
 	}
 
 	async function loop(): Promise<void> {
-		const nextQueue = () => (content === 'tutto' ? buildMixQueue(items, seen) : buildQueue(items, seen));
+		const nextQueue = () => (content === 'volo' ? buildAlVoloQueue(items, seen) : content === 'tutto' ? buildMixQueue(items, seen) : buildQueue(items, seen));
 		let queue = nextQueue();
 		let pos = 0;
 		while (running) {
@@ -271,8 +275,11 @@
 		loading = true;
 		saveSettings();
 		const [words, grammar] = await Promise.all([db.words.toArray(), db.grammar.toArray()]);
+		const extra = content === 'volo' ? await generaDaCatalogo().catch(() => ({})) : {};
 		items =
-			content === 'tutto'
+			content === 'volo'
+				? buildAlVolo([...mondaiPool('kadai', { extra }), ...mondaiPool('point', { extra })], verbiDaParole(words), pause)
+				: content === 'tutto'
 				? buildExamMix({ words, grammar, curated: GRAMMAR_CURATED_ITEMS, dialogues: LISTENING_DIALOGUES, levels: livelli, pause })
 				: content === 'frasi'
 					? buildSentenceItems(words, grammar, GRAMMAR_CURATED_ITEMS, livelli)
@@ -378,6 +385,7 @@
 				{#if canSpeak}
 					<p class="lab">Cosa ripassare</p>
 					<div class="seg" role="group" aria-label="Cosa ripassare">
+						<button class="opt wide" class:on={content === 'volo'} onclick={() => (content = 'volo')}>🚗 Esame al volo</button>
 						<button class="opt wide" class:on={content === 'tutto'} onclick={() => (content = 'tutto')}>🎯 Tutto per l'esame</button>
 						<button class="opt" class:on={content === 'frasi'} onclick={() => (content = 'frasi')}>💬 Frasi</button>
 						<button class="opt" class:on={content === 'parole'} onclick={() => (content = 'parole')}>📚 Parole</button>
@@ -388,7 +396,9 @@
 							<button class="opt" class:on={livelli.includes(l)} aria-pressed={livelli.includes(l)} onclick={() => toggleLivello(l)}>{l}</button>
 						{/each}
 					</div>
-					{#if content === 'tutto'}
+					{#if content === 'volo'}
+						<p class="hint small">Come «Contesto al volo» e «Forme al volo», solo a voce. Ascolto d'esame: senti l'apertura, pensi a cosa ti chiedono, la voce te lo dice, poi le opzioni numerate, il dialogo, la pausa, la risposta col perché e la traduzione. Forme al volo: una forma parlata, la pausa, il verbo e cosa vuol dire, e la scomposizione. A blocchi: 2 dialoghi, 6 forme. Sempre N4.</p>
+					{:else if content === 'tutto'}
 						<p class="hint small">Prove di ascolto, forme, grammatica, parole, frasi, esempi e letture, a blocchi annunciati dalla voce. Le prove d'esame sono sempre N4; i livelli valgono per il resto.</p>
 					{:else}
 						<p class="lab">Direzione</p>

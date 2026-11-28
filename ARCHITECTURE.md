@@ -982,3 +982,15 @@ e l'informazione chiave in mezzo, spesso dopo ところで / あ、そうだ / �
 la frase che contiene la risposta giusta), `noteAltre` (nota scritta in `perche_sbagliate`, allineata
 alle opzioni non giuste nell'ordine; se vuota: «compare nel testo → trappola» / «non compare»),
 `SEGNALI_LETTURA`. `noteAltre` è usata anche nella revisione di Contesto al volo (sul copione).
+
+## 🚗 Esame al volo (Solo ascolto, 2026-11-28)
+
+Contenuto `volo` di `/mani-libere/ascolto`: `buildAlVolo` (src/lib/core/listenAlVolo.ts) da
+`mondaiPool('kadai'|'point', { extra })` + `verbiDaParole` (spostato in formeVeloci.ts, usato
+anche da /esame/forme-al-volo). Passo `esame` con `part: 'apertura' | 'dialogo'`
+(`examPartSegments`/`speakExamPart`, gestito anche dall'export Android). Voce d'ascolto:
+apertura → 2.5 s → «Ti chiedono: …» + persona + consiglio (`TIPO_A_VOCE`, solo italiano) →
+opzioni «1ばん…» → dialogo → recall → numero, risposta, `soloItaliano(perche_giusta)` (tolte le
+citazioni giapponesi; detta solo se resta italiana) e la traduzione. Scartati gli item con opzioni
+non leggibili (ア/イ di un disegno). Forme: audio → recall → lettura + italiano + `FORMA_A_VOCE`
+→ dizionario/て/parlata a 0.8x. Coda `buildAlVoloQueue`: blocchi annunciati 2 ascolti + 6 forme.

@@ -20,7 +20,7 @@ export type ListenStep =
 	| { t: 'wait'; ms: number }
 	| { t: 'bip' } // al posto del buco nella frase
 	| { t: 'recall'; ms: number } // pausa per ricordare: dopo si mostra la soluzione
-	| { t: 'esame'; prompt: string } // prova d'ascolto a più voci
+	| { t: 'esame'; prompt: string; part?: 'apertura' | 'dialogo' } // prova d'ascolto a più voci (o solo una parte)
 	| { t: 'scelte'; prompt: string; options: string[] }; // battuta e risposte numerate
 export type ListenDirection = 'jp-it' | 'it-jp';
 export type ListenPause = 'breve' | 'media' | 'lunga';

@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { buildExamMix } from './listenExam';
-import { examChoicesSegments, examListeningSegments, type ExamSegment } from './examListening';
+import { examChoicesSegments, examListeningSegments, examPartSegments, type ExamSegment } from './examListening';
 import { stripFuriganaNotation } from './furigana';
 import { LISTENING_DIALOGUES } from './listeningDialogues';
 import { GRAMMAR_CURATED_ITEMS } from '../data/propedeutiche';
@@ -34,7 +34,7 @@ export function toOutSteps(steps: ListenStep[]): OutStep[] {
 			case 'bip':
 				return [{ t: 'b' }];
 			case 'esame':
-				return fromSegments(examListeningSegments(s.prompt));
+				return fromSegments(s.part ? examPartSegments(s.prompt, s.part) : examListeningSegments(s.prompt));
 			case 'scelte':
 				return fromSegments(examChoicesSegments(s.prompt, s.options, 'sokuji'));
 		}

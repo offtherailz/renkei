@@ -5,7 +5,8 @@
 // Le forme si generano dal coniugatore sulla LETTURA (kana): il TTS non
 // rischia letture sbagliate dei kanji. Logica pura, test in formeVeloci.test.ts.
 
-import { conjugateVerb, type VerbClass } from './conjugation';
+import { conjugateVerb, detectVerbClass, type VerbClass } from './conjugation';
+import type { Word } from '../types/models';
 
 export type FormaId =
 	| 'chatta'
@@ -184,3 +185,37 @@ export function verbiConfondibili(target: VerboFV, pool: VerboFV[], rnd: () => n
 	}
 	return shuffle([target, ...scelti], rnd);
 }
+
+// Verbi N5/N4 usabili: classe nota, lettura tutta in hiragana. Esclusi ある
+// (negativo irregolare) e gli onorifici in -さる/-しゃる (masu irregolare).
+export function verbiDaParole(words: Word[]): VerboFV[] {
+	const out: VerboFV[] = [];
+	const seen = new Set<string>();
+	for (const w of words) {
+		if (!String(w.tipo_jp ?? '').startsWith('動詞')) continue;
+		if (w.livello_jlpt !== 'N5' && w.livello_jlpt !== 'N4') continue;
+		const cls = detectVerbClass(w);
+		const lettura = (w.lettura ?? '').trim();
+		if (!cls || !/^[ぁ-ゖー]+$/.test(lettura) || seen.has(lettura)) continue;
+		if (lettura === 'ある' || /(さる|しゃる)$/.test(lettura)) continue;
+		const it = w.significato?.it?.[0];
+		if (!it) continue;
+		seen.add(lettura);
+		out.push({ scrittura: w.scrittura, lettura, cls, it });
+	}
+	return out;
+}
+
+// La funzione della forma detta a voce (senza barre né parentesi).
+export const FORMA_A_VOCE: Record<FormaId, string> = {
+	chatta: 'già fatto: del tutto, o per sbaglio',
+	nakya: 'devo farlo',
+	teru: 'lo sta facendo, o è uno stato attuale',
+	teta: 'lo stava facendo, prima',
+	toku: 'lo fa prima, in anticipo',
+	naide: 'non farlo, per favore',
+	tara: 'quando lo fa, o se lo fa',
+	nakutemoii: 'non serve farlo',
+	temoii: 'si può fare',
+	chadame: 'non si deve fare'
+};

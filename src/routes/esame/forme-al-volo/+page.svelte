@@ -3,7 +3,6 @@
 	import { base } from '$app/paths';
 	import { db } from '$lib/db/schema';
 	import { speakSentenceJapanese, speakSequence } from '$lib/core/tts';
-	import { detectVerbClass } from '$lib/core/conjugation';
 	import { recordGameResult, MIN_ROUNDS_FOR_EARLY_EXIT_CREDIT } from '$lib/core/gameBelts';
 	import FuriganaText from '$lib/components/FuriganaText.svelte';
 	import {
@@ -11,6 +10,7 @@
 		TE_INDIZIO,
 		teTipo,
 		costruisciSessioneFV,
+		verbiDaParole,
 		formaParlata,
 		type FormaId,
 		type RoundFV,
@@ -40,23 +40,8 @@
 	const r = $derived(rounds[idx]);
 	const rate = $derived(veloce ? 1.2 : 1);
 
-	// Verbi N5/N4 con classe nota e lettura tutta in hiragana. Esclusi ある (negativo
-	// irregolare) e gli onorifici in -さる/-しゃる (masu irregolare).
 	onMount(async () => {
-		const words = (await db.words.toArray()) as Word[];
-		const seen = new Set<string>();
-		for (const w of words) {
-			if (!String(w.tipo_jp ?? '').startsWith('動詞')) continue;
-			if (w.livello_jlpt !== 'N5' && w.livello_jlpt !== 'N4') continue;
-			const cls = detectVerbClass(w);
-			const lettura = (w.lettura ?? '').trim();
-			if (!cls || !/^[ぁ-ゖー]+$/.test(lettura) || seen.has(lettura)) continue;
-			if (lettura === 'ある' || /(さる|しゃる)$/.test(lettura)) continue;
-			const it = w.significato?.it?.[0];
-			if (!it) continue;
-			seen.add(lettura);
-			verbi.push({ scrittura: w.scrittura, lettura, cls, it });
-		}
+		verbi = verbiDaParole((await db.words.toArray()) as Word[]);
 		pronto = verbi.length >= 10;
 	});
 

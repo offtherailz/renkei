@@ -136,13 +136,15 @@ export function speakExamListening(prompt: string, rate = 1, leadPauseMs = 2500)
 // Solo una parte della lettura d'esame (🎯 Contesto al volo): 'apertura' = suono +
 // chi parla + domanda; 'dialogo' = le battute + la domanda ripetuta. Il confine è
 // la prima pausa (quella tra domanda e dialogo).
+export function examPartSegments(prompt: string, part: 'apertura' | 'dialogo', rate = 1): ExamSegment[] {
+	const segs = examListeningSegments(prompt, rate, 0);
+	const cut = segs.findIndex((s) => s.pause !== undefined);
+	return cut < 0 ? segs : part === 'apertura' ? segs.slice(0, cut) : [{ chime: true }, ...segs.slice(cut + 1)];
+}
 export function speakExamPart(prompt: string, part: 'apertura' | 'dialogo', rate = 1): Promise<void> {
 	const token = ++playToken;
 	stopSpeaking();
-	const segs = examListeningSegments(prompt, rate, 0);
-	const cut = segs.findIndex((s) => s.pause !== undefined);
-	const sel = cut < 0 ? segs : part === 'apertura' ? segs.slice(0, cut) : [{ chime: true }, ...segs.slice(cut + 1)];
-	return runSequence(sel, token);
+	return runSequence(examPartSegments(prompt, part, rate), token);
 }
 
 // Le sole battute del dialogo (con la voce del loro personaggio), per l'ascolto
