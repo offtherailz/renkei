@@ -994,3 +994,13 @@ opzioni «1ばん…» → dialogo → recall → numero, risposta, `soloItalian
 citazioni giapponesi; detta solo se resta italiana) e la traduzione. Scartati gli item con opzioni
 non leggibili (ア/イ di un disegno). Forme: audio → recall → lettura + italiano + `FORMA_A_VOCE`
 → dizionario/て/parlata a 0.8x. Coda `buildAlVoloQueue`: blocchi annunciati 2 ascolti + 6 forme.
+
+**Forme estese + parole in macchina** (2026-11-28): `VARIANTI` in formeVeloci.ts — per ogni forma la
+variante 0 contratta e le estese piane/cortesi con lo stesso senso (てしまった/てしまいました/ちゃいました,
+なくちゃ/なければならない/なければなりません/なくてはいけません, ている/ています, ておく/ておきます/といて,
+ないでください, なくてもいいです/なくても大丈夫, てもいいです/てもかまいません, てはいけません/てはだめです;
+たら senza estese). `RoundFV.variante`, `Registro` contratte/estese/miste (`scegliVariante`), pagina
+default Miste, Esame al volo sempre miste. Esame al volo: blocco parole `vociParole` (N5/N4, gruppi
+`GRUPPI_PAROLE` verbi/avverbi+接続詞/aggettivi/nomi/慣用表現; lettura → recall → 1-2 significati →
+frase d'esempio più corta ≤ 40 car. con traduzione → lettura lenta), coda: ascolto 2, forme 6,
+parole 6 a rotazione di gruppo.

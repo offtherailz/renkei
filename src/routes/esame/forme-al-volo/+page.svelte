@@ -11,6 +11,9 @@
 		teTipo,
 		costruisciSessioneFV,
 		verbiDaParole,
+		nomeVariante,
+		N_VARIANTI,
+		type Registro,
 		formaParlata,
 		type FormaId,
 		type RoundFV,
@@ -33,6 +36,9 @@
 	let errori = $state<RoundFV[]>([]);
 	// Prima domanda del giro: quale verbo? (si può spegnere)
 	let conVerbo = $state(true);
+	// contratte (ちゃった), estese (てしまった / てしまいました) o un po' e un po'
+	let registro = $state<Registro>('miste');
+	const varianteSimile = (f: FormaId) => (r && r.variante < N_VARIANTI(f) ? r.variante : 0);
 	let verboPick = $state<string | null>(null);
 	let verbiGiusti = $state(0);
 	let registrato = false;
@@ -46,7 +52,7 @@
 	});
 
 	function start(): void {
-		rounds = costruisciSessioneFV(verbi, ROUNDS);
+		rounds = costruisciSessioneFV(verbi, ROUNDS, Math.random, registro);
 		idx = 0;
 		score = 0;
 		riascolti = 0;
@@ -91,10 +97,10 @@
 
 	// Confronto a orecchio: come suonerebbe la forma che hai scelto.
 	function suonoDi(f: FormaId): string {
-		return r ? (formaParlata(r.verbo.lettura, r.verbo.cls, f) ?? '') : '';
+		return r ? (formaParlata(r.verbo.lettura, r.verbo.cls, f, varianteSimile(f)) ?? '') : '';
 	}
 	function scrittaDi(f: FormaId): string {
-		return r ? (formaParlata(r.verbo.scrittura, r.verbo.cls, f) ?? '') : '';
+		return r ? (formaParlata(r.verbo.scrittura, r.verbo.cls, f, varianteSimile(f)) ?? '') : '';
 	}
 
 	function avanti(): void {
@@ -135,6 +141,12 @@
 			<h1 class="page-title">👂 Forme al volo</h1>
 			<p>Nei dialoghi la risposta cambia per una forma detta in fretta: <strong>行かなきゃ</strong> (devo andare) o <strong>行かなくてもいい</strong> (non serve)? <strong>食べてもいい</strong> o <strong>食べちゃだめ</strong>?</p>
 			<p>Senti <strong>solo la forma</strong>, senza testo, e scegli cosa vuol dire. Le opzioni sono le forme con cui si confonde. Quando sbagli puoi sentire le due forme una dopo l’altra.</p>
+			<p class="lbl">Forme</p>
+			<div class="pills">
+				<button class:on={registro === 'miste'} onclick={() => (registro = 'miste')}>Miste</button>
+				<button class:on={registro === 'contratte'} onclick={() => (registro = 'contratte')}>Contratte (〜ちゃった)</button>
+				<button class:on={registro === 'estese'} onclick={() => (registro = 'estese')}>Estese (〜てしまいました)</button>
+			</div>
 			<label class="toggle"><input type="checkbox" bind:checked={conVerbo} /> 🔎 Prima riconosci il verbo</label>
 			<label class="toggle"><input type="checkbox" bind:checked={veloce} /> ⚡ Velocità parlata (1.2x)</label>
 			<button class="proceed" disabled={!pronto} onclick={start}>{pronto ? '▶️ Inizia (10 forme)' : 'Carico i verbi…'}</button>
@@ -171,7 +183,7 @@
 			{#if picked !== null}
 				<div class="reveal">
 					<p class="big-jp"><FuriganaText text={r.scritta} force={true} /> <button class="tts" onclick={() => ascolta()}>🔊</button></p>
-					<p><strong>{FORMA[r.forma].nome}</strong> = {FORMA[r.forma].estesa} · <em>{r.verbo.it}</em> → {FORMA[r.forma].it}</p>
+					<p><strong>{nomeVariante(r.forma, r.variante)}</strong>{r.variante > 0 ? ` (forma estesa di ${nomeVariante(r.forma, 0)})` : ` = ${FORMA[r.forma].estesa}`} · <em>{r.verbo.it}</em> → {FORMA[r.forma].it}</p>
 					<div class="chain">
 						<span>{r.verbo.lettura}</span><span class="arr">→</span><span>{r.te}</span><span class="arr">→</span><strong>{r.audio}</strong>
 						<button class="mini" onclick={scomponi}>🔊 Scomponi</button>
@@ -198,7 +210,7 @@
 					<div class="line">
 						<button class="tts" onclick={() => speakSentenceJapanese(e.audio, { rate })}>🔊</button>
 						<FuriganaText text={e.scritta} force={true} />
-						<span class="muted">{FORMA[e.forma].nome} · {FORMA[e.forma].it}</span>
+						<span class="muted">{nomeVariante(e.forma, e.variante)} · {FORMA[e.forma].it}</span>
 					</div>
 				{/each}
 			{/if}
@@ -231,6 +243,9 @@
 	.choice:disabled { cursor: default; }
 	.choice.right { border-color: var(--success); background: var(--ok-bg); }
 	.choice.wrong { border-color: var(--danger); }
+	.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+	.pills button { border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; }
+	.pills button.on { border-color: var(--brand); background: var(--brand); color: #fff; }
 	.choices.two { grid-template-columns: 1fr 1fr; }
 	.choice.verb { display: grid; gap: 2px; font-size: 1.05rem; }
 	.choice.verb small { font-size: 0.75rem; color: var(--muted); }

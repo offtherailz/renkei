@@ -92,7 +92,7 @@ export function voceAscolto(q: DomandaAscolto, pause: ListenPause): ListenItem |
 }
 
 export function vociForme(verbi: VerboFV[], n: number, pause: ListenPause, rng: () => number = Math.random): ListenItem[] {
-	return costruisciSessioneFV(verbi, n, rng).map((r) => ({
+	return costruisciSessioneFV(verbi, n, rng, 'miste').map((r) => ({
 		key: `volo-forma:${r.audio}`,
 		cat: 'volo-forme',
 		jp: r.audio,
@@ -111,27 +111,89 @@ export function vociForme(verbi: VerboFV[], n: number, pause: ListenPause, rng: 
 	}));
 }
 
-export function buildAlVolo(domande: DomandaAscolto[], verbi: VerboFV[], pause: ListenPause, rng: () => number = Math.random): ListenItem[] {
-	const ascolto = domande.map((q) => voceAscolto(q, pause)).filter((x): x is ListenItem => x !== null);
-	// tante forme: ~5 per ogni dialogo, generate a caso (non si esauriscono)
-	return [...ascolto, ...vociForme(verbi, Math.max(60, ascolto.length * 5), pause, rng)];
-}
-
-// A blocchi annunciati: 2 dialoghi d'esame, poi 6 forme, e così via.
-const BLOCCHI: { cat: string; n: number; titolo: string }[] = [
-	{ cat: 'volo-ascolto', n: 2, titolo: "Ascolto d'esame" },
-	{ cat: 'volo-forme', n: 6, titolo: 'Forme al volo' }
+// ── Ripasso parole: per tipo, con la frase d'esempio ─────────────────────────
+export const GRUPPI_PAROLE: { id: string; titolo: string; match: (tipo: string) => boolean }[] = [
+	{ id: 'verbi', titolo: 'Parole: verbi', match: (t) => t.startsWith('動詞') },
+	{ id: 'avverbi', titolo: 'Parole: avverbi e connettivi', match: (t) => t.startsWith('副詞') || t.startsWith('接続詞') },
+	{ id: 'aggettivi', titolo: 'Parole: aggettivi', match: (t) => t.startsWith('形容詞') },
+	{ id: 'nomi', titolo: 'Parole: nomi', match: (t) => t.startsWith('名詞') },
+	{ id: 'espressioni', titolo: 'Parole: espressioni', match: (t) => t.startsWith('慣用表現') }
 ];
 
+export interface ParolaAscolto {
+	id: string;
+	scrittura: string;
+	lettura: string;
+	tipo_jp: string;
+	livello_jlpt: string;
+	significato: { it: string[] };
+	frasi_esempio?: { testo: string; traduzione?: { it?: string } }[];
+}
+
+export function vociParole(words: ParolaAscolto[], pause: ListenPause, livelli: string[] = ['N5', 'N4']): ListenItem[] {
+	const out: ListenItem[] = [];
+	const visti = new Set<string>();
+	for (const w of words) {
+		if (!livelli.includes(w.livello_jlpt)) continue;
+		const g = GRUPPI_PAROLE.find((x) => x.match(String(w.tipo_jp ?? '')));
+		const lettura = (w.lettura ?? '').trim();
+		const sign = (w.significato?.it ?? []).slice(0, 2).map((x) => spokenIt(x)).filter(Boolean).join(', ');
+		if (!g || !lettura || !sign || JA.test(sign) || visti.has(`${w.scrittura}|${lettura}`)) continue;
+		visti.add(`${w.scrittura}|${lettura}`);
+		// la frase d'esempio più corta con traduzione italiana
+		const es = (w.frasi_esempio ?? [])
+			.map((f) => ({ ja: plain(f.testo), it: spokenIt(f.traduzione?.it ?? '') }))
+			.filter((f) => f.ja.length > 0 && f.ja.length <= 40 && f.it.length >= 3 && !JA.test(f.it))
+			.sort((a, b) => a.ja.length - b.ja.length)[0];
+		out.push({
+			key: `volo-parola:${w.id}`,
+			cat: `volo-parole-${g.id}`,
+			jp: lettura,
+			it: sign,
+			scritto: `${w.scrittura}${w.scrittura !== lettura ? ` (${lettura})` : ''} — ${sign}`,
+			steps: [
+				{ t: 'ja', text: lettura },
+				{ t: 'recall', ms: RECALL[pause] - 2000 },
+				{ t: 'it', text: sign },
+				...(es ? [{ t: 'wait', ms: 300 } as ListenStep, { t: 'ja', text: es.ja } as ListenStep, { t: 'it', text: es.it } as ListenStep] : []),
+				{ t: 'ja', text: lettura, rate: 0.8 }
+			]
+		});
+	}
+	return out;
+}
+
+export function buildAlVolo(domande: DomandaAscolto[], verbi: VerboFV[], pause: ListenPause, rng: () => number = Math.random, parole: ParolaAscolto[] = []): ListenItem[] {
+	const ascolto = domande.map((q) => voceAscolto(q, pause)).filter((x): x is ListenItem => x !== null);
+	// tante forme: ~5 per ogni dialogo, generate a caso (non si esauriscono)
+	return [...ascolto, ...vociForme(verbi, Math.max(60, ascolto.length * 5), pause, rng), ...vociParole(parole, pause)];
+}
+
+// A blocchi annunciati: 2 dialoghi d'esame, 6 forme, 6 parole (un tipo per volta,
+// a rotazione: verbi, avverbi, aggettivi, nomi, espressioni), e così via.
 export function buildAlVoloQueue(items: ListenItem[], seen: ReadonlySet<string>, rng: () => number = Math.random): ListenItem[] {
 	const anyTodo = items.some((i) => i.cat === 'volo-ascolto' && !seen.has(i.key));
 	const skip: ReadonlySet<string> = anyTodo ? seen : new Set();
-	const code = BLOCCHI.map((b) => ({ ...b, todo: buildQueue(items.filter((i) => i.cat === b.cat), new Set(), rng).filter((i) => !skip.has(i.key)) }));
+	const coda = (cat: string) => buildQueue(items.filter((i) => i.cat === cat), new Set(), rng).filter((i) => !skip.has(i.key));
+	const ascolto = { titolo: "Ascolto d'esame", n: 2, todo: coda('volo-ascolto') };
+	const forme = { titolo: 'Forme al volo', n: 6, todo: coda('volo-forme') };
+	const parole = GRUPPI_PAROLE.map((g) => ({ titolo: g.titolo, n: 6, todo: coda(`volo-parole-${g.id}`) }));
 	const out: ListenItem[] = [];
-	while (code.some((c) => c.todo.length > 0)) {
-		for (const c of code) {
-			const block = c.todo.splice(0, c.n);
-			block.forEach((item, i) => out.push(i === 0 ? { ...item, intro: `${c.titolo}.` } : item));
+	const push = (c: { titolo: string; n: number; todo: ListenItem[] }) =>
+		c.todo.splice(0, c.n).forEach((item, i) => out.push(i === 0 ? { ...item, intro: `${c.titolo}.` } : item));
+	let turno = 0;
+	const restano = () => ascolto.todo.length + forme.todo.length + parole.reduce((n, p) => n + p.todo.length, 0) > 0;
+	while (restano()) {
+		push(ascolto);
+		push(forme);
+		// il prossimo gruppo di parole che ha ancora voci
+		for (let k = 0; k < parole.length; k++) {
+			const p = parole[(turno + k) % parole.length]!;
+			if (p.todo.length > 0) {
+				push(p);
+				turno = (turno + k + 1) % parole.length;
+				break;
+			}
 		}
 	}
 	return out;

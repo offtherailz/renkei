@@ -96,3 +96,46 @@ describe('risalire al verbo', () => {
 		expect(r.verbiOpzioni).toContain(pool[0]);
 	});
 });
+
+describe('forme estese', async () => {
+	const { formaParlata, scegliVariante, nomeVariante, N_VARIANTI, costruisciSessioneFV } = await import('./formeVeloci');
+	const casi: [string, 'godan' | 'ichidan' | 'irregular', string, number, string][] = [
+		['たべる', 'ichidan', 'chatta', 1, 'たべてしまった'],
+		['のむ', 'godan', 'chatta', 3, 'のんじゃいました'],
+		['いく', 'godan', 'nakya', 3, 'いかなければなりません'],
+		['まつ', 'godan', 'teru', 2, 'まっています'],
+		['かう', 'godan', 'toku', 1, 'かっておく'],
+		['よむ', 'godan', 'toku', 3, 'よんどいて'],
+		['する', 'irregular', 'naide', 1, 'しないでください'],
+		['かく', 'godan', 'nakutemoii', 1, 'かかなくてもいいです'],
+		['すわる', 'godan', 'temoii', 2, 'すわってもかまいません'],
+		['あそぶ', 'godan', 'chadame', 1, 'あそんではいけません'],
+		['ねる', 'ichidan', 'teta', 1, 'ねていた']
+	];
+	for (const [v, c, f, i, atteso] of casi)
+		it(`${v} + ${f}[${i}] → ${atteso}`, () => expect(formaParlata(v, c, f as never, i)).toBe(atteso));
+	it('registro: contratte = 0, estese ≥ 1, たら resta 0', () => {
+		for (let k = 0; k < 20; k++) {
+			expect(scegliVariante('chatta', 'contratte', Math.random)).toBe(0);
+			expect(scegliVariante('chatta', 'estese', Math.random)).toBeGreaterThanOrEqual(1);
+			expect(scegliVariante('tara', 'estese', Math.random)).toBe(0);
+		}
+		expect(N_VARIANTI('nakya')).toBe(5);
+		expect(nomeVariante('chatta', 1)).toBe('〜てしまった');
+	});
+	it('sessione mista: ci sono sia contratte sia estese', () => {
+		const verbi = [{ scrittura: '食べる', lettura: 'たべる', cls: 'ichidan' as const, it: 'mangiare' }];
+		const s = costruisciSessioneFV(verbi, 40, Math.random, 'miste');
+		expect(s.some((r) => r.variante === 0)).toBe(true);
+		expect(s.some((r) => r.variante > 0)).toBe(true);
+	});
+});
+
+describe('verbiDaParole', async () => {
+	const { verbiDaParole } = await import('./formeVeloci');
+	const W = (lettura: string, scrittura = lettura) => ({ id: scrittura, scrittura, lettura, tipo_jp: '動詞[どうし]', livello_jlpt: 'N4', classe_verbo_jp: '五段動詞[ごだんどうし]', significato: { it: ['x'], en: [] } }) as never;
+	it('esclude onorifici e umili', () => {
+		const v = verbiDaParole([W('のむ'), W('おやすみになる'), W('いたす'), W('まいる'), W('いらっしゃる'), W('おきる')]);
+		expect(v.map((x) => x.lettura)).toEqual(['のむ', 'おきる']);
+	});
+});

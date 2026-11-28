@@ -278,7 +278,7 @@
 		const extra = content === 'volo' ? await generaDaCatalogo().catch(() => ({})) : {};
 		items =
 			content === 'volo'
-				? buildAlVolo([...mondaiPool('kadai', { extra }), ...mondaiPool('point', { extra })], verbiDaParole(words), pause)
+				? buildAlVolo([...mondaiPool('kadai', { extra }), ...mondaiPool('point', { extra })], verbiDaParole(words), pause, Math.random, words)
 				: content === 'tutto'
 				? buildExamMix({ words, grammar, curated: GRAMMAR_CURATED_ITEMS, dialogues: LISTENING_DIALOGUES, levels: livelli, pause })
 				: content === 'frasi'
@@ -397,7 +397,7 @@
 						{/each}
 					</div>
 					{#if content === 'volo'}
-						<p class="hint small">Come «Contesto al volo» e «Forme al volo», solo a voce. Ascolto d'esame: senti l'apertura, pensi a cosa ti chiedono, la voce te lo dice, poi le opzioni numerate, il dialogo, la pausa, la risposta col perché e la traduzione. Forme al volo: una forma parlata, la pausa, il verbo e cosa vuol dire, e la scomposizione. A blocchi: 2 dialoghi, 6 forme. Sempre N4.</p>
+						<p class="hint small">Come «Contesto al volo» e «Forme al volo», solo a voce. Ascolto d'esame: senti l'apertura, pensi a cosa ti chiedono, la voce te lo dice, poi le opzioni numerate, il dialogo, la pausa, la risposta col perché e la traduzione. Forme al volo: una forma parlata (contratta come 食べちゃった o estesa come 食べてしまいました), la pausa, il verbo e cosa vuol dire, e la scomposizione. Parole: verbi, avverbi, aggettivi, nomi ed espressioni N5/N4 a rotazione, con la frase d'esempio. A blocchi: 2 dialoghi, 6 forme, 6 parole.</p>
 					{:else if content === 'tutto'}
 						<p class="hint small">Prove di ascolto, forme, grammatica, parole, frasi, esempi e letture, a blocchi annunciati dalla voce. Le prove d'esame sono sempre N4; i livelli valgono per il resto.</p>
 					{:else}

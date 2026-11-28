@@ -48,26 +48,84 @@ function teSwap(te: string, perTe: string, perDe: string): string {
 	return te.endsWith('で') ? te.slice(0, -1) + perDe : te.slice(0, -1) + perTe;
 }
 
-// La forma parlata di un verbo (in forma dizionario, kana o kanji).
-export function formaParlata(dict: string, cls: VerbClass, forma: FormaId): string | null {
+// Le varianti di ogni forma: la 0 è quella contratta del parlato veloce, le altre
+// le forme estese (piane e cortesi) che nei dialoghi d'esame capitano altrettanto.
+// Stesso significato: cambia solo come suona.
+interface Basi { te: string; ta: string; nai: string }
+type Gen = (b: Basi) => string;
+const VARIANTI: Record<FormaId, { nome: string; gen: Gen }[]> = {
+	chatta: [
+		{ nome: '〜ちゃった', gen: (b) => teSwap(b.te, 'ちゃった', 'じゃった') },
+		{ nome: '〜てしまった', gen: (b) => `${b.te}しまった` },
+		{ nome: '〜てしまいました', gen: (b) => `${b.te}しまいました` },
+		{ nome: '〜ちゃいました', gen: (b) => teSwap(b.te, 'ちゃいました', 'じゃいました') }
+	],
+	nakya: [
+		{ nome: '〜なきゃ', gen: (b) => `${b.nai}なきゃ` },
+		{ nome: '〜なくちゃ', gen: (b) => `${b.nai}なくちゃ` },
+		{ nome: '〜なければならない', gen: (b) => `${b.nai}なければならない` },
+		{ nome: '〜なければなりません', gen: (b) => `${b.nai}なければなりません` },
+		{ nome: '〜なくてはいけません', gen: (b) => `${b.nai}なくてはいけません` }
+	],
+	teru: [
+		{ nome: '〜てる', gen: (b) => `${b.te}る` },
+		{ nome: '〜ている', gen: (b) => `${b.te}いる` },
+		{ nome: '〜ています', gen: (b) => `${b.te}います` }
+	],
+	teta: [
+		{ nome: '〜てた', gen: (b) => `${b.te}た` },
+		{ nome: '〜ていた', gen: (b) => `${b.te}いた` },
+		{ nome: '〜ていました', gen: (b) => `${b.te}いました` }
+	],
+	toku: [
+		{ nome: '〜とく', gen: (b) => teSwap(b.te, 'とく', 'どく') },
+		{ nome: '〜ておく', gen: (b) => `${b.te}おく` },
+		{ nome: '〜ておきます', gen: (b) => `${b.te}おきます` },
+		{ nome: '〜といて', gen: (b) => teSwap(b.te, 'といて', 'どいて') }
+	],
+	naide: [
+		{ nome: '〜ないで', gen: (b) => `${b.nai}ないで` },
+		{ nome: '〜ないでください', gen: (b) => `${b.nai}ないでください` }
+	],
+	tara: [
+		{ nome: '〜たら', gen: (b) => `${b.ta}ら` } // nessuna forma estesa con lo stesso senso
+	],
+	nakutemoii: [
+		{ nome: '〜なくてもいい', gen: (b) => `${b.nai}なくてもいい` },
+		{ nome: '〜なくてもいいです', gen: (b) => `${b.nai}なくてもいいです` },
+		{ nome: '〜なくても大丈夫', gen: (b) => `${b.nai}なくてもだいじょうぶ` }
+	],
+	temoii: [
+		{ nome: '〜てもいい', gen: (b) => `${b.te}もいい` },
+		{ nome: '〜てもいいです', gen: (b) => `${b.te}もいいです` },
+		{ nome: '〜てもかまいません', gen: (b) => `${b.te}もかまいません` }
+	],
+	chadame: [
+		{ nome: '〜ちゃだめ', gen: (b) => teSwap(b.te, 'ちゃだめ', 'じゃだめ') },
+		{ nome: '〜てはいけません', gen: (b) => teSwap(b.te, 'てはいけません', 'ではいけません') },
+		{ nome: '〜てはだめです', gen: (b) => teSwap(b.te, 'てはだめです', 'ではだめです') }
+	]
+};
+export const N_VARIANTI = (f: FormaId) => VARIANTI[f].length;
+export const nomeVariante = (f: FormaId, v: number) => VARIANTI[f][v]?.nome ?? VARIANTI[f][0]!.nome;
+
+// La forma di un verbo (dizionario in kana o kanji). variante 0 = contratta.
+export function formaParlata(dict: string, cls: VerbClass, forma: FormaId, variante = 0): string | null {
 	const base = conjugateVerb(dict, cls);
 	if (!base) return null;
 	const k = Object.fromEntries(base.map((f) => [f.key, f.value]));
-	const te = k.te!;
-	const ta = k.ta!;
-	const naiStem = k.nai!.slice(0, -2); // senza ない
-	switch (forma) {
-		case 'chatta': return teSwap(te, 'ちゃった', 'じゃった');
-		case 'nakya': return `${naiStem}なきゃ`;
-		case 'teru': return `${te}る`;
-		case 'teta': return `${te}た`;
-		case 'toku': return teSwap(te, 'とく', 'どく');
-		case 'naide': return `${naiStem}ないで`;
-		case 'tara': return `${ta}ら`;
-		case 'nakutemoii': return `${naiStem}なくてもいい`;
-		case 'temoii': return `${te}もいい`;
-		case 'chadame': return teSwap(te, 'ちゃだめ', 'じゃだめ');
-	}
+	const b: Basi = { te: k.te!, ta: k.ta!, nai: k.nai!.slice(0, -2) };
+	const v = VARIANTI[forma][variante] ?? VARIANTI[forma][0]!;
+	return v.gen(b);
+}
+
+// Che registro allenare: solo contratte, solo estese o un po' e un po'.
+export type Registro = 'contratte' | 'estese' | 'miste';
+export function scegliVariante(forma: FormaId, registro: Registro, rnd: () => number): number {
+	const n = VARIANTI[forma].length;
+	if (registro === 'contratte' || n === 1) return 0;
+	if (registro === 'estese') return 1 + Math.floor(rnd() * (n - 1));
+	return rnd() < 0.5 ? 0 : 1 + Math.floor(rnd() * (n - 1));
 }
 
 export interface VerboFV {
@@ -85,6 +143,7 @@ export interface RoundFV {
 	opzioni: FormaId[]; // 4, con dentro `forma`
 	verbiOpzioni: VerboFV[]; // 4 verbi confondibili, con dentro `verbo`
 	te: string; // forma て in kana (catena dizionario → て → parlata)
+	variante: number; // 0 = contratta, ≥1 = estesa (vedi VARIANTI)
 }
 
 function shuffle<T>(arr: T[], rnd: () => number): T[] {
@@ -97,18 +156,18 @@ function shuffle<T>(arr: T[], rnd: () => number): T[] {
 }
 
 // Un giro: la forma da riconoscere + le 3 forme con cui si confonde.
-export function costruisciRoundFV(verbo: VerboFV, forma: FormaId, rnd: () => number = Math.random, pool: VerboFV[] = []): RoundFV | null {
-	const audio = formaParlata(verbo.lettura, verbo.cls, forma);
-	const scritta = formaParlata(verbo.scrittura, verbo.cls, forma);
+export function costruisciRoundFV(verbo: VerboFV, forma: FormaId, rnd: () => number = Math.random, pool: VerboFV[] = [], variante = 0): RoundFV | null {
+	const audio = formaParlata(verbo.lettura, verbo.cls, forma, variante);
+	const scritta = formaParlata(verbo.scrittura, verbo.cls, forma, variante);
 	const te = formaTe(verbo.lettura, verbo.cls);
 	if (!audio || !scritta || !te) return null;
 	const opzioni = shuffle([forma, ...FORMA[forma].confusa], rnd);
 	const verbiOpzioni = verbiConfondibili(verbo, pool, rnd);
-	return { verbo, forma, audio, scritta, opzioni, verbiOpzioni, te };
+	return { verbo, forma, audio, scritta, opzioni, verbiOpzioni, te, variante };
 }
 
 // Sessione: forme bilanciate (ognuna almeno una volta se n ≥ 10), verbi diversi.
-export function costruisciSessioneFV(verbi: VerboFV[], n: number, rnd: () => number = Math.random): RoundFV[] {
+export function costruisciSessioneFV(verbi: VerboFV[], n: number, rnd: () => number = Math.random, registro: Registro = 'contratte'): RoundFV[] {
 	const forme: FormaId[] = [];
 	while (forme.length < n) forme.push(...shuffle(FORME.map((f) => f.id), rnd));
 	const pool = shuffle(verbi, rnd);
@@ -117,7 +176,7 @@ export function costruisciSessioneFV(verbi: VerboFV[], n: number, rnd: () => num
 	for (const f of forme.slice(0, n)) {
 		for (let tent = 0; tent < pool.length; tent++) {
 			const v = pool[vi++ % pool.length]!;
-			const r = costruisciRoundFV(v, f, rnd, verbi);
+			const r = costruisciRoundFV(v, f, rnd, verbi, scegliVariante(f, registro, rnd));
 			if (r) { out.push(r); break; }
 		}
 	}
@@ -198,6 +257,8 @@ export function verbiDaParole(words: Word[]): VerboFV[] {
 		const lettura = (w.lettura ?? '').trim();
 		if (!cls || !/^[ぁ-ゖー]+$/.test(lettura) || seen.has(lettura)) continue;
 		if (lettura === 'ある' || /(さる|しゃる)$/.test(lettura)) continue;
+		// onorifici/umili composti (おやすみになる, お〜する): forme parlate innaturali
+		if (/^[おご].+(になる|する|いたす)$/.test(lettura) || /(いたす|まいる|もうす|もうしあげる)$/.test(lettura)) continue;
 		const it = w.significato?.it?.[0];
 		if (!it) continue;
 		seen.add(lettura);

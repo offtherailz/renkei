@@ -65,3 +65,28 @@ describe('forme e coda', () => {
 		expect(q[8]!.cat).toBe('volo-ascolto');
 	});
 });
+
+describe('parole', async () => {
+	const { vociParole, buildAlVolo, buildAlVoloQueue } = await import('./listenAlVolo');
+	const { readFileSync } = await import('node:fs');
+	const seed = JSON.parse(readFileSync('static/seed-n5n4.json', 'utf8'));
+	const voci = vociParole(seed.words, 'media');
+	it('tante parole N5/N4, di tutti i gruppi', () => {
+		expect(voci.length).toBeGreaterThan(1000);
+		for (const g of ['verbi', 'avverbi', 'aggettivi', 'nomi', 'espressioni']) expect(voci.some((v) => v.cat === `volo-parole-${g}`), g).toBe(true);
+	});
+	it('ogni voce: lettura, pausa, italiano; italiano senza giapponese', () => {
+		for (const v of voci) {
+			expect(v.steps![0]!.t).toBe('ja');
+			expect(v.steps![1]!.t).toBe('recall');
+			for (const x of v.steps!) if (x.t === 'it') expect(/[ぁ-んァ-ヶ一-龯]/.test(x.text), x.text).toBe(false);
+		}
+		expect(voci.filter((v) => v.steps!.length > 4).length / voci.length).toBeGreaterThan(0.3); // con frase d'esempio
+	});
+	it('coda: ascolto, forme, parole a rotazione di gruppo', () => {
+		const pool = mondaiPool('kadai', { shuffle: false });
+		const q = buildAlVoloQueue(buildAlVolo(pool, verbi, 'media', Math.random, seed.words), new Set());
+		const intro = q.filter((i) => i.intro).map((i) => i.intro);
+		expect(intro.slice(0, 6)).toEqual(["Ascolto d'esame.", 'Forme al volo.', 'Parole: verbi.', "Ascolto d'esame.", 'Forme al volo.', 'Parole: avverbi e connettivi.']);
+	});
+});
